@@ -112,6 +112,10 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		return deleteContact(contactLocalService.getContact(contactId));
 	}
 
+	public Contact fetchContactByUuid(String uuid) throws PortalException {
+		return contactPersistence.fetchByUuid_First(uuid, null);
+	}
+
 	public List<Contact> getAccountContacts(
 		long accountId, int start, int end) {
 

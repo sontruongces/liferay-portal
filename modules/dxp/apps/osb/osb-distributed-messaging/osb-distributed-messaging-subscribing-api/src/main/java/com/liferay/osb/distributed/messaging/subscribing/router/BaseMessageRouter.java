@@ -54,8 +54,7 @@ public class BaseMessageRouter implements MessageRouter {
 	}
 
 	protected void addRoute(
-			MessageSubscriber messageSubscriber, Map<String, Object> properties)
-		throws Exception {
+		MessageSubscriber messageSubscriber, Map<String, Object> properties) {
 
 		List<String> topicPatterns = StringPlus.asList(
 			properties.get("topic.pattern"));
