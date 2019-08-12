@@ -185,16 +185,16 @@ public class TeamProjectRoleUtil {
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team project roles
 	 */
 	public static List<TeamProjectRole> findByTeamId(
 		long teamId, int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByTeamId(
-			teamId, start, end, orderByComparator, useFinderCache);
+			teamId, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -353,16 +353,16 @@ public class TeamProjectRoleUtil {
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team project roles
 	 */
 	public static List<TeamProjectRole> findByProjectId(
 		long projectId, int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByProjectId(
-			projectId, start, end, orderByComparator, useFinderCache);
+			projectId, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -527,16 +527,16 @@ public class TeamProjectRoleUtil {
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team project roles
 	 */
 	public static List<TeamProjectRole> findByTeamRoleId(
 		long teamRoleId, int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByTeamRoleId(
-			teamRoleId, start, end, orderByComparator, useFinderCache);
+			teamRoleId, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -705,16 +705,17 @@ public class TeamProjectRoleUtil {
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team project roles
 	 */
 	public static List<TeamProjectRole> findByT_P(
 		long teamId, long projectId, int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByT_P(
-			teamId, projectId, start, end, orderByComparator, useFinderCache);
+			teamId, projectId, start, end, orderByComparator,
+			retrieveFromCache);
 	}
 
 	/**
@@ -954,16 +955,16 @@ public class TeamProjectRoleUtil {
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of team project roles
 	 */
 	public static List<TeamProjectRole> findAll(
 		int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, useFinderCache);
+			start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**

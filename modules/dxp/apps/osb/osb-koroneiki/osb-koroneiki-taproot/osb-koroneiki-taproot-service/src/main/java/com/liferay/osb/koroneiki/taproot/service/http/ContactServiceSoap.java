@@ -66,14 +66,15 @@ public class ContactServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
 			addContact(
-				String firstName, String middleName, String lastName,
-				String emailAddress, String languageId)
+				String uuid, String oktaId, String firstName, String middleName,
+				String lastName, String emailAddress, String languageId)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
 				ContactServiceUtil.addContact(
-					firstName, middleName, lastName, emailAddress, languageId);
+					uuid, oktaId, firstName, middleName, lastName, emailAddress,
+					languageId);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
 				toSoapModel(returnValue);
@@ -92,24 +93,6 @@ public class ContactServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
 				ContactServiceUtil.deleteContact(contactId);
-
-			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
-				toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
-			deleteContact(String contactKey)
-		throws RemoteException {
-
-		try {
-			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
-				ContactServiceUtil.deleteContact(contactKey);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
 				toSoapModel(returnValue);
@@ -210,12 +193,30 @@ public class ContactServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
-			getContactByContactKey(String contactKey)
+			getContactByOktaId(String oktaId)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
-				ContactServiceUtil.getContactByContactKey(contactKey);
+				ContactServiceUtil.getContactByOktaId(oktaId);
+
+			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
+			getContactByUuid(String uuid)
+		throws RemoteException {
+
+		try {
+			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
+				ContactServiceUtil.getContactByUuid(uuid);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
 				toSoapModel(returnValue);
@@ -299,15 +300,16 @@ public class ContactServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
 			updateContact(
-				long contactId, String firstName, String middleName,
-				String lastName, String emailAddress, String languageId)
+				long contactId, String uuid, String oktaId, String firstName,
+				String middleName, String lastName, String emailAddress,
+				String languageId)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
 				ContactServiceUtil.updateContact(
-					contactId, firstName, middleName, lastName, emailAddress,
-					languageId);
+					contactId, uuid, oktaId, firstName, middleName, lastName,
+					emailAddress, languageId);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
 				toSoapModel(returnValue);

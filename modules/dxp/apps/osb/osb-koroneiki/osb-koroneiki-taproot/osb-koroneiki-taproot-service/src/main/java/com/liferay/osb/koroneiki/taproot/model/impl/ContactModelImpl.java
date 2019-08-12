@@ -80,9 +80,10 @@ public class ContactModelImpl
 		{"uuid_", Types.VARCHAR}, {"contactId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"contactKey", Types.VARCHAR}, {"firstName", Types.VARCHAR},
-		{"middleName", Types.VARCHAR}, {"lastName", Types.VARCHAR},
-		{"emailAddress", Types.VARCHAR}, {"languageId", Types.VARCHAR}
+		{"contactKey", Types.VARCHAR}, {"oktaId", Types.VARCHAR},
+		{"firstName", Types.VARCHAR}, {"middleName", Types.VARCHAR},
+		{"lastName", Types.VARCHAR}, {"emailAddress", Types.VARCHAR},
+		{"languageId", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -96,6 +97,7 @@ public class ContactModelImpl
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("contactKey", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("oktaId", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("firstName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("middleName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("lastName", Types.VARCHAR);
@@ -104,7 +106,7 @@ public class ContactModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Contact (uuid_ VARCHAR(75) null,contactId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactKey VARCHAR(75) null,firstName VARCHAR(75) null,middleName VARCHAR(75) null,lastName VARCHAR(75) null,emailAddress VARCHAR(75) null,languageId VARCHAR(75) null)";
+		"create table Koroneiki_Contact (uuid_ VARCHAR(75) null,contactId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactKey VARCHAR(75) null,oktaId VARCHAR(75) null,firstName VARCHAR(75) null,middleName VARCHAR(75) null,lastName VARCHAR(75) null,emailAddress VARCHAR(75) null,languageId VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Contact";
 
@@ -126,9 +128,11 @@ public class ContactModelImpl
 
 	public static final long EMAILADDRESS_COLUMN_BITMASK = 4L;
 
-	public static final long UUID_COLUMN_BITMASK = 8L;
+	public static final long OKTAID_COLUMN_BITMASK = 8L;
 
-	public static final long CONTACTID_COLUMN_BITMASK = 16L;
+	public static final long UUID_COLUMN_BITMASK = 16L;
+
+	public static final long CONTACTID_COLUMN_BITMASK = 32L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -158,6 +162,7 @@ public class ContactModelImpl
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setContactKey(soapModel.getContactKey());
+		model.setOktaId(soapModel.getOktaId());
 		model.setFirstName(soapModel.getFirstName());
 		model.setMiddleName(soapModel.getMiddleName());
 		model.setLastName(soapModel.getLastName());
@@ -332,6 +337,9 @@ public class ContactModelImpl
 		attributeGetterFunctions.put("contactKey", Contact::getContactKey);
 		attributeSetterBiConsumers.put(
 			"contactKey", (BiConsumer<Contact, String>)Contact::setContactKey);
+		attributeGetterFunctions.put("oktaId", Contact::getOktaId);
+		attributeSetterBiConsumers.put(
+			"oktaId", (BiConsumer<Contact, String>)Contact::setOktaId);
 		attributeGetterFunctions.put("firstName", Contact::getFirstName);
 		attributeSetterBiConsumers.put(
 			"firstName", (BiConsumer<Contact, String>)Contact::setFirstName);
@@ -498,6 +506,32 @@ public class ContactModelImpl
 
 	@JSON
 	@Override
+	public String getOktaId() {
+		if (_oktaId == null) {
+			return "";
+		}
+		else {
+			return _oktaId;
+		}
+	}
+
+	@Override
+	public void setOktaId(String oktaId) {
+		_columnBitmask |= OKTAID_COLUMN_BITMASK;
+
+		if (_originalOktaId == null) {
+			_originalOktaId = _oktaId;
+		}
+
+		_oktaId = oktaId;
+	}
+
+	public String getOriginalOktaId() {
+		return GetterUtil.getString(_originalOktaId);
+	}
+
+	@JSON
+	@Override
 	public String getFirstName() {
 		if (_firstName == null) {
 			return "";
@@ -635,6 +669,7 @@ public class ContactModelImpl
 		contactImpl.setCreateDate(getCreateDate());
 		contactImpl.setModifiedDate(getModifiedDate());
 		contactImpl.setContactKey(getContactKey());
+		contactImpl.setOktaId(getOktaId());
 		contactImpl.setFirstName(getFirstName());
 		contactImpl.setMiddleName(getMiddleName());
 		contactImpl.setLastName(getLastName());
@@ -712,6 +747,8 @@ public class ContactModelImpl
 
 		contactModelImpl._originalContactKey = contactModelImpl._contactKey;
 
+		contactModelImpl._originalOktaId = contactModelImpl._oktaId;
+
 		contactModelImpl._originalEmailAddress = contactModelImpl._emailAddress;
 
 		contactModelImpl._columnBitmask = 0;
@@ -759,6 +796,14 @@ public class ContactModelImpl
 
 		if ((contactKey != null) && (contactKey.length() == 0)) {
 			contactCacheModel.contactKey = null;
+		}
+
+		contactCacheModel.oktaId = getOktaId();
+
+		String oktaId = contactCacheModel.oktaId;
+
+		if ((oktaId != null) && (oktaId.length() == 0)) {
+			contactCacheModel.oktaId = null;
 		}
 
 		contactCacheModel.firstName = getFirstName();
@@ -889,6 +934,8 @@ public class ContactModelImpl
 	private boolean _setModifiedDate;
 	private String _contactKey;
 	private String _originalContactKey;
+	private String _oktaId;
+	private String _originalOktaId;
 	private String _firstName;
 	private String _middleName;
 	private String _lastName;

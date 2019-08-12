@@ -182,15 +182,16 @@ public class ContactUtil {
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	public static List<Contact> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Contact> orderByComparator,
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByUuid(
-			uuid, start, end, orderByComparator, useFinderCache);
+			uuid, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -431,15 +432,16 @@ public class ContactUtil {
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	public static List<Contact> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Contact> orderByComparator,
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator, useFinderCache);
+			uuid, companyId, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -666,13 +668,14 @@ public class ContactUtil {
 	 * Returns the contact where contactKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param contactKey the contact key
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
 	public static Contact fetchByContactKey(
-		String contactKey, boolean useFinderCache) {
+		String contactKey, boolean retrieveFromCache) {
 
-		return getPersistence().fetchByContactKey(contactKey, useFinderCache);
+		return getPersistence().fetchByContactKey(
+			contactKey, retrieveFromCache);
 	}
 
 	/**
@@ -696,6 +699,66 @@ public class ContactUtil {
 	 */
 	public static int countByContactKey(String contactKey) {
 		return getPersistence().countByContactKey(contactKey);
+	}
+
+	/**
+	 * Returns the contact where oktaId = &#63; or throws a <code>NoSuchContactException</code> if it could not be found.
+	 *
+	 * @param oktaId the okta ID
+	 * @return the matching contact
+	 * @throws NoSuchContactException if a matching contact could not be found
+	 */
+	public static Contact findByOktaId(String oktaId)
+		throws com.liferay.osb.koroneiki.taproot.exception.
+			NoSuchContactException {
+
+		return getPersistence().findByOktaId(oktaId);
+	}
+
+	/**
+	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param oktaId the okta ID
+	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
+	 */
+	public static Contact fetchByOktaId(String oktaId) {
+		return getPersistence().fetchByOktaId(oktaId);
+	}
+
+	/**
+	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param oktaId the okta ID
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
+	 */
+	public static Contact fetchByOktaId(
+		String oktaId, boolean retrieveFromCache) {
+
+		return getPersistence().fetchByOktaId(oktaId, retrieveFromCache);
+	}
+
+	/**
+	 * Removes the contact where oktaId = &#63; from the database.
+	 *
+	 * @param oktaId the okta ID
+	 * @return the contact that was removed
+	 */
+	public static Contact removeByOktaId(String oktaId)
+		throws com.liferay.osb.koroneiki.taproot.exception.
+			NoSuchContactException {
+
+		return getPersistence().removeByOktaId(oktaId);
+	}
+
+	/**
+	 * Returns the number of contacts where oktaId = &#63;.
+	 *
+	 * @param oktaId the okta ID
+	 * @return the number of matching contacts
+	 */
+	public static int countByOktaId(String oktaId) {
+		return getPersistence().countByOktaId(oktaId);
 	}
 
 	/**
@@ -726,14 +789,14 @@ public class ContactUtil {
 	 * Returns the contact where emailAddress = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param emailAddress the email address
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
 	public static Contact fetchByEmailAddress(
-		String emailAddress, boolean useFinderCache) {
+		String emailAddress, boolean retrieveFromCache) {
 
 		return getPersistence().fetchByEmailAddress(
-			emailAddress, useFinderCache);
+			emailAddress, retrieveFromCache);
 	}
 
 	/**
@@ -881,15 +944,15 @@ public class ContactUtil {
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of contacts
 	 */
 	public static List<Contact> findAll(
 		int start, int end, OrderByComparator<Contact> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, useFinderCache);
+			start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**

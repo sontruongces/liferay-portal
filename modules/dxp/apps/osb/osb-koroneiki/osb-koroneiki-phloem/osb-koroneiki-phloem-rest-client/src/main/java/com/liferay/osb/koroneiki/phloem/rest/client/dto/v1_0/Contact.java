@@ -237,6 +237,46 @@ public class Contact {
 
 	protected String middleName;
 
+	public String getOktaId() {
+		return oktaId;
+	}
+
+	public void setOktaId(String oktaId) {
+		this.oktaId = oktaId;
+	}
+
+	public void setOktaId(
+		UnsafeSupplier<String, Exception> oktaIdUnsafeSupplier) {
+
+		try {
+			oktaId = oktaIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String oktaId;
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public void setUuid(UnsafeSupplier<String, Exception> uuidUnsafeSupplier) {
+		try {
+			uuid = uuidUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String uuid;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {

@@ -177,6 +177,8 @@ public abstract class BaseContactResourceTestCase {
 		contact.setLanguageId(regex);
 		contact.setLastName(regex);
 		contact.setMiddleName(regex);
+		contact.setOktaId(regex);
+		contact.setUuid(regex);
 
 		String json = ContactSerDes.toJSON(contact);
 
@@ -190,6 +192,8 @@ public abstract class BaseContactResourceTestCase {
 		Assert.assertEquals(regex, contact.getLanguageId());
 		Assert.assertEquals(regex, contact.getLastName());
 		Assert.assertEquals(regex, contact.getMiddleName());
+		Assert.assertEquals(regex, contact.getOktaId());
+		Assert.assertEquals(regex, contact.getUuid());
 	}
 
 	@Test
@@ -317,12 +321,32 @@ public abstract class BaseContactResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteContact() throws Exception {
+	public void testDeleteContactByOkta() throws Exception {
 		Assert.assertTrue(true);
 	}
 
 	@Test
-	public void testGetContact() throws Exception {
+	public void testGetContactByOkta() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPutContactByOkta() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testDeleteContactByUuid() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testGetContactByUuid() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPutContactByUuid() throws Exception {
 		Assert.assertTrue(true);
 	}
 
@@ -559,6 +583,22 @@ public abstract class BaseContactResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("oktaId", additionalAssertFieldName)) {
+				if (contact.getOktaId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("uuid", additionalAssertFieldName)) {
+				if (contact.getUuid() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -695,6 +735,26 @@ public abstract class BaseContactResourceTestCase {
 			if (Objects.equals("middleName", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						contact1.getMiddleName(), contact2.getMiddleName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("oktaId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						contact1.getOktaId(), contact2.getOktaId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("uuid", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						contact1.getUuid(), contact2.getUuid())) {
 
 					return false;
 				}
@@ -880,6 +940,22 @@ public abstract class BaseContactResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("oktaId")) {
+			sb.append("'");
+			sb.append(String.valueOf(contact.getOktaId()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("uuid")) {
+			sb.append("'");
+			sb.append(String.valueOf(contact.getUuid()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		throw new IllegalArgumentException(
 			"Invalid entity field " + entityFieldName);
 	}
@@ -895,6 +971,8 @@ public abstract class BaseContactResourceTestCase {
 				languageId = RandomTestUtil.randomString();
 				lastName = RandomTestUtil.randomString();
 				middleName = RandomTestUtil.randomString();
+				oktaId = RandomTestUtil.randomString();
+				uuid = RandomTestUtil.randomString();
 			}
 		};
 	}

@@ -35,12 +35,13 @@ public class ContactServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact addContact(
-			String firstName, String middleName, String lastName,
-			String emailAddress, String languageId)
+			String uuid, String oktaId, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactService.addContact(
-			firstName, middleName, lastName, emailAddress, languageId);
+			uuid, oktaId, firstName, middleName, lastName, emailAddress,
+			languageId);
 	}
 
 	@Override
@@ -49,14 +50,6 @@ public class ContactServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactService.deleteContact(contactId);
-	}
-
-	@Override
-	public com.liferay.osb.koroneiki.taproot.model.Contact deleteContact(
-			String contactKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _contactService.deleteContact(contactKey);
 	}
 
 	@Override
@@ -98,11 +91,19 @@ public class ContactServiceWrapper
 	}
 
 	@Override
-	public com.liferay.osb.koroneiki.taproot.model.Contact
-			getContactByContactKey(String contactKey)
+	public com.liferay.osb.koroneiki.taproot.model.Contact getContactByOktaId(
+			String oktaId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _contactService.getContactByContactKey(contactKey);
+		return _contactService.getContactByOktaId(oktaId);
+	}
+
+	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Contact getContactByUuid(
+			String uuid)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactService.getContactByUuid(uuid);
 	}
 
 	/**
@@ -147,13 +148,14 @@ public class ContactServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
-			long contactId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			long contactId, String uuid, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactService.updateContact(
-			contactId, firstName, middleName, lastName, emailAddress,
-			languageId);
+			contactId, uuid, oktaId, firstName, middleName, lastName,
+			emailAddress, languageId);
 	}
 
 	@Override

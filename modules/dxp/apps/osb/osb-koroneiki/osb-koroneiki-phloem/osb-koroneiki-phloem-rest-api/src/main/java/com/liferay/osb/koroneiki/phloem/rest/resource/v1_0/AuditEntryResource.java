@@ -47,8 +47,12 @@ public interface AuditEntryResource {
 			String contactRoleKey, Pagination pagination)
 		throws Exception;
 
-	public Page<AuditEntry> getContactContactKeyAuditEntriesPage(
-			String contactKey, Pagination pagination)
+	public Page<AuditEntry> getContactByOktaAuditEntriesPage(
+			String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<AuditEntry> getContactByUuidAuditEntriesPage(
+			String uuid, Pagination pagination)
 		throws Exception;
 
 	public Page<AuditEntry> getProjectProjectKeyAuditEntriesPage(

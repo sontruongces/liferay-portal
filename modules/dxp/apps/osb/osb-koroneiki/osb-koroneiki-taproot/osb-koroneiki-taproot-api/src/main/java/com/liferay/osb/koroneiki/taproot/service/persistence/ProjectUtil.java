@@ -182,15 +182,16 @@ public class ProjectUtil {
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching projects
 	 */
 	public static List<Project> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Project> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Project> orderByComparator,
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByUuid(
-			uuid, start, end, orderByComparator, useFinderCache);
+			uuid, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -431,15 +432,16 @@ public class ProjectUtil {
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching projects
 	 */
 	public static List<Project> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Project> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Project> orderByComparator,
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator, useFinderCache);
+			uuid, companyId, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -666,13 +668,14 @@ public class ProjectUtil {
 	 * Returns the project where projectKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param projectKey the project key
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching project, or <code>null</code> if a matching project could not be found
 	 */
 	public static Project fetchByProjectKey(
-		String projectKey, boolean useFinderCache) {
+		String projectKey, boolean retrieveFromCache) {
 
-		return getPersistence().fetchByProjectKey(projectKey, useFinderCache);
+		return getPersistence().fetchByProjectKey(
+			projectKey, retrieveFromCache);
 	}
 
 	/**
@@ -758,15 +761,16 @@ public class ProjectUtil {
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching projects
 	 */
 	public static List<Project> findByAccountId(
 		long accountId, int start, int end,
-		OrderByComparator<Project> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Project> orderByComparator,
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByAccountId(
-			accountId, start, end, orderByComparator, useFinderCache);
+			accountId, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -1069,15 +1073,15 @@ public class ProjectUtil {
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of projects
 	 */
 	public static List<Project> findAll(
 		int start, int end, OrderByComparator<Project> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, useFinderCache);
+			start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**

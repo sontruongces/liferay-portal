@@ -63,7 +63,7 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -79,6 +79,8 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 		sb.append(modifiedDate);
 		sb.append(", contactKey=");
 		sb.append(contactKey);
+		sb.append(", oktaId=");
+		sb.append(oktaId);
 		sb.append(", firstName=");
 		sb.append(firstName);
 		sb.append(", middleName=");
@@ -128,6 +130,13 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 		}
 		else {
 			contactImpl.setContactKey(contactKey);
+		}
+
+		if (oktaId == null) {
+			contactImpl.setOktaId("");
+		}
+		else {
+			contactImpl.setOktaId(oktaId);
 		}
 
 		if (firstName == null) {
@@ -182,6 +191,7 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		contactKey = objectInput.readUTF();
+		oktaId = objectInput.readUTF();
 		firstName = objectInput.readUTF();
 		middleName = objectInput.readUTF();
 		lastName = objectInput.readUTF();
@@ -211,6 +221,13 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 		}
 		else {
 			objectOutput.writeUTF(contactKey);
+		}
+
+		if (oktaId == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(oktaId);
 		}
 
 		if (firstName == null) {
@@ -256,6 +273,7 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 	public long createDate;
 	public long modifiedDate;
 	public String contactKey;
+	public String oktaId;
 	public String firstName;
 	public String middleName;
 	public String lastName;

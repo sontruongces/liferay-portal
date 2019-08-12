@@ -184,16 +184,16 @@ public class ContactRoleUtil {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
 	public static List<ContactRole> findByUuid(
 		String uuid, int start, int end,
 		OrderByComparator<ContactRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByUuid(
-			uuid, start, end, orderByComparator, useFinderCache);
+			uuid, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -434,16 +434,16 @@ public class ContactRoleUtil {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
 	public static List<ContactRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
 		OrderByComparator<ContactRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator, useFinderCache);
+			uuid, companyId, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -670,14 +670,14 @@ public class ContactRoleUtil {
 	 * Returns the contact role where contactRoleKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param contactRoleKey the contact role key
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public static ContactRole fetchByContactRoleKey(
-		String contactRoleKey, boolean useFinderCache) {
+		String contactRoleKey, boolean retrieveFromCache) {
 
 		return getPersistence().fetchByContactRoleKey(
-			contactRoleKey, useFinderCache);
+			contactRoleKey, retrieveFromCache);
 	}
 
 	/**
@@ -760,16 +760,16 @@ public class ContactRoleUtil {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
 	public static List<ContactRole> findByType(
 		int type, int start, int end,
 		OrderByComparator<ContactRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByType(
-			type, start, end, orderByComparator, useFinderCache);
+			type, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -977,13 +977,13 @@ public class ContactRoleUtil {
 	 *
 	 * @param name the name
 	 * @param type the type
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public static ContactRole fetchByN_T(
-		String name, int type, boolean useFinderCache) {
+		String name, int type, boolean retrieveFromCache) {
 
-		return getPersistence().fetchByN_T(name, type, useFinderCache);
+		return getPersistence().fetchByN_T(name, type, retrieveFromCache);
 	}
 
 	/**
@@ -1133,15 +1133,15 @@ public class ContactRoleUtil {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of contact roles
 	 */
 	public static List<ContactRole> findAll(
 		int start, int end, OrderByComparator<ContactRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, useFinderCache);
+			start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**

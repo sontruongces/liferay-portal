@@ -41,6 +41,7 @@ public class ContactSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setContactKey(model.getContactKey());
+		soapModel.setOktaId(model.getOktaId());
 		soapModel.setFirstName(model.getFirstName());
 		soapModel.setMiddleName(model.getMiddleName());
 		soapModel.setLastName(model.getLastName());
@@ -155,6 +156,14 @@ public class ContactSoap implements Serializable {
 		_contactKey = contactKey;
 	}
 
+	public String getOktaId() {
+		return _oktaId;
+	}
+
+	public void setOktaId(String oktaId) {
+		_oktaId = oktaId;
+	}
+
 	public String getFirstName() {
 		return _firstName;
 	}
@@ -202,6 +211,7 @@ public class ContactSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _contactKey;
+	private String _oktaId;
 	private String _firstName;
 	private String _middleName;
 	private String _lastName;

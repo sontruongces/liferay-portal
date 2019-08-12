@@ -215,6 +215,34 @@ public class ContactSerDes {
 			sb.append("\"");
 		}
 
+		if (contact.getOktaId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"oktaId\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(contact.getOktaId()));
+
+			sb.append("\"");
+		}
+
+		if (contact.getUuid() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"uuid\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(contact.getUuid()));
+
+			sb.append("\"");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -299,6 +327,20 @@ public class ContactSerDes {
 		}
 		else {
 			map.put("middleName", String.valueOf(contact.getMiddleName()));
+		}
+
+		if (contact.getOktaId() == null) {
+			map.put("oktaId", null);
+		}
+		else {
+			map.put("oktaId", String.valueOf(contact.getOktaId()));
+		}
+
+		if (contact.getUuid() == null) {
+			map.put("uuid", null);
+		}
+		else {
+			map.put("uuid", String.valueOf(contact.getUuid()));
 		}
 
 		return map;
@@ -422,6 +464,16 @@ public class ContactSerDes {
 			else if (Objects.equals(jsonParserFieldName, "middleName")) {
 				if (jsonParserFieldValue != null) {
 					contact.setMiddleName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "oktaId")) {
+				if (jsonParserFieldValue != null) {
+					contact.setOktaId((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "uuid")) {
+				if (jsonParserFieldValue != null) {
+					contact.setUuid((String)jsonParserFieldValue);
 				}
 			}
 			else {

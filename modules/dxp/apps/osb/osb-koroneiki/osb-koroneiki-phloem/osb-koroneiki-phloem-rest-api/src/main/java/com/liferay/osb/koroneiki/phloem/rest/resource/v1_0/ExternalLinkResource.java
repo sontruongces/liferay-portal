@@ -45,12 +45,20 @@ public interface ExternalLinkResource {
 			String accountKey, ExternalLink externalLink)
 		throws Exception;
 
-	public Page<ExternalLink> getContactContactKeyExternalLinksPage(
-			String contactKey, Pagination pagination)
+	public Page<ExternalLink> getContactByOktaExternalLinksPage(
+			String oktaId, Pagination pagination)
 		throws Exception;
 
-	public ExternalLink postContactContactKeyExternalLink(
-			String contactKey, ExternalLink externalLink)
+	public ExternalLink postContactByOktaExternalLink(
+			String oktaId, ExternalLink externalLink)
+		throws Exception;
+
+	public Page<ExternalLink> getContactByUuidExternalLinksPage(
+			String uuid, Pagination pagination)
+		throws Exception;
+
+	public ExternalLink postContactByUuidExternalLink(
+			String uuid, ExternalLink externalLink)
 		throws Exception;
 
 	public void deleteExternalLink(String externalLinkKey) throws Exception;

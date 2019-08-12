@@ -229,8 +229,8 @@ public class Query {
 	}
 
 	@GraphQLField
-	public AuditEntryPage getContactContactKeyAuditEntriesPage(
-			@GraphQLName("contactKey") String contactKey,
+	public AuditEntryPage getContactByOktaAuditEntriesPage(
+			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -239,8 +239,23 @@ public class Query {
 			_auditEntryResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			auditEntryResource -> new AuditEntryPage(
-				auditEntryResource.getContactContactKeyAuditEntriesPage(
-					contactKey, Pagination.of(page, pageSize))));
+				auditEntryResource.getContactByOktaAuditEntriesPage(
+					oktaId, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public AuditEntryPage getContactByUuidAuditEntriesPage(
+			@GraphQLName("uuid") String uuid,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_auditEntryResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			auditEntryResource -> new AuditEntryPage(
+				auditEntryResource.getContactByUuidAuditEntriesPage(
+					uuid, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField
@@ -305,13 +320,23 @@ public class Query {
 	}
 
 	@GraphQLField
-	public Contact getContact(@GraphQLName("contactKey") String contactKey)
+	public Contact getContactByOkta(@GraphQLName("oktaId") String oktaId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			contactResource -> contactResource.getContact(contactKey));
+			contactResource -> contactResource.getContactByOkta(oktaId));
+	}
+
+	@GraphQLField
+	public Contact getContactByUuid(@GraphQLName("uuid") String uuid)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactResource -> contactResource.getContactByUuid(uuid));
 	}
 
 	@GraphQLField
@@ -373,8 +398,8 @@ public class Query {
 	}
 
 	@GraphQLField
-	public ExternalLinkPage getContactContactKeyExternalLinksPage(
-			@GraphQLName("contactKey") String contactKey,
+	public ExternalLinkPage getContactByOktaExternalLinksPage(
+			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -383,8 +408,23 @@ public class Query {
 			_externalLinkResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			externalLinkResource -> new ExternalLinkPage(
-				externalLinkResource.getContactContactKeyExternalLinksPage(
-					contactKey, Pagination.of(page, pageSize))));
+				externalLinkResource.getContactByOktaExternalLinksPage(
+					oktaId, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public ExternalLinkPage getContactByUuidExternalLinksPage(
+			@GraphQLName("uuid") String uuid,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_externalLinkResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			externalLinkResource -> new ExternalLinkPage(
+				externalLinkResource.getContactByUuidExternalLinksPage(
+					uuid, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField

@@ -336,6 +336,60 @@ public class Contact {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String middleName;
 
+	@Schema(description = "The ID provisioned from Okta.")
+	public String getOktaId() {
+		return oktaId;
+	}
+
+	public void setOktaId(String oktaId) {
+		this.oktaId = oktaId;
+	}
+
+	@JsonIgnore
+	public void setOktaId(
+		UnsafeSupplier<String, Exception> oktaIdUnsafeSupplier) {
+
+		try {
+			oktaId = oktaIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String oktaId;
+
+	@Schema(description = "A universal identifier to reference this contact.")
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	@JsonIgnore
+	public void setUuid(UnsafeSupplier<String, Exception> uuidUnsafeSupplier) {
+		try {
+			uuid = uuidUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String uuid;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -514,6 +568,34 @@ public class Contact {
 			sb.append("\"");
 
 			sb.append(_escape(middleName));
+
+			sb.append("\"");
+		}
+
+		if (oktaId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"oktaId\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(oktaId));
+
+			sb.append("\"");
+		}
+
+		if (uuid != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"uuid\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(uuid));
 
 			sb.append("\"");
 		}

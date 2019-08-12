@@ -61,13 +61,22 @@ public interface AuditEntryResource {
 				String contactRoleKey, Pagination pagination)
 		throws Exception;
 
-	public Page<AuditEntry> getContactContactKeyAuditEntriesPage(
-			String contactKey, Pagination pagination)
+	public Page<AuditEntry> getContactByOktaAuditEntriesPage(
+			String oktaId, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getContactContactKeyAuditEntriesPageHttpResponse(
-				String contactKey, Pagination pagination)
+			getContactByOktaAuditEntriesPageHttpResponse(
+				String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<AuditEntry> getContactByUuidAuditEntriesPage(
+			String uuid, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getContactByUuidAuditEntriesPageHttpResponse(
+				String uuid, Pagination pagination)
 		throws Exception;
 
 	public Page<AuditEntry> getProjectProjectKeyAuditEntriesPage(
@@ -290,13 +299,13 @@ public interface AuditEntryResource {
 			return httpInvoker.invoke();
 		}
 
-		public Page<AuditEntry> getContactContactKeyAuditEntriesPage(
-				String contactKey, Pagination pagination)
+		public Page<AuditEntry> getContactByOktaAuditEntriesPage(
+				String oktaId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getContactContactKeyAuditEntriesPageHttpResponse(
-					contactKey, pagination);
+				getContactByOktaAuditEntriesPageHttpResponse(
+					oktaId, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -310,8 +319,8 @@ public interface AuditEntryResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getContactContactKeyAuditEntriesPageHttpResponse(
-					String contactKey, Pagination pagination)
+				getContactByOktaAuditEntriesPageHttpResponse(
+					String oktaId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -333,8 +342,59 @@ public interface AuditEntryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/{contactKey}/audit-entries",
-				contactKey);
+						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/audit-entries",
+				oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<AuditEntry> getContactByUuidAuditEntriesPage(
+				String uuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getContactByUuidAuditEntriesPageHttpResponse(uuid, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, AuditEntrySerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getContactByUuidAuditEntriesPageHttpResponse(
+					String uuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}/audit-entries",
+				uuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

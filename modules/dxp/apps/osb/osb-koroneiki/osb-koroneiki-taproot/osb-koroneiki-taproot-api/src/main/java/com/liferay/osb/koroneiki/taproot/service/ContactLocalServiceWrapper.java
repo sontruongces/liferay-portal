@@ -48,12 +48,14 @@ public class ContactLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact addContact(
-			long userId, String firstName, String middleName, String lastName,
-			String emailAddress, String languageId)
+			String uuid, long userId, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactLocalService.addContact(
-			userId, firstName, middleName, lastName, emailAddress, languageId);
+			uuid, userId, oktaId, firstName, middleName, lastName, emailAddress,
+			languageId);
 	}
 
 	/**
@@ -271,6 +273,22 @@ public class ContactLocalServiceWrapper
 		return _contactLocalService.getContactByEmailAddress(emailAddress);
 	}
 
+	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Contact getContactByOktaId(
+			String oktaId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactLocalService.getContactByOktaId(oktaId);
+	}
+
+	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Contact getContactByUuid(
+			String uuid)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactLocalService.getContactByUuid(uuid);
+	}
+
 	/**
 	 * Returns the contact with the matching UUID and company.
 	 *
@@ -390,13 +408,14 @@ public class ContactLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
-			long contactId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			long contactId, String uuid, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactLocalService.updateContact(
-			contactId, firstName, middleName, lastName, emailAddress,
-			languageId);
+			contactId, uuid, oktaId, firstName, middleName, lastName,
+			emailAddress, languageId);
 	}
 
 	@Override

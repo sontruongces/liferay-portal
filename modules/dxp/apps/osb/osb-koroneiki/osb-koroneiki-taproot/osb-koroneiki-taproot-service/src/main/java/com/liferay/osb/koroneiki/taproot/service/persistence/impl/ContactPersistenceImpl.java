@@ -162,13 +162,14 @@ public class ContactPersistenceImpl
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	@Override
 	public List<Contact> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Contact> orderByComparator,
+		boolean retrieveFromCache) {
 
 		uuid = Objects.toString(uuid, "");
 
@@ -180,20 +181,17 @@ public class ContactPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByUuid;
-				finderArgs = new Object[] {uuid};
-			}
+			finderPath = _finderPathWithoutPaginationFindByUuid;
+			finderArgs = new Object[] {uuid};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByUuid;
 			finderArgs = new Object[] {uuid, start, end, orderByComparator};
 		}
 
 		List<Contact> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<Contact>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -270,14 +268,10 @@ public class ContactPersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -1129,13 +1123,14 @@ public class ContactPersistenceImpl
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	@Override
 	public List<Contact> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Contact> orderByComparator,
+		boolean retrieveFromCache) {
 
 		uuid = Objects.toString(uuid, "");
 
@@ -1147,13 +1142,10 @@ public class ContactPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByUuid_C;
-				finderArgs = new Object[] {uuid, companyId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByUuid_C;
+			finderArgs = new Object[] {uuid, companyId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByUuid_C;
 			finderArgs = new Object[] {
 				uuid, companyId, start, end, orderByComparator
@@ -1162,7 +1154,7 @@ public class ContactPersistenceImpl
 
 		List<Contact> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<Contact>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -1245,14 +1237,10 @@ public class ContactPersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -2137,24 +2125,20 @@ public class ContactPersistenceImpl
 	 * Returns the contact where contactKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param contactKey the contact key
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
 	@Override
 	public Contact fetchByContactKey(
-		String contactKey, boolean useFinderCache) {
+		String contactKey, boolean retrieveFromCache) {
 
 		contactKey = Objects.toString(contactKey, "");
 
-		Object[] finderArgs = null;
-
-		if (useFinderCache) {
-			finderArgs = new Object[] {contactKey};
-		}
+		Object[] finderArgs = new Object[] {contactKey};
 
 		Object result = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			result = finderCache.getResult(
 				_finderPathFetchByContactKey, finderArgs, this);
 		}
@@ -2201,10 +2185,8 @@ public class ContactPersistenceImpl
 				List<Contact> list = q.list();
 
 				if (list.isEmpty()) {
-					if (useFinderCache) {
-						finderCache.putResult(
-							_finderPathFetchByContactKey, finderArgs, list);
-					}
+					finderCache.putResult(
+						_finderPathFetchByContactKey, finderArgs, list);
 				}
 				else {
 					Contact contact = list.get(0);
@@ -2215,10 +2197,8 @@ public class ContactPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(
-						_finderPathFetchByContactKey, finderArgs);
-				}
+				finderCache.removeResult(
+					_finderPathFetchByContactKey, finderArgs);
 
 				throw processException(e);
 			}
@@ -2320,6 +2300,236 @@ public class ContactPersistenceImpl
 	private static final String _FINDER_COLUMN_CONTACTKEY_CONTACTKEY_3 =
 		"(contact.contactKey IS NULL OR contact.contactKey = '')";
 
+	private FinderPath _finderPathFetchByOktaId;
+	private FinderPath _finderPathCountByOktaId;
+
+	/**
+	 * Returns the contact where oktaId = &#63; or throws a <code>NoSuchContactException</code> if it could not be found.
+	 *
+	 * @param oktaId the okta ID
+	 * @return the matching contact
+	 * @throws NoSuchContactException if a matching contact could not be found
+	 */
+	@Override
+	public Contact findByOktaId(String oktaId) throws NoSuchContactException {
+		Contact contact = fetchByOktaId(oktaId);
+
+		if (contact == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("oktaId=");
+			msg.append(oktaId);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchContactException(msg.toString());
+		}
+
+		return contact;
+	}
+
+	/**
+	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param oktaId the okta ID
+	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
+	 */
+	@Override
+	public Contact fetchByOktaId(String oktaId) {
+		return fetchByOktaId(oktaId, true);
+	}
+
+	/**
+	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param oktaId the okta ID
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
+	 */
+	@Override
+	public Contact fetchByOktaId(String oktaId, boolean retrieveFromCache) {
+		oktaId = Objects.toString(oktaId, "");
+
+		Object[] finderArgs = new Object[] {oktaId};
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByOktaId, finderArgs, this);
+		}
+
+		if (result instanceof Contact) {
+			Contact contact = (Contact)result;
+
+			if (!Objects.equals(oktaId, contact.getOktaId())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_CONTACT_WHERE);
+
+			boolean bindOktaId = false;
+
+			if (oktaId.isEmpty()) {
+				query.append(_FINDER_COLUMN_OKTAID_OKTAID_3);
+			}
+			else {
+				bindOktaId = true;
+
+				query.append(_FINDER_COLUMN_OKTAID_OKTAID_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindOktaId) {
+					qPos.add(oktaId);
+				}
+
+				List<Contact> list = q.list();
+
+				if (list.isEmpty()) {
+					finderCache.putResult(
+						_finderPathFetchByOktaId, finderArgs, list);
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							_log.warn(
+								"ContactPersistenceImpl.fetchByOktaId(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					Contact contact = list.get(0);
+
+					result = contact;
+
+					cacheResult(contact);
+				}
+			}
+			catch (Exception e) {
+				finderCache.removeResult(_finderPathFetchByOktaId, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Contact)result;
+		}
+	}
+
+	/**
+	 * Removes the contact where oktaId = &#63; from the database.
+	 *
+	 * @param oktaId the okta ID
+	 * @return the contact that was removed
+	 */
+	@Override
+	public Contact removeByOktaId(String oktaId) throws NoSuchContactException {
+		Contact contact = findByOktaId(oktaId);
+
+		return remove(contact);
+	}
+
+	/**
+	 * Returns the number of contacts where oktaId = &#63;.
+	 *
+	 * @param oktaId the okta ID
+	 * @return the number of matching contacts
+	 */
+	@Override
+	public int countByOktaId(String oktaId) {
+		oktaId = Objects.toString(oktaId, "");
+
+		FinderPath finderPath = _finderPathCountByOktaId;
+
+		Object[] finderArgs = new Object[] {oktaId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_CONTACT_WHERE);
+
+			boolean bindOktaId = false;
+
+			if (oktaId.isEmpty()) {
+				query.append(_FINDER_COLUMN_OKTAID_OKTAID_3);
+			}
+			else {
+				bindOktaId = true;
+
+				query.append(_FINDER_COLUMN_OKTAID_OKTAID_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindOktaId) {
+					qPos.add(oktaId);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_OKTAID_OKTAID_2 =
+		"contact.oktaId = ?";
+
+	private static final String _FINDER_COLUMN_OKTAID_OKTAID_3 =
+		"(contact.oktaId IS NULL OR contact.oktaId = '')";
+
 	private FinderPath _finderPathFetchByEmailAddress;
 	private FinderPath _finderPathCountByEmailAddress;
 
@@ -2371,24 +2581,20 @@ public class ContactPersistenceImpl
 	 * Returns the contact where emailAddress = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param emailAddress the email address
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
 	@Override
 	public Contact fetchByEmailAddress(
-		String emailAddress, boolean useFinderCache) {
+		String emailAddress, boolean retrieveFromCache) {
 
 		emailAddress = Objects.toString(emailAddress, "");
 
-		Object[] finderArgs = null;
-
-		if (useFinderCache) {
-			finderArgs = new Object[] {emailAddress};
-		}
+		Object[] finderArgs = new Object[] {emailAddress};
 
 		Object result = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			result = finderCache.getResult(
 				_finderPathFetchByEmailAddress, finderArgs, this);
 		}
@@ -2435,20 +2641,14 @@ public class ContactPersistenceImpl
 				List<Contact> list = q.list();
 
 				if (list.isEmpty()) {
-					if (useFinderCache) {
-						finderCache.putResult(
-							_finderPathFetchByEmailAddress, finderArgs, list);
-					}
+					finderCache.putResult(
+						_finderPathFetchByEmailAddress, finderArgs, list);
 				}
 				else {
 					if (list.size() > 1) {
 						Collections.sort(list, Collections.reverseOrder());
 
 						if (_log.isWarnEnabled()) {
-							if (!useFinderCache) {
-								finderArgs = new Object[] {emailAddress};
-							}
-
 							_log.warn(
 								"ContactPersistenceImpl.fetchByEmailAddress(String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
@@ -2464,10 +2664,8 @@ public class ContactPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(
-						_finderPathFetchByEmailAddress, finderArgs);
-				}
+				finderCache.removeResult(
+					_finderPathFetchByEmailAddress, finderArgs);
 
 				throw processException(e);
 			}
@@ -2598,6 +2796,10 @@ public class ContactPersistenceImpl
 			new Object[] {contact.getContactKey()}, contact);
 
 		finderCache.putResult(
+			_finderPathFetchByOktaId, new Object[] {contact.getOktaId()},
+			contact);
+
+		finderCache.putResult(
 			_finderPathFetchByEmailAddress,
 			new Object[] {contact.getEmailAddress()}, contact);
 
@@ -2679,6 +2881,13 @@ public class ContactPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByContactKey, args, contactModelImpl, false);
 
+		args = new Object[] {contactModelImpl.getOktaId()};
+
+		finderCache.putResult(
+			_finderPathCountByOktaId, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByOktaId, args, contactModelImpl, false);
+
 		args = new Object[] {contactModelImpl.getEmailAddress()};
 
 		finderCache.putResult(
@@ -2706,6 +2915,22 @@ public class ContactPersistenceImpl
 
 			finderCache.removeResult(_finderPathCountByContactKey, args);
 			finderCache.removeResult(_finderPathFetchByContactKey, args);
+		}
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {contactModelImpl.getOktaId()};
+
+			finderCache.removeResult(_finderPathCountByOktaId, args);
+			finderCache.removeResult(_finderPathFetchByOktaId, args);
+		}
+
+		if ((contactModelImpl.getColumnBitmask() &
+			 _finderPathFetchByOktaId.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {contactModelImpl.getOriginalOktaId()};
+
+			finderCache.removeResult(_finderPathCountByOktaId, args);
+			finderCache.removeResult(_finderPathFetchByOktaId, args);
 		}
 
 		if (clearCurrent) {
@@ -3088,13 +3313,13 @@ public class ContactPersistenceImpl
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of contacts
 	 */
 	@Override
 	public List<Contact> findAll(
 		int start, int end, OrderByComparator<Contact> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -3104,20 +3329,17 @@ public class ContactPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindAll;
-				finderArgs = FINDER_ARGS_EMPTY;
-			}
+			finderPath = _finderPathWithoutPaginationFindAll;
+			finderArgs = FINDER_ARGS_EMPTY;
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<Contact> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<Contact>)finderCache.getResult(
 				finderPath, finderArgs, this);
 		}
@@ -3167,14 +3389,10 @@ public class ContactPersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -3330,6 +3548,17 @@ public class ContactPersistenceImpl
 		_finderPathCountByContactKey = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByContactKey",
+			new String[] {String.class.getName()});
+
+		_finderPathFetchByOktaId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, ContactImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByOktaId",
+			new String[] {String.class.getName()},
+			ContactModelImpl.OKTAID_COLUMN_BITMASK);
+
+		_finderPathCountByOktaId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByOktaId",
 			new String[] {String.class.getName()});
 
 		_finderPathFetchByEmailAddress = new FinderPath(

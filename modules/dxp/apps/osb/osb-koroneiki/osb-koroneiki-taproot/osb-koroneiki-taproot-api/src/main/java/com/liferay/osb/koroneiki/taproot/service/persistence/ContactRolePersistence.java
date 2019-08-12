@@ -92,14 +92,14 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
 	public java.util.List<ContactRole> findByUuid(
 		String uuid, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Returns the first contact role in the ordered set where uuid = &#63;.
@@ -304,14 +304,14 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
 	public java.util.List<ContactRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Returns the first contact role in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -494,11 +494,11 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * Returns the contact role where contactRoleKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param contactRoleKey the contact role key
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public ContactRole fetchByContactRoleKey(
-		String contactRoleKey, boolean useFinderCache);
+		String contactRoleKey, boolean retrieveFromCache);
 
 	/**
 	 * Removes the contact role where contactRoleKey = &#63; from the database.
@@ -568,14 +568,14 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
 	public java.util.List<ContactRole> findByType(
 		int type, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Returns the first contact role in the ordered set where type = &#63;.
@@ -748,11 +748,11 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 *
 	 * @param name the name
 	 * @param type the type
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public ContactRole fetchByN_T(
-		String name, int type, boolean useFinderCache);
+		String name, int type, boolean retrieveFromCache);
 
 	/**
 	 * Removes the contact role where name = &#63; and type = &#63; from the database.
@@ -872,14 +872,14 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of contact roles
 	 */
 	public java.util.List<ContactRole> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Removes all the contact roles from the database.

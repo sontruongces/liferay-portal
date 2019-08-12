@@ -91,14 +91,14 @@ public interface ProjectPersistence extends BasePersistence<Project> {
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching projects
 	 */
 	public java.util.List<Project> findByUuid(
 		String uuid, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Project>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Returns the first project in the ordered set where uuid = &#63;.
@@ -302,14 +302,14 @@ public interface ProjectPersistence extends BasePersistence<Project> {
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching projects
 	 */
 	public java.util.List<Project> findByUuid_C(
 		String uuid, long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Project>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Returns the first project in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -492,10 +492,11 @@ public interface ProjectPersistence extends BasePersistence<Project> {
 	 * Returns the project where projectKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param projectKey the project key
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching project, or <code>null</code> if a matching project could not be found
 	 */
-	public Project fetchByProjectKey(String projectKey, boolean useFinderCache);
+	public Project fetchByProjectKey(
+		String projectKey, boolean retrieveFromCache);
 
 	/**
 	 * Removes the project where projectKey = &#63; from the database.
@@ -566,14 +567,14 @@ public interface ProjectPersistence extends BasePersistence<Project> {
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching projects
 	 */
 	public java.util.List<Project> findByAccountId(
 		long accountId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Project>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Returns the first project in the ordered set where accountId = &#63;.
@@ -819,14 +820,14 @@ public interface ProjectPersistence extends BasePersistence<Project> {
 	 * @param start the lower bound of the range of projects
 	 * @param end the upper bound of the range of projects (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of projects
 	 */
 	public java.util.List<Project> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Project>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Removes all the projects from the database.

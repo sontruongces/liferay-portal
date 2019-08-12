@@ -153,14 +153,14 @@ public class TeamProjectRolePersistenceImpl
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team project roles
 	 */
 	@Override
 	public List<TeamProjectRole> findByTeamId(
 		long teamId, int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -170,20 +170,17 @@ public class TeamProjectRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByTeamId;
-				finderArgs = new Object[] {teamId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByTeamId;
+			finderArgs = new Object[] {teamId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByTeamId;
 			finderArgs = new Object[] {teamId, start, end, orderByComparator};
 		}
 
 		List<TeamProjectRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<TeamProjectRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -249,14 +246,10 @@ public class TeamProjectRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -668,14 +661,14 @@ public class TeamProjectRolePersistenceImpl
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team project roles
 	 */
 	@Override
 	public List<TeamProjectRole> findByProjectId(
 		long projectId, int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -685,13 +678,10 @@ public class TeamProjectRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByProjectId;
-				finderArgs = new Object[] {projectId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByProjectId;
+			finderArgs = new Object[] {projectId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByProjectId;
 			finderArgs = new Object[] {
 				projectId, start, end, orderByComparator
@@ -700,7 +690,7 @@ public class TeamProjectRolePersistenceImpl
 
 		List<TeamProjectRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<TeamProjectRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -766,14 +756,10 @@ public class TeamProjectRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -1188,14 +1174,14 @@ public class TeamProjectRolePersistenceImpl
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team project roles
 	 */
 	@Override
 	public List<TeamProjectRole> findByTeamRoleId(
 		long teamRoleId, int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1205,13 +1191,10 @@ public class TeamProjectRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByTeamRoleId;
-				finderArgs = new Object[] {teamRoleId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByTeamRoleId;
+			finderArgs = new Object[] {teamRoleId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByTeamRoleId;
 			finderArgs = new Object[] {
 				teamRoleId, start, end, orderByComparator
@@ -1220,7 +1203,7 @@ public class TeamProjectRolePersistenceImpl
 
 		List<TeamProjectRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<TeamProjectRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -1286,14 +1269,10 @@ public class TeamProjectRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -1712,14 +1691,14 @@ public class TeamProjectRolePersistenceImpl
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team project roles
 	 */
 	@Override
 	public List<TeamProjectRole> findByT_P(
 		long teamId, long projectId, int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1729,13 +1708,10 @@ public class TeamProjectRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByT_P;
-				finderArgs = new Object[] {teamId, projectId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByT_P;
+			finderArgs = new Object[] {teamId, projectId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByT_P;
 			finderArgs = new Object[] {
 				teamId, projectId, start, end, orderByComparator
@@ -1744,7 +1720,7 @@ public class TeamProjectRolePersistenceImpl
 
 		List<TeamProjectRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<TeamProjectRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -1816,14 +1792,10 @@ public class TeamProjectRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -2669,14 +2641,14 @@ public class TeamProjectRolePersistenceImpl
 	 * @param start the lower bound of the range of team project roles
 	 * @param end the upper bound of the range of team project roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of team project roles
 	 */
 	@Override
 	public List<TeamProjectRole> findAll(
 		int start, int end,
 		OrderByComparator<TeamProjectRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -2686,20 +2658,17 @@ public class TeamProjectRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindAll;
-				finderArgs = FINDER_ARGS_EMPTY;
-			}
+			finderPath = _finderPathWithoutPaginationFindAll;
+			finderArgs = FINDER_ARGS_EMPTY;
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<TeamProjectRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<TeamProjectRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 		}
@@ -2749,14 +2718,10 @@ public class TeamProjectRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}

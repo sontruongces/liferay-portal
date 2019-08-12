@@ -73,8 +73,9 @@ public interface ContactLocalService
 	public Contact addContact(Contact contact);
 
 	public Contact addContact(
-			long userId, String firstName, String middleName, String lastName,
-			String emailAddress, String languageId)
+			String uuid, long userId, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws PortalException;
 
 	/**
@@ -219,6 +220,12 @@ public interface ContactLocalService
 	public Contact getContactByEmailAddress(String emailAddress)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Contact getContactByOktaId(String oktaId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Contact getContactByUuid(String uuid) throws PortalException;
+
 	/**
 	 * Returns the contact with the matching UUID and company.
 	 *
@@ -294,8 +301,9 @@ public interface ContactLocalService
 	public Contact updateContact(Contact contact);
 
 	public Contact updateContact(
-			long contactId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			long contactId, String uuid, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws PortalException;
 
 }

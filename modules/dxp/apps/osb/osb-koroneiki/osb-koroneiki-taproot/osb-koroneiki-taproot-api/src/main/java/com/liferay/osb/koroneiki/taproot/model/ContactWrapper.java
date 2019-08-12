@@ -53,6 +53,7 @@ public class ContactWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("contactKey", getContactKey());
+		attributes.put("oktaId", getOktaId());
 		attributes.put("firstName", getFirstName());
 		attributes.put("middleName", getMiddleName());
 		attributes.put("lastName", getLastName());
@@ -104,6 +105,12 @@ public class ContactWrapper
 
 		if (contactKey != null) {
 			setContactKey(contactKey);
+		}
+
+		String oktaId = (String)attributes.get("oktaId");
+
+		if (oktaId != null) {
+			setOktaId(oktaId);
 		}
 
 		String firstName = (String)attributes.get("firstName");
@@ -257,6 +264,16 @@ public class ContactWrapper
 	}
 
 	/**
+	 * Returns the okta ID of this contact.
+	 *
+	 * @return the okta ID of this contact
+	 */
+	@Override
+	public String getOktaId() {
+		return model.getOktaId();
+	}
+
+	/**
 	 * Returns the primary key of this contact.
 	 *
 	 * @return the primary key of this contact
@@ -399,6 +416,16 @@ public class ContactWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the okta ID of this contact.
+	 *
+	 * @param oktaId the okta ID of this contact
+	 */
+	@Override
+	public void setOktaId(String oktaId) {
+		model.setOktaId(oktaId);
 	}
 
 	/**

@@ -51,14 +51,39 @@ public interface ContactResource {
 	public HttpInvoker.HttpResponse postContactHttpResponse(Contact contact)
 		throws Exception;
 
-	public void deleteContact(String contactKey) throws Exception;
+	public void deleteContactByOkta(String oktaId) throws Exception;
 
-	public HttpInvoker.HttpResponse deleteContactHttpResponse(String contactKey)
+	public HttpInvoker.HttpResponse deleteContactByOktaHttpResponse(
+			String oktaId)
 		throws Exception;
 
-	public Contact getContact(String contactKey) throws Exception;
+	public Contact getContactByOkta(String oktaId) throws Exception;
 
-	public HttpInvoker.HttpResponse getContactHttpResponse(String contactKey)
+	public HttpInvoker.HttpResponse getContactByOktaHttpResponse(String oktaId)
+		throws Exception;
+
+	public Contact putContactByOkta(String oktaId, Contact contact)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putContactByOktaHttpResponse(
+			String oktaId, Contact contact)
+		throws Exception;
+
+	public void deleteContactByUuid(String uuid) throws Exception;
+
+	public HttpInvoker.HttpResponse deleteContactByUuidHttpResponse(String uuid)
+		throws Exception;
+
+	public Contact getContactByUuid(String uuid) throws Exception;
+
+	public HttpInvoker.HttpResponse getContactByUuidHttpResponse(String uuid)
+		throws Exception;
+
+	public Contact putContactByUuid(String uuid, Contact contact)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putContactByUuidHttpResponse(
+			String uuid, Contact contact)
 		throws Exception;
 
 	public Page<Contact> getProjectProjectKeyContactsPage(
@@ -218,9 +243,9 @@ public interface ContactResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteContact(String contactKey) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = deleteContactHttpResponse(
-				contactKey);
+		public void deleteContactByOkta(String oktaId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse =
+				deleteContactByOktaHttpResponse(oktaId);
 
 			String content = httpResponse.getContent();
 
@@ -231,8 +256,8 @@ public interface ContactResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse deleteContactHttpResponse(
-				String contactKey)
+		public HttpInvoker.HttpResponse deleteContactByOktaHttpResponse(
+				String oktaId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -247,8 +272,8 @@ public interface ContactResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/{contactKey}",
-				contactKey);
+						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}",
+				oktaId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -256,9 +281,9 @@ public interface ContactResource {
 			return httpInvoker.invoke();
 		}
 
-		public Contact getContact(String contactKey) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getContactHttpResponse(
-				contactKey);
+		public Contact getContactByOkta(String oktaId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse =
+				getContactByOktaHttpResponse(oktaId);
 
 			String content = httpResponse.getContent();
 
@@ -280,8 +305,8 @@ public interface ContactResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getContactHttpResponse(
-				String contactKey)
+		public HttpInvoker.HttpResponse getContactByOktaHttpResponse(
+				String oktaId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -296,8 +321,201 @@ public interface ContactResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/{contactKey}",
-				contactKey);
+						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}",
+				oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Contact putContactByOkta(String oktaId, Contact contact)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putContactByOktaHttpResponse(oktaId, contact);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ContactSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse putContactByOktaHttpResponse(
+				String oktaId, Contact contact)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contact.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}",
+				oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteContactByUuid(String uuid) throws Exception {
+			HttpInvoker.HttpResponse httpResponse =
+				deleteContactByUuidHttpResponse(uuid);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse deleteContactByUuidHttpResponse(
+				String uuid)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}",
+				uuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Contact getContactByUuid(String uuid) throws Exception {
+			HttpInvoker.HttpResponse httpResponse =
+				getContactByUuidHttpResponse(uuid);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ContactSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse getContactByUuidHttpResponse(
+				String uuid)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}",
+				uuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Contact putContactByUuid(String uuid, Contact contact)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putContactByUuidHttpResponse(uuid, contact);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ContactSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse putContactByUuidHttpResponse(
+				String uuid, Contact contact)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contact.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}",
+				uuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

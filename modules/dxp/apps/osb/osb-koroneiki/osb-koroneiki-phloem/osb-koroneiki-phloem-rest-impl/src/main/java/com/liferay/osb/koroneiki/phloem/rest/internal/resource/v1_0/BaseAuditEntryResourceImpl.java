@@ -119,17 +119,38 @@ public abstract class BaseAuditEntryResourceImpl implements AuditEntryResource {
 	@Operation(description = "Retrieves the contact's audit history.")
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "contactKey"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/contacts/{contactKey}/audit-entries")
+	@Path("/contacts/by-okta-id/{oktaId}/audit-entries")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AuditEntry")})
-	public Page<AuditEntry> getContactContactKeyAuditEntriesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("contactKey") String
-				contactKey,
+	public Page<AuditEntry> getContactByOktaAuditEntriesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@GET
+	@Operation(description = "Retrieves the contact's audit history.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "uuid"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/contacts/by-uuid/{uuid}/audit-entries")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "AuditEntry")})
+	public Page<AuditEntry> getContactByUuidAuditEntriesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid,
 			@Context Pagination pagination)
 		throws Exception {
 

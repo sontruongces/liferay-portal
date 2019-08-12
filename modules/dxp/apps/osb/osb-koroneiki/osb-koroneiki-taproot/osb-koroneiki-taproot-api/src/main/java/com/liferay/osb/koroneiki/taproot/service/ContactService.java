@@ -52,13 +52,11 @@ public interface ContactService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link ContactServiceUtil} to access the contact remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public Contact addContact(
-			String firstName, String middleName, String lastName,
-			String emailAddress, String languageId)
+			String uuid, String oktaId, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId)
 		throws PortalException;
 
 	public Contact deleteContact(long contactId) throws PortalException;
-
-	public Contact deleteContact(String contactKey) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Contact> getAccountContacts(long accountId, int start, int end)
@@ -80,8 +78,10 @@ public interface ContactService extends BaseService {
 	public Contact getContact(long contactId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Contact getContactByContactKey(String contactKey)
-		throws PortalException;
+	public Contact getContactByOktaId(String oktaId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Contact getContactByUuid(String uuid) throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -107,8 +107,9 @@ public interface ContactService extends BaseService {
 		throws PortalException;
 
 	public Contact updateContact(
-			long contactId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			long contactId, String uuid, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws PortalException;
 
 }

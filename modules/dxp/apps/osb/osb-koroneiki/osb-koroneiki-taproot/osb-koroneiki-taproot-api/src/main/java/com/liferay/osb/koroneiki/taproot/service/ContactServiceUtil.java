@@ -40,12 +40,13 @@ public class ContactServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.Contact addContact(
-			String firstName, String middleName, String lastName,
-			String emailAddress, String languageId)
+			String uuid, String oktaId, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addContact(
-			firstName, middleName, lastName, emailAddress, languageId);
+			uuid, oktaId, firstName, middleName, lastName, emailAddress,
+			languageId);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact deleteContact(
@@ -53,13 +54,6 @@ public class ContactServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteContact(contactId);
-	}
-
-	public static com.liferay.osb.koroneiki.taproot.model.Contact deleteContact(
-			String contactKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().deleteContact(contactKey);
 	}
 
 	public static java.util.List
@@ -98,10 +92,17 @@ public class ContactServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact
-			getContactByContactKey(String contactKey)
+			getContactByOktaId(String oktaId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getContactByContactKey(contactKey);
+		return getService().getContactByOktaId(oktaId);
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.Contact
+			getContactByUuid(String uuid)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactByUuid(uuid);
 	}
 
 	/**
@@ -142,13 +143,14 @@ public class ContactServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
-			long contactId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			long contactId, String uuid, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateContact(
-			contactId, firstName, middleName, lastName, emailAddress,
-			languageId);
+			contactId, uuid, oktaId, firstName, middleName, lastName,
+			emailAddress, languageId);
 	}
 
 	public static ContactService getService() {

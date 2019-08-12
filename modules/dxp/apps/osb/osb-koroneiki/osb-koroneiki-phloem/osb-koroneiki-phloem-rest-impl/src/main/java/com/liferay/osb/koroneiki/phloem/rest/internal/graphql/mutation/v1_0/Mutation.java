@@ -250,15 +250,52 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean deleteContact(@GraphQLName("contactKey") String contactKey)
+	public boolean deleteContactByOkta(@GraphQLName("oktaId") String oktaId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			contactResource -> contactResource.deleteContact(contactKey));
+			contactResource -> contactResource.deleteContactByOkta(oktaId));
 
 		return true;
+	}
+
+	@GraphQLField
+	public Contact putContactByOkta(
+			@GraphQLName("oktaId") String oktaId,
+			@GraphQLName("contact") Contact contact)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactResource -> contactResource.putContactByOkta(
+				oktaId, contact));
+	}
+
+	@GraphQLField
+	public boolean deleteContactByUuid(@GraphQLName("uuid") String uuid)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_contactResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactResource -> contactResource.deleteContactByUuid(uuid));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Contact putContactByUuid(
+			@GraphQLName("uuid") String uuid,
+			@GraphQLName("contact") Contact contact)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactResource -> contactResource.putContactByUuid(uuid, contact));
 	}
 
 	@GraphQLField
@@ -315,8 +352,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postContactContactKeyExternalLink(
-			@GraphQLName("contactKey") String contactKey,
+	public ExternalLink postContactByOktaExternalLink(
+			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
 
@@ -324,8 +361,22 @@ public class Mutation {
 			_externalLinkResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			externalLinkResource ->
-				externalLinkResource.postContactContactKeyExternalLink(
-					contactKey, externalLink));
+				externalLinkResource.postContactByOktaExternalLink(
+					oktaId, externalLink));
+	}
+
+	@GraphQLField
+	public ExternalLink postContactByUuidExternalLink(
+			@GraphQLName("uuid") String uuid,
+			@GraphQLName("externalLink") ExternalLink externalLink)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_externalLinkResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			externalLinkResource ->
+				externalLinkResource.postContactByUuidExternalLink(
+					uuid, externalLink));
 	}
 
 	@GraphQLField

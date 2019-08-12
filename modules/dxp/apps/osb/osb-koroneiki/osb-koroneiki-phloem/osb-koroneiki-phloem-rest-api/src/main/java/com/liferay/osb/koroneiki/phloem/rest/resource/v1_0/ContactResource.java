@@ -43,9 +43,19 @@ public interface ContactResource {
 
 	public Contact postContact(Contact contact) throws Exception;
 
-	public void deleteContact(String contactKey) throws Exception;
+	public void deleteContactByOkta(String oktaId) throws Exception;
 
-	public Contact getContact(String contactKey) throws Exception;
+	public Contact getContactByOkta(String oktaId) throws Exception;
+
+	public Contact putContactByOkta(String oktaId, Contact contact)
+		throws Exception;
+
+	public void deleteContactByUuid(String uuid) throws Exception;
+
+	public Contact getContactByUuid(String uuid) throws Exception;
+
+	public Contact putContactByUuid(String uuid, Contact contact)
+		throws Exception;
 
 	public Page<Contact> getProjectProjectKeyContactsPage(
 			String projectKey, Pagination pagination)

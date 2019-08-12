@@ -103,17 +103,17 @@ public abstract class BaseExternalLinkResourceImpl
 	@Operation(description = "Retrieves the contact's external links.")
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "contactKey"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/contacts/{contactKey}/external-links")
+	@Path("/contacts/by-okta-id/{oktaId}/external-links")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
-	public Page<ExternalLink> getContactContactKeyExternalLinksPage(
-			@NotNull @Parameter(hidden = true) @PathParam("contactKey") String
-				contactKey,
+	public Page<ExternalLink> getContactByOktaExternalLinksPage(
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -124,15 +124,50 @@ public abstract class BaseExternalLinkResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@Operation(description = "Adds an external link to the contact.")
 	@POST
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactKey")}
-	)
-	@Path("/contacts/{contactKey}/external-links")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Path("/contacts/by-okta-id/{oktaId}/external-links")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
-	public ExternalLink postContactContactKeyExternalLink(
-			@NotNull @Parameter(hidden = true) @PathParam("contactKey") String
-				contactKey,
+	public ExternalLink postContactByOktaExternalLink(
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			ExternalLink externalLink)
+		throws Exception {
+
+		return new ExternalLink();
+	}
+
+	@Override
+	@GET
+	@Operation(description = "Retrieves the contact's external links.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "uuid"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/contacts/by-uuid/{uuid}/external-links")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ExternalLink")})
+	public Page<ExternalLink> getContactByUuidExternalLinksPage(
+			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@Operation(description = "Adds an external link to the contact.")
+	@POST
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "uuid")})
+	@Path("/contacts/by-uuid/{uuid}/external-links")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ExternalLink")})
+	public ExternalLink postContactByUuidExternalLink(
+			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid,
 			ExternalLink externalLink)
 		throws Exception {
 

@@ -441,26 +441,25 @@ public abstract class BaseAuditEntryResourceTestCase {
 	}
 
 	@Test
-	public void testGetContactContactKeyAuditEntriesPage() throws Exception {
+	public void testGetContactByOktaAuditEntriesPage() throws Exception {
 		Page<AuditEntry> page =
-			auditEntryResource.getContactContactKeyAuditEntriesPage(
-				testGetContactContactKeyAuditEntriesPage_getContactKey(),
+			auditEntryResource.getContactByOktaAuditEntriesPage(
+				testGetContactByOktaAuditEntriesPage_getOktaId(),
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		String contactKey =
-			testGetContactContactKeyAuditEntriesPage_getContactKey();
-		String irrelevantContactKey =
-			testGetContactContactKeyAuditEntriesPage_getIrrelevantContactKey();
+		String oktaId = testGetContactByOktaAuditEntriesPage_getOktaId();
+		String irrelevantOktaId =
+			testGetContactByOktaAuditEntriesPage_getIrrelevantOktaId();
 
-		if ((irrelevantContactKey != null)) {
+		if ((irrelevantOktaId != null)) {
 			AuditEntry irrelevantAuditEntry =
-				testGetContactContactKeyAuditEntriesPage_addAuditEntry(
-					irrelevantContactKey, randomIrrelevantAuditEntry());
+				testGetContactByOktaAuditEntriesPage_addAuditEntry(
+					irrelevantOktaId, randomIrrelevantAuditEntry());
 
-			page = auditEntryResource.getContactContactKeyAuditEntriesPage(
-				irrelevantContactKey, Pagination.of(1, 2));
+			page = auditEntryResource.getContactByOktaAuditEntriesPage(
+				irrelevantOktaId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -471,15 +470,15 @@ public abstract class BaseAuditEntryResourceTestCase {
 		}
 
 		AuditEntry auditEntry1 =
-			testGetContactContactKeyAuditEntriesPage_addAuditEntry(
-				contactKey, randomAuditEntry());
+			testGetContactByOktaAuditEntriesPage_addAuditEntry(
+				oktaId, randomAuditEntry());
 
 		AuditEntry auditEntry2 =
-			testGetContactContactKeyAuditEntriesPage_addAuditEntry(
-				contactKey, randomAuditEntry());
+			testGetContactByOktaAuditEntriesPage_addAuditEntry(
+				oktaId, randomAuditEntry());
 
-		page = auditEntryResource.getContactContactKeyAuditEntriesPage(
-			contactKey, Pagination.of(1, 2));
+		page = auditEntryResource.getContactByOktaAuditEntriesPage(
+			oktaId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -490,35 +489,34 @@ public abstract class BaseAuditEntryResourceTestCase {
 	}
 
 	@Test
-	public void testGetContactContactKeyAuditEntriesPageWithPagination()
+	public void testGetContactByOktaAuditEntriesPageWithPagination()
 		throws Exception {
 
-		String contactKey =
-			testGetContactContactKeyAuditEntriesPage_getContactKey();
+		String oktaId = testGetContactByOktaAuditEntriesPage_getOktaId();
 
 		AuditEntry auditEntry1 =
-			testGetContactContactKeyAuditEntriesPage_addAuditEntry(
-				contactKey, randomAuditEntry());
+			testGetContactByOktaAuditEntriesPage_addAuditEntry(
+				oktaId, randomAuditEntry());
 
 		AuditEntry auditEntry2 =
-			testGetContactContactKeyAuditEntriesPage_addAuditEntry(
-				contactKey, randomAuditEntry());
+			testGetContactByOktaAuditEntriesPage_addAuditEntry(
+				oktaId, randomAuditEntry());
 
 		AuditEntry auditEntry3 =
-			testGetContactContactKeyAuditEntriesPage_addAuditEntry(
-				contactKey, randomAuditEntry());
+			testGetContactByOktaAuditEntriesPage_addAuditEntry(
+				oktaId, randomAuditEntry());
 
 		Page<AuditEntry> page1 =
-			auditEntryResource.getContactContactKeyAuditEntriesPage(
-				contactKey, Pagination.of(1, 2));
+			auditEntryResource.getContactByOktaAuditEntriesPage(
+				oktaId, Pagination.of(1, 2));
 
 		List<AuditEntry> auditEntries1 = (List<AuditEntry>)page1.getItems();
 
 		Assert.assertEquals(auditEntries1.toString(), 2, auditEntries1.size());
 
 		Page<AuditEntry> page2 =
-			auditEntryResource.getContactContactKeyAuditEntriesPage(
-				contactKey, Pagination.of(2, 2));
+			auditEntryResource.getContactByOktaAuditEntriesPage(
+				oktaId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -527,31 +525,144 @@ public abstract class BaseAuditEntryResourceTestCase {
 		Assert.assertEquals(auditEntries2.toString(), 1, auditEntries2.size());
 
 		Page<AuditEntry> page3 =
-			auditEntryResource.getContactContactKeyAuditEntriesPage(
-				contactKey, Pagination.of(1, 3));
+			auditEntryResource.getContactByOktaAuditEntriesPage(
+				oktaId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(auditEntry1, auditEntry2, auditEntry3),
 			(List<AuditEntry>)page3.getItems());
 	}
 
-	protected AuditEntry testGetContactContactKeyAuditEntriesPage_addAuditEntry(
-			String contactKey, AuditEntry auditEntry)
+	protected AuditEntry testGetContactByOktaAuditEntriesPage_addAuditEntry(
+			String oktaId, AuditEntry auditEntry)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected String testGetContactContactKeyAuditEntriesPage_getContactKey()
+	protected String testGetContactByOktaAuditEntriesPage_getOktaId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected String
-			testGetContactContactKeyAuditEntriesPage_getIrrelevantContactKey()
+	protected String testGetContactByOktaAuditEntriesPage_getIrrelevantOktaId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testGetContactByUuidAuditEntriesPage() throws Exception {
+		Page<AuditEntry> page =
+			auditEntryResource.getContactByUuidAuditEntriesPage(
+				testGetContactByUuidAuditEntriesPage_getUuid(),
+				Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String uuid = testGetContactByUuidAuditEntriesPage_getUuid();
+		String irrelevantUuid =
+			testGetContactByUuidAuditEntriesPage_getIrrelevantUuid();
+
+		if ((irrelevantUuid != null)) {
+			AuditEntry irrelevantAuditEntry =
+				testGetContactByUuidAuditEntriesPage_addAuditEntry(
+					irrelevantUuid, randomIrrelevantAuditEntry());
+
+			page = auditEntryResource.getContactByUuidAuditEntriesPage(
+				irrelevantUuid, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantAuditEntry),
+				(List<AuditEntry>)page.getItems());
+			assertValid(page);
+		}
+
+		AuditEntry auditEntry1 =
+			testGetContactByUuidAuditEntriesPage_addAuditEntry(
+				uuid, randomAuditEntry());
+
+		AuditEntry auditEntry2 =
+			testGetContactByUuidAuditEntriesPage_addAuditEntry(
+				uuid, randomAuditEntry());
+
+		page = auditEntryResource.getContactByUuidAuditEntriesPage(
+			uuid, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(auditEntry1, auditEntry2),
+			(List<AuditEntry>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetContactByUuidAuditEntriesPageWithPagination()
+		throws Exception {
+
+		String uuid = testGetContactByUuidAuditEntriesPage_getUuid();
+
+		AuditEntry auditEntry1 =
+			testGetContactByUuidAuditEntriesPage_addAuditEntry(
+				uuid, randomAuditEntry());
+
+		AuditEntry auditEntry2 =
+			testGetContactByUuidAuditEntriesPage_addAuditEntry(
+				uuid, randomAuditEntry());
+
+		AuditEntry auditEntry3 =
+			testGetContactByUuidAuditEntriesPage_addAuditEntry(
+				uuid, randomAuditEntry());
+
+		Page<AuditEntry> page1 =
+			auditEntryResource.getContactByUuidAuditEntriesPage(
+				uuid, Pagination.of(1, 2));
+
+		List<AuditEntry> auditEntries1 = (List<AuditEntry>)page1.getItems();
+
+		Assert.assertEquals(auditEntries1.toString(), 2, auditEntries1.size());
+
+		Page<AuditEntry> page2 =
+			auditEntryResource.getContactByUuidAuditEntriesPage(
+				uuid, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<AuditEntry> auditEntries2 = (List<AuditEntry>)page2.getItems();
+
+		Assert.assertEquals(auditEntries2.toString(), 1, auditEntries2.size());
+
+		Page<AuditEntry> page3 =
+			auditEntryResource.getContactByUuidAuditEntriesPage(
+				uuid, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(auditEntry1, auditEntry2, auditEntry3),
+			(List<AuditEntry>)page3.getItems());
+	}
+
+	protected AuditEntry testGetContactByUuidAuditEntriesPage_addAuditEntry(
+			String uuid, AuditEntry auditEntry)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetContactByUuidAuditEntriesPage_getUuid()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetContactByUuidAuditEntriesPage_getIrrelevantUuid()
 		throws Exception {
 
 		return null;

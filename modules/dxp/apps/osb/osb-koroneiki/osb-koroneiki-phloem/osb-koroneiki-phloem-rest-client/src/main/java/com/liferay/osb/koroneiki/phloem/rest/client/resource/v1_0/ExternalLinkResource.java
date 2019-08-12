@@ -55,22 +55,38 @@ public interface ExternalLinkResource {
 				String accountKey, ExternalLink externalLink)
 		throws Exception;
 
-	public Page<ExternalLink> getContactContactKeyExternalLinksPage(
-			String contactKey, Pagination pagination)
+	public Page<ExternalLink> getContactByOktaExternalLinksPage(
+			String oktaId, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getContactContactKeyExternalLinksPageHttpResponse(
-				String contactKey, Pagination pagination)
+			getContactByOktaExternalLinksPageHttpResponse(
+				String oktaId, Pagination pagination)
 		throws Exception;
 
-	public ExternalLink postContactContactKeyExternalLink(
-			String contactKey, ExternalLink externalLink)
+	public ExternalLink postContactByOktaExternalLink(
+			String oktaId, ExternalLink externalLink)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse postContactByOktaExternalLinkHttpResponse(
+			String oktaId, ExternalLink externalLink)
+		throws Exception;
+
+	public Page<ExternalLink> getContactByUuidExternalLinksPage(
+			String uuid, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			postContactContactKeyExternalLinkHttpResponse(
-				String contactKey, ExternalLink externalLink)
+			getContactByUuidExternalLinksPageHttpResponse(
+				String uuid, Pagination pagination)
+		throws Exception;
+
+	public ExternalLink postContactByUuidExternalLink(
+			String uuid, ExternalLink externalLink)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse postContactByUuidExternalLinkHttpResponse(
+			String uuid, ExternalLink externalLink)
 		throws Exception;
 
 	public void deleteExternalLink(String externalLinkKey) throws Exception;
@@ -326,13 +342,13 @@ public interface ExternalLinkResource {
 			return httpInvoker.invoke();
 		}
 
-		public Page<ExternalLink> getContactContactKeyExternalLinksPage(
-				String contactKey, Pagination pagination)
+		public Page<ExternalLink> getContactByOktaExternalLinksPage(
+				String oktaId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getContactContactKeyExternalLinksPageHttpResponse(
-					contactKey, pagination);
+				getContactByOktaExternalLinksPageHttpResponse(
+					oktaId, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -346,8 +362,8 @@ public interface ExternalLinkResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getContactContactKeyExternalLinksPageHttpResponse(
-					String contactKey, Pagination pagination)
+				getContactByOktaExternalLinksPageHttpResponse(
+					String oktaId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -369,8 +385,8 @@ public interface ExternalLinkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/{contactKey}/external-links",
-				contactKey);
+						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/external-links",
+				oktaId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -378,13 +394,12 @@ public interface ExternalLinkResource {
 			return httpInvoker.invoke();
 		}
 
-		public ExternalLink postContactContactKeyExternalLink(
-				String contactKey, ExternalLink externalLink)
+		public ExternalLink postContactByOktaExternalLink(
+				String oktaId, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postContactContactKeyExternalLinkHttpResponse(
-					contactKey, externalLink);
+				postContactByOktaExternalLinkHttpResponse(oktaId, externalLink);
 
 			String content = httpResponse.getContent();
 
@@ -407,8 +422,8 @@ public interface ExternalLinkResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				postContactContactKeyExternalLinkHttpResponse(
-					String contactKey, ExternalLink externalLink)
+				postContactByOktaExternalLinkHttpResponse(
+					String oktaId, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -425,8 +440,114 @@ public interface ExternalLinkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/{contactKey}/external-links",
-				contactKey);
+						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/external-links",
+				oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ExternalLink> getContactByUuidExternalLinksPage(
+				String uuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getContactByUuidExternalLinksPageHttpResponse(uuid, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ExternalLinkSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getContactByUuidExternalLinksPageHttpResponse(
+					String uuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}/external-links",
+				uuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public ExternalLink postContactByUuidExternalLink(
+				String uuid, ExternalLink externalLink)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postContactByUuidExternalLinkHttpResponse(uuid, externalLink);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ExternalLinkSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse
+				postContactByUuidExternalLinkHttpResponse(
+					String uuid, ExternalLink externalLink)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(externalLink.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}/external-links",
+				uuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

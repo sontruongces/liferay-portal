@@ -156,14 +156,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findByContactId(
 		long contactId, int start, int end,
 		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -173,13 +173,10 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByContactId;
-				finderArgs = new Object[] {contactId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByContactId;
+			finderArgs = new Object[] {contactId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByContactId;
 			finderArgs = new Object[] {
 				contactId, start, end, orderByComparator
@@ -188,7 +185,7 @@ public class ContactAccountRolePersistenceImpl
 
 		List<ContactAccountRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -254,14 +251,10 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -680,14 +673,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findByAccountId(
 		long accountId, int start, int end,
 		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -697,13 +690,10 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByAccountId;
-				finderArgs = new Object[] {accountId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByAccountId;
+			finderArgs = new Object[] {accountId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByAccountId;
 			finderArgs = new Object[] {
 				accountId, start, end, orderByComparator
@@ -712,7 +702,7 @@ public class ContactAccountRolePersistenceImpl
 
 		List<ContactAccountRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -778,14 +768,10 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -1205,14 +1191,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findByContactRoleId(
 		long contactRoleId, int start, int end,
 		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1222,13 +1208,10 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByContactRoleId;
-				finderArgs = new Object[] {contactRoleId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByContactRoleId;
+			finderArgs = new Object[] {contactRoleId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByContactRoleId;
 			finderArgs = new Object[] {
 				contactRoleId, start, end, orderByComparator
@@ -1237,7 +1220,7 @@ public class ContactAccountRolePersistenceImpl
 
 		List<ContactAccountRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -1305,14 +1288,10 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -1738,14 +1717,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findByC_A(
 		long contactId, long accountId, int start, int end,
 		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1755,13 +1734,10 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByC_A;
-				finderArgs = new Object[] {contactId, accountId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByC_A;
+			finderArgs = new Object[] {contactId, accountId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByC_A;
 			finderArgs = new Object[] {
 				contactId, accountId, start, end, orderByComparator
@@ -1770,7 +1746,7 @@ public class ContactAccountRolePersistenceImpl
 
 		List<ContactAccountRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -1842,14 +1818,10 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -2715,14 +2687,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findAll(
 		int start, int end,
 		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -2732,20 +2704,17 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindAll;
-				finderArgs = FINDER_ARGS_EMPTY;
-			}
+			finderPath = _finderPathWithoutPaginationFindAll;
+			finderArgs = FINDER_ARGS_EMPTY;
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<ContactAccountRole> list = null;
 
-		if (useFinderCache) {
+		if (retrieveFromCache) {
 			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 		}
@@ -2795,14 +2764,10 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}

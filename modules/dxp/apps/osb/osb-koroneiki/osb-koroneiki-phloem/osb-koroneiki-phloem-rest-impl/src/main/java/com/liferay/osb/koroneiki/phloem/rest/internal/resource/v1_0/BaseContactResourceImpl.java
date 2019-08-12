@@ -42,6 +42,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -93,30 +94,82 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 
 	@Override
 	@DELETE
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactKey")}
-	)
-	@Path("/contacts/{contactKey}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Path("/contacts/by-okta-id/{oktaId}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
-	public void deleteContact(
-			@NotNull @Parameter(hidden = true) @PathParam("contactKey") String
-				contactKey)
+	public void deleteContactByOkta(
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId)
 		throws Exception {
 	}
 
 	@Override
 	@GET
 	@Operation(description = "Retrieves the contact.")
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactKey")}
-	)
-	@Path("/contacts/{contactKey}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Path("/contacts/by-okta-id/{oktaId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
-	public Contact getContact(
-			@NotNull @Parameter(hidden = true) @PathParam("contactKey") String
-				contactKey)
+	public Contact getContactByOkta(
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId)
+		throws Exception {
+
+		return new Contact();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Path("/contacts/by-okta-id/{oktaId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Contact")})
+	public Contact putContactByOkta(
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			Contact contact)
+		throws Exception {
+
+		return new Contact();
+	}
+
+	@Override
+	@DELETE
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "uuid")})
+	@Path("/contacts/by-uuid/{uuid}")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Contact")})
+	public void deleteContactByUuid(
+			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid)
+		throws Exception {
+	}
+
+	@Override
+	@GET
+	@Operation(description = "Retrieves the contact.")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "uuid")})
+	@Path("/contacts/by-uuid/{uuid}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Contact")})
+	public Contact getContactByUuid(
+			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid)
+		throws Exception {
+
+		return new Contact();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "uuid")})
+	@Path("/contacts/by-uuid/{uuid}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Contact")})
+	public Contact putContactByUuid(
+			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid,
+			Contact contact)
 		throws Exception {
 
 		return new Contact();
