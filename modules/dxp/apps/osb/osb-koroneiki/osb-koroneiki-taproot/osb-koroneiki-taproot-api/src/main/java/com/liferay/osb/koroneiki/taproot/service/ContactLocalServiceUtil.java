@@ -205,6 +205,13 @@ public class ContactLocalServiceUtil {
 		return getService().fetchContact(contactId);
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.Contact
+			fetchContactByUuid(String uuid)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().fetchContactByUuid(uuid);
+	}
+
 	/**
 	 * Returns the contact with the matching UUID and company.
 	 *

@@ -208,6 +208,14 @@ public class ContactLocalServiceWrapper
 		return _contactLocalService.fetchContact(contactId);
 	}
 
+	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Contact fetchContactByUuid(
+			String uuid)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactLocalService.fetchContactByUuid(uuid);
+	}
+
 	/**
 	 * Returns the contact with the matching UUID and company.
 	 *
