@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -108,6 +109,60 @@ public class ContactResourceImpl extends BaseContactResourceImpl {
 				contact.getUuid(), contact.getOktaId(), contact.getFirstName(),
 				contact.getMiddleName(), contact.getLastName(),
 				contact.getEmailAddress(), contact.getLanguageId()),
+			null);
+	}
+
+	@Override
+	public Contact putContactByOkta(String oktaId, Contact contact)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
+			_contactLocalService.getContactByOktaId(oktaId);
+
+		String middleName = contact.getMiddleName();
+
+		if (Validator.isNull(middleName)) {
+			middleName = curContact.getMiddleName();
+		}
+
+		String languageId = contact.getLanguageId();
+
+		if (Validator.isNull(languageId)) {
+			languageId = curContact.getLanguageId();
+		}
+
+		return ContactUtil.toContact(
+			_contactService.updateContact(
+				curContact.getContactId(), curContact.getUuid(),
+				curContact.getOktaId(), contact.getFirstName(), middleName,
+				contact.getLastName(), contact.getEmailAddress(), languageId),
+			null);
+	}
+
+	@Override
+	public Contact putContactByUuid(String uuid, Contact contact)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
+			_contactLocalService.getContactByUuid(uuid);
+
+		String middleName = contact.getMiddleName();
+
+		if (Validator.isNull(middleName)) {
+			middleName = curContact.getMiddleName();
+		}
+
+		String languageId = contact.getLanguageId();
+
+		if (Validator.isNull(languageId)) {
+			languageId = curContact.getLanguageId();
+		}
+
+		return ContactUtil.toContact(
+			_contactService.updateContact(
+				curContact.getContactId(), curContact.getUuid(),
+				curContact.getOktaId(), contact.getFirstName(), middleName,
+				contact.getLastName(), contact.getEmailAddress(), languageId),
 			null);
 	}
 

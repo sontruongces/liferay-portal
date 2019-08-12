@@ -1441,6 +1441,34 @@ paths:
                                 $ref: "#/components/schemas/Contact"
                     description: ""
             tags: ["Contact"]
+        put:
+            operationId: putContactByOkta
+            parameters:
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Contact"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Contact"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Contact"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Contact"
+                    description: ""
+            tags: ["Contact"]
     "/contacts/by-okta-id/{oktaId}/audit-entries":
         get:
             description: Retrieves the contact's audit history.
@@ -1560,6 +1588,34 @@ paths:
                   required: true
                   schema:
                       type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Contact"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Contact"
+                    description: ""
+            tags: ["Contact"]
+        put:
+            operationId: putContactByUuid
+            parameters:
+                - in: path
+                  name: uuid
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Contact"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Contact"
+                required: true
             responses:
                 200:
                     content:
