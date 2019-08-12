@@ -44,6 +44,8 @@ public class ContactUtil {
 				key = contact.getContactKey();
 				languageId = contact.getLanguageId();
 				lastName = contact.getLastName();
+				oktaId = contact.getOktaId();
+				uuid = contact.getUuid();
 
 				setContactRoles(
 					() -> {

@@ -55,6 +55,7 @@
 		<!-- Other fields -->
 
 		<column name="contactKey" type="String" />
+		<column name="oktaId" type="String" />
 		<column name="firstName" type="String" />
 		<column name="middleName" type="String" />
 		<column name="lastName" type="String" />
@@ -65,6 +66,9 @@
 
 		<finder name="ContactKey" return-type="Contact" unique="true">
 			<finder-column name="contactKey" />
+		</finder>
+		<finder name="OktaId" return-type="Contact">
+			<finder-column name="oktaId" />
 		</finder>
 		<finder name="EmailAddress" return-type="Contact">
 			<finder-column name="emailAddress" />

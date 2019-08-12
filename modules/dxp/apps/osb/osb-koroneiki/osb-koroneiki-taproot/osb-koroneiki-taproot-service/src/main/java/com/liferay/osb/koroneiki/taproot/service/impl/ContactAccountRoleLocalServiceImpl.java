@@ -95,6 +95,12 @@ public class ContactAccountRoleLocalServiceImpl
 		return contactAccountRolePersistence.findByC_A(contactId, accountId);
 	}
 
+	public List<ContactAccountRole> getContactAccountRolesByAccountId(
+		long accountId) {
+
+		return contactAccountRolePersistence.findByAccountId(accountId);
+	}
+
 	protected void validate(long contactId, long accountId)
 		throws PortalException {
 

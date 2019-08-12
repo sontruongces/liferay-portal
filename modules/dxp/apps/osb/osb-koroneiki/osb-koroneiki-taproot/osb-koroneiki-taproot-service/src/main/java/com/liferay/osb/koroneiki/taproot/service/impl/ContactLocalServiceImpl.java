@@ -41,8 +41,9 @@ import org.osgi.service.component.annotations.Reference;
 public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 	public Contact addContact(
-			long userId, String firstName, String middleName, String lastName,
-			String emailAddress, String languageId)
+			String uuid, long userId, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -53,9 +54,11 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 		Contact contact = contactPersistence.create(contactId);
 
+		contact.setUuid(uuid);
 		contact.setCompanyId(user.getCompanyId());
 		contact.setUserId(userId);
 		contact.setContactKey(ModelKeyGenerator.generate(contactId));
+		contact.setOktaId(oktaId);
 		contact.setFirstName(firstName);
 		contact.setMiddleName(middleName);
 		contact.setLastName(lastName);
@@ -140,6 +143,14 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		return contactPersistence.findByEmailAddress(emailAddress);
 	}
 
+	public Contact getContactByOktaId(String oktaId) throws PortalException {
+		return contactPersistence.findByOktaId(oktaId);
+	}
+
+	public Contact getContactByUuid(String uuid) throws PortalException {
+		return contactPersistence.findByUuid_First(uuid, null);
+	}
+
 	public List<Contact> getProjectContacts(
 		long projectId, int start, int end) {
 
@@ -177,14 +188,17 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 	}
 
 	public Contact updateContact(
-			long contactId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			long contactId, String uuid, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws PortalException {
 
 		validate(contactId, emailAddress);
 
 		Contact contact = contactPersistence.findByPrimaryKey(contactId);
 
+		contact.setUuid(uuid);
+		contact.setOktaId(oktaId);
 		contact.setFirstName(firstName);
 		contact.setMiddleName(middleName);
 		contact.setLastName(lastName);

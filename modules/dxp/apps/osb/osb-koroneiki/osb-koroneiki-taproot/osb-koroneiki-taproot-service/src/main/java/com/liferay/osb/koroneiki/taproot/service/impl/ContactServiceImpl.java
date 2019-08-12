@@ -46,16 +46,16 @@ import org.osgi.service.component.annotations.Reference;
 public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 	public Contact addContact(
-			String firstName, String middleName, String lastName,
-			String emailAddress, String languageId)
+			String uuid, String oktaId, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId)
 		throws PortalException {
 
 		_contactPermission.check(
 			getPermissionChecker(), TaprootActionKeys.ADD_CONTACT);
 
 		return contactLocalService.addContact(
-			getUserId(), firstName, middleName, lastName, emailAddress,
-			languageId);
+			uuid, getUserId(), oktaId, firstName, middleName, lastName,
+			emailAddress, languageId);
 	}
 
 	public Contact deleteContact(long contactId) throws PortalException {
@@ -63,16 +63,6 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 			getPermissionChecker(), contactId, ActionKeys.DELETE);
 
 		return contactLocalService.deleteContact(contactId);
-	}
-
-	public Contact deleteContact(String contactKey) throws PortalException {
-		Contact contact = contactLocalService.getContactByContactKey(
-			contactKey);
-
-		_contactPermission.check(
-			getPermissionChecker(), contact, ActionKeys.DELETE);
-
-		return contactLocalService.deleteContact(contact);
 	}
 
 	public List<Contact> getAccountContacts(long accountId, int start, int end)
@@ -123,11 +113,17 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 		return contactLocalService.getContact(contactId);
 	}
 
-	public Contact getContactByContactKey(String contactKey)
-		throws PortalException {
+	public Contact getContactByOktaId(String oktaId) throws PortalException {
+		Contact contact = contactLocalService.getContactByOktaId(oktaId);
 
-		Contact contact = contactLocalService.getContactByContactKey(
-			contactKey);
+		_contactPermission.check(
+			getPermissionChecker(), contact, ActionKeys.VIEW);
+
+		return contact;
+	}
+
+	public Contact getContactByUuid(String uuid) throws PortalException {
+		Contact contact = contactLocalService.getContactByUuid(uuid);
 
 		_contactPermission.check(
 			getPermissionChecker(), contact, ActionKeys.VIEW);
@@ -177,16 +173,17 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 	}
 
 	public Contact updateContact(
-			long contactId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			long contactId, String uuid, String oktaId, String firstName,
+			String middleName, String lastName, String emailAddress,
+			String languageId)
 		throws PortalException {
 
 		_contactPermission.check(
 			getPermissionChecker(), contactId, ActionKeys.UPDATE);
 
 		return contactLocalService.updateContact(
-			contactId, firstName, middleName, lastName, emailAddress,
-			languageId);
+			contactId, uuid, oktaId, firstName, middleName, lastName,
+			emailAddress, languageId);
 	}
 
 	@Reference

@@ -88,6 +88,8 @@ public class EditContactMVCActionCommand extends BaseMVCActionCommand {
 
 		long contactId = ParamUtil.getLong(actionRequest, "contactId");
 
+		String uuid = ParamUtil.getString(actionRequest, "uuid");
+		String oktaId = ParamUtil.getString(actionRequest, "oktaId");
 		String firstName = ParamUtil.getString(actionRequest, "firstName");
 		String middleName = ParamUtil.getString(actionRequest, "middleName");
 		String lastName = ParamUtil.getString(actionRequest, "lastName");
@@ -97,12 +99,13 @@ public class EditContactMVCActionCommand extends BaseMVCActionCommand {
 
 		if (contactId <= 0) {
 			_contactService.addContact(
-				firstName, middleName, lastName, emailAddress, languageId);
+				uuid, oktaId, firstName, middleName, lastName, emailAddress,
+				languageId);
 		}
 		else {
 			_contactService.updateContact(
-				contactId, firstName, middleName, lastName, emailAddress,
-				languageId);
+				contactId, uuid, oktaId, firstName, middleName, lastName,
+				emailAddress, languageId);
 		}
 	}
 

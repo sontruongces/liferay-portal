@@ -41,6 +41,10 @@ long contactId = BeanParamUtil.getLong(koroneikiContact, request, "contactId");
 				<aui:input label="key" name="key" type="resource" value="<%= koroneikiContact.getContactKey() %>" />
 			</c:if>
 
+			<aui:input name="uuid" />
+
+			<aui:input name="oktaId" />
+
 			<aui:input name="firstName" />
 
 			<aui:input name="middleName" />

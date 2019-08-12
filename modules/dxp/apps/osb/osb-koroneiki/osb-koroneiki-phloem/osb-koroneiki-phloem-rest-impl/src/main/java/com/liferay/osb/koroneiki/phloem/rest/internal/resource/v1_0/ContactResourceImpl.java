@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -38,8 +39,19 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class ContactResourceImpl extends BaseContactResourceImpl {
 
 	@Override
-	public void deleteContact(String contactKey) throws Exception {
-		_contactService.deleteContact(contactKey);
+	public void deleteContactByOkta(String oktaId) throws Exception {
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.getContactByOktaId(oktaId);
+
+		_contactService.deleteContact(contact.getContactId());
+	}
+
+	@Override
+	public void deleteContactByUuid(String uuid) throws Exception {
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.getContactByUuid(uuid);
+
+		_contactService.deleteContact(contact.getContactId());
 	}
 
 	@Override
@@ -64,9 +76,15 @@ public class ContactResourceImpl extends BaseContactResourceImpl {
 	}
 
 	@Override
-	public Contact getContact(String contactKey) throws Exception {
+	public Contact getContactByOkta(String oktaId) throws Exception {
 		return ContactUtil.toContact(
-			_contactService.getContactByContactKey(contactKey), null);
+			_contactService.getContactByOktaId(oktaId), null);
+	}
+
+	@Override
+	public Contact getContactByUuid(String uuid) throws Exception {
+		return ContactUtil.toContact(
+			_contactService.getContactByUuid(uuid), null);
 	}
 
 	@Override
@@ -87,11 +105,14 @@ public class ContactResourceImpl extends BaseContactResourceImpl {
 	public Contact postContact(Contact contact) throws Exception {
 		return ContactUtil.toContact(
 			_contactService.addContact(
-				contact.getFirstName(), contact.getMiddleName(),
-				contact.getLastName(), contact.getEmailAddress(),
-				contact.getLanguageId()),
+				contact.getUuid(), contact.getOktaId(), contact.getFirstName(),
+				contact.getMiddleName(), contact.getLastName(),
+				contact.getEmailAddress(), contact.getLanguageId()),
 			null);
 	}
+
+	@Reference
+	private ContactLocalService _contactLocalService;
 
 	@Reference
 	private ContactService _contactService;

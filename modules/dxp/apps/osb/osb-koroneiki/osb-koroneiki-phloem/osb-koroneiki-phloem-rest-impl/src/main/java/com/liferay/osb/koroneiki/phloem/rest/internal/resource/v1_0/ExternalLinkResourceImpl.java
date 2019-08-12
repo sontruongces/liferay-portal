@@ -68,12 +68,22 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 	}
 
 	@Override
-	public Page<ExternalLink> getContactContactKeyExternalLinksPage(
-			String contactKey, Pagination pagination)
+	public Page<ExternalLink> getContactByOktaExternalLinksPage(
+			String oktaId, Pagination pagination)
 		throws Exception {
 
-		Contact contact = _contactLocalService.getContactByContactKey(
-			contactKey);
+		Contact contact = _contactLocalService.getContactByOktaId(oktaId);
+
+		return getExternalLinksPage(
+			Contact.class, contact.getContactId(), pagination);
+	}
+
+	@Override
+	public Page<ExternalLink> getContactByUuidExternalLinksPage(
+			String uuid, Pagination pagination)
+		throws Exception {
+
+		Contact contact = _contactLocalService.getContactByUuid(uuid);
 
 		return getExternalLinksPage(
 			Contact.class, contact.getContactId(), pagination);
@@ -161,12 +171,22 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 	}
 
 	@Override
-	public ExternalLink postContactContactKeyExternalLink(
-			String contactKey, ExternalLink externalLink)
+	public ExternalLink postContactByOktaExternalLink(
+			String oktaId, ExternalLink externalLink)
 		throws Exception {
 
-		Contact contact = _contactLocalService.getContactByContactKey(
-			contactKey);
+		Contact contact = _contactLocalService.getContactByOktaId(oktaId);
+
+		return postExternalLink(
+			Contact.class, contact.getContactId(), externalLink);
+	}
+
+	@Override
+	public ExternalLink postContactByUuidExternalLink(
+			String uuid, ExternalLink externalLink)
+		throws Exception {
+
+		Contact contact = _contactLocalService.getContactByUuid(uuid);
 
 		return postExternalLink(
 			Contact.class, contact.getContactId(), externalLink);

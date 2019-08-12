@@ -34,7 +34,19 @@ public class AccountEntityModel implements EntityModel {
 	public AccountEntityModel() {
 		_entityFieldsMap = Stream.of(
 			new CollectionEntityField(
-				new StringEntityField("contactKeys", locale -> "contactKeys")),
+				new StringEntityField(
+					"contactOktaIdContactRoleKeys",
+					locale -> "contactOktaIdContactRoleKeys")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"contactOktaIds", locale -> "contactOktaIds")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"contactUuidContactRoleKeys",
+					locale -> "contactUuidContactRoleKeys")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"contactUuids", locale -> "contactUuids")),
 			new StringEntityField("name", locale -> "name"),
 			new CollectionEntityField(
 				new StringEntityField(
