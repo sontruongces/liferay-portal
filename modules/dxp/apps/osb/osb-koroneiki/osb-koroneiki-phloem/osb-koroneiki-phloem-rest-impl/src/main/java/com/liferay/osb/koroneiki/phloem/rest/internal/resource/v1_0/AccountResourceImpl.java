@@ -120,6 +120,15 @@ public class AccountResourceImpl
 	}
 
 	@Override
+	public Page<Account> getAccountByExternalLinkDomainEntityNameEntity(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception {
+
+		return getAccountsPage(domain, entityName, entityId, pagination);
+	}
+
+	@Override
 	public Page<Account> getAccountsPage(
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
@@ -251,6 +260,22 @@ public class AccountResourceImpl
 			_teamAccountRoleService.addTeamAccountRole(
 				teamKey, accountKey, teamRoleKey);
 		}
+	}
+
+	protected Page<Account> getAccountsPage(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_accountService.getAccounts(
+					domain, entityName, entityId, pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				account -> AccountUtil.toAccount(
+					account, contextAcceptLanguage.getPreferredLocale(), null)),
+			pagination,
+			_accountService.getAccountsCount(domain, entityName, entityId));
 	}
 
 	private static final EntityModel _entityModel = new AccountEntityModel();

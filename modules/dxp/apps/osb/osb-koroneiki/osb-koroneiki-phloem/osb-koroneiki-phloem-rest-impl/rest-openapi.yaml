@@ -551,6 +551,49 @@ paths:
                                 $ref: "#/components/schemas/Account"
                     description: ""
             tags: ["Account"]
+    "/accounts/by-external-link/{domain}/{entityName}/{entityId}":
+        get:
+            description: Retrieves the account by the external link.
+            operationId: getAccountByExternalLinkDomainEntityNameEntity
+            parameters:
+                - in: path
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Account"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Account"
+                                type: array
+                    description: ""
+            tags: ["Account"]
     "/accounts/{accountKey}":
         delete:
             operationId: deleteAccount

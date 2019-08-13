@@ -14,14 +14,18 @@
 
 package com.liferay.osb.koroneiki.taproot.service.impl;
 
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.taproot.service.base.AccountServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -104,6 +108,51 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 		return accountLocalService.getAccountsCount(parentAccountId);
 	}
 
+	public List<Account> getAccounts(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException {
+
+		List<Account> accounts = new ArrayList<>();
+
+		long classNameId = classNameLocalService.getClassNameId(Account.class);
+
+		List<ExternalLink> externalLinks =
+			_externalLinkLocalService.getExternalLinks(
+				domain, entityName, entityId, start, end);
+
+		for (ExternalLink externalLink : externalLinks) {
+			if (classNameId != externalLink.getClassNameId()) {
+				continue;
+			}
+
+			try {
+				Account account = accountPersistence.findByPrimaryKey(
+					externalLink.getClassPK());
+
+				_accountPermission.check(
+					getPermissionChecker(), account, ActionKeys.VIEW);
+
+				accounts.add(account);
+			}
+			catch (Exception e) {
+				continue;
+			}
+		}
+
+		return accounts;
+	}
+
+	public int getAccountsCount(
+			String domain, String entityName, String entityId)
+		throws PortalException {
+
+		List<Account> accounts = getAccounts(
+			domain, entityName, entityId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		return accounts.size();
+	}
+
 	public Account updateAccount(
 			long accountId, long parentAccountId, String name, String code,
 			String description, String notes, long logoId,
@@ -143,5 +192,8 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 
 	@Reference
 	private AccountPermission _accountPermission;
+
+	@Reference
+	private ExternalLinkLocalService _externalLinkLocalService;
 
 }

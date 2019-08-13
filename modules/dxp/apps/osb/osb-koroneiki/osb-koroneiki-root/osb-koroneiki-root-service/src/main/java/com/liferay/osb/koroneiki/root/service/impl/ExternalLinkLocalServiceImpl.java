@@ -100,6 +100,15 @@ public class ExternalLinkLocalServiceImpl
 			end);
 	}
 
+	public List<ExternalLink> getExternalLinks(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException {
+
+		return externalLinkPersistence.findByD_EN_EI(
+			domain, entityName, entityId, start, end);
+	}
+
 	public int getExternalLinksCount(long classNameId, long classPK) {
 		return externalLinkPersistence.countByC_C(classNameId, classPK);
 	}
