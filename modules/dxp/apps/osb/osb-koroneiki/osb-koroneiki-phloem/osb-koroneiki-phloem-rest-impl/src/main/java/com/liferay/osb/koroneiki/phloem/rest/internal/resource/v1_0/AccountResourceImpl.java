@@ -21,11 +21,12 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
 import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
-import com.liferay.osb.koroneiki.taproot.service.ProjectService;
+import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -79,12 +80,43 @@ public class AccountResourceImpl
 	}
 
 	@Override
+	public void deleteAccountTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception {
+
+		for (String teamRoleKey : teamRoleKeys) {
+			_teamAccountRoleService.deleteTeamAccountRole(
+				teamKey, accountKey, teamRoleKey);
+		}
+	}
+
+	@Override
 	public Account getAccount(String accountKey, String[] includes)
 		throws Exception {
 
 		return AccountUtil.toAccount(
 			_accountService.getAccount(accountKey),
 			contextAcceptLanguage.getPreferredLocale(), includes);
+	}
+
+	@Override
+	public Page<Account> getAccountChildAccountsPage(
+			String accountKey, String[] includes, Pagination pagination)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Account curAccount =
+			_accountLocalService.getAccount(accountKey);
+
+		return Page.of(
+			transform(
+				_accountService.getAccounts(
+					curAccount.getAccountId(), pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				account -> AccountUtil.toAccount(
+					account, contextAcceptLanguage.getPreferredLocale(),
+					includes)),
+			pagination,
+			_accountService.getAccountsCount(curAccount.getAccountId()));
 	}
 
 	@Override
@@ -115,16 +147,48 @@ public class AccountResourceImpl
 
 	@Override
 	public Account postAccount(Account account) throws Exception {
+		Account.Industry accountIndustry = account.getIndustry();
+		Account.Tier accountTier = account.getTier();
+
 		Account.Status accountStatus = account.getStatus();
 
 		int status = WorkflowConstants.getLabelStatus(accountStatus.toString());
 
 		return AccountUtil.toAccount(
 			_accountService.addAccount(
-				account.getName(), account.getDescription(), 0,
+				0, account.getName(), account.getCode(),
+				account.getDescription(), account.getNotes(), 0,
 				account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(), status),
+				account.getFaxNumber(), account.getWebsite(),
+				accountIndustry.toString(), accountTier.toString(),
+				account.getSoldBy(), status),
+			contextAcceptLanguage.getPreferredLocale(), null);
+	}
+
+	@Override
+	public Account postAccountChildAccount(String accountKey, Account account)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Account parentAccount =
+			_accountLocalService.getAccount(accountKey);
+
+		Account.Industry accountIndustry = account.getIndustry();
+		Account.Tier accountTier = account.getTier();
+
+		Account.Status accountStatus = account.getStatus();
+
+		int status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+
+		return AccountUtil.toAccount(
+			_accountService.addAccount(
+				parentAccount.getAccountId(), account.getName(),
+				account.getCode(), account.getDescription(), account.getNotes(),
+				0, account.getContactEmailAddress(),
+				account.getProfileEmailAddress(), account.getPhoneNumber(),
+				account.getFaxNumber(), account.getWebsite(),
+				accountIndustry.toString(), accountTier.toString(),
+				account.getSoldBy(), status),
 			contextAcceptLanguage.getPreferredLocale(), null);
 	}
 
@@ -132,16 +196,25 @@ public class AccountResourceImpl
 	public Account putAccount(String accountKey, Account account)
 		throws Exception {
 
+		com.liferay.osb.koroneiki.taproot.model.Account curAccount =
+			_accountLocalService.getAccount(accountKey);
+
+		Account.Industry accountIndustry = account.getIndustry();
+		Account.Tier accountTier = account.getTier();
+
 		Account.Status accountStatus = account.getStatus();
 
 		int status = WorkflowConstants.getLabelStatus(accountStatus.toString());
 
 		return AccountUtil.toAccount(
 			_accountService.updateAccount(
-				accountKey, account.getName(), account.getDescription(), 0,
-				account.getContactEmailAddress(),
+				accountKey, curAccount.getParentAccountId(), account.getName(),
+				account.getCode(), account.getDescription(), account.getNotes(),
+				0, account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(), status),
+				account.getFaxNumber(), account.getWebsite(),
+				accountIndustry.toString(), accountTier.toString(),
+				account.getSoldBy(), status),
 			contextAcceptLanguage.getPreferredLocale(), null);
 	}
 
@@ -169,7 +242,21 @@ public class AccountResourceImpl
 		}
 	}
 
+	@Override
+	public void putAccountTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception {
+
+		for (String teamRoleKey : teamRoleKeys) {
+			_teamAccountRoleService.addTeamAccountRole(
+				teamKey, accountKey, teamRoleKey);
+		}
+	}
+
 	private static final EntityModel _entityModel = new AccountEntityModel();
+
+	@Reference
+	private AccountLocalService _accountLocalService;
 
 	@Reference
 	private AccountService _accountService;
@@ -184,6 +271,6 @@ public class AccountResourceImpl
 	private ContactService _contactService;
 
 	@Reference
-	private ProjectService _projectService;
+	private TeamAccountRoleService _teamAccountRoleService;
 
 }

@@ -42,6 +42,7 @@ public class AccountUtil {
 					address -> PostalAddressUtil.toPostalAddress(
 						address, locale),
 					PostalAddress.class);
+				code = account.getCode();
 				contactEmailAddress = account.getContactEmailAddress();
 				dateCreated = account.getCreateDate();
 				dateModified = account.getModifiedDate();
@@ -50,11 +51,15 @@ public class AccountUtil {
 					account.getExternalLinks(),
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);
 				faxNumber = account.getFaxNumber();
+				industry = Industry.create(account.getIndustry());
 				key = account.getAccountKey();
 				name = account.getName();
+				notes = account.getNotes();
 				phoneNumber = account.getPhoneNumber();
 				profileEmailAddress = account.getProfileEmailAddress();
+				soldBy = account.getSoldBy();
 				status = Status.create(account.getStatusLabel());
+				tier = Tier.create(account.getTier());
 				website = account.getWebsite();
 
 				setProductPurchases(

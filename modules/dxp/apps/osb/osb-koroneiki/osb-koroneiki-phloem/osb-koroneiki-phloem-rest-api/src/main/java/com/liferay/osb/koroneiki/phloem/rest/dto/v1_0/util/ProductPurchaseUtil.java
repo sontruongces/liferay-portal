@@ -40,7 +40,6 @@ public class ProductPurchaseUtil {
 				product = ProductUtil.toProduct(
 					productPurchase.getProductEntry());
 				productKey = productPurchase.getProductEntryKey();
-				projectKey = productPurchase.getProjectKey();
 				properties = productPurchase.getProductFieldsMap();
 				quantity = productPurchase.getQuantity();
 				startDate = productPurchase.getStartDate();

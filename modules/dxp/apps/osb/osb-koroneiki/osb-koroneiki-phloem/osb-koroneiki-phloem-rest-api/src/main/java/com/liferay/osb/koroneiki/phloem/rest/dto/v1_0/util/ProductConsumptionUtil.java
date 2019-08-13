@@ -37,7 +37,6 @@ public class ProductConsumptionUtil {
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);
 				key = productConsumption.getProductConsumptionKey();
 				productKey = productConsumption.getProductEntryKey();
-				projectKey = productConsumption.getProjectKey();
 				properties = productConsumption.getProductFieldsMap();
 			}
 		};

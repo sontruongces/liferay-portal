@@ -17,8 +17,6 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
-import com.liferay.osb.koroneiki.taproot.model.Project;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
@@ -75,22 +73,6 @@ public class ProductPurchaseResourceImpl
 	}
 
 	@Override
-	public Page<ProductPurchase> getProjectProjectKeyProductPurchasesPage(
-			String projectKey, Pagination pagination)
-		throws Exception {
-
-		return Page.of(
-			transform(
-				_productPurchaseService.getProjectProductPurchases(
-					projectKey, pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				ProductPurchaseUtil::toProductPurchase),
-			pagination,
-			_productPurchaseService.getProjectProductPurchasesCount(
-				projectKey));
-	}
-
-	@Override
 	public ProductPurchase postAccountAccountKeyProductPurchase(
 			String accountKey, ProductPurchase productPurchase)
 		throws Exception {
@@ -102,28 +84,9 @@ public class ProductPurchaseResourceImpl
 
 		return ProductPurchaseUtil.toProductPurchase(
 			_productPurchaseService.addProductPurchase(
-				accountKey, null, productPurchase.getProductKey(),
+				accountKey, productPurchase.getProductKey(),
 				productPurchase.getStartDate(), productPurchase.getEndDate(),
 				quantity, productFields));
-	}
-
-	@Override
-	public ProductPurchase postProjectProjectKeyProductPurchase(
-			String projectKey, ProductPurchase productPurchase)
-		throws Exception {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		int quantity = getQuantity(productPurchase.getQuantity());
-
-		List<ProductField> productFields = getProductFields(
-			productPurchase.getProperties());
-
-		return ProductPurchaseUtil.toProductPurchase(
-			_productPurchaseService.addProductPurchase(
-				project.getAccountKey(), projectKey,
-				productPurchase.getProductKey(), productPurchase.getStartDate(),
-				productPurchase.getEndDate(), quantity, productFields));
 	}
 
 	@Override
@@ -177,8 +140,5 @@ public class ProductPurchaseResourceImpl
 
 	@Reference
 	private ProductPurchaseService _productPurchaseService;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
 
 }

@@ -21,13 +21,11 @@ import com.liferay.osb.koroneiki.root.service.AuditEntryService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
-import com.liferay.osb.koroneiki.taproot.model.Project;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalService;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
@@ -99,17 +97,6 @@ public class AuditEntryResourceImpl extends BaseAuditEntryResourceImpl {
 	}
 
 	@Override
-	public Page<AuditEntry> getProjectProjectKeyAuditEntriesPage(
-			String projectKey, Pagination pagination)
-		throws Exception {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		return getAuditEntriesPage(
-			Project.class, project.getProjectId(), pagination);
-	}
-
-	@Override
 	public Page<AuditEntry> getTeamRoleTeamRoleKeyAuditEntriesPage(
 			String teamRoleKey, Pagination pagination)
 		throws Exception {
@@ -160,9 +147,6 @@ public class AuditEntryResourceImpl extends BaseAuditEntryResourceImpl {
 
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
 
 	@Reference
 	private TeamLocalService _teamLocalService;

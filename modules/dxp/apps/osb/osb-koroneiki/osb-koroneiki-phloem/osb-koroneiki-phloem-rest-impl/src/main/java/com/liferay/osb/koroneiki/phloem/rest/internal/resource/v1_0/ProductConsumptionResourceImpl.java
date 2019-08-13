@@ -17,8 +17,6 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductConsumptionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
-import com.liferay.osb.koroneiki.taproot.model.Project;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionService;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
@@ -78,22 +76,6 @@ public class ProductConsumptionResourceImpl
 	}
 
 	@Override
-	public Page<ProductConsumption> getProjectProjectKeyProductConsumptionsPage(
-			String projectKey, Pagination pagination)
-		throws Exception {
-
-		return Page.of(
-			transform(
-				_productConsumptionService.getAccountProductConsumptions(
-					projectKey, pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				ProductConsumptionUtil::toProductConsumption),
-			pagination,
-			_productConsumptionService.getAccountProductConsumptionsCount(
-				projectKey));
-	}
-
-	@Override
 	public ProductConsumption postAccountAccountKeyProductConsumption(
 			String accountKey, ProductConsumption productConsumption)
 		throws Exception {
@@ -103,24 +85,7 @@ public class ProductConsumptionResourceImpl
 
 		return ProductConsumptionUtil.toProductConsumption(
 			_productConsumptionService.addProductConsumption(
-				accountKey, null, productConsumption.getProductKey(),
-				productFields));
-	}
-
-	@Override
-	public ProductConsumption postProjectProjectKeyProductConsumption(
-			String projectKey, ProductConsumption productConsumption)
-		throws Exception {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		List<ProductField> productFields = getProductFields(
-			productConsumption.getProperties());
-
-		return ProductConsumptionUtil.toProductConsumption(
-			_productConsumptionService.addProductConsumption(
-				project.getAccountKey(), projectKey,
-				productConsumption.getProductKey(), productFields));
+				accountKey, productConsumption.getProductKey(), productFields));
 	}
 
 	protected List<ProductField> getProductFields(
@@ -150,8 +115,5 @@ public class ProductConsumptionResourceImpl
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
 
 }

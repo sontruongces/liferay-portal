@@ -9,6 +9,9 @@ components:
                         $ref: "#/components/schemas/PostalAddress"
                     readOnly: true
                     type: array
+                code:
+                    description: The code of the account.
+                    type: string
                 contactEmailAddress:
                     description: The account's contact email address.
                     type: string
@@ -34,12 +37,23 @@ components:
                 faxNumber:
                     description: The account's fax number.
                     type: string
+                industry:
+                    description: The industry of the account.
+                    enum: ["aerospace-and-defense", "agriculture", "automotive", "consulting-market-research", "education", "energy", "engineering", "financial-services", "food-services", "government-federal", "government-state-local", "healthcare", "hospitality-leisure", "insurance", "manufacturing", "media-entertainment", "not-for-profit-ngo", "other", "pharmaceuticals", "professional-services-agency-business", "professional-services-technical-web-it", "retail-consumer-products", "technology", "telecommunication", "transportation", "utilities"]
+                    type: string
                 key:
                     description: The account's key.
                     readOnly: true
                     type: string
                 name:
                     description: The name of the account.
+                    type: string
+                notes:
+                    description: The notes of the account.
+                    type: string
+                parentAccountKey:
+                    description: The account's parent account key.
+                    readOnly: true
                     type: string
                 phoneNumber:
                     description: The account's phone number.
@@ -53,9 +67,16 @@ components:
                 profileEmailAddress:
                     description: The account's profile email address.
                     type: string
+                soldBy:
+                    description: The region which sold the salesforce opportunity.
+                    type: string
                 status:
                     description: The status of the account.
                     enum: ["approved", "closed", "expired", "inactive", "pending", "pending-validation", "rejected"]
+                    type: string
+                tier:
+                    description: The tier of the account.
+                    enum: ["oem", "premier", "regular", "strategic"]
                     type: string
                 website:
                     description: The account's website.
@@ -213,7 +234,7 @@ components:
                     type: boolean
                 type:
                     description: The contact role's type.
-                    enum: ["account", "project", "team"]
+                    enum: ["account", "team"]
                     type: string
             required:
                 - name
@@ -340,10 +361,6 @@ components:
                 productKey:
                     description: The key of the product being consumed.
                     type: string
-                projectKey:
-                    description: The key of the project consuming the product.
-                    readOnly: true
-                    type: string
                 properties:
                     additionalProperties:
                         type: string
@@ -387,10 +404,6 @@ components:
                 productKey:
                     description: The key of the product being purchased.
                     type: string
-                projectKey:
-                    description: The key of the project purchasing the product.
-                    readOnly: true
-                    type: string
                 properties:
                     additionalProperties:
                         type: string
@@ -405,67 +418,6 @@ components:
                     type: string
             required:
                 - productKey
-            type: object
-        Project:
-            description: Represents a project.
-            properties:
-                accountKey:
-                    description: The project's account's key.
-                    readOnly: true
-                    type: string
-                code:
-                    description: The code of the project.
-                    type: string
-                dateCreated:
-                    description: The project's creation date.
-                    format: date-time
-                    readOnly: true
-                    type: string
-                dateModified:
-                    description: The most recent time that any of the project's fields changed.
-                    format: date-time
-                    readOnly: true
-                    type: string
-                externalLinks:
-                    description: The account's links to entities in external domains.
-                    items:
-                        $ref: "#/components/schemas/ExternalLink"
-                    readOnly: true
-                    type: array
-                industry:
-                    description: The industry of the project.
-                    enum: ["aerospace-and-defense", "agriculture", "automotive", "consulting-market-research", "education", "energy", "engineering", "financial-services", "food-services", "government-federal", "government-state-local", "healthcare", "hospitality-leisure", "insurance", "manufacturing", "media-entertainment", "not-for-profit-ngo", "other", "pharmaceuticals", "professional-services-agency-business", "professional-services-technical-web-it", "retail-consumer-products", "technology", "telecommunication", "transportation", "utilities"]
-                    type: string
-                key:
-                    description: The project's key.
-                    readOnly: true
-                    type: string
-                name:
-                    description: The name of the project.
-                    type: string
-                notes:
-                    description: The notes of the project.
-                    type: string
-                productPurchases:
-                    description: The products that the project has purchased.
-                    items:
-                        $ref: "#/components/schemas/ProductPurchase"
-                    readOnly: true
-                    type: array
-                soldBy:
-                    description: The region which sold the salesforce opportunity.
-                    type: string
-                status:
-                    description: The status of the project.
-                    enum: ["approved", "closed", "expired", "inactive", "pending", "pending-validation", "rejected"]
-                    type: string
-                tier:
-                    description: The tier of the project.
-                    enum: ["oem", "premier", "regular", "strategic"]
-                    type: string
-            required:
-                - name
-                - status
             type: object
         Team:
             description: Represents a team.
@@ -525,7 +477,7 @@ components:
                     type: string
                 type:
                     description: The team role's type.
-                    enum: ["project", "regular"]
+                    enum: ["account", "regular"]
                     type: string
             required:
                 - name
@@ -701,6 +653,73 @@ paths:
                                 type: array
                     description: ""
             tags: ["AuditEntry"]
+    "/accounts/{accountKey}/child-accounts":
+        get:
+            description: Retrieves the account's child accounts.
+            operationId: getAccountChildAccountsPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: includes
+                  schema:
+                      items:
+                          type: string
+                      type: array
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Account"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Account"
+                                type: array
+                    description: ""
+            tags: ["Account"]
+        post:
+            operationId: postAccountChildAccount
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Account"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Account"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Account"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Account"
+                    description: ""
+            tags: ["Account"]
     "/accounts/{accountKey}/contacts":
         delete:
             description: Unassigns contacts from the account.
@@ -1076,73 +1095,6 @@ paths:
                                 $ref: "#/components/schemas/ProductPurchase"
                     description: ""
             tags: ["ProductPurchase"]
-    "/accounts/{accountKey}/projects":
-        get:
-            description: Retrieves the account's projects.
-            operationId: getAccountAccountKeyProjectsPage
-            parameters:
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: includes
-                  schema:
-                      items:
-                          type: string
-                      type: array
-                - in: query
-                  name: page
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Project"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Project"
-                                type: array
-                    description: ""
-            tags: ["Project"]
-        post:
-            operationId: postAccountAccountKeyProject
-            parameters:
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/Project"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/Project"
-                required: true
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Project"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Project"
-                    description: ""
-            tags: ["Project"]
     "/accounts/{accountKey}/teams":
         get:
             description: Retrieves the account's teams.
@@ -1204,6 +1156,61 @@ paths:
                                 $ref: "#/components/schemas/Team"
                     description: ""
             tags: ["Team"]
+    "/accounts/{accountKey}/teams/{teamKey}/roles":
+        delete:
+            description: Unassigns roles from the team for the account.
+            operationId: deleteAccountTeamTeamKeyRole
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: teamRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Account"]
+        put:
+            description: Assigns roles to the team for the account.
+            operationId: putAccountTeamTeamKeyRole
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: teamRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Account"]
     "/audit-entries/{auditEntryKey}":
         get:
             description: Retrieves the audit entry.
@@ -2219,519 +2226,6 @@ paths:
                                 $ref: "#/components/schemas/ExternalLink"
                     description: ""
             tags: ["ExternalLink"]
-    "/projects":
-        get:
-            description: Retrieves the projects. Results can be paginated, filtered, searched, and sorted.
-            operationId: getProjectsPage
-            parameters:
-                - in: query
-                  name: filter
-                  schema:
-                      type: string
-                - in: query
-                  name: page
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  schema:
-                      type: integer
-                - in: query
-                  name: search
-                  schema:
-                      type: string
-                - in: query
-                  name: sort
-                  schema:
-                      type: string
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Project"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Project"
-                                type: array
-                    description: ""
-            tags: ["Project"]
-    "/projects/{projectKey}":
-        delete:
-            operationId: deleteProject
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                    description: ""
-            tags: ["Project"]
-        get:
-            description: Retrieves the project.
-            operationId: getProject
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: includes
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Project"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Project"
-                    description: ""
-            tags: ["Project"]
-        put:
-            operationId: putProject
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/Project"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/Project"
-                required: true
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Project"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Project"
-                    description: ""
-            tags: ["Project"]
-    "/projects/{projectKey}/audit-entries":
-        get:
-            description: Retrieves the project's audit history.
-            operationId: getProjectProjectKeyAuditEntriesPage
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: page
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/AuditEntry"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/AuditEntry"
-                                type: array
-                    description: ""
-            tags: ["AuditEntry"]
-    "/projects/{projectKey}/contacts":
-        delete:
-            description: Unassigns contacts from the project.
-            operationId: deleteProjectContact
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: contactKeys
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                    description: ""
-            tags: ["Project"]
-        get:
-            description: Retrieves the project's contacts.
-            operationId: getProjectProjectKeyContactsPage
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: page
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Contact"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Contact"
-                                type: array
-                    description: ""
-            tags: ["Contact"]
-        put:
-            description: Assigns contacts to the project.
-            operationId: putProjectContact
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: contactKeys
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                    description: ""
-            tags: ["Project"]
-    "/projects/{projectKey}/contacts/{contactKey}/roles":
-        delete:
-            description: Unassigns roles from the contact for the project.
-            operationId: deleteProjectContactContactKeyRole
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: path
-                  name: contactKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: contactRoleKeys
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                    description: ""
-            tags: ["Project"]
-        put:
-            description: Assigns roles to the contact for the project.
-            operationId: putProjectContactContactKeyRole
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: path
-                  name: contactKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: contactRoleKeys
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                    description: ""
-            tags: ["Project"]
-    "/projects/{projectKey}/external-links":
-        get:
-            description: Retrieves the project's external links.
-            operationId: getProjectProjectKeyExternalLinksPage
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: page
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ExternalLink"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ExternalLink"
-                                type: array
-                    description: ""
-            tags: ["ExternalLink"]
-        post:
-            description: Adds an external link to the project.
-            operationId: postProjectProjectKeyExternalLink
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/ExternalLink"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/ExternalLink"
-                required: true
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/ExternalLink"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/ExternalLink"
-                    description: ""
-            tags: ["ExternalLink"]
-    "/projects/{projectKey}/product-consumptions":
-        get:
-            description: Retrieves the project's product consumptions.
-            operationId: getProjectProjectKeyProductConsumptionsPage
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: page
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductConsumption"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductConsumption"
-                                type: array
-                    description: ""
-            tags: ["ProductConsumption"]
-        post:
-            operationId: postProjectProjectKeyProductConsumption
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/ProductConsumption"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/ProductConsumption"
-                required: true
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/ProductConsumption"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/ProductConsumption"
-                    description: ""
-            tags: ["ProductConsumption"]
-    "/projects/{projectKey}/product-purchases":
-        get:
-            description: Retrieves the project's product purchases.
-            operationId: getProjectProjectKeyProductPurchasesPage
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: page
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductPurchase"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductPurchase"
-                                type: array
-                    description: ""
-            tags: ["ProductPurchase"]
-        post:
-            operationId: postProjectProjectKeyProductPurchase
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/ProductPurchase"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/ProductPurchase"
-                required: true
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/ProductPurchase"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/ProductPurchase"
-                    description: ""
-            tags: ["ProductPurchase"]
-    "/projects/{projectKey}/teams/{teamKey}/roles":
-        delete:
-            description: Unassigns roles from the team for the project.
-            operationId: deleteProjectTeamTeamKeyRole
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: path
-                  name: teamKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: teamRoleKeys
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                    description: ""
-            tags: ["Project"]
-        put:
-            description: Assigns roles to the team for the project.
-            operationId: putProjectTeamTeamKeyRole
-            parameters:
-                - in: path
-                  name: projectKey
-                  required: true
-                  schema:
-                      type: string
-                - in: path
-                  name: teamKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: teamRoleKeys
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                    description: ""
-            tags: ["Project"]
     "/team-roles":
         post:
             operationId: postTeamRole

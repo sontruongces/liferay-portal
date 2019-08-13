@@ -89,20 +89,6 @@ public class ContactResourceImpl extends BaseContactResourceImpl {
 	}
 
 	@Override
-	public Page<Contact> getProjectProjectKeyContactsPage(
-			String projectKey, Pagination pagination)
-		throws Exception {
-
-		return Page.of(
-			transform(
-				_contactService.getProjectContacts(
-					projectKey, pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				contact -> ContactUtil.toContact(contact, null)),
-			pagination, _contactService.getProjectContactsCount(projectKey));
-	}
-
-	@Override
 	public Contact postContact(Contact contact) throws Exception {
 		return ContactUtil.toContact(
 			_contactService.addContact(

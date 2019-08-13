@@ -20,12 +20,10 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
-import com.liferay.osb.koroneiki.taproot.model.Project;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
@@ -139,17 +137,6 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 	}
 
 	@Override
-	public Page<ExternalLink> getProjectProjectKeyExternalLinksPage(
-			String projectKey, Pagination pagination)
-		throws Exception {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		return getExternalLinksPage(
-			Project.class, project.getProjectId(), pagination);
-	}
-
-	@Override
 	public Page<ExternalLink> getTeamTeamKeyExternalLinksPage(
 			String teamKey, Pagination pagination)
 		throws Exception {
@@ -232,17 +219,6 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 	}
 
 	@Override
-	public ExternalLink postProjectProjectKeyExternalLink(
-			String projectKey, ExternalLink externalLink)
-		throws Exception {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		return postExternalLink(
-			Project.class, project.getProjectId(), externalLink);
-	}
-
-	@Override
 	public ExternalLink postTeamTeamKeyExternalLink(
 			String teamKey, ExternalLink externalLink)
 		throws Exception {
@@ -302,9 +278,6 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Reference
 	private ProductPurchaseLocalService _productPurchaseLocalService;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
 
 	@Reference
 	private TeamLocalService _teamLocalService;
