@@ -45,12 +45,24 @@ public interface AccountResource {
 
 	public Account postAccount(Account account) throws Exception;
 
+	public Page<Account> getAccountByExternalLinkDomainEntityNameEntity(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception;
+
 	public void deleteAccount(String accountKey) throws Exception;
 
 	public Account getAccount(String accountKey, String[] includes)
 		throws Exception;
 
 	public Account putAccount(String accountKey, Account account)
+		throws Exception;
+
+	public Page<Account> getAccountChildAccountsPage(
+			String accountKey, String[] includes, Pagination pagination)
+		throws Exception;
+
+	public Account postAccountChildAccount(String accountKey, Account account)
 		throws Exception;
 
 	public void deleteAccountContact(String accountKey, String[] contactUuids)
@@ -65,13 +77,6 @@ public interface AccountResource {
 
 	public void putAccountContactContactUuidRole(
 			String accountKey, String contactUuid, String[] contactRoleKeys)
-		throws Exception;
-
-	public Page<Account> getAccountChildAccountsPage(
-			String accountKey, String[] includes, Pagination pagination)
-		throws Exception;
-
-	public Account postAccountChildAccount(String accountKey, Account account)
 		throws Exception;
 
 	public void deleteAccountTeamTeamKeyRole(

@@ -167,6 +167,19 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Account postAccountChildAccount(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("account") Account account)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.postAccountChildAccount(
+				accountKey, account));
+	}
+
+	@GraphQLField
 	public boolean deleteAccountContact(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuids") String[] contactUuids)
@@ -227,19 +240,6 @@ public class Mutation {
 				accountKey, contactUuid, contactRoleKeys));
 
 		return true;
-	}
-
-	@GraphQLField
-	public Account postAccountChildAccount(
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("account") Account account)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.postAccountChildAccount(
-				accountKey, account));
 	}
 
 	@GraphQLField

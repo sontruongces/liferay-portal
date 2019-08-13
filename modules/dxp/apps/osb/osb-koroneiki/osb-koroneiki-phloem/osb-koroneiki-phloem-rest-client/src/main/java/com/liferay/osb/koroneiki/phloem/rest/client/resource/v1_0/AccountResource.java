@@ -52,6 +52,17 @@ public interface AccountResource {
 	public HttpInvoker.HttpResponse postAccountHttpResponse(Account account)
 		throws Exception;
 
+	public Page<Account> getAccountByExternalLinkDomainEntityNameEntity(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountByExternalLinkDomainEntityNameEntityHttpResponse(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+		throws Exception;
+
 	public void deleteAccount(String accountKey) throws Exception;
 
 	public HttpInvoker.HttpResponse deleteAccountHttpResponse(String accountKey)
@@ -68,6 +79,21 @@ public interface AccountResource {
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putAccountHttpResponse(
+			String accountKey, Account account)
+		throws Exception;
+
+	public Page<Account> getAccountChildAccountsPage(
+			String accountKey, String[] includes, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getAccountChildAccountsPageHttpResponse(
+			String accountKey, String[] includes, Pagination pagination)
+		throws Exception;
+
+	public Account postAccountChildAccount(String accountKey, Account account)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse postAccountChildAccountHttpResponse(
 			String accountKey, Account account)
 		throws Exception;
 
@@ -101,21 +127,6 @@ public interface AccountResource {
 	public HttpInvoker.HttpResponse
 			putAccountContactContactUuidRoleHttpResponse(
 				String accountKey, String contactUuid, String[] contactRoleKeys)
-		throws Exception;
-
-	public Page<Account> getAccountChildAccountsPage(
-			String accountKey, String[] includes, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse getAccountChildAccountsPageHttpResponse(
-			String accountKey, String[] includes, Pagination pagination)
-		throws Exception;
-
-	public Account postAccountChildAccount(String accountKey, Account account)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse postAccountChildAccountHttpResponse(
-			String accountKey, Account account)
 		throws Exception;
 
 	public void deleteAccountTeamTeamKeyRole(
@@ -285,6 +296,60 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
+		public Page<Account> getAccountByExternalLinkDomainEntityNameEntity(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountByExternalLinkDomainEntityNameEntityHttpResponse(
+					domain, entityName, entityId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, AccountSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountByExternalLinkDomainEntityNameEntityHttpResponse(
+					String domain, String entityName, String entityId,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/by-external-link/{domain}/{entityName}/{entityId}",
+				domain, entityName, entityId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public void deleteAccount(String accountKey) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = deleteAccountHttpResponse(
 				accountKey);
@@ -426,6 +491,118 @@ public interface AccountResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Account> getAccountChildAccountsPage(
+				String accountKey, String[] includes, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountChildAccountsPageHttpResponse(
+					accountKey, includes, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, AccountSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse getAccountChildAccountsPageHttpResponse(
+				String accountKey, String[] includes, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (includes != null) {
+				for (int i = 0; i < includes.length; i++) {
+					httpInvoker.parameter(
+						"includes", String.valueOf(includes[i]));
+				}
+			}
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Account postAccountChildAccount(
+				String accountKey, Account account)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postAccountChildAccountHttpResponse(accountKey, account);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return AccountSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse postAccountChildAccountHttpResponse(
+				String accountKey, Account account)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(account.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts",
 				accountKey);
 
 			httpInvoker.userNameAndPassword(
@@ -628,118 +805,6 @@ public interface AccountResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/{contactUuid}/roles",
 				accountKey, contactUuid);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<Account> getAccountChildAccountsPage(
-				String accountKey, String[] includes, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getAccountChildAccountsPageHttpResponse(
-					accountKey, includes, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			return Page.of(content, AccountSerDes::toDTO);
-		}
-
-		public HttpInvoker.HttpResponse getAccountChildAccountsPageHttpResponse(
-				String accountKey, String[] includes, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (includes != null) {
-				for (int i = 0; i < includes.length; i++) {
-					httpInvoker.parameter(
-						"includes", String.valueOf(includes[i]));
-				}
-			}
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts",
-				accountKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Account postAccountChildAccount(
-				String accountKey, Account account)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postAccountChildAccountHttpResponse(accountKey, account);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return AccountSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw e;
-			}
-		}
-
-		public HttpInvoker.HttpResponse postAccountChildAccountHttpResponse(
-				String accountKey, Account account)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(account.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts",
-				accountKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

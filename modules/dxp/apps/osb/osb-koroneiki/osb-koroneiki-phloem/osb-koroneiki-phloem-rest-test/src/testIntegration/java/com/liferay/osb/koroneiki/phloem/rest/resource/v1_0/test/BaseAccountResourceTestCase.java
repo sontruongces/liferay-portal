@@ -408,6 +408,176 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
+	public void testGetAccountByExternalLinkDomainEntityNameEntity()
+		throws Exception {
+
+		Page<Account> page =
+			accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+				testGetAccountByExternalLinkDomainEntityNameEntity_getDomain(),
+				testGetAccountByExternalLinkDomainEntityNameEntity_getEntityName(),
+				testGetAccountByExternalLinkDomainEntityNameEntity_getEntityId(),
+				Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String domain =
+			testGetAccountByExternalLinkDomainEntityNameEntity_getDomain();
+		String irrelevantDomain =
+			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantDomain();
+		String entityName =
+			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityName();
+		String irrelevantEntityName =
+			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName();
+		String entityId =
+			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityId();
+		String irrelevantEntityId =
+			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId();
+
+		if ((irrelevantDomain != null) && (irrelevantEntityName != null) &&
+			(irrelevantEntityId != null)) {
+
+			Account irrelevantAccount =
+				testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+					irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
+					randomIrrelevantAccount());
+
+			page =
+				accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+					irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
+					Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantAccount),
+				(List<Account>)page.getItems());
+			assertValid(page);
+		}
+
+		Account account1 =
+			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+				domain, entityName, entityId, randomAccount());
+
+		Account account2 =
+			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+				domain, entityName, entityId, randomAccount());
+
+		page = accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+			domain, entityName, entityId, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(account1, account2), (List<Account>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetAccountByExternalLinkDomainEntityNameEntityWithPagination()
+		throws Exception {
+
+		String domain =
+			testGetAccountByExternalLinkDomainEntityNameEntity_getDomain();
+		String entityName =
+			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityName();
+		String entityId =
+			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityId();
+
+		Account account1 =
+			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+				domain, entityName, entityId, randomAccount());
+
+		Account account2 =
+			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+				domain, entityName, entityId, randomAccount());
+
+		Account account3 =
+			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+				domain, entityName, entityId, randomAccount());
+
+		Page<Account> page1 =
+			accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+				domain, entityName, entityId, Pagination.of(1, 2));
+
+		List<Account> accounts1 = (List<Account>)page1.getItems();
+
+		Assert.assertEquals(accounts1.toString(), 2, accounts1.size());
+
+		Page<Account> page2 =
+			accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+				domain, entityName, entityId, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Account> accounts2 = (List<Account>)page2.getItems();
+
+		Assert.assertEquals(accounts2.toString(), 1, accounts2.size());
+
+		Page<Account> page3 =
+			accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+				domain, entityName, entityId, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(account1, account2, account3),
+			(List<Account>)page3.getItems());
+	}
+
+	protected Account
+			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+				String domain, String entityName, String entityId,
+				Account account)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountByExternalLinkDomainEntityNameEntity_getDomain()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantDomain()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityName()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
 	public void testDeleteAccount() throws Exception {
 		Assert.assertTrue(true);
 	}
@@ -419,26 +589,6 @@ public abstract class BaseAccountResourceTestCase {
 
 	@Test
 	public void testPutAccount() throws Exception {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testDeleteAccountContact() throws Exception {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testPutAccountContact() throws Exception {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testDeleteAccountContactContactUuidRole() throws Exception {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testPutAccountContactContactUuidRole() throws Exception {
 		Assert.assertTrue(true);
 	}
 
@@ -562,6 +712,26 @@ public abstract class BaseAccountResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testDeleteAccountContact() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPutAccountContact() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testDeleteAccountContactContactUuidRole() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPutAccountContactContactUuidRole() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	@Test

@@ -164,6 +164,24 @@ public class Query {
 	}
 
 	@GraphQLField
+	public AccountPage getAccountByExternalLinkDomainEntityNameEntity(
+			@GraphQLName("domain") String domain,
+			@GraphQLName("entityName") String entityName,
+			@GraphQLName("entityId") String entityId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> new AccountPage(
+				accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+					domain, entityName, entityId,
+					Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
 	public Account getAccount(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("includes") String[] includes)

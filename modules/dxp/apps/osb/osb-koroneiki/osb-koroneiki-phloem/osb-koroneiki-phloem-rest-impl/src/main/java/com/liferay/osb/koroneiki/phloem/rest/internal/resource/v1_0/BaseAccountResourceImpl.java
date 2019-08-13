@@ -97,6 +97,34 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	}
 
 	@Override
+	@GET
+	@Operation(description = "Retrieves the account by the external link.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "domain"),
+			@Parameter(in = ParameterIn.PATH, name = "entityName"),
+			@Parameter(in = ParameterIn.PATH, name = "entityId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/by-external-link/{domain}/{entityName}/{entityId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Page<Account> getAccountByExternalLinkDomainEntityNameEntity(
+			@NotNull @Parameter(hidden = true) @PathParam("domain") String
+				domain,
+			@NotNull @Parameter(hidden = true) @PathParam("entityName") String
+				entityName,
+			@NotNull @Parameter(hidden = true) @PathParam("entityId") String
+				entityId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
 	@DELETE
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
@@ -141,6 +169,48 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public Account putAccount(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			Account account)
+		throws Exception {
+
+		return new Account();
+	}
+
+	@Override
+	@GET
+	@Operation(description = "Retrieves the account's child accounts.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "includes"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/child-accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Page<Account> getAccountChildAccountsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@Parameter(hidden = true) @QueryParam("includes") String[] includes,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+	)
+	@Path("/accounts/{accountKey}/child-accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Account postAccountChildAccount(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			Account account)
@@ -235,48 +305,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
 				String[] contactRoleKeys)
 		throws Exception {
-	}
-
-	@Override
-	@GET
-	@Operation(description = "Retrieves the account's child accounts.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "includes"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/accounts/{accountKey}/child-accounts")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public Page<Account> getAccountChildAccountsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@Parameter(hidden = true) @QueryParam("includes") String[] includes,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
-	)
-	@Path("/accounts/{accountKey}/child-accounts")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public Account postAccountChildAccount(
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			Account account)
-		throws Exception {
-
-		return new Account();
 	}
 
 	@Override
