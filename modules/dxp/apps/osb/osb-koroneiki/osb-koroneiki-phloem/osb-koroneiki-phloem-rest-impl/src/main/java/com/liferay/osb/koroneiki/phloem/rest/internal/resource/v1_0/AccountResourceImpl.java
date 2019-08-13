@@ -58,23 +58,23 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public void deleteAccountContact(String accountKey, String[] contactKeys)
+	public void deleteAccountContact(String accountKey, String[] contactUuids)
 		throws Exception {
 
-		for (String contactKey : contactKeys) {
+		for (String contactUuid : contactUuids) {
 			_contactAccountRoleService.deleteContactAccountRoles(
-				contactKey, accountKey);
+				contactUuid, accountKey);
 		}
 	}
 
 	@Override
-	public void deleteAccountContactContactKeyRole(
-			String accountKey, String contactKey, String[] contactRoleKeys)
+	public void deleteAccountContactContactUuidRole(
+			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception {
 
 		for (String contactRoleKey : contactRoleKeys) {
 			_contactAccountRoleService.deleteContactAccountRole(
-				contactKey, accountKey, contactRoleKey);
+				contactUuid, accountKey, contactRoleKey);
 		}
 	}
 
@@ -146,26 +146,26 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public void putAccountContact(String accountKey, String[] contactKeys)
+	public void putAccountContact(String accountKey, String[] contactUuids)
 		throws Exception {
 
 		ContactRole contactRole = _contactRoleLocalService.getMemberContactRole(
 			ContactRoleType.ACCOUNT);
 
-		for (String contactKey : contactKeys) {
+		for (String contactUuid : contactUuids) {
 			_contactAccountRoleService.addContactAccountRole(
-				contactKey, accountKey, contactRole.getContactRoleKey());
+				contactUuid, accountKey, contactRole.getContactRoleKey());
 		}
 	}
 
 	@Override
-	public void putAccountContactContactKeyRole(
-			String accountKey, String contactKey, String[] contactRoleKeys)
+	public void putAccountContactContactUuidRole(
+			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception {
 
 		for (String contactRoleKey : contactRoleKeys) {
 			_contactAccountRoleService.addContactAccountRole(
-				contactKey, accountKey, contactRoleKey);
+				contactUuid, accountKey, contactRoleKey);
 		}
 	}
 

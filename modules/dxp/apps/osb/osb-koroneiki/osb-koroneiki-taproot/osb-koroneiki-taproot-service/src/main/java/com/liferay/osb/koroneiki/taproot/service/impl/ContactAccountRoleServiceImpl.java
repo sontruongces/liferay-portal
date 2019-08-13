@@ -69,11 +69,10 @@ public class ContactAccountRoleServiceImpl
 	}
 
 	public ContactAccountRole addContactAccountRole(
-			String contactKey, String accountKey, String contactRoleKey)
+			String contactUuid, String accountKey, String contactRoleKey)
 		throws PortalException {
 
-		Contact contact = _contactLocalService.getContactByContactKey(
-			contactKey);
+		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
 		Account account = _accountLocalService.getAccount(accountKey);
 		ContactRole contactRole = _contactRoleLocalService.getContactRole(
 			contactRoleKey);
@@ -113,11 +112,10 @@ public class ContactAccountRoleServiceImpl
 	}
 
 	public ContactAccountRole deleteContactAccountRole(
-			String contactKey, String accountKey, String contactRoleKey)
+			String contactUuid, String accountKey, String contactRoleKey)
 		throws PortalException {
 
-		Contact contact = _contactLocalService.getContactByContactKey(
-			contactKey);
+		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
 		Account account = _accountLocalService.getAccount(accountKey);
 		ContactRole contactRole = _contactRoleLocalService.getContactRole(
 			contactRoleKey);
@@ -160,11 +158,10 @@ public class ContactAccountRoleServiceImpl
 			contactId, accountId);
 	}
 
-	public void deleteContactAccountRoles(String contactKey, String accountKey)
+	public void deleteContactAccountRoles(String contactUuid, String accountKey)
 		throws PortalException {
 
-		Contact contact = _contactLocalService.getContactByContactKey(
-			contactKey);
+		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
 		Account account = _accountLocalService.getAccount(accountKey);
 
 		_contactPermission.check(
