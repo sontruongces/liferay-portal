@@ -10,7 +10,6 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="productConsumptionKey" type="String" />
 		<field name="accountId" type="long" />
-		<field name="projectId" type="long" />
 		<field name="productEntryId" type="long" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.trunk.model.ProductEntry">
@@ -41,7 +40,6 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="productPurchaseKey" type="String" />
 		<field name="accountId" type="long" />
-		<field name="projectId" type="long" />
 		<field name="productEntryId" type="long" />
 		<field name="startDate" type="Date">
 			<hint name="show-time">false</hint>

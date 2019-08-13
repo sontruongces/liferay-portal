@@ -976,279 +976,22 @@ public class ProductConsumptionUtil {
 	}
 
 	/**
-	 * Returns all the product consumptions where projectId = &#63;.
-	 *
-	 * @param projectId the project ID
-	 * @return the matching product consumptions
-	 */
-	public static List<ProductConsumption> findByProjectId(long projectId) {
-		return getPersistence().findByProjectId(projectId);
-	}
-
-	/**
-	 * Returns a range of all the product consumptions where projectId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param projectId the project ID
-	 * @param start the lower bound of the range of product consumptions
-	 * @param end the upper bound of the range of product consumptions (not inclusive)
-	 * @return the range of matching product consumptions
-	 */
-	public static List<ProductConsumption> findByProjectId(
-		long projectId, int start, int end) {
-
-		return getPersistence().findByProjectId(projectId, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the product consumptions where projectId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param projectId the project ID
-	 * @param start the lower bound of the range of product consumptions
-	 * @param end the upper bound of the range of product consumptions (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching product consumptions
-	 */
-	public static List<ProductConsumption> findByProjectId(
-		long projectId, int start, int end,
-		OrderByComparator<ProductConsumption> orderByComparator) {
-
-		return getPersistence().findByProjectId(
-			projectId, start, end, orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the product consumptions where projectId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param projectId the project ID
-	 * @param start the lower bound of the range of product consumptions
-	 * @param end the upper bound of the range of product consumptions (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching product consumptions
-	 */
-	public static List<ProductConsumption> findByProjectId(
-		long projectId, int start, int end,
-		OrderByComparator<ProductConsumption> orderByComparator,
-		boolean useFinderCache) {
-
-		return getPersistence().findByProjectId(
-			projectId, start, end, orderByComparator, useFinderCache);
-	}
-
-	/**
-	 * Returns the first product consumption in the ordered set where projectId = &#63;.
-	 *
-	 * @param projectId the project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching product consumption
-	 * @throws NoSuchProductConsumptionException if a matching product consumption could not be found
-	 */
-	public static ProductConsumption findByProjectId_First(
-			long projectId,
-			OrderByComparator<ProductConsumption> orderByComparator)
-		throws com.liferay.osb.koroneiki.trunk.exception.
-			NoSuchProductConsumptionException {
-
-		return getPersistence().findByProjectId_First(
-			projectId, orderByComparator);
-	}
-
-	/**
-	 * Returns the first product consumption in the ordered set where projectId = &#63;.
-	 *
-	 * @param projectId the project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching product consumption, or <code>null</code> if a matching product consumption could not be found
-	 */
-	public static ProductConsumption fetchByProjectId_First(
-		long projectId,
-		OrderByComparator<ProductConsumption> orderByComparator) {
-
-		return getPersistence().fetchByProjectId_First(
-			projectId, orderByComparator);
-	}
-
-	/**
-	 * Returns the last product consumption in the ordered set where projectId = &#63;.
-	 *
-	 * @param projectId the project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching product consumption
-	 * @throws NoSuchProductConsumptionException if a matching product consumption could not be found
-	 */
-	public static ProductConsumption findByProjectId_Last(
-			long projectId,
-			OrderByComparator<ProductConsumption> orderByComparator)
-		throws com.liferay.osb.koroneiki.trunk.exception.
-			NoSuchProductConsumptionException {
-
-		return getPersistence().findByProjectId_Last(
-			projectId, orderByComparator);
-	}
-
-	/**
-	 * Returns the last product consumption in the ordered set where projectId = &#63;.
-	 *
-	 * @param projectId the project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching product consumption, or <code>null</code> if a matching product consumption could not be found
-	 */
-	public static ProductConsumption fetchByProjectId_Last(
-		long projectId,
-		OrderByComparator<ProductConsumption> orderByComparator) {
-
-		return getPersistence().fetchByProjectId_Last(
-			projectId, orderByComparator);
-	}
-
-	/**
-	 * Returns the product consumptions before and after the current product consumption in the ordered set where projectId = &#63;.
-	 *
-	 * @param productConsumptionId the primary key of the current product consumption
-	 * @param projectId the project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next product consumption
-	 * @throws NoSuchProductConsumptionException if a product consumption with the primary key could not be found
-	 */
-	public static ProductConsumption[] findByProjectId_PrevAndNext(
-			long productConsumptionId, long projectId,
-			OrderByComparator<ProductConsumption> orderByComparator)
-		throws com.liferay.osb.koroneiki.trunk.exception.
-			NoSuchProductConsumptionException {
-
-		return getPersistence().findByProjectId_PrevAndNext(
-			productConsumptionId, projectId, orderByComparator);
-	}
-
-	/**
-	 * Returns all the product consumptions that the user has permission to view where projectId = &#63;.
-	 *
-	 * @param projectId the project ID
-	 * @return the matching product consumptions that the user has permission to view
-	 */
-	public static List<ProductConsumption> filterFindByProjectId(
-		long projectId) {
-
-		return getPersistence().filterFindByProjectId(projectId);
-	}
-
-	/**
-	 * Returns a range of all the product consumptions that the user has permission to view where projectId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param projectId the project ID
-	 * @param start the lower bound of the range of product consumptions
-	 * @param end the upper bound of the range of product consumptions (not inclusive)
-	 * @return the range of matching product consumptions that the user has permission to view
-	 */
-	public static List<ProductConsumption> filterFindByProjectId(
-		long projectId, int start, int end) {
-
-		return getPersistence().filterFindByProjectId(projectId, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the product consumptions that the user has permissions to view where projectId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param projectId the project ID
-	 * @param start the lower bound of the range of product consumptions
-	 * @param end the upper bound of the range of product consumptions (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching product consumptions that the user has permission to view
-	 */
-	public static List<ProductConsumption> filterFindByProjectId(
-		long projectId, int start, int end,
-		OrderByComparator<ProductConsumption> orderByComparator) {
-
-		return getPersistence().filterFindByProjectId(
-			projectId, start, end, orderByComparator);
-	}
-
-	/**
-	 * Returns the product consumptions before and after the current product consumption in the ordered set of product consumptions that the user has permission to view where projectId = &#63;.
-	 *
-	 * @param productConsumptionId the primary key of the current product consumption
-	 * @param projectId the project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next product consumption
-	 * @throws NoSuchProductConsumptionException if a product consumption with the primary key could not be found
-	 */
-	public static ProductConsumption[] filterFindByProjectId_PrevAndNext(
-			long productConsumptionId, long projectId,
-			OrderByComparator<ProductConsumption> orderByComparator)
-		throws com.liferay.osb.koroneiki.trunk.exception.
-			NoSuchProductConsumptionException {
-
-		return getPersistence().filterFindByProjectId_PrevAndNext(
-			productConsumptionId, projectId, orderByComparator);
-	}
-
-	/**
-	 * Removes all the product consumptions where projectId = &#63; from the database.
-	 *
-	 * @param projectId the project ID
-	 */
-	public static void removeByProjectId(long projectId) {
-		getPersistence().removeByProjectId(projectId);
-	}
-
-	/**
-	 * Returns the number of product consumptions where projectId = &#63;.
-	 *
-	 * @param projectId the project ID
-	 * @return the number of matching product consumptions
-	 */
-	public static int countByProjectId(long projectId) {
-		return getPersistence().countByProjectId(projectId);
-	}
-
-	/**
-	 * Returns the number of product consumptions that the user has permission to view where projectId = &#63;.
-	 *
-	 * @param projectId the project ID
-	 * @return the number of matching product consumptions that the user has permission to view
-	 */
-	public static int filterCountByProjectId(long projectId) {
-		return getPersistence().filterCountByProjectId(projectId);
-	}
-
-	/**
-	 * Returns all the product consumptions where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns all the product consumptions where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @return the matching product consumptions
 	 */
-	public static List<ProductConsumption> findByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId) {
+	public static List<ProductConsumption> findByU_AI_PEI(
+		long userId, long accountId, long productEntryId) {
 
-		return getPersistence().findByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId);
+		return getPersistence().findByU_AI_PEI(
+			userId, accountId, productEntryId);
 	}
 
 	/**
-	 * Returns a range of all the product consumptions where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns a range of all the product consumptions where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1256,22 +999,20 @@ public class ProductConsumptionUtil {
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @return the range of matching product consumptions
 	 */
-	public static List<ProductConsumption> findByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId,
-		int start, int end) {
+	public static List<ProductConsumption> findByU_AI_PEI(
+		long userId, long accountId, long productEntryId, int start, int end) {
 
-		return getPersistence().findByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId, start, end);
+		return getPersistence().findByU_AI_PEI(
+			userId, accountId, productEntryId, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the product consumptions where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns an ordered range of all the product consumptions where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1279,25 +1020,22 @@ public class ProductConsumptionUtil {
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching product consumptions
 	 */
-	public static List<ProductConsumption> findByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId,
-		int start, int end,
+	public static List<ProductConsumption> findByU_AI_PEI(
+		long userId, long accountId, long productEntryId, int start, int end,
 		OrderByComparator<ProductConsumption> orderByComparator) {
 
-		return getPersistence().findByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId, start, end,
-			orderByComparator);
+		return getPersistence().findByU_AI_PEI(
+			userId, accountId, productEntryId, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the product consumptions where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns an ordered range of all the product consumptions where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1305,7 +1043,6 @@ public class ProductConsumptionUtil {
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
@@ -1313,137 +1050,130 @@ public class ProductConsumptionUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product consumptions
 	 */
-	public static List<ProductConsumption> findByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId,
-		int start, int end,
+	public static List<ProductConsumption> findByU_AI_PEI(
+		long userId, long accountId, long productEntryId, int start, int end,
 		OrderByComparator<ProductConsumption> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId, start, end,
-			orderByComparator, useFinderCache);
+		return getPersistence().findByU_AI_PEI(
+			userId, accountId, productEntryId, start, end, orderByComparator,
+			useFinderCache);
 	}
 
 	/**
-	 * Returns the first product consumption in the ordered set where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns the first product consumption in the ordered set where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching product consumption
 	 * @throws NoSuchProductConsumptionException if a matching product consumption could not be found
 	 */
-	public static ProductConsumption findByU_AI_PI_PEI_First(
-			long userId, long accountId, long projectId, long productEntryId,
+	public static ProductConsumption findByU_AI_PEI_First(
+			long userId, long accountId, long productEntryId,
 			OrderByComparator<ProductConsumption> orderByComparator)
 		throws com.liferay.osb.koroneiki.trunk.exception.
 			NoSuchProductConsumptionException {
 
-		return getPersistence().findByU_AI_PI_PEI_First(
-			userId, accountId, projectId, productEntryId, orderByComparator);
+		return getPersistence().findByU_AI_PEI_First(
+			userId, accountId, productEntryId, orderByComparator);
 	}
 
 	/**
-	 * Returns the first product consumption in the ordered set where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns the first product consumption in the ordered set where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching product consumption, or <code>null</code> if a matching product consumption could not be found
 	 */
-	public static ProductConsumption fetchByU_AI_PI_PEI_First(
-		long userId, long accountId, long projectId, long productEntryId,
+	public static ProductConsumption fetchByU_AI_PEI_First(
+		long userId, long accountId, long productEntryId,
 		OrderByComparator<ProductConsumption> orderByComparator) {
 
-		return getPersistence().fetchByU_AI_PI_PEI_First(
-			userId, accountId, projectId, productEntryId, orderByComparator);
+		return getPersistence().fetchByU_AI_PEI_First(
+			userId, accountId, productEntryId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last product consumption in the ordered set where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns the last product consumption in the ordered set where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching product consumption
 	 * @throws NoSuchProductConsumptionException if a matching product consumption could not be found
 	 */
-	public static ProductConsumption findByU_AI_PI_PEI_Last(
-			long userId, long accountId, long projectId, long productEntryId,
+	public static ProductConsumption findByU_AI_PEI_Last(
+			long userId, long accountId, long productEntryId,
 			OrderByComparator<ProductConsumption> orderByComparator)
 		throws com.liferay.osb.koroneiki.trunk.exception.
 			NoSuchProductConsumptionException {
 
-		return getPersistence().findByU_AI_PI_PEI_Last(
-			userId, accountId, projectId, productEntryId, orderByComparator);
+		return getPersistence().findByU_AI_PEI_Last(
+			userId, accountId, productEntryId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last product consumption in the ordered set where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns the last product consumption in the ordered set where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching product consumption, or <code>null</code> if a matching product consumption could not be found
 	 */
-	public static ProductConsumption fetchByU_AI_PI_PEI_Last(
-		long userId, long accountId, long projectId, long productEntryId,
+	public static ProductConsumption fetchByU_AI_PEI_Last(
+		long userId, long accountId, long productEntryId,
 		OrderByComparator<ProductConsumption> orderByComparator) {
 
-		return getPersistence().fetchByU_AI_PI_PEI_Last(
-			userId, accountId, projectId, productEntryId, orderByComparator);
+		return getPersistence().fetchByU_AI_PEI_Last(
+			userId, accountId, productEntryId, orderByComparator);
 	}
 
 	/**
-	 * Returns the product consumptions before and after the current product consumption in the ordered set where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns the product consumptions before and after the current product consumption in the ordered set where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param productConsumptionId the primary key of the current product consumption
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next product consumption
 	 * @throws NoSuchProductConsumptionException if a product consumption with the primary key could not be found
 	 */
-	public static ProductConsumption[] findByU_AI_PI_PEI_PrevAndNext(
+	public static ProductConsumption[] findByU_AI_PEI_PrevAndNext(
 			long productConsumptionId, long userId, long accountId,
-			long projectId, long productEntryId,
+			long productEntryId,
 			OrderByComparator<ProductConsumption> orderByComparator)
 		throws com.liferay.osb.koroneiki.trunk.exception.
 			NoSuchProductConsumptionException {
 
-		return getPersistence().findByU_AI_PI_PEI_PrevAndNext(
-			productConsumptionId, userId, accountId, projectId, productEntryId,
+		return getPersistence().findByU_AI_PEI_PrevAndNext(
+			productConsumptionId, userId, accountId, productEntryId,
 			orderByComparator);
 	}
 
 	/**
-	 * Returns all the product consumptions that the user has permission to view where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns all the product consumptions that the user has permission to view where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @return the matching product consumptions that the user has permission to view
 	 */
-	public static List<ProductConsumption> filterFindByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId) {
+	public static List<ProductConsumption> filterFindByU_AI_PEI(
+		long userId, long accountId, long productEntryId) {
 
-		return getPersistence().filterFindByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId);
+		return getPersistence().filterFindByU_AI_PEI(
+			userId, accountId, productEntryId);
 	}
 
 	/**
-	 * Returns a range of all the product consumptions that the user has permission to view where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns a range of all the product consumptions that the user has permission to view where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1451,22 +1181,20 @@ public class ProductConsumptionUtil {
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @return the range of matching product consumptions that the user has permission to view
 	 */
-	public static List<ProductConsumption> filterFindByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId,
-		int start, int end) {
+	public static List<ProductConsumption> filterFindByU_AI_PEI(
+		long userId, long accountId, long productEntryId, int start, int end) {
 
-		return getPersistence().filterFindByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId, start, end);
+		return getPersistence().filterFindByU_AI_PEI(
+			userId, accountId, productEntryId, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the product consumptions that the user has permissions to view where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns an ordered range of all the product consumptions that the user has permissions to view where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1474,92 +1202,84 @@ public class ProductConsumptionUtil {
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching product consumptions that the user has permission to view
 	 */
-	public static List<ProductConsumption> filterFindByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId,
-		int start, int end,
+	public static List<ProductConsumption> filterFindByU_AI_PEI(
+		long userId, long accountId, long productEntryId, int start, int end,
 		OrderByComparator<ProductConsumption> orderByComparator) {
 
-		return getPersistence().filterFindByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId, start, end,
-			orderByComparator);
+		return getPersistence().filterFindByU_AI_PEI(
+			userId, accountId, productEntryId, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns the product consumptions before and after the current product consumption in the ordered set of product consumptions that the user has permission to view where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns the product consumptions before and after the current product consumption in the ordered set of product consumptions that the user has permission to view where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param productConsumptionId the primary key of the current product consumption
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next product consumption
 	 * @throws NoSuchProductConsumptionException if a product consumption with the primary key could not be found
 	 */
-	public static ProductConsumption[] filterFindByU_AI_PI_PEI_PrevAndNext(
+	public static ProductConsumption[] filterFindByU_AI_PEI_PrevAndNext(
 			long productConsumptionId, long userId, long accountId,
-			long projectId, long productEntryId,
+			long productEntryId,
 			OrderByComparator<ProductConsumption> orderByComparator)
 		throws com.liferay.osb.koroneiki.trunk.exception.
 			NoSuchProductConsumptionException {
 
-		return getPersistence().filterFindByU_AI_PI_PEI_PrevAndNext(
-			productConsumptionId, userId, accountId, projectId, productEntryId,
+		return getPersistence().filterFindByU_AI_PEI_PrevAndNext(
+			productConsumptionId, userId, accountId, productEntryId,
 			orderByComparator);
 	}
 
 	/**
-	 * Removes all the product consumptions where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63; from the database.
+	 * Removes all the product consumptions where userId = &#63; and accountId = &#63; and productEntryId = &#63; from the database.
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 */
-	public static void removeByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId) {
+	public static void removeByU_AI_PEI(
+		long userId, long accountId, long productEntryId) {
 
-		getPersistence().removeByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId);
+		getPersistence().removeByU_AI_PEI(userId, accountId, productEntryId);
 	}
 
 	/**
-	 * Returns the number of product consumptions where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns the number of product consumptions where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @return the number of matching product consumptions
 	 */
-	public static int countByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId) {
+	public static int countByU_AI_PEI(
+		long userId, long accountId, long productEntryId) {
 
-		return getPersistence().countByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId);
+		return getPersistence().countByU_AI_PEI(
+			userId, accountId, productEntryId);
 	}
 
 	/**
-	 * Returns the number of product consumptions that the user has permission to view where userId = &#63; and accountId = &#63; and projectId = &#63; and productEntryId = &#63;.
+	 * Returns the number of product consumptions that the user has permission to view where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
 	 *
 	 * @param userId the user ID
 	 * @param accountId the account ID
-	 * @param projectId the project ID
 	 * @param productEntryId the product entry ID
 	 * @return the number of matching product consumptions that the user has permission to view
 	 */
-	public static int filterCountByU_AI_PI_PEI(
-		long userId, long accountId, long projectId, long productEntryId) {
+	public static int filterCountByU_AI_PEI(
+		long userId, long accountId, long productEntryId) {
 
-		return getPersistence().filterCountByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId);
+		return getPersistence().filterCountByU_AI_PEI(
+			userId, accountId, productEntryId);
 	}
 
 	/**

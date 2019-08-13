@@ -39,27 +39,27 @@ public class ProductConsumptionServiceWrapper
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
-				long accountId, long projectId, long productEntryId,
+				long accountId, long productEntryId,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productConsumptionService.addProductConsumption(
-			accountId, projectId, productEntryId, productFields);
+			accountId, productEntryId, productFields);
 	}
 
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
-				String accountKey, String projectKey, String productEntryKey,
+				String accountKey, String productEntryKey,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productConsumptionService.addProductConsumption(
-			accountKey, projectKey, productEntryKey, productFields);
+			accountKey, productEntryKey, productFields);
 	}
 
 	@Override
@@ -73,12 +73,11 @@ public class ProductConsumptionServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductConsumption
-			deleteProductConsumption(
-				long accountId, long projectId, long productEntryId)
+			deleteProductConsumption(long accountId, long productEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productConsumptionService.deleteProductConsumption(
-			accountId, projectId, productEntryId);
+			accountId, productEntryId);
 	}
 
 	@Override
@@ -154,44 +153,6 @@ public class ProductConsumptionServiceWrapper
 
 		return _productConsumptionService.getProductConsumption(
 			productConsumptionKey);
-	}
-
-	@Override
-	public java.util.List
-		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
-				getProjectProductConsumptions(
-					long projectId, int start, int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _productConsumptionService.getProjectProductConsumptions(
-			projectId, start, end);
-	}
-
-	@Override
-	public java.util.List
-		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
-				getProjectProductConsumptions(
-					String projectKey, int start, int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _productConsumptionService.getProjectProductConsumptions(
-			projectKey, start, end);
-	}
-
-	@Override
-	public int getProjectProductConsumptionsCount(long projectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _productConsumptionService.getProjectProductConsumptionsCount(
-			projectId);
-	}
-
-	@Override
-	public int getProjectProductConsumptionsCount(String projectKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _productConsumptionService.getProjectProductConsumptionsCount(
-			projectKey);
 	}
 
 	@Override

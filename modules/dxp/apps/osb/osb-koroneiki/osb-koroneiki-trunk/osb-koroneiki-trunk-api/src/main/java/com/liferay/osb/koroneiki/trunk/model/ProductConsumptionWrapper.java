@@ -54,7 +54,6 @@ public class ProductConsumptionWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("productConsumptionKey", getProductConsumptionKey());
 		attributes.put("accountId", getAccountId());
-		attributes.put("projectId", getProjectId());
 		attributes.put("productEntryId", getProductEntryId());
 
 		return attributes;
@@ -110,12 +109,6 @@ public class ProductConsumptionWrapper
 
 		if (accountId != null) {
 			setAccountId(accountId);
-		}
-
-		Long projectId = (Long)attributes.get("projectId");
-
-		if (projectId != null) {
-			setProjectId(projectId);
 		}
 
 		Long productEntryId = (Long)attributes.get("productEntryId");
@@ -250,28 +243,6 @@ public class ProductConsumptionWrapper
 		return model.getProductFieldsMap();
 	}
 
-	@Override
-	public com.liferay.osb.koroneiki.taproot.model.Project getProject() {
-		return model.getProject();
-	}
-
-	/**
-	 * Returns the project ID of this product consumption.
-	 *
-	 * @return the project ID of this product consumption
-	 */
-	@Override
-	public long getProjectId() {
-		return model.getProjectId();
-	}
-
-	@Override
-	public String getProjectKey()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return model.getProjectKey();
-	}
-
 	/**
 	 * Returns the user ID of this product consumption.
 	 *
@@ -385,16 +356,6 @@ public class ProductConsumptionWrapper
 	@Override
 	public void setProductEntryId(long productEntryId) {
 		model.setProductEntryId(productEntryId);
-	}
-
-	/**
-	 * Sets the project ID of this product consumption.
-	 *
-	 * @param projectId the project ID of this product consumption
-	 */
-	@Override
-	public void setProjectId(long projectId) {
-		model.setProjectId(projectId);
 	}
 
 	/**

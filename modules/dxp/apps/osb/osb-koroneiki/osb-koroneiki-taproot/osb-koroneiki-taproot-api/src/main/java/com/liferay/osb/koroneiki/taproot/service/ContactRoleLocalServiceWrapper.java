@@ -247,14 +247,6 @@ public class ContactRoleLocalServiceWrapper
 			accountId, contactId);
 	}
 
-	@Override
-	public java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
-		getContactProjectContactRoles(long projectId, long contactId) {
-
-		return _contactRoleLocalService.getContactProjectContactRoles(
-			projectId, contactId);
-	}
-
 	/**
 	 * Returns the contact role with the primary key.
 	 *

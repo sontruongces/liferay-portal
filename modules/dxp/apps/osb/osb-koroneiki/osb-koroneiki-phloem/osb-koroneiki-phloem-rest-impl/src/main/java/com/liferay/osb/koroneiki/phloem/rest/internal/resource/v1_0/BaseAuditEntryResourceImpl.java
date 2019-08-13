@@ -159,28 +159,6 @@ public abstract class BaseAuditEntryResourceImpl implements AuditEntryResource {
 
 	@Override
 	@GET
-	@Operation(description = "Retrieves the project's audit history.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "projectKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/projects/{projectKey}/audit-entries")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AuditEntry")})
-	public Page<AuditEntry> getProjectProjectKeyAuditEntriesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("projectKey") String
-				projectKey,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	@Override
-	@GET
 	@Operation(description = "Retrieves the team role's audit history.")
 	@Parameters(
 		value = {

@@ -358,17 +358,6 @@ public class ContactLocalServiceUtil {
 	}
 
 	public static java.util.List
-		<com.liferay.osb.koroneiki.taproot.model.Contact> getProjectContacts(
-			long projectId, int start, int end) {
-
-		return getService().getProjectContacts(projectId, start, end);
-	}
-
-	public static int getProjectContactsCount(long projectId) {
-		return getService().getProjectContactsCount(projectId);
-	}
-
-	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.Contact> getTeamContacts(
 			long teamId, int start, int end) {
 

@@ -65,7 +65,7 @@ public class ProductPurchaseCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -83,8 +83,6 @@ public class ProductPurchaseCacheModel
 		sb.append(productPurchaseKey);
 		sb.append(", accountId=");
 		sb.append(accountId);
-		sb.append(", projectId=");
-		sb.append(projectId);
 		sb.append(", productEntryId=");
 		sb.append(productEntryId);
 		sb.append(", startDate=");
@@ -135,7 +133,6 @@ public class ProductPurchaseCacheModel
 		}
 
 		productPurchaseImpl.setAccountId(accountId);
-		productPurchaseImpl.setProjectId(projectId);
 		productPurchaseImpl.setProductEntryId(productEntryId);
 
 		if (startDate == Long.MIN_VALUE) {
@@ -174,8 +171,6 @@ public class ProductPurchaseCacheModel
 
 		accountId = objectInput.readLong();
 
-		projectId = objectInput.readLong();
-
 		productEntryId = objectInput.readLong();
 		startDate = objectInput.readLong();
 		endDate = objectInput.readLong();
@@ -209,8 +204,6 @@ public class ProductPurchaseCacheModel
 
 		objectOutput.writeLong(accountId);
 
-		objectOutput.writeLong(projectId);
-
 		objectOutput.writeLong(productEntryId);
 		objectOutput.writeLong(startDate);
 		objectOutput.writeLong(endDate);
@@ -226,7 +219,6 @@ public class ProductPurchaseCacheModel
 	public long modifiedDate;
 	public String productPurchaseKey;
 	public long accountId;
-	public long projectId;
 	public long productEntryId;
 	public long startDate;
 	public long endDate;

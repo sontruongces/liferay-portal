@@ -92,14 +92,6 @@ public interface ExternalLinkResource {
 			String productKey, ExternalLink externalLink)
 		throws Exception;
 
-	public Page<ExternalLink> getProjectProjectKeyExternalLinksPage(
-			String projectKey, Pagination pagination)
-		throws Exception;
-
-	public ExternalLink postProjectProjectKeyExternalLink(
-			String projectKey, ExternalLink externalLink)
-		throws Exception;
-
 	public Page<ExternalLink> getTeamTeamKeyExternalLinksPage(
 			String teamKey, Pagination pagination)
 		throws Exception;

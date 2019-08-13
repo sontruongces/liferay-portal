@@ -42,7 +42,6 @@ public class ProductConsumptionSoap implements Serializable {
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setProductConsumptionKey(model.getProductConsumptionKey());
 		soapModel.setAccountId(model.getAccountId());
-		soapModel.setProjectId(model.getProjectId());
 		soapModel.setProductEntryId(model.getProductEntryId());
 
 		return soapModel;
@@ -170,14 +169,6 @@ public class ProductConsumptionSoap implements Serializable {
 		_accountId = accountId;
 	}
 
-	public long getProjectId() {
-		return _projectId;
-	}
-
-	public void setProjectId(long projectId) {
-		_projectId = projectId;
-	}
-
 	public long getProductEntryId() {
 		return _productEntryId;
 	}
@@ -194,7 +185,6 @@ public class ProductConsumptionSoap implements Serializable {
 	private Date _modifiedDate;
 	private String _productConsumptionKey;
 	private long _accountId;
-	private long _projectId;
 	private long _productEntryId;
 
 }

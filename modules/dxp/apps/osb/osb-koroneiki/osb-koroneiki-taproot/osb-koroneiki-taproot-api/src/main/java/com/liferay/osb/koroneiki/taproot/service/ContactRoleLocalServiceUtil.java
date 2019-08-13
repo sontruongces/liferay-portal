@@ -236,13 +236,6 @@ public class ContactRoleLocalServiceUtil {
 		return getService().getContactAccountContactRoles(accountId, contactId);
 	}
 
-	public static java.util.List
-		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
-			getContactProjectContactRoles(long projectId, long contactId) {
-
-		return getService().getContactProjectContactRoles(projectId, contactId);
-	}
-
 	/**
 	 * Returns the contact role with the primary key.
 	 *

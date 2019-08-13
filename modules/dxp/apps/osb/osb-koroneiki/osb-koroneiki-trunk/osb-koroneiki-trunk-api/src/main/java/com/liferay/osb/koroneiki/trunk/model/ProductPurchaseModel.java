@@ -195,20 +195,6 @@ public interface ProductPurchaseModel
 	public void setAccountId(long accountId);
 
 	/**
-	 * Returns the project ID of this product purchase.
-	 *
-	 * @return the project ID of this product purchase
-	 */
-	public long getProjectId();
-
-	/**
-	 * Sets the project ID of this product purchase.
-	 *
-	 * @param projectId the project ID of this product purchase
-	 */
-	public void setProjectId(long projectId);
-
-	/**
 	 * Returns the product entry ID of this product purchase.
 	 *
 	 * @return the product entry ID of this product purchase

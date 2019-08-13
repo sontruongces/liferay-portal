@@ -132,46 +132,6 @@ public abstract class BaseProductConsumptionResourceImpl
 		return new ProductConsumption();
 	}
 
-	@Override
-	@GET
-	@Operation(description = "Retrieves the project's product consumptions.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "projectKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/projects/{projectKey}/product-consumptions")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ProductConsumption")})
-	public Page<ProductConsumption> getProjectProjectKeyProductConsumptionsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("projectKey") String
-				projectKey,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "projectKey")}
-	)
-	@Path("/projects/{projectKey}/product-consumptions")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ProductConsumption")})
-	public ProductConsumption postProjectProjectKeyProductConsumption(
-			@NotNull @Parameter(hidden = true) @PathParam("projectKey") String
-				projectKey,
-			ProductConsumption productConsumption)
-		throws Exception {
-
-		return new ProductConsumption();
-	}
-
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

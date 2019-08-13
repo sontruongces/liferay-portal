@@ -56,7 +56,7 @@ public class ProductConsumptionServiceHttp {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
-				HttpPrincipal httpPrincipal, long accountId, long projectId,
+				HttpPrincipal httpPrincipal, long accountId,
 				long productEntryId,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
@@ -69,7 +69,7 @@ public class ProductConsumptionServiceHttp {
 				_addProductConsumptionParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, projectId, productEntryId, productFields);
+				methodKey, accountId, productEntryId, productFields);
 
 			Object returnObj = null;
 
@@ -101,7 +101,7 @@ public class ProductConsumptionServiceHttp {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
 				HttpPrincipal httpPrincipal, String accountKey,
-				String projectKey, String productEntryKey,
+				String productEntryKey,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
@@ -113,8 +113,7 @@ public class ProductConsumptionServiceHttp {
 				_addProductConsumptionParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountKey, projectKey, productEntryKey,
-				productFields);
+				methodKey, accountKey, productEntryKey, productFields);
 
 			Object returnObj = null;
 
@@ -185,7 +184,7 @@ public class ProductConsumptionServiceHttp {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			deleteProductConsumption(
-				HttpPrincipal httpPrincipal, long accountId, long projectId,
+				HttpPrincipal httpPrincipal, long accountId,
 				long productEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -195,7 +194,7 @@ public class ProductConsumptionServiceHttp {
 				_deleteProductConsumptionParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, projectId, productEntryId);
+				methodKey, accountId, productEntryId);
 
 			Object returnObj = null;
 
@@ -510,185 +509,17 @@ public class ProductConsumptionServiceHttp {
 		}
 	}
 
-	public static java.util.List
-		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
-				getProjectProductConsumptions(
-					HttpPrincipal httpPrincipal, long projectId, int start,
-					int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ProductConsumptionServiceUtil.class,
-				"getProjectProductConsumptions",
-				_getProjectProductConsumptionsParameterTypes11);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectId, start, end);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return (java.util.List
-				<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>)
-					returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static java.util.List
-		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
-				getProjectProductConsumptions(
-					HttpPrincipal httpPrincipal, String projectKey, int start,
-					int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ProductConsumptionServiceUtil.class,
-				"getProjectProductConsumptions",
-				_getProjectProductConsumptionsParameterTypes12);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectKey, start, end);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return (java.util.List
-				<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>)
-					returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static int getProjectProductConsumptionsCount(
-			HttpPrincipal httpPrincipal, long projectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ProductConsumptionServiceUtil.class,
-				"getProjectProductConsumptionsCount",
-				_getProjectProductConsumptionsCountParameterTypes13);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static int getProjectProductConsumptionsCount(
-			HttpPrincipal httpPrincipal, String projectKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ProductConsumptionServiceUtil.class,
-				"getProjectProductConsumptionsCount",
-				_getProjectProductConsumptionsCountParameterTypes14);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectKey);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(
 		ProductConsumptionServiceHttp.class);
 
 	private static final Class<?>[] _addProductConsumptionParameterTypes0 =
-		new Class[] {long.class, long.class, long.class, java.util.List.class};
+		new Class[] {long.class, long.class, java.util.List.class};
 	private static final Class<?>[] _addProductConsumptionParameterTypes1 =
-		new Class[] {
-			String.class, String.class, String.class, java.util.List.class
-		};
+		new Class[] {String.class, String.class, java.util.List.class};
 	private static final Class<?>[] _deleteProductConsumptionParameterTypes2 =
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteProductConsumptionParameterTypes3 =
-		new Class[] {long.class, long.class, long.class};
+		new Class[] {long.class, long.class};
 	private static final Class<?>[] _deleteProductConsumptionParameterTypes4 =
 		new Class[] {String.class};
 	private static final Class<?>[]
@@ -711,21 +542,5 @@ public class ProductConsumptionServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getProductConsumptionParameterTypes10 =
 		new Class[] {String.class};
-	private static final Class<?>[]
-		_getProjectProductConsumptionsParameterTypes11 = new Class[] {
-			long.class, int.class, int.class
-		};
-	private static final Class<?>[]
-		_getProjectProductConsumptionsParameterTypes12 = new Class[] {
-			String.class, int.class, int.class
-		};
-	private static final Class<?>[]
-		_getProjectProductConsumptionsCountParameterTypes13 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[]
-		_getProjectProductConsumptionsCountParameterTypes14 = new Class[] {
-			String.class
-		};
 
 }

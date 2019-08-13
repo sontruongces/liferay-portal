@@ -339,47 +339,6 @@ public abstract class BaseExternalLinkResourceImpl
 
 	@Override
 	@GET
-	@Operation(description = "Retrieves the project's external links.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "projectKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/projects/{projectKey}/external-links")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ExternalLink")})
-	public Page<ExternalLink> getProjectProjectKeyExternalLinksPage(
-			@NotNull @Parameter(hidden = true) @PathParam("projectKey") String
-				projectKey,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@Operation(description = "Adds an external link to the project.")
-	@POST
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "projectKey")}
-	)
-	@Path("/projects/{projectKey}/external-links")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ExternalLink")})
-	public ExternalLink postProjectProjectKeyExternalLink(
-			@NotNull @Parameter(hidden = true) @PathParam("projectKey") String
-				projectKey,
-			ExternalLink externalLink)
-		throws Exception {
-
-		return new ExternalLink();
-	}
-
-	@Override
-	@GET
 	@Operation(description = "Retrieves the team's external links.")
 	@Parameters(
 		value = {

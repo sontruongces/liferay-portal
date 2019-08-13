@@ -25,7 +25,6 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
-import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProjectResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
@@ -65,8 +64,6 @@ public class ServletDataImpl implements ServletData {
 			_productConsumptionResourceComponentServiceObjects);
 		Mutation.setProductPurchaseResourceComponentServiceObjects(
 			_productPurchaseResourceComponentServiceObjects);
-		Mutation.setProjectResourceComponentServiceObjects(
-			_projectResourceComponentServiceObjects);
 		Mutation.setTeamResourceComponentServiceObjects(
 			_teamResourceComponentServiceObjects);
 		Mutation.setTeamRoleResourceComponentServiceObjects(
@@ -90,8 +87,6 @@ public class ServletDataImpl implements ServletData {
 			_productConsumptionResourceComponentServiceObjects);
 		Query.setProductPurchaseResourceComponentServiceObjects(
 			_productPurchaseResourceComponentServiceObjects);
-		Query.setProjectResourceComponentServiceObjects(
-			_projectResourceComponentServiceObjects);
 		Query.setTeamResourceComponentServiceObjects(
 			_teamResourceComponentServiceObjects);
 		Query.setTeamRoleResourceComponentServiceObjects(
@@ -148,10 +143,6 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ProductPurchaseResource>
 		_productPurchaseResourceComponentServiceObjects;
-
-	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<ProjectResource>
-		_projectResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<TeamResource>

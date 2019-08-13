@@ -48,14 +48,17 @@ public class AccountLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Account addAccount(
-			long userId, String name, String description, long logoId,
+			long userId, long parentAccountId, String name, String code,
+			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountLocalService.addAccount(
-			userId, name, description, logoId, contactEmailAddress,
-			profileEmailAddress, phoneNumber, faxNumber, website, status);
+			userId, parentAccountId, name, code, description, notes, logoId,
+			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
+			website, industry, tier, soldBy, status);
 	}
 
 	/**
@@ -281,6 +284,13 @@ public class AccountLocalServiceWrapper
 		return _accountLocalService.getAccounts(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+		getAccounts(long parentAccountId, int start, int end) {
+
+		return _accountLocalService.getAccounts(parentAccountId, start, end);
+	}
+
 	/**
 	 * Returns the number of accounts.
 	 *
@@ -289,6 +299,11 @@ public class AccountLocalServiceWrapper
 	@Override
 	public int getAccountsCount() {
 		return _accountLocalService.getAccountsCount();
+	}
+
+	@Override
+	public int getAccountsCount(long parentAccountId) {
+		return _accountLocalService.getAccountsCount(parentAccountId);
 	}
 
 	@Override
@@ -366,14 +381,17 @@ public class AccountLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
-			long userId, long accountId, String name, String description,
-			long logoId, String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			long userId, long accountId, long parentAccountId, String name,
+			String code, String description, String notes, long logoId,
+			String contactEmailAddress, String profileEmailAddress,
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountLocalService.updateAccount(
-			userId, accountId, name, description, logoId, contactEmailAddress,
-			profileEmailAddress, phoneNumber, faxNumber, website, status);
+			userId, accountId, parentAccountId, name, code, description, notes,
+			logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
+			faxNumber, website, industry, tier, soldBy, status);
 	}
 
 	@Override

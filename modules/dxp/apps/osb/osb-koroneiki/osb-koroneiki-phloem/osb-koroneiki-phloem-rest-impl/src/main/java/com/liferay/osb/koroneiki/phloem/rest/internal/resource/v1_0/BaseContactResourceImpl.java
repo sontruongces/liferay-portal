@@ -175,28 +175,6 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return new Contact();
 	}
 
-	@Override
-	@GET
-	@Operation(description = "Retrieves the project's contacts.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "projectKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/projects/{projectKey}/contacts")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Contact")})
-	public Page<Contact> getProjectProjectKeyContactsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("projectKey") String
-				projectKey,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

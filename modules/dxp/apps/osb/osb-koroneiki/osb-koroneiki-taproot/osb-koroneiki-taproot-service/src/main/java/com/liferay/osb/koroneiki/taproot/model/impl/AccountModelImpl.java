@@ -81,14 +81,16 @@ public class AccountModelImpl
 		{"uuid_", Types.VARCHAR}, {"accountId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"accountKey", Types.VARCHAR}, {"name", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"logoId", Types.BIGINT},
-		{"contactEmailAddress", Types.VARCHAR},
+		{"accountKey", Types.VARCHAR}, {"parentAccountId", Types.BIGINT},
+		{"name", Types.VARCHAR}, {"code_", Types.VARCHAR},
+		{"description", Types.VARCHAR}, {"notes", Types.VARCHAR},
+		{"logoId", Types.BIGINT}, {"contactEmailAddress", Types.VARCHAR},
 		{"profileEmailAddress", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
 		{"faxNumber", Types.VARCHAR}, {"website", Types.VARCHAR},
-		{"status", Types.INTEGER}, {"statusByUserId", Types.BIGINT},
-		{"statusByUserName", Types.VARCHAR}, {"statusDate", Types.TIMESTAMP},
-		{"statusMessage", Types.VARCHAR}
+		{"industry", Types.VARCHAR}, {"tier", Types.VARCHAR},
+		{"soldBy", Types.VARCHAR}, {"status", Types.INTEGER},
+		{"statusByUserId", Types.BIGINT}, {"statusByUserName", Types.VARCHAR},
+		{"statusDate", Types.TIMESTAMP}, {"statusMessage", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -102,14 +104,20 @@ public class AccountModelImpl
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("accountKey", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("parentAccountId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("code_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("notes", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("logoId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("contactEmailAddress", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("profileEmailAddress", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("phoneNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("faxNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("website", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("industry", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("tier", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("soldBy", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("statusByUserId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("statusByUserName", Types.VARCHAR);
@@ -118,7 +126,7 @@ public class AccountModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Account (uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,name VARCHAR(75) null,description VARCHAR(75) null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
+		"create table Koroneiki_Account (uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(75) null,code_ VARCHAR(75) null,description VARCHAR(75) null,notes STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,industry VARCHAR(75) null,tier VARCHAR(75) null,soldBy VARCHAR(75) null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Account";
 
@@ -138,9 +146,11 @@ public class AccountModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 2L;
 
-	public static final long UUID_COLUMN_BITMASK = 4L;
+	public static final long PARENTACCOUNTID_COLUMN_BITMASK = 4L;
 
-	public static final long ACCOUNTID_COLUMN_BITMASK = 8L;
+	public static final long UUID_COLUMN_BITMASK = 8L;
+
+	public static final long ACCOUNTID_COLUMN_BITMASK = 16L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -170,14 +180,20 @@ public class AccountModelImpl
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setAccountKey(soapModel.getAccountKey());
+		model.setParentAccountId(soapModel.getParentAccountId());
 		model.setName(soapModel.getName());
+		model.setCode(soapModel.getCode());
 		model.setDescription(soapModel.getDescription());
+		model.setNotes(soapModel.getNotes());
 		model.setLogoId(soapModel.getLogoId());
 		model.setContactEmailAddress(soapModel.getContactEmailAddress());
 		model.setProfileEmailAddress(soapModel.getProfileEmailAddress());
 		model.setPhoneNumber(soapModel.getPhoneNumber());
 		model.setFaxNumber(soapModel.getFaxNumber());
 		model.setWebsite(soapModel.getWebsite());
+		model.setIndustry(soapModel.getIndustry());
+		model.setTier(soapModel.getTier());
+		model.setSoldBy(soapModel.getSoldBy());
 		model.setStatus(soapModel.getStatus());
 		model.setStatusByUserId(soapModel.getStatusByUserId());
 		model.setStatusByUserName(soapModel.getStatusByUserName());
@@ -352,13 +368,24 @@ public class AccountModelImpl
 		attributeGetterFunctions.put("accountKey", Account::getAccountKey);
 		attributeSetterBiConsumers.put(
 			"accountKey", (BiConsumer<Account, String>)Account::setAccountKey);
+		attributeGetterFunctions.put(
+			"parentAccountId", Account::getParentAccountId);
+		attributeSetterBiConsumers.put(
+			"parentAccountId",
+			(BiConsumer<Account, Long>)Account::setParentAccountId);
 		attributeGetterFunctions.put("name", Account::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<Account, String>)Account::setName);
+		attributeGetterFunctions.put("code", Account::getCode);
+		attributeSetterBiConsumers.put(
+			"code", (BiConsumer<Account, String>)Account::setCode);
 		attributeGetterFunctions.put("description", Account::getDescription);
 		attributeSetterBiConsumers.put(
 			"description",
 			(BiConsumer<Account, String>)Account::setDescription);
+		attributeGetterFunctions.put("notes", Account::getNotes);
+		attributeSetterBiConsumers.put(
+			"notes", (BiConsumer<Account, String>)Account::setNotes);
 		attributeGetterFunctions.put("logoId", Account::getLogoId);
 		attributeSetterBiConsumers.put(
 			"logoId", (BiConsumer<Account, Long>)Account::setLogoId);
@@ -382,6 +409,15 @@ public class AccountModelImpl
 		attributeGetterFunctions.put("website", Account::getWebsite);
 		attributeSetterBiConsumers.put(
 			"website", (BiConsumer<Account, String>)Account::setWebsite);
+		attributeGetterFunctions.put("industry", Account::getIndustry);
+		attributeSetterBiConsumers.put(
+			"industry", (BiConsumer<Account, String>)Account::setIndustry);
+		attributeGetterFunctions.put("tier", Account::getTier);
+		attributeSetterBiConsumers.put(
+			"tier", (BiConsumer<Account, String>)Account::setTier);
+		attributeGetterFunctions.put("soldBy", Account::getSoldBy);
+		attributeSetterBiConsumers.put(
+			"soldBy", (BiConsumer<Account, String>)Account::setSoldBy);
 		attributeGetterFunctions.put("status", Account::getStatus);
 		attributeSetterBiConsumers.put(
 			"status", (BiConsumer<Account, Integer>)Account::setStatus);
@@ -553,6 +589,29 @@ public class AccountModelImpl
 
 	@JSON
 	@Override
+	public long getParentAccountId() {
+		return _parentAccountId;
+	}
+
+	@Override
+	public void setParentAccountId(long parentAccountId) {
+		_columnBitmask |= PARENTACCOUNTID_COLUMN_BITMASK;
+
+		if (!_setOriginalParentAccountId) {
+			_setOriginalParentAccountId = true;
+
+			_originalParentAccountId = _parentAccountId;
+		}
+
+		_parentAccountId = parentAccountId;
+	}
+
+	public long getOriginalParentAccountId() {
+		return _originalParentAccountId;
+	}
+
+	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return "";
@@ -569,6 +628,22 @@ public class AccountModelImpl
 
 	@JSON
 	@Override
+	public String getCode() {
+		if (_code == null) {
+			return "";
+		}
+		else {
+			return _code;
+		}
+	}
+
+	@Override
+	public void setCode(String code) {
+		_code = code;
+	}
+
+	@JSON
+	@Override
 	public String getDescription() {
 		if (_description == null) {
 			return "";
@@ -581,6 +656,22 @@ public class AccountModelImpl
 	@Override
 	public void setDescription(String description) {
 		_description = description;
+	}
+
+	@JSON
+	@Override
+	public String getNotes() {
+		if (_notes == null) {
+			return "";
+		}
+		else {
+			return _notes;
+		}
+	}
+
+	@Override
+	public void setNotes(String notes) {
+		_notes = notes;
 	}
 
 	@JSON
@@ -672,6 +763,54 @@ public class AccountModelImpl
 	@Override
 	public void setWebsite(String website) {
 		_website = website;
+	}
+
+	@JSON
+	@Override
+	public String getIndustry() {
+		if (_industry == null) {
+			return "";
+		}
+		else {
+			return _industry;
+		}
+	}
+
+	@Override
+	public void setIndustry(String industry) {
+		_industry = industry;
+	}
+
+	@JSON
+	@Override
+	public String getTier() {
+		if (_tier == null) {
+			return "";
+		}
+		else {
+			return _tier;
+		}
+	}
+
+	@Override
+	public void setTier(String tier) {
+		_tier = tier;
+	}
+
+	@JSON
+	@Override
+	public String getSoldBy() {
+		if (_soldBy == null) {
+			return "";
+		}
+		else {
+			return _soldBy;
+		}
+	}
+
+	@Override
+	public void setSoldBy(String soldBy) {
+		_soldBy = soldBy;
 	}
 
 	@JSON
@@ -884,14 +1023,20 @@ public class AccountModelImpl
 		accountImpl.setCreateDate(getCreateDate());
 		accountImpl.setModifiedDate(getModifiedDate());
 		accountImpl.setAccountKey(getAccountKey());
+		accountImpl.setParentAccountId(getParentAccountId());
 		accountImpl.setName(getName());
+		accountImpl.setCode(getCode());
 		accountImpl.setDescription(getDescription());
+		accountImpl.setNotes(getNotes());
 		accountImpl.setLogoId(getLogoId());
 		accountImpl.setContactEmailAddress(getContactEmailAddress());
 		accountImpl.setProfileEmailAddress(getProfileEmailAddress());
 		accountImpl.setPhoneNumber(getPhoneNumber());
 		accountImpl.setFaxNumber(getFaxNumber());
 		accountImpl.setWebsite(getWebsite());
+		accountImpl.setIndustry(getIndustry());
+		accountImpl.setTier(getTier());
+		accountImpl.setSoldBy(getSoldBy());
 		accountImpl.setStatus(getStatus());
 		accountImpl.setStatusByUserId(getStatusByUserId());
 		accountImpl.setStatusByUserName(getStatusByUserName());
@@ -969,6 +1114,11 @@ public class AccountModelImpl
 
 		accountModelImpl._originalAccountKey = accountModelImpl._accountKey;
 
+		accountModelImpl._originalParentAccountId =
+			accountModelImpl._parentAccountId;
+
+		accountModelImpl._setOriginalParentAccountId = false;
+
 		accountModelImpl._columnBitmask = 0;
 	}
 
@@ -1016,6 +1166,8 @@ public class AccountModelImpl
 			accountCacheModel.accountKey = null;
 		}
 
+		accountCacheModel.parentAccountId = getParentAccountId();
+
 		accountCacheModel.name = getName();
 
 		String name = accountCacheModel.name;
@@ -1024,12 +1176,28 @@ public class AccountModelImpl
 			accountCacheModel.name = null;
 		}
 
+		accountCacheModel.code = getCode();
+
+		String code = accountCacheModel.code;
+
+		if ((code != null) && (code.length() == 0)) {
+			accountCacheModel.code = null;
+		}
+
 		accountCacheModel.description = getDescription();
 
 		String description = accountCacheModel.description;
 
 		if ((description != null) && (description.length() == 0)) {
 			accountCacheModel.description = null;
+		}
+
+		accountCacheModel.notes = getNotes();
+
+		String notes = accountCacheModel.notes;
+
+		if ((notes != null) && (notes.length() == 0)) {
+			accountCacheModel.notes = null;
 		}
 
 		accountCacheModel.logoId = getLogoId();
@@ -1076,6 +1244,30 @@ public class AccountModelImpl
 
 		if ((website != null) && (website.length() == 0)) {
 			accountCacheModel.website = null;
+		}
+
+		accountCacheModel.industry = getIndustry();
+
+		String industry = accountCacheModel.industry;
+
+		if ((industry != null) && (industry.length() == 0)) {
+			accountCacheModel.industry = null;
+		}
+
+		accountCacheModel.tier = getTier();
+
+		String tier = accountCacheModel.tier;
+
+		if ((tier != null) && (tier.length() == 0)) {
+			accountCacheModel.tier = null;
+		}
+
+		accountCacheModel.soldBy = getSoldBy();
+
+		String soldBy = accountCacheModel.soldBy;
+
+		if ((soldBy != null) && (soldBy.length() == 0)) {
+			accountCacheModel.soldBy = null;
 		}
 
 		accountCacheModel.status = getStatus();
@@ -1195,14 +1387,22 @@ public class AccountModelImpl
 	private boolean _setModifiedDate;
 	private String _accountKey;
 	private String _originalAccountKey;
+	private long _parentAccountId;
+	private long _originalParentAccountId;
+	private boolean _setOriginalParentAccountId;
 	private String _name;
+	private String _code;
 	private String _description;
+	private String _notes;
 	private long _logoId;
 	private String _contactEmailAddress;
 	private String _profileEmailAddress;
 	private String _phoneNumber;
 	private String _faxNumber;
 	private String _website;
+	private String _industry;
+	private String _tier;
+	private String _soldBy;
 	private int _status;
 	private long _statusByUserId;
 	private String _statusByUserName;

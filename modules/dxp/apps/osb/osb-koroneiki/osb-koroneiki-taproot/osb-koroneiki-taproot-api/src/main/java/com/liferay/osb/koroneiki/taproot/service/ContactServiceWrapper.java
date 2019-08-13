@@ -117,36 +117,6 @@ public class ContactServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Contact>
-			getProjectContacts(long projectId, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _contactService.getProjectContacts(projectId, start, end);
-	}
-
-	@Override
-	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Contact>
-			getProjectContacts(String projectKey, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _contactService.getProjectContacts(projectKey, start, end);
-	}
-
-	@Override
-	public int getProjectContactsCount(long projectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _contactService.getProjectContactsCount(projectId);
-	}
-
-	@Override
-	public int getProjectContactsCount(String projectKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _contactService.getProjectContactsCount(projectKey);
-	}
-
-	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,

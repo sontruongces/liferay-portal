@@ -253,9 +253,9 @@ public class TeamRoleLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.TeamRole>
-			getTeamProjectTeamRoles(long projectId, long teamId) {
+			getTeamAccountTeamRoles(long accountId, long teamId) {
 
-		return getService().getTeamProjectTeamRoles(projectId, teamId);
+		return getService().getTeamAccountTeamRoles(accountId, teamId);
 	}
 
 	/**

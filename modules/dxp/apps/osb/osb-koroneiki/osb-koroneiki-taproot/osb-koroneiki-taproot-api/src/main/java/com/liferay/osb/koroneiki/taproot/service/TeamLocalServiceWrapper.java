@@ -217,6 +217,18 @@ public class TeamLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+		getAccountAssignedTeams(long accountId, int start, int end) {
+
+		return _teamLocalService.getAccountAssignedTeams(accountId, start, end);
+	}
+
+	@Override
+	public int getAccountAssignedTeamsCount(long accountId) {
+		return _teamLocalService.getAccountAssignedTeamsCount(accountId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
 		getAccountTeams(long accountId, int start, int end) {
 
 		return _teamLocalService.getAccountTeams(accountId, start, end);
@@ -267,18 +279,6 @@ public class TeamLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _teamLocalService.getPersistedModel(primaryKeyObj);
-	}
-
-	@Override
-	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
-		getProjectTeams(long projectId, int start, int end) {
-
-		return _teamLocalService.getProjectTeams(projectId, start, end);
-	}
-
-	@Override
-	public int getProjectTeamsCount(long projectId) {
-		return _teamLocalService.getProjectTeamsCount(projectId);
 	}
 
 	/**

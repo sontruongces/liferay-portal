@@ -52,14 +52,6 @@ public interface ProductConsumptionResource {
 			String productConsumptionKey)
 		throws Exception;
 
-	public Page<ProductConsumption> getProjectProjectKeyProductConsumptionsPage(
-			String projectKey, Pagination pagination)
-		throws Exception;
-
-	public ProductConsumption postProjectProjectKeyProductConsumption(
-			String projectKey, ProductConsumption productConsumption)
-		throws Exception;
-
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

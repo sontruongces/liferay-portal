@@ -23,7 +23,6 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Project;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
@@ -35,7 +34,6 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
-import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProjectResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.petra.function.UnsafeConsumer;
@@ -133,14 +131,6 @@ public class Query {
 			productPurchaseResourceComponentServiceObjects;
 	}
 
-	public static void setProjectResourceComponentServiceObjects(
-		ComponentServiceObjects<ProjectResource>
-			projectResourceComponentServiceObjects) {
-
-		_projectResourceComponentServiceObjects =
-			projectResourceComponentServiceObjects;
-	}
-
 	public static void setTeamResourceComponentServiceObjects(
 		ComponentServiceObjects<TeamResource>
 			teamResourceComponentServiceObjects) {
@@ -184,6 +174,22 @@ public class Query {
 			this::_populateResourceContext,
 			accountResource -> accountResource.getAccount(
 				accountKey, includes));
+	}
+
+	@GraphQLField
+	public AccountPage getAccountChildAccountsPage(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("includes") String[] includes,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> new AccountPage(
+				accountResource.getAccountChildAccountsPage(
+					accountKey, includes, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField
@@ -259,21 +265,6 @@ public class Query {
 	}
 
 	@GraphQLField
-	public AuditEntryPage getProjectProjectKeyAuditEntriesPage(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_auditEntryResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			auditEntryResource -> new AuditEntryPage(
-				auditEntryResource.getProjectProjectKeyAuditEntriesPage(
-					projectKey, Pagination.of(page, pageSize))));
-	}
-
-	@GraphQLField
 	public AuditEntryPage getTeamRoleTeamRoleKeyAuditEntriesPage(
 			@GraphQLName("teamRoleKey") String teamRoleKey,
 			@GraphQLName("pageSize") int pageSize,
@@ -337,21 +328,6 @@ public class Query {
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			contactResource -> contactResource.getContactByUuid(uuid));
-	}
-
-	@GraphQLField
-	public ContactPage getProjectProjectKeyContactsPage(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_contactResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactResource -> new ContactPage(
-				contactResource.getProjectProjectKeyContactsPage(
-					projectKey, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField
@@ -490,21 +466,6 @@ public class Query {
 	}
 
 	@GraphQLField
-	public ExternalLinkPage getProjectProjectKeyExternalLinksPage(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_externalLinkResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			externalLinkResource -> new ExternalLinkPage(
-				externalLinkResource.getProjectProjectKeyExternalLinksPage(
-					projectKey, Pagination.of(page, pageSize))));
-	}
-
-	@GraphQLField
 	public ExternalLinkPage getTeamTeamKeyExternalLinksPage(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("pageSize") int pageSize,
@@ -598,22 +559,6 @@ public class Query {
 	}
 
 	@GraphQLField
-	public ProductConsumptionPage getProjectProjectKeyProductConsumptionsPage(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_productConsumptionResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			productConsumptionResource -> new ProductConsumptionPage(
-				productConsumptionResource.
-					getProjectProjectKeyProductConsumptionsPage(
-						projectKey, Pagination.of(page, pageSize))));
-	}
-
-	@GraphQLField
 	public ProductPurchasePage getAccountAccountKeyProductPurchasesPage(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,
@@ -639,67 +584,6 @@ public class Query {
 			this::_populateResourceContext,
 			productPurchaseResource ->
 				productPurchaseResource.getProductPurchase(productPurchaseKey));
-	}
-
-	@GraphQLField
-	public ProductPurchasePage getProjectProjectKeyProductPurchasesPage(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_productPurchaseResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			productPurchaseResource -> new ProductPurchasePage(
-				productPurchaseResource.
-					getProjectProjectKeyProductPurchasesPage(
-						projectKey, Pagination.of(page, pageSize))));
-	}
-
-	@GraphQLField
-	public ProjectPage getAccountAccountKeyProjectsPage(
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("includes") String[] includes,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> new ProjectPage(
-				projectResource.getAccountAccountKeyProjectsPage(
-					accountKey, includes, Pagination.of(page, pageSize))));
-	}
-
-	@GraphQLField
-	public ProjectPage getProjectsPage(
-			@GraphQLName("search") String search,
-			@GraphQLName("filter") Filter filter,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> new ProjectPage(
-				projectResource.getProjectsPage(
-					search, filter, Pagination.of(page, pageSize), sorts)));
-	}
-
-	@GraphQLField
-	public Project getProject(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("includes") String[] includes)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> projectResource.getProject(
-				projectKey, includes));
 	}
 
 	@GraphQLField
@@ -953,30 +837,6 @@ public class Query {
 
 	}
 
-	@GraphQLName("ProjectPage")
-	public class ProjectPage {
-
-		public ProjectPage(Page projectPage) {
-			items = projectPage.getItems();
-			page = projectPage.getPage();
-			pageSize = projectPage.getPageSize();
-			totalCount = projectPage.getTotalCount();
-		}
-
-		@GraphQLField
-		protected java.util.Collection<Project> items;
-
-		@GraphQLField
-		protected long page;
-
-		@GraphQLField
-		protected long pageSize;
-
-		@GraphQLField
-		protected long totalCount;
-
-	}
-
 	@GraphQLName("TeamPage")
 	public class TeamPage {
 
@@ -1121,14 +981,6 @@ public class Query {
 		productPurchaseResource.setContextUser(_user);
 	}
 
-	private void _populateResourceContext(ProjectResource projectResource)
-		throws Exception {
-
-		projectResource.setContextAcceptLanguage(_acceptLanguage);
-		projectResource.setContextCompany(_company);
-		projectResource.setContextUser(_user);
-	}
-
 	private void _populateResourceContext(TeamResource teamResource)
 		throws Exception {
 
@@ -1163,8 +1015,6 @@ public class Query {
 		_productConsumptionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductPurchaseResource>
 		_productPurchaseResourceComponentServiceObjects;
-	private static ComponentServiceObjects<ProjectResource>
-		_projectResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TeamResource>
 		_teamResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TeamRoleResource>

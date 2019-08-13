@@ -66,18 +66,19 @@ public class AccountServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.AccountSoap
 			addAccount(
-				String name, String description, long logoId,
+				long parentAccountId, String name, String code,
+				String description, String notes, long logoId,
 				String contactEmailAddress, String profileEmailAddress,
 				String phoneNumber, String faxNumber, String website,
-				int status)
+				String industry, String tier, String soldBy, int status)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Account returnValue =
 				AccountServiceUtil.addAccount(
-					name, description, logoId, contactEmailAddress,
-					profileEmailAddress, phoneNumber, faxNumber, website,
-					status);
+					parentAccountId, name, code, description, notes, logoId,
+					contactEmailAddress, profileEmailAddress, phoneNumber,
+					faxNumber, website, industry, tier, soldBy, status);
 
 			return com.liferay.osb.koroneiki.taproot.model.AccountSoap.
 				toSoapModel(returnValue);
@@ -161,19 +162,56 @@ public class AccountServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.AccountSoap[]
+			getAccounts(long parentAccountId, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+				returnValue = AccountServiceUtil.getAccounts(
+					parentAccountId, start, end);
+
+			return com.liferay.osb.koroneiki.taproot.model.AccountSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getAccountsCount(long parentAccountId)
+		throws RemoteException {
+
+		try {
+			int returnValue = AccountServiceUtil.getAccountsCount(
+				parentAccountId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.AccountSoap
 			updateAccount(
-				long accountId, String name, String description, long logoId,
+				long accountId, long parentAccountId, String name, String code,
+				String description, String notes, long logoId,
 				String contactEmailAddress, String profileEmailAddress,
 				String phoneNumber, String faxNumber, String website,
-				int status)
+				String industry, String tier, String soldBy, int status)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Account returnValue =
 				AccountServiceUtil.updateAccount(
-					accountId, name, description, logoId, contactEmailAddress,
-					profileEmailAddress, phoneNumber, faxNumber, website,
+					accountId, parentAccountId, name, code, description, notes,
+					logoId, contactEmailAddress, profileEmailAddress,
+					phoneNumber, faxNumber, website, industry, tier, soldBy,
 					status);
 
 			return com.liferay.osb.koroneiki.taproot.model.AccountSoap.
@@ -188,17 +226,19 @@ public class AccountServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.AccountSoap
 			updateAccount(
-				String accountKey, String name, String description, long logoId,
+				String accountKey, long parentAccountId, String name,
+				String code, String description, String notes, long logoId,
 				String contactEmailAddress, String profileEmailAddress,
 				String phoneNumber, String faxNumber, String website,
-				int status)
+				String industry, String tier, String soldBy, int status)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Account returnValue =
 				AccountServiceUtil.updateAccount(
-					accountKey, name, description, logoId, contactEmailAddress,
-					profileEmailAddress, phoneNumber, faxNumber, website,
+					accountKey, parentAccountId, name, code, description, notes,
+					logoId, contactEmailAddress, profileEmailAddress,
+					phoneNumber, faxNumber, website, industry, tier, soldBy,
 					status);
 
 			return com.liferay.osb.koroneiki.taproot.model.AccountSoap.

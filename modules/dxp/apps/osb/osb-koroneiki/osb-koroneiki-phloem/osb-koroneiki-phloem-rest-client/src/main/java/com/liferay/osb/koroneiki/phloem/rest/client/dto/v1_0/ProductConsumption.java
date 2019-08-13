@@ -133,27 +133,6 @@ public class ProductConsumption {
 
 	protected String productKey;
 
-	public String getProjectKey() {
-		return projectKey;
-	}
-
-	public void setProjectKey(String projectKey) {
-		this.projectKey = projectKey;
-	}
-
-	public void setProjectKey(
-		UnsafeSupplier<String, Exception> projectKeyUnsafeSupplier) {
-
-		try {
-			projectKey = projectKeyUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String projectKey;
-
 	public Map<String, String> getProperties() {
 		return properties;
 	}

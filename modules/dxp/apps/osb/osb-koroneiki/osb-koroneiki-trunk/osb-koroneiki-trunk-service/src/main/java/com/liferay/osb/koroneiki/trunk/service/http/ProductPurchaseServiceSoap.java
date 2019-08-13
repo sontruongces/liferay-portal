@@ -66,8 +66,8 @@ public class ProductPurchaseServiceSoap {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap
 			addProductPurchase(
-				long accountId, long projectId, long productEntryId,
-				java.util.Date startDate, java.util.Date endDate, int quantity,
+				long accountId, long productEntryId, java.util.Date startDate,
+				java.util.Date endDate, int quantity,
 				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
 					productFields)
 		throws RemoteException {
@@ -75,8 +75,7 @@ public class ProductPurchaseServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.trunk.model.ProductPurchase returnValue =
 				ProductPurchaseServiceUtil.addProductPurchase(
-					accountId, projectId, productEntryId, startDate, endDate,
-					quantity,
+					accountId, productEntryId, startDate, endDate, quantity,
 					com.liferay.osb.koroneiki.trunk.model.impl.
 						ProductFieldModelImpl.toModels(productFields));
 
@@ -92,7 +91,7 @@ public class ProductPurchaseServiceSoap {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap
 			addProductPurchase(
-				String accountKey, String projectKey, String productEntryKey,
+				String accountKey, String productEntryKey,
 				java.util.Date startDate, java.util.Date endDate, int quantity,
 				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
 					productFields)
@@ -101,8 +100,7 @@ public class ProductPurchaseServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.trunk.model.ProductPurchase returnValue =
 				ProductPurchaseServiceUtil.addProductPurchase(
-					accountKey, projectKey, productEntryKey, startDate, endDate,
-					quantity,
+					accountKey, productEntryKey, startDate, endDate, quantity,
 					com.liferay.osb.koroneiki.trunk.model.impl.
 						ProductFieldModelImpl.toModels(productFields));
 
@@ -260,82 +258,6 @@ public class ProductPurchaseServiceSoap {
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap.
 				toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap[]
-			getProjectProductPurchases(long projectId, int start, int end)
-		throws RemoteException {
-
-		try {
-			java.util.List
-				<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-					returnValue =
-						ProductPurchaseServiceUtil.getProjectProductPurchases(
-							projectId, start, end);
-
-			return com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap.
-				toSoapModels(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap[]
-			getProjectProductPurchases(String projectKey, int start, int end)
-		throws RemoteException {
-
-		try {
-			java.util.List
-				<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-					returnValue =
-						ProductPurchaseServiceUtil.getProjectProductPurchases(
-							projectKey, start, end);
-
-			return com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap.
-				toSoapModels(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static int getProjectProductPurchasesCount(long projectId)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				ProductPurchaseServiceUtil.getProjectProductPurchasesCount(
-					projectId);
-
-			return returnValue;
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static int getProjectProductPurchasesCount(String projectKey)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				ProductPurchaseServiceUtil.getProjectProductPurchasesCount(
-					projectKey);
-
-			return returnValue;
 		}
 		catch (Exception e) {
 			_log.error(e, e);

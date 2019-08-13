@@ -175,13 +175,17 @@ public abstract class BaseAccountResourceTestCase {
 
 		Account account = randomAccount();
 
+		account.setCode(regex);
 		account.setContactEmailAddress(regex);
 		account.setDescription(regex);
 		account.setFaxNumber(regex);
 		account.setKey(regex);
 		account.setName(regex);
+		account.setNotes(regex);
+		account.setParentAccountKey(regex);
 		account.setPhoneNumber(regex);
 		account.setProfileEmailAddress(regex);
+		account.setSoldBy(regex);
 		account.setWebsite(regex);
 
 		String json = AccountSerDes.toJSON(account);
@@ -190,13 +194,17 @@ public abstract class BaseAccountResourceTestCase {
 
 		account = AccountSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, account.getCode());
 		Assert.assertEquals(regex, account.getContactEmailAddress());
 		Assert.assertEquals(regex, account.getDescription());
 		Assert.assertEquals(regex, account.getFaxNumber());
 		Assert.assertEquals(regex, account.getKey());
 		Assert.assertEquals(regex, account.getName());
+		Assert.assertEquals(regex, account.getNotes());
+		Assert.assertEquals(regex, account.getParentAccountKey());
 		Assert.assertEquals(regex, account.getPhoneNumber());
 		Assert.assertEquals(regex, account.getProfileEmailAddress());
+		Assert.assertEquals(regex, account.getSoldBy());
 		Assert.assertEquals(regex, account.getWebsite());
 	}
 
@@ -434,6 +442,138 @@ public abstract class BaseAccountResourceTestCase {
 		Assert.assertTrue(true);
 	}
 
+	@Test
+	public void testGetAccountChildAccountsPage() throws Exception {
+		Page<Account> page = accountResource.getAccountChildAccountsPage(
+			testGetAccountChildAccountsPage_getAccountKey(), null,
+			Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String accountKey = testGetAccountChildAccountsPage_getAccountKey();
+		String irrelevantAccountKey =
+			testGetAccountChildAccountsPage_getIrrelevantAccountKey();
+
+		if ((irrelevantAccountKey != null)) {
+			Account irrelevantAccount =
+				testGetAccountChildAccountsPage_addAccount(
+					irrelevantAccountKey, randomIrrelevantAccount());
+
+			page = accountResource.getAccountChildAccountsPage(
+				irrelevantAccountKey, null, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantAccount),
+				(List<Account>)page.getItems());
+			assertValid(page);
+		}
+
+		Account account1 = testGetAccountChildAccountsPage_addAccount(
+			accountKey, randomAccount());
+
+		Account account2 = testGetAccountChildAccountsPage_addAccount(
+			accountKey, randomAccount());
+
+		page = accountResource.getAccountChildAccountsPage(
+			accountKey, null, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(account1, account2), (List<Account>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetAccountChildAccountsPageWithPagination()
+		throws Exception {
+
+		String accountKey = testGetAccountChildAccountsPage_getAccountKey();
+
+		Account account1 = testGetAccountChildAccountsPage_addAccount(
+			accountKey, randomAccount());
+
+		Account account2 = testGetAccountChildAccountsPage_addAccount(
+			accountKey, randomAccount());
+
+		Account account3 = testGetAccountChildAccountsPage_addAccount(
+			accountKey, randomAccount());
+
+		Page<Account> page1 = accountResource.getAccountChildAccountsPage(
+			accountKey, null, Pagination.of(1, 2));
+
+		List<Account> accounts1 = (List<Account>)page1.getItems();
+
+		Assert.assertEquals(accounts1.toString(), 2, accounts1.size());
+
+		Page<Account> page2 = accountResource.getAccountChildAccountsPage(
+			accountKey, null, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Account> accounts2 = (List<Account>)page2.getItems();
+
+		Assert.assertEquals(accounts2.toString(), 1, accounts2.size());
+
+		Page<Account> page3 = accountResource.getAccountChildAccountsPage(
+			accountKey, null, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(account1, account2, account3),
+			(List<Account>)page3.getItems());
+	}
+
+	protected Account testGetAccountChildAccountsPage_addAccount(
+			String accountKey, Account account)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetAccountChildAccountsPage_getAccountKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetAccountChildAccountsPage_getIrrelevantAccountKey()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testPostAccountChildAccount() throws Exception {
+		Account randomAccount = randomAccount();
+
+		Account postAccount = testPostAccountChildAccount_addAccount(
+			randomAccount);
+
+		assertEquals(randomAccount, postAccount);
+		assertValid(postAccount);
+	}
+
+	protected Account testPostAccountChildAccount_addAccount(Account account)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testDeleteAccountTeamTeamKeyRole() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPutAccountTeamTeamKeyRole() throws Exception {
+		Assert.assertTrue(true);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {
@@ -504,6 +644,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("code", additionalAssertFieldName)) {
+				if (account.getCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"contactEmailAddress", additionalAssertFieldName)) {
 
@@ -538,6 +686,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("industry", additionalAssertFieldName)) {
+				if (account.getIndustry() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("key", additionalAssertFieldName)) {
 				if (account.getKey() == null) {
 					valid = false;
@@ -548,6 +704,22 @@ public abstract class BaseAccountResourceTestCase {
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (account.getName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("notes", additionalAssertFieldName)) {
+				if (account.getNotes() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("parentAccountKey", additionalAssertFieldName)) {
+				if (account.getParentAccountKey() == null) {
 					valid = false;
 				}
 
@@ -580,8 +752,24 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("soldBy", additionalAssertFieldName)) {
+				if (account.getSoldBy() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("status", additionalAssertFieldName)) {
 				if (account.getStatus() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("tier", additionalAssertFieldName)) {
+				if (account.getTier() == null) {
 					valid = false;
 				}
 
@@ -640,6 +828,16 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("addresses", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getAddresses(), account2.getAddresses())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("code", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getCode(), account2.getCode())) {
 
 					return false;
 				}
@@ -712,6 +910,16 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("industry", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getIndustry(), account2.getIndustry())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("key", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(account1.getKey(), account2.getKey())) {
 					return false;
@@ -723,6 +931,27 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getName(), account2.getName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("notes", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getNotes(), account2.getNotes())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("parentAccountKey", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getParentAccountKey(),
+						account2.getParentAccountKey())) {
 
 					return false;
 				}
@@ -764,9 +993,29 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("soldBy", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getSoldBy(), account2.getSoldBy())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("status", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getStatus(), account2.getStatus())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("tier", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getTier(), account2.getTier())) {
 
 					return false;
 				}
@@ -845,6 +1094,14 @@ public abstract class BaseAccountResourceTestCase {
 		if (entityFieldName.equals("addresses")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("code")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getCode()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("contactEmailAddress")) {
@@ -938,6 +1195,11 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("industry")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("key")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getKey()));
@@ -949,6 +1211,22 @@ public abstract class BaseAccountResourceTestCase {
 		if (entityFieldName.equals("name")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getName()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("notes")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getNotes()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("parentAccountKey")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getParentAccountKey()));
 			sb.append("'");
 
 			return sb.toString();
@@ -975,7 +1253,20 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("soldBy")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getSoldBy()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("status")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("tier")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -995,6 +1286,7 @@ public abstract class BaseAccountResourceTestCase {
 	protected Account randomAccount() throws Exception {
 		return new Account() {
 			{
+				code = RandomTestUtil.randomString();
 				contactEmailAddress = RandomTestUtil.randomString();
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
@@ -1002,8 +1294,11 @@ public abstract class BaseAccountResourceTestCase {
 				faxNumber = RandomTestUtil.randomString();
 				key = RandomTestUtil.randomString();
 				name = RandomTestUtil.randomString();
+				notes = RandomTestUtil.randomString();
+				parentAccountKey = RandomTestUtil.randomString();
 				phoneNumber = RandomTestUtil.randomString();
 				profileEmailAddress = RandomTestUtil.randomString();
+				soldBy = RandomTestUtil.randomString();
 				website = RandomTestUtil.randomString();
 			}
 		};

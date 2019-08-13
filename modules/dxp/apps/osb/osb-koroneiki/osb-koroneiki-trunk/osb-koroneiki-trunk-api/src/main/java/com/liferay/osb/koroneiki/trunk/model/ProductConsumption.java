@@ -79,9 +79,4 @@ public interface ProductConsumption
 
 	public java.util.Map<String, String> getProductFieldsMap();
 
-	public com.liferay.osb.koroneiki.taproot.model.Project getProject();
-
-	public String getProjectKey()
-		throws com.liferay.portal.kernel.exception.PortalException;
-
 }

@@ -22,7 +22,6 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Project;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
@@ -33,7 +32,6 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
-import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProjectResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.petra.function.UnsafeConsumer;
@@ -116,14 +114,6 @@ public class Mutation {
 
 		_productPurchaseResourceComponentServiceObjects =
 			productPurchaseResourceComponentServiceObjects;
-	}
-
-	public static void setProjectResourceComponentServiceObjects(
-		ComponentServiceObjects<ProjectResource>
-			projectResourceComponentServiceObjects) {
-
-		_projectResourceComponentServiceObjects =
-			projectResourceComponentServiceObjects;
 	}
 
 	public static void setTeamResourceComponentServiceObjects(
@@ -235,6 +225,51 @@ public class Mutation {
 			this::_populateResourceContext,
 			accountResource -> accountResource.putAccountContactContactUuidRole(
 				accountKey, contactUuid, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Account postAccountChildAccount(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("account") Account account)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.postAccountChildAccount(
+				accountKey, account));
+	}
+
+	@GraphQLField
+	public boolean deleteAccountTeamTeamKeyRole(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("teamRoleKeys") String[] teamRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.deleteAccountTeamTeamKeyRole(
+				accountKey, teamKey, teamRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean putAccountTeamTeamKeyRole(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("teamRoleKeys") String[] teamRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.putAccountTeamTeamKeyRole(
+				accountKey, teamKey, teamRoleKeys));
 
 		return true;
 	}
@@ -438,20 +473,6 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postProjectProjectKeyExternalLink(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("externalLink") ExternalLink externalLink)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_externalLinkResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			externalLinkResource ->
-				externalLinkResource.postProjectProjectKeyExternalLink(
-					projectKey, externalLink));
-	}
-
-	@GraphQLField
 	public ExternalLink postTeamTeamKeyExternalLink(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("externalLink") ExternalLink externalLink)
@@ -572,22 +593,6 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ProductConsumption postProjectProjectKeyProductConsumption(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("productConsumption") ProductConsumption
-				productConsumption)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_productConsumptionResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			productConsumptionResource ->
-				productConsumptionResource.
-					postProjectProjectKeyProductConsumption(
-						projectKey, productConsumption));
-	}
-
-	@GraphQLField
 	public ProductPurchase postAccountAccountKeyProductPurchase(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("productPurchase") ProductPurchase productPurchase)
@@ -628,152 +633,6 @@ public class Mutation {
 			productPurchaseResource ->
 				productPurchaseResource.putProductPurchase(
 					productPurchaseKey, productPurchase));
-	}
-
-	@GraphQLField
-	public ProductPurchase postProjectProjectKeyProductPurchase(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("productPurchase") ProductPurchase productPurchase)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_productPurchaseResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			productPurchaseResource ->
-				productPurchaseResource.postProjectProjectKeyProductPurchase(
-					projectKey, productPurchase));
-	}
-
-	@GraphQLField
-	public Project postAccountAccountKeyProject(
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("project") Project project)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> projectResource.postAccountAccountKeyProject(
-				accountKey, project));
-	}
-
-	@GraphQLField
-	public boolean deleteProject(@GraphQLName("projectKey") String projectKey)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> projectResource.deleteProject(projectKey));
-
-		return true;
-	}
-
-	@GraphQLField
-	public Project putProject(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("project") Project project)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> projectResource.putProject(projectKey, project));
-	}
-
-	@GraphQLField
-	public boolean deleteProjectContact(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("contactKeys") String[] contactKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> projectResource.deleteProjectContact(
-				projectKey, contactKeys));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean putProjectContact(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("contactKeys") String[] contactKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> projectResource.putProjectContact(
-				projectKey, contactKeys));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean deleteProjectContactContactKeyRole(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("contactKey") String contactKey,
-			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource ->
-				projectResource.deleteProjectContactContactKeyRole(
-					projectKey, contactKey, contactRoleKeys));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean putProjectContactContactKeyRole(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("contactKey") String contactKey,
-			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> projectResource.putProjectContactContactKeyRole(
-				projectKey, contactKey, contactRoleKeys));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean deleteProjectTeamTeamKeyRole(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("teamKey") String teamKey,
-			@GraphQLName("teamRoleKeys") String[] teamRoleKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> projectResource.deleteProjectTeamTeamKeyRole(
-				projectKey, teamKey, teamRoleKeys));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean putProjectTeamTeamKeyRole(
-			@GraphQLName("projectKey") String projectKey,
-			@GraphQLName("teamKey") String teamKey,
-			@GraphQLName("teamRoleKeys") String[] teamRoleKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_projectResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			projectResource -> projectResource.putProjectTeamTeamKeyRole(
-				projectKey, teamKey, teamRoleKeys));
-
-		return true;
 	}
 
 	@GraphQLField
@@ -948,13 +807,6 @@ public class Mutation {
 		productPurchaseResource.setContextCompany(_company);
 	}
 
-	private void _populateResourceContext(ProjectResource projectResource)
-		throws Exception {
-
-		projectResource.setContextAcceptLanguage(_acceptLanguage);
-		projectResource.setContextCompany(_company);
-	}
-
 	private void _populateResourceContext(TeamResource teamResource)
 		throws Exception {
 
@@ -985,8 +837,6 @@ public class Mutation {
 		_productConsumptionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductPurchaseResource>
 		_productPurchaseResourceComponentServiceObjects;
-	private static ComponentServiceObjects<ProjectResource>
-		_projectResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TeamResource>
 		_teamResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TeamRoleResource>

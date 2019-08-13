@@ -82,7 +82,7 @@ public class ProductConsumptionModelImpl
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"productConsumptionKey", Types.VARCHAR}, {"accountId", Types.BIGINT},
-		{"projectId", Types.BIGINT}, {"productEntryId", Types.BIGINT}
+		{"productEntryId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,12 +97,11 @@ public class ProductConsumptionModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("productConsumptionKey", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("accountId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("projectId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("productEntryId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ProductConsumption (uuid_ VARCHAR(75) null,productConsumptionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productConsumptionKey VARCHAR(75) null,accountId LONG,projectId LONG,productEntryId LONG)";
+		"create table Koroneiki_ProductConsumption (uuid_ VARCHAR(75) null,productConsumptionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productConsumptionKey VARCHAR(75) null,accountId LONG,productEntryId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ProductConsumption";
@@ -127,13 +126,11 @@ public class ProductConsumptionModelImpl
 
 	public static final long PRODUCTENTRYID_COLUMN_BITMASK = 8L;
 
-	public static final long PROJECTID_COLUMN_BITMASK = 16L;
+	public static final long USERID_COLUMN_BITMASK = 16L;
 
-	public static final long USERID_COLUMN_BITMASK = 32L;
+	public static final long UUID_COLUMN_BITMASK = 32L;
 
-	public static final long UUID_COLUMN_BITMASK = 64L;
-
-	public static final long PRODUCTCONSUMPTIONID_COLUMN_BITMASK = 128L;
+	public static final long PRODUCTCONSUMPTIONID_COLUMN_BITMASK = 64L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -164,7 +161,6 @@ public class ProductConsumptionModelImpl
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setProductConsumptionKey(soapModel.getProductConsumptionKey());
 		model.setAccountId(soapModel.getAccountId());
-		model.setProjectId(soapModel.getProjectId());
 		model.setProductEntryId(soapModel.getProductEntryId());
 
 		return model;
@@ -370,12 +366,6 @@ public class ProductConsumptionModelImpl
 			(BiConsumer<ProductConsumption, Long>)
 				ProductConsumption::setAccountId);
 		attributeGetterFunctions.put(
-			"projectId", ProductConsumption::getProjectId);
-		attributeSetterBiConsumers.put(
-			"projectId",
-			(BiConsumer<ProductConsumption, Long>)
-				ProductConsumption::setProjectId);
-		attributeGetterFunctions.put(
 			"productEntryId", ProductConsumption::getProductEntryId);
 		attributeSetterBiConsumers.put(
 			"productEntryId",
@@ -566,29 +556,6 @@ public class ProductConsumptionModelImpl
 
 	@JSON
 	@Override
-	public long getProjectId() {
-		return _projectId;
-	}
-
-	@Override
-	public void setProjectId(long projectId) {
-		_columnBitmask |= PROJECTID_COLUMN_BITMASK;
-
-		if (!_setOriginalProjectId) {
-			_setOriginalProjectId = true;
-
-			_originalProjectId = _projectId;
-		}
-
-		_projectId = projectId;
-	}
-
-	public long getOriginalProjectId() {
-		return _originalProjectId;
-	}
-
-	@JSON
-	@Override
 	public long getProductEntryId() {
 		return _productEntryId;
 	}
@@ -664,7 +631,6 @@ public class ProductConsumptionModelImpl
 		productConsumptionImpl.setProductConsumptionKey(
 			getProductConsumptionKey());
 		productConsumptionImpl.setAccountId(getAccountId());
-		productConsumptionImpl.setProjectId(getProjectId());
 		productConsumptionImpl.setProductEntryId(getProductEntryId());
 
 		productConsumptionImpl.resetOriginalValues();
@@ -751,11 +717,6 @@ public class ProductConsumptionModelImpl
 
 		productConsumptionModelImpl._setOriginalAccountId = false;
 
-		productConsumptionModelImpl._originalProjectId =
-			productConsumptionModelImpl._projectId;
-
-		productConsumptionModelImpl._setOriginalProjectId = false;
-
 		productConsumptionModelImpl._originalProductEntryId =
 			productConsumptionModelImpl._productEntryId;
 
@@ -815,8 +776,6 @@ public class ProductConsumptionModelImpl
 		}
 
 		productConsumptionCacheModel.accountId = getAccountId();
-
-		productConsumptionCacheModel.projectId = getProjectId();
 
 		productConsumptionCacheModel.productEntryId = getProductEntryId();
 
@@ -913,9 +872,6 @@ public class ProductConsumptionModelImpl
 	private long _accountId;
 	private long _originalAccountId;
 	private boolean _setOriginalAccountId;
-	private long _projectId;
-	private long _originalProjectId;
-	private boolean _setOriginalProjectId;
 	private long _productEntryId;
 	private long _originalProductEntryId;
 	private boolean _setOriginalProductEntryId;

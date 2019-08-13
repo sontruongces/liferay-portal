@@ -214,7 +214,7 @@ public interface TeamRoleLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<TeamRole> getTeamProjectTeamRoles(long projectId, long teamId);
+	public List<TeamRole> getTeamAccountTeamRoles(long accountId, long teamId);
 
 	/**
 	 * Returns the team role with the primary key.

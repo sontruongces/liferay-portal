@@ -53,14 +53,20 @@ public class AccountWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("accountKey", getAccountKey());
+		attributes.put("parentAccountId", getParentAccountId());
 		attributes.put("name", getName());
+		attributes.put("code", getCode());
 		attributes.put("description", getDescription());
+		attributes.put("notes", getNotes());
 		attributes.put("logoId", getLogoId());
 		attributes.put("contactEmailAddress", getContactEmailAddress());
 		attributes.put("profileEmailAddress", getProfileEmailAddress());
 		attributes.put("phoneNumber", getPhoneNumber());
 		attributes.put("faxNumber", getFaxNumber());
 		attributes.put("website", getWebsite());
+		attributes.put("industry", getIndustry());
+		attributes.put("tier", getTier());
+		attributes.put("soldBy", getSoldBy());
 		attributes.put("status", getStatus());
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
@@ -114,16 +120,34 @@ public class AccountWrapper
 			setAccountKey(accountKey);
 		}
 
+		Long parentAccountId = (Long)attributes.get("parentAccountId");
+
+		if (parentAccountId != null) {
+			setParentAccountId(parentAccountId);
+		}
+
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
 			setName(name);
 		}
 
+		String code = (String)attributes.get("code");
+
+		if (code != null) {
+			setCode(code);
+		}
+
 		String description = (String)attributes.get("description");
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		String notes = (String)attributes.get("notes");
+
+		if (notes != null) {
+			setNotes(notes);
 		}
 
 		Long logoId = (Long)attributes.get("logoId");
@@ -162,6 +186,24 @@ public class AccountWrapper
 
 		if (website != null) {
 			setWebsite(website);
+		}
+
+		String industry = (String)attributes.get("industry");
+
+		if (industry != null) {
+			setIndustry(industry);
+		}
+
+		String tier = (String)attributes.get("tier");
+
+		if (tier != null) {
+			setTier(tier);
+		}
+
+		String soldBy = (String)attributes.get("soldBy");
+
+		if (soldBy != null) {
+			setSoldBy(soldBy);
 		}
 
 		Integer status = (Integer)attributes.get("status");
@@ -222,6 +264,23 @@ public class AccountWrapper
 		return model.getAddresses();
 	}
 
+	@Override
+	public java.util.List<Account> getChildAccounts()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getChildAccounts();
+	}
+
+	/**
+	 * Returns the code of this account.
+	 *
+	 * @return the code of this account
+	 */
+	@Override
+	public String getCode() {
+		return model.getCode();
+	}
+
 	/**
 	 * Returns the company ID of this account.
 	 *
@@ -280,6 +339,16 @@ public class AccountWrapper
 	}
 
 	/**
+	 * Returns the industry of this account.
+	 *
+	 * @return the industry of this account
+	 */
+	@Override
+	public String getIndustry() {
+		return model.getIndustry();
+	}
+
+	/**
 	 * Returns the logo ID of this account.
 	 *
 	 * @return the logo ID of this account
@@ -307,6 +376,26 @@ public class AccountWrapper
 	@Override
 	public String getName() {
 		return model.getName();
+	}
+
+	/**
+	 * Returns the notes of this account.
+	 *
+	 * @return the notes of this account
+	 */
+	@Override
+	public String getNotes() {
+		return model.getNotes();
+	}
+
+	/**
+	 * Returns the parent account ID of this account.
+	 *
+	 * @return the parent account ID of this account
+	 */
+	@Override
+	public long getParentAccountId() {
+		return model.getParentAccountId();
 	}
 
 	/**
@@ -339,11 +428,14 @@ public class AccountWrapper
 		return model.getProfileEmailAddress();
 	}
 
+	/**
+	 * Returns the sold by of this account.
+	 *
+	 * @return the sold by of this account
+	 */
 	@Override
-	public java.util.List<Project> getProjects()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return model.getProjects();
+	public String getSoldBy() {
+		return model.getSoldBy();
 	}
 
 	/**
@@ -409,6 +501,16 @@ public class AccountWrapper
 	@Override
 	public String getStatusMessage() {
 		return model.getStatusMessage();
+	}
+
+	/**
+	 * Returns the tier of this account.
+	 *
+	 * @return the tier of this account
+	 */
+	@Override
+	public String getTier() {
+		return model.getTier();
 	}
 
 	/**
@@ -557,6 +659,16 @@ public class AccountWrapper
 	}
 
 	/**
+	 * Sets the code of this account.
+	 *
+	 * @param code the code of this account
+	 */
+	@Override
+	public void setCode(String code) {
+		model.setCode(code);
+	}
+
+	/**
 	 * Sets the company ID of this account.
 	 *
 	 * @param companyId the company ID of this account
@@ -607,6 +719,16 @@ public class AccountWrapper
 	}
 
 	/**
+	 * Sets the industry of this account.
+	 *
+	 * @param industry the industry of this account
+	 */
+	@Override
+	public void setIndustry(String industry) {
+		model.setIndustry(industry);
+	}
+
+	/**
 	 * Sets the logo ID of this account.
 	 *
 	 * @param logoId the logo ID of this account
@@ -637,6 +759,26 @@ public class AccountWrapper
 	}
 
 	/**
+	 * Sets the notes of this account.
+	 *
+	 * @param notes the notes of this account
+	 */
+	@Override
+	public void setNotes(String notes) {
+		model.setNotes(notes);
+	}
+
+	/**
+	 * Sets the parent account ID of this account.
+	 *
+	 * @param parentAccountId the parent account ID of this account
+	 */
+	@Override
+	public void setParentAccountId(long parentAccountId) {
+		model.setParentAccountId(parentAccountId);
+	}
+
+	/**
 	 * Sets the phone number of this account.
 	 *
 	 * @param phoneNumber the phone number of this account
@@ -664,6 +806,16 @@ public class AccountWrapper
 	@Override
 	public void setProfileEmailAddress(String profileEmailAddress) {
 		model.setProfileEmailAddress(profileEmailAddress);
+	}
+
+	/**
+	 * Sets the sold by of this account.
+	 *
+	 * @param soldBy the sold by of this account
+	 */
+	@Override
+	public void setSoldBy(String soldBy) {
+		model.setSoldBy(soldBy);
 	}
 
 	/**
@@ -724,6 +876,16 @@ public class AccountWrapper
 	@Override
 	public void setStatusMessage(String statusMessage) {
 		model.setStatusMessage(statusMessage);
+	}
+
+	/**
+	 * Sets the tier of this account.
+	 *
+	 * @param tier the tier of this account
+	 */
+	@Override
+	public void setTier(String tier) {
+		model.setTier(tier);
 	}
 
 	/**

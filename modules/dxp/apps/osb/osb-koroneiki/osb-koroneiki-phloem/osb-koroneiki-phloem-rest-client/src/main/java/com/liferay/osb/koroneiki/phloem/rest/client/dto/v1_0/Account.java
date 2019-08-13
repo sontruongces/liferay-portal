@@ -29,6 +29,56 @@ import javax.annotation.Generated;
 @Generated("")
 public class Account {
 
+	public static enum Industry {
+
+		AEROSPACE_AND_DEFENSE("aerospace-and-defense"),
+		AGRICULTURE("agriculture"), AUTOMOTIVE("automotive"),
+		CONSULTING_MARKET_RESEARCH("consulting-market-research"),
+		EDUCATION("education"), ENERGY("energy"), ENGINEERING("engineering"),
+		FINANCIAL_SERVICES("financial-services"),
+		FOOD_SERVICES("food-services"),
+		GOVERNMENT_FEDERAL("government-federal"),
+		GOVERNMENT_STATE_LOCAL("government-state-local"),
+		HEALTHCARE("healthcare"), HOSPITALITY_LEISURE("hospitality-leisure"),
+		INSURANCE("insurance"), MANUFACTURING("manufacturing"),
+		MEDIA_ENTERTAINMENT("media-entertainment"),
+		NOT_FOR_PROFIT_NGO("not-for-profit-ngo"), OTHER("other"),
+		PHARMACEUTICALS("pharmaceuticals"),
+		PROFESSIONAL_SERVICES_AGENCY_BUSINESS(
+			"professional-services-agency-business"),
+		PROFESSIONAL_SERVICES_TECHNICAL_WEB_IT(
+			"professional-services-technical-web-it"),
+		RETAIL_CONSUMER_PRODUCTS("retail-consumer-products"),
+		TECHNOLOGY("technology"), TELECOMMUNICATION("telecommunication"),
+		TRANSPORTATION("transportation"), UTILITIES("utilities");
+
+		public static Industry create(String value) {
+			for (Industry industry : values()) {
+				if (Objects.equals(industry.getValue(), value)) {
+					return industry;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Industry(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	public static enum Status {
 
 		APPROVED("approved"), CLOSED("closed"), EXPIRED("expired"),
@@ -62,6 +112,38 @@ public class Account {
 
 	}
 
+	public static enum Tier {
+
+		OEM("oem"), PREMIER("premier"), REGULAR("regular"),
+		STRATEGIC("strategic");
+
+		public static Tier create(String value) {
+			for (Tier tier : values()) {
+				if (Objects.equals(tier.getValue(), value)) {
+					return tier;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Tier(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	public PostalAddress[] getAddresses() {
 		return addresses;
 	}
@@ -82,6 +164,25 @@ public class Account {
 	}
 
 	protected PostalAddress[] addresses;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setCode(UnsafeSupplier<String, Exception> codeUnsafeSupplier) {
+		try {
+			code = codeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String code;
 
 	public String getContactEmailAddress() {
 		return contactEmailAddress;
@@ -209,6 +310,35 @@ public class Account {
 
 	protected String faxNumber;
 
+	public Industry getIndustry() {
+		return industry;
+	}
+
+	public String getIndustryAsString() {
+		if (industry == null) {
+			return null;
+		}
+
+		return industry.toString();
+	}
+
+	public void setIndustry(Industry industry) {
+		this.industry = industry;
+	}
+
+	public void setIndustry(
+		UnsafeSupplier<Industry, Exception> industryUnsafeSupplier) {
+
+		try {
+			industry = industryUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Industry industry;
+
 	public String getKey() {
 		return key;
 	}
@@ -246,6 +376,48 @@ public class Account {
 	}
 
 	protected String name;
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public void setNotes(
+		UnsafeSupplier<String, Exception> notesUnsafeSupplier) {
+
+		try {
+			notes = notesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String notes;
+
+	public String getParentAccountKey() {
+		return parentAccountKey;
+	}
+
+	public void setParentAccountKey(String parentAccountKey) {
+		this.parentAccountKey = parentAccountKey;
+	}
+
+	public void setParentAccountKey(
+		UnsafeSupplier<String, Exception> parentAccountKeyUnsafeSupplier) {
+
+		try {
+			parentAccountKey = parentAccountKeyUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String parentAccountKey;
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -311,6 +483,27 @@ public class Account {
 
 	protected String profileEmailAddress;
 
+	public String getSoldBy() {
+		return soldBy;
+	}
+
+	public void setSoldBy(String soldBy) {
+		this.soldBy = soldBy;
+	}
+
+	public void setSoldBy(
+		UnsafeSupplier<String, Exception> soldByUnsafeSupplier) {
+
+		try {
+			soldBy = soldByUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String soldBy;
+
 	public Status getStatus() {
 		return status;
 	}
@@ -339,6 +532,33 @@ public class Account {
 	}
 
 	protected Status status;
+
+	public Tier getTier() {
+		return tier;
+	}
+
+	public String getTierAsString() {
+		if (tier == null) {
+			return null;
+		}
+
+		return tier.toString();
+	}
+
+	public void setTier(Tier tier) {
+		this.tier = tier;
+	}
+
+	public void setTier(UnsafeSupplier<Tier, Exception> tierUnsafeSupplier) {
+		try {
+			tier = tierUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Tier tier;
 
 	public String getWebsite() {
 		return website;

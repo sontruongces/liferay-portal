@@ -56,7 +56,7 @@ public class ProductPurchaseServiceHttp {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
-				HttpPrincipal httpPrincipal, long accountId, long projectId,
+				HttpPrincipal httpPrincipal, long accountId,
 				long productEntryId, java.util.Date startDate,
 				java.util.Date endDate, int quantity,
 				java.util.List
@@ -70,8 +70,8 @@ public class ProductPurchaseServiceHttp {
 				_addProductPurchaseParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, projectId, productEntryId, startDate,
-				endDate, quantity, productFields);
+				methodKey, accountId, productEntryId, startDate, endDate,
+				quantity, productFields);
 
 			Object returnObj = null;
 
@@ -103,8 +103,8 @@ public class ProductPurchaseServiceHttp {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
 				HttpPrincipal httpPrincipal, String accountKey,
-				String projectKey, String productEntryKey,
-				java.util.Date startDate, java.util.Date endDate, int quantity,
+				String productEntryKey, java.util.Date startDate,
+				java.util.Date endDate, int quantity,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
@@ -116,8 +116,8 @@ public class ProductPurchaseServiceHttp {
 				_addProductPurchaseParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountKey, projectKey, productEntryKey, startDate,
-				endDate, quantity, productFields);
+				methodKey, accountKey, productEntryKey, startDate, endDate,
+				quantity, productFields);
 
 			Object returnObj = null;
 
@@ -470,170 +470,6 @@ public class ProductPurchaseServiceHttp {
 		}
 	}
 
-	public static java.util.List
-		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-				getProjectProductPurchases(
-					HttpPrincipal httpPrincipal, long projectId, int start,
-					int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ProductPurchaseServiceUtil.class, "getProjectProductPurchases",
-				_getProjectProductPurchasesParameterTypes10);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectId, start, end);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return (java.util.List
-				<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>)
-					returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static java.util.List
-		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-				getProjectProductPurchases(
-					HttpPrincipal httpPrincipal, String projectKey, int start,
-					int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ProductPurchaseServiceUtil.class, "getProjectProductPurchases",
-				_getProjectProductPurchasesParameterTypes11);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectKey, start, end);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return (java.util.List
-				<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>)
-					returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static int getProjectProductPurchasesCount(
-			HttpPrincipal httpPrincipal, long projectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ProductPurchaseServiceUtil.class,
-				"getProjectProductPurchasesCount",
-				_getProjectProductPurchasesCountParameterTypes12);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static int getProjectProductPurchasesCount(
-			HttpPrincipal httpPrincipal, String projectKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ProductPurchaseServiceUtil.class,
-				"getProjectProductPurchasesCount",
-				_getProjectProductPurchasesCountParameterTypes13);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectKey);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			updateProductPurchase(
 				HttpPrincipal httpPrincipal, long productPurchaseId,
@@ -646,7 +482,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "updateProductPurchase",
-				_updateProductPurchaseParameterTypes14);
+				_updateProductPurchaseParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productPurchaseId, startDate, endDate, quantity,
@@ -691,7 +527,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "updateProductPurchase",
-				_updateProductPurchaseParameterTypes15);
+				_updateProductPurchaseParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productPurchaseKey, startDate, endDate, quantity,
@@ -729,12 +565,12 @@ public class ProductPurchaseServiceHttp {
 
 	private static final Class<?>[] _addProductPurchaseParameterTypes0 =
 		new Class[] {
-			long.class, long.class, long.class, java.util.Date.class,
-			java.util.Date.class, int.class, java.util.List.class
+			long.class, long.class, java.util.Date.class, java.util.Date.class,
+			int.class, java.util.List.class
 		};
 	private static final Class<?>[] _addProductPurchaseParameterTypes1 =
 		new Class[] {
-			String.class, String.class, String.class, java.util.Date.class,
+			String.class, String.class, java.util.Date.class,
 			java.util.Date.class, int.class, java.util.List.class
 		};
 	private static final Class<?>[] _deleteProductPurchaseParameterTypes2 =
@@ -757,28 +593,12 @@ public class ProductPurchaseServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getProductPurchaseParameterTypes9 =
 		new Class[] {String.class};
-	private static final Class<?>[]
-		_getProjectProductPurchasesParameterTypes10 = new Class[] {
-			long.class, int.class, int.class
-		};
-	private static final Class<?>[]
-		_getProjectProductPurchasesParameterTypes11 = new Class[] {
-			String.class, int.class, int.class
-		};
-	private static final Class<?>[]
-		_getProjectProductPurchasesCountParameterTypes12 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[]
-		_getProjectProductPurchasesCountParameterTypes13 = new Class[] {
-			String.class
-		};
-	private static final Class<?>[] _updateProductPurchaseParameterTypes14 =
+	private static final Class<?>[] _updateProductPurchaseParameterTypes10 =
 		new Class[] {
 			long.class, java.util.Date.class, java.util.Date.class, int.class,
 			java.util.List.class
 		};
-	private static final Class<?>[] _updateProductPurchaseParameterTypes15 =
+	private static final Class<?>[] _updateProductPurchaseParameterTypes11 =
 		new Class[] {
 			String.class, java.util.Date.class, java.util.Date.class, int.class,
 			java.util.List.class

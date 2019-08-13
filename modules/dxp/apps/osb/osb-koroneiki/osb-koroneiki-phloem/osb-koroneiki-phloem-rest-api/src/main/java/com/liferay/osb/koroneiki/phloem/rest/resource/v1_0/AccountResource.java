@@ -67,6 +67,21 @@ public interface AccountResource {
 			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
+	public Page<Account> getAccountChildAccountsPage(
+			String accountKey, String[] includes, Pagination pagination)
+		throws Exception;
+
+	public Account postAccountChildAccount(String accountKey, Account account)
+		throws Exception;
+
+	public void deleteAccountTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public void putAccountTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

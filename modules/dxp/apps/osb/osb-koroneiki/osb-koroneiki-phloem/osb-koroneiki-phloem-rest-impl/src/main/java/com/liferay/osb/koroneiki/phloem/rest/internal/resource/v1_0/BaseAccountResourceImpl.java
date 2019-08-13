@@ -237,6 +237,94 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	@Override
+	@GET
+	@Operation(description = "Retrieves the account's child accounts.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "includes"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/child-accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Page<Account> getAccountChildAccountsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@Parameter(hidden = true) @QueryParam("includes") String[] includes,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+	)
+	@Path("/accounts/{accountKey}/child-accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Account postAccountChildAccount(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			Account account)
+		throws Exception {
+
+		return new Account();
+	}
+
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns roles from the team for the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
+		}
+	)
+	@Path("/accounts/{accountKey}/teams/{teamKey}/roles")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountTeamTeamKeyRole(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("teamRoleKeys")
+				String[] teamRoleKeys)
+		throws Exception {
+	}
+
+	@Override
+	@Operation(description = "Assigns roles to the team for the account.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
+		}
+	)
+	@Path("/accounts/{accountKey}/teams/{teamKey}/roles")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void putAccountTeamTeamKeyRole(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("teamRoleKeys")
+				String[] teamRoleKeys)
+		throws Exception {
+	}
+
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

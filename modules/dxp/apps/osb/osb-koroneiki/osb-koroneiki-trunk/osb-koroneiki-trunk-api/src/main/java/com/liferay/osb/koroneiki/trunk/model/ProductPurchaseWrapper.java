@@ -54,7 +54,6 @@ public class ProductPurchaseWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("productPurchaseKey", getProductPurchaseKey());
 		attributes.put("accountId", getAccountId());
-		attributes.put("projectId", getProjectId());
 		attributes.put("productEntryId", getProductEntryId());
 		attributes.put("startDate", getStartDate());
 		attributes.put("endDate", getEndDate());
@@ -112,12 +111,6 @@ public class ProductPurchaseWrapper
 
 		if (accountId != null) {
 			setAccountId(accountId);
-		}
-
-		Long projectId = (Long)attributes.get("projectId");
-
-		if (projectId != null) {
-			setProjectId(projectId);
 		}
 
 		Long productEntryId = (Long)attributes.get("productEntryId");
@@ -280,28 +273,6 @@ public class ProductPurchaseWrapper
 		return model.getProductPurchaseKey();
 	}
 
-	@Override
-	public com.liferay.osb.koroneiki.taproot.model.Project getProject() {
-		return model.getProject();
-	}
-
-	/**
-	 * Returns the project ID of this product purchase.
-	 *
-	 * @return the project ID of this product purchase
-	 */
-	@Override
-	public long getProjectId() {
-		return model.getProjectId();
-	}
-
-	@Override
-	public String getProjectKey()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return model.getProjectKey();
-	}
-
 	/**
 	 * Returns the quantity of this product purchase.
 	 *
@@ -445,16 +416,6 @@ public class ProductPurchaseWrapper
 	@Override
 	public void setProductPurchaseKey(String productPurchaseKey) {
 		model.setProductPurchaseKey(productPurchaseKey);
-	}
-
-	/**
-	 * Sets the project ID of this product purchase.
-	 *
-	 * @param projectId the project ID of this product purchase
-	 */
-	@Override
-	public void setProjectId(long projectId) {
-		model.setProjectId(projectId);
 	}
 
 	/**

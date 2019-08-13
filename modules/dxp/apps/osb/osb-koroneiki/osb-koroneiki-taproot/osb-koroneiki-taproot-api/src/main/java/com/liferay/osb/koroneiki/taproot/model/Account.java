@@ -61,11 +61,11 @@ public interface Account extends AccountModel, PersistedModel {
 	public java.util.List<com.liferay.portal.kernel.model.Address>
 		getAddresses();
 
+	public java.util.List<Account> getChildAccounts()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
 		getExternalLinks();
-
-	public java.util.List<Project> getProjects()
-		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public String getStatusLabel();
 

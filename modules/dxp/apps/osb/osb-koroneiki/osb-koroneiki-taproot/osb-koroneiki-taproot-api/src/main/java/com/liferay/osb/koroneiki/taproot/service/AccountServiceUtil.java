@@ -40,14 +40,17 @@ public class AccountServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.AccountServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.Account addAccount(
-			String name, String description, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			long parentAccountId, String name, String code, String description,
+			String notes, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String industry, String tier, String soldBy,
+			int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addAccount(
-			name, description, logoId, contactEmailAddress, profileEmailAddress,
-			phoneNumber, faxNumber, website, status);
+			parentAccountId, name, code, description, notes, logoId,
+			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
+			website, industry, tier, soldBy, status);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Account deleteAccount(
@@ -78,6 +81,20 @@ public class AccountServiceUtil {
 		return getService().getAccount(accountKey);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.Account> getAccounts(
+				long parentAccountId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAccounts(parentAccountId, start, end);
+	}
+
+	public static int getAccountsCount(long parentAccountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAccountsCount(parentAccountId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -88,25 +105,31 @@ public class AccountServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
-			long accountId, String name, String description, long logoId,
+			long accountId, long parentAccountId, String name, String code,
+			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateAccount(
-			accountId, name, description, logoId, contactEmailAddress,
-			profileEmailAddress, phoneNumber, faxNumber, website, status);
+			accountId, parentAccountId, name, code, description, notes, logoId,
+			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
+			website, industry, tier, soldBy, status);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
-			String accountKey, String name, String description, long logoId,
+			String accountKey, long parentAccountId, String name, String code,
+			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateAccount(
-			accountKey, name, description, logoId, contactEmailAddress,
-			profileEmailAddress, phoneNumber, faxNumber, website, status);
+			accountKey, parentAccountId, name, code, description, notes, logoId,
+			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
+			website, industry, tier, soldBy, status);
 	}
 
 	public static AccountService getService() {

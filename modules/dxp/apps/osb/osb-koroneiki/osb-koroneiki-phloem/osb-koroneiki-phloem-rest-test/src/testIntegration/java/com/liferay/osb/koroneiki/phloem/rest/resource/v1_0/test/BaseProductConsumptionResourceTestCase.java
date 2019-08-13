@@ -176,7 +176,6 @@ public abstract class BaseProductConsumptionResourceTestCase {
 		productConsumption.setAccountKey(regex);
 		productConsumption.setKey(regex);
 		productConsumption.setProductKey(regex);
-		productConsumption.setProjectKey(regex);
 
 		String json = ProductConsumptionSerDes.toJSON(productConsumption);
 
@@ -187,7 +186,6 @@ public abstract class BaseProductConsumptionResourceTestCase {
 		Assert.assertEquals(regex, productConsumption.getAccountKey());
 		Assert.assertEquals(regex, productConsumption.getKey());
 		Assert.assertEquals(regex, productConsumption.getProductKey());
-		Assert.assertEquals(regex, productConsumption.getProjectKey());
 	}
 
 	@Test
@@ -356,162 +354,6 @@ public abstract class BaseProductConsumptionResourceTestCase {
 		Assert.assertTrue(true);
 	}
 
-	@Test
-	public void testGetProjectProjectKeyProductConsumptionsPage()
-		throws Exception {
-
-		Page<ProductConsumption> page =
-			productConsumptionResource.
-				getProjectProjectKeyProductConsumptionsPage(
-					testGetProjectProjectKeyProductConsumptionsPage_getProjectKey(),
-					Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
-		String projectKey =
-			testGetProjectProjectKeyProductConsumptionsPage_getProjectKey();
-		String irrelevantProjectKey =
-			testGetProjectProjectKeyProductConsumptionsPage_getIrrelevantProjectKey();
-
-		if ((irrelevantProjectKey != null)) {
-			ProductConsumption irrelevantProductConsumption =
-				testGetProjectProjectKeyProductConsumptionsPage_addProductConsumption(
-					irrelevantProjectKey, randomIrrelevantProductConsumption());
-
-			page =
-				productConsumptionResource.
-					getProjectProjectKeyProductConsumptionsPage(
-						irrelevantProjectKey, Pagination.of(1, 2));
-
-			Assert.assertEquals(1, page.getTotalCount());
-
-			assertEquals(
-				Arrays.asList(irrelevantProductConsumption),
-				(List<ProductConsumption>)page.getItems());
-			assertValid(page);
-		}
-
-		ProductConsumption productConsumption1 =
-			testGetProjectProjectKeyProductConsumptionsPage_addProductConsumption(
-				projectKey, randomProductConsumption());
-
-		ProductConsumption productConsumption2 =
-			testGetProjectProjectKeyProductConsumptionsPage_addProductConsumption(
-				projectKey, randomProductConsumption());
-
-		page =
-			productConsumptionResource.
-				getProjectProjectKeyProductConsumptionsPage(
-					projectKey, Pagination.of(1, 2));
-
-		Assert.assertEquals(2, page.getTotalCount());
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(productConsumption1, productConsumption2),
-			(List<ProductConsumption>)page.getItems());
-		assertValid(page);
-	}
-
-	@Test
-	public void testGetProjectProjectKeyProductConsumptionsPageWithPagination()
-		throws Exception {
-
-		String projectKey =
-			testGetProjectProjectKeyProductConsumptionsPage_getProjectKey();
-
-		ProductConsumption productConsumption1 =
-			testGetProjectProjectKeyProductConsumptionsPage_addProductConsumption(
-				projectKey, randomProductConsumption());
-
-		ProductConsumption productConsumption2 =
-			testGetProjectProjectKeyProductConsumptionsPage_addProductConsumption(
-				projectKey, randomProductConsumption());
-
-		ProductConsumption productConsumption3 =
-			testGetProjectProjectKeyProductConsumptionsPage_addProductConsumption(
-				projectKey, randomProductConsumption());
-
-		Page<ProductConsumption> page1 =
-			productConsumptionResource.
-				getProjectProjectKeyProductConsumptionsPage(
-					projectKey, Pagination.of(1, 2));
-
-		List<ProductConsumption> productConsumptions1 =
-			(List<ProductConsumption>)page1.getItems();
-
-		Assert.assertEquals(
-			productConsumptions1.toString(), 2, productConsumptions1.size());
-
-		Page<ProductConsumption> page2 =
-			productConsumptionResource.
-				getProjectProjectKeyProductConsumptionsPage(
-					projectKey, Pagination.of(2, 2));
-
-		Assert.assertEquals(3, page2.getTotalCount());
-
-		List<ProductConsumption> productConsumptions2 =
-			(List<ProductConsumption>)page2.getItems();
-
-		Assert.assertEquals(
-			productConsumptions2.toString(), 1, productConsumptions2.size());
-
-		Page<ProductConsumption> page3 =
-			productConsumptionResource.
-				getProjectProjectKeyProductConsumptionsPage(
-					projectKey, Pagination.of(1, 3));
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(
-				productConsumption1, productConsumption2, productConsumption3),
-			(List<ProductConsumption>)page3.getItems());
-	}
-
-	protected ProductConsumption
-			testGetProjectProjectKeyProductConsumptionsPage_addProductConsumption(
-				String projectKey, ProductConsumption productConsumption)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String
-			testGetProjectProjectKeyProductConsumptionsPage_getProjectKey()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String
-			testGetProjectProjectKeyProductConsumptionsPage_getIrrelevantProjectKey()
-		throws Exception {
-
-		return null;
-	}
-
-	@Test
-	public void testPostProjectProjectKeyProductConsumption() throws Exception {
-		ProductConsumption randomProductConsumption =
-			randomProductConsumption();
-
-		ProductConsumption postProductConsumption =
-			testPostProjectProjectKeyProductConsumption_addProductConsumption(
-				randomProductConsumption);
-
-		assertEquals(randomProductConsumption, postProductConsumption);
-		assertValid(postProductConsumption);
-	}
-
-	protected ProductConsumption
-			testPostProjectProjectKeyProductConsumption_addProductConsumption(
-				ProductConsumption productConsumption)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {
@@ -609,14 +451,6 @@ public abstract class BaseProductConsumptionResourceTestCase {
 
 			if (Objects.equals("productKey", additionalAssertFieldName)) {
 				if (productConsumption.getProductKey() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("projectKey", additionalAssertFieldName)) {
-				if (productConsumption.getProjectKey() == null) {
 					valid = false;
 				}
 
@@ -724,17 +558,6 @@ public abstract class BaseProductConsumptionResourceTestCase {
 				if (!Objects.deepEquals(
 						productConsumption1.getProductKey(),
 						productConsumption2.getProductKey())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("projectKey", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						productConsumption1.getProjectKey(),
-						productConsumption2.getProjectKey())) {
 
 					return false;
 				}
@@ -875,14 +698,6 @@ public abstract class BaseProductConsumptionResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("projectKey")) {
-			sb.append("'");
-			sb.append(String.valueOf(productConsumption.getProjectKey()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
 		if (entityFieldName.equals("properties")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -899,7 +714,6 @@ public abstract class BaseProductConsumptionResourceTestCase {
 				dateCreated = RandomTestUtil.nextDate();
 				key = RandomTestUtil.randomString();
 				productKey = RandomTestUtil.randomString();
-				projectKey = RandomTestUtil.randomString();
 			}
 		};
 	}

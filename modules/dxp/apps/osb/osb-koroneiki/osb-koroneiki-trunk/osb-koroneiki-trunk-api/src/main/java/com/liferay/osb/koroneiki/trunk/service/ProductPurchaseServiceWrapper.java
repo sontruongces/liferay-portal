@@ -38,22 +38,22 @@ public class ProductPurchaseServiceWrapper
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
-				long accountId, long projectId, long productEntryId,
-				java.util.Date startDate, java.util.Date endDate, int quantity,
+				long accountId, long productEntryId, java.util.Date startDate,
+				java.util.Date endDate, int quantity,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseService.addProductPurchase(
-			accountId, projectId, productEntryId, startDate, endDate, quantity,
+			accountId, productEntryId, startDate, endDate, quantity,
 			productFields);
 	}
 
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
-				String accountKey, String projectKey, String productEntryKey,
+				String accountKey, String productEntryKey,
 				java.util.Date startDate, java.util.Date endDate, int quantity,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
@@ -61,8 +61,8 @@ public class ProductPurchaseServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseService.addProductPurchase(
-			accountKey, projectKey, productEntryKey, startDate, endDate,
-			quantity, productFields);
+			accountKey, productEntryKey, startDate, endDate, quantity,
+			productFields);
 	}
 
 	@Override
@@ -140,40 +140,6 @@ public class ProductPurchaseServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseService.getProductPurchase(productPurchaseKey);
-	}
-
-	@Override
-	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-			getProjectProductPurchases(long projectId, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _productPurchaseService.getProjectProductPurchases(
-			projectId, start, end);
-	}
-
-	@Override
-	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-			getProjectProductPurchases(String projectKey, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _productPurchaseService.getProjectProductPurchases(
-			projectKey, start, end);
-	}
-
-	@Override
-	public int getProjectProductPurchasesCount(long projectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _productPurchaseService.getProjectProductPurchasesCount(
-			projectId);
-	}
-
-	@Override
-	public int getProjectProductPurchasesCount(String projectKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _productPurchaseService.getProjectProductPurchasesCount(
-			projectKey);
 	}
 
 	@Override

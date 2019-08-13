@@ -283,12 +283,6 @@ public interface ContactLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Contact> getProjectContacts(long projectId, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getProjectContactsCount(long projectId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Contact> getTeamContacts(long teamId, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

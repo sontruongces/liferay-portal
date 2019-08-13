@@ -402,163 +402,6 @@ public class ContactServiceHttp {
 		}
 	}
 
-	public static java.util.List
-		<com.liferay.osb.koroneiki.taproot.model.Contact> getProjectContacts(
-				HttpPrincipal httpPrincipal, long projectId, int start, int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ContactServiceUtil.class, "getProjectContacts",
-				_getProjectContactsParameterTypes9);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectId, start, end);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return (java.util.List
-				<com.liferay.osb.koroneiki.taproot.model.Contact>)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static java.util.List
-		<com.liferay.osb.koroneiki.taproot.model.Contact> getProjectContacts(
-				HttpPrincipal httpPrincipal, String projectKey, int start,
-				int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ContactServiceUtil.class, "getProjectContacts",
-				_getProjectContactsParameterTypes10);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectKey, start, end);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return (java.util.List
-				<com.liferay.osb.koroneiki.taproot.model.Contact>)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static int getProjectContactsCount(
-			HttpPrincipal httpPrincipal, long projectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ContactServiceUtil.class, "getProjectContactsCount",
-				_getProjectContactsCountParameterTypes11);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static int getProjectContactsCount(
-			HttpPrincipal httpPrincipal, String projectKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ContactServiceUtil.class, "getProjectContactsCount",
-				_getProjectContactsCountParameterTypes12);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, projectKey);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
 			HttpPrincipal httpPrincipal, long contactId, String uuid,
 			String oktaId, String firstName, String middleName, String lastName,
@@ -568,7 +411,7 @@ public class ContactServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactServiceUtil.class, "updateContact",
-				_updateContactParameterTypes13);
+				_updateContactParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactId, uuid, oktaId, firstName, middleName,
@@ -623,15 +466,7 @@ public class ContactServiceHttp {
 		new Class[] {String.class};
 	private static final Class<?>[] _getContactByUuidParameterTypes8 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getProjectContactsParameterTypes9 =
-		new Class[] {long.class, int.class, int.class};
-	private static final Class<?>[] _getProjectContactsParameterTypes10 =
-		new Class[] {String.class, int.class, int.class};
-	private static final Class<?>[] _getProjectContactsCountParameterTypes11 =
-		new Class[] {long.class};
-	private static final Class<?>[] _getProjectContactsCountParameterTypes12 =
-		new Class[] {String.class};
-	private static final Class<?>[] _updateContactParameterTypes13 =
+	private static final Class<?>[] _updateContactParameterTypes9 =
 		new Class[] {
 			long.class, String.class, String.class, String.class, String.class,
 			String.class, String.class, String.class

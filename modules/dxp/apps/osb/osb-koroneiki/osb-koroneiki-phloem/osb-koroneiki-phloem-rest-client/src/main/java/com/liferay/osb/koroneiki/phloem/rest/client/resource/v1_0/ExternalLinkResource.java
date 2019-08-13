@@ -158,24 +158,6 @@ public interface ExternalLinkResource {
 				String productKey, ExternalLink externalLink)
 		throws Exception;
 
-	public Page<ExternalLink> getProjectProjectKeyExternalLinksPage(
-			String projectKey, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getProjectProjectKeyExternalLinksPageHttpResponse(
-				String projectKey, Pagination pagination)
-		throws Exception;
-
-	public ExternalLink postProjectProjectKeyExternalLink(
-			String projectKey, ExternalLink externalLink)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			postProjectProjectKeyExternalLinkHttpResponse(
-				String projectKey, ExternalLink externalLink)
-		throws Exception;
-
 	public Page<ExternalLink> getTeamTeamKeyExternalLinksPage(
 			String teamKey, Pagination pagination)
 		throws Exception;
@@ -966,114 +948,6 @@ public interface ExternalLinkResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/products/{productKey}/external-links",
 				productKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<ExternalLink> getProjectProjectKeyExternalLinksPage(
-				String projectKey, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getProjectProjectKeyExternalLinksPageHttpResponse(
-					projectKey, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			return Page.of(content, ExternalLinkSerDes::toDTO);
-		}
-
-		public HttpInvoker.HttpResponse
-				getProjectProjectKeyExternalLinksPageHttpResponse(
-					String projectKey, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/projects/{projectKey}/external-links",
-				projectKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public ExternalLink postProjectProjectKeyExternalLink(
-				String projectKey, ExternalLink externalLink)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postProjectProjectKeyExternalLinkHttpResponse(
-					projectKey, externalLink);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return ExternalLinkSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw e;
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				postProjectProjectKeyExternalLinkHttpResponse(
-					String projectKey, ExternalLink externalLink)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(externalLink.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/projects/{projectKey}/external-links",
-				projectKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

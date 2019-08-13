@@ -20,14 +20,12 @@ import com.liferay.osb.koroneiki.taproot.service.persistence.AccountPersistence;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactAccountRolePersistence;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactFinder;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactPersistence;
-import com.liferay.osb.koroneiki.taproot.service.persistence.ContactProjectRolePersistence;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactRoleFinder;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactRolePersistence;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactTeamRolePersistence;
-import com.liferay.osb.koroneiki.taproot.service.persistence.ProjectPersistence;
+import com.liferay.osb.koroneiki.taproot.service.persistence.TeamAccountRolePersistence;
 import com.liferay.osb.koroneiki.taproot.service.persistence.TeamFinder;
 import com.liferay.osb.koroneiki.taproot.service.persistence.TeamPersistence;
-import com.liferay.osb.koroneiki.taproot.service.persistence.TeamProjectRolePersistence;
 import com.liferay.osb.koroneiki.taproot.service.persistence.TeamRoleFinder;
 import com.liferay.osb.koroneiki.taproot.service.persistence.TeamRolePersistence;
 import com.liferay.portal.aop.AopService;
@@ -131,9 +129,6 @@ public abstract class TeamServiceBaseImpl
 	protected ContactAccountRolePersistence contactAccountRolePersistence;
 
 	@Reference
-	protected ContactProjectRolePersistence contactProjectRolePersistence;
-
-	@Reference
 	protected ContactRolePersistence contactRolePersistence;
 
 	@Reference
@@ -141,9 +136,6 @@ public abstract class TeamServiceBaseImpl
 
 	@Reference
 	protected ContactTeamRolePersistence contactTeamRolePersistence;
-
-	@Reference
-	protected ProjectPersistence projectPersistence;
 
 	@Reference
 	protected com.liferay.osb.koroneiki.taproot.service.TeamLocalService
@@ -158,7 +150,7 @@ public abstract class TeamServiceBaseImpl
 	protected TeamFinder teamFinder;
 
 	@Reference
-	protected TeamProjectRolePersistence teamProjectRolePersistence;
+	protected TeamAccountRolePersistence teamAccountRolePersistence;
 
 	@Reference
 	protected TeamRolePersistence teamRolePersistence;

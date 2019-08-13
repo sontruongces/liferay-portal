@@ -83,6 +83,20 @@ public class AccountSerDes {
 			sb.append("]");
 		}
 
+		if (account.getCode() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"code\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account.getCode()));
+
+			sb.append("\"");
+		}
+
 		if (account.getContactEmailAddress() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -174,6 +188,20 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getIndustry() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"industry\": ");
+
+			sb.append("\"");
+
+			sb.append(account.getIndustry());
+
+			sb.append("\"");
+		}
+
 		if (account.getKey() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -198,6 +226,34 @@ public class AccountSerDes {
 			sb.append("\"");
 
 			sb.append(_escape(account.getName()));
+
+			sb.append("\"");
+		}
+
+		if (account.getNotes() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"notes\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account.getNotes()));
+
+			sb.append("\"");
+		}
+
+		if (account.getParentAccountKey() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"parentAccountKey\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account.getParentAccountKey()));
 
 			sb.append("\"");
 		}
@@ -250,6 +306,20 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getSoldBy() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"soldBy\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account.getSoldBy()));
+
+			sb.append("\"");
+		}
+
 		if (account.getStatus() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -260,6 +330,20 @@ public class AccountSerDes {
 			sb.append("\"");
 
 			sb.append(account.getStatus());
+
+			sb.append("\"");
+		}
+
+		if (account.getTier() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"tier\": ");
+
+			sb.append("\"");
+
+			sb.append(account.getTier());
 
 			sb.append("\"");
 		}
@@ -306,6 +390,13 @@ public class AccountSerDes {
 			map.put("addresses", String.valueOf(account.getAddresses()));
 		}
 
+		if (account.getCode() == null) {
+			map.put("code", null);
+		}
+		else {
+			map.put("code", String.valueOf(account.getCode()));
+		}
+
 		if (account.getContactEmailAddress() == null) {
 			map.put("contactEmailAddress", null);
 		}
@@ -345,6 +436,13 @@ public class AccountSerDes {
 			map.put("faxNumber", String.valueOf(account.getFaxNumber()));
 		}
 
+		if (account.getIndustry() == null) {
+			map.put("industry", null);
+		}
+		else {
+			map.put("industry", String.valueOf(account.getIndustry()));
+		}
+
 		if (account.getKey() == null) {
 			map.put("key", null);
 		}
@@ -357,6 +455,22 @@ public class AccountSerDes {
 		}
 		else {
 			map.put("name", String.valueOf(account.getName()));
+		}
+
+		if (account.getNotes() == null) {
+			map.put("notes", null);
+		}
+		else {
+			map.put("notes", String.valueOf(account.getNotes()));
+		}
+
+		if (account.getParentAccountKey() == null) {
+			map.put("parentAccountKey", null);
+		}
+		else {
+			map.put(
+				"parentAccountKey",
+				String.valueOf(account.getParentAccountKey()));
 		}
 
 		if (account.getPhoneNumber() == null) {
@@ -384,11 +498,25 @@ public class AccountSerDes {
 				String.valueOf(account.getProfileEmailAddress()));
 		}
 
+		if (account.getSoldBy() == null) {
+			map.put("soldBy", null);
+		}
+		else {
+			map.put("soldBy", String.valueOf(account.getSoldBy()));
+		}
+
 		if (account.getStatus() == null) {
 			map.put("status", null);
 		}
 		else {
 			map.put("status", String.valueOf(account.getStatus()));
+		}
+
+		if (account.getTier() == null) {
+			map.put("tier", null);
+		}
+		else {
+			map.put("tier", String.valueOf(account.getTier()));
 		}
 
 		if (account.getWebsite() == null) {
@@ -467,6 +595,11 @@ public class AccountSerDes {
 						));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "code")) {
+				if (jsonParserFieldValue != null) {
+					account.setCode((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(
 						jsonParserFieldName, "contactEmailAddress")) {
 
@@ -509,6 +642,12 @@ public class AccountSerDes {
 					account.setFaxNumber((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "industry")) {
+				if (jsonParserFieldValue != null) {
+					account.setIndustry(
+						Account.Industry.create((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "key")) {
 				if (jsonParserFieldValue != null) {
 					account.setKey((String)jsonParserFieldValue);
@@ -517,6 +656,16 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "name")) {
 				if (jsonParserFieldValue != null) {
 					account.setName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "notes")) {
+				if (jsonParserFieldValue != null) {
+					account.setNotes((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "parentAccountKey")) {
+				if (jsonParserFieldValue != null) {
+					account.setParentAccountKey((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "phoneNumber")) {
@@ -545,10 +694,21 @@ public class AccountSerDes {
 						(String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "soldBy")) {
+				if (jsonParserFieldValue != null) {
+					account.setSoldBy((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "status")) {
 				if (jsonParserFieldValue != null) {
 					account.setStatus(
 						Account.Status.create((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "tier")) {
+				if (jsonParserFieldValue != null) {
+					account.setTier(
+						Account.Tier.create((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "website")) {

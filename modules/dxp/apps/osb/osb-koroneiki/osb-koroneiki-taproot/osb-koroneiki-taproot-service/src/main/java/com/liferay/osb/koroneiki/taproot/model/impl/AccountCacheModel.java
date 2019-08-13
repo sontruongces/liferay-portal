@@ -63,7 +63,7 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(53);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -79,10 +79,16 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 		sb.append(modifiedDate);
 		sb.append(", accountKey=");
 		sb.append(accountKey);
+		sb.append(", parentAccountId=");
+		sb.append(parentAccountId);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", code=");
+		sb.append(code);
 		sb.append(", description=");
 		sb.append(description);
+		sb.append(", notes=");
+		sb.append(notes);
 		sb.append(", logoId=");
 		sb.append(logoId);
 		sb.append(", contactEmailAddress=");
@@ -95,6 +101,12 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 		sb.append(faxNumber);
 		sb.append(", website=");
 		sb.append(website);
+		sb.append(", industry=");
+		sb.append(industry);
+		sb.append(", tier=");
+		sb.append(tier);
+		sb.append(", soldBy=");
+		sb.append(soldBy);
 		sb.append(", status=");
 		sb.append(status);
 		sb.append(", statusByUserId=");
@@ -146,6 +158,8 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 			accountImpl.setAccountKey(accountKey);
 		}
 
+		accountImpl.setParentAccountId(parentAccountId);
+
 		if (name == null) {
 			accountImpl.setName("");
 		}
@@ -153,11 +167,25 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 			accountImpl.setName(name);
 		}
 
+		if (code == null) {
+			accountImpl.setCode("");
+		}
+		else {
+			accountImpl.setCode(code);
+		}
+
 		if (description == null) {
 			accountImpl.setDescription("");
 		}
 		else {
 			accountImpl.setDescription(description);
+		}
+
+		if (notes == null) {
+			accountImpl.setNotes("");
+		}
+		else {
+			accountImpl.setNotes(notes);
 		}
 
 		accountImpl.setLogoId(logoId);
@@ -195,6 +223,27 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 		}
 		else {
 			accountImpl.setWebsite(website);
+		}
+
+		if (industry == null) {
+			accountImpl.setIndustry("");
+		}
+		else {
+			accountImpl.setIndustry(industry);
+		}
+
+		if (tier == null) {
+			accountImpl.setTier("");
+		}
+		else {
+			accountImpl.setTier(tier);
+		}
+
+		if (soldBy == null) {
+			accountImpl.setSoldBy("");
+		}
+		else {
+			accountImpl.setSoldBy(soldBy);
 		}
 
 		accountImpl.setStatus(status);
@@ -238,8 +287,12 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		accountKey = objectInput.readUTF();
+
+		parentAccountId = objectInput.readLong();
 		name = objectInput.readUTF();
+		code = objectInput.readUTF();
 		description = objectInput.readUTF();
+		notes = objectInput.readUTF();
 
 		logoId = objectInput.readLong();
 		contactEmailAddress = objectInput.readUTF();
@@ -247,6 +300,9 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 		phoneNumber = objectInput.readUTF();
 		faxNumber = objectInput.readUTF();
 		website = objectInput.readUTF();
+		industry = objectInput.readUTF();
+		tier = objectInput.readUTF();
+		soldBy = objectInput.readUTF();
 
 		status = objectInput.readInt();
 
@@ -280,6 +336,8 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 			objectOutput.writeUTF(accountKey);
 		}
 
+		objectOutput.writeLong(parentAccountId);
+
 		if (name == null) {
 			objectOutput.writeUTF("");
 		}
@@ -287,11 +345,25 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 			objectOutput.writeUTF(name);
 		}
 
+		if (code == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(code);
+		}
+
 		if (description == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(description);
+		}
+
+		if (notes == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(notes);
 		}
 
 		objectOutput.writeLong(logoId);
@@ -331,6 +403,27 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 			objectOutput.writeUTF(website);
 		}
 
+		if (industry == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(industry);
+		}
+
+		if (tier == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(tier);
+		}
+
+		if (soldBy == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(soldBy);
+		}
+
 		objectOutput.writeInt(status);
 
 		objectOutput.writeLong(statusByUserId);
@@ -359,14 +452,20 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 	public long createDate;
 	public long modifiedDate;
 	public String accountKey;
+	public long parentAccountId;
 	public String name;
+	public String code;
 	public String description;
+	public String notes;
 	public long logoId;
 	public String contactEmailAddress;
 	public String profileEmailAddress;
 	public String phoneNumber;
 	public String faxNumber;
 	public String website;
+	public String industry;
+	public String tier;
+	public String soldBy;
 	public int status;
 	public long statusByUserId;
 	public String statusByUserName;

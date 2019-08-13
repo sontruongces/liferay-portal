@@ -41,21 +41,21 @@ public class ProductPurchaseServiceUtil {
 	 */
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
-				long accountId, long projectId, long productEntryId,
-				java.util.Date startDate, java.util.Date endDate, int quantity,
+				long accountId, long productEntryId, java.util.Date startDate,
+				java.util.Date endDate, int quantity,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addProductPurchase(
-			accountId, projectId, productEntryId, startDate, endDate, quantity,
+			accountId, productEntryId, startDate, endDate, quantity,
 			productFields);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
-				String accountKey, String projectKey, String productEntryKey,
+				String accountKey, String productEntryKey,
 				java.util.Date startDate, java.util.Date endDate, int quantity,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
@@ -63,8 +63,8 @@ public class ProductPurchaseServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addProductPurchase(
-			accountKey, projectKey, productEntryKey, startDate, endDate,
-			quantity, productFields);
+			accountKey, productEntryKey, startDate, endDate, quantity,
+			productFields);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
@@ -131,35 +131,6 @@ public class ProductPurchaseServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getProductPurchase(productPurchaseKey);
-	}
-
-	public static java.util.List
-		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-				getProjectProductPurchases(long projectId, int start, int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getProjectProductPurchases(projectId, start, end);
-	}
-
-	public static java.util.List
-		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-				getProjectProductPurchases(
-					String projectKey, int start, int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getProjectProductPurchases(projectKey, start, end);
-	}
-
-	public static int getProjectProductPurchasesCount(long projectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getProjectProductPurchasesCount(projectId);
-	}
-
-	public static int getProjectProductPurchasesCount(String projectKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getProjectProductPurchasesCount(projectKey);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase

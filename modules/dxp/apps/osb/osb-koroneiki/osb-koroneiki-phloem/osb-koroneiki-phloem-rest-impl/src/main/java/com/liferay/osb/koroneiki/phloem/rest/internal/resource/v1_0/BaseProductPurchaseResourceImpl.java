@@ -147,46 +147,6 @@ public abstract class BaseProductPurchaseResourceImpl
 		return new ProductPurchase();
 	}
 
-	@Override
-	@GET
-	@Operation(description = "Retrieves the project's product purchases.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "projectKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/projects/{projectKey}/product-purchases")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ProductPurchase")})
-	public Page<ProductPurchase> getProjectProjectKeyProductPurchasesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("projectKey") String
-				projectKey,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "projectKey")}
-	)
-	@Path("/projects/{projectKey}/product-purchases")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ProductPurchase")})
-	public ProductPurchase postProjectProjectKeyProductPurchase(
-			@NotNull @Parameter(hidden = true) @PathParam("projectKey") String
-				projectKey,
-			ProductPurchase productPurchase)
-		throws Exception {
-
-		return new ProductPurchase();
-	}
-
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

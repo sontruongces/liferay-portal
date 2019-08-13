@@ -55,10 +55,6 @@ public interface AuditEntryResource {
 			String uuid, Pagination pagination)
 		throws Exception;
 
-	public Page<AuditEntry> getProjectProjectKeyAuditEntriesPage(
-			String projectKey, Pagination pagination)
-		throws Exception;
-
 	public Page<AuditEntry> getTeamRoleTeamRoleKeyAuditEntriesPage(
 			String teamRoleKey, Pagination pagination)
 		throws Exception;

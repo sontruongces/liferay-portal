@@ -39,17 +39,16 @@ public class ProductPurchaseLocalServiceWrapper
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
-				long userId, long accountId, long projectId,
-				long productEntryId, java.util.Date startDate,
-				java.util.Date endDate, int quantity,
+				long userId, long accountId, long productEntryId,
+				java.util.Date startDate, java.util.Date endDate, int quantity,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseLocalService.addProductPurchase(
-			userId, accountId, projectId, productEntryId, startDate, endDate,
-			quantity, productFields);
+			userId, accountId, productEntryId, startDate, endDate, quantity,
+			productFields);
 	}
 
 	/**
@@ -364,20 +363,6 @@ public class ProductPurchaseLocalServiceWrapper
 	@Override
 	public int getProductPurchasesCount() {
 		return _productPurchaseLocalService.getProductPurchasesCount();
-	}
-
-	@Override
-	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-		getProjectProductPurchases(long projectId, int start, int end) {
-
-		return _productPurchaseLocalService.getProjectProductPurchases(
-			projectId, start, end);
-	}
-
-	@Override
-	public int getProjectProductPurchasesCount(long projectId) {
-		return _productPurchaseLocalService.getProjectProductPurchasesCount(
-			projectId);
 	}
 
 	@Override

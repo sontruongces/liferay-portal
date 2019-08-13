@@ -53,12 +53,12 @@ public interface ProductConsumptionService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link ProductConsumptionServiceUtil} to access the product consumption remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductConsumptionServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public ProductConsumption addProductConsumption(
-			long accountId, long projectId, long productEntryId,
+			long accountId, long productEntryId,
 			List<ProductField> productFields)
 		throws PortalException;
 
 	public ProductConsumption addProductConsumption(
-			String accountKey, String projectKey, String productEntryKey,
+			String accountKey, String productEntryKey,
 			List<ProductField> productFields)
 		throws PortalException;
 
@@ -67,7 +67,7 @@ public interface ProductConsumptionService extends BaseService {
 		throws PortalException;
 
 	public ProductConsumption deleteProductConsumption(
-			long accountId, long projectId, long productEntryId)
+			long accountId, long productEntryId)
 		throws PortalException;
 
 	public ProductConsumption deleteProductConsumption(
@@ -106,24 +106,6 @@ public interface ProductConsumptionService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ProductConsumption getProductConsumption(
 			String productConsumptionKey)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ProductConsumption> getProjectProductConsumptions(
-			long projectId, int start, int end)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ProductConsumption> getProjectProductConsumptions(
-			String projectKey, int start, int end)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getProjectProductConsumptionsCount(long projectId)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getProjectProductConsumptionsCount(String projectKey)
 		throws PortalException;
 
 }

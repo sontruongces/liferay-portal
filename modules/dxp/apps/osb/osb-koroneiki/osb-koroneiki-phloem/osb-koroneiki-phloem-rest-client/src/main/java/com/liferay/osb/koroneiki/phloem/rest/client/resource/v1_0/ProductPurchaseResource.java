@@ -77,24 +77,6 @@ public interface ProductPurchaseResource {
 			String productPurchaseKey, ProductPurchase productPurchase)
 		throws Exception;
 
-	public Page<ProductPurchase> getProjectProjectKeyProductPurchasesPage(
-			String projectKey, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getProjectProjectKeyProductPurchasesPageHttpResponse(
-				String projectKey, Pagination pagination)
-		throws Exception;
-
-	public ProductPurchase postProjectProjectKeyProductPurchase(
-			String projectKey, ProductPurchase productPurchase)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			postProjectProjectKeyProductPurchaseHttpResponse(
-				String projectKey, ProductPurchase productPurchase)
-		throws Exception;
-
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -384,114 +366,6 @@ public interface ProductPurchaseResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/product-purchases/{productPurchaseKey}",
 				productPurchaseKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<ProductPurchase> getProjectProjectKeyProductPurchasesPage(
-				String projectKey, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getProjectProjectKeyProductPurchasesPageHttpResponse(
-					projectKey, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			return Page.of(content, ProductPurchaseSerDes::toDTO);
-		}
-
-		public HttpInvoker.HttpResponse
-				getProjectProjectKeyProductPurchasesPageHttpResponse(
-					String projectKey, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/projects/{projectKey}/product-purchases",
-				projectKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public ProductPurchase postProjectProjectKeyProductPurchase(
-				String projectKey, ProductPurchase productPurchase)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postProjectProjectKeyProductPurchaseHttpResponse(
-					projectKey, productPurchase);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return ProductPurchaseSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw e;
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				postProjectProjectKeyProductPurchaseHttpResponse(
-					String projectKey, ProductPurchase productPurchase)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(productPurchase.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/projects/{projectKey}/product-purchases",
-				projectKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

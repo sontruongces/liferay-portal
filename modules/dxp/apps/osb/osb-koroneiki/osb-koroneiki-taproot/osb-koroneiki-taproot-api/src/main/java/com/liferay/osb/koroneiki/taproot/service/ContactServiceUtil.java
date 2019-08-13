@@ -114,34 +114,6 @@ public class ContactServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static java.util.List
-		<com.liferay.osb.koroneiki.taproot.model.Contact> getProjectContacts(
-				long projectId, int start, int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getProjectContacts(projectId, start, end);
-	}
-
-	public static java.util.List
-		<com.liferay.osb.koroneiki.taproot.model.Contact> getProjectContacts(
-				String projectKey, int start, int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getProjectContacts(projectKey, start, end);
-	}
-
-	public static int getProjectContactsCount(long projectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getProjectContactsCount(projectId);
-	}
-
-	public static int getProjectContactsCount(String projectKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getProjectContactsCount(projectKey);
-	}
-
 	public static com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,

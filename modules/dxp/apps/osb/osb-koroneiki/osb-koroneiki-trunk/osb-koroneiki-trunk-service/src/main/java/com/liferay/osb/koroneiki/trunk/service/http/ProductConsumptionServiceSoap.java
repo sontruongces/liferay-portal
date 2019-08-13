@@ -66,7 +66,7 @@ public class ProductConsumptionServiceSoap {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap
 			addProductConsumption(
-				long accountId, long projectId, long productEntryId,
+				long accountId, long productEntryId,
 				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
 					productFields)
 		throws RemoteException {
@@ -75,7 +75,7 @@ public class ProductConsumptionServiceSoap {
 			com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 				returnValue =
 					ProductConsumptionServiceUtil.addProductConsumption(
-						accountId, projectId, productEntryId,
+						accountId, productEntryId,
 						com.liferay.osb.koroneiki.trunk.model.impl.
 							ProductFieldModelImpl.toModels(productFields));
 
@@ -91,7 +91,7 @@ public class ProductConsumptionServiceSoap {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap
 			addProductConsumption(
-				String accountKey, String projectKey, String productEntryKey,
+				String accountKey, String productEntryKey,
 				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
 					productFields)
 		throws RemoteException {
@@ -100,7 +100,7 @@ public class ProductConsumptionServiceSoap {
 			com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 				returnValue =
 					ProductConsumptionServiceUtil.addProductConsumption(
-						accountKey, projectKey, productEntryKey,
+						accountKey, productEntryKey,
 						com.liferay.osb.koroneiki.trunk.model.impl.
 							ProductFieldModelImpl.toModels(productFields));
 
@@ -135,15 +135,14 @@ public class ProductConsumptionServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap
-			deleteProductConsumption(
-				long accountId, long projectId, long productEntryId)
+			deleteProductConsumption(long accountId, long productEntryId)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 				returnValue =
 					ProductConsumptionServiceUtil.deleteProductConsumption(
-						accountId, projectId, productEntryId);
+						accountId, productEntryId);
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap.
 				toSoapModel(returnValue);
@@ -285,84 +284,6 @@ public class ProductConsumptionServiceSoap {
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap.
 				toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap[]
-			getProjectProductConsumptions(long projectId, int start, int end)
-		throws RemoteException {
-
-		try {
-			java.util.List
-				<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
-					returnValue =
-						ProductConsumptionServiceUtil.
-							getProjectProductConsumptions(
-								projectId, start, end);
-
-			return com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap.
-				toSoapModels(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap[]
-			getProjectProductConsumptions(String projectKey, int start, int end)
-		throws RemoteException {
-
-		try {
-			java.util.List
-				<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
-					returnValue =
-						ProductConsumptionServiceUtil.
-							getProjectProductConsumptions(
-								projectKey, start, end);
-
-			return com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap.
-				toSoapModels(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static int getProjectProductConsumptionsCount(long projectId)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				ProductConsumptionServiceUtil.
-					getProjectProductConsumptionsCount(projectId);
-
-			return returnValue;
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static int getProjectProductConsumptionsCount(String projectKey)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				ProductConsumptionServiceUtil.
-					getProjectProductConsumptionsCount(projectKey);
-
-			return returnValue;
 		}
 		catch (Exception e) {
 			_log.error(e, e);

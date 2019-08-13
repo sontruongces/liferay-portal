@@ -64,7 +64,7 @@ public interface ProductConsumptionLocalService
 	 * Never modify or reference this interface directly. Always use {@link ProductConsumptionLocalServiceUtil} to access the product consumption local service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductConsumptionLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public ProductConsumption addProductConsumption(
-			long userId, long accountId, long projectId, long productEntryId,
+			long userId, long accountId, long productEntryId,
 			List<ProductField> productFields)
 		throws PortalException;
 
@@ -108,7 +108,7 @@ public interface ProductConsumptionLocalService
 		throws PortalException;
 
 	public ProductConsumption deleteProductConsumption(
-			long userId, long accountId, long projectId, long productEntryId)
+			long userId, long accountId, long productEntryId)
 		throws PortalException;
 
 	/**
@@ -280,7 +280,7 @@ public interface ProductConsumptionLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProductConsumption> getProductConsumptions(
-			long userId, long accountId, long projectId, long productEntryId)
+			long userId, long accountId, long productEntryId)
 		throws PortalException;
 
 	/**
@@ -290,15 +290,6 @@ public interface ProductConsumptionLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getProductConsumptionsCount();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ProductConsumption> getProjectProductConsumptions(
-			long projectId, int start, int end)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getProjectProductConsumptionsCount(long projectId)
-		throws PortalException;
 
 	/**
 	 * Updates the product consumption in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

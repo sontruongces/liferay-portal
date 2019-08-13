@@ -192,34 +192,6 @@ public class ProductConsumption {
 	@NotEmpty
 	protected String productKey;
 
-	@Schema(description = "The key of the project consuming the product.")
-	public String getProjectKey() {
-		return projectKey;
-	}
-
-	public void setProjectKey(String projectKey) {
-		this.projectKey = projectKey;
-	}
-
-	@JsonIgnore
-	public void setProjectKey(
-		UnsafeSupplier<String, Exception> projectKeyUnsafeSupplier) {
-
-		try {
-			projectKey = projectKeyUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String projectKey;
-
 	@Schema
 	public Map<String, String> getProperties() {
 		return properties;
@@ -351,20 +323,6 @@ public class ProductConsumption {
 			sb.append("\"");
 
 			sb.append(_escape(productKey));
-
-			sb.append("\"");
-		}
-
-		if (projectKey != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"projectKey\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(projectKey));
 
 			sb.append("\"");
 		}

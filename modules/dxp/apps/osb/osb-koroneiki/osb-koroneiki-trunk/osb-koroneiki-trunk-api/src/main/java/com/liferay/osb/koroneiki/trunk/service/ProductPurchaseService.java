@@ -54,14 +54,13 @@ public interface ProductPurchaseService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link ProductPurchaseServiceUtil} to access the product purchase remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductPurchaseServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public ProductPurchase addProductPurchase(
-			long accountId, long projectId, long productEntryId, Date startDate,
-			Date endDate, int quantity, List<ProductField> productFields)
+			long accountId, long productEntryId, Date startDate, Date endDate,
+			int quantity, List<ProductField> productFields)
 		throws PortalException;
 
 	public ProductPurchase addProductPurchase(
-			String accountKey, String projectKey, String productEntryKey,
-			Date startDate, Date endDate, int quantity,
-			List<ProductField> productFields)
+			String accountKey, String productEntryKey, Date startDate,
+			Date endDate, int quantity, List<ProductField> productFields)
 		throws PortalException;
 
 	public ProductPurchase deleteProductPurchase(long productPurchaseId)
@@ -101,24 +100,6 @@ public interface ProductPurchaseService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ProductPurchase getProductPurchase(String productPurchaseKey)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ProductPurchase> getProjectProductPurchases(
-			long projectId, int start, int end)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ProductPurchase> getProjectProductPurchases(
-			String projectKey, int start, int end)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getProjectProductPurchasesCount(long projectId)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getProjectProductPurchasesCount(String projectKey)
 		throws PortalException;
 
 	public ProductPurchase updateProductPurchase(

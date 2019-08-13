@@ -67,7 +67,7 @@ public class ProductConsumptionCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -85,8 +85,6 @@ public class ProductConsumptionCacheModel
 		sb.append(productConsumptionKey);
 		sb.append(", accountId=");
 		sb.append(accountId);
-		sb.append(", projectId=");
-		sb.append(projectId);
 		sb.append(", productEntryId=");
 		sb.append(productEntryId);
 		sb.append("}");
@@ -133,7 +131,6 @@ public class ProductConsumptionCacheModel
 		}
 
 		productConsumptionImpl.setAccountId(accountId);
-		productConsumptionImpl.setProjectId(projectId);
 		productConsumptionImpl.setProductEntryId(productEntryId);
 
 		productConsumptionImpl.resetOriginalValues();
@@ -155,8 +152,6 @@ public class ProductConsumptionCacheModel
 		productConsumptionKey = objectInput.readUTF();
 
 		accountId = objectInput.readLong();
-
-		projectId = objectInput.readLong();
 
 		productEntryId = objectInput.readLong();
 	}
@@ -187,8 +182,6 @@ public class ProductConsumptionCacheModel
 
 		objectOutput.writeLong(accountId);
 
-		objectOutput.writeLong(projectId);
-
 		objectOutput.writeLong(productEntryId);
 	}
 
@@ -200,7 +193,6 @@ public class ProductConsumptionCacheModel
 	public long modifiedDate;
 	public String productConsumptionKey;
 	public long accountId;
-	public long projectId;
 	public long productEntryId;
 
 }

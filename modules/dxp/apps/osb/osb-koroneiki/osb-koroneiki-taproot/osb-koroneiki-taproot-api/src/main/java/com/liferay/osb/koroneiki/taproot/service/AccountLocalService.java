@@ -76,9 +76,11 @@ public interface AccountLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Account addAccount(
-			long userId, String name, String description, long logoId,
+			long userId, long parentAccountId, String name, String code,
+			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws PortalException;
 
 	/**
@@ -235,6 +237,9 @@ public interface AccountLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Account> getAccounts(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Account> getAccounts(long parentAccountId, int start, int end);
+
 	/**
 	 * Returns the number of accounts.
 	 *
@@ -242,6 +247,9 @@ public interface AccountLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getAccountsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAccountsCount(long parentAccountId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -285,9 +293,11 @@ public interface AccountLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Account updateAccount(
-			long userId, long accountId, String name, String description,
-			long logoId, String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			long userId, long accountId, long parentAccountId, String name,
+			String code, String description, String notes, long logoId,
+			String contactEmailAddress, String profileEmailAddress,
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws PortalException;
 
 }

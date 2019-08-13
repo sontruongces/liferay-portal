@@ -190,6 +190,13 @@ public interface TeamLocalService
 	public Team fetchTeamByUuidAndCompanyId(String uuid, long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Team> getAccountAssignedTeams(
+		long accountId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAccountAssignedTeamsCount(long accountId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Team> getAccountTeams(long accountId, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -216,12 +223,6 @@ public interface TeamLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Team> getProjectTeams(long projectId, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getProjectTeamsCount(long projectId);
 
 	/**
 	 * Returns the team with the primary key.

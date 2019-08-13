@@ -214,6 +214,16 @@ public class TeamLocalServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+		getAccountAssignedTeams(long accountId, int start, int end) {
+
+		return getService().getAccountAssignedTeams(accountId, start, end);
+	}
+
+	public static int getAccountAssignedTeamsCount(long accountId) {
+		return getService().getAccountAssignedTeamsCount(accountId);
+	}
+
+	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
 		getAccountTeams(long accountId, int start, int end) {
 
 		return getService().getAccountTeams(accountId, start, end);
@@ -258,16 +268,6 @@ public class TeamLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
-	}
-
-	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
-		getProjectTeams(long projectId, int start, int end) {
-
-		return getService().getProjectTeams(projectId, start, end);
-	}
-
-	public static int getProjectTeamsCount(long projectId) {
-		return getService().getProjectTeamsCount(projectId);
 	}
 
 	/**

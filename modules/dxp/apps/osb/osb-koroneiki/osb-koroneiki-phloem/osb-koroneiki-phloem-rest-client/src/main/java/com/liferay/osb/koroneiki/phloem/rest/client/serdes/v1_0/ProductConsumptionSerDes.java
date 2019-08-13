@@ -144,20 +144,6 @@ public class ProductConsumptionSerDes {
 			sb.append("\"");
 		}
 
-		if (productConsumption.getProjectKey() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"projectKey\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(productConsumption.getProjectKey()));
-
-			sb.append("\"");
-		}
-
 		if (productConsumption.getProperties() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -229,15 +215,6 @@ public class ProductConsumptionSerDes {
 			map.put(
 				"productKey",
 				String.valueOf(productConsumption.getProductKey()));
-		}
-
-		if (productConsumption.getProjectKey() == null) {
-			map.put("projectKey", null);
-		}
-		else {
-			map.put(
-				"projectKey",
-				String.valueOf(productConsumption.getProjectKey()));
 		}
 
 		if (productConsumption.getProperties() == null) {
@@ -339,12 +316,6 @@ public class ProductConsumptionSerDes {
 			else if (Objects.equals(jsonParserFieldName, "productKey")) {
 				if (jsonParserFieldValue != null) {
 					productConsumption.setProductKey(
-						(String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "projectKey")) {
-				if (jsonParserFieldValue != null) {
-					productConsumption.setProjectKey(
 						(String)jsonParserFieldValue);
 				}
 			}

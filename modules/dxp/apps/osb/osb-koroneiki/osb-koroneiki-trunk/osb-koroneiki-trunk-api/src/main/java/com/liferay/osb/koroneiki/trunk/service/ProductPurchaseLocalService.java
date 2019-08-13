@@ -65,9 +65,8 @@ public interface ProductPurchaseLocalService
 	 * Never modify or reference this interface directly. Always use {@link ProductPurchaseLocalServiceUtil} to access the product purchase local service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductPurchaseLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public ProductPurchase addProductPurchase(
-			long userId, long accountId, long projectId, long productEntryId,
-			Date startDate, Date endDate, int quantity,
-			List<ProductField> productFields)
+			long userId, long accountId, long productEntryId, Date startDate,
+			Date endDate, int quantity, List<ProductField> productFields)
 		throws PortalException;
 
 	/**
@@ -274,13 +273,6 @@ public interface ProductPurchaseLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getProductPurchasesCount();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ProductPurchase> getProjectProductPurchases(
-		long projectId, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getProjectProductPurchasesCount(long projectId);
 
 	public ProductPurchase updateProductPurchase(
 			long userId, long productPurchaseId, Date startDate, Date endDate,

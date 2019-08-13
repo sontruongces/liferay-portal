@@ -57,10 +57,6 @@ public interface ContactResource {
 	public Contact putContactByUuid(String uuid, Contact contact)
 		throws Exception;
 
-	public Page<Contact> getProjectProjectKeyContactsPage(
-			String projectKey, Pagination pagination)
-		throws Exception;
-
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

@@ -379,18 +379,6 @@ public class ContactLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Contact>
-		getProjectContacts(long projectId, int start, int end) {
-
-		return _contactLocalService.getProjectContacts(projectId, start, end);
-	}
-
-	@Override
-	public int getProjectContactsCount(long projectId) {
-		return _contactLocalService.getProjectContactsCount(projectId);
-	}
-
-	@Override
-	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Contact>
 		getTeamContacts(long teamId, int start, int end) {
 
 		return _contactLocalService.getTeamContacts(teamId, start, end);

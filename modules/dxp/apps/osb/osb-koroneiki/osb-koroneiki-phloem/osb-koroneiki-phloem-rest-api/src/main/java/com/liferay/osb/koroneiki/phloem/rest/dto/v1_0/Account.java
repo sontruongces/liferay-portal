@@ -53,6 +53,58 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Account")
 public class Account {
 
+	public static enum Industry {
+
+		AEROSPACE_AND_DEFENSE("aerospace-and-defense"),
+		AGRICULTURE("agriculture"), AUTOMOTIVE("automotive"),
+		CONSULTING_MARKET_RESEARCH("consulting-market-research"),
+		EDUCATION("education"), ENERGY("energy"), ENGINEERING("engineering"),
+		FINANCIAL_SERVICES("financial-services"),
+		FOOD_SERVICES("food-services"),
+		GOVERNMENT_FEDERAL("government-federal"),
+		GOVERNMENT_STATE_LOCAL("government-state-local"),
+		HEALTHCARE("healthcare"), HOSPITALITY_LEISURE("hospitality-leisure"),
+		INSURANCE("insurance"), MANUFACTURING("manufacturing"),
+		MEDIA_ENTERTAINMENT("media-entertainment"),
+		NOT_FOR_PROFIT_NGO("not-for-profit-ngo"), OTHER("other"),
+		PHARMACEUTICALS("pharmaceuticals"),
+		PROFESSIONAL_SERVICES_AGENCY_BUSINESS(
+			"professional-services-agency-business"),
+		PROFESSIONAL_SERVICES_TECHNICAL_WEB_IT(
+			"professional-services-technical-web-it"),
+		RETAIL_CONSUMER_PRODUCTS("retail-consumer-products"),
+		TECHNOLOGY("technology"), TELECOMMUNICATION("telecommunication"),
+		TRANSPORTATION("transportation"), UTILITIES("utilities");
+
+		@JsonCreator
+		public static Industry create(String value) {
+			for (Industry industry : values()) {
+				if (Objects.equals(industry.getValue(), value)) {
+					return industry;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Industry(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	public static enum Status {
 
 		APPROVED("approved"), CLOSED("closed"), EXPIRED("expired"),
@@ -88,6 +140,40 @@ public class Account {
 
 	}
 
+	public static enum Tier {
+
+		OEM("oem"), PREMIER("premier"), REGULAR("regular"),
+		STRATEGIC("strategic");
+
+		@JsonCreator
+		public static Tier create(String value) {
+			for (Tier tier : values()) {
+				if (Objects.equals(tier.getValue(), value)) {
+					return tier;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Tier(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	@Schema(description = "The account's postal addresses.")
 	public PostalAddress[] getAddresses() {
 		return addresses;
@@ -115,6 +201,32 @@ public class Account {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected PostalAddress[] addresses;
+
+	@Schema(description = "The code of the account.")
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	@JsonIgnore
+	public void setCode(UnsafeSupplier<String, Exception> codeUnsafeSupplier) {
+		try {
+			code = codeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String code;
 
 	@Schema(description = "The account's contact email address.")
 	public String getContactEmailAddress() {
@@ -288,6 +400,43 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String faxNumber;
 
+	@Schema(description = "The industry of the account.")
+	public Industry getIndustry() {
+		return industry;
+	}
+
+	@JsonIgnore
+	public String getIndustryAsString() {
+		if (industry == null) {
+			return null;
+		}
+
+		return industry.toString();
+	}
+
+	public void setIndustry(Industry industry) {
+		this.industry = industry;
+	}
+
+	@JsonIgnore
+	public void setIndustry(
+		UnsafeSupplier<Industry, Exception> industryUnsafeSupplier) {
+
+		try {
+			industry = industryUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Industry industry;
+
 	@Schema(description = "The account's key.")
 	public String getKey() {
 		return key;
@@ -340,6 +489,62 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String name;
+
+	@Schema(description = "The notes of the account.")
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	@JsonIgnore
+	public void setNotes(
+		UnsafeSupplier<String, Exception> notesUnsafeSupplier) {
+
+		try {
+			notes = notesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String notes;
+
+	@Schema(description = "The account's parent account key.")
+	public String getParentAccountKey() {
+		return parentAccountKey;
+	}
+
+	public void setParentAccountKey(String parentAccountKey) {
+		this.parentAccountKey = parentAccountKey;
+	}
+
+	@JsonIgnore
+	public void setParentAccountKey(
+		UnsafeSupplier<String, Exception> parentAccountKeyUnsafeSupplier) {
+
+		try {
+			parentAccountKey = parentAccountKeyUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String parentAccountKey;
 
 	@Schema(description = "The account's phone number.")
 	public String getPhoneNumber() {
@@ -426,6 +631,34 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String profileEmailAddress;
 
+	@Schema(description = "The region which sold the salesforce opportunity.")
+	public String getSoldBy() {
+		return soldBy;
+	}
+
+	public void setSoldBy(String soldBy) {
+		this.soldBy = soldBy;
+	}
+
+	@JsonIgnore
+	public void setSoldBy(
+		UnsafeSupplier<String, Exception> soldByUnsafeSupplier) {
+
+		try {
+			soldBy = soldByUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String soldBy;
+
 	@Schema(description = "The status of the account.")
 	public Status getStatus() {
 		return status;
@@ -462,6 +695,41 @@ public class Account {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Status status;
+
+	@Schema(description = "The tier of the account.")
+	public Tier getTier() {
+		return tier;
+	}
+
+	@JsonIgnore
+	public String getTierAsString() {
+		if (tier == null) {
+			return null;
+		}
+
+		return tier.toString();
+	}
+
+	public void setTier(Tier tier) {
+		this.tier = tier;
+	}
+
+	@JsonIgnore
+	public void setTier(UnsafeSupplier<Tier, Exception> tierUnsafeSupplier) {
+		try {
+			tier = tierUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Tier tier;
 
 	@Schema(description = "The account's website.")
 	public String getWebsite() {
@@ -539,6 +807,20 @@ public class Account {
 			}
 
 			sb.append("]");
+		}
+
+		if (code != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"code\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(code));
+
+			sb.append("\"");
 		}
 
 		if (contactEmailAddress != null) {
@@ -631,6 +913,20 @@ public class Account {
 			sb.append("\"");
 		}
 
+		if (industry != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"industry\": ");
+
+			sb.append("\"");
+
+			sb.append(industry);
+
+			sb.append("\"");
+		}
+
 		if (key != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -655,6 +951,34 @@ public class Account {
 			sb.append("\"");
 
 			sb.append(_escape(name));
+
+			sb.append("\"");
+		}
+
+		if (notes != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"notes\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(notes));
+
+			sb.append("\"");
+		}
+
+		if (parentAccountKey != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"parentAccountKey\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(parentAccountKey));
 
 			sb.append("\"");
 		}
@@ -707,6 +1031,20 @@ public class Account {
 			sb.append("\"");
 		}
 
+		if (soldBy != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"soldBy\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(soldBy));
+
+			sb.append("\"");
+		}
+
 		if (status != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -717,6 +1055,20 @@ public class Account {
 			sb.append("\"");
 
 			sb.append(status);
+
+			sb.append("\"");
+		}
+
+		if (tier != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"tier\": ");
+
+			sb.append("\"");
+
+			sb.append(tier);
 
 			sb.append("\"");
 		}

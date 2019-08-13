@@ -182,6 +182,20 @@ public interface AccountModel
 	public void setAccountKey(String accountKey);
 
 	/**
+	 * Returns the parent account ID of this account.
+	 *
+	 * @return the parent account ID of this account
+	 */
+	public long getParentAccountId();
+
+	/**
+	 * Sets the parent account ID of this account.
+	 *
+	 * @param parentAccountId the parent account ID of this account
+	 */
+	public void setParentAccountId(long parentAccountId);
+
+	/**
 	 * Returns the name of this account.
 	 *
 	 * @return the name of this account
@@ -197,6 +211,21 @@ public interface AccountModel
 	public void setName(String name);
 
 	/**
+	 * Returns the code of this account.
+	 *
+	 * @return the code of this account
+	 */
+	@AutoEscape
+	public String getCode();
+
+	/**
+	 * Sets the code of this account.
+	 *
+	 * @param code the code of this account
+	 */
+	public void setCode(String code);
+
+	/**
 	 * Returns the description of this account.
 	 *
 	 * @return the description of this account
@@ -210,6 +239,21 @@ public interface AccountModel
 	 * @param description the description of this account
 	 */
 	public void setDescription(String description);
+
+	/**
+	 * Returns the notes of this account.
+	 *
+	 * @return the notes of this account
+	 */
+	@AutoEscape
+	public String getNotes();
+
+	/**
+	 * Sets the notes of this account.
+	 *
+	 * @param notes the notes of this account
+	 */
+	public void setNotes(String notes);
 
 	/**
 	 * Returns the logo ID of this account.
@@ -299,6 +343,51 @@ public interface AccountModel
 	 * @param website the website of this account
 	 */
 	public void setWebsite(String website);
+
+	/**
+	 * Returns the industry of this account.
+	 *
+	 * @return the industry of this account
+	 */
+	@AutoEscape
+	public String getIndustry();
+
+	/**
+	 * Sets the industry of this account.
+	 *
+	 * @param industry the industry of this account
+	 */
+	public void setIndustry(String industry);
+
+	/**
+	 * Returns the tier of this account.
+	 *
+	 * @return the tier of this account
+	 */
+	@AutoEscape
+	public String getTier();
+
+	/**
+	 * Sets the tier of this account.
+	 *
+	 * @param tier the tier of this account
+	 */
+	public void setTier(String tier);
+
+	/**
+	 * Returns the sold by of this account.
+	 *
+	 * @return the sold by of this account
+	 */
+	@AutoEscape
+	public String getSoldBy();
+
+	/**
+	 * Sets the sold by of this account.
+	 *
+	 * @param soldBy the sold by of this account
+	 */
+	public void setSoldBy(String soldBy);
 
 	/**
 	 * Returns the status of this account.

@@ -56,7 +56,7 @@ public class TeamRole {
 
 	public static enum Type {
 
-		PROJECT("project"), REGULAR("regular");
+		ACCOUNT("account"), REGULAR("regular");
 
 		@JsonCreator
 		public static Type create(String value) {

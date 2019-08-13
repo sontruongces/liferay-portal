@@ -24,6 +24,8 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import java.util.List;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -50,9 +52,11 @@ public interface AccountService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link AccountServiceUtil} to access the account remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.AccountServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public Account addAccount(
-			String name, String description, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			long parentAccountId, String name, String code, String description,
+			String notes, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String industry, String tier, String soldBy,
+			int status)
 		throws PortalException;
 
 	public Account deleteAccount(long accountId) throws PortalException;
@@ -65,6 +69,13 @@ public interface AccountService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Account getAccount(String accountKey) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Account> getAccounts(long parentAccountId, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAccountsCount(long parentAccountId) throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -73,15 +84,19 @@ public interface AccountService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	public Account updateAccount(
-			long accountId, String name, String description, long logoId,
+			long accountId, long parentAccountId, String name, String code,
+			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws PortalException;
 
 	public Account updateAccount(
-			String accountKey, String name, String description, long logoId,
+			String accountKey, long parentAccountId, String name, String code,
+			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws PortalException;
 
 }

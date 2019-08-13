@@ -103,6 +103,37 @@ public interface AccountResource {
 				String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
+	public Page<Account> getAccountChildAccountsPage(
+			String accountKey, String[] includes, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getAccountChildAccountsPageHttpResponse(
+			String accountKey, String[] includes, Pagination pagination)
+		throws Exception;
+
+	public Account postAccountChildAccount(String accountKey, Account account)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse postAccountChildAccountHttpResponse(
+			String accountKey, Account account)
+		throws Exception;
+
+	public void deleteAccountTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteAccountTeamTeamKeyRoleHttpResponse(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public void putAccountTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putAccountTeamTeamKeyRoleHttpResponse(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -597,6 +628,219 @@ public interface AccountResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/{contactUuid}/roles",
 				accountKey, contactUuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Account> getAccountChildAccountsPage(
+				String accountKey, String[] includes, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountChildAccountsPageHttpResponse(
+					accountKey, includes, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, AccountSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse getAccountChildAccountsPageHttpResponse(
+				String accountKey, String[] includes, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (includes != null) {
+				for (int i = 0; i < includes.length; i++) {
+					httpInvoker.parameter(
+						"includes", String.valueOf(includes[i]));
+				}
+			}
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Account postAccountChildAccount(
+				String accountKey, Account account)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postAccountChildAccountHttpResponse(accountKey, account);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return AccountSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse postAccountChildAccountHttpResponse(
+				String accountKey, Account account)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(account.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteAccountTeamTeamKeyRole(
+				String accountKey, String teamKey, String[] teamRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteAccountTeamTeamKeyRoleHttpResponse(
+					accountKey, teamKey, teamRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteAccountTeamTeamKeyRoleHttpResponse(
+					String accountKey, String teamKey, String[] teamRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (teamRoleKeys != null) {
+				for (int i = 0; i < teamRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"teamRoleKeys", String.valueOf(teamRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams/{teamKey}/roles",
+				accountKey, teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putAccountTeamTeamKeyRole(
+				String accountKey, String teamKey, String[] teamRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putAccountTeamTeamKeyRoleHttpResponse(
+					accountKey, teamKey, teamRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putAccountTeamTeamKeyRoleHttpResponse(
+				String accountKey, String teamKey, String[] teamRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(teamRoleKeys.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (teamRoleKeys != null) {
+				for (int i = 0; i < teamRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"teamRoleKeys", String.valueOf(teamRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams/{teamKey}/roles",
+				accountKey, teamKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

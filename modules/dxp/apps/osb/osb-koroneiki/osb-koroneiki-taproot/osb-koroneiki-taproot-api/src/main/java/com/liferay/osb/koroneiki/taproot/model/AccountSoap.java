@@ -41,14 +41,20 @@ public class AccountSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setAccountKey(model.getAccountKey());
+		soapModel.setParentAccountId(model.getParentAccountId());
 		soapModel.setName(model.getName());
+		soapModel.setCode(model.getCode());
 		soapModel.setDescription(model.getDescription());
+		soapModel.setNotes(model.getNotes());
 		soapModel.setLogoId(model.getLogoId());
 		soapModel.setContactEmailAddress(model.getContactEmailAddress());
 		soapModel.setProfileEmailAddress(model.getProfileEmailAddress());
 		soapModel.setPhoneNumber(model.getPhoneNumber());
 		soapModel.setFaxNumber(model.getFaxNumber());
 		soapModel.setWebsite(model.getWebsite());
+		soapModel.setIndustry(model.getIndustry());
+		soapModel.setTier(model.getTier());
+		soapModel.setSoldBy(model.getSoldBy());
 		soapModel.setStatus(model.getStatus());
 		soapModel.setStatusByUserId(model.getStatusByUserId());
 		soapModel.setStatusByUserName(model.getStatusByUserName());
@@ -163,6 +169,14 @@ public class AccountSoap implements Serializable {
 		_accountKey = accountKey;
 	}
 
+	public long getParentAccountId() {
+		return _parentAccountId;
+	}
+
+	public void setParentAccountId(long parentAccountId) {
+		_parentAccountId = parentAccountId;
+	}
+
 	public String getName() {
 		return _name;
 	}
@@ -171,12 +185,28 @@ public class AccountSoap implements Serializable {
 		_name = name;
 	}
 
+	public String getCode() {
+		return _code;
+	}
+
+	public void setCode(String code) {
+		_code = code;
+	}
+
 	public String getDescription() {
 		return _description;
 	}
 
 	public void setDescription(String description) {
 		_description = description;
+	}
+
+	public String getNotes() {
+		return _notes;
+	}
+
+	public void setNotes(String notes) {
+		_notes = notes;
 	}
 
 	public long getLogoId() {
@@ -227,6 +257,30 @@ public class AccountSoap implements Serializable {
 		_website = website;
 	}
 
+	public String getIndustry() {
+		return _industry;
+	}
+
+	public void setIndustry(String industry) {
+		_industry = industry;
+	}
+
+	public String getTier() {
+		return _tier;
+	}
+
+	public void setTier(String tier) {
+		_tier = tier;
+	}
+
+	public String getSoldBy() {
+		return _soldBy;
+	}
+
+	public void setSoldBy(String soldBy) {
+		_soldBy = soldBy;
+	}
+
 	public int getStatus() {
 		return _status;
 	}
@@ -274,14 +328,20 @@ public class AccountSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _accountKey;
+	private long _parentAccountId;
 	private String _name;
+	private String _code;
 	private String _description;
+	private String _notes;
 	private long _logoId;
 	private String _contactEmailAddress;
 	private String _profileEmailAddress;
 	private String _phoneNumber;
 	private String _faxNumber;
 	private String _website;
+	private String _industry;
+	private String _tier;
+	private String _soldBy;
 	private int _status;
 	private long _statusByUserId;
 	private String _statusByUserName;

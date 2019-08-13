@@ -182,15 +182,16 @@ public class TeamRoleUtil {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public static List<TeamRole> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator,
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByUuid(
-			uuid, start, end, orderByComparator, useFinderCache);
+			uuid, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -431,15 +432,16 @@ public class TeamRoleUtil {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public static List<TeamRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator,
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator, useFinderCache);
+			uuid, companyId, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -666,13 +668,14 @@ public class TeamRoleUtil {
 	 * Returns the team role where teamRoleKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param teamRoleKey the team role key
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public static TeamRole fetchByTeamRoleKey(
-		String teamRoleKey, boolean useFinderCache) {
+		String teamRoleKey, boolean retrieveFromCache) {
 
-		return getPersistence().fetchByTeamRoleKey(teamRoleKey, useFinderCache);
+		return getPersistence().fetchByTeamRoleKey(
+			teamRoleKey, retrieveFromCache);
 	}
 
 	/**
@@ -755,15 +758,16 @@ public class TeamRoleUtil {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public static List<TeamRole> findByName(
 		String name, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator,
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByName(
-			name, start, end, orderByComparator, useFinderCache);
+			name, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -997,15 +1001,16 @@ public class TeamRoleUtil {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public static List<TeamRole> findByType(
 		int type, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator,
+		boolean retrieveFromCache) {
 
 		return getPersistence().findByType(
-			type, start, end, orderByComparator, useFinderCache);
+			type, start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -1304,15 +1309,15 @@ public class TeamRoleUtil {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of team roles
 	 */
 	public static List<TeamRole> findAll(
 		int start, int end, OrderByComparator<TeamRole> orderByComparator,
-		boolean useFinderCache) {
+		boolean retrieveFromCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, useFinderCache);
+			start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**

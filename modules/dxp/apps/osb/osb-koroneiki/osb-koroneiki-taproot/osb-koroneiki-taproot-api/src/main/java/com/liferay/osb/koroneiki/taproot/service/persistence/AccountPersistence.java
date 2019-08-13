@@ -91,14 +91,14 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param start the lower bound of the range of accounts
 	 * @param end the upper bound of the range of accounts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching accounts
 	 */
 	public java.util.List<Account> findByUuid(
 		String uuid, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Account>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Returns the first account in the ordered set where uuid = &#63;.
@@ -302,14 +302,14 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param start the lower bound of the range of accounts
 	 * @param end the upper bound of the range of accounts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching accounts
 	 */
 	public java.util.List<Account> findByUuid_C(
 		String uuid, long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Account>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Returns the first account in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -492,10 +492,11 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * Returns the account where accountKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param accountKey the account key
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching account, or <code>null</code> if a matching account could not be found
 	 */
-	public Account fetchByAccountKey(String accountKey, boolean useFinderCache);
+	public Account fetchByAccountKey(
+		String accountKey, boolean retrieveFromCache);
 
 	/**
 	 * Removes the account where accountKey = &#63; from the database.
@@ -513,6 +514,214 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @return the number of matching accounts
 	 */
 	public int countByAccountKey(String accountKey);
+
+	/**
+	 * Returns all the accounts where parentAccountId = &#63;.
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @return the matching accounts
+	 */
+	public java.util.List<Account> findByParentAccountId(long parentAccountId);
+
+	/**
+	 * Returns a range of all the accounts where parentAccountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AccountModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @param start the lower bound of the range of accounts
+	 * @param end the upper bound of the range of accounts (not inclusive)
+	 * @return the range of matching accounts
+	 */
+	public java.util.List<Account> findByParentAccountId(
+		long parentAccountId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the accounts where parentAccountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AccountModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @param start the lower bound of the range of accounts
+	 * @param end the upper bound of the range of accounts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching accounts
+	 */
+	public java.util.List<Account> findByParentAccountId(
+		long parentAccountId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Account>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the accounts where parentAccountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AccountModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @param start the lower bound of the range of accounts
+	 * @param end the upper bound of the range of accounts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching accounts
+	 */
+	public java.util.List<Account> findByParentAccountId(
+		long parentAccountId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Account>
+			orderByComparator,
+		boolean retrieveFromCache);
+
+	/**
+	 * Returns the first account in the ordered set where parentAccountId = &#63;.
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	public Account findByParentAccountId_First(
+			long parentAccountId,
+			com.liferay.portal.kernel.util.OrderByComparator<Account>
+				orderByComparator)
+		throws NoSuchAccountException;
+
+	/**
+	 * Returns the first account in the ordered set where parentAccountId = &#63;.
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public Account fetchByParentAccountId_First(
+		long parentAccountId,
+		com.liferay.portal.kernel.util.OrderByComparator<Account>
+			orderByComparator);
+
+	/**
+	 * Returns the last account in the ordered set where parentAccountId = &#63;.
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	public Account findByParentAccountId_Last(
+			long parentAccountId,
+			com.liferay.portal.kernel.util.OrderByComparator<Account>
+				orderByComparator)
+		throws NoSuchAccountException;
+
+	/**
+	 * Returns the last account in the ordered set where parentAccountId = &#63;.
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public Account fetchByParentAccountId_Last(
+		long parentAccountId,
+		com.liferay.portal.kernel.util.OrderByComparator<Account>
+			orderByComparator);
+
+	/**
+	 * Returns the accounts before and after the current account in the ordered set where parentAccountId = &#63;.
+	 *
+	 * @param accountId the primary key of the current account
+	 * @param parentAccountId the parent account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next account
+	 * @throws NoSuchAccountException if a account with the primary key could not be found
+	 */
+	public Account[] findByParentAccountId_PrevAndNext(
+			long accountId, long parentAccountId,
+			com.liferay.portal.kernel.util.OrderByComparator<Account>
+				orderByComparator)
+		throws NoSuchAccountException;
+
+	/**
+	 * Returns all the accounts that the user has permission to view where parentAccountId = &#63;.
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @return the matching accounts that the user has permission to view
+	 */
+	public java.util.List<Account> filterFindByParentAccountId(
+		long parentAccountId);
+
+	/**
+	 * Returns a range of all the accounts that the user has permission to view where parentAccountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AccountModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @param start the lower bound of the range of accounts
+	 * @param end the upper bound of the range of accounts (not inclusive)
+	 * @return the range of matching accounts that the user has permission to view
+	 */
+	public java.util.List<Account> filterFindByParentAccountId(
+		long parentAccountId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the accounts that the user has permissions to view where parentAccountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AccountModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @param start the lower bound of the range of accounts
+	 * @param end the upper bound of the range of accounts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching accounts that the user has permission to view
+	 */
+	public java.util.List<Account> filterFindByParentAccountId(
+		long parentAccountId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Account>
+			orderByComparator);
+
+	/**
+	 * Returns the accounts before and after the current account in the ordered set of accounts that the user has permission to view where parentAccountId = &#63;.
+	 *
+	 * @param accountId the primary key of the current account
+	 * @param parentAccountId the parent account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next account
+	 * @throws NoSuchAccountException if a account with the primary key could not be found
+	 */
+	public Account[] filterFindByParentAccountId_PrevAndNext(
+			long accountId, long parentAccountId,
+			com.liferay.portal.kernel.util.OrderByComparator<Account>
+				orderByComparator)
+		throws NoSuchAccountException;
+
+	/**
+	 * Removes all the accounts where parentAccountId = &#63; from the database.
+	 *
+	 * @param parentAccountId the parent account ID
+	 */
+	public void removeByParentAccountId(long parentAccountId);
+
+	/**
+	 * Returns the number of accounts where parentAccountId = &#63;.
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @return the number of matching accounts
+	 */
+	public int countByParentAccountId(long parentAccountId);
+
+	/**
+	 * Returns the number of accounts that the user has permission to view where parentAccountId = &#63;.
+	 *
+	 * @param parentAccountId the parent account ID
+	 * @return the number of matching accounts that the user has permission to view
+	 */
+	public int filterCountByParentAccountId(long parentAccountId);
 
 	/**
 	 * Caches the account in the entity cache if it is enabled.
@@ -612,14 +821,14 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param start the lower bound of the range of accounts
 	 * @param end the upper bound of the range of accounts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
+	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of accounts
 	 */
 	public java.util.List<Account> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Account>
 			orderByComparator,
-		boolean useFinderCache);
+		boolean retrieveFromCache);
 
 	/**
 	 * Removes all the accounts from the database.

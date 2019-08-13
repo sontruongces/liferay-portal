@@ -55,14 +55,6 @@ public interface ProductPurchaseResource {
 			String productPurchaseKey, ProductPurchase productPurchase)
 		throws Exception;
 
-	public Page<ProductPurchase> getProjectProjectKeyProductPurchasesPage(
-			String projectKey, Pagination pagination)
-		throws Exception;
-
-	public ProductPurchase postProjectProjectKeyProductPurchase(
-			String projectKey, ProductPurchase productPurchase)
-		throws Exception;
-
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

@@ -195,20 +195,6 @@ public interface ProductConsumptionModel
 	public void setAccountId(long accountId);
 
 	/**
-	 * Returns the project ID of this product consumption.
-	 *
-	 * @return the project ID of this product consumption
-	 */
-	public long getProjectId();
-
-	/**
-	 * Sets the project ID of this product consumption.
-	 *
-	 * @param projectId the project ID of this product consumption
-	 */
-	public void setProjectId(long projectId);
-
-	/**
 	 * Returns the product entry ID of this product consumption.
 	 *
 	 * @return the product entry ID of this product consumption
