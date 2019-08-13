@@ -53,7 +53,7 @@ public interface ContactAccountRoleService extends BaseService {
 		throws PortalException;
 
 	public ContactAccountRole addContactAccountRole(
-			String contactKey, String accountKey, String contactRoleKey)
+			String contactUuid, String accountKey, String contactRoleKey)
 		throws PortalException;
 
 	public ContactAccountRole deleteContactAccountRole(
@@ -61,13 +61,13 @@ public interface ContactAccountRoleService extends BaseService {
 		throws PortalException;
 
 	public ContactAccountRole deleteContactAccountRole(
-			String contactKey, String accountKey, String contactRoleKey)
+			String contactUuid, String accountKey, String contactRoleKey)
 		throws PortalException;
 
 	public void deleteContactAccountRoles(long contactId, long accountId)
 		throws PortalException;
 
-	public void deleteContactAccountRoles(String contactKey, String accountKey)
+	public void deleteContactAccountRoles(String contactUuid, String accountKey)
 		throws PortalException;
 
 	/**

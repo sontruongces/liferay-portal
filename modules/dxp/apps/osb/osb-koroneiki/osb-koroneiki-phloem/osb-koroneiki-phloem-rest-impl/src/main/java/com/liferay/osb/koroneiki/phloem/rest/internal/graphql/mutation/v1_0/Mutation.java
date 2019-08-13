@@ -179,14 +179,14 @@ public class Mutation {
 	@GraphQLField
 	public boolean deleteAccountContact(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("contactKeys") String[] contactKeys)
+			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.deleteAccountContact(
-				accountKey, contactKeys));
+				accountKey, contactUuids));
 
 		return true;
 	}
@@ -194,22 +194,22 @@ public class Mutation {
 	@GraphQLField
 	public boolean putAccountContact(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("contactKeys") String[] contactKeys)
+			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.putAccountContact(
-				accountKey, contactKeys));
+				accountKey, contactUuids));
 
 		return true;
 	}
 
 	@GraphQLField
-	public boolean deleteAccountContactContactKeyRole(
+	public boolean deleteAccountContactContactUuidRole(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("contactKey") String contactKey,
+			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
 		throws Exception {
 
@@ -217,24 +217,24 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource ->
-				accountResource.deleteAccountContactContactKeyRole(
-					accountKey, contactKey, contactRoleKeys));
+				accountResource.deleteAccountContactContactUuidRole(
+					accountKey, contactUuid, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
-	public boolean putAccountContactContactKeyRole(
+	public boolean putAccountContactContactUuidRole(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("contactKey") String contactKey,
+			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.putAccountContactContactKeyRole(
-				accountKey, contactKey, contactRoleKeys));
+			accountResource -> accountResource.putAccountContactContactUuidRole(
+				accountKey, contactUuid, contactRoleKeys));
 
 		return true;
 	}

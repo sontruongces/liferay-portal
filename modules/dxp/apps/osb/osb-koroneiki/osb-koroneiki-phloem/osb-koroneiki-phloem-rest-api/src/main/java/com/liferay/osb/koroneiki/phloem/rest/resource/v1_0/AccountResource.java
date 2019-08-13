@@ -53,18 +53,18 @@ public interface AccountResource {
 	public Account putAccount(String accountKey, Account account)
 		throws Exception;
 
-	public void deleteAccountContact(String accountKey, String[] contactKeys)
+	public void deleteAccountContact(String accountKey, String[] contactUuids)
 		throws Exception;
 
-	public void putAccountContact(String accountKey, String[] contactKeys)
+	public void putAccountContact(String accountKey, String[] contactUuids)
 		throws Exception;
 
-	public void deleteAccountContactContactKeyRole(
-			String accountKey, String contactKey, String[] contactRoleKeys)
+	public void deleteAccountContactContactUuidRole(
+			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
-	public void putAccountContactContactKeyRole(
-			String accountKey, String contactKey, String[] contactRoleKeys)
+	public void putAccountContactContactUuidRole(
+			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

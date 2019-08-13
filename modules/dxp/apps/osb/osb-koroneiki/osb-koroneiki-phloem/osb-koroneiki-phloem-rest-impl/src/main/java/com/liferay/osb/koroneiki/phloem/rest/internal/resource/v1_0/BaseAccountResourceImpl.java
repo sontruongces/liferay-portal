@@ -155,7 +155,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "contactKeys")
+			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts")
@@ -164,8 +164,8 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	public void deleteAccountContact(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("contactKeys")
-				String[] contactKeys)
+			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
+				String[] contactUuids)
 		throws Exception {
 	}
 
@@ -175,7 +175,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "contactKeys")
+			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts")
@@ -184,8 +184,8 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	public void putAccountContact(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("contactKeys")
-				String[] contactKeys)
+			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
+				String[] contactUuids)
 		throws Exception {
 	}
 
@@ -197,18 +197,18 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "contactKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
 		}
 	)
-	@Path("/accounts/{accountKey}/contacts/{contactKey}/roles")
+	@Path("/accounts/{accountKey}/contacts/{contactUuid}/roles")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
-	public void deleteAccountContactContactKeyRole(
+	public void deleteAccountContactContactUuidRole(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("contactKey") String
-				contactKey,
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
 				String[] contactRoleKeys)
 		throws Exception {
@@ -220,18 +220,18 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "contactKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
 		}
 	)
-	@Path("/accounts/{accountKey}/contacts/{contactKey}/roles")
+	@Path("/accounts/{accountKey}/contacts/{contactUuid}/roles")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
-	public void putAccountContactContactKeyRole(
+	public void putAccountContactContactUuidRole(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("contactKey") String
-				contactKey,
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
 				String[] contactRoleKeys)
 		throws Exception {

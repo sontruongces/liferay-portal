@@ -425,12 +425,12 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteAccountContactContactKeyRole() throws Exception {
+	public void testDeleteAccountContactContactUuidRole() throws Exception {
 		Assert.assertTrue(true);
 	}
 
 	@Test
-	public void testPutAccountContactContactKeyRole() throws Exception {
+	public void testPutAccountContactContactUuidRole() throws Exception {
 		Assert.assertTrue(true);
 	}
 

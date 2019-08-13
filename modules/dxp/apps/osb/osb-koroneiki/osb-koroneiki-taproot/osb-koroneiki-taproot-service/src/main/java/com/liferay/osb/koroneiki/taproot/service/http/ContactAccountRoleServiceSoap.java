@@ -87,14 +87,14 @@ public class ContactAccountRoleServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactAccountRoleSoap
 			addContactAccountRole(
-				String contactKey, String accountKey, String contactRoleKey)
+				String contactUuid, String accountKey, String contactRoleKey)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.ContactAccountRole
 				returnValue =
 					ContactAccountRoleServiceUtil.addContactAccountRole(
-						contactKey, accountKey, contactRoleKey);
+						contactUuid, accountKey, contactRoleKey);
 
 			return com.liferay.osb.koroneiki.taproot.model.
 				ContactAccountRoleSoap.toSoapModel(returnValue);
@@ -129,14 +129,14 @@ public class ContactAccountRoleServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactAccountRoleSoap
 			deleteContactAccountRole(
-				String contactKey, String accountKey, String contactRoleKey)
+				String contactUuid, String accountKey, String contactRoleKey)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.ContactAccountRole
 				returnValue =
 					ContactAccountRoleServiceUtil.deleteContactAccountRole(
-						contactKey, accountKey, contactRoleKey);
+						contactUuid, accountKey, contactRoleKey);
 
 			return com.liferay.osb.koroneiki.taproot.model.
 				ContactAccountRoleSoap.toSoapModel(returnValue);
@@ -163,12 +163,12 @@ public class ContactAccountRoleServiceSoap {
 	}
 
 	public static void deleteContactAccountRoles(
-			String contactKey, String accountKey)
+			String contactUuid, String accountKey)
 		throws RemoteException {
 
 		try {
 			ContactAccountRoleServiceUtil.deleteContactAccountRoles(
-				contactKey, accountKey);
+				contactUuid, accountKey);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

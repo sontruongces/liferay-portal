@@ -49,11 +49,11 @@ public class ContactAccountRoleServiceWrapper
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.ContactAccountRole
 			addContactAccountRole(
-				String contactKey, String accountKey, String contactRoleKey)
+				String contactUuid, String accountKey, String contactRoleKey)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactAccountRoleService.addContactAccountRole(
-			contactKey, accountKey, contactRoleKey);
+			contactUuid, accountKey, contactRoleKey);
 	}
 
 	@Override
@@ -69,11 +69,11 @@ public class ContactAccountRoleServiceWrapper
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.ContactAccountRole
 			deleteContactAccountRole(
-				String contactKey, String accountKey, String contactRoleKey)
+				String contactUuid, String accountKey, String contactRoleKey)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactAccountRoleService.deleteContactAccountRole(
-			contactKey, accountKey, contactRoleKey);
+			contactUuid, accountKey, contactRoleKey);
 	}
 
 	@Override
@@ -85,11 +85,11 @@ public class ContactAccountRoleServiceWrapper
 	}
 
 	@Override
-	public void deleteContactAccountRoles(String contactKey, String accountKey)
+	public void deleteContactAccountRoles(String contactUuid, String accountKey)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_contactAccountRoleService.deleteContactAccountRoles(
-			contactKey, accountKey);
+			contactUuid, accountKey);
 	}
 
 	/**

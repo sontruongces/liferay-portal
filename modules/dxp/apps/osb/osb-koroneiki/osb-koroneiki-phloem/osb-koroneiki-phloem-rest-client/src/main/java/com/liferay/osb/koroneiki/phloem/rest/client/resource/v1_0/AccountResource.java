@@ -71,35 +71,36 @@ public interface AccountResource {
 			String accountKey, Account account)
 		throws Exception;
 
-	public void deleteAccountContact(String accountKey, String[] contactKeys)
+	public void deleteAccountContact(String accountKey, String[] contactUuids)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteAccountContactHttpResponse(
-			String accountKey, String[] contactKeys)
+			String accountKey, String[] contactUuids)
 		throws Exception;
 
-	public void putAccountContact(String accountKey, String[] contactKeys)
+	public void putAccountContact(String accountKey, String[] contactUuids)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putAccountContactHttpResponse(
-			String accountKey, String[] contactKeys)
+			String accountKey, String[] contactUuids)
 		throws Exception;
 
-	public void deleteAccountContactContactKeyRole(
-			String accountKey, String contactKey, String[] contactRoleKeys)
+	public void deleteAccountContactContactUuidRole(
+			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			deleteAccountContactContactKeyRoleHttpResponse(
-				String accountKey, String contactKey, String[] contactRoleKeys)
+			deleteAccountContactContactUuidRoleHttpResponse(
+				String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
-	public void putAccountContactContactKeyRole(
-			String accountKey, String contactKey, String[] contactRoleKeys)
+	public void putAccountContactContactUuidRole(
+			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse putAccountContactContactKeyRoleHttpResponse(
-			String accountKey, String contactKey, String[] contactRoleKeys)
+	public HttpInvoker.HttpResponse
+			putAccountContactContactUuidRoleHttpResponse(
+				String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public static class Builder {
@@ -403,11 +404,11 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountContact(
-				String accountKey, String[] contactKeys)
+				String accountKey, String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountContactHttpResponse(accountKey, contactKeys);
+				deleteAccountContactHttpResponse(accountKey, contactUuids);
 
 			String content = httpResponse.getContent();
 
@@ -419,7 +420,7 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteAccountContactHttpResponse(
-				String accountKey, String[] contactKeys)
+				String accountKey, String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -431,10 +432,10 @@ public interface AccountResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
 
-			if (contactKeys != null) {
-				for (int i = 0; i < contactKeys.length; i++) {
+			if (contactUuids != null) {
+				for (int i = 0; i < contactUuids.length; i++) {
 					httpInvoker.parameter(
-						"contactKeys", String.valueOf(contactKeys[i]));
+						"contactUuids", String.valueOf(contactUuids[i]));
 				}
 			}
 
@@ -450,11 +451,11 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putAccountContact(String accountKey, String[] contactKeys)
+		public void putAccountContact(String accountKey, String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putAccountContactHttpResponse(accountKey, contactKeys);
+				putAccountContactHttpResponse(accountKey, contactUuids);
 
 			String content = httpResponse.getContent();
 
@@ -466,12 +467,12 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse putAccountContactHttpResponse(
-				String accountKey, String[] contactKeys)
+				String accountKey, String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(contactKeys.toString(), "application/json");
+			httpInvoker.body(contactUuids.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -480,10 +481,10 @@ public interface AccountResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
-			if (contactKeys != null) {
-				for (int i = 0; i < contactKeys.length; i++) {
+			if (contactUuids != null) {
+				for (int i = 0; i < contactUuids.length; i++) {
 					httpInvoker.parameter(
-						"contactKeys", String.valueOf(contactKeys[i]));
+						"contactUuids", String.valueOf(contactUuids[i]));
 				}
 			}
 
@@ -499,13 +500,13 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteAccountContactContactKeyRole(
-				String accountKey, String contactKey, String[] contactRoleKeys)
+		public void deleteAccountContactContactUuidRole(
+				String accountKey, String contactUuid, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountContactContactKeyRoleHttpResponse(
-					accountKey, contactKey, contactRoleKeys);
+				deleteAccountContactContactUuidRoleHttpResponse(
+					accountKey, contactUuid, contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -517,8 +518,8 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				deleteAccountContactContactKeyRoleHttpResponse(
-					String accountKey, String contactKey,
+				deleteAccountContactContactUuidRoleHttpResponse(
+					String accountKey, String contactUuid,
 					String[] contactRoleKeys)
 			throws Exception {
 
@@ -541,8 +542,8 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/{contactKey}/roles",
-				accountKey, contactKey);
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/{contactUuid}/roles",
+				accountKey, contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -550,13 +551,13 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putAccountContactContactKeyRole(
-				String accountKey, String contactKey, String[] contactRoleKeys)
+		public void putAccountContactContactUuidRole(
+				String accountKey, String contactUuid, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putAccountContactContactKeyRoleHttpResponse(
-					accountKey, contactKey, contactRoleKeys);
+				putAccountContactContactUuidRoleHttpResponse(
+					accountKey, contactUuid, contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -568,8 +569,8 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				putAccountContactContactKeyRoleHttpResponse(
-					String accountKey, String contactKey,
+				putAccountContactContactUuidRoleHttpResponse(
+					String accountKey, String contactUuid,
 					String[] contactRoleKeys)
 			throws Exception {
 
@@ -594,8 +595,8 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/{contactKey}/roles",
-				accountKey, contactKey);
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/{contactUuid}/roles",
+				accountKey, contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

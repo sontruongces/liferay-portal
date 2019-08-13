@@ -97,7 +97,7 @@ public class ContactAccountRoleServiceHttp {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactAccountRole
 			addContactAccountRole(
-				HttpPrincipal httpPrincipal, String contactKey,
+				HttpPrincipal httpPrincipal, String contactUuid,
 				String accountKey, String contactRoleKey)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -107,7 +107,7 @@ public class ContactAccountRoleServiceHttp {
 				_addContactAccountRoleParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, contactKey, accountKey, contactRoleKey);
+				methodKey, contactUuid, accountKey, contactRoleKey);
 
 			Object returnObj = null;
 
@@ -179,7 +179,7 @@ public class ContactAccountRoleServiceHttp {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactAccountRole
 			deleteContactAccountRole(
-				HttpPrincipal httpPrincipal, String contactKey,
+				HttpPrincipal httpPrincipal, String contactUuid,
 				String accountKey, String contactRoleKey)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -189,7 +189,7 @@ public class ContactAccountRoleServiceHttp {
 				_deleteContactAccountRoleParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, contactKey, accountKey, contactRoleKey);
+				methodKey, contactUuid, accountKey, contactRoleKey);
 
 			Object returnObj = null;
 
@@ -254,7 +254,7 @@ public class ContactAccountRoleServiceHttp {
 	}
 
 	public static void deleteContactAccountRoles(
-			HttpPrincipal httpPrincipal, String contactKey, String accountKey)
+			HttpPrincipal httpPrincipal, String contactUuid, String accountKey)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -264,7 +264,7 @@ public class ContactAccountRoleServiceHttp {
 				_deleteContactAccountRolesParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, contactKey, accountKey);
+				methodKey, contactUuid, accountKey);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
