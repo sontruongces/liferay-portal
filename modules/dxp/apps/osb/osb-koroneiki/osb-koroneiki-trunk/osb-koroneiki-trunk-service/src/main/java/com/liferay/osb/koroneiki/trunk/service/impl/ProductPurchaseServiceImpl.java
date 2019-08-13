@@ -15,11 +15,8 @@
 package com.liferay.osb.koroneiki.trunk.service.impl;
 
 import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.model.Project;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
-import com.liferay.osb.koroneiki.taproot.permission.ProjectPermission;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
@@ -30,7 +27,6 @@ import com.liferay.osb.koroneiki.trunk.service.base.ProductPurchaseServiceBaseIm
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Date;
 import java.util.List;
@@ -51,40 +47,30 @@ import org.osgi.service.component.annotations.Reference;
 public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 	public ProductPurchase addProductPurchase(
-			long accountId, long projectId, long productEntryId, Date startDate,
-			Date endDate, int quantity, List<ProductField> productFields)
+			long accountId, long productEntryId, Date startDate, Date endDate,
+			int quantity, List<ProductField> productFields)
 		throws PortalException {
 
 		_productPurchasePermission.check(
 			getPermissionChecker(), TrunkActionKeys.ADD_PRODUCT_PURCHASE);
 
 		return productPurchaseLocalService.addProductPurchase(
-			getUserId(), accountId, projectId, productEntryId, startDate,
-			endDate, quantity, productFields);
+			getUserId(), accountId, productEntryId, startDate, endDate,
+			quantity, productFields);
 	}
 
 	public ProductPurchase addProductPurchase(
-			String accountKey, String projectKey, String productEntryKey,
-			Date startDate, Date endDate, int quantity,
-			List<ProductField> productFields)
+			String accountKey, String productEntryKey, Date startDate,
+			Date endDate, int quantity, List<ProductField> productFields)
 		throws PortalException {
 
 		Account account = _accountLocalService.getAccount(accountKey);
-
-		long projectId = 0;
-
-		if (Validator.isNotNull(projectKey)) {
-			Project project = _projectLocalService.getProject(projectKey);
-
-			projectId = project.getProjectId();
-		}
-
 		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
 			productEntryKey);
 
 		return addProductPurchase(
-			account.getAccountId(), projectId, productEntry.getProductEntryId(),
-			startDate, endDate, quantity, productFields);
+			account.getAccountId(), productEntry.getProductEntryId(), startDate,
+			endDate, quantity, productFields);
 	}
 
 	public ProductPurchase deleteProductPurchase(long productPurchaseId)
@@ -178,52 +164,6 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 		return productPurchase;
 	}
 
-	public List<ProductPurchase> getProjectProductPurchases(
-			long projectId, int start, int end)
-		throws PortalException {
-
-		_projectPermission.check(
-			getPermissionChecker(), projectId, ActionKeys.VIEW);
-
-		return productPurchaseLocalService.getProjectProductPurchases(
-			projectId, start, end);
-	}
-
-	public List<ProductPurchase> getProjectProductPurchases(
-			String projectKey, int start, int end)
-		throws PortalException {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		_projectPermission.check(
-			getPermissionChecker(), project, ActionKeys.VIEW);
-
-		return productPurchaseLocalService.getProjectProductPurchases(
-			project.getProjectId(), start, end);
-	}
-
-	public int getProjectProductPurchasesCount(long projectId)
-		throws PortalException {
-
-		_projectPermission.check(
-			getPermissionChecker(), projectId, ActionKeys.VIEW);
-
-		return productPurchaseLocalService.getProjectProductPurchasesCount(
-			projectId);
-	}
-
-	public int getProjectProductPurchasesCount(String projectKey)
-		throws PortalException {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		_projectPermission.check(
-			getPermissionChecker(), project, ActionKeys.VIEW);
-
-		return productPurchaseLocalService.getProjectProductPurchasesCount(
-			project.getProjectId());
-	}
-
 	public ProductPurchase updateProductPurchase(
 			long productPurchaseId, Date startDate, Date endDate, int quantity,
 			List<ProductField> productFields)
@@ -261,11 +201,5 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 	@Reference
 	private ProductPurchasePermission _productPurchasePermission;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
-
-	@Reference
-	private ProjectPermission _projectPermission;
 
 }

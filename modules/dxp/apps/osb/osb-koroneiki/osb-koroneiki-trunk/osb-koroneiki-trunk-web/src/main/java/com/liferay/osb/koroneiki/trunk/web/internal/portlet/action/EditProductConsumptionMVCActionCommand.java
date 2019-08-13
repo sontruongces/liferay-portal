@@ -15,7 +15,6 @@
 package com.liferay.osb.koroneiki.trunk.web.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.taproot.exception.NoSuchAccountException;
-import com.liferay.osb.koroneiki.taproot.exception.NoSuchProjectException;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkPortletKeys;
 import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductEntryException;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
@@ -58,7 +57,6 @@ public class EditProductConsumptionMVCActionCommand
 		throws PortalException {
 
 		long accountId = ParamUtil.getLong(actionRequest, "accountId");
-		long projectId = ParamUtil.getLong(actionRequest, "projectId");
 		long productEntryId = ParamUtil.getLong(
 			actionRequest, "productEntryId");
 
@@ -89,7 +87,7 @@ public class EditProductConsumptionMVCActionCommand
 		}
 
 		_productConsumptionService.addProductConsumption(
-			accountId, projectId, productEntryId, productFields);
+			accountId, productEntryId, productFields);
 	}
 
 	protected void deleteProductConsumption(ActionRequest actionRequest)
@@ -121,8 +119,7 @@ public class EditProductConsumptionMVCActionCommand
 		}
 		catch (Exception e) {
 			if (e instanceof NoSuchAccountException ||
-				e instanceof NoSuchProductEntryException ||
-				e instanceof NoSuchProjectException) {
+				e instanceof NoSuchProductEntryException) {
 
 				SessionErrors.add(actionRequest, e.getClass());
 

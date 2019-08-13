@@ -29,16 +29,16 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Amos Fong
+ * @author Kyle Bischof
  */
 @Component(
 	property = {
 		"javax.portlet.name=" + TaprootPortletKeys.ACCOUNTS_ADMIN,
-		"mvc.command.name=/accounts_admin/edit_account"
+		"mvc.command.name=/accounts_admin/assign_account_team"
 	},
 	service = MVCRenderCommand.class
 )
-public class EditAccountMVCRenderCommand implements MVCRenderCommand {
+public class AssignAccountTeamMVCRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(
@@ -48,35 +48,11 @@ public class EditAccountMVCRenderCommand implements MVCRenderCommand {
 		try {
 			long accountId = ParamUtil.getLong(renderRequest, "accountId");
 
-			if (accountId > 0) {
-				renderRequest.setAttribute(
-					TaprootWebKeys.ACCOUNT,
-					_accountLocalService.getAccount(accountId));
-			}
+			renderRequest.setAttribute(
+				TaprootWebKeys.ACCOUNT,
+				_accountLocalService.getAccount(accountId));
 
-			String tabs1 = ParamUtil.getString(renderRequest, "tabs1");
-
-			if (tabs1.equals("addresses")) {
-				return "/accounts_admin/edit_account_addresses.jsp";
-			}
-			else if (tabs1.equals("assigned-teams")) {
-				return "/accounts_admin/edit_account_assigned_teams.jsp";
-			}
-			else if (tabs1.equals("child-accounts")) {
-				return "/accounts_admin/edit_account_child_accounts.jsp";
-			}
-			else if (tabs1.equals("contact-roles")) {
-				return "/accounts_admin/edit_account_contact_roles.jsp";
-			}
-			else if (tabs1.equals("external-links")) {
-				return "/accounts_admin/edit_account_external_links.jsp";
-			}
-			else if (tabs1.equals("teams")) {
-				return "/accounts_admin/edit_account_teams.jsp";
-			}
-			else {
-				return "/accounts_admin/edit_account.jsp";
-			}
+			return "/accounts_admin/assign_account_team.jsp";
 		}
 		catch (Exception e) {
 			SessionErrors.add(renderRequest, e.getClass());

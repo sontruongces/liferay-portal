@@ -15,7 +15,6 @@
 package com.liferay.osb.koroneiki.trunk.web.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.taproot.exception.NoSuchAccountException;
-import com.liferay.osb.koroneiki.taproot.exception.NoSuchProjectException;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkPortletKeys;
 import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductEntryException;
 import com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseEndDateException;
@@ -88,7 +87,6 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 		catch (Exception e) {
 			if (e instanceof NoSuchAccountException ||
 				e instanceof NoSuchProductEntryException ||
-				e instanceof NoSuchProjectException ||
 				e instanceof ProductPurchaseEndDateException ||
 				e instanceof ProductPurchaseQuantityException) {
 
@@ -116,7 +114,6 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "productPurchaseId");
 
 		long accountId = ParamUtil.getLong(actionRequest, "accountId");
-		long projectId = ParamUtil.getLong(actionRequest, "projectId");
 		long productEntryId = ParamUtil.getLong(
 			actionRequest, "productEntryId");
 
@@ -168,8 +165,8 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 
 		if (productPurchaseId <= 0) {
 			_productPurchaseService.addProductPurchase(
-				accountId, projectId, productEntryId, startDate, endDate,
-				quantity, productFields);
+				accountId, productEntryId, startDate, endDate, quantity,
+				productFields);
 		}
 		else {
 			_productPurchaseService.updateProductPurchase(

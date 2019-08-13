@@ -21,19 +21,19 @@ import java.util.Objects;
  */
 public class TeamRoleType {
 
-	public static final int PROJECT = 2;
+	public static final int ACCOUNT = 2;
 
-	public static final String PROJECT_LABEL = "project";
+	public static final String ACCOUNT_LABEL = "account";
 
 	public static final int REGULAR = 1;
 
 	public static final String REGULAR_LABEL = "regular";
 
-	public static final int[] VALUES = {REGULAR, PROJECT};
+	public static final int[] VALUES = {REGULAR, ACCOUNT};
 
 	public static int fromLabel(String label) {
-		if (Objects.equals(PROJECT_LABEL, label)) {
-			return PROJECT;
+		if (Objects.equals(ACCOUNT_LABEL, label)) {
+			return ACCOUNT;
 		}
 		else if (Objects.equals(REGULAR_LABEL, label)) {
 			return REGULAR;
@@ -43,11 +43,11 @@ public class TeamRoleType {
 	}
 
 	public static String getLabel(int value) {
-		if (value == REGULAR) {
-			return REGULAR_LABEL;
+		if (value == ACCOUNT) {
+			return ACCOUNT_LABEL;
 		}
-		else if (value == PROJECT) {
-			return PROJECT_LABEL;
+		else if (value == REGULAR) {
+			return REGULAR_LABEL;
 		}
 		else {
 			return null;

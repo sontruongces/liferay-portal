@@ -50,8 +50,8 @@ public class TeamRoleFinderImpl
 	public static final String FIND_BY_NAME =
 		TeamRoleFinder.class.getName() + ".findByName";
 
-	public static final String JOIN_BY_PROJECT_TEAM =
-		TeamRoleFinder.class.getName() + ".joinByProjectTeam";
+	public static final String JOIN_BY_ACCOUNT_TEAM =
+		TeamRoleFinder.class.getName() + ".joinByAccountTeam";
 
 	@Override
 	public int countByName(String name, LinkedHashMap<String, Object> params) {
@@ -150,8 +150,8 @@ public class TeamRoleFinderImpl
 	protected String getJoin(String key) {
 		String join = StringPool.BLANK;
 
-		if (key.equals("projectTeam")) {
-			join = _customSQL.get(getClass(), JOIN_BY_PROJECT_TEAM);
+		if (key.equals("accountTeam")) {
+			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT_TEAM);
 		}
 
 		if (Validator.isNotNull(join)) {
@@ -184,8 +184,8 @@ public class TeamRoleFinderImpl
 	protected String getWhere(String key) {
 		String join = StringPool.BLANK;
 
-		if (key.equals("projectTeam")) {
-			join = _customSQL.get(getClass(), JOIN_BY_PROJECT_TEAM);
+		if (key.equals("accountTeam")) {
+			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT_TEAM);
 		}
 
 		if (Validator.isNotNull(join)) {

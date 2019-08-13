@@ -89,11 +89,29 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 			team.getCompanyId(), Team.class.getName(),
 			ResourceConstants.SCOPE_INDIVIDUAL, team.getTeamId());
 
-		// Team project roles
+		// Team account roles
 
-		teamProjectRolePersistence.removeByTeamId(team.getTeamId());
+		teamAccountRolePersistence.removeByTeamId(team.getTeamId());
 
 		return teamPersistence.remove(team);
+	}
+
+	public List<Team> getAccountAssignedTeams(
+		long accountId, int start, int end) {
+
+		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+		params.put("account", accountId);
+
+		return teamFinder.findByName(null, params, start, end);
+	}
+
+	public int getAccountAssignedTeamsCount(long accountId) {
+		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+		params.put("account", accountId);
+
+		return teamFinder.countByName(null, params);
 	}
 
 	public List<Team> getAccountTeams(long accountId, int start, int end) {
@@ -102,22 +120,6 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 	public int getAccountTeamsCount(long accountId) {
 		return teamPersistence.countByAccountId(accountId);
-	}
-
-	public List<Team> getProjectTeams(long projectId, int start, int end) {
-		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-
-		params.put("project", projectId);
-
-		return teamFinder.findByName(null, params, start, end);
-	}
-
-	public int getProjectTeamsCount(long projectId) {
-		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-
-		params.put("project", projectId);
-
-		return teamFinder.countByName(null, params);
 	}
 
 	public Team getTeam(String teamKey) throws PortalException {

@@ -9,14 +9,22 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="accountKey" type="String" />
+		<field name="parentAccountId" type="long" />
 		<field name="name" type="String" />
+		<field name="code" type="String" />
 		<field name="description" type="String" />
+		<field name="notes" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="logoId" type="long" />
 		<field name="contactEmailAddress" type="String" />
 		<field name="profileEmailAddress" type="String" />
 		<field name="phoneNumber" type="String" />
 		<field name="faxNumber" type="String" />
 		<field name="website" type="String" />
+		<field name="industry" type="String" />
+		<field name="tier" type="String" />
+		<field name="soldBy" type="String" />
 		<field name="status" type="int" />
 		<field name="statusByUserId" type="long" />
 		<field name="statusByUserName" type="String" />
@@ -43,11 +51,6 @@
 		<field name="accountId" type="long" />
 		<field name="contactRoleId" type="long" />
 	</model>
-	<model name="com.liferay.osb.koroneiki.taproot.model.ContactProjectRole">
-		<field name="contactId" type="long" />
-		<field name="projectId" type="long" />
-		<field name="contactRoleId" type="long" />
-	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.ContactRole">
 		<field name="uuid" type="String" />
 		<field name="contactRoleId" type="long" />
@@ -68,29 +71,6 @@
 		<field name="teamId" type="long" />
 		<field name="contactRoleId" type="long" />
 	</model>
-	<model name="com.liferay.osb.koroneiki.taproot.model.Project">
-		<field name="uuid" type="String" />
-		<field name="projectId" type="long" />
-		<field name="companyId" type="long" />
-		<field name="userId" type="long" />
-		<field name="createDate" type="Date" />
-		<field name="modifiedDate" type="Date" />
-		<field name="projectKey" type="String" />
-		<field name="accountId" type="long" />
-		<field name="name" type="String" />
-		<field name="code" type="String" />
-		<field name="industry" type="String" />
-		<field name="tier" type="String" />
-		<field name="notes" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
-		<field name="soldBy" type="String" />
-		<field name="status" type="int" />
-		<field name="statusByUserId" type="long" />
-		<field name="statusByUserName" type="String" />
-		<field name="statusDate" type="Date" />
-		<field name="statusMessage" type="String" />
-	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.Team">
 		<field name="uuid" type="String" />
 		<field name="teamId" type="long" />
@@ -102,9 +82,9 @@
 		<field name="accountId" type="long" />
 		<field name="name" type="String" />
 	</model>
-	<model name="com.liferay.osb.koroneiki.taproot.model.TeamProjectRole">
+	<model name="com.liferay.osb.koroneiki.taproot.model.TeamAccountRole">
 		<field name="teamId" type="long" />
-		<field name="projectId" type="long" />
+		<field name="accountId" type="long" />
 		<field name="teamRoleId" type="long" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.TeamRole">

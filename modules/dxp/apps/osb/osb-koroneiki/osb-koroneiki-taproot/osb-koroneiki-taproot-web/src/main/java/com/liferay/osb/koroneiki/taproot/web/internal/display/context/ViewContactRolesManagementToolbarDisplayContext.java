@@ -79,20 +79,7 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 
 		return new CreationMenu() {
 			{
-				if (tabs1.equals("project-contact-roles")) {
-					addDropdownItem(
-						dropdownItem -> {
-							dropdownItem.setHref(
-								_renderResponse.createRenderURL(),
-								"mvcRenderCommandName",
-								"/contact_roles_admin/edit_contact_role",
-								"redirect", _currentURLObj.toString(), "type",
-								ContactRoleType.PROJECT);
-							dropdownItem.setLabel(
-								LanguageUtil.get(_httpServletRequest, "add"));
-						});
-				}
-				else if (tabs1.equals("team-contact-roles")) {
+				if (tabs1.equals("team-contact-roles")) {
 					addDropdownItem(
 						dropdownItem -> {
 							dropdownItem.setHref(
@@ -159,18 +146,6 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 						navigationItem.setLabel(
 							LanguageUtil.get(
 								_httpServletRequest, "account-contact-roles"));
-					});
-
-				add(
-					navigationItem -> {
-						navigationItem.setActive(
-							tabs1.equals("project-contact-roles"));
-						navigationItem.setHref(
-							_renderResponse.createRenderURL(), "tabs1",
-							"project-contact-roles");
-						navigationItem.setLabel(
-							LanguageUtil.get(
-								_httpServletRequest, "project-contact-roles"));
 					});
 
 				add(
@@ -252,10 +227,7 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 
 		String tabs1 = ParamUtil.getString(_renderRequest, "tabs1");
 
-		if (tabs1.equals("project-contact-roles")) {
-			type = ContactRoleType.PROJECT;
-		}
-		else if (tabs1.equals("team-contact-roles")) {
+		if (tabs1.equals("team-contact-roles")) {
 			type = ContactRoleType.TEAM;
 		}
 		else {

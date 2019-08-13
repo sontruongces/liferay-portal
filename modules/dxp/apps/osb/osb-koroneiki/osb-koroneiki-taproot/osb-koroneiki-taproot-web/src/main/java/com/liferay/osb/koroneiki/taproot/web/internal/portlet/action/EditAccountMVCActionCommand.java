@@ -95,8 +95,12 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
 		long accountId = ParamUtil.getLong(actionRequest, "accountId");
 
+		long parentAccountId = ParamUtil.getLong(
+			actionRequest, "parentAccountId");
 		String name = ParamUtil.getString(actionRequest, "name");
+		String code = ParamUtil.getString(actionRequest, "code");
 		String description = ParamUtil.getString(actionRequest, "description");
+		String notes = ParamUtil.getString(actionRequest, "notes");
 		String contactEmailAddress = ParamUtil.getString(
 			actionRequest, "contactEmailAddress");
 		String profileEmailAddress = ParamUtil.getString(
@@ -104,19 +108,24 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 		String phoneNumber = ParamUtil.getString(actionRequest, "phoneNumber");
 		String faxNumber = ParamUtil.getString(actionRequest, "faxNumber");
 		String website = ParamUtil.getString(actionRequest, "website");
+		String industry = ParamUtil.getString(actionRequest, "industry");
+		String tier = ParamUtil.getString(actionRequest, "tier");
+		String soldBy = ParamUtil.getString(actionRequest, "soldBy");
 		int status = ParamUtil.getInteger(actionRequest, "status");
 
 		Account account = null;
 
 		if (accountId <= 0) {
 			account = _accountService.addAccount(
-				name, description, 0, contactEmailAddress, profileEmailAddress,
-				phoneNumber, faxNumber, website, status);
+				parentAccountId, name, code, description, notes, 0,
+				contactEmailAddress, profileEmailAddress, phoneNumber,
+				faxNumber, website, industry, tier, soldBy, status);
 		}
 		else {
 			account = _accountService.updateAccount(
-				accountId, name, description, 0, contactEmailAddress,
-				profileEmailAddress, phoneNumber, faxNumber, website, status);
+				accountId, parentAccountId, name, code, description, notes, 0,
+				contactEmailAddress, profileEmailAddress, phoneNumber,
+				faxNumber, website, industry, tier, soldBy, status);
 		}
 
 		String redirect = ParamUtil.getString(actionRequest, "redirect");

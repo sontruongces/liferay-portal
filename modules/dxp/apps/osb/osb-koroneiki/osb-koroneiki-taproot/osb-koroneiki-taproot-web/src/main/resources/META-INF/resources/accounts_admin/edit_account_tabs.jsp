@@ -38,24 +38,13 @@ long accountId = BeanParamUtil.getLong(koroneikiAccount, request, "accountId");
 
 				add(
 					navigationItem -> {
-						navigationItem.setActive(tabs1.equals("projects"));
+						navigationItem.setActive(tabs1.equals("child-accounts"));
 
 						if (koroneikiAccount != null) {
-							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "projects", "accountId", accountId);
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "child-accounts", "accountId", accountId);
 						}
 
-						navigationItem.setLabel(LanguageUtil.get(request, "projects"));
-					});
-
-				add(
-					navigationItem -> {
-						navigationItem.setActive(tabs1.equals("addresses"));
-
-						if (koroneikiAccount != null) {
-							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "addresses", "accountId", accountId);
-						}
-
-						navigationItem.setLabel(LanguageUtil.get(request, "addresses"));
+						navigationItem.setLabel(LanguageUtil.get(request, "child-accounts"));
 					});
 
 				add(
@@ -67,6 +56,39 @@ long accountId = BeanParamUtil.getLong(koroneikiAccount, request, "accountId");
 						}
 
 						navigationItem.setLabel(LanguageUtil.get(request, "contact-roles"));
+					});
+
+				add(
+					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("teams"));
+
+						if (koroneikiAccount != null) {
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "teams", "accountId", accountId);
+						}
+
+						navigationItem.setLabel(LanguageUtil.get(request, "teams"));
+					});
+
+				add(
+					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("assigned-teams"));
+
+						if (koroneikiAccount != null) {
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "assigned-teams", "accountId", accountId);
+						}
+
+						navigationItem.setLabel(LanguageUtil.get(request, "assigned-teams"));
+					});
+
+				add(
+					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("addresses"));
+
+						if (koroneikiAccount != null) {
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "addresses", "accountId", accountId);
+						}
+
+						navigationItem.setLabel(LanguageUtil.get(request, "addresses"));
 					});
 
 				add(

@@ -40,15 +40,6 @@
 				Koroneiki_ContactAccountRole.accountId = ?
 		]]>
 	</sql>
-	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactFinder.joinByProject">
-		<![CDATA[
-			INNER JOIN
-				Koroneiki_ContactProjectRole ON
-					Koroneiki_ContactProjectRole.contactId = Koroneiki_Contact.contactId
-			WHERE
-				Koroneiki_ContactProjectRole.projectId = ?
-		]]>
-	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactFinder.joinByTeam">
 		<![CDATA[
 			INNER JOIN
@@ -100,16 +91,6 @@
 				(Koroneiki_ContactAccountRole.contactId = ?)
 		]]>
 	</sql>
-	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactRoleFinder.joinByProjectContact">
-		<![CDATA[
-			INNER JOIN
-				Koroneiki_ContactProjectRole ON
-					Koroneiki_ContactProjectRole.contactRoleId = Koroneiki_ContactRole.contactRoleId
-			WHERE
-				(Koroneiki_ContactProjectRole.projectId = ?) AND
-				(Koroneiki_ContactProjectRole.contactId = ?)
-		]]>
-	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactRoleFinder.joinByTeamContact">
 		<![CDATA[
 			INNER JOIN
@@ -144,13 +125,13 @@
 				(Koroneiki_Team.name LIKE ? [$AND_OR_NULL_CHECK$])
 		]]>
 	</sql>
-	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.TeamFinder.joinByProject">
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.TeamFinder.joinByAccount">
 		<![CDATA[
 			INNER JOIN
-				Koroneiki_TeamProjectRole ON
-					Koroneiki_TeamProjectRole.teamId = Koroneiki_Team.teamId
+				Koroneiki_TeamAccountRole ON
+					Koroneiki_TeamAccountRole.teamId = Koroneiki_Team.teamId
 			WHERE
-				Koroneiki_TeamProjectRole.projectId = ?
+				Koroneiki_TeamAccountRole.accountId = ?
 		]]>
 	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.TeamRoleFinder.countByName">
@@ -185,14 +166,14 @@
 				Koroneiki_TeamRole.name
 		]]>
 	</sql>
-	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.TeamRoleFinder.joinByProjectTeam">
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.TeamRoleFinder.joinByAccountTeam">
 		<![CDATA[
 			INNER JOIN
-				Koroneiki_TeamProjectRole ON
-					Koroneiki_TeamProjectRole.teamRoleId = Koroneiki_TeamRole.teamRoleId
+				Koroneiki_TeamAccountRole ON
+					Koroneiki_TeamAccountRole.teamRoleId = Koroneiki_TeamRole.teamRoleId
 			WHERE
-				(Koroneiki_TeamProjectRole.projectId = ?) AND
-				(Koroneiki_TeamProjectRole.teamId = ?)
+				(Koroneiki_TeamAccountRole.accountId = ?) AND
+				(Koroneiki_TeamAccountRole.teamId = ?)
 		]]>
 	</sql>
 </custom-sql>

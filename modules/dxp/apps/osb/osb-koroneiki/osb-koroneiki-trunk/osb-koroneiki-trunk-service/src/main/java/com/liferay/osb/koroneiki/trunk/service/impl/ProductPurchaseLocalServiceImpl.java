@@ -16,11 +16,8 @@ package com.liferay.osb.koroneiki.trunk.service.impl;
 
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
-import com.liferay.osb.koroneiki.taproot.model.Project;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseEndDateException;
-import com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseProjectException;
 import com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseQuantityException;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
@@ -50,15 +47,13 @@ public class ProductPurchaseLocalServiceImpl
 	extends ProductPurchaseLocalServiceBaseImpl {
 
 	public ProductPurchase addProductPurchase(
-			long userId, long accountId, long projectId, long productEntryId,
-			Date startDate, Date endDate, int quantity,
-			List<ProductField> productFields)
+			long userId, long accountId, long productEntryId, Date startDate,
+			Date endDate, int quantity, List<ProductField> productFields)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
 
-		validate(
-			accountId, projectId, productEntryId, startDate, endDate, quantity);
+		validate(accountId, productEntryId, startDate, endDate, quantity);
 
 		long productPurchaseId = counterLocalService.increment();
 
@@ -70,7 +65,6 @@ public class ProductPurchaseLocalServiceImpl
 		productPurchase.setProductPurchaseKey(
 			ModelKeyGenerator.generate(productPurchaseId));
 		productPurchase.setAccountId(accountId);
-		productPurchase.setProjectId(projectId);
 		productPurchase.setProductEntryId(productEntryId);
 		productPurchase.setStartDate(startDate);
 		productPurchase.setEndDate(endDate);
@@ -94,10 +88,6 @@ public class ProductPurchaseLocalServiceImpl
 		}
 
 		_accountLocalService.reindex(accountId);
-
-		if (projectId > 0) {
-			_projectLocalService.reindex(projectId);
-		}
 
 		return productPurchase;
 	}
@@ -130,10 +120,6 @@ public class ProductPurchaseLocalServiceImpl
 
 		_accountLocalService.reindex(productPurchase.getAccountId());
 
-		if (productPurchase.getProjectId() > 0) {
-			_projectLocalService.reindex(productPurchase.getProjectId());
-		}
-
 		return productPurchasePersistence.remove(productPurchaseId);
 	}
 
@@ -153,17 +139,6 @@ public class ProductPurchaseLocalServiceImpl
 
 		return productPurchasePersistence.findByProductPurchaseKey(
 			productPurchaseKey);
-	}
-
-	public List<ProductPurchase> getProjectProductPurchases(
-		long projectId, int start, int end) {
-
-		return productPurchasePersistence.findByProjectId(
-			projectId, start, end);
-	}
-
-	public int getProjectProductPurchasesCount(long projectId) {
-		return productPurchasePersistence.countByProjectId(projectId);
 	}
 
 	public ProductPurchase updateProductPurchase(
@@ -248,19 +223,11 @@ public class ProductPurchaseLocalServiceImpl
 	}
 
 	protected void validate(
-			long accountId, long projectId, long productEntryId, Date startDate,
-			Date endDate, int quantity)
+			long accountId, long productEntryId, Date startDate, Date endDate,
+			int quantity)
 		throws PortalException {
 
 		_accountLocalService.getAccount(accountId);
-
-		if (projectId > 0) {
-			Project project = _projectLocalService.getProject(projectId);
-
-			if (project.getAccountId() != accountId) {
-				throw new ProductPurchaseProjectException();
-			}
-		}
 
 		productEntryPersistence.findByPrimaryKey(productEntryId);
 
@@ -275,8 +242,5 @@ public class ProductPurchaseLocalServiceImpl
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
 
 }

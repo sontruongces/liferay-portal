@@ -53,9 +53,6 @@ public class ContactFinderImpl
 	public static final String JOIN_BY_ACCOUNT =
 		ContactFinder.class.getName() + ".joinByAccount";
 
-	public static final String JOIN_BY_PROJECT =
-		ContactFinder.class.getName() + ".joinByProject";
-
 	public static final String JOIN_BY_TEAM =
 		ContactFinder.class.getName() + ".joinByTeam";
 
@@ -178,9 +175,6 @@ public class ContactFinderImpl
 		if (key.equals("account")) {
 			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT);
 		}
-		else if (key.equals("project")) {
-			join = _customSQL.get(getClass(), JOIN_BY_PROJECT);
-		}
 		else if (key.equals("team")) {
 			join = _customSQL.get(getClass(), JOIN_BY_TEAM);
 		}
@@ -217,9 +211,6 @@ public class ContactFinderImpl
 
 		if (key.equals("account")) {
 			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT);
-		}
-		else if (key.equals("project")) {
-			join = _customSQL.get(getClass(), JOIN_BY_PROJECT);
 		}
 		else if (key.equals("team")) {
 			join = _customSQL.get(getClass(), JOIN_BY_TEAM);

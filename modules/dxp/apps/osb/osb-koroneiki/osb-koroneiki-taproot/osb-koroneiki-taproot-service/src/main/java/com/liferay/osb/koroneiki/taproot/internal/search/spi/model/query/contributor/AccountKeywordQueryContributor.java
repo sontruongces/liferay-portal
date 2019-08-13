@@ -41,13 +41,15 @@ public class AccountKeywordQueryContributor implements KeywordQueryContributor {
 		SearchContext searchContext =
 			keywordQueryContributorHelper.getSearchContext();
 
+		queryHelper.addSearchTerm(booleanQuery, searchContext, "code", false);
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "contactEmailAddress", false);
 		queryHelper.addSearchTerm(
-			booleanQuery, searchContext, "contactKeys", false);
+			booleanQuery, searchContext, "contactUuids", false);
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "description", false);
 		queryHelper.addSearchTerm(booleanQuery, searchContext, "name", false);
+		queryHelper.addSearchTerm(booleanQuery, searchContext, "notes", false);
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "phoneNumber", false);
 		queryHelper.addSearchTerm(

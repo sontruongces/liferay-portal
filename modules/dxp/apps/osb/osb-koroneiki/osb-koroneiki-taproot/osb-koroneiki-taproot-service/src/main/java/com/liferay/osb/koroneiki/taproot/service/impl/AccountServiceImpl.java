@@ -22,6 +22,8 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 
+import java.util.List;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -38,17 +40,20 @@ import org.osgi.service.component.annotations.Reference;
 public class AccountServiceImpl extends AccountServiceBaseImpl {
 
 	public Account addAccount(
-			String name, String description, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			long parentAccountId, String name, String code, String description,
+			String notes, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String industry, String tier, String soldBy,
+			int status)
 		throws PortalException {
 
 		_accountPermission.check(
 			getPermissionChecker(), TaprootActionKeys.ADD_ACCOUNT);
 
 		return accountLocalService.addAccount(
-			getUserId(), name, description, logoId, contactEmailAddress,
-			profileEmailAddress, phoneNumber, faxNumber, website, status);
+			getUserId(), parentAccountId, name, code, description, notes,
+			logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
+			faxNumber, website, industry, tier, soldBy, status);
 	}
 
 	public Account deleteAccount(long accountId) throws PortalException {
@@ -83,25 +88,45 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 		return account;
 	}
 
+	public List<Account> getAccounts(long parentAccountId, int start, int end)
+		throws PortalException {
+
+		_accountPermission.check(
+			getPermissionChecker(), parentAccountId, ActionKeys.VIEW);
+
+		return accountLocalService.getAccounts(parentAccountId, start, end);
+	}
+
+	public int getAccountsCount(long parentAccountId) throws PortalException {
+		_accountPermission.check(
+			getPermissionChecker(), parentAccountId, ActionKeys.VIEW);
+
+		return accountLocalService.getAccountsCount(parentAccountId);
+	}
+
 	public Account updateAccount(
-			long accountId, String name, String description, long logoId,
+			long accountId, long parentAccountId, String name, String code,
+			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws PortalException {
 
 		_accountPermission.check(
 			getPermissionChecker(), accountId, ActionKeys.UPDATE);
 
 		return accountLocalService.updateAccount(
-			getUserId(), accountId, name, description, logoId,
-			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
-			website, status);
+			getUserId(), accountId, parentAccountId, name, code, description,
+			notes, logoId, contactEmailAddress, profileEmailAddress,
+			phoneNumber, faxNumber, website, industry, tier, soldBy, status);
 	}
 
 	public Account updateAccount(
-			String accountKey, String name, String description, long logoId,
+			String accountKey, long parentAccountId, String name, String code,
+			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws PortalException {
 
 		Account account = accountLocalService.getAccount(accountKey);
@@ -110,9 +135,10 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			getPermissionChecker(), account, ActionKeys.UPDATE);
 
 		return accountLocalService.updateAccount(
-			getUserId(), account.getAccountId(), name, description, logoId,
-			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
-			website, status);
+			getUserId(), account.getAccountId(), parentAccountId, name, code,
+			description, notes, logoId, contactEmailAddress,
+			profileEmailAddress, phoneNumber, faxNumber, website, industry,
+			tier, soldBy, status);
 	}
 
 	@Reference

@@ -15,18 +15,18 @@
 package com.liferay.osb.koroneiki.taproot.constants;
 
 /**
- * @author Amos Fong
+ * @author Kyle Bischof
  */
-public class TaprootWebKeys {
+public class AccountTier {
 
-	public static final String ACCOUNT = "ACCOUNT";
+	public static final String OEM = "oem";
 
-	public static final String CONTACT = "CONTACT";
+	public static final String PREMIER = "premier";
 
-	public static final String CONTACT_ROLE = "CONTACT_ROLE";
+	public static final String REGULAR = "regular";
 
-	public static final String TEAM = "TEAM";
+	public static final String STRATEGIC = "strategic";
 
-	public static final String TEAM_ROLE = "TEAM_ROLE";
+	public static final String[] VALUES = {OEM, PREMIER, REGULAR, STRATEGIC};
 
 }

@@ -49,8 +49,8 @@ public class TeamFinderImpl extends TeamFinderBaseImpl implements TeamFinder {
 	public static final String FIND_BY_NAME =
 		TeamFinder.class.getName() + ".findByName";
 
-	public static final String JOIN_BY_PROJECT =
-		TeamFinder.class.getName() + ".joinByProject";
+	public static final String JOIN_BY_ACCOUNT =
+		TeamFinder.class.getName() + ".joinByAccount";
 
 	@Override
 	public int countByName(String name, LinkedHashMap<String, Object> params) {
@@ -151,8 +151,8 @@ public class TeamFinderImpl extends TeamFinderBaseImpl implements TeamFinder {
 	protected String getJoin(String key) {
 		String join = StringPool.BLANK;
 
-		if (key.equals("project")) {
-			join = _customSQL.get(getClass(), JOIN_BY_PROJECT);
+		if (key.equals("account")) {
+			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT);
 		}
 
 		if (Validator.isNotNull(join)) {
@@ -185,8 +185,8 @@ public class TeamFinderImpl extends TeamFinderBaseImpl implements TeamFinder {
 	protected String getWhere(String key) {
 		String join = StringPool.BLANK;
 
-		if (key.equals("project")) {
-			join = _customSQL.get(getClass(), JOIN_BY_PROJECT);
+		if (key.equals("account")) {
+			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT);
 		}
 
 		if (Validator.isNotNull(join)) {

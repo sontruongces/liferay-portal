@@ -39,6 +39,7 @@ import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
@@ -55,9 +56,11 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Account addAccount(
-			long userId, String name, String description, long logoId,
+			long userId, long parentAccountId, String name, String code,
+			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -71,14 +74,20 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setCompanyId(user.getCompanyId());
 		account.setUserId(userId);
 		account.setAccountKey(ModelKeyGenerator.generate(accountId));
+		account.setParentAccountId(parentAccountId);
 		account.setName(name);
+		account.setCode(code);
 		account.setDescription(description);
+		account.setNotes(notes);
 		account.setLogoId(logoId);
 		account.setContactEmailAddress(contactEmailAddress);
 		account.setProfileEmailAddress(profileEmailAddress);
 		account.setPhoneNumber(phoneNumber);
 		account.setFaxNumber(faxNumber);
 		account.setWebsite(website);
+		account.setIndustry(industry);
+		account.setTier(tier);
+		account.setSoldBy(soldBy);
 		account.setStatus(status);
 		account.setStatusByUserId(userId);
 		account.setStatusByUserName(user.getFullName());
@@ -98,7 +107,9 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 	@Override
 	public Account deleteAccount(Account account) throws PortalException {
-		if (projectPersistence.countByAccountId(account.getAccountId()) > 0) {
+		if (accountPersistence.countByParentAccountId(account.getAccountId()) >
+				0) {
+
 			throw new RequiredAccountException();
 		}
 
@@ -135,6 +146,15 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		return accountPersistence.findByAccountKey(accountKey);
 	}
 
+	public List<Account> getAccounts(long parentAccountId, int start, int end) {
+		return accountPersistence.findByParentAccountId(
+			parentAccountId, start, end);
+	}
+
+	public int getAccountsCount(long parentAccountId) {
+		return accountPersistence.countByParentAccountId(parentAccountId);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	public Account reindex(long accountId) throws PortalException {
 		return accountPersistence.findByPrimaryKey(accountId);
@@ -154,9 +174,11 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 			Map<String, Serializable> attributes = new HashMap<>();
 
-			attributes.put("contactKeys", keywords);
+			attributes.put("code", keywords);
+			attributes.put("contactUuids", keywords);
 			attributes.put("description", keywords);
 			attributes.put("name", keywords);
+			attributes.put("notes", keywords);
 			attributes.put("productEntryKeys", keywords);
 
 			searchContext.setAttributes(attributes);
@@ -184,9 +206,11 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Account updateAccount(
-			long userId, long accountId, String name, String description,
-			long logoId, String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, int status)
+			long userId, long accountId, long parentAccountId, String name,
+			String code, String description, String notes, long logoId,
+			String contactEmailAddress, String profileEmailAddress,
+			String phoneNumber, String faxNumber, String website,
+			String industry, String tier, String soldBy, int status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -195,14 +219,20 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		Account account = accountPersistence.findByPrimaryKey(accountId);
 
+		account.setParentAccountId(parentAccountId);
 		account.setName(name);
+		account.setCode(code);
 		account.setDescription(description);
+		account.setNotes(notes);
 		account.setLogoId(logoId);
 		account.setContactEmailAddress(contactEmailAddress);
 		account.setProfileEmailAddress(profileEmailAddress);
 		account.setPhoneNumber(phoneNumber);
 		account.setFaxNumber(faxNumber);
 		account.setWebsite(website);
+		account.setIndustry(industry);
+		account.setTier(tier);
+		account.setSoldBy(soldBy);
 		account.setStatus(status);
 		account.setStatusByUserId(userId);
 		account.setStatusByUserName(user.getFullName());

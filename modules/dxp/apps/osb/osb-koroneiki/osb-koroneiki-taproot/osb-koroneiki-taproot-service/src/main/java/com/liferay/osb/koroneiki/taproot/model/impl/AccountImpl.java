@@ -20,8 +20,7 @@ import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.model.Project;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalServiceUtil;
+import com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Address;
@@ -43,15 +42,15 @@ public class AccountImpl extends AccountBaseImpl {
 			getCompanyId(), Account.class.getName(), getAccountId());
 	}
 
+	public List<Account> getChildAccounts() throws PortalException {
+		return AccountLocalServiceUtil.getAccounts(
+			getAccountId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	}
+
 	public List<ExternalLink> getExternalLinks() {
 		return ExternalLinkLocalServiceUtil.getExternalLinks(
 			Account.class.getName(), getAccountId(), QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS);
-	}
-
-	public List<Project> getProjects() throws PortalException {
-		return ProjectLocalServiceUtil.getProjects(
-			getAccountId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	public String getStatusLabel() {

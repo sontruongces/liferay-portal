@@ -19,14 +19,20 @@
 		<!-- Other fields -->
 
 		<column name="accountKey" type="String" />
+		<column name="parentAccountId" type="long" />
 		<column name="name" type="String" />
+		<column name="code" type="String" />
 		<column name="description" type="String" />
+		<column name="notes" type="String" />
 		<column name="logoId" type="long" />
 		<column name="contactEmailAddress" type="String" />
 		<column name="profileEmailAddress" type="String" />
 		<column name="phoneNumber" type="String" />
 		<column name="faxNumber" type="String" />
 		<column name="website" type="String" />
+		<column name="industry" type="String" />
+		<column name="tier" type="String" />
+		<column name="soldBy" type="String" />
 		<column name="status" type="int" />
 		<column name="statusByUserId" type="long" />
 		<column name="statusByUserName" type="String" />
@@ -37,6 +43,9 @@
 
 		<finder name="AccountKey" return-type="Account" unique="true">
 			<finder-column name="accountKey" />
+		</finder>
+		<finder name="ParentAccountId" return-type="Collection">
+			<finder-column name="parentAccountId" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="Contact" remote-service="true" uuid="true">
@@ -96,30 +105,6 @@
 		<finder name="C_A" return-type="Collection">
 			<finder-column name="contactId" />
 			<finder-column name="accountId" />
-		</finder>
-	</entity>
-	<entity local-service="true" name="ContactProjectRole" remote-service="true">
-
-		<!-- PK fields -->
-
-		<column name="contactId" primary="true" type="long" />
-		<column name="projectId" primary="true" type="long" />
-		<column name="contactRoleId" primary="true" type="long" />
-
-		<!-- Finder methods -->
-
-		<finder name="ContactId" return-type="Collection">
-			<finder-column name="contactId" />
-		</finder>
-		<finder name="ProjectId" return-type="Collection">
-			<finder-column name="projectId" />
-		</finder>
-		<finder name="ContactRoleId" return-type="Collection">
-			<finder-column name="contactRoleId" />
-		</finder>
-		<finder name="C_P" return-type="Collection">
-			<finder-column name="contactId" />
-			<finder-column name="projectId" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="ContactRole" remote-service="true" uuid="true">
@@ -186,44 +171,6 @@
 			<finder-column name="teamId" />
 		</finder>
 	</entity>
-	<entity local-service="true" name="Project" remote-service="true" uuid="true">
-
-		<!-- PK fields -->
-
-		<column name="projectId" primary="true" type="long" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column name="projectKey" type="String" />
-		<column name="accountId" type="long" />
-		<column name="name" type="String" />
-		<column name="code" type="String" />
-		<column name="industry" type="String" />
-		<column name="tier" type="String" />
-		<column name="notes" type="String" />
-		<column name="soldBy" type="String" />
-		<column name="status" type="int" />
-		<column name="statusByUserId" type="long" />
-		<column name="statusByUserName" type="String" />
-		<column name="statusDate" type="Date" />
-		<column name="statusMessage" type="String" />
-
-		<!-- Finder methods -->
-
-		<finder name="ProjectKey" return-type="Project" unique="true">
-			<finder-column name="projectKey" />
-		</finder>
-		<finder name="AccountId" return-type="Collection">
-			<finder-column name="accountId" />
-		</finder>
-	</entity>
 	<entity local-service="true" name="Team" remote-service="true" uuid="true">
 
 		<!-- PK fields -->
@@ -255,12 +202,12 @@
 			<finder-column name="name" />
 		</finder>
 	</entity>
-	<entity local-service="true" name="TeamProjectRole" remote-service="true">
+	<entity local-service="true" name="TeamAccountRole" remote-service="true">
 
 		<!-- PK fields -->
 
 		<column name="teamId" primary="true" type="long" />
-		<column name="projectId" primary="true" type="long" />
+		<column name="accountId" primary="true" type="long" />
 		<column name="teamRoleId" primary="true" type="long" />
 
 		<!-- Finder methods -->
@@ -268,15 +215,15 @@
 		<finder name="TeamId" return-type="Collection">
 			<finder-column name="teamId" />
 		</finder>
-		<finder name="ProjectId" return-type="Collection">
-			<finder-column name="projectId" />
+		<finder name="AccountId" return-type="Collection">
+			<finder-column name="accountId" />
 		</finder>
 		<finder name="TeamRoleId" return-type="Collection">
 			<finder-column name="teamRoleId" />
 		</finder>
-		<finder name="T_P" return-type="Collection">
+		<finder name="T_A" return-type="Collection">
 			<finder-column name="teamId" />
-			<finder-column name="projectId" />
+			<finder-column name="accountId" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="TeamRole" remote-service="true" uuid="true">
@@ -324,7 +271,6 @@
 		<exception>ContactRoleSystem</exception>
 		<exception>ContactRoleType</exception>
 		<exception>DuplicateContactRole</exception>
-		<exception>ProjectName</exception>
 		<exception>RequiredAccount</exception>
 		<exception>TeamName</exception>
 		<exception>TeamRoleName</exception>

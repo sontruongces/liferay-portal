@@ -86,17 +86,17 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 			teamRole.getCompanyId(), TeamRole.class.getName(),
 			ResourceConstants.SCOPE_INDIVIDUAL, teamRole.getTeamRoleId());
 
-		// Team project roles
+		// Team account roles
 
-		teamProjectRolePersistence.removeByTeamRoleId(teamRole.getTeamRoleId());
+		teamAccountRolePersistence.removeByTeamRoleId(teamRole.getTeamRoleId());
 
 		return teamRolePersistence.remove(teamRole);
 	}
 
-	public List<TeamRole> getTeamProjectTeamRoles(long projectId, long teamId) {
+	public List<TeamRole> getTeamAccountTeamRoles(long accountId, long teamId) {
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
-		params.put("projectTeam", new Long[] {projectId, teamId});
+		params.put("accountTeam", new Long[] {accountId, teamId});
 
 		return teamRoleFinder.findByName(
 			null, params, QueryUtil.ALL_POS, QueryUtil.ALL_POS);

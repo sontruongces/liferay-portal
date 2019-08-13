@@ -65,20 +65,26 @@ public class AccountModelDocumentContributor
 		throws PortalException {
 
 		document.addKeyword("accountKey", account.getAccountKey());
+		document.addText("code", account.getCode());
 		document.addKeyword(
 			"contactEmailAddress", account.getContactEmailAddress());
 		document.addDate("createDate", account.getCreateDate());
 		document.addText("description", account.getDescription());
 		document.addKeyword("faxNumber", account.getFaxNumber());
+		document.addKeyword("industry", account.getIndustry());
 		document.addDate("modifiedDate", account.getModifiedDate());
 		document.addText("name", account.getName());
+		document.addText("notes", account.getNotes());
 		document.addKeyword("phoneNumber", account.getPhoneNumber());
 		document.addKeyword(
 			"profileEmailAddress", account.getProfileEmailAddress());
+		document.addKeyword("soldBy", account.getSoldBy());
 		document.addKeyword("status", account.getStatus());
+		document.addKeyword("tier", account.getTier());
 		document.addKeyword("userId", account.getUserId());
 		document.addKeyword("website", account.getWebsite());
 
+		document.addTextSortable("code", account.getCode());
 		document.addDateSortable("createDate", account.getCreateDate());
 		document.addDateSortable("modifiedDate", account.getModifiedDate());
 		document.addTextSortable("name", account.getName());

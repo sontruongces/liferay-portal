@@ -41,8 +41,6 @@ SearchContainer searchContainer = viewAccountsManagementToolbarDisplayContext.ge
 	sortingURL="<%= viewAccountsManagementToolbarDisplayContext.getSortingURL() %>"
 />
 
-<liferay-ui:error exception="<%= RequiredAccountException.class %>" message="you-cannot-delete-accounts-that-have-projects" />
-
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
 		searchContainer="<%= searchContainer %>"
@@ -70,6 +68,12 @@ SearchContainer searchContainer = viewAccountsManagementToolbarDisplayContext.ge
 
 				<%= koroneikiAccount.getName() %>
 			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="code"
+				value="<%= koroneikiAccount.getCode() %>"
+			/>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"

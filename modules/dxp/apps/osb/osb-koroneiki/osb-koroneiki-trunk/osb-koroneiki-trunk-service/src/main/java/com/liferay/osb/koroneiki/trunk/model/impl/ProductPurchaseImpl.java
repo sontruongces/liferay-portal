@@ -19,9 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.model.Project;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalServiceUtil;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
@@ -86,24 +84,6 @@ public class ProductPurchaseImpl extends ProductPurchaseBaseImpl {
 		}
 
 		return productFieldsMap;
-	}
-
-	public Project getProject() {
-		if (getProjectId() > 0) {
-			return ProjectLocalServiceUtil.fetchProject(getProjectId());
-		}
-
-		return null;
-	}
-
-	public String getProjectKey() throws PortalException {
-		Project project = getProject();
-
-		if (project != null) {
-			return project.getProjectKey();
-		}
-
-		return null;
 	}
 
 }

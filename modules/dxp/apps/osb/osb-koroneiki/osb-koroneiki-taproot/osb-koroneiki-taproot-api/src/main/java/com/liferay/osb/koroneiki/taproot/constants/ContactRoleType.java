@@ -25,22 +25,15 @@ public class ContactRoleType {
 
 	public static final String ACCOUNT_LABEL = "account";
 
-	public static final int PROJECT = 2;
-
-	public static final String PROJECT_LABEL = "project";
-
-	public static final int TEAM = 3;
+	public static final int TEAM = 2;
 
 	public static final String TEAM_LABEL = "team";
 
-	public static final int[] VALUES = {ACCOUNT, PROJECT, TEAM};
+	public static final int[] VALUES = {ACCOUNT, TEAM};
 
 	public static int fromLabel(String label) {
 		if (Objects.equals(ACCOUNT_LABEL, label)) {
 			return ACCOUNT;
-		}
-		else if (Objects.equals(PROJECT_LABEL, label)) {
-			return PROJECT;
 		}
 		else if (Objects.equals(TEAM_LABEL, label)) {
 			return TEAM;
@@ -52,9 +45,6 @@ public class ContactRoleType {
 	public static String getLabel(int value) {
 		if (value == ACCOUNT) {
 			return ACCOUNT_LABEL;
-		}
-		else if (value == PROJECT) {
-			return PROJECT_LABEL;
 		}
 		else if (value == TEAM) {
 			return TEAM_LABEL;

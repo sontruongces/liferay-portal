@@ -33,6 +33,10 @@ public class AccountEntityModel implements EntityModel {
 
 	public AccountEntityModel() {
 		_entityFieldsMap = Stream.of(
+			new EntityField(
+				"code", EntityField.Type.STRING,
+				locale -> Field.getSortableFieldName("code_String"),
+				locale -> "code", String::valueOf),
 			new CollectionEntityField(
 				new StringEntityField(
 					"contactOktaIdContactRoleKeys",
@@ -48,6 +52,8 @@ public class AccountEntityModel implements EntityModel {
 				new StringEntityField(
 					"contactUuids", locale -> "contactUuids")),
 			new StringEntityField("name", locale -> "name"),
+			new StringEntityField(
+				"parentAccountKey", locale -> "parentAccountKey"),
 			new CollectionEntityField(
 				new StringEntityField(
 					"productKeys", locale -> "productEntryKeys"))

@@ -130,7 +130,7 @@ public class ViewAccountsManagementToolbarDisplayContext {
 	public String getOrderByCol() {
 		if (Validator.isNull(_orderByCol)) {
 			_orderByCol = ParamUtil.getString(
-				_httpServletRequest, "orderByCol", "title");
+				_httpServletRequest, "orderByCol", "name");
 		}
 
 		return _orderByCol;
@@ -188,7 +188,7 @@ public class ViewAccountsManagementToolbarDisplayContext {
 		String keywords = ParamUtil.getString(_httpServletRequest, "keywords");
 
 		Sort sort = SortFactoryUtil.getSort(
-			Account.class, Sort.STRING_TYPE, Field.NAME, getOrderByType());
+			Account.class, Sort.STRING_TYPE, getOrderByCol(), getOrderByType());
 
 		Hits hits = AccountLocalServiceUtil.search(
 			themeDisplay.getCompanyId(), keywords, accountSearch.getStart(),
@@ -224,6 +224,15 @@ public class ViewAccountsManagementToolbarDisplayContext {
 	private List<DropdownItem> _getOrderByDropdownItems() {
 		return new DropdownItemList() {
 			{
+				add(
+					dropdownItem -> {
+						dropdownItem.setActive(
+							Objects.equals(getOrderByCol(), "code"));
+						dropdownItem.setHref(
+							getPortletURL(), "orderByCol", "code");
+						dropdownItem.setLabel(
+							LanguageUtil.get(_httpServletRequest, "code"));
+					});
 				add(
 					dropdownItem -> {
 						dropdownItem.setActive(

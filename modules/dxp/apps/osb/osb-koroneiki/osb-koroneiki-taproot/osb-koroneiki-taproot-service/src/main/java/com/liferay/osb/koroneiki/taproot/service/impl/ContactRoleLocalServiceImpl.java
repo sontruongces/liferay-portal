@@ -139,11 +139,6 @@ public class ContactRoleLocalServiceImpl
 		contactAccountRolePersistence.removeByContactRoleId(
 			contactRole.getContactRoleId());
 
-		// Contact project roles
-
-		contactProjectRolePersistence.removeByContactRoleId(
-			contactRole.getContactRoleId());
-
 		// Contact team roles
 
 		contactTeamRolePersistence.removeByContactRoleId(
@@ -172,17 +167,6 @@ public class ContactRoleLocalServiceImpl
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("accountContact", new Long[] {accountId, contactId});
-
-		return contactRoleFinder.findByName(
-			null, params, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-	}
-
-	public List<ContactRole> getContactProjectContactRoles(
-		long projectId, long contactId) {
-
-		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-
-		params.put("projectContact", new Long[] {projectId, contactId});
 
 		return contactRoleFinder.findByName(
 			null, params, QueryUtil.ALL_POS, QueryUtil.ALL_POS);

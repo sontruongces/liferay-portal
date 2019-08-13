@@ -43,7 +43,6 @@ portletURL.setParameter("tabs1", tabs1);
 
 		<%
 		Account koroneikiAccount = productConsumption.getAccount();
-		Project project = productConsumption.getProject();
 		ProductEntry productEntry = productConsumption.getProductEntry();
 		%>
 
@@ -55,24 +54,13 @@ portletURL.setParameter("tabs1", tabs1);
 
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
-			name="consumer"
+			name="account"
 		>
-			<c:choose>
-				<c:when test="<%= project != null %>">
-					<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="project" />">
-						<aui:icon cssClass="icon-monospaced" image="organizations" markupView="lexicon" />
-					</span>
+			<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="account" />">
+				<aui:icon cssClass="icon-monospaced" image="users" markupView="lexicon" />
+			</span>
 
-					<%= HtmlUtil.escape(project.getName()) %>
-				</c:when>
-				<c:otherwise>
-					<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="account" />">
-						<aui:icon cssClass="icon-monospaced" image="users" markupView="lexicon" />
-					</span>
-
-					<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
-				</c:otherwise>
-			</c:choose>
+			<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
 		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-text

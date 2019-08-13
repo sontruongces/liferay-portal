@@ -17,12 +17,9 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
-import com.liferay.osb.koroneiki.taproot.model.Project;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactPermission;
-import com.liferay.osb.koroneiki.taproot.permission.ProjectPermission;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -131,47 +128,6 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 		return contact;
 	}
 
-	public List<Contact> getProjectContacts(long projectId, int start, int end)
-		throws PortalException {
-
-		_projectPermission.check(
-			getPermissionChecker(), projectId, ActionKeys.VIEW);
-
-		return contactLocalService.getProjectContacts(projectId, start, end);
-	}
-
-	public List<Contact> getProjectContacts(
-			String projectKey, int start, int end)
-		throws PortalException {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		_projectPermission.check(
-			getPermissionChecker(), project, ActionKeys.VIEW);
-
-		return contactLocalService.getProjectContacts(
-			project.getProjectId(), start, end);
-	}
-
-	public int getProjectContactsCount(long projectId) throws PortalException {
-		_projectPermission.check(
-			getPermissionChecker(), projectId, ActionKeys.VIEW);
-
-		return contactLocalService.getProjectContactsCount(projectId);
-	}
-
-	public int getProjectContactsCount(String projectKey)
-		throws PortalException {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		_projectPermission.check(
-			getPermissionChecker(), project, ActionKeys.VIEW);
-
-		return contactLocalService.getProjectContactsCount(
-			project.getProjectId());
-	}
-
 	public Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
@@ -194,11 +150,5 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 	@Reference
 	private ContactPermission _contactPermission;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
-
-	@Reference
-	private ProjectPermission _projectPermission;
 
 }

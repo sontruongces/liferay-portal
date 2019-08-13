@@ -44,9 +44,31 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 				<aui:input label="key" name="key" type="resource" value="<%= koroneikiAccount.getAccountKey() %>" />
 			</c:if>
 
+			<aui:select label="parent-account" name="parentAccountId">
+				<aui:option value="" />
+
+				<%
+				for (Account curAccount : AccountLocalServiceUtil.getAccounts(QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
+					if (curAccount.getAccountId() == accountId) {
+						continue;
+					}
+				%>
+
+					<aui:option label="<%= curAccount.getName() %>" value="<%= curAccount.getAccountId() %>" />
+
+				<%
+				}
+				%>
+
+			</aui:select>
+
 			<aui:input name="name" />
 
+			<aui:input name="code" />
+
 			<aui:input name="description" type="textarea" />
+
+			<aui:input name="notes" type="textarea" />
 
 			<aui:input name="contactEmailAddress" />
 
@@ -57,6 +79,38 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 			<aui:input name="faxNumber" />
 
 			<aui:input name="website" />
+
+			<aui:select name="industry">
+				<aui:option value="" />
+
+				<%
+				for (String industry : AccountIndustry.VALUES) {
+				%>
+
+					<aui:option label="<%= industry %>" value="<%= industry %>" />
+
+				<%
+				}
+				%>
+
+			</aui:select>
+
+			<aui:select name="tier">
+				<aui:option value="" />
+
+				<%
+				for (String tier : AccountTier.VALUES) {
+				%>
+
+					<aui:option label="<%= tier %>" value="<%= tier %>" />
+
+				<%
+				}
+				%>
+
+			</aui:select>
+
+			<aui:input name="soldBy" />
 
 			<aui:select name="status">
 				<aui:option value="" />

@@ -15,11 +15,8 @@
 package com.liferay.osb.koroneiki.trunk.service.impl;
 
 import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.model.Project;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
-import com.liferay.osb.koroneiki.taproot.permission.ProjectPermission;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
 import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductConsumptionException;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
@@ -32,7 +29,6 @@ import com.liferay.osb.koroneiki.trunk.service.base.ProductConsumptionServiceBas
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
@@ -53,7 +49,7 @@ public class ProductConsumptionServiceImpl
 	extends ProductConsumptionServiceBaseImpl {
 
 	public ProductConsumption addProductConsumption(
-			long accountId, long projectId, long productEntryId,
+			long accountId, long productEntryId,
 			List<ProductField> productFields)
 		throws PortalException {
 
@@ -61,11 +57,11 @@ public class ProductConsumptionServiceImpl
 			getPermissionChecker(), productEntryId, TrunkActionKeys.CONSUME);
 
 		return productConsumptionLocalService.addProductConsumption(
-			getUserId(), accountId, projectId, productEntryId, productFields);
+			getUserId(), accountId, productEntryId, productFields);
 	}
 
 	public ProductConsumption addProductConsumption(
-			String accountKey, String projectKey, String productEntryKey,
+			String accountKey, String productEntryKey,
 			List<ProductField> productFields)
 		throws PortalException {
 
@@ -77,16 +73,8 @@ public class ProductConsumptionServiceImpl
 
 		Account account = _accountLocalService.getAccount(accountKey);
 
-		long projectId = 0;
-
-		if (Validator.isNotNull(projectKey)) {
-			Project project = _projectLocalService.getProject(projectKey);
-
-			projectId = project.getProjectId();
-		}
-
 		return productConsumptionLocalService.addProductConsumption(
-			getUserId(), account.getAccountId(), projectId,
+			getUserId(), account.getAccountId(),
 			productEntry.getProductEntryId(), productFields);
 	}
 
@@ -102,12 +90,12 @@ public class ProductConsumptionServiceImpl
 	}
 
 	public ProductConsumption deleteProductConsumption(
-			long accountId, long projectId, long productEntryId)
+			long accountId, long productEntryId)
 		throws PortalException {
 
 		List<ProductConsumption> productConsumptions =
 			productConsumptionLocalService.getProductConsumptions(
-				getUserId(), accountId, projectId, productEntryId);
+				getUserId(), accountId, productEntryId);
 
 		if (productConsumptions.isEmpty()) {
 			throw new NoSuchProductConsumptionException();
@@ -207,52 +195,6 @@ public class ProductConsumptionServiceImpl
 		return productConsumption;
 	}
 
-	public List<ProductConsumption> getProjectProductConsumptions(
-			long projectId, int start, int end)
-		throws PortalException {
-
-		_projectPermission.check(
-			getPermissionChecker(), projectId, ActionKeys.VIEW);
-
-		return productConsumptionLocalService.getProjectProductConsumptions(
-			projectId, start, end);
-	}
-
-	public List<ProductConsumption> getProjectProductConsumptions(
-			String projectKey, int start, int end)
-		throws PortalException {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		_projectPermission.check(
-			getPermissionChecker(), project, ActionKeys.VIEW);
-
-		return productConsumptionLocalService.getProjectProductConsumptions(
-			project.getProjectId(), start, end);
-	}
-
-	public int getProjectProductConsumptionsCount(long projectId)
-		throws PortalException {
-
-		_projectPermission.check(
-			getPermissionChecker(), projectId, ActionKeys.VIEW);
-
-		return productConsumptionLocalService.
-			getProjectProductConsumptionsCount(projectId);
-	}
-
-	public int getProjectProductConsumptionsCount(String projectKey)
-		throws PortalException {
-
-		Project project = _projectLocalService.getProject(projectKey);
-
-		_projectPermission.check(
-			getPermissionChecker(), project, ActionKeys.VIEW);
-
-		return productConsumptionLocalService.
-			getProjectProductConsumptionsCount(project.getProjectId());
-	}
-
 	@Reference
 	private AccountLocalService _accountLocalService;
 
@@ -267,11 +209,5 @@ public class ProductConsumptionServiceImpl
 
 	@Reference
 	private ProductEntryPermission _productEntryPermission;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
-
-	@Reference
-	private ProjectPermission _projectPermission;
 
 }

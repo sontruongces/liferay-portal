@@ -83,10 +83,6 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 		contactAccountRolePersistence.removeByContactId(contact.getContactId());
 
-		// Contact project roles
-
-		contactProjectRolePersistence.removeByContactId(contact.getContactId());
-
 		// Contact team roles
 
 		contactTeamRolePersistence.removeByContactId(contact.getContactId());
@@ -153,25 +149,6 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 	public Contact getContactByUuid(String uuid) throws PortalException {
 		return contactPersistence.findByUuid_First(uuid, null);
-	}
-
-	public List<Contact> getProjectContacts(
-		long projectId, int start, int end) {
-
-		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-
-		params.put("project", projectId);
-
-		return contactFinder.findByFN_MN_LN_E(
-			null, null, null, null, params, start, end);
-	}
-
-	public int getProjectContactsCount(long projectId) {
-		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-
-		params.put("project", projectId);
-
-		return contactFinder.countByFN_MN_LN_E(null, null, null, null, params);
 	}
 
 	public List<Contact> getTeamContacts(long teamId, int start, int end) {

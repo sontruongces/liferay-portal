@@ -17,9 +17,7 @@ package com.liferay.osb.koroneiki.xylem.distributed.messaging.model.listener;
 import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.model.Project;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 
@@ -42,14 +40,6 @@ public class ExternalLinkModelListener
 				externalLink.getClassPK());
 
 			return messageFactory.create(account);
-		}
-		else if (externalLink.getClassNameId() ==
-					_classNameLocalService.getClassNameId(Project.class)) {
-
-			Project project = _projectLocalService.getProject(
-				externalLink.getClassPK());
-
-			return messageFactory.create(project);
 		}
 
 		return null;
@@ -76,11 +66,6 @@ public class ExternalLinkModelListener
 
 			return "koroneiki.account.update";
 		}
-		else if (externalLink.getClassNameId() ==
-					_classNameLocalService.getClassNameId(Project.class)) {
-
-			return "koroneiki.project.update";
-		}
 
 		return null;
 	}
@@ -90,8 +75,5 @@ public class ExternalLinkModelListener
 
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
 
 }

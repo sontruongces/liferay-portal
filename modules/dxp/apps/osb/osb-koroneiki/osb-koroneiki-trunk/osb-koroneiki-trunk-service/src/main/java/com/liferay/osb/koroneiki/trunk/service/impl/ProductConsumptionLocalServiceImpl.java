@@ -17,7 +17,6 @@ package com.liferay.osb.koroneiki.trunk.service.impl;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ProjectLocalService;
 import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductConsumptionException;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
@@ -44,13 +43,13 @@ public class ProductConsumptionLocalServiceImpl
 	extends ProductConsumptionLocalServiceBaseImpl {
 
 	public ProductConsumption addProductConsumption(
-			long userId, long accountId, long projectId, long productEntryId,
+			long userId, long accountId, long productEntryId,
 			List<ProductField> productFields)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
 
-		validate(accountId, projectId, productEntryId);
+		validate(accountId, productEntryId);
 
 		long productConsumptionId = counterLocalService.increment();
 
@@ -62,7 +61,6 @@ public class ProductConsumptionLocalServiceImpl
 		productConsumption.setProductConsumptionKey(
 			ModelKeyGenerator.generate(productConsumptionId));
 		productConsumption.setAccountId(accountId);
-		productConsumption.setProjectId(projectId);
 		productConsumption.setProductEntryId(productEntryId);
 
 		productConsumptionPersistence.update(productConsumption);
@@ -97,12 +95,12 @@ public class ProductConsumptionLocalServiceImpl
 
 	@Override
 	public ProductConsumption deleteProductConsumption(
-			long userId, long accountId, long projectId, long productEntryId)
+			long userId, long accountId, long productEntryId)
 		throws PortalException {
 
 		List<ProductConsumption> productConsumptions =
-			productConsumptionPersistence.findByU_AI_PI_PEI(
-				userId, accountId, projectId, productEntryId);
+			productConsumptionPersistence.findByU_AI_PEI(
+				userId, accountId, productEntryId);
 
 		if (productConsumptions.isEmpty()) {
 			throw new NoSuchProductConsumptionException();
@@ -169,37 +167,17 @@ public class ProductConsumptionLocalServiceImpl
 
 	@Override
 	public List<ProductConsumption> getProductConsumptions(
-			long userId, long accountId, long projectId, long productEntryId)
+			long userId, long accountId, long productEntryId)
 		throws PortalException {
 
-		return productConsumptionPersistence.findByU_AI_PI_PEI(
-			userId, accountId, projectId, productEntryId);
+		return productConsumptionPersistence.findByU_AI_PEI(
+			userId, accountId, productEntryId);
 	}
 
-	@Override
-	public List<ProductConsumption> getProjectProductConsumptions(
-			long projectId, int start, int end)
-		throws PortalException {
-
-		return productConsumptionPersistence.findByProjectId(
-			projectId, start, end);
-	}
-
-	@Override
-	public int getProjectProductConsumptionsCount(long projectId)
-		throws PortalException {
-
-		return productConsumptionPersistence.countByProjectId(projectId);
-	}
-
-	protected void validate(long accountId, long projectId, long productEntryId)
+	protected void validate(long accountId, long productEntryId)
 		throws PortalException {
 
 		_accountLocalService.getAccount(accountId);
-
-		if (projectId > 0) {
-			_projectLocalService.getProject(projectId);
-		}
 
 		productEntryPersistence.findByPrimaryKey(productEntryId);
 	}
@@ -212,8 +190,5 @@ public class ProductConsumptionLocalServiceImpl
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;
-
-	@Reference
-	private ProjectLocalService _projectLocalService;
 
 }

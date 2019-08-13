@@ -33,7 +33,6 @@ renderResponse.setTitle((productConsumption == null) ? LanguageUtil.get(request,
 
 	<liferay-ui:error exception="<%= NoSuchAccountException.class %>" message="please-select-a-valid-account" />
 	<liferay-ui:error exception="<%= NoSuchProductEntryException.class %>" message="please-select-a-valid-product" />
-	<liferay-ui:error exception="<%= NoSuchProjectException.class %>" message="please-select-a-valid-project" />
 
 	<aui:model-context bean="<%= productConsumption %>" model="<%= ProductConsumption.class %>" />
 
@@ -56,28 +55,6 @@ renderResponse.setTitle((productConsumption == null) ? LanguageUtil.get(request,
 						</liferay-portlet:renderURL>
 
 						<a href="<%= accountURL %>"><%= HtmlUtil.escape(koroneikiAccount.getName()) %></a>
-					</p>
-
-					<%
-					Project project = productConsumption.getProject();
-					%>
-
-					<h5><liferay-ui:message key="project" /></h5>
-
-					<p>
-						<c:choose>
-							<c:when test="<%= project != null %>">
-								<liferay-portlet:renderURL portletName="<%= TaprootPortletKeys.PROJECTS_ADMIN %>" var="projectURL">
-									<portlet:param name="mvcRenderCommandName" value="/projects_admin/edit_project" />
-									<portlet:param name="projectId" value="<%= String.valueOf(project.getProjectId()) %>" />
-								</liferay-portlet:renderURL>
-
-								<a href="<%= projectURL %>"><%= HtmlUtil.escape(project.getName()) %></a>
-							</c:when>
-							<c:otherwise>
-								N/A
-							</c:otherwise>
-						</c:choose>
 					</p>
 
 					<%
@@ -113,8 +90,6 @@ renderResponse.setTitle((productConsumption == null) ? LanguageUtil.get(request,
 						%>
 
 					</aui:select>
-
-					<aui:select label="project" name="projectId" />
 
 					<aui:select label="product" name="productEntryId">
 						<aui:option value="" />
@@ -189,56 +164,6 @@ renderResponse.setTitle((productConsumption == null) ? LanguageUtil.get(request,
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
-
-<aui:script>
-	Liferay.provide(
-		window,
-		'<portlet:namespace />selectAccount',
-		function(account) {
-			var A = AUI();
-
-			var accountKey = account.options[account.selectedIndex].dataset.accountkey;
-
-			A.io.request(
-				'/o/koroneiki-rest/v1.0/accounts/' + accountKey + '/projects',
-				{
-					data: {
-						p_auth: Liferay.authToken
-					},
-					method: 'GET',
-					on: {
-						success: function(event, id, obj) {
-							var responseText = obj.responseText;
-
-							var responseData = A.JSON.parse(responseText);
-
-							var projectSelect = A.one('#<portlet:namespace />projectId');
-
-							projectSelect.empty();
-
-							var itemsJSONArray = responseData.items;
-
-							if (itemsJSONArray) {
-								var emptyOption = A.Node.create('<option value=""></option>');
-
-								projectSelect.append(emptyOption);
-
-								for (var i = 0; i < itemsJSONArray.length; i++) {
-									var item = itemsJSONArray[i];
-
-									var projectOption = A.Node.create('<option value="' + item.id + '">' + item.name + '</option>');
-
-									projectSelect.append(projectOption);
-								}
-							}
-						}
-					}
-				}
-			);
-		},
-		['aui-io-request']
-	);
-</aui:script>
 
 <aui:script use="liferay-auto-fields">
 	var autoFields = new Liferay.AutoFields(

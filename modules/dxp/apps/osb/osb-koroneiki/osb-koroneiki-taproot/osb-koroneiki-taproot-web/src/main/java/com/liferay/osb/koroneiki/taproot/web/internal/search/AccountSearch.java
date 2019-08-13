@@ -37,6 +37,7 @@ public class AccountSearch extends SearchContainer<Account> {
 	public static List<String> headerNames = new ArrayList<String>() {
 		{
 			add("name");
+			add("code");
 			add("description");
 			add("status");
 		}
@@ -44,6 +45,7 @@ public class AccountSearch extends SearchContainer<Account> {
 	public static Map<String, String> orderableHeaders =
 		new HashMap<String, String>() {
 			{
+				put("code", "code");
 				put("name", "name");
 			}
 		};
