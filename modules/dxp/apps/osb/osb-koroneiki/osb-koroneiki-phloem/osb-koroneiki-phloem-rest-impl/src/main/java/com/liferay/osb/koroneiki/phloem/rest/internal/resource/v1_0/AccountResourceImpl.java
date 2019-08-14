@@ -100,6 +100,23 @@ public class AccountResourceImpl
 	}
 
 	@Override
+	public Page<Account> getAccountByExternalLinkDomainEntityNameEntity(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_accountService.getAccounts(
+					domain, entityName, entityId, pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				account -> AccountUtil.toAccount(
+					account, contextAcceptLanguage.getPreferredLocale(), null)),
+			pagination,
+			_accountService.getAccountsCount(domain, entityName, entityId));
+	}
+
+	@Override
 	public Page<Account> getAccountChildAccountsPage(
 			String accountKey, String[] includes, Pagination pagination)
 		throws Exception {
@@ -117,15 +134,6 @@ public class AccountResourceImpl
 					includes)),
 			pagination,
 			_accountService.getAccountsCount(curAccount.getAccountId()));
-	}
-
-	@Override
-	public Page<Account> getAccountByExternalLinkDomainEntityNameEntity(
-			String domain, String entityName, String entityId,
-			Pagination pagination)
-		throws Exception {
-
-		return getAccountsPage(domain, entityName, entityId, pagination);
 	}
 
 	@Override
@@ -260,22 +268,6 @@ public class AccountResourceImpl
 			_teamAccountRoleService.addTeamAccountRole(
 				teamKey, accountKey, teamRoleKey);
 		}
-	}
-
-	protected Page<Account> getAccountsPage(
-			String domain, String entityName, String entityId,
-			Pagination pagination)
-		throws Exception {
-
-		return Page.of(
-			transform(
-				_accountService.getAccounts(
-					domain, entityName, entityId, pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				account -> AccountUtil.toAccount(
-					account, contextAcceptLanguage.getPreferredLocale(), null)),
-			pagination,
-			_accountService.getAccountsCount(domain, entityName, entityId));
 	}
 
 	private static final EntityModel _entityModel = new AccountEntityModel();

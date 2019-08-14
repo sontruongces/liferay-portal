@@ -73,7 +73,8 @@
 			<finder-column name="classNameId" />
 			<finder-column name="classPK" />
 		</finder>
-		<finder name="D_EN_EI" return-type="Collection">
+		<finder name="C_D_EN_EI" return-type="Collection">
+			<finder-column name="classNameId" />
 			<finder-column name="domain" />
 			<finder-column name="entityName" />
 			<finder-column name="entityId" />
