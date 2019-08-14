@@ -89,10 +89,29 @@ public class AccountServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+			getAccounts(
+				String domain, String entityName, String entityId, int start,
+				int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _accountService.getAccounts(
+			domain, entityName, entityId, start, end);
+	}
+
+	@Override
 	public int getAccountsCount(long parentAccountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountService.getAccountsCount(parentAccountId);
+	}
+
+	@Override
+	public int getAccountsCount(
+			String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _accountService.getAccountsCount(domain, entityName, entityId);
 	}
 
 	/**

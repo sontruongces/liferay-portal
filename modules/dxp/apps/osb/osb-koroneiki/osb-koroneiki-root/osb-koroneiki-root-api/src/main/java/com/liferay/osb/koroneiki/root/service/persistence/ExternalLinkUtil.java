@@ -375,81 +375,227 @@ public class ExternalLinkUtil {
 	}
 
 	/**
-	 * Returns the external link where domain = &#63; and entityName = &#63; and entityId = &#63; or throws a <code>NoSuchExternalLinkException</code> if it could not be found.
+	 * Returns all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
-	 * @return the matching external link
-	 * @throws NoSuchExternalLinkException if a matching external link could not be found
+	 * @return the matching external links
 	 */
-	public static ExternalLink findByD_EN_EI(
-			String domain, String entityName, String entityId)
-		throws com.liferay.osb.koroneiki.root.exception.
-			NoSuchExternalLinkException {
+	public static List<ExternalLink> findByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId) {
 
-		return getPersistence().findByD_EN_EI(domain, entityName, entityId);
+		return getPersistence().findByC_D_EN_EI(
+			classNameId, domain, entityName, entityId);
 	}
 
 	/**
-	 * Returns the external link where domain = &#63; and entityName = &#63; and entityId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns a range of all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ExternalLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
-	 * @return the matching external link, or <code>null</code> if a matching external link could not be found
+	 * @param start the lower bound of the range of external links
+	 * @param end the upper bound of the range of external links (not inclusive)
+	 * @return the range of matching external links
 	 */
-	public static ExternalLink fetchByD_EN_EI(
-		String domain, String entityName, String entityId) {
+	public static List<ExternalLink> findByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId,
+		int start, int end) {
 
-		return getPersistence().fetchByD_EN_EI(domain, entityName, entityId);
+		return getPersistence().findByC_D_EN_EI(
+			classNameId, domain, entityName, entityId, start, end);
 	}
 
 	/**
-	 * Returns the external link where domain = &#63; and entityName = &#63; and entityId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns an ordered range of all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ExternalLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
+	 * @param start the lower bound of the range of external links
+	 * @param end the upper bound of the range of external links (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching external links
+	 */
+	public static List<ExternalLink> findByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId,
+		int start, int end, OrderByComparator<ExternalLink> orderByComparator) {
+
+		return getPersistence().findByC_D_EN_EI(
+			classNameId, domain, entityName, entityId, start, end,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ExternalLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param start the lower bound of the range of external links
+	 * @param end the upper bound of the range of external links (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching external link, or <code>null</code> if a matching external link could not be found
+	 * @return the ordered range of matching external links
 	 */
-	public static ExternalLink fetchByD_EN_EI(
-		String domain, String entityName, String entityId,
+	public static List<ExternalLink> findByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId,
+		int start, int end, OrderByComparator<ExternalLink> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().fetchByD_EN_EI(
-			domain, entityName, entityId, useFinderCache);
+		return getPersistence().findByC_D_EN_EI(
+			classNameId, domain, entityName, entityId, start, end,
+			orderByComparator, useFinderCache);
 	}
 
 	/**
-	 * Removes the external link where domain = &#63; and entityName = &#63; and entityId = &#63; from the database.
+	 * Returns the first external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
-	 * @return the external link that was removed
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching external link
+	 * @throws NoSuchExternalLinkException if a matching external link could not be found
 	 */
-	public static ExternalLink removeByD_EN_EI(
-			String domain, String entityName, String entityId)
+	public static ExternalLink findByC_D_EN_EI_First(
+			long classNameId, String domain, String entityName, String entityId,
+			OrderByComparator<ExternalLink> orderByComparator)
 		throws com.liferay.osb.koroneiki.root.exception.
 			NoSuchExternalLinkException {
 
-		return getPersistence().removeByD_EN_EI(domain, entityName, entityId);
+		return getPersistence().findByC_D_EN_EI_First(
+			classNameId, domain, entityName, entityId, orderByComparator);
 	}
 
 	/**
-	 * Returns the number of external links where domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 * Returns the first external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching external link, or <code>null</code> if a matching external link could not be found
+	 */
+	public static ExternalLink fetchByC_D_EN_EI_First(
+		long classNameId, String domain, String entityName, String entityId,
+		OrderByComparator<ExternalLink> orderByComparator) {
+
+		return getPersistence().fetchByC_D_EN_EI_First(
+			classNameId, domain, entityName, entityId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching external link
+	 * @throws NoSuchExternalLinkException if a matching external link could not be found
+	 */
+	public static ExternalLink findByC_D_EN_EI_Last(
+			long classNameId, String domain, String entityName, String entityId,
+			OrderByComparator<ExternalLink> orderByComparator)
+		throws com.liferay.osb.koroneiki.root.exception.
+			NoSuchExternalLinkException {
+
+		return getPersistence().findByC_D_EN_EI_Last(
+			classNameId, domain, entityName, entityId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching external link, or <code>null</code> if a matching external link could not be found
+	 */
+	public static ExternalLink fetchByC_D_EN_EI_Last(
+		long classNameId, String domain, String entityName, String entityId,
+		OrderByComparator<ExternalLink> orderByComparator) {
+
+		return getPersistence().fetchByC_D_EN_EI_Last(
+			classNameId, domain, entityName, entityId, orderByComparator);
+	}
+
+	/**
+	 * Returns the external links before and after the current external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * @param externalLinkId the primary key of the current external link
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next external link
+	 * @throws NoSuchExternalLinkException if a external link with the primary key could not be found
+	 */
+	public static ExternalLink[] findByC_D_EN_EI_PrevAndNext(
+			long externalLinkId, long classNameId, String domain,
+			String entityName, String entityId,
+			OrderByComparator<ExternalLink> orderByComparator)
+		throws com.liferay.osb.koroneiki.root.exception.
+			NoSuchExternalLinkException {
+
+		return getPersistence().findByC_D_EN_EI_PrevAndNext(
+			externalLinkId, classNameId, domain, entityName, entityId,
+			orderByComparator);
+	}
+
+	/**
+	 * Removes all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 */
+	public static void removeByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId) {
+
+		getPersistence().removeByC_D_EN_EI(
+			classNameId, domain, entityName, entityId);
+	}
+
+	/**
+	 * Returns the number of external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
 	 * @return the number of matching external links
 	 */
-	public static int countByD_EN_EI(
-		String domain, String entityName, String entityId) {
+	public static int countByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId) {
 
-		return getPersistence().countByD_EN_EI(domain, entityName, entityId);
+		return getPersistence().countByC_D_EN_EI(
+			classNameId, domain, entityName, entityId);
 	}
 
 	/**

@@ -39,7 +39,6 @@ import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.Serializable;
 
@@ -889,145 +888,204 @@ public class ExternalLinkPersistenceImpl
 	private static final String _FINDER_COLUMN_C_C_CLASSPK_2 =
 		"externalLink.classPK = ?";
 
-	private FinderPath _finderPathFetchByD_EN_EI;
-	private FinderPath _finderPathCountByD_EN_EI;
+	private FinderPath _finderPathWithPaginationFindByC_D_EN_EI;
+	private FinderPath _finderPathWithoutPaginationFindByC_D_EN_EI;
+	private FinderPath _finderPathCountByC_D_EN_EI;
 
 	/**
-	 * Returns the external link where domain = &#63; and entityName = &#63; and entityId = &#63; or throws a <code>NoSuchExternalLinkException</code> if it could not be found.
+	 * Returns all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
-	 * @return the matching external link
-	 * @throws NoSuchExternalLinkException if a matching external link could not be found
+	 * @return the matching external links
 	 */
 	@Override
-	public ExternalLink findByD_EN_EI(
-			String domain, String entityName, String entityId)
-		throws NoSuchExternalLinkException {
+	public List<ExternalLink> findByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId) {
 
-		ExternalLink externalLink = fetchByD_EN_EI(
-			domain, entityName, entityId);
-
-		if (externalLink == null) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("domain=");
-			msg.append(domain);
-
-			msg.append(", entityName=");
-			msg.append(entityName);
-
-			msg.append(", entityId=");
-			msg.append(entityId);
-
-			msg.append("}");
-
-			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
-			}
-
-			throw new NoSuchExternalLinkException(msg.toString());
-		}
-
-		return externalLink;
+		return findByC_D_EN_EI(
+			classNameId, domain, entityName, entityId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns the external link where domain = &#63; and entityName = &#63; and entityId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns a range of all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ExternalLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
-	 * @return the matching external link, or <code>null</code> if a matching external link could not be found
+	 * @param start the lower bound of the range of external links
+	 * @param end the upper bound of the range of external links (not inclusive)
+	 * @return the range of matching external links
 	 */
 	@Override
-	public ExternalLink fetchByD_EN_EI(
-		String domain, String entityName, String entityId) {
+	public List<ExternalLink> findByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId,
+		int start, int end) {
 
-		return fetchByD_EN_EI(domain, entityName, entityId, true);
+		return findByC_D_EN_EI(
+			classNameId, domain, entityName, entityId, start, end, null);
 	}
 
 	/**
-	 * Returns the external link where domain = &#63; and entityName = &#63; and entityId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns an ordered range of all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ExternalLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
+	 * @param start the lower bound of the range of external links
+	 * @param end the upper bound of the range of external links (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching external links
+	 */
+	@Override
+	public List<ExternalLink> findByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId,
+		int start, int end, OrderByComparator<ExternalLink> orderByComparator) {
+
+		return findByC_D_EN_EI(
+			classNameId, domain, entityName, entityId, start, end,
+			orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ExternalLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param start the lower bound of the range of external links
+	 * @param end the upper bound of the range of external links (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching external link, or <code>null</code> if a matching external link could not be found
+	 * @return the ordered range of matching external links
 	 */
 	@Override
-	public ExternalLink fetchByD_EN_EI(
-		String domain, String entityName, String entityId,
+	public List<ExternalLink> findByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId,
+		int start, int end, OrderByComparator<ExternalLink> orderByComparator,
 		boolean useFinderCache) {
 
 		domain = Objects.toString(domain, "");
 		entityName = Objects.toString(entityName, "");
 		entityId = Objects.toString(entityId, "");
 
+		boolean pagination = true;
+		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if (useFinderCache) {
-			finderArgs = new Object[] {domain, entityName, entityId};
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			pagination = false;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByC_D_EN_EI;
+				finderArgs = new Object[] {
+					classNameId, domain, entityName, entityId
+				};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByC_D_EN_EI;
+			finderArgs = new Object[] {
+				classNameId, domain, entityName, entityId, start, end,
+				orderByComparator
+			};
 		}
 
-		Object result = null;
+		List<ExternalLink> list = null;
 
 		if (useFinderCache) {
-			result = finderCache.getResult(
-				_finderPathFetchByD_EN_EI, finderArgs, this);
-		}
+			list = (List<ExternalLink>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
-		if (result instanceof ExternalLink) {
-			ExternalLink externalLink = (ExternalLink)result;
+			if ((list != null) && !list.isEmpty()) {
+				for (ExternalLink externalLink : list) {
+					if ((classNameId != externalLink.getClassNameId()) ||
+						!domain.equals(externalLink.getDomain()) ||
+						!entityName.equals(externalLink.getEntityName()) ||
+						!entityId.equals(externalLink.getEntityId())) {
 
-			if (!Objects.equals(domain, externalLink.getDomain()) ||
-				!Objects.equals(entityName, externalLink.getEntityName()) ||
-				!Objects.equals(entityId, externalLink.getEntityId())) {
+						list = null;
 
-				result = null;
+						break;
+					}
+				}
 			}
 		}
 
-		if (result == null) {
-			StringBundler query = new StringBundler(5);
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(
+					6 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(6);
+			}
 
 			query.append(_SQL_SELECT_EXTERNALLINK_WHERE);
+
+			query.append(_FINDER_COLUMN_C_D_EN_EI_CLASSNAMEID_2);
 
 			boolean bindDomain = false;
 
 			if (domain.isEmpty()) {
-				query.append(_FINDER_COLUMN_D_EN_EI_DOMAIN_3);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_DOMAIN_3);
 			}
 			else {
 				bindDomain = true;
 
-				query.append(_FINDER_COLUMN_D_EN_EI_DOMAIN_2);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_DOMAIN_2);
 			}
 
 			boolean bindEntityName = false;
 
 			if (entityName.isEmpty()) {
-				query.append(_FINDER_COLUMN_D_EN_EI_ENTITYNAME_3);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYNAME_3);
 			}
 			else {
 				bindEntityName = true;
 
-				query.append(_FINDER_COLUMN_D_EN_EI_ENTITYNAME_2);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYNAME_2);
 			}
 
 			boolean bindEntityId = false;
 
 			if (entityId.isEmpty()) {
-				query.append(_FINDER_COLUMN_D_EN_EI_ENTITYID_3);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYID_3);
 			}
 			else {
 				bindEntityId = true;
 
-				query.append(_FINDER_COLUMN_D_EN_EI_ENTITYID_2);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYID_2);
+			}
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else if (pagination) {
+				query.append(ExternalLinkModelImpl.ORDER_BY_JPQL);
 			}
 
 			String sql = query.toString();
@@ -1040,6 +1098,8 @@ public class ExternalLinkPersistenceImpl
 				Query q = session.createQuery(sql);
 
 				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
 
 				if (bindDomain) {
 					qPos.add(domain);
@@ -1053,43 +1113,28 @@ public class ExternalLinkPersistenceImpl
 					qPos.add(entityId);
 				}
 
-				List<ExternalLink> list = q.list();
+				if (!pagination) {
+					list = (List<ExternalLink>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
-				if (list.isEmpty()) {
-					if (useFinderCache) {
-						finderCache.putResult(
-							_finderPathFetchByD_EN_EI, finderArgs, list);
-					}
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
 				}
 				else {
-					if (list.size() > 1) {
-						Collections.sort(list, Collections.reverseOrder());
+					list = (List<ExternalLink>)QueryUtil.list(
+						q, getDialect(), start, end);
+				}
 
-						if (_log.isWarnEnabled()) {
-							if (!useFinderCache) {
-								finderArgs = new Object[] {
-									domain, entityName, entityId
-								};
-							}
+				cacheResult(list);
 
-							_log.warn(
-								"ExternalLinkPersistenceImpl.fetchByD_EN_EI(String, String, String, boolean) with parameters (" +
-									StringUtil.merge(finderArgs) +
-										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
-						}
-					}
-
-					ExternalLink externalLink = list.get(0);
-
-					result = externalLink;
-
-					cacheResult(externalLink);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
 			catch (Exception e) {
 				if (useFinderCache) {
-					finderCache.removeResult(
-						_finderPathFetchByD_EN_EI, finderArgs);
+					finderCache.removeResult(finderPath, finderArgs);
 				}
 
 				throw processException(e);
@@ -1099,90 +1144,446 @@ public class ExternalLinkPersistenceImpl
 			}
 		}
 
-		if (result instanceof List<?>) {
-			return null;
-		}
-		else {
-			return (ExternalLink)result;
-		}
+		return list;
 	}
 
 	/**
-	 * Removes the external link where domain = &#63; and entityName = &#63; and entityId = &#63; from the database.
+	 * Returns the first external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
-	 * @return the external link that was removed
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching external link
+	 * @throws NoSuchExternalLinkException if a matching external link could not be found
 	 */
 	@Override
-	public ExternalLink removeByD_EN_EI(
-			String domain, String entityName, String entityId)
+	public ExternalLink findByC_D_EN_EI_First(
+			long classNameId, String domain, String entityName, String entityId,
+			OrderByComparator<ExternalLink> orderByComparator)
 		throws NoSuchExternalLinkException {
 
-		ExternalLink externalLink = findByD_EN_EI(domain, entityName, entityId);
+		ExternalLink externalLink = fetchByC_D_EN_EI_First(
+			classNameId, domain, entityName, entityId, orderByComparator);
 
-		return remove(externalLink);
+		if (externalLink != null) {
+			return externalLink;
+		}
+
+		StringBundler msg = new StringBundler(10);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", domain=");
+		msg.append(domain);
+
+		msg.append(", entityName=");
+		msg.append(entityName);
+
+		msg.append(", entityId=");
+		msg.append(entityId);
+
+		msg.append("}");
+
+		throw new NoSuchExternalLinkException(msg.toString());
 	}
 
 	/**
-	 * Returns the number of external links where domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 * Returns the first external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
 	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching external link, or <code>null</code> if a matching external link could not be found
+	 */
+	@Override
+	public ExternalLink fetchByC_D_EN_EI_First(
+		long classNameId, String domain, String entityName, String entityId,
+		OrderByComparator<ExternalLink> orderByComparator) {
+
+		List<ExternalLink> list = findByC_D_EN_EI(
+			classNameId, domain, entityName, entityId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching external link
+	 * @throws NoSuchExternalLinkException if a matching external link could not be found
+	 */
+	@Override
+	public ExternalLink findByC_D_EN_EI_Last(
+			long classNameId, String domain, String entityName, String entityId,
+			OrderByComparator<ExternalLink> orderByComparator)
+		throws NoSuchExternalLinkException {
+
+		ExternalLink externalLink = fetchByC_D_EN_EI_Last(
+			classNameId, domain, entityName, entityId, orderByComparator);
+
+		if (externalLink != null) {
+			return externalLink;
+		}
+
+		StringBundler msg = new StringBundler(10);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", domain=");
+		msg.append(domain);
+
+		msg.append(", entityName=");
+		msg.append(entityName);
+
+		msg.append(", entityId=");
+		msg.append(entityId);
+
+		msg.append("}");
+
+		throw new NoSuchExternalLinkException(msg.toString());
+	}
+
+	/**
+	 * Returns the last external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching external link, or <code>null</code> if a matching external link could not be found
+	 */
+	@Override
+	public ExternalLink fetchByC_D_EN_EI_Last(
+		long classNameId, String domain, String entityName, String entityId,
+		OrderByComparator<ExternalLink> orderByComparator) {
+
+		int count = countByC_D_EN_EI(classNameId, domain, entityName, entityId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<ExternalLink> list = findByC_D_EN_EI(
+			classNameId, domain, entityName, entityId, count - 1, count,
+			orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the external links before and after the current external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * @param externalLinkId the primary key of the current external link
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next external link
+	 * @throws NoSuchExternalLinkException if a external link with the primary key could not be found
+	 */
+	@Override
+	public ExternalLink[] findByC_D_EN_EI_PrevAndNext(
+			long externalLinkId, long classNameId, String domain,
+			String entityName, String entityId,
+			OrderByComparator<ExternalLink> orderByComparator)
+		throws NoSuchExternalLinkException {
+
+		domain = Objects.toString(domain, "");
+		entityName = Objects.toString(entityName, "");
+		entityId = Objects.toString(entityId, "");
+
+		ExternalLink externalLink = findByPrimaryKey(externalLinkId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			ExternalLink[] array = new ExternalLinkImpl[3];
+
+			array[0] = getByC_D_EN_EI_PrevAndNext(
+				session, externalLink, classNameId, domain, entityName,
+				entityId, orderByComparator, true);
+
+			array[1] = externalLink;
+
+			array[2] = getByC_D_EN_EI_PrevAndNext(
+				session, externalLink, classNameId, domain, entityName,
+				entityId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected ExternalLink getByC_D_EN_EI_PrevAndNext(
+		Session session, ExternalLink externalLink, long classNameId,
+		String domain, String entityName, String entityId,
+		OrderByComparator<ExternalLink> orderByComparator, boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				7 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(6);
+		}
+
+		query.append(_SQL_SELECT_EXTERNALLINK_WHERE);
+
+		query.append(_FINDER_COLUMN_C_D_EN_EI_CLASSNAMEID_2);
+
+		boolean bindDomain = false;
+
+		if (domain.isEmpty()) {
+			query.append(_FINDER_COLUMN_C_D_EN_EI_DOMAIN_3);
+		}
+		else {
+			bindDomain = true;
+
+			query.append(_FINDER_COLUMN_C_D_EN_EI_DOMAIN_2);
+		}
+
+		boolean bindEntityName = false;
+
+		if (entityName.isEmpty()) {
+			query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYNAME_3);
+		}
+		else {
+			bindEntityName = true;
+
+			query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYNAME_2);
+		}
+
+		boolean bindEntityId = false;
+
+		if (entityId.isEmpty()) {
+			query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYID_3);
+		}
+		else {
+			bindEntityId = true;
+
+			query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYID_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(ExternalLinkModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(classNameId);
+
+		if (bindDomain) {
+			qPos.add(domain);
+		}
+
+		if (bindEntityName) {
+			qPos.add(entityName);
+		}
+
+		if (bindEntityId) {
+			qPos.add(entityId);
+		}
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(externalLink)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<ExternalLink> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 * @param domain the domain
+	 * @param entityName the entity name
+	 * @param entityId the entity ID
+	 */
+	@Override
+	public void removeByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId) {
+
+		for (ExternalLink externalLink :
+				findByC_D_EN_EI(
+					classNameId, domain, entityName, entityId,
+					QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
+			remove(externalLink);
+		}
+	}
+
+	/**
+	 * Returns the number of external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
+	 *
+	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
 	 * @param entityId the entity ID
 	 * @return the number of matching external links
 	 */
 	@Override
-	public int countByD_EN_EI(
-		String domain, String entityName, String entityId) {
+	public int countByC_D_EN_EI(
+		long classNameId, String domain, String entityName, String entityId) {
 
 		domain = Objects.toString(domain, "");
 		entityName = Objects.toString(entityName, "");
 		entityId = Objects.toString(entityId, "");
 
-		FinderPath finderPath = _finderPathCountByD_EN_EI;
+		FinderPath finderPath = _finderPathCountByC_D_EN_EI;
 
-		Object[] finderArgs = new Object[] {domain, entityName, entityId};
+		Object[] finderArgs = new Object[] {
+			classNameId, domain, entityName, entityId
+		};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler query = new StringBundler(5);
 
 			query.append(_SQL_COUNT_EXTERNALLINK_WHERE);
+
+			query.append(_FINDER_COLUMN_C_D_EN_EI_CLASSNAMEID_2);
 
 			boolean bindDomain = false;
 
 			if (domain.isEmpty()) {
-				query.append(_FINDER_COLUMN_D_EN_EI_DOMAIN_3);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_DOMAIN_3);
 			}
 			else {
 				bindDomain = true;
 
-				query.append(_FINDER_COLUMN_D_EN_EI_DOMAIN_2);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_DOMAIN_2);
 			}
 
 			boolean bindEntityName = false;
 
 			if (entityName.isEmpty()) {
-				query.append(_FINDER_COLUMN_D_EN_EI_ENTITYNAME_3);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYNAME_3);
 			}
 			else {
 				bindEntityName = true;
 
-				query.append(_FINDER_COLUMN_D_EN_EI_ENTITYNAME_2);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYNAME_2);
 			}
 
 			boolean bindEntityId = false;
 
 			if (entityId.isEmpty()) {
-				query.append(_FINDER_COLUMN_D_EN_EI_ENTITYID_3);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYID_3);
 			}
 			else {
 				bindEntityId = true;
 
-				query.append(_FINDER_COLUMN_D_EN_EI_ENTITYID_2);
+				query.append(_FINDER_COLUMN_C_D_EN_EI_ENTITYID_2);
 			}
 
 			String sql = query.toString();
@@ -1195,6 +1596,8 @@ public class ExternalLinkPersistenceImpl
 				Query q = session.createQuery(sql);
 
 				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
 
 				if (bindDomain) {
 					qPos.add(domain);
@@ -1225,22 +1628,25 @@ public class ExternalLinkPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_D_EN_EI_DOMAIN_2 =
+	private static final String _FINDER_COLUMN_C_D_EN_EI_CLASSNAMEID_2 =
+		"externalLink.classNameId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_D_EN_EI_DOMAIN_2 =
 		"externalLink.domain = ? AND ";
 
-	private static final String _FINDER_COLUMN_D_EN_EI_DOMAIN_3 =
+	private static final String _FINDER_COLUMN_C_D_EN_EI_DOMAIN_3 =
 		"(externalLink.domain IS NULL OR externalLink.domain = '') AND ";
 
-	private static final String _FINDER_COLUMN_D_EN_EI_ENTITYNAME_2 =
+	private static final String _FINDER_COLUMN_C_D_EN_EI_ENTITYNAME_2 =
 		"externalLink.entityName = ? AND ";
 
-	private static final String _FINDER_COLUMN_D_EN_EI_ENTITYNAME_3 =
+	private static final String _FINDER_COLUMN_C_D_EN_EI_ENTITYNAME_3 =
 		"(externalLink.entityName IS NULL OR externalLink.entityName = '') AND ";
 
-	private static final String _FINDER_COLUMN_D_EN_EI_ENTITYID_2 =
+	private static final String _FINDER_COLUMN_C_D_EN_EI_ENTITYID_2 =
 		"externalLink.entityId = ?";
 
-	private static final String _FINDER_COLUMN_D_EN_EI_ENTITYID_3 =
+	private static final String _FINDER_COLUMN_C_D_EN_EI_ENTITYID_3 =
 		"(externalLink.entityId IS NULL OR externalLink.entityId = '')";
 
 	public ExternalLinkPersistenceImpl() {
@@ -1264,14 +1670,6 @@ public class ExternalLinkPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByExternalLinkKey,
 			new Object[] {externalLink.getExternalLinkKey()}, externalLink);
-
-		finderCache.putResult(
-			_finderPathFetchByD_EN_EI,
-			new Object[] {
-				externalLink.getDomain(), externalLink.getEntityName(),
-				externalLink.getEntityId()
-			},
-			externalLink);
 
 		externalLink.resetOriginalValues();
 	}
@@ -1357,17 +1755,6 @@ public class ExternalLinkPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByExternalLinkKey, args, externalLinkModelImpl,
 			false);
-
-		args = new Object[] {
-			externalLinkModelImpl.getDomain(),
-			externalLinkModelImpl.getEntityName(),
-			externalLinkModelImpl.getEntityId()
-		};
-
-		finderCache.putResult(
-			_finderPathCountByD_EN_EI, args, Long.valueOf(1), false);
-		finderCache.putResult(
-			_finderPathFetchByD_EN_EI, args, externalLinkModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
@@ -1391,30 +1778,6 @@ public class ExternalLinkPersistenceImpl
 
 			finderCache.removeResult(_finderPathCountByExternalLinkKey, args);
 			finderCache.removeResult(_finderPathFetchByExternalLinkKey, args);
-		}
-
-		if (clearCurrent) {
-			Object[] args = new Object[] {
-				externalLinkModelImpl.getDomain(),
-				externalLinkModelImpl.getEntityName(),
-				externalLinkModelImpl.getEntityId()
-			};
-
-			finderCache.removeResult(_finderPathCountByD_EN_EI, args);
-			finderCache.removeResult(_finderPathFetchByD_EN_EI, args);
-		}
-
-		if ((externalLinkModelImpl.getColumnBitmask() &
-			 _finderPathFetchByD_EN_EI.getColumnBitmask()) != 0) {
-
-			Object[] args = new Object[] {
-				externalLinkModelImpl.getOriginalDomain(),
-				externalLinkModelImpl.getOriginalEntityName(),
-				externalLinkModelImpl.getOriginalEntityId()
-			};
-
-			finderCache.removeResult(_finderPathCountByD_EN_EI, args);
-			finderCache.removeResult(_finderPathFetchByD_EN_EI, args);
 		}
 	}
 
@@ -1605,6 +1968,17 @@ public class ExternalLinkPersistenceImpl
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindByC_C, args);
 
+			args = new Object[] {
+				externalLinkModelImpl.getClassNameId(),
+				externalLinkModelImpl.getDomain(),
+				externalLinkModelImpl.getEntityName(),
+				externalLinkModelImpl.getEntityId()
+			};
+
+			finderCache.removeResult(_finderPathCountByC_D_EN_EI, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByC_D_EN_EI, args);
+
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
@@ -1631,6 +2005,33 @@ public class ExternalLinkPersistenceImpl
 				finderCache.removeResult(_finderPathCountByC_C, args);
 				finderCache.removeResult(
 					_finderPathWithoutPaginationFindByC_C, args);
+			}
+
+			if ((externalLinkModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByC_D_EN_EI.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					externalLinkModelImpl.getOriginalClassNameId(),
+					externalLinkModelImpl.getOriginalDomain(),
+					externalLinkModelImpl.getOriginalEntityName(),
+					externalLinkModelImpl.getOriginalEntityId()
+				};
+
+				finderCache.removeResult(_finderPathCountByC_D_EN_EI, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByC_D_EN_EI, args);
+
+				args = new Object[] {
+					externalLinkModelImpl.getClassNameId(),
+					externalLinkModelImpl.getDomain(),
+					externalLinkModelImpl.getEntityName(),
+					externalLinkModelImpl.getEntityId()
+				};
+
+				finderCache.removeResult(_finderPathCountByC_D_EN_EI, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByC_D_EN_EI, args);
 			}
 		}
 
@@ -1971,23 +2372,34 @@ public class ExternalLinkPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_C",
 			new String[] {Long.class.getName(), Long.class.getName()});
 
-		_finderPathFetchByD_EN_EI = new FinderPath(
+		_finderPathWithPaginationFindByC_D_EN_EI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, ExternalLinkImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByD_EN_EI",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_D_EN_EI",
 			new String[] {
+				Long.class.getName(), String.class.getName(),
 				String.class.getName(), String.class.getName(),
-				String.class.getName()
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByC_D_EN_EI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, ExternalLinkImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_D_EN_EI",
+			new String[] {
+				Long.class.getName(), String.class.getName(),
+				String.class.getName(), String.class.getName()
 			},
+			ExternalLinkModelImpl.CLASSNAMEID_COLUMN_BITMASK |
 			ExternalLinkModelImpl.DOMAIN_COLUMN_BITMASK |
 			ExternalLinkModelImpl.ENTITYNAME_COLUMN_BITMASK |
 			ExternalLinkModelImpl.ENTITYID_COLUMN_BITMASK);
 
-		_finderPathCountByD_EN_EI = new FinderPath(
+		_finderPathCountByC_D_EN_EI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByD_EN_EI",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_D_EN_EI",
 			new String[] {
-				String.class.getName(), String.class.getName(),
-				String.class.getName()
+				Long.class.getName(), String.class.getName(),
+				String.class.getName(), String.class.getName()
 			});
 	}
 

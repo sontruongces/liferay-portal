@@ -197,6 +197,44 @@ public class AccountServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.AccountSoap[]
+			getAccounts(
+				String domain, String entityName, String entityId, int start,
+				int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+				returnValue = AccountServiceUtil.getAccounts(
+					domain, entityName, entityId, start, end);
+
+			return com.liferay.osb.koroneiki.taproot.model.AccountSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getAccountsCount(
+			String domain, String entityName, String entityId)
+		throws RemoteException {
+
+		try {
+			int returnValue = AccountServiceUtil.getAccountsCount(
+				domain, entityName, entityId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.AccountSoap
 			updateAccount(
 				long accountId, long parentAccountId, String name, String code,

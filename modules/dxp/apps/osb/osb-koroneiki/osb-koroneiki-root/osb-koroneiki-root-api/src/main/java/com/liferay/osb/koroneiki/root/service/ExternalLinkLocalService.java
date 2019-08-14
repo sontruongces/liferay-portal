@@ -225,6 +225,12 @@ public interface ExternalLinkLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ExternalLink> getExternalLinks(
+			long classNameId, String domain, String entityName, String entityId,
+			int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ExternalLink> getExternalLinks(
 		String className, long classPK, int start, int end);
 
 	/**
@@ -237,6 +243,11 @@ public interface ExternalLinkLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getExternalLinksCount(long classNameId, long classPK);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getExternalLinksCount(
+			long classNameId, String domain, String entityName, String entityId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getExternalLinksCount(String className, long classPK);

@@ -281,6 +281,17 @@ public class ExternalLinkLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
+			getExternalLinks(
+				long classNameId, String domain, String entityName,
+				String entityId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _externalLinkLocalService.getExternalLinks(
+			classNameId, domain, entityName, entityId, start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
 		getExternalLinks(String className, long classPK, int start, int end) {
 
 		return _externalLinkLocalService.getExternalLinks(
@@ -301,6 +312,15 @@ public class ExternalLinkLocalServiceWrapper
 	public int getExternalLinksCount(long classNameId, long classPK) {
 		return _externalLinkLocalService.getExternalLinksCount(
 			classNameId, classPK);
+	}
+
+	@Override
+	public int getExternalLinksCount(
+			long classNameId, String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _externalLinkLocalService.getExternalLinksCount(
+			classNameId, domain, entityName, entityId);
 	}
 
 	@Override

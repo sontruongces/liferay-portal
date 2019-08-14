@@ -89,10 +89,27 @@ public class AccountServiceUtil {
 		return getService().getAccounts(parentAccountId, start, end);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.Account> getAccounts(
+				String domain, String entityName, String entityId, int start,
+				int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAccounts(
+			domain, entityName, entityId, start, end);
+	}
+
 	public static int getAccountsCount(long parentAccountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getAccountsCount(parentAccountId);
+	}
+
+	public static int getAccountsCount(
+			String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAccountsCount(domain, entityName, entityId);
 	}
 
 	/**

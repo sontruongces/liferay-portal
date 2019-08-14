@@ -329,6 +329,86 @@ public class AccountServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.Account> getAccounts(
+				HttpPrincipal httpPrincipal, String domain, String entityName,
+				String entityId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AccountServiceUtil.class, "getAccounts",
+				_getAccountsParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, domain, entityName, entityId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.taproot.model.Account>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getAccountsCount(
+			HttpPrincipal httpPrincipal, String domain, String entityName,
+			String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AccountServiceUtil.class, "getAccountsCount",
+				_getAccountsCountParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, domain, entityName, entityId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
 			HttpPrincipal httpPrincipal, long accountId, long parentAccountId,
 			String name, String code, String description, String notes,
@@ -340,7 +420,7 @@ public class AccountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				AccountServiceUtil.class, "updateAccount",
-				_updateAccountParameterTypes7);
+				_updateAccountParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId, parentAccountId, name, code, description,
@@ -386,7 +466,7 @@ public class AccountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				AccountServiceUtil.class, "updateAccount",
-				_updateAccountParameterTypes8);
+				_updateAccountParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey, parentAccountId, name, code, description,
@@ -442,14 +522,19 @@ public class AccountServiceHttp {
 	};
 	private static final Class<?>[] _getAccountsCountParameterTypes6 =
 		new Class[] {long.class};
-	private static final Class<?>[] _updateAccountParameterTypes7 =
+	private static final Class<?>[] _getAccountsParameterTypes7 = new Class[] {
+		String.class, String.class, String.class, int.class, int.class
+	};
+	private static final Class<?>[] _getAccountsCountParameterTypes8 =
+		new Class[] {String.class, String.class, String.class};
+	private static final Class<?>[] _updateAccountParameterTypes9 =
 		new Class[] {
 			long.class, long.class, String.class, String.class, String.class,
 			String.class, long.class, String.class, String.class, String.class,
 			String.class, String.class, String.class, String.class,
 			String.class, int.class
 		};
-	private static final Class<?>[] _updateAccountParameterTypes8 =
+	private static final Class<?>[] _updateAccountParameterTypes10 =
 		new Class[] {
 			String.class, long.class, String.class, String.class, String.class,
 			String.class, long.class, String.class, String.class, String.class,

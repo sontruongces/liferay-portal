@@ -74,7 +74,18 @@ public interface AccountService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Account> getAccounts(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getAccountsCount(long parentAccountId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAccountsCount(
+			String domain, String entityName, String entityId)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
