@@ -95,14 +95,14 @@ public interface TeamAccountRolePersistence
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
 	public java.util.List<TeamAccountRole> findByTeamId(
 		long teamId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first team account role in the ordered set where teamId = &#63;.
@@ -238,14 +238,14 @@ public interface TeamAccountRolePersistence
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
 	public java.util.List<TeamAccountRole> findByAccountId(
 		long accountId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first team account role in the ordered set where accountId = &#63;.
@@ -381,14 +381,14 @@ public interface TeamAccountRolePersistence
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
 	public java.util.List<TeamAccountRole> findByTeamRoleId(
 		long teamRoleId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first team account role in the ordered set where teamRoleId = &#63;.
@@ -529,14 +529,14 @@ public interface TeamAccountRolePersistence
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
 	public java.util.List<TeamAccountRole> findByT_A(
 		long teamId, long accountId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first team account role in the ordered set where teamId = &#63; and accountId = &#63;.
@@ -727,14 +727,14 @@ public interface TeamAccountRolePersistence
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of team account roles
 	 */
 	public java.util.List<TeamAccountRole> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the team account roles from the database.

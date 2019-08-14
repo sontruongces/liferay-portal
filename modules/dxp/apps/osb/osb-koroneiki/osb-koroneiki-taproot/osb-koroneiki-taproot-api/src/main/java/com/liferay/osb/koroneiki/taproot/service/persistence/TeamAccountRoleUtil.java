@@ -185,16 +185,16 @@ public class TeamAccountRoleUtil {
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
 	public static List<TeamAccountRole> findByTeamId(
 		long teamId, int start, int end,
 		OrderByComparator<TeamAccountRole> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTeamId(
-			teamId, start, end, orderByComparator, retrieveFromCache);
+			teamId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -353,16 +353,16 @@ public class TeamAccountRoleUtil {
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
 	public static List<TeamAccountRole> findByAccountId(
 		long accountId, int start, int end,
 		OrderByComparator<TeamAccountRole> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByAccountId(
-			accountId, start, end, orderByComparator, retrieveFromCache);
+			accountId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -527,16 +527,16 @@ public class TeamAccountRoleUtil {
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
 	public static List<TeamAccountRole> findByTeamRoleId(
 		long teamRoleId, int start, int end,
 		OrderByComparator<TeamAccountRole> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTeamRoleId(
-			teamRoleId, start, end, orderByComparator, retrieveFromCache);
+			teamRoleId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -705,17 +705,16 @@ public class TeamAccountRoleUtil {
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
 	public static List<TeamAccountRole> findByT_A(
 		long teamId, long accountId, int start, int end,
 		OrderByComparator<TeamAccountRole> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByT_A(
-			teamId, accountId, start, end, orderByComparator,
-			retrieveFromCache);
+			teamId, accountId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -955,16 +954,16 @@ public class TeamAccountRoleUtil {
 	 * @param start the lower bound of the range of team account roles
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of team account roles
 	 */
 	public static List<TeamAccountRole> findAll(
 		int start, int end,
 		OrderByComparator<TeamAccountRole> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
