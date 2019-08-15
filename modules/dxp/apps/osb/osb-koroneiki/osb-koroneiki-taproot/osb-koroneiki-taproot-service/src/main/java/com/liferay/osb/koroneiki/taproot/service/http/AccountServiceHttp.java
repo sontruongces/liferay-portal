@@ -291,44 +291,6 @@ public class AccountServiceHttp {
 		}
 	}
 
-	public static int getAccountsCount(
-			HttpPrincipal httpPrincipal, long parentAccountId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				AccountServiceUtil.class, "getAccountsCount",
-				_getAccountsCountParameterTypes6);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, parentAccountId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.Account> getAccounts(
 				HttpPrincipal httpPrincipal, String domain, String entityName,
@@ -338,7 +300,7 @@ public class AccountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				AccountServiceUtil.class, "getAccounts",
-				_getAccountsParameterTypes7);
+				_getAccountsParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId, start, end);
@@ -362,6 +324,44 @@ public class AccountServiceHttp {
 
 			return (java.util.List
 				<com.liferay.osb.koroneiki.taproot.model.Account>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getAccountsCount(
+			HttpPrincipal httpPrincipal, long parentAccountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AccountServiceUtil.class, "getAccountsCount",
+				_getAccountsCountParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, parentAccountId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -520,11 +520,11 @@ public class AccountServiceHttp {
 	private static final Class<?>[] _getAccountsParameterTypes5 = new Class[] {
 		long.class, int.class, int.class
 	};
-	private static final Class<?>[] _getAccountsCountParameterTypes6 =
-		new Class[] {long.class};
-	private static final Class<?>[] _getAccountsParameterTypes7 = new Class[] {
+	private static final Class<?>[] _getAccountsParameterTypes6 = new Class[] {
 		String.class, String.class, String.class, int.class, int.class
 	};
+	private static final Class<?>[] _getAccountsCountParameterTypes7 =
+		new Class[] {long.class};
 	private static final Class<?>[] _getAccountsCountParameterTypes8 =
 		new Class[] {String.class, String.class, String.class};
 	private static final Class<?>[] _updateAccountParameterTypes9 =
