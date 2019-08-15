@@ -26,8 +26,8 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"create.topic=koroneiki.account.assigned.teamrole",
-		"remove.topic=koroneiki.account.unassigned.teamrole"
+		"create.topic=koroneiki.account.teamrole.assigned",
+		"remove.topic=koroneiki.account.teamrole.unassigned"
 	},
 	service = ModelListener.class
 )

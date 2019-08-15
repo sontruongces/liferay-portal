@@ -43,10 +43,10 @@ public class ContactAccountRoleModelListener
 		ContactRole contactRole = contactAccountRole.getContactRole();
 
 		if (contactRole.isMember()) {
-			return "koroneiki.account.assigned.contact";
+			return "koroneiki.account.contact.assigned";
 		}
 
-		return "koroneiki.account.assigned.contactrole";
+		return "koroneiki.account.contactrole.assigned";
 	}
 
 	@Override
@@ -56,10 +56,10 @@ public class ContactAccountRoleModelListener
 		ContactRole contactRole = contactAccountRole.getContactRole();
 
 		if (contactRole.isMember()) {
-			return "koroneiki.account.unassigned.contact";
+			return "koroneiki.account.contact.unassigned";
 		}
 
-		return "koroneiki.account.unassigned.contactrole";
+		return "koroneiki.account.contactrole.unassigned";
 	}
 
 }
