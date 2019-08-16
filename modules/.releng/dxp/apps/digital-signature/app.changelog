@@ -8,3 +8,16 @@ app.artifacts-1.0.0=\
 app.change.log-1.0.0=LPS-90590 LPS-91420 LPS-94085 LPS-95413 LPS-95555
 
 app.git.id-1.0.0=9094583983554fe632bcceec86440a682a6daead
+
+#
+# Liferay App Version 1.0.1
+#
+
+app.artifacts-1.0.1=\
+	com.liferay.digital.signature.adapter.spi-1.0.1.jar,\
+	com.liferay.digital.signature.api-1.0.2.jar,\
+	com.liferay.digital.signature.impl-1.0.4.jar
+
+app.change.log-1.0.1=LPS-84119 LPS-90590 LPS-91420 LPS-94085 LPS-95413 LPS-95555
+
+app.git.id-1.0.1=dcf5a45b028847e7ac3983f30f769c1864c03033
