@@ -3025,4 +3025,13 @@ public class ContactTeamRolePersistenceImpl
 	private static final Set<String> _compoundPKColumnNames = SetUtil.fromArray(
 		new String[] {"contactId", "teamId", "contactRoleId"});
 
+	static {
+		try {
+			Class.forName(KoroneikiPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
+
 }

@@ -86,4 +86,13 @@ public abstract class ContactFinderBaseImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		ContactFinderBaseImpl.class);
 
+	static {
+		try {
+			Class.forName(KoroneikiPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
+
 }

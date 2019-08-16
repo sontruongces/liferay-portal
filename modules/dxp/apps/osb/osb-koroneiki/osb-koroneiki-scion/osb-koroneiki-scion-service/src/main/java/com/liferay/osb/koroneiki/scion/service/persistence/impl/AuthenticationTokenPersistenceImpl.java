@@ -2091,4 +2091,13 @@ public class AuthenticationTokenPersistenceImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		AuthenticationTokenPersistenceImpl.class);
 
+	static {
+		try {
+			Class.forName(KoroneikiPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
+
 }
