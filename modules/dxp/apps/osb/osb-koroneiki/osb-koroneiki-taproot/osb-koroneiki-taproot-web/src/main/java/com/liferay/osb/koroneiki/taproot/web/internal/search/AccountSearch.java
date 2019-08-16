@@ -58,7 +58,8 @@ public class AccountSearch extends SearchContainer<Account> {
 			new DisplayTerms(portletRequest), DEFAULT_CUR_PARAM, DEFAULT_DELTA,
 			iteratorURL, headerNames, EMPTY_RESULTS_MESSAGE);
 
-		String orderByCol = ParamUtil.getString(portletRequest, "orderByCol");
+		String orderByCol = ParamUtil.getString(
+			portletRequest, "orderByCol", "name");
 		String orderByType = ParamUtil.getString(portletRequest, "orderByType");
 
 		setOrderableHeaders(orderableHeaders);
