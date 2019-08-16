@@ -8,18 +8,3 @@ app.artifacts-2.0.0=\
 app.change.log-2.0.0=LPS-77425 LPS-80332 LPS-80517 LPS-82420 LPS-82828 LPS-84093 LPS-85296 LPS-93857 LPS-95413 LPS-95555
 
 app.git.id-2.0.0=9094583983554fe632bcceec86440a682a6daead
-
-#
-# Liferay App Version 2.0.1
-#
-
-app.artifacts-2.0.1=\
-	com.liferay.portal.scripting.api-3.0.3.jar,\
-	com.liferay.portal.scripting.executor-5.0.2.jar,\
-	com.liferay.portal.scripting.groovy-4.0.1.jar,\
-	com.liferay.portal.scripting.groovy.context.api-2.0.1.jar,\
-	com.liferay.portal.scripting.impl-2.0.0.jar
-
-app.change.log-2.0.1=LPS-77425 LPS-80332 LPS-80517 LPS-82420 LPS-82828 LPS-84093 LPS-84119 LPS-85296 LPS-93857 LPS-95413 LPS-95555 LPS-95705 LPS-98481
-
-app.git.id-2.0.1=18e6c198f0b9d124956a22b3f6097dab0074028c

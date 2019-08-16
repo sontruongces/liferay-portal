@@ -8,14 +8,3 @@ app.artifacts-2.0.0=\
 app.change.log-2.0.0=LPS-77425 LPS-80332 LPS-84119
 
 app.git.id-2.0.0=9094583983554fe632bcceec86440a682a6daead
-
-#
-# Liferay App Version 2.0.1
-#
-
-app.artifacts-2.0.1=\
-	com.liferay.portal.reports.engine.api-5.0.0.jar
-
-app.change.log-2.0.1=LPS-77425 LPS-80332 LPS-84119
-
-app.git.id-2.0.1=18e6c198f0b9d124956a22b3f6097dab0074028c
