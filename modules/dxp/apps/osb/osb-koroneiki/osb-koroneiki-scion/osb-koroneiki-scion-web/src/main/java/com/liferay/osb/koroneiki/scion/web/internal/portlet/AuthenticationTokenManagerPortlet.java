@@ -22,8 +22,12 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.io.IOException;
+
 import javax.portlet.Portlet;
-import javax.portlet.PortletRequest;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -48,9 +52,11 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class AuthenticationTokenManagerPortlet extends MVCPortlet {
 
-	@Override
-	protected boolean isProcessPortletRequest(PortletRequest portletRequest) {
-		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
+	public void render(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		ServiceProducer serviceProducer =
@@ -58,13 +64,11 @@ public class AuthenticationTokenManagerPortlet extends MVCPortlet {
 				themeDisplay.getUserId());
 
 		if (serviceProducer != null) {
-			portletRequest.setAttribute(
+			renderRequest.setAttribute(
 				ScionWebKeys.SERVICE_PRODUCER, serviceProducer);
 
-			return true;
+			super.render(renderRequest, renderResponse);
 		}
-
-		return false;
 	}
 
 	@Reference
