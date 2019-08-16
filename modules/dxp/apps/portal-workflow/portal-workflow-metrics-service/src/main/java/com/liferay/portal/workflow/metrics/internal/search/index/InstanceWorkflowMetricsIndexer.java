@@ -159,8 +159,9 @@ public class InstanceWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 			_kaleoInstanceLocalService.getActionableDynamicQuery();
 
 		actionableDynamicQuery.setPerformActionMethod(
-			(KaleoInstance kaleoInstance) -> addDocument(
-				createDocument(kaleoInstance)));
+			(KaleoInstance kaleoInstance) ->
+				workflowMetricsPortalExecutor.execute(
+					() -> addDocument(createDocument(kaleoInstance))));
 
 		actionableDynamicQuery.performActions();
 	}

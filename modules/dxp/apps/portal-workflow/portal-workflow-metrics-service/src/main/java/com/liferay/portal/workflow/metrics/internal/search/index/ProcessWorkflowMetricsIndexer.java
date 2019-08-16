@@ -136,8 +136,9 @@ public class ProcessWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 			_kaleoDefinitionLocalService.getActionableDynamicQuery();
 
 		actionableDynamicQuery.setPerformActionMethod(
-			(KaleoDefinition kaleoDefinition) -> addDocument(
-				createDocument(kaleoDefinition)));
+			(KaleoDefinition kaleoDefinition) ->
+				workflowMetricsPortalExecutor.execute(
+					() -> addDocument(createDocument(kaleoDefinition))));
 
 		actionableDynamicQuery.performActions();
 	}
