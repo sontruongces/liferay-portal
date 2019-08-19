@@ -107,9 +107,4 @@ public interface ProductPurchaseService extends BaseService {
 			List<ProductField> productFields)
 		throws PortalException;
 
-	public ProductPurchase updateProductPurchase(
-			String productPurchaseKey, Date startDate, Date endDate,
-			int quantity, List<ProductField> productFields)
-		throws PortalException;
-
 }

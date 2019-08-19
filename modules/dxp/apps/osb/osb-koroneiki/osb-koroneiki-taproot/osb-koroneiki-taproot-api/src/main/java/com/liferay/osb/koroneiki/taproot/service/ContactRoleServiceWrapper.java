@@ -94,16 +94,6 @@ public class ContactRoleServiceWrapper
 	}
 
 	@Override
-	public com.liferay.osb.koroneiki.taproot.model.ContactRole
-			updateContactRole(
-				String contactRoleKey, String name, String description)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _contactRoleService.updateContactRole(
-			contactRoleKey, name, description);
-	}
-
-	@Override
 	public ContactRoleService getWrappedService() {
 		return _contactRoleService;
 	}

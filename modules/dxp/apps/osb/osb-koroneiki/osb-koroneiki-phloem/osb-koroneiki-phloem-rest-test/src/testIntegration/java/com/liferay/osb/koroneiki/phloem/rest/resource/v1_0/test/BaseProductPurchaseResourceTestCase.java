@@ -445,6 +445,14 @@ public abstract class BaseProductPurchaseResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("perpetual", additionalAssertFieldName)) {
+				if (productPurchase.getPerpetual() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("product", additionalAssertFieldName)) {
 				if (productPurchase.getProduct() == null) {
 					valid = false;
@@ -576,6 +584,17 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			if (Objects.equals("key", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						productPurchase1.getKey(), productPurchase2.getKey())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("perpetual", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						productPurchase1.getPerpetual(),
+						productPurchase2.getPerpetual())) {
 
 					return false;
 				}
@@ -783,6 +802,11 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("perpetual")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("product")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -850,6 +874,7 @@ public abstract class BaseProductPurchaseResourceTestCase {
 				dateCreated = RandomTestUtil.nextDate();
 				endDate = RandomTestUtil.nextDate();
 				key = RandomTestUtil.randomString();
+				perpetual = RandomTestUtil.randomBoolean();
 				productKey = RandomTestUtil.randomString();
 				startDate = RandomTestUtil.nextDate();
 			}

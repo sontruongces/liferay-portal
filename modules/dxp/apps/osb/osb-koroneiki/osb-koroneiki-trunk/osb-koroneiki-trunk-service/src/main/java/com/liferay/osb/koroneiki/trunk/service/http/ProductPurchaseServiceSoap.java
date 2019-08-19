@@ -291,31 +291,6 @@ public class ProductPurchaseServiceSoap {
 		}
 	}
 
-	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap
-			updateProductPurchase(
-				String productPurchaseKey, java.util.Date startDate,
-				java.util.Date endDate, int quantity,
-				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
-					productFields)
-		throws RemoteException {
-
-		try {
-			com.liferay.osb.koroneiki.trunk.model.ProductPurchase returnValue =
-				ProductPurchaseServiceUtil.updateProductPurchase(
-					productPurchaseKey, startDate, endDate, quantity,
-					com.liferay.osb.koroneiki.trunk.model.impl.
-						ProductFieldModelImpl.toModels(productFields));
-
-			return com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap.
-				toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(
 		ProductPurchaseServiceSoap.class);
 

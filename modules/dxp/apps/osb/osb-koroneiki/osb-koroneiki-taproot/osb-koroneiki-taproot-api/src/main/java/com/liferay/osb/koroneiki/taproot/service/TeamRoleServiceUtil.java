@@ -90,13 +90,6 @@ public class TeamRoleServiceUtil {
 		return getService().updateTeamRole(teamRoleId, name, description);
 	}
 
-	public static com.liferay.osb.koroneiki.taproot.model.TeamRole
-			updateTeamRole(String teamRoleKey, String name, String description)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().updateTeamRole(teamRoleKey, name, description);
-	}
-
 	public static TeamRoleService getService() {
 		return _serviceTracker.getService();
 	}

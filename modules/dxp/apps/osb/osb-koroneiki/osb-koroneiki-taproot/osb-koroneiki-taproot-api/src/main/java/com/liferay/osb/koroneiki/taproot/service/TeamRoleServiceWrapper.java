@@ -92,14 +92,6 @@ public class TeamRoleServiceWrapper
 	}
 
 	@Override
-	public com.liferay.osb.koroneiki.taproot.model.TeamRole updateTeamRole(
-			String teamRoleKey, String name, String description)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _teamRoleService.updateTeamRole(teamRoleKey, name, description);
-	}
-
-	@Override
 	public TeamRoleService getWrappedService() {
 		return _teamRoleService;
 	}

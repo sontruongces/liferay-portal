@@ -133,6 +133,27 @@ public class ProductPurchase {
 
 	protected String key;
 
+	public Boolean getPerpetual() {
+		return perpetual;
+	}
+
+	public void setPerpetual(Boolean perpetual) {
+		this.perpetual = perpetual;
+	}
+
+	public void setPerpetual(
+		UnsafeSupplier<Boolean, Exception> perpetualUnsafeSupplier) {
+
+		try {
+			perpetual = perpetualUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean perpetual;
+
 	public Product getProduct() {
 		return product;
 	}

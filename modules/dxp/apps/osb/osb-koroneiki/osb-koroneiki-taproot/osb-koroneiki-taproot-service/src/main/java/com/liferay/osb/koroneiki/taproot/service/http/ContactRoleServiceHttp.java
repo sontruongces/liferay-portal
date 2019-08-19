@@ -293,47 +293,6 @@ public class ContactRoleServiceHttp {
 		}
 	}
 
-	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
-			updateContactRole(
-				HttpPrincipal httpPrincipal, String contactRoleKey, String name,
-				String description)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ContactRoleServiceUtil.class, "updateContactRole",
-				_updateContactRoleParameterTypes6);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, contactRoleKey, name, description);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return (com.liferay.osb.koroneiki.taproot.model.ContactRole)
-				returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(
 		ContactRoleServiceHttp.class);
 
@@ -349,7 +308,5 @@ public class ContactRoleServiceHttp {
 		new Class[] {String.class};
 	private static final Class<?>[] _updateContactRoleParameterTypes5 =
 		new Class[] {long.class, String.class, String.class};
-	private static final Class<?>[] _updateContactRoleParameterTypes6 =
-		new Class[] {String.class, String.class, String.class};
 
 }

@@ -191,6 +191,36 @@ public class ProductPurchase {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
+	@Schema(
+		description = "A flag that identifies if the product purchase does not have a start and end date."
+	)
+	public Boolean getPerpetual() {
+		return perpetual;
+	}
+
+	public void setPerpetual(Boolean perpetual) {
+		this.perpetual = perpetual;
+	}
+
+	@JsonIgnore
+	public void setPerpetual(
+		UnsafeSupplier<Boolean, Exception> perpetualUnsafeSupplier) {
+
+		try {
+			perpetual = perpetualUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean perpetual;
+
 	@Schema(description = "The product that is being purchased.")
 	public Product getProduct() {
 		return product;
@@ -437,6 +467,16 @@ public class ProductPurchase {
 			sb.append(_escape(key));
 
 			sb.append("\"");
+		}
+
+		if (perpetual != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"perpetual\": ");
+
+			sb.append(perpetual);
 		}
 
 		if (product != null) {

@@ -515,51 +515,6 @@ public class ProductPurchaseServiceHttp {
 		}
 	}
 
-	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
-			updateProductPurchase(
-				HttpPrincipal httpPrincipal, String productPurchaseKey,
-				java.util.Date startDate, java.util.Date endDate, int quantity,
-				java.util.List
-					<com.liferay.osb.koroneiki.trunk.model.ProductField>
-						productFields)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ProductPurchaseServiceUtil.class, "updateProductPurchase",
-				_updateProductPurchaseParameterTypes11);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, productPurchaseKey, startDate, endDate, quantity,
-				productFields);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return (com.liferay.osb.koroneiki.trunk.model.ProductPurchase)
-				returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(
 		ProductPurchaseServiceHttp.class);
 
@@ -596,11 +551,6 @@ public class ProductPurchaseServiceHttp {
 	private static final Class<?>[] _updateProductPurchaseParameterTypes10 =
 		new Class[] {
 			long.class, java.util.Date.class, java.util.Date.class, int.class,
-			java.util.List.class
-		};
-	private static final Class<?>[] _updateProductPurchaseParameterTypes11 =
-		new Class[] {
-			String.class, java.util.Date.class, java.util.Date.class, int.class,
 			java.util.List.class
 		};
 

@@ -73,8 +73,4 @@ public interface TeamRoleService extends BaseService {
 			long teamRoleId, String name, String description)
 		throws PortalException;
 
-	public TeamRole updateTeamRole(
-			String teamRoleKey, String name, String description)
-		throws PortalException;
-
 }

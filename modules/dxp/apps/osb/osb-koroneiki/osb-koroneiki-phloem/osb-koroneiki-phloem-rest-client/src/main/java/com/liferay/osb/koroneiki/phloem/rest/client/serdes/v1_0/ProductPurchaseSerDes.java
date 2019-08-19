@@ -145,6 +145,16 @@ public class ProductPurchaseSerDes {
 			sb.append("\"");
 		}
 
+		if (productPurchase.getPerpetual() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"perpetual\": ");
+
+			sb.append(productPurchase.getPerpetual());
+		}
+
 		if (productPurchase.getProduct() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -256,6 +266,14 @@ public class ProductPurchaseSerDes {
 		}
 		else {
 			map.put("key", String.valueOf(productPurchase.getKey()));
+		}
+
+		if (productPurchase.getPerpetual() == null) {
+			map.put("perpetual", null);
+		}
+		else {
+			map.put(
+				"perpetual", String.valueOf(productPurchase.getPerpetual()));
 		}
 
 		if (productPurchase.getProduct() == null) {
@@ -382,6 +400,11 @@ public class ProductPurchaseSerDes {
 			else if (Objects.equals(jsonParserFieldName, "key")) {
 				if (jsonParserFieldValue != null) {
 					productPurchase.setKey((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "perpetual")) {
+				if (jsonParserFieldValue != null) {
+					productPurchase.setPerpetual((Boolean)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "product")) {

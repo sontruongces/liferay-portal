@@ -77,8 +77,4 @@ public interface ContactRoleService extends BaseService {
 			long contactRoleId, String name, String description)
 		throws PortalException;
 
-	public ContactRole updateContactRole(
-			String contactRoleKey, String name, String description)
-		throws PortalException;
-
 }

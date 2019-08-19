@@ -146,19 +146,6 @@ public class ProductPurchaseServiceUtil {
 			productPurchaseId, startDate, endDate, quantity, productFields);
 	}
 
-	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
-			updateProductPurchase(
-				String productPurchaseKey, java.util.Date startDate,
-				java.util.Date endDate, int quantity,
-				java.util.List
-					<com.liferay.osb.koroneiki.trunk.model.ProductField>
-						productFields)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().updateProductPurchase(
-			productPurchaseKey, startDate, endDate, quantity, productFields);
-	}
-
 	public static ProductPurchaseService getService() {
 		return _serviceTracker.getService();
 	}

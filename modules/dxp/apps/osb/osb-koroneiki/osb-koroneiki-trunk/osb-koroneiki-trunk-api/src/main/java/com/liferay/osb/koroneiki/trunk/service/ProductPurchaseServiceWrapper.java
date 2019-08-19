@@ -157,20 +157,6 @@ public class ProductPurchaseServiceWrapper
 	}
 
 	@Override
-	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
-			updateProductPurchase(
-				String productPurchaseKey, java.util.Date startDate,
-				java.util.Date endDate, int quantity,
-				java.util.List
-					<com.liferay.osb.koroneiki.trunk.model.ProductField>
-						productFields)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _productPurchaseService.updateProductPurchase(
-			productPurchaseKey, startDate, endDate, quantity, productFields);
-	}
-
-	@Override
 	public ProductPurchaseService getWrappedService() {
 		return _productPurchaseService;
 	}
