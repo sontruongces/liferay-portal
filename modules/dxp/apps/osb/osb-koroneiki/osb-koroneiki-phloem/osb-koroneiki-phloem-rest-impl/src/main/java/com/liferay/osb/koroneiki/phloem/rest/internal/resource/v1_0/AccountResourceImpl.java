@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -164,12 +165,29 @@ public class AccountResourceImpl
 
 	@Override
 	public Account postAccount(Account account) throws Exception {
+		String industry = StringPool.BLANK;
+
 		Account.Industry accountIndustry = account.getIndustry();
+
+		if (accountIndustry != null) {
+			industry = accountIndustry.toString();
+		}
+
+		String tier = StringPool.BLANK;
+
 		Account.Tier accountTier = account.getTier();
+
+		if (accountTier != null) {
+			tier = accountTier.toString();
+		}
+
+		int status = WorkflowConstants.STATUS_APPROVED;
 
 		Account.Status accountStatus = account.getStatus();
 
-		int status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+		if (accountStatus != null) {
+			status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+		}
 
 		return AccountUtil.toAccount(
 			_accountService.addAccount(
@@ -177,8 +195,7 @@ public class AccountResourceImpl
 				account.getDescription(), account.getNotes(), 0,
 				account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(),
-				accountIndustry.toString(), accountTier.toString(),
+				account.getFaxNumber(), account.getWebsite(), industry, tier,
 				account.getSoldBy(), status),
 			contextAcceptLanguage.getPreferredLocale(), null);
 	}
@@ -190,12 +207,29 @@ public class AccountResourceImpl
 		com.liferay.osb.koroneiki.taproot.model.Account parentAccount =
 			_accountLocalService.getAccount(accountKey);
 
+		String industry = StringPool.BLANK;
+
 		Account.Industry accountIndustry = account.getIndustry();
+
+		if (accountIndustry != null) {
+			industry = accountIndustry.toString();
+		}
+
+		String tier = StringPool.BLANK;
+
 		Account.Tier accountTier = account.getTier();
+
+		if (accountTier != null) {
+			tier = accountTier.toString();
+		}
+
+		int status = WorkflowConstants.STATUS_APPROVED;
 
 		Account.Status accountStatus = account.getStatus();
 
-		int status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+		if (accountStatus != null) {
+			status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+		}
 
 		return AccountUtil.toAccount(
 			_accountService.addAccount(
@@ -203,8 +237,7 @@ public class AccountResourceImpl
 				account.getCode(), account.getDescription(), account.getNotes(),
 				0, account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(),
-				accountIndustry.toString(), accountTier.toString(),
+				account.getFaxNumber(), account.getWebsite(), industry, tier,
 				account.getSoldBy(), status),
 			contextAcceptLanguage.getPreferredLocale(), null);
 	}
@@ -216,22 +249,58 @@ public class AccountResourceImpl
 		com.liferay.osb.koroneiki.taproot.model.Account curAccount =
 			_accountLocalService.getAccount(accountKey);
 
+		String code = GetterUtil.getString(
+			account.getCode(), curAccount.getCode());
+		String description = GetterUtil.getString(
+			account.getDescription(), curAccount.getDescription());
+		String notes = GetterUtil.getString(
+			account.getNotes(), curAccount.getNotes());
+		String contactEmailAddress = GetterUtil.getString(
+			account.getContactEmailAddress(),
+			curAccount.getContactEmailAddress());
+		String profileEmailAddress = GetterUtil.getString(
+			account.getProfileEmailAddress(),
+			curAccount.getProfileEmailAddress());
+		String phoneNumber = GetterUtil.getString(
+			account.getPhoneNumber(), curAccount.getPhoneNumber());
+		String faxNumber = GetterUtil.getString(
+			account.getFaxNumber(), curAccount.getFaxNumber());
+		String website = GetterUtil.getString(
+			account.getWebsite(), curAccount.getWebsite());
+
+		String industry = curAccount.getIndustry();
+
 		Account.Industry accountIndustry = account.getIndustry();
+
+		if (accountIndustry != null) {
+			industry = accountIndustry.toString();
+		}
+
+		String tier = curAccount.getTier();
+
 		Account.Tier accountTier = account.getTier();
+
+		if (accountTier != null) {
+			tier = accountTier.toString();
+		}
+
+		String soldBy = GetterUtil.getString(
+			account.getSoldBy(), curAccount.getSoldBy());
+
+		int status = curAccount.getStatus();
 
 		Account.Status accountStatus = account.getStatus();
 
-		int status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+		if (accountStatus != null) {
+			status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+		}
 
 		return AccountUtil.toAccount(
 			_accountService.updateAccount(
 				accountKey, curAccount.getParentAccountId(), account.getName(),
-				account.getCode(), account.getDescription(), account.getNotes(),
-				0, account.getContactEmailAddress(),
-				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(),
-				accountIndustry.toString(), accountTier.toString(),
-				account.getSoldBy(), status),
+				code, description, notes, 0, contactEmailAddress,
+				profileEmailAddress, phoneNumber, faxNumber, website, industry,
+				tier, soldBy, status),
 			contextAcceptLanguage.getPreferredLocale(), null);
 	}
 

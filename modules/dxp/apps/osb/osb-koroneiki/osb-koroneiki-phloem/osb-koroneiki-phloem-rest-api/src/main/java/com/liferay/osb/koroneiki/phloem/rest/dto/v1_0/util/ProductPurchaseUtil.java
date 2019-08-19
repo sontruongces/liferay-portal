@@ -37,6 +37,16 @@ public class ProductPurchaseUtil {
 					productPurchase.getExternalLinks(),
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);
 				key = productPurchase.getProductPurchaseKey();
+
+				if ((productPurchase.getEndDate() == null) &&
+					(productPurchase.getEndDate() == null)) {
+
+					perpetual = Boolean.TRUE;
+				}
+				else {
+					perpetual = Boolean.FALSE;
+				}
+
 				product = ProductUtil.toProduct(
 					productPurchase.getProductEntry());
 				productKey = productPurchase.getProductEntryKey();

@@ -90,19 +90,6 @@ public class TeamRoleServiceImpl extends TeamRoleServiceBaseImpl {
 			getUserId(), teamRoleId, name, description);
 	}
 
-	public TeamRole updateTeamRole(
-			String teamRoleKey, String name, String description)
-		throws PortalException {
-
-		TeamRole teamRole = teamRoleLocalService.getTeamRole(teamRoleKey);
-
-		_teamRolePermission.check(
-			getPermissionChecker(), teamRole, ActionKeys.UPDATE);
-
-		return teamRoleLocalService.updateTeamRole(
-			getUserId(), teamRole.getTeamRoleId(), name, description);
-	}
-
 	@Reference
 	private TeamRolePermission _teamRolePermission;
 

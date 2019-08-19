@@ -18,7 +18,9 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
+import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamRoleService;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -59,10 +61,19 @@ public class TeamRoleResourceImpl extends BaseTeamRoleResourceImpl {
 	public TeamRole putTeamRole(String teamRoleKey, TeamRole teamRole)
 		throws Exception {
 
+		com.liferay.osb.koroneiki.taproot.model.TeamRole curTeamRole =
+			_teamRoleLocalService.getTeamRole(teamRoleKey);
+
+		String description = GetterUtil.getString(
+			teamRole.getDescription(), curTeamRole.getDescription());
+
 		return TeamRoleUtil.toTeamRole(
 			_teamRoleService.updateTeamRole(
-				teamRoleKey, teamRole.getName(), teamRole.getDescription()));
+				curTeamRole.getTeamRoleId(), teamRole.getName(), description));
 	}
+
+	@Reference
+	private TeamRoleLocalService _teamRoleLocalService;
 
 	@Reference
 	private TeamRoleService _teamRoleService;

@@ -101,20 +101,6 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 			contactRoleId, name, description);
 	}
 
-	public ContactRole updateContactRole(
-			String contactRoleKey, String name, String description)
-		throws PortalException {
-
-		ContactRole contactRole = contactRoleLocalService.getContactRole(
-			contactRoleKey);
-
-		_contactRolePermission.check(
-			getPermissionChecker(), contactRole, ActionKeys.UPDATE);
-
-		return contactRoleLocalService.updateContactRole(
-			contactRole.getContactRoleId(), name, description);
-	}
-
 	@Reference
 	private ContactRolePermission _contactRolePermission;
 

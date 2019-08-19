@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactRoleEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
+import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
@@ -100,14 +101,23 @@ public class ContactRoleResourceImpl
 			String contactRoleKey, ContactRole contactRole)
 		throws Exception {
 
+		com.liferay.osb.koroneiki.taproot.model.ContactRole curContactRole =
+			_contactRoleLocalService.getContactRole(contactRoleKey);
+
+		String description = GetterUtil.getString(
+			contactRole.getDescription(), curContactRole.getDescription());
+
 		return ContactRoleUtil.toContactRole(
 			_contactRoleService.updateContactRole(
-				contactRoleKey, contactRole.getName(),
-				contactRole.getDescription()));
+				curContactRole.getContactRoleId(), contactRole.getName(),
+				description));
 	}
 
 	private static final EntityModel _entityModel =
 		new ContactRoleEntityModel();
+
+	@Reference
+	private ContactRoleLocalService _contactRoleLocalService;
 
 	@Reference
 	private ContactRoleService _contactRoleService;

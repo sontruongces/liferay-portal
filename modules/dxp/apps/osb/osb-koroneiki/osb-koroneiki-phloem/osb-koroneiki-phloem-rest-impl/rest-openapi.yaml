@@ -394,6 +394,9 @@ components:
                     description: The product purchase's key.
                     readOnly: true
                     type: string
+                perpetual:
+                    description: A flag that identifies if the product purchase has a start and end date.
+                    type: boolean
                 product:
                     description: The product that is being purchased.
                     items:

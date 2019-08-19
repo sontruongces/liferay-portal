@@ -19,11 +19,14 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
+import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -77,15 +80,24 @@ public class ProductPurchaseResourceImpl
 			String accountKey, ProductPurchase productPurchase)
 		throws Exception {
 
-		int quantity = getQuantity(productPurchase.getQuantity());
+		Date startDate = productPurchase.getStartDate();
+		Date endDate = productPurchase.getEndDate();
+
+		if ((productPurchase.getPerpetual() != null) &&
+			productPurchase.getPerpetual()) {
+
+			startDate = null;
+			endDate = null;
+		}
+
+		int quantity = GetterUtil.getInteger(productPurchase.getQuantity(), 1);
 
 		List<ProductField> productFields = getProductFields(
-			productPurchase.getProperties());
+			productPurchase.getProperties(), null);
 
 		return ProductPurchaseUtil.toProductPurchase(
 			_productPurchaseService.addProductPurchase(
-				accountKey, productPurchase.getProductKey(),
-				productPurchase.getStartDate(), productPurchase.getEndDate(),
+				accountKey, productPurchase.getProductKey(), startDate, endDate,
 				quantity, productFields));
 	}
 
@@ -94,25 +106,52 @@ public class ProductPurchaseResourceImpl
 			String productPurchaseKey, ProductPurchase productPurchase)
 		throws Exception {
 
-		int quantity = getQuantity(productPurchase.getQuantity());
+		com.liferay.osb.koroneiki.trunk.model.ProductPurchase
+			curProductPurchase =
+				_productPurchaseLocalService.getProductPurchase(
+					productPurchaseKey);
+
+		Date startDate = productPurchase.getStartDate();
+
+		if (startDate == null) {
+			startDate = curProductPurchase.getStartDate();
+		}
+
+		Date endDate = productPurchase.getEndDate();
+
+		if (endDate == null) {
+			endDate = curProductPurchase.getEndDate();
+		}
+
+		if ((productPurchase.getPerpetual() != null) &&
+			productPurchase.getPerpetual()) {
+
+			startDate = null;
+			endDate = null;
+		}
+
+		int quantity = GetterUtil.getInteger(
+			productPurchase.getQuantity(), curProductPurchase.getQuantity());
 
 		List<ProductField> productFields = getProductFields(
-			productPurchase.getProperties());
+			productPurchase.getProperties(),
+			curProductPurchase.getProductFields());
 
 		return ProductPurchaseUtil.toProductPurchase(
 			_productPurchaseService.updateProductPurchase(
-				productPurchaseKey, productPurchase.getStartDate(),
-				productPurchase.getEndDate(), quantity, productFields));
+				curProductPurchase.getProductPurchaseId(), startDate, endDate,
+				quantity, productFields));
 	}
 
 	protected List<ProductField> getProductFields(
-		Map<String, String> properties) {
-
-		List<ProductField> productFields = new ArrayList<>();
+		Map<String, String> properties,
+		List<ProductField> defaultProductFields) {
 
 		if (properties == null) {
-			return productFields;
+			return defaultProductFields;
 		}
+
+		List<ProductField> productFields = new ArrayList<>();
 
 		for (Map.Entry<String, String> entry : properties.entrySet()) {
 			ProductField productField =
@@ -127,16 +166,11 @@ public class ProductPurchaseResourceImpl
 		return productFields;
 	}
 
-	protected int getQuantity(Integer quantity) {
-		if (quantity != null) {
-			return quantity;
-		}
-
-		return 1;
-	}
-
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;
+
+	@Reference
+	private ProductPurchaseLocalService _productPurchaseLocalService;
 
 	@Reference
 	private ProductPurchaseService _productPurchaseService;

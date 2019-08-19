@@ -177,19 +177,6 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 			productFields);
 	}
 
-	public ProductPurchase updateProductPurchase(
-			String productPurchaseKey, Date startDate, Date endDate,
-			int quantity, List<ProductField> productFields)
-		throws PortalException {
-
-		ProductPurchase productPurchase =
-			productPurchaseLocalService.getProductPurchase(productPurchaseKey);
-
-		return updateProductPurchase(
-			productPurchase.getProductPurchaseId(), startDate, endDate,
-			quantity, productFields);
-	}
-
 	@Reference
 	private AccountLocalService _accountLocalService;
 

@@ -19,7 +19,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
-import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -105,23 +105,18 @@ public class ContactResourceImpl extends BaseContactResourceImpl {
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
 			_contactLocalService.getContactByOktaId(oktaId);
 
-		String middleName = contact.getMiddleName();
-
-		if (Validator.isNull(middleName)) {
-			middleName = curContact.getMiddleName();
-		}
-
-		String languageId = contact.getLanguageId();
-
-		if (Validator.isNull(languageId)) {
-			languageId = curContact.getLanguageId();
-		}
+		String uuid = GetterUtil.getString(
+			contact.getUuid(), curContact.getUuid());
+		String middleName = GetterUtil.getString(
+			contact.getMiddleName(), curContact.getMiddleName());
+		String languageId = GetterUtil.getString(
+			contact.getLanguageId(), curContact.getLanguageId());
 
 		return ContactUtil.toContact(
 			_contactService.updateContact(
-				curContact.getContactId(), curContact.getUuid(),
-				curContact.getOktaId(), contact.getFirstName(), middleName,
-				contact.getLastName(), contact.getEmailAddress(), languageId),
+				curContact.getContactId(), uuid, curContact.getOktaId(),
+				contact.getFirstName(), middleName, contact.getLastName(),
+				contact.getEmailAddress(), languageId),
 			null);
 	}
 
@@ -132,23 +127,18 @@ public class ContactResourceImpl extends BaseContactResourceImpl {
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
 			_contactLocalService.getContactByUuid(uuid);
 
-		String middleName = contact.getMiddleName();
-
-		if (Validator.isNull(middleName)) {
-			middleName = curContact.getMiddleName();
-		}
-
-		String languageId = contact.getLanguageId();
-
-		if (Validator.isNull(languageId)) {
-			languageId = curContact.getLanguageId();
-		}
+		String oktaId = GetterUtil.getString(
+			contact.getOktaId(), curContact.getOktaId());
+		String middleName = GetterUtil.getString(
+			contact.getMiddleName(), curContact.getMiddleName());
+		String languageId = GetterUtil.getString(
+			contact.getLanguageId(), curContact.getLanguageId());
 
 		return ContactUtil.toContact(
 			_contactService.updateContact(
-				curContact.getContactId(), curContact.getUuid(),
-				curContact.getOktaId(), contact.getFirstName(), middleName,
-				contact.getLastName(), contact.getEmailAddress(), languageId),
+				curContact.getContactId(), curContact.getUuid(), oktaId,
+				contact.getFirstName(), middleName, contact.getLastName(),
+				contact.getEmailAddress(), languageId),
 			null);
 	}
 
