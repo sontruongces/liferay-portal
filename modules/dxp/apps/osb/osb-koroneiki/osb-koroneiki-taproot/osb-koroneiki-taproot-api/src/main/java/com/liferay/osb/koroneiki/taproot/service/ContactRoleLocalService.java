@@ -204,6 +204,10 @@ public interface ContactRoleLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ContactRole> getContactAccountContactRoles(
+		long accountId, long contactId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getContactAccountContactRolesCount(
 		long accountId, long contactId);
 
 	/**

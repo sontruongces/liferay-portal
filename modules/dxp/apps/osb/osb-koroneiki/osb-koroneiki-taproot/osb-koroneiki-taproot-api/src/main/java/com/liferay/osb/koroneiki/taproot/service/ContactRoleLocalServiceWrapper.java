@@ -241,9 +241,18 @@ public class ContactRoleLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
-		getContactAccountContactRoles(long accountId, long contactId) {
+		getContactAccountContactRoles(
+			long accountId, long contactId, int start, int end) {
 
 		return _contactRoleLocalService.getContactAccountContactRoles(
+			accountId, contactId, start, end);
+	}
+
+	@Override
+	public int getContactAccountContactRolesCount(
+		long accountId, long contactId) {
+
+		return _contactRoleLocalService.getContactAccountContactRolesCount(
 			accountId, contactId);
 	}
 

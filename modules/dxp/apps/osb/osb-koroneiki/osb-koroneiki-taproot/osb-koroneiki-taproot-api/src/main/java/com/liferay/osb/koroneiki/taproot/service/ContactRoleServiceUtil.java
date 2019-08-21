@@ -60,6 +60,24 @@ public class ContactRoleServiceUtil {
 		return getService().deleteContactRole(contactRoleKey);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
+				getContactAccountContactRoles(
+					long accountId, long contactId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactAccountContactRoles(
+			accountId, contactId, start, end);
+	}
+
+	public static int getContactAccountContactRolesCount(
+			long accountId, long contactId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactAccountContactRolesCount(
+			accountId, contactId);
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
 			getContactRole(long contactRoleId)
 		throws com.liferay.portal.kernel.exception.PortalException {

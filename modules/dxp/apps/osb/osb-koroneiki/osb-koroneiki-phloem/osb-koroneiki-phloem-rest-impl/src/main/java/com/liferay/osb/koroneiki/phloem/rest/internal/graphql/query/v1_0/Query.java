@@ -349,6 +349,24 @@ public class Query {
 	}
 
 	@GraphQLField
+	public ContactRolePage getAccountAccountKeyContactContactUuidRolesPage(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactUuid") String contactUuid,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactRoleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactRoleResource -> new ContactRolePage(
+				contactRoleResource.
+					getAccountAccountKeyContactContactUuidRolesPage(
+						accountKey, contactUuid,
+						Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
 	public ContactRolePage getContactRolesPage(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") Filter filter,

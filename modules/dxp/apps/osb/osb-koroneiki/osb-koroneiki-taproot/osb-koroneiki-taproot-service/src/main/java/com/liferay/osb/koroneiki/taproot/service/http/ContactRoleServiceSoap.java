@@ -118,6 +118,45 @@ public class ContactRoleServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap[]
+			getContactAccountContactRoles(
+				long accountId, long contactId, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
+				returnValue =
+					ContactRoleServiceUtil.getContactAccountContactRoles(
+						accountId, contactId, start, end);
+
+			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getContactAccountContactRolesCount(
+			long accountId, long contactId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				ContactRoleServiceUtil.getContactAccountContactRolesCount(
+					accountId, contactId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap
 			getContactRole(long contactRoleId)
 		throws RemoteException {

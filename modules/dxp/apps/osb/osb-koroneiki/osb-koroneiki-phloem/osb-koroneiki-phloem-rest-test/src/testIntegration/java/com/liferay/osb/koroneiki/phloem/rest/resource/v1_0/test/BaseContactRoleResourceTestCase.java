@@ -191,6 +191,154 @@ public abstract class BaseContactRoleResourceTestCase {
 	}
 
 	@Test
+	public void testGetAccountAccountKeyContactContactUuidRolesPage()
+		throws Exception {
+
+		Page<ContactRole> page =
+			contactRoleResource.getAccountAccountKeyContactContactUuidRolesPage(
+				testGetAccountAccountKeyContactContactUuidRolesPage_getAccountKey(),
+				testGetAccountAccountKeyContactContactUuidRolesPage_getContactUuid(),
+				Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String accountKey =
+			testGetAccountAccountKeyContactContactUuidRolesPage_getAccountKey();
+		String irrelevantAccountKey =
+			testGetAccountAccountKeyContactContactUuidRolesPage_getIrrelevantAccountKey();
+		String contactUuid =
+			testGetAccountAccountKeyContactContactUuidRolesPage_getContactUuid();
+		String irrelevantContactUuid =
+			testGetAccountAccountKeyContactContactUuidRolesPage_getIrrelevantContactUuid();
+
+		if ((irrelevantAccountKey != null) && (irrelevantContactUuid != null)) {
+			ContactRole irrelevantContactRole =
+				testGetAccountAccountKeyContactContactUuidRolesPage_addContactRole(
+					irrelevantAccountKey, irrelevantContactUuid,
+					randomIrrelevantContactRole());
+
+			page =
+				contactRoleResource.
+					getAccountAccountKeyContactContactUuidRolesPage(
+						irrelevantAccountKey, irrelevantContactUuid,
+						Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantContactRole),
+				(List<ContactRole>)page.getItems());
+			assertValid(page);
+		}
+
+		ContactRole contactRole1 =
+			testGetAccountAccountKeyContactContactUuidRolesPage_addContactRole(
+				accountKey, contactUuid, randomContactRole());
+
+		ContactRole contactRole2 =
+			testGetAccountAccountKeyContactContactUuidRolesPage_addContactRole(
+				accountKey, contactUuid, randomContactRole());
+
+		page =
+			contactRoleResource.getAccountAccountKeyContactContactUuidRolesPage(
+				accountKey, contactUuid, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contactRole1, contactRole2),
+			(List<ContactRole>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetAccountAccountKeyContactContactUuidRolesPageWithPagination()
+		throws Exception {
+
+		String accountKey =
+			testGetAccountAccountKeyContactContactUuidRolesPage_getAccountKey();
+		String contactUuid =
+			testGetAccountAccountKeyContactContactUuidRolesPage_getContactUuid();
+
+		ContactRole contactRole1 =
+			testGetAccountAccountKeyContactContactUuidRolesPage_addContactRole(
+				accountKey, contactUuid, randomContactRole());
+
+		ContactRole contactRole2 =
+			testGetAccountAccountKeyContactContactUuidRolesPage_addContactRole(
+				accountKey, contactUuid, randomContactRole());
+
+		ContactRole contactRole3 =
+			testGetAccountAccountKeyContactContactUuidRolesPage_addContactRole(
+				accountKey, contactUuid, randomContactRole());
+
+		Page<ContactRole> page1 =
+			contactRoleResource.getAccountAccountKeyContactContactUuidRolesPage(
+				accountKey, contactUuid, Pagination.of(1, 2));
+
+		List<ContactRole> contactRoles1 = (List<ContactRole>)page1.getItems();
+
+		Assert.assertEquals(contactRoles1.toString(), 2, contactRoles1.size());
+
+		Page<ContactRole> page2 =
+			contactRoleResource.getAccountAccountKeyContactContactUuidRolesPage(
+				accountKey, contactUuid, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<ContactRole> contactRoles2 = (List<ContactRole>)page2.getItems();
+
+		Assert.assertEquals(contactRoles2.toString(), 1, contactRoles2.size());
+
+		Page<ContactRole> page3 =
+			contactRoleResource.getAccountAccountKeyContactContactUuidRolesPage(
+				accountKey, contactUuid, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contactRole1, contactRole2, contactRole3),
+			(List<ContactRole>)page3.getItems());
+	}
+
+	protected ContactRole
+			testGetAccountAccountKeyContactContactUuidRolesPage_addContactRole(
+				String accountKey, String contactUuid, ContactRole contactRole)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyContactContactUuidRolesPage_getAccountKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyContactContactUuidRolesPage_getIrrelevantAccountKey()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetAccountAccountKeyContactContactUuidRolesPage_getContactUuid()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyContactContactUuidRolesPage_getIrrelevantContactUuid()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
 	public void testGetContactRolesPage() throws Exception {
 		Page<ContactRole> page = contactRoleResource.getContactRolesPage(
 			RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);

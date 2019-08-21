@@ -174,6 +174,87 @@ public class ContactRoleServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
+				getContactAccountContactRoles(
+					HttpPrincipal httpPrincipal, long accountId, long contactId,
+					int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ContactRoleServiceUtil.class, "getContactAccountContactRoles",
+				_getContactAccountContactRolesParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId, contactId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.taproot.model.ContactRole>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getContactAccountContactRolesCount(
+			HttpPrincipal httpPrincipal, long accountId, long contactId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ContactRoleServiceUtil.class,
+				"getContactAccountContactRolesCount",
+				_getContactAccountContactRolesCountParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId, contactId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
 			getContactRole(HttpPrincipal httpPrincipal, long contactRoleId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -181,7 +262,7 @@ public class ContactRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactRoleServiceUtil.class, "getContactRole",
-				_getContactRoleParameterTypes3);
+				_getContactRoleParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactRoleId);
@@ -220,7 +301,7 @@ public class ContactRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactRoleServiceUtil.class, "getContactRole",
-				_getContactRoleParameterTypes4);
+				_getContactRoleParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactRoleKey);
@@ -261,7 +342,7 @@ public class ContactRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactRoleServiceUtil.class, "updateContactRole",
-				_updateContactRoleParameterTypes5);
+				_updateContactRoleParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactRoleId, name, description);
@@ -302,11 +383,19 @@ public class ContactRoleServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteContactRoleParameterTypes2 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getContactRoleParameterTypes3 =
+	private static final Class<?>[]
+		_getContactAccountContactRolesParameterTypes3 = new Class[] {
+			long.class, long.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getContactAccountContactRolesCountParameterTypes4 = new Class[] {
+			long.class, long.class
+		};
+	private static final Class<?>[] _getContactRoleParameterTypes5 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getContactRoleParameterTypes4 =
+	private static final Class<?>[] _getContactRoleParameterTypes6 =
 		new Class[] {String.class};
-	private static final Class<?>[] _updateContactRoleParameterTypes5 =
+	private static final Class<?>[] _updateContactRoleParameterTypes7 =
 		new Class[] {long.class, String.class, String.class};
 
 }

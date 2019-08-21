@@ -58,6 +58,8 @@ public interface Contact extends ContactModel, PersistedModel {
 
 		};
 
+	public java.util.List<ContactRole> getContactRoles(long accountId);
+
 	public java.util.List<ContactRole> getContactRoles(String accountKey)
 		throws com.liferay.portal.kernel.exception.PortalException;
 

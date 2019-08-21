@@ -175,6 +175,11 @@ public class ContactWrapper
 	}
 
 	@Override
+	public java.util.List<ContactRole> getContactRoles(long accountId) {
+		return model.getContactRoles(accountId);
+	}
+
+	@Override
 	public java.util.List<ContactRole> getContactRoles(String accountKey)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

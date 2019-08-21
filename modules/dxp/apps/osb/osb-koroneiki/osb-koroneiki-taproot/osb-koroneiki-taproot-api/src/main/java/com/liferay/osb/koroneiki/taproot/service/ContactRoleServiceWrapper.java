@@ -58,6 +58,25 @@ public class ContactRoleServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
+			getContactAccountContactRoles(
+				long accountId, long contactId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactRoleService.getContactAccountContactRoles(
+			accountId, contactId, start, end);
+	}
+
+	@Override
+	public int getContactAccountContactRolesCount(
+			long accountId, long contactId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactRoleService.getContactAccountContactRolesCount(
+			accountId, contactId);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.ContactRole getContactRole(
 			long contactRoleId)
 		throws com.liferay.portal.kernel.exception.PortalException {

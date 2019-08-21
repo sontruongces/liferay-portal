@@ -192,7 +192,7 @@ public class ProductPurchase {
 	protected String key;
 
 	@Schema(
-		description = "A flag that identifies if the product purchase does not have a start and end date."
+		description = "A flag that identifies if the product purchase has a start and end date."
 	)
 	public Boolean getPerpetual() {
 		return perpetual;
