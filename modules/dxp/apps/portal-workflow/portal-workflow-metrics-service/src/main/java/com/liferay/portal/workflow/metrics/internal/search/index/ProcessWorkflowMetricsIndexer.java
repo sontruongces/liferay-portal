@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.search.engine.adapter.document.BulkDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
-import com.liferay.portal.workflow.kaleo.service.KaleoDefinitionLocalService;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -133,7 +132,7 @@ public class ProcessWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 	@Override
 	protected void populateIndex() throws PortalException {
 		ActionableDynamicQuery actionableDynamicQuery =
-			_kaleoDefinitionLocalService.getActionableDynamicQuery();
+			kaleoDefinitionLocalService.getActionableDynamicQuery();
 
 		actionableDynamicQuery.setPerformActionMethod(
 			(KaleoDefinition kaleoDefinition) ->
@@ -178,9 +177,6 @@ public class ProcessWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 
 	@Reference
 	private InstanceWorkflowMetricsIndexer _instanceWorkflowMetricsIndexer;
-
-	@Reference
-	private KaleoDefinitionLocalService _kaleoDefinitionLocalService;
 
 	@Reference
 	private SLAProcessResultWorkflowMetricsIndexer

@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
@@ -29,6 +30,7 @@ import com.liferay.portal.search.engine.adapter.index.IndicesExistsIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.IndicesExistsIndexResponse;
 import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
 import com.liferay.portal.workflow.kaleo.model.KaleoDefinitionVersion;
+import com.liferay.portal.workflow.kaleo.service.KaleoDefinitionLocalService;
 import com.liferay.portal.workflow.kaleo.service.KaleoDefinitionVersionLocalService;
 import com.liferay.portal.workflow.metrics.internal.petra.executor.WorkflowMetricsPortalExecutor;
 
@@ -134,7 +136,12 @@ public abstract class BaseWorkflowMetricsIndexer {
 			getKaleoDefinitionVersion(kaleoDefinitionVersionId);
 
 		if (kaleoDefinitionVersion != null) {
-			return kaleoDefinitionVersion.fetchKaleoDefinition();
+			ServiceContext serviceContext = new ServiceContext();
+
+			serviceContext.setCompanyId(kaleoDefinitionVersion.getCompanyId());
+
+			return kaleoDefinitionLocalService.fetchKaleoDefinition(
+				kaleoDefinitionVersion.getName(), serviceContext);
 		}
 
 		return null;
@@ -153,6 +160,9 @@ public abstract class BaseWorkflowMetricsIndexer {
 	protected void setModuleServiceLifecycle(
 		ModuleServiceLifecycle moduleServiceLifecycle) {
 	}
+
+	@Reference
+	protected KaleoDefinitionLocalService kaleoDefinitionLocalService;
 
 	@Reference
 	protected KaleoDefinitionVersionLocalService
