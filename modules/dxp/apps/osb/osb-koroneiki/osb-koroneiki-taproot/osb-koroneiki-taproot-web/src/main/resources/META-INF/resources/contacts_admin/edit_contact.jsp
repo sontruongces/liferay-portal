@@ -24,6 +24,8 @@ Contact koroneikiContact = (Contact)request.getAttribute(TaprootWebKeys.CONTACT)
 long contactId = BeanParamUtil.getLong(koroneikiContact, request, "contactId");
 %>
 
+<liferay-util:include page="/contacts_admin/edit_contact_tabs.jsp" servletContext="<%= application %>" />
+
 <portlet:actionURL name="/contacts_admin/edit_contact" var="editContactURL" />
 
 <aui:form action="<%= editContactURL %>" cssClass="container-fluid-1280" method="post" name="fm">

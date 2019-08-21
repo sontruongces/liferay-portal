@@ -54,6 +54,12 @@ public class EditContactMVCRenderCommand implements MVCRenderCommand {
 					_contactLocalService.getContact(contactId));
 			}
 
+			String tabs1 = ParamUtil.getString(renderRequest, "tabs1");
+
+			if (tabs1.equals("external-links")) {
+				return "/contacts_admin/edit_contact_external_links.jsp";
+			}
+
 			return "/contacts_admin/edit_contact.jsp";
 		}
 		catch (Exception e) {
