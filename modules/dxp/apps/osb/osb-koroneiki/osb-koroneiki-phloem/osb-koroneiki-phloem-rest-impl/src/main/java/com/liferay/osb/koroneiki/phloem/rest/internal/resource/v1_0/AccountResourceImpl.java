@@ -152,7 +152,7 @@ public class AccountResourceImpl
 			searchContext -> searchContext.setCompanyId(
 				contextCompany.getCompanyId()),
 			document -> AccountUtil.toAccount(
-				_accountService.getAccount(
+				_accountLocalService.getAccount(
 					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
 				contextAcceptLanguage.getPreferredLocale(), null),
 			sorts);

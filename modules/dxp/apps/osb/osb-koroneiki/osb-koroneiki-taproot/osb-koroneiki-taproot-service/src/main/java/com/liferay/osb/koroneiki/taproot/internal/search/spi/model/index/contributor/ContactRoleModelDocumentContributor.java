@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.taproot.internal.search.spi.model.index.contri
 
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
 
 import org.osgi.service.component.annotations.Component;
@@ -33,17 +34,22 @@ public class ContactRoleModelDocumentContributor
 
 	@Override
 	public void contribute(Document document, ContactRole contactRole) {
-		document.addKeyword("contactRoleKey", contactRole.getContactRoleKey());
-		document.addDate("createDate", contactRole.getCreateDate());
-		document.addText("description", contactRole.getDescription());
-		document.addDate("modifiedDate", contactRole.getModifiedDate());
-		document.addText("name", contactRole.getName());
-		document.addKeyword("system", contactRole.isSystem());
-		document.addKeyword("type", contactRole.getTypeLabel());
+		document.addKeyword(Field.COMPANY_ID, contactRole.getCompanyId());
+		document.addDate(Field.CREATE_DATE, contactRole.getCreateDate());
+		document.addText(Field.DESCRIPTION, contactRole.getDescription());
+		document.addDate(Field.MODIFIED_DATE, contactRole.getModifiedDate());
+		document.addText(Field.NAME, contactRole.getName());
+		document.addKeyword(Field.TYPE, contactRole.getTypeLabel());
+		document.addKeyword(Field.USER_ID, contactRole.getUserId());
 
-		document.addDateSortable("createDate", contactRole.getCreateDate());
-		document.addDateSortable("modifiedDate", contactRole.getModifiedDate());
-		document.addTextSortable("name", contactRole.getName());
+		document.addKeyword("contactRoleKey", contactRole.getContactRoleKey());
+		document.addKeyword("system", contactRole.isSystem());
+
+		document.addDateSortable(
+			Field.CREATE_DATE, contactRole.getCreateDate());
+		document.addDateSortable(
+			Field.MODIFIED_DATE, contactRole.getModifiedDate());
+		document.addTextSortable(Field.NAME, contactRole.getName());
 	}
 
 }

@@ -73,7 +73,7 @@ public class ContactRoleResourceImpl
 			searchContext -> searchContext.setCompanyId(
 				contextCompany.getCompanyId()),
 			document -> ContactRoleUtil.toContactRole(
-				_contactRoleService.getContactRole(
+				_contactRoleLocalService.getContactRole(
 					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
 			sorts);
 	}

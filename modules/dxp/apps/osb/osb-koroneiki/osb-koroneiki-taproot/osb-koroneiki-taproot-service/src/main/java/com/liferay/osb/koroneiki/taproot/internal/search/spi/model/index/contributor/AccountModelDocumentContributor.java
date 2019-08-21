@@ -28,11 +28,11 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -64,30 +64,34 @@ public class AccountModelDocumentContributor
 	private void _contribute(Document document, Account account)
 		throws PortalException {
 
+		document.addKeyword(Field.COMPANY_ID, account.getCompanyId());
+		document.addDate(Field.CREATE_DATE, account.getCreateDate());
+		document.addText(Field.DESCRIPTION, account.getDescription());
+		document.addDate(Field.MODIFIED_DATE, account.getModifiedDate());
+		document.addText(Field.NAME, account.getName());
+		document.addKeyword(Field.STATUS, account.getStatus());
+		document.addKeyword(Field.USER_ID, account.getUserId());
+
 		document.addKeyword("accountKey", account.getAccountKey());
 		document.addText("code", account.getCode());
 		document.addKeyword(
 			"contactEmailAddress", account.getContactEmailAddress());
-		document.addDate("createDate", account.getCreateDate());
-		document.addText("description", account.getDescription());
 		document.addKeyword("faxNumber", account.getFaxNumber());
 		document.addKeyword("industry", account.getIndustry());
-		document.addDate("modifiedDate", account.getModifiedDate());
-		document.addText("name", account.getName());
 		document.addText("notes", account.getNotes());
 		document.addKeyword("phoneNumber", account.getPhoneNumber());
 		document.addKeyword(
 			"profileEmailAddress", account.getProfileEmailAddress());
 		document.addKeyword("soldBy", account.getSoldBy());
-		document.addKeyword("status", account.getStatus());
 		document.addKeyword("tier", account.getTier());
-		document.addKeyword("userId", account.getUserId());
 		document.addKeyword("website", account.getWebsite());
 
+		document.addDateSortable(Field.CREATE_DATE, account.getCreateDate());
+		document.addDateSortable(
+			Field.MODIFIED_DATE, account.getModifiedDate());
+		document.addTextSortable(Field.NAME, account.getName());
+
 		document.addTextSortable("code", account.getCode());
-		document.addDateSortable("createDate", account.getCreateDate());
-		document.addDateSortable("modifiedDate", account.getModifiedDate());
-		document.addTextSortable("name", account.getName());
 
 		_contributeContacts(document, account.getAccountId());
 		_contributeProductEntries(document, account.getAccountId());
@@ -140,7 +144,7 @@ public class AccountModelDocumentContributor
 	private void _contributeProductEntries(Document document, long accountId)
 		throws PortalException {
 
-		List<String> productEntryKeys = new ArrayList<>();
+		Set<String> productEntryKeys = new HashSet<>();
 
 		List<ProductPurchase> productPurchases =
 			_productPurchaseLocalService.getAccountProductPurchases(
