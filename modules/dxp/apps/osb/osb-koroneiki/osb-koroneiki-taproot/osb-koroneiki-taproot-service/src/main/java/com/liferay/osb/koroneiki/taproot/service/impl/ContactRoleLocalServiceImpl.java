@@ -162,14 +162,23 @@ public class ContactRoleLocalServiceImpl
 	}
 
 	public List<ContactRole> getContactAccountContactRoles(
+		long accountId, long contactId, int start, int end) {
+
+		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+		params.put("accountContact", new Long[] {accountId, contactId});
+
+		return contactRoleFinder.findByName(null, params, start, end);
+	}
+
+	public int getContactAccountContactRolesCount(
 		long accountId, long contactId) {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("accountContact", new Long[] {accountId, contactId});
 
-		return contactRoleFinder.findByName(
-			null, params, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		return contactRoleFinder.countByName(null, params);
 	}
 
 	public ContactRole getContactRole(String contactRoleKey)

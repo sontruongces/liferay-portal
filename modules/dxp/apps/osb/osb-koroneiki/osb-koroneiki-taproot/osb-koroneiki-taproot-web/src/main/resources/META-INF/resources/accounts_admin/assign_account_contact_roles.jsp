@@ -38,7 +38,7 @@ renderResponse.setTitle(koroneikiAccount.getName());
 		<h2><liferay-ui:message arguments="<%= koroneikiContact.getFullName() %>" key="assign-contact-roles-for-x" /></h2>
 
 		<%
-		List<ContactRole> contactRoles = ContactRoleLocalServiceUtil.getContactAccountContactRoles(koroneikiAccount.getAccountId(), koroneikiContact.getContactId());
+		List<ContactRole> contactRoles = koroneikiContact.getContactRoles(koroneikiAccount.getAccountId());
 		%>
 
 		<liferay-ui:search-container

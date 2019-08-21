@@ -877,6 +877,43 @@ paths:
                         application/json: {}
                     description: ""
             tags: ["Account"]
+        get:
+            description: Retrieves the account's contact's contact roles.
+            operationId: getAccountAccountKeyContactContactUuidRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description: ""
+            tags: ["ContactRole"]
         put:
             description: Assigns roles to the contact for the account.
             operationId: putAccountContactContactUuidRole

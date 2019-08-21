@@ -16,11 +16,15 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
+import com.liferay.osb.koroneiki.taproot.permission.ContactPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactRolePermission;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactRoleServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
+
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -69,6 +73,34 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 		return contactRoleLocalService.deleteContactRole(contactRole);
 	}
 
+	public List<ContactRole> getContactAccountContactRoles(
+			long accountId, long contactId, int start, int end)
+		throws PortalException {
+
+		_contactPermission.check(
+			getPermissionChecker(), contactId, ActionKeys.VIEW);
+
+		_accountPermission.check(
+			getPermissionChecker(), accountId, ActionKeys.VIEW);
+
+		return contactRoleLocalService.getContactAccountContactRoles(
+			accountId, contactId, start, end);
+	}
+
+	public int getContactAccountContactRolesCount(
+			long accountId, long contactId)
+		throws PortalException {
+
+		_contactPermission.check(
+			getPermissionChecker(), contactId, ActionKeys.VIEW);
+
+		_accountPermission.check(
+			getPermissionChecker(), accountId, ActionKeys.VIEW);
+
+		return contactRoleLocalService.getContactAccountContactRolesCount(
+			accountId, contactId);
+	}
+
 	public ContactRole getContactRole(long contactRoleId)
 		throws PortalException {
 
@@ -100,6 +132,12 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 		return contactRoleLocalService.updateContactRole(
 			contactRoleId, name, description);
 	}
+
+	@Reference
+	private AccountPermission _accountPermission;
+
+	@Reference
+	private ContactPermission _contactPermission;
 
 	@Reference
 	private ContactRolePermission _contactRolePermission;

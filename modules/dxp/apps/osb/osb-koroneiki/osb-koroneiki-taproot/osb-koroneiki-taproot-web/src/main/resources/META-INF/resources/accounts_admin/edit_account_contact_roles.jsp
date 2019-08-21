@@ -83,12 +83,7 @@ renderResponse.setTitle(koroneikiAccount.getName());
 				href="<%= rowURL %>"
 				name="roles"
 			>
-
-				<%
-				List<ContactRole> contactRoles = ContactRoleLocalServiceUtil.getContactAccountContactRoles(koroneikiAccount.getAccountId(), koroneikiContact.getContactId());
-				%>
-
-				<%= ListUtil.toString(contactRoles, ContactRole.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE) %>
+				<%= ListUtil.toString(koroneikiContact.getContactRoles(koroneikiAccount.getAccountId()), ContactRole.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE) %>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-jsp

@@ -19,6 +19,10 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactRoleEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
+import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleService;
 import com.liferay.portal.kernel.search.Field;
@@ -50,6 +54,25 @@ public class ContactRoleResourceImpl
 	@Override
 	public void deleteContactRole(String contactRoleKey) throws Exception {
 		_contactRoleService.deleteContactRole(contactRoleKey);
+	}
+
+	@Override
+	public Page<ContactRole> getAccountAccountKeyContactContactUuidRolesPage(
+			String accountKey, String contactUuid, Pagination pagination)
+		throws Exception {
+
+		Account account = _accountLocalService.getAccount(accountKey);
+		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
+
+		return Page.of(
+			transform(
+				_contactRoleService.getContactAccountContactRoles(
+					account.getAccountId(), contact.getContactId(),
+					pagination.getStartPosition(), pagination.getEndPosition()),
+				contactRole -> ContactRoleUtil.toContactRole(contactRole)),
+			pagination,
+			_contactRoleService.getContactAccountContactRolesCount(
+				account.getAccountId(), contact.getContactId()));
 	}
 
 	@Override
@@ -115,6 +138,12 @@ public class ContactRoleResourceImpl
 
 	private static final EntityModel _entityModel =
 		new ContactRoleEntityModel();
+
+	@Reference
+	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private ContactLocalService _contactLocalService;
 
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
