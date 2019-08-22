@@ -1645,9 +1645,9 @@ public class ContactTeamRolePersistenceImpl
 	private static final String _FINDER_COLUMN_CONTACTROLEID_CONTACTROLEID_2 =
 		"contactTeamRole.id.contactRoleId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByC_T;
-	private FinderPath _finderPathWithoutPaginationFindByC_T;
-	private FinderPath _finderPathCountByC_T;
+	private FinderPath _finderPathWithPaginationFindByCI_TI;
+	private FinderPath _finderPathWithoutPaginationFindByCI_TI;
+	private FinderPath _finderPathCountByCI_TI;
 
 	/**
 	 * Returns all the contact team roles where contactId = &#63; and teamId = &#63;.
@@ -1657,8 +1657,8 @@ public class ContactTeamRolePersistenceImpl
 	 * @return the matching contact team roles
 	 */
 	@Override
-	public List<ContactTeamRole> findByC_T(long contactId, long teamId) {
-		return findByC_T(
+	public List<ContactTeamRole> findByCI_TI(long contactId, long teamId) {
+		return findByCI_TI(
 			contactId, teamId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -1676,10 +1676,10 @@ public class ContactTeamRolePersistenceImpl
 	 * @return the range of matching contact team roles
 	 */
 	@Override
-	public List<ContactTeamRole> findByC_T(
+	public List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end) {
 
-		return findByC_T(contactId, teamId, start, end, null);
+		return findByCI_TI(contactId, teamId, start, end, null);
 	}
 
 	/**
@@ -1697,11 +1697,11 @@ public class ContactTeamRolePersistenceImpl
 	 * @return the ordered range of matching contact team roles
 	 */
 	@Override
-	public List<ContactTeamRole> findByC_T(
+	public List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end,
 		OrderByComparator<ContactTeamRole> orderByComparator) {
 
-		return findByC_T(
+		return findByCI_TI(
 			contactId, teamId, start, end, orderByComparator, true);
 	}
 
@@ -1721,7 +1721,7 @@ public class ContactTeamRolePersistenceImpl
 	 * @return the ordered range of matching contact team roles
 	 */
 	@Override
-	public List<ContactTeamRole> findByC_T(
+	public List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end,
 		OrderByComparator<ContactTeamRole> orderByComparator,
 		boolean useFinderCache) {
@@ -1736,12 +1736,12 @@ public class ContactTeamRolePersistenceImpl
 			pagination = false;
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByC_T;
+				finderPath = _finderPathWithoutPaginationFindByCI_TI;
 				finderArgs = new Object[] {contactId, teamId};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByC_T;
+			finderPath = _finderPathWithPaginationFindByCI_TI;
 			finderArgs = new Object[] {
 				contactId, teamId, start, end, orderByComparator
 			};
@@ -1779,9 +1779,9 @@ public class ContactTeamRolePersistenceImpl
 
 			query.append(_SQL_SELECT_CONTACTTEAMROLE_WHERE);
 
-			query.append(_FINDER_COLUMN_C_T_CONTACTID_2);
+			query.append(_FINDER_COLUMN_CI_TI_CONTACTID_2);
 
-			query.append(_FINDER_COLUMN_C_T_TEAMID_2);
+			query.append(_FINDER_COLUMN_CI_TI_TEAMID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -1850,12 +1850,12 @@ public class ContactTeamRolePersistenceImpl
 	 * @throws NoSuchContactTeamRoleException if a matching contact team role could not be found
 	 */
 	@Override
-	public ContactTeamRole findByC_T_First(
+	public ContactTeamRole findByCI_TI_First(
 			long contactId, long teamId,
 			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException {
 
-		ContactTeamRole contactTeamRole = fetchByC_T_First(
+		ContactTeamRole contactTeamRole = fetchByCI_TI_First(
 			contactId, teamId, orderByComparator);
 
 		if (contactTeamRole != null) {
@@ -1886,11 +1886,11 @@ public class ContactTeamRolePersistenceImpl
 	 * @return the first matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
 	@Override
-	public ContactTeamRole fetchByC_T_First(
+	public ContactTeamRole fetchByCI_TI_First(
 		long contactId, long teamId,
 		OrderByComparator<ContactTeamRole> orderByComparator) {
 
-		List<ContactTeamRole> list = findByC_T(
+		List<ContactTeamRole> list = findByCI_TI(
 			contactId, teamId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1910,12 +1910,12 @@ public class ContactTeamRolePersistenceImpl
 	 * @throws NoSuchContactTeamRoleException if a matching contact team role could not be found
 	 */
 	@Override
-	public ContactTeamRole findByC_T_Last(
+	public ContactTeamRole findByCI_TI_Last(
 			long contactId, long teamId,
 			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException {
 
-		ContactTeamRole contactTeamRole = fetchByC_T_Last(
+		ContactTeamRole contactTeamRole = fetchByCI_TI_Last(
 			contactId, teamId, orderByComparator);
 
 		if (contactTeamRole != null) {
@@ -1946,17 +1946,17 @@ public class ContactTeamRolePersistenceImpl
 	 * @return the last matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
 	@Override
-	public ContactTeamRole fetchByC_T_Last(
+	public ContactTeamRole fetchByCI_TI_Last(
 		long contactId, long teamId,
 		OrderByComparator<ContactTeamRole> orderByComparator) {
 
-		int count = countByC_T(contactId, teamId);
+		int count = countByCI_TI(contactId, teamId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<ContactTeamRole> list = findByC_T(
+		List<ContactTeamRole> list = findByCI_TI(
 			contactId, teamId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1977,7 +1977,7 @@ public class ContactTeamRolePersistenceImpl
 	 * @throws NoSuchContactTeamRoleException if a contact team role with the primary key could not be found
 	 */
 	@Override
-	public ContactTeamRole[] findByC_T_PrevAndNext(
+	public ContactTeamRole[] findByCI_TI_PrevAndNext(
 			ContactTeamRolePK contactTeamRolePK, long contactId, long teamId,
 			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException {
@@ -1991,13 +1991,13 @@ public class ContactTeamRolePersistenceImpl
 
 			ContactTeamRole[] array = new ContactTeamRoleImpl[3];
 
-			array[0] = getByC_T_PrevAndNext(
+			array[0] = getByCI_TI_PrevAndNext(
 				session, contactTeamRole, contactId, teamId, orderByComparator,
 				true);
 
 			array[1] = contactTeamRole;
 
-			array[2] = getByC_T_PrevAndNext(
+			array[2] = getByCI_TI_PrevAndNext(
 				session, contactTeamRole, contactId, teamId, orderByComparator,
 				false);
 
@@ -2011,7 +2011,7 @@ public class ContactTeamRolePersistenceImpl
 		}
 	}
 
-	protected ContactTeamRole getByC_T_PrevAndNext(
+	protected ContactTeamRole getByCI_TI_PrevAndNext(
 		Session session, ContactTeamRole contactTeamRole, long contactId,
 		long teamId, OrderByComparator<ContactTeamRole> orderByComparator,
 		boolean previous) {
@@ -2029,9 +2029,9 @@ public class ContactTeamRolePersistenceImpl
 
 		query.append(_SQL_SELECT_CONTACTTEAMROLE_WHERE);
 
-		query.append(_FINDER_COLUMN_C_T_CONTACTID_2);
+		query.append(_FINDER_COLUMN_CI_TI_CONTACTID_2);
 
-		query.append(_FINDER_COLUMN_C_T_TEAMID_2);
+		query.append(_FINDER_COLUMN_CI_TI_TEAMID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -2132,9 +2132,9 @@ public class ContactTeamRolePersistenceImpl
 	 * @param teamId the team ID
 	 */
 	@Override
-	public void removeByC_T(long contactId, long teamId) {
+	public void removeByCI_TI(long contactId, long teamId) {
 		for (ContactTeamRole contactTeamRole :
-				findByC_T(
+				findByCI_TI(
 					contactId, teamId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 					null)) {
 
@@ -2150,8 +2150,8 @@ public class ContactTeamRolePersistenceImpl
 	 * @return the number of matching contact team roles
 	 */
 	@Override
-	public int countByC_T(long contactId, long teamId) {
-		FinderPath finderPath = _finderPathCountByC_T;
+	public int countByCI_TI(long contactId, long teamId) {
+		FinderPath finderPath = _finderPathCountByCI_TI;
 
 		Object[] finderArgs = new Object[] {contactId, teamId};
 
@@ -2162,9 +2162,9 @@ public class ContactTeamRolePersistenceImpl
 
 			query.append(_SQL_COUNT_CONTACTTEAMROLE_WHERE);
 
-			query.append(_FINDER_COLUMN_C_T_CONTACTID_2);
+			query.append(_FINDER_COLUMN_CI_TI_CONTACTID_2);
 
-			query.append(_FINDER_COLUMN_C_T_TEAMID_2);
+			query.append(_FINDER_COLUMN_CI_TI_TEAMID_2);
 
 			String sql = query.toString();
 
@@ -2198,10 +2198,10 @@ public class ContactTeamRolePersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_C_T_CONTACTID_2 =
+	private static final String _FINDER_COLUMN_CI_TI_CONTACTID_2 =
 		"contactTeamRole.id.contactId = ? AND ";
 
-	private static final String _FINDER_COLUMN_C_T_TEAMID_2 =
+	private static final String _FINDER_COLUMN_CI_TI_TEAMID_2 =
 		"contactTeamRole.id.teamId = ?";
 
 	public ContactTeamRolePersistenceImpl() {
@@ -2469,9 +2469,9 @@ public class ContactTeamRolePersistenceImpl
 				contactTeamRoleModelImpl.getTeamId()
 			};
 
-			finderCache.removeResult(_finderPathCountByC_T, args);
+			finderCache.removeResult(_finderPathCountByCI_TI, args);
 			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByC_T, args);
+				_finderPathWithoutPaginationFindByCI_TI, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
@@ -2538,7 +2538,7 @@ public class ContactTeamRolePersistenceImpl
 			}
 
 			if ((contactTeamRoleModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByC_T.getColumnBitmask()) !=
+				 _finderPathWithoutPaginationFindByCI_TI.getColumnBitmask()) !=
 					 0) {
 
 				Object[] args = new Object[] {
@@ -2546,18 +2546,18 @@ public class ContactTeamRolePersistenceImpl
 					contactTeamRoleModelImpl.getOriginalTeamId()
 				};
 
-				finderCache.removeResult(_finderPathCountByC_T, args);
+				finderCache.removeResult(_finderPathCountByCI_TI, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByC_T, args);
+					_finderPathWithoutPaginationFindByCI_TI, args);
 
 				args = new Object[] {
 					contactTeamRoleModelImpl.getContactId(),
 					contactTeamRoleModelImpl.getTeamId()
 				};
 
-				finderCache.removeResult(_finderPathCountByC_T, args);
+				finderCache.removeResult(_finderPathCountByCI_TI, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByC_T, args);
+					_finderPathWithoutPaginationFindByCI_TI, args);
 			}
 		}
 
@@ -2929,25 +2929,25 @@ public class ContactTeamRolePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByContactRoleId",
 			new String[] {Long.class.getName()});
 
-		_finderPathWithPaginationFindByC_T = new FinderPath(
+		_finderPathWithPaginationFindByCI_TI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, ContactTeamRoleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_T",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCI_TI",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
 
-		_finderPathWithoutPaginationFindByC_T = new FinderPath(
+		_finderPathWithoutPaginationFindByCI_TI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, ContactTeamRoleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_T",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCI_TI",
 			new String[] {Long.class.getName(), Long.class.getName()},
 			ContactTeamRoleModelImpl.CONTACTID_COLUMN_BITMASK |
 			ContactTeamRoleModelImpl.TEAMID_COLUMN_BITMASK);
 
-		_finderPathCountByC_T = new FinderPath(
+		_finderPathCountByCI_TI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_T",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCI_TI",
 			new String[] {Long.class.getName(), Long.class.getName()});
 	}
 

@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 
@@ -2345,6 +2346,253 @@ public class ProductEntryPersistenceImpl
 		_FINDER_COLUMN_PRODUCTENTRYKEY_PRODUCTENTRYKEY_3 =
 			"(productEntry.productEntryKey IS NULL OR productEntry.productEntryKey = '')";
 
+	private FinderPath _finderPathFetchByName;
+	private FinderPath _finderPathCountByName;
+
+	/**
+	 * Returns the product entry where name = &#63; or throws a <code>NoSuchProductEntryException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching product entry
+	 * @throws NoSuchProductEntryException if a matching product entry could not be found
+	 */
+	@Override
+	public ProductEntry findByName(String name)
+		throws NoSuchProductEntryException {
+
+		ProductEntry productEntry = fetchByName(name);
+
+		if (productEntry == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("name=");
+			msg.append(name);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchProductEntryException(msg.toString());
+		}
+
+		return productEntry;
+	}
+
+	/**
+	 * Returns the product entry where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching product entry, or <code>null</code> if a matching product entry could not be found
+	 */
+	@Override
+	public ProductEntry fetchByName(String name) {
+		return fetchByName(name, true);
+	}
+
+	/**
+	 * Returns the product entry where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching product entry, or <code>null</code> if a matching product entry could not be found
+	 */
+	@Override
+	public ProductEntry fetchByName(String name, boolean useFinderCache) {
+		name = Objects.toString(name, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {name};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByName, finderArgs, this);
+		}
+
+		if (result instanceof ProductEntry) {
+			ProductEntry productEntry = (ProductEntry)result;
+
+			if (!Objects.equals(name, productEntry.getName())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_PRODUCTENTRY_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				query.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				List<ProductEntry> list = q.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByName, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {name};
+							}
+
+							_log.warn(
+								"ProductEntryPersistenceImpl.fetchByName(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					ProductEntry productEntry = list.get(0);
+
+					result = productEntry;
+
+					cacheResult(productEntry);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByName, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (ProductEntry)result;
+		}
+	}
+
+	/**
+	 * Removes the product entry where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the product entry that was removed
+	 */
+	@Override
+	public ProductEntry removeByName(String name)
+		throws NoSuchProductEntryException {
+
+		ProductEntry productEntry = findByName(name);
+
+		return remove(productEntry);
+	}
+
+	/**
+	 * Returns the number of product entries where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching product entries
+	 */
+	@Override
+	public int countByName(String name) {
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathCountByName;
+
+		Object[] finderArgs = new Object[] {name};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_PRODUCTENTRY_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				query.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_NAME_NAME_2 =
+		"productEntry.name = ?";
+
+	private static final String _FINDER_COLUMN_NAME_NAME_3 =
+		"(productEntry.name IS NULL OR productEntry.name = '')";
+
 	public ProductEntryPersistenceImpl() {
 		setModelClass(ProductEntry.class);
 
@@ -2372,6 +2620,10 @@ public class ProductEntryPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByProductEntryKey,
 			new Object[] {productEntry.getProductEntryKey()}, productEntry);
+
+		finderCache.putResult(
+			_finderPathFetchByName, new Object[] {productEntry.getName()},
+			productEntry);
 
 		productEntry.resetOriginalValues();
 	}
@@ -2457,6 +2709,13 @@ public class ProductEntryPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByProductEntryKey, args, productEntryModelImpl,
 			false);
+
+		args = new Object[] {productEntryModelImpl.getName()};
+
+		finderCache.putResult(
+			_finderPathCountByName, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByName, args, productEntryModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
@@ -2480,6 +2739,24 @@ public class ProductEntryPersistenceImpl
 
 			finderCache.removeResult(_finderPathCountByProductEntryKey, args);
 			finderCache.removeResult(_finderPathFetchByProductEntryKey, args);
+		}
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {productEntryModelImpl.getName()};
+
+			finderCache.removeResult(_finderPathCountByName, args);
+			finderCache.removeResult(_finderPathFetchByName, args);
+		}
+
+		if ((productEntryModelImpl.getColumnBitmask() &
+			 _finderPathFetchByName.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {
+				productEntryModelImpl.getOriginalName()
+			};
+
+			finderCache.removeResult(_finderPathCountByName, args);
+			finderCache.removeResult(_finderPathFetchByName, args);
 		}
 	}
 
@@ -3093,6 +3370,17 @@ public class ProductEntryPersistenceImpl
 		_finderPathCountByProductEntryKey = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByProductEntryKey",
+			new String[] {String.class.getName()});
+
+		_finderPathFetchByName = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, ProductEntryImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByName",
+			new String[] {String.class.getName()},
+			ProductEntryModelImpl.NAME_COLUMN_BITMASK);
+
+		_finderPathCountByName = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
 			new String[] {String.class.getName()});
 	}
 

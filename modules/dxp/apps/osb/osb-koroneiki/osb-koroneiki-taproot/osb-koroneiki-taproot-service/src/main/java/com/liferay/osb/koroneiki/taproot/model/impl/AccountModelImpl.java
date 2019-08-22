@@ -144,13 +144,17 @@ public class AccountModelImpl
 
 	public static final long ACCOUNTKEY_COLUMN_BITMASK = 1L;
 
-	public static final long COMPANYID_COLUMN_BITMASK = 2L;
+	public static final long CODE_COLUMN_BITMASK = 2L;
 
-	public static final long PARENTACCOUNTID_COLUMN_BITMASK = 4L;
+	public static final long COMPANYID_COLUMN_BITMASK = 4L;
 
-	public static final long UUID_COLUMN_BITMASK = 8L;
+	public static final long NAME_COLUMN_BITMASK = 8L;
 
-	public static final long ACCOUNTID_COLUMN_BITMASK = 16L;
+	public static final long PARENTACCOUNTID_COLUMN_BITMASK = 16L;
+
+	public static final long UUID_COLUMN_BITMASK = 32L;
+
+	public static final long ACCOUNTID_COLUMN_BITMASK = 64L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -623,7 +627,17 @@ public class AccountModelImpl
 
 	@Override
 	public void setName(String name) {
+		_columnBitmask |= NAME_COLUMN_BITMASK;
+
+		if (_originalName == null) {
+			_originalName = _name;
+		}
+
 		_name = name;
+	}
+
+	public String getOriginalName() {
+		return GetterUtil.getString(_originalName);
 	}
 
 	@JSON
@@ -639,7 +653,17 @@ public class AccountModelImpl
 
 	@Override
 	public void setCode(String code) {
+		_columnBitmask |= CODE_COLUMN_BITMASK;
+
+		if (_originalCode == null) {
+			_originalCode = _code;
+		}
+
 		_code = code;
+	}
+
+	public String getOriginalCode() {
+		return GetterUtil.getString(_originalCode);
 	}
 
 	@JSON
@@ -1119,6 +1143,10 @@ public class AccountModelImpl
 
 		accountModelImpl._setOriginalParentAccountId = false;
 
+		accountModelImpl._originalName = accountModelImpl._name;
+
+		accountModelImpl._originalCode = accountModelImpl._code;
+
 		accountModelImpl._columnBitmask = 0;
 	}
 
@@ -1391,7 +1419,9 @@ public class AccountModelImpl
 	private long _originalParentAccountId;
 	private boolean _setOriginalParentAccountId;
 	private String _name;
+	private String _originalName;
 	private String _code;
+	private String _originalCode;
 	private String _description;
 	private String _notes;
 	private long _logoId;

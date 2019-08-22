@@ -479,7 +479,7 @@ public interface TeamAccountRolePersistence
 	 * @param accountId the account ID
 	 * @return the matching team account roles
 	 */
-	public java.util.List<TeamAccountRole> findByT_A(
+	public java.util.List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId);
 
 	/**
@@ -495,7 +495,7 @@ public interface TeamAccountRolePersistence
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @return the range of matching team account roles
 	 */
-	public java.util.List<TeamAccountRole> findByT_A(
+	public java.util.List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId, int start, int end);
 
 	/**
@@ -512,7 +512,7 @@ public interface TeamAccountRolePersistence
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching team account roles
 	 */
-	public java.util.List<TeamAccountRole> findByT_A(
+	public java.util.List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 			orderByComparator);
@@ -532,7 +532,7 @@ public interface TeamAccountRolePersistence
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
-	public java.util.List<TeamAccountRole> findByT_A(
+	public java.util.List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 			orderByComparator,
@@ -547,7 +547,7 @@ public interface TeamAccountRolePersistence
 	 * @return the first matching team account role
 	 * @throws NoSuchTeamAccountRoleException if a matching team account role could not be found
 	 */
-	public TeamAccountRole findByT_A_First(
+	public TeamAccountRole findByTI_AI_First(
 			long teamId, long accountId,
 			com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 				orderByComparator)
@@ -561,7 +561,7 @@ public interface TeamAccountRolePersistence
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching team account role, or <code>null</code> if a matching team account role could not be found
 	 */
-	public TeamAccountRole fetchByT_A_First(
+	public TeamAccountRole fetchByTI_AI_First(
 		long teamId, long accountId,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 			orderByComparator);
@@ -575,7 +575,7 @@ public interface TeamAccountRolePersistence
 	 * @return the last matching team account role
 	 * @throws NoSuchTeamAccountRoleException if a matching team account role could not be found
 	 */
-	public TeamAccountRole findByT_A_Last(
+	public TeamAccountRole findByTI_AI_Last(
 			long teamId, long accountId,
 			com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 				orderByComparator)
@@ -589,7 +589,7 @@ public interface TeamAccountRolePersistence
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching team account role, or <code>null</code> if a matching team account role could not be found
 	 */
-	public TeamAccountRole fetchByT_A_Last(
+	public TeamAccountRole fetchByTI_AI_Last(
 		long teamId, long accountId,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 			orderByComparator);
@@ -604,7 +604,7 @@ public interface TeamAccountRolePersistence
 	 * @return the previous, current, and next team account role
 	 * @throws NoSuchTeamAccountRoleException if a team account role with the primary key could not be found
 	 */
-	public TeamAccountRole[] findByT_A_PrevAndNext(
+	public TeamAccountRole[] findByTI_AI_PrevAndNext(
 			TeamAccountRolePK teamAccountRolePK, long teamId, long accountId,
 			com.liferay.portal.kernel.util.OrderByComparator<TeamAccountRole>
 				orderByComparator)
@@ -616,7 +616,7 @@ public interface TeamAccountRolePersistence
 	 * @param teamId the team ID
 	 * @param accountId the account ID
 	 */
-	public void removeByT_A(long teamId, long accountId);
+	public void removeByTI_AI(long teamId, long accountId);
 
 	/**
 	 * Returns the number of team account roles where teamId = &#63; and accountId = &#63;.
@@ -625,7 +625,7 @@ public interface TeamAccountRolePersistence
 	 * @param accountId the account ID
 	 * @return the number of matching team account roles
 	 */
-	public int countByT_A(long teamId, long accountId);
+	public int countByTI_AI(long teamId, long accountId);
 
 	/**
 	 * Caches the team account role in the entity cache if it is enabled.

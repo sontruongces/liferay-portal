@@ -480,7 +480,7 @@ public interface ContactTeamRolePersistence
 	 * @param teamId the team ID
 	 * @return the matching contact team roles
 	 */
-	public java.util.List<ContactTeamRole> findByC_T(
+	public java.util.List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId);
 
 	/**
@@ -496,7 +496,7 @@ public interface ContactTeamRolePersistence
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @return the range of matching contact team roles
 	 */
-	public java.util.List<ContactTeamRole> findByC_T(
+	public java.util.List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end);
 
 	/**
@@ -513,7 +513,7 @@ public interface ContactTeamRolePersistence
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching contact team roles
 	 */
-	public java.util.List<ContactTeamRole> findByC_T(
+	public java.util.List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
 			orderByComparator);
@@ -533,7 +533,7 @@ public interface ContactTeamRolePersistence
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
-	public java.util.List<ContactTeamRole> findByC_T(
+	public java.util.List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
 			orderByComparator,
@@ -548,7 +548,7 @@ public interface ContactTeamRolePersistence
 	 * @return the first matching contact team role
 	 * @throws NoSuchContactTeamRoleException if a matching contact team role could not be found
 	 */
-	public ContactTeamRole findByC_T_First(
+	public ContactTeamRole findByCI_TI_First(
 			long contactId, long teamId,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
 				orderByComparator)
@@ -562,7 +562,7 @@ public interface ContactTeamRolePersistence
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
-	public ContactTeamRole fetchByC_T_First(
+	public ContactTeamRole fetchByCI_TI_First(
 		long contactId, long teamId,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
 			orderByComparator);
@@ -576,7 +576,7 @@ public interface ContactTeamRolePersistence
 	 * @return the last matching contact team role
 	 * @throws NoSuchContactTeamRoleException if a matching contact team role could not be found
 	 */
-	public ContactTeamRole findByC_T_Last(
+	public ContactTeamRole findByCI_TI_Last(
 			long contactId, long teamId,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
 				orderByComparator)
@@ -590,7 +590,7 @@ public interface ContactTeamRolePersistence
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
-	public ContactTeamRole fetchByC_T_Last(
+	public ContactTeamRole fetchByCI_TI_Last(
 		long contactId, long teamId,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
 			orderByComparator);
@@ -605,7 +605,7 @@ public interface ContactTeamRolePersistence
 	 * @return the previous, current, and next contact team role
 	 * @throws NoSuchContactTeamRoleException if a contact team role with the primary key could not be found
 	 */
-	public ContactTeamRole[] findByC_T_PrevAndNext(
+	public ContactTeamRole[] findByCI_TI_PrevAndNext(
 			ContactTeamRolePK contactTeamRolePK, long contactId, long teamId,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
 				orderByComparator)
@@ -617,7 +617,7 @@ public interface ContactTeamRolePersistence
 	 * @param contactId the contact ID
 	 * @param teamId the team ID
 	 */
-	public void removeByC_T(long contactId, long teamId);
+	public void removeByCI_TI(long contactId, long teamId);
 
 	/**
 	 * Returns the number of contact team roles where contactId = &#63; and teamId = &#63;.
@@ -626,7 +626,7 @@ public interface ContactTeamRolePersistence
 	 * @param teamId the team ID
 	 * @return the number of matching contact team roles
 	 */
-	public int countByC_T(long contactId, long teamId);
+	public int countByCI_TI(long contactId, long teamId);
 
 	/**
 	 * Caches the contact team role in the entity cache if it is enabled.

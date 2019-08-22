@@ -952,6 +952,122 @@ public class AccountUtil {
 	}
 
 	/**
+	 * Returns the account where name = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	public static Account findByName(String name)
+		throws com.liferay.osb.koroneiki.taproot.exception.
+			NoSuchAccountException {
+
+		return getPersistence().findByName(name);
+	}
+
+	/**
+	 * Returns the account where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public static Account fetchByName(String name) {
+		return getPersistence().fetchByName(name);
+	}
+
+	/**
+	 * Returns the account where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public static Account fetchByName(String name, boolean useFinderCache) {
+		return getPersistence().fetchByName(name, useFinderCache);
+	}
+
+	/**
+	 * Removes the account where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the account that was removed
+	 */
+	public static Account removeByName(String name)
+		throws com.liferay.osb.koroneiki.taproot.exception.
+			NoSuchAccountException {
+
+		return getPersistence().removeByName(name);
+	}
+
+	/**
+	 * Returns the number of accounts where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching accounts
+	 */
+	public static int countByName(String name) {
+		return getPersistence().countByName(name);
+	}
+
+	/**
+	 * Returns the account where code = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
+	 *
+	 * @param code the code
+	 * @return the matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	public static Account findByCode(String code)
+		throws com.liferay.osb.koroneiki.taproot.exception.
+			NoSuchAccountException {
+
+		return getPersistence().findByCode(code);
+	}
+
+	/**
+	 * Returns the account where code = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param code the code
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public static Account fetchByCode(String code) {
+		return getPersistence().fetchByCode(code);
+	}
+
+	/**
+	 * Returns the account where code = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param code the code
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public static Account fetchByCode(String code, boolean useFinderCache) {
+		return getPersistence().fetchByCode(code, useFinderCache);
+	}
+
+	/**
+	 * Removes the account where code = &#63; from the database.
+	 *
+	 * @param code the code
+	 * @return the account that was removed
+	 */
+	public static Account removeByCode(String code)
+		throws com.liferay.osb.koroneiki.taproot.exception.
+			NoSuchAccountException {
+
+		return getPersistence().removeByCode(code);
+	}
+
+	/**
+	 * Returns the number of accounts where code = &#63;.
+	 *
+	 * @param code the code
+	 * @return the number of matching accounts
+	 */
+	public static int countByCode(String code) {
+		return getPersistence().countByCode(code);
+	}
+
+	/**
 	 * Caches the account in the entity cache if it is enabled.
 	 *
 	 * @param account the account

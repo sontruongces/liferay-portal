@@ -648,8 +648,10 @@ public class TeamAccountRoleUtil {
 	 * @param accountId the account ID
 	 * @return the matching team account roles
 	 */
-	public static List<TeamAccountRole> findByT_A(long teamId, long accountId) {
-		return getPersistence().findByT_A(teamId, accountId);
+	public static List<TeamAccountRole> findByTI_AI(
+		long teamId, long accountId) {
+
+		return getPersistence().findByTI_AI(teamId, accountId);
 	}
 
 	/**
@@ -665,10 +667,10 @@ public class TeamAccountRoleUtil {
 	 * @param end the upper bound of the range of team account roles (not inclusive)
 	 * @return the range of matching team account roles
 	 */
-	public static List<TeamAccountRole> findByT_A(
+	public static List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId, int start, int end) {
 
-		return getPersistence().findByT_A(teamId, accountId, start, end);
+		return getPersistence().findByTI_AI(teamId, accountId, start, end);
 	}
 
 	/**
@@ -685,11 +687,11 @@ public class TeamAccountRoleUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching team account roles
 	 */
-	public static List<TeamAccountRole> findByT_A(
+	public static List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId, int start, int end,
 		OrderByComparator<TeamAccountRole> orderByComparator) {
 
-		return getPersistence().findByT_A(
+		return getPersistence().findByTI_AI(
 			teamId, accountId, start, end, orderByComparator);
 	}
 
@@ -708,12 +710,12 @@ public class TeamAccountRoleUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team account roles
 	 */
-	public static List<TeamAccountRole> findByT_A(
+	public static List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId, int start, int end,
 		OrderByComparator<TeamAccountRole> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByT_A(
+		return getPersistence().findByTI_AI(
 			teamId, accountId, start, end, orderByComparator, useFinderCache);
 	}
 
@@ -726,13 +728,13 @@ public class TeamAccountRoleUtil {
 	 * @return the first matching team account role
 	 * @throws NoSuchTeamAccountRoleException if a matching team account role could not be found
 	 */
-	public static TeamAccountRole findByT_A_First(
+	public static TeamAccountRole findByTI_AI_First(
 			long teamId, long accountId,
 			OrderByComparator<TeamAccountRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchTeamAccountRoleException {
 
-		return getPersistence().findByT_A_First(
+		return getPersistence().findByTI_AI_First(
 			teamId, accountId, orderByComparator);
 	}
 
@@ -744,11 +746,11 @@ public class TeamAccountRoleUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching team account role, or <code>null</code> if a matching team account role could not be found
 	 */
-	public static TeamAccountRole fetchByT_A_First(
+	public static TeamAccountRole fetchByTI_AI_First(
 		long teamId, long accountId,
 		OrderByComparator<TeamAccountRole> orderByComparator) {
 
-		return getPersistence().fetchByT_A_First(
+		return getPersistence().fetchByTI_AI_First(
 			teamId, accountId, orderByComparator);
 	}
 
@@ -761,13 +763,13 @@ public class TeamAccountRoleUtil {
 	 * @return the last matching team account role
 	 * @throws NoSuchTeamAccountRoleException if a matching team account role could not be found
 	 */
-	public static TeamAccountRole findByT_A_Last(
+	public static TeamAccountRole findByTI_AI_Last(
 			long teamId, long accountId,
 			OrderByComparator<TeamAccountRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchTeamAccountRoleException {
 
-		return getPersistence().findByT_A_Last(
+		return getPersistence().findByTI_AI_Last(
 			teamId, accountId, orderByComparator);
 	}
 
@@ -779,11 +781,11 @@ public class TeamAccountRoleUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching team account role, or <code>null</code> if a matching team account role could not be found
 	 */
-	public static TeamAccountRole fetchByT_A_Last(
+	public static TeamAccountRole fetchByTI_AI_Last(
 		long teamId, long accountId,
 		OrderByComparator<TeamAccountRole> orderByComparator) {
 
-		return getPersistence().fetchByT_A_Last(
+		return getPersistence().fetchByTI_AI_Last(
 			teamId, accountId, orderByComparator);
 	}
 
@@ -797,13 +799,13 @@ public class TeamAccountRoleUtil {
 	 * @return the previous, current, and next team account role
 	 * @throws NoSuchTeamAccountRoleException if a team account role with the primary key could not be found
 	 */
-	public static TeamAccountRole[] findByT_A_PrevAndNext(
+	public static TeamAccountRole[] findByTI_AI_PrevAndNext(
 			TeamAccountRolePK teamAccountRolePK, long teamId, long accountId,
 			OrderByComparator<TeamAccountRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchTeamAccountRoleException {
 
-		return getPersistence().findByT_A_PrevAndNext(
+		return getPersistence().findByTI_AI_PrevAndNext(
 			teamAccountRolePK, teamId, accountId, orderByComparator);
 	}
 
@@ -813,8 +815,8 @@ public class TeamAccountRoleUtil {
 	 * @param teamId the team ID
 	 * @param accountId the account ID
 	 */
-	public static void removeByT_A(long teamId, long accountId) {
-		getPersistence().removeByT_A(teamId, accountId);
+	public static void removeByTI_AI(long teamId, long accountId) {
+		getPersistence().removeByTI_AI(teamId, accountId);
 	}
 
 	/**
@@ -824,8 +826,8 @@ public class TeamAccountRoleUtil {
 	 * @param accountId the account ID
 	 * @return the number of matching team account roles
 	 */
-	public static int countByT_A(long teamId, long accountId) {
-		return getPersistence().countByT_A(teamId, accountId);
+	public static int countByTI_AI(long teamId, long accountId) {
+		return getPersistence().countByTI_AI(teamId, accountId);
 	}
 
 	/**

@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 
@@ -2328,964 +2329,6 @@ public class TeamRolePersistenceImpl
 	private static final String _FINDER_COLUMN_TEAMROLEKEY_TEAMROLEKEY_3 =
 		"(teamRole.teamRoleKey IS NULL OR teamRole.teamRoleKey = '')";
 
-	private FinderPath _finderPathWithPaginationFindByName;
-	private FinderPath _finderPathWithoutPaginationFindByName;
-	private FinderPath _finderPathCountByName;
-
-	/**
-	 * Returns all the team roles where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the matching team roles
-	 */
-	@Override
-	public List<TeamRole> findByName(String name) {
-		return findByName(name, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the team roles where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @return the range of matching team roles
-	 */
-	@Override
-	public List<TeamRole> findByName(String name, int start, int end) {
-		return findByName(name, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the team roles where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching team roles
-	 */
-	@Override
-	public List<TeamRole> findByName(
-		String name, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator) {
-
-		return findByName(name, start, end, orderByComparator, true);
-	}
-
-	/**
-	 * Returns an ordered range of all the team roles where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching team roles
-	 */
-	@Override
-	public List<TeamRole> findByName(
-		String name, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
-
-		name = Objects.toString(name, "");
-
-		boolean pagination = true;
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-			(orderByComparator == null)) {
-
-			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByName;
-				finderArgs = new Object[] {name};
-			}
-		}
-		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByName;
-			finderArgs = new Object[] {name, start, end, orderByComparator};
-		}
-
-		List<TeamRole> list = null;
-
-		if (useFinderCache) {
-			list = (List<TeamRole>)finderCache.getResult(
-				finderPath, finderArgs, this);
-
-			if ((list != null) && !list.isEmpty()) {
-				for (TeamRole teamRole : list) {
-					if (!name.equals(teamRole.getName())) {
-						list = null;
-
-						break;
-					}
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(
-					3 + (orderByComparator.getOrderByFields().length * 2));
-			}
-			else {
-				query = new StringBundler(3);
-			}
-
-			query.append(_SQL_SELECT_TEAMROLE_WHERE);
-
-			boolean bindName = false;
-
-			if (name.isEmpty()) {
-				query.append(_FINDER_COLUMN_NAME_NAME_3);
-			}
-			else {
-				bindName = true;
-
-				query.append(_FINDER_COLUMN_NAME_NAME_2);
-			}
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
-			}
-			else if (pagination) {
-				query.append(TeamRoleModelImpl.ORDER_BY_JPQL);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (bindName) {
-					qPos.add(name);
-				}
-
-				if (!pagination) {
-					list = (List<TeamRole>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<TeamRole>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
-
-				cacheResult(list);
-
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
-			}
-			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first team role in the ordered set where name = &#63;.
-	 *
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching team role
-	 * @throws NoSuchTeamRoleException if a matching team role could not be found
-	 */
-	@Override
-	public TeamRole findByName_First(
-			String name, OrderByComparator<TeamRole> orderByComparator)
-		throws NoSuchTeamRoleException {
-
-		TeamRole teamRole = fetchByName_First(name, orderByComparator);
-
-		if (teamRole != null) {
-			return teamRole;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("name=");
-		msg.append(name);
-
-		msg.append("}");
-
-		throw new NoSuchTeamRoleException(msg.toString());
-	}
-
-	/**
-	 * Returns the first team role in the ordered set where name = &#63;.
-	 *
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching team role, or <code>null</code> if a matching team role could not be found
-	 */
-	@Override
-	public TeamRole fetchByName_First(
-		String name, OrderByComparator<TeamRole> orderByComparator) {
-
-		List<TeamRole> list = findByName(name, 0, 1, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last team role in the ordered set where name = &#63;.
-	 *
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching team role
-	 * @throws NoSuchTeamRoleException if a matching team role could not be found
-	 */
-	@Override
-	public TeamRole findByName_Last(
-			String name, OrderByComparator<TeamRole> orderByComparator)
-		throws NoSuchTeamRoleException {
-
-		TeamRole teamRole = fetchByName_Last(name, orderByComparator);
-
-		if (teamRole != null) {
-			return teamRole;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("name=");
-		msg.append(name);
-
-		msg.append("}");
-
-		throw new NoSuchTeamRoleException(msg.toString());
-	}
-
-	/**
-	 * Returns the last team role in the ordered set where name = &#63;.
-	 *
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching team role, or <code>null</code> if a matching team role could not be found
-	 */
-	@Override
-	public TeamRole fetchByName_Last(
-		String name, OrderByComparator<TeamRole> orderByComparator) {
-
-		int count = countByName(name);
-
-		if (count == 0) {
-			return null;
-		}
-
-		List<TeamRole> list = findByName(
-			name, count - 1, count, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the team roles before and after the current team role in the ordered set where name = &#63;.
-	 *
-	 * @param teamRoleId the primary key of the current team role
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next team role
-	 * @throws NoSuchTeamRoleException if a team role with the primary key could not be found
-	 */
-	@Override
-	public TeamRole[] findByName_PrevAndNext(
-			long teamRoleId, String name,
-			OrderByComparator<TeamRole> orderByComparator)
-		throws NoSuchTeamRoleException {
-
-		name = Objects.toString(name, "");
-
-		TeamRole teamRole = findByPrimaryKey(teamRoleId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			TeamRole[] array = new TeamRoleImpl[3];
-
-			array[0] = getByName_PrevAndNext(
-				session, teamRole, name, orderByComparator, true);
-
-			array[1] = teamRole;
-
-			array[2] = getByName_PrevAndNext(
-				session, teamRole, name, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected TeamRole getByName_PrevAndNext(
-		Session session, TeamRole teamRole, String name,
-		OrderByComparator<TeamRole> orderByComparator, boolean previous) {
-
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(
-				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
-					(orderByComparator.getOrderByFields().length * 3));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_TEAMROLE_WHERE);
-
-		boolean bindName = false;
-
-		if (name.isEmpty()) {
-			query.append(_FINDER_COLUMN_NAME_NAME_3);
-		}
-		else {
-			bindName = true;
-
-			query.append(_FINDER_COLUMN_NAME_NAME_2);
-		}
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields =
-				orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-		else {
-			query.append(TeamRoleModelImpl.ORDER_BY_JPQL);
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		if (bindName) {
-			qPos.add(name);
-		}
-
-		if (orderByComparator != null) {
-			for (Object orderByConditionValue :
-					orderByComparator.getOrderByConditionValues(teamRole)) {
-
-				qPos.add(orderByConditionValue);
-			}
-		}
-
-		List<TeamRole> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Returns all the team roles that the user has permission to view where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the matching team roles that the user has permission to view
-	 */
-	@Override
-	public List<TeamRole> filterFindByName(String name) {
-		return filterFindByName(
-			name, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the team roles that the user has permission to view where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @return the range of matching team roles that the user has permission to view
-	 */
-	@Override
-	public List<TeamRole> filterFindByName(String name, int start, int end) {
-		return filterFindByName(name, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the team roles that the user has permissions to view where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching team roles that the user has permission to view
-	 */
-	@Override
-	public List<TeamRole> filterFindByName(
-		String name, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator) {
-
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByName(name, start, end, orderByComparator);
-		}
-
-		name = Objects.toString(name, "");
-
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(
-				3 + (orderByComparator.getOrderByFields().length * 2));
-		}
-		else {
-			query = new StringBundler(4);
-		}
-
-		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_TEAMROLE_WHERE);
-		}
-		else {
-			query.append(
-				_FILTER_SQL_SELECT_TEAMROLE_NO_INLINE_DISTINCT_WHERE_1);
-		}
-
-		boolean bindName = false;
-
-		if (name.isEmpty()) {
-			query.append(_FINDER_COLUMN_NAME_NAME_3);
-		}
-		else {
-			bindName = true;
-
-			query.append(_FINDER_COLUMN_NAME_NAME_2);
-		}
-
-		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(
-				_FILTER_SQL_SELECT_TEAMROLE_NO_INLINE_DISTINCT_WHERE_2);
-		}
-
-		if (orderByComparator != null) {
-			if (getDB().isSupportsInlineDistinct()) {
-				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
-			}
-			else {
-				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
-			}
-		}
-		else {
-			if (getDB().isSupportsInlineDistinct()) {
-				query.append(TeamRoleModelImpl.ORDER_BY_JPQL);
-			}
-			else {
-				query.append(TeamRoleModelImpl.ORDER_BY_SQL);
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			query.toString(), TeamRole.class.getName(),
-			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSynchronizedSQLQuery(sql);
-
-			if (getDB().isSupportsInlineDistinct()) {
-				q.addEntity(_FILTER_ENTITY_ALIAS, TeamRoleImpl.class);
-			}
-			else {
-				q.addEntity(_FILTER_ENTITY_TABLE, TeamRoleImpl.class);
-			}
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			if (bindName) {
-				qPos.add(name);
-			}
-
-			return (List<TeamRole>)QueryUtil.list(q, getDialect(), start, end);
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	/**
-	 * Returns the team roles before and after the current team role in the ordered set of team roles that the user has permission to view where name = &#63;.
-	 *
-	 * @param teamRoleId the primary key of the current team role
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next team role
-	 * @throws NoSuchTeamRoleException if a team role with the primary key could not be found
-	 */
-	@Override
-	public TeamRole[] filterFindByName_PrevAndNext(
-			long teamRoleId, String name,
-			OrderByComparator<TeamRole> orderByComparator)
-		throws NoSuchTeamRoleException {
-
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByName_PrevAndNext(teamRoleId, name, orderByComparator);
-		}
-
-		name = Objects.toString(name, "");
-
-		TeamRole teamRole = findByPrimaryKey(teamRoleId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			TeamRole[] array = new TeamRoleImpl[3];
-
-			array[0] = filterGetByName_PrevAndNext(
-				session, teamRole, name, orderByComparator, true);
-
-			array[1] = teamRole;
-
-			array[2] = filterGetByName_PrevAndNext(
-				session, teamRole, name, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected TeamRole filterGetByName_PrevAndNext(
-		Session session, TeamRole teamRole, String name,
-		OrderByComparator<TeamRole> orderByComparator, boolean previous) {
-
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(
-				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
-					(orderByComparator.getOrderByFields().length * 3));
-		}
-		else {
-			query = new StringBundler(4);
-		}
-
-		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_TEAMROLE_WHERE);
-		}
-		else {
-			query.append(
-				_FILTER_SQL_SELECT_TEAMROLE_NO_INLINE_DISTINCT_WHERE_1);
-		}
-
-		boolean bindName = false;
-
-		if (name.isEmpty()) {
-			query.append(_FINDER_COLUMN_NAME_NAME_3);
-		}
-		else {
-			bindName = true;
-
-			query.append(_FINDER_COLUMN_NAME_NAME_2);
-		}
-
-		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(
-				_FILTER_SQL_SELECT_TEAMROLE_NO_INLINE_DISTINCT_WHERE_2);
-		}
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields =
-				orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				if (getDB().isSupportsInlineDistinct()) {
-					query.append(
-						getColumnName(
-							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
-							true));
-				}
-				else {
-					query.append(
-						getColumnName(
-							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
-							true));
-				}
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				if (getDB().isSupportsInlineDistinct()) {
-					query.append(
-						getColumnName(
-							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
-				}
-				else {
-					query.append(
-						getColumnName(
-							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
-				}
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-		else {
-			if (getDB().isSupportsInlineDistinct()) {
-				query.append(TeamRoleModelImpl.ORDER_BY_JPQL);
-			}
-			else {
-				query.append(TeamRoleModelImpl.ORDER_BY_SQL);
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			query.toString(), TeamRole.class.getName(),
-			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		SQLQuery q = session.createSynchronizedSQLQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		if (getDB().isSupportsInlineDistinct()) {
-			q.addEntity(_FILTER_ENTITY_ALIAS, TeamRoleImpl.class);
-		}
-		else {
-			q.addEntity(_FILTER_ENTITY_TABLE, TeamRoleImpl.class);
-		}
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		if (bindName) {
-			qPos.add(name);
-		}
-
-		if (orderByComparator != null) {
-			for (Object orderByConditionValue :
-					orderByComparator.getOrderByConditionValues(teamRole)) {
-
-				qPos.add(orderByConditionValue);
-			}
-		}
-
-		List<TeamRole> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Removes all the team roles where name = &#63; from the database.
-	 *
-	 * @param name the name
-	 */
-	@Override
-	public void removeByName(String name) {
-		for (TeamRole teamRole :
-				findByName(name, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
-
-			remove(teamRole);
-		}
-	}
-
-	/**
-	 * Returns the number of team roles where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the number of matching team roles
-	 */
-	@Override
-	public int countByName(String name) {
-		name = Objects.toString(name, "");
-
-		FinderPath finderPath = _finderPathCountByName;
-
-		Object[] finderArgs = new Object[] {name};
-
-		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_TEAMROLE_WHERE);
-
-			boolean bindName = false;
-
-			if (name.isEmpty()) {
-				query.append(_FINDER_COLUMN_NAME_NAME_3);
-			}
-			else {
-				bindName = true;
-
-				query.append(_FINDER_COLUMN_NAME_NAME_2);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (bindName) {
-					qPos.add(name);
-				}
-
-				count = (Long)q.uniqueResult();
-
-				finderCache.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of team roles that the user has permission to view where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the number of matching team roles that the user has permission to view
-	 */
-	@Override
-	public int filterCountByName(String name) {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return countByName(name);
-		}
-
-		name = Objects.toString(name, "");
-
-		StringBundler query = new StringBundler(2);
-
-		query.append(_FILTER_SQL_COUNT_TEAMROLE_WHERE);
-
-		boolean bindName = false;
-
-		if (name.isEmpty()) {
-			query.append(_FINDER_COLUMN_NAME_NAME_3);
-		}
-		else {
-			bindName = true;
-
-			query.append(_FINDER_COLUMN_NAME_NAME_2);
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			query.toString(), TeamRole.class.getName(),
-			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSynchronizedSQLQuery(sql);
-
-			q.addScalar(
-				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			if (bindName) {
-				qPos.add(name);
-			}
-
-			Long count = (Long)q.uniqueResult();
-
-			return count.intValue();
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	private static final String _FINDER_COLUMN_NAME_NAME_2 =
-		"teamRole.name = ?";
-
-	private static final String _FINDER_COLUMN_NAME_NAME_3 =
-		"(teamRole.name IS NULL OR teamRole.name = '')";
-
 	private FinderPath _finderPathWithPaginationFindByType;
 	private FinderPath _finderPathWithoutPaginationFindByType;
 	private FinderPath _finderPathCountByType;
@@ -4166,6 +3209,272 @@ public class TeamRolePersistenceImpl
 	private static final String _FINDER_COLUMN_TYPE_TYPE_2_SQL =
 		"teamRole.type_ = ?";
 
+	private FinderPath _finderPathFetchByN_T;
+	private FinderPath _finderPathCountByN_T;
+
+	/**
+	 * Returns the team role where name = &#63; and type = &#63; or throws a <code>NoSuchTeamRoleException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @return the matching team role
+	 * @throws NoSuchTeamRoleException if a matching team role could not be found
+	 */
+	@Override
+	public TeamRole findByN_T(String name, int type)
+		throws NoSuchTeamRoleException {
+
+		TeamRole teamRole = fetchByN_T(name, type);
+
+		if (teamRole == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("name=");
+			msg.append(name);
+
+			msg.append(", type=");
+			msg.append(type);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchTeamRoleException(msg.toString());
+		}
+
+		return teamRole;
+	}
+
+	/**
+	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
+	 */
+	@Override
+	public TeamRole fetchByN_T(String name, int type) {
+		return fetchByN_T(name, type, true);
+	}
+
+	/**
+	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
+	 */
+	@Override
+	public TeamRole fetchByN_T(String name, int type, boolean useFinderCache) {
+		name = Objects.toString(name, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {name, type};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByN_T, finderArgs, this);
+		}
+
+		if (result instanceof TeamRole) {
+			TeamRole teamRole = (TeamRole)result;
+
+			if (!Objects.equals(name, teamRole.getName()) ||
+				(type != teamRole.getType())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_TEAMROLE_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				query.append(_FINDER_COLUMN_N_T_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_N_T_NAME_2);
+			}
+
+			query.append(_FINDER_COLUMN_N_T_TYPE_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				qPos.add(type);
+
+				List<TeamRole> list = q.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByN_T, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {name, type};
+							}
+
+							_log.warn(
+								"TeamRolePersistenceImpl.fetchByN_T(String, int, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					TeamRole teamRole = list.get(0);
+
+					result = teamRole;
+
+					cacheResult(teamRole);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(_finderPathFetchByN_T, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (TeamRole)result;
+		}
+	}
+
+	/**
+	 * Removes the team role where name = &#63; and type = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @return the team role that was removed
+	 */
+	@Override
+	public TeamRole removeByN_T(String name, int type)
+		throws NoSuchTeamRoleException {
+
+		TeamRole teamRole = findByN_T(name, type);
+
+		return remove(teamRole);
+	}
+
+	/**
+	 * Returns the number of team roles where name = &#63; and type = &#63;.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @return the number of matching team roles
+	 */
+	@Override
+	public int countByN_T(String name, int type) {
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathCountByN_T;
+
+		Object[] finderArgs = new Object[] {name, type};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TEAMROLE_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				query.append(_FINDER_COLUMN_N_T_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_N_T_NAME_2);
+			}
+
+			query.append(_FINDER_COLUMN_N_T_TYPE_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				qPos.add(type);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_N_T_NAME_2 =
+		"teamRole.name = ? AND ";
+
+	private static final String _FINDER_COLUMN_N_T_NAME_3 =
+		"(teamRole.name IS NULL OR teamRole.name = '') AND ";
+
+	private static final String _FINDER_COLUMN_N_T_TYPE_2 = "teamRole.type = ?";
+
 	public TeamRolePersistenceImpl() {
 		setModelClass(TeamRole.class);
 
@@ -4194,6 +3503,10 @@ public class TeamRolePersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByTeamRoleKey,
 			new Object[] {teamRole.getTeamRoleKey()}, teamRole);
+
+		finderCache.putResult(
+			_finderPathFetchByN_T,
+			new Object[] {teamRole.getName(), teamRole.getType()}, teamRole);
 
 		teamRole.resetOriginalValues();
 	}
@@ -4275,6 +3588,15 @@ public class TeamRolePersistenceImpl
 			_finderPathCountByTeamRoleKey, args, Long.valueOf(1), false);
 		finderCache.putResult(
 			_finderPathFetchByTeamRoleKey, args, teamRoleModelImpl, false);
+
+		args = new Object[] {
+			teamRoleModelImpl.getName(), teamRoleModelImpl.getType()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByN_T, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByN_T, args, teamRoleModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
@@ -4296,6 +3618,27 @@ public class TeamRolePersistenceImpl
 
 			finderCache.removeResult(_finderPathCountByTeamRoleKey, args);
 			finderCache.removeResult(_finderPathFetchByTeamRoleKey, args);
+		}
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+				teamRoleModelImpl.getName(), teamRoleModelImpl.getType()
+			};
+
+			finderCache.removeResult(_finderPathCountByN_T, args);
+			finderCache.removeResult(_finderPathFetchByN_T, args);
+		}
+
+		if ((teamRoleModelImpl.getColumnBitmask() &
+			 _finderPathFetchByN_T.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {
+				teamRoleModelImpl.getOriginalName(),
+				teamRoleModelImpl.getOriginalType()
+			};
+
+			finderCache.removeResult(_finderPathCountByN_T, args);
+			finderCache.removeResult(_finderPathFetchByN_T, args);
 		}
 	}
 
@@ -4496,12 +3839,6 @@ public class TeamRolePersistenceImpl
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindByUuid_C, args);
 
-			args = new Object[] {teamRoleModelImpl.getName()};
-
-			finderCache.removeResult(_finderPathCountByName, args);
-			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByName, args);
-
 			args = new Object[] {teamRoleModelImpl.getType()};
 
 			finderCache.removeResult(_finderPathCountByType, args);
@@ -4553,25 +3890,6 @@ public class TeamRolePersistenceImpl
 				finderCache.removeResult(_finderPathCountByUuid_C, args);
 				finderCache.removeResult(
 					_finderPathWithoutPaginationFindByUuid_C, args);
-			}
-
-			if ((teamRoleModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByName.getColumnBitmask()) !=
-					 0) {
-
-				Object[] args = new Object[] {
-					teamRoleModelImpl.getOriginalName()
-				};
-
-				finderCache.removeResult(_finderPathCountByName, args);
-				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByName, args);
-
-				args = new Object[] {teamRoleModelImpl.getName()};
-
-				finderCache.removeResult(_finderPathCountByName, args);
-				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByName, args);
 			}
 
 			if ((teamRoleModelImpl.getColumnBitmask() &
@@ -4957,25 +4275,6 @@ public class TeamRolePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTeamRoleKey",
 			new String[] {String.class.getName()});
 
-		_finderPathWithPaginationFindByName = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, TeamRoleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByName",
-			new String[] {
-				String.class.getName(), Integer.class.getName(),
-				Integer.class.getName(), OrderByComparator.class.getName()
-			});
-
-		_finderPathWithoutPaginationFindByName = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, TeamRoleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByName",
-			new String[] {String.class.getName()},
-			TeamRoleModelImpl.NAME_COLUMN_BITMASK);
-
-		_finderPathCountByName = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
-			new String[] {String.class.getName()});
-
 		_finderPathWithPaginationFindByType = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TeamRoleImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByType",
@@ -4995,6 +4294,18 @@ public class TeamRolePersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByType",
 			new String[] {Integer.class.getName()});
+
+		_finderPathFetchByN_T = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, TeamRoleImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByN_T",
+			new String[] {String.class.getName(), Integer.class.getName()},
+			TeamRoleModelImpl.NAME_COLUMN_BITMASK |
+			TeamRoleModelImpl.TYPE_COLUMN_BITMASK);
+
+		_finderPathCountByN_T = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByN_T",
+			new String[] {String.class.getName(), Integer.class.getName()});
 	}
 
 	@Deactivate

@@ -1666,9 +1666,9 @@ public class ContactAccountRolePersistenceImpl
 	private static final String _FINDER_COLUMN_CONTACTROLEID_CONTACTROLEID_2 =
 		"contactAccountRole.id.contactRoleId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByC_A;
-	private FinderPath _finderPathWithoutPaginationFindByC_A;
-	private FinderPath _finderPathCountByC_A;
+	private FinderPath _finderPathWithPaginationFindByCI_AI;
+	private FinderPath _finderPathWithoutPaginationFindByCI_AI;
+	private FinderPath _finderPathCountByCI_AI;
 
 	/**
 	 * Returns all the contact account roles where contactId = &#63; and accountId = &#63;.
@@ -1678,8 +1678,10 @@ public class ContactAccountRolePersistenceImpl
 	 * @return the matching contact account roles
 	 */
 	@Override
-	public List<ContactAccountRole> findByC_A(long contactId, long accountId) {
-		return findByC_A(
+	public List<ContactAccountRole> findByCI_AI(
+		long contactId, long accountId) {
+
+		return findByCI_AI(
 			contactId, accountId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -1697,10 +1699,10 @@ public class ContactAccountRolePersistenceImpl
 	 * @return the range of matching contact account roles
 	 */
 	@Override
-	public List<ContactAccountRole> findByC_A(
+	public List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end) {
 
-		return findByC_A(contactId, accountId, start, end, null);
+		return findByCI_AI(contactId, accountId, start, end, null);
 	}
 
 	/**
@@ -1718,11 +1720,11 @@ public class ContactAccountRolePersistenceImpl
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
-	public List<ContactAccountRole> findByC_A(
+	public List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
 		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		return findByC_A(
+		return findByCI_AI(
 			contactId, accountId, start, end, orderByComparator, true);
 	}
 
@@ -1742,7 +1744,7 @@ public class ContactAccountRolePersistenceImpl
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
-	public List<ContactAccountRole> findByC_A(
+	public List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
 		OrderByComparator<ContactAccountRole> orderByComparator,
 		boolean useFinderCache) {
@@ -1757,12 +1759,12 @@ public class ContactAccountRolePersistenceImpl
 			pagination = false;
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByC_A;
+				finderPath = _finderPathWithoutPaginationFindByCI_AI;
 				finderArgs = new Object[] {contactId, accountId};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByC_A;
+			finderPath = _finderPathWithPaginationFindByCI_AI;
 			finderArgs = new Object[] {
 				contactId, accountId, start, end, orderByComparator
 			};
@@ -1800,9 +1802,9 @@ public class ContactAccountRolePersistenceImpl
 
 			query.append(_SQL_SELECT_CONTACTACCOUNTROLE_WHERE);
 
-			query.append(_FINDER_COLUMN_C_A_CONTACTID_2);
+			query.append(_FINDER_COLUMN_CI_AI_CONTACTID_2);
 
-			query.append(_FINDER_COLUMN_C_A_ACCOUNTID_2);
+			query.append(_FINDER_COLUMN_CI_AI_ACCOUNTID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -1871,12 +1873,12 @@ public class ContactAccountRolePersistenceImpl
 	 * @throws NoSuchContactAccountRoleException if a matching contact account role could not be found
 	 */
 	@Override
-	public ContactAccountRole findByC_A_First(
+	public ContactAccountRole findByCI_AI_First(
 			long contactId, long accountId,
 			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException {
 
-		ContactAccountRole contactAccountRole = fetchByC_A_First(
+		ContactAccountRole contactAccountRole = fetchByCI_AI_First(
 			contactId, accountId, orderByComparator);
 
 		if (contactAccountRole != null) {
@@ -1907,11 +1909,11 @@ public class ContactAccountRolePersistenceImpl
 	 * @return the first matching contact account role, or <code>null</code> if a matching contact account role could not be found
 	 */
 	@Override
-	public ContactAccountRole fetchByC_A_First(
+	public ContactAccountRole fetchByCI_AI_First(
 		long contactId, long accountId,
 		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		List<ContactAccountRole> list = findByC_A(
+		List<ContactAccountRole> list = findByCI_AI(
 			contactId, accountId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1931,12 +1933,12 @@ public class ContactAccountRolePersistenceImpl
 	 * @throws NoSuchContactAccountRoleException if a matching contact account role could not be found
 	 */
 	@Override
-	public ContactAccountRole findByC_A_Last(
+	public ContactAccountRole findByCI_AI_Last(
 			long contactId, long accountId,
 			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException {
 
-		ContactAccountRole contactAccountRole = fetchByC_A_Last(
+		ContactAccountRole contactAccountRole = fetchByCI_AI_Last(
 			contactId, accountId, orderByComparator);
 
 		if (contactAccountRole != null) {
@@ -1967,17 +1969,17 @@ public class ContactAccountRolePersistenceImpl
 	 * @return the last matching contact account role, or <code>null</code> if a matching contact account role could not be found
 	 */
 	@Override
-	public ContactAccountRole fetchByC_A_Last(
+	public ContactAccountRole fetchByCI_AI_Last(
 		long contactId, long accountId,
 		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		int count = countByC_A(contactId, accountId);
+		int count = countByCI_AI(contactId, accountId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<ContactAccountRole> list = findByC_A(
+		List<ContactAccountRole> list = findByCI_AI(
 			contactId, accountId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1998,7 +2000,7 @@ public class ContactAccountRolePersistenceImpl
 	 * @throws NoSuchContactAccountRoleException if a contact account role with the primary key could not be found
 	 */
 	@Override
-	public ContactAccountRole[] findByC_A_PrevAndNext(
+	public ContactAccountRole[] findByCI_AI_PrevAndNext(
 			ContactAccountRolePK contactAccountRolePK, long contactId,
 			long accountId,
 			OrderByComparator<ContactAccountRole> orderByComparator)
@@ -2014,13 +2016,13 @@ public class ContactAccountRolePersistenceImpl
 
 			ContactAccountRole[] array = new ContactAccountRoleImpl[3];
 
-			array[0] = getByC_A_PrevAndNext(
+			array[0] = getByCI_AI_PrevAndNext(
 				session, contactAccountRole, contactId, accountId,
 				orderByComparator, true);
 
 			array[1] = contactAccountRole;
 
-			array[2] = getByC_A_PrevAndNext(
+			array[2] = getByCI_AI_PrevAndNext(
 				session, contactAccountRole, contactId, accountId,
 				orderByComparator, false);
 
@@ -2034,7 +2036,7 @@ public class ContactAccountRolePersistenceImpl
 		}
 	}
 
-	protected ContactAccountRole getByC_A_PrevAndNext(
+	protected ContactAccountRole getByCI_AI_PrevAndNext(
 		Session session, ContactAccountRole contactAccountRole, long contactId,
 		long accountId, OrderByComparator<ContactAccountRole> orderByComparator,
 		boolean previous) {
@@ -2052,9 +2054,9 @@ public class ContactAccountRolePersistenceImpl
 
 		query.append(_SQL_SELECT_CONTACTACCOUNTROLE_WHERE);
 
-		query.append(_FINDER_COLUMN_C_A_CONTACTID_2);
+		query.append(_FINDER_COLUMN_CI_AI_CONTACTID_2);
 
-		query.append(_FINDER_COLUMN_C_A_ACCOUNTID_2);
+		query.append(_FINDER_COLUMN_CI_AI_ACCOUNTID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -2155,9 +2157,9 @@ public class ContactAccountRolePersistenceImpl
 	 * @param accountId the account ID
 	 */
 	@Override
-	public void removeByC_A(long contactId, long accountId) {
+	public void removeByCI_AI(long contactId, long accountId) {
 		for (ContactAccountRole contactAccountRole :
-				findByC_A(
+				findByCI_AI(
 					contactId, accountId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 					null)) {
 
@@ -2173,8 +2175,8 @@ public class ContactAccountRolePersistenceImpl
 	 * @return the number of matching contact account roles
 	 */
 	@Override
-	public int countByC_A(long contactId, long accountId) {
-		FinderPath finderPath = _finderPathCountByC_A;
+	public int countByCI_AI(long contactId, long accountId) {
+		FinderPath finderPath = _finderPathCountByCI_AI;
 
 		Object[] finderArgs = new Object[] {contactId, accountId};
 
@@ -2185,9 +2187,9 @@ public class ContactAccountRolePersistenceImpl
 
 			query.append(_SQL_COUNT_CONTACTACCOUNTROLE_WHERE);
 
-			query.append(_FINDER_COLUMN_C_A_CONTACTID_2);
+			query.append(_FINDER_COLUMN_CI_AI_CONTACTID_2);
 
-			query.append(_FINDER_COLUMN_C_A_ACCOUNTID_2);
+			query.append(_FINDER_COLUMN_CI_AI_ACCOUNTID_2);
 
 			String sql = query.toString();
 
@@ -2221,10 +2223,10 @@ public class ContactAccountRolePersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_C_A_CONTACTID_2 =
+	private static final String _FINDER_COLUMN_CI_AI_CONTACTID_2 =
 		"contactAccountRole.id.contactId = ? AND ";
 
-	private static final String _FINDER_COLUMN_C_A_ACCOUNTID_2 =
+	private static final String _FINDER_COLUMN_CI_AI_ACCOUNTID_2 =
 		"contactAccountRole.id.accountId = ?";
 
 	public ContactAccountRolePersistenceImpl() {
@@ -2501,9 +2503,9 @@ public class ContactAccountRolePersistenceImpl
 				contactAccountRoleModelImpl.getAccountId()
 			};
 
-			finderCache.removeResult(_finderPathCountByC_A, args);
+			finderCache.removeResult(_finderPathCountByCI_AI, args);
 			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByC_A, args);
+				_finderPathWithoutPaginationFindByCI_AI, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
@@ -2574,7 +2576,7 @@ public class ContactAccountRolePersistenceImpl
 			}
 
 			if ((contactAccountRoleModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByC_A.getColumnBitmask()) !=
+				 _finderPathWithoutPaginationFindByCI_AI.getColumnBitmask()) !=
 					 0) {
 
 				Object[] args = new Object[] {
@@ -2582,18 +2584,18 @@ public class ContactAccountRolePersistenceImpl
 					contactAccountRoleModelImpl.getOriginalAccountId()
 				};
 
-				finderCache.removeResult(_finderPathCountByC_A, args);
+				finderCache.removeResult(_finderPathCountByCI_AI, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByC_A, args);
+					_finderPathWithoutPaginationFindByCI_AI, args);
 
 				args = new Object[] {
 					contactAccountRoleModelImpl.getContactId(),
 					contactAccountRoleModelImpl.getAccountId()
 				};
 
-				finderCache.removeResult(_finderPathCountByC_A, args);
+				finderCache.removeResult(_finderPathCountByCI_AI, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByC_A, args);
+					_finderPathWithoutPaginationFindByCI_AI, args);
 			}
 		}
 
@@ -2974,27 +2976,27 @@ public class ContactAccountRolePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByContactRoleId",
 			new String[] {Long.class.getName()});
 
-		_finderPathWithPaginationFindByC_A = new FinderPath(
+		_finderPathWithPaginationFindByCI_AI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled,
 			ContactAccountRoleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_A",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCI_AI",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
 
-		_finderPathWithoutPaginationFindByC_A = new FinderPath(
+		_finderPathWithoutPaginationFindByCI_AI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled,
 			ContactAccountRoleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_A",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCI_AI",
 			new String[] {Long.class.getName(), Long.class.getName()},
 			ContactAccountRoleModelImpl.CONTACTID_COLUMN_BITMASK |
 			ContactAccountRoleModelImpl.ACCOUNTID_COLUMN_BITMASK);
 
-		_finderPathCountByC_A = new FinderPath(
+		_finderPathCountByCI_AI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_A",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCI_AI",
 			new String[] {Long.class.getName(), Long.class.getName()});
 	}
 

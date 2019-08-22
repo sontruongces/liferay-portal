@@ -263,9 +263,6 @@ public interface TeamLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Team> getTeams(int start, int end);
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Team> getTeams(String name) throws PortalException;
-
 	/**
 	 * Returns the number of teams.
 	 *

@@ -117,11 +117,13 @@ public class ProductEntryModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
-	public static final long PRODUCTENTRYKEY_COLUMN_BITMASK = 2L;
+	public static final long NAME_COLUMN_BITMASK = 2L;
 
-	public static final long UUID_COLUMN_BITMASK = 4L;
+	public static final long PRODUCTENTRYKEY_COLUMN_BITMASK = 4L;
 
-	public static final long PRODUCTENTRYID_COLUMN_BITMASK = 8L;
+	public static final long UUID_COLUMN_BITMASK = 8L;
+
+	public static final long PRODUCTENTRYID_COLUMN_BITMASK = 16L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -495,7 +497,17 @@ public class ProductEntryModelImpl
 
 	@Override
 	public void setName(String name) {
+		_columnBitmask |= NAME_COLUMN_BITMASK;
+
+		if (_originalName == null) {
+			_originalName = _name;
+		}
+
 		_name = name;
+	}
+
+	public String getOriginalName() {
+		return GetterUtil.getString(_originalName);
 	}
 
 	@Override
@@ -621,6 +633,8 @@ public class ProductEntryModelImpl
 
 		productEntryModelImpl._originalProductEntryKey =
 			productEntryModelImpl._productEntryKey;
+
+		productEntryModelImpl._originalName = productEntryModelImpl._name;
 
 		productEntryModelImpl._columnBitmask = 0;
 	}
@@ -767,6 +781,7 @@ public class ProductEntryModelImpl
 	private String _productEntryKey;
 	private String _originalProductEntryKey;
 	private String _name;
+	private String _originalName;
 	private long _columnBitmask;
 	private ProductEntry _escapedModel;
 

@@ -323,13 +323,6 @@ public class TeamLocalServiceUtil {
 		return getService().getTeams(start, end);
 	}
 
-	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
-			getTeams(String name)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getTeams(name);
-	}
-
 	/**
 	 * Returns the number of teams.
 	 *

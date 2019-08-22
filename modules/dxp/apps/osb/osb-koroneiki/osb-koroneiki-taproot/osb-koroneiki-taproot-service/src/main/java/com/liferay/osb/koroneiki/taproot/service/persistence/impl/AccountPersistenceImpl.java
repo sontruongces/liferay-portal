@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 
@@ -3208,6 +3209,490 @@ public class AccountPersistenceImpl
 		_FINDER_COLUMN_PARENTACCOUNTID_PARENTACCOUNTID_2 =
 			"account.parentAccountId = ?";
 
+	private FinderPath _finderPathFetchByName;
+	private FinderPath _finderPathCountByName;
+
+	/**
+	 * Returns the account where name = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	@Override
+	public Account findByName(String name) throws NoSuchAccountException {
+		Account account = fetchByName(name);
+
+		if (account == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("name=");
+			msg.append(name);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchAccountException(msg.toString());
+		}
+
+		return account;
+	}
+
+	/**
+	 * Returns the account where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	@Override
+	public Account fetchByName(String name) {
+		return fetchByName(name, true);
+	}
+
+	/**
+	 * Returns the account where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	@Override
+	public Account fetchByName(String name, boolean useFinderCache) {
+		name = Objects.toString(name, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {name};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByName, finderArgs, this);
+		}
+
+		if (result instanceof Account) {
+			Account account = (Account)result;
+
+			if (!Objects.equals(name, account.getName())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_ACCOUNT_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				query.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				List<Account> list = q.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByName, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {name};
+							}
+
+							_log.warn(
+								"AccountPersistenceImpl.fetchByName(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					Account account = list.get(0);
+
+					result = account;
+
+					cacheResult(account);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByName, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Account)result;
+		}
+	}
+
+	/**
+	 * Removes the account where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the account that was removed
+	 */
+	@Override
+	public Account removeByName(String name) throws NoSuchAccountException {
+		Account account = findByName(name);
+
+		return remove(account);
+	}
+
+	/**
+	 * Returns the number of accounts where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching accounts
+	 */
+	@Override
+	public int countByName(String name) {
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathCountByName;
+
+		Object[] finderArgs = new Object[] {name};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_ACCOUNT_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				query.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_NAME_NAME_2 = "account.name = ?";
+
+	private static final String _FINDER_COLUMN_NAME_NAME_3 =
+		"(account.name IS NULL OR account.name = '')";
+
+	private FinderPath _finderPathFetchByCode;
+	private FinderPath _finderPathCountByCode;
+
+	/**
+	 * Returns the account where code = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
+	 *
+	 * @param code the code
+	 * @return the matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	@Override
+	public Account findByCode(String code) throws NoSuchAccountException {
+		Account account = fetchByCode(code);
+
+		if (account == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("code=");
+			msg.append(code);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchAccountException(msg.toString());
+		}
+
+		return account;
+	}
+
+	/**
+	 * Returns the account where code = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param code the code
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	@Override
+	public Account fetchByCode(String code) {
+		return fetchByCode(code, true);
+	}
+
+	/**
+	 * Returns the account where code = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param code the code
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	@Override
+	public Account fetchByCode(String code, boolean useFinderCache) {
+		code = Objects.toString(code, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {code};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByCode, finderArgs, this);
+		}
+
+		if (result instanceof Account) {
+			Account account = (Account)result;
+
+			if (!Objects.equals(code, account.getCode())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_ACCOUNT_WHERE);
+
+			boolean bindCode = false;
+
+			if (code.isEmpty()) {
+				query.append(_FINDER_COLUMN_CODE_CODE_3);
+			}
+			else {
+				bindCode = true;
+
+				query.append(_FINDER_COLUMN_CODE_CODE_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindCode) {
+					qPos.add(code);
+				}
+
+				List<Account> list = q.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByCode, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {code};
+							}
+
+							_log.warn(
+								"AccountPersistenceImpl.fetchByCode(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					Account account = list.get(0);
+
+					result = account;
+
+					cacheResult(account);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByCode, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Account)result;
+		}
+	}
+
+	/**
+	 * Removes the account where code = &#63; from the database.
+	 *
+	 * @param code the code
+	 * @return the account that was removed
+	 */
+	@Override
+	public Account removeByCode(String code) throws NoSuchAccountException {
+		Account account = findByCode(code);
+
+		return remove(account);
+	}
+
+	/**
+	 * Returns the number of accounts where code = &#63;.
+	 *
+	 * @param code the code
+	 * @return the number of matching accounts
+	 */
+	@Override
+	public int countByCode(String code) {
+		code = Objects.toString(code, "");
+
+		FinderPath finderPath = _finderPathCountByCode;
+
+		Object[] finderArgs = new Object[] {code};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_ACCOUNT_WHERE);
+
+			boolean bindCode = false;
+
+			if (code.isEmpty()) {
+				query.append(_FINDER_COLUMN_CODE_CODE_3);
+			}
+			else {
+				bindCode = true;
+
+				query.append(_FINDER_COLUMN_CODE_CODE_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindCode) {
+					qPos.add(code);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_CODE_CODE_2 = "account.code = ?";
+
+	private static final String _FINDER_COLUMN_CODE_CODE_3 =
+		"(account.code IS NULL OR account.code = '')";
+
 	public AccountPersistenceImpl() {
 		setModelClass(Account.class);
 
@@ -3236,6 +3721,12 @@ public class AccountPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByAccountKey,
 			new Object[] {account.getAccountKey()}, account);
+
+		finderCache.putResult(
+			_finderPathFetchByName, new Object[] {account.getName()}, account);
+
+		finderCache.putResult(
+			_finderPathFetchByCode, new Object[] {account.getCode()}, account);
 
 		account.resetOriginalValues();
 	}
@@ -3314,6 +3805,20 @@ public class AccountPersistenceImpl
 			_finderPathCountByAccountKey, args, Long.valueOf(1), false);
 		finderCache.putResult(
 			_finderPathFetchByAccountKey, args, accountModelImpl, false);
+
+		args = new Object[] {accountModelImpl.getName()};
+
+		finderCache.putResult(
+			_finderPathCountByName, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByName, args, accountModelImpl, false);
+
+		args = new Object[] {accountModelImpl.getCode()};
+
+		finderCache.putResult(
+			_finderPathCountByCode, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByCode, args, accountModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
@@ -3335,6 +3840,38 @@ public class AccountPersistenceImpl
 
 			finderCache.removeResult(_finderPathCountByAccountKey, args);
 			finderCache.removeResult(_finderPathFetchByAccountKey, args);
+		}
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {accountModelImpl.getName()};
+
+			finderCache.removeResult(_finderPathCountByName, args);
+			finderCache.removeResult(_finderPathFetchByName, args);
+		}
+
+		if ((accountModelImpl.getColumnBitmask() &
+			 _finderPathFetchByName.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {accountModelImpl.getOriginalName()};
+
+			finderCache.removeResult(_finderPathCountByName, args);
+			finderCache.removeResult(_finderPathFetchByName, args);
+		}
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {accountModelImpl.getCode()};
+
+			finderCache.removeResult(_finderPathCountByCode, args);
+			finderCache.removeResult(_finderPathFetchByCode, args);
+		}
+
+		if ((accountModelImpl.getColumnBitmask() &
+			 _finderPathFetchByCode.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {accountModelImpl.getOriginalCode()};
+
+			finderCache.removeResult(_finderPathCountByCode, args);
+			finderCache.removeResult(_finderPathFetchByCode, args);
 		}
 	}
 
@@ -3988,6 +4525,28 @@ public class AccountPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByParentAccountId",
 			new String[] {Long.class.getName()});
+
+		_finderPathFetchByName = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, AccountImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByName",
+			new String[] {String.class.getName()},
+			AccountModelImpl.NAME_COLUMN_BITMASK);
+
+		_finderPathCountByName = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
+			new String[] {String.class.getName()});
+
+		_finderPathFetchByCode = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, AccountImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByCode",
+			new String[] {String.class.getName()},
+			AccountModelImpl.CODE_COLUMN_BITMASK);
+
+		_finderPathCountByCode = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCode",
+			new String[] {String.class.getName()});
 	}
 
 	@Deactivate

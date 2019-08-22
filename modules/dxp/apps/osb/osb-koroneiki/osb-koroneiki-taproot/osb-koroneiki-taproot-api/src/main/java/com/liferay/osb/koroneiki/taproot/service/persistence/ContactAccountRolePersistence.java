@@ -480,7 +480,7 @@ public interface ContactAccountRolePersistence
 	 * @param accountId the account ID
 	 * @return the matching contact account roles
 	 */
-	public java.util.List<ContactAccountRole> findByC_A(
+	public java.util.List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId);
 
 	/**
@@ -496,7 +496,7 @@ public interface ContactAccountRolePersistence
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @return the range of matching contact account roles
 	 */
-	public java.util.List<ContactAccountRole> findByC_A(
+	public java.util.List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end);
 
 	/**
@@ -513,7 +513,7 @@ public interface ContactAccountRolePersistence
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching contact account roles
 	 */
-	public java.util.List<ContactAccountRole> findByC_A(
+	public java.util.List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
 			orderByComparator);
@@ -533,7 +533,7 @@ public interface ContactAccountRolePersistence
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
-	public java.util.List<ContactAccountRole> findByC_A(
+	public java.util.List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
 			orderByComparator,
@@ -548,7 +548,7 @@ public interface ContactAccountRolePersistence
 	 * @return the first matching contact account role
 	 * @throws NoSuchContactAccountRoleException if a matching contact account role could not be found
 	 */
-	public ContactAccountRole findByC_A_First(
+	public ContactAccountRole findByCI_AI_First(
 			long contactId, long accountId,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
 				orderByComparator)
@@ -562,7 +562,7 @@ public interface ContactAccountRolePersistence
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching contact account role, or <code>null</code> if a matching contact account role could not be found
 	 */
-	public ContactAccountRole fetchByC_A_First(
+	public ContactAccountRole fetchByCI_AI_First(
 		long contactId, long accountId,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
 			orderByComparator);
@@ -576,7 +576,7 @@ public interface ContactAccountRolePersistence
 	 * @return the last matching contact account role
 	 * @throws NoSuchContactAccountRoleException if a matching contact account role could not be found
 	 */
-	public ContactAccountRole findByC_A_Last(
+	public ContactAccountRole findByCI_AI_Last(
 			long contactId, long accountId,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
 				orderByComparator)
@@ -590,7 +590,7 @@ public interface ContactAccountRolePersistence
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching contact account role, or <code>null</code> if a matching contact account role could not be found
 	 */
-	public ContactAccountRole fetchByC_A_Last(
+	public ContactAccountRole fetchByCI_AI_Last(
 		long contactId, long accountId,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
 			orderByComparator);
@@ -605,7 +605,7 @@ public interface ContactAccountRolePersistence
 	 * @return the previous, current, and next contact account role
 	 * @throws NoSuchContactAccountRoleException if a contact account role with the primary key could not be found
 	 */
-	public ContactAccountRole[] findByC_A_PrevAndNext(
+	public ContactAccountRole[] findByCI_AI_PrevAndNext(
 			ContactAccountRolePK contactAccountRolePK, long contactId,
 			long accountId,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
@@ -618,7 +618,7 @@ public interface ContactAccountRolePersistence
 	 * @param contactId the contact ID
 	 * @param accountId the account ID
 	 */
-	public void removeByC_A(long contactId, long accountId);
+	public void removeByCI_AI(long contactId, long accountId);
 
 	/**
 	 * Returns the number of contact account roles where contactId = &#63; and accountId = &#63;.
@@ -627,7 +627,7 @@ public interface ContactAccountRolePersistence
 	 * @param accountId the account ID
 	 * @return the number of matching contact account roles
 	 */
-	public int countByC_A(long contactId, long accountId);
+	public int countByCI_AI(long contactId, long accountId);
 
 	/**
 	 * Caches the contact account role in the entity cache if it is enabled.

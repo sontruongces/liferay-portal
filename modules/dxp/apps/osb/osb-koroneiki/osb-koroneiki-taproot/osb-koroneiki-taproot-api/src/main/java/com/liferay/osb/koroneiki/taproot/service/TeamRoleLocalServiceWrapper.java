@@ -337,14 +337,6 @@ public class TeamRoleLocalServiceWrapper
 		return _teamRoleLocalService.getTeamRoles(type, start, end);
 	}
 
-	@Override
-	public java.util.List<com.liferay.osb.koroneiki.taproot.model.TeamRole>
-			getTeamRoles(String name)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _teamRoleLocalService.getTeamRoles(name);
-	}
-
 	/**
 	 * Returns the number of team roles.
 	 *

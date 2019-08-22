@@ -664,10 +664,10 @@ public class ContactAccountRoleUtil {
 	 * @param accountId the account ID
 	 * @return the matching contact account roles
 	 */
-	public static List<ContactAccountRole> findByC_A(
+	public static List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId) {
 
-		return getPersistence().findByC_A(contactId, accountId);
+		return getPersistence().findByCI_AI(contactId, accountId);
 	}
 
 	/**
@@ -683,10 +683,10 @@ public class ContactAccountRoleUtil {
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @return the range of matching contact account roles
 	 */
-	public static List<ContactAccountRole> findByC_A(
+	public static List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end) {
 
-		return getPersistence().findByC_A(contactId, accountId, start, end);
+		return getPersistence().findByCI_AI(contactId, accountId, start, end);
 	}
 
 	/**
@@ -703,11 +703,11 @@ public class ContactAccountRoleUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching contact account roles
 	 */
-	public static List<ContactAccountRole> findByC_A(
+	public static List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
 		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		return getPersistence().findByC_A(
+		return getPersistence().findByCI_AI(
 			contactId, accountId, start, end, orderByComparator);
 	}
 
@@ -726,12 +726,12 @@ public class ContactAccountRoleUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
-	public static List<ContactAccountRole> findByC_A(
+	public static List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
 		OrderByComparator<ContactAccountRole> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByC_A(
+		return getPersistence().findByCI_AI(
 			contactId, accountId, start, end, orderByComparator,
 			useFinderCache);
 	}
@@ -745,13 +745,13 @@ public class ContactAccountRoleUtil {
 	 * @return the first matching contact account role
 	 * @throws NoSuchContactAccountRoleException if a matching contact account role could not be found
 	 */
-	public static ContactAccountRole findByC_A_First(
+	public static ContactAccountRole findByCI_AI_First(
 			long contactId, long accountId,
 			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactAccountRoleException {
 
-		return getPersistence().findByC_A_First(
+		return getPersistence().findByCI_AI_First(
 			contactId, accountId, orderByComparator);
 	}
 
@@ -763,11 +763,11 @@ public class ContactAccountRoleUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching contact account role, or <code>null</code> if a matching contact account role could not be found
 	 */
-	public static ContactAccountRole fetchByC_A_First(
+	public static ContactAccountRole fetchByCI_AI_First(
 		long contactId, long accountId,
 		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		return getPersistence().fetchByC_A_First(
+		return getPersistence().fetchByCI_AI_First(
 			contactId, accountId, orderByComparator);
 	}
 
@@ -780,13 +780,13 @@ public class ContactAccountRoleUtil {
 	 * @return the last matching contact account role
 	 * @throws NoSuchContactAccountRoleException if a matching contact account role could not be found
 	 */
-	public static ContactAccountRole findByC_A_Last(
+	public static ContactAccountRole findByCI_AI_Last(
 			long contactId, long accountId,
 			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactAccountRoleException {
 
-		return getPersistence().findByC_A_Last(
+		return getPersistence().findByCI_AI_Last(
 			contactId, accountId, orderByComparator);
 	}
 
@@ -798,11 +798,11 @@ public class ContactAccountRoleUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching contact account role, or <code>null</code> if a matching contact account role could not be found
 	 */
-	public static ContactAccountRole fetchByC_A_Last(
+	public static ContactAccountRole fetchByCI_AI_Last(
 		long contactId, long accountId,
 		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		return getPersistence().fetchByC_A_Last(
+		return getPersistence().fetchByCI_AI_Last(
 			contactId, accountId, orderByComparator);
 	}
 
@@ -816,14 +816,14 @@ public class ContactAccountRoleUtil {
 	 * @return the previous, current, and next contact account role
 	 * @throws NoSuchContactAccountRoleException if a contact account role with the primary key could not be found
 	 */
-	public static ContactAccountRole[] findByC_A_PrevAndNext(
+	public static ContactAccountRole[] findByCI_AI_PrevAndNext(
 			ContactAccountRolePK contactAccountRolePK, long contactId,
 			long accountId,
 			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactAccountRoleException {
 
-		return getPersistence().findByC_A_PrevAndNext(
+		return getPersistence().findByCI_AI_PrevAndNext(
 			contactAccountRolePK, contactId, accountId, orderByComparator);
 	}
 
@@ -833,8 +833,8 @@ public class ContactAccountRoleUtil {
 	 * @param contactId the contact ID
 	 * @param accountId the account ID
 	 */
-	public static void removeByC_A(long contactId, long accountId) {
-		getPersistence().removeByC_A(contactId, accountId);
+	public static void removeByCI_AI(long contactId, long accountId) {
+		getPersistence().removeByCI_AI(contactId, accountId);
 	}
 
 	/**
@@ -844,8 +844,8 @@ public class ContactAccountRoleUtil {
 	 * @param accountId the account ID
 	 * @return the number of matching contact account roles
 	 */
-	public static int countByC_A(long contactId, long accountId) {
-		return getPersistence().countByC_A(contactId, accountId);
+	public static int countByCI_AI(long contactId, long accountId) {
+		return getPersistence().countByCI_AI(contactId, accountId);
 	}
 
 	/**

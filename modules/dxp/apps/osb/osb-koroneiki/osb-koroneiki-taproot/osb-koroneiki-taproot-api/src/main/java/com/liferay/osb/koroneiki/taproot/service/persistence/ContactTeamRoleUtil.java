@@ -652,8 +652,10 @@ public class ContactTeamRoleUtil {
 	 * @param teamId the team ID
 	 * @return the matching contact team roles
 	 */
-	public static List<ContactTeamRole> findByC_T(long contactId, long teamId) {
-		return getPersistence().findByC_T(contactId, teamId);
+	public static List<ContactTeamRole> findByCI_TI(
+		long contactId, long teamId) {
+
+		return getPersistence().findByCI_TI(contactId, teamId);
 	}
 
 	/**
@@ -669,10 +671,10 @@ public class ContactTeamRoleUtil {
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @return the range of matching contact team roles
 	 */
-	public static List<ContactTeamRole> findByC_T(
+	public static List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end) {
 
-		return getPersistence().findByC_T(contactId, teamId, start, end);
+		return getPersistence().findByCI_TI(contactId, teamId, start, end);
 	}
 
 	/**
@@ -689,11 +691,11 @@ public class ContactTeamRoleUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching contact team roles
 	 */
-	public static List<ContactTeamRole> findByC_T(
+	public static List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end,
 		OrderByComparator<ContactTeamRole> orderByComparator) {
 
-		return getPersistence().findByC_T(
+		return getPersistence().findByCI_TI(
 			contactId, teamId, start, end, orderByComparator);
 	}
 
@@ -712,12 +714,12 @@ public class ContactTeamRoleUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
-	public static List<ContactTeamRole> findByC_T(
+	public static List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end,
 		OrderByComparator<ContactTeamRole> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByC_T(
+		return getPersistence().findByCI_TI(
 			contactId, teamId, start, end, orderByComparator, useFinderCache);
 	}
 
@@ -730,13 +732,13 @@ public class ContactTeamRoleUtil {
 	 * @return the first matching contact team role
 	 * @throws NoSuchContactTeamRoleException if a matching contact team role could not be found
 	 */
-	public static ContactTeamRole findByC_T_First(
+	public static ContactTeamRole findByCI_TI_First(
 			long contactId, long teamId,
 			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactTeamRoleException {
 
-		return getPersistence().findByC_T_First(
+		return getPersistence().findByCI_TI_First(
 			contactId, teamId, orderByComparator);
 	}
 
@@ -748,11 +750,11 @@ public class ContactTeamRoleUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
-	public static ContactTeamRole fetchByC_T_First(
+	public static ContactTeamRole fetchByCI_TI_First(
 		long contactId, long teamId,
 		OrderByComparator<ContactTeamRole> orderByComparator) {
 
-		return getPersistence().fetchByC_T_First(
+		return getPersistence().fetchByCI_TI_First(
 			contactId, teamId, orderByComparator);
 	}
 
@@ -765,13 +767,13 @@ public class ContactTeamRoleUtil {
 	 * @return the last matching contact team role
 	 * @throws NoSuchContactTeamRoleException if a matching contact team role could not be found
 	 */
-	public static ContactTeamRole findByC_T_Last(
+	public static ContactTeamRole findByCI_TI_Last(
 			long contactId, long teamId,
 			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactTeamRoleException {
 
-		return getPersistence().findByC_T_Last(
+		return getPersistence().findByCI_TI_Last(
 			contactId, teamId, orderByComparator);
 	}
 
@@ -783,11 +785,11 @@ public class ContactTeamRoleUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
-	public static ContactTeamRole fetchByC_T_Last(
+	public static ContactTeamRole fetchByCI_TI_Last(
 		long contactId, long teamId,
 		OrderByComparator<ContactTeamRole> orderByComparator) {
 
-		return getPersistence().fetchByC_T_Last(
+		return getPersistence().fetchByCI_TI_Last(
 			contactId, teamId, orderByComparator);
 	}
 
@@ -801,13 +803,13 @@ public class ContactTeamRoleUtil {
 	 * @return the previous, current, and next contact team role
 	 * @throws NoSuchContactTeamRoleException if a contact team role with the primary key could not be found
 	 */
-	public static ContactTeamRole[] findByC_T_PrevAndNext(
+	public static ContactTeamRole[] findByCI_TI_PrevAndNext(
 			ContactTeamRolePK contactTeamRolePK, long contactId, long teamId,
 			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactTeamRoleException {
 
-		return getPersistence().findByC_T_PrevAndNext(
+		return getPersistence().findByCI_TI_PrevAndNext(
 			contactTeamRolePK, contactId, teamId, orderByComparator);
 	}
 
@@ -817,8 +819,8 @@ public class ContactTeamRoleUtil {
 	 * @param contactId the contact ID
 	 * @param teamId the team ID
 	 */
-	public static void removeByC_T(long contactId, long teamId) {
-		getPersistence().removeByC_T(contactId, teamId);
+	public static void removeByCI_TI(long contactId, long teamId) {
+		getPersistence().removeByCI_TI(contactId, teamId);
 	}
 
 	/**
@@ -828,8 +830,8 @@ public class ContactTeamRoleUtil {
 	 * @param teamId the team ID
 	 * @return the number of matching contact team roles
 	 */
-	public static int countByC_T(long contactId, long teamId) {
-		return getPersistence().countByC_T(contactId, teamId);
+	public static int countByCI_TI(long contactId, long teamId) {
+		return getPersistence().countByCI_TI(contactId, teamId);
 	}
 
 	/**

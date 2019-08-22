@@ -704,6 +704,66 @@ public class ProductEntryUtil {
 	}
 
 	/**
+	 * Returns the product entry where name = &#63; or throws a <code>NoSuchProductEntryException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching product entry
+	 * @throws NoSuchProductEntryException if a matching product entry could not be found
+	 */
+	public static ProductEntry findByName(String name)
+		throws com.liferay.osb.koroneiki.trunk.exception.
+			NoSuchProductEntryException {
+
+		return getPersistence().findByName(name);
+	}
+
+	/**
+	 * Returns the product entry where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching product entry, or <code>null</code> if a matching product entry could not be found
+	 */
+	public static ProductEntry fetchByName(String name) {
+		return getPersistence().fetchByName(name);
+	}
+
+	/**
+	 * Returns the product entry where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching product entry, or <code>null</code> if a matching product entry could not be found
+	 */
+	public static ProductEntry fetchByName(
+		String name, boolean useFinderCache) {
+
+		return getPersistence().fetchByName(name, useFinderCache);
+	}
+
+	/**
+	 * Removes the product entry where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the product entry that was removed
+	 */
+	public static ProductEntry removeByName(String name)
+		throws com.liferay.osb.koroneiki.trunk.exception.
+			NoSuchProductEntryException {
+
+		return getPersistence().removeByName(name);
+	}
+
+	/**
+	 * Returns the number of product entries where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching product entries
+	 */
+	public static int countByName(String name) {
+		return getPersistence().countByName(name);
+	}
+
+	/**
 	 * Caches the product entry in the entity cache if it is enabled.
 	 *
 	 * @param productEntry the product entry

@@ -336,14 +336,6 @@ public class TeamLocalServiceWrapper
 		return _teamLocalService.getTeams(start, end);
 	}
 
-	@Override
-	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
-			getTeams(String name)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _teamLocalService.getTeams(name);
-	}
-
 	/**
 	 * Returns the number of teams.
 	 *

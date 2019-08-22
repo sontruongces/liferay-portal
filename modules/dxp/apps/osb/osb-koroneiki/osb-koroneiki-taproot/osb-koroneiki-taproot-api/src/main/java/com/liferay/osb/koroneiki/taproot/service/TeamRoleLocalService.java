@@ -258,9 +258,6 @@ public interface TeamRoleLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TeamRole> getTeamRoles(int type, int start, int end);
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<TeamRole> getTeamRoles(String name) throws PortalException;
-
 	/**
 	 * Returns the number of team roles.
 	 *

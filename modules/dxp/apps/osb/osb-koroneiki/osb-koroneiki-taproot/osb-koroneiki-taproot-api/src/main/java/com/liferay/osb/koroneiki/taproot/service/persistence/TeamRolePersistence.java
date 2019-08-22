@@ -516,212 +516,6 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	public int countByTeamRoleKey(String teamRoleKey);
 
 	/**
-	 * Returns all the team roles where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the matching team roles
-	 */
-	public java.util.List<TeamRole> findByName(String name);
-
-	/**
-	 * Returns a range of all the team roles where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @return the range of matching team roles
-	 */
-	public java.util.List<TeamRole> findByName(String name, int start, int end);
-
-	/**
-	 * Returns an ordered range of all the team roles where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching team roles
-	 */
-	public java.util.List<TeamRole> findByName(
-		String name, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
-
-	/**
-	 * Returns an ordered range of all the team roles where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching team roles
-	 */
-	public java.util.List<TeamRole> findByName(
-		String name, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator,
-		boolean useFinderCache);
-
-	/**
-	 * Returns the first team role in the ordered set where name = &#63;.
-	 *
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching team role
-	 * @throws NoSuchTeamRoleException if a matching team role could not be found
-	 */
-	public TeamRole findByName_First(
-			String name,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
-		throws NoSuchTeamRoleException;
-
-	/**
-	 * Returns the first team role in the ordered set where name = &#63;.
-	 *
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching team role, or <code>null</code> if a matching team role could not be found
-	 */
-	public TeamRole fetchByName_First(
-		String name,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
-
-	/**
-	 * Returns the last team role in the ordered set where name = &#63;.
-	 *
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching team role
-	 * @throws NoSuchTeamRoleException if a matching team role could not be found
-	 */
-	public TeamRole findByName_Last(
-			String name,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
-		throws NoSuchTeamRoleException;
-
-	/**
-	 * Returns the last team role in the ordered set where name = &#63;.
-	 *
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching team role, or <code>null</code> if a matching team role could not be found
-	 */
-	public TeamRole fetchByName_Last(
-		String name,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
-
-	/**
-	 * Returns the team roles before and after the current team role in the ordered set where name = &#63;.
-	 *
-	 * @param teamRoleId the primary key of the current team role
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next team role
-	 * @throws NoSuchTeamRoleException if a team role with the primary key could not be found
-	 */
-	public TeamRole[] findByName_PrevAndNext(
-			long teamRoleId, String name,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
-		throws NoSuchTeamRoleException;
-
-	/**
-	 * Returns all the team roles that the user has permission to view where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the matching team roles that the user has permission to view
-	 */
-	public java.util.List<TeamRole> filterFindByName(String name);
-
-	/**
-	 * Returns a range of all the team roles that the user has permission to view where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @return the range of matching team roles that the user has permission to view
-	 */
-	public java.util.List<TeamRole> filterFindByName(
-		String name, int start, int end);
-
-	/**
-	 * Returns an ordered range of all the team roles that the user has permissions to view where name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param name the name
-	 * @param start the lower bound of the range of team roles
-	 * @param end the upper bound of the range of team roles (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching team roles that the user has permission to view
-	 */
-	public java.util.List<TeamRole> filterFindByName(
-		String name, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
-
-	/**
-	 * Returns the team roles before and after the current team role in the ordered set of team roles that the user has permission to view where name = &#63;.
-	 *
-	 * @param teamRoleId the primary key of the current team role
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next team role
-	 * @throws NoSuchTeamRoleException if a team role with the primary key could not be found
-	 */
-	public TeamRole[] filterFindByName_PrevAndNext(
-			long teamRoleId, String name,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
-		throws NoSuchTeamRoleException;
-
-	/**
-	 * Removes all the team roles where name = &#63; from the database.
-	 *
-	 * @param name the name
-	 */
-	public void removeByName(String name);
-
-	/**
-	 * Returns the number of team roles where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the number of matching team roles
-	 */
-	public int countByName(String name);
-
-	/**
-	 * Returns the number of team roles that the user has permission to view where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the number of matching team roles that the user has permission to view
-	 */
-	public int filterCountByName(String name);
-
-	/**
 	 * Returns all the team roles where type = &#63;.
 	 *
 	 * @param type the type
@@ -926,6 +720,55 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the number of matching team roles that the user has permission to view
 	 */
 	public int filterCountByType(int type);
+
+	/**
+	 * Returns the team role where name = &#63; and type = &#63; or throws a <code>NoSuchTeamRoleException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @return the matching team role
+	 * @throws NoSuchTeamRoleException if a matching team role could not be found
+	 */
+	public TeamRole findByN_T(String name, int type)
+		throws NoSuchTeamRoleException;
+
+	/**
+	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
+	 */
+	public TeamRole fetchByN_T(String name, int type);
+
+	/**
+	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
+	 */
+	public TeamRole fetchByN_T(String name, int type, boolean useFinderCache);
+
+	/**
+	 * Removes the team role where name = &#63; and type = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @return the team role that was removed
+	 */
+	public TeamRole removeByN_T(String name, int type)
+		throws NoSuchTeamRoleException;
+
+	/**
+	 * Returns the number of team roles where name = &#63; and type = &#63;.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @return the number of matching team roles
+	 */
+	public int countByN_T(String name, int type);
 
 	/**
 	 * Caches the team role in the entity cache if it is enabled.

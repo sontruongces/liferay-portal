@@ -723,6 +723,90 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	public int filterCountByParentAccountId(long parentAccountId);
 
 	/**
+	 * Returns the account where name = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	public Account findByName(String name) throws NoSuchAccountException;
+
+	/**
+	 * Returns the account where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public Account fetchByName(String name);
+
+	/**
+	 * Returns the account where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public Account fetchByName(String name, boolean useFinderCache);
+
+	/**
+	 * Removes the account where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the account that was removed
+	 */
+	public Account removeByName(String name) throws NoSuchAccountException;
+
+	/**
+	 * Returns the number of accounts where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching accounts
+	 */
+	public int countByName(String name);
+
+	/**
+	 * Returns the account where code = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
+	 *
+	 * @param code the code
+	 * @return the matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	public Account findByCode(String code) throws NoSuchAccountException;
+
+	/**
+	 * Returns the account where code = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param code the code
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public Account fetchByCode(String code);
+
+	/**
+	 * Returns the account where code = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param code the code
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public Account fetchByCode(String code, boolean useFinderCache);
+
+	/**
+	 * Removes the account where code = &#63; from the database.
+	 *
+	 * @param code the code
+	 * @return the account that was removed
+	 */
+	public Account removeByCode(String code) throws NoSuchAccountException;
+
+	/**
+	 * Returns the number of accounts where code = &#63;.
+	 *
+	 * @param code the code
+	 * @return the number of matching accounts
+	 */
+	public int countByCode(String code);
+
+	/**
 	 * Caches the account in the entity cache if it is enabled.
 	 *
 	 * @param account the account

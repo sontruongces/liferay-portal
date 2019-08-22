@@ -319,14 +319,6 @@ public class TeamRoleLocalServiceUtil {
 		return getService().getTeamRoles(type, start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.osb.koroneiki.taproot.model.TeamRole> getTeamRoles(
-				String name)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getTeamRoles(name);
-	}
-
 	/**
 	 * Returns the number of team roles.
 	 *

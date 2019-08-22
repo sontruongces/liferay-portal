@@ -1640,9 +1640,9 @@ public class TeamAccountRolePersistenceImpl
 	private static final String _FINDER_COLUMN_TEAMROLEID_TEAMROLEID_2 =
 		"teamAccountRole.id.teamRoleId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByT_A;
-	private FinderPath _finderPathWithoutPaginationFindByT_A;
-	private FinderPath _finderPathCountByT_A;
+	private FinderPath _finderPathWithPaginationFindByTI_AI;
+	private FinderPath _finderPathWithoutPaginationFindByTI_AI;
+	private FinderPath _finderPathCountByTI_AI;
 
 	/**
 	 * Returns all the team account roles where teamId = &#63; and accountId = &#63;.
@@ -1652,8 +1652,8 @@ public class TeamAccountRolePersistenceImpl
 	 * @return the matching team account roles
 	 */
 	@Override
-	public List<TeamAccountRole> findByT_A(long teamId, long accountId) {
-		return findByT_A(
+	public List<TeamAccountRole> findByTI_AI(long teamId, long accountId) {
+		return findByTI_AI(
 			teamId, accountId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -1671,10 +1671,10 @@ public class TeamAccountRolePersistenceImpl
 	 * @return the range of matching team account roles
 	 */
 	@Override
-	public List<TeamAccountRole> findByT_A(
+	public List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId, int start, int end) {
 
-		return findByT_A(teamId, accountId, start, end, null);
+		return findByTI_AI(teamId, accountId, start, end, null);
 	}
 
 	/**
@@ -1692,11 +1692,11 @@ public class TeamAccountRolePersistenceImpl
 	 * @return the ordered range of matching team account roles
 	 */
 	@Override
-	public List<TeamAccountRole> findByT_A(
+	public List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId, int start, int end,
 		OrderByComparator<TeamAccountRole> orderByComparator) {
 
-		return findByT_A(
+		return findByTI_AI(
 			teamId, accountId, start, end, orderByComparator, true);
 	}
 
@@ -1716,7 +1716,7 @@ public class TeamAccountRolePersistenceImpl
 	 * @return the ordered range of matching team account roles
 	 */
 	@Override
-	public List<TeamAccountRole> findByT_A(
+	public List<TeamAccountRole> findByTI_AI(
 		long teamId, long accountId, int start, int end,
 		OrderByComparator<TeamAccountRole> orderByComparator,
 		boolean useFinderCache) {
@@ -1731,12 +1731,12 @@ public class TeamAccountRolePersistenceImpl
 			pagination = false;
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByT_A;
+				finderPath = _finderPathWithoutPaginationFindByTI_AI;
 				finderArgs = new Object[] {teamId, accountId};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByT_A;
+			finderPath = _finderPathWithPaginationFindByTI_AI;
 			finderArgs = new Object[] {
 				teamId, accountId, start, end, orderByComparator
 			};
@@ -1774,9 +1774,9 @@ public class TeamAccountRolePersistenceImpl
 
 			query.append(_SQL_SELECT_TEAMACCOUNTROLE_WHERE);
 
-			query.append(_FINDER_COLUMN_T_A_TEAMID_2);
+			query.append(_FINDER_COLUMN_TI_AI_TEAMID_2);
 
-			query.append(_FINDER_COLUMN_T_A_ACCOUNTID_2);
+			query.append(_FINDER_COLUMN_TI_AI_ACCOUNTID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -1845,12 +1845,12 @@ public class TeamAccountRolePersistenceImpl
 	 * @throws NoSuchTeamAccountRoleException if a matching team account role could not be found
 	 */
 	@Override
-	public TeamAccountRole findByT_A_First(
+	public TeamAccountRole findByTI_AI_First(
 			long teamId, long accountId,
 			OrderByComparator<TeamAccountRole> orderByComparator)
 		throws NoSuchTeamAccountRoleException {
 
-		TeamAccountRole teamAccountRole = fetchByT_A_First(
+		TeamAccountRole teamAccountRole = fetchByTI_AI_First(
 			teamId, accountId, orderByComparator);
 
 		if (teamAccountRole != null) {
@@ -1881,11 +1881,11 @@ public class TeamAccountRolePersistenceImpl
 	 * @return the first matching team account role, or <code>null</code> if a matching team account role could not be found
 	 */
 	@Override
-	public TeamAccountRole fetchByT_A_First(
+	public TeamAccountRole fetchByTI_AI_First(
 		long teamId, long accountId,
 		OrderByComparator<TeamAccountRole> orderByComparator) {
 
-		List<TeamAccountRole> list = findByT_A(
+		List<TeamAccountRole> list = findByTI_AI(
 			teamId, accountId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1905,12 +1905,12 @@ public class TeamAccountRolePersistenceImpl
 	 * @throws NoSuchTeamAccountRoleException if a matching team account role could not be found
 	 */
 	@Override
-	public TeamAccountRole findByT_A_Last(
+	public TeamAccountRole findByTI_AI_Last(
 			long teamId, long accountId,
 			OrderByComparator<TeamAccountRole> orderByComparator)
 		throws NoSuchTeamAccountRoleException {
 
-		TeamAccountRole teamAccountRole = fetchByT_A_Last(
+		TeamAccountRole teamAccountRole = fetchByTI_AI_Last(
 			teamId, accountId, orderByComparator);
 
 		if (teamAccountRole != null) {
@@ -1941,17 +1941,17 @@ public class TeamAccountRolePersistenceImpl
 	 * @return the last matching team account role, or <code>null</code> if a matching team account role could not be found
 	 */
 	@Override
-	public TeamAccountRole fetchByT_A_Last(
+	public TeamAccountRole fetchByTI_AI_Last(
 		long teamId, long accountId,
 		OrderByComparator<TeamAccountRole> orderByComparator) {
 
-		int count = countByT_A(teamId, accountId);
+		int count = countByTI_AI(teamId, accountId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<TeamAccountRole> list = findByT_A(
+		List<TeamAccountRole> list = findByTI_AI(
 			teamId, accountId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1972,7 +1972,7 @@ public class TeamAccountRolePersistenceImpl
 	 * @throws NoSuchTeamAccountRoleException if a team account role with the primary key could not be found
 	 */
 	@Override
-	public TeamAccountRole[] findByT_A_PrevAndNext(
+	public TeamAccountRole[] findByTI_AI_PrevAndNext(
 			TeamAccountRolePK teamAccountRolePK, long teamId, long accountId,
 			OrderByComparator<TeamAccountRole> orderByComparator)
 		throws NoSuchTeamAccountRoleException {
@@ -1986,13 +1986,13 @@ public class TeamAccountRolePersistenceImpl
 
 			TeamAccountRole[] array = new TeamAccountRoleImpl[3];
 
-			array[0] = getByT_A_PrevAndNext(
+			array[0] = getByTI_AI_PrevAndNext(
 				session, teamAccountRole, teamId, accountId, orderByComparator,
 				true);
 
 			array[1] = teamAccountRole;
 
-			array[2] = getByT_A_PrevAndNext(
+			array[2] = getByTI_AI_PrevAndNext(
 				session, teamAccountRole, teamId, accountId, orderByComparator,
 				false);
 
@@ -2006,7 +2006,7 @@ public class TeamAccountRolePersistenceImpl
 		}
 	}
 
-	protected TeamAccountRole getByT_A_PrevAndNext(
+	protected TeamAccountRole getByTI_AI_PrevAndNext(
 		Session session, TeamAccountRole teamAccountRole, long teamId,
 		long accountId, OrderByComparator<TeamAccountRole> orderByComparator,
 		boolean previous) {
@@ -2024,9 +2024,9 @@ public class TeamAccountRolePersistenceImpl
 
 		query.append(_SQL_SELECT_TEAMACCOUNTROLE_WHERE);
 
-		query.append(_FINDER_COLUMN_T_A_TEAMID_2);
+		query.append(_FINDER_COLUMN_TI_AI_TEAMID_2);
 
-		query.append(_FINDER_COLUMN_T_A_ACCOUNTID_2);
+		query.append(_FINDER_COLUMN_TI_AI_ACCOUNTID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -2127,9 +2127,9 @@ public class TeamAccountRolePersistenceImpl
 	 * @param accountId the account ID
 	 */
 	@Override
-	public void removeByT_A(long teamId, long accountId) {
+	public void removeByTI_AI(long teamId, long accountId) {
 		for (TeamAccountRole teamAccountRole :
-				findByT_A(
+				findByTI_AI(
 					teamId, accountId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 					null)) {
 
@@ -2145,8 +2145,8 @@ public class TeamAccountRolePersistenceImpl
 	 * @return the number of matching team account roles
 	 */
 	@Override
-	public int countByT_A(long teamId, long accountId) {
-		FinderPath finderPath = _finderPathCountByT_A;
+	public int countByTI_AI(long teamId, long accountId) {
+		FinderPath finderPath = _finderPathCountByTI_AI;
 
 		Object[] finderArgs = new Object[] {teamId, accountId};
 
@@ -2157,9 +2157,9 @@ public class TeamAccountRolePersistenceImpl
 
 			query.append(_SQL_COUNT_TEAMACCOUNTROLE_WHERE);
 
-			query.append(_FINDER_COLUMN_T_A_TEAMID_2);
+			query.append(_FINDER_COLUMN_TI_AI_TEAMID_2);
 
-			query.append(_FINDER_COLUMN_T_A_ACCOUNTID_2);
+			query.append(_FINDER_COLUMN_TI_AI_ACCOUNTID_2);
 
 			String sql = query.toString();
 
@@ -2193,10 +2193,10 @@ public class TeamAccountRolePersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_T_A_TEAMID_2 =
+	private static final String _FINDER_COLUMN_TI_AI_TEAMID_2 =
 		"teamAccountRole.id.teamId = ? AND ";
 
-	private static final String _FINDER_COLUMN_T_A_ACCOUNTID_2 =
+	private static final String _FINDER_COLUMN_TI_AI_ACCOUNTID_2 =
 		"teamAccountRole.id.accountId = ?";
 
 	public TeamAccountRolePersistenceImpl() {
@@ -2462,9 +2462,9 @@ public class TeamAccountRolePersistenceImpl
 				teamAccountRoleModelImpl.getAccountId()
 			};
 
-			finderCache.removeResult(_finderPathCountByT_A, args);
+			finderCache.removeResult(_finderPathCountByTI_AI, args);
 			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByT_A, args);
+				_finderPathWithoutPaginationFindByTI_AI, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
@@ -2529,7 +2529,7 @@ public class TeamAccountRolePersistenceImpl
 			}
 
 			if ((teamAccountRoleModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByT_A.getColumnBitmask()) !=
+				 _finderPathWithoutPaginationFindByTI_AI.getColumnBitmask()) !=
 					 0) {
 
 				Object[] args = new Object[] {
@@ -2537,18 +2537,18 @@ public class TeamAccountRolePersistenceImpl
 					teamAccountRoleModelImpl.getOriginalAccountId()
 				};
 
-				finderCache.removeResult(_finderPathCountByT_A, args);
+				finderCache.removeResult(_finderPathCountByTI_AI, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByT_A, args);
+					_finderPathWithoutPaginationFindByTI_AI, args);
 
 				args = new Object[] {
 					teamAccountRoleModelImpl.getTeamId(),
 					teamAccountRoleModelImpl.getAccountId()
 				};
 
-				finderCache.removeResult(_finderPathCountByT_A, args);
+				finderCache.removeResult(_finderPathCountByTI_AI, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByT_A, args);
+					_finderPathWithoutPaginationFindByTI_AI, args);
 			}
 		}
 
@@ -2920,25 +2920,25 @@ public class TeamAccountRolePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTeamRoleId",
 			new String[] {Long.class.getName()});
 
-		_finderPathWithPaginationFindByT_A = new FinderPath(
+		_finderPathWithPaginationFindByTI_AI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TeamAccountRoleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByT_A",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByTI_AI",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
 
-		_finderPathWithoutPaginationFindByT_A = new FinderPath(
+		_finderPathWithoutPaginationFindByTI_AI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TeamAccountRoleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByT_A",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByTI_AI",
 			new String[] {Long.class.getName(), Long.class.getName()},
 			TeamAccountRoleModelImpl.TEAMID_COLUMN_BITMASK |
 			TeamAccountRoleModelImpl.ACCOUNTID_COLUMN_BITMASK);
 
-		_finderPathCountByT_A = new FinderPath(
+		_finderPathCountByTI_AI = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByT_A",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTI_AI",
 			new String[] {Long.class.getName(), Long.class.getName()});
 	}
 
