@@ -401,7 +401,6 @@ components:
                     description: The product that is being purchased.
                     items:
                         $ref: "#/components/schemas/Product"
-                    products:
                     readOnly: true
                     type: object
                 productKey:
