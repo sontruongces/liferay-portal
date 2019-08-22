@@ -16,10 +16,11 @@ package com.liferay.osb.koroneiki.taproot.exception;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class ContactRoleNameException extends PortalException {
@@ -37,6 +38,17 @@ public class ContactRoleNameException extends PortalException {
 
 	public ContactRoleNameException(Throwable cause) {
 		super(cause);
+	}
+
+	public static class MustNotBeDuplicate extends ContactRoleNameException {
+
+		public MustNotBeDuplicate(String name, int type) {
+			super(
+				String.format(
+					"A contact role with name %s and type %s is already in use",
+					name, ContactRoleType.getLabel(type)));
+		}
+
 	}
 
 }

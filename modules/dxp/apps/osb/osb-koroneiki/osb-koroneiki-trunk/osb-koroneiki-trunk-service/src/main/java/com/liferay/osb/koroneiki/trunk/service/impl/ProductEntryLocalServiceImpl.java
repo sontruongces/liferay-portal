@@ -43,7 +43,7 @@ public class ProductEntryLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 
-		validate(name);
+		validate(0, name);
 
 		long productEntryId = counterLocalService.increment();
 
@@ -107,7 +107,7 @@ public class ProductEntryLocalServiceImpl
 	public ProductEntry updateProductEntry(long productEntryId, String name)
 		throws PortalException {
 
-		validate(name);
+		validate(productEntryId, name);
 
 		ProductEntry productEntry = productEntryPersistence.findByPrimaryKey(
 			productEntryId);
@@ -117,9 +117,19 @@ public class ProductEntryLocalServiceImpl
 		return productEntryPersistence.update(productEntry);
 	}
 
-	protected void validate(String name) throws PortalException {
+	protected void validate(long productEntryId, String name)
+		throws PortalException {
+
 		if (Validator.isNull(name)) {
 			throw new ProductEntryNameException();
+		}
+
+		ProductEntry productEntry = productEntryPersistence.fetchByName(name);
+
+		if ((productEntry != null) &&
+			(productEntry.getProductEntryId() != productEntryId)) {
+
+			throw new ProductEntryNameException.MustNotBeDuplicate(name);
 		}
 	}
 

@@ -146,7 +146,7 @@ public class ContactAccountRoleServiceImpl
 			TaprootActionKeys.ASSIGN_CONTACT);
 
 		List<ContactAccountRole> contactAccountRoles =
-			contactAccountRolePersistence.findByC_A(contactId, accountId);
+			contactAccountRolePersistence.findByCI_AI(contactId, accountId);
 
 		for (ContactAccountRole contactAccountRole : contactAccountRoles) {
 			_contactRolePermission.check(
@@ -171,7 +171,7 @@ public class ContactAccountRoleServiceImpl
 			getPermissionChecker(), account, TaprootActionKeys.ASSIGN_CONTACT);
 
 		List<ContactAccountRole> contactAccountRoles =
-			contactAccountRolePersistence.findByC_A(
+			contactAccountRolePersistence.findByCI_AI(
 				contact.getContactId(), account.getAccountId());
 
 		for (ContactAccountRole contactAccountRole : contactAccountRoles) {

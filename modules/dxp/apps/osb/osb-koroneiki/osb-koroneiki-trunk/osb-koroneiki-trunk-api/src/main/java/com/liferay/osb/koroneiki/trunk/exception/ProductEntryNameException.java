@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class ProductEntryNameException extends PortalException {
@@ -37,6 +37,16 @@ public class ProductEntryNameException extends PortalException {
 
 	public ProductEntryNameException(Throwable cause) {
 		super(cause);
+	}
+
+	public static class MustNotBeDuplicate extends ProductEntryNameException {
+
+		public MustNotBeDuplicate(String name) {
+			super(
+				String.format(
+					"A product with name %s is already in use", name));
+		}
+
 	}
 
 }

@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
+import com.liferay.osb.koroneiki.taproot.exception.AccountCodeException;
 import com.liferay.osb.koroneiki.taproot.exception.AccountNameException;
 import com.liferay.osb.koroneiki.taproot.exception.RequiredAccountException;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -33,6 +34,7 @@ import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -64,8 +66,9 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
+		code = StringUtil.toUpperCase(code);
 
-		validate(name);
+		validate(0, name, code);
 
 		long accountId = counterLocalService.increment();
 
@@ -214,8 +217,9 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
+		code = StringUtil.toUpperCase(code);
 
-		validate(name);
+		validate(accountId, name, code);
 
 		Account account = accountPersistence.findByPrimaryKey(accountId);
 
@@ -242,9 +246,25 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		return accountPersistence.update(account);
 	}
 
-	protected void validate(String name) throws PortalException {
+	protected void validate(long accountId, String name, String code)
+		throws PortalException {
+
 		if (Validator.isNull(name)) {
 			throw new AccountNameException();
+		}
+
+		Account account = accountPersistence.fetchByName(name);
+
+		if ((account != null) && (account.getAccountId() != accountId)) {
+			throw new AccountNameException.MustNotBeDuplicate(name);
+		}
+
+		if (Validator.isNotNull(code)) {
+			account = accountPersistence.fetchByCode(code);
+
+			if ((account != null) && (account.getAccountId() != accountId)) {
+				throw new AccountCodeException.MustNotBeDuplicate(code);
+			}
 		}
 	}
 

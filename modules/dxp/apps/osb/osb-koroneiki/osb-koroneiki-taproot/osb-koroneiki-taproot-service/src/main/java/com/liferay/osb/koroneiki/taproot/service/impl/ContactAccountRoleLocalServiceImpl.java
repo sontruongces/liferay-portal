@@ -84,7 +84,7 @@ public class ContactAccountRoleLocalServiceImpl
 	public void deleteContactAccountRoles(long contactId, long accountId)
 		throws PortalException {
 
-		contactAccountRolePersistence.removeByC_A(contactId, accountId);
+		contactAccountRolePersistence.removeByCI_AI(contactId, accountId);
 
 		_accountLocalService.reindex(accountId);
 	}
@@ -92,7 +92,7 @@ public class ContactAccountRoleLocalServiceImpl
 	public List<ContactAccountRole> getContactAccountRoles(
 		long contactId, long accountId) {
 
-		return contactAccountRolePersistence.findByC_A(contactId, accountId);
+		return contactAccountRolePersistence.findByCI_AI(contactId, accountId);
 	}
 
 	public List<ContactAccountRole> getContactAccountRolesByAccountId(

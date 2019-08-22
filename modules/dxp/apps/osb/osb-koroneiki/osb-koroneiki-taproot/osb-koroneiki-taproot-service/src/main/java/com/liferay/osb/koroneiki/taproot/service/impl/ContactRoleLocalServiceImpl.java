@@ -20,7 +20,6 @@ import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.exception.ContactRoleNameException;
 import com.liferay.osb.koroneiki.taproot.exception.ContactRoleSystemException;
 import com.liferay.osb.koroneiki.taproot.exception.ContactRoleTypeException;
-import com.liferay.osb.koroneiki.taproot.exception.DuplicateContactRoleException;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactRoleLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -289,16 +288,16 @@ public class ContactRoleLocalServiceImpl
 			throw new ContactRoleNameException();
 		}
 
+		if (!ArrayUtil.contains(ContactRoleType.VALUES, type)) {
+			throw new ContactRoleTypeException();
+		}
+
 		ContactRole contactRole = contactRolePersistence.fetchByN_T(name, type);
 
 		if ((contactRole != null) &&
 			(contactRole.getContactRoleId() != contactRoleId)) {
 
-			throw new DuplicateContactRoleException();
-		}
-
-		if (!ArrayUtil.contains(ContactRoleType.VALUES, type)) {
-			throw new ContactRoleTypeException();
+			throw new ContactRoleNameException.MustNotBeDuplicate(name, type);
 		}
 	}
 

@@ -47,6 +47,12 @@
 		<finder name="ParentAccountId" return-type="Collection">
 			<finder-column name="parentAccountId" />
 		</finder>
+		<finder name="Name" return-type="Account">
+			<finder-column name="name" />
+		</finder>
+		<finder name="Code" return-type="Account">
+			<finder-column name="code" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="Contact" remote-service="true" uuid="true">
 
@@ -102,7 +108,7 @@
 		<finder name="ContactRoleId" return-type="Collection">
 			<finder-column name="contactRoleId" />
 		</finder>
-		<finder name="C_A" return-type="Collection">
+		<finder name="CI_AI" return-type="Collection">
 			<finder-column name="contactId" />
 			<finder-column name="accountId" />
 		</finder>
@@ -166,7 +172,7 @@
 		<finder name="ContactRoleId" return-type="Collection">
 			<finder-column name="contactRoleId" />
 		</finder>
-		<finder name="C_T" return-type="Collection">
+		<finder name="CI_TI" return-type="Collection">
 			<finder-column name="contactId" />
 			<finder-column name="teamId" />
 		</finder>
@@ -198,7 +204,8 @@
 		<finder name="AccountId" return-type="Collection">
 			<finder-column name="accountId" />
 		</finder>
-		<finder name="Name" return-type="Collection">
+		<finder name="AI_N" return-type="Team">
+			<finder-column name="accountId" />
 			<finder-column name="name" />
 		</finder>
 	</entity>
@@ -221,7 +228,7 @@
 		<finder name="TeamRoleId" return-type="Collection">
 			<finder-column name="teamRoleId" />
 		</finder>
-		<finder name="T_A" return-type="Collection">
+		<finder name="TI_AI" return-type="Collection">
 			<finder-column name="teamId" />
 			<finder-column name="accountId" />
 		</finder>
@@ -257,20 +264,22 @@
 		<finder name="TeamRoleKey" return-type="TeamRole" unique="true">
 			<finder-column name="teamRoleKey" />
 		</finder>
-		<finder name="Name" return-type="Collection">
-			<finder-column name="name" />
-		</finder>
 		<finder name="Type" return-type="Collection">
+			<finder-column name="type" />
+		</finder>
+		<finder name="N_T" return-type="TeamRole">
+			<finder-column name="name" />
 			<finder-column name="type" />
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>AccountCode</exception>
 		<exception>AccountName</exception>
 		<exception>ContactEmailAddress</exception>
+		<exception>ContactOktaId</exception>
 		<exception>ContactRoleName</exception>
 		<exception>ContactRoleSystem</exception>
 		<exception>ContactRoleType</exception>
-		<exception>DuplicateContactRole</exception>
 		<exception>RequiredAccount</exception>
 		<exception>TeamName</exception>
 		<exception>TeamRoleName</exception>

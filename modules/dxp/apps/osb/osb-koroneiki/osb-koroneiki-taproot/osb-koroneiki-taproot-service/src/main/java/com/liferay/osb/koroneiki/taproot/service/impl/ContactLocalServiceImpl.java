@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.exception.ContactEmailAddressException;
+import com.liferay.osb.koroneiki.taproot.exception.ContactOktaIdException;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -48,7 +49,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 		User user = userLocalService.getUser(userId);
 
-		validate(0, emailAddress);
+		validate(0, oktaId, emailAddress);
 
 		long contactId = counterLocalService.increment();
 
@@ -174,7 +175,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 			String languageId)
 		throws PortalException {
 
-		validate(contactId, emailAddress);
+		validate(contactId, oktaId, emailAddress);
 
 		Contact contact = contactPersistence.findByPrimaryKey(contactId);
 
@@ -189,21 +190,22 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		return contactPersistence.update(contact);
 	}
 
-	protected void validate(long contactId, String emailAddress)
+	protected void validate(long contactId, String oktaId, String emailAddress)
 		throws PortalException {
 
 		if (Validator.isNull(emailAddress)) {
 			throw new ContactEmailAddressException();
 		}
 
-		Contact contact = contactPersistence.fetchByEmailAddress(emailAddress);
+		Contact contact = contactPersistence.fetchByOktaId(oktaId);
 
 		if ((contact != null) && (contact.getContactId() != contactId)) {
-			if (contactId > 0) {
-				throw new ContactEmailAddressException.MustNotBeDuplicate(
-					contactId, emailAddress);
-			}
+			throw new ContactOktaIdException.MustNotBeDuplicate(oktaId);
+		}
 
+		contact = contactPersistence.fetchByEmailAddress(emailAddress);
+
+		if ((contact != null) && (contact.getContactId() != contactId)) {
 			throw new ContactEmailAddressException.MustNotBeDuplicate(
 				emailAddress);
 		}

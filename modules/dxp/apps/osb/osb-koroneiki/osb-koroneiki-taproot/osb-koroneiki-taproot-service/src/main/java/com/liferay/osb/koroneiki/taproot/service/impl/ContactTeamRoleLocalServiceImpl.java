@@ -73,7 +73,7 @@ public class ContactTeamRoleLocalServiceImpl
 	}
 
 	public void deleteContactTeamRoles(long contactId, long teamId) {
-		contactTeamRolePersistence.removeByC_T(contactId, teamId);
+		contactTeamRolePersistence.removeByCI_TI(contactId, teamId);
 	}
 
 	public List<ContactTeamRole> getContactTeamRoles(long contactId) {

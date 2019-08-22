@@ -19,24 +19,34 @@ import com.liferay.portal.kernel.exception.PortalException;
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
-public class DuplicateContactRoleException extends PortalException {
+public class AccountCodeException extends PortalException {
 
-	public DuplicateContactRoleException() {
+	public AccountCodeException() {
 	}
 
-	public DuplicateContactRoleException(String msg) {
+	public AccountCodeException(String msg) {
 		super(msg);
 	}
 
-	public DuplicateContactRoleException(String msg, Throwable cause) {
+	public AccountCodeException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public DuplicateContactRoleException(Throwable cause) {
+	public AccountCodeException(Throwable cause) {
 		super(cause);
+	}
+
+	public static class MustNotBeDuplicate extends AccountCodeException {
+
+		public MustNotBeDuplicate(String code) {
+			super(
+				String.format(
+					"An account with code %s is already in use", code));
+		}
+
 	}
 
 }

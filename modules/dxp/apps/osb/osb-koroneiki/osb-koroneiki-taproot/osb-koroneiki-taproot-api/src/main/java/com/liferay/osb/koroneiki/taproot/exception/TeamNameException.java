@@ -19,7 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TeamNameException extends PortalException {
@@ -37,6 +37,17 @@ public class TeamNameException extends PortalException {
 
 	public TeamNameException(Throwable cause) {
 		super(cause);
+	}
+
+	public static class MustNotBeDuplicate extends TeamNameException {
+
+		public MustNotBeDuplicate(String name, String accountName) {
+			super(
+				String.format(
+					"A team with name %s on account %s is already in use", name,
+					accountName));
+		}
+
 	}
 
 }

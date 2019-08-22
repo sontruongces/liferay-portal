@@ -87,7 +87,7 @@ public class ContactTeamRoleServiceImpl extends ContactTeamRoleServiceBaseImpl {
 			getPermissionChecker(), teamId, TaprootActionKeys.ASSIGN_CONTACT);
 
 		List<ContactTeamRole> contactTeamRoles =
-			contactTeamRolePersistence.findByC_T(contactId, teamId);
+			contactTeamRolePersistence.findByCI_TI(contactId, teamId);
 
 		for (ContactTeamRole contactTeamRole : contactTeamRoles) {
 			_contactRolePermission.check(

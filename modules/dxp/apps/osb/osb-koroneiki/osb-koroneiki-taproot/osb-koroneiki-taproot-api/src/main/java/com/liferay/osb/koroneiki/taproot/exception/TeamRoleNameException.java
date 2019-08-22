@@ -14,12 +14,13 @@
 
 package com.liferay.osb.koroneiki.taproot.exception;
 
+import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TeamRoleNameException extends PortalException {
@@ -37,6 +38,17 @@ public class TeamRoleNameException extends PortalException {
 
 	public TeamRoleNameException(Throwable cause) {
 		super(cause);
+	}
+
+	public static class MustNotBeDuplicate extends TeamRoleNameException {
+
+		public MustNotBeDuplicate(String name, int type) {
+			super(
+				String.format(
+					"A team role with name %s and type %s is already in use",
+					name, TeamRoleType.getLabel(type)));
+		}
+
 	}
 
 }

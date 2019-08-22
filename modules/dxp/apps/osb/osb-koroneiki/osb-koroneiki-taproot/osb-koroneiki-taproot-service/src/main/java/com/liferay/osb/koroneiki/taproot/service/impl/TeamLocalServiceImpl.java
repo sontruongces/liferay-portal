@@ -17,7 +17,9 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.exception.TeamNameException;
+import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
+import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.TeamLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -45,7 +47,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 		User user = userLocalService.getUser(userId);
 
-		validate(name);
+		validate(0, accountId, name);
 
 		long teamId = counterLocalService.increment();
 
@@ -126,25 +128,35 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 		return teamPersistence.findByTeamKey(teamKey);
 	}
 
-	public List<Team> getTeams(String name) throws PortalException {
-		return teamPersistence.findByName(name);
-	}
-
 	public Team updateTeam(long teamId, String name) throws PortalException {
-		validate(name);
-
 		Team team = teamPersistence.findByPrimaryKey(teamId);
+
+		validate(teamId, team.getAccountId(), name);
 
 		team.setName(name);
 
 		return teamPersistence.update(team);
 	}
 
-	protected void validate(String name) throws PortalException {
+	protected void validate(long teamId, long accountId, String name)
+		throws PortalException {
+
+		Account account = _accountLocalService.getAccount(accountId);
+
 		if (Validator.isNull(name)) {
 			throw new TeamNameException();
 		}
+
+		Team team = teamPersistence.fetchByAI_N(accountId, name);
+
+		if ((team != null) && (team.getTeamId() != teamId)) {
+			throw new TeamNameException.MustNotBeDuplicate(
+				name, account.getName());
+		}
 	}
+
+	@Reference
+	private AccountLocalService _accountLocalService;
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;

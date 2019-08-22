@@ -74,7 +74,7 @@ public class TeamAccountRoleLocalServiceImpl
 	}
 
 	public void deleteTeamAccountRoles(long teamId, long accountId) {
-		teamAccountRolePersistence.removeByT_A(teamId, accountId);
+		teamAccountRolePersistence.removeByTI_AI(teamId, accountId);
 	}
 
 	protected void validate(long teamId, long accountId, long teamRoleId)

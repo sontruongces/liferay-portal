@@ -48,7 +48,7 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 
 		User user = userLocalService.getUser(userId);
 
-		validate(name, type);
+		validate(0, name, type);
 
 		long teamRoleId = counterLocalService.increment();
 
@@ -110,10 +110,6 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 		return teamRolePersistence.findByType(type, start, end);
 	}
 
-	public List<TeamRole> getTeamRoles(String name) throws PortalException {
-		return teamRolePersistence.findByName(name);
-	}
-
 	public int getTeamRolesCount(int type) {
 		return teamRolePersistence.countByType(type);
 	}
@@ -124,7 +120,7 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 
 		TeamRole teamRole = teamRolePersistence.findByPrimaryKey(teamRoleId);
 
-		validate(name, teamRole.getType());
+		validate(teamRoleId, name, teamRole.getType());
 
 		teamRole.setName(name);
 		teamRole.setDescription(description);
@@ -132,13 +128,21 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 		return teamRolePersistence.update(teamRole);
 	}
 
-	protected void validate(String name, int type) throws PortalException {
+	protected void validate(long teamRoleId, String name, int type)
+		throws PortalException {
+
 		if (Validator.isNull(name)) {
 			throw new TeamRoleNameException();
 		}
 
 		if (!ArrayUtil.contains(TeamRoleType.VALUES, type)) {
 			throw new TeamRoleTypeException();
+		}
+
+		TeamRole teamRole = teamRolePersistence.fetchByN_T(name, type);
+
+		if ((teamRole != null) && (teamRole.getTeamRoleId() != teamRoleId)) {
+			throw new TeamRoleNameException.MustNotBeDuplicate(name, type);
 		}
 	}
 

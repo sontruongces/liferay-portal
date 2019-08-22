@@ -59,6 +59,9 @@
 		<finder name="ProductEntryKey" return-type="ProductEntry" unique="true">
 			<finder-column name="productEntryKey" />
 		</finder>
+		<finder name="Name" return-type="ProductEntry">
+			<finder-column name="name" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="ProductField" remote-service="true">
 

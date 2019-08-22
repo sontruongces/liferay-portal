@@ -14,39 +14,37 @@
 
 package com.liferay.osb.koroneiki.taproot.exception;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.exception.PortalException;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * @author Amos Fong
  */
 @ProviderType
-public class ContactEmailAddressException extends PortalException {
+public class ContactOktaIdException extends PortalException {
 
-	public ContactEmailAddressException() {
+	public ContactOktaIdException() {
 	}
 
-	public ContactEmailAddressException(String msg) {
+	public ContactOktaIdException(String msg) {
 		super(msg);
 	}
 
-	public ContactEmailAddressException(String msg, Throwable cause) {
+	public ContactOktaIdException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public ContactEmailAddressException(Throwable cause) {
+	public ContactOktaIdException(Throwable cause) {
 		super(cause);
 	}
 
-	public static class MustNotBeDuplicate
-		extends ContactEmailAddressException {
+	public static class MustNotBeDuplicate extends ContactOktaIdException {
 
-		public MustNotBeDuplicate(String emailAddress) {
+		public MustNotBeDuplicate(String oktaId) {
 			super(
 				String.format(
-					"A user with email address %s is already in use",
-					emailAddress));
+					"A contact with oktaId %s is already in use", oktaId));
 		}
 
 	}
