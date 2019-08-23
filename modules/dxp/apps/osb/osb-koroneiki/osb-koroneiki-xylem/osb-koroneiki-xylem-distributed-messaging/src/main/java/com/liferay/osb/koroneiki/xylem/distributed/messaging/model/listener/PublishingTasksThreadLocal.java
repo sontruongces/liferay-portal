@@ -32,8 +32,20 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = PublishingTasksThreadLocal.class)
 public class PublishingTasksThreadLocal {
 
+	public static boolean isImportInProcess() {
+		return _importInProcess.get();
+	}
+
+	public static void setImportInProcess(boolean importInProcess) {
+		_importInProcess.set(importInProcess);
+	}
+
 	public void addPublishingTask(
 		String key, String topic, Callable<Message> callable) {
+
+		if (isImportInProcess()) {
+			return;
+		}
 
 		Map<String, PublishingTask> publishingTasksMap =
 			_publishingTasksMap.get();
@@ -61,6 +73,11 @@ public class PublishingTasksThreadLocal {
 			}
 		}
 	}
+
+	private static final ThreadLocal<Boolean> _importInProcess =
+		new CentralizedThreadLocal<>(
+			PublishingTasksThreadLocal.class + "._importInProcess",
+			() -> Boolean.FALSE);
 
 	@Reference
 	private MessagePublisher _messagePublisher;

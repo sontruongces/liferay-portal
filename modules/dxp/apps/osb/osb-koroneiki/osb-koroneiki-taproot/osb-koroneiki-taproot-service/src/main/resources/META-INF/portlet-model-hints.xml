@@ -12,7 +12,9 @@
 		<field name="parentAccountId" type="long" />
 		<field name="name" type="String" />
 		<field name="code" type="String" />
-		<field name="description" type="String" />
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="notes" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>

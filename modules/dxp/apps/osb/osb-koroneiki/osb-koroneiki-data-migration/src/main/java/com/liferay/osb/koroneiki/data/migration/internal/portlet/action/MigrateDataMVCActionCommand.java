@@ -15,15 +15,20 @@
 package com.liferay.osb.koroneiki.data.migration.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.data.migration.internal.constants.DataMigrationPortletKeys;
+import com.liferay.osb.koroneiki.data.migration.internal.migration.CorpEntryMigration;
+import com.liferay.osb.koroneiki.xylem.distributed.messaging.model.listener.PublishingTasksThreadLocal;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Amos Fong
@@ -43,6 +48,13 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 		throws Exception {
 
 		try {
+			PublishingTasksThreadLocal.setImportInProcess(true);
+
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+			_corpEntryMigration.migrate(themeDisplay.getUserId());
+
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (Exception e) {
@@ -50,9 +62,15 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 
 			throw e;
 		}
+		finally {
+			PublishingTasksThreadLocal.setImportInProcess(false);
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		MigrateDataMVCActionCommand.class);
+
+	@Reference
+	private CorpEntryMigration _corpEntryMigration;
 
 }

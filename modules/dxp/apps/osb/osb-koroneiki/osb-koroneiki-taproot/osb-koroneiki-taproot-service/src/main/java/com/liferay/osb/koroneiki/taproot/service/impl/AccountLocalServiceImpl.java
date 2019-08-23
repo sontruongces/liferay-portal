@@ -24,6 +24,7 @@ import com.liferay.osb.koroneiki.taproot.service.base.AccountLocalServiceBaseImp
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Hits;
@@ -55,6 +56,23 @@ import org.osgi.service.component.annotations.Reference;
 	service = AopService.class
 )
 public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public Account addAccount(Account account) {
+		super.addAccount(account);
+
+		try {
+			addResources(
+				account.getCompanyId(), account.getUserId(),
+				account.getAccountId());
+		}
+		catch (PortalException pe) {
+			throw new SystemException(pe);
+		}
+
+		return account;
+	}
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Account addAccount(
@@ -99,11 +117,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		accountPersistence.update(account);
 
-		// Resources
-
-		resourceLocalService.addResources(
-			account.getCompanyId(), 0, userId, Account.class.getName(),
-			account.getAccountId(), false, false, false);
+		addResources(account.getCompanyId(), userId, account.getAccountId());
 
 		return account;
 	}
@@ -244,6 +258,14 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setStatusMessage(StringPool.BLANK);
 
 		return accountPersistence.update(account);
+	}
+
+	protected void addResources(long companyId, long userId, long accountId)
+		throws PortalException {
+
+		resourceLocalService.addResources(
+			companyId, 0, userId, Account.class.getName(), accountId, false,
+			false, false);
 	}
 
 	protected void validate(long accountId, String name, String code)
