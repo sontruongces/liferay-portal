@@ -33,6 +33,8 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.pagination.Page;
 
+import java.util.List;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -92,10 +94,17 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 			countryId = country.getCountryId();
 
 			if (Validator.isNotNull(postalAddress.getAddressRegion())) {
-				Region region = _regionService.getRegion(
-					countryId, postalAddress.getAddressRegion());
+				List<Region> regions = _regionService.getRegions(countryId);
 
-				regionId = region.getRegionId();
+				for (Region region : regions) {
+					String name = region.getName();
+
+					if (name.equals(postalAddress.getAddressRegion())) {
+						regionId = region.getRegionId();
+
+						break;
+					}
+				}
 			}
 		}
 
@@ -144,10 +153,17 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 			countryId = country.getCountryId();
 
 			if (Validator.isNotNull(postalAddress.getAddressRegion())) {
-				Region region = _regionService.getRegion(
-					countryId, postalAddress.getAddressRegion());
+				List<Region> regions = _regionService.getRegions(countryId);
 
-				regionId = region.getRegionId();
+				for (Region region : regions) {
+					String name = region.getName();
+
+					if (name.equals(postalAddress.getAddressRegion())) {
+						regionId = region.getRegionId();
+
+						break;
+					}
+				}
 			}
 		}
 
