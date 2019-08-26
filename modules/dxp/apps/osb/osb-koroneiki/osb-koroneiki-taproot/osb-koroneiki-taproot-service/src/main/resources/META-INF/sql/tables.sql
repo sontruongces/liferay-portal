@@ -9,7 +9,7 @@ create table Koroneiki_Account (
 	parentAccountId LONG,
 	name VARCHAR(75) null,
 	code_ VARCHAR(75) null,
-	description VARCHAR(75) null,
+	description STRING null,
 	notes STRING null,
 	logoId LONG,
 	contactEmailAddress VARCHAR(75) null,
