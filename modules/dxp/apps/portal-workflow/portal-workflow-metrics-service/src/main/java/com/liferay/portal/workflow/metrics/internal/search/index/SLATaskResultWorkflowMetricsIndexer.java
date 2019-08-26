@@ -61,6 +61,10 @@ public class SLATaskResultWorkflowMetricsIndexer
 		return document;
 	}
 
+	@Override
+	public void reindex(long companyId) {
+	}
+
 	public void updateDocuments(
 		Map<Long, String> taskNames,
 		WorkflowMetricsSLAProcessResult workflowMetricsSLAProcessResult) {

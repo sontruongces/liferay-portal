@@ -5,6 +5,11 @@ import getClassName from 'classnames';
 import Icon from '../Icon';
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+import {
+	addClickOutsideListener,
+	removeClickOutsideListener,
+	handleClickOutside
+} from './util/filterEvents';
 
 class Filter extends React.Component {
 	constructor(props) {
@@ -24,14 +29,23 @@ class Filter extends React.Component {
 	componentDidMount() {
 		this.selectDefaultItem(this.props);
 
-		document.addEventListener('mousedown', this.onClickOutside.bind(this));
+		this.onClickOutside = handleClickOutside(() => {
+			if (this.state.expanded) {
+				this.setExpanded(false);
+
+				if (this.itemChanged) {
+					pushToHistory(this.filterQuery, this.props);
+
+					this.itemChanged = false;
+				}
+			}
+		}, this.wrapperRef);
+
+		addClickOutsideListener(this.onClickOutside);
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener(
-			'mousedown',
-			this.onClickOutside.bind(this)
-		);
+		removeClickOutsideListener(this.onClickOutside);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -72,39 +86,41 @@ class Filter extends React.Component {
 
 	onInputChange({target}) {
 		const {items} = this.state;
-		const {multiple} = this.props;
-
-		if (!multiple) {
-			items.forEach(item => {
-				item.active = false;
-			});
-		}
+		const {multiple, onChangeFilter} = this.props;
 
 		const currentIndex = items.findIndex(
 			item => item.key == target.dataset.key
 		);
 
-		items[currentIndex].active = target.checked;
+		const currentItem = items[currentIndex];
 
-		this.setState({
-			items
-		});
-
-		this.itemChanged = true;
-	}
-
-	onClickOutside(event) {
-		const clickOutside =
-			this.wrapperRef && !this.wrapperRef.contains(event.target);
-
-		if (clickOutside && this.state.expanded) {
-			this.setExpanded(false);
-
-			if (this.itemChanged) {
-				pushToHistory(this.filterQuery, this.props);
-
-				this.itemChanged = false;
+		const resetAllItems = () => {
+			if (!multiple) {
+				items.forEach(item => {
+					item.active = false;
+				});
 			}
+		};
+
+		const updateCurrentItem = () => {
+			currentItem.active = target.checked;
+
+			this.setState({
+				items
+			});
+
+			this.itemChanged = true;
+		};
+
+		let preventDefault = false;
+
+		if (onChangeFilter) {
+			preventDefault = onChangeFilter(currentItem);
+		}
+
+		if (!preventDefault) {
+			resetAllItems();
+			updateCurrentItem();
 		}
 	}
 
@@ -149,23 +165,47 @@ class Filter extends React.Component {
 
 	render() {
 		const {expanded, items} = this.state;
-		const {hideControl = false, multiple, name, position} = this.props;
+		const {
+			children,
+			elementClasses,
+			hideControl = false,
+			multiple,
+			name,
+			onClickFilter,
+			position
+		} = this.props;
 
-		const className = getClassName(
+		const childrenClassName = getClassName(
+			'custom',
+			'dropdown-menu',
+			children && 'show',
+			position && `dropdown-menu-${position}`
+		);
+
+		const dropdownClassName = getClassName(
+			'dropdown',
+			'nav-item',
+			elementClasses
+		);
+
+		const menuClassName = getClassName(
 			'dropdown-menu',
 			expanded && 'show',
 			position && `dropdown-menu-${position}`
 		);
 
+		const onClickHandler = item => _ =>
+			(onClickFilter && onClickFilter(item)) || true;
+
 		return (
 			<li
-				className="dropdown nav-item"
+				className={dropdownClassName}
 				ref={this.setWrapperRef.bind(this)}
 			>
 				<button
 					aria-expanded={expanded}
 					aria-haspopup="true"
-					className="dropdown-toggle nav-link"
+					className="btn btn-secondary btn-sm dropdown-toggle nav-link"
 					onClick={this.toggleDropDown}
 					type="button"
 				>
@@ -174,7 +214,7 @@ class Filter extends React.Component {
 					<Icon iconName="caret-bottom" />
 				</button>
 
-				<div className={className} role="menu">
+				<div className={menuClassName} role="menu">
 					<FilterSearch
 						filteredItems={this.filteredItems}
 						onChange={this.onSearchChange.bind(this)}
@@ -189,11 +229,14 @@ class Filter extends React.Component {
 									key={index}
 									multiple={multiple}
 									onChange={this.onInputChange.bind(this)}
+									onClick={onClickHandler(item)}
 								/>
 							))}
 						</ul>
 					</FilterSearch>
 				</div>
+
+				<div className={childrenClassName}>{children}</div>
 			</li>
 		);
 	}

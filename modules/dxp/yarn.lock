@@ -952,6 +952,15 @@
     "@clayui/icon" "^3.0.0-milestone.2"
     classnames "^2.2.6"
 
+"@clayui/charts@3.0.0-milestone.1":
+  version "3.0.0-milestone.1"
+  resolved "https://registry.yarnpkg.com/@clayui/charts/-/charts-3.0.0-milestone.1.tgz#987d0854557f9de6492c89498d2db9e0e4ae223d"
+  integrity sha512-wSeYmB2f/Np7oCw75wbAQpdDNqLiKl2GbNvo8qLoXeKzSMhdwBtA9gX2mi2f0/DKbBxi0MlrvEZDaqvXlD7AYg==
+  dependencies:
+    billboard.js "^1.8.0"
+    classnames "^2.2.6"
+    d3 "^5.9.2"
+
 "@clayui/drop-down@^3.0.0-milestone.2":
   version "3.0.0-milestone.2"
   resolved "https://registry.yarnpkg.com/@clayui/drop-down/-/drop-down-3.0.0-milestone.2.tgz#8f858ba24c1fd32845a1eb194c910f7f77c3419f"
@@ -1847,10 +1856,10 @@
     pretty-format "^24.0.0"
     redent "^3.0.0"
 
-"@testing-library/react-hooks@^1.0.4":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/react-hooks/-/react-hooks-1.1.0.tgz#14b6b5c7c3d0e2cb3e55e9cbb248b44321641c64"
-  integrity sha512-piE/ceQoNf134FFVXBABDbttBJ8eLPD4eg7zIciVJv92RyvoIsBHCvvG8Vd4IG5pyuWYrkLsZTO8ucZBwa4twA==
+"@testing-library/react-hooks@1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@testing-library/react-hooks/-/react-hooks-1.0.4.tgz#5e91df44c3cee305c50b1b0e1fa9d97578024309"
+  integrity sha512-yFulIcOY7oTtkUHRzmWb0nPWpt0mA/WMm6BWCzoZopLptlSk6LrGC3P53bdN7UTcYqyExszSwMz3o8PYYQeeEA==
   dependencies:
     "@babel/runtime" "^7.4.2"
     "@types/react" "^16.8.22"
@@ -2588,11 +2597,6 @@ asynckit@^0.4.0:
 atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
-
-autobind-decorator@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/autobind-decorator/-/autobind-decorator-2.4.0.tgz#ea9e1c98708cf3b5b356f7cf9f10f265ff18239c"
-  integrity sha512-OGYhWUO72V6DafbF8PM8rm3EPbfuyMZcJhtm5/n26IDwO18pohE4eNazLoCGhPiXOCD0gEGmrbU3849QvM8bbw==
 
 autoprefixer@^9.1.5, autoprefixer@^9.4.9:
   version "9.6.1"
@@ -3662,7 +3666,7 @@ big.js@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
 
-billboard.js@^1.6.0:
+billboard.js@^1.6.0, billboard.js@^1.8.0:
   version "1.9.5"
   resolved "https://registry.yarnpkg.com/billboard.js/-/billboard.js-1.9.5.tgz#3f465e43f4ff58e6367dcb8bf3ec04ebdf1a907d"
   integrity sha512-eWqOedhCNVOtcY/EERkGKw4wm3sOfY+A/7GKoLtYrfiF9UGv0JbM0OqS1X3k4lP+4H4SynZhZv5F+NGuMWHX5A==
@@ -5724,7 +5728,7 @@ env-paths@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/env-paths/-/env-paths-1.0.0.tgz#4168133b42bb05c38a35b1ae4397c8298ab369e0"
 
-enzyme-adapter-react-16@^1.14.0:
+enzyme-adapter-react-16@1.14.0:
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.14.0.tgz#204722b769172bcf096cb250d33e6795c1f1858f"
   integrity sha512-7PcOF7pb4hJUvjY7oAuPGpq3BmlCig3kxXGi2kFx0YzJHppqX1K8IIV9skT1IirxXlu8W7bneKi+oQ10QRnhcA==
@@ -5749,14 +5753,14 @@ enzyme-adapter-utils@^1.12.0:
     prop-types "^15.7.2"
     semver "^5.6.0"
 
-enzyme-to-json@^3.3.5:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/enzyme-to-json/-/enzyme-to-json-3.4.0.tgz#2b6330a784a57ba68298e3c0d6cef17ee4fedc0e"
-  integrity sha512-gbu8P8PMAtb+qtKuGVRdZIYxWHC03q1dGS3EKRmUzmTDIracu3o6cQ0d4xI2YWojbelbxjYOsmqM5EgAL0WgIA==
+enzyme-to-json@3.3.5:
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/enzyme-to-json/-/enzyme-to-json-3.3.5.tgz#f8eb82bd3d5941c9d8bc6fd9140030777d17d0af"
+  integrity sha512-DmH1wJ68HyPqKSYXdQqB33ZotwfUhwQZW3IGXaNXgR69Iodaoj8TF/D9RjLdz4pEhGq2Tx2zwNUIjBuqoZeTgA==
   dependencies:
-    lodash "^4.17.12"
+    lodash "^4.17.4"
 
-enzyme@^3.10.0:
+enzyme@3.10.0:
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-3.10.0.tgz#7218e347c4a7746e133f8e964aada4a3523452f6"
   integrity sha512-p2yy9Y7t/PFbPoTvrWde7JIYB2ZyGC+NgTNbVEGvZ5/EyoYSr9aG/2rSbVvyNvMHEhw9/dmGUJHWtfQIEiX9pg==
@@ -5876,10 +5880,10 @@ escodegen@^1.6.1, escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-liferay@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-liferay/-/eslint-config-liferay-7.0.0.tgz#f6efd7a6308f0b7bf6fa97339ee480a12f2d4235"
-  integrity sha512-pz0m1Ac8bSvYFIxOfoRS0wrawazLJYs8xxKUvSyCMG/z2mOPLc4fn8MC0lERrnSw1ycbZBZsXDFFXo+FYAolIg==
+eslint-config-liferay@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-liferay/-/eslint-config-liferay-8.0.0.tgz#2ee8154684da4548fe3f03d457d22615128640d8"
+  integrity sha512-aA91/hSGFMBvVmcrbjSrUuakhiO6Q/r9JCAKljrlgXdAMThSnNNlqTZ9DoFN6QYKRcbNKis7XTNYLAgg+bcqUg==
   dependencies:
     eslint-config-prettier "5.0.0"
     eslint-plugin-no-for-of-loops "^1.0.0"
@@ -9482,10 +9486,10 @@ liferay-npm-bundler-plugin-resolve-linked-dependencies@2.7.1:
     read-json-sync "^2.0.0"
     semver "^5.5.0"
 
-liferay-npm-bundler-preset-liferay-dev@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/liferay-npm-bundler-preset-liferay-dev/-/liferay-npm-bundler-preset-liferay-dev-1.6.0.tgz#1d80e2f6c5a8e7a2fbf9e282c605c19a00e58cfa"
-  integrity sha512-2Ezh53sdaULtLCvtfe/8Wht5rtGPTEc+PO1bjYSueUwtB1Cu4o2XCaCInFONQnUTcWpBcfqMLPGCuaVWZErWfg==
+liferay-npm-bundler-preset-liferay-dev@1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/liferay-npm-bundler-preset-liferay-dev/-/liferay-npm-bundler-preset-liferay-dev-1.7.0.tgz#0c9f5038a2086ec5534e0bcffee9313769c783a5"
+  integrity sha512-UNnMurKUEI3Z5WZJjCxWhWyB2ic+E2zKWIOyXBLEN5BgYABefWgk7dlBEpOsLe986/l9nVppnd5s8JUGVt8k5A==
   dependencies:
     babel-preset-liferay-standard "2.12.0"
     liferay-npm-bundler-plugin-exclude-imports "2.12.0"
@@ -9562,10 +9566,10 @@ liferay-npm-bundler@2.7.1:
     semver "^5.5.0"
     xml-js "^1.6.8"
 
-liferay-npm-scripts@7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/liferay-npm-scripts/-/liferay-npm-scripts-7.0.0.tgz#8ecc81e45a6130b87050a2bae9705b583194f540"
-  integrity sha512-zosQ6xtQ8LswNpS8XmFJf22KMIvGs654MecJwDvQoSSYGR6H37qBD8AQtVMm+tozUf63VbVP3lajsLCVc+zuDg==
+liferay-npm-scripts@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/liferay-npm-scripts/-/liferay-npm-scripts-8.0.1.tgz#c1ee6d982e3c9500d3192715fd8a8e7a590aa078"
+  integrity sha512-4fOmv0oWSLw3zPF2rl+Eh3xsFtZ75yoIwf7rl1FJTqrKnzDeDjYgBsOIBqqYd9oleDEndEsHbmKHVi5tPRlwTw==
   dependencies:
     "@babel/cli" "^7.2.3"
     "@babel/plugin-proposal-class-properties" "7.4.4"
@@ -9589,7 +9593,7 @@ liferay-npm-scripts@7.0.0:
     css-loader "^3.0.0"
     deepmerge "^4.0.0"
     eslint "6.1.0"
-    eslint-config-liferay "^7.0.0"
+    eslint-config-liferay "^8.0.0"
     glob "^7.1.3"
     http-proxy-middleware "^0.19.1"
     jest "^24.5.0"
@@ -9597,7 +9601,7 @@ liferay-npm-scripts@7.0.0:
     liferay-lang-key-dev-loader "^1.0.3"
     liferay-npm-bridge-generator "2.12.0"
     liferay-npm-bundler "2.12.0"
-    liferay-npm-bundler-preset-liferay-dev "1.6.0"
+    liferay-npm-bundler-preset-liferay-dev "1.7.0"
     liferay-theme-tasks "9.4.0"
     metal-tools-soy "4.3.2"
     minimist "^1.2.0"

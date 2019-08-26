@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"autobind-decorator": "2.4.0",
+		"@clayui/charts": "3.0.0-milestone.1",
 		"axios": "0.18.0",
 		"classnames": "2.2.6",
 		"clay-charts-react": "2.4.1",
@@ -17,10 +17,10 @@
 		"text-mask-addons": "3.8.0"
 	},
 	"devDependencies": {
-		"@testing-library/react-hooks": "^1.0.4",
-		"enzyme": "^3.10.0",
-		"enzyme-adapter-react-16": "^1.14.0",
-		"enzyme-to-json": "^3.3.5"
+		"@testing-library/react-hooks": "1.0.4",
+		"enzyme": "3.10.0",
+		"enzyme-adapter-react-16": "1.14.0",
+		"enzyme-to-json": "3.3.5"
 	},
 	"jest": {
 		"collectCoverageFrom": [

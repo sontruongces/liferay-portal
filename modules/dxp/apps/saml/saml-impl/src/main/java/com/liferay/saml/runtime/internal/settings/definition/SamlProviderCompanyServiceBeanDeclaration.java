@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.saml.runtime.internal.configuration.definition;
+package com.liferay.saml.runtime.internal.settings.definition;
 
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
 import com.liferay.saml.runtime.configuration.SamlProviderConfiguration;

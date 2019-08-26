@@ -1,6 +1,27 @@
 $c: '.workflow-process-dashboard';
 
 #{$c} {
+	.alert-dismissible {
+		margin-top: 1.5rem;
+	}
+
+	.custom-range-wrapper {
+		width: 33rem;
+
+		.custom-range-footer {
+			padding: 1rem 1.5rem;
+			text-align: right;
+		}
+
+		.custom-range-form {
+			padding: 1rem 1.5rem 0.5rem 1.5rem;
+
+			h4 {
+				margin-bottom: 2rem;
+			}
+		}
+	}
+
 	.dashboard-panel-header {
 		color: #272833;
 		font-size: 18px;
@@ -95,6 +116,22 @@ $c: '.workflow-process-dashboard';
 		th.table-head-title .title {
 			line-height: 24px;
 		}
+	}
+
+	.velocity-value,
+	.velocity-unit {
+		color: #30313f;
+	}
+
+	.velocity-value {
+		font-size: 2.5rem;
+		line-height: initial;
+		margin-right: 0.5rem;
+	}
+
+	.velocity-unit {
+		font-size: 0.875rem;
+		text-transform: lowercase;
 	}
 
 	.workload-by-step-link {

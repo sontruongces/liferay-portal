@@ -57,8 +57,8 @@ export default class ProcessItemsCard extends React.Component {
 
 		let urlRequest = `/processes/${processId}?completed=${completed}`;
 
-		if (timeRange && typeof timeRange.id === 'number') {
-			urlRequest += `&timeRange=${timeRange.id}`;
+		if (timeRange) {
+			urlRequest += `&dateEnd=${timeRange.dateEnd.toISOString()}&dateStart=${timeRange.dateStart.toISOString()}`;
 		}
 
 		this.setState({
@@ -106,7 +106,7 @@ export default class ProcessItemsCard extends React.Component {
 				>
 					<div className="autofit-row">
 						<div className="autofit-col autofit-col-expand flex-row">
-							<span className="mr-3">{title}</span>
+							<span className="mr-2">{title}</span>
 
 							<Tooltip
 								message={description}
