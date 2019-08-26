@@ -46,6 +46,7 @@ components:
                     readOnly: true
                     type: string
                 logoId:
+                    deprecated: true
                     description: The assetAttachmentId of the account's logo.
                     format: int64
                     type: integer
