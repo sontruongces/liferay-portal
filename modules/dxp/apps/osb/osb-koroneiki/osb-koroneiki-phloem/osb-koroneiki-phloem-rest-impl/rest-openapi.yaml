@@ -45,6 +45,10 @@ components:
                     description: The account's key.
                     readOnly: true
                     type: string
+                logoId:
+                    description: The assetAttachmentId of the account's logo.
+                    format: int64
+                    type: integer
                 name:
                     description: The name of the account.
                     type: string

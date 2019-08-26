@@ -53,6 +53,7 @@ public class AccountUtil {
 				faxNumber = account.getFaxNumber();
 				industry = Industry.create(account.getIndustry());
 				key = account.getAccountKey();
+				logoId = account.getLogoId();
 				name = account.getName();
 				notes = account.getNotes();
 				phoneNumber = account.getPhoneNumber();

@@ -192,8 +192,8 @@ public class AccountResourceImpl
 		return AccountUtil.toAccount(
 			_accountService.addAccount(
 				0, account.getName(), account.getCode(),
-				account.getDescription(), account.getNotes(), 0,
-				account.getContactEmailAddress(),
+				account.getDescription(), account.getNotes(),
+				account.getLogoId(), account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
 				account.getFaxNumber(), account.getWebsite(), industry, tier,
 				account.getSoldBy(), status),
@@ -255,6 +255,8 @@ public class AccountResourceImpl
 			account.getDescription(), curAccount.getDescription());
 		String notes = GetterUtil.getString(
 			account.getNotes(), curAccount.getNotes());
+		long logoId = GetterUtil.getLong(
+			account.getLogoId(), curAccount.getLogoId());
 		String contactEmailAddress = GetterUtil.getString(
 			account.getContactEmailAddress(),
 			curAccount.getContactEmailAddress());
@@ -298,7 +300,7 @@ public class AccountResourceImpl
 		return AccountUtil.toAccount(
 			_accountService.updateAccount(
 				accountKey, curAccount.getParentAccountId(), account.getName(),
-				code, description, notes, 0, contactEmailAddress,
+				code, description, notes, logoId, contactEmailAddress,
 				profileEmailAddress, phoneNumber, faxNumber, website, industry,
 				tier, soldBy, status),
 			contextAcceptLanguage.getPreferredLocale(), null);
