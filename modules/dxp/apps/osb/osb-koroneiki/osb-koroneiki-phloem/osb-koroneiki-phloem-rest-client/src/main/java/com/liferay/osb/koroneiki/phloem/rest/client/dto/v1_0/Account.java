@@ -358,6 +358,27 @@ public class Account {
 
 	protected String key;
 
+	public Long getLogoId() {
+		return logoId;
+	}
+
+	public void setLogoId(Long logoId) {
+		this.logoId = logoId;
+	}
+
+	public void setLogoId(
+		UnsafeSupplier<Long, Exception> logoIdUnsafeSupplier) {
+
+		try {
+			logoId = logoIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long logoId;
+
 	public String getName() {
 		return name;
 	}

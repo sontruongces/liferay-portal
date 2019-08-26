@@ -463,6 +463,35 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
+	@Schema(description = "The assetAttachmentId of the account's logo.")
+	public Long getLogoId() {
+		return logoId;
+	}
+
+	public void setLogoId(Long logoId) {
+		this.logoId = logoId;
+	}
+
+	@JsonIgnore
+	public void setLogoId(
+		UnsafeSupplier<Long, Exception> logoIdUnsafeSupplier) {
+
+		try {
+			logoId = logoIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Deprecated
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long logoId;
+
 	@Schema(description = "The name of the account.")
 	public String getName() {
 		return name;
@@ -939,6 +968,16 @@ public class Account {
 			sb.append(_escape(key));
 
 			sb.append("\"");
+		}
+
+		if (logoId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"logoId\": ");
+
+			sb.append(logoId);
 		}
 
 		if (name != null) {

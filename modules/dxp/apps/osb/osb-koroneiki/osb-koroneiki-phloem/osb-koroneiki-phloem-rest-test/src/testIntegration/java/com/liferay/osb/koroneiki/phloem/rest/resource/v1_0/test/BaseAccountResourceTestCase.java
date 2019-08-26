@@ -872,6 +872,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("logoId", additionalAssertFieldName)) {
+				if (account.getLogoId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (account.getName() == null) {
 					valid = false;
@@ -1092,6 +1100,16 @@ public abstract class BaseAccountResourceTestCase {
 
 			if (Objects.equals("key", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(account1.getKey(), account2.getKey())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("logoId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getLogoId(), account2.getLogoId())) {
+
 					return false;
 				}
 
@@ -1378,6 +1396,11 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("logoId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("name")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getName()));
@@ -1463,6 +1486,7 @@ public abstract class BaseAccountResourceTestCase {
 				description = RandomTestUtil.randomString();
 				faxNumber = RandomTestUtil.randomString();
 				key = RandomTestUtil.randomString();
+				logoId = RandomTestUtil.randomLong();
 				name = RandomTestUtil.randomString();
 				notes = RandomTestUtil.randomString();
 				parentAccountKey = RandomTestUtil.randomString();

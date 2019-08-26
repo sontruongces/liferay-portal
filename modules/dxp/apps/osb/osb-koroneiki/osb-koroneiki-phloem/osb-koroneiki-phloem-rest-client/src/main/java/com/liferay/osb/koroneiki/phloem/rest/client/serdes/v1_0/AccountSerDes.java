@@ -216,6 +216,16 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getLogoId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"logoId\": ");
+
+			sb.append(account.getLogoId());
+		}
+
 		if (account.getName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -450,6 +460,13 @@ public class AccountSerDes {
 			map.put("key", String.valueOf(account.getKey()));
 		}
 
+		if (account.getLogoId() == null) {
+			map.put("logoId", null);
+		}
+		else {
+			map.put("logoId", String.valueOf(account.getLogoId()));
+		}
+
 		if (account.getName() == null) {
 			map.put("name", null);
 		}
@@ -651,6 +668,12 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "key")) {
 				if (jsonParserFieldValue != null) {
 					account.setKey((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "logoId")) {
+				if (jsonParserFieldValue != null) {
+					account.setLogoId(
+						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "name")) {
