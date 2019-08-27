@@ -388,6 +388,13 @@ public class AccountWrapper
 		return model.getNotes();
 	}
 
+	@Override
+	public Account getParentAccount()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getParentAccount();
+	}
+
 	/**
 	 * Returns the parent account ID of this account.
 	 *

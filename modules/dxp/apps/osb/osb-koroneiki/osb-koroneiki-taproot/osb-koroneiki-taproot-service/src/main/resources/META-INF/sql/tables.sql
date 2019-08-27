@@ -7,7 +7,7 @@ create table Koroneiki_Account (
 	modifiedDate DATE null,
 	accountKey VARCHAR(75) null,
 	parentAccountId LONG,
-	name VARCHAR(75) null,
+	name VARCHAR(150) null,
 	code_ VARCHAR(75) null,
 	description STRING null,
 	notes STRING null,

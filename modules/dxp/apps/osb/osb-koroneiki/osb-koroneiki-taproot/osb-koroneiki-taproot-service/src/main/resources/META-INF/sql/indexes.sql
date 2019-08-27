@@ -1,6 +1,6 @@
 create unique index IX_49B51109 on Koroneiki_Account (accountKey[$COLUMN_LENGTH:75$]);
 create index IX_812ADE3F on Koroneiki_Account (code_[$COLUMN_LENGTH:75$]);
-create index IX_68C36822 on Koroneiki_Account (name[$COLUMN_LENGTH:75$]);
+create index IX_68C36822 on Koroneiki_Account (name[$COLUMN_LENGTH:150$]);
 create index IX_B9A3F00B on Koroneiki_Account (parentAccountId);
 create index IX_946B1DD7 on Koroneiki_Account (uuid_[$COLUMN_LENGTH:75$], companyId);
 
