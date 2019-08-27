@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.trunk.service.persistence;
 import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductEntryException;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -70,16 +71,19 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of product entries
 	 * @param end the upper bound of the range of product entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product entries
 	 */
+	@Deprecated
 	public java.util.List<ProductEntry> findByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator);
+		OrderByComparator<ProductEntry> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the product entries where uuid = &#63;.
@@ -92,14 +96,11 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * @param start the lower bound of the range of product entries
 	 * @param end the upper bound of the range of product entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product entries
 	 */
 	public java.util.List<ProductEntry> findByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ProductEntry> orderByComparator);
 
 	/**
 	 * Returns the first product entry in the ordered set where uuid = &#63;.
@@ -110,9 +111,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * @throws NoSuchProductEntryException if a matching product entry could not be found
 	 */
 	public ProductEntry findByUuid_First(
-			String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-				orderByComparator)
+			String uuid, OrderByComparator<ProductEntry> orderByComparator)
 		throws NoSuchProductEntryException;
 
 	/**
@@ -123,9 +122,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * @return the first matching product entry, or <code>null</code> if a matching product entry could not be found
 	 */
 	public ProductEntry fetchByUuid_First(
-		String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator);
+		String uuid, OrderByComparator<ProductEntry> orderByComparator);
 
 	/**
 	 * Returns the last product entry in the ordered set where uuid = &#63;.
@@ -136,9 +133,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * @throws NoSuchProductEntryException if a matching product entry could not be found
 	 */
 	public ProductEntry findByUuid_Last(
-			String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-				orderByComparator)
+			String uuid, OrderByComparator<ProductEntry> orderByComparator)
 		throws NoSuchProductEntryException;
 
 	/**
@@ -149,9 +144,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * @return the last matching product entry, or <code>null</code> if a matching product entry could not be found
 	 */
 	public ProductEntry fetchByUuid_Last(
-		String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator);
+		String uuid, OrderByComparator<ProductEntry> orderByComparator);
 
 	/**
 	 * Returns the product entries before and after the current product entry in the ordered set where uuid = &#63;.
@@ -164,8 +157,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public ProductEntry[] findByUuid_PrevAndNext(
 			long productEntryId, String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-				orderByComparator)
+			OrderByComparator<ProductEntry> orderByComparator)
 		throws NoSuchProductEntryException;
 
 	/**
@@ -206,8 +198,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public java.util.List<ProductEntry> filterFindByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator);
+		OrderByComparator<ProductEntry> orderByComparator);
 
 	/**
 	 * Returns the product entries before and after the current product entry in the ordered set of product entries that the user has permission to view where uuid = &#63;.
@@ -220,8 +211,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public ProductEntry[] filterFindByUuid_PrevAndNext(
 			long productEntryId, String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-				orderByComparator)
+			OrderByComparator<ProductEntry> orderByComparator)
 		throws NoSuchProductEntryException;
 
 	/**
@@ -280,17 +270,20 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of product entries
 	 * @param end the upper bound of the range of product entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product entries
 	 */
+	@Deprecated
 	public java.util.List<ProductEntry> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator);
+		OrderByComparator<ProductEntry> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the product entries where uuid = &#63; and companyId = &#63;.
@@ -304,14 +297,11 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * @param start the lower bound of the range of product entries
 	 * @param end the upper bound of the range of product entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product entries
 	 */
 	public java.util.List<ProductEntry> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ProductEntry> orderByComparator);
 
 	/**
 	 * Returns the first product entry in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -324,8 +314,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public ProductEntry findByUuid_C_First(
 			String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-				orderByComparator)
+			OrderByComparator<ProductEntry> orderByComparator)
 		throws NoSuchProductEntryException;
 
 	/**
@@ -338,8 +327,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public ProductEntry fetchByUuid_C_First(
 		String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator);
+		OrderByComparator<ProductEntry> orderByComparator);
 
 	/**
 	 * Returns the last product entry in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -352,8 +340,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public ProductEntry findByUuid_C_Last(
 			String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-				orderByComparator)
+			OrderByComparator<ProductEntry> orderByComparator)
 		throws NoSuchProductEntryException;
 
 	/**
@@ -366,8 +353,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public ProductEntry fetchByUuid_C_Last(
 		String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator);
+		OrderByComparator<ProductEntry> orderByComparator);
 
 	/**
 	 * Returns the product entries before and after the current product entry in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -381,8 +367,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public ProductEntry[] findByUuid_C_PrevAndNext(
 			long productEntryId, String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-				orderByComparator)
+			OrderByComparator<ProductEntry> orderByComparator)
 		throws NoSuchProductEntryException;
 
 	/**
@@ -427,8 +412,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public java.util.List<ProductEntry> filterFindByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator);
+		OrderByComparator<ProductEntry> orderByComparator);
 
 	/**
 	 * Returns the product entries before and after the current product entry in the ordered set of product entries that the user has permission to view where uuid = &#63; and companyId = &#63;.
@@ -442,8 +426,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 */
 	public ProductEntry[] filterFindByUuid_C_PrevAndNext(
 			long productEntryId, String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-				orderByComparator)
+			OrderByComparator<ProductEntry> orderByComparator)
 		throws NoSuchProductEntryException;
 
 	/**
@@ -483,12 +466,16 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 		throws NoSuchProductEntryException;
 
 	/**
-	 * Returns the product entry where productEntryKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the product entry where productEntryKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByProductEntryKey(String)}
 	 * @param productEntryKey the product entry key
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching product entry, or <code>null</code> if a matching product entry could not be found
 	 */
-	public ProductEntry fetchByProductEntryKey(String productEntryKey);
+	@Deprecated
+	public ProductEntry fetchByProductEntryKey(
+		String productEntryKey, boolean useFinderCache);
 
 	/**
 	 * Returns the product entry where productEntryKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -497,8 +484,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching product entry, or <code>null</code> if a matching product entry could not be found
 	 */
-	public ProductEntry fetchByProductEntryKey(
-		String productEntryKey, boolean useFinderCache);
+	public ProductEntry fetchByProductEntryKey(String productEntryKey);
 
 	/**
 	 * Removes the product entry where productEntryKey = &#63; from the database.
@@ -528,12 +514,15 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 		throws NoSuchProductEntryException;
 
 	/**
-	 * Returns the product entry where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the product entry where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByName(String)}
 	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching product entry, or <code>null</code> if a matching product entry could not be found
 	 */
-	public ProductEntry fetchByName(String name);
+	@Deprecated
+	public ProductEntry fetchByName(String name, boolean useFinderCache);
 
 	/**
 	 * Returns the product entry where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -542,7 +531,7 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching product entry, or <code>null</code> if a matching product entry could not be found
 	 */
-	public ProductEntry fetchByName(String name, boolean useFinderCache);
+	public ProductEntry fetchByName(String name);
 
 	/**
 	 * Removes the product entry where name = &#63; from the database.
@@ -640,15 +629,17 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of product entries
 	 * @param end the upper bound of the range of product entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of product entries
 	 */
+	@Deprecated
 	public java.util.List<ProductEntry> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator);
+		int start, int end, OrderByComparator<ProductEntry> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the product entries.
@@ -660,14 +651,10 @@ public interface ProductEntryPersistence extends BasePersistence<ProductEntry> {
 	 * @param start the lower bound of the range of product entries
 	 * @param end the upper bound of the range of product entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of product entries
 	 */
 	public java.util.List<ProductEntry> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductEntry>
-			orderByComparator,
-		boolean useFinderCache);
+		int start, int end, OrderByComparator<ProductEntry> orderByComparator);
 
 	/**
 	 * Removes all the product entries from the database.

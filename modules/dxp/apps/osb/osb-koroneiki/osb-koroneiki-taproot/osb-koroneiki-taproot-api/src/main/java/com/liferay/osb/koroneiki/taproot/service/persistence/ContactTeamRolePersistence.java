@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.taproot.service.persistence;
 import com.liferay.osb.koroneiki.taproot.exception.NoSuchContactTeamRoleException;
 import com.liferay.osb.koroneiki.taproot.model.ContactTeamRole;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.Set;
 
@@ -73,16 +74,19 @@ public interface ContactTeamRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactTeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByContactId(long, int, int, OrderByComparator)}
 	 * @param contactId the contact ID
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
+	@Deprecated
 	public java.util.List<ContactTeamRole> findByContactId(
 		long contactId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		OrderByComparator<ContactTeamRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact team roles where contactId = &#63;.
@@ -95,14 +99,11 @@ public interface ContactTeamRolePersistence
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
 	public java.util.List<ContactTeamRole> findByContactId(
 		long contactId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the first contact team role in the ordered set where contactId = &#63;.
@@ -114,8 +115,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole findByContactId_First(
 			long contactId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -126,9 +126,7 @@ public interface ContactTeamRolePersistence
 	 * @return the first matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
 	public ContactTeamRole fetchByContactId_First(
-		long contactId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		long contactId, OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the last contact team role in the ordered set where contactId = &#63;.
@@ -140,8 +138,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole findByContactId_Last(
 			long contactId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -152,9 +149,7 @@ public interface ContactTeamRolePersistence
 	 * @return the last matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
 	public ContactTeamRole fetchByContactId_Last(
-		long contactId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		long contactId, OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the contact team roles before and after the current contact team role in the ordered set where contactId = &#63;.
@@ -167,8 +162,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole[] findByContactId_PrevAndNext(
 			ContactTeamRolePK contactTeamRolePK, long contactId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -216,16 +210,19 @@ public interface ContactTeamRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactTeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByTeamId(long, int, int, OrderByComparator)}
 	 * @param teamId the team ID
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
+	@Deprecated
 	public java.util.List<ContactTeamRole> findByTeamId(
 		long teamId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		OrderByComparator<ContactTeamRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact team roles where teamId = &#63;.
@@ -238,14 +235,11 @@ public interface ContactTeamRolePersistence
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
 	public java.util.List<ContactTeamRole> findByTeamId(
 		long teamId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the first contact team role in the ordered set where teamId = &#63;.
@@ -256,9 +250,7 @@ public interface ContactTeamRolePersistence
 	 * @throws NoSuchContactTeamRoleException if a matching contact team role could not be found
 	 */
 	public ContactTeamRole findByTeamId_First(
-			long teamId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			long teamId, OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -269,9 +261,7 @@ public interface ContactTeamRolePersistence
 	 * @return the first matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
 	public ContactTeamRole fetchByTeamId_First(
-		long teamId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		long teamId, OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the last contact team role in the ordered set where teamId = &#63;.
@@ -282,9 +272,7 @@ public interface ContactTeamRolePersistence
 	 * @throws NoSuchContactTeamRoleException if a matching contact team role could not be found
 	 */
 	public ContactTeamRole findByTeamId_Last(
-			long teamId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			long teamId, OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -295,9 +283,7 @@ public interface ContactTeamRolePersistence
 	 * @return the last matching contact team role, or <code>null</code> if a matching contact team role could not be found
 	 */
 	public ContactTeamRole fetchByTeamId_Last(
-		long teamId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		long teamId, OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the contact team roles before and after the current contact team role in the ordered set where teamId = &#63;.
@@ -310,8 +296,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole[] findByTeamId_PrevAndNext(
 			ContactTeamRolePK contactTeamRolePK, long teamId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -360,16 +345,19 @@ public interface ContactTeamRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactTeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByContactRoleId(long, int, int, OrderByComparator)}
 	 * @param contactRoleId the contact role ID
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
+	@Deprecated
 	public java.util.List<ContactTeamRole> findByContactRoleId(
 		long contactRoleId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		OrderByComparator<ContactTeamRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact team roles where contactRoleId = &#63;.
@@ -382,14 +370,11 @@ public interface ContactTeamRolePersistence
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
 	public java.util.List<ContactTeamRole> findByContactRoleId(
 		long contactRoleId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the first contact team role in the ordered set where contactRoleId = &#63;.
@@ -401,8 +386,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole findByContactRoleId_First(
 			long contactRoleId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -414,8 +398,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole fetchByContactRoleId_First(
 		long contactRoleId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the last contact team role in the ordered set where contactRoleId = &#63;.
@@ -427,8 +410,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole findByContactRoleId_Last(
 			long contactRoleId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -440,8 +422,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole fetchByContactRoleId_Last(
 		long contactRoleId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the contact team roles before and after the current contact team role in the ordered set where contactRoleId = &#63;.
@@ -454,8 +435,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole[] findByContactRoleId_PrevAndNext(
 			ContactTeamRolePK contactTeamRolePK, long contactRoleId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -506,17 +486,20 @@ public interface ContactTeamRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactTeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByCI_TI(long,long, int, int, OrderByComparator)}
 	 * @param contactId the contact ID
 	 * @param teamId the team ID
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
+	@Deprecated
 	public java.util.List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		OrderByComparator<ContactTeamRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact team roles where contactId = &#63; and teamId = &#63;.
@@ -530,14 +513,11 @@ public interface ContactTeamRolePersistence
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact team roles
 	 */
 	public java.util.List<ContactTeamRole> findByCI_TI(
 		long contactId, long teamId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the first contact team role in the ordered set where contactId = &#63; and teamId = &#63;.
@@ -550,8 +530,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole findByCI_TI_First(
 			long contactId, long teamId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -564,8 +543,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole fetchByCI_TI_First(
 		long contactId, long teamId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the last contact team role in the ordered set where contactId = &#63; and teamId = &#63;.
@@ -578,8 +556,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole findByCI_TI_Last(
 			long contactId, long teamId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -592,8 +569,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole fetchByCI_TI_Last(
 		long contactId, long teamId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Returns the contact team roles before and after the current contact team role in the ordered set where contactId = &#63; and teamId = &#63;.
@@ -607,8 +583,7 @@ public interface ContactTeamRolePersistence
 	 */
 	public ContactTeamRole[] findByCI_TI_PrevAndNext(
 			ContactTeamRolePK contactTeamRolePK, long contactId, long teamId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-				orderByComparator)
+			OrderByComparator<ContactTeamRole> orderByComparator)
 		throws NoSuchContactTeamRoleException;
 
 	/**
@@ -708,15 +683,18 @@ public interface ContactTeamRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactTeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contact team roles
 	 */
+	@Deprecated
 	public java.util.List<ContactTeamRole> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator);
+		OrderByComparator<ContactTeamRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact team roles.
@@ -728,14 +706,11 @@ public interface ContactTeamRolePersistence
 	 * @param start the lower bound of the range of contact team roles
 	 * @param end the upper bound of the range of contact team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contact team roles
 	 */
 	public java.util.List<ContactTeamRole> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactTeamRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactTeamRole> orderByComparator);
 
 	/**
 	 * Removes all the contact team roles from the database.

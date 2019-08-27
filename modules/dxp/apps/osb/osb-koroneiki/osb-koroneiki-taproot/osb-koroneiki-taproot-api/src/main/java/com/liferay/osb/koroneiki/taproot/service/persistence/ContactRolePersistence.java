@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.taproot.service.persistence;
 import com.liferay.osb.koroneiki.taproot.exception.NoSuchContactRoleException;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -70,16 +71,19 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
+	@Deprecated
 	public java.util.List<ContactRole> findByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		OrderByComparator<ContactRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact roles where uuid = &#63;.
@@ -92,14 +96,11 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
 	public java.util.List<ContactRole> findByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the first contact role in the ordered set where uuid = &#63;.
@@ -110,9 +111,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
 	public ContactRole findByUuid_First(
-			String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			String uuid, OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -123,9 +122,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the first matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public ContactRole fetchByUuid_First(
-		String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		String uuid, OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the last contact role in the ordered set where uuid = &#63;.
@@ -136,9 +133,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
 	public ContactRole findByUuid_Last(
-			String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			String uuid, OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -149,9 +144,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the last matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public ContactRole fetchByUuid_Last(
-		String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		String uuid, OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the contact roles before and after the current contact role in the ordered set where uuid = &#63;.
@@ -164,8 +157,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole[] findByUuid_PrevAndNext(
 			long contactRoleId, String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -206,8 +198,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public java.util.List<ContactRole> filterFindByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the contact roles before and after the current contact role in the ordered set of contact roles that the user has permission to view where uuid = &#63;.
@@ -220,8 +211,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole[] filterFindByUuid_PrevAndNext(
 			long contactRoleId, String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -280,17 +270,20 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
+	@Deprecated
 	public java.util.List<ContactRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		OrderByComparator<ContactRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact roles where uuid = &#63; and companyId = &#63;.
@@ -304,14 +297,11 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
 	public java.util.List<ContactRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the first contact role in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -324,8 +314,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole findByUuid_C_First(
 			String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -338,8 +327,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole fetchByUuid_C_First(
 		String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the last contact role in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -352,8 +340,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole findByUuid_C_Last(
 			String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -366,8 +353,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole fetchByUuid_C_Last(
 		String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the contact roles before and after the current contact role in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -381,8 +367,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole[] findByUuid_C_PrevAndNext(
 			long contactRoleId, String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -427,8 +412,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public java.util.List<ContactRole> filterFindByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the contact roles before and after the current contact role in the ordered set of contact roles that the user has permission to view where uuid = &#63; and companyId = &#63;.
@@ -442,8 +426,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole[] filterFindByUuid_C_PrevAndNext(
 			long contactRoleId, String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -483,12 +466,16 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 		throws NoSuchContactRoleException;
 
 	/**
-	 * Returns the contact role where contactRoleKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the contact role where contactRoleKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByContactRoleKey(String)}
 	 * @param contactRoleKey the contact role key
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
-	public ContactRole fetchByContactRoleKey(String contactRoleKey);
+	@Deprecated
+	public ContactRole fetchByContactRoleKey(
+		String contactRoleKey, boolean useFinderCache);
 
 	/**
 	 * Returns the contact role where contactRoleKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -497,8 +484,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
-	public ContactRole fetchByContactRoleKey(
-		String contactRoleKey, boolean useFinderCache);
+	public ContactRole fetchByContactRoleKey(String contactRoleKey);
 
 	/**
 	 * Removes the contact role where contactRoleKey = &#63; from the database.
@@ -546,16 +532,19 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByType(int, int, int, OrderByComparator)}
 	 * @param type the type
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
+	@Deprecated
 	public java.util.List<ContactRole> findByType(
 		int type, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		OrderByComparator<ContactRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact roles where type = &#63;.
@@ -568,14 +557,11 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact roles
 	 */
 	public java.util.List<ContactRole> findByType(
 		int type, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the first contact role in the ordered set where type = &#63;.
@@ -586,9 +572,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
 	public ContactRole findByType_First(
-			int type,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			int type, OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -599,9 +583,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the first matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public ContactRole fetchByType_First(
-		int type,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		int type, OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the last contact role in the ordered set where type = &#63;.
@@ -612,9 +594,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
 	public ContactRole findByType_Last(
-			int type,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			int type, OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -625,9 +605,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the last matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public ContactRole fetchByType_Last(
-		int type,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		int type, OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the contact roles before and after the current contact role in the ordered set where type = &#63;.
@@ -640,8 +618,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole[] findByType_PrevAndNext(
 			long contactRoleId, int type,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -682,8 +659,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public java.util.List<ContactRole> filterFindByType(
 		int type, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Returns the contact roles before and after the current contact role in the ordered set of contact roles that the user has permission to view where type = &#63;.
@@ -696,8 +672,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 */
 	public ContactRole[] filterFindByType_PrevAndNext(
 			long contactRoleId, int type,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-				orderByComparator)
+			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -735,13 +710,17 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 		throws NoSuchContactRoleException;
 
 	/**
-	 * Returns the contact role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the contact role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByN_T(String,int)}
 	 * @param name the name
 	 * @param type the type
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
-	public ContactRole fetchByN_T(String name, int type);
+	@Deprecated
+	public ContactRole fetchByN_T(
+		String name, int type, boolean useFinderCache);
 
 	/**
 	 * Returns the contact role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -751,8 +730,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
-	public ContactRole fetchByN_T(
-		String name, int type, boolean useFinderCache);
+	public ContactRole fetchByN_T(String name, int type);
 
 	/**
 	 * Removes the contact role where name = &#63; and type = &#63; from the database.
@@ -852,15 +830,17 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contact roles
 	 */
+	@Deprecated
 	public java.util.List<ContactRole> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator);
+		int start, int end, OrderByComparator<ContactRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact roles.
@@ -872,14 +852,10 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param start the lower bound of the range of contact roles
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contact roles
 	 */
 	public java.util.List<ContactRole> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
-			orderByComparator,
-		boolean useFinderCache);
+		int start, int end, OrderByComparator<ContactRole> orderByComparator);
 
 	/**
 	 * Removes all the contact roles from the database.

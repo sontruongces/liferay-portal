@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.taproot.service.persistence;
 import com.liferay.osb.koroneiki.taproot.exception.NoSuchContactAccountRoleException;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.Set;
 
@@ -73,16 +74,19 @@ public interface ContactAccountRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByContactId(long, int, int, OrderByComparator)}
 	 * @param contactId the contact ID
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
+	@Deprecated
 	public java.util.List<ContactAccountRole> findByContactId(
 		long contactId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact account roles where contactId = &#63;.
@@ -95,14 +99,11 @@ public interface ContactAccountRolePersistence
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	public java.util.List<ContactAccountRole> findByContactId(
 		long contactId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the first contact account role in the ordered set where contactId = &#63;.
@@ -114,8 +115,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole findByContactId_First(
 			long contactId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -127,8 +127,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole fetchByContactId_First(
 		long contactId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the last contact account role in the ordered set where contactId = &#63;.
@@ -140,8 +139,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole findByContactId_Last(
 			long contactId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -153,8 +151,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole fetchByContactId_Last(
 		long contactId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the contact account roles before and after the current contact account role in the ordered set where contactId = &#63;.
@@ -167,8 +164,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole[] findByContactId_PrevAndNext(
 			ContactAccountRolePK contactAccountRolePK, long contactId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -216,16 +212,19 @@ public interface ContactAccountRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByAccountId(long, int, int, OrderByComparator)}
 	 * @param accountId the account ID
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
+	@Deprecated
 	public java.util.List<ContactAccountRole> findByAccountId(
 		long accountId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact account roles where accountId = &#63;.
@@ -238,14 +237,11 @@ public interface ContactAccountRolePersistence
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	public java.util.List<ContactAccountRole> findByAccountId(
 		long accountId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the first contact account role in the ordered set where accountId = &#63;.
@@ -257,8 +253,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole findByAccountId_First(
 			long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -270,8 +265,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole fetchByAccountId_First(
 		long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the last contact account role in the ordered set where accountId = &#63;.
@@ -283,8 +277,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole findByAccountId_Last(
 			long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -296,8 +289,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole fetchByAccountId_Last(
 		long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the contact account roles before and after the current contact account role in the ordered set where accountId = &#63;.
@@ -310,8 +302,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole[] findByAccountId_PrevAndNext(
 			ContactAccountRolePK contactAccountRolePK, long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -360,16 +351,19 @@ public interface ContactAccountRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByContactRoleId(long, int, int, OrderByComparator)}
 	 * @param contactRoleId the contact role ID
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
+	@Deprecated
 	public java.util.List<ContactAccountRole> findByContactRoleId(
 		long contactRoleId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact account roles where contactRoleId = &#63;.
@@ -382,14 +376,11 @@ public interface ContactAccountRolePersistence
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	public java.util.List<ContactAccountRole> findByContactRoleId(
 		long contactRoleId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the first contact account role in the ordered set where contactRoleId = &#63;.
@@ -401,8 +392,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole findByContactRoleId_First(
 			long contactRoleId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -414,8 +404,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole fetchByContactRoleId_First(
 		long contactRoleId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the last contact account role in the ordered set where contactRoleId = &#63;.
@@ -427,8 +416,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole findByContactRoleId_Last(
 			long contactRoleId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -440,8 +428,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole fetchByContactRoleId_Last(
 		long contactRoleId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the contact account roles before and after the current contact account role in the ordered set where contactRoleId = &#63;.
@@ -454,8 +441,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole[] findByContactRoleId_PrevAndNext(
 			ContactAccountRolePK contactAccountRolePK, long contactRoleId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -506,17 +492,20 @@ public interface ContactAccountRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByCI_AI(long,long, int, int, OrderByComparator)}
 	 * @param contactId the contact ID
 	 * @param accountId the account ID
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
+	@Deprecated
 	public java.util.List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact account roles where contactId = &#63; and accountId = &#63;.
@@ -530,14 +519,11 @@ public interface ContactAccountRolePersistence
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	public java.util.List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the first contact account role in the ordered set where contactId = &#63; and accountId = &#63;.
@@ -550,8 +536,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole findByCI_AI_First(
 			long contactId, long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -564,8 +549,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole fetchByCI_AI_First(
 		long contactId, long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the last contact account role in the ordered set where contactId = &#63; and accountId = &#63;.
@@ -578,8 +562,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole findByCI_AI_Last(
 			long contactId, long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -592,8 +575,7 @@ public interface ContactAccountRolePersistence
 	 */
 	public ContactAccountRole fetchByCI_AI_Last(
 		long contactId, long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Returns the contact account roles before and after the current contact account role in the ordered set where contactId = &#63; and accountId = &#63;.
@@ -608,8 +590,7 @@ public interface ContactAccountRolePersistence
 	public ContactAccountRole[] findByCI_AI_PrevAndNext(
 			ContactAccountRolePK contactAccountRolePK, long contactId,
 			long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-				orderByComparator)
+			OrderByComparator<ContactAccountRole> orderByComparator)
 		throws NoSuchContactAccountRoleException;
 
 	/**
@@ -711,15 +692,18 @@ public interface ContactAccountRolePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contact account roles
 	 */
+	@Deprecated
 	public java.util.List<ContactAccountRole> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator);
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the contact account roles.
@@ -731,14 +715,11 @@ public interface ContactAccountRolePersistence
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contact account roles
 	 */
 	public java.util.List<ContactAccountRole> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ContactAccountRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ContactAccountRole> orderByComparator);
 
 	/**
 	 * Removes all the contact account roles from the database.

@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.root.service.persistence;
 import com.liferay.osb.koroneiki.root.exception.NoSuchExternalLinkException;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -51,12 +52,16 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 		throws NoSuchExternalLinkException;
 
 	/**
-	 * Returns the external link where externalLinkKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the external link where externalLinkKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByExternalLinkKey(String)}
 	 * @param externalLinkKey the external link key
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching external link, or <code>null</code> if a matching external link could not be found
 	 */
-	public ExternalLink fetchByExternalLinkKey(String externalLinkKey);
+	@Deprecated
+	public ExternalLink fetchByExternalLinkKey(
+		String externalLinkKey, boolean useFinderCache);
 
 	/**
 	 * Returns the external link where externalLinkKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -65,8 +70,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching external link, or <code>null</code> if a matching external link could not be found
 	 */
-	public ExternalLink fetchByExternalLinkKey(
-		String externalLinkKey, boolean useFinderCache);
+	public ExternalLink fetchByExternalLinkKey(String externalLinkKey);
 
 	/**
 	 * Removes the external link where externalLinkKey = &#63; from the database.
@@ -118,17 +122,20 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ExternalLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByC_C(long,long, int, int, OrderByComparator)}
 	 * @param classNameId the class name ID
 	 * @param classPK the class pk
 	 * @param start the lower bound of the range of external links
 	 * @param end the upper bound of the range of external links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching external links
 	 */
+	@Deprecated
 	public java.util.List<ExternalLink> findByC_C(
 		long classNameId, long classPK, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator);
+		OrderByComparator<ExternalLink> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the external links where classNameId = &#63; and classPK = &#63;.
@@ -142,14 +149,11 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 * @param start the lower bound of the range of external links
 	 * @param end the upper bound of the range of external links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching external links
 	 */
 	public java.util.List<ExternalLink> findByC_C(
 		long classNameId, long classPK, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ExternalLink> orderByComparator);
 
 	/**
 	 * Returns the first external link in the ordered set where classNameId = &#63; and classPK = &#63;.
@@ -162,8 +166,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 */
 	public ExternalLink findByC_C_First(
 			long classNameId, long classPK,
-			com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-				orderByComparator)
+			OrderByComparator<ExternalLink> orderByComparator)
 		throws NoSuchExternalLinkException;
 
 	/**
@@ -176,8 +179,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 */
 	public ExternalLink fetchByC_C_First(
 		long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator);
+		OrderByComparator<ExternalLink> orderByComparator);
 
 	/**
 	 * Returns the last external link in the ordered set where classNameId = &#63; and classPK = &#63;.
@@ -190,8 +192,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 */
 	public ExternalLink findByC_C_Last(
 			long classNameId, long classPK,
-			com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-				orderByComparator)
+			OrderByComparator<ExternalLink> orderByComparator)
 		throws NoSuchExternalLinkException;
 
 	/**
@@ -204,8 +205,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 */
 	public ExternalLink fetchByC_C_Last(
 		long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator);
+		OrderByComparator<ExternalLink> orderByComparator);
 
 	/**
 	 * Returns the external links before and after the current external link in the ordered set where classNameId = &#63; and classPK = &#63;.
@@ -219,8 +219,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 */
 	public ExternalLink[] findByC_C_PrevAndNext(
 			long externalLinkId, long classNameId, long classPK,
-			com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-				orderByComparator)
+			OrderByComparator<ExternalLink> orderByComparator)
 		throws NoSuchExternalLinkException;
 
 	/**
@@ -278,6 +277,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ExternalLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByC_D_EN_EI(long,String,String,String, int, int, OrderByComparator)}
 	 * @param classNameId the class name ID
 	 * @param domain the domain
 	 * @param entityName the entity name
@@ -285,13 +285,14 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 * @param start the lower bound of the range of external links
 	 * @param end the upper bound of the range of external links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching external links
 	 */
+	@Deprecated
 	public java.util.List<ExternalLink> findByC_D_EN_EI(
 		long classNameId, String domain, String entityName, String entityId,
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator);
+		int start, int end, OrderByComparator<ExternalLink> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the external links where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
@@ -307,15 +308,11 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 * @param start the lower bound of the range of external links
 	 * @param end the upper bound of the range of external links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching external links
 	 */
 	public java.util.List<ExternalLink> findByC_D_EN_EI(
 		long classNameId, String domain, String entityName, String entityId,
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator,
-		boolean useFinderCache);
+		int start, int end, OrderByComparator<ExternalLink> orderByComparator);
 
 	/**
 	 * Returns the first external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
@@ -330,8 +327,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 */
 	public ExternalLink findByC_D_EN_EI_First(
 			long classNameId, String domain, String entityName, String entityId,
-			com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-				orderByComparator)
+			OrderByComparator<ExternalLink> orderByComparator)
 		throws NoSuchExternalLinkException;
 
 	/**
@@ -346,8 +342,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 */
 	public ExternalLink fetchByC_D_EN_EI_First(
 		long classNameId, String domain, String entityName, String entityId,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator);
+		OrderByComparator<ExternalLink> orderByComparator);
 
 	/**
 	 * Returns the last external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
@@ -362,8 +357,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 */
 	public ExternalLink findByC_D_EN_EI_Last(
 			long classNameId, String domain, String entityName, String entityId,
-			com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-				orderByComparator)
+			OrderByComparator<ExternalLink> orderByComparator)
 		throws NoSuchExternalLinkException;
 
 	/**
@@ -378,8 +372,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 */
 	public ExternalLink fetchByC_D_EN_EI_Last(
 		long classNameId, String domain, String entityName, String entityId,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator);
+		OrderByComparator<ExternalLink> orderByComparator);
 
 	/**
 	 * Returns the external links before and after the current external link in the ordered set where classNameId = &#63; and domain = &#63; and entityName = &#63; and entityId = &#63;.
@@ -396,8 +389,7 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	public ExternalLink[] findByC_D_EN_EI_PrevAndNext(
 			long externalLinkId, long classNameId, String domain,
 			String entityName, String entityId,
-			com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-				orderByComparator)
+			OrderByComparator<ExternalLink> orderByComparator)
 		throws NoSuchExternalLinkException;
 
 	/**
@@ -502,15 +494,17 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ExternalLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of external links
 	 * @param end the upper bound of the range of external links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of external links
 	 */
+	@Deprecated
 	public java.util.List<ExternalLink> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator);
+		int start, int end, OrderByComparator<ExternalLink> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the external links.
@@ -522,14 +516,10 @@ public interface ExternalLinkPersistence extends BasePersistence<ExternalLink> {
 	 * @param start the lower bound of the range of external links
 	 * @param end the upper bound of the range of external links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of external links
 	 */
 	public java.util.List<ExternalLink> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ExternalLink>
-			orderByComparator,
-		boolean useFinderCache);
+		int start, int end, OrderByComparator<ExternalLink> orderByComparator);
 
 	/**
 	 * Removes all the external links from the database.

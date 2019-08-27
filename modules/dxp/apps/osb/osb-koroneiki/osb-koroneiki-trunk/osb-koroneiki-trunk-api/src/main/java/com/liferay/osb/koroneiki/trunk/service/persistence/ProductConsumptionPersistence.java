@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.trunk.service.persistence;
 import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductConsumptionException;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -71,16 +72,19 @@ public interface ProductConsumptionPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product consumptions
 	 */
+	@Deprecated
 	public java.util.List<ProductConsumption> findByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the product consumptions where uuid = &#63;.
@@ -93,14 +97,11 @@ public interface ProductConsumptionPersistence
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product consumptions
 	 */
 	public java.util.List<ProductConsumption> findByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the first product consumption in the ordered set where uuid = &#63;.
@@ -112,8 +113,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption findByUuid_First(
 			String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -124,9 +124,7 @@ public interface ProductConsumptionPersistence
 	 * @return the first matching product consumption, or <code>null</code> if a matching product consumption could not be found
 	 */
 	public ProductConsumption fetchByUuid_First(
-		String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		String uuid, OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the last product consumption in the ordered set where uuid = &#63;.
@@ -138,8 +136,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption findByUuid_Last(
 			String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -150,9 +147,7 @@ public interface ProductConsumptionPersistence
 	 * @return the last matching product consumption, or <code>null</code> if a matching product consumption could not be found
 	 */
 	public ProductConsumption fetchByUuid_Last(
-		String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		String uuid, OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the product consumptions before and after the current product consumption in the ordered set where uuid = &#63;.
@@ -165,8 +160,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption[] findByUuid_PrevAndNext(
 			long productConsumptionId, String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -207,8 +201,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public java.util.List<ProductConsumption> filterFindByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the product consumptions before and after the current product consumption in the ordered set of product consumptions that the user has permission to view where uuid = &#63;.
@@ -221,8 +214,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption[] filterFindByUuid_PrevAndNext(
 			long productConsumptionId, String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -281,17 +273,20 @@ public interface ProductConsumptionPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product consumptions
 	 */
+	@Deprecated
 	public java.util.List<ProductConsumption> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the product consumptions where uuid = &#63; and companyId = &#63;.
@@ -305,14 +300,11 @@ public interface ProductConsumptionPersistence
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product consumptions
 	 */
 	public java.util.List<ProductConsumption> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the first product consumption in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -325,8 +317,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption findByUuid_C_First(
 			String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -339,8 +330,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption fetchByUuid_C_First(
 		String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the last product consumption in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -353,8 +343,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption findByUuid_C_Last(
 			String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -367,8 +356,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption fetchByUuid_C_Last(
 		String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the product consumptions before and after the current product consumption in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -382,8 +370,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption[] findByUuid_C_PrevAndNext(
 			long productConsumptionId, String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -428,8 +415,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public java.util.List<ProductConsumption> filterFindByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the product consumptions before and after the current product consumption in the ordered set of product consumptions that the user has permission to view where uuid = &#63; and companyId = &#63;.
@@ -443,8 +429,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption[] filterFindByUuid_C_PrevAndNext(
 			long productConsumptionId, String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -485,13 +470,16 @@ public interface ProductConsumptionPersistence
 		throws NoSuchProductConsumptionException;
 
 	/**
-	 * Returns the product consumption where productConsumptionKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the product consumption where productConsumptionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByProductConsumptionKey(String)}
 	 * @param productConsumptionKey the product consumption key
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching product consumption, or <code>null</code> if a matching product consumption could not be found
 	 */
+	@Deprecated
 	public ProductConsumption fetchByProductConsumptionKey(
-		String productConsumptionKey);
+		String productConsumptionKey, boolean useFinderCache);
 
 	/**
 	 * Returns the product consumption where productConsumptionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -501,7 +489,7 @@ public interface ProductConsumptionPersistence
 	 * @return the matching product consumption, or <code>null</code> if a matching product consumption could not be found
 	 */
 	public ProductConsumption fetchByProductConsumptionKey(
-		String productConsumptionKey, boolean useFinderCache);
+		String productConsumptionKey);
 
 	/**
 	 * Removes the product consumption where productConsumptionKey = &#63; from the database.
@@ -551,16 +539,19 @@ public interface ProductConsumptionPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByAccountId(long, int, int, OrderByComparator)}
 	 * @param accountId the account ID
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product consumptions
 	 */
+	@Deprecated
 	public java.util.List<ProductConsumption> findByAccountId(
 		long accountId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the product consumptions where accountId = &#63;.
@@ -573,14 +564,11 @@ public interface ProductConsumptionPersistence
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product consumptions
 	 */
 	public java.util.List<ProductConsumption> findByAccountId(
 		long accountId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the first product consumption in the ordered set where accountId = &#63;.
@@ -592,8 +580,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption findByAccountId_First(
 			long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -605,8 +592,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption fetchByAccountId_First(
 		long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the last product consumption in the ordered set where accountId = &#63;.
@@ -618,8 +604,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption findByAccountId_Last(
 			long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -631,8 +616,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption fetchByAccountId_Last(
 		long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the product consumptions before and after the current product consumption in the ordered set where accountId = &#63;.
@@ -645,8 +629,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption[] findByAccountId_PrevAndNext(
 			long productConsumptionId, long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -688,8 +671,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public java.util.List<ProductConsumption> filterFindByAccountId(
 		long accountId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the product consumptions before and after the current product consumption in the ordered set of product consumptions that the user has permission to view where accountId = &#63;.
@@ -702,8 +684,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption[] filterFindByAccountId_PrevAndNext(
 			long productConsumptionId, long accountId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -764,18 +745,21 @@ public interface ProductConsumptionPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByU_AI_PEI(long,long,long, int, int, OrderByComparator)}
 	 * @param userId the user ID
 	 * @param accountId the account ID
 	 * @param productEntryId the product entry ID
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product consumptions
 	 */
+	@Deprecated
 	public java.util.List<ProductConsumption> findByU_AI_PEI(
 		long userId, long accountId, long productEntryId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the product consumptions where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
@@ -790,14 +774,11 @@ public interface ProductConsumptionPersistence
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product consumptions
 	 */
 	public java.util.List<ProductConsumption> findByU_AI_PEI(
 		long userId, long accountId, long productEntryId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the first product consumption in the ordered set where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
@@ -811,8 +792,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption findByU_AI_PEI_First(
 			long userId, long accountId, long productEntryId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -826,8 +806,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption fetchByU_AI_PEI_First(
 		long userId, long accountId, long productEntryId,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the last product consumption in the ordered set where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
@@ -841,8 +820,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption findByU_AI_PEI_Last(
 			long userId, long accountId, long productEntryId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -856,8 +834,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public ProductConsumption fetchByU_AI_PEI_Last(
 		long userId, long accountId, long productEntryId,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the product consumptions before and after the current product consumption in the ordered set where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
@@ -873,8 +850,7 @@ public interface ProductConsumptionPersistence
 	public ProductConsumption[] findByU_AI_PEI_PrevAndNext(
 			long productConsumptionId, long userId, long accountId,
 			long productEntryId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -922,8 +898,7 @@ public interface ProductConsumptionPersistence
 	 */
 	public java.util.List<ProductConsumption> filterFindByU_AI_PEI(
 		long userId, long accountId, long productEntryId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Returns the product consumptions before and after the current product consumption in the ordered set of product consumptions that the user has permission to view where userId = &#63; and accountId = &#63; and productEntryId = &#63;.
@@ -939,8 +914,7 @@ public interface ProductConsumptionPersistence
 	public ProductConsumption[] filterFindByU_AI_PEI_PrevAndNext(
 			long productConsumptionId, long userId, long accountId,
 			long productEntryId,
-			com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-				orderByComparator)
+			OrderByComparator<ProductConsumption> orderByComparator)
 		throws NoSuchProductConsumptionException;
 
 	/**
@@ -1055,15 +1029,18 @@ public interface ProductConsumptionPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductConsumptionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of product consumptions
 	 */
+	@Deprecated
 	public java.util.List<ProductConsumption> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator);
+		OrderByComparator<ProductConsumption> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the product consumptions.
@@ -1075,14 +1052,11 @@ public interface ProductConsumptionPersistence
 	 * @param start the lower bound of the range of product consumptions
 	 * @param end the upper bound of the range of product consumptions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of product consumptions
 	 */
 	public java.util.List<ProductConsumption> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<ProductConsumption>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<ProductConsumption> orderByComparator);
 
 	/**
 	 * Removes all the product consumptions from the database.

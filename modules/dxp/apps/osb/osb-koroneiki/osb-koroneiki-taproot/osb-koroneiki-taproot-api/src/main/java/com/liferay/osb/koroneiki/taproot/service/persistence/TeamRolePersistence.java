@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.taproot.service.persistence;
 import com.liferay.osb.koroneiki.taproot.exception.NoSuchTeamRoleException;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -69,16 +70,18 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
+	@Deprecated
 	public java.util.List<TeamRole> findByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the team roles where uuid = &#63;.
@@ -91,14 +94,11 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public java.util.List<TeamRole> findByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the first team role in the ordered set where uuid = &#63;.
@@ -109,9 +109,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
 	public TeamRole findByUuid_First(
-			String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			String uuid, OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -122,9 +120,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the first matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public TeamRole fetchByUuid_First(
-		String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		String uuid, OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the last team role in the ordered set where uuid = &#63;.
@@ -135,9 +131,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
 	public TeamRole findByUuid_Last(
-			String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			String uuid, OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -148,9 +142,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the last matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public TeamRole fetchByUuid_Last(
-		String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		String uuid, OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the team roles before and after the current team role in the ordered set where uuid = &#63;.
@@ -163,8 +155,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole[] findByUuid_PrevAndNext(
 			long teamRoleId, String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -205,8 +196,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public java.util.List<TeamRole> filterFindByUuid(
 		String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the team roles before and after the current team role in the ordered set of team roles that the user has permission to view where uuid = &#63;.
@@ -219,8 +209,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole[] filterFindByUuid_PrevAndNext(
 			long teamRoleId, String uuid,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -278,17 +267,19 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
+	@Deprecated
 	public java.util.List<TeamRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the team roles where uuid = &#63; and companyId = &#63;.
@@ -302,14 +293,11 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public java.util.List<TeamRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the first team role in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -322,8 +310,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole findByUuid_C_First(
 			String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -336,8 +323,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole fetchByUuid_C_First(
 		String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the last team role in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -350,8 +336,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole findByUuid_C_Last(
 			String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -364,8 +349,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole fetchByUuid_C_Last(
 		String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the team roles before and after the current team role in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -379,8 +363,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole[] findByUuid_C_PrevAndNext(
 			long teamRoleId, String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -425,8 +408,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public java.util.List<TeamRole> filterFindByUuid_C(
 		String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the team roles before and after the current team role in the ordered set of team roles that the user has permission to view where uuid = &#63; and companyId = &#63;.
@@ -440,8 +422,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole[] filterFindByUuid_C_PrevAndNext(
 			long teamRoleId, String uuid, long companyId,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -481,12 +462,16 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 		throws NoSuchTeamRoleException;
 
 	/**
-	 * Returns the team role where teamRoleKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the team role where teamRoleKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByTeamRoleKey(String)}
 	 * @param teamRoleKey the team role key
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	public TeamRole fetchByTeamRoleKey(String teamRoleKey);
+	@Deprecated
+	public TeamRole fetchByTeamRoleKey(
+		String teamRoleKey, boolean useFinderCache);
 
 	/**
 	 * Returns the team role where teamRoleKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -495,8 +480,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	public TeamRole fetchByTeamRoleKey(
-		String teamRoleKey, boolean useFinderCache);
+	public TeamRole fetchByTeamRoleKey(String teamRoleKey);
 
 	/**
 	 * Removes the team role where teamRoleKey = &#63; from the database.
@@ -544,16 +528,18 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByType(int, int, int, OrderByComparator)}
 	 * @param type the type
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
+	@Deprecated
 	public java.util.List<TeamRole> findByType(
 		int type, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the team roles where type = &#63;.
@@ -566,14 +552,11 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public java.util.List<TeamRole> findByType(
 		int type, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator,
-		boolean useFinderCache);
+		OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the first team role in the ordered set where type = &#63;.
@@ -584,9 +567,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
 	public TeamRole findByType_First(
-			int type,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			int type, OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -597,9 +578,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the first matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public TeamRole fetchByType_First(
-		int type,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		int type, OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the last team role in the ordered set where type = &#63;.
@@ -610,9 +589,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
 	public TeamRole findByType_Last(
-			int type,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			int type, OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -623,9 +600,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the last matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public TeamRole fetchByType_Last(
-		int type,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		int type, OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the team roles before and after the current team role in the ordered set where type = &#63;.
@@ -638,8 +613,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole[] findByType_PrevAndNext(
 			long teamRoleId, int type,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -680,8 +654,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public java.util.List<TeamRole> filterFindByType(
 		int type, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Returns the team roles before and after the current team role in the ordered set of team roles that the user has permission to view where type = &#63;.
@@ -694,8 +667,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 */
 	public TeamRole[] filterFindByType_PrevAndNext(
 			long teamRoleId, int type,
-			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-				orderByComparator)
+			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -733,13 +705,16 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 		throws NoSuchTeamRoleException;
 
 	/**
-	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByN_T(String,int)}
 	 * @param name the name
 	 * @param type the type
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	public TeamRole fetchByN_T(String name, int type);
+	@Deprecated
+	public TeamRole fetchByN_T(String name, int type, boolean useFinderCache);
 
 	/**
 	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -749,7 +724,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	public TeamRole fetchByN_T(String name, int type, boolean useFinderCache);
+	public TeamRole fetchByN_T(String name, int type);
 
 	/**
 	 * Removes the team role where name = &#63; and type = &#63; from the database.
@@ -848,15 +823,17 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of team roles
 	 */
+	@Deprecated
 	public java.util.List<TeamRole> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator);
+		int start, int end, OrderByComparator<TeamRole> orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns an ordered range of all the team roles.
@@ -868,14 +845,10 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of team roles
 	 */
 	public java.util.List<TeamRole> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
-			orderByComparator,
-		boolean useFinderCache);
+		int start, int end, OrderByComparator<TeamRole> orderByComparator);
 
 	/**
 	 * Removes all the team roles from the database.

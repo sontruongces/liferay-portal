@@ -138,19 +138,23 @@ public class AuthenticationTokenPersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AuthenticationTokenModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByServiceProducerId(long, int, int, OrderByComparator)}
 	 * @param serviceProducerId the service producer ID
 	 * @param start the lower bound of the range of authentication tokens
 	 * @param end the upper bound of the range of authentication tokens (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching authentication tokens
 	 */
+	@Deprecated
 	@Override
 	public List<AuthenticationToken> findByServiceProducerId(
 		long serviceProducerId, int start, int end,
-		OrderByComparator<AuthenticationToken> orderByComparator) {
+		OrderByComparator<AuthenticationToken> orderByComparator,
+		boolean useFinderCache) {
 
 		return findByServiceProducerId(
-			serviceProducerId, start, end, orderByComparator, true);
+			serviceProducerId, start, end, orderByComparator);
 	}
 
 	/**
@@ -164,14 +168,12 @@ public class AuthenticationTokenPersistenceImpl
 	 * @param start the lower bound of the range of authentication tokens
 	 * @param end the upper bound of the range of authentication tokens (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching authentication tokens
 	 */
 	@Override
 	public List<AuthenticationToken> findByServiceProducerId(
 		long serviceProducerId, int start, int end,
-		OrderByComparator<AuthenticationToken> orderByComparator,
-		boolean useFinderCache) {
+		OrderByComparator<AuthenticationToken> orderByComparator) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -181,35 +183,28 @@ public class AuthenticationTokenPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath =
-					_finderPathWithoutPaginationFindByServiceProducerId;
-				finderArgs = new Object[] {serviceProducerId};
-			}
+			finderPath = _finderPathWithoutPaginationFindByServiceProducerId;
+			finderArgs = new Object[] {serviceProducerId};
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindByServiceProducerId;
 			finderArgs = new Object[] {
 				serviceProducerId, start, end, orderByComparator
 			};
 		}
 
-		List<AuthenticationToken> list = null;
-
-		if (useFinderCache) {
-			list = (List<AuthenticationToken>)finderCache.getResult(
+		List<AuthenticationToken> list =
+			(List<AuthenticationToken>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
-			if ((list != null) && !list.isEmpty()) {
-				for (AuthenticationToken authenticationToken : list) {
-					if ((serviceProducerId !=
-							authenticationToken.getServiceProducerId())) {
+		if ((list != null) && !list.isEmpty()) {
+			for (AuthenticationToken authenticationToken : list) {
+				if ((serviceProducerId !=
+						authenticationToken.getServiceProducerId())) {
 
-						list = null;
+					list = null;
 
-						break;
-					}
+					break;
 				}
 			}
 		}
@@ -265,14 +260,10 @@ public class AuthenticationTokenPersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -1057,15 +1048,20 @@ public class AuthenticationTokenPersistenceImpl
 	}
 
 	/**
-	 * Returns the authentication token where digest = &#63; and status = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the authentication token where digest = &#63; and status = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByD_S(String,int)}
 	 * @param digest the digest
 	 * @param status the status
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching authentication token, or <code>null</code> if a matching authentication token could not be found
 	 */
+	@Deprecated
 	@Override
-	public AuthenticationToken fetchByD_S(String digest, int status) {
-		return fetchByD_S(digest, status, true);
+	public AuthenticationToken fetchByD_S(
+		String digest, int status, boolean useFinderCache) {
+
+		return fetchByD_S(digest, status);
 	}
 
 	/**
@@ -1077,23 +1073,13 @@ public class AuthenticationTokenPersistenceImpl
 	 * @return the matching authentication token, or <code>null</code> if a matching authentication token could not be found
 	 */
 	@Override
-	public AuthenticationToken fetchByD_S(
-		String digest, int status, boolean useFinderCache) {
-
+	public AuthenticationToken fetchByD_S(String digest, int status) {
 		digest = Objects.toString(digest, "");
 
-		Object[] finderArgs = null;
+		Object[] finderArgs = new Object[] {digest, status};
 
-		if (useFinderCache) {
-			finderArgs = new Object[] {digest, status};
-		}
-
-		Object result = null;
-
-		if (useFinderCache) {
-			result = finderCache.getResult(
-				_finderPathFetchByD_S, finderArgs, this);
-		}
+		Object result = finderCache.getResult(
+			_finderPathFetchByD_S, finderArgs, this);
 
 		if (result instanceof AuthenticationToken) {
 			AuthenticationToken authenticationToken =
@@ -1144,20 +1130,14 @@ public class AuthenticationTokenPersistenceImpl
 				List<AuthenticationToken> list = q.list();
 
 				if (list.isEmpty()) {
-					if (useFinderCache) {
-						finderCache.putResult(
-							_finderPathFetchByD_S, finderArgs, list);
-					}
+					finderCache.putResult(
+						_finderPathFetchByD_S, finderArgs, list);
 				}
 				else {
 					if (list.size() > 1) {
 						Collections.sort(list, Collections.reverseOrder());
 
 						if (_log.isWarnEnabled()) {
-							if (!useFinderCache) {
-								finderArgs = new Object[] {digest, status};
-							}
-
 							_log.warn(
 								"AuthenticationTokenPersistenceImpl.fetchByD_S(String, int, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
@@ -1173,9 +1153,7 @@ public class AuthenticationTokenPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(_finderPathFetchByD_S, finderArgs);
-				}
+				finderCache.removeResult(_finderPathFetchByD_S, finderArgs);
 
 				throw processException(e);
 			}
@@ -1744,17 +1722,21 @@ public class AuthenticationTokenPersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AuthenticationTokenModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of authentication tokens
 	 * @param end the upper bound of the range of authentication tokens (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of authentication tokens
 	 */
+	@Deprecated
 	@Override
 	public List<AuthenticationToken> findAll(
 		int start, int end,
-		OrderByComparator<AuthenticationToken> orderByComparator) {
+		OrderByComparator<AuthenticationToken> orderByComparator,
+		boolean useFinderCache) {
 
-		return findAll(start, end, orderByComparator, true);
+		return findAll(start, end, orderByComparator);
 	}
 
 	/**
@@ -1767,14 +1749,12 @@ public class AuthenticationTokenPersistenceImpl
 	 * @param start the lower bound of the range of authentication tokens
 	 * @param end the upper bound of the range of authentication tokens (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of authentication tokens
 	 */
 	@Override
 	public List<AuthenticationToken> findAll(
 		int start, int end,
-		OrderByComparator<AuthenticationToken> orderByComparator,
-		boolean useFinderCache) {
+		OrderByComparator<AuthenticationToken> orderByComparator) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1784,23 +1764,17 @@ public class AuthenticationTokenPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindAll;
-				finderArgs = FINDER_ARGS_EMPTY;
-			}
+			finderPath = _finderPathWithoutPaginationFindAll;
+			finderArgs = FINDER_ARGS_EMPTY;
 		}
-		else if (useFinderCache) {
+		else {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
-		List<AuthenticationToken> list = null;
-
-		if (useFinderCache) {
-			list = (List<AuthenticationToken>)finderCache.getResult(
+		List<AuthenticationToken> list =
+			(List<AuthenticationToken>)finderCache.getResult(
 				finderPath, finderArgs, this);
-		}
 
 		if (list == null) {
 			StringBundler query = null;
@@ -1848,14 +1822,10 @@ public class AuthenticationTokenPersistenceImpl
 
 				cacheResult(list);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
