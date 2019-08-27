@@ -44,23 +44,35 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 				<aui:input label="key" name="key" type="resource" value="<%= koroneikiAccount.getAccountKey() %>" />
 			</c:if>
 
-			<aui:select label="parent-account" name="parentAccountId">
-				<aui:option value="" />
+			<h5><liferay-ui:message key="parent-account" /></h5>
+
+			<p>
 
 				<%
-				for (Account curAccount : AccountLocalServiceUtil.getAccounts(QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
-					if (curAccount.getAccountId() == accountId) {
-						continue;
-					}
-				%>
+				Account parentAccount = null;
 
-					<aui:option label="<%= curAccount.getName() %>" value="<%= curAccount.getAccountId() %>" />
-
-				<%
+				if (koroneikiAccount != null) {
+					parentAccount = koroneikiAccount.getParentAccount();
 				}
 				%>
 
-			</aui:select>
+				<aui:input name="parentAccountId" type="hidden" value='<%= (parentAccount != null) ? parentAccount.getAccountId() : "" %>' />
+
+				<span id="<portlet:namespace />parentAccountName">
+					<c:if test="<%= parentAccount != null %>">
+						<liferay-portlet:renderURL var="parentAccountURL">
+							<portlet:param name="mvcRenderCommandName" value="/accounts_admin/edit_account" />
+							<portlet:param name="accountId" value="<%= String.valueOf(parentAccount .getAccountId()) %>" />
+						</liferay-portlet:renderURL>
+
+						<a href="<%= parentAccountURL %>"><%= HtmlUtil.escape(parentAccount.getName()) %></a>
+					</c:if>
+				</span>
+
+				<aui:button onClick='<%= renderResponse.getNamespace() + "openAccountSelector();" %>' value="select" />
+
+				<aui:button onClick='<%= renderResponse.getNamespace() + "removeParentAccount();" %>' value="remove" />
+			</p>
 
 			<aui:input name="name" />
 
@@ -135,3 +147,28 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
+
+<aui:script use="aui-base">
+	<portlet:namespace />openAccountSelector = function() {
+		Liferay.Util.selectEntity(
+			{
+				dialog: {
+					constrain: true,
+					modal: true
+				},
+				eventName: '<portlet:namespace />selectAccount',
+				title: '<%= UnicodeLanguageUtil.get(request, "accounts") %>',
+				uri: '<portlet:renderURL windowState="<%= LiferayWindowState.POP_UP.toString() %>"><portlet:param name="mvcPath" value="/accounts_admin/select_account.jsp" /><portlet:param name="accountId" value="<%= String.valueOf(accountId) %>" /></portlet:renderURL>'
+			},
+			function(event) {
+				A.one('#<portlet:namespace />parentAccountName').html(event.accountname);
+				A.one('#<portlet:namespace />parentAccountId').val(event.accountid);
+			}
+		);
+	}
+
+	<portlet:namespace />removeParentAccount = function() {
+		A.one('#<portlet:namespace />parentAccountId').val('');
+		A.one('#<portlet:namespace />parentAccountName').html('');
+	}
+</aui:script>

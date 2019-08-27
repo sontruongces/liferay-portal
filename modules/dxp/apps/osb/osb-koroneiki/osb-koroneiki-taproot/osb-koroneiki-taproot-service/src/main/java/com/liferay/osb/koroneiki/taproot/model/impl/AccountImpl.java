@@ -53,6 +53,14 @@ public class AccountImpl extends AccountBaseImpl {
 			QueryUtil.ALL_POS);
 	}
 
+	public Account getParentAccount() throws PortalException {
+		if (getParentAccountId() <= 0) {
+			return null;
+		}
+
+		return AccountLocalServiceUtil.getAccount(getParentAccountId());
+	}
+
 	public String getStatusLabel() {
 		return WorkflowConstants.getStatusLabel(getStatus());
 	}

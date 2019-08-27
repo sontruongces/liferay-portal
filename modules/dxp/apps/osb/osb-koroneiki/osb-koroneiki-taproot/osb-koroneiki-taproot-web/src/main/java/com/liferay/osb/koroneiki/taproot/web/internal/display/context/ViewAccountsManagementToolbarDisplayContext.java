@@ -14,56 +14,45 @@
 
 package com.liferay.osb.koroneiki.taproot.web.internal.display.context;
 
+import com.liferay.frontend.taglib.clay.servlet.taglib.display.context.SearchContainerManagementToolbarDisplayContext;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
-import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil;
-import com.liferay.osb.koroneiki.taproot.web.internal.search.AccountSearch;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.portlet.PortletURLUtil;
-import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.SortFactoryUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Amos Fong
  */
-public class ViewAccountsManagementToolbarDisplayContext {
+public class ViewAccountsManagementToolbarDisplayContext
+	extends SearchContainerManagementToolbarDisplayContext {
 
 	public ViewAccountsManagementToolbarDisplayContext(
-		HttpServletRequest httpServletRequest, RenderRequest renderRequest,
-		RenderResponse renderResponse) {
+		LiferayPortletRequest liferayPortletRequest,
+		LiferayPortletResponse liferayPortletResponse,
+		HttpServletRequest httpServletRequest,
+		SearchContainer searchContainer) {
 
-		_httpServletRequest = httpServletRequest;
-		_renderRequest = renderRequest;
-		_renderResponse = renderResponse;
-
-		_currentURLObj = PortletURLUtil.getCurrent(
-			_renderRequest, _renderResponse);
+		super(
+			liferayPortletRequest, liferayPortletResponse, httpServletRequest,
+			searchContainer);
 	}
 
+	@Override
 	public String getClearResultsURL() {
 		PortletURL clearResultsURL = getPortletURL();
 
@@ -72,24 +61,25 @@ public class ViewAccountsManagementToolbarDisplayContext {
 		return clearResultsURL.toString();
 	}
 
-	public CreationMenu getCreationMenu() throws PortalException {
+	@Override
+	public CreationMenu getCreationMenu() {
 		return new CreationMenu() {
 			{
 				addDropdownItem(
 					dropdownItem -> {
 						dropdownItem.setHref(
-							_renderResponse.createRenderURL(),
+							liferayPortletResponse.createRenderURL(),
 							"mvcRenderCommandName",
 							"/accounts_admin/edit_account", "redirect",
-							_currentURLObj.toString());
+							currentURLObj.toString());
 						dropdownItem.setLabel(
-							LanguageUtil.get(
-								_httpServletRequest, "new-account"));
+							LanguageUtil.get(request, "new-account"));
 					});
 			}
 		};
 	}
 
+	@Override
 	public List<DropdownItem> getFilterDropdownItems() {
 		return new DropdownItemList() {
 			{
@@ -98,7 +88,7 @@ public class ViewAccountsManagementToolbarDisplayContext {
 						dropdownGroupItem.setDropdownItems(
 							_getOrderByDropdownItems());
 						dropdownGroupItem.setLabel(
-							LanguageUtil.get(_httpServletRequest, "order-by"));
+							LanguageUtil.get(request, "order-by"));
 					});
 			}
 		};
@@ -106,7 +96,7 @@ public class ViewAccountsManagementToolbarDisplayContext {
 
 	public String getKeywords() {
 		if (Validator.isNull(_keywords)) {
-			_keywords = ParamUtil.getString(_httpServletRequest, "keywords");
+			_keywords = ParamUtil.getString(request, "keywords");
 		}
 
 		return _keywords;
@@ -120,33 +110,34 @@ public class ViewAccountsManagementToolbarDisplayContext {
 				entriesNavigationItem.setActive(true);
 				entriesNavigationItem.setHref(StringPool.BLANK);
 				entriesNavigationItem.setLabel(
-					LanguageUtil.get(_httpServletRequest, "accounts"));
+					LanguageUtil.get(request, "accounts"));
 
 				add(entriesNavigationItem);
 			}
 		};
 	}
 
+	@Override
 	public String getOrderByCol() {
 		if (Validator.isNull(_orderByCol)) {
-			_orderByCol = ParamUtil.getString(
-				_httpServletRequest, "orderByCol", "name");
+			_orderByCol = ParamUtil.getString(request, "orderByCol", "name");
 		}
 
 		return _orderByCol;
 	}
 
+	@Override
 	public String getOrderByType() {
 		if (Validator.isNull(_orderByType)) {
-			_orderByType = ParamUtil.getString(
-				_httpServletRequest, "orderByType", "asc");
+			_orderByType = ParamUtil.getString(request, "orderByType", "asc");
 		}
 
 		return _orderByType;
 	}
 
+	@Override
 	public PortletURL getPortletURL() {
-		PortletURL portletURL = _renderResponse.createRenderURL();
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		if (Validator.isNotNull(getKeywords())) {
 			portletURL.setParameter("keywords", getKeywords());
@@ -155,62 +146,31 @@ public class ViewAccountsManagementToolbarDisplayContext {
 		portletURL.setParameter("orderByCol", getOrderByCol());
 		portletURL.setParameter("orderByType", getOrderByType());
 
-		if (_accountSearch != null) {
+		if (searchContainer != null) {
 			portletURL.setParameter(
-				_accountSearch.getCurParam(),
-				String.valueOf(_accountSearch.getCur()));
+				searchContainer.getCurParam(),
+				String.valueOf(searchContainer.getCur()));
 			portletURL.setParameter(
-				_accountSearch.getDeltaParam(),
-				String.valueOf(_accountSearch.getDelta()));
+				searchContainer.getDeltaParam(),
+				String.valueOf(searchContainer.getDelta()));
 		}
 
 		return portletURL;
 	}
 
+	@Override
 	public String getSearchActionURL() {
 		PortletURL searchActionURL = getPortletURL();
 
 		return searchActionURL.toString();
 	}
 
-	public SearchContainer getSearchContainer() throws Exception {
-		if (_accountSearch != null) {
-			return _accountSearch;
-		}
-
-		AccountSearch accountSearch = new AccountSearch(
-			_renderRequest, getPortletURL());
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)_httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		String keywords = ParamUtil.getString(_httpServletRequest, "keywords");
-
-		Sort sort = SortFactoryUtil.getSort(
-			Account.class, Sort.STRING_TYPE, getOrderByCol(), getOrderByType());
-
-		Hits hits = AccountLocalServiceUtil.search(
-			themeDisplay.getCompanyId(), keywords, accountSearch.getStart(),
-			accountSearch.getEnd(), sort);
-
-		List<Account> results = new ArrayList<>();
-
-		for (Document document : hits.getDocs()) {
-			long accountId = GetterUtil.getLong(
-				document.get(Field.ENTRY_CLASS_PK));
-
-			results.add(AccountLocalServiceUtil.getAccount(accountId));
-		}
-
-		accountSearch.setResults(results);
-		accountSearch.setTotal(hits.getLength());
-
-		_accountSearch = accountSearch;
-
-		return _accountSearch;
+	@Override
+	public String getSearchContainerId() {
+		return "accountSearch";
 	}
 
+	@Override
 	public String getSortingURL() {
 		PortletURL sortingURL = getPortletURL();
 
@@ -231,7 +191,7 @@ public class ViewAccountsManagementToolbarDisplayContext {
 						dropdownItem.setHref(
 							getPortletURL(), "orderByCol", "code");
 						dropdownItem.setLabel(
-							LanguageUtil.get(_httpServletRequest, "code"));
+							LanguageUtil.get(request, "code"));
 					});
 				add(
 					dropdownItem -> {
@@ -240,19 +200,14 @@ public class ViewAccountsManagementToolbarDisplayContext {
 						dropdownItem.setHref(
 							getPortletURL(), "orderByCol", "name");
 						dropdownItem.setLabel(
-							LanguageUtil.get(_httpServletRequest, "name"));
+							LanguageUtil.get(request, "name"));
 					});
 			}
 		};
 	}
 
-	private AccountSearch _accountSearch;
-	private final PortletURL _currentURLObj;
-	private final HttpServletRequest _httpServletRequest;
 	private String _keywords;
 	private String _orderByCol;
 	private String _orderByType;
-	private final RenderRequest _renderRequest;
-	private final RenderResponse _renderResponse;
 
 }
