@@ -10,7 +10,9 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="accountKey" type="String" />
 		<field name="parentAccountId" type="long" />
-		<field name="name" type="String" />
+		<field name="name" type="String">
+			<hint name="max-length">150</hint>
+		</field>
 		<field name="code" type="String" />
 		<field name="description" type="String">
 			<hint-collection name="TEXTAREA" />

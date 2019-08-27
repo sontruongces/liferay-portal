@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.data.migration.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.data.migration.internal.constants.DataMigrationPortletKeys;
 import com.liferay.osb.koroneiki.data.migration.internal.migration.CorpEntryMigration;
+import com.liferay.osb.koroneiki.data.migration.internal.migration.CorpProjectMigration;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.model.listener.PublishingTasksThreadLocal;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -55,6 +56,8 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 
 			_corpEntryMigration.migrate(themeDisplay.getUserId());
 
+			_corpProjectMigration.migrate(themeDisplay.getUserId());
+
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (Exception e) {
@@ -72,5 +75,8 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CorpEntryMigration _corpEntryMigration;
+
+	@Reference
+	private CorpProjectMigration _corpProjectMigration;
 
 }
