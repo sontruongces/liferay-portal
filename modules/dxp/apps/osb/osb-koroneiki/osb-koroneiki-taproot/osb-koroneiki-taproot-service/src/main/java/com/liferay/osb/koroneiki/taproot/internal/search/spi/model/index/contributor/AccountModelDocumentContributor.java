@@ -148,8 +148,8 @@ public class AccountModelDocumentContributor
 		throws PortalException {
 
 		Set<String> externalLinkDomains = new HashSet<>();
-		Set<String> externalLinkEntityNames = new HashSet<>();
 		Set<String> externalLinkEntityIds = new HashSet<>();
+		Set<String> externalLinkEntityNames = new HashSet<>();
 
 		List<ExternalLink> externalLinks =
 			_externalLinkLocalService.getExternalLinks(
@@ -158,19 +158,19 @@ public class AccountModelDocumentContributor
 
 		for (ExternalLink externalLink : externalLinks) {
 			externalLinkDomains.add(externalLink.getDomain());
-			externalLinkEntityNames.add(externalLink.getEntityName());
 			externalLinkEntityIds.add(externalLink.getEntityId());
+			externalLinkEntityNames.add(externalLink.getEntityName());
 		}
 
 		document.addKeyword(
 			"externalLinkDomains",
 			ArrayUtil.toStringArray(externalLinkDomains.toArray()));
 		document.addKeyword(
-			"externalLinkEntityNames",
-			ArrayUtil.toStringArray(externalLinkEntityNames.toArray()));
-		document.addKeyword(
 			"externalLinkEntityIds",
 			ArrayUtil.toStringArray(externalLinkEntityIds.toArray()));
+		document.addKeyword(
+			"externalLinkEntityNames",
+			ArrayUtil.toStringArray(externalLinkEntityNames.toArray()));
 	}
 
 	private void _contributeProductEntries(Document document, long accountId)
