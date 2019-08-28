@@ -194,6 +194,9 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			attributes.put("code", keywords);
 			attributes.put("contactUuids", keywords);
 			attributes.put("description", keywords);
+			attributes.put("externalLinkDomains", keywords);
+			attributes.put("externalLinkEntityIds", keywords);
+			attributes.put("externalLinkEntityNames", keywords);
 			attributes.put("name", keywords);
 			attributes.put("notes", keywords);
 			attributes.put("productEntryKeys", keywords);

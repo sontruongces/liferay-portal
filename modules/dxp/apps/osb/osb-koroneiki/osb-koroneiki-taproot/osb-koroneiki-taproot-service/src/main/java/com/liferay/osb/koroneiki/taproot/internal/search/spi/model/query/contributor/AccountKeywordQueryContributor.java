@@ -48,6 +48,12 @@ public class AccountKeywordQueryContributor implements KeywordQueryContributor {
 			booleanQuery, searchContext, "contactUuids", false);
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "description", false);
+		queryHelper.addSearchTerm(
+			booleanQuery, searchContext, "externalLinkDomains", false);
+		queryHelper.addSearchTerm(
+			booleanQuery, searchContext, "externalLinkEntityNames", false);
+		queryHelper.addSearchTerm(
+			booleanQuery, searchContext, "externalLinkEntityIds", false);
 		queryHelper.addSearchTerm(booleanQuery, searchContext, "name", false);
 		queryHelper.addSearchTerm(booleanQuery, searchContext, "notes", false);
 		queryHelper.addSearchTerm(

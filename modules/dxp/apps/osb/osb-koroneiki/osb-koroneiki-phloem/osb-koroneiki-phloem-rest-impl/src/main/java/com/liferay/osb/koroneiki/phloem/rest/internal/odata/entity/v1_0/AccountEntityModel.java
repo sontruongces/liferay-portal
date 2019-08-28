@@ -53,6 +53,17 @@ public class AccountEntityModel implements EntityModel {
 			new CollectionEntityField(
 				new StringEntityField(
 					"contactUuids", locale -> "contactUuids")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"externalLinkDomains", locale -> "externalLinkDomains")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"externalLinkEntityNames",
+					locale -> "externalLinkEntityNames")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"externalLinkEntityIds",
+					locale -> "externalLinkEntityIds")),
 			new StringEntityField("name", locale -> "name"),
 			new IntegerEntityField("status", locale -> "status"),
 			new StringEntityField(

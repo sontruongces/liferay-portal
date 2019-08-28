@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.taproot.internal.search.spi.model.index.contributor;
 
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
@@ -94,6 +96,7 @@ public class AccountModelDocumentContributor
 		document.addTextSortable("code", account.getCode());
 
 		_contributeContacts(document, account.getAccountId());
+		_contributeExternalLinks(document, account.getAccountId());
 		_contributeProductEntries(document, account.getAccountId());
 	}
 
@@ -141,6 +144,35 @@ public class AccountModelDocumentContributor
 			"contactUuids", ArrayUtil.toStringArray(contactUuids.toArray()));
 	}
 
+	private void _contributeExternalLinks(Document document, long accountId)
+		throws PortalException {
+
+		Set<String> externalLinkDomains = new HashSet<>();
+		Set<String> externalLinkEntityNames = new HashSet<>();
+		Set<String> externalLinkEntityIds = new HashSet<>();
+
+		List<ExternalLink> externalLinks =
+			_externalLinkLocalService.getExternalLinks(
+				Account.class.getName(), accountId, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS);
+
+		for (ExternalLink externalLink : externalLinks) {
+			externalLinkDomains.add(externalLink.getDomain());
+			externalLinkEntityNames.add(externalLink.getEntityName());
+			externalLinkEntityIds.add(externalLink.getEntityId());
+		}
+
+		document.addKeyword(
+			"externalLinkDomains",
+			ArrayUtil.toStringArray(externalLinkDomains.toArray()));
+		document.addKeyword(
+			"externalLinkEntityNames",
+			ArrayUtil.toStringArray(externalLinkEntityNames.toArray()));
+		document.addKeyword(
+			"externalLinkEntityIds",
+			ArrayUtil.toStringArray(externalLinkEntityIds.toArray()));
+	}
+
 	private void _contributeProductEntries(Document document, long accountId)
 		throws PortalException {
 
@@ -170,6 +202,9 @@ public class AccountModelDocumentContributor
 
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
+
+	@Reference
+	private ExternalLinkLocalService _externalLinkLocalService;
 
 	@Reference
 	private ProductPurchaseLocalService _productPurchaseLocalService;
