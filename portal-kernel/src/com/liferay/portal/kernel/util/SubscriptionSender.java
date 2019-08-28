@@ -355,6 +355,10 @@ public class SubscriptionSender implements Serializable {
 		return bulk;
 	}
 
+	public void sendEmailNotification(long userId) throws Exception {
+		sendEmailNotification(UserLocalServiceUtil.getUser(userId));
+	}
+
 	public void setBody(String body) {
 		this.body = body;
 	}
@@ -770,11 +774,23 @@ public class SubscriptionSender implements Serializable {
 		).put(
 			"classPK", _classPK
 		).put(
+			"context", _context
+		).put(
 			"entryTitle", _entryTitle
 		).put(
 			"entryURL", _entryURL
 		).put(
+			"localizedBodyMap", localizedBodyMap
+		).put(
+			"localizedContext", _localizedContext
+		).put(
+			"localizedSubjectMap", localizedSubjectMap
+		).put(
+			"mailId", mailId
+		).put(
 			"notificationType", _notificationType
+		).put(
+			"portletId", portletId
 		).put(
 			"userId", currentUserId
 		);
