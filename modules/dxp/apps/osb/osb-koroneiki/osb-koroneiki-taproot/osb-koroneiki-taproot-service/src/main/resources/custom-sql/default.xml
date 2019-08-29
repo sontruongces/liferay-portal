@@ -1,6 +1,32 @@
 <?xml version="1.0"?>
 
 <custom-sql>
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.AccountFinder.countByContact">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT Koroneiki_Account.accountId) AS COUNT_VALUE
+			FROM
+				Koroneiki_Account
+			INNER JOIN
+				Koroneiki_ContactAccountRole ON
+					Koroneiki_ContactAccountRole.accountId = Koroneiki_Account.accountId
+			WHERE
+				Koroneiki_ContactAccountRole.contactId = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.AccountFinder.findByContact">
+		<![CDATA[
+			SELECT
+				DISTINCT {Koroneiki_Account.*}
+			FROM
+				Koroneiki_Account
+			INNER JOIN
+				Koroneiki_ContactAccountRole ON
+					Koroneiki_ContactAccountRole.accountId = Koroneiki_Account.accountId
+			WHERE
+				Koroneiki_ContactAccountRole.contactId = ?
+		]]>
+	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactFinder.countByFN_MN_LN_E">
 		<![CDATA[
 			SELECT

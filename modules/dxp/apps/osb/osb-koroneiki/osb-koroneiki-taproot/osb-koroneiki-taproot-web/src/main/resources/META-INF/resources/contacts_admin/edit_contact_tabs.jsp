@@ -38,6 +38,13 @@ long contactId = BeanParamUtil.getLong(koroneikiContact, request, "contactId");
 
 				add(
 					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("accounts"));
+						navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/contacts_admin/edit_contact", "tabs1", "accounts", "contactId", contactId);
+						navigationItem.setLabel(LanguageUtil.get(request, "accounts"));
+					});
+
+				add(
+					navigationItem -> {
 						navigationItem.setActive(tabs1.equals("external-links"));
 
 						if (koroneikiContact != null) {

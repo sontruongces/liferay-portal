@@ -172,6 +172,16 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		return accountPersistence.countByParentAccountId(parentAccountId);
 	}
 
+	public List<Account> getContactAccounts(
+		long contactId, int start, int end) {
+
+		return accountFinder.findByContact(contactId, start, end);
+	}
+
+	public int getContactAccountsCount(long contactId) {
+		return accountFinder.countByContact(contactId);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	public Account reindex(long accountId) throws PortalException {
 		return accountPersistence.findByPrimaryKey(accountId);
