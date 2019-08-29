@@ -132,7 +132,8 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 	}
 
 	public List<NavigationItem> getNavigationItems() {
-		String tabs1 = ParamUtil.getString(_renderRequest, "tabs1");
+		String tabs1 = ParamUtil.getString(
+			_renderRequest, "tabs1", "account-contact-roles");
 
 		return new NavigationItemList() {
 			{
