@@ -197,7 +197,11 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 			throw new ContactEmailAddressException();
 		}
 
-		Contact contact = contactPersistence.fetchByOktaId(oktaId);
+		Contact contact = null;
+
+		if (Validator.isNotNull(oktaId)) {
+			contact = contactPersistence.fetchByOktaId(oktaId);
+		}
 
 		if ((contact != null) && (contact.getContactId() != contactId)) {
 			throw new ContactOktaIdException.MustNotBeDuplicate(oktaId);
