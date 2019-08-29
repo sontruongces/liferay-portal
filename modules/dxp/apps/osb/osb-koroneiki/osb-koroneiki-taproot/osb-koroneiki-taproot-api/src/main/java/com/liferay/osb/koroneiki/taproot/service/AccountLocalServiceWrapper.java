@@ -314,6 +314,18 @@ public class AccountLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+		getContactAccounts(long contactId, int start, int end) {
+
+		return _accountLocalService.getContactAccounts(contactId, start, end);
+	}
+
+	@Override
+	public int getContactAccountsCount(long contactId) {
+		return _accountLocalService.getContactAccountsCount(contactId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

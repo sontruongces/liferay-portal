@@ -158,21 +158,17 @@ public class TeamRoleUtil {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
-	@Deprecated
 	public static List<TeamRole> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator) {
 
-		return getPersistence().findByUuid(
-			uuid, start, end, orderByComparator, useFinderCache);
+		return getPersistence().findByUuid(uuid, start, end, orderByComparator);
 	}
 
 	/**
@@ -186,13 +182,15 @@ public class TeamRoleUtil {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public static List<TeamRole> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator) {
+		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
 
-		return getPersistence().findByUuid(uuid, start, end, orderByComparator);
+		return getPersistence().findByUuid(
+			uuid, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -406,22 +404,19 @@ public class TeamRoleUtil {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
-	@Deprecated
 	public static List<TeamRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator) {
 
 		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator, useFinderCache);
+			uuid, companyId, start, end, orderByComparator);
 	}
 
 	/**
@@ -436,14 +431,15 @@ public class TeamRoleUtil {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public static List<TeamRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator) {
+		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
 
 		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator);
+			uuid, companyId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -657,18 +653,13 @@ public class TeamRoleUtil {
 	}
 
 	/**
-	 * Returns the team role where teamRoleKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the team role where teamRoleKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByTeamRoleKey(String)}
 	 * @param teamRoleKey the team role key
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	@Deprecated
-	public static TeamRole fetchByTeamRoleKey(
-		String teamRoleKey, boolean useFinderCache) {
-
-		return getPersistence().fetchByTeamRoleKey(teamRoleKey, useFinderCache);
+	public static TeamRole fetchByTeamRoleKey(String teamRoleKey) {
+		return getPersistence().fetchByTeamRoleKey(teamRoleKey);
 	}
 
 	/**
@@ -678,8 +669,10 @@ public class TeamRoleUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	public static TeamRole fetchByTeamRoleKey(String teamRoleKey) {
-		return getPersistence().fetchByTeamRoleKey(teamRoleKey);
+	public static TeamRole fetchByTeamRoleKey(
+		String teamRoleKey, boolean useFinderCache) {
+
+		return getPersistence().fetchByTeamRoleKey(teamRoleKey, useFinderCache);
 	}
 
 	/**
@@ -738,21 +731,17 @@ public class TeamRoleUtil {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByType(int, int, int, OrderByComparator)}
 	 * @param type the type
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
-	@Deprecated
 	public static List<TeamRole> findByType(
 		int type, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator) {
 
-		return getPersistence().findByType(
-			type, start, end, orderByComparator, useFinderCache);
+		return getPersistence().findByType(type, start, end, orderByComparator);
 	}
 
 	/**
@@ -766,13 +755,15 @@ public class TeamRoleUtil {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	public static List<TeamRole> findByType(
 		int type, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator) {
+		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
 
-		return getPersistence().findByType(type, start, end, orderByComparator);
+		return getPersistence().findByType(
+			type, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -965,19 +956,14 @@ public class TeamRoleUtil {
 	}
 
 	/**
-	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByN_T(String,int)}
 	 * @param name the name
 	 * @param type the type
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	@Deprecated
-	public static TeamRole fetchByN_T(
-		String name, int type, boolean useFinderCache) {
-
-		return getPersistence().fetchByN_T(name, type, useFinderCache);
+	public static TeamRole fetchByN_T(String name, int type) {
+		return getPersistence().fetchByN_T(name, type);
 	}
 
 	/**
@@ -988,8 +974,10 @@ public class TeamRoleUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	public static TeamRole fetchByN_T(String name, int type) {
-		return getPersistence().fetchByN_T(name, type);
+	public static TeamRole fetchByN_T(
+		String name, int type, boolean useFinderCache) {
+
+		return getPersistence().fetchByN_T(name, type, useFinderCache);
 	}
 
 	/**
@@ -1118,20 +1106,15 @@ public class TeamRoleUtil {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of team roles
 	 */
-	@Deprecated
 	public static List<TeamRole> findAll(
-		int start, int end, OrderByComparator<TeamRole> orderByComparator,
-		boolean useFinderCache) {
+		int start, int end, OrderByComparator<TeamRole> orderByComparator) {
 
-		return getPersistence().findAll(
-			start, end, orderByComparator, useFinderCache);
+		return getPersistence().findAll(start, end, orderByComparator);
 	}
 
 	/**
@@ -1144,12 +1127,15 @@ public class TeamRoleUtil {
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of team roles
 	 */
 	public static List<TeamRole> findAll(
-		int start, int end, OrderByComparator<TeamRole> orderByComparator) {
+		int start, int end, OrderByComparator<TeamRole> orderByComparator,
+		boolean useFinderCache) {
 
-		return getPersistence().findAll(start, end, orderByComparator);
+		return getPersistence().findAll(
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

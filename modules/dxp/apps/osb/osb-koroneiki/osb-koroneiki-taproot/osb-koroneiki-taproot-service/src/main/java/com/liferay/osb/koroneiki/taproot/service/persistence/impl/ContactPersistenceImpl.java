@@ -137,21 +137,18 @@ public class ContactPersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
-	@Deprecated
 	@Override
 	public List<Contact> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Contact> orderByComparator) {
 
-		return findByUuid(uuid, start, end, orderByComparator);
+		return findByUuid(uuid, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -165,12 +162,13 @@ public class ContactPersistenceImpl
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	@Override
 	public List<Contact> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Contact> orderByComparator) {
+		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
 
 		uuid = Objects.toString(uuid, "");
 
@@ -182,23 +180,30 @@ public class ContactPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByUuid;
-			finderArgs = new Object[] {uuid};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByUuid;
+				finderArgs = new Object[] {uuid};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByUuid;
 			finderArgs = new Object[] {uuid, start, end, orderByComparator};
 		}
 
-		List<Contact> list = (List<Contact>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<Contact> list = null;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (Contact contact : list) {
-				if (!uuid.equals(contact.getUuid())) {
-					list = null;
+		if (useFinderCache) {
+			list = (List<Contact>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
-					break;
+			if ((list != null) && !list.isEmpty()) {
+				for (Contact contact : list) {
+					if (!uuid.equals(contact.getUuid())) {
+						list = null;
+
+						break;
+					}
 				}
 			}
 		}
@@ -265,10 +270,14 @@ public class ContactPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1092,22 +1101,20 @@ public class ContactPersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
-	@Deprecated
 	@Override
 	public List<Contact> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Contact> orderByComparator) {
 
-		return findByUuid_C(uuid, companyId, start, end, orderByComparator);
+		return findByUuid_C(
+			uuid, companyId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -1122,12 +1129,13 @@ public class ContactPersistenceImpl
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	@Override
 	public List<Contact> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Contact> orderByComparator) {
+		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
 
 		uuid = Objects.toString(uuid, "");
 
@@ -1139,27 +1147,34 @@ public class ContactPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByUuid_C;
-			finderArgs = new Object[] {uuid, companyId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByUuid_C;
+				finderArgs = new Object[] {uuid, companyId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByUuid_C;
 			finderArgs = new Object[] {
 				uuid, companyId, start, end, orderByComparator
 			};
 		}
 
-		List<Contact> list = (List<Contact>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<Contact> list = null;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (Contact contact : list) {
-				if (!uuid.equals(contact.getUuid()) ||
-					(companyId != contact.getCompanyId())) {
+		if (useFinderCache) {
+			list = (List<Contact>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
-					list = null;
+			if ((list != null) && !list.isEmpty()) {
+				for (Contact contact : list) {
+					if (!uuid.equals(contact.getUuid()) ||
+						(companyId != contact.getCompanyId())) {
 
-					break;
+						list = null;
+
+						break;
+					}
 				}
 			}
 		}
@@ -1230,10 +1245,14 @@ public class ContactPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2104,19 +2123,14 @@ public class ContactPersistenceImpl
 	}
 
 	/**
-	 * Returns the contact where contactKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the contact where contactKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByContactKey(String)}
 	 * @param contactKey the contact key
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	@Deprecated
 	@Override
-	public Contact fetchByContactKey(
-		String contactKey, boolean useFinderCache) {
-
-		return fetchByContactKey(contactKey);
+	public Contact fetchByContactKey(String contactKey) {
+		return fetchByContactKey(contactKey, true);
 	}
 
 	/**
@@ -2127,13 +2141,23 @@ public class ContactPersistenceImpl
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
 	@Override
-	public Contact fetchByContactKey(String contactKey) {
+	public Contact fetchByContactKey(
+		String contactKey, boolean useFinderCache) {
+
 		contactKey = Objects.toString(contactKey, "");
 
-		Object[] finderArgs = new Object[] {contactKey};
+		Object[] finderArgs = null;
 
-		Object result = finderCache.getResult(
-			_finderPathFetchByContactKey, finderArgs, this);
+		if (useFinderCache) {
+			finderArgs = new Object[] {contactKey};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByContactKey, finderArgs, this);
+		}
 
 		if (result instanceof Contact) {
 			Contact contact = (Contact)result;
@@ -2177,8 +2201,10 @@ public class ContactPersistenceImpl
 				List<Contact> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByContactKey, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByContactKey, finderArgs, list);
+					}
 				}
 				else {
 					Contact contact = list.get(0);
@@ -2189,8 +2215,10 @@ public class ContactPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(
-					_finderPathFetchByContactKey, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByContactKey, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2327,17 +2355,14 @@ public class ContactPersistenceImpl
 	}
 
 	/**
-	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByOktaId(String)}
 	 * @param oktaId the okta ID
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	@Deprecated
 	@Override
-	public Contact fetchByOktaId(String oktaId, boolean useFinderCache) {
-		return fetchByOktaId(oktaId);
+	public Contact fetchByOktaId(String oktaId) {
+		return fetchByOktaId(oktaId, true);
 	}
 
 	/**
@@ -2348,13 +2373,21 @@ public class ContactPersistenceImpl
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
 	@Override
-	public Contact fetchByOktaId(String oktaId) {
+	public Contact fetchByOktaId(String oktaId, boolean useFinderCache) {
 		oktaId = Objects.toString(oktaId, "");
 
-		Object[] finderArgs = new Object[] {oktaId};
+		Object[] finderArgs = null;
 
-		Object result = finderCache.getResult(
-			_finderPathFetchByOktaId, finderArgs, this);
+		if (useFinderCache) {
+			finderArgs = new Object[] {oktaId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByOktaId, finderArgs, this);
+		}
 
 		if (result instanceof Contact) {
 			Contact contact = (Contact)result;
@@ -2398,14 +2431,20 @@ public class ContactPersistenceImpl
 				List<Contact> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByOktaId, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByOktaId, finderArgs, list);
+					}
 				}
 				else {
 					if (list.size() > 1) {
 						Collections.sort(list, Collections.reverseOrder());
 
 						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {oktaId};
+							}
+
 							_log.warn(
 								"ContactPersistenceImpl.fetchByOktaId(String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
@@ -2421,7 +2460,10 @@ public class ContactPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByOktaId, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByOktaId, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2558,19 +2600,14 @@ public class ContactPersistenceImpl
 	}
 
 	/**
-	 * Returns the contact where emailAddress = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the contact where emailAddress = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByEmailAddress(String)}
 	 * @param emailAddress the email address
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	@Deprecated
 	@Override
-	public Contact fetchByEmailAddress(
-		String emailAddress, boolean useFinderCache) {
-
-		return fetchByEmailAddress(emailAddress);
+	public Contact fetchByEmailAddress(String emailAddress) {
+		return fetchByEmailAddress(emailAddress, true);
 	}
 
 	/**
@@ -2581,13 +2618,23 @@ public class ContactPersistenceImpl
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
 	@Override
-	public Contact fetchByEmailAddress(String emailAddress) {
+	public Contact fetchByEmailAddress(
+		String emailAddress, boolean useFinderCache) {
+
 		emailAddress = Objects.toString(emailAddress, "");
 
-		Object[] finderArgs = new Object[] {emailAddress};
+		Object[] finderArgs = null;
 
-		Object result = finderCache.getResult(
-			_finderPathFetchByEmailAddress, finderArgs, this);
+		if (useFinderCache) {
+			finderArgs = new Object[] {emailAddress};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByEmailAddress, finderArgs, this);
+		}
 
 		if (result instanceof Contact) {
 			Contact contact = (Contact)result;
@@ -2631,14 +2678,20 @@ public class ContactPersistenceImpl
 				List<Contact> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByEmailAddress, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByEmailAddress, finderArgs, list);
+					}
 				}
 				else {
 					if (list.size() > 1) {
 						Collections.sort(list, Collections.reverseOrder());
 
 						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {emailAddress};
+							}
+
 							_log.warn(
 								"ContactPersistenceImpl.fetchByEmailAddress(String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
@@ -2654,8 +2707,10 @@ public class ContactPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(
-					_finderPathFetchByEmailAddress, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByEmailAddress, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -3281,20 +3336,16 @@ public class ContactPersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contacts
 	 */
-	@Deprecated
 	@Override
 	public List<Contact> findAll(
-		int start, int end, OrderByComparator<Contact> orderByComparator,
-		boolean useFinderCache) {
+		int start, int end, OrderByComparator<Contact> orderByComparator) {
 
-		return findAll(start, end, orderByComparator);
+		return findAll(start, end, orderByComparator, true);
 	}
 
 	/**
@@ -3307,11 +3358,13 @@ public class ContactPersistenceImpl
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contacts
 	 */
 	@Override
 	public List<Contact> findAll(
-		int start, int end, OrderByComparator<Contact> orderByComparator) {
+		int start, int end, OrderByComparator<Contact> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -3321,16 +3374,23 @@ public class ContactPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
-		List<Contact> list = (List<Contact>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<Contact> list = null;
+
+		if (useFinderCache) {
+			list = (List<Contact>)finderCache.getResult(
+				finderPath, finderArgs, this);
+		}
 
 		if (list == null) {
 			StringBundler query = null;
@@ -3377,10 +3437,14 @@ public class ContactPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}

@@ -301,6 +301,17 @@ public class AccountLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.Account> getContactAccounts(
+			long contactId, int start, int end) {
+
+		return getService().getContactAccounts(contactId, start, end);
+	}
+
+	public static int getContactAccountsCount(long contactId) {
+		return getService().getContactAccountsCount(contactId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

@@ -137,21 +137,18 @@ public class TeamRolePersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
-	@Deprecated
 	@Override
 	public List<TeamRole> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator) {
 
-		return findByUuid(uuid, start, end, orderByComparator);
+		return findByUuid(uuid, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -165,12 +162,13 @@ public class TeamRolePersistenceImpl
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	@Override
 	public List<TeamRole> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator) {
+		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
 
 		uuid = Objects.toString(uuid, "");
 
@@ -182,23 +180,30 @@ public class TeamRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByUuid;
-			finderArgs = new Object[] {uuid};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByUuid;
+				finderArgs = new Object[] {uuid};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByUuid;
 			finderArgs = new Object[] {uuid, start, end, orderByComparator};
 		}
 
-		List<TeamRole> list = (List<TeamRole>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<TeamRole> list = null;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (TeamRole teamRole : list) {
-				if (!uuid.equals(teamRole.getUuid())) {
-					list = null;
+		if (useFinderCache) {
+			list = (List<TeamRole>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
-					break;
+			if ((list != null) && !list.isEmpty()) {
+				for (TeamRole teamRole : list) {
+					if (!uuid.equals(teamRole.getUuid())) {
+						list = null;
+
+						break;
+					}
 				}
 			}
 		}
@@ -265,10 +270,14 @@ public class TeamRolePersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1097,22 +1106,20 @@ public class TeamRolePersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
-	@Deprecated
 	@Override
 	public List<TeamRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator) {
 
-		return findByUuid_C(uuid, companyId, start, end, orderByComparator);
+		return findByUuid_C(
+			uuid, companyId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -1127,12 +1134,13 @@ public class TeamRolePersistenceImpl
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	@Override
 	public List<TeamRole> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator) {
+		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
 
 		uuid = Objects.toString(uuid, "");
 
@@ -1144,27 +1152,34 @@ public class TeamRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByUuid_C;
-			finderArgs = new Object[] {uuid, companyId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByUuid_C;
+				finderArgs = new Object[] {uuid, companyId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByUuid_C;
 			finderArgs = new Object[] {
 				uuid, companyId, start, end, orderByComparator
 			};
 		}
 
-		List<TeamRole> list = (List<TeamRole>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<TeamRole> list = null;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (TeamRole teamRole : list) {
-				if (!uuid.equals(teamRole.getUuid()) ||
-					(companyId != teamRole.getCompanyId())) {
+		if (useFinderCache) {
+			list = (List<TeamRole>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
-					list = null;
+			if ((list != null) && !list.isEmpty()) {
+				for (TeamRole teamRole : list) {
+					if (!uuid.equals(teamRole.getUuid()) ||
+						(companyId != teamRole.getCompanyId())) {
 
-					break;
+						list = null;
+
+						break;
+					}
 				}
 			}
 		}
@@ -1235,10 +1250,14 @@ public class TeamRolePersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2113,19 +2132,14 @@ public class TeamRolePersistenceImpl
 	}
 
 	/**
-	 * Returns the team role where teamRoleKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the team role where teamRoleKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByTeamRoleKey(String)}
 	 * @param teamRoleKey the team role key
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	@Deprecated
 	@Override
-	public TeamRole fetchByTeamRoleKey(
-		String teamRoleKey, boolean useFinderCache) {
-
-		return fetchByTeamRoleKey(teamRoleKey);
+	public TeamRole fetchByTeamRoleKey(String teamRoleKey) {
+		return fetchByTeamRoleKey(teamRoleKey, true);
 	}
 
 	/**
@@ -2136,13 +2150,23 @@ public class TeamRolePersistenceImpl
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	@Override
-	public TeamRole fetchByTeamRoleKey(String teamRoleKey) {
+	public TeamRole fetchByTeamRoleKey(
+		String teamRoleKey, boolean useFinderCache) {
+
 		teamRoleKey = Objects.toString(teamRoleKey, "");
 
-		Object[] finderArgs = new Object[] {teamRoleKey};
+		Object[] finderArgs = null;
 
-		Object result = finderCache.getResult(
-			_finderPathFetchByTeamRoleKey, finderArgs, this);
+		if (useFinderCache) {
+			finderArgs = new Object[] {teamRoleKey};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByTeamRoleKey, finderArgs, this);
+		}
 
 		if (result instanceof TeamRole) {
 			TeamRole teamRole = (TeamRole)result;
@@ -2186,8 +2210,10 @@ public class TeamRolePersistenceImpl
 				List<TeamRole> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByTeamRoleKey, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByTeamRoleKey, finderArgs, list);
+					}
 				}
 				else {
 					TeamRole teamRole = list.get(0);
@@ -2198,8 +2224,10 @@ public class TeamRolePersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(
-					_finderPathFetchByTeamRoleKey, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByTeamRoleKey, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2340,21 +2368,18 @@ public class TeamRolePersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByType(int, int, int, OrderByComparator)}
 	 * @param type the type
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
-	@Deprecated
 	@Override
 	public List<TeamRole> findByType(
 		int type, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<TeamRole> orderByComparator) {
 
-		return findByType(type, start, end, orderByComparator);
+		return findByType(type, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -2368,12 +2393,13 @@ public class TeamRolePersistenceImpl
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching team roles
 	 */
 	@Override
 	public List<TeamRole> findByType(
 		int type, int start, int end,
-		OrderByComparator<TeamRole> orderByComparator) {
+		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -2383,23 +2409,30 @@ public class TeamRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByType;
-			finderArgs = new Object[] {type};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByType;
+				finderArgs = new Object[] {type};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByType;
 			finderArgs = new Object[] {type, start, end, orderByComparator};
 		}
 
-		List<TeamRole> list = (List<TeamRole>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<TeamRole> list = null;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (TeamRole teamRole : list) {
-				if ((type != teamRole.getType())) {
-					list = null;
+		if (useFinderCache) {
+			list = (List<TeamRole>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
-					break;
+			if ((list != null) && !list.isEmpty()) {
+				for (TeamRole teamRole : list) {
+					if ((type != teamRole.getType())) {
+						list = null;
+
+						break;
+					}
 				}
 			}
 		}
@@ -2455,10 +2488,14 @@ public class TeamRolePersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -3213,18 +3250,15 @@ public class TeamRolePersistenceImpl
 	}
 
 	/**
-	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByN_T(String,int)}
 	 * @param name the name
 	 * @param type the type
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	@Deprecated
 	@Override
-	public TeamRole fetchByN_T(String name, int type, boolean useFinderCache) {
-		return fetchByN_T(name, type);
+	public TeamRole fetchByN_T(String name, int type) {
+		return fetchByN_T(name, type, true);
 	}
 
 	/**
@@ -3236,13 +3270,21 @@ public class TeamRolePersistenceImpl
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	@Override
-	public TeamRole fetchByN_T(String name, int type) {
+	public TeamRole fetchByN_T(String name, int type, boolean useFinderCache) {
 		name = Objects.toString(name, "");
 
-		Object[] finderArgs = new Object[] {name, type};
+		Object[] finderArgs = null;
 
-		Object result = finderCache.getResult(
-			_finderPathFetchByN_T, finderArgs, this);
+		if (useFinderCache) {
+			finderArgs = new Object[] {name, type};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByN_T, finderArgs, this);
+		}
 
 		if (result instanceof TeamRole) {
 			TeamRole teamRole = (TeamRole)result;
@@ -3292,14 +3334,20 @@ public class TeamRolePersistenceImpl
 				List<TeamRole> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByN_T, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByN_T, finderArgs, list);
+					}
 				}
 				else {
 					if (list.size() > 1) {
 						Collections.sort(list, Collections.reverseOrder());
 
 						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {name, type};
+							}
+
 							_log.warn(
 								"TeamRolePersistenceImpl.fetchByN_T(String, int, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
@@ -3315,7 +3363,9 @@ public class TeamRolePersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByN_T, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(_finderPathFetchByN_T, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -3957,20 +4007,16 @@ public class TeamRolePersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TeamRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of team roles
 	 */
-	@Deprecated
 	@Override
 	public List<TeamRole> findAll(
-		int start, int end, OrderByComparator<TeamRole> orderByComparator,
-		boolean useFinderCache) {
+		int start, int end, OrderByComparator<TeamRole> orderByComparator) {
 
-		return findAll(start, end, orderByComparator);
+		return findAll(start, end, orderByComparator, true);
 	}
 
 	/**
@@ -3983,11 +4029,13 @@ public class TeamRolePersistenceImpl
 	 * @param start the lower bound of the range of team roles
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of team roles
 	 */
 	@Override
 	public List<TeamRole> findAll(
-		int start, int end, OrderByComparator<TeamRole> orderByComparator) {
+		int start, int end, OrderByComparator<TeamRole> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -3997,16 +4045,23 @@ public class TeamRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
-		List<TeamRole> list = (List<TeamRole>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<TeamRole> list = null;
+
+		if (useFinderCache) {
+			list = (List<TeamRole>)finderCache.getResult(
+				finderPath, finderArgs, this);
+		}
 
 		if (list == null) {
 			StringBundler query = null;
@@ -4053,10 +4108,14 @@ public class TeamRolePersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}

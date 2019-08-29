@@ -131,22 +131,18 @@ public class ContactAccountRolePersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByContactId(long, int, int, OrderByComparator)}
 	 * @param contactId the contact ID
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
-	@Deprecated
 	@Override
 	public List<ContactAccountRole> findByContactId(
 		long contactId, int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		return findByContactId(contactId, start, end, orderByComparator);
+		return findByContactId(contactId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -160,12 +156,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findByContactId(
 		long contactId, int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator) {
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -175,26 +173,32 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByContactId;
-			finderArgs = new Object[] {contactId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByContactId;
+				finderArgs = new Object[] {contactId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByContactId;
 			finderArgs = new Object[] {
 				contactId, start, end, orderByComparator
 			};
 		}
 
-		List<ContactAccountRole> list =
-			(List<ContactAccountRole>)finderCache.getResult(
+		List<ContactAccountRole> list = null;
+
+		if (useFinderCache) {
+			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
-		if ((list != null) && !list.isEmpty()) {
-			for (ContactAccountRole contactAccountRole : list) {
-				if ((contactId != contactAccountRole.getContactId())) {
-					list = null;
+			if ((list != null) && !list.isEmpty()) {
+				for (ContactAccountRole contactAccountRole : list) {
+					if ((contactId != contactAccountRole.getContactId())) {
+						list = null;
 
-					break;
+						break;
+					}
 				}
 			}
 		}
@@ -250,10 +254,14 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -647,22 +655,18 @@ public class ContactAccountRolePersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByAccountId(long, int, int, OrderByComparator)}
 	 * @param accountId the account ID
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
-	@Deprecated
 	@Override
 	public List<ContactAccountRole> findByAccountId(
 		long accountId, int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		return findByAccountId(accountId, start, end, orderByComparator);
+		return findByAccountId(accountId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -676,12 +680,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findByAccountId(
 		long accountId, int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator) {
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -691,26 +697,32 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByAccountId;
-			finderArgs = new Object[] {accountId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByAccountId;
+				finderArgs = new Object[] {accountId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByAccountId;
 			finderArgs = new Object[] {
 				accountId, start, end, orderByComparator
 			};
 		}
 
-		List<ContactAccountRole> list =
-			(List<ContactAccountRole>)finderCache.getResult(
+		List<ContactAccountRole> list = null;
+
+		if (useFinderCache) {
+			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
-		if ((list != null) && !list.isEmpty()) {
-			for (ContactAccountRole contactAccountRole : list) {
-				if ((accountId != contactAccountRole.getAccountId())) {
-					list = null;
+			if ((list != null) && !list.isEmpty()) {
+				for (ContactAccountRole contactAccountRole : list) {
+					if ((accountId != contactAccountRole.getAccountId())) {
+						list = null;
 
-					break;
+						break;
+					}
 				}
 			}
 		}
@@ -766,10 +778,14 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1163,23 +1179,19 @@ public class ContactAccountRolePersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByContactRoleId(long, int, int, OrderByComparator)}
 	 * @param contactRoleId the contact role ID
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
-	@Deprecated
 	@Override
 	public List<ContactAccountRole> findByContactRoleId(
 		long contactRoleId, int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		OrderByComparator<ContactAccountRole> orderByComparator) {
 
 		return findByContactRoleId(
-			contactRoleId, start, end, orderByComparator);
+			contactRoleId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -1193,12 +1205,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findByContactRoleId(
 		long contactRoleId, int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator) {
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1208,26 +1222,34 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByContactRoleId;
-			finderArgs = new Object[] {contactRoleId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByContactRoleId;
+				finderArgs = new Object[] {contactRoleId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByContactRoleId;
 			finderArgs = new Object[] {
 				contactRoleId, start, end, orderByComparator
 			};
 		}
 
-		List<ContactAccountRole> list =
-			(List<ContactAccountRole>)finderCache.getResult(
+		List<ContactAccountRole> list = null;
+
+		if (useFinderCache) {
+			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
-		if ((list != null) && !list.isEmpty()) {
-			for (ContactAccountRole contactAccountRole : list) {
-				if ((contactRoleId != contactAccountRole.getContactRoleId())) {
-					list = null;
+			if ((list != null) && !list.isEmpty()) {
+				for (ContactAccountRole contactAccountRole : list) {
+					if ((contactRoleId !=
+							contactAccountRole.getContactRoleId())) {
 
-					break;
+						list = null;
+
+						break;
+					}
 				}
 			}
 		}
@@ -1283,10 +1305,14 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1686,23 +1712,20 @@ public class ContactAccountRolePersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByCI_AI(long,long, int, int, OrderByComparator)}
 	 * @param contactId the contact ID
 	 * @param accountId the account ID
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
-	@Deprecated
 	@Override
 	public List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		return findByCI_AI(contactId, accountId, start, end, orderByComparator);
+		return findByCI_AI(
+			contactId, accountId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -1717,12 +1740,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findByCI_AI(
 		long contactId, long accountId, int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator) {
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1732,28 +1757,34 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByCI_AI;
-			finderArgs = new Object[] {contactId, accountId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByCI_AI;
+				finderArgs = new Object[] {contactId, accountId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByCI_AI;
 			finderArgs = new Object[] {
 				contactId, accountId, start, end, orderByComparator
 			};
 		}
 
-		List<ContactAccountRole> list =
-			(List<ContactAccountRole>)finderCache.getResult(
+		List<ContactAccountRole> list = null;
+
+		if (useFinderCache) {
+			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
-		if ((list != null) && !list.isEmpty()) {
-			for (ContactAccountRole contactAccountRole : list) {
-				if ((contactId != contactAccountRole.getContactId()) ||
-					(accountId != contactAccountRole.getAccountId())) {
+			if ((list != null) && !list.isEmpty()) {
+				for (ContactAccountRole contactAccountRole : list) {
+					if ((contactId != contactAccountRole.getContactId()) ||
+						(accountId != contactAccountRole.getAccountId())) {
 
-					list = null;
+						list = null;
 
-					break;
+						break;
+					}
 				}
 			}
 		}
@@ -1813,10 +1844,14 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2659,21 +2694,17 @@ public class ContactAccountRolePersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactAccountRoleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contact account roles
 	 */
-	@Deprecated
 	@Override
 	public List<ContactAccountRole> findAll(
 		int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator,
-		boolean useFinderCache) {
+		OrderByComparator<ContactAccountRole> orderByComparator) {
 
-		return findAll(start, end, orderByComparator);
+		return findAll(start, end, orderByComparator, true);
 	}
 
 	/**
@@ -2686,12 +2717,14 @@ public class ContactAccountRolePersistenceImpl
 	 * @param start the lower bound of the range of contact account roles
 	 * @param end the upper bound of the range of contact account roles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contact account roles
 	 */
 	@Override
 	public List<ContactAccountRole> findAll(
 		int start, int end,
-		OrderByComparator<ContactAccountRole> orderByComparator) {
+		OrderByComparator<ContactAccountRole> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -2701,17 +2734,23 @@ public class ContactAccountRolePersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
-		List<ContactAccountRole> list =
-			(List<ContactAccountRole>)finderCache.getResult(
+		List<ContactAccountRole> list = null;
+
+		if (useFinderCache) {
+			list = (List<ContactAccountRole>)finderCache.getResult(
 				finderPath, finderArgs, this);
+		}
 
 		if (list == null) {
 			StringBundler query = null;
@@ -2758,10 +2797,14 @@ public class ContactAccountRolePersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}

@@ -17,7 +17,6 @@ package com.liferay.osb.koroneiki.taproot.service.persistence;
 import com.liferay.osb.koroneiki.taproot.exception.NoSuchContactException;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
-import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -70,18 +69,16 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
-	@Deprecated
 	public java.util.List<Contact> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the contacts where uuid = &#63;.
@@ -94,11 +91,14 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	public java.util.List<Contact> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Contact> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first contact in the ordered set where uuid = &#63;.
@@ -109,7 +109,9 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @throws NoSuchContactException if a matching contact could not be found
 	 */
 	public Contact findByUuid_First(
-			String uuid, OrderByComparator<Contact> orderByComparator)
+			String uuid,
+			com.liferay.portal.kernel.util.OrderByComparator<Contact>
+				orderByComparator)
 		throws NoSuchContactException;
 
 	/**
@@ -120,7 +122,9 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @return the first matching contact, or <code>null</code> if a matching contact could not be found
 	 */
 	public Contact fetchByUuid_First(
-		String uuid, OrderByComparator<Contact> orderByComparator);
+		String uuid,
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator);
 
 	/**
 	 * Returns the last contact in the ordered set where uuid = &#63;.
@@ -131,7 +135,9 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @throws NoSuchContactException if a matching contact could not be found
 	 */
 	public Contact findByUuid_Last(
-			String uuid, OrderByComparator<Contact> orderByComparator)
+			String uuid,
+			com.liferay.portal.kernel.util.OrderByComparator<Contact>
+				orderByComparator)
 		throws NoSuchContactException;
 
 	/**
@@ -142,7 +148,9 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @return the last matching contact, or <code>null</code> if a matching contact could not be found
 	 */
 	public Contact fetchByUuid_Last(
-		String uuid, OrderByComparator<Contact> orderByComparator);
+		String uuid,
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator);
 
 	/**
 	 * Returns the contacts before and after the current contact in the ordered set where uuid = &#63;.
@@ -155,7 +163,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public Contact[] findByUuid_PrevAndNext(
 			long contactId, String uuid,
-			OrderByComparator<Contact> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Contact>
+				orderByComparator)
 		throws NoSuchContactException;
 
 	/**
@@ -196,7 +205,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public java.util.List<Contact> filterFindByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Contact> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator);
 
 	/**
 	 * Returns the contacts before and after the current contact in the ordered set of contacts that the user has permission to view where uuid = &#63;.
@@ -209,7 +219,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public Contact[] filterFindByUuid_PrevAndNext(
 			long contactId, String uuid,
-			OrderByComparator<Contact> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Contact>
+				orderByComparator)
 		throws NoSuchContactException;
 
 	/**
@@ -267,19 +278,17 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
-	@Deprecated
 	public java.util.List<Contact> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the contacts where uuid = &#63; and companyId = &#63;.
@@ -293,11 +302,14 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	public java.util.List<Contact> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Contact> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first contact in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -310,7 +322,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public Contact findByUuid_C_First(
 			String uuid, long companyId,
-			OrderByComparator<Contact> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Contact>
+				orderByComparator)
 		throws NoSuchContactException;
 
 	/**
@@ -323,7 +336,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public Contact fetchByUuid_C_First(
 		String uuid, long companyId,
-		OrderByComparator<Contact> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator);
 
 	/**
 	 * Returns the last contact in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -336,7 +350,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public Contact findByUuid_C_Last(
 			String uuid, long companyId,
-			OrderByComparator<Contact> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Contact>
+				orderByComparator)
 		throws NoSuchContactException;
 
 	/**
@@ -349,7 +364,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public Contact fetchByUuid_C_Last(
 		String uuid, long companyId,
-		OrderByComparator<Contact> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator);
 
 	/**
 	 * Returns the contacts before and after the current contact in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -363,7 +379,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public Contact[] findByUuid_C_PrevAndNext(
 			long contactId, String uuid, long companyId,
-			OrderByComparator<Contact> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Contact>
+				orderByComparator)
 		throws NoSuchContactException;
 
 	/**
@@ -408,7 +425,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public java.util.List<Contact> filterFindByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Contact> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator);
 
 	/**
 	 * Returns the contacts before and after the current contact in the ordered set of contacts that the user has permission to view where uuid = &#63; and companyId = &#63;.
@@ -422,7 +440,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 */
 	public Contact[] filterFindByUuid_C_PrevAndNext(
 			long contactId, String uuid, long companyId,
-			OrderByComparator<Contact> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Contact>
+				orderByComparator)
 		throws NoSuchContactException;
 
 	/**
@@ -462,15 +481,12 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 		throws NoSuchContactException;
 
 	/**
-	 * Returns the contact where contactKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the contact where contactKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByContactKey(String)}
 	 * @param contactKey the contact key
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	@Deprecated
-	public Contact fetchByContactKey(String contactKey, boolean useFinderCache);
+	public Contact fetchByContactKey(String contactKey);
 
 	/**
 	 * Returns the contact where contactKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -479,7 +495,7 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	public Contact fetchByContactKey(String contactKey);
+	public Contact fetchByContactKey(String contactKey, boolean useFinderCache);
 
 	/**
 	 * Removes the contact where contactKey = &#63; from the database.
@@ -508,15 +524,12 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	public Contact findByOktaId(String oktaId) throws NoSuchContactException;
 
 	/**
-	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByOktaId(String)}
 	 * @param oktaId the okta ID
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	@Deprecated
-	public Contact fetchByOktaId(String oktaId, boolean useFinderCache);
+	public Contact fetchByOktaId(String oktaId);
 
 	/**
 	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -525,7 +538,7 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	public Contact fetchByOktaId(String oktaId);
+	public Contact fetchByOktaId(String oktaId, boolean useFinderCache);
 
 	/**
 	 * Removes the contact where oktaId = &#63; from the database.
@@ -554,16 +567,12 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 		throws NoSuchContactException;
 
 	/**
-	 * Returns the contact where emailAddress = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the contact where emailAddress = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByEmailAddress(String)}
 	 * @param emailAddress the email address
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	@Deprecated
-	public Contact fetchByEmailAddress(
-		String emailAddress, boolean useFinderCache);
+	public Contact fetchByEmailAddress(String emailAddress);
 
 	/**
 	 * Returns the contact where emailAddress = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -572,7 +581,8 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	public Contact fetchByEmailAddress(String emailAddress);
+	public Contact fetchByEmailAddress(
+		String emailAddress, boolean useFinderCache);
 
 	/**
 	 * Removes the contact where emailAddress = &#63; from the database.
@@ -669,17 +679,15 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contacts
 	 */
-	@Deprecated
 	public java.util.List<Contact> findAll(
-		int start, int end, OrderByComparator<Contact> orderByComparator,
-		boolean useFinderCache);
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the contacts.
@@ -691,10 +699,14 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contacts
 	 */
 	public java.util.List<Contact> findAll(
-		int start, int end, OrderByComparator<Contact> orderByComparator);
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Contact>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the contacts from the database.

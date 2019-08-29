@@ -158,21 +158,17 @@ public class ContactUtil {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
-	@Deprecated
 	public static List<Contact> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Contact> orderByComparator) {
 
-		return getPersistence().findByUuid(
-			uuid, start, end, orderByComparator, useFinderCache);
+		return getPersistence().findByUuid(uuid, start, end, orderByComparator);
 	}
 
 	/**
@@ -186,13 +182,15 @@ public class ContactUtil {
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	public static List<Contact> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Contact> orderByComparator) {
+		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
 
-		return getPersistence().findByUuid(uuid, start, end, orderByComparator);
+		return getPersistence().findByUuid(
+			uuid, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -406,22 +404,19 @@ public class ContactUtil {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
-	@Deprecated
 	public static List<Contact> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
+		OrderByComparator<Contact> orderByComparator) {
 
 		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator, useFinderCache);
+			uuid, companyId, start, end, orderByComparator);
 	}
 
 	/**
@@ -436,14 +431,15 @@ public class ContactUtil {
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching contacts
 	 */
 	public static List<Contact> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Contact> orderByComparator) {
+		OrderByComparator<Contact> orderByComparator, boolean useFinderCache) {
 
 		return getPersistence().findByUuid_C(
-			uuid, companyId, start, end, orderByComparator);
+			uuid, companyId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -657,18 +653,13 @@ public class ContactUtil {
 	}
 
 	/**
-	 * Returns the contact where contactKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the contact where contactKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByContactKey(String)}
 	 * @param contactKey the contact key
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	@Deprecated
-	public static Contact fetchByContactKey(
-		String contactKey, boolean useFinderCache) {
-
-		return getPersistence().fetchByContactKey(contactKey, useFinderCache);
+	public static Contact fetchByContactKey(String contactKey) {
+		return getPersistence().fetchByContactKey(contactKey);
 	}
 
 	/**
@@ -678,8 +669,10 @@ public class ContactUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	public static Contact fetchByContactKey(String contactKey) {
-		return getPersistence().fetchByContactKey(contactKey);
+	public static Contact fetchByContactKey(
+		String contactKey, boolean useFinderCache) {
+
+		return getPersistence().fetchByContactKey(contactKey, useFinderCache);
 	}
 
 	/**
@@ -720,16 +713,13 @@ public class ContactUtil {
 	}
 
 	/**
-	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByOktaId(String)}
 	 * @param oktaId the okta ID
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	@Deprecated
-	public static Contact fetchByOktaId(String oktaId, boolean useFinderCache) {
-		return getPersistence().fetchByOktaId(oktaId, useFinderCache);
+	public static Contact fetchByOktaId(String oktaId) {
+		return getPersistence().fetchByOktaId(oktaId);
 	}
 
 	/**
@@ -739,8 +729,8 @@ public class ContactUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	public static Contact fetchByOktaId(String oktaId) {
-		return getPersistence().fetchByOktaId(oktaId);
+	public static Contact fetchByOktaId(String oktaId, boolean useFinderCache) {
+		return getPersistence().fetchByOktaId(oktaId, useFinderCache);
 	}
 
 	/**
@@ -781,19 +771,13 @@ public class ContactUtil {
 	}
 
 	/**
-	 * Returns the contact where emailAddress = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the contact where emailAddress = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByEmailAddress(String)}
 	 * @param emailAddress the email address
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	@Deprecated
-	public static Contact fetchByEmailAddress(
-		String emailAddress, boolean useFinderCache) {
-
-		return getPersistence().fetchByEmailAddress(
-			emailAddress, useFinderCache);
+	public static Contact fetchByEmailAddress(String emailAddress) {
+		return getPersistence().fetchByEmailAddress(emailAddress);
 	}
 
 	/**
@@ -803,8 +787,11 @@ public class ContactUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
 	 */
-	public static Contact fetchByEmailAddress(String emailAddress) {
-		return getPersistence().fetchByEmailAddress(emailAddress);
+	public static Contact fetchByEmailAddress(
+		String emailAddress, boolean useFinderCache) {
+
+		return getPersistence().fetchByEmailAddress(
+			emailAddress, useFinderCache);
 	}
 
 	/**
@@ -931,20 +918,15 @@ public class ContactUtil {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ContactModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contacts
 	 */
-	@Deprecated
 	public static List<Contact> findAll(
-		int start, int end, OrderByComparator<Contact> orderByComparator,
-		boolean useFinderCache) {
+		int start, int end, OrderByComparator<Contact> orderByComparator) {
 
-		return getPersistence().findAll(
-			start, end, orderByComparator, useFinderCache);
+		return getPersistence().findAll(start, end, orderByComparator);
 	}
 
 	/**
@@ -957,12 +939,15 @@ public class ContactUtil {
 	 * @param start the lower bound of the range of contacts
 	 * @param end the upper bound of the range of contacts (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of contacts
 	 */
 	public static List<Contact> findAll(
-		int start, int end, OrderByComparator<Contact> orderByComparator) {
+		int start, int end, OrderByComparator<Contact> orderByComparator,
+		boolean useFinderCache) {
 
-		return getPersistence().findAll(start, end, orderByComparator);
+		return getPersistence().findAll(
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
