@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.data.migration.internal.portlet.action;
 import com.liferay.osb.koroneiki.data.migration.internal.constants.DataMigrationPortletKeys;
 import com.liferay.osb.koroneiki.data.migration.internal.migration.CorpEntryMigration;
 import com.liferay.osb.koroneiki.data.migration.internal.migration.CorpProjectMigration;
+import com.liferay.osb.koroneiki.data.migration.internal.migration.UserMigration;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.model.listener.PublishingTasksThreadLocal;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -27,6 +28,8 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+
+import org.apache.commons.lang.time.StopWatch;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -49,6 +52,10 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 		throws Exception {
 
 		try {
+			StopWatch stopWatch = new StopWatch();
+
+			stopWatch.start();
+
 			PublishingTasksThreadLocal.setImportInProcess(true);
 
 			ThemeDisplay themeDisplay =
@@ -57,6 +64,12 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 			_corpEntryMigration.migrate(themeDisplay.getUserId());
 
 			_corpProjectMigration.migrate(themeDisplay.getUserId());
+
+			_userMigration.migrate(themeDisplay.getUserId());
+
+			if (_log.isInfoEnabled()) {
+				_log.info("Migration took " + stopWatch.getTime() + " ms");
+			}
 
 			sendRedirect(actionRequest, actionResponse);
 		}
@@ -78,5 +91,8 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CorpProjectMigration _corpProjectMigration;
+
+	@Reference
+	private UserMigration _userMigration;
 
 }
