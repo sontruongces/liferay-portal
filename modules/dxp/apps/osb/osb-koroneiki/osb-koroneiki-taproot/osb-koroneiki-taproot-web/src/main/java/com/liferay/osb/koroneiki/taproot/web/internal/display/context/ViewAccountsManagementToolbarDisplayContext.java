@@ -16,9 +16,11 @@ package com.liferay.osb.koroneiki.taproot.web.internal.display.context;
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.display.context.SearchContainerManagementToolbarDisplayContext;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownGroupItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItemList;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -27,7 +29,6 @@ import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -81,17 +82,16 @@ public class ViewAccountsManagementToolbarDisplayContext
 
 	@Override
 	public List<DropdownItem> getFilterDropdownItems() {
-		return new DropdownItemList() {
-			{
-				addGroup(
-					dropdownGroupItem -> {
-						dropdownGroupItem.setDropdownItems(
-							_getOrderByDropdownItems());
-						dropdownGroupItem.setLabel(
-							LanguageUtil.get(request, "order-by"));
-					});
-			}
-		};
+		return DropdownItemList.of(
+			() -> {
+				DropdownGroupItem dropdownGroupItem = new DropdownGroupItem();
+
+				dropdownGroupItem.setDropdownItems(_getOrderByDropdownItems());
+				dropdownGroupItem.setLabel(
+					LanguageUtil.get(request, "order-by"));
+
+				return dropdownGroupItem;
+			});
 	}
 
 	public String getKeywords() {
@@ -103,18 +103,16 @@ public class ViewAccountsManagementToolbarDisplayContext
 	}
 
 	public List<NavigationItem> getNavigationItems() {
-		return new ArrayList<NavigationItem>() {
-			{
-				NavigationItem entriesNavigationItem = new NavigationItem();
+		return NavigationItemList.of(
+			() -> {
+				NavigationItem navigationItem = new NavigationItem();
 
-				entriesNavigationItem.setActive(true);
-				entriesNavigationItem.setHref(StringPool.BLANK);
-				entriesNavigationItem.setLabel(
-					LanguageUtil.get(request, "accounts"));
+				navigationItem.setActive(true);
+				navigationItem.setHref(StringPool.BLANK);
+				navigationItem.setLabel(LanguageUtil.get(request, "accounts"));
 
-				add(entriesNavigationItem);
-			}
-		};
+				return navigationItem;
+			});
 	}
 
 	@Override
@@ -182,28 +180,25 @@ public class ViewAccountsManagementToolbarDisplayContext
 	}
 
 	private List<DropdownItem> _getOrderByDropdownItems() {
-		return new DropdownItemList() {
-			{
-				add(
-					dropdownItem -> {
-						dropdownItem.setActive(
-							Objects.equals(getOrderByCol(), "code"));
-						dropdownItem.setHref(
-							getPortletURL(), "orderByCol", "code");
-						dropdownItem.setLabel(
-							LanguageUtil.get(request, "code"));
-					});
-				add(
-					dropdownItem -> {
-						dropdownItem.setActive(
-							Objects.equals(getOrderByCol(), "name"));
-						dropdownItem.setHref(
-							getPortletURL(), "orderByCol", "name");
-						dropdownItem.setLabel(
-							LanguageUtil.get(request, "name"));
-					});
-			}
-		};
+		return DropdownItemList.of(
+			() -> {
+				DropdownItem dropdownItem = new DropdownItem();
+
+				dropdownItem.setActive(Objects.equals(getOrderByCol(), "code"));
+				dropdownItem.setHref(getPortletURL(), "orderByCol", "code");
+				dropdownItem.setLabel(LanguageUtil.get(request, "code"));
+
+				return dropdownItem;
+			},
+			() -> {
+				DropdownItem dropdownItem = new DropdownItem();
+
+				dropdownItem.setActive(Objects.equals(getOrderByCol(), "name"));
+				dropdownItem.setHref(getPortletURL(), "orderByCol", "name");
+				dropdownItem.setLabel(LanguageUtil.get(request, "name"));
+
+				return dropdownItem;
+			});
 	}
 
 	private String _keywords;

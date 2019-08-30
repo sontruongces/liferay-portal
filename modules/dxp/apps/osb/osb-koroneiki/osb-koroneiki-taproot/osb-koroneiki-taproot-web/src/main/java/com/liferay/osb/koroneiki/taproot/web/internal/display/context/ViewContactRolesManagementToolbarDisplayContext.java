@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.taproot.web.internal.display.context;
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownGroupItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
@@ -110,17 +111,16 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 	}
 
 	public List<DropdownItem> getFilterDropdownItems() {
-		return new DropdownItemList() {
-			{
-				addGroup(
-					dropdownGroupItem -> {
-						dropdownGroupItem.setDropdownItems(
-							_getOrderByDropdownItems());
-						dropdownGroupItem.setLabel(
-							LanguageUtil.get(_httpServletRequest, "order-by"));
-					});
-			}
-		};
+		return DropdownItemList.of(
+			() -> {
+				DropdownGroupItem dropdownGroupItem = new DropdownGroupItem();
+
+				dropdownGroupItem.setDropdownItems(_getOrderByDropdownItems());
+				dropdownGroupItem.setLabel(
+					LanguageUtil.get(_httpServletRequest, "order-by"));
+
+				return dropdownGroupItem;
+			});
 	}
 
 	public String getKeywords() {
@@ -135,33 +135,33 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 		String tabs1 = ParamUtil.getString(
 			_renderRequest, "tabs1", "account-contact-roles");
 
-		return new NavigationItemList() {
-			{
-				add(
-					navigationItem -> {
-						navigationItem.setActive(
-							tabs1.equals("account-contact-roles"));
-						navigationItem.setHref(
-							_renderResponse.createRenderURL(), "tabs1",
-							"account-contact-roles");
-						navigationItem.setLabel(
-							LanguageUtil.get(
-								_httpServletRequest, "account-contact-roles"));
-					});
+		return NavigationItemList.of(
+			() -> {
+				NavigationItem navigationItem = new NavigationItem();
 
-				add(
-					navigationItem -> {
-						navigationItem.setActive(
-							tabs1.equals("team-contact-roles"));
-						navigationItem.setHref(
-							_renderResponse.createRenderURL(), "tabs1",
-							"team-contact-roles");
-						navigationItem.setLabel(
-							LanguageUtil.get(
-								_httpServletRequest, "team-contact-roles"));
-					});
-			}
-		};
+				navigationItem.setActive(tabs1.equals("account-contact-roles"));
+				navigationItem.setHref(
+					_renderResponse.createRenderURL(), "tabs1",
+					"account-contact-roles");
+				navigationItem.setLabel(
+					LanguageUtil.get(
+						_httpServletRequest, "account-contact-roles"));
+
+				return navigationItem;
+			},
+			() -> {
+				NavigationItem navigationItem = new NavigationItem();
+
+				navigationItem.setActive(tabs1.equals("team-contact-roles"));
+				navigationItem.setHref(
+					_renderResponse.createRenderURL(), "tabs1",
+					"team-contact-roles");
+				navigationItem.setLabel(
+					LanguageUtil.get(
+						_httpServletRequest, "team-contact-roles"));
+
+				return navigationItem;
+			});
 	}
 
 	public String getOrderByCol() {
@@ -274,19 +274,17 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 	}
 
 	private List<DropdownItem> _getOrderByDropdownItems() {
-		return new DropdownItemList() {
-			{
-				add(
-					dropdownItem -> {
-						dropdownItem.setActive(
-							Objects.equals(getOrderByCol(), "name"));
-						dropdownItem.setHref(
-							getPortletURL(), "orderByCol", "name");
-						dropdownItem.setLabel(
-							LanguageUtil.get(_httpServletRequest, "name"));
-					});
-			}
-		};
+		return DropdownItemList.of(
+			() -> {
+				DropdownItem dropdownItem = new DropdownItem();
+
+				dropdownItem.setActive(Objects.equals(getOrderByCol(), "name"));
+				dropdownItem.setHref(getPortletURL(), "orderByCol", "name");
+				dropdownItem.setLabel(
+					LanguageUtil.get(_httpServletRequest, "name"));
+
+				return dropdownItem;
+			});
 	}
 
 	private ContactRoleSearch _contactRoleSearch;
