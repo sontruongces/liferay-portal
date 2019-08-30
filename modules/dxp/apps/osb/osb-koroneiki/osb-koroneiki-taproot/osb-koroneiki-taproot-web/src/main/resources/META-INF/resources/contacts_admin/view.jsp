@@ -17,53 +17,24 @@
 <%@ include file="/init.jsp" %>
 
 <%
-List<NavigationItem> navigationItems = new ArrayList<>();
+ContactsDisplayContext contactsDisplayContext = new ContactsDisplayContext(renderRequest, renderResponse, request);
 
-NavigationItem entriesNavigationItem = new NavigationItem();
-
-entriesNavigationItem.setActive(true);
-entriesNavigationItem.setHref(StringPool.BLANK);
-entriesNavigationItem.setLabel(LanguageUtil.get(request, "contacts"));
-
-navigationItems.add(entriesNavigationItem);
+ViewContactsManagementToolbarDisplayContext viewContactsManagementToolbarDisplayContext = new ViewContactsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, contactsDisplayContext.getSearchContainer());
 %>
 
 <clay:navigation-bar
 	inverted="<%= true %>"
-	navigationItems="<%= navigationItems %>"
+	navigationItems="<%= viewContactsManagementToolbarDisplayContext.getNavigationItems() %>"
 />
 
 <clay:management-toolbar
-	creationMenu='<%=
-		new JSPCreationMenu(pageContext) {
-			{
-				addDropdownItem(
-					dropdownItem -> {
-						dropdownItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/contacts_admin/edit_contact", "redirect", PortalUtil.getCurrentURL(request));
-						dropdownItem.setLabel(LanguageUtil.get(request, "add"));
-					});
-			}
-		}
-	%>'
-	selectable="<%= false %>"
-	showSearch="<%= false %>"
+	displayContext="<%= viewContactsManagementToolbarDisplayContext %>"
 />
-
-<%
-PortletURL portletURL = renderResponse.createRenderURL();
-%>
 
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
-		emptyResultsMessage="no-contacts-were-found"
-		headerNames="name,email-address,language,"
-		iteratorURL="<%= portletURL %>"
-		total="<%= ContactLocalServiceUtil.getContactsCount() %>"
+		searchContainer="<%= contactsDisplayContext.getSearchContainer() %>"
 	>
-		<liferay-ui:search-container-results
-			results="<%= ContactLocalServiceUtil.getContacts(searchContainer.getStart(), searchContainer.getEnd()) %>"
-		/>
-
 		<liferay-ui:search-container-row
 			className="com.liferay.osb.koroneiki.taproot.model.Contact"
 			escapedModel="<%= true %>"
@@ -84,7 +55,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 					<aui:icon cssClass="icon-monospaced" image="user" markupView="lexicon" />
 				</span>
 
-				<%= koroneikiContact.getFullName() %>
+				<%= HtmlUtil.escape(koroneikiContact.getFullName()) %>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
