@@ -28,6 +28,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -50,6 +51,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -60,6 +63,7 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -301,6 +305,188 @@ public abstract class BaseContactResourceTestCase {
 		throws Exception {
 
 		return null;
+	}
+
+	@Test
+	public void testGetContactsPage() throws Exception {
+		Page<Contact> page = contactResource.getContactsPage(
+			RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		Contact contact1 = testGetContactsPage_addContact(randomContact());
+
+		Contact contact2 = testGetContactsPage_addContact(randomContact());
+
+		page = contactResource.getContactsPage(
+			null, null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contact1, contact2), (List<Contact>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetContactsPageWithFilterDateTimeEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Contact contact1 = randomContact();
+
+		contact1 = testGetContactsPage_addContact(contact1);
+
+		for (EntityField entityField : entityFields) {
+			Page<Contact> page = contactResource.getContactsPage(
+				null, getFilterString(entityField, "between", contact1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(contact1),
+				(List<Contact>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetContactsPageWithFilterStringEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Contact contact1 = testGetContactsPage_addContact(randomContact());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Contact contact2 = testGetContactsPage_addContact(randomContact());
+
+		for (EntityField entityField : entityFields) {
+			Page<Contact> page = contactResource.getContactsPage(
+				null, getFilterString(entityField, "eq", contact1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(contact1),
+				(List<Contact>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetContactsPageWithPagination() throws Exception {
+		Contact contact1 = testGetContactsPage_addContact(randomContact());
+
+		Contact contact2 = testGetContactsPage_addContact(randomContact());
+
+		Contact contact3 = testGetContactsPage_addContact(randomContact());
+
+		Page<Contact> page1 = contactResource.getContactsPage(
+			null, null, Pagination.of(1, 2), null);
+
+		List<Contact> contacts1 = (List<Contact>)page1.getItems();
+
+		Assert.assertEquals(contacts1.toString(), 2, contacts1.size());
+
+		Page<Contact> page2 = contactResource.getContactsPage(
+			null, null, Pagination.of(2, 2), null);
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Contact> contacts2 = (List<Contact>)page2.getItems();
+
+		Assert.assertEquals(contacts2.toString(), 1, contacts2.size());
+
+		Page<Contact> page3 = contactResource.getContactsPage(
+			null, null, Pagination.of(1, 3), null);
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contact1, contact2, contact3),
+			(List<Contact>)page3.getItems());
+	}
+
+	@Test
+	public void testGetContactsPageWithSortDateTime() throws Exception {
+		testGetContactsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, contact1, contact2) -> {
+				BeanUtils.setProperty(
+					contact1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetContactsPageWithSortInteger() throws Exception {
+		testGetContactsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, contact1, contact2) -> {
+				BeanUtils.setProperty(contact1, entityField.getName(), 0);
+				BeanUtils.setProperty(contact2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetContactsPageWithSortString() throws Exception {
+		testGetContactsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, contact1, contact2) -> {
+				BeanUtils.setProperty(contact1, entityField.getName(), "Aaa");
+				BeanUtils.setProperty(contact2, entityField.getName(), "Bbb");
+			});
+	}
+
+	protected void testGetContactsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, Contact, Contact, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Contact contact1 = randomContact();
+		Contact contact2 = randomContact();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, contact1, contact2);
+		}
+
+		contact1 = testGetContactsPage_addContact(contact1);
+
+		contact2 = testGetContactsPage_addContact(contact2);
+
+		for (EntityField entityField : entityFields) {
+			Page<Contact> ascPage = contactResource.getContactsPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(contact1, contact2),
+				(List<Contact>)ascPage.getItems());
+
+			Page<Contact> descPage = contactResource.getContactsPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(contact2, contact1),
+				(List<Contact>)descPage.getItems());
+		}
+	}
+
+	protected Contact testGetContactsPage_addContact(Contact contact)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test

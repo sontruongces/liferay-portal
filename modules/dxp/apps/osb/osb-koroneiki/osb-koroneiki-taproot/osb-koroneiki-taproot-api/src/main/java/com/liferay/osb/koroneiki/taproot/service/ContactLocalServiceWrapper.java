@@ -389,6 +389,24 @@ public class ContactLocalServiceWrapper
 		return _contactLocalService.getTeamContactsCount(teamId);
 	}
 
+	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Contact reindex(
+			long contactId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactLocalService.reindex(contactId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.search.Hits search(
+			long companyId, String keywords, int start, int end,
+			com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactLocalService.search(
+			companyId, keywords, start, end, sort);
+	}
+
 	/**
 	 * Updates the contact in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

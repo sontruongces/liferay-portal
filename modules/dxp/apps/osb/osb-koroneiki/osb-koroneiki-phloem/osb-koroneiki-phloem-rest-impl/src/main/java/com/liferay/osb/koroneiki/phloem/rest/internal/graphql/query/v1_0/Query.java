@@ -329,6 +329,22 @@ public class Query {
 	}
 
 	@GraphQLField
+	public ContactPage getContactsPage(
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") Filter filter,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactResource -> new ContactPage(
+				contactResource.getContactsPage(
+					search, filter, Pagination.of(page, pageSize), sorts)));
+	}
+
+	@GraphQLField
 	public Contact getContactByOkta(@GraphQLName("oktaId") String oktaId)
 		throws Exception {
 

@@ -17,6 +17,8 @@ package com.liferay.osb.koroneiki.phloem.rest.resource.v1_0;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -39,6 +41,10 @@ public interface ContactResource {
 
 	public Page<Contact> getAccountAccountKeyContactsPage(
 			String accountKey, String[] includes, Pagination pagination)
+		throws Exception;
+
+	public Page<Contact> getContactsPage(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Contact postContact(Contact contact) throws Exception;
