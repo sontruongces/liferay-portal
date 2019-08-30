@@ -50,6 +50,16 @@ public class ContactResourceImpl
 	extends BaseContactResourceImpl implements EntityModelResource {
 
 	@Override
+	public void deleteContactByEmailAddress(String emailAddress)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.getContactByEmailAddress(emailAddress);
+
+		_contactService.deleteContact(contact.getContactId());
+	}
+
+	@Override
 	public void deleteContactByOkta(String oktaId) throws Exception {
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
 			_contactLocalService.getContactByOktaId(oktaId);
@@ -84,6 +94,14 @@ public class ContactResourceImpl
 					pagination.getEndPosition()),
 				contact -> ContactUtil.toContact(contact, includesContext)),
 			pagination, _contactService.getAccountContactsCount(accountKey));
+	}
+
+	@Override
+	public Contact getContactByEmailAddress(String emailAddress)
+		throws Exception {
+
+		return ContactUtil.toContact(
+			_contactService.getContactByEmailAddress(emailAddress), null);
 	}
 
 	@Override
@@ -131,6 +149,31 @@ public class ContactResourceImpl
 				contact.getUuid(), contact.getOktaId(), contact.getFirstName(),
 				contact.getMiddleName(), contact.getLastName(),
 				contact.getEmailAddress(), contact.getLanguageId()),
+			null);
+	}
+
+	@Override
+	public Contact putContactByEmailAddress(
+			String emailAddress, Contact contact)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
+			_contactLocalService.getContactByEmailAddress(emailAddress);
+
+		String oktaId = GetterUtil.getString(
+			contact.getOktaId(), curContact.getOktaId());
+		String uuid = GetterUtil.getString(
+			contact.getUuid(), curContact.getUuid());
+		String middleName = GetterUtil.getString(
+			contact.getMiddleName(), curContact.getMiddleName());
+		String languageId = GetterUtil.getString(
+			contact.getLanguageId(), curContact.getLanguageId());
+
+		return ContactUtil.toContact(
+			_contactService.updateContact(
+				curContact.getContactId(), uuid, oktaId, contact.getFirstName(),
+				middleName, contact.getLastName(), contact.getEmailAddress(),
+				languageId),
 			null);
 	}
 

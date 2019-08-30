@@ -110,6 +110,18 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 		return contactLocalService.getContact(contactId);
 	}
 
+	public Contact getContactByEmailAddress(String emailAddress)
+		throws PortalException {
+
+		Contact contact = contactLocalService.getContactByEmailAddress(
+			emailAddress);
+
+		_contactPermission.check(
+			getPermissionChecker(), contact, ActionKeys.VIEW);
+
+		return contact;
+	}
+
 	public Contact getContactByOktaId(String oktaId) throws PortalException {
 		Contact contact = contactLocalService.getContactByOktaId(oktaId);
 

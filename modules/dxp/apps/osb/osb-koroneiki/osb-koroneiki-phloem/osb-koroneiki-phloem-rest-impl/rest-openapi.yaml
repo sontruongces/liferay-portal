@@ -1539,6 +1539,69 @@ paths:
                                 $ref: "#/components/schemas/Contact"
                     description: ""
             tags: ["Contact"]
+    "/contacts/by-email-addresses/{emailAddress}":
+        delete:
+            operationId: deleteContactByEmailAddress
+            parameters:
+                - in: path
+                  name: emailAddress
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Contact"]
+        get:
+            description: Retrieves the contact.
+            operationId: getContactByEmailAddress
+            parameters:
+                - in: path
+                  name: emailAddress
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Contact"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Contact"
+                    description: ""
+            tags: ["Contact"]
+        put:
+            operationId: putContactByEmailAddress
+            parameters:
+                - in: path
+                  name: emailAddress
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Contact"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Contact"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Contact"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Contact"
+                    description: ""
+            tags: ["Contact"]
     "/contacts/by-okta-id/{oktaId}":
         delete:
             operationId: deleteContactByOkta
