@@ -1478,6 +1478,45 @@ paths:
                     description: ""
             tags: ["AuditEntry"]
     "/contacts":
+        get:
+            description: Retrieves the contacts. Results can be paginated, filtered, searched, and sorted.
+            operationId: getContactsPage
+            parameters:
+                - in: query
+                  name: filter
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Contact"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Contact"
+                                type: array
+                    description: ""
+            tags: ["Contact"]
         post:
             operationId: postContact
             requestBody:
