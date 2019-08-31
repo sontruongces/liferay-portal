@@ -50,7 +50,7 @@ public class ContactResourceImpl
 	extends BaseContactResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteContactByEmailAddress(String emailAddress)
+	public void deleteContactByEmailAddresEmailAddress(String emailAddress)
 		throws Exception {
 
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
@@ -97,7 +97,7 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public Contact getContactByEmailAddress(String emailAddress)
+	public Contact getContactByEmailAddresEmailAddress(String emailAddress)
 		throws Exception {
 
 		return ContactUtil.toContact(
@@ -153,17 +153,17 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public Contact putContactByEmailAddress(
+	public Contact putContactByEmailAddresEmailAddress(
 			String emailAddress, Contact contact)
 		throws Exception {
 
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
 			_contactLocalService.getContactByEmailAddress(emailAddress);
 
-		String oktaId = GetterUtil.getString(
-			contact.getOktaId(), curContact.getOktaId());
 		String uuid = GetterUtil.getString(
 			contact.getUuid(), curContact.getUuid());
+		String oktaId = GetterUtil.getString(
+			contact.getOktaId(), curContact.getOktaId());
 		String middleName = GetterUtil.getString(
 			contact.getMiddleName(), curContact.getMiddleName());
 		String languageId = GetterUtil.getString(

@@ -1539,9 +1539,9 @@ paths:
                                 $ref: "#/components/schemas/Contact"
                     description: ""
             tags: ["Contact"]
-    "/contacts/by-email-addresses/{emailAddress}":
+    "/contacts/by-email-address/{emailAddress}":
         delete:
-            operationId: deleteContactByEmailAddress
+            operationId: deleteContactByEmailAddresEmailAddress
             parameters:
                 - in: path
                   name: emailAddress
@@ -1556,7 +1556,7 @@ paths:
             tags: ["Contact"]
         get:
             description: Retrieves the contact.
-            operationId: getContactByEmailAddress
+            operationId: getContactByEmailAddresEmailAddress
             parameters:
                 - in: path
                   name: emailAddress
@@ -1575,7 +1575,7 @@ paths:
                     description: ""
             tags: ["Contact"]
         put:
-            operationId: putContactByEmailAddress
+            operationId: putContactByEmailAddresEmailAddress
             parameters:
                 - in: path
                   name: emailAddress
