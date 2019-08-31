@@ -17,7 +17,6 @@ package com.liferay.osb.koroneiki.trunk.service.persistence;
 import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductPurchaseException;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
-import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -72,19 +71,16 @@ public interface ProductPurchasePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of product purchases
 	 * @param end the upper bound of the range of product purchases (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product purchases
 	 */
-	@Deprecated
 	public java.util.List<ProductPurchase> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the product purchases where uuid = &#63;.
@@ -97,11 +93,14 @@ public interface ProductPurchasePersistence
 	 * @param start the lower bound of the range of product purchases
 	 * @param end the upper bound of the range of product purchases (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product purchases
 	 */
 	public java.util.List<ProductPurchase> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first product purchase in the ordered set where uuid = &#63;.
@@ -112,7 +111,9 @@ public interface ProductPurchasePersistence
 	 * @throws NoSuchProductPurchaseException if a matching product purchase could not be found
 	 */
 	public ProductPurchase findByUuid_First(
-			String uuid, OrderByComparator<ProductPurchase> orderByComparator)
+			String uuid,
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -123,7 +124,9 @@ public interface ProductPurchasePersistence
 	 * @return the first matching product purchase, or <code>null</code> if a matching product purchase could not be found
 	 */
 	public ProductPurchase fetchByUuid_First(
-		String uuid, OrderByComparator<ProductPurchase> orderByComparator);
+		String uuid,
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns the last product purchase in the ordered set where uuid = &#63;.
@@ -134,7 +137,9 @@ public interface ProductPurchasePersistence
 	 * @throws NoSuchProductPurchaseException if a matching product purchase could not be found
 	 */
 	public ProductPurchase findByUuid_Last(
-			String uuid, OrderByComparator<ProductPurchase> orderByComparator)
+			String uuid,
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -145,7 +150,9 @@ public interface ProductPurchasePersistence
 	 * @return the last matching product purchase, or <code>null</code> if a matching product purchase could not be found
 	 */
 	public ProductPurchase fetchByUuid_Last(
-		String uuid, OrderByComparator<ProductPurchase> orderByComparator);
+		String uuid,
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns the product purchases before and after the current product purchase in the ordered set where uuid = &#63;.
@@ -158,7 +165,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase[] findByUuid_PrevAndNext(
 			long productPurchaseId, String uuid,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -199,7 +207,8 @@ public interface ProductPurchasePersistence
 	 */
 	public java.util.List<ProductPurchase> filterFindByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns the product purchases before and after the current product purchase in the ordered set of product purchases that the user has permission to view where uuid = &#63;.
@@ -212,7 +221,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase[] filterFindByUuid_PrevAndNext(
 			long productPurchaseId, String uuid,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -271,20 +281,17 @@ public interface ProductPurchasePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of product purchases
 	 * @param end the upper bound of the range of product purchases (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product purchases
 	 */
-	@Deprecated
 	public java.util.List<ProductPurchase> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the product purchases where uuid = &#63; and companyId = &#63;.
@@ -298,11 +305,14 @@ public interface ProductPurchasePersistence
 	 * @param start the lower bound of the range of product purchases
 	 * @param end the upper bound of the range of product purchases (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product purchases
 	 */
 	public java.util.List<ProductPurchase> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first product purchase in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -315,7 +325,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase findByUuid_C_First(
 			String uuid, long companyId,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -328,7 +339,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase fetchByUuid_C_First(
 		String uuid, long companyId,
-		OrderByComparator<ProductPurchase> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns the last product purchase in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -341,7 +353,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase findByUuid_C_Last(
 			String uuid, long companyId,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -354,7 +367,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase fetchByUuid_C_Last(
 		String uuid, long companyId,
-		OrderByComparator<ProductPurchase> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns the product purchases before and after the current product purchase in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -368,7 +382,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase[] findByUuid_C_PrevAndNext(
 			long productPurchaseId, String uuid, long companyId,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -413,7 +428,8 @@ public interface ProductPurchasePersistence
 	 */
 	public java.util.List<ProductPurchase> filterFindByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns the product purchases before and after the current product purchase in the ordered set of product purchases that the user has permission to view where uuid = &#63; and companyId = &#63;.
@@ -427,7 +443,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase[] filterFindByUuid_C_PrevAndNext(
 			long productPurchaseId, String uuid, long companyId,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -467,16 +484,12 @@ public interface ProductPurchasePersistence
 		throws NoSuchProductPurchaseException;
 
 	/**
-	 * Returns the product purchase where productPurchaseKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the product purchase where productPurchaseKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByProductPurchaseKey(String)}
 	 * @param productPurchaseKey the product purchase key
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching product purchase, or <code>null</code> if a matching product purchase could not be found
 	 */
-	@Deprecated
-	public ProductPurchase fetchByProductPurchaseKey(
-		String productPurchaseKey, boolean useFinderCache);
+	public ProductPurchase fetchByProductPurchaseKey(String productPurchaseKey);
 
 	/**
 	 * Returns the product purchase where productPurchaseKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -485,7 +498,8 @@ public interface ProductPurchasePersistence
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching product purchase, or <code>null</code> if a matching product purchase could not be found
 	 */
-	public ProductPurchase fetchByProductPurchaseKey(String productPurchaseKey);
+	public ProductPurchase fetchByProductPurchaseKey(
+		String productPurchaseKey, boolean useFinderCache);
 
 	/**
 	 * Removes the product purchase where productPurchaseKey = &#63; from the database.
@@ -534,19 +548,16 @@ public interface ProductPurchasePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByAccountId(long, int, int, OrderByComparator)}
 	 * @param accountId the account ID
 	 * @param start the lower bound of the range of product purchases
 	 * @param end the upper bound of the range of product purchases (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product purchases
 	 */
-	@Deprecated
 	public java.util.List<ProductPurchase> findByAccountId(
 		long accountId, int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the product purchases where accountId = &#63;.
@@ -559,11 +570,14 @@ public interface ProductPurchasePersistence
 	 * @param start the lower bound of the range of product purchases
 	 * @param end the upper bound of the range of product purchases (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching product purchases
 	 */
 	public java.util.List<ProductPurchase> findByAccountId(
 		long accountId, int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first product purchase in the ordered set where accountId = &#63;.
@@ -575,7 +589,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase findByAccountId_First(
 			long accountId,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -586,7 +601,9 @@ public interface ProductPurchasePersistence
 	 * @return the first matching product purchase, or <code>null</code> if a matching product purchase could not be found
 	 */
 	public ProductPurchase fetchByAccountId_First(
-		long accountId, OrderByComparator<ProductPurchase> orderByComparator);
+		long accountId,
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns the last product purchase in the ordered set where accountId = &#63;.
@@ -598,7 +615,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase findByAccountId_Last(
 			long accountId,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -609,7 +627,9 @@ public interface ProductPurchasePersistence
 	 * @return the last matching product purchase, or <code>null</code> if a matching product purchase could not be found
 	 */
 	public ProductPurchase fetchByAccountId_Last(
-		long accountId, OrderByComparator<ProductPurchase> orderByComparator);
+		long accountId,
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns the product purchases before and after the current product purchase in the ordered set where accountId = &#63;.
@@ -622,7 +642,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase[] findByAccountId_PrevAndNext(
 			long productPurchaseId, long accountId,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -664,7 +685,8 @@ public interface ProductPurchasePersistence
 	 */
 	public java.util.List<ProductPurchase> filterFindByAccountId(
 		long accountId, int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns the product purchases before and after the current product purchase in the ordered set of product purchases that the user has permission to view where accountId = &#63;.
@@ -677,7 +699,8 @@ public interface ProductPurchasePersistence
 	 */
 	public ProductPurchase[] filterFindByAccountId_PrevAndNext(
 			long productPurchaseId, long accountId,
-			OrderByComparator<ProductPurchase> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+				orderByComparator)
 		throws NoSuchProductPurchaseException;
 
 	/**
@@ -782,18 +805,15 @@ public interface ProductPurchasePersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of product purchases
 	 * @param end the upper bound of the range of product purchases (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of product purchases
 	 */
-	@Deprecated
 	public java.util.List<ProductPurchase> findAll(
 		int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the product purchases.
@@ -805,11 +825,14 @@ public interface ProductPurchasePersistence
 	 * @param start the lower bound of the range of product purchases
 	 * @param end the upper bound of the range of product purchases (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of product purchases
 	 */
 	public java.util.List<ProductPurchase> findAll(
 		int start, int end,
-		OrderByComparator<ProductPurchase> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ProductPurchase>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the product purchases from the database.

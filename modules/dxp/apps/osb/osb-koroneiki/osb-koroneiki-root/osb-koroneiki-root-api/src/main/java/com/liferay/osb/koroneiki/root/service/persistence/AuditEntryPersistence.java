@@ -17,7 +17,6 @@ package com.liferay.osb.koroneiki.root.service.persistence;
 import com.liferay.osb.koroneiki.root.exception.NoSuchAuditEntryException;
 import com.liferay.osb.koroneiki.root.model.AuditEntry;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
-import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -52,16 +51,12 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 		throws NoSuchAuditEntryException;
 
 	/**
-	 * Returns the audit entry where auditEntryKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the audit entry where auditEntryKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByAuditEntryKey(String)}
 	 * @param auditEntryKey the audit entry key
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching audit entry, or <code>null</code> if a matching audit entry could not be found
 	 */
-	@Deprecated
-	public AuditEntry fetchByAuditEntryKey(
-		String auditEntryKey, boolean useFinderCache);
+	public AuditEntry fetchByAuditEntryKey(String auditEntryKey);
 
 	/**
 	 * Returns the audit entry where auditEntryKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -70,7 +65,8 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching audit entry, or <code>null</code> if a matching audit entry could not be found
 	 */
-	public AuditEntry fetchByAuditEntryKey(String auditEntryKey);
+	public AuditEntry fetchByAuditEntryKey(
+		String auditEntryKey, boolean useFinderCache);
 
 	/**
 	 * Removes the audit entry where auditEntryKey = &#63; from the database.
@@ -121,20 +117,17 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AuditEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByC_C(long,long, int, int, OrderByComparator)}
 	 * @param classNameId the class name ID
 	 * @param classPK the class pk
 	 * @param start the lower bound of the range of audit entries
 	 * @param end the upper bound of the range of audit entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching audit entries
 	 */
-	@Deprecated
 	public java.util.List<AuditEntry> findByC_C(
 		long classNameId, long classPK, int start, int end,
-		OrderByComparator<AuditEntry> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<AuditEntry>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the audit entries where classNameId = &#63; and classPK = &#63;.
@@ -148,11 +141,14 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 * @param start the lower bound of the range of audit entries
 	 * @param end the upper bound of the range of audit entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching audit entries
 	 */
 	public java.util.List<AuditEntry> findByC_C(
 		long classNameId, long classPK, int start, int end,
-		OrderByComparator<AuditEntry> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<AuditEntry>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first audit entry in the ordered set where classNameId = &#63; and classPK = &#63;.
@@ -165,7 +161,8 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 */
 	public AuditEntry findByC_C_First(
 			long classNameId, long classPK,
-			OrderByComparator<AuditEntry> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<AuditEntry>
+				orderByComparator)
 		throws NoSuchAuditEntryException;
 
 	/**
@@ -178,7 +175,8 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 */
 	public AuditEntry fetchByC_C_First(
 		long classNameId, long classPK,
-		OrderByComparator<AuditEntry> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<AuditEntry>
+			orderByComparator);
 
 	/**
 	 * Returns the last audit entry in the ordered set where classNameId = &#63; and classPK = &#63;.
@@ -191,7 +189,8 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 */
 	public AuditEntry findByC_C_Last(
 			long classNameId, long classPK,
-			OrderByComparator<AuditEntry> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<AuditEntry>
+				orderByComparator)
 		throws NoSuchAuditEntryException;
 
 	/**
@@ -204,7 +203,8 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 */
 	public AuditEntry fetchByC_C_Last(
 		long classNameId, long classPK,
-		OrderByComparator<AuditEntry> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<AuditEntry>
+			orderByComparator);
 
 	/**
 	 * Returns the audit entries before and after the current audit entry in the ordered set where classNameId = &#63; and classPK = &#63;.
@@ -218,7 +218,8 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 */
 	public AuditEntry[] findByC_C_PrevAndNext(
 			long auditEntryId, long classNameId, long classPK,
-			OrderByComparator<AuditEntry> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<AuditEntry>
+				orderByComparator)
 		throws NoSuchAuditEntryException;
 
 	/**
@@ -317,17 +318,15 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AuditEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of audit entries
 	 * @param end the upper bound of the range of audit entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of audit entries
 	 */
-	@Deprecated
 	public java.util.List<AuditEntry> findAll(
-		int start, int end, OrderByComparator<AuditEntry> orderByComparator,
-		boolean useFinderCache);
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<AuditEntry>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the audit entries.
@@ -339,10 +338,14 @@ public interface AuditEntryPersistence extends BasePersistence<AuditEntry> {
 	 * @param start the lower bound of the range of audit entries
 	 * @param end the upper bound of the range of audit entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of audit entries
 	 */
 	public java.util.List<AuditEntry> findAll(
-		int start, int end, OrderByComparator<AuditEntry> orderByComparator);
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<AuditEntry>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the audit entries from the database.

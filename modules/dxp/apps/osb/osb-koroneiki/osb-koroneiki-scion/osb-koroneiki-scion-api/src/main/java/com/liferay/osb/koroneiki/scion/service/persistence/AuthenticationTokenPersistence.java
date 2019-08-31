@@ -17,7 +17,6 @@ package com.liferay.osb.koroneiki.scion.service.persistence;
 import com.liferay.osb.koroneiki.scion.exception.NoSuchAuthenticationTokenException;
 import com.liferay.osb.koroneiki.scion.model.AuthenticationToken;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
-import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -73,19 +72,16 @@ public interface AuthenticationTokenPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AuthenticationTokenModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByServiceProducerId(long, int, int, OrderByComparator)}
 	 * @param serviceProducerId the service producer ID
 	 * @param start the lower bound of the range of authentication tokens
 	 * @param end the upper bound of the range of authentication tokens (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching authentication tokens
 	 */
-	@Deprecated
 	public java.util.List<AuthenticationToken> findByServiceProducerId(
 		long serviceProducerId, int start, int end,
-		OrderByComparator<AuthenticationToken> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<AuthenticationToken>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the authentication tokens where serviceProducerId = &#63;.
@@ -98,11 +94,14 @@ public interface AuthenticationTokenPersistence
 	 * @param start the lower bound of the range of authentication tokens
 	 * @param end the upper bound of the range of authentication tokens (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching authentication tokens
 	 */
 	public java.util.List<AuthenticationToken> findByServiceProducerId(
 		long serviceProducerId, int start, int end,
-		OrderByComparator<AuthenticationToken> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<AuthenticationToken>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first authentication token in the ordered set where serviceProducerId = &#63;.
@@ -114,7 +113,8 @@ public interface AuthenticationTokenPersistence
 	 */
 	public AuthenticationToken findByServiceProducerId_First(
 			long serviceProducerId,
-			OrderByComparator<AuthenticationToken> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator
+				<AuthenticationToken> orderByComparator)
 		throws NoSuchAuthenticationTokenException;
 
 	/**
@@ -126,7 +126,8 @@ public interface AuthenticationTokenPersistence
 	 */
 	public AuthenticationToken fetchByServiceProducerId_First(
 		long serviceProducerId,
-		OrderByComparator<AuthenticationToken> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<AuthenticationToken>
+			orderByComparator);
 
 	/**
 	 * Returns the last authentication token in the ordered set where serviceProducerId = &#63;.
@@ -138,7 +139,8 @@ public interface AuthenticationTokenPersistence
 	 */
 	public AuthenticationToken findByServiceProducerId_Last(
 			long serviceProducerId,
-			OrderByComparator<AuthenticationToken> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator
+				<AuthenticationToken> orderByComparator)
 		throws NoSuchAuthenticationTokenException;
 
 	/**
@@ -150,7 +152,8 @@ public interface AuthenticationTokenPersistence
 	 */
 	public AuthenticationToken fetchByServiceProducerId_Last(
 		long serviceProducerId,
-		OrderByComparator<AuthenticationToken> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<AuthenticationToken>
+			orderByComparator);
 
 	/**
 	 * Returns the authentication tokens before and after the current authentication token in the ordered set where serviceProducerId = &#63;.
@@ -163,7 +166,8 @@ public interface AuthenticationTokenPersistence
 	 */
 	public AuthenticationToken[] findByServiceProducerId_PrevAndNext(
 			long authenticationTokenId, long serviceProducerId,
-			OrderByComparator<AuthenticationToken> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator
+				<AuthenticationToken> orderByComparator)
 		throws NoSuchAuthenticationTokenException;
 
 	/**
@@ -205,7 +209,8 @@ public interface AuthenticationTokenPersistence
 	 */
 	public java.util.List<AuthenticationToken> filterFindByServiceProducerId(
 		long serviceProducerId, int start, int end,
-		OrderByComparator<AuthenticationToken> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<AuthenticationToken>
+			orderByComparator);
 
 	/**
 	 * Returns the authentication tokens before and after the current authentication token in the ordered set of authentication tokens that the user has permission to view where serviceProducerId = &#63;.
@@ -218,7 +223,8 @@ public interface AuthenticationTokenPersistence
 	 */
 	public AuthenticationToken[] filterFindByServiceProducerId_PrevAndNext(
 			long authenticationTokenId, long serviceProducerId,
-			OrderByComparator<AuthenticationToken> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator
+				<AuthenticationToken> orderByComparator)
 		throws NoSuchAuthenticationTokenException;
 
 	/**
@@ -256,17 +262,13 @@ public interface AuthenticationTokenPersistence
 		throws NoSuchAuthenticationTokenException;
 
 	/**
-	 * Returns the authentication token where digest = &#63; and status = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the authentication token where digest = &#63; and status = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByD_S(String,int)}
 	 * @param digest the digest
 	 * @param status the status
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching authentication token, or <code>null</code> if a matching authentication token could not be found
 	 */
-	@Deprecated
-	public AuthenticationToken fetchByD_S(
-		String digest, int status, boolean useFinderCache);
+	public AuthenticationToken fetchByD_S(String digest, int status);
 
 	/**
 	 * Returns the authentication token where digest = &#63; and status = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -276,7 +278,8 @@ public interface AuthenticationTokenPersistence
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching authentication token, or <code>null</code> if a matching authentication token could not be found
 	 */
-	public AuthenticationToken fetchByD_S(String digest, int status);
+	public AuthenticationToken fetchByD_S(
+		String digest, int status, boolean useFinderCache);
 
 	/**
 	 * Removes the authentication token where digest = &#63; and status = &#63; from the database.
@@ -378,18 +381,15 @@ public interface AuthenticationTokenPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>AuthenticationTokenModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of authentication tokens
 	 * @param end the upper bound of the range of authentication tokens (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of authentication tokens
 	 */
-	@Deprecated
 	public java.util.List<AuthenticationToken> findAll(
 		int start, int end,
-		OrderByComparator<AuthenticationToken> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<AuthenticationToken>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the authentication tokens.
@@ -401,11 +401,14 @@ public interface AuthenticationTokenPersistence
 	 * @param start the lower bound of the range of authentication tokens
 	 * @param end the upper bound of the range of authentication tokens (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of authentication tokens
 	 */
 	public java.util.List<AuthenticationToken> findAll(
 		int start, int end,
-		OrderByComparator<AuthenticationToken> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<AuthenticationToken>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the authentication tokens from the database.

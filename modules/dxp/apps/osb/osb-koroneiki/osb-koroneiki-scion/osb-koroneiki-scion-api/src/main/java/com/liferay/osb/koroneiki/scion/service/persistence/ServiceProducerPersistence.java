@@ -17,7 +17,6 @@ package com.liferay.osb.koroneiki.scion.service.persistence;
 import com.liferay.osb.koroneiki.scion.exception.NoSuchServiceProducerException;
 import com.liferay.osb.koroneiki.scion.model.ServiceProducer;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
-import com.liferay.portal.kernel.util.OrderByComparator;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -72,19 +71,16 @@ public interface ServiceProducerPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ServiceProducerModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of service producers
 	 * @param end the upper bound of the range of service producers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching service producers
 	 */
-	@Deprecated
 	public java.util.List<ServiceProducer> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<ServiceProducer> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the service producers where uuid = &#63;.
@@ -97,11 +93,14 @@ public interface ServiceProducerPersistence
 	 * @param start the lower bound of the range of service producers
 	 * @param end the upper bound of the range of service producers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching service producers
 	 */
 	public java.util.List<ServiceProducer> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<ServiceProducer> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first service producer in the ordered set where uuid = &#63;.
@@ -112,7 +111,9 @@ public interface ServiceProducerPersistence
 	 * @throws NoSuchServiceProducerException if a matching service producer could not be found
 	 */
 	public ServiceProducer findByUuid_First(
-			String uuid, OrderByComparator<ServiceProducer> orderByComparator)
+			String uuid,
+			com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+				orderByComparator)
 		throws NoSuchServiceProducerException;
 
 	/**
@@ -123,7 +124,9 @@ public interface ServiceProducerPersistence
 	 * @return the first matching service producer, or <code>null</code> if a matching service producer could not be found
 	 */
 	public ServiceProducer fetchByUuid_First(
-		String uuid, OrderByComparator<ServiceProducer> orderByComparator);
+		String uuid,
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator);
 
 	/**
 	 * Returns the last service producer in the ordered set where uuid = &#63;.
@@ -134,7 +137,9 @@ public interface ServiceProducerPersistence
 	 * @throws NoSuchServiceProducerException if a matching service producer could not be found
 	 */
 	public ServiceProducer findByUuid_Last(
-			String uuid, OrderByComparator<ServiceProducer> orderByComparator)
+			String uuid,
+			com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+				orderByComparator)
 		throws NoSuchServiceProducerException;
 
 	/**
@@ -145,7 +150,9 @@ public interface ServiceProducerPersistence
 	 * @return the last matching service producer, or <code>null</code> if a matching service producer could not be found
 	 */
 	public ServiceProducer fetchByUuid_Last(
-		String uuid, OrderByComparator<ServiceProducer> orderByComparator);
+		String uuid,
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator);
 
 	/**
 	 * Returns the service producers before and after the current service producer in the ordered set where uuid = &#63;.
@@ -158,7 +165,8 @@ public interface ServiceProducerPersistence
 	 */
 	public ServiceProducer[] findByUuid_PrevAndNext(
 			long serviceProducerId, String uuid,
-			OrderByComparator<ServiceProducer> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+				orderByComparator)
 		throws NoSuchServiceProducerException;
 
 	/**
@@ -209,20 +217,17 @@ public interface ServiceProducerPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ServiceProducerModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of service producers
 	 * @param end the upper bound of the range of service producers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching service producers
 	 */
-	@Deprecated
 	public java.util.List<ServiceProducer> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<ServiceProducer> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the service producers where uuid = &#63; and companyId = &#63;.
@@ -236,11 +241,14 @@ public interface ServiceProducerPersistence
 	 * @param start the lower bound of the range of service producers
 	 * @param end the upper bound of the range of service producers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching service producers
 	 */
 	public java.util.List<ServiceProducer> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<ServiceProducer> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first service producer in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -253,7 +261,8 @@ public interface ServiceProducerPersistence
 	 */
 	public ServiceProducer findByUuid_C_First(
 			String uuid, long companyId,
-			OrderByComparator<ServiceProducer> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+				orderByComparator)
 		throws NoSuchServiceProducerException;
 
 	/**
@@ -266,7 +275,8 @@ public interface ServiceProducerPersistence
 	 */
 	public ServiceProducer fetchByUuid_C_First(
 		String uuid, long companyId,
-		OrderByComparator<ServiceProducer> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator);
 
 	/**
 	 * Returns the last service producer in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -279,7 +289,8 @@ public interface ServiceProducerPersistence
 	 */
 	public ServiceProducer findByUuid_C_Last(
 			String uuid, long companyId,
-			OrderByComparator<ServiceProducer> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+				orderByComparator)
 		throws NoSuchServiceProducerException;
 
 	/**
@@ -292,7 +303,8 @@ public interface ServiceProducerPersistence
 	 */
 	public ServiceProducer fetchByUuid_C_Last(
 		String uuid, long companyId,
-		OrderByComparator<ServiceProducer> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator);
 
 	/**
 	 * Returns the service producers before and after the current service producer in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -306,7 +318,8 @@ public interface ServiceProducerPersistence
 	 */
 	public ServiceProducer[] findByUuid_C_PrevAndNext(
 			long serviceProducerId, String uuid, long companyId,
-			OrderByComparator<ServiceProducer> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+				orderByComparator)
 		throws NoSuchServiceProducerException;
 
 	/**
@@ -337,16 +350,12 @@ public interface ServiceProducerPersistence
 		throws NoSuchServiceProducerException;
 
 	/**
-	 * Returns the service producer where authorizationUserId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the service producer where authorizationUserId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByAuthorizationUserId(long)}
 	 * @param authorizationUserId the authorization user ID
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching service producer, or <code>null</code> if a matching service producer could not be found
 	 */
-	@Deprecated
-	public ServiceProducer fetchByAuthorizationUserId(
-		long authorizationUserId, boolean useFinderCache);
+	public ServiceProducer fetchByAuthorizationUserId(long authorizationUserId);
 
 	/**
 	 * Returns the service producer where authorizationUserId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -355,7 +364,8 @@ public interface ServiceProducerPersistence
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching service producer, or <code>null</code> if a matching service producer could not be found
 	 */
-	public ServiceProducer fetchByAuthorizationUserId(long authorizationUserId);
+	public ServiceProducer fetchByAuthorizationUserId(
+		long authorizationUserId, boolean useFinderCache);
 
 	/**
 	 * Removes the service producer where authorizationUserId = &#63; from the database.
@@ -453,18 +463,15 @@ public interface ServiceProducerPersistence
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ServiceProducerModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of service producers
 	 * @param end the upper bound of the range of service producers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of service producers
 	 */
-	@Deprecated
 	public java.util.List<ServiceProducer> findAll(
 		int start, int end,
-		OrderByComparator<ServiceProducer> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the service producers.
@@ -476,11 +483,14 @@ public interface ServiceProducerPersistence
 	 * @param start the lower bound of the range of service producers
 	 * @param end the upper bound of the range of service producers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of service producers
 	 */
 	public java.util.List<ServiceProducer> findAll(
 		int start, int end,
-		OrderByComparator<ServiceProducer> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<ServiceProducer>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the service producers from the database.
