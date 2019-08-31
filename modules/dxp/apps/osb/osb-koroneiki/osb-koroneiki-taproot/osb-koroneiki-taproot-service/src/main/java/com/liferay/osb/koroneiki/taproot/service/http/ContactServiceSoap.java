@@ -193,6 +193,24 @@ public class ContactServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
+			getContactByEmailAddress(String emailAddress)
+		throws RemoteException {
+
+		try {
+			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
+				ContactServiceUtil.getContactByEmailAddress(emailAddress);
+
+			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
 			getContactByOktaId(String oktaId)
 		throws RemoteException {
 

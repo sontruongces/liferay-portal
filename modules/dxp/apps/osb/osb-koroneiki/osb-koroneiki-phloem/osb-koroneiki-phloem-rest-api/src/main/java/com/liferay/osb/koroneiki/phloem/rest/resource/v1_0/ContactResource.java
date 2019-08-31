@@ -49,6 +49,16 @@ public interface ContactResource {
 
 	public Contact postContact(Contact contact) throws Exception;
 
+	public void deleteContactByEmailAddresEmailAddress(String emailAddress)
+		throws Exception;
+
+	public Contact getContactByEmailAddresEmailAddress(String emailAddress)
+		throws Exception;
+
+	public Contact putContactByEmailAddresEmailAddress(
+			String emailAddress, Contact contact)
+		throws Exception;
+
 	public void deleteContactByOkta(String oktaId) throws Exception;
 
 	public Contact getContactByOkta(String oktaId) throws Exception;

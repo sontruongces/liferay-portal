@@ -61,6 +61,30 @@ public interface ContactResource {
 	public HttpInvoker.HttpResponse postContactHttpResponse(Contact contact)
 		throws Exception;
 
+	public void deleteContactByEmailAddresEmailAddress(String emailAddress)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			deleteContactByEmailAddresEmailAddressHttpResponse(
+				String emailAddress)
+		throws Exception;
+
+	public Contact getContactByEmailAddresEmailAddress(String emailAddress)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getContactByEmailAddresEmailAddressHttpResponse(String emailAddress)
+		throws Exception;
+
+	public Contact putContactByEmailAddresEmailAddress(
+			String emailAddress, Contact contact)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			putContactByEmailAddresEmailAddressHttpResponse(
+				String emailAddress, Contact contact)
+		throws Exception;
+
 	public void deleteContactByOkta(String oktaId) throws Exception;
 
 	public HttpInvoker.HttpResponse deleteContactByOktaHttpResponse(
@@ -299,6 +323,156 @@ public interface ContactResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/koroneiki-rest/v1.0/contacts");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteContactByEmailAddresEmailAddress(String emailAddress)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteContactByEmailAddresEmailAddressHttpResponse(
+					emailAddress);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteContactByEmailAddresEmailAddressHttpResponse(
+					String emailAddress)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}",
+				emailAddress);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Contact getContactByEmailAddresEmailAddress(String emailAddress)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getContactByEmailAddresEmailAddressHttpResponse(emailAddress);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ContactSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse
+				getContactByEmailAddresEmailAddressHttpResponse(
+					String emailAddress)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}",
+				emailAddress);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Contact putContactByEmailAddresEmailAddress(
+				String emailAddress, Contact contact)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putContactByEmailAddresEmailAddressHttpResponse(
+					emailAddress, contact);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ContactSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse
+				putContactByEmailAddresEmailAddressHttpResponse(
+					String emailAddress, Contact contact)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contact.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}",
+				emailAddress);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

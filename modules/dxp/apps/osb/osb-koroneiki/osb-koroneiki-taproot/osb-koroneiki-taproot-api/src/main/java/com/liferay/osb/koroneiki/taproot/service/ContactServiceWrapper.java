@@ -91,6 +91,14 @@ public class ContactServiceWrapper
 	}
 
 	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Contact
+			getContactByEmailAddress(String emailAddress)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactService.getContactByEmailAddress(emailAddress);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact getContactByOktaId(
 			String oktaId)
 		throws com.liferay.portal.kernel.exception.PortalException {

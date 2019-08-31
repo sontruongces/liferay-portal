@@ -122,6 +122,55 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 
 	@Override
 	@DELETE
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "emailAddress")}
+	)
+	@Path("/contacts/by-email-address/{emailAddress}")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Contact")})
+	public void deleteContactByEmailAddresEmailAddress(
+			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
+				emailAddress)
+		throws Exception {
+	}
+
+	@Override
+	@GET
+	@Operation(description = "Retrieves the contact.")
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "emailAddress")}
+	)
+	@Path("/contacts/by-email-address/{emailAddress}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Contact")})
+	public Contact getContactByEmailAddresEmailAddress(
+			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
+				emailAddress)
+		throws Exception {
+
+		return new Contact();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "emailAddress")}
+	)
+	@Path("/contacts/by-email-address/{emailAddress}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Contact")})
+	public Contact putContactByEmailAddresEmailAddress(
+			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
+				emailAddress,
+			Contact contact)
+		throws Exception {
+
+		return new Contact();
+	}
+
+	@Override
+	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
 	@Path("/contacts/by-okta-id/{oktaId}")
 	@Produces("application/json")

@@ -507,6 +507,21 @@ public abstract class BaseContactResourceTestCase {
 	}
 
 	@Test
+	public void testDeleteContactByEmailAddresEmailAddress() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testGetContactByEmailAddresEmailAddress() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPutContactByEmailAddresEmailAddress() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testDeleteContactByOkta() throws Exception {
 		Assert.assertTrue(true);
 	}

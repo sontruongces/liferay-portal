@@ -92,6 +92,13 @@ public class ContactServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact
+			getContactByEmailAddress(String emailAddress)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactByEmailAddress(emailAddress);
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.Contact
 			getContactByOktaId(String oktaId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

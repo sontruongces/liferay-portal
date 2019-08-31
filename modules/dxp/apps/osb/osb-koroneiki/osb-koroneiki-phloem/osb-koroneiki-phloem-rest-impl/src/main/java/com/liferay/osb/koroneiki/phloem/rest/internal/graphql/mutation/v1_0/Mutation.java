@@ -285,6 +285,35 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public boolean deleteContactByEmailAddresEmailAddress(
+			@GraphQLName("emailAddress") String emailAddress)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_contactResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactResource ->
+				contactResource.deleteContactByEmailAddresEmailAddress(
+					emailAddress));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Contact putContactByEmailAddresEmailAddress(
+			@GraphQLName("emailAddress") String emailAddress,
+			@GraphQLName("contact") Contact contact)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactResource ->
+				contactResource.putContactByEmailAddresEmailAddress(
+					emailAddress, contact));
+	}
+
+	@GraphQLField
 	public boolean deleteContactByOkta(@GraphQLName("oktaId") String oktaId)
 		throws Exception {
 

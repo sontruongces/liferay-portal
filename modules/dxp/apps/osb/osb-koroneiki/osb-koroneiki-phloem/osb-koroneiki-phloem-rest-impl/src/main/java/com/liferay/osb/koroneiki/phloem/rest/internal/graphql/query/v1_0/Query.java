@@ -345,6 +345,19 @@ public class Query {
 	}
 
 	@GraphQLField
+	public Contact getContactByEmailAddresEmailAddress(
+			@GraphQLName("emailAddress") String emailAddress)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactResource ->
+				contactResource.getContactByEmailAddresEmailAddress(
+					emailAddress));
+	}
+
+	@GraphQLField
 	public Contact getContactByOkta(@GraphQLName("oktaId") String oktaId)
 		throws Exception {
 
