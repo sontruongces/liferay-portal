@@ -2952,7 +2952,7 @@ public class TeamAccountRolePersistenceImpl
 
 	@Override
 	@Reference(
-		target = KoroneikiPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		target = KoroneikiPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {
