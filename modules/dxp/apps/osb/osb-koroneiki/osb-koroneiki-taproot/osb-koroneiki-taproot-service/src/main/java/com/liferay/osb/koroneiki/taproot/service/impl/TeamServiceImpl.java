@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.taproot.service.impl;
 
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
@@ -25,6 +27,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -121,6 +124,33 @@ public class TeamServiceImpl extends TeamServiceBaseImpl {
 		return team;
 	}
 
+	public List<Team> getTeams(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException {
+
+		List<Team> teams = new ArrayList<>();
+
+		List<ExternalLink> externalLinks =
+			_externalLinkLocalService.getExternalLinks(
+				classNameLocalService.getClassNameId(Team.class), domain,
+				entityName, entityId, start, end);
+
+		for (ExternalLink externalLink : externalLinks) {
+			teams.add(getTeam(externalLink.getClassPK()));
+		}
+
+		return teams;
+	}
+
+	public int getTeamsCount(String domain, String entityName, String entityId)
+		throws PortalException {
+
+		return _externalLinkLocalService.getExternalLinksCount(
+			classNameLocalService.getClassNameId(Team.class), domain,
+			entityName, entityId);
+	}
+
 	public Team updateTeam(long teamId, String name) throws PortalException {
 		_teamPermission.check(
 			getPermissionChecker(), teamId, ActionKeys.UPDATE);
@@ -141,6 +171,9 @@ public class TeamServiceImpl extends TeamServiceBaseImpl {
 
 	@Reference
 	private AccountPermission _accountPermission;
+
+	@Reference
+	private ExternalLinkLocalService _externalLinkLocalService;
 
 	@Reference
 	private TeamPermission _teamPermission;

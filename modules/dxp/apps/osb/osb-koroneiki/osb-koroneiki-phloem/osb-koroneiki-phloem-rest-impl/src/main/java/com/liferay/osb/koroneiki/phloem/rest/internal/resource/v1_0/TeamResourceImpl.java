@@ -59,6 +59,22 @@ public class TeamResourceImpl extends BaseTeamResourceImpl {
 	}
 
 	@Override
+	public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_teamService.getTeams(
+					domain, entityName, entityId, pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				team -> TeamUtil.toTeam(team)),
+			pagination,
+			_teamService.getTeamsCount(domain, entityName, entityId));
+	}
+
+	@Override
 	public Team postAccountAccountKeyTeam(String accountKey, Team team)
 		throws Exception {
 

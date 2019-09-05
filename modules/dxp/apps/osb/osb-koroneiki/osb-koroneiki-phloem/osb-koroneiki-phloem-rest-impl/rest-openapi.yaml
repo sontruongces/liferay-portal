@@ -2534,6 +2534,49 @@ paths:
                                 type: array
                     description: ""
             tags: ["AuditEntry"]
+    "/teams/by-external-link/{domain}/{entityName}/{entityId}":
+        get:
+            description: Retrieves the team by the external link.
+            operationId: getTeamByExternalLinkDomainEntityNameEntity
+            parameters:
+                - in: path
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Team"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Team"
+                                type: array
+                    description: ""
+            tags: ["Team"]
     "/teams/{teamKey}":
         delete:
             operationId: deleteTeam
