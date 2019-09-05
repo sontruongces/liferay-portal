@@ -431,6 +431,85 @@ public class TeamServiceHttp {
 		}
 	}
 
+	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+			getTeams(
+				HttpPrincipal httpPrincipal, String domain, String entityName,
+				String entityId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TeamServiceUtil.class, "getTeams", _getTeamsParameterTypes10);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, domain, entityName, entityId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.taproot.model.Team>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getTeamsCount(
+			HttpPrincipal httpPrincipal, String domain, String entityName,
+			String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TeamServiceUtil.class, "getTeamsCount",
+				_getTeamsCountParameterTypes11);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, domain, entityName, entityId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.Team updateTeam(
 			HttpPrincipal httpPrincipal, long teamId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -438,7 +517,7 @@ public class TeamServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamServiceUtil.class, "updateTeam",
-				_updateTeamParameterTypes10);
+				_updateTeamParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamId, name);
@@ -476,7 +555,7 @@ public class TeamServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamServiceUtil.class, "updateTeam",
-				_updateTeamParameterTypes11);
+				_updateTeamParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamKey, name);
@@ -535,10 +614,15 @@ public class TeamServiceHttp {
 	private static final Class<?>[] _getTeamParameterTypes9 = new Class[] {
 		String.class
 	};
-	private static final Class<?>[] _updateTeamParameterTypes10 = new Class[] {
+	private static final Class<?>[] _getTeamsParameterTypes10 = new Class[] {
+		String.class, String.class, String.class, int.class, int.class
+	};
+	private static final Class<?>[] _getTeamsCountParameterTypes11 =
+		new Class[] {String.class, String.class, String.class};
+	private static final Class<?>[] _updateTeamParameterTypes12 = new Class[] {
 		long.class, String.class
 	};
-	private static final Class<?>[] _updateTeamParameterTypes11 = new Class[] {
+	private static final Class<?>[] _updateTeamParameterTypes13 = new Class[] {
 		String.class, String.class
 	};
 

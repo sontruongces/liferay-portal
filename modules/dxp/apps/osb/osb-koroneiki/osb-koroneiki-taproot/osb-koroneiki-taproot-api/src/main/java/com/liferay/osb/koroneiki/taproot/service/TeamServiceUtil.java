@@ -116,6 +116,22 @@ public class TeamServiceUtil {
 		return getService().getTeam(teamKey);
 	}
 
+	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+			getTeams(
+				String domain, String entityName, String entityId, int start,
+				int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeams(domain, entityName, entityId, start, end);
+	}
+
+	public static int getTeamsCount(
+			String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeamsCount(domain, entityName, entityId);
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.Team updateTeam(
 			long teamId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {

@@ -240,6 +240,43 @@ public class TeamServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.TeamSoap[] getTeams(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+				returnValue = TeamServiceUtil.getTeams(
+					domain, entityName, entityId, start, end);
+
+			return com.liferay.osb.koroneiki.taproot.model.TeamSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getTeamsCount(
+			String domain, String entityName, String entityId)
+		throws RemoteException {
+
+		try {
+			int returnValue = TeamServiceUtil.getTeamsCount(
+				domain, entityName, entityId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.TeamSoap updateTeam(
 			long teamId, String name)
 		throws RemoteException {

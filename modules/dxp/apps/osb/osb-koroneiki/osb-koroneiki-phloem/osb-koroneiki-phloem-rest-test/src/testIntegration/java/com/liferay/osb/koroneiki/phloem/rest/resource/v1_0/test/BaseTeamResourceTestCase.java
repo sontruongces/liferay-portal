@@ -187,6 +187,165 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	@Test
+	public void testGetTeamByExternalLinkDomainEntityNameEntity()
+		throws Exception {
+
+		Page<Team> page =
+			teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+				testGetTeamByExternalLinkDomainEntityNameEntity_getDomain(),
+				testGetTeamByExternalLinkDomainEntityNameEntity_getEntityName(),
+				testGetTeamByExternalLinkDomainEntityNameEntity_getEntityId(),
+				Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String domain =
+			testGetTeamByExternalLinkDomainEntityNameEntity_getDomain();
+		String irrelevantDomain =
+			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantDomain();
+		String entityName =
+			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityName();
+		String irrelevantEntityName =
+			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName();
+		String entityId =
+			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityId();
+		String irrelevantEntityId =
+			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId();
+
+		if ((irrelevantDomain != null) && (irrelevantEntityName != null) &&
+			(irrelevantEntityId != null)) {
+
+			Team irrelevantTeam =
+				testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
+					irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
+					randomIrrelevantTeam());
+
+			page = teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+				irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
+				Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantTeam), (List<Team>)page.getItems());
+			assertValid(page);
+		}
+
+		Team team1 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
+			domain, entityName, entityId, randomTeam());
+
+		Team team2 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
+			domain, entityName, entityId, randomTeam());
+
+		page = teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+			domain, entityName, entityId, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(team1, team2), (List<Team>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetTeamByExternalLinkDomainEntityNameEntityWithPagination()
+		throws Exception {
+
+		String domain =
+			testGetTeamByExternalLinkDomainEntityNameEntity_getDomain();
+		String entityName =
+			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityName();
+		String entityId =
+			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityId();
+
+		Team team1 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
+			domain, entityName, entityId, randomTeam());
+
+		Team team2 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
+			domain, entityName, entityId, randomTeam());
+
+		Team team3 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
+			domain, entityName, entityId, randomTeam());
+
+		Page<Team> page1 =
+			teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+				domain, entityName, entityId, Pagination.of(1, 2));
+
+		List<Team> teams1 = (List<Team>)page1.getItems();
+
+		Assert.assertEquals(teams1.toString(), 2, teams1.size());
+
+		Page<Team> page2 =
+			teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+				domain, entityName, entityId, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Team> teams2 = (List<Team>)page2.getItems();
+
+		Assert.assertEquals(teams2.toString(), 1, teams2.size());
+
+		Page<Team> page3 =
+			teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+				domain, entityName, entityId, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(team1, team2, team3), (List<Team>)page3.getItems());
+	}
+
+	protected Team testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
+			String domain, String entityName, String entityId, Team team)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetTeamByExternalLinkDomainEntityNameEntity_getDomain()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantDomain()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityName()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
 	public void testGetAccountAccountKeyTeamsPage() throws Exception {
 		Page<Team> page = teamResource.getAccountAccountKeyTeamsPage(
 			testGetAccountAccountKeyTeamsPage_getAccountKey(),

@@ -119,6 +119,23 @@ public class TeamServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+			getTeams(
+				String domain, String entityName, String entityId, int start,
+				int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamService.getTeams(domain, entityName, entityId, start, end);
+	}
+
+	@Override
+	public int getTeamsCount(String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamService.getTeamsCount(domain, entityName, entityId);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Team updateTeam(
 			long teamId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {

@@ -652,6 +652,24 @@ public class Query {
 	}
 
 	@GraphQLField
+	public TeamPage getTeamByExternalLinkDomainEntityNameEntity(
+			@GraphQLName("domain") String domain,
+			@GraphQLName("entityName") String entityName,
+			@GraphQLName("entityId") String entityId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> new TeamPage(
+				teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+					domain, entityName, entityId,
+					Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
 	public TeamPage getAccountAccountKeyTeamsPage(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,

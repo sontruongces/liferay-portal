@@ -59,6 +59,34 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 
 	@Override
 	@GET
+	@Operation(description = "Retrieves the team by the external link.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "domain"),
+			@Parameter(in = ParameterIn.PATH, name = "entityName"),
+			@Parameter(in = ParameterIn.PATH, name = "entityId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/teams/by-external-link/{domain}/{entityName}/{entityId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Team")})
+	public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
+			@NotNull @Parameter(hidden = true) @PathParam("domain") String
+				domain,
+			@NotNull @Parameter(hidden = true) @PathParam("entityName") String
+				entityName,
+			@NotNull @Parameter(hidden = true) @PathParam("entityId") String
+				entityId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@GET
 	@Operation(description = "Retrieves the account's teams.")
 	@Parameters(
 		value = {

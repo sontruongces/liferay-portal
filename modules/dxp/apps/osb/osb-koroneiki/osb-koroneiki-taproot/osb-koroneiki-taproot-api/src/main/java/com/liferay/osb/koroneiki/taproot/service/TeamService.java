@@ -86,6 +86,16 @@ public interface TeamService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Team getTeam(String teamKey) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Team> getTeams(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTeamsCount(String domain, String entityName, String entityId)
+		throws PortalException;
+
 	public Team updateTeam(long teamId, String name) throws PortalException;
 
 	public Team updateTeam(String teamKey, String name) throws PortalException;
