@@ -17,9 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-ViewContactRolesManagementToolbarDisplayContext viewContactRolesManagementToolbarDisplayContext = new ViewContactRolesManagementToolbarDisplayContext(request, renderRequest, renderResponse);
+ContactRolesDisplayContext contactRolesDisplayContext = new ContactRolesDisplayContext(renderRequest, renderResponse, request);
 
-SearchContainer searchContainer = viewContactRolesManagementToolbarDisplayContext.getSearchContainer();
+ViewContactRolesManagementToolbarDisplayContext viewContactRolesManagementToolbarDisplayContext = new ViewContactRolesManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, contactRolesDisplayContext.getSearchContainer());
 %>
 
 <clay:navigation-bar
@@ -28,23 +28,12 @@ SearchContainer searchContainer = viewContactRolesManagementToolbarDisplayContex
 />
 
 <clay:management-toolbar
-	clearResultsURL="<%= viewContactRolesManagementToolbarDisplayContext.getClearResultsURL() %>"
-	creationMenu="<%= viewContactRolesManagementToolbarDisplayContext.getCreationMenu() %>"
-	filterDropdownItems="<%= viewContactRolesManagementToolbarDisplayContext.getFilterDropdownItems() %>"
-	itemsTotal="<%= searchContainer.getTotal() %>"
-	searchActionURL="<%= viewContactRolesManagementToolbarDisplayContext.getSearchActionURL() %>"
-	searchContainerId="contactRoleSearch"
-	searchFormName="searchFm"
-	selectable="<%= false %>"
-	showSearch="<%= true %>"
-	sortingOrder="<%= searchContainer.getOrderByType() %>"
-	sortingURL="<%= viewContactRolesManagementToolbarDisplayContext.getSortingURL() %>"
+	displayContext="<%= viewContactRolesManagementToolbarDisplayContext %>"
 />
 
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
-		searchContainer="<%= searchContainer %>"
-		var="contactRoleSearch"
+		searchContainer="<%= contactRolesDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
 			className="com.liferay.osb.koroneiki.taproot.model.ContactRole"

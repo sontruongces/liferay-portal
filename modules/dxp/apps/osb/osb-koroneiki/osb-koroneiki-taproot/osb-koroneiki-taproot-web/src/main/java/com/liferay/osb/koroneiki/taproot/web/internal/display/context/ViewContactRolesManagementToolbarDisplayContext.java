@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.taproot.web.internal.display.context;
 
+import com.liferay.frontend.taglib.clay.servlet.taglib.display.context.SearchContainerManagementToolbarDisplayContext;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownGroupItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
@@ -21,52 +22,39 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItemList;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
-import com.liferay.osb.koroneiki.taproot.model.ContactRole;
-import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalServiceUtil;
-import com.liferay.osb.koroneiki.taproot.web.internal.search.ContactRoleSearch;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.portlet.PortletURLUtil;
-import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.SortFactoryUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Amos Fong
  */
-public class ViewContactRolesManagementToolbarDisplayContext {
+public class ViewContactRolesManagementToolbarDisplayContext
+	extends SearchContainerManagementToolbarDisplayContext {
 
 	public ViewContactRolesManagementToolbarDisplayContext(
-		HttpServletRequest httpServletRequest, RenderRequest renderRequest,
-		RenderResponse renderResponse) {
+		LiferayPortletRequest liferayPortletRequest,
+		LiferayPortletResponse liferayPortletResponse,
+		HttpServletRequest httpServletRequest,
+		SearchContainer searchContainer) {
 
-		_httpServletRequest = httpServletRequest;
-		_renderRequest = renderRequest;
-		_renderResponse = renderResponse;
-
-		_currentURLObj = PortletURLUtil.getCurrent(
-			_renderRequest, _renderResponse);
+		super(
+			liferayPortletRequest, liferayPortletResponse, httpServletRequest,
+			searchContainer);
 	}
 
+	@Override
 	public String getClearResultsURL() {
 		PortletURL clearResultsURL = getPortletURL();
 
@@ -75,8 +63,9 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 		return clearResultsURL.toString();
 	}
 
-	public CreationMenu getCreationMenu() throws PortalException {
-		String tabs1 = ParamUtil.getString(_renderRequest, "tabs1");
+	@Override
+	public CreationMenu getCreationMenu() {
+		String tabs1 = ParamUtil.getString(liferayPortletRequest, "tabs1");
 
 		return new CreationMenu() {
 			{
@@ -84,32 +73,33 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 					addDropdownItem(
 						dropdownItem -> {
 							dropdownItem.setHref(
-								_renderResponse.createRenderURL(),
+								liferayPortletResponse.createRenderURL(),
 								"mvcRenderCommandName",
 								"/contact_roles_admin/edit_contact_role",
-								"redirect", _currentURLObj.toString(), "type",
+								"redirect", currentURLObj.toString(), "type",
 								ContactRoleType.TEAM);
 							dropdownItem.setLabel(
-								LanguageUtil.get(_httpServletRequest, "add"));
+								LanguageUtil.get(request, "add"));
 						});
 				}
 				else {
 					addDropdownItem(
 						dropdownItem -> {
 							dropdownItem.setHref(
-								_renderResponse.createRenderURL(),
+								liferayPortletResponse.createRenderURL(),
 								"mvcRenderCommandName",
 								"/contact_roles_admin/edit_contact_role",
-								"redirect", _currentURLObj.toString(), "type",
+								"redirect", currentURLObj.toString(), "type",
 								ContactRoleType.ACCOUNT);
 							dropdownItem.setLabel(
-								LanguageUtil.get(_httpServletRequest, "add"));
+								LanguageUtil.get(request, "add"));
 						});
 				}
 			}
 		};
 	}
 
+	@Override
 	public List<DropdownItem> getFilterDropdownItems() {
 		return DropdownItemList.of(
 			() -> {
@@ -117,7 +107,7 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 
 				dropdownGroupItem.setDropdownItems(_getOrderByDropdownItems());
 				dropdownGroupItem.setLabel(
-					LanguageUtil.get(_httpServletRequest, "order-by"));
+					LanguageUtil.get(request, "order-by"));
 
 				return dropdownGroupItem;
 			});
@@ -125,7 +115,7 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 
 	public String getKeywords() {
 		if (Validator.isNull(_keywords)) {
-			_keywords = ParamUtil.getString(_httpServletRequest, "keywords");
+			_keywords = ParamUtil.getString(request, "keywords");
 		}
 
 		return _keywords;
@@ -133,7 +123,7 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 
 	public List<NavigationItem> getNavigationItems() {
 		String tabs1 = ParamUtil.getString(
-			_renderRequest, "tabs1", "account-contact-roles");
+			liferayPortletRequest, "tabs1", "account-contact-roles");
 
 		return NavigationItemList.of(
 			() -> {
@@ -141,11 +131,10 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 
 				navigationItem.setActive(tabs1.equals("account-contact-roles"));
 				navigationItem.setHref(
-					_renderResponse.createRenderURL(), "tabs1",
+					liferayPortletResponse.createRenderURL(), "tabs1",
 					"account-contact-roles");
 				navigationItem.setLabel(
-					LanguageUtil.get(
-						_httpServletRequest, "account-contact-roles"));
+					LanguageUtil.get(request, "account-contact-roles"));
 
 				return navigationItem;
 			},
@@ -154,36 +143,36 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 
 				navigationItem.setActive(tabs1.equals("team-contact-roles"));
 				navigationItem.setHref(
-					_renderResponse.createRenderURL(), "tabs1",
+					liferayPortletResponse.createRenderURL(), "tabs1",
 					"team-contact-roles");
 				navigationItem.setLabel(
-					LanguageUtil.get(
-						_httpServletRequest, "team-contact-roles"));
+					LanguageUtil.get(request, "team-contact-roles"));
 
 				return navigationItem;
 			});
 	}
 
+	@Override
 	public String getOrderByCol() {
 		if (Validator.isNull(_orderByCol)) {
-			_orderByCol = ParamUtil.getString(
-				_httpServletRequest, "orderByCol", "name");
+			_orderByCol = ParamUtil.getString(request, "orderByCol", "name");
 		}
 
 		return _orderByCol;
 	}
 
+	@Override
 	public String getOrderByType() {
 		if (Validator.isNull(_orderByType)) {
-			_orderByType = ParamUtil.getString(
-				_httpServletRequest, "orderByType", "asc");
+			_orderByType = ParamUtil.getString(request, "orderByType", "asc");
 		}
 
 		return _orderByType;
 	}
 
+	@Override
 	public PortletURL getPortletURL() {
-		PortletURL portletURL = _renderResponse.createRenderURL();
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		if (Validator.isNotNull(getKeywords())) {
 			portletURL.setParameter("keywords", getKeywords());
@@ -192,77 +181,35 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 		portletURL.setParameter("orderByCol", getOrderByCol());
 		portletURL.setParameter("orderByType", getOrderByType());
 		portletURL.setParameter(
-			"tabs1", ParamUtil.getString(_renderRequest, "tabs1"));
+			"tabs1",
+			ParamUtil.getString(
+				liferayPortletRequest, "tabs1", "account-contact-roles"));
 
-		if (_contactRoleSearch != null) {
+		if (searchContainer != null) {
 			portletURL.setParameter(
-				_contactRoleSearch.getCurParam(),
-				String.valueOf(_contactRoleSearch.getCur()));
+				searchContainer.getCurParam(),
+				String.valueOf(searchContainer.getCur()));
 			portletURL.setParameter(
-				_contactRoleSearch.getDeltaParam(),
-				String.valueOf(_contactRoleSearch.getDelta()));
+				searchContainer.getDeltaParam(),
+				String.valueOf(searchContainer.getDelta()));
 		}
 
 		return portletURL;
 	}
 
+	@Override
 	public String getSearchActionURL() {
 		PortletURL searchActionURL = getPortletURL();
 
 		return searchActionURL.toString();
 	}
 
-	public SearchContainer getSearchContainer() throws Exception {
-		if (_contactRoleSearch != null) {
-			return _contactRoleSearch;
-		}
-
-		ContactRoleSearch contactRoleSearch = new ContactRoleSearch(
-			_renderRequest, getPortletURL());
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)_httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		int type = 0;
-
-		String tabs1 = ParamUtil.getString(_renderRequest, "tabs1");
-
-		if (tabs1.equals("team-contact-roles")) {
-			type = ContactRoleType.TEAM;
-		}
-		else {
-			type = ContactRoleType.ACCOUNT;
-		}
-
-		String keywords = ParamUtil.getString(_renderRequest, "keywords");
-
-		Sort sort = SortFactoryUtil.getSort(
-			ContactRole.class, Sort.STRING_TYPE, getOrderByCol(),
-			getOrderByType());
-
-		Hits hits = ContactRoleLocalServiceUtil.search(
-			themeDisplay.getCompanyId(), type, keywords,
-			contactRoleSearch.getStart(), contactRoleSearch.getEnd(), sort);
-
-		List<ContactRole> results = new ArrayList<>();
-
-		for (Document document : hits.getDocs()) {
-			long contactRoleId = GetterUtil.getLong(
-				document.get(Field.ENTRY_CLASS_PK));
-
-			results.add(
-				ContactRoleLocalServiceUtil.getContactRole(contactRoleId));
-		}
-
-		contactRoleSearch.setResults(results);
-		contactRoleSearch.setTotal(hits.getLength());
-
-		_contactRoleSearch = contactRoleSearch;
-
-		return _contactRoleSearch;
+	@Override
+	public String getSearchContainerId() {
+		return "contactRoleSearch";
 	}
 
+	@Override
 	public String getSortingURL() {
 		PortletURL sortingURL = getPortletURL();
 
@@ -280,20 +227,14 @@ public class ViewContactRolesManagementToolbarDisplayContext {
 
 				dropdownItem.setActive(Objects.equals(getOrderByCol(), "name"));
 				dropdownItem.setHref(getPortletURL(), "orderByCol", "name");
-				dropdownItem.setLabel(
-					LanguageUtil.get(_httpServletRequest, "name"));
+				dropdownItem.setLabel(LanguageUtil.get(request, "name"));
 
 				return dropdownItem;
 			});
 	}
 
-	private ContactRoleSearch _contactRoleSearch;
-	private final PortletURL _currentURLObj;
-	private final HttpServletRequest _httpServletRequest;
 	private String _keywords;
 	private String _orderByCol;
 	private String _orderByType;
-	private final RenderRequest _renderRequest;
-	private final RenderResponse _renderResponse;
 
 }
