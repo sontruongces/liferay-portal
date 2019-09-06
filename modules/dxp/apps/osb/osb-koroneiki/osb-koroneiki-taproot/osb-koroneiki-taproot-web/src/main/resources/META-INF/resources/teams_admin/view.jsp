@@ -17,53 +17,24 @@
 <%@ include file="/init.jsp" %>
 
 <%
-List<NavigationItem> navigationItems = new ArrayList<>();
+TeamsDisplayContext teamsDisplayContext = new TeamsDisplayContext(renderRequest, renderResponse, request);
 
-NavigationItem entriesNavigationItem = new NavigationItem();
-
-entriesNavigationItem.setActive(true);
-entriesNavigationItem.setHref(StringPool.BLANK);
-entriesNavigationItem.setLabel(LanguageUtil.get(request, "teams"));
-
-navigationItems.add(entriesNavigationItem);
+ViewTeamsManagementToolbarDisplayContext viewTeamsManagementToolbarDisplayContext = new ViewTeamsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, teamsDisplayContext.getSearchContainer());
 %>
 
 <clay:navigation-bar
 	inverted="<%= true %>"
-	navigationItems="<%= navigationItems %>"
+	navigationItems="<%= viewTeamsManagementToolbarDisplayContext.getNavigationItems() %>"
 />
 
 <clay:management-toolbar
-	creationMenu='<%=
-		new JSPCreationMenu(pageContext) {
-			{
-				addDropdownItem(
-					dropdownItem -> {
-						dropdownItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/teams_admin/edit_team", "redirect", PortalUtil.getCurrentURL(request));
-						dropdownItem.setLabel(LanguageUtil.get(request, "add"));
-					});
-			}
-		}
-	%>'
-	selectable="<%= false %>"
-	showSearch="<%= false %>"
+	displayContext="<%= viewTeamsManagementToolbarDisplayContext %>"
 />
-
-<%
-PortletURL portletURL = renderResponse.createRenderURL();
-%>
 
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
-		emptyResultsMessage="no-teams-were-found"
-		headerNames="name"
-		iteratorURL="<%= portletURL %>"
-		total="<%= TeamLocalServiceUtil.getTeamsCount() %>"
+		searchContainer="<%= teamsDisplayContext.getSearchContainer() %>"
 	>
-		<liferay-ui:search-container-results
-			results="<%= TeamLocalServiceUtil.getTeams(searchContainer.getStart(), searchContainer.getEnd()) %>"
-		/>
-
 		<liferay-ui:search-container-row
 			className="com.liferay.osb.koroneiki.taproot.model.Team"
 			escapedModel="<%= true %>"
@@ -94,7 +65,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="account"
-				value="<%= koroneikiAccount.getName() %>"
+				value="<%= HtmlUtil.escape(koroneikiAccount.getName()) %>"
 			/>
 
 			<liferay-ui:search-container-column-jsp

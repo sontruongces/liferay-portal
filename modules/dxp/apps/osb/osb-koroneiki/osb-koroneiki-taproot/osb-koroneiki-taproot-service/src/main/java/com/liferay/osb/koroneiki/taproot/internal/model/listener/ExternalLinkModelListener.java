@@ -17,8 +17,10 @@ package com.liferay.osb.koroneiki.taproot.internal.model.listener;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -89,6 +91,11 @@ public class ExternalLinkModelListener extends BaseModelListener<ExternalLink> {
 
 			_contactLocalService.reindex(externalLink.getClassPK());
 		}
+		else if (externalLink.getClassNameId() ==
+					_classNameLocalService.getClassNameId(Team.class)) {
+
+			_teamLocalService.reindex(externalLink.getClassPK());
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -102,5 +109,8 @@ public class ExternalLinkModelListener extends BaseModelListener<ExternalLink> {
 
 	@Reference
 	private ContactLocalService _contactLocalService;
+
+	@Reference
+	private TeamLocalService _teamLocalService;
 
 }
