@@ -16,8 +16,6 @@ package com.liferay.osb.koroneiki.taproot.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link ContactTeamRoleService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see ContactTeamRoleService
  * @generated
  */
-@ProviderType
 public class ContactTeamRoleServiceWrapper
 	implements ContactTeamRoleService, ServiceWrapper<ContactTeamRoleService> {
 

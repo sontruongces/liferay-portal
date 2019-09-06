@@ -17,8 +17,6 @@ package com.liferay.osb.koroneiki.root.model.impl;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the ExternalLink service. Represents a row in the &quot;Koroneiki_ExternalLink&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,7 +29,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see ExternalLink
  * @generated
  */
-@ProviderType
 public abstract class ExternalLinkBaseImpl
 	extends ExternalLinkModelImpl implements ExternalLink {
 

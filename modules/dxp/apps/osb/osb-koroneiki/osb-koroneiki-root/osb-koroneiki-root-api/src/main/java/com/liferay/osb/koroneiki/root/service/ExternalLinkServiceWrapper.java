@@ -16,8 +16,6 @@ package com.liferay.osb.koroneiki.root.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link ExternalLinkService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see ExternalLinkService
  * @generated
  */
-@ProviderType
 public class ExternalLinkServiceWrapper
 	implements ExternalLinkService, ServiceWrapper<ExternalLinkService> {
 

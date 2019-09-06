@@ -20,8 +20,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.rmi.RemoteException;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides the SOAP utility for the
  * <code>AuditEntryServiceUtil</code> service
@@ -61,7 +59,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see AuditEntryServiceHttp
  * @generated
  */
-@ProviderType
 public class AuditEntryServiceSoap {
 
 	public static com.liferay.osb.koroneiki.root.model.AuditEntrySoap[]

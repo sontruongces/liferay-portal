@@ -16,8 +16,6 @@ package com.liferay.osb.koroneiki.trunk.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link ProductConsumptionLocalService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see ProductConsumptionLocalService
  * @generated
  */
-@ProviderType
 public class ProductConsumptionLocalServiceWrapper
 	implements ProductConsumptionLocalService,
 			   ServiceWrapper<ProductConsumptionLocalService> {

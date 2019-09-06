@@ -59,7 +59,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -73,7 +72,6 @@ import org.osgi.service.component.annotations.Reference;
  * @see com.liferay.osb.koroneiki.taproot.service.impl.TeamAccountRoleLocalServiceImpl
  * @generated
  */
-@ProviderType
 public abstract class TeamAccountRoleLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements TeamAccountRoleLocalService, AopService,

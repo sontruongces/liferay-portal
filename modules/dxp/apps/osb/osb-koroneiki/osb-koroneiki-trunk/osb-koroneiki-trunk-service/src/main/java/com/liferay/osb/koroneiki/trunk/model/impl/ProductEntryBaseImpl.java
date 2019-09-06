@@ -17,8 +17,6 @@ package com.liferay.osb.koroneiki.trunk.model.impl;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the ProductEntry service. Represents a row in the &quot;Koroneiki_ProductEntry&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,7 +29,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see ProductEntry
  * @generated
  */
-@ProviderType
 public abstract class ProductEntryBaseImpl
 	extends ProductEntryModelImpl implements ProductEntry {
 

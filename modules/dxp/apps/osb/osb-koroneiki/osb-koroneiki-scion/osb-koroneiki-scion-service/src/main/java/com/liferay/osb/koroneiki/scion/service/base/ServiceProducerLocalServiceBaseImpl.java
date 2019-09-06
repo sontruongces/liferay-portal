@@ -47,7 +47,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -61,7 +60,6 @@ import org.osgi.service.component.annotations.Reference;
  * @see com.liferay.osb.koroneiki.scion.service.impl.ServiceProducerLocalServiceImpl
  * @generated
  */
-@ProviderType
 public abstract class ServiceProducerLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements ServiceProducerLocalService, AopService,

@@ -16,8 +16,6 @@ package com.liferay.osb.koroneiki.scion.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link ServiceProducerLocalService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see ServiceProducerLocalService
  * @generated
  */
-@ProviderType
 public class ServiceProducerLocalServiceWrapper
 	implements ServiceProducerLocalService,
 			   ServiceWrapper<ServiceProducerLocalService> {

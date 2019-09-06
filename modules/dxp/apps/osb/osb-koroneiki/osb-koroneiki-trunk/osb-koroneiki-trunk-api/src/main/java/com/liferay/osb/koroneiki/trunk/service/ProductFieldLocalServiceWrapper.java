@@ -16,8 +16,6 @@ package com.liferay.osb.koroneiki.trunk.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link ProductFieldLocalService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see ProductFieldLocalService
  * @generated
  */
-@ProviderType
 public class ProductFieldLocalServiceWrapper
 	implements ProductFieldLocalService,
 			   ServiceWrapper<ProductFieldLocalService> {
