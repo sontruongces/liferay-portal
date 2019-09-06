@@ -26,8 +26,6 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 import java.util.Objects;
@@ -94,14 +92,6 @@ public class ViewAccountsManagementToolbarDisplayContext
 			});
 	}
 
-	public String getKeywords() {
-		if (Validator.isNull(_keywords)) {
-			_keywords = ParamUtil.getString(request, "keywords");
-		}
-
-		return _keywords;
-	}
-
 	public List<NavigationItem> getNavigationItems() {
 		return NavigationItemList.of(
 			() -> {
@@ -113,47 +103,6 @@ public class ViewAccountsManagementToolbarDisplayContext
 
 				return navigationItem;
 			});
-	}
-
-	@Override
-	public String getOrderByCol() {
-		if (Validator.isNull(_orderByCol)) {
-			_orderByCol = ParamUtil.getString(request, "orderByCol", "name");
-		}
-
-		return _orderByCol;
-	}
-
-	@Override
-	public String getOrderByType() {
-		if (Validator.isNull(_orderByType)) {
-			_orderByType = ParamUtil.getString(request, "orderByType", "asc");
-		}
-
-		return _orderByType;
-	}
-
-	@Override
-	public PortletURL getPortletURL() {
-		PortletURL portletURL = liferayPortletResponse.createRenderURL();
-
-		if (Validator.isNotNull(getKeywords())) {
-			portletURL.setParameter("keywords", getKeywords());
-		}
-
-		portletURL.setParameter("orderByCol", getOrderByCol());
-		portletURL.setParameter("orderByType", getOrderByType());
-
-		if (searchContainer != null) {
-			portletURL.setParameter(
-				searchContainer.getCurParam(),
-				String.valueOf(searchContainer.getCur()));
-			portletURL.setParameter(
-				searchContainer.getDeltaParam(),
-				String.valueOf(searchContainer.getDelta()));
-		}
-
-		return portletURL;
 	}
 
 	@Override
@@ -169,14 +118,8 @@ public class ViewAccountsManagementToolbarDisplayContext
 	}
 
 	@Override
-	public String getSortingURL() {
-		PortletURL sortingURL = getPortletURL();
-
-		sortingURL.setParameter(
-			"orderByType",
-			Objects.equals(getOrderByType(), "asc") ? "desc" : "asc");
-
-		return sortingURL.toString();
+	public Boolean isSelectable() {
+		return false;
 	}
 
 	private List<DropdownItem> _getOrderByDropdownItems() {
@@ -200,9 +143,5 @@ public class ViewAccountsManagementToolbarDisplayContext
 				return dropdownItem;
 			});
 	}
-
-	private String _keywords;
-	private String _orderByCol;
-	private String _orderByType;
 
 }

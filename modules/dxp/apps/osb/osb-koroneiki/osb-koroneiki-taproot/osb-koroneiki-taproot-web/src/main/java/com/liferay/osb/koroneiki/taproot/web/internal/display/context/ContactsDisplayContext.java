@@ -16,23 +16,18 @@ package com.liferay.osb.koroneiki.taproot.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalServiceUtil;
-import com.liferay.osb.koroneiki.taproot.web.internal.search.ContactSearch;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -41,85 +36,27 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Amos Fong
  */
-public class ContactsDisplayContext {
+public class ContactsDisplayContext extends BaseSearchDisplayContext {
 
 	public ContactsDisplayContext(
 		RenderRequest renderRequest, RenderResponse renderResponse,
 		HttpServletRequest httpServletRequest) {
 
-		_renderRequest = renderRequest;
-		_renderResponse = renderResponse;
-		_httpServletRequest = httpServletRequest;
+		super(renderRequest, renderResponse, httpServletRequest);
 	}
 
-	public String getKeywords() {
-		if (Validator.isNull(_keywords)) {
-			_keywords = ParamUtil.getString(_httpServletRequest, "keywords");
-		}
-
-		return _keywords;
-	}
-
-	public String getOrderByCol() {
-		if (Validator.isNull(_orderByCol)) {
-			_orderByCol = ParamUtil.getString(
-				_httpServletRequest, "orderByCol", "name");
-		}
-
-		return _orderByCol;
-	}
-
-	public String getOrderByType() {
-		if (Validator.isNull(_orderByType)) {
-			_orderByType = ParamUtil.getString(
-				_httpServletRequest, "orderByType", "asc");
-		}
-
-		return _orderByType;
-	}
-
-	public PortletURL getPortletURL() {
-		PortletURL portletURL = _renderResponse.createRenderURL();
-
-		if (Validator.isNotNull(getKeywords())) {
-			portletURL.setParameter("keywords", getKeywords());
-		}
-
-		portletURL.setParameter("orderByCol", getOrderByCol());
-		portletURL.setParameter("orderByType", getOrderByType());
-
-		if (_contactSearch != null) {
-			portletURL.setParameter(
-				_contactSearch.getCurParam(),
-				String.valueOf(_contactSearch.getCur()));
-			portletURL.setParameter(
-				_contactSearch.getDeltaParam(),
-				String.valueOf(_contactSearch.getDelta()));
-		}
-
-		return portletURL;
-	}
-
-	public SearchContainer getSearchContainer() throws Exception {
-		if (_contactSearch != null) {
-			return _contactSearch;
-		}
-
-		ContactSearch contactSearch = new ContactSearch(
-			_renderRequest, getPortletURL());
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)_httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		String keywords = ParamUtil.getString(_httpServletRequest, "keywords");
+	@Override
+	protected SearchContainer createSearchContainer() throws Exception {
+		SearchContainer searchContainer = new SearchContainer(
+			renderRequest, getPortletURL(), Collections.emptyList(),
+			"no-contacts-were-found");
 
 		Sort sort = SortFactoryUtil.getSort(
 			Contact.class, Sort.STRING_TYPE, getOrderByCol(), getOrderByType());
 
 		Hits hits = ContactLocalServiceUtil.search(
-			themeDisplay.getCompanyId(), keywords, contactSearch.getStart(),
-			contactSearch.getEnd(), sort);
+			themeDisplay.getCompanyId(), getKeywords(),
+			searchContainer.getStart(), searchContainer.getEnd(), sort);
 
 		List<Contact> results = new ArrayList<>();
 
@@ -130,20 +67,10 @@ public class ContactsDisplayContext {
 			results.add(ContactLocalServiceUtil.getContact(contactId));
 		}
 
-		contactSearch.setResults(results);
-		contactSearch.setTotal(hits.getLength());
+		searchContainer.setResults(results);
+		searchContainer.setTotal(hits.getLength());
 
-		_contactSearch = contactSearch;
-
-		return _contactSearch;
+		return searchContainer;
 	}
-
-	private ContactSearch _contactSearch;
-	private final HttpServletRequest _httpServletRequest;
-	private String _keywords;
-	private String _orderByCol;
-	private String _orderByType;
-	private final RenderRequest _renderRequest;
-	private final RenderResponse _renderResponse;
 
 }
