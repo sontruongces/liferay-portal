@@ -19,6 +19,8 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -46,6 +48,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -56,34 +59,6 @@ import javax.ws.rs.core.UriInfo;
 @Generated("")
 @Path("/v1.0")
 public abstract class BaseTeamResourceImpl implements TeamResource {
-
-	@Override
-	@GET
-	@Operation(description = "Retrieves the team by the external link.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "domain"),
-			@Parameter(in = ParameterIn.PATH, name = "entityName"),
-			@Parameter(in = ParameterIn.PATH, name = "entityId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/teams/by-external-link/{domain}/{entityName}/{entityId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Team")})
-	public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
-			@NotNull @Parameter(hidden = true) @PathParam("domain") String
-				domain,
-			@NotNull @Parameter(hidden = true) @PathParam("entityName") String
-				entityName,
-			@NotNull @Parameter(hidden = true) @PathParam("entityId") String
-				entityId,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
 
 	@Override
 	@GET
@@ -123,6 +98,60 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 
 		return new Team();
+	}
+
+	@Override
+	@GET
+	@Operation(
+		description = "Retrieves the teams. Results can be paginated, filtered, searched, and sorted."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "search"),
+			@Parameter(in = ParameterIn.QUERY, name = "filter"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
+			@Parameter(in = ParameterIn.QUERY, name = "sort")
+		}
+	)
+	@Path("/teams")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Team")})
+	public Page<Team> getTeamsPage(
+			@Parameter(hidden = true) @QueryParam("search") String search,
+			@Context Filter filter, @Context Pagination pagination,
+			@Context Sort[] sorts)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@GET
+	@Operation(description = "Retrieves the team by the external link.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "domain"),
+			@Parameter(in = ParameterIn.PATH, name = "entityName"),
+			@Parameter(in = ParameterIn.PATH, name = "entityId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/teams/by-external-link/{domain}/{entityName}/{entityId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Team")})
+	public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
+			@NotNull @Parameter(hidden = true) @PathParam("domain") String
+				domain,
+			@NotNull @Parameter(hidden = true) @PathParam("entityName") String
+				entityName,
+			@NotNull @Parameter(hidden = true) @PathParam("entityId") String
+				entityId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
 	}
 
 	@Override

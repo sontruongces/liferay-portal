@@ -28,6 +28,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.TeamSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -50,6 +51,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -60,6 +63,7 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -184,6 +188,298 @@ public abstract class BaseTeamResourceTestCase {
 		Assert.assertEquals(regex, team.getAccountKey());
 		Assert.assertEquals(regex, team.getKey());
 		Assert.assertEquals(regex, team.getName());
+	}
+
+	@Test
+	public void testGetAccountAccountKeyTeamsPage() throws Exception {
+		Page<Team> page = teamResource.getAccountAccountKeyTeamsPage(
+			testGetAccountAccountKeyTeamsPage_getAccountKey(),
+			Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String accountKey = testGetAccountAccountKeyTeamsPage_getAccountKey();
+		String irrelevantAccountKey =
+			testGetAccountAccountKeyTeamsPage_getIrrelevantAccountKey();
+
+		if ((irrelevantAccountKey != null)) {
+			Team irrelevantTeam = testGetAccountAccountKeyTeamsPage_addTeam(
+				irrelevantAccountKey, randomIrrelevantTeam());
+
+			page = teamResource.getAccountAccountKeyTeamsPage(
+				irrelevantAccountKey, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantTeam), (List<Team>)page.getItems());
+			assertValid(page);
+		}
+
+		Team team1 = testGetAccountAccountKeyTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		Team team2 = testGetAccountAccountKeyTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		page = teamResource.getAccountAccountKeyTeamsPage(
+			accountKey, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(team1, team2), (List<Team>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetAccountAccountKeyTeamsPageWithPagination()
+		throws Exception {
+
+		String accountKey = testGetAccountAccountKeyTeamsPage_getAccountKey();
+
+		Team team1 = testGetAccountAccountKeyTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		Team team2 = testGetAccountAccountKeyTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		Team team3 = testGetAccountAccountKeyTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		Page<Team> page1 = teamResource.getAccountAccountKeyTeamsPage(
+			accountKey, Pagination.of(1, 2));
+
+		List<Team> teams1 = (List<Team>)page1.getItems();
+
+		Assert.assertEquals(teams1.toString(), 2, teams1.size());
+
+		Page<Team> page2 = teamResource.getAccountAccountKeyTeamsPage(
+			accountKey, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Team> teams2 = (List<Team>)page2.getItems();
+
+		Assert.assertEquals(teams2.toString(), 1, teams2.size());
+
+		Page<Team> page3 = teamResource.getAccountAccountKeyTeamsPage(
+			accountKey, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(team1, team2, team3), (List<Team>)page3.getItems());
+	}
+
+	protected Team testGetAccountAccountKeyTeamsPage_addTeam(
+			String accountKey, Team team)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetAccountAccountKeyTeamsPage_getAccountKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetAccountAccountKeyTeamsPage_getIrrelevantAccountKey()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testPostAccountAccountKeyTeam() throws Exception {
+		Team randomTeam = randomTeam();
+
+		Team postTeam = testPostAccountAccountKeyTeam_addTeam(randomTeam);
+
+		assertEquals(randomTeam, postTeam);
+		assertValid(postTeam);
+	}
+
+	protected Team testPostAccountAccountKeyTeam_addTeam(Team team)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGetTeamsPage() throws Exception {
+		Page<Team> page = teamResource.getTeamsPage(
+			RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		Team team1 = testGetTeamsPage_addTeam(randomTeam());
+
+		Team team2 = testGetTeamsPage_addTeam(randomTeam());
+
+		page = teamResource.getTeamsPage(null, null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(team1, team2), (List<Team>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetTeamsPageWithFilterDateTimeEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Team team1 = randomTeam();
+
+		team1 = testGetTeamsPage_addTeam(team1);
+
+		for (EntityField entityField : entityFields) {
+			Page<Team> page = teamResource.getTeamsPage(
+				null, getFilterString(entityField, "between", team1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(team1), (List<Team>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetTeamsPageWithFilterStringEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Team team1 = testGetTeamsPage_addTeam(randomTeam());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Team team2 = testGetTeamsPage_addTeam(randomTeam());
+
+		for (EntityField entityField : entityFields) {
+			Page<Team> page = teamResource.getTeamsPage(
+				null, getFilterString(entityField, "eq", team1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(team1), (List<Team>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetTeamsPageWithPagination() throws Exception {
+		Team team1 = testGetTeamsPage_addTeam(randomTeam());
+
+		Team team2 = testGetTeamsPage_addTeam(randomTeam());
+
+		Team team3 = testGetTeamsPage_addTeam(randomTeam());
+
+		Page<Team> page1 = teamResource.getTeamsPage(
+			null, null, Pagination.of(1, 2), null);
+
+		List<Team> teams1 = (List<Team>)page1.getItems();
+
+		Assert.assertEquals(teams1.toString(), 2, teams1.size());
+
+		Page<Team> page2 = teamResource.getTeamsPage(
+			null, null, Pagination.of(2, 2), null);
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Team> teams2 = (List<Team>)page2.getItems();
+
+		Assert.assertEquals(teams2.toString(), 1, teams2.size());
+
+		Page<Team> page3 = teamResource.getTeamsPage(
+			null, null, Pagination.of(1, 3), null);
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(team1, team2, team3), (List<Team>)page3.getItems());
+	}
+
+	@Test
+	public void testGetTeamsPageWithSortDateTime() throws Exception {
+		testGetTeamsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, team1, team2) -> {
+				BeanUtils.setProperty(
+					team1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetTeamsPageWithSortInteger() throws Exception {
+		testGetTeamsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, team1, team2) -> {
+				BeanUtils.setProperty(team1, entityField.getName(), 0);
+				BeanUtils.setProperty(team2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetTeamsPageWithSortString() throws Exception {
+		testGetTeamsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, team1, team2) -> {
+				BeanUtils.setProperty(team1, entityField.getName(), "Aaa");
+				BeanUtils.setProperty(team2, entityField.getName(), "Bbb");
+			});
+	}
+
+	protected void testGetTeamsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, Team, Team, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Team team1 = randomTeam();
+		Team team2 = randomTeam();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, team1, team2);
+		}
+
+		team1 = testGetTeamsPage_addTeam(team1);
+
+		team2 = testGetTeamsPage_addTeam(team2);
+
+		for (EntityField entityField : entityFields) {
+			Page<Team> ascPage = teamResource.getTeamsPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(team1, team2), (List<Team>)ascPage.getItems());
+
+			Page<Team> descPage = teamResource.getTeamsPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(team2, team1), (List<Team>)descPage.getItems());
+		}
+	}
+
+	protected Team testGetTeamsPage_addTeam(Team team) throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -343,124 +639,6 @@ public abstract class BaseTeamResourceTestCase {
 		throws Exception {
 
 		return null;
-	}
-
-	@Test
-	public void testGetAccountAccountKeyTeamsPage() throws Exception {
-		Page<Team> page = teamResource.getAccountAccountKeyTeamsPage(
-			testGetAccountAccountKeyTeamsPage_getAccountKey(),
-			Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
-		String accountKey = testGetAccountAccountKeyTeamsPage_getAccountKey();
-		String irrelevantAccountKey =
-			testGetAccountAccountKeyTeamsPage_getIrrelevantAccountKey();
-
-		if ((irrelevantAccountKey != null)) {
-			Team irrelevantTeam = testGetAccountAccountKeyTeamsPage_addTeam(
-				irrelevantAccountKey, randomIrrelevantTeam());
-
-			page = teamResource.getAccountAccountKeyTeamsPage(
-				irrelevantAccountKey, Pagination.of(1, 2));
-
-			Assert.assertEquals(1, page.getTotalCount());
-
-			assertEquals(
-				Arrays.asList(irrelevantTeam), (List<Team>)page.getItems());
-			assertValid(page);
-		}
-
-		Team team1 = testGetAccountAccountKeyTeamsPage_addTeam(
-			accountKey, randomTeam());
-
-		Team team2 = testGetAccountAccountKeyTeamsPage_addTeam(
-			accountKey, randomTeam());
-
-		page = teamResource.getAccountAccountKeyTeamsPage(
-			accountKey, Pagination.of(1, 2));
-
-		Assert.assertEquals(2, page.getTotalCount());
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(team1, team2), (List<Team>)page.getItems());
-		assertValid(page);
-	}
-
-	@Test
-	public void testGetAccountAccountKeyTeamsPageWithPagination()
-		throws Exception {
-
-		String accountKey = testGetAccountAccountKeyTeamsPage_getAccountKey();
-
-		Team team1 = testGetAccountAccountKeyTeamsPage_addTeam(
-			accountKey, randomTeam());
-
-		Team team2 = testGetAccountAccountKeyTeamsPage_addTeam(
-			accountKey, randomTeam());
-
-		Team team3 = testGetAccountAccountKeyTeamsPage_addTeam(
-			accountKey, randomTeam());
-
-		Page<Team> page1 = teamResource.getAccountAccountKeyTeamsPage(
-			accountKey, Pagination.of(1, 2));
-
-		List<Team> teams1 = (List<Team>)page1.getItems();
-
-		Assert.assertEquals(teams1.toString(), 2, teams1.size());
-
-		Page<Team> page2 = teamResource.getAccountAccountKeyTeamsPage(
-			accountKey, Pagination.of(2, 2));
-
-		Assert.assertEquals(3, page2.getTotalCount());
-
-		List<Team> teams2 = (List<Team>)page2.getItems();
-
-		Assert.assertEquals(teams2.toString(), 1, teams2.size());
-
-		Page<Team> page3 = teamResource.getAccountAccountKeyTeamsPage(
-			accountKey, Pagination.of(1, 3));
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(team1, team2, team3), (List<Team>)page3.getItems());
-	}
-
-	protected Team testGetAccountAccountKeyTeamsPage_addTeam(
-			String accountKey, Team team)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String testGetAccountAccountKeyTeamsPage_getAccountKey()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String testGetAccountAccountKeyTeamsPage_getIrrelevantAccountKey()
-		throws Exception {
-
-		return null;
-	}
-
-	@Test
-	public void testPostAccountAccountKeyTeam() throws Exception {
-		Team randomTeam = randomTeam();
-
-		Team postTeam = testPostAccountAccountKeyTeam_addTeam(randomTeam);
-
-		assertEquals(randomTeam, postTeam);
-		assertValid(postTeam);
-	}
-
-	protected Team testPostAccountAccountKeyTeam_addTeam(Team team)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
 	}
 
 	@Test

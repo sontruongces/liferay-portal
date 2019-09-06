@@ -37,17 +37,6 @@ public interface TeamResource {
 		return new Builder();
 	}
 
-	public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
-			String domain, String entityName, String entityId,
-			Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getTeamByExternalLinkDomainEntityNameEntityHttpResponse(
-				String domain, String entityName, String entityId,
-				Pagination pagination)
-		throws Exception;
-
 	public Page<Team> getAccountAccountKeyTeamsPage(
 			String accountKey, Pagination pagination)
 		throws Exception;
@@ -61,6 +50,27 @@ public interface TeamResource {
 
 	public HttpInvoker.HttpResponse postAccountAccountKeyTeamHttpResponse(
 			String accountKey, Team team)
+		throws Exception;
+
+	public Page<Team> getTeamsPage(
+			String search, String filterString, Pagination pagination,
+			String sortString)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getTeamsPageHttpResponse(
+			String search, String filterString, Pagination pagination,
+			String sortString)
+		throws Exception;
+
+	public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getTeamByExternalLinkDomainEntityNameEntityHttpResponse(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
 		throws Exception;
 
 	public void deleteTeam(String teamKey) throws Exception;
@@ -119,60 +129,6 @@ public interface TeamResource {
 	}
 
 	public static class TeamResourceImpl implements TeamResource {
-
-		public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
-				String domain, String entityName, String entityId,
-				Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getTeamByExternalLinkDomainEntityNameEntityHttpResponse(
-					domain, entityName, entityId, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			return Page.of(content, TeamSerDes::toDTO);
-		}
-
-		public HttpInvoker.HttpResponse
-				getTeamByExternalLinkDomainEntityNameEntityHttpResponse(
-					String domain, String entityName, String entityId,
-					Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/teams/by-external-link/{domain}/{entityName}/{entityId}",
-				domain, entityName, entityId);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
 
 		public Page<Team> getAccountAccountKeyTeamsPage(
 				String accountKey, Pagination pagination)
@@ -272,6 +228,122 @@ public interface TeamResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams",
 				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Team> getTeamsPage(
+				String search, String filterString, Pagination pagination,
+				String sortString)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = getTeamsPageHttpResponse(
+				search, filterString, pagination, sortString);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, TeamSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse getTeamsPageHttpResponse(
+				String search, String filterString, Pagination pagination,
+				String sortString)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
+			}
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port + "/o/koroneiki-rest/v1.0/teams");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getTeamByExternalLinkDomainEntityNameEntityHttpResponse(
+					domain, entityName, entityId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, TeamSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getTeamByExternalLinkDomainEntityNameEntityHttpResponse(
+					String domain, String entityName, String entityId,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/by-external-link/{domain}/{entityName}/{entityId}",
+				domain, entityName, entityId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

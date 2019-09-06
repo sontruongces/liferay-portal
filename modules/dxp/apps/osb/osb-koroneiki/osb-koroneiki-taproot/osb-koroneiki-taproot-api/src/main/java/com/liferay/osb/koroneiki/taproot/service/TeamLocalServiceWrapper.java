@@ -344,6 +344,22 @@ public class TeamLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Team reindex(long teamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamLocalService.reindex(teamId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.search.Hits search(
+			long companyId, String keywords, int start, int end,
+			com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamLocalService.search(companyId, keywords, start, end, sort);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Team updateTeam(
 			long teamId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
