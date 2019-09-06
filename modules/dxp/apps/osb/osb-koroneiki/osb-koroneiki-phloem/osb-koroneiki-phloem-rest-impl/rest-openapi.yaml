@@ -2534,6 +2534,46 @@ paths:
                                 type: array
                     description: ""
             tags: ["AuditEntry"]
+    "/teams":
+        get:
+            description: Retrieves the teams. Results can be paginated, filtered, searched, and sorted.
+            operationId: getTeamsPage
+            parameters:
+                - in: query
+                  name: filter
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Team"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Team"
+                                type: array
+                    description: ""
+            tags: ["Team"]
     "/teams/by-external-link/{domain}/{entityName}/{entityId}":
         get:
             description: Retrieves the team by the external link.
