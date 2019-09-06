@@ -53,6 +53,9 @@ public class ContactRoleFinderImpl
 	public static final String JOIN_BY_ACCOUNT_CONTACT =
 		ContactRoleFinder.class.getName() + ".joinByAccountContact";
 
+	public static final String JOIN_BY_CONTACT =
+		ContactRoleFinder.class.getName() + ".joinByContact";
+
 	public static final String JOIN_BY_TEAM_CONTACT =
 		ContactRoleFinder.class.getName() + ".joinByTeamContact";
 
@@ -157,6 +160,9 @@ public class ContactRoleFinderImpl
 		if (key.equals("accountContact")) {
 			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT_CONTACT);
 		}
+		else if (key.equals("contact")) {
+			join = _customSQL.get(getClass(), JOIN_BY_CONTACT);
+		}
 		else if (key.equals("teamContact")) {
 			join = _customSQL.get(getClass(), JOIN_BY_TEAM_CONTACT);
 		}
@@ -193,6 +199,9 @@ public class ContactRoleFinderImpl
 
 		if (key.equals("accountContact")) {
 			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT_CONTACT);
+		}
+		else if (key.equals("contact")) {
+			join = _customSQL.get(getClass(), JOIN_BY_CONTACT);
 		}
 		else if (key.equals("teamContact")) {
 			join = _customSQL.get(getClass(), JOIN_BY_TEAM_CONTACT);

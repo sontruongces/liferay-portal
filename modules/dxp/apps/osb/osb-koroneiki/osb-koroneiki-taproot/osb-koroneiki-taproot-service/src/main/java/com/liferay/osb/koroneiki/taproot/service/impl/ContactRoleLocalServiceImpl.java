@@ -180,6 +180,16 @@ public class ContactRoleLocalServiceImpl
 		return contactRoleFinder.countByName(null, params);
 	}
 
+	public List<ContactRole> getContactContactRoles(
+		long contactId, int start, int end) {
+
+		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+		params.put("contact", new Long[] {contactId, contactId});
+
+		return contactRoleFinder.findByName(null, params, start, end);
+	}
+
 	public ContactRole getContactRole(String contactRoleKey)
 		throws PortalException {
 

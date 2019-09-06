@@ -201,6 +201,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 			Map<String, Serializable> attributes = new HashMap<>();
 
+			attributes.put("contactRoleKeys", keywords);
 			attributes.put("emailAddress", keywords);
 			attributes.put("externalLinkEntityIds", keywords);
 			attributes.put("firstName", keywords);

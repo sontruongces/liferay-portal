@@ -17,6 +17,8 @@ package com.liferay.osb.koroneiki.taproot.internal.search.spi.model.index.contri
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -73,7 +75,25 @@ public class ContactModelDocumentContributor
 		document.addTextSortable("firstName", contact.getFirstName());
 		document.addTextSortable("lastName", contact.getLastName());
 
+		_contributeContactRoles(document, contact.getContactId());
 		_contributeExternalLinks(document, contact.getContactId());
+	}
+
+	private void _contributeContactRoles(Document document, long contactId)
+		throws PortalException {
+
+		Set<String> contactRoleKeys = new HashSet<>();
+
+		List<ContactRole> contactRoles =
+			_contactRoleLocalService.getContactContactRoles(
+				contactId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		for (ContactRole contactRole : contactRoles) {
+			contactRoleKeys.add(contactRole.getContactRoleKey());
+		}
+
+		document.addKeyword(
+			"contactRoleKeys", ArrayUtil.toStringArray(contactRoles.toArray()));
 	}
 
 	private void _contributeExternalLinks(Document document, long contactId)
@@ -107,6 +127,9 @@ public class ContactModelDocumentContributor
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ContactModelDocumentContributor.class);
+
+	@Reference
+	private ContactRoleLocalService _contactRoleLocalService;
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;

@@ -101,6 +101,17 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 			accountId, contactId);
 	}
 
+	public List<ContactRole> getContactContactRoles(
+			long contactId, int start, int end)
+		throws PortalException {
+
+		_contactPermission.check(
+			getPermissionChecker(), contactId, ActionKeys.VIEW);
+
+		return contactRoleLocalService.getContactContactRoles(
+			contactId, start, end);
+	}
+
 	public ContactRole getContactRole(long contactRoleId)
 		throws PortalException {
 

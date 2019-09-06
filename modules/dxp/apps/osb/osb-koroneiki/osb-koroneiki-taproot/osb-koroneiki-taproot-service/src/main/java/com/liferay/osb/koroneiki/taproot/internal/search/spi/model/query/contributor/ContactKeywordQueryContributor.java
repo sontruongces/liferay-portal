@@ -42,6 +42,8 @@ public class ContactKeywordQueryContributor implements KeywordQueryContributor {
 			keywordQueryContributorHelper.getSearchContext();
 
 		queryHelper.addSearchTerm(
+			booleanQuery, searchContext, "contactRoleKeys", false);
+		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "emailAddress", false);
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "externalLinkEntityIds", false);

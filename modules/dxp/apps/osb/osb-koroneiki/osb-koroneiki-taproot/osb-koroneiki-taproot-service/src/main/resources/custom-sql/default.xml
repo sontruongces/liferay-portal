@@ -117,6 +117,19 @@
 				(Koroneiki_ContactAccountRole.contactId = ?)
 		]]>
 	</sql>
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactRoleFinder.joinByContact">
+		<![CDATA[
+			LEFT JOIN
+				Koroneiki_ContactAccountRole ON
+					Koroneiki_ContactAccountRole.contactRoleId = Koroneiki_ContactRole.contactRoleId
+			LEFT JOIN
+				Koroneiki_ContactTeamRole ON
+					Koroneiki_ContactTeamRole.contactRoleId = Koroneiki_ContactRole.contactRoleId
+			WHERE
+				(Koroneiki_ContactAccountRole.contactId = ?) OR
+				(Koroneiki_ContactTeamRole.contactId = ?)
+		]]>
+	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactRoleFinder.joinByTeamContact">
 		<![CDATA[
 			INNER JOIN

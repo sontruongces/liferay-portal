@@ -34,6 +34,9 @@ public class ContactEntityModel implements EntityModel {
 
 	public ContactEntityModel() {
 		_entityFieldsMap = Stream.of(
+			new CollectionEntityField(
+				new StringEntityField(
+					"contactRoleKeys", locale -> "contactRoleKeys")),
 			new EntityField(
 				"emailAddress", EntityField.Type.STRING,
 				locale -> Field.getSortableFieldName("emailAddress_String"),
