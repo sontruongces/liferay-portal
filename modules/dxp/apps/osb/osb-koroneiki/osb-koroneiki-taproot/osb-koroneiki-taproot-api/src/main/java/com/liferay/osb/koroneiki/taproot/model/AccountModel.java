@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface AccountModel
 	extends BaseModel<Account>, ShardedModel, StagedModel, WorkflowedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a account model instance should use the {@link Account} interface instead.

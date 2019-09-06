@@ -81,7 +81,7 @@ public abstract class ContactRoleLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements ContactRoleLocalService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ContactRoleLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalServiceUtil</code>.

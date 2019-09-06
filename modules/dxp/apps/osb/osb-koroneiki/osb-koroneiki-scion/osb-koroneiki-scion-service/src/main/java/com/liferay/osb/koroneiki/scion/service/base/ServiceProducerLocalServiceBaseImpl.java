@@ -65,7 +65,7 @@ public abstract class ServiceProducerLocalServiceBaseImpl
 	implements ServiceProducerLocalService, AopService,
 			   IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ServiceProducerLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.scion.service.ServiceProducerLocalServiceUtil</code>.

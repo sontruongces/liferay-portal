@@ -32,6 +32,11 @@ public class TeamRoleLocalServiceWrapper
 		_teamRoleLocalService = teamRoleLocalService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TeamRoleLocalServiceUtil} to access the team role local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamRoleLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.TeamRole addTeamRole(
 			long userId, String name, String description, int type)

@@ -79,7 +79,7 @@ import org.osgi.service.component.annotations.Reference;
 public class TeamRolePersistenceImpl
 	extends BasePersistenceImpl<TeamRole> implements TeamRolePersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TeamRoleUtil</code> to access the team role persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

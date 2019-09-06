@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ProductConsumption
 	extends PersistedModel, ProductConsumptionModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.osb.koroneiki.trunk.model.impl.ProductConsumptionImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

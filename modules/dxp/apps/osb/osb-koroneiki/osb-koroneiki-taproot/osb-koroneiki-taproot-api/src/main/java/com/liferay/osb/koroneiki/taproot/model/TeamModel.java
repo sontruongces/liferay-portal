@@ -37,7 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TeamModel extends BaseModel<Team>, ShardedModel, StagedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a team model instance should use the {@link Team} interface instead.

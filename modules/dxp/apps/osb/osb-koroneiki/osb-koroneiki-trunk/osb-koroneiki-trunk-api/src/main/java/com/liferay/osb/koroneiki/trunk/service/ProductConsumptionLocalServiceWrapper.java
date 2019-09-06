@@ -33,6 +33,11 @@ public class ProductConsumptionLocalServiceWrapper
 		_productConsumptionLocalService = productConsumptionLocalService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link ProductConsumptionLocalServiceUtil} to access the product consumption local service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductConsumptionLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(

@@ -33,7 +33,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ContactAccountRoleModel extends BaseModel<ContactAccountRole> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a contact account role model instance should use the {@link ContactAccountRole} interface instead.

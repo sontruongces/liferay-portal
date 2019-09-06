@@ -77,7 +77,7 @@ public abstract class ContactTeamRoleLocalServiceBaseImpl
 	implements ContactTeamRoleLocalService, AopService,
 			   IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ContactTeamRoleLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleLocalServiceUtil</code>.

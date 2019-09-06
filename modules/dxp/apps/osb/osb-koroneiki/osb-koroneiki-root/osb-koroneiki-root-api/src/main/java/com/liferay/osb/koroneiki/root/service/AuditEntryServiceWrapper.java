@@ -30,6 +30,11 @@ public class AuditEntryServiceWrapper
 		_auditEntryService = auditEntryService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link AuditEntryServiceUtil} to access the audit entry remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.root.service.impl.AuditEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.root.model.AuditEntry>
 			getAuditEntries(long classNameId, long classPK, int start, int end)

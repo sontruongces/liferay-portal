@@ -70,7 +70,7 @@ public class TeamAccountRolePersistenceImpl
 	extends BasePersistenceImpl<TeamAccountRole>
 	implements TeamAccountRolePersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TeamAccountRoleUtil</code> to access the team account role persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

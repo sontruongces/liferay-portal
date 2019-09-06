@@ -32,7 +32,7 @@ import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 public abstract class ExternalLinkBaseImpl
 	extends ExternalLinkModelImpl implements ExternalLink {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a external link model instance should use the <code>ExternalLink</code> interface instead.

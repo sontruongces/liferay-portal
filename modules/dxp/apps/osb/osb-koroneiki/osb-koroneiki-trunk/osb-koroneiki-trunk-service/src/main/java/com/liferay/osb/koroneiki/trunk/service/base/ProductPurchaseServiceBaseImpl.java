@@ -49,7 +49,7 @@ public abstract class ProductPurchaseServiceBaseImpl
 	extends BaseServiceImpl
 	implements ProductPurchaseService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ProductPurchaseService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.trunk.service.ProductPurchaseServiceUtil</code>.

@@ -79,7 +79,7 @@ public class ProductConsumptionPersistenceImpl
 	extends BasePersistenceImpl<ProductConsumption>
 	implements ProductConsumptionPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ProductConsumptionUtil</code> to access the product consumption persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

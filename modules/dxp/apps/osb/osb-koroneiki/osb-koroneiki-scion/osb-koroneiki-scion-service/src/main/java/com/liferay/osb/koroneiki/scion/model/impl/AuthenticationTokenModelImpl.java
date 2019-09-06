@@ -65,7 +65,7 @@ public class AuthenticationTokenModelImpl
 	extends BaseModelImpl<AuthenticationToken>
 	implements AuthenticationTokenModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a authentication token model instance should use the <code>AuthenticationToken</code> interface instead.

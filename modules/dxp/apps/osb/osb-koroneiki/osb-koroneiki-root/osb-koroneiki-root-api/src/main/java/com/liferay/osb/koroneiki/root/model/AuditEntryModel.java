@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface AuditEntryModel
 	extends AttachedModel, AuditedModel, BaseModel<AuditEntry>, ShardedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a audit entry model instance should use the {@link AuditEntry} interface instead.

@@ -58,7 +58,7 @@ public class ContactAccountRoleModelImpl
 	extends BaseModelImpl<ContactAccountRole>
 	implements ContactAccountRoleModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a contact account role model instance should use the <code>ContactAccountRole</code> interface instead.

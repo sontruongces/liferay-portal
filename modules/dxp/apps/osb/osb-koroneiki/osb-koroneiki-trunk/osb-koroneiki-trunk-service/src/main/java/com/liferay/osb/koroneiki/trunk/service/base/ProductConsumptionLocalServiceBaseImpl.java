@@ -73,7 +73,7 @@ public abstract class ProductConsumptionLocalServiceBaseImpl
 	implements ProductConsumptionLocalService, AopService,
 			   IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ProductConsumptionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalServiceUtil</code>.

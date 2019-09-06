@@ -63,7 +63,7 @@ import java.util.function.Function;
 public class ServiceProducerModelImpl
 	extends BaseModelImpl<ServiceProducer> implements ServiceProducerModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a service producer model instance should use the <code>ServiceProducer</code> interface instead.

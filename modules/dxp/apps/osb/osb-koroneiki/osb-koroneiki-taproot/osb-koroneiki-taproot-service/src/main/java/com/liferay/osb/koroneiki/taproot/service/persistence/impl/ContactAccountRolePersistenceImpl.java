@@ -70,7 +70,7 @@ public class ContactAccountRolePersistenceImpl
 	extends BasePersistenceImpl<ContactAccountRole>
 	implements ContactAccountRolePersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ContactAccountRoleUtil</code> to access the contact account role persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

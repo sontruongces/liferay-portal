@@ -33,7 +33,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TeamAccountRoleModel extends BaseModel<TeamAccountRole> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a team account role model instance should use the {@link TeamAccountRole} interface instead.

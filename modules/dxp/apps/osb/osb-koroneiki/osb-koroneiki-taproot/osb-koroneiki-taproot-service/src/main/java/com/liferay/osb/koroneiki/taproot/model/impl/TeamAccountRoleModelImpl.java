@@ -57,7 +57,7 @@ import java.util.function.Function;
 public class TeamAccountRoleModelImpl
 	extends BaseModelImpl<TeamAccountRole> implements TeamAccountRoleModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a team account role model instance should use the <code>TeamAccountRole</code> interface instead.

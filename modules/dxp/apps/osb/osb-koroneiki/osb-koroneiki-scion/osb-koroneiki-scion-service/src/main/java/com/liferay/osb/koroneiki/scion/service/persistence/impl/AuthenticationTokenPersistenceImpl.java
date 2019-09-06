@@ -75,7 +75,7 @@ public class AuthenticationTokenPersistenceImpl
 	extends BasePersistenceImpl<AuthenticationToken>
 	implements AuthenticationTokenPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>AuthenticationTokenUtil</code> to access the authentication token persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

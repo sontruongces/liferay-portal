@@ -38,7 +38,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ProductConsumptionModel
 	extends BaseModel<ProductConsumption>, ShardedModel, StagedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a product consumption model instance should use the {@link ProductConsumption} interface instead.

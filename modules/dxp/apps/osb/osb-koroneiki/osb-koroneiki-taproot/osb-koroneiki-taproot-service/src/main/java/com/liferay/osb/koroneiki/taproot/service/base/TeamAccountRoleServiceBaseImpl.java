@@ -58,7 +58,7 @@ public abstract class TeamAccountRoleServiceBaseImpl
 	extends BaseServiceImpl
 	implements TeamAccountRoleService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TeamAccountRoleService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleServiceUtil</code>.

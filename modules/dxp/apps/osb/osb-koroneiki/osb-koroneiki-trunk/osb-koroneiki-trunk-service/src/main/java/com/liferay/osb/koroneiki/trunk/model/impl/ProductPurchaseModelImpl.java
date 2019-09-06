@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class ProductPurchaseModelImpl
 	extends BaseModelImpl<ProductPurchase> implements ProductPurchaseModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a product purchase model instance should use the <code>ProductPurchase</code> interface instead.

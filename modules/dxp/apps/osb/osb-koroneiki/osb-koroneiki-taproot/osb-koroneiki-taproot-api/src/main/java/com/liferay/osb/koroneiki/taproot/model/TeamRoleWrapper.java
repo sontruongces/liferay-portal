@@ -245,6 +245,11 @@ public class TeamRoleWrapper
 		return model.getUuid();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a team role model instance should use the <code>TeamRole</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

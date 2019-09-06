@@ -63,7 +63,7 @@ import java.util.function.Function;
 public class ExternalLinkModelImpl
 	extends BaseModelImpl<ExternalLink> implements ExternalLinkModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a external link model instance should use the <code>ExternalLink</code> interface instead.

@@ -71,7 +71,7 @@ import org.osgi.service.component.annotations.Reference;
 public class AuditEntryPersistenceImpl
 	extends BasePersistenceImpl<AuditEntry> implements AuditEntryPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>AuditEntryUtil</code> to access the audit entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

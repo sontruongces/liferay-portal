@@ -81,7 +81,7 @@ public abstract class TeamRoleLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements TeamRoleLocalService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TeamRoleLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalServiceUtil</code>.

@@ -65,7 +65,7 @@ public abstract class AuthenticationTokenLocalServiceBaseImpl
 	implements AuthenticationTokenLocalService, AopService,
 			   IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AuthenticationTokenLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.scion.service.AuthenticationTokenLocalServiceUtil</code>.

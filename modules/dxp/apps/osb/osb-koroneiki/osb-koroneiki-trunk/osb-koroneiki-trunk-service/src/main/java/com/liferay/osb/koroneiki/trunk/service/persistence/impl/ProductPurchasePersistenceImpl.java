@@ -79,7 +79,7 @@ public class ProductPurchasePersistenceImpl
 	extends BasePersistenceImpl<ProductPurchase>
 	implements ProductPurchasePersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ProductPurchaseUtil</code> to access the product purchase persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

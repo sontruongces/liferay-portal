@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class AuditEntryModelImpl
 	extends BaseModelImpl<AuditEntry> implements AuditEntryModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a audit entry model instance should use the <code>AuditEntry</code> interface instead.

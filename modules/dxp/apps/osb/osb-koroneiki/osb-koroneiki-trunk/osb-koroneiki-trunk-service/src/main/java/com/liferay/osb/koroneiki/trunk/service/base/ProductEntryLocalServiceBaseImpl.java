@@ -72,7 +72,7 @@ public abstract class ProductEntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements ProductEntryLocalService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ProductEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalServiceUtil</code>.

@@ -57,7 +57,7 @@ import java.util.function.Function;
 public class ContactTeamRoleModelImpl
 	extends BaseModelImpl<ContactTeamRole> implements ContactTeamRoleModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a contact team role model instance should use the <code>ContactTeamRole</code> interface instead.

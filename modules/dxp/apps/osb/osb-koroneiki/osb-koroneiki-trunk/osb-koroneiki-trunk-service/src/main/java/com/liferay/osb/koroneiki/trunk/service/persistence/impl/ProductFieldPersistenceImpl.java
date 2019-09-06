@@ -68,7 +68,7 @@ public class ProductFieldPersistenceImpl
 	extends BasePersistenceImpl<ProductField>
 	implements ProductFieldPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ProductFieldUtil</code> to access the product field persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

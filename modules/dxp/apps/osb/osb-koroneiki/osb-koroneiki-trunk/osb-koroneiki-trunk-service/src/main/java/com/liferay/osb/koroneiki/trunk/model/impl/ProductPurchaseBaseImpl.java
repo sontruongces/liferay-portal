@@ -32,7 +32,7 @@ import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalServiceUtil;
 public abstract class ProductPurchaseBaseImpl
 	extends ProductPurchaseModelImpl implements ProductPurchase {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a product purchase model instance should use the <code>ProductPurchase</code> interface instead.

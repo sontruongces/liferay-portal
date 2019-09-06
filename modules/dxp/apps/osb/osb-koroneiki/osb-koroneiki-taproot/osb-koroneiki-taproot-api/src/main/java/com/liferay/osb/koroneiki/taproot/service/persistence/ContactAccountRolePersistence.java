@@ -37,7 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ContactAccountRolePersistence
 	extends BasePersistence<ContactAccountRole> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ContactAccountRoleUtil} to access the contact account role persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

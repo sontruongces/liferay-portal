@@ -77,7 +77,7 @@ public abstract class ContactAccountRoleLocalServiceBaseImpl
 	implements ContactAccountRoleLocalService, AopService,
 			   IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ContactAccountRoleLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleLocalServiceUtil</code>.

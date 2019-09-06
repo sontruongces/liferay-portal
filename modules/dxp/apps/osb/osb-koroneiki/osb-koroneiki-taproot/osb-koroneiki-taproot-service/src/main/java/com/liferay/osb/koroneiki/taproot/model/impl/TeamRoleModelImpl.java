@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class TeamRoleModelImpl
 	extends BaseModelImpl<TeamRole> implements TeamRoleModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a team role model instance should use the <code>TeamRole</code> interface instead.

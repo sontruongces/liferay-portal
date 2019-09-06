@@ -64,7 +64,7 @@ public abstract class ExternalLinkLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements ExternalLinkLocalService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ExternalLinkLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil</code>.

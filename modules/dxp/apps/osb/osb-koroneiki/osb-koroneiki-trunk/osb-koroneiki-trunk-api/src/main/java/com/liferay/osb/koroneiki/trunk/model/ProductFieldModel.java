@@ -36,7 +36,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ProductFieldModel
 	extends AttachedModel, BaseModel<ProductField>, ShardedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a product field model instance should use the {@link ProductField} interface instead.

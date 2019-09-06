@@ -32,7 +32,7 @@ import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalServiceUtil
 public abstract class TeamAccountRoleBaseImpl
 	extends TeamAccountRoleModelImpl implements TeamAccountRole {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a team account role model instance should use the <code>TeamAccountRole</code> interface instead.

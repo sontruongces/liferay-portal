@@ -59,7 +59,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ProductPurchaseLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ProductPurchaseLocalServiceUtil} to access the product purchase local service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductPurchaseLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

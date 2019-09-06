@@ -55,7 +55,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ExternalLinkLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ExternalLinkLocalServiceUtil} to access the external link local service. Add custom service methods to <code>com.liferay.osb.koroneiki.root.service.impl.ExternalLinkLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

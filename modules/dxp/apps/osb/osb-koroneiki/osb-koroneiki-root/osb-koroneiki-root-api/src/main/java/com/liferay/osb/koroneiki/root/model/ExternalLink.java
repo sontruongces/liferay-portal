@@ -33,7 +33,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ExternalLink extends ExternalLinkModel, PersistedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.osb.koroneiki.root.model.impl.ExternalLinkImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

@@ -75,7 +75,7 @@ public class ServiceProducerPersistenceImpl
 	extends BasePersistenceImpl<ServiceProducer>
 	implements ServiceProducerPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ServiceProducerUtil</code> to access the service producer persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

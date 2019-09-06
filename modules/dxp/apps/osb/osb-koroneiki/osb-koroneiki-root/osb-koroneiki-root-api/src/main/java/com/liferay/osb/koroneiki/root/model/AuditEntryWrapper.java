@@ -402,6 +402,11 @@ public class AuditEntryWrapper
 		return model.getUserUuid();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a audit entry model instance should use the <code>AuditEntry</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

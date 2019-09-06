@@ -33,6 +33,11 @@ public class ServiceProducerLocalServiceWrapper
 		_serviceProducerLocalService = serviceProducerLocalService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link ServiceProducerLocalServiceUtil} to access the service producer local service. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.ServiceProducerLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.osb.koroneiki.scion.model.ServiceProducer
 			addServiceProducer(long userId, String name, String description)

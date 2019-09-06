@@ -79,7 +79,7 @@ import org.osgi.service.component.annotations.Reference;
 public class ContactRolePersistenceImpl
 	extends BasePersistenceImpl<ContactRole> implements ContactRolePersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ContactRoleUtil</code> to access the contact role persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
