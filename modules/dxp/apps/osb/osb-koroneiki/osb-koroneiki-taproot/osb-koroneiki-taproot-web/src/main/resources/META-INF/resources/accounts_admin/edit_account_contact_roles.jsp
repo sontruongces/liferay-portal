@@ -70,7 +70,7 @@ renderResponse.setTitle(koroneikiAccount.getName());
 					<aui:icon cssClass="icon-monospaced" image="user" markupView="lexicon" />
 				</span>
 
-				<%= koroneikiContact.getFullName() %>
+				<%= HtmlUtil.escape(koroneikiContact.getFullName()) %>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
