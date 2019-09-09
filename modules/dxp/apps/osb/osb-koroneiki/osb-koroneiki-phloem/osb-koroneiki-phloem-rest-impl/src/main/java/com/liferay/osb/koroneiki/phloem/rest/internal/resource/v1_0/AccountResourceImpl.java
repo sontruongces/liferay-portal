@@ -92,12 +92,10 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public Account getAccount(String accountKey, String[] includes)
-		throws Exception {
-
+	public Account getAccount(String accountKey) throws Exception {
 		return AccountUtil.toAccount(
 			_accountService.getAccount(accountKey),
-			contextAcceptLanguage.getPreferredLocale(), includes);
+			contextAcceptLanguage.getPreferredLocale());
 	}
 
 	@Override
@@ -112,14 +110,14 @@ public class AccountResourceImpl
 					domain, entityName, entityId, pagination.getStartPosition(),
 					pagination.getEndPosition()),
 				account -> AccountUtil.toAccount(
-					account, contextAcceptLanguage.getPreferredLocale(), null)),
+					account, contextAcceptLanguage.getPreferredLocale())),
 			pagination,
 			_accountService.getAccountsCount(domain, entityName, entityId));
 	}
 
 	@Override
 	public Page<Account> getAccountChildAccountsPage(
-			String accountKey, String[] includes, Pagination pagination)
+			String accountKey, Pagination pagination)
 		throws Exception {
 
 		com.liferay.osb.koroneiki.taproot.model.Account curAccount =
@@ -131,8 +129,7 @@ public class AccountResourceImpl
 					curAccount.getAccountId(), pagination.getStartPosition(),
 					pagination.getEndPosition()),
 				account -> AccountUtil.toAccount(
-					account, contextAcceptLanguage.getPreferredLocale(),
-					includes)),
+					account, contextAcceptLanguage.getPreferredLocale())),
 			pagination,
 			_accountService.getAccountsCount(curAccount.getAccountId()));
 	}
@@ -154,7 +151,7 @@ public class AccountResourceImpl
 			document -> AccountUtil.toAccount(
 				_accountLocalService.getAccount(
 					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
-				contextAcceptLanguage.getPreferredLocale(), null),
+				contextAcceptLanguage.getPreferredLocale()),
 			sorts);
 	}
 
@@ -197,7 +194,7 @@ public class AccountResourceImpl
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
 				account.getFaxNumber(), account.getWebsite(), industry, tier,
 				account.getSoldBy(), status),
-			contextAcceptLanguage.getPreferredLocale(), null);
+			contextAcceptLanguage.getPreferredLocale());
 	}
 
 	@Override
@@ -239,7 +236,7 @@ public class AccountResourceImpl
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
 				account.getFaxNumber(), account.getWebsite(), industry, tier,
 				account.getSoldBy(), status),
-			contextAcceptLanguage.getPreferredLocale(), null);
+			contextAcceptLanguage.getPreferredLocale());
 	}
 
 	@Override
@@ -303,7 +300,7 @@ public class AccountResourceImpl
 				code, description, notes, logoId, contactEmailAddress,
 				profileEmailAddress, phoneNumber, faxNumber, website, industry,
 				tier, soldBy, status),
-			contextAcceptLanguage.getPreferredLocale(), null);
+			contextAcceptLanguage.getPreferredLocale());
 	}
 
 	@Override

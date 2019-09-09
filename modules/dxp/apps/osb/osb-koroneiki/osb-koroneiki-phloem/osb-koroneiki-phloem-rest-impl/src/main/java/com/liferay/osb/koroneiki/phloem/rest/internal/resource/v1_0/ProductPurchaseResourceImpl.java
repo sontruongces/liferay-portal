@@ -21,7 +21,10 @@ import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -65,6 +68,17 @@ public class ProductPurchaseResourceImpl
 			pagination,
 			_productPurchaseService.getAccountProductPurchasesCount(
 				accountKey));
+	}
+
+	@NestedField("productPurchases")
+	public List<ProductPurchase> getNestedFieldProductPurchases(
+			@NestedFieldId("key") String accountKey)
+		throws Exception {
+
+		return transform(
+			_productPurchaseService.getAccountProductPurchases(
+				accountKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+			ProductPurchaseUtil::toProductPurchase);
 	}
 
 	@Override

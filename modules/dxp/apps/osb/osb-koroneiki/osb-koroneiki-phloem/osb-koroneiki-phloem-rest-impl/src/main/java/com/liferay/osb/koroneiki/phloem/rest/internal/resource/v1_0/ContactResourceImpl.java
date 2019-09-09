@@ -14,24 +14,28 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -77,23 +81,27 @@ public class ContactResourceImpl
 
 	@Override
 	public Page<Contact> getAccountAccountKeyContactsPage(
-			String accountKey, String[] includes, Pagination pagination)
+			String accountKey, Pagination pagination)
 		throws Exception {
-
-		Map<String, Object> includesContext = new HashMap<String, Object>() {
-			{
-				put("accountKey", accountKey);
-				put("includes", includes);
-			}
-		};
 
 		return Page.of(
 			transform(
 				_contactService.getAccountContacts(
 					accountKey, pagination.getStartPosition(),
 					pagination.getEndPosition()),
-				contact -> ContactUtil.toContact(contact, includesContext)),
+				contact -> ContactUtil.toContact(contact)),
 			pagination, _contactService.getAccountContactsCount(accountKey));
+	}
+
+	@NestedField(parentClass = Account.class, value = "contacts")
+	public List<Contact> getAccountNestedFieldContacts(
+			@NestedFieldId("key") String accountKey)
+		throws Exception {
+
+		return transform(
+			_contactService.getAccountContacts(
+				accountKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+			contact -> ContactUtil.toContact(contact));
 	}
 
 	@Override
@@ -101,19 +109,18 @@ public class ContactResourceImpl
 		throws Exception {
 
 		return ContactUtil.toContact(
-			_contactService.getContactByEmailAddress(emailAddress), null);
+			_contactService.getContactByEmailAddress(emailAddress));
 	}
 
 	@Override
 	public Contact getContactByOkta(String oktaId) throws Exception {
 		return ContactUtil.toContact(
-			_contactService.getContactByOktaId(oktaId), null);
+			_contactService.getContactByOktaId(oktaId));
 	}
 
 	@Override
 	public Contact getContactByUuid(String uuid) throws Exception {
-		return ContactUtil.toContact(
-			_contactService.getContactByUuid(uuid), null);
+		return ContactUtil.toContact(_contactService.getContactByUuid(uuid));
 	}
 
 	@Override
@@ -132,8 +139,7 @@ public class ContactResourceImpl
 				contextCompany.getCompanyId()),
 			document -> ContactUtil.toContact(
 				_contactLocalService.getContact(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
-				null),
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
 			sorts);
 	}
 
@@ -142,14 +148,24 @@ public class ContactResourceImpl
 		return _entityModel;
 	}
 
+	@NestedField(parentClass = Team.class, value = "contacts")
+	public List<Contact> getTeamNestedFieldContacts(
+			@NestedFieldId("key") String teamKey)
+		throws Exception {
+
+		return transform(
+			_contactService.getTeamContacts(
+				teamKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+			contact -> ContactUtil.toContact(contact));
+	}
+
 	@Override
 	public Contact postContact(Contact contact) throws Exception {
 		return ContactUtil.toContact(
 			_contactService.addContact(
 				contact.getUuid(), contact.getOktaId(), contact.getFirstName(),
 				contact.getMiddleName(), contact.getLastName(),
-				contact.getEmailAddress(), contact.getLanguageId()),
-			null);
+				contact.getEmailAddress(), contact.getLanguageId()));
 	}
 
 	@Override
@@ -173,8 +189,7 @@ public class ContactResourceImpl
 			_contactService.updateContact(
 				curContact.getContactId(), uuid, oktaId, contact.getFirstName(),
 				middleName, contact.getLastName(), contact.getEmailAddress(),
-				languageId),
-			null);
+				languageId));
 	}
 
 	@Override
@@ -195,8 +210,7 @@ public class ContactResourceImpl
 			_contactService.updateContact(
 				curContact.getContactId(), uuid, curContact.getOktaId(),
 				contact.getFirstName(), middleName, contact.getLastName(),
-				contact.getEmailAddress(), languageId),
-			null);
+				contact.getEmailAddress(), languageId));
 	}
 
 	@Override
@@ -217,8 +231,7 @@ public class ContactResourceImpl
 			_contactService.updateContact(
 				curContact.getContactId(), curContact.getUuid(), oktaId,
 				contact.getFirstName(), middleName, contact.getLastName(),
-				contact.getEmailAddress(), languageId),
-			null);
+				contact.getEmailAddress(), languageId));
 	}
 
 	private static final EntityModel _entityModel = new ContactEntityModel();

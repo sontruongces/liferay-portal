@@ -17,9 +17,12 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactPermission;
+import com.liferay.osb.koroneiki.taproot.permission.TeamPermission;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -140,6 +143,17 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 		return contact;
 	}
 
+	public List<Contact> getTeamContacts(String teamKey, int start, int end)
+		throws PortalException {
+
+		Team team = _teamLocalService.getTeam(teamKey);
+
+		_teamPermission.check(getPermissionChecker(), team, ActionKeys.VIEW);
+
+		return contactLocalService.getTeamContacts(
+			team.getTeamId(), start, end);
+	}
+
 	public Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
@@ -162,5 +176,11 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 	@Reference
 	private ContactPermission _contactPermission;
+
+	@Reference
+	private TeamLocalService _teamLocalService;
+
+	@Reference
+	private TeamPermission _teamPermission;
 
 }

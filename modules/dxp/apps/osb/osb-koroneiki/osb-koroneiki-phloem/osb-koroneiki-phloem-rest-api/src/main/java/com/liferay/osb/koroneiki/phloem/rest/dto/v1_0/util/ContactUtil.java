@@ -15,12 +15,8 @@
 package com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
-
-import java.util.Map;
 
 /**
  * @author Amos Fong
@@ -28,8 +24,7 @@ import java.util.Map;
 public class ContactUtil {
 
 	public static Contact toContact(
-			com.liferay.osb.koroneiki.taproot.model.Contact contact,
-			Map<String, Object> includesContext)
+			com.liferay.osb.koroneiki.taproot.model.Contact contact)
 		throws Exception {
 
 		return new Contact() {
@@ -46,27 +41,6 @@ public class ContactUtil {
 				lastName = contact.getLastName();
 				oktaId = contact.getOktaId();
 				uuid = contact.getUuid();
-
-				setContactRoles(
-					() -> {
-						if (includesContext == null) {
-							return null;
-						}
-
-						String[] includes = (String[])includesContext.get(
-							"includes");
-
-						if (!ArrayUtil.contains(includes, "contact-roles")) {
-							return null;
-						}
-
-						String accountKey = (String)includesContext.get(
-							"accountKey");
-
-						return TransformUtil.transformToArray(
-							contact.getContactRoles(accountKey),
-							ContactRoleUtil::toContactRole, ContactRole.class);
-					});
 			}
 		};
 	}
