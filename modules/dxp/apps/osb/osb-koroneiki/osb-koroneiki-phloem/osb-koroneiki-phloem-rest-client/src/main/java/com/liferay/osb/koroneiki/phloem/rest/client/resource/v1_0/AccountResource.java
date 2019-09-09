@@ -68,11 +68,9 @@ public interface AccountResource {
 	public HttpInvoker.HttpResponse deleteAccountHttpResponse(String accountKey)
 		throws Exception;
 
-	public Account getAccount(String accountKey, String[] includes)
-		throws Exception;
+	public Account getAccount(String accountKey) throws Exception;
 
-	public HttpInvoker.HttpResponse getAccountHttpResponse(
-			String accountKey, String[] includes)
+	public HttpInvoker.HttpResponse getAccountHttpResponse(String accountKey)
 		throws Exception;
 
 	public Account putAccount(String accountKey, Account account)
@@ -83,11 +81,11 @@ public interface AccountResource {
 		throws Exception;
 
 	public Page<Account> getAccountChildAccountsPage(
-			String accountKey, String[] includes, Pagination pagination)
+			String accountKey, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getAccountChildAccountsPageHttpResponse(
-			String accountKey, String[] includes, Pagination pagination)
+			String accountKey, Pagination pagination)
 		throws Exception;
 
 	public Account postAccountChildAccount(String accountKey, Account account)
@@ -388,11 +386,9 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public Account getAccount(String accountKey, String[] includes)
-			throws Exception {
-
+		public Account getAccount(String accountKey) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = getAccountHttpResponse(
-				accountKey, includes);
+				accountKey);
 
 			String content = httpResponse.getContent();
 
@@ -415,7 +411,7 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse getAccountHttpResponse(
-				String accountKey, String[] includes)
+				String accountKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -426,13 +422,6 @@ public interface AccountResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (includes != null) {
-				for (int i = 0; i < includes.length; i++) {
-					httpInvoker.parameter(
-						"includes", String.valueOf(includes[i]));
-				}
-			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -500,12 +489,11 @@ public interface AccountResource {
 		}
 
 		public Page<Account> getAccountChildAccountsPage(
-				String accountKey, String[] includes, Pagination pagination)
+				String accountKey, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getAccountChildAccountsPageHttpResponse(
-					accountKey, includes, pagination);
+				getAccountChildAccountsPageHttpResponse(accountKey, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -519,7 +507,7 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse getAccountChildAccountsPageHttpResponse(
-				String accountKey, String[] includes, Pagination pagination)
+				String accountKey, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -530,13 +518,6 @@ public interface AccountResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (includes != null) {
-				for (int i = 0; i < includes.length; i++) {
-					httpInvoker.parameter(
-						"includes", String.valueOf(includes[i]));
-				}
-			}
 
 			if (pagination != null) {
 				httpInvoker.parameter(

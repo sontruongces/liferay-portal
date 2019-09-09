@@ -722,6 +722,14 @@ public abstract class BaseTeamResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("contacts", additionalAssertFieldName)) {
+				if (team.getContacts() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("externalLinks", additionalAssertFieldName)) {
 				if (team.getExternalLinks() == null) {
 					valid = false;
@@ -790,6 +798,16 @@ public abstract class BaseTeamResourceTestCase {
 			if (Objects.equals("accountKey", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						team1.getAccountKey(), team2.getAccountKey())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("contacts", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						team1.getContacts(), team2.getContacts())) {
 
 					return false;
 				}
@@ -907,6 +925,11 @@ public abstract class BaseTeamResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("contacts")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("dateCreated")) {

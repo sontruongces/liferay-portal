@@ -94,6 +94,10 @@ public interface ContactService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Contact> getTeamContacts(String teamKey, int start, int end)
+		throws PortalException;
+
 	public Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,

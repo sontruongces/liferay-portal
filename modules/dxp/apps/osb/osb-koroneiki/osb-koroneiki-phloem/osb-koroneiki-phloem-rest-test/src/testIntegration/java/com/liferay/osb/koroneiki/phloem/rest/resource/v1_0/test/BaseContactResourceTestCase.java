@@ -203,7 +203,7 @@ public abstract class BaseContactResourceTestCase {
 	@Test
 	public void testGetAccountAccountKeyContactsPage() throws Exception {
 		Page<Contact> page = contactResource.getAccountAccountKeyContactsPage(
-			testGetAccountAccountKeyContactsPage_getAccountKey(), null,
+			testGetAccountAccountKeyContactsPage_getAccountKey(),
 			Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
@@ -219,7 +219,7 @@ public abstract class BaseContactResourceTestCase {
 					irrelevantAccountKey, randomIrrelevantContact());
 
 			page = contactResource.getAccountAccountKeyContactsPage(
-				irrelevantAccountKey, null, Pagination.of(1, 2));
+				irrelevantAccountKey, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -236,7 +236,7 @@ public abstract class BaseContactResourceTestCase {
 			accountKey, randomContact());
 
 		page = contactResource.getAccountAccountKeyContactsPage(
-			accountKey, null, Pagination.of(1, 2));
+			accountKey, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -262,14 +262,14 @@ public abstract class BaseContactResourceTestCase {
 			accountKey, randomContact());
 
 		Page<Contact> page1 = contactResource.getAccountAccountKeyContactsPage(
-			accountKey, null, Pagination.of(1, 2));
+			accountKey, Pagination.of(1, 2));
 
 		List<Contact> contacts1 = (List<Contact>)page1.getItems();
 
 		Assert.assertEquals(contacts1.toString(), 2, contacts1.size());
 
 		Page<Contact> page2 = contactResource.getAccountAccountKeyContactsPage(
-			accountKey, null, Pagination.of(2, 2));
+			accountKey, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -278,7 +278,7 @@ public abstract class BaseContactResourceTestCase {
 		Assert.assertEquals(contacts2.toString(), 1, contacts2.size());
 
 		Page<Contact> page3 = contactResource.getAccountAccountKeyContactsPage(
-			accountKey, null, Pagination.of(1, 3));
+			accountKey, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(contact1, contact2, contact3),

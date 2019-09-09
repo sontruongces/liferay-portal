@@ -26,12 +26,15 @@ import java.io.ObjectOutput;
 
 import java.util.Date;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * The cache model class for representing Account in entity cache.
  *
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 
 	@Override

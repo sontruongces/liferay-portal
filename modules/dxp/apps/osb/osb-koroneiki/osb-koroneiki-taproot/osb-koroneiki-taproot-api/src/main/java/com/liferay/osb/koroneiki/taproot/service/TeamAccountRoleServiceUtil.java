@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.taproot.service;
 
+import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
@@ -30,6 +31,7 @@ import org.osgi.util.tracker.ServiceTracker;
  * @see TeamAccountRoleService
  * @generated
  */
+@ProviderType
 public class TeamAccountRoleServiceUtil {
 
 	/**

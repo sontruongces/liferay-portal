@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.client.json.BaseJSONParser;
@@ -73,6 +74,26 @@ public class TeamSerDes {
 			sb.append(_escape(team.getAccountKey()));
 
 			sb.append("\"");
+		}
+
+		if (team.getContacts() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"contacts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < team.getContacts().length; i++) {
+				sb.append(String.valueOf(team.getContacts()[i]));
+
+				if ((i + 1) < team.getContacts().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (team.getDateCreated() != null) {
@@ -179,6 +200,13 @@ public class TeamSerDes {
 			map.put("accountKey", String.valueOf(team.getAccountKey()));
 		}
 
+		if (team.getContacts() == null) {
+			map.put("contacts", null);
+		}
+		else {
+			map.put("contacts", String.valueOf(team.getContacts()));
+		}
+
 		map.put(
 			"dateCreated",
 			liferayToJSONDateFormat.format(team.getDateCreated()));
@@ -268,6 +296,18 @@ public class TeamSerDes {
 			if (Objects.equals(jsonParserFieldName, "accountKey")) {
 				if (jsonParserFieldValue != null) {
 					team.setAccountKey((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "contacts")) {
+				if (jsonParserFieldValue != null) {
+					team.setContacts(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> ContactSerDes.toDTO((String)object)
+						).toArray(
+							size -> new Contact[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "dateCreated")) {

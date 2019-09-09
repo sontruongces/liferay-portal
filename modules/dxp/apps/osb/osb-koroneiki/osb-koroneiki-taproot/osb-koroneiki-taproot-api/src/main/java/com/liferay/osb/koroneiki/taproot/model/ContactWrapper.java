@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * <p>
  * This class is a wrapper for {@link Contact}.
@@ -31,6 +33,7 @@ import java.util.Map;
  * @see Contact
  * @generated
  */
+@ProviderType
 public class ContactWrapper
 	extends BaseModelWrapper<Contact>
 	implements Contact, ModelWrapper<Contact> {

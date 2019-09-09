@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * <p>
  * This class is a wrapper for {@link Team}.
@@ -31,6 +33,7 @@ import java.util.Map;
  * @see Team
  * @generated
  */
+@ProviderType
 public class TeamWrapper
 	extends BaseModelWrapper<Team> implements Team, ModelWrapper<Team> {
 

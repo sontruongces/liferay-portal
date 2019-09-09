@@ -595,7 +595,7 @@ public abstract class BaseAccountResourceTestCase {
 	@Test
 	public void testGetAccountChildAccountsPage() throws Exception {
 		Page<Account> page = accountResource.getAccountChildAccountsPage(
-			testGetAccountChildAccountsPage_getAccountKey(), null,
+			testGetAccountChildAccountsPage_getAccountKey(),
 			Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
@@ -610,7 +610,7 @@ public abstract class BaseAccountResourceTestCase {
 					irrelevantAccountKey, randomIrrelevantAccount());
 
 			page = accountResource.getAccountChildAccountsPage(
-				irrelevantAccountKey, null, Pagination.of(1, 2));
+				irrelevantAccountKey, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -627,7 +627,7 @@ public abstract class BaseAccountResourceTestCase {
 			accountKey, randomAccount());
 
 		page = accountResource.getAccountChildAccountsPage(
-			accountKey, null, Pagination.of(1, 2));
+			accountKey, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -652,14 +652,14 @@ public abstract class BaseAccountResourceTestCase {
 			accountKey, randomAccount());
 
 		Page<Account> page1 = accountResource.getAccountChildAccountsPage(
-			accountKey, null, Pagination.of(1, 2));
+			accountKey, Pagination.of(1, 2));
 
 		List<Account> accounts1 = (List<Account>)page1.getItems();
 
 		Assert.assertEquals(accounts1.toString(), 2, accounts1.size());
 
 		Page<Account> page2 = accountResource.getAccountChildAccountsPage(
-			accountKey, null, Pagination.of(2, 2));
+			accountKey, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -668,7 +668,7 @@ public abstract class BaseAccountResourceTestCase {
 		Assert.assertEquals(accounts2.toString(), 1, accounts2.size());
 
 		Page<Account> page3 = accountResource.getAccountChildAccountsPage(
-			accountKey, null, Pagination.of(1, 3));
+			accountKey, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(account1, account2, account3),
@@ -826,6 +826,14 @@ public abstract class BaseAccountResourceTestCase {
 					"contactEmailAddress", additionalAssertFieldName)) {
 
 				if (account.getContactEmailAddress() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("contacts", additionalAssertFieldName)) {
+				if (account.getContacts() == null) {
 					valid = false;
 				}
 
@@ -1029,6 +1037,16 @@ public abstract class BaseAccountResourceTestCase {
 				if (!Objects.deepEquals(
 						account1.getContactEmailAddress(),
 						account2.getContactEmailAddress())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("contacts", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getContacts(), account2.getContacts())) {
 
 					return false;
 				}
@@ -1298,6 +1316,11 @@ public abstract class BaseAccountResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("contacts")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("dateCreated")) {

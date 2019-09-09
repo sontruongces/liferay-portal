@@ -20,6 +20,8 @@ import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * <p>
  * This class is a wrapper for {@link ContactAccountRole}.
@@ -29,6 +31,7 @@ import java.util.Map;
  * @see ContactAccountRole
  * @generated
  */
+@ProviderType
 public class ContactAccountRoleWrapper
 	extends BaseModelWrapper<ContactAccountRole>
 	implements ContactAccountRole, ModelWrapper<ContactAccountRole> {

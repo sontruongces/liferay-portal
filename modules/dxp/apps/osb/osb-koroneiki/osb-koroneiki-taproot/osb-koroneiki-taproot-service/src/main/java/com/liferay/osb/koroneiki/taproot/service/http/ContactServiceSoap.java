@@ -20,6 +20,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.rmi.RemoteException;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides the SOAP utility for the
  * <code>ContactServiceUtil</code> service
@@ -59,6 +61,7 @@ import java.rmi.RemoteException;
  * @see ContactServiceHttp
  * @generated
  */
+@ProviderType
 public class ContactServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
@@ -235,6 +238,25 @@ public class ContactServiceSoap {
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
 				toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap[]
+			getTeamContacts(String teamKey, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.osb.koroneiki.taproot.model.Contact>
+				returnValue = ContactServiceUtil.getTeamContacts(
+					teamKey, start, end);
+
+			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
+				toSoapModels(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

@@ -20,6 +20,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.rmi.RemoteException;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides the SOAP utility for the
  * <code>ContactTeamRoleServiceUtil</code> service
@@ -59,6 +61,7 @@ import java.rmi.RemoteException;
  * @see ContactTeamRoleServiceHttp
  * @generated
  */
+@ProviderType
 public class ContactTeamRoleServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactTeamRoleSoap

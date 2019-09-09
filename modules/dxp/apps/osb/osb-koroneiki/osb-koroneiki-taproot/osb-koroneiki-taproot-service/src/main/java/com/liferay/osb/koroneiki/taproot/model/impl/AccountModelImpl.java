@@ -52,6 +52,8 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * The base model implementation for the Account service. Represents a row in the &quot;Koroneiki_Account&quot; database table, with each column mapped to a property of this class.
  *
@@ -64,6 +66,7 @@ import java.util.function.Function;
  * @generated
  */
 @JSON(strict = true)
+@ProviderType
 public class AccountModelImpl
 	extends BaseModelImpl<Account> implements AccountModel {
 

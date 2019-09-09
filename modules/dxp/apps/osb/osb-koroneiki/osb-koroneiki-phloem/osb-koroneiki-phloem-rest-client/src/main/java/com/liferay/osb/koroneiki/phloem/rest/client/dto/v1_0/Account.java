@@ -205,6 +205,27 @@ public class Account {
 
 	protected String contactEmailAddress;
 
+	public Contact[] getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Contact[] contacts) {
+		this.contacts = contacts;
+	}
+
+	public void setContacts(
+		UnsafeSupplier<Contact[], Exception> contactsUnsafeSupplier) {
+
+		try {
+			contacts = contactsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Contact[] contacts;
+
 	public Date getDateCreated() {
 		return dateCreated;
 	}

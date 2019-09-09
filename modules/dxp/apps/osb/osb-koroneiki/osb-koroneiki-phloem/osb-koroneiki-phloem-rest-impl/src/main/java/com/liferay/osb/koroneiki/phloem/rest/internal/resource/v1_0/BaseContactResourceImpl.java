@@ -66,7 +66,6 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "includes"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
@@ -77,7 +76,6 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	public Page<Contact> getAccountAccountKeyContactsPage(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
-			@Parameter(hidden = true) @QueryParam("includes") String[] includes,
 			@Context Pagination pagination)
 		throws Exception {
 

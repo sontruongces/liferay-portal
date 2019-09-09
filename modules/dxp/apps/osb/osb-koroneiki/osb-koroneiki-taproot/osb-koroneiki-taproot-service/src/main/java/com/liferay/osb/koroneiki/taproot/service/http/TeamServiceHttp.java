@@ -22,6 +22,8 @@ import com.liferay.portal.kernel.service.http.TunnelUtil;
 import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides the HTTP utility for the
  * <code>TeamServiceUtil</code> service
@@ -49,6 +51,7 @@ import com.liferay.portal.kernel.util.MethodKey;
  * @see TeamServiceSoap
  * @generated
  */
+@ProviderType
 public class TeamServiceHttp {
 
 	public static com.liferay.osb.koroneiki.taproot.model.Team addTeam(

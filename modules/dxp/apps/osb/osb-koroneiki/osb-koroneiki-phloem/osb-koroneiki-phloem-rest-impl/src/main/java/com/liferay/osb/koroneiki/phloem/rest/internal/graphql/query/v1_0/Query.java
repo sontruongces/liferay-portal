@@ -182,22 +182,18 @@ public class Query {
 	}
 
 	@GraphQLField
-	public Account getAccount(
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("includes") String[] includes)
+	public Account getAccount(@GraphQLName("accountKey") String accountKey)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.getAccount(
-				accountKey, includes));
+			accountResource -> accountResource.getAccount(accountKey));
 	}
 
 	@GraphQLField
 	public AccountPage getAccountChildAccountsPage(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("includes") String[] includes,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -207,7 +203,7 @@ public class Query {
 			this::_populateResourceContext,
 			accountResource -> new AccountPage(
 				accountResource.getAccountChildAccountsPage(
-					accountKey, includes, Pagination.of(page, pageSize))));
+					accountKey, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField
@@ -315,7 +311,6 @@ public class Query {
 	@GraphQLField
 	public ContactPage getAccountAccountKeyContactsPage(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("includes") String[] includes,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -325,7 +320,7 @@ public class Query {
 			this::_populateResourceContext,
 			contactResource -> new ContactPage(
 				contactResource.getAccountAccountKeyContactsPage(
-					accountKey, includes, Pagination.of(page, pageSize))));
+					accountKey, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField

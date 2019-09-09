@@ -22,6 +22,8 @@ import com.liferay.portal.kernel.service.http.TunnelUtil;
 import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides the HTTP utility for the
  * <code>ContactAccountRoleServiceUtil</code> service
@@ -49,6 +51,7 @@ import com.liferay.portal.kernel.util.MethodKey;
  * @see ContactAccountRoleServiceSoap
  * @generated
  */
+@ProviderType
 public class ContactAccountRoleServiceHttp {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactAccountRole

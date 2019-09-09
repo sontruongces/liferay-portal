@@ -64,6 +64,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -77,6 +78,7 @@ import org.osgi.service.component.annotations.Reference;
  * @see com.liferay.osb.koroneiki.taproot.service.impl.TeamRoleLocalServiceImpl
  * @generated
  */
+@ProviderType
 public abstract class TeamRoleLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements TeamRoleLocalService, AopService, IdentifiableOSGiService {

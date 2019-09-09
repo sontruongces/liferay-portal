@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.taproot.service;
 
+import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
@@ -30,6 +31,7 @@ import org.osgi.util.tracker.ServiceTracker;
  * @see ContactService
  * @generated
  */
+@ProviderType
 public class ContactServiceUtil {
 
 	/**
@@ -123,6 +125,14 @@ public class ContactServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.Contact> getTeamContacts(
+				String teamKey, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeamContacts(teamKey, start, end);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact updateContact(

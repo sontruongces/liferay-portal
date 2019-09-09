@@ -16,6 +16,8 @@ package com.liferay.osb.koroneiki.taproot.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides a wrapper for {@link ContactRoleLocalService}.
  *
@@ -23,6 +25,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see ContactRoleLocalService
  * @generated
  */
+@ProviderType
 public class ContactRoleLocalServiceWrapper
 	implements ContactRoleLocalService,
 			   ServiceWrapper<ContactRoleLocalService> {

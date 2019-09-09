@@ -16,6 +16,8 @@ package com.liferay.osb.koroneiki.taproot.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides a wrapper for {@link ContactService}.
  *
@@ -23,6 +25,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see ContactService
  * @generated
  */
+@ProviderType
 public class ContactServiceWrapper
 	implements ContactService, ServiceWrapper<ContactService> {
 
@@ -124,6 +127,14 @@ public class ContactServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _contactService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Contact>
+			getTeamContacts(String teamKey, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactService.getTeamContacts(teamKey, start, end);
 	}
 
 	@Override

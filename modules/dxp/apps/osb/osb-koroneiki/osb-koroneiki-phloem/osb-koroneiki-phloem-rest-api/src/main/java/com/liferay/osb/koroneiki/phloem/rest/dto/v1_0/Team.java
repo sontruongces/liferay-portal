@@ -79,6 +79,34 @@ public class Team {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String accountKey;
 
+	@Schema(description = "The account's contacts.")
+	public Contact[] getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Contact[] contacts) {
+		this.contacts = contacts;
+	}
+
+	@JsonIgnore
+	public void setContacts(
+		UnsafeSupplier<Contact[], Exception> contactsUnsafeSupplier) {
+
+		try {
+			contacts = contactsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Contact[] contacts;
+
 	@Schema(description = "The team's creation date.")
 	public Date getDateCreated() {
 		return dateCreated;
@@ -260,6 +288,26 @@ public class Team {
 			sb.append(_escape(accountKey));
 
 			sb.append("\"");
+		}
+
+		if (contacts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"contacts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < contacts.length; i++) {
+				sb.append(String.valueOf(contacts[i]));
+
+				if ((i + 1) < contacts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (dateCreated != null) {

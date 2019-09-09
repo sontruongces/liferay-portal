@@ -142,18 +142,14 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@GET
 	@Operation(description = "Retrieves the account.")
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "includes")
-		}
+		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
 	)
 	@Path("/accounts/{accountKey}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public Account getAccount(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@Parameter(hidden = true) @QueryParam("includes") String[] includes)
+				accountKey)
 		throws Exception {
 
 		return new Account();
@@ -183,7 +179,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "includes"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
@@ -194,7 +189,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	public Page<Account> getAccountChildAccountsPage(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
-			@Parameter(hidden = true) @QueryParam("includes") String[] includes,
 			@Context Pagination pagination)
 		throws Exception {
 

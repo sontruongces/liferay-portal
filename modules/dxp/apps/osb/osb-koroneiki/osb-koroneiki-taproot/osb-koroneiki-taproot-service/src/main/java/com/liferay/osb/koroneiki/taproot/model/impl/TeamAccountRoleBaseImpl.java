@@ -17,6 +17,8 @@ package com.liferay.osb.koroneiki.taproot.model.impl;
 import com.liferay.osb.koroneiki.taproot.model.TeamAccountRole;
 import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalServiceUtil;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * The extended model base implementation for the TeamAccountRole service. Represents a row in the &quot;Koroneiki_TeamAccountRole&quot; database table, with each column mapped to a property of this class.
  *
@@ -29,6 +31,7 @@ import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalServiceUtil
  * @see TeamAccountRole
  * @generated
  */
+@ProviderType
 public abstract class TeamAccountRoleBaseImpl
 	extends TeamAccountRoleModelImpl implements TeamAccountRole {
 

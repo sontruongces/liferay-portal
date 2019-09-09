@@ -21,12 +21,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * This class is used by SOAP remote services, specifically {@link com.liferay.osb.koroneiki.taproot.service.http.TeamAccountRoleServiceSoap}.
  *
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class TeamAccountRoleSoap implements Serializable {
 
 	public static TeamAccountRoleSoap toSoapModel(TeamAccountRole model) {

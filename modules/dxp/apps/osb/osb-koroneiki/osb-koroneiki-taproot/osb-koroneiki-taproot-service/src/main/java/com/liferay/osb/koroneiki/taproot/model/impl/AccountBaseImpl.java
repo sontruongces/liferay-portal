@@ -17,6 +17,8 @@ package com.liferay.osb.koroneiki.taproot.model.impl;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * The extended model base implementation for the Account service. Represents a row in the &quot;Koroneiki_Account&quot; database table, with each column mapped to a property of this class.
  *
@@ -29,6 +31,7 @@ import com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil;
  * @see Account
  * @generated
  */
+@ProviderType
 public abstract class AccountBaseImpl
 	extends AccountModelImpl implements Account {
 

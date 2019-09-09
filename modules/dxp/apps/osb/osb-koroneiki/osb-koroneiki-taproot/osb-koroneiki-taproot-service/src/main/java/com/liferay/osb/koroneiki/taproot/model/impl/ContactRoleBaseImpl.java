@@ -17,6 +17,8 @@ package com.liferay.osb.koroneiki.taproot.model.impl;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalServiceUtil;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * The extended model base implementation for the ContactRole service. Represents a row in the &quot;Koroneiki_ContactRole&quot; database table, with each column mapped to a property of this class.
  *
@@ -29,6 +31,7 @@ import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalServiceUtil;
  * @see ContactRole
  * @generated
  */
+@ProviderType
 public abstract class ContactRoleBaseImpl
 	extends ContactRoleModelImpl implements ContactRole {
 
