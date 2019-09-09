@@ -252,6 +252,48 @@ public class ContactRoleServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
+				getContactContactRoles(
+					HttpPrincipal httpPrincipal, long contactId, int start,
+					int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ContactRoleServiceUtil.class, "getContactContactRoles",
+				_getContactContactRolesParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, contactId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.taproot.model.ContactRole>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
 			getContactRole(HttpPrincipal httpPrincipal, long contactRoleId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -259,7 +301,7 @@ public class ContactRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactRoleServiceUtil.class, "getContactRole",
-				_getContactRoleParameterTypes5);
+				_getContactRoleParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactRoleId);
@@ -298,7 +340,7 @@ public class ContactRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactRoleServiceUtil.class, "getContactRole",
-				_getContactRoleParameterTypes6);
+				_getContactRoleParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactRoleKey);
@@ -339,7 +381,7 @@ public class ContactRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactRoleServiceUtil.class, "updateContactRole",
-				_updateContactRoleParameterTypes7);
+				_updateContactRoleParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactRoleId, name, description);
@@ -388,11 +430,13 @@ public class ContactRoleServiceHttp {
 		_getContactAccountContactRolesCountParameterTypes4 = new Class[] {
 			long.class, long.class
 		};
-	private static final Class<?>[] _getContactRoleParameterTypes5 =
-		new Class[] {long.class};
+	private static final Class<?>[] _getContactContactRolesParameterTypes5 =
+		new Class[] {long.class, int.class, int.class};
 	private static final Class<?>[] _getContactRoleParameterTypes6 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getContactRoleParameterTypes7 =
 		new Class[] {String.class};
-	private static final Class<?>[] _updateContactRoleParameterTypes7 =
+	private static final Class<?>[] _updateContactRoleParameterTypes8 =
 		new Class[] {long.class, String.class, String.class};
 
 }

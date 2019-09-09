@@ -82,6 +82,14 @@ public class ContactRoleServiceUtil {
 			accountId, contactId);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
+				getContactContactRoles(long contactId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactContactRoles(contactId, start, end);
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
 			getContactRole(long contactRoleId)
 		throws com.liferay.portal.kernel.exception.PortalException {

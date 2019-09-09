@@ -210,6 +210,10 @@ public interface ContactRoleLocalService
 	public int getContactAccountContactRolesCount(
 		long accountId, long contactId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ContactRole> getContactContactRoles(
+		long contactId, int start, int end);
+
 	/**
 	 * Returns the contact role with the primary key.
 	 *

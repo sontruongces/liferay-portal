@@ -71,6 +71,11 @@ public interface ContactRoleService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ContactRole> getContactContactRoles(
+			long contactId, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ContactRole getContactRole(long contactRoleId)
 		throws PortalException;
 
