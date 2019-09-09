@@ -55,7 +55,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ServiceProducerLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ServiceProducerLocalServiceUtil} to access the service producer local service. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.ServiceProducerLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
@@ -196,6 +196,11 @@ public interface ServiceProducerLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ServiceProducer getAuthorizedServiceProducer(
+			long authorizationUserId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

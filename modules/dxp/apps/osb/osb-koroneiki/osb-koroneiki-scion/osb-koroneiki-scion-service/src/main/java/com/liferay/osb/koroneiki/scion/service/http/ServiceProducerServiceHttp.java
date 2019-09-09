@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.scion.service.http;
 
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the HTTP utility for the
@@ -42,5 +43,6 @@ package com.liferay.osb.koroneiki.scion.service.http;
  * @see ServiceProducerServiceSoap
  * @generated
  */
+@ProviderType
 public class ServiceProducerServiceHttp {
 }

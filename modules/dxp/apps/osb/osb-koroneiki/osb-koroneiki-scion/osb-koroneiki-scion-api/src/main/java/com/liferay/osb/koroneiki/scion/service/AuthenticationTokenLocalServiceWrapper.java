@@ -16,6 +16,8 @@ package com.liferay.osb.koroneiki.scion.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides a wrapper for {@link AuthenticationTokenLocalService}.
  *
@@ -23,6 +25,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see AuthenticationTokenLocalService
  * @generated
  */
+@ProviderType
 public class AuthenticationTokenLocalServiceWrapper
 	implements AuthenticationTokenLocalService,
 			   ServiceWrapper<AuthenticationTokenLocalService> {

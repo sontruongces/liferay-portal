@@ -16,6 +16,8 @@ package com.liferay.osb.koroneiki.scion.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides a wrapper for {@link ServiceProducerLocalService}.
  *
@@ -23,6 +25,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see ServiceProducerLocalService
  * @generated
  */
+@ProviderType
 public class ServiceProducerLocalServiceWrapper
 	implements ServiceProducerLocalService,
 			   ServiceWrapper<ServiceProducerLocalService> {
@@ -33,11 +36,6 @@ public class ServiceProducerLocalServiceWrapper
 		_serviceProducerLocalService = serviceProducerLocalService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link ServiceProducerLocalServiceUtil} to access the service producer local service. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.ServiceProducerLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.osb.koroneiki.scion.model.ServiceProducer
 			addServiceProducer(long userId, String name, String description)
@@ -247,6 +245,15 @@ public class ServiceProducerLocalServiceWrapper
 		getActionableDynamicQuery() {
 
 		return _serviceProducerLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public com.liferay.osb.koroneiki.scion.model.ServiceProducer
+			getAuthorizedServiceProducer(long authorizationUserId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _serviceProducerLocalService.getAuthorizedServiceProducer(
+			authorizationUserId);
 	}
 
 	@Override
