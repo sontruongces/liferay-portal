@@ -15,7 +15,6 @@
 package com.liferay.osb.koroneiki.scion.web.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.scion.constants.ScionPortletKeys;
-import com.liferay.osb.koroneiki.scion.constants.ScionWebKeys;
 import com.liferay.osb.koroneiki.scion.model.ServiceProducer;
 import com.liferay.osb.koroneiki.scion.service.AuthenticationTokenService;
 import com.liferay.osb.koroneiki.scion.service.ServiceProducerLocalService;
@@ -24,8 +23,10 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import javax.portlet.ActionRequest;
@@ -110,6 +111,9 @@ public class EditAuthenticationTokenMVCActionCommand
 	protected void updateAuthenticationToken(ActionRequest actionRequest)
 		throws PortalException {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		long authenticationTokenId = ParamUtil.getLong(
 			actionRequest, "authenticationTokenId");
 
@@ -122,8 +126,8 @@ public class EditAuthenticationTokenMVCActionCommand
 		}
 		else {
 			ServiceProducer serviceProducer =
-				(ServiceProducer)actionRequest.getAttribute(
-					ScionWebKeys.SERVICE_PRODUCER);
+				_serviceProducerLocalService.getAuthorizedServiceProducer(
+					themeDisplay.getUserId());
 
 			_authenticationTokenService.addAuthenticationToken(
 				serviceProducer.getServiceProducerId(), name, token);

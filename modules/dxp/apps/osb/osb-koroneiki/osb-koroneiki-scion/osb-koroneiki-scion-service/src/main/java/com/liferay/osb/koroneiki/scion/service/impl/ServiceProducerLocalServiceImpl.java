@@ -171,6 +171,14 @@ public class ServiceProducerLocalServiceImpl
 			authorizationUserId);
 	}
 
+	public ServiceProducer getAuthorizedServiceProducer(
+			long authorizationUserId)
+		throws PortalException {
+
+		return serviceProducerPersistence.findByAuthorizationUserId(
+			authorizationUserId);
+	}
+
 	public ServiceProducer updateServiceProducer(
 			long serviceProducerId, String name, String description)
 		throws PortalException {
