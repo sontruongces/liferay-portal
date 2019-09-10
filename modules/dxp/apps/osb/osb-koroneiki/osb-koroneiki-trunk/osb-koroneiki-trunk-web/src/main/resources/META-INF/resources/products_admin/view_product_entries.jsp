@@ -17,48 +17,50 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String tabs1 = ParamUtil.getString(request, "tabs1");
+ProductEntriesDisplayContext productEntriesDisplayContext = new ProductEntriesDisplayContext(renderRequest, renderResponse, request);
 
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setParameter("tabs1", tabs1);
+ViewProductEntriesManagementToolbarDisplayContext viewProductEntriesManagementToolbarDisplayContext = new ViewProductEntriesManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, productEntriesDisplayContext.getSearchContainer());
 %>
 
-<liferay-ui:search-container
-	emptyResultsMessage="no-products-were-found"
-	headerNames="name,"
-	iteratorURL="<%= portletURL %>"
-	total="<%= ProductEntryLocalServiceUtil.getProductEntriesCount() %>"
->
-	<liferay-ui:search-container-results
-		results="<%= ProductEntryLocalServiceUtil.getProductEntries(searchContainer.getStart(), searchContainer.getEnd()) %>"
-	/>
+<clay:navigation-bar
+	inverted="<%= true %>"
+	navigationItems="<%= viewProductEntriesManagementToolbarDisplayContext.getNavigationItems() %>"
+/>
 
-	<liferay-ui:search-container-row
-		className="com.liferay.osb.koroneiki.trunk.model.ProductEntry"
-		escapedModel="<%= true %>"
-		keyProperty="productEntryId"
-		modelVar="productEntry"
+<clay:management-toolbar
+	displayContext="<%= viewProductEntriesManagementToolbarDisplayContext %>"
+/>
+
+<div class="container-fluid-1280">
+	<liferay-ui:search-container
+		searchContainer="<%= productEntriesDisplayContext.getSearchContainer() %>"
 	>
-		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcRenderCommandName" value="/products_admin/edit_product_entry" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="productEntryId" value="<%= String.valueOf(productEntry.getProductEntryId()) %>" />
-		</portlet:renderURL>
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.koroneiki.trunk.model.ProductEntry"
+			escapedModel="<%= true %>"
+			keyProperty="productEntryId"
+			modelVar="productEntry"
+		>
+			<portlet:renderURL var="rowURL">
+				<portlet:param name="mvcRenderCommandName" value="/products_admin/edit_product_entry" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="productEntryId" value="<%= String.valueOf(productEntry.getProductEntryId()) %>" />
+			</portlet:renderURL>
 
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="name"
-			value="<%= productEntry.getName() %>"
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="name"
+				value="<%= productEntry.getName() %>"
+			/>
+
+			<liferay-ui:search-container-column-jsp
+				align="right"
+				path="/products_admin/product_entry_action.jsp"
+			/>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			markupView="lexicon"
 		/>
-
-		<liferay-ui:search-container-column-jsp
-			align="right"
-			path="/products_admin/product_entry_action.jsp"
-		/>
-	</liferay-ui:search-container-row>
-
-	<liferay-ui:search-iterator
-		markupView="lexicon"
-	/>
-</liferay-ui:search-container>
+	</liferay-ui:search-container>
+</div>

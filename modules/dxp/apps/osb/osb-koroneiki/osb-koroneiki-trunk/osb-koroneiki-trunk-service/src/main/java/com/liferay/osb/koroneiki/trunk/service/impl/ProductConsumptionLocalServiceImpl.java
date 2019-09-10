@@ -26,8 +26,20 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.QueryConfig;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.Sort;
 
+import java.io.Serializable;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -42,6 +54,7 @@ import org.osgi.service.component.annotations.Reference;
 public class ProductConsumptionLocalServiceImpl
 	extends ProductConsumptionLocalServiceBaseImpl {
 
+	@Indexable(type = IndexableType.REINDEX)
 	public ProductConsumption addProductConsumption(
 			long userId, long accountId, long productEntryId,
 			List<ProductField> productFields)
@@ -172,6 +185,57 @@ public class ProductConsumptionLocalServiceImpl
 
 		return productConsumptionPersistence.findByU_AI_PEI(
 			userId, accountId, productEntryId);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	public ProductConsumption reindex(long productConsumptionId)
+		throws PortalException {
+
+		return productConsumptionPersistence.findByPrimaryKey(
+			productConsumptionId);
+	}
+
+	public Hits search(
+			long companyId, String keywords, int start, int end, Sort sort)
+		throws PortalException {
+
+		try {
+			Indexer<ProductConsumption> indexer =
+				IndexerRegistryUtil.nullSafeGetIndexer(
+					ProductConsumption.class);
+
+			SearchContext searchContext = new SearchContext();
+
+			searchContext.setAndSearch(false);
+
+			Map<String, Serializable> attributes = new HashMap<>();
+
+			attributes.put("accountKey", keywords);
+			attributes.put("externalLinkEntityIds", keywords);
+			attributes.put("name", keywords);
+			attributes.put("productEntryKey", keywords);
+
+			searchContext.setAttributes(attributes);
+
+			searchContext.setCompanyId(companyId);
+			searchContext.setEnd(end);
+
+			if (sort != null) {
+				searchContext.setSorts(sort);
+			}
+
+			searchContext.setStart(start);
+
+			QueryConfig queryConfig = searchContext.getQueryConfig();
+
+			queryConfig.setHighlightEnabled(false);
+			queryConfig.setScoreEnabled(false);
+
+			return indexer.search(searchContext);
+		}
+		catch (Exception e) {
+			throw new PortalException(e);
+		}
 	}
 
 	protected void validate(long accountId, long productEntryId)

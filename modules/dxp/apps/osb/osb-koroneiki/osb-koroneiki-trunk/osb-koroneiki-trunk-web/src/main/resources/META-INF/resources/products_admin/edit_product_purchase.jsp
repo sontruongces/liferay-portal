@@ -26,8 +26,8 @@ int quantity = BeanParamUtil.getInteger(productPurchase, request, "quantity", 1)
 
 boolean defaultPerpetual = true;
 
-if ((productPurchase != null) && (productPurchase.getStartDate() != null)) {
-	defaultPerpetual = false;
+if (productPurchase != null) {
+	defaultPerpetual = productPurchase.isPerpetual();
 }
 
 boolean perpetual = ParamUtil.getBoolean(request, "perpetual", defaultPerpetual);

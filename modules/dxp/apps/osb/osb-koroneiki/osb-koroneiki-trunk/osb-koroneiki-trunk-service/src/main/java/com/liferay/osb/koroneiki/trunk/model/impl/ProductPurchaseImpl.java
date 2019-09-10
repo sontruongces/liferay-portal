@@ -86,4 +86,12 @@ public class ProductPurchaseImpl extends ProductPurchaseBaseImpl {
 		return productFieldsMap;
 	}
 
+	public boolean isPerpetual() {
+		if (getStartDate() != null) {
+			return false;
+		}
+
+		return true;
+	}
+
 }

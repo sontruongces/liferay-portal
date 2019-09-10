@@ -47,10 +47,14 @@ page import="com.liferay.osb.koroneiki.trunk.model.ProductConsumption" %><%@
 page import="com.liferay.osb.koroneiki.trunk.model.ProductEntry" %><%@
 page import="com.liferay.osb.koroneiki.trunk.model.ProductField" %><%@
 page import="com.liferay.osb.koroneiki.trunk.model.ProductPurchase" %><%@
-page import="com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalServiceUtil" %><%@
 page import="com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalServiceUtil" %><%@
 page import="com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalServiceUtil" %><%@
-page import="com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalServiceUtil" %><%@
+page import="com.liferay.osb.koroneiki.trunk.web.internal.display.context.ProductConsumptionsDisplayContext" %><%@
+page import="com.liferay.osb.koroneiki.trunk.web.internal.display.context.ProductEntriesDisplayContext" %><%@
+page import="com.liferay.osb.koroneiki.trunk.web.internal.display.context.ProductPurchasesDisplayContext" %><%@
+page import="com.liferay.osb.koroneiki.trunk.web.internal.display.context.ViewProductConsumptionsManagementToolbarDisplayContext" %><%@
+page import="com.liferay.osb.koroneiki.trunk.web.internal.display.context.ViewProductEntriesManagementToolbarDisplayContext" %><%@
+page import="com.liferay.osb.koroneiki.trunk.web.internal.display.context.ViewProductPurchasesManagementToolbarDisplayContext" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
@@ -73,8 +77,6 @@ page import="java.text.Format" %>
 page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
 page import="java.util.Map" %>
-
-<%@ page import="javax.portlet.PortletURL" %>
 
 <liferay-frontend:defineObjects />
 

@@ -17,89 +17,91 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String tabs1 = ParamUtil.getString(request, "tabs1");
+ProductPurchasesDisplayContext productPurchasesDisplayContext = new ProductPurchasesDisplayContext(renderRequest, renderResponse, request);
 
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setParameter("tabs1", tabs1);
+ViewProductPurchasesManagementToolbarDisplayContext viewProductPurchasesManagementToolbarDisplayContext = new ViewProductPurchasesManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, productPurchasesDisplayContext.getSearchContainer());
 %>
 
-<liferay-ui:search-container
-	emptyResultsMessage="no-purchases-were-found"
-	headerNames="name,"
-	iteratorURL="<%= portletURL %>"
-	total="<%= ProductPurchaseLocalServiceUtil.getProductPurchasesCount() %>"
->
-	<liferay-ui:search-container-results
-		results="<%= ProductPurchaseLocalServiceUtil.getProductPurchases(searchContainer.getStart(), searchContainer.getEnd()) %>"
-	/>
+<clay:navigation-bar
+	inverted="<%= true %>"
+	navigationItems="<%= viewProductPurchasesManagementToolbarDisplayContext.getNavigationItems() %>"
+/>
 
-	<liferay-ui:search-container-row
-		className="com.liferay.osb.koroneiki.trunk.model.ProductPurchase"
-		escapedModel="<%= true %>"
-		keyProperty="productPurchaseId"
-		modelVar="productPurchase"
+<clay:management-toolbar
+	displayContext="<%= viewProductPurchasesManagementToolbarDisplayContext %>"
+/>
+
+<div class="container-fluid-1280">
+	<liferay-ui:search-container
+		searchContainer="<%= productPurchasesDisplayContext.getSearchContainer() %>"
 	>
-
-		<%
-		Account koroneikiAccount = productPurchase.getAccount();
-		ProductEntry productEntry = productPurchase.getProductEntry();
-		%>
-
-		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcRenderCommandName" value="/products_admin/edit_product_purchase" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="productPurchaseId" value="<%= String.valueOf(productPurchase.getProductPurchaseId()) %>" />
-		</portlet:renderURL>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="account"
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.koroneiki.trunk.model.ProductPurchase"
+			escapedModel="<%= true %>"
+			keyProperty="productPurchaseId"
+			modelVar="productPurchase"
 		>
-			<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="account" />">
-				<aui:icon cssClass="icon-monospaced" image="users" markupView="lexicon" />
-			</span>
 
-			<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
-		</liferay-ui:search-container-column-text>
+			<%
+			Account koroneikiAccount = productPurchase.getAccount();
+			ProductEntry productEntry = productPurchase.getProductEntry();
+			%>
 
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="product"
-			value="<%= HtmlUtil.escape(productEntry.getName()) %>"
+			<portlet:renderURL var="rowURL">
+				<portlet:param name="mvcRenderCommandName" value="/products_admin/edit_product_purchase" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="productPurchaseId" value="<%= String.valueOf(productPurchase.getProductPurchaseId()) %>" />
+			</portlet:renderURL>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="account"
+			>
+				<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="account" />">
+					<aui:icon cssClass="icon-monospaced" image="users" markupView="lexicon" />
+				</span>
+
+				<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="product"
+				value="<%= HtmlUtil.escape(productEntry.getName()) %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="start-date"
+			>
+				<c:if test="<%= productPurchase.getStartDate() != null %>">
+					<%= mediumDateFormatDate.format(productPurchase.getStartDate()) %>
+				</c:if>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="end-date"
+			>
+				<c:if test="<%= productPurchase.getEndDate() != null %>">
+					<%= mediumDateFormatDate.format(productPurchase.getEndDate()) %>
+				</c:if>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="quantity"
+				value="<%= String.valueOf(productPurchase.getQuantity()) %>"
+			/>
+
+			<liferay-ui:search-container-column-jsp
+				align="right"
+				path="/products_admin/product_purchase_action.jsp"
+			/>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			markupView="lexicon"
 		/>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="start-date"
-		>
-			<c:if test="<%= productPurchase.getStartDate() != null %>">
-				<%= mediumDateFormatDate.format(productPurchase.getStartDate()) %>
-			</c:if>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="end-date"
-		>
-			<c:if test="<%= productPurchase.getEndDate() != null %>">
-				<%= mediumDateFormatDate.format(productPurchase.getEndDate()) %>
-			</c:if>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="quantity"
-			value="<%= String.valueOf(productPurchase.getQuantity()) %>"
-		/>
-
-		<liferay-ui:search-container-column-jsp
-			align="right"
-			path="/products_admin/product_purchase_action.jsp"
-		/>
-	</liferay-ui:search-container-row>
-
-	<liferay-ui:search-iterator
-		markupView="lexicon"
-	/>
-</liferay-ui:search-container>
+	</liferay-ui:search-container>
+</div>
