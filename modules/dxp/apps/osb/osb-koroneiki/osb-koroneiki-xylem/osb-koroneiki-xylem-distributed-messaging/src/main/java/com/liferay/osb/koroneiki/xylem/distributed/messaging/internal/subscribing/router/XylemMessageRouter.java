@@ -27,7 +27,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Amos Fong
  */
 @Component(immediate = true, service = MessageRouter.class)
-public class LegacyMessageRouter extends BaseMessageRouter {
+public class XylemMessageRouter extends BaseMessageRouter {
 
 	@Reference(unbind = "-")
 	protected void setUserUpdateMessageSubscriber(

@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.publishin
 
 import com.liferay.osb.distributed.messaging.publishing.BaseMessagePublisher;
 import com.liferay.osb.distributed.messaging.publishing.MessagePublisher;
+import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.broker.LegacyMessageBroker;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.broker.XylemMessageBroker;
 
 import java.util.Map;
@@ -28,6 +29,14 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(immediate = true, service = MessagePublisher.class)
 public class XylemMessagePublisher extends BaseMessagePublisher {
+
+	@Reference(unbind = "-")
+	protected void setLegacyMessageBroker(
+		LegacyMessageBroker legacyMessageBroker,
+		Map<String, Object> properties) {
+
+		addMessageBroker(legacyMessageBroker, properties);
+	}
 
 	@Reference(unbind = "-")
 	protected void setXylemMessageBroker(
