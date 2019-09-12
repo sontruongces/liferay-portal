@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.trunk.service.impl;
 
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
@@ -28,6 +30,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -164,6 +167,34 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 		return productPurchase;
 	}
 
+	public List<ProductPurchase> getProductPurchases(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException {
+
+		List<ProductPurchase> productPurchases = new ArrayList<>();
+
+		List<ExternalLink> externalLinks =
+			_externalLinkLocalService.getExternalLinks(
+				classNameLocalService.getClassNameId(ProductPurchase.class),
+				domain, entityName, entityId, start, end);
+
+		for (ExternalLink externalLink : externalLinks) {
+			productPurchases.add(getProductPurchase(externalLink.getClassPK()));
+		}
+
+		return productPurchases;
+	}
+
+	public int getProductPurchasesCount(
+			String domain, String entityName, String entityId)
+		throws PortalException {
+
+		return _externalLinkLocalService.getExternalLinksCount(
+			classNameLocalService.getClassNameId(ProductPurchase.class), domain,
+			entityName, entityId);
+	}
+
 	public ProductPurchase updateProductPurchase(
 			long productPurchaseId, Date startDate, Date endDate, int quantity,
 			List<ProductField> productFields)
@@ -182,6 +213,9 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 	@Reference
 	private AccountPermission _accountPermission;
+
+	@Reference
+	private ExternalLinkLocalService _externalLinkLocalService;
 
 	@Reference
 	private ProductEntryLocalService _productEntryLocalService;

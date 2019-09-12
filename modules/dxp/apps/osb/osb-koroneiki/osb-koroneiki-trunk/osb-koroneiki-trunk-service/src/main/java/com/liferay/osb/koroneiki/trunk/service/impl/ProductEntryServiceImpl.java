@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.trunk.service.impl;
 
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.permission.ProductEntryPermission;
@@ -24,6 +26,7 @@ import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -85,6 +88,25 @@ public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 		return productEntryLocalService.getProductEntries(start, end);
 	}
 
+	public List<ProductEntry> getProductEntries(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException {
+
+		List<ProductEntry> productEntries = new ArrayList<>();
+
+		List<ExternalLink> externalLinks =
+			_externalLinkLocalService.getExternalLinks(
+				classNameLocalService.getClassNameId(ProductEntry.class),
+				domain, entityName, entityId, start, end);
+
+		for (ExternalLink externalLink : externalLinks) {
+			productEntries.add(getProductEntry(externalLink.getClassPK()));
+		}
+
+		return productEntries;
+	}
+
 	public int getProductEntriesCount() throws PortalException {
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -95,6 +117,15 @@ public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 		}
 
 		return productEntryLocalService.getProductEntriesCount();
+	}
+
+	public int getProductEntriesCount(
+			String domain, String entityName, String entityId)
+		throws PortalException {
+
+		return _externalLinkLocalService.getExternalLinksCount(
+			classNameLocalService.getClassNameId(ProductEntry.class), domain,
+			entityName, entityId);
 	}
 
 	public ProductEntry getProductEntry(long productEntryId)
@@ -140,6 +171,9 @@ public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 		return productEntryLocalService.updateProductEntry(
 			productEntry.getProductEntryId(), name);
 	}
+
+	@Reference
+	private ExternalLinkLocalService _externalLinkLocalService;
 
 	@Reference
 	private ProductEntryPermission _productEntryPermission;

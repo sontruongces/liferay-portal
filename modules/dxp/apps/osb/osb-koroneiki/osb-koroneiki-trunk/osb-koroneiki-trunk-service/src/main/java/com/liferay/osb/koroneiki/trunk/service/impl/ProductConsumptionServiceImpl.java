@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.trunk.service.impl;
 
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
@@ -30,6 +32,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -195,11 +198,43 @@ public class ProductConsumptionServiceImpl
 		return productConsumption;
 	}
 
+	public List<ProductConsumption> getProductConsumptions(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException {
+
+		List<ProductConsumption> productConsumptions = new ArrayList<>();
+
+		List<ExternalLink> externalLinks =
+			_externalLinkLocalService.getExternalLinks(
+				classNameLocalService.getClassNameId(ProductConsumption.class),
+				domain, entityName, entityId, start, end);
+
+		for (ExternalLink externalLink : externalLinks) {
+			productConsumptions.add(
+				getProductConsumption(externalLink.getClassPK()));
+		}
+
+		return productConsumptions;
+	}
+
+	public int getProductConsumptionsCount(
+			String domain, String entityName, String entityId)
+		throws PortalException {
+
+		return _externalLinkLocalService.getExternalLinksCount(
+			classNameLocalService.getClassNameId(ProductConsumption.class),
+			domain, entityName, entityId);
+	}
+
 	@Reference
 	private AccountLocalService _accountLocalService;
 
 	@Reference
 	private AccountPermission _accountPermission;
+
+	@Reference
+	private ExternalLinkLocalService _externalLinkLocalService;
 
 	@Reference
 	private ProductConsumptionPermission _productConsumptionPermission;

@@ -2053,6 +2053,49 @@ paths:
                                 type: array
                     description: ""
             tags: ["ProductConsumption"]
+    "/product-consumptions/by-external-link/{domain}/{entityName}/{entityId}":
+        get:
+            description: Retrieves the product consumptions by the external link.
+            operationId: getProductConsumptionByExternalLinkDomainEntityNameEntity
+            parameters:
+                - in: path
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductConsumption"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductConsumption"
+                                type: array
+                    description: ""
+            tags: ["ProductConsumption"]
     "/product-consumptions/{productConsumptionKey}":
         delete:
             operationId: deleteProductConsumption
@@ -2175,6 +2218,49 @@ paths:
                   name: sort
                   schema:
                       type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchase"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchase"
+                                type: array
+                    description: ""
+            tags: ["ProductPurchase"]
+    "/product-purchases/by-external-link/{domain}/{entityName}/{entityId}":
+        get:
+            description: Retrieves the product purchases by the external link.
+            operationId: getProductPurchaseByExternalLinkDomainEntityNameEntity
+            parameters:
+                - in: path
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2375,6 +2461,49 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Product"
+                    description: ""
+            tags: ["Product"]
+    "/products/by-external-link/{domain}/{entityName}/{entityId}":
+        get:
+            description: Retrieves the products by the external link.
+            operationId: getProductByExternalLinkDomainEntityNameEntity
+            parameters:
+                - in: path
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Product"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Product"
+                                type: array
                     description: ""
             tags: ["Product"]
     "/products/{productKey}":

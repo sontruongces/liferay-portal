@@ -129,6 +129,17 @@ public class ProductPurchaseResourceImpl
 	}
 
 	@Override
+	public Page<ProductPurchase>
+			getProductPurchaseByExternalLinkDomainEntityNameEntity(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+		throws Exception {
+
+		return getProductPurchasesPage(
+			domain, entityName, entityId, pagination);
+	}
+
+	@Override
 	public ProductPurchase postAccountAccountKeyProductPurchase(
 			String accountKey, ProductPurchase productPurchase)
 		throws Exception {
@@ -217,6 +228,22 @@ public class ProductPurchaseResourceImpl
 		}
 
 		return productFields;
+	}
+
+	protected Page<ProductPurchase> getProductPurchasesPage(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_productPurchaseService.getProductPurchases(
+					domain, entityName, entityId, pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				ProductPurchaseUtil::toProductPurchase),
+			pagination,
+			_productPurchaseService.getProductPurchasesCount(
+				domain, entityName, entityId));
 	}
 
 	@Reference
