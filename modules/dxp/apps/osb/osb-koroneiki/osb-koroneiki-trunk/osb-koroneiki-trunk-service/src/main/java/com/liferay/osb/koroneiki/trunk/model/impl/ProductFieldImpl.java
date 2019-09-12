@@ -14,12 +14,9 @@
 
 package com.liferay.osb.koroneiki.trunk.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class ProductFieldImpl extends ProductFieldBaseImpl {
 
 	public ProductFieldImpl() {

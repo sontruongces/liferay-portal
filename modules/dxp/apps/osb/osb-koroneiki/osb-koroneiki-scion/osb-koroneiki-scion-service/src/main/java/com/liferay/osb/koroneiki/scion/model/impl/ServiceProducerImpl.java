@@ -14,12 +14,9 @@
 
 package com.liferay.osb.koroneiki.scion.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class ServiceProducerImpl extends ServiceProducerBaseImpl {
 
 	public ServiceProducerImpl() {

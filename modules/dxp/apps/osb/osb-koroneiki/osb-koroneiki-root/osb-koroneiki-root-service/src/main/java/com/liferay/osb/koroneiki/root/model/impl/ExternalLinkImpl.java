@@ -14,12 +14,9 @@
 
 package com.liferay.osb.koroneiki.root.model.impl;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class ExternalLinkImpl extends ExternalLinkBaseImpl {
 
 	public ExternalLinkImpl() {

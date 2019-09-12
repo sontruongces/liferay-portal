@@ -14,8 +14,6 @@
 
 package com.liferay.osb.koroneiki.taproot.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -29,7 +27,6 @@ import java.util.List;
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class TeamImpl extends TeamBaseImpl {
 
 	public TeamImpl() {

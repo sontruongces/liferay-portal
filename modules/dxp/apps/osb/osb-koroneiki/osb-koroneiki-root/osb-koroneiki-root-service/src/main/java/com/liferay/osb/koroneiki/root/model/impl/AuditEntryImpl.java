@@ -14,12 +14,9 @@
 
 package com.liferay.osb.koroneiki.root.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class AuditEntryImpl extends AuditEntryBaseImpl {
 
 	public AuditEntryImpl() {

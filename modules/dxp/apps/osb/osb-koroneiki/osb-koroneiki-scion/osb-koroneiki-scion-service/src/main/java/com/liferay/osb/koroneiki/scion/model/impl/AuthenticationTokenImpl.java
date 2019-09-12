@@ -14,12 +14,9 @@
 
 package com.liferay.osb.koroneiki.scion.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Amos Fong
  */
-@ProviderType
 public class AuthenticationTokenImpl extends AuthenticationTokenBaseImpl {
 
 	public AuthenticationTokenImpl() {

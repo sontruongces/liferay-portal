@@ -14,8 +14,6 @@
 
 package com.liferay.osb.koroneiki.taproot.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
@@ -27,7 +25,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class ContactAccountRoleImpl extends ContactAccountRoleBaseImpl {
 
 	public ContactAccountRoleImpl() {

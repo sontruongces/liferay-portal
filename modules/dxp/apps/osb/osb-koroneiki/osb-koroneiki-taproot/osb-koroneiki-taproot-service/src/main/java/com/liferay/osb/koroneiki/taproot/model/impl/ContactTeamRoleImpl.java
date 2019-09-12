@@ -14,12 +14,9 @@
 
 package com.liferay.osb.koroneiki.taproot.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class ContactTeamRoleImpl extends ContactTeamRoleBaseImpl {
 
 	public ContactTeamRoleImpl() {

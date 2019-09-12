@@ -16,12 +16,9 @@ package com.liferay.osb.koroneiki.taproot.model.impl;
 
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class TeamRoleImpl extends TeamRoleBaseImpl {
 
 	public TeamRoleImpl() {

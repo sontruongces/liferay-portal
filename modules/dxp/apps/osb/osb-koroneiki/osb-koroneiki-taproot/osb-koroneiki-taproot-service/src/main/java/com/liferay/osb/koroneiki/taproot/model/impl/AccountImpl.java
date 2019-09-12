@@ -14,8 +14,6 @@
 
 package com.liferay.osb.koroneiki.taproot.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
@@ -31,7 +29,6 @@ import java.util.List;
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class AccountImpl extends AccountBaseImpl {
 
 	public AccountImpl() {

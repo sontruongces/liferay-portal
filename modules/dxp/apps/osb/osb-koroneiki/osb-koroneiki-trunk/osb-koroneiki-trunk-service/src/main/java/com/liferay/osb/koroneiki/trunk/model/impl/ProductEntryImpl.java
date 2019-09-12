@@ -14,8 +14,6 @@
 
 package com.liferay.osb.koroneiki.trunk.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
@@ -26,7 +24,6 @@ import java.util.List;
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class ProductEntryImpl extends ProductEntryBaseImpl {
 
 	public ProductEntryImpl() {

@@ -22,12 +22,9 @@ import com.liferay.osb.koroneiki.taproot.service.TeamLocalServiceUtil;
 import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class TeamAccountRoleImpl extends TeamAccountRoleBaseImpl {
 
 	public TeamAccountRoleImpl() {

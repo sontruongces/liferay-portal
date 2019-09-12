@@ -14,15 +14,12 @@
 
 package com.liferay.osb.koroneiki.taproot.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleSystem;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 
 /**
  * @author Kyle Bischof
  */
-@ProviderType
 public class ContactRoleImpl extends ContactRoleBaseImpl {
 
 	public ContactRoleImpl() {
