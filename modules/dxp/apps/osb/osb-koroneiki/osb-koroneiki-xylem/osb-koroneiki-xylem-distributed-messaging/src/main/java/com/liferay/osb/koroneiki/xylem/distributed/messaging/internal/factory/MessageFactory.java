@@ -50,14 +50,14 @@ public class MessageFactory {
 
 	public Message create(Account account) throws Exception {
 		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account dtoAccount =
-			AccountUtil.toAccount(account, LocaleUtil.US, null);
+			AccountUtil.toAccount(account, LocaleUtil.US);
 
 		return new Message(dtoAccount.toString());
 	}
 
 	public Message create(Contact contact) throws Exception {
 		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact dtoContact =
-			ContactUtil.toContact(contact, null);
+			ContactUtil.toContact(contact);
 
 		return new Message(dtoContact.toString());
 	}
@@ -135,14 +135,14 @@ public class MessageFactory {
 
 	protected JSONObject toJSONObject(Account account) throws Exception {
 		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account dtoAccount =
-			AccountUtil.toAccount(account, LocaleUtil.US, null);
+			AccountUtil.toAccount(account, LocaleUtil.US);
 
 		return _jsonFactory.createJSONObject(dtoAccount.toString());
 	}
 
 	protected JSONObject toJSONObject(Contact contact) throws Exception {
 		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact dtoContact =
-			ContactUtil.toContact(contact, null);
+			ContactUtil.toContact(contact);
 
 		return _jsonFactory.createJSONObject(dtoContact.toString());
 	}
