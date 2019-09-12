@@ -122,7 +122,7 @@ public class ProductPurchaseModelDocumentContributor
 
 		for (ProductField productField : productFields) {
 			document.addKeyword(
-				productField.getName(), productField.getValue());
+				"property_" + productField.getName(), productField.getValue());
 		}
 	}
 

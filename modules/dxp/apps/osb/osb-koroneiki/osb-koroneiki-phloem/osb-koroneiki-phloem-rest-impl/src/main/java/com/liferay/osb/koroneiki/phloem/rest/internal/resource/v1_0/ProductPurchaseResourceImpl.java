@@ -16,22 +16,32 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductPurchaseEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
+import com.liferay.portal.vulcan.resource.EntityModelResource;
+import com.liferay.portal.vulcan.util.SearchUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -45,7 +55,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 	scope = ServiceScope.PROTOTYPE, service = ProductPurchaseResource.class
 )
 public class ProductPurchaseResourceImpl
-	extends BaseProductPurchaseResourceImpl {
+	extends BaseProductPurchaseResourceImpl implements EntityModelResource {
 
 	@Override
 	public void deleteProductPurchase(String productPurchaseKey)
@@ -70,6 +80,15 @@ public class ProductPurchaseResourceImpl
 				accountKey));
 	}
 
+	@Override
+	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
+		long classNameId = _classNameLocalService.getClassNameId(
+			com.liferay.osb.koroneiki.trunk.model.ProductPurchase.class);
+
+		return new ProductPurchaseEntityModel(
+			_productFieldLocalService.getProductFieldNames(classNameId));
+	}
+
 	@NestedField("productPurchases")
 	public List<ProductPurchase> getNestedFieldProductPurchases(
 			@NestedFieldId("key") String accountKey)
@@ -87,6 +106,26 @@ public class ProductPurchaseResourceImpl
 
 		return ProductPurchaseUtil.toProductPurchase(
 			_productPurchaseService.getProductPurchase(productPurchaseKey));
+	}
+
+	@Override
+	public Page<ProductPurchase> getProductPurchasesPage(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
+		throws Exception {
+
+		return SearchUtil.search(
+			booleanQuery -> {
+			},
+			filter, com.liferay.osb.koroneiki.trunk.model.ProductPurchase.class,
+			search, pagination,
+			queryConfig -> queryConfig.setSelectedFieldNames(
+				Field.ENTRY_CLASS_PK),
+			searchContext -> searchContext.setCompanyId(
+				contextCompany.getCompanyId()),
+			document -> ProductPurchaseUtil.toProductPurchase(
+				_productPurchaseLocalService.getProductPurchase(
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
+			sorts);
 	}
 
 	@Override
@@ -179,6 +218,9 @@ public class ProductPurchaseResourceImpl
 
 		return productFields;
 	}
+
+	@Reference
+	private ClassNameLocalService _classNameLocalService;
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;

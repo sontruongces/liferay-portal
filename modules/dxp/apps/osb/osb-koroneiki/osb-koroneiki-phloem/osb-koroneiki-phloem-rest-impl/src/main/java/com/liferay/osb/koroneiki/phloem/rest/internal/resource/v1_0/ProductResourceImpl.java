@@ -16,10 +16,22 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductEntryEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
+import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
+import com.liferay.portal.vulcan.resource.EntityModelResource;
+import com.liferay.portal.vulcan.util.SearchUtil;
+
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -32,11 +44,17 @@ import org.osgi.service.component.annotations.ServiceScope;
 	properties = "OSGI-INF/liferay/rest/v1_0/product.properties",
 	scope = ServiceScope.PROTOTYPE, service = ProductResource.class
 )
-public class ProductResourceImpl extends BaseProductResourceImpl {
+public class ProductResourceImpl
+	extends BaseProductResourceImpl implements EntityModelResource {
 
 	@Override
 	public void deleteProduct(String productKey) throws Exception {
 		_productEntryService.deleteProductEntry(productKey);
+	}
+
+	@Override
+	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
+		return _entityModel;
 	}
 
 	@Override
@@ -46,15 +64,22 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	}
 
 	@Override
-	public Page<Product> getProductsPage(Pagination pagination)
+	public Page<Product> getProductsPage(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
 
-		return Page.of(
-			transform(
-				_productEntryService.getProductEntries(
-					pagination.getStartPosition(), pagination.getEndPosition()),
-				ProductUtil::toProduct),
-			pagination, _productEntryService.getProductEntriesCount());
+		return SearchUtil.search(
+			booleanQuery -> {
+			},
+			filter, ProductEntry.class, search, pagination,
+			queryConfig -> queryConfig.setSelectedFieldNames(
+				Field.ENTRY_CLASS_PK),
+			searchContext -> searchContext.setCompanyId(
+				contextCompany.getCompanyId()),
+			document -> ProductUtil.toProduct(
+				_productEntryLocalService.getProductEntry(
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
+			sorts);
 	}
 
 	@Override
@@ -71,6 +96,12 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 			_productEntryService.updateProductEntry(
 				productKey, product.getName()));
 	}
+
+	private static final EntityModel _entityModel =
+		new ProductEntryEntityModel();
+
+	@Reference
+	private ProductEntryLocalService _productEntryLocalService;
 
 	@Reference
 	private ProductEntryService _productEntryService;

@@ -66,6 +66,10 @@ public class ProductFieldLocalServiceImpl
 			name, value);
 	}
 
+	public List<String> getProductFieldNames(long classNameId) {
+		return productFieldFinder.findNameByClassNameId(classNameId);
+	}
+
 	public List<ProductField> getProductFields(long classNameId, long classPK) {
 		return productFieldPersistence.findByC_C(classNameId, classPK);
 	}

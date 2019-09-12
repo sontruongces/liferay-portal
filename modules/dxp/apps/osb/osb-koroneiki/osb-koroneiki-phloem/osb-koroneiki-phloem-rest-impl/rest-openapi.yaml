@@ -2013,6 +2013,46 @@ paths:
                                 $ref: "#/components/schemas/PostalAddress"
                     description: ""
             tags: ["PostalAddress"]
+    "/product-consumptions":
+        get:
+            description: Retrieves the product consumptions. Results can be paginated, filtered, searched, and sorted.
+            operationId: getProductConsumptionsPage
+            parameters:
+                - in: query
+                  name: filter
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductConsumption"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductConsumption"
+                                type: array
+                    description: ""
+            tags: ["ProductConsumption"]
     "/product-consumptions/{productConsumptionKey}":
         delete:
             operationId: deleteProductConsumption
@@ -2110,6 +2150,46 @@ paths:
                                 $ref: "#/components/schemas/ExternalLink"
                     description: ""
             tags: ["ExternalLink"]
+    "/product-purchases":
+        get:
+            description: Retrieves the product purchases. Results can be paginated, filtered, searched, and sorted.
+            operationId: getProductPurchasesPage
+            parameters:
+                - in: query
+                  name: filter
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchase"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchase"
+                                type: array
+                    description: ""
+            tags: ["ProductPurchase"]
     "/product-purchases/{productPurchaseKey}":
         delete:
             operationId: deleteProductPurchase
@@ -2237,8 +2317,13 @@ paths:
             tags: ["ExternalLink"]
     "/products":
         get:
+            description: Retrieves the products. Results can be paginated, filtered, searched, and sorted.
             operationId: getProductsPage
             parameters:
+                - in: query
+                  name: filter
+                  schema:
+                      type: string
                 - in: query
                   name: page
                   schema:
@@ -2247,6 +2332,14 @@ paths:
                   name: pageSize
                   schema:
                       type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
