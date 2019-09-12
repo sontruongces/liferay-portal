@@ -320,6 +320,21 @@ public class ProductEntryLocalServiceUtil {
 		return getService().getProductEntryByUuidAndCompanyId(uuid, companyId);
 	}
 
+	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry reindex(
+			long productEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().reindex(productEntryId);
+	}
+
+	public static com.liferay.portal.kernel.search.Hits search(
+			long companyId, String keywords, int start, int end,
+			com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().search(companyId, keywords, start, end, sort);
+	}
+
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
 			updateProductEntry(long productEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {

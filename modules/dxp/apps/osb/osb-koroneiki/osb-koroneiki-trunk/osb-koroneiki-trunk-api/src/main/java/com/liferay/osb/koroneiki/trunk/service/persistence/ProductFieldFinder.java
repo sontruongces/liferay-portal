@@ -12,28 +12,17 @@
  *
  */
 
-package com.liferay.osb.koroneiki.trunk.exception;
+package com.liferay.osb.koroneiki.trunk.service.persistence;
 
-import com.liferay.portal.kernel.exception.PortalException;
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * @author Brian Wing Shun Chan
+ * @generated
  */
-public class ProductPurchaseQuantityException extends PortalException {
+@ProviderType
+public interface ProductFieldFinder {
 
-	public ProductPurchaseQuantityException() {
-	}
-
-	public ProductPurchaseQuantityException(String msg) {
-		super(msg);
-	}
-
-	public ProductPurchaseQuantityException(String msg, Throwable cause) {
-		super(msg, cause);
-	}
-
-	public ProductPurchaseQuantityException(Throwable cause) {
-		super(cause);
-	}
+	public java.util.List<String> findNameByClassNameId(long classNameId);
 
 }

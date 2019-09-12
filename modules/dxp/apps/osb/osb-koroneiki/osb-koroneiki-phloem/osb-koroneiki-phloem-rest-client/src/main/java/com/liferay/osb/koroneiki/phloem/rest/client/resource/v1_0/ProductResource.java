@@ -37,11 +37,14 @@ public interface ProductResource {
 		return new Builder();
 	}
 
-	public Page<Product> getProductsPage(Pagination pagination)
+	public Page<Product> getProductsPage(
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getProductsPageHttpResponse(
-			Pagination pagination)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public Product postProduct(Product product) throws Exception;
@@ -107,11 +110,13 @@ public interface ProductResource {
 
 	public static class ProductResourceImpl implements ProductResource {
 
-		public Page<Product> getProductsPage(Pagination pagination)
+		public Page<Product> getProductsPage(
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getProductsPageHttpResponse(
-				pagination);
+				search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -125,7 +130,8 @@ public interface ProductResource {
 		}
 
 		public HttpInvoker.HttpResponse getProductsPageHttpResponse(
-				Pagination pagination)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -137,11 +143,23 @@ public interface ProductResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
+			}
+
 			if (pagination != null) {
 				httpInvoker.parameter(
 					"page", String.valueOf(pagination.getPage()));
 				httpInvoker.parameter(
 					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
 			}
 
 			httpInvoker.path(

@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface AuthenticationToken
 	extends AuthenticationTokenModel, PersistedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.osb.koroneiki.scion.model.impl.AuthenticationTokenImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

@@ -16,8 +16,6 @@ package com.liferay.osb.koroneiki.taproot.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link TeamService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TeamService
  * @generated
  */
-@ProviderType
 public class TeamServiceWrapper
 	implements TeamService, ServiceWrapper<TeamService> {
 

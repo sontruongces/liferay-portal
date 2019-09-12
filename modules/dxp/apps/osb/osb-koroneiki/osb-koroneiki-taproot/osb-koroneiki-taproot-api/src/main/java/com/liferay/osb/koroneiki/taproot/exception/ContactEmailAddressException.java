@@ -14,14 +14,11 @@
 
 package com.liferay.osb.koroneiki.taproot.exception;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Amos Fong
  */
-@ProviderType
 public class ContactEmailAddressException extends PortalException {
 
 	public ContactEmailAddressException() {

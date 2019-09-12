@@ -337,6 +337,24 @@ public class ProductEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.osb.koroneiki.trunk.model.ProductEntry reindex(
+			long productEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productEntryLocalService.reindex(productEntryId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.search.Hits search(
+			long companyId, String keywords, int start, int end,
+			com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productEntryLocalService.search(
+			companyId, keywords, start, end, sort);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductEntry
 			updateProductEntry(long productEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {

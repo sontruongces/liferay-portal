@@ -268,6 +268,11 @@ public class ProductFieldLocalServiceWrapper
 		return _productFieldLocalService.getProductField(productFieldId);
 	}
 
+	@Override
+	public java.util.List<String> getProductFieldNames(long classNameId) {
+		return _productFieldLocalService.getProductFieldNames(classNameId);
+	}
+
 	/**
 	 * Returns a range of all the product fields.
 	 *

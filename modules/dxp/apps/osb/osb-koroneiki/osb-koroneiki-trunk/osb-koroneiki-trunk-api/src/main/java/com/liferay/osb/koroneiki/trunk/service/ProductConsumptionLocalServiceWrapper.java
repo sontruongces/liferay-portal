@@ -396,6 +396,24 @@ public class ProductConsumptionLocalServiceWrapper
 		return _productConsumptionLocalService.getProductConsumptionsCount();
 	}
 
+	@Override
+	public com.liferay.osb.koroneiki.trunk.model.ProductConsumption reindex(
+			long productConsumptionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productConsumptionLocalService.reindex(productConsumptionId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.search.Hits search(
+			long companyId, String keywords, int start, int end,
+			com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productConsumptionLocalService.search(
+			companyId, keywords, start, end, sort);
+	}
+
 	/**
 	 * Updates the product consumption in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

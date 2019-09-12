@@ -14,15 +14,12 @@
 
 package com.liferay.osb.koroneiki.taproot.exception;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Amos Fong
  */
-@ProviderType
 public class ContactRoleNameException extends PortalException {
 
 	public ContactRoleNameException() {

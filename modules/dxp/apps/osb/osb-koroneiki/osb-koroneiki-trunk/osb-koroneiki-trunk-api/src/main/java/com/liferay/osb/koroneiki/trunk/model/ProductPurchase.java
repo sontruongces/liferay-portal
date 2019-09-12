@@ -77,4 +77,6 @@ public interface ProductPurchase extends PersistedModel, ProductPurchaseModel {
 
 	public java.util.Map<String, String> getProductFieldsMap();
 
+	public boolean isPerpetual();
+
 }

@@ -339,6 +339,21 @@ public class ProductPurchaseLocalServiceUtil {
 		return getService().getProductPurchasesCount();
 	}
 
+	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase reindex(
+			long productPurchaseId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().reindex(productPurchaseId);
+	}
+
+	public static com.liferay.portal.kernel.search.Hits search(
+			long companyId, String keywords, int start, int end,
+			com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().search(companyId, keywords, start, end, sort);
+	}
+
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			updateProductPurchase(
 				long userId, long productPurchaseId, java.util.Date startDate,

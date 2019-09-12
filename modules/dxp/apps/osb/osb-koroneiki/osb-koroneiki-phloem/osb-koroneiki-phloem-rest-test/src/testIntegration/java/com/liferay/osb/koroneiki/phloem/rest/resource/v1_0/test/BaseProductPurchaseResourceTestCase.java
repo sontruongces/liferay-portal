@@ -28,6 +28,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductPurchaseSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -50,6 +51,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -60,6 +63,7 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -329,6 +333,230 @@ public abstract class BaseProductPurchaseResourceTestCase {
 	protected ProductPurchase
 			testPostAccountAccountKeyProductPurchase_addProductPurchase(
 				ProductPurchase productPurchase)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGetProductPurchasesPage() throws Exception {
+		Page<ProductPurchase> page =
+			productPurchaseResource.getProductPurchasesPage(
+				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		ProductPurchase productPurchase1 =
+			testGetProductPurchasesPage_addProductPurchase(
+				randomProductPurchase());
+
+		ProductPurchase productPurchase2 =
+			testGetProductPurchasesPage_addProductPurchase(
+				randomProductPurchase());
+
+		page = productPurchaseResource.getProductPurchasesPage(
+			null, null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(productPurchase1, productPurchase2),
+			(List<ProductPurchase>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetProductPurchasesPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		ProductPurchase productPurchase1 = randomProductPurchase();
+
+		productPurchase1 = testGetProductPurchasesPage_addProductPurchase(
+			productPurchase1);
+
+		for (EntityField entityField : entityFields) {
+			Page<ProductPurchase> page =
+				productPurchaseResource.getProductPurchasesPage(
+					null,
+					getFilterString(entityField, "between", productPurchase1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(productPurchase1),
+				(List<ProductPurchase>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetProductPurchasesPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		ProductPurchase productPurchase1 =
+			testGetProductPurchasesPage_addProductPurchase(
+				randomProductPurchase());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ProductPurchase productPurchase2 =
+			testGetProductPurchasesPage_addProductPurchase(
+				randomProductPurchase());
+
+		for (EntityField entityField : entityFields) {
+			Page<ProductPurchase> page =
+				productPurchaseResource.getProductPurchasesPage(
+					null, getFilterString(entityField, "eq", productPurchase1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(productPurchase1),
+				(List<ProductPurchase>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetProductPurchasesPageWithPagination() throws Exception {
+		ProductPurchase productPurchase1 =
+			testGetProductPurchasesPage_addProductPurchase(
+				randomProductPurchase());
+
+		ProductPurchase productPurchase2 =
+			testGetProductPurchasesPage_addProductPurchase(
+				randomProductPurchase());
+
+		ProductPurchase productPurchase3 =
+			testGetProductPurchasesPage_addProductPurchase(
+				randomProductPurchase());
+
+		Page<ProductPurchase> page1 =
+			productPurchaseResource.getProductPurchasesPage(
+				null, null, Pagination.of(1, 2), null);
+
+		List<ProductPurchase> productPurchases1 =
+			(List<ProductPurchase>)page1.getItems();
+
+		Assert.assertEquals(
+			productPurchases1.toString(), 2, productPurchases1.size());
+
+		Page<ProductPurchase> page2 =
+			productPurchaseResource.getProductPurchasesPage(
+				null, null, Pagination.of(2, 2), null);
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<ProductPurchase> productPurchases2 =
+			(List<ProductPurchase>)page2.getItems();
+
+		Assert.assertEquals(
+			productPurchases2.toString(), 1, productPurchases2.size());
+
+		Page<ProductPurchase> page3 =
+			productPurchaseResource.getProductPurchasesPage(
+				null, null, Pagination.of(1, 3), null);
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(productPurchase1, productPurchase2, productPurchase3),
+			(List<ProductPurchase>)page3.getItems());
+	}
+
+	@Test
+	public void testGetProductPurchasesPageWithSortDateTime() throws Exception {
+		testGetProductPurchasesPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, productPurchase1, productPurchase2) -> {
+				BeanUtils.setProperty(
+					productPurchase1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetProductPurchasesPageWithSortInteger() throws Exception {
+		testGetProductPurchasesPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, productPurchase1, productPurchase2) -> {
+				BeanUtils.setProperty(
+					productPurchase1, entityField.getName(), 0);
+				BeanUtils.setProperty(
+					productPurchase2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetProductPurchasesPageWithSortString() throws Exception {
+		testGetProductPurchasesPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, productPurchase1, productPurchase2) -> {
+				BeanUtils.setProperty(
+					productPurchase1, entityField.getName(), "Aaa");
+				BeanUtils.setProperty(
+					productPurchase2, entityField.getName(), "Bbb");
+			});
+	}
+
+	protected void testGetProductPurchasesPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, ProductPurchase, ProductPurchase, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		ProductPurchase productPurchase1 = randomProductPurchase();
+		ProductPurchase productPurchase2 = randomProductPurchase();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, productPurchase1, productPurchase2);
+		}
+
+		productPurchase1 = testGetProductPurchasesPage_addProductPurchase(
+			productPurchase1);
+
+		productPurchase2 = testGetProductPurchasesPage_addProductPurchase(
+			productPurchase2);
+
+		for (EntityField entityField : entityFields) {
+			Page<ProductPurchase> ascPage =
+				productPurchaseResource.getProductPurchasesPage(
+					null, null, Pagination.of(1, 2),
+					entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(productPurchase1, productPurchase2),
+				(List<ProductPurchase>)ascPage.getItems());
+
+			Page<ProductPurchase> descPage =
+				productPurchaseResource.getProductPurchasesPage(
+					null, null, Pagination.of(1, 2),
+					entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(productPurchase2, productPurchase1),
+				(List<ProductPurchase>)descPage.getItems());
+		}
+	}
+
+	protected ProductPurchase testGetProductPurchasesPage_addProductPurchase(
+			ProductPurchase productPurchase)
 		throws Exception {
 
 		throw new UnsupportedOperationException(

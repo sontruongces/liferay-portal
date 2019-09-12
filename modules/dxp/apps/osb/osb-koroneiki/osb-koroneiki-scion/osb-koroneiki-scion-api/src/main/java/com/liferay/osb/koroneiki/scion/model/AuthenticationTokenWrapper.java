@@ -21,8 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link AuthenticationToken}.
@@ -32,7 +30,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see AuthenticationToken
  * @generated
  */
-@ProviderType
 public class AuthenticationTokenWrapper
 	extends BaseModelWrapper<AuthenticationToken>
 	implements AuthenticationToken, ModelWrapper<AuthenticationToken> {
@@ -248,6 +245,11 @@ public class AuthenticationTokenWrapper
 		return model.getUserUuid();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a authentication token model instance should use the <code>AuthenticationToken</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

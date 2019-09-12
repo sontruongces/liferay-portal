@@ -213,6 +213,9 @@ public interface ProductFieldLocalService
 	public ProductField getProductField(long productFieldId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<String> getProductFieldNames(long classNameId);
+
 	/**
 	 * Returns a range of all the product fields.
 	 *

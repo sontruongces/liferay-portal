@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductConsumptionPersistence;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryPersistence;
+import com.liferay.osb.koroneiki.trunk.service.persistence.ProductFieldFinder;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductFieldPersistence;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductPurchasePersistence;
 import com.liferay.portal.aop.AopService;
@@ -394,6 +395,9 @@ public abstract class ProductFieldLocalServiceBaseImpl
 
 	@Reference
 	protected ProductFieldPersistence productFieldPersistence;
+
+	@Reference
+	protected ProductFieldFinder productFieldFinder;
 
 	@Reference
 	protected ProductPurchasePersistence productPurchasePersistence;

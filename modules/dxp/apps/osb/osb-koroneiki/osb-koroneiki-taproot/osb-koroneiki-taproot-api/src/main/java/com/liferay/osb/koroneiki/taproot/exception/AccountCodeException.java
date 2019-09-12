@@ -16,12 +16,9 @@ package com.liferay.osb.koroneiki.taproot.exception;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * @author Amos Fong
  */
-@ProviderType
 public class AccountCodeException extends PortalException {
 
 	public AccountCodeException() {

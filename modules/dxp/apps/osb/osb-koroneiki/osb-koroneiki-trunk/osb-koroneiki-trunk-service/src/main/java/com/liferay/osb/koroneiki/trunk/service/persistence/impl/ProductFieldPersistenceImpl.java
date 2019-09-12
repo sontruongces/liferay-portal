@@ -85,6 +85,522 @@ public class ProductFieldPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathWithPaginationFindByClassNameId;
+	private FinderPath _finderPathWithoutPaginationFindByClassNameId;
+	private FinderPath _finderPathCountByClassNameId;
+
+	/**
+	 * Returns all the product fields where classNameId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @return the matching product fields
+	 */
+	@Override
+	public List<ProductField> findByClassNameId(long classNameId) {
+		return findByClassNameId(
+			classNameId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the product fields where classNameId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductFieldModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param start the lower bound of the range of product fields
+	 * @param end the upper bound of the range of product fields (not inclusive)
+	 * @return the range of matching product fields
+	 */
+	@Override
+	public List<ProductField> findByClassNameId(
+		long classNameId, int start, int end) {
+
+		return findByClassNameId(classNameId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the product fields where classNameId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductFieldModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param start the lower bound of the range of product fields
+	 * @param end the upper bound of the range of product fields (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product fields
+	 */
+	@Override
+	public List<ProductField> findByClassNameId(
+		long classNameId, int start, int end,
+		OrderByComparator<ProductField> orderByComparator) {
+
+		return findByClassNameId(
+			classNameId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the product fields where classNameId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductFieldModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param start the lower bound of the range of product fields
+	 * @param end the upper bound of the range of product fields (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching product fields
+	 */
+	@Override
+	public List<ProductField> findByClassNameId(
+		long classNameId, int start, int end,
+		OrderByComparator<ProductField> orderByComparator,
+		boolean useFinderCache) {
+
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			pagination = false;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByClassNameId;
+				finderArgs = new Object[] {classNameId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByClassNameId;
+			finderArgs = new Object[] {
+				classNameId, start, end, orderByComparator
+			};
+		}
+
+		List<ProductField> list = null;
+
+		if (useFinderCache) {
+			list = (List<ProductField>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (ProductField productField : list) {
+					if ((classNameId != productField.getClassNameId())) {
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_PRODUCTFIELD_WHERE);
+
+			query.append(_FINDER_COLUMN_CLASSNAMEID_CLASSNAMEID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else if (pagination) {
+				query.append(ProductFieldModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
+
+				if (!pagination) {
+					list = (List<ProductField>)QueryUtil.list(
+						q, getDialect(), start, end, false);
+
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
+				}
+				else {
+					list = (List<ProductField>)QueryUtil.list(
+						q, getDialect(), start, end);
+				}
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first product field in the ordered set where classNameId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product field
+	 * @throws NoSuchProductFieldException if a matching product field could not be found
+	 */
+	@Override
+	public ProductField findByClassNameId_First(
+			long classNameId, OrderByComparator<ProductField> orderByComparator)
+		throws NoSuchProductFieldException {
+
+		ProductField productField = fetchByClassNameId_First(
+			classNameId, orderByComparator);
+
+		if (productField != null) {
+			return productField;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append("}");
+
+		throw new NoSuchProductFieldException(msg.toString());
+	}
+
+	/**
+	 * Returns the first product field in the ordered set where classNameId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product field, or <code>null</code> if a matching product field could not be found
+	 */
+	@Override
+	public ProductField fetchByClassNameId_First(
+		long classNameId, OrderByComparator<ProductField> orderByComparator) {
+
+		List<ProductField> list = findByClassNameId(
+			classNameId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last product field in the ordered set where classNameId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product field
+	 * @throws NoSuchProductFieldException if a matching product field could not be found
+	 */
+	@Override
+	public ProductField findByClassNameId_Last(
+			long classNameId, OrderByComparator<ProductField> orderByComparator)
+		throws NoSuchProductFieldException {
+
+		ProductField productField = fetchByClassNameId_Last(
+			classNameId, orderByComparator);
+
+		if (productField != null) {
+			return productField;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append("}");
+
+		throw new NoSuchProductFieldException(msg.toString());
+	}
+
+	/**
+	 * Returns the last product field in the ordered set where classNameId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product field, or <code>null</code> if a matching product field could not be found
+	 */
+	@Override
+	public ProductField fetchByClassNameId_Last(
+		long classNameId, OrderByComparator<ProductField> orderByComparator) {
+
+		int count = countByClassNameId(classNameId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<ProductField> list = findByClassNameId(
+			classNameId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the product fields before and after the current product field in the ordered set where classNameId = &#63;.
+	 *
+	 * @param productFieldId the primary key of the current product field
+	 * @param classNameId the class name ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product field
+	 * @throws NoSuchProductFieldException if a product field with the primary key could not be found
+	 */
+	@Override
+	public ProductField[] findByClassNameId_PrevAndNext(
+			long productFieldId, long classNameId,
+			OrderByComparator<ProductField> orderByComparator)
+		throws NoSuchProductFieldException {
+
+		ProductField productField = findByPrimaryKey(productFieldId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			ProductField[] array = new ProductFieldImpl[3];
+
+			array[0] = getByClassNameId_PrevAndNext(
+				session, productField, classNameId, orderByComparator, true);
+
+			array[1] = productField;
+
+			array[2] = getByClassNameId_PrevAndNext(
+				session, productField, classNameId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected ProductField getByClassNameId_PrevAndNext(
+		Session session, ProductField productField, long classNameId,
+		OrderByComparator<ProductField> orderByComparator, boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_PRODUCTFIELD_WHERE);
+
+		query.append(_FINDER_COLUMN_CLASSNAMEID_CLASSNAMEID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(ProductFieldModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(classNameId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(productField)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<ProductField> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the product fields where classNameId = &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 */
+	@Override
+	public void removeByClassNameId(long classNameId) {
+		for (ProductField productField :
+				findByClassNameId(
+					classNameId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
+			remove(productField);
+		}
+	}
+
+	/**
+	 * Returns the number of product fields where classNameId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @return the number of matching product fields
+	 */
+	@Override
+	public int countByClassNameId(long classNameId) {
+		FinderPath finderPath = _finderPathCountByClassNameId;
+
+		Object[] finderArgs = new Object[] {classNameId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_PRODUCTFIELD_WHERE);
+
+			query.append(_FINDER_COLUMN_CLASSNAMEID_CLASSNAMEID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_CLASSNAMEID_CLASSNAMEID_2 =
+		"productField.classNameId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByC_C;
 	private FinderPath _finderPathWithoutPaginationFindByC_C;
 	private FinderPath _finderPathCountByC_C;
@@ -884,6 +1400,14 @@ public class ProductFieldPersistenceImpl
 		}
 		else if (isNew) {
 			Object[] args = new Object[] {
+				productFieldModelImpl.getClassNameId()
+			};
+
+			finderCache.removeResult(_finderPathCountByClassNameId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByClassNameId, args);
+
+			args = new Object[] {
 				productFieldModelImpl.getClassNameId(),
 				productFieldModelImpl.getClassPK()
 			};
@@ -897,6 +1421,25 @@ public class ProductFieldPersistenceImpl
 				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
 		}
 		else {
+			if ((productFieldModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByClassNameId.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					productFieldModelImpl.getOriginalClassNameId()
+				};
+
+				finderCache.removeResult(_finderPathCountByClassNameId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByClassNameId, args);
+
+				args = new Object[] {productFieldModelImpl.getClassNameId()};
+
+				finderCache.removeResult(_finderPathCountByClassNameId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByClassNameId, args);
+			}
+
 			if ((productFieldModelImpl.getColumnBitmask() &
 				 _finderPathWithoutPaginationFindByC_C.getColumnBitmask()) !=
 					 0) {
@@ -1222,6 +1765,25 @@ public class ProductFieldPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
+
+		_finderPathWithPaginationFindByClassNameId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, ProductFieldImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByClassNameId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByClassNameId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, ProductFieldImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByClassNameId",
+			new String[] {Long.class.getName()},
+			ProductFieldModelImpl.CLASSNAMEID_COLUMN_BITMASK);
+
+		_finderPathCountByClassNameId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByClassNameId",
+			new String[] {Long.class.getName()});
 
 		_finderPathWithPaginationFindByC_C = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, ProductFieldImpl.class,

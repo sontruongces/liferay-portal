@@ -14,14 +14,11 @@
 
 package com.liferay.osb.koroneiki.taproot.exception;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Amos Fong
  */
-@ProviderType
 public class AccountNameException extends PortalException {
 
 	public AccountNameException() {

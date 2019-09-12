@@ -260,6 +260,12 @@ public class ProductFieldLocalServiceUtil {
 		return getService().getProductField(productFieldId);
 	}
 
+	public static java.util.List<String> getProductFieldNames(
+		long classNameId) {
+
+		return getService().getProductFieldNames(classNameId);
+	}
+
 	/**
 	 * Returns a range of all the product fields.
 	 *

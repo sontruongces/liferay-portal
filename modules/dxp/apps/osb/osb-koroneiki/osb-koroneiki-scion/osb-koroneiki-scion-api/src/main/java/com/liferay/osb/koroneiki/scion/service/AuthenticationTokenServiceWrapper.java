@@ -16,8 +16,6 @@ package com.liferay.osb.koroneiki.scion.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link AuthenticationTokenService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see AuthenticationTokenService
  * @generated
  */
-@ProviderType
 public class AuthenticationTokenServiceWrapper
 	implements AuthenticationTokenService,
 			   ServiceWrapper<AuthenticationTokenService> {
@@ -36,6 +33,11 @@ public class AuthenticationTokenServiceWrapper
 		_authenticationTokenService = authenticationTokenService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link AuthenticationTokenServiceUtil} to access the authentication token remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.AuthenticationTokenServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.osb.koroneiki.scion.model.AuthenticationToken
 			addAuthenticationToken(

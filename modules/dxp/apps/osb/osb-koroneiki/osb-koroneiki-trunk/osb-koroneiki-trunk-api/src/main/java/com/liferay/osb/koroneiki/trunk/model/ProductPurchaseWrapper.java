@@ -320,6 +320,11 @@ public class ProductPurchaseWrapper
 		return model.getUuid();
 	}
 
+	@Override
+	public boolean isPerpetual() {
+		return model.isPerpetual();
+	}
+
 	/**
 	 * NOTE FOR DEVELOPERS:
 	 *

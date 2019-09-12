@@ -25,8 +25,10 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
+import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -48,6 +50,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -58,6 +63,7 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -184,7 +190,184 @@ public abstract class BaseProductResourceTestCase {
 
 	@Test
 	public void testGetProductsPage() throws Exception {
-		Assert.assertTrue(true);
+		Page<Product> page = productResource.getProductsPage(
+			RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		Product product1 = testGetProductsPage_addProduct(randomProduct());
+
+		Product product2 = testGetProductsPage_addProduct(randomProduct());
+
+		page = productResource.getProductsPage(
+			null, null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(product1, product2), (List<Product>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetProductsPageWithFilterDateTimeEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Product product1 = randomProduct();
+
+		product1 = testGetProductsPage_addProduct(product1);
+
+		for (EntityField entityField : entityFields) {
+			Page<Product> page = productResource.getProductsPage(
+				null, getFilterString(entityField, "between", product1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(product1),
+				(List<Product>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetProductsPageWithFilterStringEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Product product1 = testGetProductsPage_addProduct(randomProduct());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Product product2 = testGetProductsPage_addProduct(randomProduct());
+
+		for (EntityField entityField : entityFields) {
+			Page<Product> page = productResource.getProductsPage(
+				null, getFilterString(entityField, "eq", product1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(product1),
+				(List<Product>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetProductsPageWithPagination() throws Exception {
+		Product product1 = testGetProductsPage_addProduct(randomProduct());
+
+		Product product2 = testGetProductsPage_addProduct(randomProduct());
+
+		Product product3 = testGetProductsPage_addProduct(randomProduct());
+
+		Page<Product> page1 = productResource.getProductsPage(
+			null, null, Pagination.of(1, 2), null);
+
+		List<Product> products1 = (List<Product>)page1.getItems();
+
+		Assert.assertEquals(products1.toString(), 2, products1.size());
+
+		Page<Product> page2 = productResource.getProductsPage(
+			null, null, Pagination.of(2, 2), null);
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Product> products2 = (List<Product>)page2.getItems();
+
+		Assert.assertEquals(products2.toString(), 1, products2.size());
+
+		Page<Product> page3 = productResource.getProductsPage(
+			null, null, Pagination.of(1, 3), null);
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(product1, product2, product3),
+			(List<Product>)page3.getItems());
+	}
+
+	@Test
+	public void testGetProductsPageWithSortDateTime() throws Exception {
+		testGetProductsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, product1, product2) -> {
+				BeanUtils.setProperty(
+					product1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetProductsPageWithSortInteger() throws Exception {
+		testGetProductsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, product1, product2) -> {
+				BeanUtils.setProperty(product1, entityField.getName(), 0);
+				BeanUtils.setProperty(product2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetProductsPageWithSortString() throws Exception {
+		testGetProductsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, product1, product2) -> {
+				BeanUtils.setProperty(product1, entityField.getName(), "Aaa");
+				BeanUtils.setProperty(product2, entityField.getName(), "Bbb");
+			});
+	}
+
+	protected void testGetProductsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, Product, Product, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Product product1 = randomProduct();
+		Product product2 = randomProduct();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, product1, product2);
+		}
+
+		product1 = testGetProductsPage_addProduct(product1);
+
+		product2 = testGetProductsPage_addProduct(product2);
+
+		for (EntityField entityField : entityFields) {
+			Page<Product> ascPage = productResource.getProductsPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(product1, product2),
+				(List<Product>)ascPage.getItems());
+
+			Page<Product> descPage = productResource.getProductsPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(product2, product1),
+				(List<Product>)descPage.getItems());
+		}
+	}
+
+	protected Product testGetProductsPage_addProduct(Product product)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test

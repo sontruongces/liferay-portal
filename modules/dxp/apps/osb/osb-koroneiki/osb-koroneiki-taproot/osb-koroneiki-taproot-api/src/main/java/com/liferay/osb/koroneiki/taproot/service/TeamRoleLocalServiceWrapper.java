@@ -16,8 +16,6 @@ package com.liferay.osb.koroneiki.taproot.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link TeamRoleLocalService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TeamRoleLocalService
  * @generated
  */
-@ProviderType
 public class TeamRoleLocalServiceWrapper
 	implements TeamRoleLocalService, ServiceWrapper<TeamRoleLocalService> {
 

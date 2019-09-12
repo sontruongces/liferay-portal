@@ -567,8 +567,10 @@ public class Query {
 
 	@GraphQLField
 	public ProductPage getProductsPage(
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") Filter filter,
 			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
+			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -576,7 +578,7 @@ public class Query {
 			this::_populateResourceContext,
 			productResource -> new ProductPage(
 				productResource.getProductsPage(
-					Pagination.of(page, pageSize))));
+					search, filter, Pagination.of(page, pageSize), sorts)));
 	}
 
 	@GraphQLField
@@ -606,6 +608,22 @@ public class Query {
 	}
 
 	@GraphQLField
+	public ProductConsumptionPage getProductConsumptionsPage(
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") Filter filter,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productConsumptionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productConsumptionResource -> new ProductConsumptionPage(
+				productConsumptionResource.getProductConsumptionsPage(
+					search, filter, Pagination.of(page, pageSize), sorts)));
+	}
+
+	@GraphQLField
 	public ProductConsumption getProductConsumption(
 			@GraphQLName("productConsumptionKey") String productConsumptionKey)
 		throws Exception {
@@ -632,6 +650,22 @@ public class Query {
 				productPurchaseResource.
 					getAccountAccountKeyProductPurchasesPage(
 						accountKey, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public ProductPurchasePage getProductPurchasesPage(
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") Filter filter,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productPurchaseResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productPurchaseResource -> new ProductPurchasePage(
+				productPurchaseResource.getProductPurchasesPage(
+					search, filter, Pagination.of(page, pageSize), sorts)));
 	}
 
 	@GraphQLField

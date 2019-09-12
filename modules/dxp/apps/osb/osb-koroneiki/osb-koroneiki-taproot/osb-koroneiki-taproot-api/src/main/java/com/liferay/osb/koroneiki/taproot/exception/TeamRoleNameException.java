@@ -17,12 +17,9 @@ package com.liferay.osb.koroneiki.taproot.exception;
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.portal.kernel.exception.PortalException;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * @author Amos Fong
  */
-@ProviderType
 public class TeamRoleNameException extends PortalException {
 
 	public TeamRoleNameException() {
