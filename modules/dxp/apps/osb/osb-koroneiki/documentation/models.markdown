@@ -1,62 +1,86 @@
-# Models
+## Models
 
 ### Account
-A business or personal account which connects contacts to products they own. 
 
-An account can also have parent and child accounts related to it.
+An `Account` is a customer entity which can be represented by a business or
+personal user. It connects `Contacts` to `Products` they have purchased. An
+`Account` can also have parent and child `Accounts` related to it.
 
 ### AuditEntry
-An audit log that records changes to objects.
 
-This is read only, since the audits are created automatically by Koroneiki.
+An `Audit Entry` is a log that records changes to the other Koroneiki models
+listed here. This is read only because the `Audit Entries` are created
+automatically by Koroneiki.
 
 ### Contact
-A contact that is connected to an account or team.
 
-Contacts can be assigned to different Accounts and Teams, and given custom `contactRoles`.
+A `Contact` represents a user that can be assigned to an `Account` or `Team`.
+`Contacts` can be given `Contact Roles` when assigned to `Accounts` or `Teams`.
 
 ### ContactRole
-The role a contact has when connected to an account or a team.
 
-By default, when a contact is added to an account or team, they get the `member` role.
+A `Contact Role` is role a `Contact` has when assigned to an `Account` or
+`Team`. By default, when a `Contact` is assigned to an `Account` or `Team`, they
+get the `Member` role.
 
 ### ExternalLink
-Creates a link to an external entity.
 
-Includes the domain, the external entity's name, and the external entity's id.
+An `External Link` creates a relationship between Koroneiki models and external
+entities. It includes the external domain, entity's name, and entity's id.
+
+Examples:
+
+Domain: `marketplace`
+EntityName: `developerEntry`
+EntityId: `ABC123`
+
+Domain: `salesforce`
+EntityName: `account`
+EntityId: `ABC456`
+
+Domain: `training`
+EntityName: `course`
+EntityId: `dxp-system-admin`
+
+### PostalAddress
+
+A `Postal Address` describes an address for an `Account`. This uses the same
+structure as the Liferay address model.
+
+### Product
+
+A `Product` is anything that can be purchased or rendered as a service to a
+customer.
+
+### ProductConsumption
+
+A `Product Consumption` is a record of an `Account` consuming a `Product`. It
+can contain custom key/value fields.
 
 Example:
 
-Domain: `salesforce`
-EntityName: `salesforceAccountKey`
-EntityId: `123456789`
-
-### PostalAddress
-The postal address for an Account.
-
-This uses the same structure as the Liferay address model.
-
-### Product
-The name of a Product, which can be purchased by an Account.
-
-### ProductConsumption
-A product consumption is when an account consumes a specific item.
-
-An example of this would be if an account has two licenses, when they use one of them, that product was consumed.
+There is an `Account` that purchased two DXP licenses. When they use one of them
+via a license.xml or maybe DXP Cloud, a `Product Consumption` record should be
+added by the system that consumed it.
 
 ### ProductPurchase
-The details of the product purchase. 
 
-Includes details of the product purchase such as `quantity`, `startDate`, `endDate`, and also custom fields.
+A `Product Purchase` is an entitlement to the `Product` that was purchased. It
+includes details/limitations of the purchase such as `quantity`, `startDate`,
+`endDate`, and custom key/value fields.
 
 ### Team
-A team linked to an Account.
 
-A team includes contacts that are assigned to an Account for a specific purpose.
+A `Team` is a group of `Contacts` within an `Account`. It can be assigned to
+other `Accounts` with `Team Roles`.
 
-An example of this would be a support team assigned to a specific account, so another system will know which contacts are working on which account.
+Example:
+
+A `Team` is created under a partner `Account` and assigned to a customer
+`Account` with the First Line Support `Team Role`.
 
 ### TeamRole
-The role that is assigned to a team.
 
-When a team is assigned to an account, they will have a team role of `type` `account`. Other `regular` roles can be assigned to teams as well.
+A `Team Role` is the role a `Team` has when assigned to an `Account`. When a
+`Team` is assigned to an `Account`, they will have a `Team Role` of type
+`Account`.
