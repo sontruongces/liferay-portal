@@ -64,6 +64,23 @@ public class ProductResourceImpl
 	}
 
 	@Override
+	public Page<Product> getProductByExternalLinkDomainEntityNameEntity(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_productEntryService.getProductEntries(
+					domain, entityName, entityId, pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				ProductUtil::toProduct),
+			pagination,
+			_productEntryService.getProductEntriesCount(
+				domain, entityName, entityId));
+	}
+
+	@Override
 	public Page<Product> getProductsPage(
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
@@ -83,15 +100,6 @@ public class ProductResourceImpl
 	}
 
 	@Override
-	public Page<Product> getProductByExternalLinkDomainEntityNameEntity(
-			String domain, String entityName, String entityId,
-			Pagination pagination)
-		throws Exception {
-
-		return getProductsPage(domain, entityName, entityId, pagination);
-	}
-
-	@Override
 	public Product postProduct(Product product) throws Exception {
 		return ProductUtil.toProduct(
 			_productEntryService.addProductEntry(product.getName()));
@@ -104,22 +112,6 @@ public class ProductResourceImpl
 		return ProductUtil.toProduct(
 			_productEntryService.updateProductEntry(
 				productKey, product.getName()));
-	}
-
-	protected Page<Product> getProductsPage(
-			String domain, String entityName, String entityId,
-			Pagination pagination)
-		throws Exception {
-
-		return Page.of(
-			transform(
-				_productEntryService.getProductEntries(
-					domain, entityName, entityId, pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				ProductUtil::toProduct),
-			pagination,
-			_productEntryService.getProductEntriesCount(
-				domain, entityName, entityId));
 	}
 
 	private static final EntityModel _entityModel =

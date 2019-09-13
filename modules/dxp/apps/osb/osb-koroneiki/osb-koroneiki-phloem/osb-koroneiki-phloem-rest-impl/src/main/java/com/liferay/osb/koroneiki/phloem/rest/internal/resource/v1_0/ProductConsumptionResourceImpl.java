@@ -97,6 +97,24 @@ public class ProductConsumptionResourceImpl
 	}
 
 	@Override
+	public Page<ProductConsumption>
+			getProductConsumptionByExternalLinkDomainEntityNameEntity(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_productConsumptionService.getProductConsumptions(
+					domain, entityName, entityId, pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				ProductConsumptionUtil::toProductConsumption),
+			pagination,
+			_productConsumptionService.getProductConsumptionsCount(
+				domain, entityName, entityId));
+	}
+
+	@Override
 	public Page<ProductConsumption> getProductConsumptionsPage(
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
@@ -118,17 +136,6 @@ public class ProductConsumptionResourceImpl
 	}
 
 	@Override
-	public Page<ProductConsumption>
-			getProductConsumptionByExternalLinkDomainEntityNameEntity(
-				String domain, String entityName, String entityId,
-				Pagination pagination)
-		throws Exception {
-
-		return getProductConsumptionsPage(
-			domain, entityName, entityId, pagination);
-	}
-
-	@Override
 	public ProductConsumption postAccountAccountKeyProductConsumption(
 			String accountKey, ProductConsumption productConsumption)
 		throws Exception {
@@ -139,22 +146,6 @@ public class ProductConsumptionResourceImpl
 		return ProductConsumptionUtil.toProductConsumption(
 			_productConsumptionService.addProductConsumption(
 				accountKey, productConsumption.getProductKey(), productFields));
-	}
-
-	protected Page<ProductConsumption> getProductConsumptionsPage(
-			String domain, String entityName, String entityId,
-			Pagination pagination)
-		throws Exception {
-
-		return Page.of(
-			transform(
-				_productConsumptionService.getProductConsumptions(
-					domain, entityName, entityId, pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				ProductConsumptionUtil::toProductConsumption),
-			pagination,
-			_productConsumptionService.getProductConsumptionsCount(
-				domain, entityName, entityId));
 	}
 
 	protected List<ProductField> getProductFields(
