@@ -36,14 +36,4 @@ public class AccountNameException extends PortalException {
 		super(cause);
 	}
 
-	public static class MustNotBeDuplicate extends AccountNameException {
-
-		public MustNotBeDuplicate(String name) {
-			super(
-				String.format(
-					"An account with name %s is already in use", name));
-		}
-
-	}
-
 }

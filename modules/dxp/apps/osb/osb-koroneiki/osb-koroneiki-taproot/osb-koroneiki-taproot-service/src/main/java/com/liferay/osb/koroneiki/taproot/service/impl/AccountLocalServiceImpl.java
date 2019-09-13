@@ -288,14 +288,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			throw new AccountNameException();
 		}
 
-		Account account = accountPersistence.fetchByName(name);
-
-		if ((account != null) && (account.getAccountId() != accountId)) {
-			throw new AccountNameException.MustNotBeDuplicate(name);
-		}
-
 		if (Validator.isNotNull(code)) {
-			account = accountPersistence.fetchByCode(code);
+			Account account = accountPersistence.fetchByCode(code);
 
 			if ((account != null) && (account.getAccountId() != accountId)) {
 				throw new AccountCodeException.MustNotBeDuplicate(code);
