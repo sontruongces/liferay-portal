@@ -85,5 +85,5 @@ ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplay
 </aui:form>
 
 <aui:script>
-	Liferay.Util.selectEntityHandler('#<portlet:namespace />selectAccountFm', '<portlet:namespace />selectAccount');
+	Liferay.Util.selectEntityHandler('#<portlet:namespace />selectAccountFm', 'selectAccount');
 </aui:script>

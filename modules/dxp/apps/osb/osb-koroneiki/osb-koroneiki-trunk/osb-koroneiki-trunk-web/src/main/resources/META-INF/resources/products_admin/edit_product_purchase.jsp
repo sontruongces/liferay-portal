@@ -22,6 +22,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 ProductPurchase productPurchase = (ProductPurchase)request.getAttribute(TrunkWebKeys.PRODUCT_PURCHASE);
 
 long productPurchaseId = BeanParamUtil.getLong(productPurchase, request, "productPurchaseId");
+long accountId = BeanParamUtil.getLong(productPurchase, request, "accountId");
 int quantity = BeanParamUtil.getInteger(productPurchase, request, "quantity", 1);
 
 boolean defaultPerpetual = true;
@@ -87,23 +88,24 @@ renderResponse.setTitle((productPurchase == null) ? LanguageUtil.get(request, "n
 					</p>
 				</c:when>
 				<c:otherwise>
-					<aui:select label="account" name="accountId" onChange='<%= renderResponse.getNamespace() + "selectAccount(this);" %>'>
-						<aui:option value="" />
+					<h5><liferay-ui:message key="account" /></h5>
 
-						<%
-						for (Account koroneikiAccount : AccountLocalServiceUtil.getAccounts(QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
-							Map<String, Object> data = new HashMap<String, Object>();
+					<p>
+						<aui:input name="accountId" type="hidden" value="<%= accountId %>" />
 
-							data.put("accountkey", koroneikiAccount.getAccountKey());
-						%>
+						<span id="<portlet:namespace />accountName">
+							<c:if test="<%= accountId > 0 %>">
 
-							<aui:option data="<%= data %>" label="<%= koroneikiAccount.getName() %>" value="<%= koroneikiAccount.getAccountId() %>" />
+								<%
+								Account koroneikiAccount = AccountLocalServiceUtil.getAccount(accountId);
+								%>
 
-						<%
-						}
-						%>
+								<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
+							</c:if>
+						</span>
 
-					</aui:select>
+						<aui:button onClick='<%= renderResponse.getNamespace() + "openAccountSelector();" %>' value="select" />
+					</p>
 
 					<aui:select label="product" name="productEntryId">
 						<aui:option value="" />
@@ -224,7 +226,7 @@ renderResponse.setTitle((productPurchase == null) ? LanguageUtil.get(request, "n
 	);
 </aui:script>
 
-<aui:script use="liferay-auto-fields">
+<aui:script use="aui-base,liferay-auto-fields">
 	var autoFields = new Liferay.AutoFields(
 		{
 			contentBox: 'fieldset#<portlet:namespace />productFields',
@@ -232,4 +234,22 @@ renderResponse.setTitle((productPurchase == null) ? LanguageUtil.get(request, "n
 			namespace: '<portlet:namespace />'
 		}
 	).render();
+
+	<portlet:namespace />openAccountSelector = function() {
+		Liferay.Util.selectEntity(
+			{
+				dialog: {
+					constrain: true,
+					modal: true
+				},
+				eventName: 'selectAccount',
+				title: '<%= UnicodeLanguageUtil.get(request, "accounts") %>',
+				uri: '<liferay-portlet:renderURL portletName="<%= TaprootPortletKeys.ACCOUNTS_ADMIN %>" windowState="<%= LiferayWindowState.POP_UP.toString() %>"><portlet:param name="mvcPath" value="/accounts_admin/select_account.jsp" /></liferay-portlet:renderURL>'
+			},
+			function(event) {
+				A.one('#<portlet:namespace />accountName').html(event.accountname);
+				A.one('#<portlet:namespace />accountId').val(event.accountid);
+			}
+		);
+	}
 </aui:script>

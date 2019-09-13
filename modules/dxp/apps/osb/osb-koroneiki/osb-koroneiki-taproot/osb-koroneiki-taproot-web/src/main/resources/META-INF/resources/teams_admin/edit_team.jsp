@@ -22,6 +22,8 @@ String redirect = ParamUtil.getString(request, "redirect");
 Team team = (Team)request.getAttribute(TaprootWebKeys.TEAM);
 
 long teamId = BeanParamUtil.getLong(team, request, "teamId");
+
+long accountId = ParamUtil.getLong(request, "accountId");
 %>
 
 <liferay-util:include page="/teams_admin/edit_team_tabs.jsp" servletContext="<%= application %>" />
@@ -45,27 +47,27 @@ long teamId = BeanParamUtil.getLong(team, request, "teamId");
 
 			<aui:input name="name" />
 
-			<c:choose>
-				<c:when test="<%= team == null %>">
-					<aui:select label="account" name="accountId">
-						<aui:option value="" />
+			<h5><liferay-ui:message key="account" /></h5>
 
-						<%
-						for (Account koroneikiAccount : AccountLocalServiceUtil.getAccounts(QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
-						%>
+			<p>
+				<c:choose>
+					<c:when test="<%= team == null %>">
+						<aui:input name="accountId" type="hidden" value="<%= accountId %>" />
 
-							<aui:option label="<%= koroneikiAccount.getName() %>" value="<%= koroneikiAccount.getAccountId() %>" />
+						<span id="<portlet:namespace />accountName">
+							<c:if test="<%= accountId > 0 %>">
 
-						<%
-						}
-						%>
+								<%
+								Account koroneikiAccount = AccountLocalServiceUtil.getAccount(accountId);
+								%>
 
-					</aui:select>
-				</c:when>
-				<c:otherwise>
-					<h5><liferay-ui:message key="account" /></h5>
+								<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
+							</c:if>
+						</span>
 
-					<p>
+						<aui:button onClick='<%= renderResponse.getNamespace() + "openAccountSelector();" %>' value="select" />
+					</c:when>
+					<c:otherwise>
 
 						<%
 						Account koroneikiAccount = team.getAccount();
@@ -77,9 +79,9 @@ long teamId = BeanParamUtil.getLong(team, request, "teamId");
 						</liferay-portlet:renderURL>
 
 						<a href="<%= accountURL %>"><%= HtmlUtil.escape(koroneikiAccount.getName()) %></a>
-					</p>
-				</c:otherwise>
-			</c:choose>
+					</c:otherwise>
+				</c:choose>
+			</p>
 		</aui:fieldset>
 	</aui:fieldset-group>
 
@@ -89,3 +91,23 @@ long teamId = BeanParamUtil.getLong(team, request, "teamId");
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
+
+<aui:script use="aui-base">
+	<portlet:namespace />openAccountSelector = function() {
+		Liferay.Util.selectEntity(
+			{
+				dialog: {
+					constrain: true,
+					modal: true
+				},
+				eventName: 'selectAccount',
+				title: '<%= UnicodeLanguageUtil.get(request, "accounts") %>',
+				uri: '<portlet:renderURL windowState="<%= LiferayWindowState.POP_UP.toString() %>"><portlet:param name="mvcPath" value="/accounts_admin/select_account.jsp" /></portlet:renderURL>'
+			},
+			function(event) {
+				A.one('#<portlet:namespace />accountName').html(event.accountname);
+				A.one('#<portlet:namespace />accountId').val(event.accountid);
+			}
+		);
+	}
+</aui:script>

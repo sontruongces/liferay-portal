@@ -156,7 +156,7 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 					constrain: true,
 					modal: true
 				},
-				eventName: '<portlet:namespace />selectAccount',
+				eventName: 'selectAccount',
 				title: '<%= UnicodeLanguageUtil.get(request, "accounts") %>',
 				uri: '<portlet:renderURL windowState="<%= LiferayWindowState.POP_UP.toString() %>"><portlet:param name="mvcPath" value="/accounts_admin/select_account.jsp" /><portlet:param name="accountId" value="<%= String.valueOf(accountId) %>" /></portlet:renderURL>'
 			},
