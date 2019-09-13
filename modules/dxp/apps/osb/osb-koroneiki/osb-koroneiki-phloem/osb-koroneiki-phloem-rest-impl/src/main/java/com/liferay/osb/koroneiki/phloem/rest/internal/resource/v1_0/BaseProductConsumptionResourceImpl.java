@@ -127,6 +127,39 @@ public abstract class BaseProductConsumptionResourceImpl
 	}
 
 	@Override
+	@GET
+	@Operation(
+		description = "Retrieves the product consumptions by the external link."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "domain"),
+			@Parameter(in = ParameterIn.PATH, name = "entityName"),
+			@Parameter(in = ParameterIn.PATH, name = "entityId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path(
+		"/product-consumptions/by-external-link/{domain}/{entityName}/{entityId}"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ProductConsumption")})
+	public Page<ProductConsumption>
+			getProductConsumptionByExternalLinkDomainEntityNameEntity(
+				@NotNull @Parameter(hidden = true) @PathParam("domain") String
+					domain,
+				@NotNull @Parameter(hidden = true) @PathParam("entityName")
+					String entityName,
+				@NotNull @Parameter(hidden = true) @PathParam("entityId") String
+					entityId,
+				@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
 	@DELETE
 	@Parameters(
 		value = {

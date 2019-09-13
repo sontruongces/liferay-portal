@@ -145,6 +145,26 @@ public class ProductPurchaseServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+			getProductPurchases(
+				String domain, String entityName, String entityId, int start,
+				int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productPurchaseService.getProductPurchases(
+			domain, entityName, entityId, start, end);
+	}
+
+	@Override
+	public int getProductPurchasesCount(
+			String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productPurchaseService.getProductPurchasesCount(
+			domain, entityName, entityId);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			updateProductPurchase(
 				long productPurchaseId, java.util.Date startDate,

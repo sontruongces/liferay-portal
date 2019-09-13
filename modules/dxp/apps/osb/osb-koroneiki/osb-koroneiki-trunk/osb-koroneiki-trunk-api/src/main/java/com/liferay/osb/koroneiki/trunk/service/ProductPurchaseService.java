@@ -102,6 +102,17 @@ public interface ProductPurchaseService extends BaseService {
 	public ProductPurchase getProductPurchase(String productPurchaseKey)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProductPurchase> getProductPurchases(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getProductPurchasesCount(
+			String domain, String entityName, String entityId)
+		throws PortalException;
+
 	public ProductPurchase updateProductPurchase(
 			long productPurchaseId, Date startDate, Date endDate, int quantity,
 			List<ProductField> productFields)

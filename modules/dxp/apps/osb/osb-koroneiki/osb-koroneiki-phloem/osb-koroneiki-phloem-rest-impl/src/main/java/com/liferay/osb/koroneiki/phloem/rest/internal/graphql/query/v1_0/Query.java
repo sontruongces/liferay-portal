@@ -582,6 +582,24 @@ public class Query {
 	}
 
 	@GraphQLField
+	public ProductPage getProductByExternalLinkDomainEntityNameEntity(
+			@GraphQLName("domain") String domain,
+			@GraphQLName("entityName") String entityName,
+			@GraphQLName("entityId") String entityId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productResource -> new ProductPage(
+				productResource.getProductByExternalLinkDomainEntityNameEntity(
+					domain, entityName, entityId,
+					Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
 	public Product getProduct(@GraphQLName("productKey") String productKey)
 		throws Exception {
 
@@ -621,6 +639,26 @@ public class Query {
 			productConsumptionResource -> new ProductConsumptionPage(
 				productConsumptionResource.getProductConsumptionsPage(
 					search, filter, Pagination.of(page, pageSize), sorts)));
+	}
+
+	@GraphQLField
+	public ProductConsumptionPage
+			getProductConsumptionByExternalLinkDomainEntityNameEntity(
+				@GraphQLName("domain") String domain,
+				@GraphQLName("entityName") String entityName,
+				@GraphQLName("entityId") String entityId,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productConsumptionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productConsumptionResource -> new ProductConsumptionPage(
+				productConsumptionResource.
+					getProductConsumptionByExternalLinkDomainEntityNameEntity(
+						domain, entityName, entityId,
+						Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField
@@ -666,6 +704,26 @@ public class Query {
 			productPurchaseResource -> new ProductPurchasePage(
 				productPurchaseResource.getProductPurchasesPage(
 					search, filter, Pagination.of(page, pageSize), sorts)));
+	}
+
+	@GraphQLField
+	public ProductPurchasePage
+			getProductPurchaseByExternalLinkDomainEntityNameEntity(
+				@GraphQLName("domain") String domain,
+				@GraphQLName("entityName") String entityName,
+				@GraphQLName("entityId") String entityId,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productPurchaseResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productPurchaseResource -> new ProductPurchasePage(
+				productPurchaseResource.
+					getProductPurchaseByExternalLinkDomainEntityNameEntity(
+						domain, entityName, entityId,
+						Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField

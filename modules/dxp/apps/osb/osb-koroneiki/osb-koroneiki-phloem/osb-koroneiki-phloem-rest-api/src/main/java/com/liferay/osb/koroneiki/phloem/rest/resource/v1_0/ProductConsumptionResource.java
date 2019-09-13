@@ -51,6 +51,12 @@ public interface ProductConsumptionResource {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
+	public Page<ProductConsumption>
+			getProductConsumptionByExternalLinkDomainEntityNameEntity(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+		throws Exception;
+
 	public void deleteProductConsumption(String productConsumptionKey)
 		throws Exception;
 

@@ -45,6 +45,11 @@ public interface ProductResource {
 
 	public Product postProduct(Product product) throws Exception;
 
+	public Page<Product> getProductByExternalLinkDomainEntityNameEntity(
+			String domain, String entityName, String entityId,
+			Pagination pagination)
+		throws Exception;
+
 	public void deleteProduct(String productKey) throws Exception;
 
 	public Product getProduct(String productKey) throws Exception;

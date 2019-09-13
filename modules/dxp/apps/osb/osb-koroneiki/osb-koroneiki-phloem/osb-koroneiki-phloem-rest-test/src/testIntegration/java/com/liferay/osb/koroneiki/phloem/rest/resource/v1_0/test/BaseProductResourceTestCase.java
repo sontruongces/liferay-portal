@@ -388,6 +388,176 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
+	public void testGetProductByExternalLinkDomainEntityNameEntity()
+		throws Exception {
+
+		Page<Product> page =
+			productResource.getProductByExternalLinkDomainEntityNameEntity(
+				testGetProductByExternalLinkDomainEntityNameEntity_getDomain(),
+				testGetProductByExternalLinkDomainEntityNameEntity_getEntityName(),
+				testGetProductByExternalLinkDomainEntityNameEntity_getEntityId(),
+				Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String domain =
+			testGetProductByExternalLinkDomainEntityNameEntity_getDomain();
+		String irrelevantDomain =
+			testGetProductByExternalLinkDomainEntityNameEntity_getIrrelevantDomain();
+		String entityName =
+			testGetProductByExternalLinkDomainEntityNameEntity_getEntityName();
+		String irrelevantEntityName =
+			testGetProductByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName();
+		String entityId =
+			testGetProductByExternalLinkDomainEntityNameEntity_getEntityId();
+		String irrelevantEntityId =
+			testGetProductByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId();
+
+		if ((irrelevantDomain != null) && (irrelevantEntityName != null) &&
+			(irrelevantEntityId != null)) {
+
+			Product irrelevantProduct =
+				testGetProductByExternalLinkDomainEntityNameEntity_addProduct(
+					irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
+					randomIrrelevantProduct());
+
+			page =
+				productResource.getProductByExternalLinkDomainEntityNameEntity(
+					irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
+					Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantProduct),
+				(List<Product>)page.getItems());
+			assertValid(page);
+		}
+
+		Product product1 =
+			testGetProductByExternalLinkDomainEntityNameEntity_addProduct(
+				domain, entityName, entityId, randomProduct());
+
+		Product product2 =
+			testGetProductByExternalLinkDomainEntityNameEntity_addProduct(
+				domain, entityName, entityId, randomProduct());
+
+		page = productResource.getProductByExternalLinkDomainEntityNameEntity(
+			domain, entityName, entityId, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(product1, product2), (List<Product>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetProductByExternalLinkDomainEntityNameEntityWithPagination()
+		throws Exception {
+
+		String domain =
+			testGetProductByExternalLinkDomainEntityNameEntity_getDomain();
+		String entityName =
+			testGetProductByExternalLinkDomainEntityNameEntity_getEntityName();
+		String entityId =
+			testGetProductByExternalLinkDomainEntityNameEntity_getEntityId();
+
+		Product product1 =
+			testGetProductByExternalLinkDomainEntityNameEntity_addProduct(
+				domain, entityName, entityId, randomProduct());
+
+		Product product2 =
+			testGetProductByExternalLinkDomainEntityNameEntity_addProduct(
+				domain, entityName, entityId, randomProduct());
+
+		Product product3 =
+			testGetProductByExternalLinkDomainEntityNameEntity_addProduct(
+				domain, entityName, entityId, randomProduct());
+
+		Page<Product> page1 =
+			productResource.getProductByExternalLinkDomainEntityNameEntity(
+				domain, entityName, entityId, Pagination.of(1, 2));
+
+		List<Product> products1 = (List<Product>)page1.getItems();
+
+		Assert.assertEquals(products1.toString(), 2, products1.size());
+
+		Page<Product> page2 =
+			productResource.getProductByExternalLinkDomainEntityNameEntity(
+				domain, entityName, entityId, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Product> products2 = (List<Product>)page2.getItems();
+
+		Assert.assertEquals(products2.toString(), 1, products2.size());
+
+		Page<Product> page3 =
+			productResource.getProductByExternalLinkDomainEntityNameEntity(
+				domain, entityName, entityId, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(product1, product2, product3),
+			(List<Product>)page3.getItems());
+	}
+
+	protected Product
+			testGetProductByExternalLinkDomainEntityNameEntity_addProduct(
+				String domain, String entityName, String entityId,
+				Product product)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetProductByExternalLinkDomainEntityNameEntity_getDomain()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetProductByExternalLinkDomainEntityNameEntity_getIrrelevantDomain()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetProductByExternalLinkDomainEntityNameEntity_getEntityName()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetProductByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetProductByExternalLinkDomainEntityNameEntity_getEntityId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetProductByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
 	public void testDeleteProduct() throws Exception {
 		Assert.assertTrue(true);
 	}

@@ -108,4 +108,15 @@ public interface ProductConsumptionService extends BaseService {
 			String productConsumptionKey)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProductConsumption> getProductConsumptions(
+			String domain, String entityName, String entityId, int start,
+			int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getProductConsumptionsCount(
+			String domain, String entityName, String entityId)
+		throws PortalException;
+
 }

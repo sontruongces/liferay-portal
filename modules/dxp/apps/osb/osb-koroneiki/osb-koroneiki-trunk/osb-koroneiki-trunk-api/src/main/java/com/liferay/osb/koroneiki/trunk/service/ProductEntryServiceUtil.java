@@ -81,10 +81,28 @@ public class ProductEntryServiceUtil {
 		return getService().getProductEntries(start, end);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductEntry> getProductEntries(
+				String domain, String entityName, String entityId, int start,
+				int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductEntries(
+			domain, entityName, entityId, start, end);
+	}
+
 	public static int getProductEntriesCount()
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getProductEntriesCount();
+	}
+
+	public static int getProductEntriesCount(
+			String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductEntriesCount(
+			domain, entityName, entityId);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry

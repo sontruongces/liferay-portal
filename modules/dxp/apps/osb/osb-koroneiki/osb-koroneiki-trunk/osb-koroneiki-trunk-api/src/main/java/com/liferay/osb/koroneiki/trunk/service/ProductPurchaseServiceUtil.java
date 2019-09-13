@@ -137,6 +137,25 @@ public class ProductPurchaseServiceUtil {
 		return getService().getProductPurchase(productPurchaseKey);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+				getProductPurchases(
+					String domain, String entityName, String entityId,
+					int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductPurchases(
+			domain, entityName, entityId, start, end);
+	}
+
+	public static int getProductPurchasesCount(
+			String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductPurchasesCount(
+			domain, entityName, entityId);
+	}
+
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			updateProductPurchase(
 				long productPurchaseId, java.util.Date startDate,

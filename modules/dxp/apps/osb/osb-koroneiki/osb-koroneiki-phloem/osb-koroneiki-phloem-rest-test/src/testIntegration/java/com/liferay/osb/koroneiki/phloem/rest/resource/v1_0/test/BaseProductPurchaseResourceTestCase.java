@@ -564,6 +564,188 @@ public abstract class BaseProductPurchaseResourceTestCase {
 	}
 
 	@Test
+	public void testGetProductPurchaseByExternalLinkDomainEntityNameEntity()
+		throws Exception {
+
+		Page<ProductPurchase> page =
+			productPurchaseResource.
+				getProductPurchaseByExternalLinkDomainEntityNameEntity(
+					testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getDomain(),
+					testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getEntityName(),
+					testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getEntityId(),
+					Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String domain =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getDomain();
+		String irrelevantDomain =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getIrrelevantDomain();
+		String entityName =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getEntityName();
+		String irrelevantEntityName =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName();
+		String entityId =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getEntityId();
+		String irrelevantEntityId =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId();
+
+		if ((irrelevantDomain != null) && (irrelevantEntityName != null) &&
+			(irrelevantEntityId != null)) {
+
+			ProductPurchase irrelevantProductPurchase =
+				testGetProductPurchaseByExternalLinkDomainEntityNameEntity_addProductPurchase(
+					irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
+					randomIrrelevantProductPurchase());
+
+			page =
+				productPurchaseResource.
+					getProductPurchaseByExternalLinkDomainEntityNameEntity(
+						irrelevantDomain, irrelevantEntityName,
+						irrelevantEntityId, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantProductPurchase),
+				(List<ProductPurchase>)page.getItems());
+			assertValid(page);
+		}
+
+		ProductPurchase productPurchase1 =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_addProductPurchase(
+				domain, entityName, entityId, randomProductPurchase());
+
+		ProductPurchase productPurchase2 =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_addProductPurchase(
+				domain, entityName, entityId, randomProductPurchase());
+
+		page =
+			productPurchaseResource.
+				getProductPurchaseByExternalLinkDomainEntityNameEntity(
+					domain, entityName, entityId, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(productPurchase1, productPurchase2),
+			(List<ProductPurchase>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetProductPurchaseByExternalLinkDomainEntityNameEntityWithPagination()
+		throws Exception {
+
+		String domain =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getDomain();
+		String entityName =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getEntityName();
+		String entityId =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getEntityId();
+
+		ProductPurchase productPurchase1 =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_addProductPurchase(
+				domain, entityName, entityId, randomProductPurchase());
+
+		ProductPurchase productPurchase2 =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_addProductPurchase(
+				domain, entityName, entityId, randomProductPurchase());
+
+		ProductPurchase productPurchase3 =
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_addProductPurchase(
+				domain, entityName, entityId, randomProductPurchase());
+
+		Page<ProductPurchase> page1 =
+			productPurchaseResource.
+				getProductPurchaseByExternalLinkDomainEntityNameEntity(
+					domain, entityName, entityId, Pagination.of(1, 2));
+
+		List<ProductPurchase> productPurchases1 =
+			(List<ProductPurchase>)page1.getItems();
+
+		Assert.assertEquals(
+			productPurchases1.toString(), 2, productPurchases1.size());
+
+		Page<ProductPurchase> page2 =
+			productPurchaseResource.
+				getProductPurchaseByExternalLinkDomainEntityNameEntity(
+					domain, entityName, entityId, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<ProductPurchase> productPurchases2 =
+			(List<ProductPurchase>)page2.getItems();
+
+		Assert.assertEquals(
+			productPurchases2.toString(), 1, productPurchases2.size());
+
+		Page<ProductPurchase> page3 =
+			productPurchaseResource.
+				getProductPurchaseByExternalLinkDomainEntityNameEntity(
+					domain, entityName, entityId, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(productPurchase1, productPurchase2, productPurchase3),
+			(List<ProductPurchase>)page3.getItems());
+	}
+
+	protected ProductPurchase
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_addProductPurchase(
+				String domain, String entityName, String entityId,
+				ProductPurchase productPurchase)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getDomain()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getIrrelevantDomain()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getEntityName()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getEntityId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetProductPurchaseByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
 	public void testDeleteProductPurchase() throws Exception {
 		Assert.assertTrue(true);
 	}

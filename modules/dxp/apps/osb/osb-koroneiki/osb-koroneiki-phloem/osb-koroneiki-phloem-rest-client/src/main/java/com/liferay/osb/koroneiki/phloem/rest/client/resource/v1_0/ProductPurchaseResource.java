@@ -65,6 +65,18 @@ public interface ProductPurchaseResource {
 			String sortString)
 		throws Exception;
 
+	public Page<ProductPurchase>
+			getProductPurchaseByExternalLinkDomainEntityNameEntity(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getProductPurchaseByExternalLinkDomainEntityNameEntityHttpResponse(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+		throws Exception;
+
 	public void deleteProductPurchase(String productPurchaseKey)
 		throws Exception;
 
@@ -294,6 +306,61 @@ public interface ProductPurchaseResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/product-purchases");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ProductPurchase>
+				getProductPurchaseByExternalLinkDomainEntityNameEntity(
+					String domain, String entityName, String entityId,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getProductPurchaseByExternalLinkDomainEntityNameEntityHttpResponse(
+					domain, entityName, entityId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ProductPurchaseSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getProductPurchaseByExternalLinkDomainEntityNameEntityHttpResponse(
+					String domain, String entityName, String entityId,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/product-purchases/by-external-link/{domain}/{entityName}/{entityId}",
+				domain, entityName, entityId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

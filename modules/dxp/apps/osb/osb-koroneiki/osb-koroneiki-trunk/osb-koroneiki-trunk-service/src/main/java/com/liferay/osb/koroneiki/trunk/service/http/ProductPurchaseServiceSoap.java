@@ -263,6 +263,47 @@ public class ProductPurchaseServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap[]
+			getProductPurchases(
+				String domain, String entityName, String entityId, int start,
+				int end)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+					returnValue =
+						ProductPurchaseServiceUtil.getProductPurchases(
+							domain, entityName, entityId, start, end);
+
+			return com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getProductPurchasesCount(
+			String domain, String entityName, String entityId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				ProductPurchaseServiceUtil.getProductPurchasesCount(
+					domain, entityName, entityId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap
 			updateProductPurchase(
 				long productPurchaseId, java.util.Date startDate,

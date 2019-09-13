@@ -289,6 +289,47 @@ public class ProductConsumptionServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap[]
+			getProductConsumptions(
+				String domain, String entityName, String entityId, int start,
+				int end)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+					returnValue =
+						ProductConsumptionServiceUtil.getProductConsumptions(
+							domain, entityName, entityId, start, end);
+
+			return com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getProductConsumptionsCount(
+			String domain, String entityName, String entityId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				ProductConsumptionServiceUtil.getProductConsumptionsCount(
+					domain, entityName, entityId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		ProductConsumptionServiceSoap.class);
 

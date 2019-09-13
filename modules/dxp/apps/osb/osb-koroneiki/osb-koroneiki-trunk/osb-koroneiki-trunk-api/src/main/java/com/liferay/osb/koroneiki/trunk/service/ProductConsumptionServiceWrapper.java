@@ -158,6 +158,27 @@ public class ProductConsumptionServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+				getProductConsumptions(
+					String domain, String entityName, String entityId,
+					int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productConsumptionService.getProductConsumptions(
+			domain, entityName, entityId, start, end);
+	}
+
+	@Override
+	public int getProductConsumptionsCount(
+			String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productConsumptionService.getProductConsumptionsCount(
+			domain, entityName, entityId);
+	}
+
+	@Override
 	public ProductConsumptionService getWrappedService() {
 		return _productConsumptionService;
 	}

@@ -78,10 +78,30 @@ public class ProductEntryServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
+			getProductEntries(
+				String domain, String entityName, String entityId, int start,
+				int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productEntryService.getProductEntries(
+			domain, entityName, entityId, start, end);
+	}
+
+	@Override
 	public int getProductEntriesCount()
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productEntryService.getProductEntriesCount();
+	}
+
+	@Override
+	public int getProductEntriesCount(
+			String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productEntryService.getProductEntriesCount(
+			domain, entityName, entityId);
 	}
 
 	@Override

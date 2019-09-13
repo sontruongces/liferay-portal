@@ -65,6 +65,18 @@ public interface ProductConsumptionResource {
 			String sortString)
 		throws Exception;
 
+	public Page<ProductConsumption>
+			getProductConsumptionByExternalLinkDomainEntityNameEntity(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getProductConsumptionByExternalLinkDomainEntityNameEntityHttpResponse(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+		throws Exception;
+
 	public void deleteProductConsumption(String productConsumptionKey)
 		throws Exception;
 
@@ -288,6 +300,61 @@ public interface ProductConsumptionResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/product-consumptions");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ProductConsumption>
+				getProductConsumptionByExternalLinkDomainEntityNameEntity(
+					String domain, String entityName, String entityId,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getProductConsumptionByExternalLinkDomainEntityNameEntityHttpResponse(
+					domain, entityName, entityId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ProductConsumptionSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getProductConsumptionByExternalLinkDomainEntityNameEntityHttpResponse(
+					String domain, String entityName, String entityId,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/product-consumptions/by-external-link/{domain}/{entityName}/{entityId}",
+				domain, entityName, entityId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

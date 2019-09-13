@@ -143,6 +143,25 @@ public class ProductConsumptionServiceUtil {
 		return getService().getProductConsumption(productConsumptionKey);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+				getProductConsumptions(
+					String domain, String entityName, String entityId,
+					int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductConsumptions(
+			domain, entityName, entityId, start, end);
+	}
+
+	public static int getProductConsumptionsCount(
+			String domain, String entityName, String entityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductConsumptionsCount(
+			domain, entityName, entityId);
+	}
+
 	public static ProductConsumptionService getService() {
 		return _serviceTracker.getService();
 	}

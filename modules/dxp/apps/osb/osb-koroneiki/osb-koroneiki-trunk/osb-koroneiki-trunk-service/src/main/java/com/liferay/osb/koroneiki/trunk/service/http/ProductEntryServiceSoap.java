@@ -134,9 +134,47 @@ public class ProductEntryServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap[]
+			getProductEntries(
+				String domain, String entityName, String entityId, int start,
+				int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
+				returnValue = ProductEntryServiceUtil.getProductEntries(
+					domain, entityName, entityId, start, end);
+
+			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static int getProductEntriesCount() throws RemoteException {
 		try {
 			int returnValue = ProductEntryServiceUtil.getProductEntriesCount();
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getProductEntriesCount(
+			String domain, String entityName, String entityId)
+		throws RemoteException {
+
+		try {
+			int returnValue = ProductEntryServiceUtil.getProductEntriesCount(
+				domain, entityName, entityId);
 
 			return returnValue;
 		}

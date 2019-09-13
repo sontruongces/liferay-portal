@@ -51,6 +51,12 @@ public interface ProductPurchaseResource {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
+	public Page<ProductPurchase>
+			getProductPurchaseByExternalLinkDomainEntityNameEntity(
+				String domain, String entityName, String entityId,
+				Pagination pagination)
+		throws Exception;
+
 	public void deleteProductPurchase(String productPurchaseKey)
 		throws Exception;
 
