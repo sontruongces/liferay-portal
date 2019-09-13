@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.koroneiki.trunk.model.listener;
+package com.liferay.osb.koroneiki.trunk.internal.model.listener;
 
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
