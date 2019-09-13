@@ -23,7 +23,7 @@ the olive tree.
 
 #### Regarding this project
 
-The traditional process of grating cultivated olive branches onto wild olive
+The traditional process of grafting cultivated olive branches onto wild olive
 trees mirrors our project. An established wild olive tree will be strong,
 disease resistant, and drought tolerant. However, wild olive trees do not
 produce good fruit. Cultivated olive trees do produce good fruit, but may not
