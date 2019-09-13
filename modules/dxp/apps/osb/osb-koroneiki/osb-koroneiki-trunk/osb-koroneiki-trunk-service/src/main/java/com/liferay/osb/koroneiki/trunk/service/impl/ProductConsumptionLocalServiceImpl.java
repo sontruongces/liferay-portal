@@ -170,6 +170,16 @@ public class ProductConsumptionLocalServiceImpl
 		return productConsumptionPersistence.countByAccountId(accountId);
 	}
 
+	public List<ProductConsumption> getContactProductConsumptions(
+		long contactId, int start, int end) {
+
+		return productConsumptionFinder.findByContact(contactId, start, end);
+	}
+
+	public int getContactProductConsumptionsCount(long contactId) {
+		return productConsumptionFinder.countByContact(contactId);
+	}
+
 	public ProductConsumption getProductConsumption(
 			String productConsumptionKey)
 		throws PortalException {

@@ -1,6 +1,38 @@
 <?xml version="1.0"?>
 
 <custom-sql>
+	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductConsumptionFinder.countByContact">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT Koroneiki_Contact.contactId) AS COUNT_VALUE
+			FROM
+				Koroneiki_ProductConsumption
+			INNER JOIN
+				Koroneiki_ContactAccountRole ON
+					Koroneiki_ContactAccountRole.accountId = Koroneiki_ProductConsumption.accountId
+			INNER JOIN
+				Koroneiki_Contact ON
+					Koroneiki_Contact.contactId = Koroneiki_ContactAccountRole.contactId
+			WHERE
+				Koroneiki_ContactAccountRole.contactId = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductConsumptionFinder.findByContact">
+		<![CDATA[
+			SELECT
+				DISTINCT {Koroneiki_ProductConsumption.*}
+			FROM
+				Koroneiki_ProductConsumption
+			INNER JOIN
+				Koroneiki_ContactAccountRole ON
+					Koroneiki_ContactAccountRole.accountId = Koroneiki_ProductConsumption.accountId
+			INNER JOIN
+				Koroneiki_Contact ON
+					Koroneiki_Contact.contactId = Koroneiki_ContactAccountRole.contactId
+			WHERE
+				Koroneiki_ContactAccountRole.contactId = ?
+		]]>
+	</sql>
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductFieldFinder.findNameByClassNameId">
 		<![CDATA[
 			SELECT
@@ -9,6 +41,38 @@
 				Koroneiki_ProductField
 			WHERE
 				Koroneiki_ProductField.classNameId = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductPurchaseFinder.countByContact">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT Koroneiki_Contact.contactId) AS COUNT_VALUE
+			FROM
+				Koroneiki_ProductPurchase
+			INNER JOIN
+				Koroneiki_ContactAccountRole ON
+					Koroneiki_ContactAccountRole.accountId = Koroneiki_ProductPurchase.accountId
+			INNER JOIN
+				Koroneiki_Contact ON
+					Koroneiki_Contact.contactId = Koroneiki_ContactAccountRole.contactId
+			WHERE
+				Koroneiki_ContactAccountRole.contactId = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductPurchaseFinder.findByContact">
+		<![CDATA[
+			SELECT
+				DISTINCT {Koroneiki_ProductPurchase.*}
+			FROM
+				Koroneiki_ProductPurchase
+			INNER JOIN
+				Koroneiki_ContactAccountRole ON
+					Koroneiki_ContactAccountRole.accountId = Koroneiki_ProductPurchase.accountId
+			INNER JOIN
+				Koroneiki_Contact ON
+					Koroneiki_Contact.contactId = Koroneiki_ContactAccountRole.contactId
+			WHERE
+				Koroneiki_ContactAccountRole.contactId = ?
 		]]>
 	</sql>
 </custom-sql>

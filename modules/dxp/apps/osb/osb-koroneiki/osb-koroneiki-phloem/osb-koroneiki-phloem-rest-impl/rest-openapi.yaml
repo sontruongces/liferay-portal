@@ -1912,6 +1912,72 @@ paths:
                                 $ref: "#/components/schemas/ExternalLink"
                     description: ""
             tags: ["ExternalLink"]
+    "/contacts/{contactKey}/product-consumptions":
+        get:
+            description: Retrieves the contacts product consumptions.
+            operationId: getContactContactKeyProductConsumptionsPage
+            parameters:
+                - in: path
+                  name: contactKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductConsumption"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductConsumption"
+                                type: array
+                    description: ""
+            tags: ["ProductConsumption"]
+    "/contacts/{contactKey}/product-purchases":
+        get:
+            description: Retrieves the contacts product purchases.
+            operationId: getContactContactKeyProductPurchasesPage
+            parameters:
+                - in: path
+                  name: contactKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchase"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchase"
+                                type: array
+                    description: ""
+            tags: ["ProductPurchase"]
     "/external-links/{externalLinkKey}":
         delete:
             operationId: deleteExternalLink

@@ -81,6 +81,22 @@ public class ProductPurchaseResourceImpl
 	}
 
 	@Override
+	public Page<ProductPurchase> getContactContactKeyProductPurchasesPage(
+			String contactKey, Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_productPurchaseService.getContactProductPurchases(
+					contactKey, pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				ProductPurchaseUtil::toProductPurchase),
+			pagination,
+			_productPurchaseService.getContactProductPurchasesCount(
+				contactKey));
+	}
+
+	@Override
 	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
 		long classNameId = _classNameLocalService.getClassNameId(
 			com.liferay.osb.koroneiki.trunk.model.ProductPurchase.class);
