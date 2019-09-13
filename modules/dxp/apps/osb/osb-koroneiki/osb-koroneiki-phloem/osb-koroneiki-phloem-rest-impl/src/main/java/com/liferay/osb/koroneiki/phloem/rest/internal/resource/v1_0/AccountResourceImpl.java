@@ -190,7 +190,8 @@ public class AccountResourceImpl
 			_accountService.addAccount(
 				0, account.getName(), account.getCode(),
 				account.getDescription(), account.getNotes(),
-				account.getLogoId(), account.getContactEmailAddress(),
+				GetterUtil.getLong(account.getLogoId()),
+				account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
 				account.getFaxNumber(), account.getWebsite(), industry, tier,
 				account.getSoldBy(), status),
