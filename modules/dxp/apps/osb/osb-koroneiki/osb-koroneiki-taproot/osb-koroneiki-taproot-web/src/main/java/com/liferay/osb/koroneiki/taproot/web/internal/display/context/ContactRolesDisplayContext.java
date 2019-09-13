@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -46,16 +45,6 @@ public class ContactRolesDisplayContext extends BaseSearchDisplayContext {
 		HttpServletRequest httpServletRequest) {
 
 		super(renderRequest, renderResponse, httpServletRequest);
-	}
-
-	@Override
-	public PortletURL getPortletURL() {
-		PortletURL portletURL = super.getPortletURL();
-
-		portletURL.setParameter(
-			"tabs1", ParamUtil.getString(renderRequest, "tabs1"));
-
-		return portletURL;
 	}
 
 	@Override

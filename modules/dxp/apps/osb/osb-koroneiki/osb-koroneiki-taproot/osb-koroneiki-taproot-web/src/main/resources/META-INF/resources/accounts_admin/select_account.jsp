@@ -17,6 +17,8 @@
 <%@ include file="/init.jsp" %>
 
 <%
+long accountId = ParamUtil.getLong(request, "accountId");
+
 AccountsDisplayContext accountsDisplayContext = new AccountsDisplayContext(renderRequest, renderResponse, request);
 
 ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplayContext = new ViewAccountsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, accountsDisplayContext.getSearchContainer());
@@ -62,15 +64,17 @@ ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplay
 			/>
 
 			<liferay-ui:search-container-column-text>
+				<c:if test="<%= accountId != koroneikiAccount.getAccountId() %>">
 
-				<%
-				Map<String, Object> data = new HashMap<String, Object>();
+					<%
+					Map<String, Object> data = new HashMap<String, Object>();
 
-				data.put("accountid", koroneikiAccount.getAccountId());
-				data.put("accountname", koroneikiAccount.getName());
-				%>
+					data.put("accountid", koroneikiAccount.getAccountId());
+					data.put("accountname", koroneikiAccount.getName());
+					%>
 
-				<aui:button cssClass="selector-button" data="<%= data %>" value="select" />
+					<aui:button cssClass="selector-button" data="<%= data %>" value="select" />
+				</c:if>
 			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 

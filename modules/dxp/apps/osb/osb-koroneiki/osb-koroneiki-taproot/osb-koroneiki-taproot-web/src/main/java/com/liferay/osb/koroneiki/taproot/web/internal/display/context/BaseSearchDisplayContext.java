@@ -15,11 +15,15 @@
 package com.liferay.osb.koroneiki.taproot.web.internal.display.context;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -39,6 +43,8 @@ public abstract class BaseSearchDisplayContext {
 		this.renderResponse = renderResponse;
 		request = httpServletRequest;
 
+		currentURLObj = PortletURLUtil.getCurrent(
+			renderRequest, renderResponse);
 		themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 	}
@@ -69,7 +75,18 @@ public abstract class BaseSearchDisplayContext {
 	}
 
 	public PortletURL getPortletURL() {
-		PortletURL portletURL = renderResponse.createRenderURL();
+		PortletURL portletURL = null;
+
+		try {
+			portletURL = PortletURLUtil.clone(currentURLObj, renderResponse);
+		}
+		catch (PortletException pe) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(pe, pe);
+			}
+
+			portletURL = renderResponse.createRenderURL();
+		}
 
 		if (Validator.isNotNull(getKeywords())) {
 			portletURL.setParameter("keywords", getKeywords());
@@ -98,11 +115,15 @@ public abstract class BaseSearchDisplayContext {
 		return "name";
 	}
 
+	protected final PortletURL currentURLObj;
 	protected final RenderRequest renderRequest;
 	protected final RenderResponse renderResponse;
 	protected final HttpServletRequest request;
 	protected SearchContainer searchContainer;
 	protected final ThemeDisplay themeDisplay;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		BaseSearchDisplayContext.class);
 
 	private String _keywords;
 	private String _orderByCol;
