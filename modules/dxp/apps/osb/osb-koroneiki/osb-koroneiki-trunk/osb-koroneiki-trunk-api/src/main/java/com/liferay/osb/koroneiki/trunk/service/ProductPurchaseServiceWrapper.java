@@ -118,6 +118,23 @@ public class ProductPurchaseServiceWrapper
 			accountKey);
 	}
 
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+			getContactProductPurchases(String contactKey, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productPurchaseService.getContactProductPurchases(
+			contactKey, start, end);
+	}
+
+	@Override
+	public int getContactProductPurchasesCount(String contactKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productPurchaseService.getContactProductPurchasesCount(
+			contactKey);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

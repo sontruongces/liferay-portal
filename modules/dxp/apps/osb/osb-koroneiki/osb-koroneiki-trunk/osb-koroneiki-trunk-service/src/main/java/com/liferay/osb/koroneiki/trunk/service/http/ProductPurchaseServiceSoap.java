@@ -225,6 +225,44 @@ public class ProductPurchaseServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap[]
+			getContactProductPurchases(String contactKey, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+					returnValue =
+						ProductPurchaseServiceUtil.getContactProductPurchases(
+							contactKey, start, end);
+
+			return com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getContactProductPurchasesCount(String contactKey)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				ProductPurchaseServiceUtil.getContactProductPurchasesCount(
+					contactKey);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap
 			getProductPurchase(long productPurchaseId)
 		throws RemoteException {

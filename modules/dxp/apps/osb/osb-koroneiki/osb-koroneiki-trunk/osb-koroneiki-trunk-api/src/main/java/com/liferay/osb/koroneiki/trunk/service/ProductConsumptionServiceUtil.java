@@ -120,6 +120,22 @@ public class ProductConsumptionServiceUtil {
 		return getService().getAccountProductConsumptionsCount(accountKey);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+				getContactProductConsumptions(
+					String contactKey, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactProductConsumptions(
+			contactKey, start, end);
+	}
+
+	public static int getContactProductConsumptionsCount(String contactKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactProductConsumptionsCount(contactKey);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

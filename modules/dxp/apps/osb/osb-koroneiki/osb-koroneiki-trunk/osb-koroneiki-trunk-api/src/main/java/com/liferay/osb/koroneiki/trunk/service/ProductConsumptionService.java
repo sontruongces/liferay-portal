@@ -92,6 +92,15 @@ public interface ProductConsumptionService extends BaseService {
 	public int getAccountProductConsumptionsCount(String accountKey)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProductConsumption> getContactProductConsumptions(
+			String contactKey, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getContactProductConsumptionsCount(String contactKey)
+		throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

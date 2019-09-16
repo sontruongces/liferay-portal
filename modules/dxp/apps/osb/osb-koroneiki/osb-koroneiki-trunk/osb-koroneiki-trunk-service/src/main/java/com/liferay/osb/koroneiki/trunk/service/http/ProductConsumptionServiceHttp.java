@@ -426,6 +426,89 @@ public class ProductConsumptionServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+				getContactProductConsumptions(
+					HttpPrincipal httpPrincipal, String contactKey, int start,
+					int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ProductConsumptionServiceUtil.class,
+				"getContactProductConsumptions",
+				_getContactProductConsumptionsParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, contactKey, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>)
+					returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getContactProductConsumptionsCount(
+			HttpPrincipal httpPrincipal, String contactKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ProductConsumptionServiceUtil.class,
+				"getContactProductConsumptionsCount",
+				_getContactProductConsumptionsCountParameterTypes10);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, contactKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			getProductConsumption(
 				HttpPrincipal httpPrincipal, long productConsumptionId)
@@ -434,7 +517,7 @@ public class ProductConsumptionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class, "getProductConsumption",
-				_getProductConsumptionParameterTypes9);
+				_getProductConsumptionParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productConsumptionId);
@@ -474,7 +557,7 @@ public class ProductConsumptionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class, "getProductConsumption",
-				_getProductConsumptionParameterTypes10);
+				_getProductConsumptionParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productConsumptionKey);
@@ -516,7 +599,7 @@ public class ProductConsumptionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class, "getProductConsumptions",
-				_getProductConsumptionsParameterTypes11);
+				_getProductConsumptionsParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId, start, end);
@@ -558,7 +641,7 @@ public class ProductConsumptionServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class,
 				"getProductConsumptionsCount",
-				_getProductConsumptionsCountParameterTypes12);
+				_getProductConsumptionsCountParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId);
@@ -618,16 +701,24 @@ public class ProductConsumptionServiceHttp {
 		_getAccountProductConsumptionsCountParameterTypes8 = new Class[] {
 			String.class
 		};
-	private static final Class<?>[] _getProductConsumptionParameterTypes9 =
+	private static final Class<?>[]
+		_getContactProductConsumptionsParameterTypes9 = new Class[] {
+			String.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getContactProductConsumptionsCountParameterTypes10 = new Class[] {
+			String.class
+		};
+	private static final Class<?>[] _getProductConsumptionParameterTypes11 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getProductConsumptionParameterTypes10 =
+	private static final Class<?>[] _getProductConsumptionParameterTypes12 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getProductConsumptionsParameterTypes11 =
+	private static final Class<?>[] _getProductConsumptionsParameterTypes13 =
 		new Class[] {
 			String.class, String.class, String.class, int.class, int.class
 		};
 	private static final Class<?>[]
-		_getProductConsumptionsCountParameterTypes12 = new Class[] {
+		_getProductConsumptionsCountParameterTypes14 = new Class[] {
 			String.class, String.class, String.class
 		};
 

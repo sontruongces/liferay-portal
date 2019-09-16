@@ -262,6 +262,20 @@ public class ProductPurchaseLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+		getContactProductPurchases(long contactId, int start, int end) {
+
+		return _productPurchaseLocalService.getContactProductPurchases(
+			contactId, start, end);
+	}
+
+	@Override
+	public int getContactProductPurchasesCount(long contactId) {
+		return _productPurchaseLocalService.getContactProductPurchasesCount(
+			contactId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

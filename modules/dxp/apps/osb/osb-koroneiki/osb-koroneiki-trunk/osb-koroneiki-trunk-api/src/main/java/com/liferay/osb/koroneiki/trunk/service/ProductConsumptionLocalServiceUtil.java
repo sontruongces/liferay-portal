@@ -258,6 +258,18 @@ public class ProductConsumptionLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+			getContactProductConsumptions(long contactId, int start, int end) {
+
+		return getService().getContactProductConsumptions(
+			contactId, start, end);
+	}
+
+	public static int getContactProductConsumptionsCount(long contactId) {
+		return getService().getContactProductConsumptionsCount(contactId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

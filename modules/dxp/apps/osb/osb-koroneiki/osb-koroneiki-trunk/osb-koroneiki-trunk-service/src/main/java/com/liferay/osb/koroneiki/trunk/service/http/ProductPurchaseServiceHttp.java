@@ -387,6 +387,88 @@ public class ProductPurchaseServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+				getContactProductPurchases(
+					HttpPrincipal httpPrincipal, String contactKey, int start,
+					int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ProductPurchaseServiceUtil.class, "getContactProductPurchases",
+				_getContactProductPurchasesParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, contactKey, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>)
+					returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getContactProductPurchasesCount(
+			HttpPrincipal httpPrincipal, String contactKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ProductPurchaseServiceUtil.class,
+				"getContactProductPurchasesCount",
+				_getContactProductPurchasesCountParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, contactKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			getProductPurchase(
 				HttpPrincipal httpPrincipal, long productPurchaseId)
@@ -395,7 +477,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getProductPurchase",
-				_getProductPurchaseParameterTypes8);
+				_getProductPurchaseParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productPurchaseId);
@@ -435,7 +517,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getProductPurchase",
-				_getProductPurchaseParameterTypes9);
+				_getProductPurchaseParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productPurchaseKey);
@@ -477,7 +559,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getProductPurchases",
-				_getProductPurchasesParameterTypes10);
+				_getProductPurchasesParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId, start, end);
@@ -518,7 +600,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getProductPurchasesCount",
-				_getProductPurchasesCountParameterTypes11);
+				_getProductPurchasesCountParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId);
@@ -561,7 +643,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "updateProductPurchase",
-				_updateProductPurchaseParameterTypes12);
+				_updateProductPurchaseParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productPurchaseId, startDate, endDate, quantity,
@@ -623,17 +705,23 @@ public class ProductPurchaseServiceHttp {
 		_getAccountProductPurchasesCountParameterTypes7 = new Class[] {
 			String.class
 		};
-	private static final Class<?>[] _getProductPurchaseParameterTypes8 =
+	private static final Class<?>[] _getContactProductPurchasesParameterTypes8 =
+		new Class[] {String.class, int.class, int.class};
+	private static final Class<?>[]
+		_getContactProductPurchasesCountParameterTypes9 = new Class[] {
+			String.class
+		};
+	private static final Class<?>[] _getProductPurchaseParameterTypes10 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getProductPurchaseParameterTypes9 =
+	private static final Class<?>[] _getProductPurchaseParameterTypes11 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getProductPurchasesParameterTypes10 =
+	private static final Class<?>[] _getProductPurchasesParameterTypes12 =
 		new Class[] {
 			String.class, String.class, String.class, int.class, int.class
 		};
-	private static final Class<?>[] _getProductPurchasesCountParameterTypes11 =
+	private static final Class<?>[] _getProductPurchasesCountParameterTypes13 =
 		new Class[] {String.class, String.class, String.class};
-	private static final Class<?>[] _updateProductPurchaseParameterTypes12 =
+	private static final Class<?>[] _updateProductPurchaseParameterTypes14 =
 		new Class[] {
 			long.class, java.util.Date.class, java.util.Date.class, int.class,
 			java.util.List.class

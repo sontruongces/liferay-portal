@@ -16,10 +16,12 @@ package com.liferay.osb.koroneiki.trunk.service.base;
 
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
+import com.liferay.osb.koroneiki.trunk.service.persistence.ProductConsumptionFinder;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductConsumptionPersistence;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryPersistence;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductFieldFinder;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductFieldPersistence;
+import com.liferay.osb.koroneiki.trunk.service.persistence.ProductPurchaseFinder;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductPurchasePersistence;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -113,6 +115,9 @@ public abstract class ProductEntryServiceBaseImpl
 	protected ProductConsumptionPersistence productConsumptionPersistence;
 
 	@Reference
+	protected ProductConsumptionFinder productConsumptionFinder;
+
+	@Reference
 	protected com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService
 		productEntryLocalService;
 
@@ -129,6 +134,9 @@ public abstract class ProductEntryServiceBaseImpl
 
 	@Reference
 	protected ProductPurchasePersistence productPurchasePersistence;
+
+	@Reference
+	protected ProductPurchaseFinder productPurchaseFinder;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

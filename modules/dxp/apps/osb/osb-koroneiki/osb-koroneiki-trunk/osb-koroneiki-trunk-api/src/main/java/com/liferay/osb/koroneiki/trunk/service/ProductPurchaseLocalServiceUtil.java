@@ -244,6 +244,17 @@ public class ProductPurchaseLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+			getContactProductPurchases(long contactId, int start, int end) {
+
+		return getService().getContactProductPurchases(contactId, start, end);
+	}
+
+	public static int getContactProductPurchasesCount(long contactId) {
+		return getService().getContactProductPurchasesCount(contactId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

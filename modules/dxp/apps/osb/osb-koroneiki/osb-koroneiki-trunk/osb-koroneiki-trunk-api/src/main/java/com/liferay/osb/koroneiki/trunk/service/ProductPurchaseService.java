@@ -87,6 +87,15 @@ public interface ProductPurchaseService extends BaseService {
 	public int getAccountProductPurchasesCount(String accountKey)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProductPurchase> getContactProductPurchases(
+			String contactKey, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getContactProductPurchasesCount(String contactKey)
+		throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

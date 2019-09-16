@@ -278,6 +278,21 @@ public class ProductConsumptionLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+			getContactProductConsumptions(long contactId, int start, int end) {
+
+		return _productConsumptionLocalService.getContactProductConsumptions(
+			contactId, start, end);
+	}
+
+	@Override
+	public int getContactProductConsumptionsCount(long contactId) {
+		return _productConsumptionLocalService.
+			getContactProductConsumptionsCount(contactId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
