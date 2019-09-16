@@ -103,6 +103,28 @@ public abstract class BaseProductPurchaseResourceImpl
 
 	@Override
 	@GET
+	@Operation(description = "Retrieves the contacts product purchases.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "contactKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/contacts/{contactKey}/product-purchases")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ProductPurchase")})
+	public Page<ProductPurchase> getContactContactKeyProductPurchasesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("contactKey") String
+				contactKey,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@GET
 	@Operation(
 		description = "Retrieves the product purchases. Results can be paginated, filtered, searched, and sorted."
 	)

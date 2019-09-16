@@ -349,6 +349,140 @@ public abstract class BaseProductConsumptionResourceTestCase {
 	}
 
 	@Test
+	public void testGetContactContactKeyProductConsumptionsPage()
+		throws Exception {
+
+		Page<ProductConsumption> page =
+			productConsumptionResource.
+				getContactContactKeyProductConsumptionsPage(
+					testGetContactContactKeyProductConsumptionsPage_getContactKey(),
+					Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String contactKey =
+			testGetContactContactKeyProductConsumptionsPage_getContactKey();
+		String irrelevantContactKey =
+			testGetContactContactKeyProductConsumptionsPage_getIrrelevantContactKey();
+
+		if ((irrelevantContactKey != null)) {
+			ProductConsumption irrelevantProductConsumption =
+				testGetContactContactKeyProductConsumptionsPage_addProductConsumption(
+					irrelevantContactKey, randomIrrelevantProductConsumption());
+
+			page =
+				productConsumptionResource.
+					getContactContactKeyProductConsumptionsPage(
+						irrelevantContactKey, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantProductConsumption),
+				(List<ProductConsumption>)page.getItems());
+			assertValid(page);
+		}
+
+		ProductConsumption productConsumption1 =
+			testGetContactContactKeyProductConsumptionsPage_addProductConsumption(
+				contactKey, randomProductConsumption());
+
+		ProductConsumption productConsumption2 =
+			testGetContactContactKeyProductConsumptionsPage_addProductConsumption(
+				contactKey, randomProductConsumption());
+
+		page =
+			productConsumptionResource.
+				getContactContactKeyProductConsumptionsPage(
+					contactKey, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(productConsumption1, productConsumption2),
+			(List<ProductConsumption>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetContactContactKeyProductConsumptionsPageWithPagination()
+		throws Exception {
+
+		String contactKey =
+			testGetContactContactKeyProductConsumptionsPage_getContactKey();
+
+		ProductConsumption productConsumption1 =
+			testGetContactContactKeyProductConsumptionsPage_addProductConsumption(
+				contactKey, randomProductConsumption());
+
+		ProductConsumption productConsumption2 =
+			testGetContactContactKeyProductConsumptionsPage_addProductConsumption(
+				contactKey, randomProductConsumption());
+
+		ProductConsumption productConsumption3 =
+			testGetContactContactKeyProductConsumptionsPage_addProductConsumption(
+				contactKey, randomProductConsumption());
+
+		Page<ProductConsumption> page1 =
+			productConsumptionResource.
+				getContactContactKeyProductConsumptionsPage(
+					contactKey, Pagination.of(1, 2));
+
+		List<ProductConsumption> productConsumptions1 =
+			(List<ProductConsumption>)page1.getItems();
+
+		Assert.assertEquals(
+			productConsumptions1.toString(), 2, productConsumptions1.size());
+
+		Page<ProductConsumption> page2 =
+			productConsumptionResource.
+				getContactContactKeyProductConsumptionsPage(
+					contactKey, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<ProductConsumption> productConsumptions2 =
+			(List<ProductConsumption>)page2.getItems();
+
+		Assert.assertEquals(
+			productConsumptions2.toString(), 1, productConsumptions2.size());
+
+		Page<ProductConsumption> page3 =
+			productConsumptionResource.
+				getContactContactKeyProductConsumptionsPage(
+					contactKey, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(
+				productConsumption1, productConsumption2, productConsumption3),
+			(List<ProductConsumption>)page3.getItems());
+	}
+
+	protected ProductConsumption
+			testGetContactContactKeyProductConsumptionsPage_addProductConsumption(
+				String contactKey, ProductConsumption productConsumption)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetContactContactKeyProductConsumptionsPage_getContactKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetContactContactKeyProductConsumptionsPage_getIrrelevantContactKey()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
 	public void testGetProductConsumptionsPage() throws Exception {
 		Page<ProductConsumption> page =
 			productConsumptionResource.getProductConsumptionsPage(

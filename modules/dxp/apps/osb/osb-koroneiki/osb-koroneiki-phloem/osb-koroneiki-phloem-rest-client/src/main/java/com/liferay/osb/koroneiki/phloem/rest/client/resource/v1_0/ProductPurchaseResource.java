@@ -55,6 +55,15 @@ public interface ProductPurchaseResource {
 				String accountKey, ProductPurchase productPurchase)
 		throws Exception;
 
+	public Page<ProductPurchase> getContactContactKeyProductPurchasesPage(
+			String contactKey, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getContactContactKeyProductPurchasesPageHttpResponse(
+				String contactKey, Pagination pagination)
+		throws Exception;
+
 	public Page<ProductPurchase> getProductPurchasesPage(
 			String search, String filterString, Pagination pagination,
 			String sortString)
@@ -242,6 +251,58 @@ public interface ProductPurchaseResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/product-purchases",
 				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ProductPurchase> getContactContactKeyProductPurchasesPage(
+				String contactKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getContactContactKeyProductPurchasesPageHttpResponse(
+					contactKey, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ProductPurchaseSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getContactContactKeyProductPurchasesPageHttpResponse(
+					String contactKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/{contactKey}/product-purchases",
+				contactKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

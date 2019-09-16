@@ -626,6 +626,22 @@ public class Query {
 	}
 
 	@GraphQLField
+	public ProductConsumptionPage getContactContactKeyProductConsumptionsPage(
+			@GraphQLName("contactKey") String contactKey,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productConsumptionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productConsumptionResource -> new ProductConsumptionPage(
+				productConsumptionResource.
+					getContactContactKeyProductConsumptionsPage(
+						contactKey, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
 	public ProductConsumptionPage getProductConsumptionsPage(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") Filter filter,
@@ -688,6 +704,22 @@ public class Query {
 				productPurchaseResource.
 					getAccountAccountKeyProductPurchasesPage(
 						accountKey, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public ProductPurchasePage getContactContactKeyProductPurchasesPage(
+			@GraphQLName("contactKey") String contactKey,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productPurchaseResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productPurchaseResource -> new ProductPurchasePage(
+				productPurchaseResource.
+					getContactContactKeyProductPurchasesPage(
+						contactKey, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField
