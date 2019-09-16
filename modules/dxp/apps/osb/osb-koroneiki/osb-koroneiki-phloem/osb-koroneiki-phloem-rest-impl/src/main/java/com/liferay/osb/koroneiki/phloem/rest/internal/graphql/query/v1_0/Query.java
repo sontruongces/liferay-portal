@@ -830,6 +830,22 @@ public class Query {
 	}
 
 	@GraphQLField
+	public TeamRolePage getTeamRolesPage(
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") Filter filter,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page, @GraphQLName("sorts") Sort[] sorts)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_teamRoleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamRoleResource -> new TeamRolePage(
+				teamRoleResource.getTeamRolesPage(
+					search, filter, Pagination.of(page, pageSize), sorts)));
+	}
+
+	@GraphQLField
 	public TeamRole getTeamRole(@GraphQLName("teamRoleKey") String teamRoleKey)
 		throws Exception {
 

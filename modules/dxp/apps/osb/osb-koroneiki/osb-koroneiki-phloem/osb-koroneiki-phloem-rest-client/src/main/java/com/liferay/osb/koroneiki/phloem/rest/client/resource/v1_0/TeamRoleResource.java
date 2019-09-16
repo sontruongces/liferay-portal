@@ -16,6 +16,9 @@ package com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
+import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
+import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.TeamRoleSerDes;
 
 import java.util.Locale;
 import java.util.logging.Level;
@@ -33,6 +36,16 @@ public interface TeamRoleResource {
 	public static Builder builder() {
 		return new Builder();
 	}
+
+	public Page<TeamRole> getTeamRolesPage(
+			String search, String filterString, Pagination pagination,
+			String sortString)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getTeamRolesPageHttpResponse(
+			String search, String filterString, Pagination pagination,
+			String sortString)
+		throws Exception;
 
 	public TeamRole postTeamRole(TeamRole teamRole) throws Exception;
 
@@ -98,6 +111,69 @@ public interface TeamRoleResource {
 
 	public static class TeamRoleResourceImpl implements TeamRoleResource {
 
+		public Page<TeamRole> getTeamRolesPage(
+				String search, String filterString, Pagination pagination,
+				String sortString)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getTeamRolesPageHttpResponse(
+					search, filterString, pagination, sortString);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, TeamRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse getTeamRolesPageHttpResponse(
+				String search, String filterString, Pagination pagination,
+				String sortString)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
+			}
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port + "/o/koroneiki-rest/v1.0/team-roles");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public TeamRole postTeamRole(TeamRole teamRole) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = postTeamRoleHttpResponse(
 				teamRole);
@@ -111,8 +187,7 @@ public interface TeamRoleResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.
-					TeamRoleSerDes.toDTO(content);
+				return TeamRoleSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -199,8 +274,7 @@ public interface TeamRoleResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.
-					TeamRoleSerDes.toDTO(content);
+				return TeamRoleSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -251,8 +325,7 @@ public interface TeamRoleResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.
-					TeamRoleSerDes.toDTO(content);
+				return TeamRoleSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(

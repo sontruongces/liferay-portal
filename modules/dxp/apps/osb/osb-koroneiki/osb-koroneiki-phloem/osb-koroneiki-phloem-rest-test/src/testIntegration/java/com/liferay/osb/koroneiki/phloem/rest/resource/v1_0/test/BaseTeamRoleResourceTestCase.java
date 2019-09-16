@@ -25,8 +25,10 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
+import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.TeamRoleResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.TeamRoleSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -48,6 +50,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -58,6 +63,7 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -182,6 +188,191 @@ public abstract class BaseTeamRoleResourceTestCase {
 		Assert.assertEquals(regex, teamRole.getDescription());
 		Assert.assertEquals(regex, teamRole.getKey());
 		Assert.assertEquals(regex, teamRole.getName());
+	}
+
+	@Test
+	public void testGetTeamRolesPage() throws Exception {
+		Page<TeamRole> page = teamRoleResource.getTeamRolesPage(
+			RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		TeamRole teamRole1 = testGetTeamRolesPage_addTeamRole(randomTeamRole());
+
+		TeamRole teamRole2 = testGetTeamRolesPage_addTeamRole(randomTeamRole());
+
+		page = teamRoleResource.getTeamRolesPage(
+			null, null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(teamRole1, teamRole2),
+			(List<TeamRole>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetTeamRolesPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		TeamRole teamRole1 = randomTeamRole();
+
+		teamRole1 = testGetTeamRolesPage_addTeamRole(teamRole1);
+
+		for (EntityField entityField : entityFields) {
+			Page<TeamRole> page = teamRoleResource.getTeamRolesPage(
+				null, getFilterString(entityField, "between", teamRole1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(teamRole1),
+				(List<TeamRole>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetTeamRolesPageWithFilterStringEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		TeamRole teamRole1 = testGetTeamRolesPage_addTeamRole(randomTeamRole());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		TeamRole teamRole2 = testGetTeamRolesPage_addTeamRole(randomTeamRole());
+
+		for (EntityField entityField : entityFields) {
+			Page<TeamRole> page = teamRoleResource.getTeamRolesPage(
+				null, getFilterString(entityField, "eq", teamRole1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(teamRole1),
+				(List<TeamRole>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetTeamRolesPageWithPagination() throws Exception {
+		TeamRole teamRole1 = testGetTeamRolesPage_addTeamRole(randomTeamRole());
+
+		TeamRole teamRole2 = testGetTeamRolesPage_addTeamRole(randomTeamRole());
+
+		TeamRole teamRole3 = testGetTeamRolesPage_addTeamRole(randomTeamRole());
+
+		Page<TeamRole> page1 = teamRoleResource.getTeamRolesPage(
+			null, null, Pagination.of(1, 2), null);
+
+		List<TeamRole> teamRoles1 = (List<TeamRole>)page1.getItems();
+
+		Assert.assertEquals(teamRoles1.toString(), 2, teamRoles1.size());
+
+		Page<TeamRole> page2 = teamRoleResource.getTeamRolesPage(
+			null, null, Pagination.of(2, 2), null);
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<TeamRole> teamRoles2 = (List<TeamRole>)page2.getItems();
+
+		Assert.assertEquals(teamRoles2.toString(), 1, teamRoles2.size());
+
+		Page<TeamRole> page3 = teamRoleResource.getTeamRolesPage(
+			null, null, Pagination.of(1, 3), null);
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(teamRole1, teamRole2, teamRole3),
+			(List<TeamRole>)page3.getItems());
+	}
+
+	@Test
+	public void testGetTeamRolesPageWithSortDateTime() throws Exception {
+		testGetTeamRolesPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, teamRole1, teamRole2) -> {
+				BeanUtils.setProperty(
+					teamRole1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetTeamRolesPageWithSortInteger() throws Exception {
+		testGetTeamRolesPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, teamRole1, teamRole2) -> {
+				BeanUtils.setProperty(teamRole1, entityField.getName(), 0);
+				BeanUtils.setProperty(teamRole2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetTeamRolesPageWithSortString() throws Exception {
+		testGetTeamRolesPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, teamRole1, teamRole2) -> {
+				BeanUtils.setProperty(teamRole1, entityField.getName(), "Aaa");
+				BeanUtils.setProperty(teamRole2, entityField.getName(), "Bbb");
+			});
+	}
+
+	protected void testGetTeamRolesPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, TeamRole, TeamRole, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		TeamRole teamRole1 = randomTeamRole();
+		TeamRole teamRole2 = randomTeamRole();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, teamRole1, teamRole2);
+		}
+
+		teamRole1 = testGetTeamRolesPage_addTeamRole(teamRole1);
+
+		teamRole2 = testGetTeamRolesPage_addTeamRole(teamRole2);
+
+		for (EntityField entityField : entityFields) {
+			Page<TeamRole> ascPage = teamRoleResource.getTeamRolesPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(teamRole1, teamRole2),
+				(List<TeamRole>)ascPage.getItems());
+
+			Page<TeamRole> descPage = teamRoleResource.getTeamRolesPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(teamRole2, teamRole1),
+				(List<TeamRole>)descPage.getItems());
+		}
+	}
+
+	protected TeamRole testGetTeamRolesPage_addTeamRole(TeamRole teamRole)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
