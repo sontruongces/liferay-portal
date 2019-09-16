@@ -2698,6 +2698,45 @@ paths:
                     description: ""
             tags: ["ExternalLink"]
     "/team-roles":
+        get:
+            description: Retrieves the team roles. Results can be paginated, filtered, searched, and sorted.
+            operationId: getTeamRolesPage
+            parameters:
+                - in: query
+                  name: filter
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/TeamRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/TeamRole"
+                                type: array
+                    description: ""
+            tags: ["TeamRole"]
         post:
             operationId: postTeamRole
             requestBody:

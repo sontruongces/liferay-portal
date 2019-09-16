@@ -17,53 +17,24 @@
 <%@ include file="/init.jsp" %>
 
 <%
-List<NavigationItem> navigationItems = new ArrayList<>();
+TeamRolesDisplayContext teamRolesDisplayContext = new TeamRolesDisplayContext(renderRequest, renderResponse, request);
 
-NavigationItem entriesNavigationItem = new NavigationItem();
-
-entriesNavigationItem.setActive(true);
-entriesNavigationItem.setHref(StringPool.BLANK);
-entriesNavigationItem.setLabel(LanguageUtil.get(request, "team-roles"));
-
-navigationItems.add(entriesNavigationItem);
+ViewTeamRolesManagementToolbarDisplayContext viewTeamRolesManagementToolbarDisplayContext = new ViewTeamRolesManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, teamRolesDisplayContext.getSearchContainer());
 %>
 
 <clay:navigation-bar
 	inverted="<%= true %>"
-	navigationItems="<%= navigationItems %>"
+	navigationItems="<%= viewTeamRolesManagementToolbarDisplayContext.getNavigationItems() %>"
 />
 
 <clay:management-toolbar
-	creationMenu='<%=
-		new JSPCreationMenu(pageContext) {
-			{
-				addDropdownItem(
-					dropdownItem -> {
-						dropdownItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/team_roles_admin/edit_team_role", "redirect", PortalUtil.getCurrentURL(request));
-						dropdownItem.setLabel(LanguageUtil.get(request, "add"));
-					});
-			}
-		}
-	%>'
-	selectable="<%= false %>"
-	showSearch="<%= false %>"
+	displayContext="<%= viewTeamRolesManagementToolbarDisplayContext %>"
 />
-
-<%
-PortletURL portletURL = renderResponse.createRenderURL();
-%>
 
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
-		emptyResultsMessage="no-team-roles-were-found"
-		headerNames="name,type"
-		iteratorURL="<%= portletURL %>"
-		total="<%= TeamRoleLocalServiceUtil.getTeamRolesCount() %>"
+		searchContainer="<%= teamRolesDisplayContext.getSearchContainer() %>"
 	>
-		<liferay-ui:search-container-results
-			results="<%= TeamRoleLocalServiceUtil.getTeamRoles(searchContainer.getStart(), searchContainer.getEnd()) %>"
-		/>
-
 		<liferay-ui:search-container-row
 			className="com.liferay.osb.koroneiki.taproot.model.TeamRole"
 			escapedModel="<%= true %>"
