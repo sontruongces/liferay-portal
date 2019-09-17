@@ -527,7 +527,7 @@ public class UserNotificationEventLocalServiceImpl
 
 	@Override
 	public UserNotificationEvent sendUserNotificationEvents(
-			long userId, String portletId, int deliveryType,
+			long userId, String portletId, int deliveryType, boolean delivered,
 			boolean actionRequired, JSONObject notificationEventJSONObject)
 		throws PortalException {
 
@@ -539,7 +539,7 @@ public class UserNotificationEventLocalServiceImpl
 		notificationEvent.setDeliveryType(deliveryType);
 
 		UserNotificationEvent userNotificationEvent = addUserNotificationEvent(
-			userId, actionRequired, notificationEvent);
+			userId, delivered, actionRequired, notificationEvent);
 
 		if (deliveryType == UserNotificationDeliveryConstants.TYPE_PUSH) {
 			sendPushNotification(notificationEvent);
@@ -551,35 +551,23 @@ public class UserNotificationEventLocalServiceImpl
 	@Override
 	public UserNotificationEvent sendUserNotificationEvents(
 			long userId, String portletId, int deliveryType,
+			boolean actionRequired, JSONObject notificationEventJSONObject)
+		throws PortalException {
+
+		return sendUserNotificationEvents(
+			userId, portletId, deliveryType, true, actionRequired,
+			notificationEventJSONObject);
+	}
+
+	@Override
+	public UserNotificationEvent sendUserNotificationEvents(
+			long userId, String portletId, int deliveryType,
 			JSONObject notificationEventJSONObject)
 		throws PortalException {
 
 		return sendUserNotificationEvents(
 			userId, portletId, deliveryType, false,
 			notificationEventJSONObject);
-	}
-
-	@Override
-	public UserNotificationEvent storeUserNotificationEvents(
-			long userId, String portletId, int deliveryType,
-			boolean actionRequired, JSONObject notificationEventJSONObject)
-		throws PortalException {
-
-		NotificationEvent notificationEvent =
-			NotificationEventFactoryUtil.createNotificationEvent(
-				System.currentTimeMillis(), portletId,
-				notificationEventJSONObject);
-
-		notificationEvent.setDeliveryType(deliveryType);
-
-		UserNotificationEvent userNotificationEvent = addUserNotificationEvent(
-			userId, false, actionRequired, notificationEvent);
-
-		if (deliveryType == UserNotificationDeliveryConstants.TYPE_PUSH) {
-			sendPushNotification(notificationEvent);
-		}
-
-		return userNotificationEvent;
 	}
 
 	@Override

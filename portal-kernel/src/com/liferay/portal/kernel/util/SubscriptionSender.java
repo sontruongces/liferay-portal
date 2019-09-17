@@ -979,20 +979,10 @@ public class SubscriptionSender implements Serializable {
 				_notificationType,
 				UserNotificationDeliveryConstants.TYPE_PUSH)) {
 
-			if (notifyImmediately) {
-				UserNotificationEventLocalServiceUtil.
-					sendUserNotificationEvents(
-						user.getUserId(), portletId,
-						UserNotificationDeliveryConstants.TYPE_PUSH,
-						notificationEventJSONObject);
-			}
-			else {
-				UserNotificationEventLocalServiceUtil.
-					storeUserNotificationEvents(
-						user.getUserId(), portletId,
-						UserNotificationDeliveryConstants.TYPE_PUSH, false,
-						notificationEventJSONObject);
-			}
+			UserNotificationEventLocalServiceUtil.sendUserNotificationEvents(
+				user.getUserId(), portletId,
+				UserNotificationDeliveryConstants.TYPE_PUSH, notifyImmediately,
+				false, notificationEventJSONObject);
 		}
 
 		if (UserNotificationManagerUtil.isDeliver(
@@ -1000,20 +990,10 @@ public class SubscriptionSender implements Serializable {
 				_notificationType,
 				UserNotificationDeliveryConstants.TYPE_WEBSITE)) {
 
-			if (notifyImmediately) {
-				UserNotificationEventLocalServiceUtil.
-					sendUserNotificationEvents(
-						user.getUserId(), portletId,
-						UserNotificationDeliveryConstants.TYPE_WEBSITE,
-						notificationEventJSONObject);
-			}
-			else {
-				UserNotificationEventLocalServiceUtil.
-					storeUserNotificationEvents(
-						user.getUserId(), portletId,
-						UserNotificationDeliveryConstants.TYPE_WEBSITE, false,
-						notificationEventJSONObject);
-			}
+			UserNotificationEventLocalServiceUtil.sendUserNotificationEvents(
+				user.getUserId(), portletId,
+				UserNotificationDeliveryConstants.TYPE_WEBSITE,
+				notifyImmediately, false, notificationEventJSONObject);
 		}
 	}
 
