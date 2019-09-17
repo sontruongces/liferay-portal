@@ -473,6 +473,11 @@ public interface UserNotificationEventLocalService
 		long userId, String type, Map<String, String> payloadParameters);
 
 	public UserNotificationEvent sendUserNotificationEvents(
+			long userId, String portletId, int deliveryType, boolean delivered,
+			boolean actionRequired, JSONObject notificationEventJSONObject)
+		throws PortalException;
+
+	public UserNotificationEvent sendUserNotificationEvents(
 			long userId, String portletId, int deliveryType,
 			boolean actionRequired, JSONObject notificationEventJSONObject)
 		throws PortalException;
@@ -480,11 +485,6 @@ public interface UserNotificationEventLocalService
 	public UserNotificationEvent sendUserNotificationEvents(
 			long userId, String portletId, int deliveryType,
 			JSONObject notificationEventJSONObject)
-		throws PortalException;
-
-	public UserNotificationEvent storeUserNotificationEvents(
-			long userId, String portletId, int deliveryType,
-			boolean actionRequired, JSONObject notificationEventJSONObject)
 		throws PortalException;
 
 	public UserNotificationEvent updateUserNotificationEvent(
