@@ -336,6 +336,21 @@ public class TeamRoleLocalServiceUtil {
 		return getService().getTeamRolesCount(type);
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.TeamRole reindex(
+			long teamRoleId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().reindex(teamRoleId);
+	}
+
+	public static com.liferay.portal.kernel.search.Hits search(
+			long companyId, String keywords, int start, int end,
+			com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().search(companyId, keywords, start, end, sort);
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRole
 			updateTeamRole(
 				long userId, long teamRoleId, String name, String description)

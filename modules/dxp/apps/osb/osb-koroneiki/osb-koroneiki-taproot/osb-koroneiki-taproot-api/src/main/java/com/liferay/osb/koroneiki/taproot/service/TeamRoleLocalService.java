@@ -24,8 +24,10 @@ import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
 import com.liferay.portal.kernel.transaction.Isolation;
@@ -62,6 +64,7 @@ public interface TeamRoleLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TeamRoleLocalServiceUtil} to access the team role local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamRoleLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	@Indexable(type = IndexableType.REINDEX)
 	public TeamRole addTeamRole(
 			long userId, String name, String description, int type)
 		throws PortalException;
@@ -269,6 +272,16 @@ public interface TeamRoleLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTeamRolesCount(int type);
 
+	@Indexable(type = IndexableType.REINDEX)
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TeamRole reindex(long teamRoleId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Hits search(
+			long companyId, String keywords, int start, int end, Sort sort)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
 	public TeamRole updateTeamRole(
 			long userId, long teamRoleId, String name, String description)
 		throws PortalException;

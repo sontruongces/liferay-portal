@@ -355,6 +355,24 @@ public class TeamRoleLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.osb.koroneiki.taproot.model.TeamRole reindex(
+			long teamRoleId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamRoleLocalService.reindex(teamRoleId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.search.Hits search(
+			long companyId, String keywords, int start, int end,
+			com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamRoleLocalService.search(
+			companyId, keywords, start, end, sort);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.TeamRole updateTeamRole(
 			long userId, long teamRoleId, String name, String description)
 		throws com.liferay.portal.kernel.exception.PortalException {
