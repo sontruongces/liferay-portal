@@ -78,7 +78,7 @@ public class TeamRoleResourceImpl
 			searchContext -> searchContext.setCompanyId(
 				contextCompany.getCompanyId()),
 			document -> TeamRoleUtil.toTeamRole(
-				_teamRoleService.getTeamRole(
+				_teamRoleLocalService.getTeamRole(
 					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
 			sorts);
 	}
