@@ -19,12 +19,15 @@ import com.liferay.osb.distributed.messaging.publishing.broker.MessageBroker;
 import com.liferay.osb.distributed.messaging.rabbitmq.connector.Connection;
 import com.liferay.osb.distributed.messaging.rabbitmq.connector.message.AttributeTranslator;
 import com.liferay.petra.lang.CentralizedThreadLocal;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 
 import com.rabbitmq.client.Channel;
 
 import java.io.IOException;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,18 +46,93 @@ public abstract class BaseMessageBroker implements MessageBroker {
 		Channel channel = getChannel();
 
 		for (Message message : messages) {
-			String payload = String.valueOf(message.getPayload());
+			try {
+				_publish(channel, topic, message);
+			}
+			catch (IOException ioe) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Unable to publish. Resetting channel and retrying.",
+						ioe);
+				}
 
-			channel.basicPublish(
-				_exchange, topic,
-				AttributeTranslator.toProperties(message.getAttributes()),
-				payload.getBytes());
+				closeChannel();
+
+				channel = getChannel();
+
+				_publish(channel, topic, message);
+			}
 		}
 	}
 
 	@Override
 	public void publish(String topic, Message message) throws IOException {
-		Channel channel = getChannel();
+		try {
+			_publish(getChannel(), topic, message);
+		}
+		catch (IOException ioe) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Unable to publish. Resetting channel and retrying.", ioe);
+			}
+
+			closeChannel();
+
+			_publish(getChannel(), topic, message);
+		}
+	}
+
+	@Activate
+	protected void activate(Map<String, Object> properties) {
+		_exchange = GetterUtil.getString(properties.get("exchange"));
+	}
+
+	protected void closeChannel() {
+		Connection connection = getConnection();
+
+		Map<String, Channel> channelMap = _channelMapThreadLocal.get();
+
+		Class<?> clazz = connection.getClass();
+
+		Channel channel = channelMap.remove(clazz.getName());
+
+		if (channel != null) {
+			try {
+				channel.close();
+			}
+			catch (Exception e) {
+				_log.error(e, e);
+			}
+		}
+	}
+
+	@Deactivate
+	protected void deactivate() {
+		_channelMapThreadLocal.remove();
+	}
+
+	protected Channel getChannel() throws IOException {
+		Connection connection = getConnection();
+
+		Map<String, Channel> channelMap = _channelMapThreadLocal.get();
+
+		Class<?> clazz = connection.getClass();
+
+		Channel channel = channelMap.get(clazz.getName());
+
+		if ((channel == null) || !channel.isOpen()) {
+			channel = connection.createChannel();
+
+			channelMap.put(clazz.getName(), channel);
+		}
+
+		return channel;
+	}
+
+	protected abstract Connection getConnection();
+
+	private void _publish(Channel channel, String topic, Message message)
+		throws IOException {
 
 		String payload = String.valueOf(message.getPayload());
 
@@ -64,34 +142,13 @@ public abstract class BaseMessageBroker implements MessageBroker {
 			payload.getBytes());
 	}
 
-	@Activate
-	protected void activate(Map<String, Object> properties) {
-		_exchange = GetterUtil.getString(properties.get("exchange"));
-	}
+	private static final Log _log = LogFactoryUtil.getLog(
+		BaseMessageBroker.class);
 
-	@Deactivate
-	protected void deactivate() {
-		_channelThreadLocal.remove();
-	}
-
-	protected Channel getChannel() throws IOException {
-		Channel channel = _channelThreadLocal.get();
-
-		if ((channel == null) || !channel.isOpen()) {
-			Connection connection = getConnection();
-
-			channel = connection.createChannel();
-
-			_channelThreadLocal.set(channel);
-		}
-
-		return channel;
-	}
-
-	protected abstract Connection getConnection();
-
-	private static final ThreadLocal<Channel> _channelThreadLocal =
-		new CentralizedThreadLocal<>(false);
+	private static final ThreadLocal<Map<String, Channel>>
+		_channelMapThreadLocal = new CentralizedThreadLocal<>(
+			BaseMessageBroker.class + "._channelMap", () -> new HashMap<>(),
+			false);
 
 	private String _exchange;
 

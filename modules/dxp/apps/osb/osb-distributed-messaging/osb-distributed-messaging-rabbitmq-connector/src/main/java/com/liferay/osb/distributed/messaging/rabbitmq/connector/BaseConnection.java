@@ -72,7 +72,24 @@ public class BaseConnection implements Connection {
 			connect();
 		}
 
-		Channel channel = _connection.createChannel();
+		Channel channel = null;
+
+		try {
+			channel = _connection.createChannel();
+		}
+		catch (IOException ioe) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Unable to create channel. Reconnecting and retrying.",
+					ioe);
+			}
+
+			disconnect();
+
+			connect();
+
+			channel = _connection.createChannel();
+		}
 
 		if (prefetchCount > 0) {
 			channel.basicQos(prefetchCount);
