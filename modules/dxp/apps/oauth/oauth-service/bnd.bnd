@@ -5,3 +5,4 @@ Bundle-Version: 3.0.8
 Liferay-Releng-Module-Group-Title: OAuth Provider
 Liferay-Require-SchemaVersion: 1.0.0
 Liferay-Service: true
+-dsannotations-options: inherit
