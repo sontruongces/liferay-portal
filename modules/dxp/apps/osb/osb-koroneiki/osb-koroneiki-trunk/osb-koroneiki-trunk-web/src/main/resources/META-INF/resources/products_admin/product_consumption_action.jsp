@@ -20,6 +20,8 @@
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 ProductConsumption productConsumption = (ProductConsumption)row.getObject();
+
+ProductEntry productEntry = productConsumption.getProductEntry();
 %>
 
 <liferay-ui:icon-menu
@@ -38,6 +40,21 @@ ProductConsumption productConsumption = (ProductConsumption)row.getObject();
 	<liferay-ui:icon
 		message="view"
 		url="<%= editURL %>"
+	/>
+
+	<liferay-security:permissionsURL
+		modelResource="<%= ProductConsumption.class.getName() %>"
+		modelResourceDescription="<%= productEntry.getName() %>"
+		resourcePrimKey="<%= String.valueOf(productConsumption.getProductConsumptionId()) %>"
+		var="permissionsURL"
+		windowState="<%= LiferayWindowState.POP_UP.toString() %>"
+	/>
+
+	<liferay-ui:icon
+		message="permissions"
+		method="get"
+		url="<%= permissionsURL %>"
+		useDialog="<%= true %>"
 	/>
 
 	<portlet:actionURL name="/products_admin/edit_product_consumption" var="deleteURL">
