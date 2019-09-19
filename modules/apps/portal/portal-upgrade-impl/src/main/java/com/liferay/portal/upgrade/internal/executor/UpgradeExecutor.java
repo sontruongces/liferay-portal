@@ -39,7 +39,6 @@ import java.io.OutputStream;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import org.osgi.framework.Bundle;
@@ -58,42 +57,12 @@ public class UpgradeExecutor {
 	public void execute(
 		String bundleSymbolicName, List<UpgradeInfo> upgradeInfos) {
 
-		_execute(bundleSymbolicName, upgradeInfos, Optional.empty());
+		execute(bundleSymbolicName, upgradeInfos, null);
 	}
 
 	public void execute(
 		String bundleSymbolicName, List<UpgradeInfo> upgradeInfos,
 		String outputStreamContainerFactoryName) {
-
-		_execute(
-			bundleSymbolicName, upgradeInfos,
-			Optional.of(outputStreamContainerFactoryName));
-	}
-
-	public Release executeUpgradeInfos(
-		String bundleSymbolicName, List<UpgradeInfo> upgradeInfos) {
-
-		return _executeUpgradeInfos(
-			bundleSymbolicName, upgradeInfos, Optional.empty());
-	}
-
-	public Release executeUpgradeInfos(
-		String bundleSymbolicName, List<UpgradeInfo> upgradeInfos,
-		String outputStreamContainerFactoryName) {
-
-		return _executeUpgradeInfos(
-			bundleSymbolicName, upgradeInfos,
-			Optional.of(outputStreamContainerFactoryName));
-	}
-
-	@Activate
-	protected void activate(BundleContext bundleContext) {
-		_bundleContext = bundleContext;
-	}
-
-	private void _execute(
-		String bundleSymbolicName, List<UpgradeInfo> upgradeInfos,
-		Optional<String> outputStreamContainerFactoryName) {
 
 		Bundle bundle = null;
 
@@ -152,10 +121,10 @@ public class UpgradeExecutor {
 		}
 
 		if (size != 0) {
-			if (outputStreamContainerFactoryName.isPresent()) {
+			if (Validator.isNotNull(outputStreamContainerFactoryName)) {
 				release = executeUpgradeInfos(
 					bundleSymbolicName, upgradeInfosList.get(0),
-					outputStreamContainerFactoryName.get());
+					outputStreamContainerFactoryName);
 			}
 			else {
 				release = executeUpgradeInfos(
@@ -181,9 +150,15 @@ public class UpgradeExecutor {
 		}
 	}
 
-	private Release _executeUpgradeInfos(
+	public Release executeUpgradeInfos(
+		String bundleSymbolicName, List<UpgradeInfo> upgradeInfos) {
+
+		return executeUpgradeInfos(bundleSymbolicName, upgradeInfos, null);
+	}
+
+	public Release executeUpgradeInfos(
 		String bundleSymbolicName, List<UpgradeInfo> upgradeInfos,
-		Optional<String> outputStreamContainerFactoryName) {
+		String outputStreamContainerFactoryName) {
 
 		Release release = _releaseLocalService.fetchRelease(bundleSymbolicName);
 
@@ -195,10 +170,10 @@ public class UpgradeExecutor {
 			bundleSymbolicName, upgradeInfos,
 			_swappedLogExecutor::getOutputStream);
 
-		if (outputStreamContainerFactoryName.isPresent()) {
+		if (Validator.isNotNull(outputStreamContainerFactoryName)) {
 			_swappedLogExecutor.execute(
 				bundleSymbolicName, upgradeInfosRunnable,
-				outputStreamContainerFactoryName.get());
+				outputStreamContainerFactoryName);
 		}
 		else {
 			_swappedLogExecutor.execute(
@@ -212,6 +187,11 @@ public class UpgradeExecutor {
 		}
 
 		return release;
+	}
+
+	@Activate
+	protected void activate(BundleContext bundleContext) {
+		_bundleContext = bundleContext;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
