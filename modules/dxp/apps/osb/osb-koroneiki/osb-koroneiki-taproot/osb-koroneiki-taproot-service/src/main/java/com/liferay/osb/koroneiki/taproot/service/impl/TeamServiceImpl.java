@@ -70,7 +70,7 @@ public class TeamServiceImpl extends TeamServiceBaseImpl {
 
 		_teamPermission.check(getPermissionChecker(), team, ActionKeys.DELETE);
 
-		return team;
+		return teamLocalService.deleteTeam(team.getTeamId());
 	}
 
 	public List<Team> getAccountTeams(long accountId, int start, int end)
