@@ -99,6 +99,10 @@ public class CorpEntryMigration {
 					userId, Account.class.getName(), account.getAccountId(),
 					"dossiera", "account",
 					resultSet.getString("dossieraAccountKey"));
+				_externalLinkLocalService.addExternalLink(
+					userId, Account.class.getName(), account.getAccountId(),
+					"web", "organization",
+					resultSet.getString("organizationId"));
 
 				_migrateAddress(
 					connection, resultSet.getLong("addressId"), userId,
