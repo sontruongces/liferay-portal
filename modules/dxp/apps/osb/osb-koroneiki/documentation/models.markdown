@@ -52,6 +52,9 @@ structure as the Liferay address model.
 A `Product` is anything that can be purchased or rendered as a service to a
 customer.
 
+A `Product` can only be deleted once all related `Product Consumption` or
+`Product Purchase` records are deleted.
+
 ### ProductConsumption
 
 A `Product Consumption` is a record of an `Account` consuming a `Product`. It
