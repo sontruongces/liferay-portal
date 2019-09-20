@@ -79,13 +79,7 @@ public class EditProductEntryMVCActionCommand extends BaseMVCActionCommand {
 					"mvcRenderCommandName",
 					"/products_admin/edit_product_entry");
 			}
-			else if (e instanceof
-						RequiredProductEntryException.
-							MustNotDeleteProductEntryReferencedByProductConsumption ||
-					 e instanceof
-						 RequiredProductEntryException.
-							 MustNotDeleteProductEntryReferencedByProductPurchase) {
-
+			else if (e instanceof RequiredProductEntryException) {
 				SessionErrors.add(actionRequest, e.getClass());
 
 				actionResponse.setRenderParameter(
