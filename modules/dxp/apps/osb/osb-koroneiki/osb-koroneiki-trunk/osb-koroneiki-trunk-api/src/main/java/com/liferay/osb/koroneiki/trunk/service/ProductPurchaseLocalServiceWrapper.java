@@ -311,6 +311,14 @@ public class ProductPurchaseLocalServiceWrapper
 		return _productPurchaseLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public int getProductEntryProductPurchasesCount(long productEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productPurchaseLocalService.
+			getProductEntryProductPurchasesCount(productEntryId);
+	}
+
 	/**
 	 * Returns the product purchase with the primary key.
 	 *

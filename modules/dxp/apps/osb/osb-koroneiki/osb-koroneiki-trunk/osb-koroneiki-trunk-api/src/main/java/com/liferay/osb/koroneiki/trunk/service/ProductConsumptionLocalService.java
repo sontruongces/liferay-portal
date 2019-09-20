@@ -301,6 +301,10 @@ public interface ProductConsumptionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getProductConsumptionsCount();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getProductEntryProductConsumptionsCount(long productEntryId)
+		throws PortalException;
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ProductConsumption reindex(long productConsumptionId)

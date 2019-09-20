@@ -960,6 +960,266 @@ public class ProductPurchaseUtil {
 	}
 
 	/**
+	 * Returns all the product purchases where productEntryId = &#63;.
+	 *
+	 * @param productEntryId the product entry ID
+	 * @return the matching product purchases
+	 */
+	public static List<ProductPurchase> findByProductEntryId(
+		long productEntryId) {
+
+		return getPersistence().findByProductEntryId(productEntryId);
+	}
+
+	/**
+	 * Returns a range of all the product purchases where productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @return the range of matching product purchases
+	 */
+	public static List<ProductPurchase> findByProductEntryId(
+		long productEntryId, int start, int end) {
+
+		return getPersistence().findByProductEntryId(
+			productEntryId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the product purchases where productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product purchases
+	 */
+	public static List<ProductPurchase> findByProductEntryId(
+		long productEntryId, int start, int end,
+		OrderByComparator<ProductPurchase> orderByComparator) {
+
+		return getPersistence().findByProductEntryId(
+			productEntryId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the product purchases where productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching product purchases
+	 */
+	public static List<ProductPurchase> findByProductEntryId(
+		long productEntryId, int start, int end,
+		OrderByComparator<ProductPurchase> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByProductEntryId(
+			productEntryId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first product purchase in the ordered set where productEntryId = &#63;.
+	 *
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product purchase
+	 * @throws NoSuchProductPurchaseException if a matching product purchase could not be found
+	 */
+	public static ProductPurchase findByProductEntryId_First(
+			long productEntryId,
+			OrderByComparator<ProductPurchase> orderByComparator)
+		throws com.liferay.osb.koroneiki.trunk.exception.
+			NoSuchProductPurchaseException {
+
+		return getPersistence().findByProductEntryId_First(
+			productEntryId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first product purchase in the ordered set where productEntryId = &#63;.
+	 *
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product purchase, or <code>null</code> if a matching product purchase could not be found
+	 */
+	public static ProductPurchase fetchByProductEntryId_First(
+		long productEntryId,
+		OrderByComparator<ProductPurchase> orderByComparator) {
+
+		return getPersistence().fetchByProductEntryId_First(
+			productEntryId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last product purchase in the ordered set where productEntryId = &#63;.
+	 *
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product purchase
+	 * @throws NoSuchProductPurchaseException if a matching product purchase could not be found
+	 */
+	public static ProductPurchase findByProductEntryId_Last(
+			long productEntryId,
+			OrderByComparator<ProductPurchase> orderByComparator)
+		throws com.liferay.osb.koroneiki.trunk.exception.
+			NoSuchProductPurchaseException {
+
+		return getPersistence().findByProductEntryId_Last(
+			productEntryId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last product purchase in the ordered set where productEntryId = &#63;.
+	 *
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product purchase, or <code>null</code> if a matching product purchase could not be found
+	 */
+	public static ProductPurchase fetchByProductEntryId_Last(
+		long productEntryId,
+		OrderByComparator<ProductPurchase> orderByComparator) {
+
+		return getPersistence().fetchByProductEntryId_Last(
+			productEntryId, orderByComparator);
+	}
+
+	/**
+	 * Returns the product purchases before and after the current product purchase in the ordered set where productEntryId = &#63;.
+	 *
+	 * @param productPurchaseId the primary key of the current product purchase
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product purchase
+	 * @throws NoSuchProductPurchaseException if a product purchase with the primary key could not be found
+	 */
+	public static ProductPurchase[] findByProductEntryId_PrevAndNext(
+			long productPurchaseId, long productEntryId,
+			OrderByComparator<ProductPurchase> orderByComparator)
+		throws com.liferay.osb.koroneiki.trunk.exception.
+			NoSuchProductPurchaseException {
+
+		return getPersistence().findByProductEntryId_PrevAndNext(
+			productPurchaseId, productEntryId, orderByComparator);
+	}
+
+	/**
+	 * Returns all the product purchases that the user has permission to view where productEntryId = &#63;.
+	 *
+	 * @param productEntryId the product entry ID
+	 * @return the matching product purchases that the user has permission to view
+	 */
+	public static List<ProductPurchase> filterFindByProductEntryId(
+		long productEntryId) {
+
+		return getPersistence().filterFindByProductEntryId(productEntryId);
+	}
+
+	/**
+	 * Returns a range of all the product purchases that the user has permission to view where productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @return the range of matching product purchases that the user has permission to view
+	 */
+	public static List<ProductPurchase> filterFindByProductEntryId(
+		long productEntryId, int start, int end) {
+
+		return getPersistence().filterFindByProductEntryId(
+			productEntryId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the product purchases that the user has permissions to view where productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product purchases that the user has permission to view
+	 */
+	public static List<ProductPurchase> filterFindByProductEntryId(
+		long productEntryId, int start, int end,
+		OrderByComparator<ProductPurchase> orderByComparator) {
+
+		return getPersistence().filterFindByProductEntryId(
+			productEntryId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns the product purchases before and after the current product purchase in the ordered set of product purchases that the user has permission to view where productEntryId = &#63;.
+	 *
+	 * @param productPurchaseId the primary key of the current product purchase
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product purchase
+	 * @throws NoSuchProductPurchaseException if a product purchase with the primary key could not be found
+	 */
+	public static ProductPurchase[] filterFindByProductEntryId_PrevAndNext(
+			long productPurchaseId, long productEntryId,
+			OrderByComparator<ProductPurchase> orderByComparator)
+		throws com.liferay.osb.koroneiki.trunk.exception.
+			NoSuchProductPurchaseException {
+
+		return getPersistence().filterFindByProductEntryId_PrevAndNext(
+			productPurchaseId, productEntryId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the product purchases where productEntryId = &#63; from the database.
+	 *
+	 * @param productEntryId the product entry ID
+	 */
+	public static void removeByProductEntryId(long productEntryId) {
+		getPersistence().removeByProductEntryId(productEntryId);
+	}
+
+	/**
+	 * Returns the number of product purchases where productEntryId = &#63;.
+	 *
+	 * @param productEntryId the product entry ID
+	 * @return the number of matching product purchases
+	 */
+	public static int countByProductEntryId(long productEntryId) {
+		return getPersistence().countByProductEntryId(productEntryId);
+	}
+
+	/**
+	 * Returns the number of product purchases that the user has permission to view where productEntryId = &#63;.
+	 *
+	 * @param productEntryId the product entry ID
+	 * @return the number of matching product purchases that the user has permission to view
+	 */
+	public static int filterCountByProductEntryId(long productEntryId) {
+		return getPersistence().filterCountByProductEntryId(productEntryId);
+	}
+
+	/**
 	 * Caches the product purchase in the entity cache if it is enabled.
 	 *
 	 * @param productPurchase the product purchase

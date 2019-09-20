@@ -286,6 +286,13 @@ public class ProductPurchaseLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static int getProductEntryProductPurchasesCount(long productEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductEntryProductPurchasesCount(
+			productEntryId);
+	}
+
 	/**
 	 * Returns the product purchase with the primary key.
 	 *

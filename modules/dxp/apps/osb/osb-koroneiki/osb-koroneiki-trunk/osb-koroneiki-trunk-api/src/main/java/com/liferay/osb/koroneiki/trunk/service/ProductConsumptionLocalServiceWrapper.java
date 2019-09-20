@@ -412,6 +412,14 @@ public class ProductConsumptionLocalServiceWrapper
 	}
 
 	@Override
+	public int getProductEntryProductConsumptionsCount(long productEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productConsumptionLocalService.
+			getProductEntryProductConsumptionsCount(productEntryId);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductConsumption reindex(
 			long productConsumptionId)
 		throws com.liferay.portal.kernel.exception.PortalException {

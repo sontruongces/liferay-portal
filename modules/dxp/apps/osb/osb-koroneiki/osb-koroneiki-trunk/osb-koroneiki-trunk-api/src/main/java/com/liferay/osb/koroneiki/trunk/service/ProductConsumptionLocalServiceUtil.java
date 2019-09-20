@@ -375,6 +375,14 @@ public class ProductConsumptionLocalServiceUtil {
 		return getService().getProductConsumptionsCount();
 	}
 
+	public static int getProductEntryProductConsumptionsCount(
+			long productEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductEntryProductConsumptionsCount(
+			productEntryId);
+	}
+
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			reindex(long productConsumptionId)
 		throws com.liferay.portal.kernel.exception.PortalException {

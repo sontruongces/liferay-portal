@@ -234,6 +234,10 @@ public interface ProductPurchaseLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getProductEntryProductPurchasesCount(long productEntryId)
+		throws PortalException;
+
 	/**
 	 * Returns the product purchase with the primary key.
 	 *
