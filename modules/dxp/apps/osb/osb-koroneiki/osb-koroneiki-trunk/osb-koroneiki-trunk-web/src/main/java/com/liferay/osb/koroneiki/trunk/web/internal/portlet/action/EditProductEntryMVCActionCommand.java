@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.trunk.web.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.trunk.constants.TrunkPortletKeys;
 import com.liferay.osb.koroneiki.trunk.exception.ProductEntryNameException;
+import com.liferay.osb.koroneiki.trunk.exception.RequiredProductEntryException;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -77,6 +78,18 @@ public class EditProductEntryMVCActionCommand extends BaseMVCActionCommand {
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName",
 					"/products_admin/edit_product_entry");
+			}
+			else if (e instanceof
+						RequiredProductEntryException.
+							MustNotDeleteProductEntryReferencedByProductConsumption ||
+					 e instanceof
+						 RequiredProductEntryException.
+							 MustNotDeleteProductEntryReferencedByProductPurchase) {
+
+				SessionErrors.add(actionRequest, e.getClass());
+
+				actionResponse.setRenderParameter(
+					"mvcRenderCommandName", "/view");
 			}
 			else {
 				_log.error(e, e);

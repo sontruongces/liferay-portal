@@ -155,6 +155,12 @@ public class ProductPurchaseLocalServiceImpl
 		return productPurchaseFinder.countByContact(contactId);
 	}
 
+	public int getProductEntryProductPurchasesCount(long productEntryId)
+		throws PortalException {
+
+		return productPurchasePersistence.countByProductEntryId(productEntryId);
+	}
+
 	public ProductPurchase getProductPurchase(String productPurchaseKey)
 		throws PortalException {
 

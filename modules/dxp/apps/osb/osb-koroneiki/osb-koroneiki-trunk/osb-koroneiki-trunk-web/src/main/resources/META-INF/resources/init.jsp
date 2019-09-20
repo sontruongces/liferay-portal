@@ -43,6 +43,7 @@ page import="com.liferay.osb.koroneiki.trunk.exception.NoSuchProductEntryExcepti
 page import="com.liferay.osb.koroneiki.trunk.exception.ProductEntryNameException" %><%@
 page import="com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseEndDateException" %><%@
 page import="com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseQuantityException" %><%@
+page import="com.liferay.osb.koroneiki.trunk.exception.RequiredProductEntryException" %><%@
 page import="com.liferay.osb.koroneiki.trunk.model.ProductConsumption" %><%@
 page import="com.liferay.osb.koroneiki.trunk.model.ProductEntry" %><%@
 page import="com.liferay.osb.koroneiki.trunk.model.ProductField" %><%@

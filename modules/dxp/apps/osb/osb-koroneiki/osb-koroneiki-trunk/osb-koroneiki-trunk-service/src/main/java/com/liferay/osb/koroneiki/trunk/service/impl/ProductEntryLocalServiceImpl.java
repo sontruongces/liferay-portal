@@ -17,7 +17,10 @@ package com.liferay.osb.koroneiki.trunk.service.impl;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.trunk.exception.ProductEntryNameException;
+import com.liferay.osb.koroneiki.trunk.exception.RequiredProductEntryException;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalService;
+import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.osb.koroneiki.trunk.service.base.ProductEntryLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -93,6 +96,27 @@ public class ProductEntryLocalServiceImpl
 	@Override
 	public ProductEntry deleteProductEntry(ProductEntry productEntry)
 		throws PortalException {
+
+		int productConsumptionsCount =
+			_productConsumptionLocalService.
+				getProductEntryProductConsumptionsCount(
+					productEntry.getProductEntryId());
+
+		if (productConsumptionsCount > 0) {
+			throw new RequiredProductEntryException.
+				MustNotDeleteProductEntryReferencedByProductConsumption(
+					productEntry.getProductEntryId());
+		}
+
+		int productPurchasesCount =
+			_productPurchaseLocalService.getProductEntryProductPurchasesCount(
+				productEntry.getProductEntryId());
+
+		if (productPurchasesCount > 0) {
+			throw new RequiredProductEntryException.
+				MustNotDeleteProductEntryReferencedByProductPurchase(
+					productEntry.getProductEntryId());
+		}
 
 		// External links
 
@@ -195,5 +219,11 @@ public class ProductEntryLocalServiceImpl
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
+
+	@Reference
+	private ProductConsumptionLocalService _productConsumptionLocalService;
+
+	@Reference
+	private ProductPurchaseLocalService _productPurchaseLocalService;
 
 }

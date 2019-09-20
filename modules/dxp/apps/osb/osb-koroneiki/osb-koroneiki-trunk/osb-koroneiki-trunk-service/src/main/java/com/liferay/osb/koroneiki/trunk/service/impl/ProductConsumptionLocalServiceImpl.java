@@ -197,6 +197,13 @@ public class ProductConsumptionLocalServiceImpl
 			userId, accountId, productEntryId);
 	}
 
+	public int getProductEntryProductConsumptionsCount(long productEntryId)
+		throws PortalException {
+
+		return productConsumptionPersistence.countByProductEntryId(
+			productEntryId);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductConsumption reindex(long productConsumptionId)
 		throws PortalException {
