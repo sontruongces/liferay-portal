@@ -14,13 +14,13 @@
 
 package com.liferay.osb.koroneiki.taproot.web.internal.portlet.action;
 
+import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootPortletKeys;
 import com.liferay.osb.koroneiki.taproot.exception.NoSuchContactException;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleService;
-import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -69,7 +69,7 @@ public class AssignAccountContactMVCActionCommand extends BaseMVCActionCommand {
 			String emailAddress = ParamUtil.getString(
 				actionRequest, "emailAddress");
 
-			Contact contact = _contactLocalService.getContactByEmailAddress(
+			Contact contact = _contactIdentityProvider.getContactByEmailAddress(
 				emailAddress);
 
 			ContactRole contactRole =
@@ -116,7 +116,7 @@ public class AssignAccountContactMVCActionCommand extends BaseMVCActionCommand {
 	private ContactAccountRoleService _contactAccountRoleService;
 
 	@Reference
-	private ContactLocalService _contactLocalService;
+	private ContactIdentityProvider _contactIdentityProvider;
 
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;

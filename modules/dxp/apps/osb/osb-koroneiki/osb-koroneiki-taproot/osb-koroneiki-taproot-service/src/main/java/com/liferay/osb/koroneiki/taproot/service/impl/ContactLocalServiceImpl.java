@@ -122,7 +122,11 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		return deleteContact(contactLocalService.getContact(contactId));
 	}
 
-	public Contact fetchContactByUuid(String uuid) throws PortalException {
+	public Contact fetchContactByEmailAddress(String emailAddress) {
+		return contactPersistence.fetchByEmailAddress(emailAddress);
+	}
+
+	public Contact fetchContactByUuid(String uuid) {
 		return contactPersistence.fetchByUuid_First(uuid, null);
 	}
 

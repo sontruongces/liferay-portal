@@ -13,6 +13,7 @@ dependencies {
 	compileOnly group: "org.osgi", name: "osgi.core", version: "6.0.0"
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-api")
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-root:osb-koroneiki-root-api")
+	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-root:osb-koroneiki-root-identity-management-api")
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-scion:osb-koroneiki-scion-api")
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-taproot:osb-koroneiki-taproot-api")
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-trunk:osb-koroneiki-trunk-api")

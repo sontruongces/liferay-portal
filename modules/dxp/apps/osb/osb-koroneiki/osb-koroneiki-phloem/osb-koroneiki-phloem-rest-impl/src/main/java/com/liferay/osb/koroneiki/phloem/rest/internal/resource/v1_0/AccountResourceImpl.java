@@ -18,8 +18,10 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.AccountUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.AccountEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
+import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
@@ -37,6 +39,9 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -63,9 +68,19 @@ public class AccountResourceImpl
 	public void deleteAccountContact(String accountKey, String[] contactUuids)
 		throws Exception {
 
+		List<Contact> contacts = new ArrayList<>(contactUuids.length);
+
 		for (String contactUuid : contactUuids) {
+			contacts.add(
+				_contactIdentityProvider.getContactByUuid(contactUuid));
+		}
+
+		com.liferay.osb.koroneiki.taproot.model.Account account =
+			_accountLocalService.getAccount(accountKey);
+
+		for (Contact contact : contacts) {
 			_contactAccountRoleService.deleteContactAccountRoles(
-				contactUuid, accountKey);
+				contact.getContactId(), account.getAccountId());
 		}
 	}
 
@@ -74,9 +89,19 @@ public class AccountResourceImpl
 			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception {
 
+		Contact contact = _contactIdentityProvider.getContactByUuid(
+			contactUuid);
+
+		com.liferay.osb.koroneiki.taproot.model.Account account =
+			_accountLocalService.getAccount(accountKey);
+
 		for (String contactRoleKey : contactRoleKeys) {
+			ContactRole contactRole = _contactRoleLocalService.getContactRole(
+				contactRoleKey);
+
 			_contactAccountRoleService.deleteContactAccountRole(
-				contactUuid, accountKey, contactRoleKey);
+				contact.getContactId(), account.getAccountId(),
+				contactRole.getContactRoleId());
 		}
 	}
 
@@ -308,12 +333,23 @@ public class AccountResourceImpl
 	public void putAccountContact(String accountKey, String[] contactUuids)
 		throws Exception {
 
+		List<Contact> contacts = new ArrayList<>(contactUuids.length);
+
+		for (String contactUuid : contactUuids) {
+			contacts.add(
+				_contactIdentityProvider.getContactByUuid(contactUuid));
+		}
+
+		com.liferay.osb.koroneiki.taproot.model.Account account =
+			_accountLocalService.getAccount(accountKey);
+
 		ContactRole contactRole = _contactRoleLocalService.getMemberContactRole(
 			ContactRoleType.ACCOUNT);
 
-		for (String contactUuid : contactUuids) {
+		for (Contact contact : contacts) {
 			_contactAccountRoleService.addContactAccountRole(
-				contactUuid, accountKey, contactRole.getContactRoleKey());
+				contact.getContactId(), account.getAccountId(),
+				contactRole.getContactRoleId());
 		}
 	}
 
@@ -322,9 +358,19 @@ public class AccountResourceImpl
 			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception {
 
+		Contact contact = _contactIdentityProvider.getContactByUuid(
+			contactUuid);
+
+		com.liferay.osb.koroneiki.taproot.model.Account account =
+			_accountLocalService.getAccount(accountKey);
+
 		for (String contactRoleKey : contactRoleKeys) {
+			ContactRole contactRole = _contactRoleLocalService.getContactRole(
+				contactRoleKey);
+
 			_contactAccountRoleService.addContactAccountRole(
-				contactUuid, accountKey, contactRoleKey);
+				contact.getContactId(), account.getAccountId(),
+				contactRole.getContactRoleId());
 		}
 	}
 
@@ -349,6 +395,9 @@ public class AccountResourceImpl
 
 	@Reference
 	private ContactAccountRoleService _contactAccountRoleService;
+
+	@Reference
+	private ContactIdentityProvider _contactIdentityProvider;
 
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;

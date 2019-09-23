@@ -15,10 +15,7 @@
 package com.liferay.osb.koroneiki.taproot.service.impl;
 
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
-import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
-import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactRolePermission;
@@ -68,30 +65,6 @@ public class ContactAccountRoleServiceImpl
 			contactId, accountId, contactRoleId);
 	}
 
-	public ContactAccountRole addContactAccountRole(
-			String contactUuid, String accountKey, String contactRoleKey)
-		throws PortalException {
-
-		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
-		Account account = _accountLocalService.getAccount(accountKey);
-		ContactRole contactRole = _contactRoleLocalService.getContactRole(
-			contactRoleKey);
-
-		_contactPermission.check(
-			getPermissionChecker(), contact, ActionKeys.VIEW);
-
-		_accountPermission.check(
-			getPermissionChecker(), account, TaprootActionKeys.ASSIGN_CONTACT);
-
-		_contactRolePermission.check(
-			getPermissionChecker(), contactRole,
-			TaprootActionKeys.ASSIGN_CONTACT);
-
-		return contactAccountRoleLocalService.addContactAccountRole(
-			contact.getContactId(), account.getAccountId(),
-			contactRole.getContactRoleId());
-	}
-
 	public ContactAccountRole deleteContactAccountRole(
 			long contactId, long accountId, long contactRoleId)
 		throws PortalException {
@@ -109,30 +82,6 @@ public class ContactAccountRoleServiceImpl
 
 		return contactAccountRoleLocalService.deleteContactAccountRole(
 			contactId, accountId, contactRoleId);
-	}
-
-	public ContactAccountRole deleteContactAccountRole(
-			String contactUuid, String accountKey, String contactRoleKey)
-		throws PortalException {
-
-		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
-		Account account = _accountLocalService.getAccount(accountKey);
-		ContactRole contactRole = _contactRoleLocalService.getContactRole(
-			contactRoleKey);
-
-		_contactPermission.check(
-			getPermissionChecker(), contact, ActionKeys.VIEW);
-
-		_accountPermission.check(
-			getPermissionChecker(), account, TaprootActionKeys.ASSIGN_CONTACT);
-
-		_contactRolePermission.check(
-			getPermissionChecker(), contactRole,
-			TaprootActionKeys.ASSIGN_CONTACT);
-
-		return contactAccountRoleLocalService.deleteContactAccountRole(
-			contact.getContactId(), account.getAccountId(),
-			contactRole.getContactRoleId());
 	}
 
 	public void deleteContactAccountRoles(long contactId, long accountId)
@@ -156,32 +105,6 @@ public class ContactAccountRoleServiceImpl
 
 		contactAccountRoleLocalService.deleteContactAccountRoles(
 			contactId, accountId);
-	}
-
-	public void deleteContactAccountRoles(String contactUuid, String accountKey)
-		throws PortalException {
-
-		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
-		Account account = _accountLocalService.getAccount(accountKey);
-
-		_contactPermission.check(
-			getPermissionChecker(), contact, ActionKeys.VIEW);
-
-		_accountPermission.check(
-			getPermissionChecker(), account, TaprootActionKeys.ASSIGN_CONTACT);
-
-		List<ContactAccountRole> contactAccountRoles =
-			contactAccountRolePersistence.findByCI_AI(
-				contact.getContactId(), account.getAccountId());
-
-		for (ContactAccountRole contactAccountRole : contactAccountRoles) {
-			_contactRolePermission.check(
-				getPermissionChecker(), contactAccountRole.getContactRole(),
-				TaprootActionKeys.ASSIGN_CONTACT);
-		}
-
-		contactAccountRoleLocalService.deleteContactAccountRoles(
-			contact.getContactId(), account.getAccountId());
 	}
 
 	@Reference
