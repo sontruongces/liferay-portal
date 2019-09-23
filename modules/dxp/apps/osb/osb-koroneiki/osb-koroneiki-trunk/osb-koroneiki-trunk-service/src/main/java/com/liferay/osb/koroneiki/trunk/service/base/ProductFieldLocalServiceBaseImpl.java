@@ -67,7 +67,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class ProductFieldLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements ProductFieldLocalService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, ProductFieldLocalService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

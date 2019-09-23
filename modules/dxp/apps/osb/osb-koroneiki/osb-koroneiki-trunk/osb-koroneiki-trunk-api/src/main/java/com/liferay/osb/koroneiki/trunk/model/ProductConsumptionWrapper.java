@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class ProductConsumptionWrapper
 	extends BaseModelWrapper<ProductConsumption>
-	implements ProductConsumption, ModelWrapper<ProductConsumption> {
+	implements ModelWrapper<ProductConsumption>, ProductConsumption {
 
 	public ProductConsumptionWrapper(ProductConsumption productConsumption) {
 		super(productConsumption);

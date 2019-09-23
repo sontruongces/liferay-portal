@@ -2469,7 +2469,7 @@ public class ProductPurchasePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ProductPurchase productPurchase : list) {
-					if ((accountId != productPurchase.getAccountId())) {
+					if (accountId != productPurchase.getAccountId()) {
 						list = null;
 
 						break;
@@ -3367,9 +3367,7 @@ public class ProductPurchasePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ProductPurchase productPurchase : list) {
-					if ((productEntryId !=
-							productPurchase.getProductEntryId())) {
-
+					if (productEntryId != productPurchase.getProductEntryId()) {
 						list = null;
 
 						break;

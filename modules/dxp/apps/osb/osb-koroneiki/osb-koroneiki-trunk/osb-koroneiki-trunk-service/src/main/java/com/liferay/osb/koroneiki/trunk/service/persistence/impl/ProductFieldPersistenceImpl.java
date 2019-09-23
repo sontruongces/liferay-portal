@@ -191,7 +191,7 @@ public class ProductFieldPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ProductField productField : list) {
-					if ((classNameId != productField.getClassNameId())) {
+					if (classNameId != productField.getClassNameId()) {
 						list = null;
 
 						break;

@@ -74,7 +74,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class ContactAccountRoleLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements ContactAccountRoleLocalService, AopService,
+	implements AopService, ContactAccountRoleLocalService,
 			   IdentifiableOSGiService {
 
 	/**

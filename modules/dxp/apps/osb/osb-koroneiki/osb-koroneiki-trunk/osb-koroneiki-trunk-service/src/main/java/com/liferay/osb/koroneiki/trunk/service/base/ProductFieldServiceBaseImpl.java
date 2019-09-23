@@ -50,7 +50,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class ProductFieldServiceBaseImpl
 	extends BaseServiceImpl
-	implements ProductFieldService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, ProductFieldService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class ProductFieldWrapper
 	extends BaseModelWrapper<ProductField>
-	implements ProductField, ModelWrapper<ProductField> {
+	implements ModelWrapper<ProductField>, ProductField {
 
 	public ProductFieldWrapper(ProductField productField) {
 		super(productField);

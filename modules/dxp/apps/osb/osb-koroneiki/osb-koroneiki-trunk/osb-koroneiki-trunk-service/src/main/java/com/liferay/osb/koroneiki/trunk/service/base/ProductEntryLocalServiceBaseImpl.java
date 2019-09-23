@@ -73,7 +73,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class ProductEntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements ProductEntryLocalService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, ProductEntryLocalService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

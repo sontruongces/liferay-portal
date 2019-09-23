@@ -79,7 +79,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class ContactLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements ContactLocalService, AopService, IdentifiableOSGiService {
+	implements AopService, ContactLocalService, IdentifiableOSGiService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

@@ -2480,7 +2480,7 @@ public class ProductConsumptionPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ProductConsumption productConsumption : list) {
-					if ((accountId != productConsumption.getAccountId())) {
+					if (accountId != productConsumption.getAccountId()) {
 						list = null;
 
 						break;
@@ -3386,8 +3386,8 @@ public class ProductConsumptionPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ProductConsumption productConsumption : list) {
-					if ((productEntryId !=
-							productConsumption.getProductEntryId())) {
+					if (productEntryId !=
+							productConsumption.getProductEntryId()) {
 
 						list = null;
 

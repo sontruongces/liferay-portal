@@ -201,8 +201,8 @@ public class AuthenticationTokenPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (AuthenticationToken authenticationToken : list) {
-					if ((serviceProducerId !=
-							authenticationToken.getServiceProducerId())) {
+					if (serviceProducerId !=
+							authenticationToken.getServiceProducerId()) {
 
 						list = null;
 

@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TeamRoleServiceWrapper
-	implements TeamRoleService, ServiceWrapper<TeamRoleService> {
+	implements ServiceWrapper<TeamRoleService>, TeamRoleService {
 
 	public TeamRoleServiceWrapper(TeamRoleService teamRoleService) {
 		_teamRoleService = teamRoleService;

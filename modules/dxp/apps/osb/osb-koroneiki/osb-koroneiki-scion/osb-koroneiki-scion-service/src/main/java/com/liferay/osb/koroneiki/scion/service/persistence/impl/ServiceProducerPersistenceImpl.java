@@ -1322,8 +1322,8 @@ public class ServiceProducerPersistenceImpl
 		if (result instanceof ServiceProducer) {
 			ServiceProducer serviceProducer = (ServiceProducer)result;
 
-			if ((authorizationUserId !=
-					serviceProducer.getAuthorizationUserId())) {
+			if (authorizationUserId !=
+					serviceProducer.getAuthorizationUserId()) {
 
 				result = null;
 			}

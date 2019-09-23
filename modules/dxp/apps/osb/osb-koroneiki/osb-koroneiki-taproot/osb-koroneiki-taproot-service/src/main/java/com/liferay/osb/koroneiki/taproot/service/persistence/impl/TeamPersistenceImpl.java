@@ -2409,7 +2409,7 @@ public class TeamPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Team team : list) {
-					if ((accountId != team.getAccountId())) {
+					if (accountId != team.getAccountId()) {
 						list = null;
 
 						break;

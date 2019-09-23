@@ -45,7 +45,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class AuthenticationTokenServiceBaseImpl
 	extends BaseServiceImpl
-	implements AuthenticationTokenService, AopService, IdentifiableOSGiService {
+	implements AopService, AuthenticationTokenService, IdentifiableOSGiService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

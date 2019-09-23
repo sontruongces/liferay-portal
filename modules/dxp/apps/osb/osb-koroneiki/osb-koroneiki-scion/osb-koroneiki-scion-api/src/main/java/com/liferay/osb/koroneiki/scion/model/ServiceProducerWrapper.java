@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class ServiceProducerWrapper
 	extends BaseModelWrapper<ServiceProducer>
-	implements ServiceProducer, ModelWrapper<ServiceProducer> {
+	implements ModelWrapper<ServiceProducer>, ServiceProducer {
 
 	public ServiceProducerWrapper(ServiceProducer serviceProducer) {
 		super(serviceProducer);

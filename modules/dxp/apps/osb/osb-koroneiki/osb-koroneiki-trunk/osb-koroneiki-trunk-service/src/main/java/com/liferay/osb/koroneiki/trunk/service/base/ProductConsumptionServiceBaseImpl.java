@@ -50,7 +50,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class ProductConsumptionServiceBaseImpl
 	extends BaseServiceImpl
-	implements ProductConsumptionService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, ProductConsumptionService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

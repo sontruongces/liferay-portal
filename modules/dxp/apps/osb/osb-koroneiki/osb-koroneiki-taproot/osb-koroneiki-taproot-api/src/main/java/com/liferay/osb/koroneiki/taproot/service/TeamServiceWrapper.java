@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TeamServiceWrapper
-	implements TeamService, ServiceWrapper<TeamService> {
+	implements ServiceWrapper<TeamService>, TeamService {
 
 	public TeamServiceWrapper(TeamService teamService) {
 		_teamService = teamService;

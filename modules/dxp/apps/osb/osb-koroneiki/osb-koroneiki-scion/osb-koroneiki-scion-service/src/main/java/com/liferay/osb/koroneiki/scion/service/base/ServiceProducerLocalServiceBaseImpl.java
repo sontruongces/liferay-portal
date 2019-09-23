@@ -62,8 +62,8 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class ServiceProducerLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements ServiceProducerLocalService, AopService,
-			   IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService,
+			   ServiceProducerLocalService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

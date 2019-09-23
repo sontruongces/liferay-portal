@@ -14,7 +14,6 @@
 
 package com.liferay.osb.koroneiki.scion.service.http;
 
-
 /**
  * Provides the SOAP utility for the
  * <code>com.liferay.osb.koroneiki.scion.service.ServiceProducerServiceUtil</code> service

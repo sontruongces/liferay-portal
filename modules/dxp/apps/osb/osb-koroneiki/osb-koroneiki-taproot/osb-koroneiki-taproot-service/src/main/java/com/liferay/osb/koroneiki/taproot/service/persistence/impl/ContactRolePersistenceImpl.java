@@ -2436,7 +2436,7 @@ public class ContactRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ContactRole contactRole : list) {
-					if ((type != contactRole.getType())) {
+					if (type != contactRole.getType()) {
 						list = null;
 
 						break;

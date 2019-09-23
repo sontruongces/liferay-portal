@@ -62,7 +62,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class ExternalLinkLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements ExternalLinkLocalService, AopService, IdentifiableOSGiService {
+	implements AopService, ExternalLinkLocalService, IdentifiableOSGiService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
