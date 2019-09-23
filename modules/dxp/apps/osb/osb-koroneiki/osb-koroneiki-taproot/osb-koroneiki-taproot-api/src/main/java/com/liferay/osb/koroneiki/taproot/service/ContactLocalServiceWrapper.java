@@ -206,9 +206,15 @@ public class ContactLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Contact
+		fetchContactByEmailAddress(String emailAddress) {
+
+		return _contactLocalService.fetchContactByEmailAddress(emailAddress);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact fetchContactByUuid(
-			String uuid)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		String uuid) {
 
 		return _contactLocalService.fetchContactByUuid(uuid);
 	}

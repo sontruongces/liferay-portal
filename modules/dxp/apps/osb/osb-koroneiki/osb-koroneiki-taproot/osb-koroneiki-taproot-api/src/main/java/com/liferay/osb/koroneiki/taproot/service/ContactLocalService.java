@@ -187,7 +187,10 @@ public interface ContactLocalService
 	public Contact fetchContact(long contactId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Contact fetchContactByUuid(String uuid) throws PortalException;
+	public Contact fetchContactByEmailAddress(String emailAddress);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Contact fetchContactByUuid(String uuid);
 
 	/**
 	 * Returns the contact with the matching UUID and company.

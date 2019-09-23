@@ -204,8 +204,13 @@ public class ContactLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact
-			fetchContactByUuid(String uuid)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		fetchContactByEmailAddress(String emailAddress) {
+
+		return getService().fetchContactByEmailAddress(emailAddress);
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.Contact
+		fetchContactByUuid(String uuid) {
 
 		return getService().fetchContactByUuid(uuid);
 	}
