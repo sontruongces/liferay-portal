@@ -14,6 +14,7 @@
 
 package com.liferay.portal.reports.engine.console.service.impl;
 
+import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.SystemEventConstants;
@@ -33,10 +34,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.osgi.service.component.annotations.Component;
+
 /**
  * @author Brian Wing Shun Chan
  * @author Gavin Wan
  */
+@Component(
+	property = "model.class.name=com.liferay.portal.reports.engine.console.model.Source",
+	service = AopService.class
+)
 public class SourceLocalServiceImpl extends SourceLocalServiceBaseImpl {
 
 	@Override

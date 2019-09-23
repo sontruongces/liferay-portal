@@ -14,12 +14,11 @@
 
 package com.liferay.portal.reports.engine.console.service.impl;
 
+import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -33,10 +32,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 /**
  * @author Gavin Wan
  * @author Brian Wing Shun Chan
  */
+@Component(
+	property = {
+		"json.web.service.context.name=reports",
+		"json.web.service.context.path=Definition"
+	},
+	service = AopService.class
+)
 public class DefinitionServiceImpl extends DefinitionServiceBaseImpl {
 
 	@Override
@@ -112,15 +121,15 @@ public class DefinitionServiceImpl extends DefinitionServiceBaseImpl {
 			fileName, inputStream, serviceContext);
 	}
 
-	private static volatile ModelResourcePermission<Definition>
-		_definitionModelResourcePermission =
-			ModelResourcePermissionFactory.getInstance(
-				DefinitionServiceImpl.class,
-				"_definitionModelResourcePermission", Definition.class);
-	private static volatile PortletResourcePermission
-		_portletResourcePermission =
-			PortletResourcePermissionFactory.getInstance(
-				DefinitionServiceImpl.class, "_portletResourcePermission",
-				ReportsEngineConsoleConstants.RESOURCE_NAME);
+	@Reference(
+		target = "(model.class.name=com.liferay.portal.reports.engine.console.model.Definition)"
+	)
+	private ModelResourcePermission<Definition>
+		_definitionModelResourcePermission;
+
+	@Reference(
+		target = "(resource.name=" + ReportsEngineConsoleConstants.RESOURCE_NAME + ")"
+	)
+	private PortletResourcePermission _portletResourcePermission;
 
 }

@@ -14,10 +14,10 @@
 
 package com.liferay.portal.reports.engine.console.service.impl;
 
+import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.reports.engine.console.model.Definition;
@@ -28,9 +28,19 @@ import com.liferay.portal.reports.engine.console.service.permission.ReportsActio
 import java.util.Date;
 import java.util.List;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 /**
  * @author Gavin Wan
  */
+@Component(
+	property = {
+		"json.web.service.context.name=reports",
+		"json.web.service.context.path=Entry"
+	},
+	service = AopService.class
+)
 public class EntryServiceImpl extends EntryServiceBaseImpl {
 
 	@Override
@@ -115,15 +125,15 @@ public class EntryServiceImpl extends EntryServiceBaseImpl {
 		entryLocalService.unscheduleEntry(entryId);
 	}
 
-	private static volatile ModelResourcePermission<Definition>
-		_definitionModelResourcePermission =
-			ModelResourcePermissionFactory.getInstance(
-				EntryServiceImpl.class, "_definitionModelResourcePermission",
-				Definition.class);
-	private static volatile ModelResourcePermission<Entry>
-		_entryModelResourcePermission =
-			ModelResourcePermissionFactory.getInstance(
-				EntryServiceImpl.class, "_entryModelResourcePermission",
-				Entry.class);
+	@Reference(
+		target = "(model.class.name=com.liferay.portal.reports.engine.console.model.Definition)"
+	)
+	private ModelResourcePermission<Definition>
+		_definitionModelResourcePermission;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.portal.reports.engine.console.model.Entry)"
+	)
+	private ModelResourcePermission<Entry> _entryModelResourcePermission;
 
 }

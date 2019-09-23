@@ -17,6 +17,7 @@ package com.liferay.portal.reports.engine.console.service.impl;
 import com.liferay.document.library.kernel.store.DLStoreUtil;
 import com.liferay.petra.memory.DeleteFileFinalizeAction;
 import com.liferay.petra.memory.FinalizeManager;
+import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -40,7 +41,7 @@ import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -64,7 +65,6 @@ import com.liferay.portal.reports.engine.console.model.Source;
 import com.liferay.portal.reports.engine.console.service.base.EntryLocalServiceBaseImpl;
 import com.liferay.portal.reports.engine.console.status.ReportStatus;
 import com.liferay.portal.reports.engine.constants.ReportsEngineDestinationNames;
-import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,9 +78,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 /**
  * @author Gavin Wan
  */
+@Component(
+	property = "model.class.name=com.liferay.portal.reports.engine.console.model.Entry",
+	service = AopService.class
+)
 public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 	@Override
@@ -126,7 +133,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		sb.append(pageURL);
 		sb.append("&");
-		sb.append(PortalUtil.getPortletNamespace(portletId));
+		sb.append(_portal.getPortletNamespace(portletId));
 		sb.append("entryId=");
 		sb.append(entryId);
 
@@ -427,7 +434,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 			getReportsGroupServiceEmailConfiguration(long groupId)
 		throws ConfigurationException {
 
-		return configurationProvider.getConfiguration(
+		return _configurationProvider.getConfiguration(
 			ReportsGroupServiceEmailConfiguration.class,
 			new GroupServiceSettingsLocator(
 				groupId, ReportsEngineConsoleConstants.SERVICE_NAME));
@@ -578,19 +585,22 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		}
 	}
 
-	@ServiceReference(type = ConfigurationProvider.class)
-	protected ConfigurationProvider configurationProvider;
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
-	@ServiceReference(type = JSONFactory.class)
+	@Reference
 	private JSONFactory _jsonFactory;
 
-	@ServiceReference(type = MessageBus.class)
+	@Reference
 	private MessageBus _messageBus;
 
-	@ServiceReference(type = SchedulerEngineHelper.class)
+	@Reference
+	private Portal _portal;
+
+	@Reference
 	private SchedulerEngineHelper _schedulerEngineHelper;
 
-	@ServiceReference(type = UserLocalService.class)
+	@Reference
 	private UserLocalService _userLocalService;
 
 }

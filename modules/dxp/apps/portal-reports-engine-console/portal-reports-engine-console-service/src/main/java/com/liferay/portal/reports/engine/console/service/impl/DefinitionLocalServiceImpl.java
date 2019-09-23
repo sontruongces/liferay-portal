@@ -15,6 +15,7 @@
 package com.liferay.portal.reports.engine.console.service.impl;
 
 import com.liferay.document.library.kernel.store.DLStoreUtil;
+import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CompanyConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
@@ -40,9 +41,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.osgi.service.component.annotations.Component;
+
 /**
  * @author Gavin Wan
  */
+@Component(
+	property = "model.class.name=com.liferay.portal.reports.engine.console.model.Definition",
+	service = AopService.class
+)
 public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 
 	@Override

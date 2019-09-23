@@ -29,14 +29,17 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.reports.engine.console.model.Definition;
 import com.liferay.portal.reports.engine.console.model.impl.DefinitionImpl;
 import com.liferay.portal.reports.engine.console.service.persistence.DefinitionFinder;
-import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Iterator;
 import java.util.List;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 /**
  * @author Inácio Nery
  */
+@Component(service = DefinitionFinder.class)
 public class DefinitionFinderImpl
 	extends DefinitionFinderBaseImpl implements DefinitionFinder {
 
@@ -265,7 +268,7 @@ public class DefinitionFinderImpl
 		}
 	}
 
-	@ServiceReference(type = CustomSQL.class)
+	@Reference
 	private CustomSQL _customSQL;
 
 }
