@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class TeamAccountRoleWrapper
 	extends BaseModelWrapper<TeamAccountRole>
-	implements ModelWrapper<TeamAccountRole>, TeamAccountRole {
+	implements TeamAccountRole, ModelWrapper<TeamAccountRole> {
 
 	public TeamAccountRoleWrapper(TeamAccountRole teamAccountRole) {
 		super(teamAccountRole);

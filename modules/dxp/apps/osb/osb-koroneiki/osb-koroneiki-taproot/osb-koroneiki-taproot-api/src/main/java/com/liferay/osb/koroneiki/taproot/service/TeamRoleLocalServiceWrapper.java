@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TeamRoleLocalServiceWrapper
-	implements ServiceWrapper<TeamRoleLocalService>, TeamRoleLocalService {
+	implements TeamRoleLocalService, ServiceWrapper<TeamRoleLocalService> {
 
 	public TeamRoleLocalServiceWrapper(
 		TeamRoleLocalService teamRoleLocalService) {
@@ -269,9 +269,17 @@ public class TeamRoleLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.TeamRole>
-		getTeamAccountTeamRoles(long accountId, long teamId) {
+		getTeamAccountTeamRoles(
+			long accountId, long teamId, int start, int end) {
 
-		return _teamRoleLocalService.getTeamAccountTeamRoles(accountId, teamId);
+		return _teamRoleLocalService.getTeamAccountTeamRoles(
+			accountId, teamId, start, end);
+	}
+
+	@Override
+	public int getTeamAccountTeamRolesCount(long accountId, long teamId) {
+		return _teamRoleLocalService.getTeamAccountTeamRolesCount(
+			accountId, teamId);
 	}
 
 	/**

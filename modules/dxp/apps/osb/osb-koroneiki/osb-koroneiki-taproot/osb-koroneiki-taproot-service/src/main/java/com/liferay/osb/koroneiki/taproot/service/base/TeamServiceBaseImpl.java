@@ -56,7 +56,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class TeamServiceBaseImpl
 	extends BaseServiceImpl
-	implements AopService, IdentifiableOSGiService, TeamService {
+	implements TeamService, AopService, IdentifiableOSGiService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

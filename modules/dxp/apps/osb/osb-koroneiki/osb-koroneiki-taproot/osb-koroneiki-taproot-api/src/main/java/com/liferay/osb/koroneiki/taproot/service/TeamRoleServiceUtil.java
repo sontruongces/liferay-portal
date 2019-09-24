@@ -73,6 +73,22 @@ public class TeamRoleServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.TeamRole>
+				getTeamAccountTeamRoles(
+					long accountId, long teamId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeamAccountTeamRoles(
+			accountId, teamId, start, end);
+	}
+
+	public static int getTeamAccountTeamRolesCount(long accountId, long teamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeamAccountTeamRolesCount(accountId, teamId);
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRole getTeamRole(
 			long teamRoleId)
 		throws com.liferay.portal.kernel.exception.PortalException {

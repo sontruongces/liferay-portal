@@ -74,8 +74,8 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class TeamAccountRoleLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements AopService, IdentifiableOSGiService,
-			   TeamAccountRoleLocalService {
+	implements TeamAccountRoleLocalService, AopService,
+			   IdentifiableOSGiService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

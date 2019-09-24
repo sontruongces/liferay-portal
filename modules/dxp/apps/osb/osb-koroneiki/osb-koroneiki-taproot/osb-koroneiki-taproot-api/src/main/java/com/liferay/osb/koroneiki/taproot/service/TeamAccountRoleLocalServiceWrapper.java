@@ -24,8 +24,8 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TeamAccountRoleLocalServiceWrapper
-	implements ServiceWrapper<TeamAccountRoleLocalService>,
-			   TeamAccountRoleLocalService {
+	implements TeamAccountRoleLocalService,
+			   ServiceWrapper<TeamAccountRoleLocalService> {
 
 	public TeamAccountRoleLocalServiceWrapper(
 		TeamAccountRoleLocalService teamAccountRoleLocalService) {

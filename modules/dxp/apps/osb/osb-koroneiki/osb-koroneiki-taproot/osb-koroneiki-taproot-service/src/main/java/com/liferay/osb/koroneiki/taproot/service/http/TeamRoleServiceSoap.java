@@ -115,6 +115,42 @@ public class TeamRoleServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap[]
+			getTeamAccountTeamRoles(
+				long accountId, long teamId, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.osb.koroneiki.taproot.model.TeamRole>
+				returnValue = TeamRoleServiceUtil.getTeamAccountTeamRoles(
+					accountId, teamId, start, end);
+
+			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getTeamAccountTeamRolesCount(long accountId, long teamId)
+		throws RemoteException {
+
+		try {
+			int returnValue = TeamRoleServiceUtil.getTeamAccountTeamRolesCount(
+				accountId, teamId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap
 			getTeamRole(long teamRoleId)
 		throws RemoteException {

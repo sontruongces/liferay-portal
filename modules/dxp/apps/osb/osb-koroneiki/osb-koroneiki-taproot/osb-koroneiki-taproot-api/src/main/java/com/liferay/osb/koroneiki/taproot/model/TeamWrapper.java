@@ -32,7 +32,7 @@ import java.util.Map;
  * @generated
  */
 public class TeamWrapper
-	extends BaseModelWrapper<Team> implements ModelWrapper<Team>, Team {
+	extends BaseModelWrapper<Team> implements Team, ModelWrapper<Team> {
 
 	public TeamWrapper(Team team) {
 		super(team);

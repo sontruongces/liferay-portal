@@ -257,9 +257,17 @@ public class TeamRoleLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.TeamRole>
-			getTeamAccountTeamRoles(long accountId, long teamId) {
+			getTeamAccountTeamRoles(
+				long accountId, long teamId, int start, int end) {
 
-		return getService().getTeamAccountTeamRoles(accountId, teamId);
+		return getService().getTeamAccountTeamRoles(
+			accountId, teamId, start, end);
+	}
+
+	public static int getTeamAccountTeamRolesCount(
+		long accountId, long teamId) {
+
+		return getService().getTeamAccountTeamRolesCount(accountId, teamId);
 	}
 
 	/**

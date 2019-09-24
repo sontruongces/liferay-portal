@@ -24,6 +24,8 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import java.util.List;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -62,6 +64,15 @@ public interface TeamRoleService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TeamRole> getTeamAccountTeamRoles(
+			long accountId, long teamId, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTeamAccountTeamRolesCount(long accountId, long teamId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TeamRole getTeamRole(long teamRoleId) throws PortalException;

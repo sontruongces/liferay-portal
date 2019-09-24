@@ -2423,7 +2423,7 @@ public class AccountPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Account account : list) {
-					if (parentAccountId != account.getParentAccountId()) {
+					if ((parentAccountId != account.getParentAccountId())) {
 						list = null;
 
 						break;

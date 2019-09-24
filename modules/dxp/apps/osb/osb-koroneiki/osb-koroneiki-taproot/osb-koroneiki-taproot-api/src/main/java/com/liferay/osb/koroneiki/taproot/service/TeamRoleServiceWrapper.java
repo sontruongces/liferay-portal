@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TeamRoleServiceWrapper
-	implements ServiceWrapper<TeamRoleService>, TeamRoleService {
+	implements TeamRoleService, ServiceWrapper<TeamRoleService> {
 
 	public TeamRoleServiceWrapper(TeamRoleService teamRoleService) {
 		_teamRoleService = teamRoleService;
@@ -67,6 +67,23 @@ public class TeamRoleServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _teamRoleService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.TeamRole>
+			getTeamAccountTeamRoles(
+				long accountId, long teamId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamRoleService.getTeamAccountTeamRoles(
+			accountId, teamId, start, end);
+	}
+
+	@Override
+	public int getTeamAccountTeamRolesCount(long accountId, long teamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamRoleService.getTeamAccountTeamRolesCount(accountId, teamId);
 	}
 
 	@Override

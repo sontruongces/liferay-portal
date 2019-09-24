@@ -56,7 +56,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class ContactRoleServiceBaseImpl
 	extends BaseServiceImpl
-	implements AopService, ContactRoleService, IdentifiableOSGiService {
+	implements ContactRoleService, AopService, IdentifiableOSGiService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

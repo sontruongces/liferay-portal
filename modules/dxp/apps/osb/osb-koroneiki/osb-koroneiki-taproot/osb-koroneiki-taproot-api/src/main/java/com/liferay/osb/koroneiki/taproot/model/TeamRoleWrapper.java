@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class TeamRoleWrapper
 	extends BaseModelWrapper<TeamRole>
-	implements ModelWrapper<TeamRole>, TeamRole {
+	implements TeamRole, ModelWrapper<TeamRole> {
 
 	public TeamRoleWrapper(TeamRole teamRole) {
 		super(teamRole);

@@ -166,6 +166,86 @@ public class TeamRoleServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.TeamRole>
+				getTeamAccountTeamRoles(
+					HttpPrincipal httpPrincipal, long accountId, long teamId,
+					int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TeamRoleServiceUtil.class, "getTeamAccountTeamRoles",
+				_getTeamAccountTeamRolesParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId, teamId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.taproot.model.TeamRole>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getTeamAccountTeamRolesCount(
+			HttpPrincipal httpPrincipal, long accountId, long teamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TeamRoleServiceUtil.class, "getTeamAccountTeamRolesCount",
+				_getTeamAccountTeamRolesCountParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId, teamId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRole getTeamRole(
 			HttpPrincipal httpPrincipal, long teamRoleId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -173,7 +253,7 @@ public class TeamRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamRoleServiceUtil.class, "getTeamRole",
-				_getTeamRoleParameterTypes3);
+				_getTeamRoleParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamRoleId);
@@ -211,7 +291,7 @@ public class TeamRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamRoleServiceUtil.class, "getTeamRole",
-				_getTeamRoleParameterTypes4);
+				_getTeamRoleParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamRoleKey);
@@ -251,7 +331,7 @@ public class TeamRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamRoleServiceUtil.class, "updateTeamRole",
-				_updateTeamRoleParameterTypes5);
+				_updateTeamRoleParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamRoleId, name, description);
@@ -291,13 +371,19 @@ public class TeamRoleServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteTeamRoleParameterTypes2 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getTeamRoleParameterTypes3 = new Class[] {
+	private static final Class<?>[] _getTeamAccountTeamRolesParameterTypes3 =
+		new Class[] {long.class, long.class, int.class, int.class};
+	private static final Class<?>[]
+		_getTeamAccountTeamRolesCountParameterTypes4 = new Class[] {
+			long.class, long.class
+		};
+	private static final Class<?>[] _getTeamRoleParameterTypes5 = new Class[] {
 		long.class
 	};
-	private static final Class<?>[] _getTeamRoleParameterTypes4 = new Class[] {
+	private static final Class<?>[] _getTeamRoleParameterTypes6 = new Class[] {
 		String.class
 	};
-	private static final Class<?>[] _updateTeamRoleParameterTypes5 =
+	private static final Class<?>[] _updateTeamRoleParameterTypes7 =
 		new Class[] {long.class, String.class, String.class};
 
 }

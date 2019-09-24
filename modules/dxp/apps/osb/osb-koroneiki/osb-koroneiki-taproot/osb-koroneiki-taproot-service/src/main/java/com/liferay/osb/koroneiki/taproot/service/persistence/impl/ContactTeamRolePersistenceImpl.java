@@ -192,7 +192,7 @@ public class ContactTeamRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ContactTeamRole contactTeamRole : list) {
-					if (contactId != contactTeamRole.getContactId()) {
+					if ((contactId != contactTeamRole.getContactId())) {
 						list = null;
 
 						break;
@@ -706,7 +706,7 @@ public class ContactTeamRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ContactTeamRole contactTeamRole : list) {
-					if (teamId != contactTeamRole.getTeamId()) {
+					if ((teamId != contactTeamRole.getTeamId())) {
 						list = null;
 
 						break;
@@ -1224,7 +1224,7 @@ public class ContactTeamRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ContactTeamRole contactTeamRole : list) {
-					if (contactRoleId != contactTeamRole.getContactRoleId()) {
+					if ((contactRoleId != contactTeamRole.getContactRoleId())) {
 						list = null;
 
 						break;
