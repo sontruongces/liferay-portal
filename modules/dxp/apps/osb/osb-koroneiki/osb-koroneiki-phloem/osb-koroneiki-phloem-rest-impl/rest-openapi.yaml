@@ -3038,6 +3038,39 @@ paths:
                                 $ref: "#/components/schemas/Team"
                     description: ""
             tags: ["Team"]
+    "/teams/{teamKey}/assigned-accounts":
+        get:
+            description: Retrieves the team's assigned accounts.
+            operationId: getTeamTeamKeyAssignedAccountsPage
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Account"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Account"
+                                type: array
+                    description: ""
+            tags: ["Account"]
     "/teams/{teamKey}/audit-entries":
         get:
             description: Retrieves the team's audit history.

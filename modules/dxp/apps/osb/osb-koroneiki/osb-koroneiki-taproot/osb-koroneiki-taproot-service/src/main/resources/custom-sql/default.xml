@@ -14,6 +14,16 @@
 				Koroneiki_ContactAccountRole.contactId = ?
 		]]>
 	</sql>
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.AccountFinder.countByTeam">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT Koroneiki_TeamAccountRole.accountId) AS COUNT_VALUE
+			FROM
+				Koroneiki_TeamAccountRole
+			WHERE
+				Koroneiki_TeamAccountRole.teamId = ?
+		]]>
+	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.AccountFinder.findByContact">
 		<![CDATA[
 			SELECT
@@ -25,6 +35,21 @@
 					Koroneiki_ContactAccountRole.accountId = Koroneiki_Account.accountId
 			WHERE
 				Koroneiki_ContactAccountRole.contactId = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.AccountFinder.findByTeam">
+		<![CDATA[
+			SELECT
+				DISTINCT Koroneiki_Account.*
+			FROM
+				Koroneiki_Account
+			INNER JOIN
+				Koroneiki_TeamAccountRole ON
+					Koroneiki_TeamAccountRole.accountId = Koroneiki_Account.accountId
+			WHERE
+				Koroneiki_TeamAccountRole.teamId = ?
+			GROUP BY
+				Koroneiki_Account.accountId
 		]]>
 	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactFinder.countByFN_MN_LN_E">

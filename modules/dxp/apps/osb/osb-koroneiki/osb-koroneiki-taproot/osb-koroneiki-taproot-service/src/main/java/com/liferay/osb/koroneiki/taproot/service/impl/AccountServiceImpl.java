@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
+import com.liferay.osb.koroneiki.taproot.permission.TeamPermission;
 import com.liferay.osb.koroneiki.taproot.service.base.AccountServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -135,6 +136,20 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			entityName, entityId);
 	}
 
+	public List<Account> getTeamAccounts(long teamId, int start, int end)
+		throws PortalException {
+
+		_teamPermission.check(getPermissionChecker(), teamId, ActionKeys.VIEW);
+
+		return accountLocalService.getTeamAccounts(teamId, start, end);
+	}
+
+	public int getTeamAccountsCount(long teamId) throws PortalException {
+		_teamPermission.check(getPermissionChecker(), teamId, ActionKeys.VIEW);
+
+		return accountLocalService.getTeamAccountsCount(teamId);
+	}
+
 	public Account updateAccount(
 			long accountId, long parentAccountId, String name, String code,
 			String description, String notes, long logoId,
@@ -177,5 +192,8 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
+
+	@Reference
+	private TeamPermission _teamPermission;
 
 }

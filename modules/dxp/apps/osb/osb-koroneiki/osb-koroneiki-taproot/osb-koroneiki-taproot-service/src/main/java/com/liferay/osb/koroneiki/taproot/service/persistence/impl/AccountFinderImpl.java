@@ -41,8 +41,14 @@ public class AccountFinderImpl
 	public static final String COUNT_BY_CONTACT =
 		AccountFinder.class.getName() + ".countByContact";
 
+	public static final String COUNT_BY_TEAM =
+		AccountFinder.class.getName() + ".countByTeam";
+
 	public static final String FIND_BY_CONTACT =
 		AccountFinder.class.getName() + ".findByContact";
+
+	public static final String FIND_BY_TEAM =
+		AccountFinder.class.getName() + ".findByTeam";
 
 	@Override
 	public int countByContact(long contactId) {
@@ -82,6 +88,43 @@ public class AccountFinderImpl
 	}
 
 	@Override
+	public int countByTeam(long teamId) {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(getClass(), COUNT_BY_TEAM);
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME, Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(teamId);
+
+			Iterator<Long> itr = q.iterate();
+
+			if (itr.hasNext()) {
+				Long count = itr.next();
+
+				if (count != null) {
+					return count.intValue();
+				}
+			}
+
+			return 0;
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
 	public List<Account> findByContact(long contactId, int start, int end) {
 		Session session = null;
 
@@ -97,6 +140,33 @@ public class AccountFinderImpl
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(contactId);
+
+			return (List<Account>)QueryUtil.list(q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	public List<Account> findByTeam(long teamId, int start, int end) {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(getClass(), FIND_BY_TEAM);
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addEntity("Koroneiki_Account", AccountImpl.class);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(teamId);
 
 			return (List<Account>)QueryUtil.list(q, getDialect(), start, end);
 		}

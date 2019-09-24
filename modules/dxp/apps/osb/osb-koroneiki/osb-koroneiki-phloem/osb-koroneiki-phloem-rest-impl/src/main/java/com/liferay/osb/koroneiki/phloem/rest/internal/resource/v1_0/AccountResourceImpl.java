@@ -23,12 +23,15 @@ import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
 import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
 import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleService;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -183,6 +186,24 @@ public class AccountResourceImpl
 	@Override
 	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
 		return _entityModel;
+	}
+
+	@Override
+	public Page<Account> getTeamTeamKeyAssignedAccountsPage(
+			String teamKey, Pagination pagination)
+		throws Exception {
+
+		Team team = _teamLocalService.getTeam(teamKey);
+
+		return Page.of(
+			transform(
+				_accountService.getTeamAccounts(
+					team.getTeamId(), pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				account -> AccountUtil.toAccount(
+					account, contextAcceptLanguage.getPreferredLocale())),
+			pagination,
+			_accountService.getTeamAccountsCount(team.getTeamId()));
 	}
 
 	@Override
@@ -407,5 +428,11 @@ public class AccountResourceImpl
 
 	@Reference
 	private TeamAccountRoleService _teamAccountRoleService;
+
+	@Reference
+	private TeamLocalService _teamLocalService;
+
+	@Reference
+	private TeamService _teamService;
 
 }
