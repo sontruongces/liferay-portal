@@ -37,6 +37,15 @@ public interface TeamRoleResource {
 		return new Builder();
 	}
 
+	public Page<TeamRole> getAccountAccountKeyTeamTeamKeyRolesPage(
+			String accountKey, String teamKey, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyTeamTeamKeyRolesPageHttpResponse(
+				String accountKey, String teamKey, Pagination pagination)
+		throws Exception;
+
 	public Page<TeamRole> getTeamRolesPage(
 			String search, String filterString, Pagination pagination,
 			String sortString)
@@ -110,6 +119,58 @@ public interface TeamRoleResource {
 	}
 
 	public static class TeamRoleResourceImpl implements TeamRoleResource {
+
+		public Page<TeamRole> getAccountAccountKeyTeamTeamKeyRolesPage(
+				String accountKey, String teamKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyTeamTeamKeyRolesPageHttpResponse(
+					accountKey, teamKey, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, TeamRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyTeamTeamKeyRolesPageHttpResponse(
+					String accountKey, String teamKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams/{teamKey}/roles",
+				accountKey, teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
 
 		public Page<TeamRole> getTeamRolesPage(
 				String search, String filterString, Pagination pagination,

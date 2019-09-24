@@ -62,6 +62,31 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 
 	@Override
 	@GET
+	@Operation(description = "Retrieves the roles of the team for the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/teams/{teamKey}/roles")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "TeamRole")})
+	public Page<TeamRole> getAccountAccountKeyTeamTeamKeyRolesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@GET
 	@Operation(
 		description = "Retrieves the team roles. Results can be paginated, filtered, searched, and sorted."
 	)
