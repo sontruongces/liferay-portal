@@ -1265,6 +1265,43 @@ paths:
                         application/json: {}
                     description: ""
             tags: ["Account"]
+        get:
+            description: Retrieves the roles of the team for the account.
+            operationId: getAccountAccountKeyTeamTeamKeyRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/TeamRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/TeamRole"
+                                type: array
+                    description: ""
+            tags: ["TeamRole"]
         put:
             description: Assigns roles to the team for the account.
             operationId: putAccountTeamTeamKeyRole

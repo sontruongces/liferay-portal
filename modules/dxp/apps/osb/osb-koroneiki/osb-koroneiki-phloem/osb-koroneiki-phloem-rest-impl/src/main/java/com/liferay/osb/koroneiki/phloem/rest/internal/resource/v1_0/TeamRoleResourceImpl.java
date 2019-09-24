@@ -19,6 +19,10 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.TeamRoleEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
+import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Team;
+import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamRoleService;
 import com.liferay.portal.kernel.search.Field;
@@ -50,6 +54,26 @@ public class TeamRoleResourceImpl
 	@Override
 	public void deleteTeamRole(String teamRoleKey) throws Exception {
 		_teamRoleService.deleteTeamRole(teamRoleKey);
+	}
+
+	@Override
+	public Page<TeamRole> getAccountAccountKeyTeamTeamKeyRolesPage(
+			String accountKey, String teamKey, Pagination pagination)
+		throws Exception {
+
+		Account account = _accountLocalService.getAccount(accountKey);
+
+		Team team = _teamLocalService.getTeam(teamKey);
+
+		return Page.of(
+			transform(
+				_teamRoleService.getTeamAccountTeamRoles(
+					account.getAccountId(), team.getTeamId(),
+					pagination.getStartPosition(), pagination.getEndPosition()),
+				TeamRoleUtil::toTeamRole),
+			pagination,
+			_teamRoleService.getTeamAccountTeamRolesCount(
+				account.getAccountId(), team.getTeamId()));
 	}
 
 	@Override
@@ -110,6 +134,12 @@ public class TeamRoleResourceImpl
 	}
 
 	private static final EntityModel _entityModel = new TeamRoleEntityModel();
+
+	@Reference
+	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private TeamLocalService _teamLocalService;
 
 	@Reference
 	private TeamRoleLocalService _teamRoleLocalService;

@@ -73,7 +73,7 @@ renderResponse.setTitle(koroneikiAccount.getName());
 			>
 
 				<%
-				List<TeamRole> teamRoles = TeamRoleLocalServiceUtil.getTeamAccountTeamRoles(koroneikiAccount.getAccountId(), team.getTeamId());
+				List<TeamRole> teamRoles = TeamRoleLocalServiceUtil.getTeamAccountTeamRoles(koroneikiAccount.getAccountId(), team.getTeamId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 				%>
 
 				<%= ListUtil.toString(teamRoles, TeamRole.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE) %>

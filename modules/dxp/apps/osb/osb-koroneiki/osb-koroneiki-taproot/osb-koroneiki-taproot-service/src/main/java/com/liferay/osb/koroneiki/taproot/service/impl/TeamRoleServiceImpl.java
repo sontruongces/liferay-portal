@@ -16,11 +16,15 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
+import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
+import com.liferay.osb.koroneiki.taproot.permission.TeamPermission;
 import com.liferay.osb.koroneiki.taproot.permission.TeamRolePermission;
 import com.liferay.osb.koroneiki.taproot.service.base.TeamRoleServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
+
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -63,6 +67,31 @@ public class TeamRoleServiceImpl extends TeamRoleServiceBaseImpl {
 		return teamRoleLocalService.deleteTeamRole(teamRole);
 	}
 
+	public List<TeamRole> getTeamAccountTeamRoles(
+			long accountId, long teamId, int start, int end)
+		throws PortalException {
+
+		_accountPermission.check(
+			getPermissionChecker(), accountId, ActionKeys.VIEW);
+
+		_teamPermission.check(getPermissionChecker(), teamId, ActionKeys.VIEW);
+
+		return teamRoleLocalService.getTeamAccountTeamRoles(
+			accountId, teamId, start, end);
+	}
+
+	public int getTeamAccountTeamRolesCount(long accountId, long teamId)
+		throws PortalException {
+
+		_accountPermission.check(
+			getPermissionChecker(), accountId, ActionKeys.VIEW);
+
+		_teamPermission.check(getPermissionChecker(), teamId, ActionKeys.VIEW);
+
+		return teamRoleLocalService.getTeamAccountTeamRolesCount(
+			accountId, teamId);
+	}
+
 	public TeamRole getTeamRole(long teamRoleId) throws PortalException {
 		_teamRolePermission.check(
 			getPermissionChecker(), teamRoleId, ActionKeys.VIEW);
@@ -89,6 +118,12 @@ public class TeamRoleServiceImpl extends TeamRoleServiceBaseImpl {
 		return teamRoleLocalService.updateTeamRole(
 			getUserId(), teamRoleId, name, description);
 	}
+
+	@Reference
+	private AccountPermission _accountPermission;
+
+	@Reference
+	private TeamPermission _teamPermission;
 
 	@Reference
 	private TeamRolePermission _teamRolePermission;

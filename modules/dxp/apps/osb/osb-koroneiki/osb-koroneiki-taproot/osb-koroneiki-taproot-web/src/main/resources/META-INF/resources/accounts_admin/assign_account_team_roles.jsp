@@ -38,7 +38,7 @@ renderResponse.setTitle(koroneikiAccount.getName());
 		<h2><liferay-ui:message arguments="<%= team.getName() %>" key="assign-team-roles-for-x" /></h2>
 
 		<%
-		List<TeamRole> teamRoles = TeamRoleLocalServiceUtil.getTeamAccountTeamRoles(koroneikiAccount.getAccountId(), team.getTeamId());
+		List<TeamRole> teamRoles = TeamRoleLocalServiceUtil.getTeamAccountTeamRoles(koroneikiAccount.getAccountId(), team.getTeamId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 		%>
 
 		<liferay-ui:search-container

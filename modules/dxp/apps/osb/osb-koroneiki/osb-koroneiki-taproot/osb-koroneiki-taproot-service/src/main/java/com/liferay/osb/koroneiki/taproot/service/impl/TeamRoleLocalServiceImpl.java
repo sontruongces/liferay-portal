@@ -21,7 +21,6 @@ import com.liferay.osb.koroneiki.taproot.exception.TeamRoleTypeException;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
 import com.liferay.osb.koroneiki.taproot.service.base.TeamRoleLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
@@ -106,13 +105,22 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 		return teamRolePersistence.remove(teamRole);
 	}
 
-	public List<TeamRole> getTeamAccountTeamRoles(long accountId, long teamId) {
+	public List<TeamRole> getTeamAccountTeamRoles(
+		long accountId, long teamId, int start, int end) {
+
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("accountTeam", new Long[] {accountId, teamId});
 
-		return teamRoleFinder.findByName(
-			null, params, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		return teamRoleFinder.findByName(null, params, start, end);
+	}
+
+	public int getTeamAccountTeamRolesCount(long accountId, long teamId) {
+		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+		params.put("accountTeam", new Long[] {accountId, teamId});
+
+		return teamRoleFinder.countByName(null, params);
 	}
 
 	public TeamRole getTeamRole(String teamRoleKey) throws PortalException {
