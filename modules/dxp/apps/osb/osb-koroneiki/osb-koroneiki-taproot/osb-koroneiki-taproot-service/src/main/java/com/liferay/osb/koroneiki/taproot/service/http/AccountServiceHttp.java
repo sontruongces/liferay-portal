@@ -406,6 +406,83 @@ public class AccountServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.Account> getTeamAccounts(
+				HttpPrincipal httpPrincipal, long teamId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AccountServiceUtil.class, "getTeamAccounts",
+				_getTeamAccountsParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, teamId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.taproot.model.Account>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getTeamAccountsCount(
+			HttpPrincipal httpPrincipal, long teamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AccountServiceUtil.class, "getTeamAccountsCount",
+				_getTeamAccountsCountParameterTypes10);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, teamId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
 			HttpPrincipal httpPrincipal, long accountId, long parentAccountId,
 			String name, String code, String description, String notes,
@@ -417,7 +494,7 @@ public class AccountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				AccountServiceUtil.class, "updateAccount",
-				_updateAccountParameterTypes9);
+				_updateAccountParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId, parentAccountId, name, code, description,
@@ -463,7 +540,7 @@ public class AccountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				AccountServiceUtil.class, "updateAccount",
-				_updateAccountParameterTypes10);
+				_updateAccountParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey, parentAccountId, name, code, description,
@@ -524,14 +601,18 @@ public class AccountServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getAccountsCountParameterTypes8 =
 		new Class[] {String.class, String.class, String.class};
-	private static final Class<?>[] _updateAccountParameterTypes9 =
+	private static final Class<?>[] _getTeamAccountsParameterTypes9 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[] _getTeamAccountsCountParameterTypes10 =
+		new Class[] {long.class};
+	private static final Class<?>[] _updateAccountParameterTypes11 =
 		new Class[] {
 			long.class, long.class, String.class, String.class, String.class,
 			String.class, long.class, String.class, String.class, String.class,
 			String.class, String.class, String.class, String.class,
 			String.class, int.class
 		};
-	private static final Class<?>[] _updateAccountParameterTypes10 =
+	private static final Class<?>[] _updateAccountParameterTypes12 =
 		new Class[] {
 			String.class, long.class, String.class, String.class, String.class,
 			String.class, long.class, String.class, String.class, String.class,

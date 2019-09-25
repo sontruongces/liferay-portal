@@ -232,6 +232,38 @@ public class AccountServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.AccountSoap[]
+			getTeamAccounts(long teamId, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+				returnValue = AccountServiceUtil.getTeamAccounts(
+					teamId, start, end);
+
+			return com.liferay.osb.koroneiki.taproot.model.AccountSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getTeamAccountsCount(long teamId) throws RemoteException {
+		try {
+			int returnValue = AccountServiceUtil.getTeamAccountsCount(teamId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.AccountSoap
 			updateAccount(
 				long accountId, long parentAccountId, String name, String code,

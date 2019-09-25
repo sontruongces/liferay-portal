@@ -25,7 +25,12 @@ public interface AccountFinder {
 
 	public int countByContact(long contactId);
 
+	public int countByTeam(long teamId);
+
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
 		findByContact(long contactId, int start, int end);
+
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+		findByTeam(long teamId, int start, int end);
 
 }

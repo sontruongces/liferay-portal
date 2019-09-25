@@ -207,6 +207,21 @@ public class Query {
 	}
 
 	@GraphQLField
+	public AccountPage getTeamTeamKeyAssignedAccountsPage(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> new AccountPage(
+				accountResource.getTeamTeamKeyAssignedAccountsPage(
+					teamKey, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
 	public AuditEntryPage getAccountAccountKeyAuditEntriesPage(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,

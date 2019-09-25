@@ -279,6 +279,12 @@ public interface AccountLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Account> getTeamAccounts(long teamId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTeamAccountsCount(long teamId);
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Account reindex(long accountId) throws PortalException;

@@ -341,6 +341,17 @@ public class AccountLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.Account> getTeamAccounts(
+			long teamId, int start, int end) {
+
+		return getService().getTeamAccounts(teamId, start, end);
+	}
+
+	public static int getTeamAccountsCount(long teamId) {
+		return getService().getTeamAccountsCount(teamId);
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.Account reindex(
 			long accountId)
 		throws com.liferay.portal.kernel.exception.PortalException {

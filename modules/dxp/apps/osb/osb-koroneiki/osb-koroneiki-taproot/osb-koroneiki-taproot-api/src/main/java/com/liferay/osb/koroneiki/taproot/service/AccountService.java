@@ -94,6 +94,13 @@ public interface AccountService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Account> getTeamAccounts(long teamId, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTeamAccountsCount(long teamId) throws PortalException;
+
 	public Account updateAccount(
 			long accountId, long parentAccountId, String name, String code,
 			String description, String notes, long logoId,

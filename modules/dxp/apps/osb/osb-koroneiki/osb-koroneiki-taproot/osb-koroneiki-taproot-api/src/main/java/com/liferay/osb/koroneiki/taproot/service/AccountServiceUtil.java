@@ -125,6 +125,20 @@ public class AccountServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.Account> getTeamAccounts(
+				long teamId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeamAccounts(teamId, start, end);
+	}
+
+	public static int getTeamAccountsCount(long teamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeamAccountsCount(teamId);
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
 			long accountId, long parentAccountId, String name, String code,
 			String description, String notes, long logoId,

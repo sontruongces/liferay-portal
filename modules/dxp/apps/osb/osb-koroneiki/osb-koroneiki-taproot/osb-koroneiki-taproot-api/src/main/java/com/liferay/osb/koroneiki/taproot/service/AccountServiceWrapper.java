@@ -127,6 +127,21 @@ public class AccountServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+			getTeamAccounts(long teamId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _accountService.getTeamAccounts(teamId, start, end);
+	}
+
+	@Override
+	public int getTeamAccountsCount(long teamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _accountService.getTeamAccountsCount(teamId);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
 			long accountId, long parentAccountId, String name, String code,
 			String description, String notes, long logoId,

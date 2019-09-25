@@ -143,6 +143,15 @@ public interface AccountResource {
 			String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
+	public Page<Account> getTeamTeamKeyAssignedAccountsPage(
+			String teamKey, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getTeamTeamKeyAssignedAccountsPageHttpResponse(
+				String teamKey, Pagination pagination)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -887,6 +896,58 @@ public interface AccountResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams/{teamKey}/roles",
 				accountKey, teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Account> getTeamTeamKeyAssignedAccountsPage(
+				String teamKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getTeamTeamKeyAssignedAccountsPageHttpResponse(
+					teamKey, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, AccountSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getTeamTeamKeyAssignedAccountsPageHttpResponse(
+					String teamKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/assigned-accounts",
+				teamKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

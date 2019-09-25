@@ -358,6 +358,18 @@ public class AccountLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+		getTeamAccounts(long teamId, int start, int end) {
+
+		return _accountLocalService.getTeamAccounts(teamId, start, end);
+	}
+
+	@Override
+	public int getTeamAccountsCount(long teamId) {
+		return _accountLocalService.getTeamAccountsCount(teamId);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Account reindex(
 			long accountId)
 		throws com.liferay.portal.kernel.exception.PortalException {

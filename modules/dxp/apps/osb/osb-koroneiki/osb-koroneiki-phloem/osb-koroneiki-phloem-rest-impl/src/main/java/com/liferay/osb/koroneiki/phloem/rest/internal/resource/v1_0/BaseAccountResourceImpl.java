@@ -347,6 +347,28 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	@Override
+	@GET
+	@Operation(description = "Retrieves the team's assigned accounts.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/teams/{teamKey}/assigned-accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Page<Account> getTeamTeamKeyAssignedAccountsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

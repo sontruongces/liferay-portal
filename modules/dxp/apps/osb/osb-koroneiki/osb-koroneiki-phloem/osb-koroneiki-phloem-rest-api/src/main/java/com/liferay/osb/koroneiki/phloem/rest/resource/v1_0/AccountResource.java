@@ -86,6 +86,10 @@ public interface AccountResource {
 			String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
+	public Page<Account> getTeamTeamKeyAssignedAccountsPage(
+			String teamKey, Pagination pagination)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}
