@@ -31,7 +31,6 @@ import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
 import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
-import com.liferay.osb.koroneiki.taproot.service.TeamService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -202,8 +201,7 @@ public class AccountResourceImpl
 					pagination.getEndPosition()),
 				account -> AccountUtil.toAccount(
 					account, contextAcceptLanguage.getPreferredLocale())),
-			pagination,
-			_accountService.getTeamAccountsCount(team.getTeamId()));
+			pagination, _accountService.getTeamAccountsCount(team.getTeamId()));
 	}
 
 	@Override
@@ -431,8 +429,5 @@ public class AccountResourceImpl
 
 	@Reference
 	private TeamLocalService _teamLocalService;
-
-	@Reference
-	private TeamService _teamService;
 
 }

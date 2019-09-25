@@ -182,9 +182,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		return accountFinder.countByContact(contactId);
 	}
 
-	public List<Account> getTeamAccounts(long teamId, int start, int end)
-		throws PortalException {
-
+	public List<Account> getTeamAccounts(long teamId, int start, int end) {
 		return accountFinder.findByTeam(teamId, start, end);
 	}
 

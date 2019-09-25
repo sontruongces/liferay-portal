@@ -40,7 +40,7 @@
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.AccountFinder.findByTeam">
 		<![CDATA[
 			SELECT
-				DISTINCT Koroneiki_Account.*
+				DISTINCT {Koroneiki_Account.*}
 			FROM
 				Koroneiki_Account
 			INNER JOIN
@@ -48,8 +48,6 @@
 					Koroneiki_TeamAccountRole.accountId = Koroneiki_Account.accountId
 			WHERE
 				Koroneiki_TeamAccountRole.teamId = ?
-			GROUP BY
-				Koroneiki_Account.accountId
 		]]>
 	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactFinder.countByFN_MN_LN_E">
