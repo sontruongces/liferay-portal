@@ -116,17 +116,16 @@ public class ProductPurchaseServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-				getContactProductPurchases(
-					String contactKey, int start, int end)
+				getContactProductPurchases(long contactId, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getContactProductPurchases(contactKey, start, end);
+		return getService().getContactProductPurchases(contactId, start, end);
 	}
 
-	public static int getContactProductPurchasesCount(String contactKey)
+	public static int getContactProductPurchasesCount(long contactId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getContactProductPurchasesCount(contactKey);
+		return getService().getContactProductPurchasesCount(contactId);
 	}
 
 	/**

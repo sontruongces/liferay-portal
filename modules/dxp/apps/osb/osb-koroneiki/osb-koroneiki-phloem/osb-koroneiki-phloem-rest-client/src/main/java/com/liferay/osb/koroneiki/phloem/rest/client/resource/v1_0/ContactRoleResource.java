@@ -37,12 +37,22 @@ public interface ContactRoleResource {
 		return new Builder();
 	}
 
-	public Page<ContactRole> getAccountAccountKeyContactContactUuidRolesPage(
-			String accountKey, String contactUuid, Pagination pagination)
+	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
+			String accountKey, String oktaId, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getAccountAccountKeyContactContactUuidRolesPageHttpResponse(
+			getAccountAccountKeyContactByOktaRolesPageHttpResponse(
+				String accountKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole>
+			getAccountAccountKeyContactByUuidContactUuidRolesPage(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyContactByUuidContactUuidRolesPageHttpResponse(
 				String accountKey, String contactUuid, Pagination pagination)
 		throws Exception;
 
@@ -124,14 +134,66 @@ public interface ContactRoleResource {
 
 	public static class ContactRoleResourceImpl implements ContactRoleResource {
 
+		public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
+				String accountKey, String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyContactByOktaRolesPageHttpResponse(
+					accountKey, oktaId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyContactByOktaRolesPageHttpResponse(
+					String accountKey, String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles",
+				accountKey, oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public Page<ContactRole>
-				getAccountAccountKeyContactContactUuidRolesPage(
+				getAccountAccountKeyContactByUuidContactUuidRolesPage(
 					String accountKey, String contactUuid,
 					Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getAccountAccountKeyContactContactUuidRolesPageHttpResponse(
+				getAccountAccountKeyContactByUuidContactUuidRolesPageHttpResponse(
 					accountKey, contactUuid, pagination);
 
 			String content = httpResponse.getContent();
@@ -146,7 +208,7 @@ public interface ContactRoleResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getAccountAccountKeyContactContactUuidRolesPageHttpResponse(
+				getAccountAccountKeyContactByUuidContactUuidRolesPageHttpResponse(
 					String accountKey, String contactUuid,
 					Pagination pagination)
 			throws Exception {
@@ -170,7 +232,7 @@ public interface ContactRoleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/{contactUuid}/roles",
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles",
 				accountKey, contactUuid);
 
 			httpInvoker.userNameAndPassword(

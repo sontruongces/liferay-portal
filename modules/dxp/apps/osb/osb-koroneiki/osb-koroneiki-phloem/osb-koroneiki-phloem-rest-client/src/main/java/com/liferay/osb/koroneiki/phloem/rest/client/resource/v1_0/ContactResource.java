@@ -103,21 +103,26 @@ public interface ContactResource {
 			String oktaId, Contact contact)
 		throws Exception;
 
-	public void deleteContactByUuid(String uuid) throws Exception;
-
-	public HttpInvoker.HttpResponse deleteContactByUuidHttpResponse(String uuid)
+	public void deleteContactByUuidContactUuid(String contactUuid)
 		throws Exception;
 
-	public Contact getContactByUuid(String uuid) throws Exception;
-
-	public HttpInvoker.HttpResponse getContactByUuidHttpResponse(String uuid)
+	public HttpInvoker.HttpResponse deleteContactByUuidContactUuidHttpResponse(
+			String contactUuid)
 		throws Exception;
 
-	public Contact putContactByUuid(String uuid, Contact contact)
+	public Contact getContactByUuidContactUuid(String contactUuid)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse putContactByUuidHttpResponse(
-			String uuid, Contact contact)
+	public HttpInvoker.HttpResponse getContactByUuidContactUuidHttpResponse(
+			String contactUuid)
+		throws Exception;
+
+	public Contact putContactByUuidContactUuid(
+			String contactUuid, Contact contact)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putContactByUuidContactUuidHttpResponse(
+			String contactUuid, Contact contact)
 		throws Exception;
 
 	public static class Builder {
@@ -613,9 +618,11 @@ public interface ContactResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteContactByUuid(String uuid) throws Exception {
+		public void deleteContactByUuidContactUuid(String contactUuid)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				deleteContactByUuidHttpResponse(uuid);
+				deleteContactByUuidContactUuidHttpResponse(contactUuid);
 
 			String content = httpResponse.getContent();
 
@@ -626,8 +633,8 @@ public interface ContactResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse deleteContactByUuidHttpResponse(
-				String uuid)
+		public HttpInvoker.HttpResponse
+				deleteContactByUuidContactUuidHttpResponse(String contactUuid)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -642,8 +649,8 @@ public interface ContactResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}",
-				uuid);
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}",
+				contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -651,9 +658,11 @@ public interface ContactResource {
 			return httpInvoker.invoke();
 		}
 
-		public Contact getContactByUuid(String uuid) throws Exception {
+		public Contact getContactByUuidContactUuid(String contactUuid)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				getContactByUuidHttpResponse(uuid);
+				getContactByUuidContactUuidHttpResponse(contactUuid);
 
 			String content = httpResponse.getContent();
 
@@ -675,8 +684,8 @@ public interface ContactResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getContactByUuidHttpResponse(
-				String uuid)
+		public HttpInvoker.HttpResponse getContactByUuidContactUuidHttpResponse(
+				String contactUuid)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -691,8 +700,8 @@ public interface ContactResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}",
-				uuid);
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}",
+				contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -700,11 +709,12 @@ public interface ContactResource {
 			return httpInvoker.invoke();
 		}
 
-		public Contact putContactByUuid(String uuid, Contact contact)
+		public Contact putContactByUuidContactUuid(
+				String contactUuid, Contact contact)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putContactByUuidHttpResponse(uuid, contact);
+				putContactByUuidContactUuidHttpResponse(contactUuid, contact);
 
 			String content = httpResponse.getContent();
 
@@ -726,8 +736,8 @@ public interface ContactResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse putContactByUuidHttpResponse(
-				String uuid, Contact contact)
+		public HttpInvoker.HttpResponse putContactByUuidContactUuidHttpResponse(
+				String contactUuid, Contact contact)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -744,8 +754,8 @@ public interface ContactResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}",
-				uuid);
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}",
+				contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

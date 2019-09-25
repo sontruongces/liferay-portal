@@ -213,6 +213,13 @@ public class ContactLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Contact fetchContactByOktaId(
+		String oktaId) {
+
+		return _contactLocalService.fetchContactByOktaId(oktaId);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact fetchContactByUuid(
 		String uuid) {
 

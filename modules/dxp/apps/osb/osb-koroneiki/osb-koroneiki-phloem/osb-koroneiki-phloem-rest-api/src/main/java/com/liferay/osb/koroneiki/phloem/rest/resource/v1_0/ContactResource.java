@@ -66,11 +66,14 @@ public interface ContactResource {
 	public Contact putContactByOkta(String oktaId, Contact contact)
 		throws Exception;
 
-	public void deleteContactByUuid(String uuid) throws Exception;
+	public void deleteContactByUuidContactUuid(String contactUuid)
+		throws Exception;
 
-	public Contact getContactByUuid(String uuid) throws Exception;
+	public Contact getContactByUuidContactUuid(String contactUuid)
+		throws Exception;
 
-	public Contact putContactByUuid(String uuid, Contact contact)
+	public Contact putContactByUuidContactUuid(
+			String contactUuid, Contact contact)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

@@ -55,13 +55,23 @@ public interface ProductPurchaseResource {
 				String accountKey, ProductPurchase productPurchase)
 		throws Exception;
 
-	public Page<ProductPurchase> getContactContactKeyProductPurchasesPage(
-			String contactKey, Pagination pagination)
+	public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
+			String oktaId, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getContactContactKeyProductPurchasesPageHttpResponse(
-				String contactKey, Pagination pagination)
+			getContactByOktaProductPurchasesPageHttpResponse(
+				String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<ProductPurchase>
+			getContactByUuidContactUuidProductPurchasesPage(
+				String contactUuid, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getContactByUuidContactUuidProductPurchasesPageHttpResponse(
+				String contactUuid, Pagination pagination)
 		throws Exception;
 
 	public Page<ProductPurchase> getProductPurchasesPage(
@@ -258,13 +268,13 @@ public interface ProductPurchaseResource {
 			return httpInvoker.invoke();
 		}
 
-		public Page<ProductPurchase> getContactContactKeyProductPurchasesPage(
-				String contactKey, Pagination pagination)
+		public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
+				String oktaId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getContactContactKeyProductPurchasesPageHttpResponse(
-					contactKey, pagination);
+				getContactByOktaProductPurchasesPageHttpResponse(
+					oktaId, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -278,8 +288,8 @@ public interface ProductPurchaseResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getContactContactKeyProductPurchasesPageHttpResponse(
-					String contactKey, Pagination pagination)
+				getContactByOktaProductPurchasesPageHttpResponse(
+					String oktaId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -301,8 +311,61 @@ public interface ProductPurchaseResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/{contactKey}/product-purchases",
-				contactKey);
+						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/product-purchases",
+				oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ProductPurchase>
+				getContactByUuidContactUuidProductPurchasesPage(
+					String contactUuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getContactByUuidContactUuidProductPurchasesPageHttpResponse(
+					contactUuid, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ProductPurchaseSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getContactByUuidContactUuidProductPurchasesPageHttpResponse(
+					String contactUuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/product-purchases",
+				contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

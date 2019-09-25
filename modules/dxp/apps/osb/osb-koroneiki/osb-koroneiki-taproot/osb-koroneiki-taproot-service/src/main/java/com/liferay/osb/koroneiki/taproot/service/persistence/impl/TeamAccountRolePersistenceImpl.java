@@ -187,7 +187,7 @@ public class TeamAccountRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (TeamAccountRole teamAccountRole : list) {
-					if ((teamId != teamAccountRole.getTeamId())) {
+					if (teamId != teamAccountRole.getTeamId()) {
 						list = null;
 
 						break;
@@ -704,7 +704,7 @@ public class TeamAccountRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (TeamAccountRole teamAccountRole : list) {
-					if ((accountId != teamAccountRole.getAccountId())) {
+					if (accountId != teamAccountRole.getAccountId()) {
 						list = null;
 
 						break;
@@ -1224,7 +1224,7 @@ public class TeamAccountRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (TeamAccountRole teamAccountRole : list) {
-					if ((teamRoleId != teamAccountRole.getTeamRoleId())) {
+					if (teamRoleId != teamAccountRole.getTeamRoleId()) {
 						list = null;
 
 						break;

@@ -210,6 +210,12 @@ public class ContactLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact
+		fetchContactByOktaId(String oktaId) {
+
+		return getService().fetchContactByOktaId(oktaId);
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.Contact
 		fetchContactByUuid(String uuid) {
 
 		return getService().fetchContactByUuid(uuid);

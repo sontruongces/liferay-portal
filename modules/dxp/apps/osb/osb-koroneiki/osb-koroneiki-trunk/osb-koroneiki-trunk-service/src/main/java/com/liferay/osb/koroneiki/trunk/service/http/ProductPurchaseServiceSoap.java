@@ -226,7 +226,7 @@ public class ProductPurchaseServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap[]
-			getContactProductPurchases(String contactKey, int start, int end)
+			getContactProductPurchases(long contactId, int start, int end)
 		throws RemoteException {
 
 		try {
@@ -234,7 +234,7 @@ public class ProductPurchaseServiceSoap {
 				<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
 					returnValue =
 						ProductPurchaseServiceUtil.getContactProductPurchases(
-							contactKey, start, end);
+							contactId, start, end);
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap.
 				toSoapModels(returnValue);
@@ -246,13 +246,13 @@ public class ProductPurchaseServiceSoap {
 		}
 	}
 
-	public static int getContactProductPurchasesCount(String contactKey)
+	public static int getContactProductPurchasesCount(long contactId)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				ProductPurchaseServiceUtil.getContactProductPurchasesCount(
-					contactKey);
+					contactId);
 
 			return returnValue;
 		}

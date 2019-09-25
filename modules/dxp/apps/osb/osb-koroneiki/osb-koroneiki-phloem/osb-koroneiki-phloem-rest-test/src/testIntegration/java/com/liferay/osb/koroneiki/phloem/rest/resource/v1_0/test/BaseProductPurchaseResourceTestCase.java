@@ -340,30 +340,25 @@ public abstract class BaseProductPurchaseResourceTestCase {
 	}
 
 	@Test
-	public void testGetContactContactKeyProductPurchasesPage()
-		throws Exception {
-
+	public void testGetContactByOktaProductPurchasesPage() throws Exception {
 		Page<ProductPurchase> page =
-			productPurchaseResource.getContactContactKeyProductPurchasesPage(
-				testGetContactContactKeyProductPurchasesPage_getContactKey(),
+			productPurchaseResource.getContactByOktaProductPurchasesPage(
+				testGetContactByOktaProductPurchasesPage_getOktaId(),
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		String contactKey =
-			testGetContactContactKeyProductPurchasesPage_getContactKey();
-		String irrelevantContactKey =
-			testGetContactContactKeyProductPurchasesPage_getIrrelevantContactKey();
+		String oktaId = testGetContactByOktaProductPurchasesPage_getOktaId();
+		String irrelevantOktaId =
+			testGetContactByOktaProductPurchasesPage_getIrrelevantOktaId();
 
-		if ((irrelevantContactKey != null)) {
+		if ((irrelevantOktaId != null)) {
 			ProductPurchase irrelevantProductPurchase =
-				testGetContactContactKeyProductPurchasesPage_addProductPurchase(
-					irrelevantContactKey, randomIrrelevantProductPurchase());
+				testGetContactByOktaProductPurchasesPage_addProductPurchase(
+					irrelevantOktaId, randomIrrelevantProductPurchase());
 
-			page =
-				productPurchaseResource.
-					getContactContactKeyProductPurchasesPage(
-						irrelevantContactKey, Pagination.of(1, 2));
+			page = productPurchaseResource.getContactByOktaProductPurchasesPage(
+				irrelevantOktaId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -374,15 +369,15 @@ public abstract class BaseProductPurchaseResourceTestCase {
 		}
 
 		ProductPurchase productPurchase1 =
-			testGetContactContactKeyProductPurchasesPage_addProductPurchase(
-				contactKey, randomProductPurchase());
+			testGetContactByOktaProductPurchasesPage_addProductPurchase(
+				oktaId, randomProductPurchase());
 
 		ProductPurchase productPurchase2 =
-			testGetContactContactKeyProductPurchasesPage_addProductPurchase(
-				contactKey, randomProductPurchase());
+			testGetContactByOktaProductPurchasesPage_addProductPurchase(
+				oktaId, randomProductPurchase());
 
-		page = productPurchaseResource.getContactContactKeyProductPurchasesPage(
-			contactKey, Pagination.of(1, 2));
+		page = productPurchaseResource.getContactByOktaProductPurchasesPage(
+			oktaId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -393,27 +388,26 @@ public abstract class BaseProductPurchaseResourceTestCase {
 	}
 
 	@Test
-	public void testGetContactContactKeyProductPurchasesPageWithPagination()
+	public void testGetContactByOktaProductPurchasesPageWithPagination()
 		throws Exception {
 
-		String contactKey =
-			testGetContactContactKeyProductPurchasesPage_getContactKey();
+		String oktaId = testGetContactByOktaProductPurchasesPage_getOktaId();
 
 		ProductPurchase productPurchase1 =
-			testGetContactContactKeyProductPurchasesPage_addProductPurchase(
-				contactKey, randomProductPurchase());
+			testGetContactByOktaProductPurchasesPage_addProductPurchase(
+				oktaId, randomProductPurchase());
 
 		ProductPurchase productPurchase2 =
-			testGetContactContactKeyProductPurchasesPage_addProductPurchase(
-				contactKey, randomProductPurchase());
+			testGetContactByOktaProductPurchasesPage_addProductPurchase(
+				oktaId, randomProductPurchase());
 
 		ProductPurchase productPurchase3 =
-			testGetContactContactKeyProductPurchasesPage_addProductPurchase(
-				contactKey, randomProductPurchase());
+			testGetContactByOktaProductPurchasesPage_addProductPurchase(
+				oktaId, randomProductPurchase());
 
 		Page<ProductPurchase> page1 =
-			productPurchaseResource.getContactContactKeyProductPurchasesPage(
-				contactKey, Pagination.of(1, 2));
+			productPurchaseResource.getContactByOktaProductPurchasesPage(
+				oktaId, Pagination.of(1, 2));
 
 		List<ProductPurchase> productPurchases1 =
 			(List<ProductPurchase>)page1.getItems();
@@ -422,8 +416,8 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			productPurchases1.toString(), 2, productPurchases1.size());
 
 		Page<ProductPurchase> page2 =
-			productPurchaseResource.getContactContactKeyProductPurchasesPage(
-				contactKey, Pagination.of(2, 2));
+			productPurchaseResource.getContactByOktaProductPurchasesPage(
+				oktaId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -434,8 +428,8 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			productPurchases2.toString(), 1, productPurchases2.size());
 
 		Page<ProductPurchase> page3 =
-			productPurchaseResource.getContactContactKeyProductPurchasesPage(
-				contactKey, Pagination.of(1, 3));
+			productPurchaseResource.getContactByOktaProductPurchasesPage(
+				oktaId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(productPurchase1, productPurchase2, productPurchase3),
@@ -443,8 +437,15 @@ public abstract class BaseProductPurchaseResourceTestCase {
 	}
 
 	protected ProductPurchase
-			testGetContactContactKeyProductPurchasesPage_addProductPurchase(
-				String contactKey, ProductPurchase productPurchase)
+			testGetContactByOktaProductPurchasesPage_addProductPurchase(
+				String oktaId, ProductPurchase productPurchase)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetContactByOktaProductPurchasesPage_getOktaId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -452,7 +453,124 @@ public abstract class BaseProductPurchaseResourceTestCase {
 	}
 
 	protected String
-			testGetContactContactKeyProductPurchasesPage_getContactKey()
+			testGetContactByOktaProductPurchasesPage_getIrrelevantOktaId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testGetContactByUuidContactUuidProductPurchasesPage()
+		throws Exception {
+
+		Page<ProductPurchase> page =
+			productPurchaseResource.
+				getContactByUuidContactUuidProductPurchasesPage(
+					testGetContactByUuidContactUuidProductPurchasesPage_getContactUuid(),
+					Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String contactUuid =
+			testGetContactByUuidContactUuidProductPurchasesPage_getContactUuid();
+		String irrelevantContactUuid =
+			testGetContactByUuidContactUuidProductPurchasesPage_getIrrelevantContactUuid();
+
+		if ((irrelevantContactUuid != null)) {
+			ProductPurchase irrelevantProductPurchase =
+				testGetContactByUuidContactUuidProductPurchasesPage_addProductPurchase(
+					irrelevantContactUuid, randomIrrelevantProductPurchase());
+
+			page =
+				productPurchaseResource.
+					getContactByUuidContactUuidProductPurchasesPage(
+						irrelevantContactUuid, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantProductPurchase),
+				(List<ProductPurchase>)page.getItems());
+			assertValid(page);
+		}
+
+		ProductPurchase productPurchase1 =
+			testGetContactByUuidContactUuidProductPurchasesPage_addProductPurchase(
+				contactUuid, randomProductPurchase());
+
+		ProductPurchase productPurchase2 =
+			testGetContactByUuidContactUuidProductPurchasesPage_addProductPurchase(
+				contactUuid, randomProductPurchase());
+
+		page =
+			productPurchaseResource.
+				getContactByUuidContactUuidProductPurchasesPage(
+					contactUuid, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(productPurchase1, productPurchase2),
+			(List<ProductPurchase>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetContactByUuidContactUuidProductPurchasesPageWithPagination()
+		throws Exception {
+
+		String contactUuid =
+			testGetContactByUuidContactUuidProductPurchasesPage_getContactUuid();
+
+		ProductPurchase productPurchase1 =
+			testGetContactByUuidContactUuidProductPurchasesPage_addProductPurchase(
+				contactUuid, randomProductPurchase());
+
+		ProductPurchase productPurchase2 =
+			testGetContactByUuidContactUuidProductPurchasesPage_addProductPurchase(
+				contactUuid, randomProductPurchase());
+
+		ProductPurchase productPurchase3 =
+			testGetContactByUuidContactUuidProductPurchasesPage_addProductPurchase(
+				contactUuid, randomProductPurchase());
+
+		Page<ProductPurchase> page1 =
+			productPurchaseResource.
+				getContactByUuidContactUuidProductPurchasesPage(
+					contactUuid, Pagination.of(1, 2));
+
+		List<ProductPurchase> productPurchases1 =
+			(List<ProductPurchase>)page1.getItems();
+
+		Assert.assertEquals(
+			productPurchases1.toString(), 2, productPurchases1.size());
+
+		Page<ProductPurchase> page2 =
+			productPurchaseResource.
+				getContactByUuidContactUuidProductPurchasesPage(
+					contactUuid, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<ProductPurchase> productPurchases2 =
+			(List<ProductPurchase>)page2.getItems();
+
+		Assert.assertEquals(
+			productPurchases2.toString(), 1, productPurchases2.size());
+
+		Page<ProductPurchase> page3 =
+			productPurchaseResource.
+				getContactByUuidContactUuidProductPurchasesPage(
+					contactUuid, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(productPurchase1, productPurchase2, productPurchase3),
+			(List<ProductPurchase>)page3.getItems());
+	}
+
+	protected ProductPurchase
+			testGetContactByUuidContactUuidProductPurchasesPage_addProductPurchase(
+				String contactUuid, ProductPurchase productPurchase)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -460,7 +578,15 @@ public abstract class BaseProductPurchaseResourceTestCase {
 	}
 
 	protected String
-			testGetContactContactKeyProductPurchasesPage_getIrrelevantContactKey()
+			testGetContactByUuidContactUuidProductPurchasesPage_getContactUuid()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetContactByUuidContactUuidProductPurchasesPage_getIrrelevantContactUuid()
 		throws Exception {
 
 		return null;

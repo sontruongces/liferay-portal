@@ -64,17 +64,33 @@ public interface AccountResource {
 	public Account postAccountChildAccount(String accountKey, Account account)
 		throws Exception;
 
-	public void deleteAccountContact(String accountKey, String[] contactUuids)
+	public void deleteAccountContactByOkta(String accountKey, String[] oktaIds)
 		throws Exception;
 
-	public void putAccountContact(String accountKey, String[] contactUuids)
+	public void putAccountContactByOkta(String accountKey, String[] oktaIds)
 		throws Exception;
 
-	public void deleteAccountContactContactUuidRole(
+	public void deleteAccountContactByOktaRole(
+			String accountKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public void putAccountContactByOktaRole(
+			String accountKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public void deleteAccountContactByUuid(
+			String accountKey, String[] contactUuids)
+		throws Exception;
+
+	public void putAccountContactByUuid(
+			String accountKey, String[] contactUuids)
+		throws Exception;
+
+	public void deleteAccountContactByUuidContactUuidRole(
 			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
-	public void putAccountContactContactUuidRole(
+	public void putAccountContactByUuidContactUuidRole(
 			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 

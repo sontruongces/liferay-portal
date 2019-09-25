@@ -72,21 +72,22 @@ public interface ExternalLinkResource {
 			String oktaId, ExternalLink externalLink)
 		throws Exception;
 
-	public Page<ExternalLink> getContactByUuidExternalLinksPage(
-			String uuid, Pagination pagination)
+	public Page<ExternalLink> getContactByUuidContactUuidExternalLinksPage(
+			String contactUuid, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getContactByUuidExternalLinksPageHttpResponse(
-				String uuid, Pagination pagination)
+			getContactByUuidContactUuidExternalLinksPageHttpResponse(
+				String contactUuid, Pagination pagination)
 		throws Exception;
 
-	public ExternalLink postContactByUuidExternalLink(
-			String uuid, ExternalLink externalLink)
+	public ExternalLink postContactByUuidContactUuidExternalLink(
+			String contactUuid, ExternalLink externalLink)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse postContactByUuidExternalLinkHttpResponse(
-			String uuid, ExternalLink externalLink)
+	public HttpInvoker.HttpResponse
+			postContactByUuidContactUuidExternalLinkHttpResponse(
+				String contactUuid, ExternalLink externalLink)
 		throws Exception;
 
 	public void deleteExternalLink(String externalLinkKey) throws Exception;
@@ -431,12 +432,13 @@ public interface ExternalLinkResource {
 			return httpInvoker.invoke();
 		}
 
-		public Page<ExternalLink> getContactByUuidExternalLinksPage(
-				String uuid, Pagination pagination)
+		public Page<ExternalLink> getContactByUuidContactUuidExternalLinksPage(
+				String contactUuid, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getContactByUuidExternalLinksPageHttpResponse(uuid, pagination);
+				getContactByUuidContactUuidExternalLinksPageHttpResponse(
+					contactUuid, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -450,8 +452,8 @@ public interface ExternalLinkResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getContactByUuidExternalLinksPageHttpResponse(
-					String uuid, Pagination pagination)
+				getContactByUuidContactUuidExternalLinksPageHttpResponse(
+					String contactUuid, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -473,8 +475,8 @@ public interface ExternalLinkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}/external-links",
-				uuid);
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/external-links",
+				contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -482,12 +484,13 @@ public interface ExternalLinkResource {
 			return httpInvoker.invoke();
 		}
 
-		public ExternalLink postContactByUuidExternalLink(
-				String uuid, ExternalLink externalLink)
+		public ExternalLink postContactByUuidContactUuidExternalLink(
+				String contactUuid, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postContactByUuidExternalLinkHttpResponse(uuid, externalLink);
+				postContactByUuidContactUuidExternalLinkHttpResponse(
+					contactUuid, externalLink);
 
 			String content = httpResponse.getContent();
 
@@ -510,8 +513,8 @@ public interface ExternalLinkResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				postContactByUuidExternalLinkHttpResponse(
-					String uuid, ExternalLink externalLink)
+				postContactByUuidContactUuidExternalLinkHttpResponse(
+					String contactUuid, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -528,8 +531,8 @@ public interface ExternalLinkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}/external-links",
-				uuid);
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/external-links",
+				contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

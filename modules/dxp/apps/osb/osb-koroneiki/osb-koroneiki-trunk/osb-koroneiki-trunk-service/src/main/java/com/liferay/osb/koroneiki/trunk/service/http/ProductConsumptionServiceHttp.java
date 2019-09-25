@@ -429,7 +429,7 @@ public class ProductConsumptionServiceHttp {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
 				getContactProductConsumptions(
-					HttpPrincipal httpPrincipal, String contactKey, int start,
+					HttpPrincipal httpPrincipal, long contactId, int start,
 					int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -440,7 +440,7 @@ public class ProductConsumptionServiceHttp {
 				_getContactProductConsumptionsParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, contactKey, start, end);
+				methodKey, contactId, start, end);
 
 			Object returnObj = null;
 
@@ -471,7 +471,7 @@ public class ProductConsumptionServiceHttp {
 	}
 
 	public static int getContactProductConsumptionsCount(
-			HttpPrincipal httpPrincipal, String contactKey)
+			HttpPrincipal httpPrincipal, long contactId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -481,7 +481,7 @@ public class ProductConsumptionServiceHttp {
 				_getContactProductConsumptionsCountParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, contactKey);
+				methodKey, contactId);
 
 			Object returnObj = null;
 
@@ -703,11 +703,11 @@ public class ProductConsumptionServiceHttp {
 		};
 	private static final Class<?>[]
 		_getContactProductConsumptionsParameterTypes9 = new Class[] {
-			String.class, int.class, int.class
+			long.class, int.class, int.class
 		};
 	private static final Class<?>[]
 		_getContactProductConsumptionsCountParameterTypes10 = new Class[] {
-			String.class
+			long.class
 		};
 	private static final Class<?>[] _getProductConsumptionParameterTypes11 =
 		new Class[] {long.class};

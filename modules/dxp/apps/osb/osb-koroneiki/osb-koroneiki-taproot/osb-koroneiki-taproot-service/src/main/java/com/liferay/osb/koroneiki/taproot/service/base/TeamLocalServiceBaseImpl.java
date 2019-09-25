@@ -79,7 +79,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class TeamLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements TeamLocalService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, TeamLocalService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

@@ -67,20 +67,46 @@ public abstract class BaseContactRoleResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@GET
+	@Operation(description = "Retrieves the account's contact's contact roles.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/accounts/{accountKey}/contacts/{contactUuid}/roles")
+	@Path("/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ContactRole")})
-	public Page<ContactRole> getAccountAccountKeyContactContactUuidRolesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
-				contactUuid,
-			@Context Pagination pagination)
+	public Page<ContactRole>
+			getAccountAccountKeyContactByUuidContactUuidRolesPage(
+				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
+					String accountKey,
+				@NotNull @Parameter(hidden = true) @PathParam("contactUuid")
+					String contactUuid,
+				@Context Pagination pagination)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());

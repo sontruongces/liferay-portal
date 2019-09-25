@@ -120,19 +120,19 @@ public class ProductPurchaseServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
-			getContactProductPurchases(String contactKey, int start, int end)
+			getContactProductPurchases(long contactId, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseService.getContactProductPurchases(
-			contactKey, start, end);
+			contactId, start, end);
 	}
 
 	@Override
-	public int getContactProductPurchasesCount(String contactKey)
+	public int getContactProductPurchasesCount(long contactId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseService.getContactProductPurchasesCount(
-			contactKey);
+			contactId);
 	}
 
 	/**

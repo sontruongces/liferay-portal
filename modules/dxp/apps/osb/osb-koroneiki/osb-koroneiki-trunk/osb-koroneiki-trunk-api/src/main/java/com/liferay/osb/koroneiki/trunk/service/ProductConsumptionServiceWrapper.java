@@ -133,19 +133,19 @@ public class ProductConsumptionServiceWrapper
 	public java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
 				getContactProductConsumptions(
-					String contactKey, int start, int end)
+					long contactId, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productConsumptionService.getContactProductConsumptions(
-			contactKey, start, end);
+			contactId, start, end);
 	}
 
 	@Override
-	public int getContactProductConsumptionsCount(String contactKey)
+	public int getContactProductConsumptionsCount(long contactId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productConsumptionService.getContactProductConsumptionsCount(
-			contactKey);
+			contactId);
 	}
 
 	/**

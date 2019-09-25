@@ -180,7 +180,69 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean deleteAccountContact(
+	public boolean deleteAccountContactByOkta(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("oktaIds") String[] oktaIds)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.deleteAccountContactByOkta(
+				accountKey, oktaIds));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean putAccountContactByOkta(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("oktaIds") String[] oktaIds)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.putAccountContactByOkta(
+				accountKey, oktaIds));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteAccountContactByOktaRole(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("oktaId") String oktaId,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.deleteAccountContactByOktaRole(
+				accountKey, oktaId, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean putAccountContactByOktaRole(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("oktaId") String oktaId,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.putAccountContactByOktaRole(
+				accountKey, oktaId, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteAccountContactByUuid(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
@@ -188,14 +250,14 @@ public class Mutation {
 		_applyVoidComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.deleteAccountContact(
+			accountResource -> accountResource.deleteAccountContactByUuid(
 				accountKey, contactUuids));
 
 		return true;
 	}
 
 	@GraphQLField
-	public boolean putAccountContact(
+	public boolean putAccountContactByUuid(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
@@ -203,14 +265,14 @@ public class Mutation {
 		_applyVoidComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.putAccountContact(
+			accountResource -> accountResource.putAccountContactByUuid(
 				accountKey, contactUuids));
 
 		return true;
 	}
 
 	@GraphQLField
-	public boolean deleteAccountContactContactUuidRole(
+	public boolean deleteAccountContactByUuidContactUuidRole(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -220,14 +282,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource ->
-				accountResource.deleteAccountContactContactUuidRole(
+				accountResource.deleteAccountContactByUuidContactUuidRole(
 					accountKey, contactUuid, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
-	public boolean putAccountContactContactUuidRole(
+	public boolean putAccountContactByUuidContactUuidRole(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -236,8 +298,9 @@ public class Mutation {
 		_applyVoidComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.putAccountContactContactUuidRole(
-				accountKey, contactUuid, contactRoleKeys));
+			accountResource ->
+				accountResource.putAccountContactByUuidContactUuidRole(
+					accountKey, contactUuid, contactRoleKeys));
 
 		return true;
 	}
@@ -339,27 +402,30 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean deleteContactByUuid(@GraphQLName("uuid") String uuid)
+	public boolean deleteContactByUuidContactUuid(
+			@GraphQLName("contactUuid") String contactUuid)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			contactResource -> contactResource.deleteContactByUuid(uuid));
+			contactResource -> contactResource.deleteContactByUuidContactUuid(
+				contactUuid));
 
 		return true;
 	}
 
 	@GraphQLField
-	public Contact putContactByUuid(
-			@GraphQLName("uuid") String uuid,
+	public Contact putContactByUuidContactUuid(
+			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contact") Contact contact)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			contactResource -> contactResource.putContactByUuid(uuid, contact));
+			contactResource -> contactResource.putContactByUuidContactUuid(
+				contactUuid, contact));
 	}
 
 	@GraphQLField
@@ -430,8 +496,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postContactByUuidExternalLink(
-			@GraphQLName("uuid") String uuid,
+	public ExternalLink postContactByUuidContactUuidExternalLink(
+			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
 
@@ -439,8 +505,8 @@ public class Mutation {
 			_externalLinkResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			externalLinkResource ->
-				externalLinkResource.postContactByUuidExternalLink(
-					uuid, externalLink));
+				externalLinkResource.postContactByUuidContactUuidExternalLink(
+					contactUuid, externalLink));
 	}
 
 	@GraphQLField

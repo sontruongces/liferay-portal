@@ -212,24 +212,30 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 
 	@Override
 	@DELETE
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "uuid")})
-	@Path("/contacts/by-uuid/{uuid}")
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
+	)
+	@Path("/contacts/by-uuid/{contactUuid}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
-	public void deleteContactByUuid(
-			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid)
+	public void deleteContactByUuidContactUuid(
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid)
 		throws Exception {
 	}
 
 	@Override
 	@GET
 	@Operation(description = "Retrieves the contact.")
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "uuid")})
-	@Path("/contacts/by-uuid/{uuid}")
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
+	)
+	@Path("/contacts/by-uuid/{contactUuid}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
-	public Contact getContactByUuid(
-			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid)
+	public Contact getContactByUuidContactUuid(
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid)
 		throws Exception {
 
 		return new Contact();
@@ -238,12 +244,15 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "uuid")})
-	@Path("/contacts/by-uuid/{uuid}")
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
+	)
+	@Path("/contacts/by-uuid/{contactUuid}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
-	public Contact putContactByUuid(
-			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid,
+	public Contact putContactByUuidContactUuid(
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid,
 			Contact contact)
 		throws Exception {
 

@@ -53,12 +53,12 @@ public interface ExternalLinkResource {
 			String oktaId, ExternalLink externalLink)
 		throws Exception;
 
-	public Page<ExternalLink> getContactByUuidExternalLinksPage(
-			String uuid, Pagination pagination)
+	public Page<ExternalLink> getContactByUuidContactUuidExternalLinksPage(
+			String contactUuid, Pagination pagination)
 		throws Exception;
 
-	public ExternalLink postContactByUuidExternalLink(
-			String uuid, ExternalLink externalLink)
+	public ExternalLink postContactByUuidContactUuidExternalLink(
+			String contactUuid, ExternalLink externalLink)
 		throws Exception;
 
 	public void deleteExternalLink(String externalLinkKey) throws Exception;

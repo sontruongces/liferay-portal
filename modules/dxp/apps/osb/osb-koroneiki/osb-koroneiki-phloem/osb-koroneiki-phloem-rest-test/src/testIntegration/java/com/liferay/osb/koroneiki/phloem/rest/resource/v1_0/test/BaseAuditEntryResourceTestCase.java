@@ -555,25 +555,29 @@ public abstract class BaseAuditEntryResourceTestCase {
 	}
 
 	@Test
-	public void testGetContactByUuidAuditEntriesPage() throws Exception {
+	public void testGetContactByUuidContactUuidAuditEntriesPage()
+		throws Exception {
+
 		Page<AuditEntry> page =
-			auditEntryResource.getContactByUuidAuditEntriesPage(
-				testGetContactByUuidAuditEntriesPage_getUuid(),
+			auditEntryResource.getContactByUuidContactUuidAuditEntriesPage(
+				testGetContactByUuidContactUuidAuditEntriesPage_getContactUuid(),
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		String uuid = testGetContactByUuidAuditEntriesPage_getUuid();
-		String irrelevantUuid =
-			testGetContactByUuidAuditEntriesPage_getIrrelevantUuid();
+		String contactUuid =
+			testGetContactByUuidContactUuidAuditEntriesPage_getContactUuid();
+		String irrelevantContactUuid =
+			testGetContactByUuidContactUuidAuditEntriesPage_getIrrelevantContactUuid();
 
-		if ((irrelevantUuid != null)) {
+		if ((irrelevantContactUuid != null)) {
 			AuditEntry irrelevantAuditEntry =
-				testGetContactByUuidAuditEntriesPage_addAuditEntry(
-					irrelevantUuid, randomIrrelevantAuditEntry());
+				testGetContactByUuidContactUuidAuditEntriesPage_addAuditEntry(
+					irrelevantContactUuid, randomIrrelevantAuditEntry());
 
-			page = auditEntryResource.getContactByUuidAuditEntriesPage(
-				irrelevantUuid, Pagination.of(1, 2));
+			page =
+				auditEntryResource.getContactByUuidContactUuidAuditEntriesPage(
+					irrelevantContactUuid, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -584,15 +588,15 @@ public abstract class BaseAuditEntryResourceTestCase {
 		}
 
 		AuditEntry auditEntry1 =
-			testGetContactByUuidAuditEntriesPage_addAuditEntry(
-				uuid, randomAuditEntry());
+			testGetContactByUuidContactUuidAuditEntriesPage_addAuditEntry(
+				contactUuid, randomAuditEntry());
 
 		AuditEntry auditEntry2 =
-			testGetContactByUuidAuditEntriesPage_addAuditEntry(
-				uuid, randomAuditEntry());
+			testGetContactByUuidContactUuidAuditEntriesPage_addAuditEntry(
+				contactUuid, randomAuditEntry());
 
-		page = auditEntryResource.getContactByUuidAuditEntriesPage(
-			uuid, Pagination.of(1, 2));
+		page = auditEntryResource.getContactByUuidContactUuidAuditEntriesPage(
+			contactUuid, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -603,34 +607,35 @@ public abstract class BaseAuditEntryResourceTestCase {
 	}
 
 	@Test
-	public void testGetContactByUuidAuditEntriesPageWithPagination()
+	public void testGetContactByUuidContactUuidAuditEntriesPageWithPagination()
 		throws Exception {
 
-		String uuid = testGetContactByUuidAuditEntriesPage_getUuid();
+		String contactUuid =
+			testGetContactByUuidContactUuidAuditEntriesPage_getContactUuid();
 
 		AuditEntry auditEntry1 =
-			testGetContactByUuidAuditEntriesPage_addAuditEntry(
-				uuid, randomAuditEntry());
+			testGetContactByUuidContactUuidAuditEntriesPage_addAuditEntry(
+				contactUuid, randomAuditEntry());
 
 		AuditEntry auditEntry2 =
-			testGetContactByUuidAuditEntriesPage_addAuditEntry(
-				uuid, randomAuditEntry());
+			testGetContactByUuidContactUuidAuditEntriesPage_addAuditEntry(
+				contactUuid, randomAuditEntry());
 
 		AuditEntry auditEntry3 =
-			testGetContactByUuidAuditEntriesPage_addAuditEntry(
-				uuid, randomAuditEntry());
+			testGetContactByUuidContactUuidAuditEntriesPage_addAuditEntry(
+				contactUuid, randomAuditEntry());
 
 		Page<AuditEntry> page1 =
-			auditEntryResource.getContactByUuidAuditEntriesPage(
-				uuid, Pagination.of(1, 2));
+			auditEntryResource.getContactByUuidContactUuidAuditEntriesPage(
+				contactUuid, Pagination.of(1, 2));
 
 		List<AuditEntry> auditEntries1 = (List<AuditEntry>)page1.getItems();
 
 		Assert.assertEquals(auditEntries1.toString(), 2, auditEntries1.size());
 
 		Page<AuditEntry> page2 =
-			auditEntryResource.getContactByUuidAuditEntriesPage(
-				uuid, Pagination.of(2, 2));
+			auditEntryResource.getContactByUuidContactUuidAuditEntriesPage(
+				contactUuid, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -639,30 +644,33 @@ public abstract class BaseAuditEntryResourceTestCase {
 		Assert.assertEquals(auditEntries2.toString(), 1, auditEntries2.size());
 
 		Page<AuditEntry> page3 =
-			auditEntryResource.getContactByUuidAuditEntriesPage(
-				uuid, Pagination.of(1, 3));
+			auditEntryResource.getContactByUuidContactUuidAuditEntriesPage(
+				contactUuid, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(auditEntry1, auditEntry2, auditEntry3),
 			(List<AuditEntry>)page3.getItems());
 	}
 
-	protected AuditEntry testGetContactByUuidAuditEntriesPage_addAuditEntry(
-			String uuid, AuditEntry auditEntry)
+	protected AuditEntry
+			testGetContactByUuidContactUuidAuditEntriesPage_addAuditEntry(
+				String contactUuid, AuditEntry auditEntry)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected String testGetContactByUuidAuditEntriesPage_getUuid()
+	protected String
+			testGetContactByUuidContactUuidAuditEntriesPage_getContactUuid()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected String testGetContactByUuidAuditEntriesPage_getIrrelevantUuid()
+	protected String
+			testGetContactByUuidContactUuidAuditEntriesPage_getIrrelevantContactUuid()
 		throws Exception {
 
 		return null;

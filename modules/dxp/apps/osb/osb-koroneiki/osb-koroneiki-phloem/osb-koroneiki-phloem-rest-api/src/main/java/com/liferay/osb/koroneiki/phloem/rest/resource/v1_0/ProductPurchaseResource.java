@@ -47,8 +47,13 @@ public interface ProductPurchaseResource {
 			String accountKey, ProductPurchase productPurchase)
 		throws Exception;
 
-	public Page<ProductPurchase> getContactContactKeyProductPurchasesPage(
-			String contactKey, Pagination pagination)
+	public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
+			String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<ProductPurchase>
+			getContactByUuidContactUuidProductPurchasesPage(
+				String contactUuid, Pagination pagination)
 		throws Exception;
 
 	public Page<ProductPurchase> getProductPurchasesPage(

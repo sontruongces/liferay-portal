@@ -95,35 +95,67 @@ public interface AccountResource {
 			String accountKey, Account account)
 		throws Exception;
 
-	public void deleteAccountContact(String accountKey, String[] contactUuids)
+	public void deleteAccountContactByOkta(String accountKey, String[] oktaIds)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse deleteAccountContactHttpResponse(
+	public HttpInvoker.HttpResponse deleteAccountContactByOktaHttpResponse(
+			String accountKey, String[] oktaIds)
+		throws Exception;
+
+	public void putAccountContactByOkta(String accountKey, String[] oktaIds)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putAccountContactByOktaHttpResponse(
+			String accountKey, String[] oktaIds)
+		throws Exception;
+
+	public void deleteAccountContactByOktaRole(
+			String accountKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteAccountContactByOktaRoleHttpResponse(
+			String accountKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public void putAccountContactByOktaRole(
+			String accountKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putAccountContactByOktaRoleHttpResponse(
+			String accountKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public void deleteAccountContactByUuid(
 			String accountKey, String[] contactUuids)
 		throws Exception;
 
-	public void putAccountContact(String accountKey, String[] contactUuids)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse putAccountContactHttpResponse(
+	public HttpInvoker.HttpResponse deleteAccountContactByUuidHttpResponse(
 			String accountKey, String[] contactUuids)
 		throws Exception;
 
-	public void deleteAccountContactContactUuidRole(
+	public void putAccountContactByUuid(
+			String accountKey, String[] contactUuids)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putAccountContactByUuidHttpResponse(
+			String accountKey, String[] contactUuids)
+		throws Exception;
+
+	public void deleteAccountContactByUuidContactUuidRole(
 			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			deleteAccountContactContactUuidRoleHttpResponse(
+			deleteAccountContactByUuidContactUuidRoleHttpResponse(
 				String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
-	public void putAccountContactContactUuidRole(
+	public void putAccountContactByUuidContactUuidRole(
 			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			putAccountContactContactUuidRoleHttpResponse(
+			putAccountContactByUuidContactUuidRoleHttpResponse(
 				String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
@@ -601,12 +633,12 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteAccountContact(
-				String accountKey, String[] contactUuids)
+		public void deleteAccountContactByOkta(
+				String accountKey, String[] oktaIds)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountContactHttpResponse(accountKey, contactUuids);
+				deleteAccountContactByOktaHttpResponse(accountKey, oktaIds);
 
 			String content = httpResponse.getContent();
 
@@ -617,7 +649,206 @@ public interface AccountResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse deleteAccountContactHttpResponse(
+		public HttpInvoker.HttpResponse deleteAccountContactByOktaHttpResponse(
+				String accountKey, String[] oktaIds)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (oktaIds != null) {
+				for (int i = 0; i < oktaIds.length; i++) {
+					httpInvoker.parameter(
+						"oktaIds", String.valueOf(oktaIds[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putAccountContactByOkta(String accountKey, String[] oktaIds)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putAccountContactByOktaHttpResponse(accountKey, oktaIds);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putAccountContactByOktaHttpResponse(
+				String accountKey, String[] oktaIds)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(oktaIds.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (oktaIds != null) {
+				for (int i = 0; i < oktaIds.length; i++) {
+					httpInvoker.parameter(
+						"oktaIds", String.valueOf(oktaIds[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteAccountContactByOktaRole(
+				String accountKey, String oktaId, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteAccountContactByOktaRoleHttpResponse(
+					accountKey, oktaId, contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteAccountContactByOktaRoleHttpResponse(
+					String accountKey, String oktaId, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles",
+				accountKey, oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putAccountContactByOktaRole(
+				String accountKey, String oktaId, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putAccountContactByOktaRoleHttpResponse(
+					accountKey, oktaId, contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putAccountContactByOktaRoleHttpResponse(
+				String accountKey, String oktaId, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles",
+				accountKey, oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteAccountContactByUuid(
+				String accountKey, String[] contactUuids)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteAccountContactByUuidHttpResponse(
+					accountKey, contactUuids);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse deleteAccountContactByUuidHttpResponse(
 				String accountKey, String[] contactUuids)
 			throws Exception {
 
@@ -640,7 +871,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts",
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid",
 				accountKey);
 
 			httpInvoker.userNameAndPassword(
@@ -649,11 +880,12 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putAccountContact(String accountKey, String[] contactUuids)
+		public void putAccountContactByUuid(
+				String accountKey, String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putAccountContactHttpResponse(accountKey, contactUuids);
+				putAccountContactByUuidHttpResponse(accountKey, contactUuids);
 
 			String content = httpResponse.getContent();
 
@@ -664,7 +896,7 @@ public interface AccountResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse putAccountContactHttpResponse(
+		public HttpInvoker.HttpResponse putAccountContactByUuidHttpResponse(
 				String accountKey, String[] contactUuids)
 			throws Exception {
 
@@ -689,7 +921,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts",
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid",
 				accountKey);
 
 			httpInvoker.userNameAndPassword(
@@ -698,12 +930,12 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteAccountContactContactUuidRole(
+		public void deleteAccountContactByUuidContactUuidRole(
 				String accountKey, String contactUuid, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountContactContactUuidRoleHttpResponse(
+				deleteAccountContactByUuidContactUuidRoleHttpResponse(
 					accountKey, contactUuid, contactRoleKeys);
 
 			String content = httpResponse.getContent();
@@ -716,7 +948,7 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				deleteAccountContactContactUuidRoleHttpResponse(
+				deleteAccountContactByUuidContactUuidRoleHttpResponse(
 					String accountKey, String contactUuid,
 					String[] contactRoleKeys)
 			throws Exception {
@@ -740,7 +972,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/{contactUuid}/roles",
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles",
 				accountKey, contactUuid);
 
 			httpInvoker.userNameAndPassword(
@@ -749,12 +981,12 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putAccountContactContactUuidRole(
+		public void putAccountContactByUuidContactUuidRole(
 				String accountKey, String contactUuid, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putAccountContactContactUuidRoleHttpResponse(
+				putAccountContactByUuidContactUuidRoleHttpResponse(
 					accountKey, contactUuid, contactRoleKeys);
 
 			String content = httpResponse.getContent();
@@ -767,7 +999,7 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				putAccountContactContactUuidRoleHttpResponse(
+				putAccountContactByUuidContactUuidRoleHttpResponse(
 					String accountKey, String contactUuid,
 					String[] contactRoleKeys)
 			throws Exception {
@@ -793,7 +1025,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/{contactUuid}/roles",
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles",
 				accountKey, contactUuid);
 
 			httpInvoker.userNameAndPassword(

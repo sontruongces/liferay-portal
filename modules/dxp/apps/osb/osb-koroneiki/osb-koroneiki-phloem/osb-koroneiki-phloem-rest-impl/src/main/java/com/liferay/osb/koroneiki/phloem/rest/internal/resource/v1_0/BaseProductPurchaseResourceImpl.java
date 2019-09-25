@@ -106,18 +106,41 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Operation(description = "Retrieves the contacts product purchases.")
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "contactKey"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/contacts/{contactKey}/product-purchases")
+	@Path("/contacts/by-okta-id/{oktaId}/product-purchases")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductPurchase")})
-	public Page<ProductPurchase> getContactContactKeyProductPurchasesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("contactKey") String
-				contactKey,
+	public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
 			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@GET
+	@Operation(description = "Retrieves the contacts product purchases.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/contacts/by-uuid/{contactUuid}/product-purchases")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ProductPurchase")})
+	public Page<ProductPurchase>
+			getContactByUuidContactUuidProductPurchasesPage(
+				@NotNull @Parameter(hidden = true) @PathParam("contactUuid")
+					String contactUuid,
+				@Context Pagination pagination)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());

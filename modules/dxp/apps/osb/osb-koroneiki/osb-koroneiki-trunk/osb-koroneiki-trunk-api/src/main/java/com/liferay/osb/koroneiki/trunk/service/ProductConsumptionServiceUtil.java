@@ -123,17 +123,17 @@ public class ProductConsumptionServiceUtil {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
 				getContactProductConsumptions(
-					String contactKey, int start, int end)
+					long contactId, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getContactProductConsumptions(
-			contactKey, start, end);
+			contactId, start, end);
 	}
 
-	public static int getContactProductConsumptionsCount(String contactKey)
+	public static int getContactProductConsumptionsCount(long contactId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getContactProductConsumptionsCount(contactKey);
+		return getService().getContactProductConsumptionsCount(contactId);
 	}
 
 	/**

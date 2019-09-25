@@ -94,11 +94,11 @@ public interface ProductConsumptionService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProductConsumption> getContactProductConsumptions(
-			String contactKey, int start, int end)
+			long contactId, int start, int end)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getContactProductConsumptionsCount(String contactKey)
+	public int getContactProductConsumptionsCount(long contactId)
 		throws PortalException;
 
 	/**

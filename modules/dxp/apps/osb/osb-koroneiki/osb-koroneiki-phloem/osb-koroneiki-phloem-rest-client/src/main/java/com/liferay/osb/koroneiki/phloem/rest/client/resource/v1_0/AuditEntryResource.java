@@ -70,13 +70,13 @@ public interface AuditEntryResource {
 				String oktaId, Pagination pagination)
 		throws Exception;
 
-	public Page<AuditEntry> getContactByUuidAuditEntriesPage(
-			String uuid, Pagination pagination)
+	public Page<AuditEntry> getContactByUuidContactUuidAuditEntriesPage(
+			String contactUuid, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getContactByUuidAuditEntriesPageHttpResponse(
-				String uuid, Pagination pagination)
+			getContactByUuidContactUuidAuditEntriesPageHttpResponse(
+				String contactUuid, Pagination pagination)
 		throws Exception;
 
 	public Page<AuditEntry> getTeamRoleTeamRoleKeyAuditEntriesPage(
@@ -342,12 +342,13 @@ public interface AuditEntryResource {
 			return httpInvoker.invoke();
 		}
 
-		public Page<AuditEntry> getContactByUuidAuditEntriesPage(
-				String uuid, Pagination pagination)
+		public Page<AuditEntry> getContactByUuidContactUuidAuditEntriesPage(
+				String contactUuid, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getContactByUuidAuditEntriesPageHttpResponse(uuid, pagination);
+				getContactByUuidContactUuidAuditEntriesPageHttpResponse(
+					contactUuid, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -361,8 +362,8 @@ public interface AuditEntryResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getContactByUuidAuditEntriesPageHttpResponse(
-					String uuid, Pagination pagination)
+				getContactByUuidContactUuidAuditEntriesPageHttpResponse(
+					String contactUuid, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -384,8 +385,8 @@ public interface AuditEntryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{uuid}/audit-entries",
-				uuid);
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/audit-entries",
+				contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

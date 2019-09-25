@@ -279,8 +279,8 @@ public class Query {
 	}
 
 	@GraphQLField
-	public AuditEntryPage getContactByUuidAuditEntriesPage(
-			@GraphQLName("uuid") String uuid,
+	public AuditEntryPage getContactByUuidContactUuidAuditEntriesPage(
+			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -289,8 +289,8 @@ public class Query {
 			_auditEntryResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			auditEntryResource -> new AuditEntryPage(
-				auditEntryResource.getContactByUuidAuditEntriesPage(
-					uuid, Pagination.of(page, pageSize))));
+				auditEntryResource.getContactByUuidContactUuidAuditEntriesPage(
+					contactUuid, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField
@@ -378,19 +378,21 @@ public class Query {
 	}
 
 	@GraphQLField
-	public Contact getContactByUuid(@GraphQLName("uuid") String uuid)
+	public Contact getContactByUuidContactUuid(
+			@GraphQLName("contactUuid") String contactUuid)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			contactResource -> contactResource.getContactByUuid(uuid));
+			contactResource -> contactResource.getContactByUuidContactUuid(
+				contactUuid));
 	}
 
 	@GraphQLField
-	public ContactRolePage getAccountAccountKeyContactContactUuidRolesPage(
+	public ContactRolePage getAccountAccountKeyContactByOktaRolesPage(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("contactUuid") String contactUuid,
+			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -399,8 +401,25 @@ public class Query {
 			_contactRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			contactRoleResource -> new ContactRolePage(
+				contactRoleResource.getAccountAccountKeyContactByOktaRolesPage(
+					accountKey, oktaId, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public ContactRolePage
+			getAccountAccountKeyContactByUuidContactUuidRolesPage(
+				@GraphQLName("accountKey") String accountKey,
+				@GraphQLName("contactUuid") String contactUuid,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactRoleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactRoleResource -> new ContactRolePage(
 				contactRoleResource.
-					getAccountAccountKeyContactContactUuidRolesPage(
+					getAccountAccountKeyContactByUuidContactUuidRolesPage(
 						accountKey, contactUuid,
 						Pagination.of(page, pageSize))));
 	}
@@ -464,8 +483,8 @@ public class Query {
 	}
 
 	@GraphQLField
-	public ExternalLinkPage getContactByUuidExternalLinksPage(
-			@GraphQLName("uuid") String uuid,
+	public ExternalLinkPage getContactByUuidContactUuidExternalLinksPage(
+			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -474,8 +493,9 @@ public class Query {
 			_externalLinkResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			externalLinkResource -> new ExternalLinkPage(
-				externalLinkResource.getContactByUuidExternalLinksPage(
-					uuid, Pagination.of(page, pageSize))));
+				externalLinkResource.
+					getContactByUuidContactUuidExternalLinksPage(
+						contactUuid, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField
@@ -641,8 +661,8 @@ public class Query {
 	}
 
 	@GraphQLField
-	public ProductConsumptionPage getContactContactKeyProductConsumptionsPage(
-			@GraphQLName("contactKey") String contactKey,
+	public ProductConsumptionPage getContactByOktaProductConsumptionsPage(
+			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -652,8 +672,25 @@ public class Query {
 			this::_populateResourceContext,
 			productConsumptionResource -> new ProductConsumptionPage(
 				productConsumptionResource.
-					getContactContactKeyProductConsumptionsPage(
-						contactKey, Pagination.of(page, pageSize))));
+					getContactByOktaProductConsumptionsPage(
+						oktaId, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public ProductConsumptionPage
+			getContactByUuidContactUuidProductConsumptionsPage(
+				@GraphQLName("contactUuid") String contactUuid,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productConsumptionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productConsumptionResource -> new ProductConsumptionPage(
+				productConsumptionResource.
+					getContactByUuidContactUuidProductConsumptionsPage(
+						contactUuid, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField
@@ -722,8 +759,23 @@ public class Query {
 	}
 
 	@GraphQLField
-	public ProductPurchasePage getContactContactKeyProductPurchasesPage(
-			@GraphQLName("contactKey") String contactKey,
+	public ProductPurchasePage getContactByOktaProductPurchasesPage(
+			@GraphQLName("oktaId") String oktaId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productPurchaseResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productPurchaseResource -> new ProductPurchasePage(
+				productPurchaseResource.getContactByOktaProductPurchasesPage(
+					oktaId, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public ProductPurchasePage getContactByUuidContactUuidProductPurchasesPage(
+			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -733,8 +785,8 @@ public class Query {
 			this::_populateResourceContext,
 			productPurchaseResource -> new ProductPurchasePage(
 				productPurchaseResource.
-					getContactContactKeyProductPurchasesPage(
-						contactKey, Pagination.of(page, pageSize))));
+					getContactByUuidContactUuidProductPurchasesPage(
+						contactUuid, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField

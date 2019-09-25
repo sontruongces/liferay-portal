@@ -250,7 +250,7 @@ public class ProductConsumptionServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap[]
-			getContactProductConsumptions(String contactKey, int start, int end)
+			getContactProductConsumptions(long contactId, int start, int end)
 		throws RemoteException {
 
 		try {
@@ -259,7 +259,7 @@ public class ProductConsumptionServiceSoap {
 					returnValue =
 						ProductConsumptionServiceUtil.
 							getContactProductConsumptions(
-								contactKey, start, end);
+								contactId, start, end);
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap.
 				toSoapModels(returnValue);
@@ -271,13 +271,13 @@ public class ProductConsumptionServiceSoap {
 		}
 	}
 
-	public static int getContactProductConsumptionsCount(String contactKey)
+	public static int getContactProductConsumptionsCount(long contactId)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				ProductConsumptionServiceUtil.
-					getContactProductConsumptionsCount(contactKey);
+					getContactProductConsumptionsCount(contactId);
 
 			return returnValue;
 		}

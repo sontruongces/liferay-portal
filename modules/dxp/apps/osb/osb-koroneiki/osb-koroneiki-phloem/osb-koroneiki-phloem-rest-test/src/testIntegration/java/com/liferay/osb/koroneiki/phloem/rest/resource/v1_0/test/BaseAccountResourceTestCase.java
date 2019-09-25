@@ -715,22 +715,44 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteAccountContact() throws Exception {
+	public void testDeleteAccountContactByOkta() throws Exception {
 		Assert.assertTrue(true);
 	}
 
 	@Test
-	public void testPutAccountContact() throws Exception {
+	public void testPutAccountContactByOkta() throws Exception {
 		Assert.assertTrue(true);
 	}
 
 	@Test
-	public void testDeleteAccountContactContactUuidRole() throws Exception {
+	public void testDeleteAccountContactByOktaRole() throws Exception {
 		Assert.assertTrue(true);
 	}
 
 	@Test
-	public void testPutAccountContactContactUuidRole() throws Exception {
+	public void testPutAccountContactByOktaRole() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testDeleteAccountContactByUuid() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPutAccountContactByUuid() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testDeleteAccountContactByUuidContactUuidRole()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPutAccountContactByUuidContactUuidRole() throws Exception {
 		Assert.assertTrue(true);
 	}
 

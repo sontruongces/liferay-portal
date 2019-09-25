@@ -537,17 +537,17 @@ public abstract class BaseContactResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteContactByUuid() throws Exception {
+	public void testDeleteContactByUuidContactUuid() throws Exception {
 		Assert.assertTrue(true);
 	}
 
 	@Test
-	public void testGetContactByUuid() throws Exception {
+	public void testGetContactByUuidContactUuid() throws Exception {
 		Assert.assertTrue(true);
 	}
 
 	@Test
-	public void testPutContactByUuid() throws Exception {
+	public void testPutContactByUuidContactUuid() throws Exception {
 		Assert.assertTrue(true);
 	}
 

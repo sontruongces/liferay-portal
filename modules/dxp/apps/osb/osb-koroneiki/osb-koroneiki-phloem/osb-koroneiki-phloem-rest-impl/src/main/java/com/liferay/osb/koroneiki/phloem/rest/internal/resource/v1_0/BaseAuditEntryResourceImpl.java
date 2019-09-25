@@ -141,16 +141,17 @@ public abstract class BaseAuditEntryResourceImpl implements AuditEntryResource {
 	@Operation(description = "Retrieves the contact's audit history.")
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "uuid"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/contacts/by-uuid/{uuid}/audit-entries")
+	@Path("/contacts/by-uuid/{contactUuid}/audit-entries")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AuditEntry")})
-	public Page<AuditEntry> getContactByUuidAuditEntriesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("uuid") String uuid,
+	public Page<AuditEntry> getContactByUuidContactUuidAuditEntriesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid,
 			@Context Pagination pagination)
 		throws Exception {
 

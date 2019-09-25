@@ -190,6 +190,9 @@ public interface ContactLocalService
 	public Contact fetchContactByEmailAddress(String emailAddress);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Contact fetchContactByOktaId(String oktaId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Contact fetchContactByUuid(String uuid);
 
 	/**

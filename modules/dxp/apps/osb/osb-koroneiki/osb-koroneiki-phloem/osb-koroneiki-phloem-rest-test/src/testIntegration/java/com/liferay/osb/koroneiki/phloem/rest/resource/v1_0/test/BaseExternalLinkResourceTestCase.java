@@ -471,25 +471,30 @@ public abstract class BaseExternalLinkResourceTestCase {
 	}
 
 	@Test
-	public void testGetContactByUuidExternalLinksPage() throws Exception {
+	public void testGetContactByUuidContactUuidExternalLinksPage()
+		throws Exception {
+
 		Page<ExternalLink> page =
-			externalLinkResource.getContactByUuidExternalLinksPage(
-				testGetContactByUuidExternalLinksPage_getUuid(),
+			externalLinkResource.getContactByUuidContactUuidExternalLinksPage(
+				testGetContactByUuidContactUuidExternalLinksPage_getContactUuid(),
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		String uuid = testGetContactByUuidExternalLinksPage_getUuid();
-		String irrelevantUuid =
-			testGetContactByUuidExternalLinksPage_getIrrelevantUuid();
+		String contactUuid =
+			testGetContactByUuidContactUuidExternalLinksPage_getContactUuid();
+		String irrelevantContactUuid =
+			testGetContactByUuidContactUuidExternalLinksPage_getIrrelevantContactUuid();
 
-		if ((irrelevantUuid != null)) {
+		if ((irrelevantContactUuid != null)) {
 			ExternalLink irrelevantExternalLink =
-				testGetContactByUuidExternalLinksPage_addExternalLink(
-					irrelevantUuid, randomIrrelevantExternalLink());
+				testGetContactByUuidContactUuidExternalLinksPage_addExternalLink(
+					irrelevantContactUuid, randomIrrelevantExternalLink());
 
-			page = externalLinkResource.getContactByUuidExternalLinksPage(
-				irrelevantUuid, Pagination.of(1, 2));
+			page =
+				externalLinkResource.
+					getContactByUuidContactUuidExternalLinksPage(
+						irrelevantContactUuid, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -500,15 +505,16 @@ public abstract class BaseExternalLinkResourceTestCase {
 		}
 
 		ExternalLink externalLink1 =
-			testGetContactByUuidExternalLinksPage_addExternalLink(
-				uuid, randomExternalLink());
+			testGetContactByUuidContactUuidExternalLinksPage_addExternalLink(
+				contactUuid, randomExternalLink());
 
 		ExternalLink externalLink2 =
-			testGetContactByUuidExternalLinksPage_addExternalLink(
-				uuid, randomExternalLink());
+			testGetContactByUuidContactUuidExternalLinksPage_addExternalLink(
+				contactUuid, randomExternalLink());
 
-		page = externalLinkResource.getContactByUuidExternalLinksPage(
-			uuid, Pagination.of(1, 2));
+		page =
+			externalLinkResource.getContactByUuidContactUuidExternalLinksPage(
+				contactUuid, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -519,26 +525,27 @@ public abstract class BaseExternalLinkResourceTestCase {
 	}
 
 	@Test
-	public void testGetContactByUuidExternalLinksPageWithPagination()
+	public void testGetContactByUuidContactUuidExternalLinksPageWithPagination()
 		throws Exception {
 
-		String uuid = testGetContactByUuidExternalLinksPage_getUuid();
+		String contactUuid =
+			testGetContactByUuidContactUuidExternalLinksPage_getContactUuid();
 
 		ExternalLink externalLink1 =
-			testGetContactByUuidExternalLinksPage_addExternalLink(
-				uuid, randomExternalLink());
+			testGetContactByUuidContactUuidExternalLinksPage_addExternalLink(
+				contactUuid, randomExternalLink());
 
 		ExternalLink externalLink2 =
-			testGetContactByUuidExternalLinksPage_addExternalLink(
-				uuid, randomExternalLink());
+			testGetContactByUuidContactUuidExternalLinksPage_addExternalLink(
+				contactUuid, randomExternalLink());
 
 		ExternalLink externalLink3 =
-			testGetContactByUuidExternalLinksPage_addExternalLink(
-				uuid, randomExternalLink());
+			testGetContactByUuidContactUuidExternalLinksPage_addExternalLink(
+				contactUuid, randomExternalLink());
 
 		Page<ExternalLink> page1 =
-			externalLinkResource.getContactByUuidExternalLinksPage(
-				uuid, Pagination.of(1, 2));
+			externalLinkResource.getContactByUuidContactUuidExternalLinksPage(
+				contactUuid, Pagination.of(1, 2));
 
 		List<ExternalLink> externalLinks1 =
 			(List<ExternalLink>)page1.getItems();
@@ -547,8 +554,8 @@ public abstract class BaseExternalLinkResourceTestCase {
 			externalLinks1.toString(), 2, externalLinks1.size());
 
 		Page<ExternalLink> page2 =
-			externalLinkResource.getContactByUuidExternalLinksPage(
-				uuid, Pagination.of(2, 2));
+			externalLinkResource.getContactByUuidContactUuidExternalLinksPage(
+				contactUuid, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -559,8 +566,8 @@ public abstract class BaseExternalLinkResourceTestCase {
 			externalLinks2.toString(), 1, externalLinks2.size());
 
 		Page<ExternalLink> page3 =
-			externalLinkResource.getContactByUuidExternalLinksPage(
-				uuid, Pagination.of(1, 3));
+			externalLinkResource.getContactByUuidContactUuidExternalLinksPage(
+				contactUuid, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(externalLink1, externalLink2, externalLink3),
@@ -568,41 +575,46 @@ public abstract class BaseExternalLinkResourceTestCase {
 	}
 
 	protected ExternalLink
-			testGetContactByUuidExternalLinksPage_addExternalLink(
-				String uuid, ExternalLink externalLink)
+			testGetContactByUuidContactUuidExternalLinksPage_addExternalLink(
+				String contactUuid, ExternalLink externalLink)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected String testGetContactByUuidExternalLinksPage_getUuid()
+	protected String
+			testGetContactByUuidContactUuidExternalLinksPage_getContactUuid()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected String testGetContactByUuidExternalLinksPage_getIrrelevantUuid()
+	protected String
+			testGetContactByUuidContactUuidExternalLinksPage_getIrrelevantContactUuid()
 		throws Exception {
 
 		return null;
 	}
 
 	@Test
-	public void testPostContactByUuidExternalLink() throws Exception {
+	public void testPostContactByUuidContactUuidExternalLink()
+		throws Exception {
+
 		ExternalLink randomExternalLink = randomExternalLink();
 
 		ExternalLink postExternalLink =
-			testPostContactByUuidExternalLink_addExternalLink(
+			testPostContactByUuidContactUuidExternalLink_addExternalLink(
 				randomExternalLink);
 
 		assertEquals(randomExternalLink, postExternalLink);
 		assertValid(postExternalLink);
 	}
 
-	protected ExternalLink testPostContactByUuidExternalLink_addExternalLink(
-			ExternalLink externalLink)
+	protected ExternalLink
+			testPostContactByUuidContactUuidExternalLink_addExternalLink(
+				ExternalLink externalLink)
 		throws Exception {
 
 		throw new UnsupportedOperationException(

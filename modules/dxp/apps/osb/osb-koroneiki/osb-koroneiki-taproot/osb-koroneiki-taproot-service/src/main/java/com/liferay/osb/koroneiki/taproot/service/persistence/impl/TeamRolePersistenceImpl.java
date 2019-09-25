@@ -2426,7 +2426,7 @@ public class TeamRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (TeamRole teamRole : list) {
-					if ((type != teamRole.getType())) {
+					if (type != teamRole.getType()) {
 						list = null;
 
 						break;
