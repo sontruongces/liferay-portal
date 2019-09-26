@@ -18,10 +18,13 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductConsumptionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductConsumptionEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionService;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -78,19 +81,22 @@ public class ProductConsumptionResourceImpl
 	}
 
 	@Override
-	public Page<ProductConsumption> getContactContactKeyProductConsumptionsPage(
-			String contactKey, Pagination pagination)
+	public Page<ProductConsumption> getContactByOktaProductConsumptionsPage(
+			String oktaId, Pagination pagination)
 		throws Exception {
 
-		return Page.of(
-			transform(
-				_productConsumptionService.getContactProductConsumptions(
-					contactKey, pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				ProductConsumptionUtil::toProductConsumption),
-			pagination,
-			_productConsumptionService.getContactProductConsumptionsCount(
-				contactKey));
+		return _getContactProductConsumptionsPage(
+			_contactLocalService.getContactByOktaId(oktaId), pagination);
+	}
+
+	@Override
+	public Page<ProductConsumption>
+			getContactByUuidContactUuidProductConsumptionsPage(
+				String contactUuid, Pagination pagination)
+		throws Exception {
+
+		return _getContactProductConsumptionsPage(
+			_contactLocalService.getContactByUuid(contactUuid), pagination);
 	}
 
 	@Override
@@ -186,8 +192,26 @@ public class ProductConsumptionResourceImpl
 		return productFields;
 	}
 
+	private Page<ProductConsumption> _getContactProductConsumptionsPage(
+			Contact contact, Pagination pagination)
+		throws PortalException {
+
+		return Page.of(
+			transform(
+				_productConsumptionService.getContactProductConsumptions(
+					contact.getContactId(), pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				ProductConsumptionUtil::toProductConsumption),
+			pagination,
+			_productConsumptionService.getContactProductConsumptionsCount(
+				contact.getContactId()));
+	}
+
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
+
+	@Reference
+	private ContactLocalService _contactLocalService;
 
 	@Reference
 	private ProductConsumptionLocalService _productConsumptionLocalService;

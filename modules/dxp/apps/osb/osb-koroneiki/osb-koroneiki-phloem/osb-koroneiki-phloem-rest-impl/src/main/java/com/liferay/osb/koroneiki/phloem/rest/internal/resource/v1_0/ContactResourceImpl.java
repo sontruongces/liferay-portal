@@ -65,9 +65,11 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public void deleteContactByUuid(String uuid) throws Exception {
+	public void deleteContactByUuidContactUuid(String contactUuid)
+		throws Exception {
+
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
-			_contactLocalService.getContactByUuid(uuid);
+			_contactLocalService.getContactByUuid(contactUuid);
 
 		_contactService.deleteContact(contact.getContactId());
 	}
@@ -101,8 +103,11 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public Contact getContactByUuid(String uuid) throws Exception {
-		return ContactUtil.toContact(_contactService.getContactByUuid(uuid));
+	public Contact getContactByUuidContactUuid(String contactUuid)
+		throws Exception {
+
+		return ContactUtil.toContact(
+			_contactService.getContactByUuid(contactUuid));
 	}
 
 	@Override
@@ -185,11 +190,12 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public Contact putContactByUuid(String uuid, Contact contact)
+	public Contact putContactByUuidContactUuid(
+			String contactUuid, Contact contact)
 		throws Exception {
 
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
-			_contactLocalService.getContactByUuid(uuid);
+			_contactLocalService.getContactByUuid(contactUuid);
 
 		String oktaId = GetterUtil.getString(
 			contact.getOktaId(), curContact.getOktaId());

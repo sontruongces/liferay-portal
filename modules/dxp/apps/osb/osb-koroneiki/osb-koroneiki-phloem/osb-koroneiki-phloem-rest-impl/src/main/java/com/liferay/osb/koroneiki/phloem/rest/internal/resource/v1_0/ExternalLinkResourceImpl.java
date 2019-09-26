@@ -77,11 +77,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 	}
 
 	@Override
-	public Page<ExternalLink> getContactByUuidExternalLinksPage(
-			String uuid, Pagination pagination)
+	public Page<ExternalLink> getContactByUuidContactUuidExternalLinksPage(
+			String contactUuid, Pagination pagination)
 		throws Exception {
 
-		Contact contact = _contactLocalService.getContactByUuid(uuid);
+		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
 
 		return getExternalLinksPage(
 			Contact.class, contact.getContactId(), pagination);
@@ -169,11 +169,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 	}
 
 	@Override
-	public ExternalLink postContactByUuidExternalLink(
-			String uuid, ExternalLink externalLink)
+	public ExternalLink postContactByUuidContactUuidExternalLink(
+			String contactUuid, ExternalLink externalLink)
 		throws Exception {
 
-		Contact contact = _contactLocalService.getContactByUuid(uuid);
+		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
 
 		return postExternalLink(
 			Contact.class, contact.getContactId(), externalLink);

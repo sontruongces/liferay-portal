@@ -17,7 +17,6 @@ package com.liferay.osb.koroneiki.trunk.service.impl;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactPermission;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
@@ -149,30 +148,24 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 	}
 
 	public List<ProductPurchase> getContactProductPurchases(
-			String contactKey, int start, int end)
+			long contactId, int start, int end)
 		throws PortalException {
 
-		Contact contact = _contactLocalService.getContactByContactKey(
-			contactKey);
-
 		_contactPermission.check(
-			getPermissionChecker(), contact, ActionKeys.VIEW);
+			getPermissionChecker(), contactId, ActionKeys.VIEW);
 
 		return productPurchaseLocalService.getContactProductPurchases(
-			contact.getContactId(), start, end);
+			contactId, start, end);
 	}
 
-	public int getContactProductPurchasesCount(String contactKey)
+	public int getContactProductPurchasesCount(long contactId)
 		throws PortalException {
 
-		Contact contact = _contactLocalService.getContactByContactKey(
-			contactKey);
-
 		_contactPermission.check(
-			getPermissionChecker(), contact, ActionKeys.VIEW);
+			getPermissionChecker(), contactId, ActionKeys.VIEW);
 
 		return productPurchaseLocalService.getContactProductPurchasesCount(
-			contact.getContactId());
+			contactId);
 	}
 
 	public ProductPurchase getProductPurchase(long productPurchaseId)

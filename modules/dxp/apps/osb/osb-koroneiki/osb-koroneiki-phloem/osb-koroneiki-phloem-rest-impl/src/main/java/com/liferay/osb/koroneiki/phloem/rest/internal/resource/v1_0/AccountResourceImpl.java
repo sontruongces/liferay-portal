@@ -31,6 +31,7 @@ import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
 import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -67,44 +68,53 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public void deleteAccountContact(String accountKey, String[] contactUuids)
+	public void deleteAccountContactByOkta(String accountKey, String[] oktaIds)
+		throws Exception {
+
+		List<Contact> contacts = new ArrayList<>(oktaIds.length);
+
+		for (String oktaId : oktaIds) {
+			contacts.add(
+				_oktaContactIdentityProvider.getContactByProviderId(oktaId));
+		}
+
+		_deleteAccountContacts(contacts, accountKey);
+	}
+
+	@Override
+	public void deleteAccountContactByOktaRole(
+			String accountKey, String oktaId, String[] contactRoleKeys)
+		throws Exception {
+
+		_deleteAccountContactRole(
+			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
+			accountKey, contactRoleKeys);
+	}
+
+	@Override
+	public void deleteAccountContactByUuid(
+			String accountKey, String[] contactUuids)
 		throws Exception {
 
 		List<Contact> contacts = new ArrayList<>(contactUuids.length);
 
 		for (String contactUuid : contactUuids) {
 			contacts.add(
-				_contactIdentityProvider.getContactByUuid(contactUuid));
+				_webContactIdentityProvider.getContactByProviderId(
+					contactUuid));
 		}
 
-		com.liferay.osb.koroneiki.taproot.model.Account account =
-			_accountLocalService.getAccount(accountKey);
-
-		for (Contact contact : contacts) {
-			_contactAccountRoleService.deleteContactAccountRoles(
-				contact.getContactId(), account.getAccountId());
-		}
+		_deleteAccountContacts(contacts, accountKey);
 	}
 
 	@Override
-	public void deleteAccountContactContactUuidRole(
+	public void deleteAccountContactByUuidContactUuidRole(
 			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception {
 
-		Contact contact = _contactIdentityProvider.getContactByUuid(
-			contactUuid);
-
-		com.liferay.osb.koroneiki.taproot.model.Account account =
-			_accountLocalService.getAccount(accountKey);
-
-		for (String contactRoleKey : contactRoleKeys) {
-			ContactRole contactRole = _contactRoleLocalService.getContactRole(
-				contactRoleKey);
-
-			_contactAccountRoleService.deleteContactAccountRole(
-				contact.getContactId(), account.getAccountId(),
-				contactRole.getContactRoleId());
-		}
+		_deleteAccountContactRole(
+			_webContactIdentityProvider.getContactByProviderId(contactUuid),
+			accountKey, contactRoleKeys);
 	}
 
 	@Override
@@ -349,36 +359,99 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public void putAccountContact(String accountKey, String[] contactUuids)
+	public void putAccountContactByOkta(String accountKey, String[] oktaIds)
+		throws Exception {
+
+		List<Contact> contacts = new ArrayList<>(oktaIds.length);
+
+		for (String oktaId : oktaIds) {
+			contacts.add(
+				_oktaContactIdentityProvider.getContactByProviderId(oktaId));
+		}
+
+		_putAccountContacts(contacts, accountKey);
+	}
+
+	@Override
+	public void putAccountContactByOktaRole(
+			String accountKey, String oktaId, String[] contactRoleKeys)
+		throws Exception {
+
+		_putAccountContactRole(
+			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
+			accountKey, contactRoleKeys);
+	}
+
+	@Override
+	public void putAccountContactByUuid(
+			String accountKey, String[] contactUuids)
 		throws Exception {
 
 		List<Contact> contacts = new ArrayList<>(contactUuids.length);
 
 		for (String contactUuid : contactUuids) {
 			contacts.add(
-				_contactIdentityProvider.getContactByUuid(contactUuid));
+				_webContactIdentityProvider.getContactByProviderId(
+					contactUuid));
 		}
+
+		_putAccountContacts(contacts, accountKey);
+	}
+
+	@Override
+	public void putAccountContactByUuidContactUuidRole(
+			String accountKey, String contactUuid, String[] contactRoleKeys)
+		throws Exception {
+
+		_putAccountContactRole(
+			_webContactIdentityProvider.getContactByProviderId(contactUuid),
+			accountKey, contactRoleKeys);
+	}
+
+	@Override
+	public void putAccountTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception {
+
+		for (String teamRoleKey : teamRoleKeys) {
+			_teamAccountRoleService.addTeamAccountRole(
+				teamKey, accountKey, teamRoleKey);
+		}
+	}
+
+	private void _deleteAccountContactRole(
+			Contact contact, String accountKey, String[] contactRoleKeys)
+		throws PortalException {
 
 		com.liferay.osb.koroneiki.taproot.model.Account account =
 			_accountLocalService.getAccount(accountKey);
 
-		ContactRole contactRole = _contactRoleLocalService.getMemberContactRole(
-			ContactRoleType.ACCOUNT);
+		for (String contactRoleKey : contactRoleKeys) {
+			ContactRole contactRole = _contactRoleLocalService.getContactRole(
+				contactRoleKey);
 
-		for (Contact contact : contacts) {
-			_contactAccountRoleService.addContactAccountRole(
+			_contactAccountRoleService.deleteContactAccountRole(
 				contact.getContactId(), account.getAccountId(),
 				contactRole.getContactRoleId());
 		}
 	}
 
-	@Override
-	public void putAccountContactContactUuidRole(
-			String accountKey, String contactUuid, String[] contactRoleKeys)
-		throws Exception {
+	private void _deleteAccountContacts(
+			List<Contact> contacts, String accountKey)
+		throws PortalException {
 
-		Contact contact = _contactIdentityProvider.getContactByUuid(
-			contactUuid);
+		com.liferay.osb.koroneiki.taproot.model.Account account =
+			_accountLocalService.getAccount(accountKey);
+
+		for (Contact contact : contacts) {
+			_contactAccountRoleService.deleteContactAccountRoles(
+				contact.getContactId(), account.getAccountId());
+		}
+	}
+
+	private void _putAccountContactRole(
+			Contact contact, String accountKey, String[] contactRoleKeys)
+		throws PortalException {
 
 		com.liferay.osb.koroneiki.taproot.model.Account account =
 			_accountLocalService.getAccount(accountKey);
@@ -393,14 +466,19 @@ public class AccountResourceImpl
 		}
 	}
 
-	@Override
-	public void putAccountTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
-		throws Exception {
+	private void _putAccountContacts(List<Contact> contacts, String accountKey)
+		throws PortalException {
 
-		for (String teamRoleKey : teamRoleKeys) {
-			_teamAccountRoleService.addTeamAccountRole(
-				teamKey, accountKey, teamRoleKey);
+		com.liferay.osb.koroneiki.taproot.model.Account account =
+			_accountLocalService.getAccount(accountKey);
+
+		ContactRole contactRole = _contactRoleLocalService.getMemberContactRole(
+			ContactRoleType.ACCOUNT);
+
+		for (Contact contact : contacts) {
+			_contactAccountRoleService.addContactAccountRole(
+				contact.getContactId(), account.getAccountId(),
+				contactRole.getContactRoleId());
 		}
 	}
 
@@ -416,18 +494,21 @@ public class AccountResourceImpl
 	private ContactAccountRoleService _contactAccountRoleService;
 
 	@Reference
-	private ContactIdentityProvider _contactIdentityProvider;
-
-	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
 
 	@Reference
 	private ContactService _contactService;
+
+	@Reference(target = "(provider=okta)")
+	private ContactIdentityProvider _oktaContactIdentityProvider;
 
 	@Reference
 	private TeamAccountRoleService _teamAccountRoleService;
 
 	@Reference
 	private TeamLocalService _teamLocalService;
+
+	@Reference(target = "(provider=web)")
+	private ContactIdentityProvider _webContactIdentityProvider;
 
 }

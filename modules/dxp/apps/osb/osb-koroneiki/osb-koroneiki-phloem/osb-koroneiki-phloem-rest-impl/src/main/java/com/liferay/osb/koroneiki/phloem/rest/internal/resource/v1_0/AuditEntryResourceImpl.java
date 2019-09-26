@@ -74,11 +74,11 @@ public class AuditEntryResourceImpl extends BaseAuditEntryResourceImpl {
 	}
 
 	@Override
-	public Page<AuditEntry> getContactByUuidAuditEntriesPage(
-			String uuid, Pagination pagination)
+	public Page<AuditEntry> getContactByUuidContactUuidAuditEntriesPage(
+			String contactUuid, Pagination pagination)
 		throws Exception {
 
-		Contact contact = _contactLocalService.getContactByUuid(uuid);
+		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
 
 		return getAuditEntriesPage(
 			Contact.class, contact.getContactId(), pagination);

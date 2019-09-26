@@ -69,8 +69,19 @@ public class AssignAccountContactMVCActionCommand extends BaseMVCActionCommand {
 			String emailAddress = ParamUtil.getString(
 				actionRequest, "emailAddress");
 
-			Contact contact = _contactIdentityProvider.getContactByEmailAddress(
-				emailAddress);
+			Contact contact =
+				_oktaContactIdentityProvider.fetchContactByEmailAddress(
+					emailAddress);
+
+			if (contact == null) {
+				contact =
+					_webContactIdentityProvider.fetchContactByEmailAddress(
+						emailAddress);
+			}
+
+			if (contact == null) {
+				throw new NoSuchContactException();
+			}
 
 			ContactRole contactRole =
 				_contactRoleLocalService.getMemberContactRole(
@@ -116,9 +127,12 @@ public class AssignAccountContactMVCActionCommand extends BaseMVCActionCommand {
 	private ContactAccountRoleService _contactAccountRoleService;
 
 	@Reference
-	private ContactIdentityProvider _contactIdentityProvider;
-
-	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
+
+	@Reference(target = "(provider=okta)")
+	private ContactIdentityProvider _oktaContactIdentityProvider;
+
+	@Reference(target = "(provider=web)")
+	private ContactIdentityProvider _webContactIdentityProvider;
 
 }

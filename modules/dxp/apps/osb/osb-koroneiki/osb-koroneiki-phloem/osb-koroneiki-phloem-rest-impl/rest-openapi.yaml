@@ -771,28 +771,6 @@ paths:
                     description: ""
             tags: ["Account"]
     "/accounts/{accountKey}/contacts":
-        delete:
-            description: Unassigns contacts from the account.
-            operationId: deleteAccountContact
-            parameters:
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: contactUuids
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                    description: ""
-            tags: ["Account"]
         get:
             description: Retrieves the account's contacts.
             operationId: getAccountAccountKeyContactsPage
@@ -825,9 +803,147 @@ paths:
                                 type: array
                     description: ""
             tags: ["Contact"]
+    "/accounts/{accountKey}/contacts/by-okta-id":
+        delete:
+            description: Unassigns contacts from the account.
+            operationId: deleteAccountContactByOkta
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Account"]
         put:
             description: Assigns contacts to the account.
-            operationId: putAccountContact
+            operationId: putAccountContactByOkta
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles":
+        delete:
+            description: Unassigns roles from the contact for the account.
+            operationId: deleteAccountContactByOktaRole
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Account"]
+        get:
+            description: Retrieves the account's contact's contact roles.
+            operationId: getAccountAccountKeyContactByOktaRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description: ""
+            tags: ["ContactRole"]
+        put:
+            description: Assigns roles to the contact for the account.
+            operationId: putAccountContactByOktaRole
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/contacts/by-uuid":
+        delete:
+            description: Unassigns contacts from the account.
+            operationId: deleteAccountContactByUuid
             parameters:
                 - in: path
                   name: accountKey
@@ -847,10 +963,32 @@ paths:
                         application/json: {}
                     description: ""
             tags: ["Account"]
-    "/accounts/{accountKey}/contacts/{contactUuid}/roles":
+        put:
+            description: Assigns contacts to the account.
+            operationId: putAccountContactByUuid
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactUuids
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles":
         delete:
             description: Unassigns roles from the contact for the account.
-            operationId: deleteAccountContactContactUuidRole
+            operationId: deleteAccountContactByUuidContactUuidRole
             parameters:
                 - in: path
                   name: accountKey
@@ -877,7 +1015,7 @@ paths:
             tags: ["Account"]
         get:
             description: Retrieves the account's contact's contact roles.
-            operationId: getAccountAccountKeyContactContactUuidRolesPage
+            operationId: getAccountAccountKeyContactByUuidContactUuidRolesPage
             parameters:
                 - in: path
                   name: accountKey
@@ -914,7 +1052,7 @@ paths:
             tags: ["ContactRole"]
         put:
             description: Assigns roles to the contact for the account.
-            operationId: putAccountContactContactUuidRole
+            operationId: putAccountContactByUuidContactUuidRole
             parameters:
                 - in: path
                   name: accountKey
@@ -1791,12 +1929,78 @@ paths:
                                 $ref: "#/components/schemas/ExternalLink"
                     description: ""
             tags: ["ExternalLink"]
-    "/contacts/by-uuid/{uuid}":
-        delete:
-            operationId: deleteContactByUuid
+    "/contacts/by-okta-id/{oktaId}/product-consumptions":
+        get:
+            description: Retrieves the contacts product consumptions.
+            operationId: getContactByOktaProductConsumptionsPage
             parameters:
                 - in: path
-                  name: uuid
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductConsumption"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductConsumption"
+                                type: array
+                    description: ""
+            tags: ["ProductConsumption"]
+    "/contacts/by-okta-id/{oktaId}/product-purchases":
+        get:
+            description: Retrieves the contacts product purchases.
+            operationId: getContactByOktaProductPurchasesPage
+            parameters:
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchase"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchase"
+                                type: array
+                    description: ""
+            tags: ["ProductPurchase"]
+    "/contacts/by-uuid/{contactUuid}":
+        delete:
+            operationId: deleteContactByUuidContactUuid
+            parameters:
+                - in: path
+                  name: contactUuid
                   required: true
                   schema:
                       type: string
@@ -1808,10 +2012,10 @@ paths:
             tags: ["Contact"]
         get:
             description: Retrieves the contact.
-            operationId: getContactByUuid
+            operationId: getContactByUuidContactUuid
             parameters:
                 - in: path
-                  name: uuid
+                  name: contactUuid
                   required: true
                   schema:
                       type: string
@@ -1827,10 +2031,10 @@ paths:
                     description: ""
             tags: ["Contact"]
         put:
-            operationId: putContactByUuid
+            operationId: putContactByUuidContactUuid
             parameters:
                 - in: path
-                  name: uuid
+                  name: contactUuid
                   required: true
                   schema:
                       type: string
@@ -1854,13 +2058,13 @@ paths:
                                 $ref: "#/components/schemas/Contact"
                     description: ""
             tags: ["Contact"]
-    "/contacts/by-uuid/{uuid}/audit-entries":
+    "/contacts/by-uuid/{contactUuid}/audit-entries":
         get:
             description: Retrieves the contact's audit history.
-            operationId: getContactByUuidAuditEntriesPage
+            operationId: getContactByUuidContactUuidAuditEntriesPage
             parameters:
                 - in: path
-                  name: uuid
+                  name: contactUuid
                   required: true
                   schema:
                       type: string
@@ -1887,13 +2091,13 @@ paths:
                                 type: array
                     description: ""
             tags: ["AuditEntry"]
-    "/contacts/by-uuid/{uuid}/external-links":
+    "/contacts/by-uuid/{contactUuid}/external-links":
         get:
             description: Retrieves the contact's external links.
-            operationId: getContactByUuidExternalLinksPage
+            operationId: getContactByUuidContactUuidExternalLinksPage
             parameters:
                 - in: path
-                  name: uuid
+                  name: contactUuid
                   required: true
                   schema:
                       type: string
@@ -1922,10 +2126,10 @@ paths:
             tags: ["ExternalLink"]
         post:
             description: Adds an external link to the contact.
-            operationId: postContactByUuidExternalLink
+            operationId: postContactByUuidContactUuidExternalLink
             parameters:
                 - in: path
-                  name: uuid
+                  name: contactUuid
                   required: true
                   schema:
                       type: string
@@ -1949,13 +2153,13 @@ paths:
                                 $ref: "#/components/schemas/ExternalLink"
                     description: ""
             tags: ["ExternalLink"]
-    "/contacts/{contactKey}/product-consumptions":
+    "/contacts/by-uuid/{contactUuid}/product-consumptions":
         get:
             description: Retrieves the contacts product consumptions.
-            operationId: getContactContactKeyProductConsumptionsPage
+            operationId: getContactByUuidContactUuidProductConsumptionsPage
             parameters:
                 - in: path
-                  name: contactKey
+                  name: contactUuid
                   required: true
                   schema:
                       type: string
@@ -1982,13 +2186,13 @@ paths:
                                 type: array
                     description: ""
             tags: ["ProductConsumption"]
-    "/contacts/{contactKey}/product-purchases":
+    "/contacts/by-uuid/{contactUuid}/product-purchases":
         get:
             description: Retrieves the contacts product purchases.
-            operationId: getContactContactKeyProductPurchasesPage
+            operationId: getContactByUuidContactUuidProductPurchasesPage
             parameters:
                 - in: path
-                  name: contactKey
+                  name: contactUuid
                   required: true
                   schema:
                       type: string

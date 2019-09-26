@@ -18,6 +18,8 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductPurchaseEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
@@ -78,19 +80,22 @@ public class ProductPurchaseResourceImpl
 	}
 
 	@Override
-	public Page<ProductPurchase> getContactContactKeyProductPurchasesPage(
-			String contactKey, Pagination pagination)
+	public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
+			String oktaId, Pagination pagination)
 		throws Exception {
 
-		return Page.of(
-			transform(
-				_productPurchaseService.getContactProductPurchases(
-					contactKey, pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				ProductPurchaseUtil::toProductPurchase),
-			pagination,
-			_productPurchaseService.getContactProductPurchasesCount(
-				contactKey));
+		return _getContactProductPurchasesPage(
+			_contactLocalService.getContactByOktaId(oktaId), pagination);
+	}
+
+	@Override
+	public Page<ProductPurchase>
+			getContactByUuidContactUuidProductPurchasesPage(
+				String contactUuid, Pagination pagination)
+		throws Exception {
+
+		return _getContactProductPurchasesPage(
+			_contactLocalService.getContactByUuid(contactUuid), pagination);
 	}
 
 	@Override
@@ -239,8 +244,26 @@ public class ProductPurchaseResourceImpl
 		return productFields;
 	}
 
+	private Page<ProductPurchase> _getContactProductPurchasesPage(
+			Contact contact, Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_productPurchaseService.getContactProductPurchases(
+					contact.getContactId(), pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				ProductPurchaseUtil::toProductPurchase),
+			pagination,
+			_productPurchaseService.getContactProductPurchasesCount(
+				contact.getContactId()));
+	}
+
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
+
+	@Reference
+	private ContactLocalService _contactLocalService;
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;

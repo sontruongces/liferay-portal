@@ -126,6 +126,10 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		return contactPersistence.fetchByEmailAddress(emailAddress);
 	}
 
+	public Contact fetchContactByOktaId(String oktaId) {
+		return contactPersistence.fetchByOktaId(oktaId);
+	}
+
 	public Contact fetchContactByUuid(String uuid) {
 		return contactPersistence.fetchByUuid_First(uuid, null);
 	}

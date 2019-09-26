@@ -25,6 +25,7 @@ import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -57,22 +58,24 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
-	public Page<ContactRole> getAccountAccountKeyContactContactUuidRolesPage(
-			String accountKey, String contactUuid, Pagination pagination)
+	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
+			String accountKey, String oktaId, Pagination pagination)
 		throws Exception {
 
-		Account account = _accountLocalService.getAccount(accountKey);
-		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
+		return _getAccountContactRolesPage(
+			_contactLocalService.getContactByOktaId(oktaId), accountKey,
+			pagination);
+	}
 
-		return Page.of(
-			transform(
-				_contactRoleService.getContactAccountContactRoles(
-					account.getAccountId(), contact.getContactId(),
-					pagination.getStartPosition(), pagination.getEndPosition()),
-				contactRole -> ContactRoleUtil.toContactRole(contactRole)),
-			pagination,
-			_contactRoleService.getContactAccountContactRolesCount(
-				account.getAccountId(), contact.getContactId()));
+	@Override
+	public Page<ContactRole>
+			getAccountAccountKeyContactByUuidContactUuidRolesPage(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception {
+
+		return _getAccountContactRolesPage(
+			_contactLocalService.getContactByUuid(contactUuid), accountKey,
+			pagination);
 	}
 
 	@Override
@@ -134,6 +137,23 @@ public class ContactRoleResourceImpl
 			_contactRoleService.updateContactRole(
 				curContactRole.getContactRoleId(), contactRole.getName(),
 				description));
+	}
+
+	private Page<ContactRole> _getAccountContactRolesPage(
+			Contact contact, String accountKey, Pagination pagination)
+		throws PortalException {
+
+		Account account = _accountLocalService.getAccount(accountKey);
+
+		return Page.of(
+			transform(
+				_contactRoleService.getContactAccountContactRoles(
+					account.getAccountId(), contact.getContactId(),
+					pagination.getStartPosition(), pagination.getEndPosition()),
+				contactRole -> ContactRoleUtil.toContactRole(contactRole)),
+			pagination,
+			_contactRoleService.getContactAccountContactRolesCount(
+				account.getAccountId(), contact.getContactId()));
 	}
 
 	private static final EntityModel _entityModel =
