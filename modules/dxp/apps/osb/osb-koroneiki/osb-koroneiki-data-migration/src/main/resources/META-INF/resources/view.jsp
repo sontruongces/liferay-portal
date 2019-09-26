@@ -23,3 +23,11 @@
 		<aui:button type="submit" value="migrate-data" />
 	</aui:button-row>
 </aui:form>
+
+<portlet:actionURL name="/update_countries" var="updateCountriesURL" />
+
+<aui:form action="<%= updateCountriesURL %>" cssClass="container-fluid-1280" method="post" name="fm2">
+	<aui:button-row>
+		<aui:button type="submit" value="update-countries" />
+	</aui:button-row>
+</aui:form>

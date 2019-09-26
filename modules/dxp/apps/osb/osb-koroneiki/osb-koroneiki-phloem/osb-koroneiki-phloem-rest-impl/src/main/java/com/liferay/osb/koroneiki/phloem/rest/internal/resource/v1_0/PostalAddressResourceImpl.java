@@ -21,6 +21,8 @@ import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
 import com.liferay.osb.koroneiki.taproot.service.AddressService;
 import com.liferay.portal.kernel.exception.NoSuchListTypeException;
+import com.liferay.portal.kernel.exception.NoSuchRegionException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.model.ListType;
@@ -30,6 +32,7 @@ import com.liferay.portal.kernel.service.ListTypeService;
 import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.pagination.Page;
 
@@ -84,29 +87,10 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 
 		Account account = _accountService.getAccount(accountKey);
 
-		long countryId = 0;
-		long regionId = 0;
+		long countryId = _getCountryId(postalAddress.getAddressCountry());
 
-		if (Validator.isNotNull(postalAddress.getAddressCountry())) {
-			Country country = _countryService.getCountryByName(
-				postalAddress.getAddressCountry());
-
-			countryId = country.getCountryId();
-
-			if (Validator.isNotNull(postalAddress.getAddressRegion())) {
-				List<Region> regions = _regionService.getRegions(countryId);
-
-				for (Region region : regions) {
-					String name = region.getName();
-
-					if (name.equals(postalAddress.getAddressRegion())) {
-						regionId = region.getRegionId();
-
-						break;
-					}
-				}
-			}
-		}
+		long regionId = _getRegionId(
+			countryId, postalAddress.getAddressRegion());
 
 		long listTypeId = 0;
 
@@ -143,29 +127,10 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 			Long postalAddressId, PostalAddress postalAddress)
 		throws Exception {
 
-		long countryId = 0;
-		long regionId = 0;
+		long countryId = _getCountryId(postalAddress.getAddressCountry());
 
-		if (Validator.isNotNull(postalAddress.getAddressCountry())) {
-			Country country = _countryService.getCountryByName(
-				postalAddress.getAddressCountry());
-
-			countryId = country.getCountryId();
-
-			if (Validator.isNotNull(postalAddress.getAddressRegion())) {
-				List<Region> regions = _regionService.getRegions(countryId);
-
-				for (Region region : regions) {
-					String name = region.getName();
-
-					if (name.equals(postalAddress.getAddressRegion())) {
-						regionId = region.getRegionId();
-
-						break;
-					}
-				}
-			}
-		}
+		long regionId = _getRegionId(
+			countryId, postalAddress.getAddressRegion());
 
 		long listTypeId = 0;
 
@@ -193,6 +158,40 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 				GetterUtil.getBoolean(postalAddress.getMailing()),
 				GetterUtil.getBoolean(postalAddress.getPrimary())),
 			contextAcceptLanguage.getPreferredLocale());
+	}
+
+	private long _getCountryId(String addressCountry) throws PortalException {
+		if (Validator.isNull(addressCountry)) {
+			return 0;
+		}
+
+		Country country = _countryService.getCountryByName(addressCountry);
+
+		return country.getCountryId();
+	}
+
+	private long _getRegionId(long countryId, String addressRegion)
+		throws PortalException {
+
+		if ((countryId <= 0) && Validator.isNotNull(addressRegion)) {
+			throw new PortalException(
+				"Country is required when specifying a Region");
+		}
+
+		if (Validator.isNull(addressRegion)) {
+			return 0;
+		}
+
+		List<Region> regions = _regionService.getRegions(countryId);
+
+		for (Region region : regions) {
+			if (StringUtil.equalsIgnoreCase(region.getName(), addressRegion)) {
+				return region.getRegionId();
+			}
+		}
+
+		throw new NoSuchRegionException(
+			"No Region exists with the name " + addressRegion);
 	}
 
 	@Reference
