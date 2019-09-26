@@ -34,6 +34,5 @@
 	},
 	"ignore": [
 		"test/**"
-	],
-	"output": "classes/META-INF/resources"
+	]
 }
