@@ -19,7 +19,7 @@ import com.liferay.exportimport.kernel.lar.ManifestSummary;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.exportimport.kernel.lar.StagedModelDataHandlerUtil;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
-import com.liferay.portal.kernel.bean.BeanReference;
+import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
@@ -38,9 +38,7 @@ import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiServic
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
-import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
-import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
-import com.liferay.portal.kernel.service.persistence.UserPersistence;
+import com.liferay.portal.kernel.service.PersistedModelLocalService;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -52,13 +50,14 @@ import com.liferay.portal.reports.engine.console.service.persistence.EntryFinder
 import com.liferay.portal.reports.engine.console.service.persistence.EntryPersistence;
 import com.liferay.portal.reports.engine.console.service.persistence.SourceFinder;
 import com.liferay.portal.reports.engine.console.service.persistence.SourcePersistence;
-import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
 import java.util.List;
 
 import javax.sql.DataSource;
+
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * Provides the base implementation for the source local service.
@@ -73,7 +72,7 @@ import javax.sql.DataSource;
  */
 public abstract class SourceLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements IdentifiableOSGiService, SourceLocalService {
+	implements AopService, IdentifiableOSGiService, SourceLocalService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -460,319 +459,17 @@ public abstract class SourceLocalServiceBaseImpl
 		return sourcePersistence.update(source);
 	}
 
-	/**
-	 * Returns the definition local service.
-	 *
-	 * @return the definition local service
-	 */
-	public
-		com.liferay.portal.reports.engine.console.service.DefinitionLocalService
-			getDefinitionLocalService() {
-
-		return definitionLocalService;
+	@Override
+	public Class<?>[] getAopInterfaces() {
+		return new Class<?>[] {
+			SourceLocalService.class, IdentifiableOSGiService.class,
+			PersistedModelLocalService.class
+		};
 	}
 
-	/**
-	 * Sets the definition local service.
-	 *
-	 * @param definitionLocalService the definition local service
-	 */
-	public void setDefinitionLocalService(
-		com.liferay.portal.reports.engine.console.service.DefinitionLocalService
-			definitionLocalService) {
-
-		this.definitionLocalService = definitionLocalService;
-	}
-
-	/**
-	 * Returns the definition persistence.
-	 *
-	 * @return the definition persistence
-	 */
-	public DefinitionPersistence getDefinitionPersistence() {
-		return definitionPersistence;
-	}
-
-	/**
-	 * Sets the definition persistence.
-	 *
-	 * @param definitionPersistence the definition persistence
-	 */
-	public void setDefinitionPersistence(
-		DefinitionPersistence definitionPersistence) {
-
-		this.definitionPersistence = definitionPersistence;
-	}
-
-	/**
-	 * Returns the definition finder.
-	 *
-	 * @return the definition finder
-	 */
-	public DefinitionFinder getDefinitionFinder() {
-		return definitionFinder;
-	}
-
-	/**
-	 * Sets the definition finder.
-	 *
-	 * @param definitionFinder the definition finder
-	 */
-	public void setDefinitionFinder(DefinitionFinder definitionFinder) {
-		this.definitionFinder = definitionFinder;
-	}
-
-	/**
-	 * Returns the entry local service.
-	 *
-	 * @return the entry local service
-	 */
-	public com.liferay.portal.reports.engine.console.service.EntryLocalService
-		getEntryLocalService() {
-
-		return entryLocalService;
-	}
-
-	/**
-	 * Sets the entry local service.
-	 *
-	 * @param entryLocalService the entry local service
-	 */
-	public void setEntryLocalService(
-		com.liferay.portal.reports.engine.console.service.EntryLocalService
-			entryLocalService) {
-
-		this.entryLocalService = entryLocalService;
-	}
-
-	/**
-	 * Returns the entry persistence.
-	 *
-	 * @return the entry persistence
-	 */
-	public EntryPersistence getEntryPersistence() {
-		return entryPersistence;
-	}
-
-	/**
-	 * Sets the entry persistence.
-	 *
-	 * @param entryPersistence the entry persistence
-	 */
-	public void setEntryPersistence(EntryPersistence entryPersistence) {
-		this.entryPersistence = entryPersistence;
-	}
-
-	/**
-	 * Returns the entry finder.
-	 *
-	 * @return the entry finder
-	 */
-	public EntryFinder getEntryFinder() {
-		return entryFinder;
-	}
-
-	/**
-	 * Sets the entry finder.
-	 *
-	 * @param entryFinder the entry finder
-	 */
-	public void setEntryFinder(EntryFinder entryFinder) {
-		this.entryFinder = entryFinder;
-	}
-
-	/**
-	 * Returns the source local service.
-	 *
-	 * @return the source local service
-	 */
-	public SourceLocalService getSourceLocalService() {
-		return sourceLocalService;
-	}
-
-	/**
-	 * Sets the source local service.
-	 *
-	 * @param sourceLocalService the source local service
-	 */
-	public void setSourceLocalService(SourceLocalService sourceLocalService) {
-		this.sourceLocalService = sourceLocalService;
-	}
-
-	/**
-	 * Returns the source persistence.
-	 *
-	 * @return the source persistence
-	 */
-	public SourcePersistence getSourcePersistence() {
-		return sourcePersistence;
-	}
-
-	/**
-	 * Sets the source persistence.
-	 *
-	 * @param sourcePersistence the source persistence
-	 */
-	public void setSourcePersistence(SourcePersistence sourcePersistence) {
-		this.sourcePersistence = sourcePersistence;
-	}
-
-	/**
-	 * Returns the source finder.
-	 *
-	 * @return the source finder
-	 */
-	public SourceFinder getSourceFinder() {
-		return sourceFinder;
-	}
-
-	/**
-	 * Sets the source finder.
-	 *
-	 * @param sourceFinder the source finder
-	 */
-	public void setSourceFinder(SourceFinder sourceFinder) {
-		this.sourceFinder = sourceFinder;
-	}
-
-	/**
-	 * Returns the counter local service.
-	 *
-	 * @return the counter local service
-	 */
-	public com.liferay.counter.kernel.service.CounterLocalService
-		getCounterLocalService() {
-
-		return counterLocalService;
-	}
-
-	/**
-	 * Sets the counter local service.
-	 *
-	 * @param counterLocalService the counter local service
-	 */
-	public void setCounterLocalService(
-		com.liferay.counter.kernel.service.CounterLocalService
-			counterLocalService) {
-
-		this.counterLocalService = counterLocalService;
-	}
-
-	/**
-	 * Returns the class name local service.
-	 *
-	 * @return the class name local service
-	 */
-	public com.liferay.portal.kernel.service.ClassNameLocalService
-		getClassNameLocalService() {
-
-		return classNameLocalService;
-	}
-
-	/**
-	 * Sets the class name local service.
-	 *
-	 * @param classNameLocalService the class name local service
-	 */
-	public void setClassNameLocalService(
-		com.liferay.portal.kernel.service.ClassNameLocalService
-			classNameLocalService) {
-
-		this.classNameLocalService = classNameLocalService;
-	}
-
-	/**
-	 * Returns the class name persistence.
-	 *
-	 * @return the class name persistence
-	 */
-	public ClassNamePersistence getClassNamePersistence() {
-		return classNamePersistence;
-	}
-
-	/**
-	 * Sets the class name persistence.
-	 *
-	 * @param classNamePersistence the class name persistence
-	 */
-	public void setClassNamePersistence(
-		ClassNamePersistence classNamePersistence) {
-
-		this.classNamePersistence = classNamePersistence;
-	}
-
-	/**
-	 * Returns the resource local service.
-	 *
-	 * @return the resource local service
-	 */
-	public com.liferay.portal.kernel.service.ResourceLocalService
-		getResourceLocalService() {
-
-		return resourceLocalService;
-	}
-
-	/**
-	 * Sets the resource local service.
-	 *
-	 * @param resourceLocalService the resource local service
-	 */
-	public void setResourceLocalService(
-		com.liferay.portal.kernel.service.ResourceLocalService
-			resourceLocalService) {
-
-		this.resourceLocalService = resourceLocalService;
-	}
-
-	/**
-	 * Returns the user local service.
-	 *
-	 * @return the user local service
-	 */
-	public com.liferay.portal.kernel.service.UserLocalService
-		getUserLocalService() {
-
-		return userLocalService;
-	}
-
-	/**
-	 * Sets the user local service.
-	 *
-	 * @param userLocalService the user local service
-	 */
-	public void setUserLocalService(
-		com.liferay.portal.kernel.service.UserLocalService userLocalService) {
-
-		this.userLocalService = userLocalService;
-	}
-
-	/**
-	 * Returns the user persistence.
-	 *
-	 * @return the user persistence
-	 */
-	public UserPersistence getUserPersistence() {
-		return userPersistence;
-	}
-
-	/**
-	 * Sets the user persistence.
-	 *
-	 * @param userPersistence the user persistence
-	 */
-	public void setUserPersistence(UserPersistence userPersistence) {
-		this.userPersistence = userPersistence;
-	}
-
-	public void afterPropertiesSet() {
-		persistedModelLocalServiceRegistry.register(
-			"com.liferay.portal.reports.engine.console.model.Source",
-			sourceLocalService);
-	}
-
-	public void destroy() {
-		persistedModelLocalServiceRegistry.unregister(
-			"com.liferay.portal.reports.engine.console.model.Source");
+	@Override
+	public void setAopProxy(Object aopProxy) {
+		sourceLocalService = (SourceLocalService)aopProxy;
 	}
 
 	/**
@@ -817,73 +514,40 @@ public abstract class SourceLocalServiceBaseImpl
 		}
 	}
 
-	@BeanReference(
-		type = com.liferay.portal.reports.engine.console.service.DefinitionLocalService.class
-	)
-	protected
-		com.liferay.portal.reports.engine.console.service.DefinitionLocalService
-			definitionLocalService;
-
-	@BeanReference(type = DefinitionPersistence.class)
+	@Reference
 	protected DefinitionPersistence definitionPersistence;
 
-	@BeanReference(type = DefinitionFinder.class)
+	@Reference
 	protected DefinitionFinder definitionFinder;
 
-	@BeanReference(
-		type = com.liferay.portal.reports.engine.console.service.EntryLocalService.class
-	)
-	protected
-		com.liferay.portal.reports.engine.console.service.EntryLocalService
-			entryLocalService;
-
-	@BeanReference(type = EntryPersistence.class)
+	@Reference
 	protected EntryPersistence entryPersistence;
 
-	@BeanReference(type = EntryFinder.class)
+	@Reference
 	protected EntryFinder entryFinder;
 
-	@BeanReference(type = SourceLocalService.class)
 	protected SourceLocalService sourceLocalService;
 
-	@BeanReference(type = SourcePersistence.class)
+	@Reference
 	protected SourcePersistence sourcePersistence;
 
-	@BeanReference(type = SourceFinder.class)
+	@Reference
 	protected SourceFinder sourceFinder;
 
-	@ServiceReference(
-		type = com.liferay.counter.kernel.service.CounterLocalService.class
-	)
+	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService
 		counterLocalService;
 
-	@ServiceReference(
-		type = com.liferay.portal.kernel.service.ClassNameLocalService.class
-	)
+	@Reference
 	protected com.liferay.portal.kernel.service.ClassNameLocalService
 		classNameLocalService;
 
-	@ServiceReference(type = ClassNamePersistence.class)
-	protected ClassNamePersistence classNamePersistence;
-
-	@ServiceReference(
-		type = com.liferay.portal.kernel.service.ResourceLocalService.class
-	)
+	@Reference
 	protected com.liferay.portal.kernel.service.ResourceLocalService
 		resourceLocalService;
 
-	@ServiceReference(
-		type = com.liferay.portal.kernel.service.UserLocalService.class
-	)
+	@Reference
 	protected com.liferay.portal.kernel.service.UserLocalService
 		userLocalService;
-
-	@ServiceReference(type = UserPersistence.class)
-	protected UserPersistence userPersistence;
-
-	@ServiceReference(type = PersistedModelLocalServiceRegistry.class)
-	protected PersistedModelLocalServiceRegistry
-		persistedModelLocalServiceRegistry;
 
 }

@@ -14,22 +14,29 @@
 
 package com.liferay.portal.reports.engine.console.service.persistence.impl;
 
-import com.liferay.portal.kernel.bean.BeanReference;
+import com.liferay.portal.kernel.configuration.Configuration;
+import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.reports.engine.console.model.Definition;
 import com.liferay.portal.reports.engine.console.service.persistence.DefinitionPersistence;
+import com.liferay.portal.reports.engine.console.service.persistence.impl.constants.ReportsPersistenceConstants;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.sql.DataSource;
+
+import org.osgi.service.component.annotations.Reference;
+
 /**
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class DefinitionFinderBaseImpl extends BasePersistenceImpl<Definition> {
+public abstract class DefinitionFinderBaseImpl
+	extends BasePersistenceImpl<Definition> {
 
 	public DefinitionFinderBaseImpl() {
 		setModelClass(Definition.class);
@@ -43,33 +50,49 @@ public class DefinitionFinderBaseImpl extends BasePersistenceImpl<Definition> {
 
 	@Override
 	public Set<String> getBadColumnNames() {
-		return getDefinitionPersistence().getBadColumnNames();
+		return definitionPersistence.getBadColumnNames();
 	}
 
-	/**
-	 * Returns the definition persistence.
-	 *
-	 * @return the definition persistence
-	 */
-	public DefinitionPersistence getDefinitionPersistence() {
-		return definitionPersistence;
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
+		unbind = "-"
+	)
+	public void setConfiguration(Configuration configuration) {
+		super.setConfiguration(configuration);
 	}
 
-	/**
-	 * Sets the definition persistence.
-	 *
-	 * @param definitionPersistence the definition persistence
-	 */
-	public void setDefinitionPersistence(
-		DefinitionPersistence definitionPersistence) {
-
-		this.definitionPersistence = definitionPersistence;
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setDataSource(DataSource dataSource) {
+		super.setDataSource(dataSource);
 	}
 
-	@BeanReference(type = DefinitionPersistence.class)
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
+	}
+
+	@Reference
 	protected DefinitionPersistence definitionPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DefinitionFinderBaseImpl.class);
+
+	static {
+		try {
+			Class.forName(ReportsPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
 
 }

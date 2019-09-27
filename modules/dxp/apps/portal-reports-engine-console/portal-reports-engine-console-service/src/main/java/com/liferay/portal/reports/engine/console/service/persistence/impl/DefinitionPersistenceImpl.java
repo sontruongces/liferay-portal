@@ -15,6 +15,7 @@
 package com.liferay.portal.reports.engine.console.service.persistence.impl;
 
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.configuration.Configuration;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -23,6 +24,7 @@ import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
@@ -30,6 +32,7 @@ import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
@@ -40,7 +43,7 @@ import com.liferay.portal.reports.engine.console.model.Definition;
 import com.liferay.portal.reports.engine.console.model.impl.DefinitionImpl;
 import com.liferay.portal.reports.engine.console.model.impl.DefinitionModelImpl;
 import com.liferay.portal.reports.engine.console.service.persistence.DefinitionPersistence;
-import com.liferay.portal.spring.extender.service.ServiceReference;
+import com.liferay.portal.reports.engine.console.service.persistence.impl.constants.ReportsPersistenceConstants;
 
 import java.io.Serializable;
 
@@ -53,6 +56,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.sql.DataSource;
+
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
+
 /**
  * The persistence implementation for the definition service.
  *
@@ -63,6 +73,7 @@ import java.util.Set;
  * @author Brian Wing Shun Chan
  * @generated
  */
+@Component(service = DefinitionPersistence.class)
 public class DefinitionPersistenceImpl
 	extends BasePersistenceImpl<Definition> implements DefinitionPersistence {
 
@@ -2836,7 +2847,6 @@ public class DefinitionPersistenceImpl
 
 		setModelImplClass(DefinitionImpl.class);
 		setModelPKClass(long.class);
-		setEntityCacheEnabled(DefinitionModelImpl.ENTITY_CACHE_ENABLED);
 
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -2853,7 +2863,7 @@ public class DefinitionPersistenceImpl
 	@Override
 	public void cacheResult(Definition definition) {
 		entityCache.putResult(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, DefinitionImpl.class,
 			definition.getPrimaryKey(), definition);
 
 		finderCache.putResult(
@@ -2873,8 +2883,8 @@ public class DefinitionPersistenceImpl
 	public void cacheResult(List<Definition> definitions) {
 		for (Definition definition : definitions) {
 			if (entityCache.getResult(
-					DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-					DefinitionImpl.class, definition.getPrimaryKey()) == null) {
+					entityCacheEnabled, DefinitionImpl.class,
+					definition.getPrimaryKey()) == null) {
 
 				cacheResult(definition);
 			}
@@ -2910,7 +2920,7 @@ public class DefinitionPersistenceImpl
 	@Override
 	public void clearCache(Definition definition) {
 		entityCache.removeResult(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, DefinitionImpl.class,
 			definition.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
@@ -2926,7 +2936,7 @@ public class DefinitionPersistenceImpl
 
 		for (Definition definition : definitions) {
 			entityCache.removeResult(
-				DefinitionModelImpl.ENTITY_CACHE_ENABLED, DefinitionImpl.class,
+				entityCacheEnabled, DefinitionImpl.class,
 				definition.getPrimaryKey());
 
 			clearUniqueFindersCache((DefinitionModelImpl)definition, true);
@@ -3153,7 +3163,7 @@ public class DefinitionPersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 
-		if (!DefinitionModelImpl.COLUMN_BITMASK_ENABLED) {
+		if (!_columnBitmaskEnabled) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
 		else if (isNew) {
@@ -3271,7 +3281,7 @@ public class DefinitionPersistenceImpl
 		}
 
 		entityCache.putResult(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, DefinitionImpl.class,
 			definition.getPrimaryKey(), definition, false);
 
 		clearUniqueFindersCache(definitionModelImpl, false);
@@ -3546,27 +3556,27 @@ public class DefinitionPersistenceImpl
 	/**
 	 * Initializes the definition persistence.
 	 */
-	public void afterPropertiesSet() {
+	@Activate
+	public void activate() {
+		DefinitionModelImpl.setEntityCacheEnabled(entityCacheEnabled);
+		DefinitionModelImpl.setFinderCacheEnabled(finderCacheEnabled);
+
 		_finderPathWithPaginationFindAll = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
 
 		_finderPathWithoutPaginationFindAll = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
 			new String[0]);
 
 		_finderPathCountAll = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
 
 		_finderPathWithPaginationFindByUuid = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid",
 			new String[] {
 				String.class.getName(), Integer.class.getName(),
@@ -3574,36 +3584,31 @@ public class DefinitionPersistenceImpl
 			});
 
 		_finderPathWithoutPaginationFindByUuid = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid",
 			new String[] {String.class.getName()},
 			DefinitionModelImpl.UUID_COLUMN_BITMASK |
 			DefinitionModelImpl.MODIFIEDDATE_COLUMN_BITMASK);
 
 		_finderPathCountByUuid = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid",
 			new String[] {String.class.getName()});
 
 		_finderPathFetchByUUID_G = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
 			new String[] {String.class.getName(), Long.class.getName()},
 			DefinitionModelImpl.UUID_COLUMN_BITMASK |
 			DefinitionModelImpl.GROUPID_COLUMN_BITMASK);
 
 		_finderPathCountByUUID_G = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
 			new String[] {String.class.getName(), Long.class.getName()});
 
 		_finderPathWithPaginationFindByUuid_C = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
 			new String[] {
 				String.class.getName(), Long.class.getName(),
@@ -3612,8 +3617,7 @@ public class DefinitionPersistenceImpl
 			});
 
 		_finderPathWithoutPaginationFindByUuid_C = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
 			DefinitionModelImpl.UUID_COLUMN_BITMASK |
@@ -3621,14 +3625,12 @@ public class DefinitionPersistenceImpl
 			DefinitionModelImpl.MODIFIEDDATE_COLUMN_BITMASK);
 
 		_finderPathCountByUuid_C = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()});
 
 		_finderPathWithPaginationFindByGroupId = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupId",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
@@ -3636,22 +3638,19 @@ public class DefinitionPersistenceImpl
 			});
 
 		_finderPathWithoutPaginationFindByGroupId = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGroupId",
 			new String[] {Long.class.getName()},
 			DefinitionModelImpl.GROUPID_COLUMN_BITMASK |
 			DefinitionModelImpl.MODIFIEDDATE_COLUMN_BITMASK);
 
 		_finderPathCountByGroupId = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
 			new String[] {Long.class.getName()});
 
 		_finderPathWithPaginationFindByCompanyId = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
@@ -3659,31 +3658,64 @@ public class DefinitionPersistenceImpl
 			});
 
 		_finderPathWithoutPaginationFindByCompanyId = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			entityCacheEnabled, finderCacheEnabled, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
 			new String[] {Long.class.getName()},
 			DefinitionModelImpl.COMPANYID_COLUMN_BITMASK |
 			DefinitionModelImpl.MODIFIEDDATE_COLUMN_BITMASK);
 
 		_finderPathCountByCompanyId = new FinderPath(
-			DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
 			new String[] {Long.class.getName()});
 	}
 
-	public void destroy() {
+	@Deactivate
+	public void deactivate() {
 		entityCache.removeCache(DefinitionImpl.class.getName());
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@ServiceReference(type = EntityCache.class)
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
+		unbind = "-"
+	)
+	public void setConfiguration(Configuration configuration) {
+		super.setConfiguration(configuration);
+
+		_columnBitmaskEnabled = GetterUtil.getBoolean(
+			configuration.get(
+				"value.object.column.bitmask.enabled.com.liferay.portal.reports.engine.console.model.Definition"),
+			true);
+	}
+
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setDataSource(DataSource dataSource) {
+		super.setDataSource(dataSource);
+	}
+
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
+	}
+
+	private boolean _columnBitmaskEnabled;
+
+	@Reference
 	protected EntityCache entityCache;
 
-	@ServiceReference(type = FinderCache.class)
+	@Reference
 	protected FinderCache finderCache;
 
 	private static final String _SQL_SELECT_DEFINITION =
@@ -3734,5 +3766,14 @@ public class DefinitionPersistenceImpl
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
 		new String[] {"uuid"});
+
+	static {
+		try {
+			Class.forName(ReportsPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
 
 }

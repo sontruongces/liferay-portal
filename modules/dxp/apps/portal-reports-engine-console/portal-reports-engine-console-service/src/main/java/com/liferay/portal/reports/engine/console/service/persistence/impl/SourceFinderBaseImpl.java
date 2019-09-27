@@ -14,22 +14,28 @@
 
 package com.liferay.portal.reports.engine.console.service.persistence.impl;
 
-import com.liferay.portal.kernel.bean.BeanReference;
+import com.liferay.portal.kernel.configuration.Configuration;
+import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.reports.engine.console.model.Source;
 import com.liferay.portal.reports.engine.console.service.persistence.SourcePersistence;
+import com.liferay.portal.reports.engine.console.service.persistence.impl.constants.ReportsPersistenceConstants;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.sql.DataSource;
+
+import org.osgi.service.component.annotations.Reference;
+
 /**
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class SourceFinderBaseImpl extends BasePersistenceImpl<Source> {
+public abstract class SourceFinderBaseImpl extends BasePersistenceImpl<Source> {
 
 	public SourceFinderBaseImpl() {
 		setModelClass(Source.class);
@@ -43,31 +49,49 @@ public class SourceFinderBaseImpl extends BasePersistenceImpl<Source> {
 
 	@Override
 	public Set<String> getBadColumnNames() {
-		return getSourcePersistence().getBadColumnNames();
+		return sourcePersistence.getBadColumnNames();
 	}
 
-	/**
-	 * Returns the source persistence.
-	 *
-	 * @return the source persistence
-	 */
-	public SourcePersistence getSourcePersistence() {
-		return sourcePersistence;
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
+		unbind = "-"
+	)
+	public void setConfiguration(Configuration configuration) {
+		super.setConfiguration(configuration);
 	}
 
-	/**
-	 * Sets the source persistence.
-	 *
-	 * @param sourcePersistence the source persistence
-	 */
-	public void setSourcePersistence(SourcePersistence sourcePersistence) {
-		this.sourcePersistence = sourcePersistence;
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setDataSource(DataSource dataSource) {
+		super.setDataSource(dataSource);
 	}
 
-	@BeanReference(type = SourcePersistence.class)
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
+	}
+
+	@Reference
 	protected SourcePersistence sourcePersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		SourceFinderBaseImpl.class);
+
+	static {
+		try {
+			Class.forName(ReportsPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
 
 }

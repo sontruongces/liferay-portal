@@ -14,40 +14,64 @@
 
 package com.liferay.portal.reports.engine.console.service.persistence.impl;
 
-import com.liferay.portal.kernel.bean.BeanReference;
+import com.liferay.portal.kernel.configuration.Configuration;
+import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.reports.engine.console.model.Entry;
 import com.liferay.portal.reports.engine.console.service.persistence.EntryPersistence;
+import com.liferay.portal.reports.engine.console.service.persistence.impl.constants.ReportsPersistenceConstants;
+
+import javax.sql.DataSource;
+
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class EntryFinderBaseImpl extends BasePersistenceImpl<Entry> {
+public abstract class EntryFinderBaseImpl extends BasePersistenceImpl<Entry> {
 
 	public EntryFinderBaseImpl() {
 		setModelClass(Entry.class);
 	}
 
-	/**
-	 * Returns the entry persistence.
-	 *
-	 * @return the entry persistence
-	 */
-	public EntryPersistence getEntryPersistence() {
-		return entryPersistence;
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
+		unbind = "-"
+	)
+	public void setConfiguration(Configuration configuration) {
+		super.setConfiguration(configuration);
 	}
 
-	/**
-	 * Sets the entry persistence.
-	 *
-	 * @param entryPersistence the entry persistence
-	 */
-	public void setEntryPersistence(EntryPersistence entryPersistence) {
-		this.entryPersistence = entryPersistence;
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setDataSource(DataSource dataSource) {
+		super.setDataSource(dataSource);
 	}
 
-	@BeanReference(type = EntryPersistence.class)
+	@Override
+	@Reference(
+		target = ReportsPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
+	}
+
+	@Reference
 	protected EntryPersistence entryPersistence;
+
+	static {
+		try {
+			Class.forName(ReportsPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
 
 }
