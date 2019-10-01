@@ -121,15 +121,9 @@ public class UpgradeExecutor {
 		}
 
 		if (size != 0) {
-			if (Validator.isNotNull(outputStreamContainerFactoryName)) {
-				release = executeUpgradeInfos(
-					bundleSymbolicName, upgradeInfosList.get(0),
-					outputStreamContainerFactoryName);
-			}
-			else {
-				release = executeUpgradeInfos(
-					bundleSymbolicName, upgradeInfosList.get(0));
-			}
+			release = executeUpgradeInfos(
+				bundleSymbolicName, upgradeInfosList.get(0),
+				outputStreamContainerFactoryName);
 		}
 
 		if (release != null) {
@@ -148,12 +142,6 @@ public class UpgradeExecutor {
 						requiredVersion, " from ", schemaVersion));
 			}
 		}
-	}
-
-	public Release executeUpgradeInfos(
-		String bundleSymbolicName, List<UpgradeInfo> upgradeInfos) {
-
-		return executeUpgradeInfos(bundleSymbolicName, upgradeInfos, null);
 	}
 
 	public Release executeUpgradeInfos(
