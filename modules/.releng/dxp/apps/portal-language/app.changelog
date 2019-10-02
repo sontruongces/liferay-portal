@@ -20,3 +20,15 @@ app.artifacts-2.0.1=\
 app.change.log-2.0.1=LPS-0 LPS-77425 LPS-78661 LPS-79679 LPS-80332 LPS-80388 LPS-82668 LPS-82828 LPS-83693 LPS-84093 LPS-84119 LPS-84433 LPS-84756 LPS-85296 LPS-86408 LPS-86806 LPS-94049 LPS-95083 LPS-95555 LPS-96525
 
 app.git.id-2.0.1=dcf5a45b028847e7ac3983f30f769c1864c03033
+
+#
+# Liferay App Version 2.0.2
+#
+
+app.artifacts-2.0.2=\
+	com.liferay.portal.language.extender-4.0.3.jar,\
+	com.liferay.portal.language.servlet.filter-4.0.6.jar
+
+app.change.log-2.0.2=LPS-100448 LPS-78661 LPS-95555 LPS-96525 LPS-98879
+
+app.git.id-2.0.2=d0d490c1a0a4bdf614d8a137a5e902ab1509be1b

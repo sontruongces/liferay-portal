@@ -46,3 +46,41 @@ app.artifacts-3.0.1=\
 app.change.log-3.0.1=[[trimmed]]808 LPS-86924 LPS-87590 LPS-87642 LPS-87885 LPS-88170 LPS-88181 LPS-88196 LPS-88217 LPS-88218 LPS-88665 LPS-88715 LPS-88823 LPS-88948 LPS-88955 LPS-88988 LPS-89249 LPS-89414 LPS-89445 LPS-89456 LPS-89457 LPS-89482 LPS-89568 LPS-89573 LPS-90523 LPS-91086 LPS-91343 LPS-91424 LPS-91527 LPS-91751 LPS-91792 LPS-91966 LPS-91967 LPS-91970 LPS-92016 LPS-92139 LPS-92373 LPS-92511 LPS-92553 LPS-92609 LPS-92696 LPS-92802 LPS-93009 LPS-93086 LPS-93172 LPS-93499 LPS-93524 LPS-93586 LPS-93823 LPS-94033 LPS-94466 LPS-94555 LPS-94653 LPS-94823 LPS-94904 LPS-94966 LPS-94990 LPS-95096 LPS-95200 LPS-95393 LPS-95413 LPS-95555 LPS-95774 LPS-95858 LPS-96018 LPS-96206 LPS-96340 LPS-96376 LPS-96566 LPS-96660 LPS-96717 LPS-96719 LPS-96830 LPS-96925 LPS-97127 LPS-97169 LPS-97256 LPS-97276 LPS-97547 LPS-97889 LPS-98426 LPS-98877 LPS-99252 LRDOCS-2420 LRDOCS-3034 LRDOCS-3049 LRDOCS-3125 LRDOCS-3257 LRDOCS-3320 LRDOCS-3599 LRDOCS-3861 LRDOCS-3957 LRDOCS-3999 LRDOCS-4102 LRDOCS-6300 LRQA-30294 LRQA-31670 LRQA-44612
 
 app.git.id-3.0.1=dcf5a45b028847e7ac3983f30f769c1864c03033
+
+#
+# Liferay App Version 3.0.2
+#
+
+app.artifacts-3.0.2=\
+	com.liferay.adaptive.media.api-4.0.5.jar,\
+	com.liferay.adaptive.media.blogs.editor.configuration-3.0.8.jar,\
+	com.liferay.adaptive.media.blogs.item.selector.web-3.0.0.jar,\
+	com.liferay.adaptive.media.blogs.web-3.0.5.jar,\
+	com.liferay.adaptive.media.blogs.web.fragment-3.0.4.jar,\
+	com.liferay.adaptive.media.content.transformer.api-3.0.1.jar,\
+	com.liferay.adaptive.media.content.transformer.impl-2.0.1.jar,\
+	com.liferay.adaptive.media.demo.data.creator.api-3.0.0.jar,\
+	com.liferay.adaptive.media.demo.data.creator.impl-3.0.0.jar,\
+	com.liferay.adaptive.media.document.library-3.0.3.jar,\
+	com.liferay.adaptive.media.document.library.item.selector.web-3.0.0.jar,\
+	com.liferay.adaptive.media.document.library.thumbnails-3.0.8.jar,\
+	com.liferay.adaptive.media.document.library.web-3.0.0.jar,\
+	com.liferay.adaptive.media.image.api-3.0.4.jar,\
+	com.liferay.adaptive.media.image.content.transformer-3.0.1.jar,\
+	com.liferay.adaptive.media.image.content.transformer.backwards.compatibility-3.0.2.jar,\
+	com.liferay.adaptive.media.image.impl-3.0.21.jar,\
+	com.liferay.adaptive.media.image.item.selector.api-3.0.0.jar,\
+	com.liferay.adaptive.media.image.item.selector.impl-3.0.3.jar,\
+	com.liferay.adaptive.media.image.js.web-3.0.4.jar,\
+	com.liferay.adaptive.media.image.service-3.0.10.jar,\
+	com.liferay.adaptive.media.image.taglib-3.0.2.jar,\
+	com.liferay.adaptive.media.image.web-3.0.5.jar,\
+	com.liferay.adaptive.media.item.selector.upload.web-3.0.0.jar,\
+	com.liferay.adaptive.media.journal.editor.configuration-3.0.9.jar,\
+	com.liferay.adaptive.media.journal.web-3.0.1.jar,\
+	com.liferay.adaptive.media.upload-2.0.5.jar,\
+	com.liferay.adaptive.media.web-3.0.21.jar
+
+app.change.log-3.0.2=[[trimmed]]-70591 LPS-70592 LPS-70625 LPS-70693 LPS-70711 LPS-70721 LPS-70746 LPS-70859 LPS-70921 LPS-70974 LPS-71162 LPS-71315 LPS-71420 LPS-71511 LPS-71564 LPS-71583 LPS-71835 LPS-71887 LPS-72394 LPS-72520 LPS-72970 LPS-73577 LPS-73791 LPS-73792 LPS-73881 LPS-74008 LPS-74540 LPS-74544 LPS-74545 LPS-74584 LPS-74589 LPS-74697 LPS-74724 LPS-74742 LPS-74842 LPS-74849 LPS-75010 LPS-75049 LPS-75313 LPS-75359 LPS-75465 LPS-75552 LPS-75610 LPS-75769 LPS-75883 LPS-75888 LPS-75974 LPS-76043 LPS-76226 LPS-76291 LPS-76840 LPS-76940 LPS-77143 LPS-77425 LPS-77631 LPS-77699 LPS-78288 LPS-79653 LPS-80332 LPS-80778 LPS-82097 LPS-82785 LPS-84090 LPS-84119 LPS-84906 LPS-85296 LPS-86408 LPS-86413 LPS-86473 LPS-86806 LPS-88715 LPS-88988 LPS-89249 LPS-89482 LPS-91792 LPS-92139 LPS-92553 LPS-92619 LPS-92696 LPS-93586 LPS-94990 LPS-95413 LPS-95555 LPS-95858 LPS-96206 LPS-96766 LPS-97276 LPS-97547 LPS-97889 LPS-98654 LPS-98877 LPS-98879 LPS-99252 LPS-99657 LPS-99807 LPS-99917 LPS-99942 LRDOCS-3320 LRQA-30294 LRQA-31670
+
+app.git.id-3.0.2=d0d490c1a0a4bdf614d8a137a5e902ab1509be1b
