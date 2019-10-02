@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.store.ignore.duplicates.wrapper.internal;
+package com.liferay.portal.store.file.system.ignore.duplicates;
 
 import com.liferay.document.library.kernel.exception.DuplicateFileException;
 import com.liferay.document.library.kernel.store.Store;
@@ -26,15 +26,17 @@ import java.io.InputStream;
 /**
  * @author Adolfo Pérez
  */
-public abstract class IgnoreDuplicatesStore implements Store {
+public class IgnoreDuplicatesStore implements Store {
 
-	public static final int SERVICE_RANKING = 100;
+	public IgnoreDuplicatesStore(Store store) {
+		_store = store;
+	}
 
 	@Override
 	public void addDirectory(
 		long companyId, long repositoryId, String dirName) {
 
-		store.addDirectory(companyId, repositoryId, dirName);
+		_store.addDirectory(companyId, repositoryId, dirName);
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(
 				companyId, repositoryId, fileName, Store.VERSION_DEFAULT),
-			() -> store.addFile(companyId, repositoryId, fileName, bytes));
+			() -> _store.addFile(companyId, repositoryId, fileName, bytes));
 	}
 
 	@Override
@@ -58,7 +60,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(
 				companyId, repositoryId, fileName, Store.VERSION_DEFAULT),
-			() -> store.addFile(companyId, repositoryId, fileName, file));
+			() -> _store.addFile(companyId, repositoryId, fileName, file));
 	}
 
 	@Override
@@ -70,7 +72,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(
 				companyId, repositoryId, fileName, Store.VERSION_DEFAULT),
-			() -> store.addFile(companyId, repositoryId, fileName, is));
+			() -> _store.addFile(companyId, repositoryId, fileName, is));
 	}
 
 	@Override
@@ -83,13 +85,13 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(
 				companyId, repositoryId, fileName, Store.VERSION_DEFAULT),
-			() -> store.addFile(
+			() -> _store.addFile(
 				companyId, repositoryId, fileName, versionLabel, is));
 	}
 
 	@Override
 	public void checkRoot(long companyId) {
-		store.checkRoot(companyId);
+		_store.checkRoot(companyId);
 	}
 
 	@Override
@@ -98,7 +100,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 			String versionLabel, Store targetStore)
 		throws PortalException {
 
-		store.copyFileToStore(
+		_store.copyFileToStore(
 			companyId, repositoryId, fileName, versionLabel, targetStore);
 	}
 
@@ -116,7 +118,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(
 				companyId, repositoryId, fileName, toVersionLabel),
-			() -> store.copyFileVersion(
+			() -> _store.copyFileVersion(
 				companyId, repositoryId, fileName, fromVersionLabel,
 				toVersionLabel));
 	}
@@ -125,12 +127,12 @@ public abstract class IgnoreDuplicatesStore implements Store {
 	public void deleteDirectory(
 		long companyId, long repositoryId, String dirName) {
 
-		store.deleteDirectory(companyId, repositoryId, dirName);
+		_store.deleteDirectory(companyId, repositoryId, dirName);
 	}
 
 	@Override
 	public void deleteFile(long companyId, long repositoryId, String fileName) {
-		store.deleteFile(companyId, repositoryId, fileName);
+		_store.deleteFile(companyId, repositoryId, fileName);
 	}
 
 	@Override
@@ -138,14 +140,14 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		long companyId, long repositoryId, String fileName,
 		String versionLabel) {
 
-		store.deleteFile(companyId, repositoryId, fileName, versionLabel);
+		_store.deleteFile(companyId, repositoryId, fileName, versionLabel);
 	}
 
 	@Override
 	public File getFile(long companyId, long repositoryId, String fileName)
 		throws PortalException {
 
-		return store.getFile(companyId, repositoryId, fileName);
+		return _store.getFile(companyId, repositoryId, fileName);
 	}
 
 	@Override
@@ -154,7 +156,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 			String versionLabel)
 		throws PortalException {
 
-		return store.getFile(companyId, repositoryId, fileName, versionLabel);
+		return _store.getFile(companyId, repositoryId, fileName, versionLabel);
 	}
 
 	@Override
@@ -162,7 +164,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 			long companyId, long repositoryId, String fileName)
 		throws PortalException {
 
-		return store.getFileAsBytes(companyId, repositoryId, fileName);
+		return _store.getFileAsBytes(companyId, repositoryId, fileName);
 	}
 
 	@Override
@@ -171,7 +173,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 			String versionLabel)
 		throws PortalException {
 
-		return store.getFileAsBytes(
+		return _store.getFileAsBytes(
 			companyId, repositoryId, fileName, versionLabel);
 	}
 
@@ -180,7 +182,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 			long companyId, long repositoryId, String fileName)
 		throws PortalException {
 
-		return store.getFileAsStream(companyId, repositoryId, fileName);
+		return _store.getFileAsStream(companyId, repositoryId, fileName);
 	}
 
 	@Override
@@ -189,27 +191,27 @@ public abstract class IgnoreDuplicatesStore implements Store {
 			String versionLabel)
 		throws PortalException {
 
-		return store.getFileAsStream(
+		return _store.getFileAsStream(
 			companyId, repositoryId, fileName, versionLabel);
 	}
 
 	@Override
 	public String[] getFileNames(long companyId, long repositoryId) {
-		return store.getFileNames(companyId, repositoryId);
+		return _store.getFileNames(companyId, repositoryId);
 	}
 
 	@Override
 	public String[] getFileNames(
 		long companyId, long repositoryId, String dirName) {
 
-		return store.getFileNames(companyId, repositoryId, dirName);
+		return _store.getFileNames(companyId, repositoryId, dirName);
 	}
 
 	@Override
 	public long getFileSize(long companyId, long repositoryId, String fileName)
 		throws PortalException {
 
-		return store.getFileSize(companyId, repositoryId, fileName);
+		return _store.getFileSize(companyId, repositoryId, fileName);
 	}
 
 	@Override
@@ -217,19 +219,19 @@ public abstract class IgnoreDuplicatesStore implements Store {
 			long companyId, long repositoryId, String fileName)
 		throws PortalException {
 
-		return store.getFileVersions(companyId, repositoryId, fileName);
+		return _store.getFileVersions(companyId, repositoryId, fileName);
 	}
 
 	@Override
 	public boolean hasDirectory(
 		long companyId, long repositoryId, String dirName) {
 
-		return store.hasDirectory(companyId, repositoryId, dirName);
+		return _store.hasDirectory(companyId, repositoryId, dirName);
 	}
 
 	@Override
 	public boolean hasFile(long companyId, long repositoryId, String fileName) {
-		return store.hasFile(companyId, repositoryId, fileName);
+		return _store.hasFile(companyId, repositoryId, fileName);
 	}
 
 	@Override
@@ -237,12 +239,12 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		long companyId, long repositoryId, String fileName,
 		String versionLabel) {
 
-		return store.hasFile(companyId, repositoryId, fileName, versionLabel);
+		return _store.hasFile(companyId, repositoryId, fileName, versionLabel);
 	}
 
 	@Override
 	public void move(String srcDir, String destDir) {
-		store.move(srcDir, destDir);
+		_store.move(srcDir, destDir);
 	}
 
 	@Override
@@ -251,7 +253,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 			String versionLabel, Store targetStore)
 		throws PortalException {
 
-		store.moveFileToStore(
+		_store.moveFileToStore(
 			companyId, repositoryId, fileName, versionLabel, targetStore);
 	}
 
@@ -267,7 +269,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(companyId, newRepositoryId, fileName),
-			() -> store.updateFile(
+			() -> _store.updateFile(
 				companyId, repositoryId, newRepositoryId, fileName));
 	}
 
@@ -283,7 +285,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(companyId, repositoryId, newFileName),
-			() -> store.updateFile(
+			() -> _store.updateFile(
 				companyId, repositoryId, fileName, newFileName));
 	}
 
@@ -297,7 +299,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(
 				companyId, repositoryId, fileName, versionLabel),
-			() -> store.updateFile(
+			() -> _store.updateFile(
 				companyId, repositoryId, fileName, versionLabel, bytes));
 	}
 
@@ -310,7 +312,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(
 				companyId, repositoryId, fileName, versionLabel),
-			() -> store.updateFile(
+			() -> _store.updateFile(
 				companyId, repositoryId, fileName, versionLabel, file));
 	}
 
@@ -324,7 +326,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(
 				companyId, repositoryId, fileName, versionLabel),
-			() -> store.updateFile(
+			() -> _store.updateFile(
 				companyId, repositoryId, fileName, versionLabel, is));
 	}
 
@@ -338,7 +340,7 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		recoverAndRetryOnFailure(
 			createDeleteFileStoreAction(
 				companyId, repositoryId, fileName, toVersionLabel),
-			() -> store.updateFileVersion(
+			() -> _store.updateFileVersion(
 				companyId, repositoryId, fileName, fromVersionLabel,
 				toVersionLabel));
 	}
@@ -346,14 +348,14 @@ public abstract class IgnoreDuplicatesStore implements Store {
 	protected StoreAction createDeleteFileStoreAction(
 		final long companyId, final long repositoryId, final String fileName) {
 
-		return () -> store.deleteFile(companyId, repositoryId, fileName);
+		return () -> _store.deleteFile(companyId, repositoryId, fileName);
 	}
 
 	protected StoreAction createDeleteFileStoreAction(
 		final long companyId, final long repositoryId, final String fileName,
 		final String versionLabel) {
 
-		return () -> store.deleteFile(
+		return () -> _store.deleteFile(
 			companyId, repositoryId, fileName, versionLabel);
 	}
 
@@ -378,10 +380,10 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		}
 	}
 
-	protected volatile Store store;
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		IgnoreDuplicatesStore.class);
+
+	private final Store _store;
 
 	private interface StoreAction {
 

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.store.safe.file.name.wrapper.internal;
+package com.liferay.portal.store.file.system.safe.file.name;
 
 import com.liferay.document.library.kernel.model.DLFileEntryConstants;
 import com.liferay.document.library.kernel.store.Store;
@@ -27,9 +27,11 @@ import java.io.InputStream;
 /**
  * @author Roberto Díaz
  */
-public abstract class SafeFileNameStore implements Store {
+public class SafeFileNameStore implements Store {
 
-	public static final int SERVICE_RANKING = 200;
+	public SafeFileNameStore(Store store) {
+		_store = store;
+	}
 
 	@Override
 	public void addDirectory(
@@ -39,7 +41,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		if (!safeDirName.equals(dirName)) {
 			try {
-				store.move(dirName, safeDirName);
+				_store.move(dirName, safeDirName);
 			}
 			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
@@ -48,7 +50,7 @@ public abstract class SafeFileNameStore implements Store {
 			}
 		}
 
-		store.addDirectory(companyId, repositoryId, safeDirName);
+		_store.addDirectory(companyId, repositoryId, safeDirName);
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.addFile(companyId, repositoryId, safeFileName, bytes);
+		_store.addFile(companyId, repositoryId, safeFileName, bytes);
 	}
 
 	@Override
@@ -72,7 +74,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.addFile(companyId, repositoryId, safeFileName, file);
+		_store.addFile(companyId, repositoryId, safeFileName, file);
 	}
 
 	@Override
@@ -84,7 +86,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.addFile(companyId, repositoryId, safeFileName, is);
+		_store.addFile(companyId, repositoryId, safeFileName, is);
 	}
 
 	@Override
@@ -97,12 +99,12 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.addFile(companyId, repositoryId, safeFileName, versionLabel, is);
+		_store.addFile(companyId, repositoryId, safeFileName, versionLabel, is);
 	}
 
 	@Override
 	public void checkRoot(long companyId) {
-		store.checkRoot(companyId);
+		_store.checkRoot(companyId);
 	}
 
 	@Override
@@ -115,7 +117,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.copyFileToStore(
+		_store.copyFileToStore(
 			companyId, repositoryId, safeFileName, versionLabel, targetStore);
 	}
 
@@ -129,7 +131,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.copyFileVersion(
+		_store.copyFileVersion(
 			companyId, repositoryId, safeFileName, fromVersionLabel,
 			toVersionLabel);
 	}
@@ -142,7 +144,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		if (!safeDirName.equals(dirName)) {
 			try {
-				store.deleteDirectory(companyId, repositoryId, dirName);
+				_store.deleteDirectory(companyId, repositoryId, dirName);
 
 				return;
 			}
@@ -153,7 +155,7 @@ public abstract class SafeFileNameStore implements Store {
 			}
 		}
 
-		store.deleteDirectory(companyId, repositoryId, safeDirName);
+		_store.deleteDirectory(companyId, repositoryId, safeDirName);
 	}
 
 	@Override
@@ -161,14 +163,14 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName)) {
+			_store.hasFile(companyId, repositoryId, fileName)) {
 
-			store.deleteFile(companyId, repositoryId, fileName);
+			_store.deleteFile(companyId, repositoryId, fileName);
 
 			return;
 		}
 
-		store.deleteFile(companyId, repositoryId, safeFileName);
+		_store.deleteFile(companyId, repositoryId, safeFileName);
 	}
 
 	@Override
@@ -179,14 +181,14 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
+			_store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
 
-			store.deleteFile(companyId, repositoryId, fileName, versionLabel);
+			_store.deleteFile(companyId, repositoryId, fileName, versionLabel);
 
 			return;
 		}
 
-		store.deleteFile(companyId, repositoryId, safeFileName, versionLabel);
+		_store.deleteFile(companyId, repositoryId, safeFileName, versionLabel);
 	}
 
 	@Override
@@ -196,12 +198,12 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName)) {
+			_store.hasFile(companyId, repositoryId, fileName)) {
 
-			return store.getFile(companyId, repositoryId, fileName);
+			return _store.getFile(companyId, repositoryId, fileName);
 		}
 
-		return store.getFile(companyId, repositoryId, safeFileName);
+		return _store.getFile(companyId, repositoryId, safeFileName);
 	}
 
 	@Override
@@ -213,13 +215,13 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
+			_store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
 
-			return store.getFile(
+			return _store.getFile(
 				companyId, repositoryId, fileName, versionLabel);
 		}
 
-		return store.getFile(
+		return _store.getFile(
 			companyId, repositoryId, safeFileName, versionLabel);
 	}
 
@@ -231,12 +233,12 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName)) {
+			_store.hasFile(companyId, repositoryId, fileName)) {
 
-			return store.getFileAsBytes(companyId, repositoryId, fileName);
+			return _store.getFileAsBytes(companyId, repositoryId, fileName);
 		}
 
-		return store.getFileAsBytes(companyId, repositoryId, safeFileName);
+		return _store.getFileAsBytes(companyId, repositoryId, safeFileName);
 	}
 
 	@Override
@@ -248,13 +250,13 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
+			_store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
 
-			return store.getFileAsBytes(
+			return _store.getFileAsBytes(
 				companyId, repositoryId, fileName, versionLabel);
 		}
 
-		return store.getFileAsBytes(
+		return _store.getFileAsBytes(
 			companyId, repositoryId, safeFileName, versionLabel);
 	}
 
@@ -266,12 +268,12 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName)) {
+			_store.hasFile(companyId, repositoryId, fileName)) {
 
-			return store.getFileAsStream(companyId, repositoryId, fileName);
+			return _store.getFileAsStream(companyId, repositoryId, fileName);
 		}
 
-		return store.getFileAsStream(companyId, repositoryId, safeFileName);
+		return _store.getFileAsStream(companyId, repositoryId, safeFileName);
 	}
 
 	@Override
@@ -283,19 +285,19 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
+			_store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
 
-			return store.getFileAsStream(
+			return _store.getFileAsStream(
 				companyId, repositoryId, fileName, versionLabel);
 		}
 
-		return store.getFileAsStream(
+		return _store.getFileAsStream(
 			companyId, repositoryId, safeFileName, versionLabel);
 	}
 
 	@Override
 	public String[] getFileNames(long companyId, long repositoryId) {
-		String[] fileNames = store.getFileNames(companyId, repositoryId);
+		String[] fileNames = _store.getFileNames(companyId, repositoryId);
 
 		String[] decodedFileNames = new String[fileNames.length];
 
@@ -314,7 +316,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		if (!safeDirName.equals(dirName)) {
 			try {
-				store.move(dirName, safeDirName);
+				_store.move(dirName, safeDirName);
 			}
 			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
@@ -323,7 +325,7 @@ public abstract class SafeFileNameStore implements Store {
 			}
 		}
 
-		String[] fileNames = store.getFileNames(
+		String[] fileNames = _store.getFileNames(
 			companyId, repositoryId, safeDirName);
 
 		String[] decodedFileNames = new String[fileNames.length];
@@ -342,12 +344,12 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName)) {
+			_store.hasFile(companyId, repositoryId, fileName)) {
 
-			return store.getFileSize(companyId, repositoryId, fileName);
+			return _store.getFileSize(companyId, repositoryId, fileName);
 		}
 
-		return store.getFileSize(companyId, repositoryId, safeFileName);
+		return _store.getFileSize(companyId, repositoryId, safeFileName);
 	}
 
 	@Override
@@ -358,13 +360,13 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(
+			_store.hasFile(
 				companyId, repositoryId, fileName, Store.VERSION_DEFAULT)) {
 
-			return store.getFileVersions(companyId, repositoryId, fileName);
+			return _store.getFileVersions(companyId, repositoryId, fileName);
 		}
 
-		return store.getFileVersions(companyId, repositoryId, safeFileName);
+		return _store.getFileVersions(companyId, repositoryId, safeFileName);
 	}
 
 	@Override
@@ -373,7 +375,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		String safeDirName = FileUtil.encodeSafeFileName(dirName);
 
-		return store.hasDirectory(companyId, repositoryId, safeDirName);
+		return _store.hasDirectory(companyId, repositoryId, safeDirName);
 	}
 
 	@Override
@@ -381,12 +383,12 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName)) {
+			_store.hasFile(companyId, repositoryId, fileName)) {
 
 			return true;
 		}
 
-		return store.hasFile(companyId, repositoryId, safeFileName);
+		return _store.hasFile(companyId, repositoryId, safeFileName);
 	}
 
 	@Override
@@ -397,18 +399,18 @@ public abstract class SafeFileNameStore implements Store {
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
+			_store.hasFile(companyId, repositoryId, fileName, versionLabel)) {
 
 			return true;
 		}
 
-		return store.hasFile(
+		return _store.hasFile(
 			companyId, repositoryId, safeFileName, versionLabel);
 	}
 
 	@Override
 	public void move(String srcDir, String destDir) {
-		store.move(srcDir, destDir);
+		_store.move(srcDir, destDir);
 	}
 
 	@Override
@@ -421,7 +423,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.moveFileToStore(
+		_store.moveFileToStore(
 			companyId, repositoryId, safeFileName, versionLabel, targetStore);
 	}
 
@@ -435,7 +437,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.updateFile(
+		_store.updateFile(
 			companyId, repositoryId, newRepositoryId, safeFileName);
 	}
 
@@ -449,14 +451,14 @@ public abstract class SafeFileNameStore implements Store {
 		String safeNewFileName = FileUtil.encodeSafeFileName(newFileName);
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(
+			_store.hasFile(
 				companyId, repositoryId, fileName,
 				DLFileEntryConstants.VERSION_DEFAULT)) {
 
 			safeFileName = fileName;
 		}
 
-		store.updateFile(
+		_store.updateFile(
 			companyId, repositoryId, safeFileName, safeNewFileName);
 	}
 
@@ -470,7 +472,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.updateFile(
+		_store.updateFile(
 			companyId, repositoryId, safeFileName, versionLabel, bytes);
 	}
 
@@ -484,7 +486,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.updateFile(
+		_store.updateFile(
 			companyId, repositoryId, safeFileName, versionLabel, file);
 	}
 
@@ -498,7 +500,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.updateFile(
+		_store.updateFile(
 			companyId, repositoryId, safeFileName, versionLabel, is);
 	}
 
@@ -512,7 +514,7 @@ public abstract class SafeFileNameStore implements Store {
 
 		renameUnsafeFile(companyId, repositoryId, fileName, safeFileName);
 
-		store.updateFileVersion(
+		_store.updateFileVersion(
 			companyId, repositoryId, safeFileName, fromVersionLabel,
 			toVersionLabel);
 	}
@@ -523,17 +525,17 @@ public abstract class SafeFileNameStore implements Store {
 		throws PortalException {
 
 		if (!safeFileName.equals(fileName) &&
-			store.hasFile(
+			_store.hasFile(
 				companyId, repositoryId, fileName,
 				DLFileEntryConstants.VERSION_DEFAULT)) {
 
-			store.updateFile(companyId, repositoryId, fileName, safeFileName);
+			_store.updateFile(companyId, repositoryId, fileName, safeFileName);
 		}
 	}
 
-	protected volatile Store store;
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		SafeFileNameStore.class);
+
+	private final Store _store;
 
 }
