@@ -33,11 +33,6 @@ public class AccountUtil {
 
 		return new Account() {
 			{
-				addresses = TransformUtil.transformToArray(
-					account.getAddresses(),
-					address -> PostalAddressUtil.toPostalAddress(
-						address, locale),
-					PostalAddress.class);
 				code = account.getCode();
 				contactEmailAddress = account.getContactEmailAddress();
 				dateCreated = account.getCreateDate();
@@ -53,6 +48,11 @@ public class AccountUtil {
 				name = account.getName();
 				notes = account.getNotes();
 				phoneNumber = account.getPhoneNumber();
+				postalAddresses = TransformUtil.transformToArray(
+					account.getAddresses(),
+					address -> PostalAddressUtil.toPostalAddress(
+						address, locale),
+					PostalAddress.class);
 				profileEmailAddress = account.getProfileEmailAddress();
 				soldBy = account.getSoldBy();
 				status = Status.create(account.getStatusLabel());

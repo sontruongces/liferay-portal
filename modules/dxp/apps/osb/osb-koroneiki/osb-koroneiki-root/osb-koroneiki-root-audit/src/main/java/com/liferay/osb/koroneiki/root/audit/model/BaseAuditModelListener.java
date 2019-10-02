@@ -15,8 +15,7 @@
 package com.liferay.osb.koroneiki.root.audit.model;
 
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
-import com.liferay.osb.koroneiki.root.audit.constants.AuditEntryConstants;
-import com.liferay.osb.koroneiki.root.model.AuditEntry;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AuditEntry;
 import com.liferay.osb.koroneiki.root.service.AuditEntryLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.instances.service.PortalInstancesLocalService;
@@ -50,7 +49,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 				auditEntryLocalService.addAuditEntry(
 					getUserId(), getClassNameId(model), getClassPK(model),
 					_auditSetId.get(), getFieldClassNameId(model),
-					getFieldClassPK(model), AuditEntryConstants.ACTION_ADD,
+					getFieldClassPK(model), AuditEntry.Action.ADD.toString(),
 					field, StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
 					String.valueOf(entry.getValue()), StringPool.BLANK);
 			}
@@ -71,7 +70,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 				auditEntryLocalService.addAuditEntry(
 					getUserId(), getClassNameId(model), getClassPK(model),
 					_auditSetId.get(), getFieldClassNameId(model),
-					getFieldClassPK(model), AuditEntryConstants.ACTION_DELETE,
+					getFieldClassPK(model), AuditEntry.Action.DELETE.toString(),
 					field, StringPool.BLANK, String.valueOf(entry.getValue()),
 					StringPool.BLANK, StringPool.BLANK, StringPool.BLANK);
 			}
@@ -104,7 +103,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 						getUserId(), getClassNameId(model), getClassPK(model),
 						_auditSetId.get(), getFieldClassNameId(model),
 						getFieldClassPK(model),
-						AuditEntryConstants.ACTION_UPDATE, field,
+						AuditEntry.Action.UPDATE.toString(), field,
 						StringPool.BLANK, String.valueOf(oldValue),
 						StringPool.BLANK, String.valueOf(value),
 						StringPool.BLANK);
@@ -166,7 +165,8 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 			@Override
 			public Long initialValue() {
 				return CounterLocalServiceUtil.increment(
-					AuditEntry.class.getName());
+					com.liferay.osb.koroneiki.root.model.AuditEntry.class.
+						getName());
 			}
 
 		};

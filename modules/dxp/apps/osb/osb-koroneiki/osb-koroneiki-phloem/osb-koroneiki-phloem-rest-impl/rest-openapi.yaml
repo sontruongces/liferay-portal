@@ -3,12 +3,6 @@ components:
         Account:
             description: Represents an account.
             properties:
-                addresses:
-                    description: The account's postal addresses.
-                    items:
-                        $ref: "#/components/schemas/PostalAddress"
-                    readOnly: true
-                    type: array
                 code:
                     description: The code of the account.
                     type: string
@@ -45,7 +39,7 @@ components:
                     type: string
                 industry:
                     description: The industry of the account.
-                    enum: ["aerospace-and-defense", "agriculture", "automotive", "consulting-market-research", "education", "energy", "engineering", "financial-services", "food-services", "government-federal", "government-state-local", "healthcare", "hospitality-leisure", "insurance", "manufacturing", "media-entertainment", "not-for-profit-ngo", "other", "pharmaceuticals", "professional-services-agency-business", "professional-services-technical-web-it", "retail-consumer-products", "technology", "telecommunication", "transportation", "utilities"]
+                    enum: ["Aerospace and Defense", "Agriculture", "Automotive", "Consulting/Market Research", "Education", "Energy", "Engineering", "Financial Services", "Food Services", "Government (Federal)", "Government (State/Local)", "Healthcare", "Hospitality/Leisure", "Insurance", "Manufacturing", "Media/Entertainment", "Not for Profit/NGO", "Other", "Pharmaceuticals", "Professional Services (Agency/Business)", "Professional Services (Technical/Web/IT)", "Retail/Consumer Products", "Technology", "Telecommunications", "Transportaion", "Utilities"]
                     type: string
                 key:
                     description: The account's key.
@@ -69,6 +63,12 @@ components:
                 phoneNumber:
                     description: The account's phone number.
                     type: string
+                postalAddresses:
+                    description: The account's postal addresses.
+                    items:
+                        $ref: "#/components/schemas/PostalAddress"
+                    readOnly: true
+                    type: array
                 productPurchases:
                     description: The products that the account has purchased.
                     items:
@@ -83,11 +83,11 @@ components:
                     type: string
                 status:
                     description: The status of the account.
-                    enum: ["approved", "closed", "expired", "inactive", "pending", "pending-validation", "rejected"]
+                    enum: ["Approved", "Closed", "Expired", "Inactive", "Pending", "Pending Validation", "Rejected"]
                     type: string
                 tier:
                     description: The tier of the account.
-                    enum: ["oem", "premier", "regular", "strategic"]
+                    enum: ["OEM", "Premier", "Regular", "Strategic"]
                     type: string
                 website:
                     description: The account's website.
@@ -100,7 +100,7 @@ components:
             properties:
                 action:
                     description: The action performed on the object.
-                    enum: ["add", "delete", "update"]
+                    enum: ["Add", "Delete", "Update"]
                     readOnly: true
                     type: string
                 auditSetId:
@@ -245,7 +245,7 @@ components:
                     type: boolean
                 type:
                     description: The contact role's type.
-                    enum: ["account", "team"]
+                    enum: ["Account", "Team"]
                     type: string
             required:
                 - name
@@ -281,13 +281,13 @@ components:
             description: Represents a mailing address. This follows the [`PostalAddress`](https://www.schema.org/PostalAddress) specification.
             properties:
                 addressCountry:
-                    description: The address's country (e.g., USA).
+                    description: The address's country (e.g., United States).
                     type: string
                 addressLocality:
                     description: The address's locality (e.g., city).
                     type: string
                 addressRegion:
-                    description: The address's region (e.g., state).
+                    description: The address's region (e.g., California).
                     type: string
                 addressType:
                     description: The address's type.
@@ -496,7 +496,7 @@ components:
                     type: string
                 type:
                     description: The team role's type.
-                    enum: ["account", "regular"]
+                    enum: ["Account", "Regular"]
                     type: string
             required:
                 - name
@@ -504,6 +504,9 @@ components:
             type: object
 info:
     description: ""
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
     title: "Koroneiki"
     version: v1.0
 openapi: 3.0.1

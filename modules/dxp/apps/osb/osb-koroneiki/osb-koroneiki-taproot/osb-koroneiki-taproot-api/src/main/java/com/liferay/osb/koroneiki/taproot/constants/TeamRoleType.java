@@ -23,11 +23,11 @@ public class TeamRoleType {
 
 	public static final int ACCOUNT = 2;
 
-	public static final String ACCOUNT_LABEL = "account";
+	public static final String ACCOUNT_LABEL = "Account";
 
 	public static final int REGULAR = 1;
 
-	public static final String REGULAR_LABEL = "regular";
+	public static final String REGULAR_LABEL = "Regular";
 
 	public static final int[] VALUES = {REGULAR, ACCOUNT};
 

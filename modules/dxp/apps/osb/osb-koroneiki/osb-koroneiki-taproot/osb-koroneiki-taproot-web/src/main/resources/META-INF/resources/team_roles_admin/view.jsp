@@ -56,7 +56,6 @@ ViewTeamRolesManagementToolbarDisplayContext viewTeamRolesManagementToolbarDispl
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="type"
-				translate="<%= true %>"
 				value="<%= TeamRoleType.getLabel(teamRole.getType()) %>"
 			/>
 

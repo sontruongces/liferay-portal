@@ -46,7 +46,7 @@ int type = BeanParamUtil.getInteger(contactRole, request, "type");
 			<h5><liferay-ui:message key="type" /></h5>
 
 			<p>
-				<liferay-ui:message key="<%= ContactRoleType.getLabel(type) %>" />
+				<%= ContactRoleType.getLabel(type) %>
 			</p>
 
 			<aui:input name="name" />

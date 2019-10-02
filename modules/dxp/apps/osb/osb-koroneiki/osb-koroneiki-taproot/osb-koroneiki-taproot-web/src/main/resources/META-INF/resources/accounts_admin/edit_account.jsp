@@ -96,7 +96,7 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 				<aui:option value="" />
 
 				<%
-				for (String industry : AccountIndustry.VALUES) {
+				for (com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Industry industry : com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Industry.values()) {
 				%>
 
 					<aui:option label="<%= industry %>" value="<%= industry %>" />
@@ -111,7 +111,7 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 				<aui:option value="" />
 
 				<%
-				for (String tier : AccountTier.VALUES) {
+				for (com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Tier tier : com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Tier.values()) {
 				%>
 
 					<aui:option label="<%= tier %>" value="<%= tier %>" />

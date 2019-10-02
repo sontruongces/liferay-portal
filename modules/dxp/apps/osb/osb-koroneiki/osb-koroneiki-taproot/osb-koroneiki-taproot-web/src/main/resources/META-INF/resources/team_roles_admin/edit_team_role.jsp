@@ -45,7 +45,7 @@ int type = BeanParamUtil.getInteger(teamRole, request, "type");
 					<h5><liferay-ui:message key="type" /></h5>
 
 					<p>
-						<liferay-ui:message key="<%= TeamRoleType.getLabel(teamRole.getType()) %>" />
+						<%= TeamRoleType.getLabel(teamRole.getType()) %>
 					</p>
 				</c:when>
 				<c:otherwise>

@@ -23,11 +23,11 @@ public class ContactRoleType {
 
 	public static final int ACCOUNT = 1;
 
-	public static final String ACCOUNT_LABEL = "account";
+	public static final String ACCOUNT_LABEL = "Account";
 
 	public static final int TEAM = 2;
 
-	public static final String TEAM_LABEL = "team";
+	public static final String TEAM_LABEL = "Team";
 
 	public static final int[] VALUES = {ACCOUNT, TEAM};
 

@@ -1,3 +1,7 @@
 Bundle-Name: Liferay OSB Koroneiki Taproot Web
 Bundle-SymbolicName: com.liferay.osb.koroneiki.taproot.web
 Bundle-Version: 1.0.0
+Import-Package:\
+	com.liferay.osb.koroneiki.phloem.rest.dto.v1_0,\
+	\
+	*
