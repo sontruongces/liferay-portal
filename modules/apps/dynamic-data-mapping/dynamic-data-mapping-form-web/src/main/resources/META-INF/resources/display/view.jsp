@@ -196,7 +196,7 @@ long formInstanceId = ddmFormDisplayContext.getFormInstanceId();
 
 					function <portlet:namespace />fireFormView() {
 						Liferay.fire('ddmFormView', {
-							formId: <%= formInstanceId %>,
+							formId: '<%= formInstanceId %>',
 							title: '<%= HtmlUtil.escape(formInstance.getName(displayLocale)) %>'
 						});
 					}
