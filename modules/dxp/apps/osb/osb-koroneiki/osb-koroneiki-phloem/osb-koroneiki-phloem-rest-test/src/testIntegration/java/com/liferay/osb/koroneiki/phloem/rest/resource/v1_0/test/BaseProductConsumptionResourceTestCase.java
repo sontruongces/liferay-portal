@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -47,6 +48,7 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
@@ -780,10 +782,28 @@ public abstract class BaseProductConsumptionResourceTestCase {
 		testGetProductConsumptionsPageWithSort(
 			EntityField.Type.STRING,
 			(entityField, productConsumption1, productConsumption2) -> {
-				BeanUtils.setProperty(
-					productConsumption1, entityField.getName(), "Aaa");
-				BeanUtils.setProperty(
-					productConsumption2, entityField.getName(), "Bbb");
+				Class clazz = productConsumption1.getClass();
+
+				Method method = clazz.getMethod(
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						productConsumption1, entityField.getName(),
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						productConsumption2, entityField.getName(),
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else {
+					BeanUtils.setProperty(
+						productConsumption1, entityField.getName(), "Aaa");
+					BeanUtils.setProperty(
+						productConsumption2, entityField.getName(), "Bbb");
+				}
 			});
 	}
 
@@ -1031,12 +1051,12 @@ public abstract class BaseProductConsumptionResourceTestCase {
 
 	@Test
 	public void testDeleteProductConsumption() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testGetProductConsumption() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	protected void assertHttpResponseStatusCode(

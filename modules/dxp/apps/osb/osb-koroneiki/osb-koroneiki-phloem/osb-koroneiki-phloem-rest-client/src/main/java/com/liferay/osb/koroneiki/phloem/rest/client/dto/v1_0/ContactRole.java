@@ -31,7 +31,7 @@ public class ContactRole {
 
 	public static enum Type {
 
-		ACCOUNT("account"), TEAM("team");
+		ACCOUNT("Account"), TEAM("Team");
 
 		public static Type create(String value) {
 			for (Type type : values()) {

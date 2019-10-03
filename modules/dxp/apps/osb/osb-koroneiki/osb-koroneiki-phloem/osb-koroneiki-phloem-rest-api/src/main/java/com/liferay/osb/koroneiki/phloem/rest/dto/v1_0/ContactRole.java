@@ -56,7 +56,7 @@ public class ContactRole {
 
 	public static enum Type {
 
-		ACCOUNT("account"), TEAM("team");
+		ACCOUNT("Account"), TEAM("Team");
 
 		@JsonCreator
 		public static Type create(String value) {

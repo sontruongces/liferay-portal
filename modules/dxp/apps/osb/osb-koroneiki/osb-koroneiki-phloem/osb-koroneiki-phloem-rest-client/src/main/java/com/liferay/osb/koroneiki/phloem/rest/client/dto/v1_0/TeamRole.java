@@ -31,7 +31,7 @@ public class TeamRole {
 
 	public static enum Type {
 
-		ACCOUNT("account"), REGULAR("regular");
+		ACCOUNT("Account"), REGULAR("Regular");
 
 		public static Type create(String value) {
 			for (Type type : values()) {

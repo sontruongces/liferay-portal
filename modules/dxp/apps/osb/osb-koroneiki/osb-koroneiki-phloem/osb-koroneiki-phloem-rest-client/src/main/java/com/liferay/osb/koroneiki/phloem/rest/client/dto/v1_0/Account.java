@@ -31,26 +31,26 @@ public class Account {
 
 	public static enum Industry {
 
-		AEROSPACE_AND_DEFENSE("aerospace-and-defense"),
-		AGRICULTURE("agriculture"), AUTOMOTIVE("automotive"),
-		CONSULTING_MARKET_RESEARCH("consulting-market-research"),
-		EDUCATION("education"), ENERGY("energy"), ENGINEERING("engineering"),
-		FINANCIAL_SERVICES("financial-services"),
-		FOOD_SERVICES("food-services"),
-		GOVERNMENT_FEDERAL("government-federal"),
-		GOVERNMENT_STATE_LOCAL("government-state-local"),
-		HEALTHCARE("healthcare"), HOSPITALITY_LEISURE("hospitality-leisure"),
-		INSURANCE("insurance"), MANUFACTURING("manufacturing"),
-		MEDIA_ENTERTAINMENT("media-entertainment"),
-		NOT_FOR_PROFIT_NGO("not-for-profit-ngo"), OTHER("other"),
-		PHARMACEUTICALS("pharmaceuticals"),
+		AEROSPACE_AND_DEFENSE("Aerospace and Defense"),
+		AGRICULTURE("Agriculture"), AUTOMOTIVE("Automotive"),
+		CONSULTING_MARKET_RESEARCH("Consulting/Market Research"),
+		EDUCATION("Education"), ENERGY("Energy"), ENGINEERING("Engineering"),
+		FINANCIAL_SERVICES("Financial Services"),
+		FOOD_SERVICES("Food Services"),
+		GOVERNMENT_FEDERAL("Government (Federal)"),
+		GOVERNMENT_STATE_LOCAL("Government (State/Local)"),
+		HEALTHCARE("Healthcare"), HOSPITALITY_LEISURE("Hospitality/Leisure"),
+		INSURANCE("Insurance"), MANUFACTURING("Manufacturing"),
+		MEDIA_ENTERTAINMENT("Media/Entertainment"),
+		NOT_FOR_PROFIT_NGO("Not for Profit/NGO"), OTHER("Other"),
+		PHARMACEUTICALS("Pharmaceuticals"),
 		PROFESSIONAL_SERVICES_AGENCY_BUSINESS(
-			"professional-services-agency-business"),
+			"Professional Services (Agency/Business)"),
 		PROFESSIONAL_SERVICES_TECHNICAL_WEB_IT(
-			"professional-services-technical-web-it"),
-		RETAIL_CONSUMER_PRODUCTS("retail-consumer-products"),
-		TECHNOLOGY("technology"), TELECOMMUNICATION("telecommunication"),
-		TRANSPORTATION("transportation"), UTILITIES("utilities");
+			"Professional Services (Technical/Web/IT)"),
+		RETAIL_CONSUMER_PRODUCTS("Retail/Consumer Products"),
+		TECHNOLOGY("Technology"), TELECOMMUNICATIONS("Telecommunications"),
+		TRANSPORTAION("Transportaion"), UTILITIES("Utilities");
 
 		public static Industry create(String value) {
 			for (Industry industry : values()) {
@@ -81,9 +81,9 @@ public class Account {
 
 	public static enum Status {
 
-		APPROVED("approved"), CLOSED("closed"), EXPIRED("expired"),
-		INACTIVE("inactive"), PENDING("pending"),
-		PENDING_VALIDATION("pending-validation"), REJECTED("rejected");
+		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
+		INACTIVE("Inactive"), PENDING("Pending"),
+		PENDING_VALIDATION("Pending Validation"), REJECTED("Rejected");
 
 		public static Status create(String value) {
 			for (Status status : values()) {
@@ -114,8 +114,8 @@ public class Account {
 
 	public static enum Tier {
 
-		OEM("oem"), PREMIER("premier"), REGULAR("regular"),
-		STRATEGIC("strategic");
+		OEM("OEM"), PREMIER("Premier"), REGULAR("Regular"),
+		STRATEGIC("Strategic");
 
 		public static Tier create(String value) {
 			for (Tier tier : values()) {
@@ -143,27 +143,6 @@ public class Account {
 		private final String _value;
 
 	}
-
-	public PostalAddress[] getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(PostalAddress[] addresses) {
-		this.addresses = addresses;
-	}
-
-	public void setAddresses(
-		UnsafeSupplier<PostalAddress[], Exception> addressesUnsafeSupplier) {
-
-		try {
-			addresses = addressesUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected PostalAddress[] addresses;
 
 	public String getCode() {
 		return code;
@@ -481,6 +460,28 @@ public class Account {
 	}
 
 	protected String phoneNumber;
+
+	public PostalAddress[] getPostalAddresses() {
+		return postalAddresses;
+	}
+
+	public void setPostalAddresses(PostalAddress[] postalAddresses) {
+		this.postalAddresses = postalAddresses;
+	}
+
+	public void setPostalAddresses(
+		UnsafeSupplier<PostalAddress[], Exception>
+			postalAddressesUnsafeSupplier) {
+
+		try {
+			postalAddresses = postalAddressesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PostalAddress[] postalAddresses;
 
 	public ProductPurchase[] getProductPurchases() {
 		return productPurchases;

@@ -52,7 +52,7 @@ public class AuditEntry {
 
 	public static enum Action {
 
-		ADD("add"), DELETE("delete"), UPDATE("update");
+		ADD("Add"), DELETE("Delete"), UPDATE("Update");
 
 		@JsonCreator
 		public static Action create(String value) {

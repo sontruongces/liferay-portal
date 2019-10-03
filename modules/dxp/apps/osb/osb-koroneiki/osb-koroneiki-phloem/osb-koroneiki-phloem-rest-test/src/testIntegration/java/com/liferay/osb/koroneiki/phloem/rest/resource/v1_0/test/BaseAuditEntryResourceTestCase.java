@@ -315,7 +315,7 @@ public abstract class BaseAuditEntryResourceTestCase {
 
 	@Test
 	public void testGetAuditEntry() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test

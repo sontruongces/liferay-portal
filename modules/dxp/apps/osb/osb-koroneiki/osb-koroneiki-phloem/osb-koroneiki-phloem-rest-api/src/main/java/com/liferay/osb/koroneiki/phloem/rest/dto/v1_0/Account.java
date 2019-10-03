@@ -55,26 +55,26 @@ public class Account {
 
 	public static enum Industry {
 
-		AEROSPACE_AND_DEFENSE("aerospace-and-defense"),
-		AGRICULTURE("agriculture"), AUTOMOTIVE("automotive"),
-		CONSULTING_MARKET_RESEARCH("consulting-market-research"),
-		EDUCATION("education"), ENERGY("energy"), ENGINEERING("engineering"),
-		FINANCIAL_SERVICES("financial-services"),
-		FOOD_SERVICES("food-services"),
-		GOVERNMENT_FEDERAL("government-federal"),
-		GOVERNMENT_STATE_LOCAL("government-state-local"),
-		HEALTHCARE("healthcare"), HOSPITALITY_LEISURE("hospitality-leisure"),
-		INSURANCE("insurance"), MANUFACTURING("manufacturing"),
-		MEDIA_ENTERTAINMENT("media-entertainment"),
-		NOT_FOR_PROFIT_NGO("not-for-profit-ngo"), OTHER("other"),
-		PHARMACEUTICALS("pharmaceuticals"),
+		AEROSPACE_AND_DEFENSE("Aerospace and Defense"),
+		AGRICULTURE("Agriculture"), AUTOMOTIVE("Automotive"),
+		CONSULTING_MARKET_RESEARCH("Consulting/Market Research"),
+		EDUCATION("Education"), ENERGY("Energy"), ENGINEERING("Engineering"),
+		FINANCIAL_SERVICES("Financial Services"),
+		FOOD_SERVICES("Food Services"),
+		GOVERNMENT_FEDERAL("Government (Federal)"),
+		GOVERNMENT_STATE_LOCAL("Government (State/Local)"),
+		HEALTHCARE("Healthcare"), HOSPITALITY_LEISURE("Hospitality/Leisure"),
+		INSURANCE("Insurance"), MANUFACTURING("Manufacturing"),
+		MEDIA_ENTERTAINMENT("Media/Entertainment"),
+		NOT_FOR_PROFIT_NGO("Not for Profit/NGO"), OTHER("Other"),
+		PHARMACEUTICALS("Pharmaceuticals"),
 		PROFESSIONAL_SERVICES_AGENCY_BUSINESS(
-			"professional-services-agency-business"),
+			"Professional Services (Agency/Business)"),
 		PROFESSIONAL_SERVICES_TECHNICAL_WEB_IT(
-			"professional-services-technical-web-it"),
-		RETAIL_CONSUMER_PRODUCTS("retail-consumer-products"),
-		TECHNOLOGY("technology"), TELECOMMUNICATION("telecommunication"),
-		TRANSPORTATION("transportation"), UTILITIES("utilities");
+			"Professional Services (Technical/Web/IT)"),
+		RETAIL_CONSUMER_PRODUCTS("Retail/Consumer Products"),
+		TECHNOLOGY("Technology"), TELECOMMUNICATIONS("Telecommunications"),
+		TRANSPORTAION("Transportaion"), UTILITIES("Utilities");
 
 		@JsonCreator
 		public static Industry create(String value) {
@@ -107,9 +107,9 @@ public class Account {
 
 	public static enum Status {
 
-		APPROVED("approved"), CLOSED("closed"), EXPIRED("expired"),
-		INACTIVE("inactive"), PENDING("pending"),
-		PENDING_VALIDATION("pending-validation"), REJECTED("rejected");
+		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
+		INACTIVE("Inactive"), PENDING("Pending"),
+		PENDING_VALIDATION("Pending Validation"), REJECTED("Rejected");
 
 		@JsonCreator
 		public static Status create(String value) {
@@ -142,8 +142,8 @@ public class Account {
 
 	public static enum Tier {
 
-		OEM("oem"), PREMIER("premier"), REGULAR("regular"),
-		STRATEGIC("strategic");
+		OEM("OEM"), PREMIER("Premier"), REGULAR("Regular"),
+		STRATEGIC("Strategic");
 
 		@JsonCreator
 		public static Tier create(String value) {
@@ -173,34 +173,6 @@ public class Account {
 		private final String _value;
 
 	}
-
-	@Schema(description = "The account's postal addresses.")
-	public PostalAddress[] getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(PostalAddress[] addresses) {
-		this.addresses = addresses;
-	}
-
-	@JsonIgnore
-	public void setAddresses(
-		UnsafeSupplier<PostalAddress[], Exception> addressesUnsafeSupplier) {
-
-		try {
-			addresses = addressesUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected PostalAddress[] addresses;
 
 	@Schema(description = "The code of the account.")
 	public String getCode() {
@@ -631,6 +603,35 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String phoneNumber;
 
+	@Schema(description = "The account's postal addresses.")
+	public PostalAddress[] getPostalAddresses() {
+		return postalAddresses;
+	}
+
+	public void setPostalAddresses(PostalAddress[] postalAddresses) {
+		this.postalAddresses = postalAddresses;
+	}
+
+	@JsonIgnore
+	public void setPostalAddresses(
+		UnsafeSupplier<PostalAddress[], Exception>
+			postalAddressesUnsafeSupplier) {
+
+		try {
+			postalAddresses = postalAddressesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected PostalAddress[] postalAddresses;
+
 	@Schema(description = "The products that the account has purchased.")
 	public ProductPurchase[] getProductPurchases() {
 		return productPurchases;
@@ -845,26 +846,6 @@ public class Account {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
-
-		if (addresses != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"addresses\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < addresses.length; i++) {
-				sb.append(String.valueOf(addresses[i]));
-
-				if ((i + 1) < addresses.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
 
 		if (code != null) {
 			if (sb.length() > 1) {
@@ -1082,6 +1063,26 @@ public class Account {
 			sb.append(_escape(phoneNumber));
 
 			sb.append("\"");
+		}
+
+		if (postalAddresses != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"postalAddresses\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < postalAddresses.length; i++) {
+				sb.append(String.valueOf(postalAddresses[i]));
+
+				if ((i + 1) < postalAddresses.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (productPurchases != null) {

@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -47,6 +48,7 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
@@ -336,8 +338,28 @@ public abstract class BaseAccountResourceTestCase {
 		testGetAccountsPageWithSort(
 			EntityField.Type.STRING,
 			(entityField, account1, account2) -> {
-				BeanUtils.setProperty(account1, entityField.getName(), "Aaa");
-				BeanUtils.setProperty(account2, entityField.getName(), "Bbb");
+				Class clazz = account1.getClass();
+
+				Method method = clazz.getMethod(
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						account1, entityField.getName(),
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						account2, entityField.getName(),
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else {
+					BeanUtils.setProperty(
+						account1, entityField.getName(), "Aaa");
+					BeanUtils.setProperty(
+						account2, entityField.getName(), "Bbb");
+				}
 			});
 	}
 
@@ -579,17 +601,17 @@ public abstract class BaseAccountResourceTestCase {
 
 	@Test
 	public void testDeleteAccount() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testGetAccount() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testPutAccount() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
@@ -716,54 +738,54 @@ public abstract class BaseAccountResourceTestCase {
 
 	@Test
 	public void testDeleteAccountContactByOkta() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testPutAccountContactByOkta() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testDeleteAccountContactByOktaRole() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testPutAccountContactByOktaRole() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testDeleteAccountContactByUuid() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testPutAccountContactByUuid() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testDeleteAccountContactByUuidContactUuidRole()
 		throws Exception {
 
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testPutAccountContactByUuidContactUuidRole() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testDeleteAccountTeamTeamKeyRole() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testPutAccountTeamTeamKeyRole() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
@@ -936,14 +958,6 @@ public abstract class BaseAccountResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("addresses", additionalAssertFieldName)) {
-				if (account.getAddresses() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("code", additionalAssertFieldName)) {
 				if (account.getCode() == null) {
 					valid = false;
@@ -1050,6 +1064,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("postalAddresses", additionalAssertFieldName)) {
+				if (account.getPostalAddresses() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("productPurchases", additionalAssertFieldName)) {
 				if (account.getProductPurchases() == null) {
 					valid = false;
@@ -1140,16 +1162,6 @@ public abstract class BaseAccountResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
-
-			if (Objects.equals("addresses", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						account1.getAddresses(), account2.getAddresses())) {
-
-					return false;
-				}
-
-				continue;
-			}
 
 			if (Objects.equals("code", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
@@ -1305,6 +1317,17 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("postalAddresses", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getPostalAddresses(),
+						account2.getPostalAddresses())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("productPurchases", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getProductPurchases(),
@@ -1426,11 +1449,6 @@ public abstract class BaseAccountResourceTestCase {
 		sb.append(" ");
 		sb.append(operator);
 		sb.append(" ");
-
-		if (entityFieldName.equals("addresses")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
 
 		if (entityFieldName.equals("code")) {
 			sb.append("'");
@@ -1584,6 +1602,11 @@ public abstract class BaseAccountResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("postalAddresses")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("productPurchases")) {

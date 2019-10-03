@@ -241,6 +241,9 @@ public abstract class BasePostalAddressResourceTestCase {
 			Arrays.asList(postalAddress1, postalAddress2),
 			(List<PostalAddress>)page.getItems());
 		assertValid(page);
+
+		postalAddressResource.deletePostalAddress(postalAddress1.getId());
+		postalAddressResource.deletePostalAddress(postalAddress2.getId());
 	}
 
 	protected PostalAddress

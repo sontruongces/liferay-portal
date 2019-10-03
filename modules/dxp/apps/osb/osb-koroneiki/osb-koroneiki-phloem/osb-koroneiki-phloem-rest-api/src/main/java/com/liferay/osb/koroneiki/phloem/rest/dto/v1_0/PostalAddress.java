@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "PostalAddress")
 public class PostalAddress {
 
-	@Schema(description = "The address's country (e.g., USA).")
+	@Schema(description = "The address's country (e.g., United States).")
 	public String getAddressCountry() {
 		return addressCountry;
 	}
@@ -100,7 +100,7 @@ public class PostalAddress {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String addressLocality;
 
-	@Schema(description = "The address's region (e.g., state).")
+	@Schema(description = "The address's region (e.g., California).")
 	public String getAddressRegion() {
 		return addressRegion;
 	}

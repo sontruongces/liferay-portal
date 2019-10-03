@@ -64,26 +64,6 @@ public class AccountSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		if (account.getAddresses() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"addresses\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < account.getAddresses().length; i++) {
-				sb.append(String.valueOf(account.getAddresses()[i]));
-
-				if ((i + 1) < account.getAddresses().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (account.getCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -303,6 +283,26 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getPostalAddresses() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"postalAddresses\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < account.getPostalAddresses().length; i++) {
+				sb.append(String.valueOf(account.getPostalAddresses()[i]));
+
+				if ((i + 1) < account.getPostalAddresses().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (account.getProductPurchases() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -414,13 +414,6 @@ public class AccountSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		if (account.getAddresses() == null) {
-			map.put("addresses", null);
-		}
-		else {
-			map.put("addresses", String.valueOf(account.getAddresses()));
-		}
-
 		if (account.getCode() == null) {
 			map.put("code", null);
 		}
@@ -523,6 +516,15 @@ public class AccountSerDes {
 		}
 		else {
 			map.put("phoneNumber", String.valueOf(account.getPhoneNumber()));
+		}
+
+		if (account.getPostalAddresses() == null) {
+			map.put("postalAddresses", null);
+		}
+		else {
+			map.put(
+				"postalAddresses",
+				String.valueOf(account.getPostalAddresses()));
 		}
 
 		if (account.getProductPurchases() == null) {
@@ -628,19 +630,7 @@ public class AccountSerDes {
 			Account account, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "addresses")) {
-				if (jsonParserFieldValue != null) {
-					account.setAddresses(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> PostalAddressSerDes.toDTO((String)object)
-						).toArray(
-							size -> new PostalAddress[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "code")) {
+			if (Objects.equals(jsonParserFieldName, "code")) {
 				if (jsonParserFieldValue != null) {
 					account.setCode((String)jsonParserFieldValue);
 				}
@@ -734,6 +724,18 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "phoneNumber")) {
 				if (jsonParserFieldValue != null) {
 					account.setPhoneNumber((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "postalAddresses")) {
+				if (jsonParserFieldValue != null) {
+					account.setPostalAddresses(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> PostalAddressSerDes.toDTO((String)object)
+						).toArray(
+							size -> new PostalAddress[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "productPurchases")) {

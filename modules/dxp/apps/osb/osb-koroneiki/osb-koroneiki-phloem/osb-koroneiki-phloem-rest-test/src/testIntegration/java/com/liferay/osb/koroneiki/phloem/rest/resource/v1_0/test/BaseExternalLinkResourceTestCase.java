@@ -623,12 +623,12 @@ public abstract class BaseExternalLinkResourceTestCase {
 
 	@Test
 	public void testDeleteExternalLink() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testGetExternalLink() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test

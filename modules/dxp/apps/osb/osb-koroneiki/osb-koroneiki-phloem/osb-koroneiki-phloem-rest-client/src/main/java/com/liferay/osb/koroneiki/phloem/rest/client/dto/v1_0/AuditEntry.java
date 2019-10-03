@@ -31,7 +31,7 @@ public class AuditEntry {
 
 	public static enum Action {
 
-		ADD("add"), DELETE("delete"), UPDATE("update");
+		ADD("Add"), DELETE("Delete"), UPDATE("Update");
 
 		public static Action create(String value) {
 			for (Action action : values()) {
