@@ -18,8 +18,6 @@ import './CheckboxMultipleRegister.soy.js';
 
 import 'clay-checkbox';
 import Component from 'metal-component';
-import dom from 'metal-dom';
-import {EventHandler} from 'metal-events';
 import Soy from 'metal-soy';
 import {Config} from 'metal-state';
 
@@ -32,23 +30,6 @@ import templates from './CheckboxMultiple.soy.js';
  */
 
 class CheckboxMultiple extends Component {
-	attached() {
-		this._eventHandlers = new EventHandler();
-
-		this._eventHandlers.add(
-			dom.delegate(
-				this.element,
-				'focus',
-				'input',
-				this._handleFieldFocused.bind(this)
-			)
-		);
-	}
-
-	detached() {
-		this._eventHandlers.removeAllListeners();
-	}
-
 	_handleFieldBlurred(event) {
 		this.emit('fieldBlurred', {
 			fieldInstance: this,
