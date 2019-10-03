@@ -26,7 +26,7 @@ long teamId = BeanParamUtil.getLong(team, request, "teamId");
 
 <clay:navigation-bar
 	inverted="<%= true %>"
-	navigationItems="<%=
+	navigationItems='<%=
 		new JSPNavigationItemList(pageContext) {
 			{
 				add(
@@ -59,5 +59,5 @@ long teamId = BeanParamUtil.getLong(team, request, "teamId");
 					});
 			}
 		}
-	%>"
+	%>'
 />

@@ -26,7 +26,7 @@ long accountId = BeanParamUtil.getLong(koroneikiAccount, request, "accountId");
 
 <clay:navigation-bar
 	inverted="<%= true %>"
-	navigationItems="<%=
+	navigationItems='<%=
 		new JSPNavigationItemList(pageContext) {
 			{
 				add(
@@ -103,5 +103,5 @@ long accountId = BeanParamUtil.getLong(koroneikiAccount, request, "accountId");
 					});
 			}
 		}
-	%>"
+	%>'
 />

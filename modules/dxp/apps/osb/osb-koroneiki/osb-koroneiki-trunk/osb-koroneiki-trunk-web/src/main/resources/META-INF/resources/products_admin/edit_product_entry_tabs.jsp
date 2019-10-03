@@ -26,7 +26,7 @@ long productEntryId = BeanParamUtil.getLong(productEntry, request, "productEntry
 
 <clay:navigation-bar
 	inverted="<%= true %>"
-	navigationItems="<%=
+	navigationItems='<%=
 		new JSPNavigationItemList(pageContext) {
 			{
 				add(
@@ -48,5 +48,5 @@ long productEntryId = BeanParamUtil.getLong(productEntry, request, "productEntry
 					});
 			}
 		}
-	%>"
+	%>'
 />
