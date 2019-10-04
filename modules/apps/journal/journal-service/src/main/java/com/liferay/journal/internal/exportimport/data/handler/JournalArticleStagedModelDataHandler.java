@@ -1581,7 +1581,7 @@ public class JournalArticleStagedModelDataHandler
 					catch (Exception e) {
 						if (_log.isWarnEnabled()) {
 							_log.warn(
-								"Unable to email UserNotificationEvent for " +
+								"Unable to send email notification for " +
 									"article " + article.getArticleId());
 						}
 					}
@@ -1593,7 +1593,7 @@ public class JournalArticleStagedModelDataHandler
 		catch (Exception e) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to send UserNotificationEvent for article " +
+					"Unable to send email notification for article " +
 						article.getArticleId());
 			}
 		}
