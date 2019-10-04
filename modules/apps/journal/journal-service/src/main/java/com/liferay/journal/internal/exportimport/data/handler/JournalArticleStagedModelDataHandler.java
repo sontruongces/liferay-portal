@@ -1507,9 +1507,7 @@ public class JournalArticleStagedModelDataHandler
 
 					Map<String, HashMap<String, Object>> contextMap =
 						(Map)JSONFactoryUtil.looseDeserialize(
-							jsonObject.get(
-								"context"
-							).toString());
+							String.valueOf(jsonObject.get("context")));
 
 					contextMap.forEach(
 						(key, value) -> subscriptionSender.setContextAttribute(
@@ -1535,9 +1533,8 @@ public class JournalArticleStagedModelDataHandler
 
 					Map<String, String> localizedJsonBodyMap =
 						(Map)JSONFactoryUtil.looseDeserialize(
-							jsonObject.get(
-								"localizedBodyMap"
-							).toString());
+							String.valueOf(
+								jsonObject.get("localizedBodyMap")));
 
 					Map<Locale, String> localizedBodyMap = new HashMap<>();
 
@@ -1553,9 +1550,8 @@ public class JournalArticleStagedModelDataHandler
 
 					Map<String, String> localizedJsonSubjectMap =
 						(Map)JSONFactoryUtil.looseDeserialize(
-							jsonObject.get(
-								"localizedSubjectMap"
-							).toString());
+							String.valueOf(
+								jsonObject.get("localizedSubjectMap")));
 
 					Map<Locale, String> localizedSubjectMap = new HashMap<>();
 
