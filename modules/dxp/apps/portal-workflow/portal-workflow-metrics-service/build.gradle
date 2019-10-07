@@ -16,7 +16,7 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.portal.configuration.metatype.api", version: "2.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.configuration.persistence.api", version: "2.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.dao.orm.custom.sql.api", version: "2.0.0"
-	compileOnly group: "com.liferay", name: "com.liferay.portal.search.api", version: "3.0.0"
+	compileOnly group: "com.liferay", name: "com.liferay.portal.search.api", version: "3.12.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.search.engine.adapter.api", version: "3.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.spring.extender.api", version: "4.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.upgrade.api", version: "3.0.0"
