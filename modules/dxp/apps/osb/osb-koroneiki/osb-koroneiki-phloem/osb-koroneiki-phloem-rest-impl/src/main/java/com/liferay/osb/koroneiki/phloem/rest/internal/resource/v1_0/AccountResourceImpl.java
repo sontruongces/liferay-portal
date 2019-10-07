@@ -15,11 +15,14 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AccountPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.AccountUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.AccountEntityModel;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
 import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
+import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
@@ -35,6 +38,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.odata.entity.EntityModel;
@@ -250,6 +257,56 @@ public class AccountResourceImpl
 				account.getFaxNumber(), account.getWebsite(), industry, tier,
 				account.getSoldBy(), status),
 			contextAcceptLanguage.getPreferredLocale());
+	}
+
+	@Override
+	public void postAccountAccountPermission(
+			String accountKey, String operation,
+			AccountPermission accountPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Account account =
+			_accountLocalService.getAccount(accountKey);
+
+		_accountPermission.check(
+			PermissionThreadLocal.getPermissionChecker(), account,
+			"PERMISSIONS");
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(accountPermission.getAssignContact())) {
+			actionIds.add(TaprootActionKeys.ASSIGN_CONTACT);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getAssignTeam())) {
+			actionIds.add(TaprootActionKeys.ASSIGN_TEAM);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getPermissions())) {
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		KoroneikiPhloemPermissionUtil.persistModelPermission(
+			actionIds, contextCompany, account.getAccountId(), operation,
+			com.liferay.osb.koroneiki.taproot.model.Account.class.getName(),
+			_resourcePermissionLocalService, _roleLocalService,
+			accountPermission.getRoleNames(), 0);
 	}
 
 	@Override
@@ -488,6 +545,10 @@ public class AccountResourceImpl
 	private AccountLocalService _accountLocalService;
 
 	@Reference
+	private com.liferay.osb.koroneiki.taproot.permission.AccountPermission
+		_accountPermission;
+
+	@Reference
 	private AccountService _accountService;
 
 	@Reference
@@ -501,6 +562,12 @@ public class AccountResourceImpl
 
 	@Reference(target = "(provider=okta)")
 	private ContactIdentityProvider _oktaContactIdentityProvider;
+
+	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 	@Reference
 	private TeamAccountRoleService _teamAccountRoleService;

@@ -15,21 +15,32 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductEntryEntityModel;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
+import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.permission.ProductEntryPermission;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -106,6 +117,52 @@ public class ProductResourceImpl
 	}
 
 	@Override
+	public void postProductProductPermission(
+			String productKey, String operation,
+			ProductPermission productPermission)
+		throws Exception {
+
+		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
+			productKey);
+
+		_productEntryPermission.check(
+			PermissionThreadLocal.getPermissionChecker(), productEntry,
+			"PERMISSIONS");
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(productPermission.getConsume())) {
+			actionIds.add(TrunkActionKeys.CONSUME);
+		}
+
+		if (GetterUtil.getBoolean(productPermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(productPermission.getPermissions())) {
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(productPermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(productPermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		KoroneikiPhloemPermissionUtil.persistModelPermission(
+			actionIds, contextCompany, productEntry.getProductEntryId(),
+			operation, ProductEntry.class.getName(),
+			_resourcePermissionLocalService, _roleLocalService,
+			productPermission.getRoleNames(), 0);
+	}
+
+	@Override
 	public Product putProduct(String productKey, Product product)
 		throws Exception {
 
@@ -121,6 +178,15 @@ public class ProductResourceImpl
 	private ProductEntryLocalService _productEntryLocalService;
 
 	@Reference
+	private ProductEntryPermission _productEntryPermission;
+
+	@Reference
 	private ProductEntryService _productEntryService;
+
+	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 }

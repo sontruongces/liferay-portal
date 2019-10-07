@@ -15,20 +15,30 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.TeamEntityModel;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
+import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -120,6 +130,50 @@ public class TeamResourceImpl
 	}
 
 	@Override
+	public void postTeamTeamPermission(
+			String teamKey, String operation, TeamPermission teamPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Team team =
+			_teamLocalService.getTeam(teamKey);
+
+		_teamPermission.check(
+			PermissionThreadLocal.getPermissionChecker(), team, "PERMISSIONS");
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(teamPermission.getAssignContact())) {
+			actionIds.add(TaprootActionKeys.ASSIGN_CONTACT);
+		}
+
+		if (GetterUtil.getBoolean(teamPermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(teamPermission.getPermissions())) {
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(teamPermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(teamPermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		KoroneikiPhloemPermissionUtil.persistModelPermission(
+			actionIds, contextCompany, team.getTeamId(), operation,
+			com.liferay.osb.koroneiki.taproot.model.Team.class.getName(),
+			_resourcePermissionLocalService, _roleLocalService,
+			teamPermission.getRoleNames(), 0);
+	}
+
+	@Override
 	public Team putTeam(String teamKey, Team team) throws Exception {
 		return TeamUtil.toTeam(
 			_teamService.updateTeam(teamKey, team.getName()));
@@ -128,7 +182,17 @@ public class TeamResourceImpl
 	private static final EntityModel _entityModel = new TeamEntityModel();
 
 	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
+
+	@Reference
 	private TeamLocalService _teamLocalService;
+
+	@Reference
+	private com.liferay.osb.koroneiki.taproot.permission.TeamPermission
+		_teamPermission;
 
 	@Reference
 	private TeamService _teamService;

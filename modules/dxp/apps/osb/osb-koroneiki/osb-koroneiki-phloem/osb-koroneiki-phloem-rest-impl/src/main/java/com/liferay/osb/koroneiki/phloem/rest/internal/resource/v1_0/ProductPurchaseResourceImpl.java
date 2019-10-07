@@ -15,8 +15,10 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchasePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductPurchaseEntityModel;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
@@ -27,7 +29,11 @@ import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -180,6 +186,50 @@ public class ProductPurchaseResourceImpl
 	}
 
 	@Override
+	public void postProductPurchaseProductPurchasePermission(
+			String productPurchaseKey, String operation,
+			ProductPurchasePermission productPurchasePermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.trunk.model.ProductPurchase productPurchase =
+			_productPurchaseLocalService.getProductPurchase(productPurchaseKey);
+
+		_productPurchasePermission.check(
+			PermissionThreadLocal.getPermissionChecker(), productPurchase,
+			"PERMISSIONS");
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(productPurchasePermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(productPurchasePermission.getPermissions())) {
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(productPurchasePermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(productPurchasePermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		KoroneikiPhloemPermissionUtil.persistModelPermission(
+			actionIds, contextCompany, productPurchase.getProductPurchaseId(),
+			operation,
+			com.liferay.osb.koroneiki.trunk.model.ProductPurchase.class.
+				getName(),
+			_resourcePermissionLocalService, _roleLocalService,
+			productPurchasePermission.getRoleNames(), 0);
+	}
+
+	@Override
 	public ProductPurchase putProductPurchase(
 			String productPurchaseKey, ProductPurchase productPurchase)
 		throws Exception {
@@ -272,6 +322,16 @@ public class ProductPurchaseResourceImpl
 	private ProductPurchaseLocalService _productPurchaseLocalService;
 
 	@Reference
+	private com.liferay.osb.koroneiki.trunk.permission.ProductPurchasePermission
+		_productPurchasePermission;
+
+	@Reference
 	private ProductPurchaseService _productPurchaseService;
+
+	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 }

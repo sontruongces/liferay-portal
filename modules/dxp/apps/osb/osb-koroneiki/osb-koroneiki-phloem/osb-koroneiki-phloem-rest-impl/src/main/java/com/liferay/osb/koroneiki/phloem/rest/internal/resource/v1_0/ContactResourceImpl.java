@@ -15,20 +15,29 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactEntityModel;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -145,6 +154,30 @@ public class ContactResourceImpl
 	}
 
 	@Override
+	public void postContactByOktaContactPermission(
+			String oktaId, String operation,
+			ContactPermission contactPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.fetchContactByOktaId(oktaId);
+
+		postContactPermission(contact, operation, contactPermission);
+	}
+
+	@Override
+	public void postContactByUuidContactUuidContactPermission(
+			String contactUuid, String operation,
+			ContactPermission contactPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.fetchContactByUuid(contactUuid);
+
+		postContactPermission(contact, operation, contactPermission);
+	}
+
+	@Override
 	public Contact putContactByEmailAddresEmailAddress(
 			String emailAddress, Contact contact)
 		throws Exception {
@@ -211,12 +244,60 @@ public class ContactResourceImpl
 				contact.getEmailAddress(), languageId));
 	}
 
+	protected void postContactPermission(
+			com.liferay.osb.koroneiki.taproot.model.Contact contact,
+			String operation, ContactPermission contactPermission)
+		throws Exception {
+
+		_contactPermission.check(
+			PermissionThreadLocal.getPermissionChecker(), contact,
+			"PERMISSIONS");
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(contactPermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(contactPermission.getPermissions())) {
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(contactPermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(contactPermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		KoroneikiPhloemPermissionUtil.persistModelPermission(
+			actionIds, contextCompany, contact.getContactId(), operation,
+			com.liferay.osb.koroneiki.taproot.model.Contact.class.getName(),
+			_resourcePermissionLocalService, _roleLocalService,
+			contactPermission.getRoleNames(), 0);
+	}
+
 	private static final EntityModel _entityModel = new ContactEntityModel();
 
 	@Reference
 	private ContactLocalService _contactLocalService;
 
 	@Reference
+	private com.liferay.osb.koroneiki.taproot.permission.ContactPermission
+		_contactPermission;
+
+	@Reference
 	private ContactService _contactService;
+
+	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 }

@@ -95,6 +95,26 @@ components:
             required:
                 - name
             type: object
+        AccountPermission:
+            properties:
+                assignContact:
+                    type: boolean
+                assignTeam:
+                    type: boolean
+                delete:
+                    type: boolean
+                permissions:
+                    type: boolean
+                roleNames:
+                    items:
+                        type: string
+                    type:
+                        array
+                update:
+                    type: boolean
+                view:
+                    type: boolean
+            type: object
         AuditEntry:
             description: An audit log that records changes to objects.
             properties:
@@ -216,6 +236,22 @@ components:
                 - firstName
                 - lastName
             type: object
+        ContactPermission:
+            properties:
+                delete:
+                    type: boolean
+                permissions:
+                    type: boolean
+                roleNames:
+                    items:
+                        type: string
+                    type:
+                        array
+                update:
+                    type: boolean
+                view:
+                    type: boolean
+            type: object
         ContactRole:
             description: Represents a contact role.
             properties:
@@ -250,6 +286,24 @@ components:
             required:
                 - name
                 - type
+            type: object
+        ContactRolePermission:
+            properties:
+                assignContact:
+                    type: boolean
+                delete:
+                    type: boolean
+                permissions:
+                    type: boolean
+                roleNames:
+                    items:
+                        type: string
+                    type:
+                        array
+                update:
+                    type: boolean
+                view:
+                    type: boolean
             type: object
         ExternalLink:
             description: Represents a link to an entity in a different domain.
@@ -379,6 +433,40 @@ components:
             required:
                 - productKey
             type: object
+        ProductConsumptionPermission:
+            properties:
+                delete:
+                    type: boolean
+                permissions:
+                    type: boolean
+                roleNames:
+                    items:
+                        type: string
+                    type:
+                        array
+                update:
+                    type: boolean
+                view:
+                    type: boolean
+            type: object
+        ProductPermission:
+            properties:
+                consume:
+                    type: boolean
+                delete:
+                    type: boolean
+                permissions:
+                    type: boolean
+                roleNames:
+                    items:
+                        type: string
+                    type:
+                        array
+                update:
+                    type: boolean
+                view:
+                    type: boolean
+            type: object
         ProductPurchase:
             description: Represents a product purchase.
             properties:
@@ -432,6 +520,22 @@ components:
             required:
                 - productKey
             type: object
+        ProductPurchasePermission:
+            properties:
+                delete:
+                    type: boolean
+                permissions:
+                    type: boolean
+                roleNames:
+                    items:
+                        type: string
+                    type:
+                        array
+                update:
+                    type: boolean
+                view:
+                    type: boolean
+            type: object
         Team:
             description: Represents a team.
             properties:
@@ -471,6 +575,24 @@ components:
             required:
                 - name
             type: object
+        TeamPermission:
+            properties:
+                assignContact:
+                    type: boolean
+                delete:
+                    type: boolean
+                permissions:
+                    type: boolean
+                roleNames:
+                    items:
+                        type: string
+                    type:
+                        array
+                update:
+                    type: boolean
+                view:
+                    type: boolean
+            type: object
         TeamRole:
             description: Represents a team role.
             properties:
@@ -501,6 +623,22 @@ components:
             required:
                 - name
                 - type
+            type: object
+        TeamRolePermission:
+            properties:
+                delete:
+                    type: boolean
+                permissions:
+                    type: boolean
+                roleNames:
+                    items:
+                        type: string
+                    type:
+                        array
+                update:
+                    type: boolean
+                view:
+                    type: boolean
             type: object
 info:
     description: ""
@@ -677,6 +815,35 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Account"
+                    description: ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/account-permissions":
+        post:
+            operationId: postAccountAccountPermission
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: operation
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/AccountPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/AccountPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
                     description: ""
             tags: ["Account"]
     "/accounts/{accountKey}/audit-entries":
@@ -1649,6 +1816,35 @@ paths:
                                 type: array
                     description: ""
             tags: ["AuditEntry"]
+    "/contact-roles/{contactRoleKey}/contact-role-permissions":
+        post:
+            operationId: postContactRoleContactRolePermission
+            parameters:
+                - in: path
+                  name: contactRoleKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: operation
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ContactRolePermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ContactRolePermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["ContactRole"]
     "/contacts":
         get:
             description: Retrieves the contacts. Results can be paginated, filtered, searched, and sorted.
@@ -1870,6 +2066,35 @@ paths:
                                 type: array
                     description: ""
             tags: ["AuditEntry"]
+    "/contacts/by-okta-id/{oktaId}/contact-permissions":
+        post:
+            operationId: postContactByOktaContactPermission
+            parameters:
+                - in: path
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: operation
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ContactPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ContactPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Contact"]
     "/contacts/by-okta-id/{oktaId}/external-links":
         get:
             description: Retrieves the contact's external links.
@@ -2094,6 +2319,35 @@ paths:
                                 type: array
                     description: ""
             tags: ["AuditEntry"]
+    "/contacts/by-uuid/{contactUuid}/contact-permissions":
+        post:
+            operationId: postContactByUuidContactUuidContactPermission
+            parameters:
+                - in: path
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: operation
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ContactPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ContactPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Contact"]
     "/contacts/by-uuid/{contactUuid}/external-links":
         get:
             description: Retrieves the contact's external links.
@@ -2503,6 +2757,35 @@ paths:
                                 $ref: "#/components/schemas/ExternalLink"
                     description: ""
             tags: ["ExternalLink"]
+    "/product-consumptions/{productConsumptionKey}/product-consumption-permissions":
+        post:
+            operationId: postProductConsumptionProductConsumptionPermission
+            parameters:
+                - in: path
+                  name: productConsumptionKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: operation
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ProductConsumptionPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ProductConsumptionPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["ProductConsumption"]
     "/product-purchases":
         get:
             description: Retrieves the product purchases. Results can be paginated, filtered, searched, and sorted.
@@ -2711,6 +2994,35 @@ paths:
                                 $ref: "#/components/schemas/ExternalLink"
                     description: ""
             tags: ["ExternalLink"]
+    "/product-purchases/{productPurchaseKey}/product-purchase-permissions":
+        post:
+            operationId: postProductPurchaseProductPurchasePermission
+            parameters:
+                - in: path
+                  name: productPurchaseKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: operation
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ProductPurchasePermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ProductPurchasePermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["ProductPurchase"]
     "/products":
         get:
             description: Retrieves the products. Results can be paginated, filtered, searched, and sorted.
@@ -2941,6 +3253,35 @@ paths:
                                 $ref: "#/components/schemas/ExternalLink"
                     description: ""
             tags: ["ExternalLink"]
+    "/products/{productKey}/product-permissions":
+        post:
+            operationId: postProductProductPermission
+            parameters:
+                - in: path
+                  name: productKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: operation
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ProductPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ProducePermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Product"]
     "/team-roles":
         get:
             description: Retrieves the team roles. Results can be paginated, filtered, searched, and sorted.
@@ -3099,6 +3440,35 @@ paths:
                                 type: array
                     description: ""
             tags: ["AuditEntry"]
+    "/team-roles/{teamRoleKey}/team-role-permissions":
+        post:
+            operationId: postTeamRoleTeamRolePermission
+            parameters:
+                - in: path
+                  name: teamRoleKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: operation
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/TeamRolePermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/TeamRolePermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["TeamRole"]
     "/teams":
         get:
             description: Retrieves the teams. Results can be paginated, filtered, searched, and sorted.
@@ -3373,3 +3743,32 @@ paths:
                                 $ref: "#/components/schemas/ExternalLink"
                     description: ""
             tags: ["ExternalLink"]
+    "/teams/{teamKey}/team-permissions":
+        post:
+            operationId: postTeamTeamPermission
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: operation
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/TeamPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/TeamPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]

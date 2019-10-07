@@ -15,8 +15,10 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.TeamRoleEntityModel;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -28,12 +30,19 @@ import com.liferay.osb.koroneiki.taproot.service.TeamRoleService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -119,6 +128,48 @@ public class TeamRoleResourceImpl
 	}
 
 	@Override
+	public void postTeamRoleTeamRolePermission(
+			String teamRoleKey, String operation,
+			TeamRolePermission teamRolePermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.TeamRole teamRole =
+			_teamRoleLocalService.getTeamRole(teamRoleKey);
+
+		_teamRolePermission.check(
+			PermissionThreadLocal.getPermissionChecker(), teamRole,
+			"PERMISSIONS");
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(teamRolePermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(teamRolePermission.getPermissions())) {
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(teamRolePermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(teamRolePermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		KoroneikiPhloemPermissionUtil.persistModelPermission(
+			actionIds, contextCompany, teamRole.getTeamRoleId(), operation,
+			com.liferay.osb.koroneiki.taproot.model.TeamRole.class.getName(),
+			_resourcePermissionLocalService, _roleLocalService,
+			teamRolePermission.getRoleNames(), 0);
+	}
+
+	@Override
 	public TeamRole putTeamRole(String teamRoleKey, TeamRole teamRole)
 		throws Exception {
 
@@ -139,10 +190,20 @@ public class TeamRoleResourceImpl
 	private AccountLocalService _accountLocalService;
 
 	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
+
+	@Reference
 	private TeamLocalService _teamLocalService;
 
 	@Reference
 	private TeamRoleLocalService _teamRoleLocalService;
+
+	@Reference
+	private com.liferay.osb.koroneiki.taproot.permission.TeamRolePermission
+		_teamRolePermission;
 
 	@Reference
 	private TeamRoleService _teamRoleService;

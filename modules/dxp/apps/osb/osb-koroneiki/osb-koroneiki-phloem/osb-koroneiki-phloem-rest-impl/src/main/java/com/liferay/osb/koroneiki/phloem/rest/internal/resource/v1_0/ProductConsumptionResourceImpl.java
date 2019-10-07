@@ -15,8 +15,10 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumptionPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductConsumptionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductConsumptionEntityModel;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
@@ -28,7 +30,11 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -170,6 +176,54 @@ public class ProductConsumptionResourceImpl
 				accountKey, productConsumption.getProductKey(), productFields));
 	}
 
+	@Override
+	public void postProductConsumptionProductConsumptionPermission(
+			String productConsumptionKey, String operation,
+			ProductConsumptionPermission productConsumptionPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.trunk.model.ProductConsumption
+			productConsumption =
+				_productConsumptionLocalService.getProductConsumption(
+					productConsumptionKey);
+
+		_productConsumptionPermission.check(
+			PermissionThreadLocal.getPermissionChecker(), productConsumption,
+			"PERMISSIONS");
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(productConsumptionPermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(
+				productConsumptionPermission.getPermissions())) {
+
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(productConsumptionPermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(productConsumptionPermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		KoroneikiPhloemPermissionUtil.persistModelPermission(
+			actionIds, contextCompany,
+			productConsumption.getProductConsumptionId(), operation,
+			com.liferay.osb.koroneiki.trunk.model.ProductConsumption.class.
+				getName(),
+			_resourcePermissionLocalService, _roleLocalService,
+			productConsumptionPermission.getRoleNames(), 0);
+	}
+
 	protected List<ProductField> getProductFields(
 		Map<String, String> properties) {
 
@@ -217,9 +271,20 @@ public class ProductConsumptionResourceImpl
 	private ProductConsumptionLocalService _productConsumptionLocalService;
 
 	@Reference
+	private
+		com.liferay.osb.koroneiki.trunk.permission.ProductConsumptionPermission
+			_productConsumptionPermission;
+
+	@Reference
 	private ProductConsumptionService _productConsumptionService;
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;
+
+	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 }

@@ -15,10 +15,13 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactRoleEntityModel;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
+import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
@@ -29,12 +32,19 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -123,6 +133,53 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
+	public void postContactRoleContactRolePermission(
+			String contactRoleKey, String operation,
+			ContactRolePermission contactRolePermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.ContactRole contactRole =
+			_contactRoleLocalService.getContactRole(contactRoleKey);
+
+		_contactRolePermission.check(
+			PermissionThreadLocal.getPermissionChecker(), contactRole,
+			"PERMISSIONS");
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(contactRolePermission.getAssignContact())) {
+			actionIds.add(TaprootActionKeys.ASSIGN_CONTACT);
+		}
+
+		if (GetterUtil.getBoolean(contactRolePermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(contactRolePermission.getPermissions())) {
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(contactRolePermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(contactRolePermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		KoroneikiPhloemPermissionUtil.persistModelPermission(
+			actionIds, contextCompany, contactRole.getContactRoleId(),
+			operation,
+			com.liferay.osb.koroneiki.taproot.model.ContactRole.class.getName(),
+			_resourcePermissionLocalService, _roleLocalService,
+			contactRolePermission.getRoleNames(), 0);
+	}
+
+	@Override
 	public ContactRole putContactRole(
 			String contactRoleKey, ContactRole contactRole)
 		throws Exception {
@@ -169,6 +226,16 @@ public class ContactRoleResourceImpl
 	private ContactRoleLocalService _contactRoleLocalService;
 
 	@Reference
+	private com.liferay.osb.koroneiki.taproot.permission.ContactRolePermission
+		_contactRolePermission;
+
+	@Reference
 	private ContactRoleService _contactRoleService;
+
+	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 }
