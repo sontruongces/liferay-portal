@@ -55,7 +55,7 @@ const _handleFieldEdited = function(properties) {
 const _handleFieldBlurred = function(properties) {
 	const {fieldInstance} = properties;
 	const {pages} = this;
-	const now = new Date();
+	const dateNow = new Date();
 
 	handleFieldBlurred(pages, properties).then(blurredFieldPages => {
 		if (fieldInstance.isDisposed()) {
@@ -69,7 +69,7 @@ const _handleFieldBlurred = function(properties) {
 
 	Liferay.fire('ddmFieldBlur', {
 		fieldName: fieldInstance.fieldName,
-		focusDuration: now - (this.fieldFocusDate || now),
+		focusDuration: dateNow - (this.fieldFocusDate || dateNow),
 		formId: this.getFormId(),
 		page: this.activePage
 	});
