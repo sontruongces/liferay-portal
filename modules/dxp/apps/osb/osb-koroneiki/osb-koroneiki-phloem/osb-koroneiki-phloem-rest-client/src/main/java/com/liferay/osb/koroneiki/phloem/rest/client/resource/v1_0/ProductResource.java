@@ -80,6 +80,18 @@ public interface ProductResource {
 			String productKey, Product product)
 		throws Exception;
 
+	public void postProductProductPermission(
+			String productKey, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				ProductPermission productPermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse postProductProductPermissionHttpResponse(
+			String productKey, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				ProductPermission productPermission)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -417,6 +429,59 @@ public interface ProductResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/products/{productKey}",
+				productKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void postProductProductPermission(
+				String productKey, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ProductPermission productPermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postProductProductPermissionHttpResponse(
+					productKey, operation, productPermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				postProductProductPermissionHttpResponse(
+					String productKey, String operation,
+					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+						ProductPermission productPermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(productPermission.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (operation != null) {
+				httpInvoker.parameter("operation", String.valueOf(operation));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/products/{productKey}/product-permissions",
 				productKey);
 
 			httpInvoker.userNameAndPassword(

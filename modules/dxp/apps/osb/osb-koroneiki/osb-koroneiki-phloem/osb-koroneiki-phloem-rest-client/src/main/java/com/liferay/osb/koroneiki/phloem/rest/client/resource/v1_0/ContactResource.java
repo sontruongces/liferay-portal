@@ -103,6 +103,19 @@ public interface ContactResource {
 			String oktaId, Contact contact)
 		throws Exception;
 
+	public void postContactByOktaContactPermission(
+			String contactUuid, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				ContactPermission contactPermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			postContactByOktaContactPermissionHttpResponse(
+				String contactUuid, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ContactPermission contactPermission)
+		throws Exception;
+
 	public void deleteContactByUuidContactUuid(String contactUuid)
 		throws Exception;
 
@@ -123,6 +136,19 @@ public interface ContactResource {
 
 	public HttpInvoker.HttpResponse putContactByUuidContactUuidHttpResponse(
 			String contactUuid, Contact contact)
+		throws Exception;
+
+	public void postContactByUuidContactUuidContactPermission(
+			String contactUuid, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				ContactPermission contactPermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			postContactByUuidContactUuidContactPermissionHttpResponse(
+				String contactUuid, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ContactPermission contactPermission)
 		throws Exception;
 
 	public static class Builder {
@@ -618,6 +644,59 @@ public interface ContactResource {
 			return httpInvoker.invoke();
 		}
 
+		public void postContactByOktaContactPermission(
+				String contactUuid, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ContactPermission contactPermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postContactByOktaContactPermissionHttpResponse(
+					contactUuid, operation, contactPermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				postContactByOktaContactPermissionHttpResponse(
+					String contactUuid, String operation,
+					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+						ContactPermission contactPermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contactPermission.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (operation != null) {
+				httpInvoker.parameter("operation", String.valueOf(operation));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/contact-permissions",
+				contactUuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public void deleteContactByUuidContactUuid(String contactUuid)
 			throws Exception {
 
@@ -755,6 +834,59 @@ public interface ContactResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}",
+				contactUuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void postContactByUuidContactUuidContactPermission(
+				String contactUuid, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ContactPermission contactPermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postContactByUuidContactUuidContactPermissionHttpResponse(
+					contactUuid, operation, contactPermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				postContactByUuidContactUuidContactPermissionHttpResponse(
+					String contactUuid, String operation,
+					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+						ContactPermission contactPermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contactPermission.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (operation != null) {
+				httpInvoker.parameter("operation", String.valueOf(operation));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/contact-permissions",
 				contactUuid);
 
 			httpInvoker.userNameAndPassword(

@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AccountPermission;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Sort;
@@ -55,6 +56,11 @@ public interface AccountResource {
 	public Account getAccount(String accountKey) throws Exception;
 
 	public Account putAccount(String accountKey, Account account)
+		throws Exception;
+
+	public void postAccountAccountPermission(
+			String accountKey, String operation,
+			AccountPermission accountPermission)
 		throws Exception;
 
 	public Page<Account> getAccountChildAccountsPage(

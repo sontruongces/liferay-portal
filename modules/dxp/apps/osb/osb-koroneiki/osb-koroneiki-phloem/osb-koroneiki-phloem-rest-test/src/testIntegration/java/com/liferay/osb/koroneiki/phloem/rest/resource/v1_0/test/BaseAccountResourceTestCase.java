@@ -615,6 +615,11 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
+	public void testPostAccountAccountPermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testGetAccountChildAccountsPage() throws Exception {
 		Page<Account> page = accountResource.getAccountChildAccountsPage(
 			testGetAccountChildAccountsPage_getAccountKey(),

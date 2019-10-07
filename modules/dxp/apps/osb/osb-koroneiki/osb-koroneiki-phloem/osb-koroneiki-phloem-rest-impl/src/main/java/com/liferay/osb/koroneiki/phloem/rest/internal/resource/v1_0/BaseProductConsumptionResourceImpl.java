@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumptionPermission;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.Company;
@@ -240,6 +241,29 @@ public abstract class BaseProductConsumptionResourceImpl
 		throws Exception {
 
 		return new ProductConsumption();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "operation")
+		}
+	)
+	@Path(
+		"/product-consumptions/{productConsumptionKey}/product-consumption-permissions"
+	)
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "ProductConsumption")})
+	public void postProductConsumptionProductConsumptionPermission(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("productConsumptionKey") String productConsumptionKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
+				operation,
+			ProductConsumptionPermission productConsumptionPermission)
+		throws Exception {
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {

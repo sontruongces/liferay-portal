@@ -740,6 +740,11 @@ public abstract class BaseContactRoleResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Test
+	public void testPostContactRoleContactRolePermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

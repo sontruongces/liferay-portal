@@ -93,6 +93,19 @@ public interface ContactRoleResource {
 			String contactRoleKey, ContactRole contactRole)
 		throws Exception;
 
+	public void postContactRoleContactRolePermission(
+			String contactRoleKey, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				ContactRolePermission contactRolePermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			postContactRoleContactRolePermissionHttpResponse(
+				String contactRoleKey, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ContactRolePermission contactRolePermission)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -490,6 +503,60 @@ public interface ContactRoleResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/contact-roles/{contactRoleKey}",
+				contactRoleKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void postContactRoleContactRolePermission(
+				String contactRoleKey, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ContactRolePermission contactRolePermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postContactRoleContactRolePermissionHttpResponse(
+					contactRoleKey, operation, contactRolePermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				postContactRoleContactRolePermissionHttpResponse(
+					String contactRoleKey, String operation,
+					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+						ContactRolePermission contactRolePermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(
+				contactRolePermission.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (operation != null) {
+				httpInvoker.parameter("operation", String.valueOf(operation));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contact-roles/{contactRoleKey}/contact-role-permissions",
 				contactRoleKey);
 
 			httpInvoker.userNameAndPassword(

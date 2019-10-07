@@ -118,6 +118,19 @@ public interface ProductPurchaseResource {
 			String productPurchaseKey, ProductPurchase productPurchase)
 		throws Exception;
 
+	public void postProductPurchaseProductPurchasePermission(
+			String productPurchaseKey, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				ProductPurchasePermission productPurchasePermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			postProductPurchaseProductPurchasePermissionHttpResponse(
+				String productPurchaseKey, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ProductPurchasePermission productPurchasePermission)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -630,6 +643,60 @@ public interface ProductPurchaseResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/product-purchases/{productPurchaseKey}",
+				productPurchaseKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void postProductPurchaseProductPurchasePermission(
+				String productPurchaseKey, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ProductPurchasePermission productPurchasePermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postProductPurchaseProductPurchasePermissionHttpResponse(
+					productPurchaseKey, operation, productPurchasePermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				postProductPurchaseProductPurchasePermissionHttpResponse(
+					String productPurchaseKey, String operation,
+					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+						ProductPurchasePermission productPurchasePermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(
+				productPurchasePermission.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (operation != null) {
+				httpInvoker.parameter("operation", String.valueOf(operation));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/product-purchases/{productPurchaseKey}/product-purchase-permissions",
 				productPurchaseKey);
 
 			httpInvoker.userNameAndPassword(

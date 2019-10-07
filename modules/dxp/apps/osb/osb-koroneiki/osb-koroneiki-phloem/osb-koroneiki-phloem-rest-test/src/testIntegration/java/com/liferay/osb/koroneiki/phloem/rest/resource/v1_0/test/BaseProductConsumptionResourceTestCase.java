@@ -1059,6 +1059,13 @@ public abstract class BaseProductConsumptionResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Test
+	public void testPostProductConsumptionProductConsumptionPermission()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

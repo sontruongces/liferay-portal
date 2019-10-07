@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRolePermission;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Sort;
@@ -54,6 +55,11 @@ public interface TeamRoleResource {
 	public TeamRole getTeamRole(String teamRoleKey) throws Exception;
 
 	public TeamRole putTeamRole(String teamRoleKey, TeamRole teamRole)
+		throws Exception;
+
+	public void postTeamRoleTeamRolePermission(
+			String teamRoleKey, String operation,
+			TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

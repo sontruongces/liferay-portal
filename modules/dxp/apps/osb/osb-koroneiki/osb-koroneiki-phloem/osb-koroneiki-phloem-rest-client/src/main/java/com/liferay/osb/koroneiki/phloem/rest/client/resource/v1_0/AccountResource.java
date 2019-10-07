@@ -80,6 +80,18 @@ public interface AccountResource {
 			String accountKey, Account account)
 		throws Exception;
 
+	public void postAccountAccountPermission(
+			String accountKey, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				AccountPermission accountPermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse postAccountAccountPermissionHttpResponse(
+			String accountKey, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				AccountPermission accountPermission)
+		throws Exception;
+
 	public Page<Account> getAccountChildAccountsPage(
 			String accountKey, Pagination pagination)
 		throws Exception;
@@ -521,6 +533,59 @@ public interface AccountResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void postAccountAccountPermission(
+				String accountKey, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					AccountPermission accountPermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postAccountAccountPermissionHttpResponse(
+					accountKey, operation, accountPermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				postAccountAccountPermissionHttpResponse(
+					String accountKey, String operation,
+					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+						AccountPermission accountPermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(accountPermission.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (operation != null) {
+				httpInvoker.parameter("operation", String.valueOf(operation));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/account-permissions",
 				accountKey);
 
 			httpInvoker.userNameAndPassword(

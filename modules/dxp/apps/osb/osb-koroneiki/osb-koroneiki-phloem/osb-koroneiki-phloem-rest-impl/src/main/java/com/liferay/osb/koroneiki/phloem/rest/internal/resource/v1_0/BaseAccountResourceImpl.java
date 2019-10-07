@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AccountPermission;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.Company;
@@ -174,6 +175,27 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 
 		return new Account();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "operation")
+		}
+	)
+	@Path("/accounts/{accountKey}/account-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void postAccountAccountPermission(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
+				operation,
+			AccountPermission accountPermission)
+		throws Exception {
 	}
 
 	@Override

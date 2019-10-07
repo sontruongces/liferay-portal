@@ -571,6 +571,11 @@ public abstract class BaseTeamRoleResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Test
+	public void testPostTeamRoleTeamRolePermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

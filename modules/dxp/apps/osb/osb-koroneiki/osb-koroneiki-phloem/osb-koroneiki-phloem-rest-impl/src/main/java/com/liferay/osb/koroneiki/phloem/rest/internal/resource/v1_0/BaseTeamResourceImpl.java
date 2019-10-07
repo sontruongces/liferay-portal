@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamPermission;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.Company;
@@ -198,6 +199,27 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 
 		return new Team();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "operation")
+		}
+	)
+	@Path("/teams/{teamKey}/team-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void postTeamTeamPermission(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
+				operation,
+			TeamPermission teamPermission)
+		throws Exception {
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {

@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPermission;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.Company;
@@ -174,6 +175,27 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		throws Exception {
 
 		return new Product();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "productKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "operation")
+		}
+	)
+	@Path("/products/{productKey}/product-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Product")})
+	public void postProductProductPermission(
+			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
+				productKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
+				operation,
+			ProductPermission productPermission)
+		throws Exception {
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {

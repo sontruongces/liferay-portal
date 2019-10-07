@@ -594,6 +594,11 @@ public abstract class BaseProductResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Test
+	public void testPostProductProductPermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

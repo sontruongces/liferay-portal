@@ -79,6 +79,18 @@ public interface TeamRoleResource {
 			String teamRoleKey, TeamRole teamRole)
 		throws Exception;
 
+	public void postTeamRoleTeamRolePermission(
+			String teamRoleKey, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				TeamRolePermission teamRolePermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse postTeamRoleTeamRolePermissionHttpResponse(
+			String teamRoleKey, String operation,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				TeamRolePermission teamRolePermission)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -416,6 +428,59 @@ public interface TeamRoleResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/team-roles/{teamRoleKey}",
+				teamRoleKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void postTeamRoleTeamRolePermission(
+				String teamRoleKey, String operation,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					TeamRolePermission teamRolePermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postTeamRoleTeamRolePermissionHttpResponse(
+					teamRoleKey, operation, teamRolePermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				postTeamRoleTeamRolePermissionHttpResponse(
+					String teamRoleKey, String operation,
+					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+						TeamRolePermission teamRolePermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(teamRolePermission.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (operation != null) {
+				httpInvoker.parameter("operation", String.valueOf(operation));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/team-roles/{teamRoleKey}/team-role-permissions",
 				teamRoleKey);
 
 			httpInvoker.userNameAndPassword(

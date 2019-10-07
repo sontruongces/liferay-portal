@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactPermission;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Sort;
@@ -66,6 +67,11 @@ public interface ContactResource {
 	public Contact putContactByOkta(String oktaId, Contact contact)
 		throws Exception;
 
+	public void postContactByOktaContactPermission(
+			String contactUuid, String operation,
+			ContactPermission contactPermission)
+		throws Exception;
+
 	public void deleteContactByUuidContactUuid(String contactUuid)
 		throws Exception;
 
@@ -74,6 +80,11 @@ public interface ContactResource {
 
 	public Contact putContactByUuidContactUuid(
 			String contactUuid, Contact contact)
+		throws Exception;
+
+	public void postContactByUuidContactUuidContactPermission(
+			String contactUuid, String operation,
+			ContactPermission contactPermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

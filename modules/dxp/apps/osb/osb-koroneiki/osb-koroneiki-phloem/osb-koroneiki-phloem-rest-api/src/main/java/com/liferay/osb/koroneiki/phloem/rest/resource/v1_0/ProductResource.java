@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPermission;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Sort;
@@ -55,6 +56,11 @@ public interface ProductResource {
 	public Product getProduct(String productKey) throws Exception;
 
 	public Product putProduct(String productKey, Product product)
+		throws Exception;
+
+	public void postProductProductPermission(
+			String productKey, String operation,
+			ProductPermission productPermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

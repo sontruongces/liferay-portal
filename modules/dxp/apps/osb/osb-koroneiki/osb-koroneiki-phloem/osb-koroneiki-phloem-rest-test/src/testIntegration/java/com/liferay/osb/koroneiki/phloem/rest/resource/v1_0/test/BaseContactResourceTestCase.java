@@ -559,6 +559,11 @@ public abstract class BaseContactResourceTestCase {
 	}
 
 	@Test
+	public void testPostContactByOktaContactPermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testDeleteContactByUuidContactUuid() throws Exception {
 		Assert.assertTrue(false);
 	}
@@ -570,6 +575,13 @@ public abstract class BaseContactResourceTestCase {
 
 	@Test
 	public void testPutContactByUuidContactUuid() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPostContactByUuidContactUuidContactPermission()
+		throws Exception {
+
 		Assert.assertTrue(false);
 	}
 

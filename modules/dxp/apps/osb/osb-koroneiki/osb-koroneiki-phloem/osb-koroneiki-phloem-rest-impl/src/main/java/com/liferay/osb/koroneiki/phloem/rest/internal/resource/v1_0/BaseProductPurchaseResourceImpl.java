@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchasePermission;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.Company;
@@ -255,6 +256,29 @@ public abstract class BaseProductPurchaseResourceImpl
 		throws Exception {
 
 		return new ProductPurchase();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "operation")
+		}
+	)
+	@Path(
+		"/product-purchases/{productPurchaseKey}/product-purchase-permissions"
+	)
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "ProductPurchase")})
+	public void postProductPurchaseProductPurchasePermission(
+			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
+				String productPurchaseKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
+				operation,
+			ProductPurchasePermission productPurchasePermission)
+		throws Exception {
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {

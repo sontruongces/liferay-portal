@@ -1,0 +1,307 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0;
+
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRolePermission;
+import com.liferay.osb.koroneiki.phloem.rest.client.json.BaseJSONParser;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.annotation.Generated;
+
+/**
+ * @author Amos Fong
+ * @generated
+ */
+@Generated("")
+public class ContactRolePermissionSerDes {
+
+	public static ContactRolePermission toDTO(String json) {
+		ContactRolePermissionJSONParser contactRolePermissionJSONParser =
+			new ContactRolePermissionJSONParser();
+
+		return contactRolePermissionJSONParser.parseToDTO(json);
+	}
+
+	public static ContactRolePermission[] toDTOs(String json) {
+		ContactRolePermissionJSONParser contactRolePermissionJSONParser =
+			new ContactRolePermissionJSONParser();
+
+		return contactRolePermissionJSONParser.parseToDTOs(json);
+	}
+
+	public static String toJSON(ContactRolePermission contactRolePermission) {
+		if (contactRolePermission == null) {
+			return "null";
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("{");
+
+		if (contactRolePermission.getAssignContact() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"assignContact\": ");
+
+			sb.append(contactRolePermission.getAssignContact());
+		}
+
+		if (contactRolePermission.getDelete() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"delete\": ");
+
+			sb.append(contactRolePermission.getDelete());
+		}
+
+		if (contactRolePermission.getPermissions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"permissions\": ");
+
+			sb.append(contactRolePermission.getPermissions());
+		}
+
+		if (contactRolePermission.getRoleNames() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"roleNames\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < contactRolePermission.getRoleNames().length;
+				 i++) {
+
+				sb.append("\"");
+
+				sb.append(_escape(contactRolePermission.getRoleNames()[i]));
+
+				sb.append("\"");
+
+				if ((i + 1) < contactRolePermission.getRoleNames().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (contactRolePermission.getUpdate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"update\": ");
+
+			sb.append(contactRolePermission.getUpdate());
+		}
+
+		if (contactRolePermission.getView() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"view\": ");
+
+			sb.append(contactRolePermission.getView());
+		}
+
+		sb.append("}");
+
+		return sb.toString();
+	}
+
+	public static Map<String, Object> toMap(String json) {
+		ContactRolePermissionJSONParser contactRolePermissionJSONParser =
+			new ContactRolePermissionJSONParser();
+
+		return contactRolePermissionJSONParser.parseToMap(json);
+	}
+
+	public static Map<String, String> toMap(
+		ContactRolePermission contactRolePermission) {
+
+		if (contactRolePermission == null) {
+			return null;
+		}
+
+		Map<String, String> map = new HashMap<>();
+
+		if (contactRolePermission.getAssignContact() == null) {
+			map.put("assignContact", null);
+		}
+		else {
+			map.put(
+				"assignContact",
+				String.valueOf(contactRolePermission.getAssignContact()));
+		}
+
+		if (contactRolePermission.getDelete() == null) {
+			map.put("delete", null);
+		}
+		else {
+			map.put(
+				"delete", String.valueOf(contactRolePermission.getDelete()));
+		}
+
+		if (contactRolePermission.getPermissions() == null) {
+			map.put("permissions", null);
+		}
+		else {
+			map.put(
+				"permissions",
+				String.valueOf(contactRolePermission.getPermissions()));
+		}
+
+		if (contactRolePermission.getRoleNames() == null) {
+			map.put("roleNames", null);
+		}
+		else {
+			map.put(
+				"roleNames",
+				String.valueOf(contactRolePermission.getRoleNames()));
+		}
+
+		if (contactRolePermission.getUpdate() == null) {
+			map.put("update", null);
+		}
+		else {
+			map.put(
+				"update", String.valueOf(contactRolePermission.getUpdate()));
+		}
+
+		if (contactRolePermission.getView() == null) {
+			map.put("view", null);
+		}
+		else {
+			map.put("view", String.valueOf(contactRolePermission.getView()));
+		}
+
+		return map;
+	}
+
+	private static String _escape(Object object) {
+		String string = String.valueOf(object);
+
+		string = string.replace("\\", "\\\\");
+
+		return string.replace("\"", "\\\"");
+	}
+
+	private static String _toJSON(Map<String, ?> map) {
+		StringBuilder sb = new StringBuilder("{");
+
+		@SuppressWarnings("unchecked")
+		Set set = map.entrySet();
+
+		@SuppressWarnings("unchecked")
+		Iterator<Map.Entry<String, ?>> iterator = set.iterator();
+
+		while (iterator.hasNext()) {
+			Map.Entry<String, ?> entry = iterator.next();
+
+			sb.append("\"");
+			sb.append(entry.getKey());
+			sb.append("\":");
+			sb.append("\"");
+			sb.append(entry.getValue());
+			sb.append("\"");
+
+			if (iterator.hasNext()) {
+				sb.append(",");
+			}
+		}
+
+		sb.append("}");
+
+		return sb.toString();
+	}
+
+	private static class ContactRolePermissionJSONParser
+		extends BaseJSONParser<ContactRolePermission> {
+
+		@Override
+		protected ContactRolePermission createDTO() {
+			return new ContactRolePermission();
+		}
+
+		@Override
+		protected ContactRolePermission[] createDTOArray(int size) {
+			return new ContactRolePermission[size];
+		}
+
+		@Override
+		protected void setField(
+			ContactRolePermission contactRolePermission,
+			String jsonParserFieldName, Object jsonParserFieldValue) {
+
+			if (Objects.equals(jsonParserFieldName, "assignContact")) {
+				if (jsonParserFieldValue != null) {
+					contactRolePermission.setAssignContact(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "delete")) {
+				if (jsonParserFieldValue != null) {
+					contactRolePermission.setDelete(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "permissions")) {
+				if (jsonParserFieldValue != null) {
+					contactRolePermission.setPermissions(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "roleNames")) {
+				if (jsonParserFieldValue != null) {
+					contactRolePermission.setRoleNames(
+						toStrings((Object[])jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "update")) {
+				if (jsonParserFieldValue != null) {
+					contactRolePermission.setUpdate(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "view")) {
+				if (jsonParserFieldValue != null) {
+					contactRolePermission.setView(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else {
+				throw new IllegalArgumentException(
+					"Unsupported field name " + jsonParserFieldName);
+			}
+		}
+
+	}
+
+}

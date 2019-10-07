@@ -1033,6 +1033,13 @@ public abstract class BaseProductPurchaseResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Test
+	public void testPostProductPurchaseProductPurchasePermission()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

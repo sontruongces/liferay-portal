@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.Company;
@@ -200,6 +201,27 @@ public abstract class BaseContactRoleResourceImpl
 		throws Exception {
 
 		return new ContactRole();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "contactRoleKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "operation")
+		}
+	)
+	@Path("/contact-roles/{contactRoleKey}/contact-role-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public void postContactRoleContactRolePermission(
+			@NotNull @Parameter(hidden = true) @PathParam("contactRoleKey")
+				String contactRoleKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
+				operation,
+			ContactRolePermission contactRolePermission)
+		throws Exception {
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
