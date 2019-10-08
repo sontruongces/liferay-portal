@@ -913,7 +913,6 @@ public class EditAssetListDisplayContext {
 
 			portletURL.setParameter(
 				"groupIds", String.valueOf(_themeDisplay.getScopeGroupId()));
-
 			portletURL.setParameter(
 				"eventName", _portletResponse.getNamespace() + "selectTag");
 			portletURL.setParameter("selectedTagNames", "{selectedTagNames}");
