@@ -44,7 +44,6 @@ import java.io.Serializable;
 
 import java.lang.reflect.InvocationHandler;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -409,14 +408,11 @@ public class ExternalLinkPersistenceImpl
 		OrderByComparator<ExternalLink> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByC_C;
@@ -470,7 +466,7 @@ public class ExternalLinkPersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(ExternalLinkModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -489,18 +485,8 @@ public class ExternalLinkPersistenceImpl
 
 				qPos.add(classPK);
 
-				if (!pagination) {
-					list = (List<ExternalLink>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<ExternalLink>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<ExternalLink>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -985,14 +971,11 @@ public class ExternalLinkPersistenceImpl
 		entityName = Objects.toString(entityName, "");
 		entityId = Objects.toString(entityId, "");
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByC_D_EN_EI;
@@ -1082,7 +1065,7 @@ public class ExternalLinkPersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(ExternalLinkModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -1111,18 +1094,8 @@ public class ExternalLinkPersistenceImpl
 					qPos.add(entityId);
 				}
 
-				if (!pagination) {
-					list = (List<ExternalLink>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<ExternalLink>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<ExternalLink>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2158,14 +2131,11 @@ public class ExternalLinkPersistenceImpl
 		int start, int end, OrderByComparator<ExternalLink> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindAll;
@@ -2202,9 +2172,7 @@ public class ExternalLinkPersistenceImpl
 			else {
 				sql = _SQL_SELECT_EXTERNALLINK;
 
-				if (pagination) {
-					sql = sql.concat(ExternalLinkModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(ExternalLinkModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -2214,18 +2182,8 @@ public class ExternalLinkPersistenceImpl
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<ExternalLink>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<ExternalLink>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<ExternalLink>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 

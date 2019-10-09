@@ -43,7 +43,6 @@ import java.io.Serializable;
 
 import java.lang.reflect.InvocationHandler;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -163,14 +162,11 @@ public class ContactTeamRolePersistenceImpl
 		OrderByComparator<ContactTeamRole> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByContactId;
@@ -220,7 +216,7 @@ public class ContactTeamRolePersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(ContactTeamRoleModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -237,18 +233,8 @@ public class ContactTeamRolePersistenceImpl
 
 				qPos.add(contactId);
 
-				if (!pagination) {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<ContactTeamRole>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -679,14 +665,11 @@ public class ContactTeamRolePersistenceImpl
 		OrderByComparator<ContactTeamRole> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByTeamId;
@@ -734,7 +717,7 @@ public class ContactTeamRolePersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(ContactTeamRoleModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -751,18 +734,8 @@ public class ContactTeamRolePersistenceImpl
 
 				qPos.add(teamId);
 
-				if (!pagination) {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<ContactTeamRole>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1195,14 +1168,11 @@ public class ContactTeamRolePersistenceImpl
 		OrderByComparator<ContactTeamRole> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByContactRoleId;
@@ -1252,7 +1222,7 @@ public class ContactTeamRolePersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(ContactTeamRoleModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -1269,18 +1239,8 @@ public class ContactTeamRolePersistenceImpl
 
 				qPos.add(contactRoleId);
 
-				if (!pagination) {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<ContactTeamRole>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1724,14 +1684,11 @@ public class ContactTeamRolePersistenceImpl
 		OrderByComparator<ContactTeamRole> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByCI_TI;
@@ -1785,7 +1742,7 @@ public class ContactTeamRolePersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(ContactTeamRoleModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -1804,18 +1761,8 @@ public class ContactTeamRolePersistenceImpl
 
 				qPos.add(teamId);
 
-				if (!pagination) {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<ContactTeamRole>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2685,14 +2632,11 @@ public class ContactTeamRolePersistenceImpl
 		OrderByComparator<ContactTeamRole> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindAll;
@@ -2729,9 +2673,7 @@ public class ContactTeamRolePersistenceImpl
 			else {
 				sql = _SQL_SELECT_CONTACTTEAMROLE;
 
-				if (pagination) {
-					sql = sql.concat(ContactTeamRoleModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(ContactTeamRoleModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -2741,18 +2683,8 @@ public class ContactTeamRolePersistenceImpl
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<ContactTeamRole>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<ContactTeamRole>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 

@@ -170,14 +170,11 @@ public class TeamPersistenceImpl
 
 		uuid = Objects.toString(uuid, "");
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByUuid;
@@ -234,7 +231,7 @@ public class TeamPersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(TeamModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -253,18 +250,7 @@ public class TeamPersistenceImpl
 					qPos.add(uuid);
 				}
 
-				if (!pagination) {
-					list = (List<Team>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<Team>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1134,14 +1120,11 @@ public class TeamPersistenceImpl
 
 		uuid = Objects.toString(uuid, "");
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByUuid_C;
@@ -1204,7 +1187,7 @@ public class TeamPersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(TeamModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -1225,18 +1208,7 @@ public class TeamPersistenceImpl
 
 				qPos.add(companyId);
 
-				if (!pagination) {
-					list = (List<Team>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<Team>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -2380,14 +2352,11 @@ public class TeamPersistenceImpl
 		long accountId, int start, int end,
 		OrderByComparator<Team> orderByComparator, boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByAccountId;
@@ -2437,7 +2406,7 @@ public class TeamPersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(TeamModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -2454,18 +2423,7 @@ public class TeamPersistenceImpl
 
 				qPos.add(accountId);
 
-				if (!pagination) {
-					list = (List<Team>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<Team>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -4002,14 +3960,11 @@ public class TeamPersistenceImpl
 		int start, int end, OrderByComparator<Team> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindAll;
@@ -4046,9 +4001,7 @@ public class TeamPersistenceImpl
 			else {
 				sql = _SQL_SELECT_TEAM;
 
-				if (pagination) {
-					sql = sql.concat(TeamModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(TeamModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -4058,18 +4011,7 @@ public class TeamPersistenceImpl
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<Team>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<Team>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 
 				cacheResult(list);
 
