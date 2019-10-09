@@ -428,7 +428,7 @@ public class Mutation {
 
 	@GraphQLField
 	public boolean postContactByOktaContactPermission(
-			@GraphQLName("contactUuid") String contactUuid,
+			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("operation") String operation,
 			@GraphQLName("contactPermission") ContactPermission
 				contactPermission)
@@ -439,7 +439,7 @@ public class Mutation {
 			this::_populateResourceContext,
 			contactResource ->
 				contactResource.postContactByOktaContactPermission(
-					contactUuid, operation, contactPermission));
+					oktaId, operation, contactPermission));
 
 		return true;
 	}

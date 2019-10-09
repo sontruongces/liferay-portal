@@ -219,7 +219,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@POST
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "operation")
 		}
 	)
@@ -227,8 +227,8 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
 	public void postContactByOktaContactPermission(
-			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
-				contactUuid,
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
 			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
 				operation,
 			ContactPermission contactPermission)

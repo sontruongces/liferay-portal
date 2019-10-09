@@ -104,14 +104,14 @@ public interface ContactResource {
 		throws Exception;
 
 	public void postContactByOktaContactPermission(
-			String contactUuid, String operation,
+			String oktaId, String operation,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ContactPermission contactPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postContactByOktaContactPermissionHttpResponse(
-				String contactUuid, String operation,
+				String oktaId, String operation,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 		throws Exception;
@@ -645,14 +645,14 @@ public interface ContactResource {
 		}
 
 		public void postContactByOktaContactPermission(
-				String contactUuid, String operation,
+				String oktaId, String operation,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postContactByOktaContactPermissionHttpResponse(
-					contactUuid, operation, contactPermission);
+					oktaId, operation, contactPermission);
 
 			String content = httpResponse.getContent();
 
@@ -665,7 +665,7 @@ public interface ContactResource {
 
 		public HttpInvoker.HttpResponse
 				postContactByOktaContactPermissionHttpResponse(
-					String contactUuid, String operation,
+					String oktaId, String operation,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ContactPermission contactPermission)
 			throws Exception {
@@ -689,7 +689,7 @@ public interface ContactResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/contact-permissions",
-				contactUuid);
+				oktaId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

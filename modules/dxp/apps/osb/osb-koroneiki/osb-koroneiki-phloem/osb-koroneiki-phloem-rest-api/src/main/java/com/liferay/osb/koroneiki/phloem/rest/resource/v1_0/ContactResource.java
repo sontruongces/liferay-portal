@@ -68,7 +68,7 @@ public interface ContactResource {
 		throws Exception;
 
 	public void postContactByOktaContactPermission(
-			String contactUuid, String operation,
+			String oktaId, String operation,
 			ContactPermission contactPermission)
 		throws Exception;
 
