@@ -18,7 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.TeamEntityModel;
-import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
@@ -28,8 +28,6 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
-import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -138,7 +136,8 @@ public class TeamResourceImpl
 			_teamLocalService.getTeam(teamKey);
 
 		_teamPermission.check(
-			PermissionThreadLocal.getPermissionChecker(), team, "PERMISSIONS");
+			PermissionThreadLocal.getPermissionChecker(), team,
+			ActionKeys.PERMISSIONS);
 
 		List<String> actionIds = new ArrayList<>();
 
@@ -166,11 +165,10 @@ public class TeamResourceImpl
 			return;
 		}
 
-		KoroneikiPhloemPermissionUtil.persistModelPermission(
-			actionIds, contextCompany, team.getTeamId(), operation,
+		_phloemPermissionUtil.persistModelPermission(
+			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
 			com.liferay.osb.koroneiki.taproot.model.Team.class.getName(),
-			_resourcePermissionLocalService, _roleLocalService,
-			teamPermission.getRoleNames(), 0);
+			team.getTeamId(), teamPermission.getRoleNames(), actionIds);
 	}
 
 	@Override
@@ -182,10 +180,7 @@ public class TeamResourceImpl
 	private static final EntityModel _entityModel = new TeamEntityModel();
 
 	@Reference
-	private ResourcePermissionLocalService _resourcePermissionLocalService;
-
-	@Reference
-	private RoleLocalService _roleLocalService;
+	private PhloemPermissionUtil _phloemPermissionUtil;
 
 	@Reference
 	private TeamLocalService _teamLocalService;

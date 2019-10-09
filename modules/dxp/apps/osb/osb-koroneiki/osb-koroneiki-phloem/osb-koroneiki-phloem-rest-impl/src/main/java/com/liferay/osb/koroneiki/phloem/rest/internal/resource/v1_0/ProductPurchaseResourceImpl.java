@@ -18,7 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchasePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductPurchaseEntityModel;
-import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
@@ -32,8 +32,6 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
-import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -196,7 +194,7 @@ public class ProductPurchaseResourceImpl
 
 		_productPurchasePermission.check(
 			PermissionThreadLocal.getPermissionChecker(), productPurchase,
-			"PERMISSIONS");
+			ActionKeys.PERMISSIONS);
 
 		List<String> actionIds = new ArrayList<>();
 
@@ -220,13 +218,12 @@ public class ProductPurchaseResourceImpl
 			return;
 		}
 
-		KoroneikiPhloemPermissionUtil.persistModelPermission(
-			actionIds, contextCompany, productPurchase.getProductPurchaseId(),
-			operation,
+		_phloemPermissionUtil.persistModelPermission(
+			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
 			com.liferay.osb.koroneiki.trunk.model.ProductPurchase.class.
 				getName(),
-			_resourcePermissionLocalService, _roleLocalService,
-			productPurchasePermission.getRoleNames(), 0);
+			productPurchase.getProductPurchaseId(),
+			productPurchasePermission.getRoleNames(), actionIds);
 	}
 
 	@Override
@@ -316,6 +313,9 @@ public class ProductPurchaseResourceImpl
 	private ContactLocalService _contactLocalService;
 
 	@Reference
+	private PhloemPermissionUtil _phloemPermissionUtil;
+
+	@Reference
 	private ProductFieldLocalService _productFieldLocalService;
 
 	@Reference
@@ -327,11 +327,5 @@ public class ProductPurchaseResourceImpl
 
 	@Reference
 	private ProductPurchaseService _productPurchaseService;
-
-	@Reference
-	private ResourcePermissionLocalService _resourcePermissionLocalService;
-
-	@Reference
-	private RoleLocalService _roleLocalService;
 
 }

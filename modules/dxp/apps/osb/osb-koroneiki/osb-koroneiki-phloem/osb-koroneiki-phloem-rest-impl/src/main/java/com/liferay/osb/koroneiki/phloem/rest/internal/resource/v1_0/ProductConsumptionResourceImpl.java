@@ -18,7 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumptionPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductConsumptionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductConsumptionEntityModel;
-import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
@@ -33,8 +33,6 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
-import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -189,7 +187,7 @@ public class ProductConsumptionResourceImpl
 
 		_productConsumptionPermission.check(
 			PermissionThreadLocal.getPermissionChecker(), productConsumption,
-			"PERMISSIONS");
+			ActionKeys.PERMISSIONS);
 
 		List<String> actionIds = new ArrayList<>();
 
@@ -215,13 +213,12 @@ public class ProductConsumptionResourceImpl
 			return;
 		}
 
-		KoroneikiPhloemPermissionUtil.persistModelPermission(
-			actionIds, contextCompany,
-			productConsumption.getProductConsumptionId(), operation,
+		_phloemPermissionUtil.persistModelPermission(
+			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
 			com.liferay.osb.koroneiki.trunk.model.ProductConsumption.class.
 				getName(),
-			_resourcePermissionLocalService, _roleLocalService,
-			productConsumptionPermission.getRoleNames(), 0);
+			productConsumption.getProductConsumptionId(),
+			productConsumptionPermission.getRoleNames(), actionIds);
 	}
 
 	protected List<ProductField> getProductFields(
@@ -268,6 +265,9 @@ public class ProductConsumptionResourceImpl
 	private ContactLocalService _contactLocalService;
 
 	@Reference
+	private PhloemPermissionUtil _phloemPermissionUtil;
+
+	@Reference
 	private ProductConsumptionLocalService _productConsumptionLocalService;
 
 	@Reference
@@ -280,11 +280,5 @@ public class ProductConsumptionResourceImpl
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;
-
-	@Reference
-	private ResourcePermissionLocalService _resourcePermissionLocalService;
-
-	@Reference
-	private RoleLocalService _roleLocalService;
 
 }

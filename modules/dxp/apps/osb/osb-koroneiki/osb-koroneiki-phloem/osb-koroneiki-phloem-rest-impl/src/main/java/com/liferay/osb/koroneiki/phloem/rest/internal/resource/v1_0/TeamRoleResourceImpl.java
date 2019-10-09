@@ -18,7 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.TeamRoleEntityModel;
-import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -32,8 +32,6 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
-import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -138,7 +136,7 @@ public class TeamRoleResourceImpl
 
 		_teamRolePermission.check(
 			PermissionThreadLocal.getPermissionChecker(), teamRole,
-			"PERMISSIONS");
+			ActionKeys.PERMISSIONS);
 
 		List<String> actionIds = new ArrayList<>();
 
@@ -162,11 +160,11 @@ public class TeamRoleResourceImpl
 			return;
 		}
 
-		KoroneikiPhloemPermissionUtil.persistModelPermission(
-			actionIds, contextCompany, teamRole.getTeamRoleId(), operation,
+		_phloemPermissionUtil.persistModelPermission(
+			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
 			com.liferay.osb.koroneiki.taproot.model.TeamRole.class.getName(),
-			_resourcePermissionLocalService, _roleLocalService,
-			teamRolePermission.getRoleNames(), 0);
+			teamRole.getTeamRoleId(), teamRolePermission.getRoleNames(),
+			actionIds);
 	}
 
 	@Override
@@ -190,10 +188,7 @@ public class TeamRoleResourceImpl
 	private AccountLocalService _accountLocalService;
 
 	@Reference
-	private ResourcePermissionLocalService _resourcePermissionLocalService;
-
-	@Reference
-	private RoleLocalService _roleLocalService;
+	private PhloemPermissionUtil _phloemPermissionUtil;
 
 	@Reference
 	private TeamLocalService _teamLocalService;

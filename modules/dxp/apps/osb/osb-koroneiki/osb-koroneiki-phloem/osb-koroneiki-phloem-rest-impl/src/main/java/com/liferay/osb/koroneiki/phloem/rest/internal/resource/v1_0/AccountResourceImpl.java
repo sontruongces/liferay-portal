@@ -18,7 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AccountPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.AccountUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.AccountEntityModel;
-import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
 import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
@@ -40,8 +40,6 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
-import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.odata.entity.EntityModel;
@@ -270,7 +268,7 @@ public class AccountResourceImpl
 
 		_accountPermission.check(
 			PermissionThreadLocal.getPermissionChecker(), account,
-			"PERMISSIONS");
+			ActionKeys.PERMISSIONS);
 
 		List<String> actionIds = new ArrayList<>();
 
@@ -302,11 +300,11 @@ public class AccountResourceImpl
 			return;
 		}
 
-		KoroneikiPhloemPermissionUtil.persistModelPermission(
-			actionIds, contextCompany, account.getAccountId(), operation,
+		_phloemPermissionUtil.persistModelPermission(
+			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
 			com.liferay.osb.koroneiki.taproot.model.Account.class.getName(),
-			_resourcePermissionLocalService, _roleLocalService,
-			accountPermission.getRoleNames(), 0);
+			account.getAccountId(), accountPermission.getRoleNames(),
+			actionIds);
 	}
 
 	@Override
@@ -564,10 +562,7 @@ public class AccountResourceImpl
 	private ContactIdentityProvider _oktaContactIdentityProvider;
 
 	@Reference
-	private ResourcePermissionLocalService _resourcePermissionLocalService;
-
-	@Reference
-	private RoleLocalService _roleLocalService;
+	private PhloemPermissionUtil _phloemPermissionUtil;
 
 	@Reference
 	private TeamAccountRoleService _teamAccountRoleService;

@@ -18,7 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductEntryEntityModel;
-import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.KoroneikiPhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
@@ -30,8 +30,6 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
-import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -127,7 +125,7 @@ public class ProductResourceImpl
 
 		_productEntryPermission.check(
 			PermissionThreadLocal.getPermissionChecker(), productEntry,
-			"PERMISSIONS");
+			ActionKeys.PERMISSIONS);
 
 		List<String> actionIds = new ArrayList<>();
 
@@ -155,11 +153,10 @@ public class ProductResourceImpl
 			return;
 		}
 
-		KoroneikiPhloemPermissionUtil.persistModelPermission(
-			actionIds, contextCompany, productEntry.getProductEntryId(),
-			operation, ProductEntry.class.getName(),
-			_resourcePermissionLocalService, _roleLocalService,
-			productPermission.getRoleNames(), 0);
+		_phloemPermissionUtil.persistModelPermission(
+			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
+			ProductEntry.class.getName(), productEntry.getProductEntryId(),
+			productPermission.getRoleNames(), actionIds);
 	}
 
 	@Override
@@ -175,6 +172,9 @@ public class ProductResourceImpl
 		new ProductEntryEntityModel();
 
 	@Reference
+	private PhloemPermissionUtil _phloemPermissionUtil;
+
+	@Reference
 	private ProductEntryLocalService _productEntryLocalService;
 
 	@Reference
@@ -182,11 +182,5 @@ public class ProductResourceImpl
 
 	@Reference
 	private ProductEntryService _productEntryService;
-
-	@Reference
-	private ResourcePermissionLocalService _resourcePermissionLocalService;
-
-	@Reference
-	private RoleLocalService _roleLocalService;
 
 }
