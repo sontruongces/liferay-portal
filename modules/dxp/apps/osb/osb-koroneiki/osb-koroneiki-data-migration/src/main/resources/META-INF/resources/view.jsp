@@ -31,3 +31,11 @@
 		<aui:button type="submit" value="update-countries" />
 	</aui:button-row>
 </aui:form>
+
+<portlet:actionURL name="/update_list_types" var="updateListTypesURL" />
+
+<aui:form action="<%= updateListTypesURL %>" cssClass="container-fluid-1280" method="post" name="fm2">
+	<aui:button-row>
+		<aui:button type="submit" value="update-list-types" />
+	</aui:button-row>
+</aui:form>
