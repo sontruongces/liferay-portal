@@ -2071,7 +2071,7 @@ paths:
             operationId: postContactByOktaContactPermission
             parameters:
                 - in: path
-                  name: contactUuid
+                  name: oktaId
                   required: true
                   schema:
                       type: string
