@@ -37,6 +37,7 @@ public abstract class BaseSearchDisplayContext {
 
 		this.renderRequest = renderRequest;
 		this.renderResponse = renderResponse;
+
 		request = httpServletRequest;
 
 		themeDisplay = (ThemeDisplay)request.getAttribute(

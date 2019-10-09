@@ -84,6 +84,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
+
 		code = StringUtil.toUpperCase(code);
 
 		validate(0, name, code);
@@ -252,6 +253,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
+
 		code = StringUtil.toUpperCase(code);
 
 		validate(accountId, name, code);

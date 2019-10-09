@@ -41,10 +41,12 @@ public abstract class BaseSearchDisplayContext {
 
 		this.renderRequest = renderRequest;
 		this.renderResponse = renderResponse;
-		request = httpServletRequest;
 
 		currentURLObj = PortletURLUtil.getCurrent(
 			renderRequest, renderResponse);
+
+		request = httpServletRequest;
+
 		themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 	}
