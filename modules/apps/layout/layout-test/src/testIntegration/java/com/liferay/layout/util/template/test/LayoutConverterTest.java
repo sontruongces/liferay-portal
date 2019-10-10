@@ -270,6 +270,10 @@ public class LayoutConverterTest {
 			String layoutTemplateId, List<Map<String, String[]>> portletIdsMaps)
 		throws Exception {
 
+		int columnId = 0;
+		List<Map<String, List<String>>> encodedPortletIdsMaps =
+			new ArrayList<>();
+
 		UnicodeProperties typeSettingsProperties = new UnicodeProperties();
 
 		typeSettingsProperties.setProperty(
@@ -277,11 +281,6 @@ public class LayoutConverterTest {
 
 		Layout layout = LayoutTestUtil.addLayout(
 			_group.getGroupId(), typeSettingsProperties.toString());
-
-		List<Map<String, List<String>>> encodedPortletIdsMaps =
-			new ArrayList<>();
-
-		int columnId = 0;
 
 		for (Map<String, String[]> portletIdsMap : portletIdsMaps) {
 			Set<Map.Entry<String, String[]>> entries = portletIdsMap.entrySet();
