@@ -1,0 +1,70 @@
+$label-danger-border: #FF8F39;
+$label-danger-color: #B95000;
+$label-default-border: #CDCED9;
+$label-default-color: #6B6C7E;
+$label-success-border: #5ACA76;
+$label-success-color: #287D3D;
+$label-warning-border: #89A7E0;
+$label-warning-color: #2E5AAC;
+
+.label {
+	border-radius: 2px;
+	font-size: #2A303E;
+	font-weight: 600;
+	line-height: 16px;
+	padding: 4px 8px 2px;
+	text-transform: uppercase;
+
+	&.label-approved {
+		border: 1px solid $label-success-border;
+		color: $label-success-color;
+	}
+
+	&.label-closed {
+		border: 1px solid $label-default-border;
+		color: $label-default-color;
+	}
+
+	&.label-expired {
+		border: 1px solid $label-danger-border;
+		color: $label-danger-color;
+	}
+	
+	&.label-inactive {
+		border: 1px solid $label-default-border;
+		color: $label-default-color;
+	}
+
+	&.label-on-hold {
+		border: 1px solid $label-warning-border;
+		color: $label-warning-color;
+	}
+
+	&.label-pending {
+		border: 1px solid $label-warning-border;
+		color: $label-warning-color;
+	}
+
+	&.label-pending {
+		border: 1px solid $label-warning-border;
+		color: $label-warning-color;
+	}
+
+	&.label-rejected {
+		border: 1px solid $label-danger-border;
+		color: $label-danger-color;
+	}
+
+	&.label-sm {
+		font-size: 10px;
+		padding: 2px 4px 1px;
+	}
+}
+
+.label-sm {
+	border-width: 1px;
+	font-size: 10px;
+	height: auto;
+	min-height: 16px;
+	padding: 3.2px 6px;
+}

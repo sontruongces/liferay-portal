@@ -29,6 +29,7 @@ import org.osgi.service.component.annotations.Component;
 	property = {
 		"com.liferay.portlet.css-class-wrapper=koroneiki-accounts-admin-portlet",
 		"com.liferay.portlet.display-category=category.hidden",
+		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.render-weight=0",
 		"javax.portlet.display-name=Accounts",
 		"javax.portlet.expiration-cache=0",
