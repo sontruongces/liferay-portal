@@ -116,7 +116,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 	}
 
 	protected long getClassNameId(T model) {
-		return classNameLocalService.getClassNameId(model.getClass());
+		return classNameLocalService.getClassNameId(model.getModelClass());
 	}
 
 	protected long getClassPK(T model) {
@@ -124,7 +124,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 	}
 
 	protected long getFieldClassNameId(T model) {
-		return classNameLocalService.getClassNameId(model.getClass());
+		return classNameLocalService.getClassNameId(model.getModelClass());
 	}
 
 	protected long getFieldClassPK(T model) {
