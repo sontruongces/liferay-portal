@@ -55,6 +55,10 @@
 		}
 	}
 
+	&:focus {
+		outline: none;
+	}
+
 	&:hover {
 		.quick-action-menu.result-pin-icon-display {
 			display: none;

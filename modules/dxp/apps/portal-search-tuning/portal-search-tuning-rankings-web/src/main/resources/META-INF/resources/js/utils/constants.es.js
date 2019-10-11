@@ -35,6 +35,9 @@ export const DELTAS = [
  */
 export const DEFAULT_DELTA = DELTAS[2]; // 20
 
+/**
+ * Key codes used for hotkeys and focus management.
+ */
 export const KEY_CODES = {
 	ARROW_DOWN: 'ArrowDown',
 	ARROW_UP: 'ArrowUp',
@@ -57,3 +60,9 @@ export const FETCH_OPTIONS = {
 		headers: new Headers({'x-csrf-token': Liferay.authToken})
 	})
 };
+
+/**
+ * Element class that portal uses to target tooltips.
+ * @see https://github.com/liferay/liferay-portal/blob/b7681ff418ef34e735c4e31aff6fd06bbfceae67/portal-web/docroot/html/common/themes/bottom_js.jspf#L123
+ */
+export const PORTAL_TOOLTIP_TRIGGER_CLASS = 'lfr-portal-tooltip';

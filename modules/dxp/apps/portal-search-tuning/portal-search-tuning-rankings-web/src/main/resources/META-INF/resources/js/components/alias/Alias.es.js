@@ -12,8 +12,11 @@
 import ClayForm, {ClayInput} from '@clayui/form';
 import ClayIcon from '@clayui/icon';
 import ClayMultiSelect from '@clayui/multi-select';
+import getCN from 'classnames';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
+
+import {PORTAL_TOOLTIP_TRIGGER_CLASS} from '../../utils/constants.es';
 
 /**
  * Filters out empty items and duplicate items. Compares both label and value
@@ -92,7 +95,10 @@ class Alias extends Component {
 					{Liferay.Language.get('aliases')}
 
 					<span
-						className="input-label-help-icon lfr-portal-tooltip"
+						className={getCN(
+							'input-label-help-icon',
+							PORTAL_TOOLTIP_TRIGGER_CLASS
+						)}
 						data-title={Liferay.Language.get('add-an-alias-help')}
 					>
 						<ClayIcon symbol="question-circle-full" />

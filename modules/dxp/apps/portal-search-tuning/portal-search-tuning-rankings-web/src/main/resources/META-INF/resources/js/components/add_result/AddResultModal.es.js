@@ -12,6 +12,7 @@
 import ClayButton from '@clayui/button';
 import {useResource} from '@clayui/data-provider';
 import {ClayCheckbox} from '@clayui/form';
+import ClayIcon from '@clayui/icon';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import ClayModal, {useModal} from '@clayui/modal';
 import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
@@ -24,7 +25,8 @@ import {
 	DELTAS,
 	DEFAULT_DELTA,
 	FETCH_OPTIONS,
-	KEY_CODES
+	KEY_CODES,
+	PORTAL_TOOLTIP_TRIGGER_CLASS
 } from '../../utils/constants.es';
 import {usePrevious} from '../../utils/hooks.es';
 import {getPluralMessage} from '../../utils/language.es';
@@ -429,6 +431,18 @@ function AddResultModal({
 			>
 				<ClayModal.Header>
 					{Liferay.Language.get('add-result')}
+
+					<span
+						className={getCN(
+							'inline-item',
+							'inline-item-after',
+							'modal-title-help-icon',
+							PORTAL_TOOLTIP_TRIGGER_CLASS
+						)}
+						data-title={Liferay.Language.get('add-results-help')}
+					>
+						<ClayIcon symbol="question-circle-full" />
+					</span>
 				</ClayModal.Header>
 
 				<ClayModal.Body>
