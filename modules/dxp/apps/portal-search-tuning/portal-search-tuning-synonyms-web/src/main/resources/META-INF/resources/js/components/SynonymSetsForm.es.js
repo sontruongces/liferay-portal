@@ -16,12 +16,40 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
 /**
+ * Filters out empty items and duplicate items. Compares both label and value
+ * properties.
+ * @param {Array} list A list of label-value objects.
+ */
+function filterDuplicates(list) {
+	const cleanedList = filterEmptyStrings(trimListItems(list));
+
+	return cleanedList.filter(
+		(item, index) =>
+			cleanedList.findIndex(
+				newVal =>
+					newVal.label === item.label && newVal.value === item.value
+			) === index
+	);
+}
+
+/**
  * Filters out empty strings from the passed in array.
  * @param {Array} list The list of strings to filter.
  * @returns {Array} The filtered list.
  */
 function filterEmptyStrings(list) {
-	return list.filter(item => item.trim());
+	return list.filter(({label, value}) => label && value);
+}
+
+/**
+ * Trims whitespace in list items for ClayMultiSelect.
+ * @param {Array} list A list of label-value objects.
+ */
+function trimListItems(list) {
+	return list.map(({label, value}) => ({
+		label: label.trim(),
+		value: value.trim()
+	}));
 }
 
 class SynonymSetsForm extends Component {
@@ -48,7 +76,10 @@ class SynonymSetsForm extends Component {
 			this._originalSynonymSets = props.synonymSets;
 
 			props.synonymSets.split(',').forEach(synonym => {
-				this.state.synonyms.push(synonym);
+				this.state.synonyms.push({
+					label: synonym,
+					value: synonym
+				});
 			});
 		}
 	}
@@ -66,7 +97,9 @@ class SynonymSetsForm extends Component {
 
 		const form = document.forms[this.props.formName];
 
-		const synonymSetsString = this.state.synonyms;
+		const synonymSetsString = this.state.synonyms.map(
+			synonym => synonym.value
+		);
 
 		form.elements[this.props.inputName].value = synonymSetsString;
 
@@ -77,13 +110,9 @@ class SynonymSetsForm extends Component {
 		submitForm(form);
 	};
 
-	_handleItemsChange = value => {
-		const newValue = filterEmptyStrings(value.map(item => item.trim()));
-
+	_handleItemsChange = values => {
 		this.setState({
-			synonyms: newValue.filter(
-				(item, index) => newValue.indexOf(item) === index
-			)
+			synonyms: filterDuplicates(values)
 		});
 	};
 
