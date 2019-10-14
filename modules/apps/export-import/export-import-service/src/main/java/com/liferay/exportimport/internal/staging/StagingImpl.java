@@ -250,7 +250,7 @@ public class StagingImpl implements Staging {
 			}
 			else if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable find staged model data handler for class name " +
+					"Unable to get staged model data handler for class name " +
 						className);
 			}
 
