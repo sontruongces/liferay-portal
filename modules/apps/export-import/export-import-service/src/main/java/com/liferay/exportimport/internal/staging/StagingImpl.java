@@ -210,6 +210,22 @@ public class StagingImpl implements Staging {
 
 		StagedGroupedModel stagedGroupedModel = (StagedGroupedModel)model;
 
+		long groupId = stagedGroupedModel.getGroupId();
+
+		if (groupId <= 0) {
+			return;
+		}
+
+		Group group = _groupLocalService.fetchGroup(groupId);
+
+		if (group == null) {
+			return;
+		}
+
+		if (!_stagingGroupHelper.isStagingGroup(group)) {
+			return;
+		}
+
 		if (_stagedModelRepositoryHelper.isStagedModelInTrash(
 				stagedGroupedModel)) {
 
@@ -248,22 +264,6 @@ public class StagingImpl implements Staging {
 
 				return;
 			}
-		}
-
-		long groupId = stagedGroupedModel.getGroupId();
-
-		if (groupId <= 0) {
-			return;
-		}
-
-		Group group = _groupLocalService.fetchGroup(groupId);
-
-		if (group == null) {
-			return;
-		}
-
-		if (!_stagingGroupHelper.isStagingGroup(group)) {
-			return;
 		}
 
 		ChangesetCollection changesetCollection =
