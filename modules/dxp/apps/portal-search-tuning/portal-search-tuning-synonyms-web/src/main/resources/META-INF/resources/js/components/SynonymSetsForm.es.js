@@ -115,7 +115,7 @@ class SynonymSetsForm extends Component {
 										id="synonym-sets-input"
 										inputValue={inputValue}
 										items={synonyms}
-										onInputChange={this._handleInputChange}
+										onChange={this._handleInputChange}
 										onItemsChange={this._handleItemsChange}
 									/>
 
