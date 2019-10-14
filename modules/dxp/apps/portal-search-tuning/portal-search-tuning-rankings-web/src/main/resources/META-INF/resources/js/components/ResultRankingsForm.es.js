@@ -535,15 +535,12 @@ class ResultRankingsForm extends Component {
 	};
 
 	/**
-	 * Handles updating the alias list and filters out duplicate words.
-	 * @param {array} keywords The list of the new aliases (array of String).
+	 * Handles updating the alias list.
+	 * @param {array} keywords The list of the new aliases (array of list-value
+	 * objects).
 	 */
 	_handleUpdateAliases = keywords => {
-		this.setState({
-			aliases: keywords.filter(
-				(item, index) => keywords.indexOf(item) === index
-			)
-		});
+		this.setState({aliases: keywords.map(({value}) => value)});
 	};
 
 	/**

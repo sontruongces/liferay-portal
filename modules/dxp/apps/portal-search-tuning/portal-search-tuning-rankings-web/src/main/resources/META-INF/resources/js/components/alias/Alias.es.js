@@ -16,12 +16,50 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
 /**
+ * Filters out empty items and duplicate items. Compares both label and value
+ * properties.
+ * @param {Array} list A list of label-value objects.
+ */
+function filterDuplicates(list) {
+	const cleanedList = filterEmptyStrings(trimListItems(list));
+
+	return cleanedList.filter(
+		(item, index) =>
+			cleanedList.findIndex(
+				newVal =>
+					newVal.label === item.label && newVal.value === item.value
+			) === index
+	);
+}
+
+/**
  * Filters out empty strings from the passed in array.
  * @param {Array} list The list of strings to filter.
  * @returns {Array} The filtered list.
  */
 function filterEmptyStrings(list) {
-	return list.filter(item => item.trim());
+	return list.filter(({label, value}) => label && value);
+}
+
+/**
+ * Transforms a list of strings to label-value objects to pass into
+ * ClayMultiSelect.
+ * @param {Array} list A list of strings.
+ * @returns {Array} A list of label-value objects.
+ */
+function transformListOfStringsToObjects(list) {
+	return list.map(string => ({label: string, value: string}));
+}
+
+/**
+ * Trims whitespace in list items for ClayMultiSelect.
+ * @param {Array} list A list of label-value objects.
+ */
+function trimListItems(list) {
+	return list.map(({label, value}) => ({
+		label: label.trim(),
+		value: value.trim()
+	}));
 }
 
 class Alias extends Component {
@@ -38,8 +76,8 @@ class Alias extends Component {
 		this.setState({inputValue: value});
 	};
 
-	_handleItemsChange = value => {
-		this.props.onChange(filterEmptyStrings(value.map(item => item.trim())));
+	_handleItemsChange = values => {
+		this.props.onChange(filterDuplicates(values));
 	};
 
 	render() {
@@ -65,7 +103,7 @@ class Alias extends Component {
 						<ClayMultiSelect
 							id="aliases-input"
 							inputValue={inputValue}
-							items={keywords}
+							items={transformListOfStringsToObjects(keywords)}
 							onChange={this._handleInputChange}
 							onItemsChange={this._handleItemsChange}
 						/>
