@@ -66,7 +66,7 @@ class Alias extends Component {
 							id="aliases-input"
 							inputValue={inputValue}
 							items={keywords}
-							onInputChange={this._handleInputChange}
+							onChange={this._handleInputChange}
 							onItemsChange={this._handleItemsChange}
 						/>
 

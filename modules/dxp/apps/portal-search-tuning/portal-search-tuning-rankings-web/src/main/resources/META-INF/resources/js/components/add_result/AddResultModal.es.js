@@ -14,7 +14,7 @@ import {useResource} from '@clayui/data-provider';
 import {ClayCheckbox} from '@clayui/form';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import ClayModal, {useModal} from '@clayui/modal';
-import {ClayPaginationWithBar} from '@clayui/pagination';
+import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useContext, useState} from 'react';
@@ -393,7 +393,7 @@ function AddResultModal({
 
 				{false && (
 					<div className="add-result-container">
-						<ClayPaginationWithBar
+						<ClayPaginationBarWithBasicItems
 							activeDelta={delta}
 							activePage={page}
 							deltas={DELTAS}
