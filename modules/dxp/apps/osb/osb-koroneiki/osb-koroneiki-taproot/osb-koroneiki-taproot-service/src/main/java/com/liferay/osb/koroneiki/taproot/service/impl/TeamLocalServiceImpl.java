@@ -19,7 +19,6 @@ import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.exception.TeamNameException;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
-import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.TeamLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -108,7 +107,25 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 		teamAccountRolePersistence.removeByTeamId(team.getTeamId());
 
+		// Indexer
+
+		Indexer<Team> indexer = IndexerRegistryUtil.getIndexer(Team.class);
+
+		indexer.delete(team);
+
 		return teamPersistence.remove(team);
+	}
+
+	public List<Team> deleteTeamsByAccountId(long accountId)
+		throws PortalException {
+
+		List<Team> teams = teamPersistence.findByAccountId(accountId);
+
+		for (Team team : teams) {
+			deleteTeam(team);
+		}
+
+		return teams;
 	}
 
 	public List<Team> getAccountAssignedTeams(
@@ -201,7 +218,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	protected void validate(long teamId, long accountId, String name)
 		throws PortalException {
 
-		Account account = _accountLocalService.getAccount(accountId);
+		Account account = accountPersistence.findByPrimaryKey(accountId);
 
 		if (Validator.isNull(name)) {
 			throw new TeamNameException();
@@ -214,9 +231,6 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 				name, account.getName());
 		}
 	}
-
-	@Reference
-	private AccountLocalService _accountLocalService;
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
