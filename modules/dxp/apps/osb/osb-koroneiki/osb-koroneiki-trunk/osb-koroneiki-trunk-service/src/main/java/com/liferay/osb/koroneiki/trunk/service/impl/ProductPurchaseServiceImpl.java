@@ -98,7 +98,7 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 			getPermissionChecker(), productPurchase, ActionKeys.DELETE);
 
 		return productPurchaseLocalService.deleteProductPurchase(
-			productPurchase);
+			productPurchase.getProductPurchaseId());
 	}
 
 	public List<ProductPurchase> getAccountProductPurchases(
