@@ -27,7 +27,8 @@ function filterDuplicates(list) {
 		(item, index) =>
 			cleanedList.findIndex(
 				newVal =>
-					newVal.label === item.label && newVal.value === item.value
+					newVal.label.toLowerCase() === item.label.toLowerCase() &&
+					newVal.value.toLowerCase() === item.value.toLowerCase()
 			) === index
 	);
 }
