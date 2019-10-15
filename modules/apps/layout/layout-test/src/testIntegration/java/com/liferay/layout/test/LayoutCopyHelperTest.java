@@ -93,7 +93,7 @@ public class LayoutCopyHelperTest {
 	}
 
 	@Test
-	public void testCopyCategorizationData() throws Exception {
+	public void testCopyAssetCategoryIdsAndAssetTagNames() throws Exception {
 		Layout sourceLayout = LayoutTestUtil.addLayout(
 			_group.getGroupId(), StringPool.BLANK);
 

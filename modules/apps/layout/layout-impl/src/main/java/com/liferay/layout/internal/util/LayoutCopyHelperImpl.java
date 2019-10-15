@@ -88,7 +88,7 @@ public class LayoutCopyHelperImpl implements LayoutCopyHelper {
 		}
 	}
 
-	private void _copyCategorizationData(
+	private void _copyAssetCategoryIdsAndAssetTagNames(
 			Layout sourceLayout, Layout targetLayout)
 		throws PortalException {
 
@@ -441,7 +441,7 @@ public class LayoutCopyHelperImpl implements LayoutCopyHelper {
 			_sites.copyPortletSetups(_sourceLayout, _targetLayout);
 			_sites.copyPortletPermissions(_targetLayout, _sourceLayout);
 
-			_copyCategorizationData(_sourceLayout, _targetLayout);
+			_copyAssetCategoryIdsAndAssetTagNames(_sourceLayout, _targetLayout);
 
 			_copyLayoutPageTemplateStructure(_sourceLayout, _targetLayout);
 
