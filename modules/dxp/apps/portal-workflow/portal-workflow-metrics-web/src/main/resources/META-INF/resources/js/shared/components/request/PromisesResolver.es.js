@@ -56,21 +56,21 @@ const Pending = ({children}) => {
 	return !error && loading ? children : null;
 };
 
-const Resolved = ({children}) => {
-	const {error, loading} = usePromisesResolverContext();
-
-	return !error && !loading ? children : null;
-};
-
 const Rejected = ({children}) => {
 	const {error} = usePromisesResolverContext();
 
 	return error ? children : null;
 };
 
+const Resolved = ({children}) => {
+	const {error, loading} = usePromisesResolverContext();
+
+	return !error && !loading ? children : null;
+};
+
 PromisesResolver.Pending = Pending;
-PromisesResolver.Resolved = Resolved;
 PromisesResolver.Rejected = Rejected;
+PromisesResolver.Resolved = Resolved;
 
 export default PromisesResolver;
 export {PromisesResolverContext};
