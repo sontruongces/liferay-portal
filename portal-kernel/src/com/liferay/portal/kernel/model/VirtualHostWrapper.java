@@ -45,6 +45,8 @@ public class VirtualHostWrapper
 		attributes.put("companyId", getCompanyId());
 		attributes.put("layoutSetId", getLayoutSetId());
 		attributes.put("hostname", getHostname());
+		attributes.put("defaultVirtualHost", isDefaultVirtualHost());
+		attributes.put("languageId", getLanguageId());
 
 		return attributes;
 	}
@@ -80,6 +82,19 @@ public class VirtualHostWrapper
 		if (hostname != null) {
 			setHostname(hostname);
 		}
+
+		Boolean defaultVirtualHost = (Boolean)attributes.get(
+			"defaultVirtualHost");
+
+		if (defaultVirtualHost != null) {
+			setDefaultVirtualHost(defaultVirtualHost);
+		}
+
+		String languageId = (String)attributes.get("languageId");
+
+		if (languageId != null) {
+			setLanguageId(languageId);
+		}
 	}
 
 	/**
@@ -93,6 +108,16 @@ public class VirtualHostWrapper
 	}
 
 	/**
+	 * Returns the default virtual host of this virtual host.
+	 *
+	 * @return the default virtual host of this virtual host
+	 */
+	@Override
+	public boolean getDefaultVirtualHost() {
+		return model.getDefaultVirtualHost();
+	}
+
+	/**
 	 * Returns the hostname of this virtual host.
 	 *
 	 * @return the hostname of this virtual host
@@ -100,6 +125,16 @@ public class VirtualHostWrapper
 	@Override
 	public String getHostname() {
 		return model.getHostname();
+	}
+
+	/**
+	 * Returns the language ID of this virtual host.
+	 *
+	 * @return the language ID of this virtual host
+	 */
+	@Override
+	public String getLanguageId() {
+		return model.getLanguageId();
 	}
 
 	/**
@@ -158,6 +193,16 @@ public class VirtualHostWrapper
 	}
 
 	/**
+	 * Sets whether this virtual host is default virtual host.
+	 *
+	 * @param defaultVirtualHost the default virtual host of this virtual host
+	 */
+	@Override
+	public void setDefaultVirtualHost(boolean defaultVirtualHost) {
+		model.setDefaultVirtualHost(defaultVirtualHost);
+	}
+
+	/**
 	 * Sets the hostname of this virtual host.
 	 *
 	 * @param hostname the hostname of this virtual host
@@ -165,6 +210,16 @@ public class VirtualHostWrapper
 	@Override
 	public void setHostname(String hostname) {
 		model.setHostname(hostname);
+	}
+
+	/**
+	 * Sets the language ID of this virtual host.
+	 *
+	 * @param languageId the language ID of this virtual host
+	 */
+	@Override
+	public void setLanguageId(String languageId) {
+		model.setLanguageId(languageId);
 	}
 
 	/**

@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.TreeMap;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -173,6 +174,11 @@ public interface VirtualHostLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public VirtualHost fetchVirtualHost(long virtualHostId);
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link
+	 #getVirtualHosts(long, long)}
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public VirtualHost fetchVirtualHost(long companyId, long layoutSetId);
 
@@ -211,6 +217,11 @@ public interface VirtualHostLocalService
 	public VirtualHost getVirtualHost(long virtualHostId)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link
+	 #getVirtualHosts(long, long)}
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public VirtualHost getVirtualHost(long companyId, long layoutSetId)
 		throws PortalException;
@@ -232,6 +243,10 @@ public interface VirtualHostLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<VirtualHost> getVirtualHosts(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<VirtualHost> getVirtualHosts(long companyId, long layoutSetId)
+		throws PortalException;
+
 	/**
 	 * Returns the number of virtual hosts.
 	 *
@@ -240,6 +255,11 @@ public interface VirtualHostLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getVirtualHostsCount();
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link
+	 #updateVirtualHosts(long, long, TreeMap)}
+	 */
+	@Deprecated
 	public VirtualHost updateVirtualHost(
 		long companyId, long layoutSetId, String hostname);
 
@@ -251,5 +271,8 @@ public interface VirtualHostLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public VirtualHost updateVirtualHost(VirtualHost virtualHost);
+
+	public List<VirtualHost> updateVirtualHosts(
+		long companyId, long layoutSetId, TreeMap<String, String> hostnameMap);
 
 }
