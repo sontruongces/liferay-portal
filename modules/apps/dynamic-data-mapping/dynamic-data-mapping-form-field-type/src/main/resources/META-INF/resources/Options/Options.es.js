@@ -154,12 +154,9 @@ class Options extends Component {
 
 	normalizeOption(options, option, editedIndex, editedProperty) {
 		const {label, value} = option;
-		let desiredValue = editedProperty === 'label' ? label : value;
+		let desiredValue =
+			editedProperty === 'label' ? label : value ? value : label;
 		const optionIndex = options.indexOf(option);
-
-		if (editedIndex !== optionIndex) {
-			return option;
-		}
 
 		if (!this.shouldGenerateOptionValue(options, option)) {
 			return option;
@@ -192,6 +189,10 @@ class Options extends Component {
 		const normalizedOptions = [...options];
 
 		normalizedOptions.forEach((option, index) => {
+			if (editedIndex !== index) {
+				return;
+			}
+
 			normalizedOptions[index] = this.normalizeOption(
 				normalizedOptions,
 				normalizedOptions[index],
@@ -276,7 +277,7 @@ class Options extends Component {
 
 	syncValue(value) {
 		this.setState({
-			items: this.getItems(this.getCurrentLocaleValue(value))
+			items: this.getCurrentLocaleValue(value)
 		});
 	}
 
@@ -301,7 +302,7 @@ class Options extends Component {
 	}
 
 	_getOptionIndex({name}) {
-		return parseInt(name.replace('option', ''), 10);
+		return parseInt(name.replace(/[^\d]/gi, ''), 10);
 	}
 
 	_handleDragDropEvent({source, target}) {
@@ -342,19 +343,9 @@ class Options extends Component {
 		const {defaultLanguageId, editingLanguageId} = this;
 		const {fieldInstance, value} = event;
 		let options = this.getCurrentLocaleValue();
+		const optionIndex = this._getOptionIndex(fieldInstance);
 
-		const optionIndex = options.reduce((foundIndex, option, index) => {
-			if (
-				foundIndex === -1 &&
-				index === this._getOptionIndex(fieldInstance)
-			) {
-				return index;
-			}
-
-			return foundIndex;
-		}, -1);
-
-		if (optionIndex > -1) {
+		if (optionIndex < options.length) {
 			options = options.map((option, index) => {
 				return index === optionIndex
 					? {
