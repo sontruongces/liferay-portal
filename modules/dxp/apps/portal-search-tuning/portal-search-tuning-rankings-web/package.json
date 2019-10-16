@@ -12,6 +12,7 @@
 		"@clayui/pagination": "3.0.0",
 		"@clayui/pagination-bar": "3.0.0",
 		"@clayui/tabs": "3.0.0",
+		"@clayui/tooltip": "3.0.1",
 		"classnames": "2.2.6",
 		"lodash.isfunction": "3.0.9",
 		"lodash.times": "^4.3.2",

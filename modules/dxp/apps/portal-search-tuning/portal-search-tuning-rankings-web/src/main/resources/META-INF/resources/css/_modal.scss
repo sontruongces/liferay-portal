@@ -24,8 +24,15 @@
 
 	.modal-title-help-icon {
 		color: $mainLighten28;
-		display: inline-flex;
 		font-size: 1rem;
+
+		/**
+		 * Temporary workaround to allow tooltip to activate on entire icon.
+		 * https://github.com/liferay/clay/issues/2640
+		 */
+		svg * {
+			pointer-events: none;
+		}
 	}
 
 	.management-bar {

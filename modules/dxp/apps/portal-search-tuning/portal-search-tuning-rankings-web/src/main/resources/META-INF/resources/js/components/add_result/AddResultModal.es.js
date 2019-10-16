@@ -16,6 +16,7 @@ import ClayIcon from '@clayui/icon';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import ClayModal, {useModal} from '@clayui/modal';
 import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
+import {ClayTooltipProvider} from '@clayui/tooltip';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
@@ -25,8 +26,7 @@ import {
 	DELTAS,
 	DEFAULT_DELTA,
 	FETCH_OPTIONS,
-	KEY_CODES,
-	PORTAL_TOOLTIP_TRIGGER_CLASS
+	KEY_CODES
 } from '../../utils/constants.es';
 import {usePrevious} from '../../utils/hooks.es';
 import {getPluralMessage} from '../../utils/language.es';
@@ -436,12 +436,15 @@ function AddResultModal({
 						className={getCN(
 							'inline-item',
 							'inline-item-after',
-							'modal-title-help-icon',
-							PORTAL_TOOLTIP_TRIGGER_CLASS
+							'modal-title-help-icon'
 						)}
-						data-title={Liferay.Language.get('add-results-help')}
 					>
-						<ClayIcon symbol="question-circle-full" />
+						<ClayTooltipProvider>
+							<ClayIcon
+								symbol="question-circle-full"
+								title={Liferay.Language.get('add-results-help')}
+							/>
+						</ClayTooltipProvider>
 					</span>
 				</ClayModal.Header>
 
