@@ -1,5 +1,4 @@
 @component-name = "portal-search"
-@ignore = "true"
 definition {
 
 	property osgi.app.includes = "portal-search-elasticsearch7";
