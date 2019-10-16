@@ -107,25 +107,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 		teamAccountRolePersistence.removeByTeamId(team.getTeamId());
 
-		// Indexer
-
-		Indexer<Team> indexer = IndexerRegistryUtil.getIndexer(Team.class);
-
-		indexer.delete(team);
-
 		return teamPersistence.remove(team);
-	}
-
-	public List<Team> deleteTeamsByAccountId(long accountId)
-		throws PortalException {
-
-		List<Team> teams = teamPersistence.findByAccountId(accountId);
-
-		for (Team team : teams) {
-			deleteTeam(team);
-		}
-
-		return teams;
 	}
 
 	public List<Team> getAccountAssignedTeams(

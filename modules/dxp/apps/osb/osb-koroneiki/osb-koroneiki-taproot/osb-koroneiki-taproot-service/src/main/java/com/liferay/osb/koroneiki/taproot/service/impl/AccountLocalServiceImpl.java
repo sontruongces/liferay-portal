@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.taproot.exception.AccountCodeException;
 import com.liferay.osb.koroneiki.taproot.exception.AccountNameException;
 import com.liferay.osb.koroneiki.taproot.exception.RequiredAccountException;
 import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.AccountLocalServiceBaseImpl;
 import com.liferay.petra.string.StringPool;
@@ -151,7 +152,12 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		// Teams
 
-		_teamLocalService.deleteTeamsByAccountId(account.getAccountId());
+		List<Team> teams = teamPersistence.findByAccountId(
+			account.getAccountId());
+
+		for (Team team : teams) {
+			_teamLocalService.deleteTeam(team);
+		}
 
 		return accountPersistence.remove(account);
 	}
