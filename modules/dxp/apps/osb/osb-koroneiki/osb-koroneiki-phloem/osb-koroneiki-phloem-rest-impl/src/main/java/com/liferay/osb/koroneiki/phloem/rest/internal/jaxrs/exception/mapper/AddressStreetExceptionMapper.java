@@ -42,10 +42,10 @@ public class AddressStreetExceptionMapper
 	public Response toResponse(AddressStreetException addressStreetException) {
 		return Response.status(
 			400
-		).type(
-			MediaType.TEXT_PLAIN
 		).entity(
 			"Please enter a valid street address line"
+		).type(
+			MediaType.TEXT_PLAIN
 		).build();
 	}
 

@@ -42,10 +42,10 @@ public class AddressCityExceptionMapper
 	public Response toResponse(AddressCityException addressCityException) {
 		return Response.status(
 			400
-		).type(
-			MediaType.TEXT_PLAIN
 		).entity(
 			"Please enter a valid address locality"
+		).type(
+			MediaType.TEXT_PLAIN
 		).build();
 	}
 

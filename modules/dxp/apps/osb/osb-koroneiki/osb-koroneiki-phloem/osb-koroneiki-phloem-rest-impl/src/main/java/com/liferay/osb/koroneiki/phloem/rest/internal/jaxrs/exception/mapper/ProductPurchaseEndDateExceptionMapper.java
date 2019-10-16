@@ -44,10 +44,10 @@ public class ProductPurchaseEndDateExceptionMapper
 
 		return Response.status(
 			400
-		).type(
-			MediaType.TEXT_PLAIN
 		).entity(
 			"Please enter a valid end date"
+		).type(
+			MediaType.TEXT_PLAIN
 		).build();
 	}
 

@@ -48,19 +48,19 @@ public class ContactEmailAddressExceptionMapper
 
 			return Response.status(
 				409
-			).type(
-				MediaType.TEXT_PLAIN
 			).entity(
 				"The email address you requested is already taken"
+			).type(
+				MediaType.TEXT_PLAIN
 			).build();
 		}
 
 		return Response.status(
 			400
-		).type(
-			MediaType.TEXT_PLAIN
 		).entity(
 			"Please enter a valid email address"
+		).type(
+			MediaType.TEXT_PLAIN
 		).build();
 	}
 

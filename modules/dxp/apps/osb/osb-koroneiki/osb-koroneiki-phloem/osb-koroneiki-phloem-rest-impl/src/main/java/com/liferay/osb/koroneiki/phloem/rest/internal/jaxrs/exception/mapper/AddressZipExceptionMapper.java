@@ -42,10 +42,10 @@ public class AddressZipExceptionMapper
 	public Response toResponse(AddressZipException addressZipException) {
 		return Response.status(
 			400
-		).type(
-			MediaType.TEXT_PLAIN
 		).entity(
 			"Please enter a valid postal code"
+		).type(
+			MediaType.TEXT_PLAIN
 		).build();
 	}
 
