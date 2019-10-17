@@ -274,8 +274,6 @@ public class JournalArticleFinderTest {
 
 		folderIds.add(_folder.getFolderId());
 
-		Locale locale = LocaleUtil.getSiteDefault();
-
 		QueryDefinition<JournalArticle> queryDefinition =
 			new QueryDefinition<>();
 
@@ -286,8 +284,8 @@ public class JournalArticleFinderTest {
 		List<JournalArticle> articles =
 			_journalArticleFinder.filterFindByG_F_C_L(
 				_group.getGroupId(), folderIds,
-				JournalArticleConstants.CLASSNAME_ID_DEFAULT, locale,
-				queryDefinition);
+				JournalArticleConstants.CLASSNAME_ID_DEFAULT,
+				LocaleUtil.getSiteDefault(), queryDefinition);
 
 		Assert.assertEquals(articles.toString(), 1, articles.size());
 
