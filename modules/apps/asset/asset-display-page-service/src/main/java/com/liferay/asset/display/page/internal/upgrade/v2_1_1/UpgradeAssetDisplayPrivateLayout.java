@@ -88,6 +88,7 @@ public class UpgradeAssetDisplayPrivateLayout extends UpgradeProcess {
 				}
 
 				ps2.executeBatch();
+
 				ps3.executeBatch();
 			}
 		}
