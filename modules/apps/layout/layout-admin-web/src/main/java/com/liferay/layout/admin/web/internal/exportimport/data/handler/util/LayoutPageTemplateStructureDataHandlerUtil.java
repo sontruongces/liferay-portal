@@ -51,10 +51,9 @@ public class LayoutPageTemplateStructureDataHandlerUtil {
 		throws Exception {
 
 		layoutPageTemplateStructureElement.addAttribute(
-			"classPK", String.valueOf(classPK));
-
-		layoutPageTemplateStructureElement.addAttribute(
 			"classNameId", String.valueOf(classNameId));
+		layoutPageTemplateStructureElement.addAttribute(
+			"classPK", String.valueOf(classPK));
 
 		StagedModelDataHandlerUtil.importStagedModel(
 			portletDataContext, layoutPageTemplateStructureElement);
