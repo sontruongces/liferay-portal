@@ -22,7 +22,8 @@ import org.osgi.service.component.annotations.Component;
  * @author Amos Fong
  */
 @Component(
-	immediate = true, property = {"host=", "password=", "port=", "username="},
+	immediate = true,
+	property = {"host=", "password=", "port=", "username=", "useSSL="},
 	service = LegacyConnection.class
 )
 public class LegacyConnection extends BaseConnection {

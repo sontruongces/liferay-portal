@@ -23,7 +23,12 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
 
+import java.security.KeyStore;
+
 import java.util.Map;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Deactivate;
@@ -46,6 +51,27 @@ public class BaseConnection implements Connection {
 		try {
 			if (_log.isInfoEnabled()) {
 				_log.info("Connecting to RabbitMQ at " + _host + ":" + _port);
+			}
+
+			if (_useSSL) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Enabling SSL");
+				}
+
+				TrustManagerFactory trustManagerFactory =
+					TrustManagerFactory.getInstance(
+						TrustManagerFactory.getDefaultAlgorithm());
+
+				trustManagerFactory.init((KeyStore)null);
+
+				SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+
+				sslContext.init(
+					null, trustManagerFactory.getTrustManagers(), null);
+
+				connectionFactory.useSslProtocol(sslContext);
+
+				connectionFactory.enableHostnameVerification();
 			}
 
 			_connection = connectionFactory.newConnection();
@@ -121,6 +147,7 @@ public class BaseConnection implements Connection {
 		_password = GetterUtil.getString(properties.get("password"));
 		_port = GetterUtil.getInteger(properties.get("port"));
 		_username = GetterUtil.getString(properties.get("username"));
+		_useSSL = GetterUtil.getBoolean(properties.get("useSSL"));
 
 		connect();
 	}
@@ -148,5 +175,6 @@ public class BaseConnection implements Connection {
 	private String _password;
 	private int _port;
 	private String _username;
+	private boolean _useSSL;
 
 }
