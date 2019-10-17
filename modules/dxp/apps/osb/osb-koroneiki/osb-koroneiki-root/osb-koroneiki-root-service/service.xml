@@ -42,6 +42,12 @@
 			<finder-column name="classNameId" />
 			<finder-column name="classPK" />
 		</finder>
+		<finder name="C_C_FC_FC" return-type="Collection">
+			<finder-column name="classNameId" />
+			<finder-column name="classPK" />
+			<finder-column name="fieldClassNameId" />
+			<finder-column name="fieldClassPK" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="ExternalLink" remote-service="true">
 

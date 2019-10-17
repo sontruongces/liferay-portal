@@ -114,7 +114,30 @@ public class AuditEntryResourceImpl extends BaseAuditEntryResourceImpl {
 
 		Team team = _teamLocalService.getTeam(teamKey);
 
-		return getAuditEntriesPage(Team.class, team.getTeamId(), pagination);
+		Account account = _accountLocalService.getAccount(team.getAccountId());
+
+		return getAuditEntriesPage(
+			Account.class, account.getAccountId(), Team.class, team.getTeamId(),
+			pagination);
+	}
+
+	protected Page<AuditEntry> getAuditEntriesPage(
+			Class<?> clazz, long classPK, Class<?> fieldClass,
+			long fieldClassPK, Pagination pagination)
+		throws Exception {
+
+		long classNameId = _classNameLocalService.getClassNameId(clazz);
+		long fieldClassNameId = _classNameLocalService.getClassNameId(
+			fieldClass);
+
+		return Page.of(
+			transform(
+				_auditEntryService.getAuditEntries(
+					classNameId, classPK, fieldClassNameId, fieldClassPK,
+					pagination.getStartPosition(), pagination.getEndPosition()),
+				AuditEntryUtil::toAuditEntry),
+			pagination,
+			_auditEntryService.getAuditEntriesCount(classNameId, classPK));
 	}
 
 	protected Page<AuditEntry> getAuditEntriesPage(

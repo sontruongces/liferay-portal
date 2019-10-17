@@ -80,8 +80,24 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 			classNameId, classPK, start, end);
 	}
 
+	public List<AuditEntry> getAuditEntries(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, int start, int end) {
+
+		return auditEntryPersistence.findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, start, end);
+	}
+
 	public int getAuditEntriesCount(long classNameId, long classPK) {
 		return auditEntryPersistence.countByC_C(classNameId, classPK);
+	}
+
+	public int getAuditEntriesCount(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK) {
+
+		return auditEntryPersistence.countByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK);
 	}
 
 	public AuditEntry getAuditEntry(String auditEntryKey)

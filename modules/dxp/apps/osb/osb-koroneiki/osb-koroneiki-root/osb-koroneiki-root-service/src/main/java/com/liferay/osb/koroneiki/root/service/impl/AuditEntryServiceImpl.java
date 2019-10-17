@@ -50,6 +50,19 @@ public class AuditEntryServiceImpl extends AuditEntryServiceBaseImpl {
 			classNameId, classPK, start, end);
 	}
 
+	public List<AuditEntry> getAuditEntries(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK, int start, int end)
+		throws PortalException {
+
+		_modelPermissionRegistry.check(
+			getPermissionChecker(), fieldClassNameId, fieldClassPK,
+			ActionKeys.VIEW);
+
+		return auditEntryLocalService.getAuditEntries(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, start, end);
+	}
+
 	public int getAuditEntriesCount(long classNameId, long classPK)
 		throws PortalException {
 
@@ -58,6 +71,19 @@ public class AuditEntryServiceImpl extends AuditEntryServiceBaseImpl {
 
 		return auditEntryLocalService.getAuditEntriesCount(
 			classNameId, classPK);
+	}
+
+	public int getAuditEntriesCount(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK)
+		throws PortalException {
+
+		_modelPermissionRegistry.check(
+			getPermissionChecker(), fieldClassNameId, fieldClassPK,
+			ActionKeys.VIEW);
+
+		return auditEntryLocalService.getAuditEntriesCount(
+			classNameId, classPK, fieldClassNameId, fieldClassPK);
 	}
 
 	public AuditEntry getAuditEntry(long auditEntryId) throws PortalException {
