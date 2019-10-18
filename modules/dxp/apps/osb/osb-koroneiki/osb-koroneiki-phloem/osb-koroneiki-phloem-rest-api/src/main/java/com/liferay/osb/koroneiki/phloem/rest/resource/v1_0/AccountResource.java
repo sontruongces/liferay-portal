@@ -100,11 +100,11 @@ public interface AccountResource {
 			String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
-	public void deleteAccountTeamTeamKeyRole(
+	public void deleteAccountAssignedTeamTeamKeyRole(
 			String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
-	public void putAccountTeamTeamKeyRole(
+	public void putAccountAssignedTeamTeamKeyRole(
 			String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 

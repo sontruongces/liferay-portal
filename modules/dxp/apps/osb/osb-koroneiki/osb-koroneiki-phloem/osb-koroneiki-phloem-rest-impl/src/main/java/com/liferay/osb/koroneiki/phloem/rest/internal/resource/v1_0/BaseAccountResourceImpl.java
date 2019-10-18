@@ -424,10 +424,10 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
 		}
 	)
-	@Path("/accounts/{accountKey}/teams/{teamKey}/roles")
+	@Path("/accounts/{accountKey}/assigned-teams/{teamKey}/roles")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
-	public void deleteAccountTeamTeamKeyRole(
+	public void deleteAccountAssignedTeamTeamKeyRole(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
@@ -447,10 +447,10 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
 		}
 	)
-	@Path("/accounts/{accountKey}/teams/{teamKey}/roles")
+	@Path("/accounts/{accountKey}/assigned-teams/{teamKey}/roles")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
-	public void putAccountTeamTeamKeyRole(
+	public void putAccountAssignedTeamTeamKeyRole(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String

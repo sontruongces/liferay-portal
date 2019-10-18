@@ -75,10 +75,10 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/accounts/{accountKey}/teams/{teamKey}/roles")
+	@Path("/accounts/{accountKey}/assigned-teams/{teamKey}/roles")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TeamRole")})
-	public Page<TeamRole> getAccountAccountKeyTeamTeamKeyRolesPage(
+	public Page<TeamRole> getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String

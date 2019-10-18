@@ -40,7 +40,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TeamRoleResource {
 
-	public Page<TeamRole> getAccountAccountKeyTeamTeamKeyRolesPage(
+	public Page<TeamRole> getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 			String accountKey, String teamKey, Pagination pagination)
 		throws Exception;
 

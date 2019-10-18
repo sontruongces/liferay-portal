@@ -930,7 +930,7 @@ public class Query {
 	}
 
 	@GraphQLField
-	public TeamRolePage getAccountAccountKeyTeamTeamKeyRolesPage(
+	public TeamRolePage getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("pageSize") int pageSize,
@@ -941,8 +941,9 @@ public class Query {
 			_teamRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamRoleResource -> new TeamRolePage(
-				teamRoleResource.getAccountAccountKeyTeamTeamKeyRolesPage(
-					accountKey, teamKey, Pagination.of(page, pageSize))));
+				teamRoleResource.
+					getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
+						accountKey, teamKey, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField

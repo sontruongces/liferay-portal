@@ -784,12 +784,12 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteAccountTeamTeamKeyRole() throws Exception {
+	public void testDeleteAccountAssignedTeamTeamKeyRole() throws Exception {
 		Assert.assertTrue(false);
 	}
 
 	@Test
-	public void testPutAccountTeamTeamKeyRole() throws Exception {
+	public void testPutAccountAssignedTeamTeamKeyRole() throws Exception {
 		Assert.assertTrue(false);
 	}
 

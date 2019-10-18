@@ -37,12 +37,12 @@ public interface TeamRoleResource {
 		return new Builder();
 	}
 
-	public Page<TeamRole> getAccountAccountKeyTeamTeamKeyRolesPage(
+	public Page<TeamRole> getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 			String accountKey, String teamKey, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getAccountAccountKeyTeamTeamKeyRolesPageHttpResponse(
+			getAccountAccountKeyAssignedTeamTeamKeyRolesPageHttpResponse(
 				String accountKey, String teamKey, Pagination pagination)
 		throws Exception;
 
@@ -132,12 +132,12 @@ public interface TeamRoleResource {
 
 	public static class TeamRoleResourceImpl implements TeamRoleResource {
 
-		public Page<TeamRole> getAccountAccountKeyTeamTeamKeyRolesPage(
+		public Page<TeamRole> getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 				String accountKey, String teamKey, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getAccountAccountKeyTeamTeamKeyRolesPageHttpResponse(
+				getAccountAccountKeyAssignedTeamTeamKeyRolesPageHttpResponse(
 					accountKey, teamKey, pagination);
 
 			String content = httpResponse.getContent();
@@ -152,7 +152,7 @@ public interface TeamRoleResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getAccountAccountKeyTeamTeamKeyRolesPageHttpResponse(
+				getAccountAccountKeyAssignedTeamTeamKeyRolesPageHttpResponse(
 					String accountKey, String teamKey, Pagination pagination)
 			throws Exception {
 
@@ -175,7 +175,7 @@ public interface TeamRoleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams/{teamKey}/roles",
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/assigned-teams/{teamKey}/roles",
 				accountKey, teamKey);
 
 			httpInvoker.userNameAndPassword(

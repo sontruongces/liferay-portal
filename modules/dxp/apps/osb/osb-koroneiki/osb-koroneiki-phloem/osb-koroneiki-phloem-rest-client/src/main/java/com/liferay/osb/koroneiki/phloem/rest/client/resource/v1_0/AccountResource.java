@@ -171,20 +171,22 @@ public interface AccountResource {
 				String accountKey, String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
-	public void deleteAccountTeamTeamKeyRole(
+	public void deleteAccountAssignedTeamTeamKeyRole(
 			String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse deleteAccountTeamTeamKeyRoleHttpResponse(
+	public HttpInvoker.HttpResponse
+			deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
+				String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public void putAccountAssignedTeamTeamKeyRole(
 			String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
-	public void putAccountTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse putAccountTeamTeamKeyRoleHttpResponse(
-			String accountKey, String teamKey, String[] teamRoleKeys)
+	public HttpInvoker.HttpResponse
+			putAccountAssignedTeamTeamKeyRoleHttpResponse(
+				String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public Page<Account> getTeamTeamKeyAssignedAccountsPage(
@@ -1099,12 +1101,12 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteAccountTeamTeamKeyRole(
+		public void deleteAccountAssignedTeamTeamKeyRole(
 				String accountKey, String teamKey, String[] teamRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountTeamTeamKeyRoleHttpResponse(
+				deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
 					accountKey, teamKey, teamRoleKeys);
 
 			String content = httpResponse.getContent();
@@ -1117,7 +1119,7 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				deleteAccountTeamTeamKeyRoleHttpResponse(
+				deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
 					String accountKey, String teamKey, String[] teamRoleKeys)
 			throws Exception {
 
@@ -1140,7 +1142,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams/{teamKey}/roles",
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/assigned-teams/{teamKey}/roles",
 				accountKey, teamKey);
 
 			httpInvoker.userNameAndPassword(
@@ -1149,12 +1151,12 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putAccountTeamTeamKeyRole(
+		public void putAccountAssignedTeamTeamKeyRole(
 				String accountKey, String teamKey, String[] teamRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putAccountTeamTeamKeyRoleHttpResponse(
+				putAccountAssignedTeamTeamKeyRoleHttpResponse(
 					accountKey, teamKey, teamRoleKeys);
 
 			String content = httpResponse.getContent();
@@ -1166,8 +1168,9 @@ public interface AccountResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse putAccountTeamTeamKeyRoleHttpResponse(
-				String accountKey, String teamKey, String[] teamRoleKeys)
+		public HttpInvoker.HttpResponse
+				putAccountAssignedTeamTeamKeyRoleHttpResponse(
+					String accountKey, String teamKey, String[] teamRoleKeys)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1191,7 +1194,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams/{teamKey}/roles",
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/assigned-teams/{teamKey}/roles",
 				accountKey, teamKey);
 
 			httpInvoker.userNameAndPassword(

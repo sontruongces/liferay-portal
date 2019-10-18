@@ -193,34 +193,37 @@ public abstract class BaseTeamRoleResourceTestCase {
 	}
 
 	@Test
-	public void testGetAccountAccountKeyTeamTeamKeyRolesPage()
+	public void testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage()
 		throws Exception {
 
 		Page<TeamRole> page =
-			teamRoleResource.getAccountAccountKeyTeamTeamKeyRolesPage(
-				testGetAccountAccountKeyTeamTeamKeyRolesPage_getAccountKey(),
-				testGetAccountAccountKeyTeamTeamKeyRolesPage_getTeamKey(),
+			teamRoleResource.getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
+				testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getAccountKey(),
+				testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getTeamKey(),
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		String accountKey =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_getAccountKey();
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getAccountKey();
 		String irrelevantAccountKey =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_getIrrelevantAccountKey();
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getIrrelevantAccountKey();
 		String teamKey =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_getTeamKey();
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getTeamKey();
 		String irrelevantTeamKey =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_getIrrelevantTeamKey();
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getIrrelevantTeamKey();
 
 		if ((irrelevantAccountKey != null) && (irrelevantTeamKey != null)) {
 			TeamRole irrelevantTeamRole =
-				testGetAccountAccountKeyTeamTeamKeyRolesPage_addTeamRole(
+				testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_addTeamRole(
 					irrelevantAccountKey, irrelevantTeamKey,
 					randomIrrelevantTeamRole());
 
-			page = teamRoleResource.getAccountAccountKeyTeamTeamKeyRolesPage(
-				irrelevantAccountKey, irrelevantTeamKey, Pagination.of(1, 2));
+			page =
+				teamRoleResource.
+					getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
+						irrelevantAccountKey, irrelevantTeamKey,
+						Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -231,15 +234,16 @@ public abstract class BaseTeamRoleResourceTestCase {
 		}
 
 		TeamRole teamRole1 =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_addTeamRole(
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_addTeamRole(
 				accountKey, teamKey, randomTeamRole());
 
 		TeamRole teamRole2 =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_addTeamRole(
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_addTeamRole(
 				accountKey, teamKey, randomTeamRole());
 
-		page = teamRoleResource.getAccountAccountKeyTeamTeamKeyRolesPage(
-			accountKey, teamKey, Pagination.of(1, 2));
+		page =
+			teamRoleResource.getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
+				accountKey, teamKey, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -250,28 +254,28 @@ public abstract class BaseTeamRoleResourceTestCase {
 	}
 
 	@Test
-	public void testGetAccountAccountKeyTeamTeamKeyRolesPageWithPagination()
+	public void testGetAccountAccountKeyAssignedTeamTeamKeyRolesPageWithPagination()
 		throws Exception {
 
 		String accountKey =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_getAccountKey();
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getAccountKey();
 		String teamKey =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_getTeamKey();
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getTeamKey();
 
 		TeamRole teamRole1 =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_addTeamRole(
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_addTeamRole(
 				accountKey, teamKey, randomTeamRole());
 
 		TeamRole teamRole2 =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_addTeamRole(
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_addTeamRole(
 				accountKey, teamKey, randomTeamRole());
 
 		TeamRole teamRole3 =
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_addTeamRole(
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_addTeamRole(
 				accountKey, teamKey, randomTeamRole());
 
 		Page<TeamRole> page1 =
-			teamRoleResource.getAccountAccountKeyTeamTeamKeyRolesPage(
+			teamRoleResource.getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 				accountKey, teamKey, Pagination.of(1, 2));
 
 		List<TeamRole> teamRoles1 = (List<TeamRole>)page1.getItems();
@@ -279,7 +283,7 @@ public abstract class BaseTeamRoleResourceTestCase {
 		Assert.assertEquals(teamRoles1.toString(), 2, teamRoles1.size());
 
 		Page<TeamRole> page2 =
-			teamRoleResource.getAccountAccountKeyTeamTeamKeyRolesPage(
+			teamRoleResource.getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 				accountKey, teamKey, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -289,7 +293,7 @@ public abstract class BaseTeamRoleResourceTestCase {
 		Assert.assertEquals(teamRoles2.toString(), 1, teamRoles2.size());
 
 		Page<TeamRole> page3 =
-			teamRoleResource.getAccountAccountKeyTeamTeamKeyRolesPage(
+			teamRoleResource.getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 				accountKey, teamKey, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
@@ -297,8 +301,9 @@ public abstract class BaseTeamRoleResourceTestCase {
 			(List<TeamRole>)page3.getItems());
 	}
 
-	protected TeamRole testGetAccountAccountKeyTeamTeamKeyRolesPage_addTeamRole(
-			String accountKey, String teamKey, TeamRole teamRole)
+	protected TeamRole
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_addTeamRole(
+				String accountKey, String teamKey, TeamRole teamRole)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -306,7 +311,7 @@ public abstract class BaseTeamRoleResourceTestCase {
 	}
 
 	protected String
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_getAccountKey()
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getAccountKey()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -314,13 +319,14 @@ public abstract class BaseTeamRoleResourceTestCase {
 	}
 
 	protected String
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_getIrrelevantAccountKey()
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getIrrelevantAccountKey()
 		throws Exception {
 
 		return null;
 	}
 
-	protected String testGetAccountAccountKeyTeamTeamKeyRolesPage_getTeamKey()
+	protected String
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getTeamKey()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -328,7 +334,7 @@ public abstract class BaseTeamRoleResourceTestCase {
 	}
 
 	protected String
-			testGetAccountAccountKeyTeamTeamKeyRolesPage_getIrrelevantTeamKey()
+			testGetAccountAccountKeyAssignedTeamTeamKeyRolesPage_getIrrelevantTeamKey()
 		throws Exception {
 
 		return null;

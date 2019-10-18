@@ -331,7 +331,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean deleteAccountTeamTeamKeyRole(
+	public boolean deleteAccountAssignedTeamTeamKeyRole(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("teamRoleKeys") String[] teamRoleKeys)
@@ -340,14 +340,15 @@ public class Mutation {
 		_applyVoidComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.deleteAccountTeamTeamKeyRole(
-				accountKey, teamKey, teamRoleKeys));
+			accountResource ->
+				accountResource.deleteAccountAssignedTeamTeamKeyRole(
+					accountKey, teamKey, teamRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
-	public boolean putAccountTeamTeamKeyRole(
+	public boolean putAccountAssignedTeamTeamKeyRole(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("teamRoleKeys") String[] teamRoleKeys)
@@ -356,8 +357,9 @@ public class Mutation {
 		_applyVoidComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.putAccountTeamTeamKeyRole(
-				accountKey, teamKey, teamRoleKeys));
+			accountResource ->
+				accountResource.putAccountAssignedTeamTeamKeyRole(
+					accountKey, teamKey, teamRoleKeys));
 
 		return true;
 	}
