@@ -4024,42 +4024,6 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.segments.asah.connector.jar!jackson-jaxrs-base.jar</file-name>
-				<version>2.9.7</version>
-				<project-name>Jackson-JAXRS-base</project-name>
-				<project-url>http://github.com/FasterXML/jackson-jaxrs-providers/jackson-jaxrs-base</project-url>
-				<licenses>
-					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
-				<file-name>com.liferay.segments.asah.connector.jar!jackson-jaxrs-json-provider.jar</file-name>
-				<version>2.9.7</version>
-				<project-name>Jackson-JAXRS-JSON</project-name>
-				<project-url>http://github.com/FasterXML/jackson-jaxrs-providers/jackson-jaxrs-json-provider</project-url>
-				<licenses>
-					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
-				<file-name>com.liferay.segments.asah.connector.jar!jackson-module-jaxb-annotations.jar</file-name>
-				<version>2.9.7</version>
-				<project-name>Jackson module: JAXB Annotations</project-name>
-				<project-url>https://github.com/FasterXML/jackson-modules-base</project-url>
-				<licenses>
-					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
 				<file-name>com.liferay.segments.content.targeting.upgrade.jar!commons-lang3.jar</file-name>
 				<version>3.8</version>
 				<project-name>Apache Commons Lang</project-name>
@@ -4181,37 +4145,37 @@
 			</library>
 			<library>
 				<file-name>com.liferay.sync.service.jar!bcpg-jdk15on.jar</file-name>
-				<version>1.54</version>
+				<version>1.64</version>
 				<project-name>Bouncy Castle OpenPGP API</project-name>
-				<project-url>http://www.bouncycastle.org/java.html</project-url>
+				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
 					<license>
 						<license-name>Bouncy Castle Licence</license-name>
-						<license-url>http://www.bouncycastle.org/licence.html</license-url>
+						<license-url>https://www.bouncycastle.org/licence.html</license-url>
 					</license>
 				</licenses>
 			</library>
 			<library>
 				<file-name>com.liferay.sync.service.jar!bcpkix-jdk15on.jar</file-name>
-				<version>1.54</version>
+				<version>1.64</version>
 				<project-name>Bouncy Castle PKIX, CMS, EAC, TSP, PKCS, OCSP, CMP, and CRMF APIs</project-name>
-				<project-url>http://www.bouncycastle.org/java.html</project-url>
+				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
 					<license>
 						<license-name>Bouncy Castle Licence</license-name>
-						<license-url>http://www.bouncycastle.org/licence.html</license-url>
+						<license-url>https://www.bouncycastle.org/licence.html</license-url>
 					</license>
 				</licenses>
 			</library>
 			<library>
 				<file-name>com.liferay.sync.service.jar!bcprov-jdk15on.jar</file-name>
-				<version>1.54</version>
+				<version>1.64</version>
 				<project-name>Bouncy Castle Provider</project-name>
-				<project-url>http://www.bouncycastle.org/java.html</project-url>
+				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
 					<license>
 						<license-name>Bouncy Castle Licence</license-name>
-						<license-url>http://www.bouncycastle.org/licence.html</license-url>
+						<license-url>https://www.bouncycastle.org/licence.html</license-url>
 					</license>
 				</licenses>
 			</library>
