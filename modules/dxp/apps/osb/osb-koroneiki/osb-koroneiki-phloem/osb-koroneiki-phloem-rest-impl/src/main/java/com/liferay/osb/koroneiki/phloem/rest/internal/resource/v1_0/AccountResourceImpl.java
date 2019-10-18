@@ -73,6 +73,17 @@ public class AccountResourceImpl
 	}
 
 	@Override
+	public void deleteAccountAssignedTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception {
+
+		for (String teamRoleKey : teamRoleKeys) {
+			_teamAccountRoleService.deleteTeamAccountRole(
+				teamKey, accountKey, teamRoleKey);
+		}
+	}
+
+	@Override
 	public void deleteAccountContactByOkta(String accountKey, String[] oktaIds)
 		throws Exception {
 
@@ -120,17 +131,6 @@ public class AccountResourceImpl
 		_deleteAccountContactRole(
 			_webContactIdentityProvider.getContactByProviderId(contactUuid),
 			accountKey, contactRoleKeys);
-	}
-
-	@Override
-	public void deleteAccountTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
-		throws Exception {
-
-		for (String teamRoleKey : teamRoleKeys) {
-			_teamAccountRoleService.deleteTeamAccountRole(
-				teamKey, accountKey, teamRoleKey);
-		}
 	}
 
 	@Override
@@ -414,6 +414,17 @@ public class AccountResourceImpl
 	}
 
 	@Override
+	public void putAccountAssignedTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception {
+
+		for (String teamRoleKey : teamRoleKeys) {
+			_teamAccountRoleService.addTeamAccountRole(
+				teamKey, accountKey, teamRoleKey);
+		}
+	}
+
+	@Override
 	public void putAccountContactByOkta(String accountKey, String[] oktaIds)
 		throws Exception {
 
@@ -461,17 +472,6 @@ public class AccountResourceImpl
 		_putAccountContactRole(
 			_webContactIdentityProvider.getContactByProviderId(contactUuid),
 			accountKey, contactRoleKeys);
-	}
-
-	@Override
-	public void putAccountTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
-		throws Exception {
-
-		for (String teamRoleKey : teamRoleKeys) {
-			_teamAccountRoleService.addTeamAccountRole(
-				teamKey, accountKey, teamRoleKey);
-		}
 	}
 
 	private void _deleteAccountContactRole(

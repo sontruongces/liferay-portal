@@ -64,7 +64,7 @@ public class TeamRoleResourceImpl
 	}
 
 	@Override
-	public Page<TeamRole> getAccountAccountKeyTeamTeamKeyRolesPage(
+	public Page<TeamRole> getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 			String accountKey, String teamKey, Pagination pagination)
 		throws Exception {
 
