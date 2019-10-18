@@ -275,7 +275,7 @@ public class DefaultAssetDisplayPageFriendlyURLResolver
 				layoutActualURL + StringPool.QUESTION + queryString;
 		}
 
-		_portal.addPageSubtitle(
+		_portal.addPageTitle(
 			journalArticle.getTitle(locale), httpServletRequest);
 		_portal.addPageDescription(
 			HtmlUtil.unescape(
