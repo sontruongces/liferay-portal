@@ -87,7 +87,7 @@ describe('ItemDropdown', () => {
 			pinned: false
 		});
 
-		fireEvent.click(getByTitle('toggle-dropdown'));
+		fireEvent.click(getByTitle('actions'));
 
 		expect(getByText(PIN_BUTTON_LABEL)).not.toBeNull();
 		expect(getByText(HIDE_BUTTON_LABEL)).not.toBeNull();
