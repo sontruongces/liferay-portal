@@ -238,7 +238,7 @@ long formInstanceId = ddmFormDisplayContext.getFormInstanceId();
 
 								<portlet:namespace />intervalId = setInterval(
 									<portlet:namespace />autoSave,
-									60000
+									<%= ddmFormDisplayContext.getAutosaveInterval() %>
 								);
 							}
 						</c:when>
