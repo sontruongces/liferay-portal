@@ -45,10 +45,31 @@ public class AuditEntryServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.root.model.AuditEntry>
+			getAuditEntries(
+				long classNameId, long classPK, long fieldClassNameId,
+				long fieldClassPK, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _auditEntryService.getAuditEntries(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, start, end);
+	}
+
+	@Override
 	public int getAuditEntriesCount(long classNameId, long classPK)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _auditEntryService.getAuditEntriesCount(classNameId, classPK);
+	}
+
+	@Override
+	public int getAuditEntriesCount(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _auditEntryService.getAuditEntriesCount(
+			classNameId, classPK, fieldClassNameId, fieldClassPK);
 	}
 
 	@Override

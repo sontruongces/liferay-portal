@@ -51,10 +51,29 @@ public class AuditEntryServiceUtil {
 		return getService().getAuditEntries(classNameId, classPK, start, end);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.root.model.AuditEntry> getAuditEntries(
+				long classNameId, long classPK, long fieldClassNameId,
+				long fieldClassPK, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAuditEntries(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, start, end);
+	}
+
 	public static int getAuditEntriesCount(long classNameId, long classPK)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getAuditEntriesCount(classNameId, classPK);
+	}
+
+	public static int getAuditEntriesCount(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAuditEntriesCount(
+			classNameId, classPK, fieldClassNameId, fieldClassPK);
 	}
 
 	public static com.liferay.osb.koroneiki.root.model.AuditEntry getAuditEntry(

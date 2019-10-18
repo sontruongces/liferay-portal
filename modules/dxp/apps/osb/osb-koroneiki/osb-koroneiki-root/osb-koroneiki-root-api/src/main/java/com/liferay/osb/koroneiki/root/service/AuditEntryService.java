@@ -57,7 +57,19 @@ public interface AuditEntryService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AuditEntry> getAuditEntries(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getAuditEntriesCount(long classNameId, long classPK)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAuditEntriesCount(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

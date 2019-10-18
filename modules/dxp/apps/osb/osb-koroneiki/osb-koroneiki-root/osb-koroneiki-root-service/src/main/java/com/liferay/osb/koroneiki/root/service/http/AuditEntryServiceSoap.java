@@ -80,12 +80,52 @@ public class AuditEntryServiceSoap {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.root.model.AuditEntrySoap[]
+			getAuditEntries(
+				long classNameId, long classPK, long fieldClassNameId,
+				long fieldClassPK, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.osb.koroneiki.root.model.AuditEntry>
+				returnValue = AuditEntryServiceUtil.getAuditEntries(
+					classNameId, classPK, fieldClassNameId, fieldClassPK, start,
+					end);
+
+			return com.liferay.osb.koroneiki.root.model.AuditEntrySoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static int getAuditEntriesCount(long classNameId, long classPK)
 		throws RemoteException {
 
 		try {
 			int returnValue = AuditEntryServiceUtil.getAuditEntriesCount(
 				classNameId, classPK);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getAuditEntriesCount(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK)
+		throws RemoteException {
+
+		try {
+			int returnValue = AuditEntryServiceUtil.getAuditEntriesCount(
+				classNameId, classPK, fieldClassNameId, fieldClassPK);
 
 			return returnValue;
 		}

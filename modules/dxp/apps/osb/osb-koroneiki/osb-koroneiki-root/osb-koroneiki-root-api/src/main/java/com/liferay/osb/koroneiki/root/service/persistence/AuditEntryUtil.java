@@ -373,6 +373,239 @@ public class AuditEntryUtil {
 	}
 
 	/**
+	 * Returns all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @return the matching audit entries
+	 */
+	public static List<AuditEntry> findByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK) {
+
+		return getPersistence().findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK);
+	}
+
+	/**
+	 * Returns a range of all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AuditEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param start the lower bound of the range of audit entries
+	 * @param end the upper bound of the range of audit entries (not inclusive)
+	 * @return the range of matching audit entries
+	 */
+	public static List<AuditEntry> findByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, int start, int end) {
+
+		return getPersistence().findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AuditEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param start the lower bound of the range of audit entries
+	 * @param end the upper bound of the range of audit entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching audit entries
+	 */
+	public static List<AuditEntry> findByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, int start, int end,
+		OrderByComparator<AuditEntry> orderByComparator) {
+
+		return getPersistence().findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, start, end,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AuditEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param start the lower bound of the range of audit entries
+	 * @param end the upper bound of the range of audit entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching audit entries
+	 */
+	public static List<AuditEntry> findByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, int start, int end,
+		OrderByComparator<AuditEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, start, end,
+			orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching audit entry
+	 * @throws NoSuchAuditEntryException if a matching audit entry could not be found
+	 */
+	public static AuditEntry findByC_C_FC_FC_First(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK, OrderByComparator<AuditEntry> orderByComparator)
+		throws com.liferay.osb.koroneiki.root.exception.
+			NoSuchAuditEntryException {
+
+		return getPersistence().findByC_C_FC_FC_First(
+			classNameId, classPK, fieldClassNameId, fieldClassPK,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns the first audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching audit entry, or <code>null</code> if a matching audit entry could not be found
+	 */
+	public static AuditEntry fetchByC_C_FC_FC_First(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, OrderByComparator<AuditEntry> orderByComparator) {
+
+		return getPersistence().fetchByC_C_FC_FC_First(
+			classNameId, classPK, fieldClassNameId, fieldClassPK,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns the last audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching audit entry
+	 * @throws NoSuchAuditEntryException if a matching audit entry could not be found
+	 */
+	public static AuditEntry findByC_C_FC_FC_Last(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK, OrderByComparator<AuditEntry> orderByComparator)
+		throws com.liferay.osb.koroneiki.root.exception.
+			NoSuchAuditEntryException {
+
+		return getPersistence().findByC_C_FC_FC_Last(
+			classNameId, classPK, fieldClassNameId, fieldClassPK,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns the last audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching audit entry, or <code>null</code> if a matching audit entry could not be found
+	 */
+	public static AuditEntry fetchByC_C_FC_FC_Last(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, OrderByComparator<AuditEntry> orderByComparator) {
+
+		return getPersistence().fetchByC_C_FC_FC_Last(
+			classNameId, classPK, fieldClassNameId, fieldClassPK,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns the audit entries before and after the current audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param auditEntryId the primary key of the current audit entry
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next audit entry
+	 * @throws NoSuchAuditEntryException if a audit entry with the primary key could not be found
+	 */
+	public static AuditEntry[] findByC_C_FC_FC_PrevAndNext(
+			long auditEntryId, long classNameId, long classPK,
+			long fieldClassNameId, long fieldClassPK,
+			OrderByComparator<AuditEntry> orderByComparator)
+		throws com.liferay.osb.koroneiki.root.exception.
+			NoSuchAuditEntryException {
+
+		return getPersistence().findByC_C_FC_FC_PrevAndNext(
+			auditEntryId, classNameId, classPK, fieldClassNameId, fieldClassPK,
+			orderByComparator);
+	}
+
+	/**
+	 * Removes all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 */
+	public static void removeByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK) {
+
+		getPersistence().removeByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK);
+	}
+
+	/**
+	 * Returns the number of audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @return the number of matching audit entries
+	 */
+	public static int countByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK) {
+
+		return getPersistence().countByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK);
+	}
+
+	/**
 	 * Caches the audit entry in the entity cache if it is enabled.
 	 *
 	 * @param auditEntry the audit entry

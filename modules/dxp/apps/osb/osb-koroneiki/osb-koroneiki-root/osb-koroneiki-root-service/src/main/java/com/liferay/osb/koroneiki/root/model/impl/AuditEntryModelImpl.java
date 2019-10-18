@@ -135,7 +135,11 @@ public class AuditEntryModelImpl
 
 	public static final long CLASSPK_COLUMN_BITMASK = 4L;
 
-	public static final long AUDITENTRYID_COLUMN_BITMASK = 8L;
+	public static final long FIELDCLASSNAMEID_COLUMN_BITMASK = 8L;
+
+	public static final long FIELDCLASSPK_COLUMN_BITMASK = 16L;
+
+	public static final long AUDITENTRYID_COLUMN_BITMASK = 32L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -613,7 +617,19 @@ public class AuditEntryModelImpl
 
 	@Override
 	public void setFieldClassNameId(long fieldClassNameId) {
+		_columnBitmask |= FIELDCLASSNAMEID_COLUMN_BITMASK;
+
+		if (!_setOriginalFieldClassNameId) {
+			_setOriginalFieldClassNameId = true;
+
+			_originalFieldClassNameId = _fieldClassNameId;
+		}
+
 		_fieldClassNameId = fieldClassNameId;
+	}
+
+	public long getOriginalFieldClassNameId() {
+		return _originalFieldClassNameId;
 	}
 
 	@JSON
@@ -624,7 +640,19 @@ public class AuditEntryModelImpl
 
 	@Override
 	public void setFieldClassPK(long fieldClassPK) {
+		_columnBitmask |= FIELDCLASSPK_COLUMN_BITMASK;
+
+		if (!_setOriginalFieldClassPK) {
+			_setOriginalFieldClassPK = true;
+
+			_originalFieldClassPK = _fieldClassPK;
+		}
+
 		_fieldClassPK = fieldClassPK;
+	}
+
+	public long getOriginalFieldClassPK() {
+		return _originalFieldClassPK;
 	}
 
 	@JSON
@@ -870,6 +898,16 @@ public class AuditEntryModelImpl
 
 		auditEntryModelImpl._setOriginalClassPK = false;
 
+		auditEntryModelImpl._originalFieldClassNameId =
+			auditEntryModelImpl._fieldClassNameId;
+
+		auditEntryModelImpl._setOriginalFieldClassNameId = false;
+
+		auditEntryModelImpl._originalFieldClassPK =
+			auditEntryModelImpl._fieldClassPK;
+
+		auditEntryModelImpl._setOriginalFieldClassPK = false;
+
 		auditEntryModelImpl._columnBitmask = 0;
 	}
 
@@ -1076,7 +1114,11 @@ public class AuditEntryModelImpl
 	private boolean _setOriginalClassPK;
 	private long _auditSetId;
 	private long _fieldClassNameId;
+	private long _originalFieldClassNameId;
+	private boolean _setOriginalFieldClassNameId;
 	private long _fieldClassPK;
+	private long _originalFieldClassPK;
+	private boolean _setOriginalFieldClassPK;
 	private String _action;
 	private String _field;
 	private String _oldLabel;

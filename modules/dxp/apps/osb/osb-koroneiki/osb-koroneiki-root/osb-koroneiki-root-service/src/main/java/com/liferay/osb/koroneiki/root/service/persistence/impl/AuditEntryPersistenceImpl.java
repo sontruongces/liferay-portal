@@ -865,6 +865,645 @@ public class AuditEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_C_C_CLASSPK_2 =
 		"auditEntry.classPK = ?";
 
+	private FinderPath _finderPathWithPaginationFindByC_C_FC_FC;
+	private FinderPath _finderPathWithoutPaginationFindByC_C_FC_FC;
+	private FinderPath _finderPathCountByC_C_FC_FC;
+
+	/**
+	 * Returns all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @return the matching audit entries
+	 */
+	@Override
+	public List<AuditEntry> findByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK) {
+
+		return findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AuditEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param start the lower bound of the range of audit entries
+	 * @param end the upper bound of the range of audit entries (not inclusive)
+	 * @return the range of matching audit entries
+	 */
+	@Override
+	public List<AuditEntry> findByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, int start, int end) {
+
+		return findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, start, end,
+			null);
+	}
+
+	/**
+	 * Returns an ordered range of all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AuditEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param start the lower bound of the range of audit entries
+	 * @param end the upper bound of the range of audit entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching audit entries
+	 */
+	@Override
+	public List<AuditEntry> findByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, int start, int end,
+		OrderByComparator<AuditEntry> orderByComparator) {
+
+		return findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, start, end,
+			orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AuditEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param start the lower bound of the range of audit entries
+	 * @param end the upper bound of the range of audit entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching audit entries
+	 */
+	@Override
+	public List<AuditEntry> findByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, int start, int end,
+		OrderByComparator<AuditEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByC_C_FC_FC;
+				finderArgs = new Object[] {
+					classNameId, classPK, fieldClassNameId, fieldClassPK
+				};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByC_C_FC_FC;
+			finderArgs = new Object[] {
+				classNameId, classPK, fieldClassNameId, fieldClassPK, start,
+				end, orderByComparator
+			};
+		}
+
+		List<AuditEntry> list = null;
+
+		if (useFinderCache) {
+			list = (List<AuditEntry>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (AuditEntry auditEntry : list) {
+					if ((classNameId != auditEntry.getClassNameId()) ||
+						(classPK != auditEntry.getClassPK()) ||
+						(fieldClassNameId !=
+							auditEntry.getFieldClassNameId()) ||
+						(fieldClassPK != auditEntry.getFieldClassPK())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(
+					6 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(6);
+			}
+
+			query.append(_SQL_SELECT_AUDITENTRY_WHERE);
+
+			query.append(_FINDER_COLUMN_C_C_FC_FC_CLASSNAMEID_2);
+
+			query.append(_FINDER_COLUMN_C_C_FC_FC_CLASSPK_2);
+
+			query.append(_FINDER_COLUMN_C_C_FC_FC_FIELDCLASSNAMEID_2);
+
+			query.append(_FINDER_COLUMN_C_C_FC_FC_FIELDCLASSPK_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				query.append(AuditEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
+
+				qPos.add(classPK);
+
+				qPos.add(fieldClassNameId);
+
+				qPos.add(fieldClassPK);
+
+				list = (List<AuditEntry>)QueryUtil.list(
+					q, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching audit entry
+	 * @throws NoSuchAuditEntryException if a matching audit entry could not be found
+	 */
+	@Override
+	public AuditEntry findByC_C_FC_FC_First(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK, OrderByComparator<AuditEntry> orderByComparator)
+		throws NoSuchAuditEntryException {
+
+		AuditEntry auditEntry = fetchByC_C_FC_FC_First(
+			classNameId, classPK, fieldClassNameId, fieldClassPK,
+			orderByComparator);
+
+		if (auditEntry != null) {
+			return auditEntry;
+		}
+
+		StringBundler msg = new StringBundler(10);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(", fieldClassNameId=");
+		msg.append(fieldClassNameId);
+
+		msg.append(", fieldClassPK=");
+		msg.append(fieldClassPK);
+
+		msg.append("}");
+
+		throw new NoSuchAuditEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the first audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching audit entry, or <code>null</code> if a matching audit entry could not be found
+	 */
+	@Override
+	public AuditEntry fetchByC_C_FC_FC_First(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, OrderByComparator<AuditEntry> orderByComparator) {
+
+		List<AuditEntry> list = findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, 0, 1,
+			orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching audit entry
+	 * @throws NoSuchAuditEntryException if a matching audit entry could not be found
+	 */
+	@Override
+	public AuditEntry findByC_C_FC_FC_Last(
+			long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK, OrderByComparator<AuditEntry> orderByComparator)
+		throws NoSuchAuditEntryException {
+
+		AuditEntry auditEntry = fetchByC_C_FC_FC_Last(
+			classNameId, classPK, fieldClassNameId, fieldClassPK,
+			orderByComparator);
+
+		if (auditEntry != null) {
+			return auditEntry;
+		}
+
+		StringBundler msg = new StringBundler(10);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(", fieldClassNameId=");
+		msg.append(fieldClassNameId);
+
+		msg.append(", fieldClassPK=");
+		msg.append(fieldClassPK);
+
+		msg.append("}");
+
+		throw new NoSuchAuditEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the last audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching audit entry, or <code>null</code> if a matching audit entry could not be found
+	 */
+	@Override
+	public AuditEntry fetchByC_C_FC_FC_Last(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK, OrderByComparator<AuditEntry> orderByComparator) {
+
+		int count = countByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<AuditEntry> list = findByC_C_FC_FC(
+			classNameId, classPK, fieldClassNameId, fieldClassPK, count - 1,
+			count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the audit entries before and after the current audit entry in the ordered set where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param auditEntryId the primary key of the current audit entry
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next audit entry
+	 * @throws NoSuchAuditEntryException if a audit entry with the primary key could not be found
+	 */
+	@Override
+	public AuditEntry[] findByC_C_FC_FC_PrevAndNext(
+			long auditEntryId, long classNameId, long classPK,
+			long fieldClassNameId, long fieldClassPK,
+			OrderByComparator<AuditEntry> orderByComparator)
+		throws NoSuchAuditEntryException {
+
+		AuditEntry auditEntry = findByPrimaryKey(auditEntryId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			AuditEntry[] array = new AuditEntryImpl[3];
+
+			array[0] = getByC_C_FC_FC_PrevAndNext(
+				session, auditEntry, classNameId, classPK, fieldClassNameId,
+				fieldClassPK, orderByComparator, true);
+
+			array[1] = auditEntry;
+
+			array[2] = getByC_C_FC_FC_PrevAndNext(
+				session, auditEntry, classNameId, classPK, fieldClassNameId,
+				fieldClassPK, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected AuditEntry getByC_C_FC_FC_PrevAndNext(
+		Session session, AuditEntry auditEntry, long classNameId, long classPK,
+		long fieldClassNameId, long fieldClassPK,
+		OrderByComparator<AuditEntry> orderByComparator, boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				7 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(6);
+		}
+
+		query.append(_SQL_SELECT_AUDITENTRY_WHERE);
+
+		query.append(_FINDER_COLUMN_C_C_FC_FC_CLASSNAMEID_2);
+
+		query.append(_FINDER_COLUMN_C_C_FC_FC_CLASSPK_2);
+
+		query.append(_FINDER_COLUMN_C_C_FC_FC_FIELDCLASSNAMEID_2);
+
+		query.append(_FINDER_COLUMN_C_C_FC_FC_FIELDCLASSPK_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(AuditEntryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(classNameId);
+
+		qPos.add(classPK);
+
+		qPos.add(fieldClassNameId);
+
+		qPos.add(fieldClassPK);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(auditEntry)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<AuditEntry> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 */
+	@Override
+	public void removeByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK) {
+
+		for (AuditEntry auditEntry :
+				findByC_C_FC_FC(
+					classNameId, classPK, fieldClassNameId, fieldClassPK,
+					QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
+			remove(auditEntry);
+		}
+	}
+
+	/**
+	 * Returns the number of audit entries where classNameId = &#63; and classPK = &#63; and fieldClassNameId = &#63; and fieldClassPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param fieldClassNameId the field class name ID
+	 * @param fieldClassPK the field class pk
+	 * @return the number of matching audit entries
+	 */
+	@Override
+	public int countByC_C_FC_FC(
+		long classNameId, long classPK, long fieldClassNameId,
+		long fieldClassPK) {
+
+		FinderPath finderPath = _finderPathCountByC_C_FC_FC;
+
+		Object[] finderArgs = new Object[] {
+			classNameId, classPK, fieldClassNameId, fieldClassPK
+		};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(5);
+
+			query.append(_SQL_COUNT_AUDITENTRY_WHERE);
+
+			query.append(_FINDER_COLUMN_C_C_FC_FC_CLASSNAMEID_2);
+
+			query.append(_FINDER_COLUMN_C_C_FC_FC_CLASSPK_2);
+
+			query.append(_FINDER_COLUMN_C_C_FC_FC_FIELDCLASSNAMEID_2);
+
+			query.append(_FINDER_COLUMN_C_C_FC_FC_FIELDCLASSPK_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
+
+				qPos.add(classPK);
+
+				qPos.add(fieldClassNameId);
+
+				qPos.add(fieldClassPK);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_C_C_FC_FC_CLASSNAMEID_2 =
+		"auditEntry.classNameId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_C_FC_FC_CLASSPK_2 =
+		"auditEntry.classPK = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_C_FC_FC_FIELDCLASSNAMEID_2 =
+		"auditEntry.fieldClassNameId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_C_FC_FC_FIELDCLASSPK_2 =
+		"auditEntry.fieldClassPK = ?";
+
 	public AuditEntryPersistenceImpl() {
 		setModelClass(AuditEntry.class);
 
@@ -1179,6 +1818,17 @@ public class AuditEntryPersistenceImpl
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindByC_C, args);
 
+			args = new Object[] {
+				auditEntryModelImpl.getClassNameId(),
+				auditEntryModelImpl.getClassPK(),
+				auditEntryModelImpl.getFieldClassNameId(),
+				auditEntryModelImpl.getFieldClassPK()
+			};
+
+			finderCache.removeResult(_finderPathCountByC_C_FC_FC, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByC_C_FC_FC, args);
+
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
@@ -1205,6 +1855,33 @@ public class AuditEntryPersistenceImpl
 				finderCache.removeResult(_finderPathCountByC_C, args);
 				finderCache.removeResult(
 					_finderPathWithoutPaginationFindByC_C, args);
+			}
+
+			if ((auditEntryModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByC_C_FC_FC.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					auditEntryModelImpl.getOriginalClassNameId(),
+					auditEntryModelImpl.getOriginalClassPK(),
+					auditEntryModelImpl.getOriginalFieldClassNameId(),
+					auditEntryModelImpl.getOriginalFieldClassPK()
+				};
+
+				finderCache.removeResult(_finderPathCountByC_C_FC_FC, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByC_C_FC_FC, args);
+
+				args = new Object[] {
+					auditEntryModelImpl.getClassNameId(),
+					auditEntryModelImpl.getClassPK(),
+					auditEntryModelImpl.getFieldClassNameId(),
+					auditEntryModelImpl.getFieldClassPK()
+				};
+
+				finderCache.removeResult(_finderPathCountByC_C_FC_FC, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByC_C_FC_FC, args);
 			}
 		}
 
@@ -1529,6 +2206,36 @@ public class AuditEntryPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_C",
 			new String[] {Long.class.getName(), Long.class.getName()});
+
+		_finderPathWithPaginationFindByC_C_FC_FC = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, AuditEntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_C_FC_FC",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByC_C_FC_FC = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, AuditEntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_C_FC_FC",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Long.class.getName(), Long.class.getName()
+			},
+			AuditEntryModelImpl.CLASSNAMEID_COLUMN_BITMASK |
+			AuditEntryModelImpl.CLASSPK_COLUMN_BITMASK |
+			AuditEntryModelImpl.FIELDCLASSNAMEID_COLUMN_BITMASK |
+			AuditEntryModelImpl.FIELDCLASSPK_COLUMN_BITMASK);
+
+		_finderPathCountByC_C_FC_FC = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_C_FC_FC",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Long.class.getName(), Long.class.getName()
+			});
 	}
 
 	@Deactivate

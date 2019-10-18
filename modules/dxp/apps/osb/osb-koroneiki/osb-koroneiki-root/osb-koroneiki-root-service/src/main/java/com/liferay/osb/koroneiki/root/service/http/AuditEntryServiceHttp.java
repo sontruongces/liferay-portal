@@ -92,6 +92,48 @@ public class AuditEntryServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.root.model.AuditEntry> getAuditEntries(
+				HttpPrincipal httpPrincipal, long classNameId, long classPK,
+				long fieldClassNameId, long fieldClassPK, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AuditEntryServiceUtil.class, "getAuditEntries",
+				_getAuditEntriesParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, classNameId, classPK, fieldClassNameId, fieldClassPK,
+				start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.root.model.AuditEntry>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static int getAuditEntriesCount(
 			HttpPrincipal httpPrincipal, long classNameId, long classPK)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -99,10 +141,50 @@ public class AuditEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				AuditEntryServiceUtil.class, "getAuditEntriesCount",
-				_getAuditEntriesCountParameterTypes1);
+				_getAuditEntriesCountParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, classNameId, classPK);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getAuditEntriesCount(
+			HttpPrincipal httpPrincipal, long classNameId, long classPK,
+			long fieldClassNameId, long fieldClassPK)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AuditEntryServiceUtil.class, "getAuditEntriesCount",
+				_getAuditEntriesCountParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, classNameId, classPK, fieldClassNameId,
+				fieldClassPK);
 
 			Object returnObj = null;
 
@@ -137,7 +219,7 @@ public class AuditEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				AuditEntryServiceUtil.class, "getAuditEntry",
-				_getAuditEntryParameterTypes2);
+				_getAuditEntryParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, auditEntryId);
@@ -175,7 +257,7 @@ public class AuditEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				AuditEntryServiceUtil.class, "getAuditEntry",
-				_getAuditEntryParameterTypes3);
+				_getAuditEntryParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, auditEntryKey);
@@ -211,11 +293,17 @@ public class AuditEntryServiceHttp {
 
 	private static final Class<?>[] _getAuditEntriesParameterTypes0 =
 		new Class[] {long.class, long.class, int.class, int.class};
-	private static final Class<?>[] _getAuditEntriesCountParameterTypes1 =
+	private static final Class<?>[] _getAuditEntriesParameterTypes1 =
+		new Class[] {
+			long.class, long.class, long.class, long.class, int.class, int.class
+		};
+	private static final Class<?>[] _getAuditEntriesCountParameterTypes2 =
 		new Class[] {long.class, long.class};
-	private static final Class<?>[] _getAuditEntryParameterTypes2 =
+	private static final Class<?>[] _getAuditEntriesCountParameterTypes3 =
+		new Class[] {long.class, long.class, long.class, long.class};
+	private static final Class<?>[] _getAuditEntryParameterTypes4 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getAuditEntryParameterTypes3 =
+	private static final Class<?>[] _getAuditEntryParameterTypes5 =
 		new Class[] {String.class};
 
 }
