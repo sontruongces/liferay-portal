@@ -351,6 +351,20 @@ public class ExternalLinkLocalServiceWrapper
 		return _externalLinkLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
+		search(String domain) {
+
+		return _externalLinkLocalService.search(domain);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
+		search(String domain, String entityName) {
+
+		return _externalLinkLocalService.search(domain, entityName);
+	}
+
 	/**
 	 * Updates the external link in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

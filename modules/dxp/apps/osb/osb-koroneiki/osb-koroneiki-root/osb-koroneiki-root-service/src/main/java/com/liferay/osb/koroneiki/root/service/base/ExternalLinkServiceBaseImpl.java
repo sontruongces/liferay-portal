@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.root.service.base;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkService;
 import com.liferay.osb.koroneiki.root.service.persistence.AuditEntryPersistence;
+import com.liferay.osb.koroneiki.root.service.persistence.ExternalLinkFinder;
 import com.liferay.osb.koroneiki.root.service.persistence.ExternalLinkPersistence;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -117,6 +118,9 @@ public abstract class ExternalLinkServiceBaseImpl
 
 	@Reference
 	protected ExternalLinkPersistence externalLinkPersistence;
+
+	@Reference
+	protected ExternalLinkFinder externalLinkFinder;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService
