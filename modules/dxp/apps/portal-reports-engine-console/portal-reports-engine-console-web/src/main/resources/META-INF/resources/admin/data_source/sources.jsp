@@ -20,20 +20,14 @@
 PortletURL portletURL = reportsEngineDisplayContext.getPortletURL();
 
 portletURL.setParameter("mvcPath", "/admin/view.jsp");
-
-SourceSearch sourceSearch = reportsEngineDisplayContext.getSourceSearch();
 %>
 
 <aui:form action="<%= portletURL %>" method="get" name="fm">
 	<liferay-portlet:renderURLParams varImpl="searchURL" />
 
 	<liferay-ui:search-container
-		searchContainer="<%= sourceSearch %>"
+		searchContainer="<%= reportsEngineDisplayContext.getSearchContainer() %>"
 	>
-		<liferay-ui:search-container-results>
-			<%@ include file="/admin/data_source/source_search_results.jspf" %>
-		</liferay-ui:search-container-results>
-
 		<liferay-ui:search-container-row
 			className="com.liferay.portal.reports.engine.console.model.Source"
 			keyProperty="sourceId"
@@ -75,18 +69,6 @@ SourceSearch sourceSearch = reportsEngineDisplayContext.getSourceSearch();
 		/>
 	</liferay-ui:search-container>
 </aui:form>
-
-<portlet:renderURL var="addSourceURL">
-	<portlet:param name="mvcPath" value="/admin/data_source/edit_data_source.jsp" />
-	<portlet:param name="redirect" value="<%= currentURL %>" />
-</portlet:renderURL>
-
-<liferay-frontend:add-menu>
-	<liferay-frontend:add-menu-item
-		title='<%= LanguageUtil.get(request, "add") %>'
-		url="<%= addSourceURL.toString() %>"
-	/>
-</liferay-frontend:add-menu>
 
 <%
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "sources"), currentURL);

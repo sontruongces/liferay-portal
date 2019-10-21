@@ -14,28 +14,44 @@
 
 package com.liferay.portal.reports.engine.console.web.internal.admin.display.context;
 
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItemList;
+import com.liferay.petra.function.UnsafeConsumer;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
-import com.liferay.portal.kernel.portlet.PortletURLUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.reports.engine.console.constants.ReportsEngineConsolePortletKeys;
 import com.liferay.portal.reports.engine.console.model.Definition;
 import com.liferay.portal.reports.engine.console.model.Entry;
 import com.liferay.portal.reports.engine.console.model.Source;
-import com.liferay.portal.reports.engine.console.util.comparator.DefinitionCreateDateComparator;
-import com.liferay.portal.reports.engine.console.util.comparator.EntryCreateDateComparator;
-import com.liferay.portal.reports.engine.console.util.comparator.SourceCreateDateComparator;
+import com.liferay.portal.reports.engine.console.service.DefinitionServiceUtil;
+import com.liferay.portal.reports.engine.console.service.EntryServiceUtil;
+import com.liferay.portal.reports.engine.console.service.SourceServiceUtil;
 import com.liferay.portal.reports.engine.console.web.internal.admin.configuration.ReportsEngineAdminWebConfiguration;
 import com.liferay.portal.reports.engine.console.web.internal.admin.display.context.util.ReportsEngineRequestHelper;
+import com.liferay.portal.reports.engine.console.web.internal.admin.search.DefinitionDisplayTerms;
 import com.liferay.portal.reports.engine.console.web.internal.admin.search.DefinitionSearch;
+import com.liferay.portal.reports.engine.console.web.internal.admin.search.EntryDisplayTerms;
 import com.liferay.portal.reports.engine.console.web.internal.admin.search.EntrySearch;
+import com.liferay.portal.reports.engine.console.web.internal.admin.search.SourceDisplayTerms;
 import com.liferay.portal.reports.engine.console.web.internal.admin.search.SourceSearch;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 import javax.portlet.PortletURL;
 
@@ -61,28 +77,63 @@ public class ReportsEngineDisplayContext {
 
 		_reportsEngineRequestHelper = new ReportsEngineRequestHelper(
 			_httpServletRequest);
+
+		_themeDisplay = (ThemeDisplay)_httpServletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 	}
 
-	public String getCurrentURL() {
-		PortletURL portletURL = PortletURLUtil.getCurrent(
-			_liferayPortletRequest, _liferayPortletResponse);
+	public String getClearResultsURL() {
+		PortletURL clearResultsURL = getPortletURL();
 
-		return portletURL.toString();
+		clearResultsURL.setParameter("keywords", StringPool.BLANK);
+
+		return clearResultsURL.toString();
 	}
 
-	public DefinitionSearch getDefinitionSearch() {
-		DefinitionSearch definitionSearch = new DefinitionSearch(
-			_reportsEngineRequestHelper.getRenderRequest(), getPortletURL());
+	public CreationMenu getCreationMenu() throws PortalException {
+		if (isReportsTabSelected()) {
+			return null;
+		}
 
-		OrderByComparator<Definition> orderByComparator =
-			getDefinitionOrderByComparator(getOrderByCol(), getOrderByType());
+		return new CreationMenu() {
+			{
+				if (isDefinitionsTabSelected()) {
+					addPrimaryDropdownItem(
+						dropdownItem -> {
+							dropdownItem.setHref(
+								_liferayPortletResponse.createRenderURL(),
+								"mvcPath",
+								"/admin/definition/edit_definition.jsp",
+								"redirect",
+								PortalUtil.getCurrentURL(
+									_reportsEngineRequestHelper.getRequest()));
 
-		definitionSearch.setOrderByCol(getOrderByCol());
-		definitionSearch.setOrderByType(getOrderByType());
+							dropdownItem.setLabel(
+								LanguageUtil.get(
+									_reportsEngineRequestHelper.getRequest(),
+									"add"));
+						});
+				}
 
-		definitionSearch.setOrderByComparator(orderByComparator);
+				if (isSourcesTabSelected()) {
+					addPrimaryDropdownItem(
+						dropdownItem -> {
+							dropdownItem.setHref(
+								_liferayPortletResponse.createRenderURL(),
+								"mvcPath",
+								"/admin/data_source/edit_data_source.jsp",
+								"redirect",
+								PortalUtil.getCurrentURL(
+									_reportsEngineRequestHelper.getRequest()));
 
-		return definitionSearch;
+							dropdownItem.setLabel(
+								LanguageUtil.get(
+									_reportsEngineRequestHelper.getRequest(),
+									"add"));
+						});
+				}
+			}
+		};
 	}
 
 	public String getDisplayStyle() {
@@ -121,59 +172,40 @@ public class ReportsEngineDisplayContext {
 		return _displayStyle;
 	}
 
-	public String[] getDisplayViews() {
-		return _DISPLAY_VIEWS;
-	}
+	public DropdownItemList getFilterOptions() {
+		return new DropdownItemList() {
+			{
+				addGroup(
+					dropdownGroupItem -> {
+						dropdownGroupItem.setDropdownItems(
+							new DropdownItemList() {
+								{
+									add(
+										_getFilterNavigationDropdownItem(
+											"all"));
+								}
+							});
+						dropdownGroupItem.setLabel(
+							LanguageUtil.get(
+								_reportsEngineRequestHelper.getRequest(),
+								"filter"));
+					});
 
-	public EntrySearch getEntrySearch() {
-		EntrySearch entrySearch = new EntrySearch(
-			_reportsEngineRequestHelper.getRenderRequest(), getPortletURL());
-
-		OrderByComparator<Entry> orderByComparator = getEntryOrderByComparator(
-			getOrderByCol(), getOrderByType());
-
-		entrySearch.setOrderByCol(getOrderByCol());
-		entrySearch.setOrderByType(getOrderByType());
-
-		entrySearch.setOrderByComparator(orderByComparator);
-
-		return entrySearch;
-	}
-
-	public String getKeywords() {
-		if (_keywords != null) {
-			return _keywords;
-		}
-
-		_keywords = ParamUtil.getString(_liferayPortletRequest, "keywords");
-
-		return _keywords;
-	}
-
-	public String getOrderByCol() {
-		if (_orderByCol != null) {
-			return _orderByCol;
-		}
-
-		_orderByCol = ParamUtil.getString(_httpServletRequest, "orderByCol");
-
-		if (Validator.isNull(_orderByCol)) {
-			_orderByCol = _portalPreferences.getValue(
-				ReportsEngineConsolePortletKeys.REPORTS_ADMIN, "order-by-col",
-				"create-date");
-		}
-		else {
-			boolean saveOrderBy = ParamUtil.getBoolean(
-				_httpServletRequest, "saveOrderBy");
-
-			if (saveOrderBy) {
-				_portalPreferences.setValue(
-					ReportsEngineConsolePortletKeys.REPORTS_ADMIN,
-					"order-by-col", _orderByCol);
+				addGroup(
+					dropdownGroupItem -> {
+						dropdownGroupItem.setDropdownItems(
+							new DropdownItemList() {
+								{
+									add(_getOrderByDropdownItem("create-date"));
+								}
+							});
+						dropdownGroupItem.setLabel(
+							LanguageUtil.get(
+								_reportsEngineRequestHelper.getRequest(),
+								"order-by"));
+					});
 			}
-		}
-
-		return _orderByCol;
+		};
 	}
 
 	public String getOrderByType() {
@@ -203,42 +235,87 @@ public class ReportsEngineDisplayContext {
 	}
 
 	public PortletURL getPortletURL() {
-		PortletURL portletURL =
-			(PortletURL)_liferayPortletResponse.createRenderURL();
+		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
 
-		portletURL.setParameter("tabs1", getTabs1());
+		portletURL.setParameter("tabs1", _getTabs1());
+
+		String navigation = ParamUtil.getString(
+			_httpServletRequest, "navigation");
+
+		if (Validator.isNotNull(navigation)) {
+			portletURL.setParameter("navigation", _getNavigation());
+		}
 
 		return portletURL;
 	}
 
-	public SourceSearch getSourceSearch() {
-		SourceSearch sourceSearch = new SourceSearch(
-			_reportsEngineRequestHelper.getRenderRequest(), getPortletURL());
+	public SearchContainer getSearchContainer() throws PortalException {
+		if (_searchContainer == null) {
+			if (isDefinitionsTabSelected()) {
+				_searchContainer = _getDefinitionSearch();
+			}
+			else if (isReportsTabSelected()) {
+				_searchContainer = _getEntrySearch();
+			}
+			else if (isSourcesTabSelected()) {
+				_searchContainer = _getSourceSearch();
+			}
+		}
 
-		OrderByComparator<Source> orderByComparator =
-			getSourceOrderByComparator(getOrderByCol(), getOrderByType());
-
-		sourceSearch.setOrderByCol(getOrderByCol());
-		sourceSearch.setOrderByType(getOrderByType());
-
-		sourceSearch.setOrderByComparator(orderByComparator);
-
-		return sourceSearch;
+		return _searchContainer;
 	}
 
-	public String getTabs1() {
-		return ParamUtil.getString(_httpServletRequest, "tabs1", "reports");
+	public String getSearchURL() {
+		PortletURL portletURL = getPortletURL();
+
+		ThemeDisplay themeDisplay =
+			_reportsEngineRequestHelper.getThemeDisplay();
+
+		portletURL.setParameter(
+			"groupId", String.valueOf(themeDisplay.getScopeGroupId()));
+
+		return portletURL.toString();
+	}
+
+	public String getSortingURL() {
+		LiferayPortletResponse response =
+			_reportsEngineRequestHelper.getLiferayPortletResponse();
+
+		PortletURL portletURL = response.createRenderURL();
+
+		portletURL.setParameter("tabs1", _getTabs1());
+		portletURL.setParameter("orderByCol", _getOrderByCol());
+
+		portletURL.setParameter(
+			"orderByType",
+			Objects.equals(getOrderByType(), "asc") ? "desc" : "asc");
+
+		return portletURL.toString();
+	}
+
+	public int getTotalItems() throws PortalException {
+		SearchContainer searchContainer = getSearchContainer();
+
+		return searchContainer.getTotal();
+	}
+
+	public ViewTypeItemList getViewTypes() {
+		return new ViewTypeItemList(getPortletURL(), getDisplayStyle()) {
+			{
+				addTableViewTypeItem();
+			}
+		};
 	}
 
 	public boolean isAdminPortlet() {
-		String portletName = getPortletName();
+		String portletName = _getPortletName();
 
 		return portletName.equals(
 			ReportsEngineConsolePortletKeys.REPORTS_ADMIN);
 	}
 
 	public boolean isDefinitionsTabSelected() {
-		String tabs1 = getTabs1();
+		String tabs1 = _getTabs1();
 
 		if (tabs1.equals("definitions")) {
 			return true;
@@ -247,12 +324,8 @@ public class ReportsEngineDisplayContext {
 		return false;
 	}
 
-	public boolean isDisplayPortlet() {
-		return !isAdminPortlet();
-	}
-
 	public boolean isReportsTabSelected() {
-		String tabs1 = getTabs1();
+		String tabs1 = _getTabs1();
 
 		if (tabs1.equals("reports")) {
 			return true;
@@ -261,16 +334,8 @@ public class ReportsEngineDisplayContext {
 		return false;
 	}
 
-	public boolean isSearch() {
-		if (Validator.isNotNull(getKeywords())) {
-			return true;
-		}
-
-		return false;
-	}
-
 	public boolean isSourcesTabSelected() {
-		String tabs1 = getTabs1();
+		String tabs1 = _getTabs1();
 
 		if (tabs1.equals("sources")) {
 			return true;
@@ -279,56 +344,215 @@ public class ReportsEngineDisplayContext {
 		return false;
 	}
 
-	protected OrderByComparator<Definition> getDefinitionOrderByComparator(
-		String orderByCol, String orderByType) {
+	private DefinitionSearch _getDefinitionSearch() throws PortalException {
+		DefinitionSearch definitionSearch = new DefinitionSearch(
+			_reportsEngineRequestHelper.getRenderRequest(), getPortletURL());
 
-		boolean orderByAsc = false;
+		DefinitionDisplayTerms displayTerms =
+			(DefinitionDisplayTerms)definitionSearch.getDisplayTerms();
 
-		if (orderByType.equals("asc")) {
-			orderByAsc = true;
+		if (displayTerms.isAdvancedSearch()) {
+			int total = DefinitionServiceUtil.getDefinitionsCount(
+				_themeDisplay.getSiteGroupId(),
+				displayTerms.getDefinitionName(), displayTerms.getDescription(),
+				displayTerms.getSourceId(), displayTerms.getReportName(),
+				displayTerms.isAndOperator());
+
+			definitionSearch.setTotal(total);
+
+			List<Definition> results = DefinitionServiceUtil.getDefinitions(
+				_themeDisplay.getSiteGroupId(),
+				displayTerms.getDefinitionName(), displayTerms.getDescription(),
+				displayTerms.getSourceId(), displayTerms.getReportName(),
+				displayTerms.isAndOperator(), definitionSearch.getStart(),
+				definitionSearch.getEnd(),
+				definitionSearch.getOrderByComparator());
+
+			definitionSearch.setResults(results);
+		}
+		else {
+			int total = DefinitionServiceUtil.getDefinitionsCount(
+				_themeDisplay.getSiteGroupId(), displayTerms.getKeywords(),
+				displayTerms.getKeywords(), null, displayTerms.getKeywords(),
+				false);
+
+			definitionSearch.setTotal(total);
+
+			List<Definition> results = DefinitionServiceUtil.getDefinitions(
+				_themeDisplay.getSiteGroupId(), displayTerms.getKeywords(),
+				displayTerms.getKeywords(), null, displayTerms.getKeywords(),
+				false, definitionSearch.getStart(), definitionSearch.getEnd(),
+				definitionSearch.getOrderByComparator());
+
+			definitionSearch.setResults(results);
 		}
 
-		return new DefinitionCreateDateComparator(orderByAsc);
+		return definitionSearch;
 	}
 
-	protected OrderByComparator<Entry> getEntryOrderByComparator(
-		String orderByCol, String orderByType) {
+	private EntrySearch _getEntrySearch() throws PortalException {
+		EntrySearch entrySearch = new EntrySearch(
+			_reportsEngineRequestHelper.getRenderRequest(), getPortletURL());
 
-		boolean orderByAsc = false;
+		EntryDisplayTerms displayTerms =
+			(EntryDisplayTerms)entrySearch.getDisplayTerms();
 
-		if (orderByType.equals("asc")) {
-			orderByAsc = true;
+		Date startDate = PortalUtil.getDate(
+			displayTerms.getStartDateMonth(), displayTerms.getStartDateDay(),
+			displayTerms.getStartDateYear(), _themeDisplay.getTimeZone(), null);
+		Date endDate = PortalUtil.getDate(
+			displayTerms.getEndDateMonth(), displayTerms.getEndDateDay() + 1,
+			displayTerms.getEndDateYear(), _themeDisplay.getTimeZone(), null);
+
+		if (displayTerms.isAdvancedSearch()) {
+			int total = EntryServiceUtil.getEntriesCount(
+				_themeDisplay.getSiteGroupId(),
+				displayTerms.getDefinitionName(), null, startDate, endDate,
+				displayTerms.isAndOperator());
+
+			entrySearch.setTotal(total);
+
+			List<Entry> results = EntryServiceUtil.getEntries(
+				_themeDisplay.getSiteGroupId(),
+				displayTerms.getDefinitionName(), null, startDate, endDate,
+				displayTerms.isAndOperator(), entrySearch.getStart(),
+				entrySearch.getEnd(), entrySearch.getOrderByComparator());
+
+			entrySearch.setResults(results);
+		}
+		else {
+			int total = EntryServiceUtil.getEntriesCount(
+				_themeDisplay.getSiteGroupId(), displayTerms.getKeywords(),
+				null, null, null, false);
+
+			entrySearch.setTotal(total);
+
+			List<Entry> results = EntryServiceUtil.getEntries(
+				_themeDisplay.getSiteGroupId(), displayTerms.getKeywords(),
+				null, null, null, false, entrySearch.getStart(),
+				entrySearch.getEnd(), entrySearch.getOrderByComparator());
+
+			entrySearch.setResults(results);
 		}
 
-		return new EntryCreateDateComparator(orderByAsc);
+		return entrySearch;
 	}
 
-	protected String getPortletName() {
+	private UnsafeConsumer<DropdownItem, Exception>
+		_getFilterNavigationDropdownItem(String navigation) {
+
+		return dropdownItem -> {
+			dropdownItem.setActive(
+				Objects.equals(_getNavigation(), navigation));
+			dropdownItem.setHref(
+				getPortletURL(), "navigation", navigation, "mvcPath",
+				"/addmin/view.jsp", "tabs1", _getTabs1());
+			dropdownItem.setLabel(
+				LanguageUtil.get(
+					_reportsEngineRequestHelper.getRequest(), navigation));
+		};
+	}
+
+	private String _getNavigation() {
+		if (_navigation != null) {
+			return _navigation;
+		}
+
+		_navigation = ParamUtil.getString(
+			_httpServletRequest, "navigation", "all");
+
+		return _navigation;
+	}
+
+	private String _getOrderByCol() {
+		if (_orderByCol != null) {
+			return _orderByCol;
+		}
+
+		_orderByCol = ParamUtil.getString(_httpServletRequest, "orderByCol");
+
+		if (Validator.isNull(_orderByCol)) {
+			_orderByCol = _portalPreferences.getValue(
+				ReportsEngineConsolePortletKeys.REPORTS_ADMIN, "order-by-col",
+				"create-date");
+		}
+
+		return _orderByCol;
+	}
+
+	private UnsafeConsumer<DropdownItem, Exception> _getOrderByDropdownItem(
+		String orderByCol) {
+
+		return dropdownItem -> {
+			dropdownItem.setActive(
+				Objects.equals(_getOrderByCol(), orderByCol));
+			dropdownItem.setHref(getPortletURL(), "orderByCol", orderByCol);
+			dropdownItem.setLabel(
+				LanguageUtil.get(
+					_reportsEngineRequestHelper.getRequest(), orderByCol));
+		};
+	}
+
+	private String _getPortletName() {
 		return _reportsEngineRequestHelper.getPortletName();
 	}
 
-	protected OrderByComparator<Source> getSourceOrderByComparator(
-		String orderByCol, String orderByType) {
+	private SourceSearch _getSourceSearch() throws PortalException {
+		SourceSearch sourceSearch = new SourceSearch(
+			_reportsEngineRequestHelper.getRenderRequest(), getPortletURL());
 
-		boolean orderByAsc = false;
+		SourceDisplayTerms displayTerms =
+			(SourceDisplayTerms)sourceSearch.getDisplayTerms();
 
-		if (orderByType.equals("asc")) {
-			orderByAsc = true;
+		if (displayTerms.isAdvancedSearch()) {
+			int total = SourceServiceUtil.getSourcesCount(
+				_themeDisplay.getSiteGroupId(), displayTerms.getName(),
+				displayTerms.getDriverUrl(), displayTerms.isAndOperator());
+
+			sourceSearch.setTotal(total);
+
+			List<Source> results = SourceServiceUtil.getSources(
+				_themeDisplay.getSiteGroupId(), displayTerms.getName(),
+				displayTerms.getDriverUrl(), displayTerms.isAndOperator(),
+				sourceSearch.getStart(), sourceSearch.getEnd(),
+				sourceSearch.getOrderByComparator());
+
+			sourceSearch.setResults(results);
+		}
+		else {
+			int total = SourceServiceUtil.getSourcesCount(
+				_themeDisplay.getSiteGroupId(), displayTerms.getKeywords(),
+				displayTerms.getKeywords(), false);
+
+			sourceSearch.setTotal(total);
+
+			List<Source> results = SourceServiceUtil.getSources(
+				_themeDisplay.getSiteGroupId(), displayTerms.getKeywords(),
+				displayTerms.getKeywords(), false, sourceSearch.getStart(),
+				sourceSearch.getEnd(), sourceSearch.getOrderByComparator());
+
+			sourceSearch.setResults(results);
 		}
 
-		return new SourceCreateDateComparator(orderByAsc);
+		return sourceSearch;
+	}
+
+	private String _getTabs1() {
+		return ParamUtil.getString(_liferayPortletRequest, "tabs1", "reports");
 	}
 
 	private static final String[] _DISPLAY_VIEWS = {"list"};
 
 	private String _displayStyle;
 	private final HttpServletRequest _httpServletRequest;
-	private String _keywords;
 	private final LiferayPortletRequest _liferayPortletRequest;
 	private final LiferayPortletResponse _liferayPortletResponse;
+	private String _navigation;
 	private String _orderByCol;
 	private String _orderByType;
 	private final PortalPreferences _portalPreferences;
 	private final ReportsEngineRequestHelper _reportsEngineRequestHelper;
+	private SearchContainer _searchContainer;
+	private final ThemeDisplay _themeDisplay;
 
 }

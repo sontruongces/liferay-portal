@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.security.permission.resource.PortletResourcePer
 import com.liferay.portal.kernel.security.permission.resource.StagedPortletPermissionLogic;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.reports.engine.console.constants.ReportsEngineConsoleConstants;
+import com.liferay.portal.reports.engine.console.constants.ReportsEngineConsolePortletKeys;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -42,7 +43,7 @@ public class AdminResourcePermissionRegistrar {
 				ReportsEngineConsoleConstants.RESOURCE_NAME,
 				new StagedPortletPermissionLogic(
 					_stagingPermission,
-					ReportsEngineConsoleConstants.RESOURCE_NAME)),
+					ReportsEngineConsolePortletKeys.REPORTS_ADMIN)),
 			MapUtil.singletonDictionary(
 				"resource.name", ReportsEngineConsoleConstants.RESOURCE_NAME));
 	}

@@ -20,20 +20,14 @@
 PortletURL portletURL = reportsEngineDisplayContext.getPortletURL();
 
 portletURL.setParameter("mvcPath", "/admin/view.jsp");
-
-DefinitionSearch definitionSearch = reportsEngineDisplayContext.getDefinitionSearch();
 %>
 
 <aui:form action="<%= portletURL %>" method="get" name="fm">
 	<liferay-portlet:renderURLParams varImpl="portletURL" />
 
 	<liferay-ui:search-container
-		searchContainer="<%= definitionSearch %>"
+		searchContainer="<%= reportsEngineDisplayContext.getSearchContainer() %>"
 	>
-		<liferay-ui:search-container-results>
-			<%@ include file="/admin/definition/definition_search_results.jspf" %>
-		</liferay-ui:search-container-results>
-
 		<liferay-ui:search-container-row
 			className="com.liferay.portal.reports.engine.console.model.Definition"
 			keyProperty="definitionId"
@@ -79,18 +73,6 @@ DefinitionSearch definitionSearch = reportsEngineDisplayContext.getDefinitionSea
 		/>
 	</liferay-ui:search-container>
 </aui:form>
-
-<portlet:renderURL var="addDefinitionURL">
-	<portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" />
-	<portlet:param name="redirect" value="<%= currentURL %>" />
-</portlet:renderURL>
-
-<liferay-frontend:add-menu>
-	<liferay-frontend:add-menu-item
-		title='<%= LanguageUtil.get(request, "add") %>'
-		url="<%= addDefinitionURL.toString() %>"
-	/>
-</liferay-frontend:add-menu>
 
 <%
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "definitions"), currentURL);

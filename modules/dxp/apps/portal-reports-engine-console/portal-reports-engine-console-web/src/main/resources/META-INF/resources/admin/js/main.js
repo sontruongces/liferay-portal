@@ -22,7 +22,7 @@ AUI().use('escape', 'aui-lang', A => {
 		' data-parameterValue="{parameterValue}"' +
 		' data-parameterType="{parameterType}"' +
 		' type="button">' +
-		'<i class="icon-remove" aria-label="Remove"></i>' +
+		Liferay.Util.getLexiconIconTpl('times') +
 		'</button>' +
 		'</div>';
 
@@ -105,23 +105,7 @@ AUI().use('escape', 'aui-lang', A => {
 			}
 
 			if (parameterType == 'date') {
-				var parameterDateDay = A.one(
-					'#' + namespace + 'parameterDateDay'
-				);
-				var parameterDateMonth = A.one(
-					'#' + namespace + 'parameterDateMonth'
-				);
-				var parameterDateYear = A.one(
-					'#' + namespace + 'parameterDateYear'
-				);
-
-				var parameterDate = new Date();
-
-				parameterDate.setDate(parameterDateDay.val());
-				parameterDate.setMonth(parameterDateMonth.val());
-				parameterDate.setYear(parameterDateYear.val());
-
-				parameterValue = A.DataType.Date.format(parameterDate);
+				parameterValue = instance._getDateValue(namespace);
 			}
 
 			instance._addTag(parameterKey, parameterValue, parameterType);
@@ -239,6 +223,24 @@ AUI().use('escape', 'aui-lang', A => {
 			A.one('.add-parameter .btn').attr('disabled', false);
 		},
 
+		_getDateValue(namespace) {
+			var parameterDateDay = A.one('#' + namespace + 'parameterDateDay');
+			var parameterDateMonth = A.one(
+				'#' + namespace + 'parameterDateMonth'
+			);
+			var parameterDateYear = A.one(
+				'#' + namespace + 'parameterDateYear'
+			);
+
+			var parameterDate = new Date();
+
+			parameterDate.setDate(parameterDateDay.val());
+			parameterDate.setMonth(parameterDateMonth.val());
+			parameterDate.setYear(parameterDateYear.val());
+
+			return A.DataType.Date.format(parameterDate);
+		},
+
 		_sendMessage(message) {
 			var instance = this;
 
@@ -251,11 +253,16 @@ AUI().use('escape', 'aui-lang', A => {
 			portletMessageContainer.setStyle('display', 'block');
 		},
 
-		_toggleAddParameterButton() {
+		_toggleAddParameterButton(namespace) {
 			var instance = this;
 
 			var parameterKey = A.one('.parameters-key').val();
+			var parameterType = A.one('.parameters-input-type').val();
 			var parameterValue = A.one('.parameters-value').val();
+
+			if (parameterType == 'date') {
+				parameterValue = instance._getDateValue(namespace);
+			}
 
 			if (parameterKey && parameterValue) {
 				instance._enableAddParameterButton();
