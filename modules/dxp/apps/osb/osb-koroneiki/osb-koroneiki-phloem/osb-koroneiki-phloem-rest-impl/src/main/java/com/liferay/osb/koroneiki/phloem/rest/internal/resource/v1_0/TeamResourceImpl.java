@@ -60,6 +60,14 @@ public class TeamResourceImpl
 	}
 
 	@Override
+	public void deleteTeamTeamPermission(
+			String teamKey, TeamPermission teamPermission)
+		throws Exception {
+
+		_updateTeamPermission(teamKey, "delete", teamPermission);
+	}
+
+	@Override
 	public Page<Team> getAccountAccountKeyTeamsPage(
 			String accountKey, Pagination pagination)
 		throws Exception {
@@ -128,7 +136,20 @@ public class TeamResourceImpl
 	}
 
 	@Override
-	public void postTeamTeamPermission(
+	public Team putTeam(String teamKey, Team team) throws Exception {
+		return TeamUtil.toTeam(
+			_teamService.updateTeam(teamKey, team.getName()));
+	}
+
+	@Override
+	public void putTeamTeamPermission(
+			String teamKey, TeamPermission teamPermission)
+		throws Exception {
+
+		_updateTeamPermission(teamKey, "add", teamPermission);
+	}
+
+	private void _updateTeamPermission(
 			String teamKey, String operation, TeamPermission teamPermission)
 		throws Exception {
 
@@ -166,15 +187,9 @@ public class TeamResourceImpl
 		}
 
 		_phloemPermissionUtil.persistModelPermission(
-			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
+			operation, contextCompany.getCompanyId(),
 			com.liferay.osb.koroneiki.taproot.model.Team.class.getName(),
 			team.getTeamId(), teamPermission.getRoleNames(), actionIds);
-	}
-
-	@Override
-	public Team putTeam(String teamKey, Team team) throws Exception {
-		return TeamUtil.toTeam(
-			_teamService.updateTeam(teamKey, team.getName()));
 	}
 
 	private static final EntityModel _entityModel = new TeamEntityModel();

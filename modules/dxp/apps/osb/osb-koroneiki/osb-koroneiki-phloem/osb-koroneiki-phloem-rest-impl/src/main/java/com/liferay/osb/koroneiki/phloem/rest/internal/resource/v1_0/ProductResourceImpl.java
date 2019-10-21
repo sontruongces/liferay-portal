@@ -62,6 +62,14 @@ public class ProductResourceImpl
 	}
 
 	@Override
+	public void deleteProductProductPermission(
+			String productKey, ProductPermission productPermission)
+		throws Exception {
+
+		_updateProductPermission(productKey, "delete", productPermission);
+	}
+
+	@Override
 	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
 		return _entityModel;
 	}
@@ -115,7 +123,23 @@ public class ProductResourceImpl
 	}
 
 	@Override
-	public void postProductProductPermission(
+	public Product putProduct(String productKey, Product product)
+		throws Exception {
+
+		return ProductUtil.toProduct(
+			_productEntryService.updateProductEntry(
+				productKey, product.getName()));
+	}
+
+	@Override
+	public void putProductProductPermission(
+			String productKey, ProductPermission productPermission)
+		throws Exception {
+
+		_updateProductPermission(productKey, "add", productPermission);
+	}
+
+	private void _updateProductPermission(
 			String productKey, String operation,
 			ProductPermission productPermission)
 		throws Exception {
@@ -154,18 +178,9 @@ public class ProductResourceImpl
 		}
 
 		_phloemPermissionUtil.persistModelPermission(
-			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
+			operation, contextCompany.getCompanyId(),
 			ProductEntry.class.getName(), productEntry.getProductEntryId(),
 			productPermission.getRoleNames(), actionIds);
-	}
-
-	@Override
-	public Product putProduct(String productKey, Product product)
-		throws Exception {
-
-		return ProductUtil.toProduct(
-			_productEntryService.updateProductEntry(
-				productKey, product.getName()));
 	}
 
 	private static final EntityModel _entityModel =

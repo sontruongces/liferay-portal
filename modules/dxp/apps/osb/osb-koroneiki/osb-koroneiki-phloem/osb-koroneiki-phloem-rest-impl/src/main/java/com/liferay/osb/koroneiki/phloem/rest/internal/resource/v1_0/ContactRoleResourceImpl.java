@@ -66,6 +66,15 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
+	public void deleteContactRoleContactRolePermission(
+			String contactRoleKey, ContactRolePermission contactRolePermission)
+		throws Exception {
+
+		_updateContactRolePermission(
+			contactRoleKey, "delete", contactRolePermission);
+	}
+
+	@Override
 	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
 			String accountKey, String oktaId, Pagination pagination)
 		throws Exception {
@@ -131,7 +140,49 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
-	public void postContactRoleContactRolePermission(
+	public ContactRole putContactRole(
+			String contactRoleKey, ContactRole contactRole)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.ContactRole curContactRole =
+			_contactRoleLocalService.getContactRole(contactRoleKey);
+
+		String description = GetterUtil.getString(
+			contactRole.getDescription(), curContactRole.getDescription());
+
+		return ContactRoleUtil.toContactRole(
+			_contactRoleService.updateContactRole(
+				curContactRole.getContactRoleId(), contactRole.getName(),
+				description));
+	}
+
+	@Override
+	public void putContactRoleContactRolePermission(
+			String contactRoleKey, ContactRolePermission contactRolePermission)
+		throws Exception {
+
+		_updateContactRolePermission(
+			contactRoleKey, "add", contactRolePermission);
+	}
+
+	private Page<ContactRole> _getAccountContactRolesPage(
+			Contact contact, String accountKey, Pagination pagination)
+		throws PortalException {
+
+		Account account = _accountLocalService.getAccount(accountKey);
+
+		return Page.of(
+			transform(
+				_contactRoleService.getContactAccountContactRoles(
+					account.getAccountId(), contact.getContactId(),
+					pagination.getStartPosition(), pagination.getEndPosition()),
+				contactRole -> ContactRoleUtil.toContactRole(contactRole)),
+			pagination,
+			_contactRoleService.getContactAccountContactRolesCount(
+				account.getAccountId(), contact.getContactId()));
+	}
+
+	private void _updateContactRolePermission(
 			String contactRoleKey, String operation,
 			ContactRolePermission contactRolePermission)
 		throws Exception {
@@ -170,44 +221,10 @@ public class ContactRoleResourceImpl
 		}
 
 		_phloemPermissionUtil.persistModelPermission(
-			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
+			operation, contextCompany.getCompanyId(),
 			com.liferay.osb.koroneiki.taproot.model.ContactRole.class.getName(),
 			contactRole.getContactRoleId(),
 			contactRolePermission.getRoleNames(), actionIds);
-	}
-
-	@Override
-	public ContactRole putContactRole(
-			String contactRoleKey, ContactRole contactRole)
-		throws Exception {
-
-		com.liferay.osb.koroneiki.taproot.model.ContactRole curContactRole =
-			_contactRoleLocalService.getContactRole(contactRoleKey);
-
-		String description = GetterUtil.getString(
-			contactRole.getDescription(), curContactRole.getDescription());
-
-		return ContactRoleUtil.toContactRole(
-			_contactRoleService.updateContactRole(
-				curContactRole.getContactRoleId(), contactRole.getName(),
-				description));
-	}
-
-	private Page<ContactRole> _getAccountContactRolesPage(
-			Contact contact, String accountKey, Pagination pagination)
-		throws PortalException {
-
-		Account account = _accountLocalService.getAccount(accountKey);
-
-		return Page.of(
-			transform(
-				_contactRoleService.getContactAccountContactRoles(
-					account.getAccountId(), contact.getContactId(),
-					pagination.getStartPosition(), pagination.getEndPosition()),
-				contactRole -> ContactRoleUtil.toContactRole(contactRole)),
-			pagination,
-			_contactRoleService.getContactAccountContactRolesCount(
-				account.getAccountId(), contact.getContactId()));
 	}
 
 	private static final EntityModel _entityModel =

@@ -64,6 +64,14 @@ public class TeamRoleResourceImpl
 	}
 
 	@Override
+	public void deleteTeamRoleTeamRolePermission(
+			String teamRoleKey, TeamRolePermission teamRolePermission)
+		throws Exception {
+
+		_updateTeamRolePermission(teamRoleKey, "delete", teamRolePermission);
+	}
+
+	@Override
 	public Page<TeamRole> getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 			String accountKey, String teamKey, Pagination pagination)
 		throws Exception {
@@ -126,7 +134,29 @@ public class TeamRoleResourceImpl
 	}
 
 	@Override
-	public void postTeamRoleTeamRolePermission(
+	public TeamRole putTeamRole(String teamRoleKey, TeamRole teamRole)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.TeamRole curTeamRole =
+			_teamRoleLocalService.getTeamRole(teamRoleKey);
+
+		String description = GetterUtil.getString(
+			teamRole.getDescription(), curTeamRole.getDescription());
+
+		return TeamRoleUtil.toTeamRole(
+			_teamRoleService.updateTeamRole(
+				curTeamRole.getTeamRoleId(), teamRole.getName(), description));
+	}
+
+	@Override
+	public void putTeamRoleTeamRolePermission(
+			String teamRoleKey, TeamRolePermission teamRolePermission)
+		throws Exception {
+
+		_updateTeamRolePermission(teamRoleKey, "add", teamRolePermission);
+	}
+
+	private void _updateTeamRolePermission(
 			String teamRoleKey, String operation,
 			TeamRolePermission teamRolePermission)
 		throws Exception {
@@ -161,25 +191,10 @@ public class TeamRoleResourceImpl
 		}
 
 		_phloemPermissionUtil.persistModelPermission(
-			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
+			operation, contextCompany.getCompanyId(),
 			com.liferay.osb.koroneiki.taproot.model.TeamRole.class.getName(),
 			teamRole.getTeamRoleId(), teamRolePermission.getRoleNames(),
 			actionIds);
-	}
-
-	@Override
-	public TeamRole putTeamRole(String teamRoleKey, TeamRole teamRole)
-		throws Exception {
-
-		com.liferay.osb.koroneiki.taproot.model.TeamRole curTeamRole =
-			_teamRoleLocalService.getTeamRole(teamRoleKey);
-
-		String description = GetterUtil.getString(
-			teamRole.getDescription(), curTeamRole.getDescription());
-
-		return TeamRoleUtil.toTeamRole(
-			_teamRoleService.updateTeamRole(
-				curTeamRole.getTeamRoleId(), teamRole.getName(), description));
 	}
 
 	private static final EntityModel _entityModel = new TeamRoleEntityModel();

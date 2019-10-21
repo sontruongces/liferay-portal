@@ -18,12 +18,13 @@ import com.liferay.portal.kernel.exception.NoSuchRoleException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.ResourceAction;
 import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.ResourcePermission;
 import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
-import com.liferay.portal.kernel.service.permission.ModelPermissions;
-import com.liferay.portal.kernel.service.permission.ModelPermissionsFactory;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -42,18 +43,52 @@ import org.osgi.service.component.annotations.Reference;
 public class PhloemPermissionUtil {
 
 	public void persistModelPermission(
-			String operation, long companyId, long userId, String resourceName,
+			String operation, long companyId, String resourceName,
 			long resourcePrimKey, String[] roleNames, List<String> actionIds)
 		throws Exception {
 
-		if (StringUtil.equalsIgnoreCase("save", operation)) {
-			_updateModelPermission(
-				companyId, userId, resourceName, resourcePrimKey, roleNames,
-				actionIds);
+		if (StringUtil.equalsIgnoreCase("add", operation)) {
+			_addModelPermission(
+				companyId, resourceName, resourcePrimKey, roleNames, actionIds);
 		}
 		else {
 			_deleteModelPermission(
 				companyId, resourceName, resourcePrimKey, roleNames, actionIds);
+		}
+	}
+
+	private void _addModelPermission(
+			long companyId, String resourceName, long resourcePrimKey,
+			String[] roleNames, List<String> actionIds)
+		throws Exception {
+
+		List<ResourceAction> resourceActions =
+			_resourceActionLocalService.getResourceActions(resourceName);
+
+		for (Role role : _getRoles(companyId, roleNames)) {
+			ResourcePermission resourcePermission =
+				_resourcePermissionLocalService.fetchResourcePermission(
+					companyId, resourceName, ResourceConstants.SCOPE_INDIVIDUAL,
+					String.valueOf(resourcePrimKey), role.getRoleId());
+
+			List<String> roleActionIds = new ArrayList<>(actionIds);
+
+			if (resourcePermission != null) {
+				for (ResourceAction resourceAction : resourceActions) {
+					if (roleActionIds.contains(resourceAction.getActionId())) {
+						continue;
+					}
+
+					if (resourcePermission.hasAction(resourceAction)) {
+						roleActionIds.add(resourceAction.getActionId());
+					}
+				}
+			}
+
+			_resourcePermissionLocalService.setResourcePermissions(
+				companyId, resourceName, ResourceConstants.SCOPE_INDIVIDUAL,
+				String.valueOf(resourcePrimKey), role.getRoleId(),
+				roleActionIds.toArray(new String[0]));
 		}
 	}
 
@@ -101,26 +136,11 @@ public class PhloemPermissionUtil {
 		return roles;
 	}
 
-	private void _updateModelPermission(
-			long companyId, long userId, String resourceName,
-			long resourcePrimKey, String[] roleNames, List<String> actionIds)
-		throws Exception {
-
-		ModelPermissions modelPermissions =
-			ModelPermissionsFactory.createWithDefaultPermissions(resourceName);
-
-		for (String roleName : roleNames) {
-			modelPermissions.addRolePermissions(
-				roleName, ArrayUtil.toStringArray(actionIds));
-		}
-
-		_resourcePermissionLocalService.addModelResourcePermissions(
-			companyId, 0, userId, resourceName, String.valueOf(resourcePrimKey),
-			modelPermissions);
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		PhloemPermissionUtil.class);
+
+	@Reference
+	private ResourceActionLocalService _resourceActionLocalService;
 
 	@Reference
 	private ResourcePermissionLocalService _resourcePermissionLocalService;

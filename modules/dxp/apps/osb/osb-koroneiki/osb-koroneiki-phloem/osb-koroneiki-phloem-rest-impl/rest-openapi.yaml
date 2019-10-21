@@ -818,16 +818,34 @@ paths:
                     description: ""
             tags: ["Account"]
     "/accounts/{accountKey}/account-permissions":
-        post:
-            operationId: postAccountAccountPermission
+        delete:
+            operationId: deleteAccountAccountPermission
             parameters:
                 - in: path
                   name: accountKey
                   required: true
                   schema:
                       type: string
-                - in: query
-                  name: operation
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/AccountPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/AccountPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Account"]
+        put:
+            operationId: putAccountAccountPermission
+            parameters:
+                - in: path
+                  name: accountKey
                   required: true
                   schema:
                       type: string
@@ -1817,16 +1835,34 @@ paths:
                     description: ""
             tags: ["AuditEntry"]
     "/contact-roles/{contactRoleKey}/contact-role-permissions":
-        post:
-            operationId: postContactRoleContactRolePermission
+        delete:
+            operationId: deleteContactRoleContactRolePermission
             parameters:
                 - in: path
                   name: contactRoleKey
                   required: true
                   schema:
                       type: string
-                - in: query
-                  name: operation
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ContactRolePermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ContactRolePermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["ContactRole"]
+        put:
+            operationId: putContactRoleContactRolePermission
+            parameters:
+                - in: path
+                  name: contactRoleKey
                   required: true
                   schema:
                       type: string
@@ -2067,16 +2103,34 @@ paths:
                     description: ""
             tags: ["AuditEntry"]
     "/contacts/by-okta-id/{oktaId}/contact-permissions":
-        post:
-            operationId: postContactByOktaContactPermission
+        delete:
+            operationId: deleteContactByOktaContactPermission
             parameters:
                 - in: path
                   name: oktaId
                   required: true
                   schema:
                       type: string
-                - in: query
-                  name: operation
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ContactPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ContactPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Contact"]
+        put:
+            operationId: putContactByOktaContactPermission
+            parameters:
+                - in: path
+                  name: oktaId
                   required: true
                   schema:
                       type: string
@@ -2320,16 +2374,34 @@ paths:
                     description: ""
             tags: ["AuditEntry"]
     "/contacts/by-uuid/{contactUuid}/contact-permissions":
-        post:
-            operationId: postContactByUuidContactUuidContactPermission
+        delete:
+            operationId: deleteContactByUuidContactUuidContactPermission
             parameters:
                 - in: path
                   name: contactUuid
                   required: true
                   schema:
                       type: string
-                - in: query
-                  name: operation
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ContactPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ContactPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Contact"]
+        put:
+            operationId: putContactByUuidContactUuidContactPermission
+            parameters:
+                - in: path
+                  name: contactUuid
                   required: true
                   schema:
                       type: string
@@ -2758,16 +2830,34 @@ paths:
                     description: ""
             tags: ["ExternalLink"]
     "/product-consumptions/{productConsumptionKey}/product-consumption-permissions":
-        post:
-            operationId: postProductConsumptionProductConsumptionPermission
+        delete:
+            operationId: deleteProductConsumptionProductConsumptionPermission
             parameters:
                 - in: path
                   name: productConsumptionKey
                   required: true
                   schema:
                       type: string
-                - in: query
-                  name: operation
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ProductConsumptionPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ProductConsumptionPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["ProductConsumption"]
+        put:
+            operationId: putProductConsumptionProductConsumptionPermission
+            parameters:
+                - in: path
+                  name: productConsumptionKey
                   required: true
                   schema:
                       type: string
@@ -2995,16 +3085,34 @@ paths:
                     description: ""
             tags: ["ExternalLink"]
     "/product-purchases/{productPurchaseKey}/product-purchase-permissions":
-        post:
-            operationId: postProductPurchaseProductPurchasePermission
+        delete:
+            operationId: deleteProductPurchaseProductPurchasePermission
             parameters:
                 - in: path
                   name: productPurchaseKey
                   required: true
                   schema:
                       type: string
-                - in: query
-                  name: operation
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ProductPurchasePermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ProductPurchasePermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["ProductPurchase"]
+        put:
+            operationId: putProductPurchaseProductPurchasePermission
+            parameters:
+                - in: path
+                  name: productPurchaseKey
                   required: true
                   schema:
                       type: string
@@ -3254,16 +3362,34 @@ paths:
                     description: ""
             tags: ["ExternalLink"]
     "/products/{productKey}/product-permissions":
-        post:
-            operationId: postProductProductPermission
+        delete:
+            operationId: deleteProductProductPermission
             parameters:
                 - in: path
                   name: productKey
                   required: true
                   schema:
                       type: string
-                - in: query
-                  name: operation
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ProductPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ProducePermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Product"]
+        put:
+            operationId: putProductProductPermission
+            parameters:
+                - in: path
+                  name: productKey
                   required: true
                   schema:
                       type: string
@@ -3441,16 +3567,34 @@ paths:
                     description: ""
             tags: ["AuditEntry"]
     "/team-roles/{teamRoleKey}/team-role-permissions":
-        post:
-            operationId: postTeamRoleTeamRolePermission
+        delete:
+            operationId: deleteTeamRoleTeamRolePermission
             parameters:
                 - in: path
                   name: teamRoleKey
                   required: true
                   schema:
                       type: string
-                - in: query
-                  name: operation
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/TeamRolePermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/TeamRolePermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["TeamRole"]
+        put:
+            operationId: putTeamRoleTeamRolePermission
+            parameters:
+                - in: path
+                  name: teamRoleKey
                   required: true
                   schema:
                       type: string
@@ -3744,16 +3888,34 @@ paths:
                     description: ""
             tags: ["ExternalLink"]
     "/teams/{teamKey}/team-permissions":
-        post:
-            operationId: postTeamTeamPermission
+        delete:
+            operationId: deleteTeamTeamPermission
             parameters:
                 - in: path
                   name: teamKey
                   required: true
                   schema:
                       type: string
-                - in: query
-                  name: operation
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/TeamPermission"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/TeamPermission"
+                description: ""
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]
+        put:
+            operationId: putTeamTeamPermission
+            parameters:
+                - in: path
+                  name: teamKey
                   required: true
                   schema:
                       type: string

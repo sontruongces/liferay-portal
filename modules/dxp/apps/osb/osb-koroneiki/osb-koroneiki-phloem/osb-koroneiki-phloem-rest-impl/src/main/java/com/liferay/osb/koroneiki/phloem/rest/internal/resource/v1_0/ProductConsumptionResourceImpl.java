@@ -69,6 +69,16 @@ public class ProductConsumptionResourceImpl
 	}
 
 	@Override
+	public void deleteProductConsumptionProductConsumptionPermission(
+			String productConsumptionKey,
+			ProductConsumptionPermission productConsumptionPermission)
+		throws Exception {
+
+		_updateProductConsumptionPermission(
+			productConsumptionKey, "delete", productConsumptionPermission);
+	}
+
+	@Override
 	public Page<ProductConsumption> getAccountAccountKeyProductConsumptionsPage(
 			String accountKey, Pagination pagination)
 		throws Exception {
@@ -166,7 +176,7 @@ public class ProductConsumptionResourceImpl
 			String accountKey, ProductConsumption productConsumption)
 		throws Exception {
 
-		List<ProductField> productFields = getProductFields(
+		List<ProductField> productFields = _getProductFields(
 			productConsumption.getProperties());
 
 		return ProductConsumptionUtil.toProductConsumption(
@@ -175,7 +185,53 @@ public class ProductConsumptionResourceImpl
 	}
 
 	@Override
-	public void postProductConsumptionProductConsumptionPermission(
+	public void putProductConsumptionProductConsumptionPermission(
+			String productConsumptionKey,
+			ProductConsumptionPermission productConsumptionPermission)
+		throws Exception {
+
+		_updateProductConsumptionPermission(
+			productConsumptionKey, "add", productConsumptionPermission);
+	}
+
+	private Page<ProductConsumption> _getContactProductConsumptionsPage(
+			Contact contact, Pagination pagination)
+		throws PortalException {
+
+		return Page.of(
+			transform(
+				_productConsumptionService.getContactProductConsumptions(
+					contact.getContactId(), pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				ProductConsumptionUtil::toProductConsumption),
+			pagination,
+			_productConsumptionService.getContactProductConsumptionsCount(
+				contact.getContactId()));
+	}
+
+	private List<ProductField> _getProductFields(
+		Map<String, String> properties) {
+
+		List<ProductField> productFields = new ArrayList<>();
+
+		if (properties == null) {
+			return productFields;
+		}
+
+		for (Map.Entry<String, String> entry : properties.entrySet()) {
+			ProductField productField =
+				_productFieldLocalService.createProductField(0);
+
+			productField.setName(entry.getKey());
+			productField.setValue(entry.getValue());
+
+			productFields.add(productField);
+		}
+
+		return productFields;
+	}
+
+	private void _updateProductConsumptionPermission(
 			String productConsumptionKey, String operation,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception {
@@ -214,48 +270,11 @@ public class ProductConsumptionResourceImpl
 		}
 
 		_phloemPermissionUtil.persistModelPermission(
-			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
+			operation, contextCompany.getCompanyId(),
 			com.liferay.osb.koroneiki.trunk.model.ProductConsumption.class.
 				getName(),
 			productConsumption.getProductConsumptionId(),
 			productConsumptionPermission.getRoleNames(), actionIds);
-	}
-
-	protected List<ProductField> getProductFields(
-		Map<String, String> properties) {
-
-		List<ProductField> productFields = new ArrayList<>();
-
-		if (properties == null) {
-			return productFields;
-		}
-
-		for (Map.Entry<String, String> entry : properties.entrySet()) {
-			ProductField productField =
-				_productFieldLocalService.createProductField(0);
-
-			productField.setName(entry.getKey());
-			productField.setValue(entry.getValue());
-
-			productFields.add(productField);
-		}
-
-		return productFields;
-	}
-
-	private Page<ProductConsumption> _getContactProductConsumptionsPage(
-			Contact contact, Pagination pagination)
-		throws PortalException {
-
-		return Page.of(
-			transform(
-				_productConsumptionService.getContactProductConsumptions(
-					contact.getContactId(), pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				ProductConsumptionUtil::toProductConsumption),
-			pagination,
-			_productConsumptionService.getContactProductConsumptionsCount(
-				contact.getContactId()));
 	}
 
 	@Reference

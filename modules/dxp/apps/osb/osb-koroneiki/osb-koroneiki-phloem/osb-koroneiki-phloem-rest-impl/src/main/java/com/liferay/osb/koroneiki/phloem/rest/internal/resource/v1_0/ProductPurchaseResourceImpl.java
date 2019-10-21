@@ -68,6 +68,16 @@ public class ProductPurchaseResourceImpl
 	}
 
 	@Override
+	public void deleteProductPurchaseProductPurchasePermission(
+			String productPurchaseKey,
+			ProductPurchasePermission productPurchasePermission)
+		throws Exception {
+
+		_updateProductPurchasePermission(
+			productPurchaseKey, "delete", productPurchasePermission);
+	}
+
+	@Override
 	public Page<ProductPurchase> getAccountAccountKeyProductPurchasesPage(
 			String accountKey, Pagination pagination)
 		throws Exception {
@@ -184,49 +194,6 @@ public class ProductPurchaseResourceImpl
 	}
 
 	@Override
-	public void postProductPurchaseProductPurchasePermission(
-			String productPurchaseKey, String operation,
-			ProductPurchasePermission productPurchasePermission)
-		throws Exception {
-
-		com.liferay.osb.koroneiki.trunk.model.ProductPurchase productPurchase =
-			_productPurchaseLocalService.getProductPurchase(productPurchaseKey);
-
-		_productPurchasePermission.check(
-			PermissionThreadLocal.getPermissionChecker(), productPurchase,
-			ActionKeys.PERMISSIONS);
-
-		List<String> actionIds = new ArrayList<>();
-
-		if (GetterUtil.getBoolean(productPurchasePermission.getDelete())) {
-			actionIds.add(ActionKeys.DELETE);
-		}
-
-		if (GetterUtil.getBoolean(productPurchasePermission.getPermissions())) {
-			actionIds.add(ActionKeys.PERMISSIONS);
-		}
-
-		if (GetterUtil.getBoolean(productPurchasePermission.getUpdate())) {
-			actionIds.add(ActionKeys.UPDATE);
-		}
-
-		if (GetterUtil.getBoolean(productPurchasePermission.getView())) {
-			actionIds.add(ActionKeys.VIEW);
-		}
-
-		if (actionIds.isEmpty()) {
-			return;
-		}
-
-		_phloemPermissionUtil.persistModelPermission(
-			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
-			com.liferay.osb.koroneiki.trunk.model.ProductPurchase.class.
-				getName(),
-			productPurchase.getProductPurchaseId(),
-			productPurchasePermission.getRoleNames(), actionIds);
-	}
-
-	@Override
 	public ProductPurchase putProductPurchase(
 			String productPurchaseKey, ProductPurchase productPurchase)
 		throws Exception {
@@ -268,6 +235,16 @@ public class ProductPurchaseResourceImpl
 				quantity, productFields));
 	}
 
+	@Override
+	public void putProductPurchaseProductPurchasePermission(
+			String productPurchaseKey,
+			ProductPurchasePermission productPurchasePermission)
+		throws Exception {
+
+		_updateProductPurchasePermission(
+			productPurchaseKey, "add", productPurchasePermission);
+	}
+
 	protected List<ProductField> getProductFields(
 		Map<String, String> properties,
 		List<ProductField> defaultProductFields) {
@@ -304,6 +281,48 @@ public class ProductPurchaseResourceImpl
 			pagination,
 			_productPurchaseService.getContactProductPurchasesCount(
 				contact.getContactId()));
+	}
+
+	private void _updateProductPurchasePermission(
+			String productPurchaseKey, String operation,
+			ProductPurchasePermission productPurchasePermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.trunk.model.ProductPurchase productPurchase =
+			_productPurchaseLocalService.getProductPurchase(productPurchaseKey);
+
+		_productPurchasePermission.check(
+			PermissionThreadLocal.getPermissionChecker(), productPurchase,
+			ActionKeys.PERMISSIONS);
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(productPurchasePermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(productPurchasePermission.getPermissions())) {
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(productPurchasePermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(productPurchasePermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		_phloemPermissionUtil.persistModelPermission(
+			operation, contextCompany.getCompanyId(),
+			com.liferay.osb.koroneiki.trunk.model.ProductPurchase.class.
+				getName(),
+			productPurchase.getProductPurchaseId(),
+			productPurchasePermission.getRoleNames(), actionIds);
 	}
 
 	@Reference

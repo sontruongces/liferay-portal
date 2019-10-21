@@ -73,6 +73,14 @@ public class AccountResourceImpl
 	}
 
 	@Override
+	public void deleteAccountAccountPermission(
+			String accountKey, AccountPermission accountPermission)
+		throws Exception {
+
+		_updateAccountPermission(accountKey, "delete", accountPermission);
+	}
+
+	@Override
 	public void deleteAccountAssignedTeamTeamKeyRole(
 			String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception {
@@ -258,56 +266,6 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public void postAccountAccountPermission(
-			String accountKey, String operation,
-			AccountPermission accountPermission)
-		throws Exception {
-
-		com.liferay.osb.koroneiki.taproot.model.Account account =
-			_accountLocalService.getAccount(accountKey);
-
-		_accountPermission.check(
-			PermissionThreadLocal.getPermissionChecker(), account,
-			ActionKeys.PERMISSIONS);
-
-		List<String> actionIds = new ArrayList<>();
-
-		if (GetterUtil.getBoolean(accountPermission.getAssignContact())) {
-			actionIds.add(TaprootActionKeys.ASSIGN_CONTACT);
-		}
-
-		if (GetterUtil.getBoolean(accountPermission.getAssignTeam())) {
-			actionIds.add(TaprootActionKeys.ASSIGN_TEAM);
-		}
-
-		if (GetterUtil.getBoolean(accountPermission.getDelete())) {
-			actionIds.add(ActionKeys.DELETE);
-		}
-
-		if (GetterUtil.getBoolean(accountPermission.getPermissions())) {
-			actionIds.add(ActionKeys.PERMISSIONS);
-		}
-
-		if (GetterUtil.getBoolean(accountPermission.getUpdate())) {
-			actionIds.add(ActionKeys.UPDATE);
-		}
-
-		if (GetterUtil.getBoolean(accountPermission.getView())) {
-			actionIds.add(ActionKeys.VIEW);
-		}
-
-		if (actionIds.isEmpty()) {
-			return;
-		}
-
-		_phloemPermissionUtil.persistModelPermission(
-			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
-			com.liferay.osb.koroneiki.taproot.model.Account.class.getName(),
-			account.getAccountId(), accountPermission.getRoleNames(),
-			actionIds);
-	}
-
-	@Override
 	public Account postAccountChildAccount(String accountKey, Account account)
 		throws Exception {
 
@@ -411,6 +369,14 @@ public class AccountResourceImpl
 				profileEmailAddress, phoneNumber, faxNumber, website, industry,
 				tier, soldBy, status),
 			contextAcceptLanguage.getPreferredLocale());
+	}
+
+	@Override
+	public void putAccountAccountPermission(
+			String accountKey, AccountPermission accountPermission)
+		throws Exception {
+
+		_updateAccountPermission(accountKey, "add", accountPermission);
 	}
 
 	@Override
@@ -535,6 +501,55 @@ public class AccountResourceImpl
 				contact.getContactId(), account.getAccountId(),
 				contactRole.getContactRoleId());
 		}
+	}
+
+	private void _updateAccountPermission(
+			String accountKey, String operation,
+			AccountPermission accountPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Account account =
+			_accountLocalService.getAccount(accountKey);
+
+		_accountPermission.check(
+			PermissionThreadLocal.getPermissionChecker(), account,
+			ActionKeys.PERMISSIONS);
+
+		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(accountPermission.getAssignContact())) {
+			actionIds.add(TaprootActionKeys.ASSIGN_CONTACT);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getAssignTeam())) {
+			actionIds.add(TaprootActionKeys.ASSIGN_TEAM);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getDelete())) {
+			actionIds.add(ActionKeys.DELETE);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getPermissions())) {
+			actionIds.add(ActionKeys.PERMISSIONS);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getUpdate())) {
+			actionIds.add(ActionKeys.UPDATE);
+		}
+
+		if (GetterUtil.getBoolean(accountPermission.getView())) {
+			actionIds.add(ActionKeys.VIEW);
+		}
+
+		if (actionIds.isEmpty()) {
+			return;
+		}
+
+		_phloemPermissionUtil.persistModelPermission(
+			operation, contextCompany.getCompanyId(),
+			com.liferay.osb.koroneiki.taproot.model.Account.class.getName(),
+			account.getAccountId(), accountPermission.getRoleNames(),
+			actionIds);
 	}
 
 	private static final EntityModel _entityModel = new AccountEntityModel();

@@ -72,6 +72,17 @@ public class ContactResourceImpl
 	}
 
 	@Override
+	public void deleteContactByOktaContactPermission(
+			String oktaId, ContactPermission contactPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.fetchContactByOktaId(oktaId);
+
+		_updateContactPermission(contact, "delete", contactPermission);
+	}
+
+	@Override
 	public void deleteContactByUuidContactUuid(String contactUuid)
 		throws Exception {
 
@@ -79,6 +90,17 @@ public class ContactResourceImpl
 			_contactLocalService.getContactByUuid(contactUuid);
 
 		_contactService.deleteContact(contact.getContactId());
+	}
+
+	@Override
+	public void deleteContactByUuidContactUuidContactPermission(
+			String contactUuid, ContactPermission contactPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.fetchContactByUuid(contactUuid);
+
+		_updateContactPermission(contact, "delete", contactPermission);
 	}
 
 	@Override
@@ -152,30 +174,6 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public void postContactByOktaContactPermission(
-			String oktaId, String operation,
-			ContactPermission contactPermission)
-		throws Exception {
-
-		com.liferay.osb.koroneiki.taproot.model.Contact contact =
-			_contactLocalService.fetchContactByOktaId(oktaId);
-
-		postContactPermission(contact, operation, contactPermission);
-	}
-
-	@Override
-	public void postContactByUuidContactUuidContactPermission(
-			String contactUuid, String operation,
-			ContactPermission contactPermission)
-		throws Exception {
-
-		com.liferay.osb.koroneiki.taproot.model.Contact contact =
-			_contactLocalService.fetchContactByUuid(contactUuid);
-
-		postContactPermission(contact, operation, contactPermission);
-	}
-
-	@Override
 	public Contact putContactByEmailAddresEmailAddress(
 			String emailAddress, Contact contact)
 		throws Exception {
@@ -221,6 +219,17 @@ public class ContactResourceImpl
 	}
 
 	@Override
+	public void putContactByOktaContactPermission(
+			String oktaId, ContactPermission contactPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.fetchContactByOktaId(oktaId);
+
+		_updateContactPermission(contact, "add", contactPermission);
+	}
+
+	@Override
 	public Contact putContactByUuidContactUuid(
 			String contactUuid, Contact contact)
 		throws Exception {
@@ -242,7 +251,18 @@ public class ContactResourceImpl
 				contact.getEmailAddress(), languageId));
 	}
 
-	protected void postContactPermission(
+	@Override
+	public void putContactByUuidContactUuidContactPermission(
+			String contactUuid, ContactPermission contactPermission)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.fetchContactByUuid(contactUuid);
+
+		_updateContactPermission(contact, "add", contactPermission);
+	}
+
+	private void _updateContactPermission(
 			com.liferay.osb.koroneiki.taproot.model.Contact contact,
 			String operation, ContactPermission contactPermission)
 		throws Exception {
@@ -274,7 +294,7 @@ public class ContactResourceImpl
 		}
 
 		_phloemPermissionUtil.persistModelPermission(
-			operation, contextCompany.getCompanyId(), contextUser.getUserId(),
+			operation, contextCompany.getCompanyId(),
 			com.liferay.osb.koroneiki.taproot.model.Contact.class.getName(),
 			contact.getContactId(), contactPermission.getRoleNames(),
 			actionIds);
