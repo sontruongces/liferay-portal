@@ -80,14 +80,26 @@ public interface ProductResource {
 			String productKey, Product product)
 		throws Exception;
 
-	public void postProductProductPermission(
-			String productKey, String operation,
+	public void deleteProductProductPermission(
+			String productKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductPermission productPermission)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse postProductProductPermissionHttpResponse(
-			String productKey, String operation,
+	public HttpInvoker.HttpResponse deleteProductProductPermissionHttpResponse(
+			String productKey,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				ProductPermission productPermission)
+		throws Exception;
+
+	public void putProductProductPermission(
+			String productKey,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				ProductPermission productPermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putProductProductPermissionHttpResponse(
+			String productKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductPermission productPermission)
 		throws Exception;
@@ -437,15 +449,15 @@ public interface ProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public void postProductProductPermission(
-				String productKey, String operation,
+		public void deleteProductProductPermission(
+				String productKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductPermission productPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postProductProductPermissionHttpResponse(
-					productKey, operation, productPermission);
+				deleteProductProductPermissionHttpResponse(
+					productKey, productPermission);
 
 			String content = httpResponse.getContent();
 
@@ -457,10 +469,56 @@ public interface ProductResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				postProductProductPermissionHttpResponse(
-					String productKey, String operation,
+				deleteProductProductPermissionHttpResponse(
+					String productKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ProductPermission productPermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/products/{productKey}/product-permissions",
+				productKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putProductProductPermission(
+				String productKey,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ProductPermission productPermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putProductProductPermissionHttpResponse(
+					productKey, productPermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putProductProductPermissionHttpResponse(
+				String productKey,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					ProductPermission productPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -472,11 +530,7 @@ public interface ProductResource {
 					"Accept-Language", _builder._locale.toLanguageTag());
 			}
 
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			if (operation != null) {
-				httpInvoker.parameter("operation", String.valueOf(operation));
-			}
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

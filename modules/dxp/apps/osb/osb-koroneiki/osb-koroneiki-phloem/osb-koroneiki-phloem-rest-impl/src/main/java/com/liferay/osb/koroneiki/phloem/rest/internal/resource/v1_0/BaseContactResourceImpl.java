@@ -216,21 +216,28 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "operation")
-		}
-	)
+	@DELETE
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
 	@Path("/contacts/by-okta-id/{oktaId}/contact-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
-	public void postContactByOktaContactPermission(
+	public void deleteContactByOktaContactPermission(
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId,
-			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
-				operation,
+			ContactPermission contactPermission)
+		throws Exception {
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Path("/contacts/by-okta-id/{oktaId}/contact-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Contact")})
+	public void putContactByOktaContactPermission(
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
 			ContactPermission contactPermission)
 		throws Exception {
 	}
@@ -286,21 +293,32 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@DELETE
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
-			@Parameter(in = ParameterIn.QUERY, name = "operation")
-		}
+		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
 	)
 	@Path("/contacts/by-uuid/{contactUuid}/contact-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
-	public void postContactByUuidContactUuidContactPermission(
+	public void deleteContactByUuidContactUuidContactPermission(
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid,
-			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
-				operation,
+			ContactPermission contactPermission)
+		throws Exception {
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
+	)
+	@Path("/contacts/by-uuid/{contactUuid}/contact-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Contact")})
+	public void putContactByUuidContactUuidContactPermission(
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid,
 			ContactPermission contactPermission)
 		throws Exception {
 	}

@@ -1060,7 +1060,14 @@ public abstract class BaseProductConsumptionResourceTestCase {
 	}
 
 	@Test
-	public void testPostProductConsumptionProductConsumptionPermission()
+	public void testDeleteProductConsumptionProductConsumptionPermission()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutProductConsumptionProductConsumptionPermission()
 		throws Exception {
 
 		Assert.assertTrue(false);

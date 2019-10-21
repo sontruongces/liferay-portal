@@ -595,7 +595,12 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testPostProductProductPermission() throws Exception {
+	public void testDeleteProductProductPermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutProductProductPermission() throws Exception {
 		Assert.assertTrue(false);
 	}
 

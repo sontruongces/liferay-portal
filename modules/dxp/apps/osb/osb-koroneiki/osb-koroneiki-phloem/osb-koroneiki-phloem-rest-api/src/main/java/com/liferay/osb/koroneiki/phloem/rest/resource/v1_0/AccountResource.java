@@ -58,9 +58,20 @@ public interface AccountResource {
 	public Account putAccount(String accountKey, Account account)
 		throws Exception;
 
-	public void postAccountAccountPermission(
-			String accountKey, String operation,
-			AccountPermission accountPermission)
+	public void deleteAccountAccountPermission(
+			String accountKey, AccountPermission accountPermission)
+		throws Exception;
+
+	public void putAccountAccountPermission(
+			String accountKey, AccountPermission accountPermission)
+		throws Exception;
+
+	public void deleteAccountAssignedTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public void putAccountAssignedTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public Page<Account> getAccountChildAccountsPage(
@@ -98,14 +109,6 @@ public interface AccountResource {
 
 	public void putAccountContactByUuidContactUuidRole(
 			String accountKey, String contactUuid, String[] contactRoleKeys)
-		throws Exception;
-
-	public void deleteAccountAssignedTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
-		throws Exception;
-
-	public void putAccountAssignedTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public Page<Account> getTeamTeamKeyAssignedAccountsPage(

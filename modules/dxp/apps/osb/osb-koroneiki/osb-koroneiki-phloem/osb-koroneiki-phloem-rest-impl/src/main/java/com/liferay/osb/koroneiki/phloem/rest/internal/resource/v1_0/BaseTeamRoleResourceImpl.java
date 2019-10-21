@@ -176,21 +176,32 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@DELETE
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "teamRoleKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "operation")
-		}
+		value = {@Parameter(in = ParameterIn.PATH, name = "teamRoleKey")}
 	)
 	@Path("/team-roles/{teamRoleKey}/team-role-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "TeamRole")})
-	public void postTeamRoleTeamRolePermission(
+	public void deleteTeamRoleTeamRolePermission(
 			@NotNull @Parameter(hidden = true) @PathParam("teamRoleKey") String
 				teamRoleKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
-				operation,
+			TeamRolePermission teamRolePermission)
+		throws Exception {
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "teamRoleKey")}
+	)
+	@Path("/team-roles/{teamRoleKey}/team-role-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "TeamRole")})
+	public void putTeamRoleTeamRolePermission(
+			@NotNull @Parameter(hidden = true) @PathParam("teamRoleKey") String
+				teamRoleKey,
 			TeamRolePermission teamRolePermission)
 		throws Exception {
 	}

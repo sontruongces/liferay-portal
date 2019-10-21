@@ -677,7 +677,12 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	@Test
-	public void testPostTeamTeamPermission() throws Exception {
+	public void testDeleteTeamTeamPermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutTeamTeamPermission() throws Exception {
 		Assert.assertTrue(false);
 	}
 

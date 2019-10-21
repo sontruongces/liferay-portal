@@ -67,9 +67,12 @@ public interface ContactResource {
 	public Contact putContactByOkta(String oktaId, Contact contact)
 		throws Exception;
 
-	public void postContactByOktaContactPermission(
-			String oktaId, String operation,
-			ContactPermission contactPermission)
+	public void deleteContactByOktaContactPermission(
+			String oktaId, ContactPermission contactPermission)
+		throws Exception;
+
+	public void putContactByOktaContactPermission(
+			String oktaId, ContactPermission contactPermission)
 		throws Exception;
 
 	public void deleteContactByUuidContactUuid(String contactUuid)
@@ -82,9 +85,12 @@ public interface ContactResource {
 			String contactUuid, Contact contact)
 		throws Exception;
 
-	public void postContactByUuidContactUuidContactPermission(
-			String contactUuid, String operation,
-			ContactPermission contactPermission)
+	public void deleteContactByUuidContactUuidContactPermission(
+			String contactUuid, ContactPermission contactPermission)
+		throws Exception;
+
+	public void putContactByUuidContactUuidContactPermission(
+			String contactUuid, ContactPermission contactPermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

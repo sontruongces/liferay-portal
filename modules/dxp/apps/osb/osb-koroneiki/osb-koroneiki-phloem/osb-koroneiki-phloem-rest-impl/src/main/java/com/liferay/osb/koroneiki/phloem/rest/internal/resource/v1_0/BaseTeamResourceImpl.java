@@ -203,21 +203,28 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "operation")
-		}
-	)
+	@DELETE
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "teamKey")})
 	@Path("/teams/{teamKey}/team-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
-	public void postTeamTeamPermission(
+	public void deleteTeamTeamPermission(
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
-				operation,
+			TeamPermission teamPermission)
+		throws Exception {
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "teamKey")})
+	@Path("/teams/{teamKey}/team-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void putTeamTeamPermission(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
 			TeamPermission teamPermission)
 		throws Exception {
 	}

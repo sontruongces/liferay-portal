@@ -57,9 +57,12 @@ public interface TeamRoleResource {
 	public TeamRole putTeamRole(String teamRoleKey, TeamRole teamRole)
 		throws Exception;
 
-	public void postTeamRoleTeamRolePermission(
-			String teamRoleKey, String operation,
-			TeamRolePermission teamRolePermission)
+	public void deleteTeamRoleTeamRolePermission(
+			String teamRoleKey, TeamRolePermission teamRolePermission)
+		throws Exception;
+
+	public void putTeamRoleTeamRolePermission(
+			String teamRoleKey, TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

@@ -179,21 +179,32 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@DELETE
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "productKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "operation")
-		}
+		value = {@Parameter(in = ParameterIn.PATH, name = "productKey")}
 	)
 	@Path("/products/{productKey}/product-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Product")})
-	public void postProductProductPermission(
+	public void deleteProductProductPermission(
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
-				operation,
+			ProductPermission productPermission)
+		throws Exception {
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "productKey")}
+	)
+	@Path("/products/{productKey}/product-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Product")})
+	public void putProductProductPermission(
+			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
+				productKey,
 			ProductPermission productPermission)
 		throws Exception {
 	}

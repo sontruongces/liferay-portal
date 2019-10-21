@@ -615,7 +615,22 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testPostAccountAccountPermission() throws Exception {
+	public void testDeleteAccountAccountPermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutAccountAccountPermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteAccountAssignedTeamTeamKeyRole() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutAccountAssignedTeamTeamKeyRole() throws Exception {
 		Assert.assertTrue(false);
 	}
 
@@ -780,16 +795,6 @@ public abstract class BaseAccountResourceTestCase {
 
 	@Test
 	public void testPutAccountContactByUuidContactUuidRole() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testDeleteAccountAssignedTeamTeamKeyRole() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testPutAccountAssignedTeamTeamKeyRole() throws Exception {
 		Assert.assertTrue(false);
 	}
 

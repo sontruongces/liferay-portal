@@ -1034,7 +1034,14 @@ public abstract class BaseProductPurchaseResourceTestCase {
 	}
 
 	@Test
-	public void testPostProductPurchaseProductPurchasePermission()
+	public void testDeleteProductPurchaseProductPurchasePermission()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutProductPurchaseProductPurchasePermission()
 		throws Exception {
 
 		Assert.assertTrue(false);

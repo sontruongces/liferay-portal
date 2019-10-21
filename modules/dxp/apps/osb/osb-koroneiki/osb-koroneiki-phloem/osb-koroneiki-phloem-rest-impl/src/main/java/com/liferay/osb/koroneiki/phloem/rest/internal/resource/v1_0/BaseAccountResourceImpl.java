@@ -179,22 +179,79 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@DELETE
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "operation")
-		}
+		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
 	)
 	@Path("/accounts/{accountKey}/account-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
-	public void postAccountAccountPermission(
+	public void deleteAccountAccountPermission(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
-				operation,
 			AccountPermission accountPermission)
+		throws Exception {
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+	)
+	@Path("/accounts/{accountKey}/account-permissions")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void putAccountAccountPermission(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			AccountPermission accountPermission)
+		throws Exception {
+	}
+
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns roles from the team for the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
+		}
+	)
+	@Path("/accounts/{accountKey}/assigned-teams/{teamKey}/roles")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountAssignedTeamTeamKeyRole(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("teamRoleKeys")
+				String[] teamRoleKeys)
+		throws Exception {
+	}
+
+	@Override
+	@Operation(description = "Assigns roles to the team for the account.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
+		}
+	)
+	@Path("/accounts/{accountKey}/assigned-teams/{teamKey}/roles")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void putAccountAssignedTeamTeamKeyRole(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("teamRoleKeys")
+				String[] teamRoleKeys)
 		throws Exception {
 	}
 
@@ -411,52 +468,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 				contactUuid,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
 				String[] contactRoleKeys)
-		throws Exception {
-	}
-
-	@Override
-	@DELETE
-	@Operation(description = "Unassigns roles from the team for the account.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
-		}
-	)
-	@Path("/accounts/{accountKey}/assigned-teams/{teamKey}/roles")
-	@Produces("application/json")
-	@Tags(value = {@Tag(name = "Account")})
-	public void deleteAccountAssignedTeamTeamKeyRole(
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
-				teamKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("teamRoleKeys")
-				String[] teamRoleKeys)
-		throws Exception {
-	}
-
-	@Override
-	@Operation(description = "Assigns roles to the team for the account.")
-	@PUT
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
-		}
-	)
-	@Path("/accounts/{accountKey}/assigned-teams/{teamKey}/roles")
-	@Produces("application/json")
-	@Tags(value = {@Tag(name = "Account")})
-	public void putAccountAssignedTeamTeamKeyRole(
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
-				teamKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("teamRoleKeys")
-				String[] teamRoleKeys)
 		throws Exception {
 	}
 

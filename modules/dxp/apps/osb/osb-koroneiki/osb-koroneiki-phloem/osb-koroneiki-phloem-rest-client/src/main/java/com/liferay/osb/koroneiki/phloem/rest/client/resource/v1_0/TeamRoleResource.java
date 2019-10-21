@@ -79,14 +79,27 @@ public interface TeamRoleResource {
 			String teamRoleKey, TeamRole teamRole)
 		throws Exception;
 
-	public void postTeamRoleTeamRolePermission(
-			String teamRoleKey, String operation,
+	public void deleteTeamRoleTeamRolePermission(
+			String teamRoleKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				TeamRolePermission teamRolePermission)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse postTeamRoleTeamRolePermissionHttpResponse(
-			String teamRoleKey, String operation,
+	public HttpInvoker.HttpResponse
+			deleteTeamRoleTeamRolePermissionHttpResponse(
+				String teamRoleKey,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					TeamRolePermission teamRolePermission)
+		throws Exception;
+
+	public void putTeamRoleTeamRolePermission(
+			String teamRoleKey,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				TeamRolePermission teamRolePermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putTeamRoleTeamRolePermissionHttpResponse(
+			String teamRoleKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				TeamRolePermission teamRolePermission)
 		throws Exception;
@@ -436,15 +449,15 @@ public interface TeamRoleResource {
 			return httpInvoker.invoke();
 		}
 
-		public void postTeamRoleTeamRolePermission(
-				String teamRoleKey, String operation,
+		public void deleteTeamRoleTeamRolePermission(
+				String teamRoleKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					TeamRolePermission teamRolePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postTeamRoleTeamRolePermissionHttpResponse(
-					teamRoleKey, operation, teamRolePermission);
+				deleteTeamRoleTeamRolePermissionHttpResponse(
+					teamRoleKey, teamRolePermission);
 
 			String content = httpResponse.getContent();
 
@@ -456,8 +469,55 @@ public interface TeamRoleResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				postTeamRoleTeamRolePermissionHttpResponse(
-					String teamRoleKey, String operation,
+				deleteTeamRoleTeamRolePermissionHttpResponse(
+					String teamRoleKey,
+					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+						TeamRolePermission teamRolePermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/team-roles/{teamRoleKey}/team-role-permissions",
+				teamRoleKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putTeamRoleTeamRolePermission(
+				String teamRoleKey,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					TeamRolePermission teamRolePermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putTeamRoleTeamRolePermissionHttpResponse(
+					teamRoleKey, teamRolePermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				putTeamRoleTeamRolePermissionHttpResponse(
+					String teamRoleKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						TeamRolePermission teamRolePermission)
 			throws Exception {
@@ -471,11 +531,7 @@ public interface TeamRoleResource {
 					"Accept-Language", _builder._locale.toLanguageTag());
 			}
 
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			if (operation != null) {
-				httpInvoker.parameter("operation", String.valueOf(operation));
-			}
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

@@ -58,9 +58,12 @@ public interface ProductResource {
 	public Product putProduct(String productKey, Product product)
 		throws Exception;
 
-	public void postProductProductPermission(
-			String productKey, String operation,
-			ProductPermission productPermission)
+	public void deleteProductProductPermission(
+			String productKey, ProductPermission productPermission)
+		throws Exception;
+
+	public void putProductProductPermission(
+			String productKey, ProductPermission productPermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

@@ -74,8 +74,13 @@ public interface ProductConsumptionResource {
 			String productConsumptionKey)
 		throws Exception;
 
-	public void postProductConsumptionProductConsumptionPermission(
-			String productConsumptionKey, String operation,
+	public void deleteProductConsumptionProductConsumptionPermission(
+			String productConsumptionKey,
+			ProductConsumptionPermission productConsumptionPermission)
+		throws Exception;
+
+	public void putProductConsumptionProductConsumptionPermission(
+			String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception;
 

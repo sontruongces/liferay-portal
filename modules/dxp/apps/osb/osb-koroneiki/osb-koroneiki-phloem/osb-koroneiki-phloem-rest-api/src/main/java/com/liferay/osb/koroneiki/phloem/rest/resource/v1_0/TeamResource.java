@@ -62,8 +62,12 @@ public interface TeamResource {
 
 	public Team putTeam(String teamKey, Team team) throws Exception;
 
-	public void postTeamTeamPermission(
-			String teamKey, String operation, TeamPermission teamPermission)
+	public void deleteTeamTeamPermission(
+			String teamKey, TeamPermission teamPermission)
+		throws Exception;
+
+	public void putTeamTeamPermission(
+			String teamKey, TeamPermission teamPermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

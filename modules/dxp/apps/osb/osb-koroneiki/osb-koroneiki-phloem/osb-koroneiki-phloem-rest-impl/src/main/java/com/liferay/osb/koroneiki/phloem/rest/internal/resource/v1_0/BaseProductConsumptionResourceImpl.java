@@ -48,6 +48,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -245,11 +246,10 @@ public abstract class BaseProductConsumptionResourceImpl
 
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@DELETE
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "operation")
+			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
 		}
 	)
 	@Path(
@@ -257,11 +257,29 @@ public abstract class BaseProductConsumptionResourceImpl
 	)
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductConsumption")})
-	public void postProductConsumptionProductConsumptionPermission(
+	public void deleteProductConsumptionProductConsumptionPermission(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("productConsumptionKey") String productConsumptionKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
-				operation,
+			ProductConsumptionPermission productConsumptionPermission)
+		throws Exception {
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
+		}
+	)
+	@Path(
+		"/product-consumptions/{productConsumptionKey}/product-consumption-permissions"
+	)
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "ProductConsumption")})
+	public void putProductConsumptionProductConsumptionPermission(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("productConsumptionKey") String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception {
 	}

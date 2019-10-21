@@ -77,8 +77,13 @@ public interface ProductPurchaseResource {
 			String productPurchaseKey, ProductPurchase productPurchase)
 		throws Exception;
 
-	public void postProductPurchaseProductPurchasePermission(
-			String productPurchaseKey, String operation,
+	public void deleteProductPurchaseProductPurchasePermission(
+			String productPurchaseKey,
+			ProductPurchasePermission productPurchasePermission)
+		throws Exception;
+
+	public void putProductPurchaseProductPurchasePermission(
+			String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception;
 

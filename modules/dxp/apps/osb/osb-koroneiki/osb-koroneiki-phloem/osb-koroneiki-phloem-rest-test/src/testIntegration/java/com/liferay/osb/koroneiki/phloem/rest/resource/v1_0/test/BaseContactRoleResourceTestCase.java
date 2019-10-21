@@ -741,7 +741,12 @@ public abstract class BaseContactRoleResourceTestCase {
 	}
 
 	@Test
-	public void testPostContactRoleContactRolePermission() throws Exception {
+	public void testDeleteContactRoleContactRolePermission() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutContactRoleContactRolePermission() throws Exception {
 		Assert.assertTrue(false);
 	}
 

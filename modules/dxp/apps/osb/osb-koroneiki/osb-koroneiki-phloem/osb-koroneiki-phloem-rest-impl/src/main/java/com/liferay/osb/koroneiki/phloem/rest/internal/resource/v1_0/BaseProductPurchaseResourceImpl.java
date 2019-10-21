@@ -260,23 +260,36 @@ public abstract class BaseProductPurchaseResourceImpl
 
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@DELETE
 	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "operation")
-		}
+		value = {@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")}
 	)
 	@Path(
 		"/product-purchases/{productPurchaseKey}/product-purchase-permissions"
 	)
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductPurchase")})
-	public void postProductPurchaseProductPurchasePermission(
+	public void deleteProductPurchaseProductPurchasePermission(
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("operation") String
-				operation,
+			ProductPurchasePermission productPurchasePermission)
+		throws Exception {
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")}
+	)
+	@Path(
+		"/product-purchases/{productPurchaseKey}/product-purchase-permissions"
+	)
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "ProductPurchase")})
+	public void putProductPurchaseProductPurchasePermission(
+			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
+				String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception {
 	}

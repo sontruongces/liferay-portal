@@ -80,16 +80,46 @@ public interface AccountResource {
 			String accountKey, Account account)
 		throws Exception;
 
-	public void postAccountAccountPermission(
-			String accountKey, String operation,
+	public void deleteAccountAccountPermission(
+			String accountKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				AccountPermission accountPermission)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse postAccountAccountPermissionHttpResponse(
-			String accountKey, String operation,
+	public HttpInvoker.HttpResponse deleteAccountAccountPermissionHttpResponse(
+			String accountKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				AccountPermission accountPermission)
+		throws Exception;
+
+	public void putAccountAccountPermission(
+			String accountKey,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				AccountPermission accountPermission)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putAccountAccountPermissionHttpResponse(
+			String accountKey,
+			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+				AccountPermission accountPermission)
+		throws Exception;
+
+	public void deleteAccountAssignedTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
+				String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public void putAccountAssignedTeamTeamKeyRole(
+			String accountKey, String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			putAccountAssignedTeamTeamKeyRoleHttpResponse(
+				String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public Page<Account> getAccountChildAccountsPage(
@@ -169,24 +199,6 @@ public interface AccountResource {
 	public HttpInvoker.HttpResponse
 			putAccountContactByUuidContactUuidRoleHttpResponse(
 				String accountKey, String contactUuid, String[] contactRoleKeys)
-		throws Exception;
-
-	public void deleteAccountAssignedTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
-				String accountKey, String teamKey, String[] teamRoleKeys)
-		throws Exception;
-
-	public void putAccountAssignedTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			putAccountAssignedTeamTeamKeyRoleHttpResponse(
-				String accountKey, String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public Page<Account> getTeamTeamKeyAssignedAccountsPage(
@@ -543,15 +555,15 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void postAccountAccountPermission(
-				String accountKey, String operation,
+		public void deleteAccountAccountPermission(
+				String accountKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					AccountPermission accountPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postAccountAccountPermissionHttpResponse(
-					accountKey, operation, accountPermission);
+				deleteAccountAccountPermissionHttpResponse(
+					accountKey, accountPermission);
 
 			String content = httpResponse.getContent();
 
@@ -563,10 +575,56 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				postAccountAccountPermissionHttpResponse(
-					String accountKey, String operation,
+				deleteAccountAccountPermissionHttpResponse(
+					String accountKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						AccountPermission accountPermission)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/account-permissions",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putAccountAccountPermission(
+				String accountKey,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					AccountPermission accountPermission)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putAccountAccountPermissionHttpResponse(
+					accountKey, accountPermission);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putAccountAccountPermissionHttpResponse(
+				String accountKey,
+				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
+					AccountPermission accountPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -578,17 +636,115 @@ public interface AccountResource {
 					"Accept-Language", _builder._locale.toLanguageTag());
 			}
 
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			if (operation != null) {
-				httpInvoker.parameter("operation", String.valueOf(operation));
-			}
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/account-permissions",
 				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteAccountAssignedTeamTeamKeyRole(
+				String accountKey, String teamKey, String[] teamRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
+					accountKey, teamKey, teamRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
+					String accountKey, String teamKey, String[] teamRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (teamRoleKeys != null) {
+				for (int i = 0; i < teamRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"teamRoleKeys", String.valueOf(teamRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/assigned-teams/{teamKey}/roles",
+				accountKey, teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putAccountAssignedTeamTeamKeyRole(
+				String accountKey, String teamKey, String[] teamRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putAccountAssignedTeamTeamKeyRoleHttpResponse(
+					accountKey, teamKey, teamRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				putAccountAssignedTeamTeamKeyRoleHttpResponse(
+					String accountKey, String teamKey, String[] teamRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(teamRoleKeys.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (teamRoleKeys != null) {
+				for (int i = 0; i < teamRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"teamRoleKeys", String.valueOf(teamRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/assigned-teams/{teamKey}/roles",
+				accountKey, teamKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -1094,108 +1250,6 @@ public interface AccountResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles",
 				accountKey, contactUuid);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public void deleteAccountAssignedTeamTeamKeyRole(
-				String accountKey, String teamKey, String[] teamRoleKeys)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
-					accountKey, teamKey, teamRoleKeys);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse
-				deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
-					String accountKey, String teamKey, String[] teamRoleKeys)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
-
-			if (teamRoleKeys != null) {
-				for (int i = 0; i < teamRoleKeys.length; i++) {
-					httpInvoker.parameter(
-						"teamRoleKeys", String.valueOf(teamRoleKeys[i]));
-				}
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/assigned-teams/{teamKey}/roles",
-				accountKey, teamKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public void putAccountAssignedTeamTeamKeyRole(
-				String accountKey, String teamKey, String[] teamRoleKeys)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				putAccountAssignedTeamTeamKeyRoleHttpResponse(
-					accountKey, teamKey, teamRoleKeys);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse
-				putAccountAssignedTeamTeamKeyRoleHttpResponse(
-					String accountKey, String teamKey, String[] teamRoleKeys)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(teamRoleKeys.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
-
-			if (teamRoleKeys != null) {
-				for (int i = 0; i < teamRoleKeys.length; i++) {
-					httpInvoker.parameter(
-						"teamRoleKeys", String.valueOf(teamRoleKeys[i]));
-				}
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/assigned-teams/{teamKey}/roles",
-				accountKey, teamKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

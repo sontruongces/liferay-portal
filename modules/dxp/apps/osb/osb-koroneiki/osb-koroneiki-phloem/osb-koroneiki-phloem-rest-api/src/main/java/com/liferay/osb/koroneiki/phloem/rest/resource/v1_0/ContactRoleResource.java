@@ -64,9 +64,12 @@ public interface ContactRoleResource {
 			String contactRoleKey, ContactRole contactRole)
 		throws Exception;
 
-	public void postContactRoleContactRolePermission(
-			String contactRoleKey, String operation,
-			ContactRolePermission contactRolePermission)
+	public void deleteContactRoleContactRolePermission(
+			String contactRoleKey, ContactRolePermission contactRolePermission)
+		throws Exception;
+
+	public void putContactRoleContactRolePermission(
+			String contactRoleKey, ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(
