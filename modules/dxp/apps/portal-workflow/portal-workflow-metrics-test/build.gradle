@@ -10,5 +10,5 @@ dependencies {
 	testIntegrationCompile project(":apps:portal-workflow:portal-workflow-kaleo-definition-api")
 	testIntegrationCompile project(":apps:portal-workflow:portal-workflow-kaleo-runtime-api")
 	testIntegrationCompile project(":core:petra:petra-string")
-	testIntegrationCompile project(":private:apps:portal-workflow:portal-workflow-metrics-api")
+	testIntegrationCompile project(":dxp:apps:portal-workflow:portal-workflow-metrics-api")
 }

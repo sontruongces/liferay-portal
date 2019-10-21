@@ -4,6 +4,6 @@ dependencies {
 	testIntegrationCompile group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
 	testIntegrationCompile project(":apps:petra:petra-xml")
 	testIntegrationCompile project(":core:registry-api")
-	testIntegrationCompile project(":private:apps:saml:saml-persistence-api")
-	testIntegrationCompile project(":private:apps:saml:saml-persistence-service")
+	testIntegrationCompile project(":dxp:apps:saml:saml-persistence-api")
+	testIntegrationCompile project(":dxp:apps:saml:saml-persistence-service")
 }
