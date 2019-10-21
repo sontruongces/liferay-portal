@@ -64,3 +64,70 @@ renderResponse.setTitle(title);
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
+
+<aui:script use="aui-debounce,autocomplete,autocomplete-highlighters">
+	var autoCompleteConfig = {
+		activateFirstItem: true,
+		maxResults: 10,
+		minQueryLength: 2,
+		render: false,
+		resultHighlighter: 'phraseMatch'
+	};
+
+	var domain = A.one('#<portlet:namespace />domain');
+
+	if (domain) {
+		domain.plug(A.Plugin.AutoComplete, autoCompleteConfig);
+
+		domain.on(
+			'input',
+			function() {
+				A.debounce(
+					AUI.$.ajax(
+						'<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="externalLinkDomains" />',
+						{
+							data: {
+								<portlet:namespace />domain: domain.val()
+							},
+							success: function(responseData) {
+								domain.ac.set('source', responseData);
+
+								domain.ac.render();
+							}
+						}
+					),
+					50
+				);
+			}
+		);
+	}
+
+	var entityName = A.one('#<portlet:namespace />entityName');
+
+	if (entityName) {
+		entityName.plug(A.Plugin.AutoComplete, autoCompleteConfig);
+
+		entityName.on(
+			'input',
+			function() {
+				A.debounce(
+					AUI.$.ajax(
+						'<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="externalLinkEntityNames" />',
+						{
+							data: {
+								<portlet:namespace />domain: domain.val(),
+								<portlet:namespace />entityName: entityName.val()
+							},
+							success: function(responseData) {
+								entityName.ac.set('source', responseData);
+
+								entityName.ac.render();
+							}
+						}
+					),
+					50
+				);
+			}
+		);
+	}
+</aui:script>

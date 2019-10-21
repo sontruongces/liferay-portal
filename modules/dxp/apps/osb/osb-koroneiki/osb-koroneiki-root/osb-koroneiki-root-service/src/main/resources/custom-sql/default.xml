@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<custom-sql>
+	<sql id="com.liferay.osb.koroneiki.root.service.persistence.ExternalLinkFinder.findByDomain">
+		<![CDATA[
+			SELECT
+				DISTINCT {Koroneiki_ExternalLink.*}
+			FROM
+				Koroneiki_ExternalLink
+			WHERE
+				Koroneiki_ExternalLink.domain LIKE ?
+			GROUP BY
+				Koroneiki_ExternalLink.domain
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.root.service.persistence.ExternalLinkFinder.findByD_EN">
+		<![CDATA[
+			SELECT
+				DISTINCT {Koroneiki_ExternalLink.*}
+			FROM
+				Koroneiki_ExternalLink
+			WHERE
+				(Koroneiki_ExternalLink.domain LIKE ?) AND
+				(Koroneiki_ExternalLink.entityName LIKE ?)
+			GROUP BY
+				Koroneiki_ExternalLink.entityName
+		]]>
+	</sql>
+</custom-sql>
