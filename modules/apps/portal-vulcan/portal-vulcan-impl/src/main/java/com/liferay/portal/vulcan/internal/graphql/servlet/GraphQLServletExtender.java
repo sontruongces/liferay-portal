@@ -1379,7 +1379,7 @@ public class GraphQLServletExtender {
 			GraphQLCodeRegistry graphQLCodeRegistry =
 				graphQLSchema.getCodeRegistry();
 
-			Map<String, GraphQLType> typeMap = graphQLSchema.getTypeMap();
+			Map<String, GraphQLType> graphQLTypes = graphQLSchema.getTypeMap();
 
 			GraphQLFieldDefinition.Builder builder =
 				GraphQLFieldDefinition.newFieldDefinition();
@@ -1397,7 +1397,7 @@ public class GraphQLServletExtender {
 				dataFetchingEnvironment.getFieldDefinition();
 
 			DataFetcher dataFetcher = graphQLCodeRegistry.getDataFetcher(
-				(GraphQLFieldsContainer)typeMap.get("query"),
+				(GraphQLFieldsContainer)graphQLTypes.get("query"),
 				builder.name(
 					fieldName
 				).type(
