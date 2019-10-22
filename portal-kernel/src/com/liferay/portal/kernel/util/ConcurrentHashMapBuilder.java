@@ -14,7 +14,6 @@
 
 package com.liferay.portal.kernel.util;
 
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -29,20 +28,21 @@ public class ConcurrentHashMapBuilder<K, V> {
 	public static final class ConcurrentHashMapWrapper<K, V> {
 
 		public ConcurrentHashMapWrapper(K key, V value) {
-			_map.put(key, value);
+			_concurrentHashMap.put(key, value);
 		}
 
-		public Map<K, V> build() {
-			return _map;
+		public ConcurrentHashMap<K, V> build() {
+			return _concurrentHashMap;
 		}
 
 		public ConcurrentHashMapWrapper<K, V> put(K key, V value) {
-			_map.put(key, value);
+			_concurrentHashMap.put(key, value);
 
 			return this;
 		}
 
-		private final Map<K, V> _map = new ConcurrentHashMap<>();
+		private final ConcurrentHashMap<K, V> _concurrentHashMap =
+			new ConcurrentHashMap<>();
 
 	}
 

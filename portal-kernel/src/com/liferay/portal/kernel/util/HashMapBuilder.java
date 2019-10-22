@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.util;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Hugo Huijser
@@ -29,20 +28,20 @@ public class HashMapBuilder<K, V> {
 	public static final class HashMapWrapper<K, V> {
 
 		public HashMapWrapper(K key, V value) {
-			_map.put(key, value);
+			_hashMap.put(key, value);
 		}
 
-		public Map<K, V> build() {
-			return _map;
+		public HashMap<K, V> build() {
+			return _hashMap;
 		}
 
 		public HashMapWrapper<K, V> put(K key, V value) {
-			_map.put(key, value);
+			_hashMap.put(key, value);
 
 			return this;
 		}
 
-		private final Map<K, V> _map = new HashMap<>();
+		private final HashMap<K, V> _hashMap = new HashMap<>();
 
 	}
 

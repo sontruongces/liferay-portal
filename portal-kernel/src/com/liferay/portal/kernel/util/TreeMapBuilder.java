@@ -14,7 +14,6 @@
 
 package com.liferay.portal.kernel.util;
 
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -29,20 +28,20 @@ public class TreeMapBuilder<K, V> {
 	public static final class TreeMapWrapper<K, V> {
 
 		public TreeMapWrapper(K key, V value) {
-			_map.put(key, value);
+			_treeMap.put(key, value);
 		}
 
-		public Map<K, V> build() {
-			return _map;
+		public TreeMap<K, V> build() {
+			return _treeMap;
 		}
 
 		public TreeMapWrapper<K, V> put(K key, V value) {
-			_map.put(key, value);
+			_treeMap.put(key, value);
 
 			return this;
 		}
 
-		private final Map<K, V> _map = new TreeMap<>();
+		private final TreeMap<K, V> _treeMap = new TreeMap<>();
 
 	}
 
