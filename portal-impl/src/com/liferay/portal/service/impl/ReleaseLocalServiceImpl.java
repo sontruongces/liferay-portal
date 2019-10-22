@@ -133,7 +133,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 			db.runSQLTemplate("indexes.sql", false);
 			db.runSQLTemplate("sequences.sql", false);
 
-			addReleaseInfo();
+			_addReleaseInfo();
 
 			StartupHelperUtil.setDbNew(true);
 		}
@@ -198,7 +198,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 				buildNumber = rs.getInt("buildNumber");
 			}
 			else {
-				buildNumber = addReleaseInfo();
+				buildNumber = _addReleaseInfo();
 			}
 
 			if (_log.isDebugEnabled()) {
@@ -216,7 +216,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 				}
 			}
 
-			testSupportsStringCaseSensitiveQuery();
+			_testSupportsStringCaseSensitiveQuery();
 
 			return buildNumber;
 		}
@@ -233,7 +233,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 
 			createTablesAndPopulate();
 
-			testSupportsStringCaseSensitiveQuery();
+			_testSupportsStringCaseSensitiveQuery();
 
 			Release release = fetchRelease(
 				ReleaseConstants.DEFAULT_SERVLET_CONTEXT_NAME);
@@ -369,7 +369,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 		releasePersistence.update(release);
 	}
 
-	protected int addReleaseInfo() throws Exception {
+	private int _addReleaseInfo() throws Exception {
 		try (Connection con = DataAccess.getConnection();
 			PreparedStatement ps = con.prepareStatement(
 				StringBundler.concat(
@@ -399,10 +399,10 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 		return ReleaseInfo.getBuildNumber();
 	}
 
-	protected void testSupportsStringCaseSensitiveQuery() {
+	private void _testSupportsStringCaseSensitiveQuery() {
 		DB db = DBManagerUtil.getDB();
 
-		int count = testSupportsStringCaseSensitiveQuery(
+		int count = _testSupportsStringCaseSensitiveQuery(
 			ReleaseConstants.TEST_STRING);
 
 		if (count == 0) {
@@ -427,7 +427,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 				}
 			}
 
-			count = testSupportsStringCaseSensitiveQuery(
+			count = _testSupportsStringCaseSensitiveQuery(
 				ReleaseConstants.TEST_STRING);
 		}
 
@@ -436,7 +436,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 				"Release_ table was not initialized properly");
 		}
 
-		count = testSupportsStringCaseSensitiveQuery(
+		count = _testSupportsStringCaseSensitiveQuery(
 			StringUtil.toUpperCase(ReleaseConstants.TEST_STRING));
 
 		if (count == 0) {
@@ -447,7 +447,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 		}
 	}
 
-	protected int testSupportsStringCaseSensitiveQuery(String testString) {
+	private int _testSupportsStringCaseSensitiveQuery(String testString) {
 		try (Connection con = DataAccess.getConnection();
 			PreparedStatement ps = con.prepareStatement(
 				"select count(*) from Release_ where releaseId = ? and " +
