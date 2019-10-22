@@ -193,8 +193,6 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
 @Component(immediate = true, service = {})
 public class GraphQLServletExtender {
 
-	public static final String GRAPHQL_NODE_PROPERTY = "graphQLNode";
-
 	@Activate
 	protected void activate(BundleContext bundleContext) {
 		_bundleContext = bundleContext;
@@ -519,7 +517,7 @@ public class GraphQLServletExtender {
 			).type(
 				Scalars.GraphQLLong
 			).build());
-		builder.name(GRAPHQL_NODE_PROPERTY);
+		builder.name("graphQLNode");
 		builder.type(graphQLOutputType);
 
 		return builder.build();
@@ -555,7 +553,7 @@ public class GraphQLServletExtender {
 
 		if ((dataFetchingEnvironment.getRoot() ==
 				dataFetchingEnvironment.getSource()) ||
-			GRAPHQL_NODE_PROPERTY.equals(fieldDefinition.getName())) {
+			Objects.equals(fieldDefinition.getName(), "graphQLNode")) {
 
 			instance = _createQueryInstance(
 				method.getDeclaringClass(), dataFetchingEnvironment);
@@ -1016,8 +1014,7 @@ public class GraphQLServletExtender {
 
 			graphQLSchemaBuilder.codeRegistry(
 				builder.dataFetcher(
-					FieldCoordinates.coordinates(
-						"query", GRAPHQL_NODE_PROPERTY),
+					FieldCoordinates.coordinates("query", "graphQLNode"),
 					new NodeDataFetcher()
 				).typeResolver(
 					"GraphQLNode", new GraphQLNodeTypeResolver()
@@ -1116,9 +1113,9 @@ public class GraphQLServletExtender {
 				GraphQLFieldDefinition.newFieldDefinition();
 
 			fieldDefinitionMap.put(
-				GRAPHQL_NODE_PROPERTY,
+				"graphQLNode",
 				graphQLFieldDefinitionBuilder.name(
-					GRAPHQL_NODE_PROPERTY
+					"graphQLNode"
 				).type(
 					graphQLInterfaceType
 				).build());
@@ -1126,7 +1123,7 @@ public class GraphQLServletExtender {
 			graphQLSchemaBuilder.codeRegistry(
 				builder.dataFetcher(
 					FieldCoordinates.coordinates(
-						graphQLObjectType.getName(), GRAPHQL_NODE_PROPERTY),
+						graphQLObjectType.getName(), "graphQLNode"),
 					new GraphQLNodePropertyDataFetcher()
 				).typeResolver(
 					"GraphQLNode", new GraphQLNodeTypeResolver()
