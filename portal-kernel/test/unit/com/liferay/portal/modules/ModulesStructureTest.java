@@ -1183,6 +1183,8 @@ public class ModulesStructureTest {
 				"\" in ", String.valueOf(gradlePropertiesPath)),
 			_getProjectPathPrefix(dirPath), projectPathPrefix);
 
+		// TODO Remove the check for 7.0 once osb-loop and osb-testray are fixed
+
 		if (!_branchName.startsWith("7.0") && (dxpRepo || privateRepo)) {
 			_testGradleBuildProperty(
 				gradlePropertiesPath,
