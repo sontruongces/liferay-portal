@@ -1041,11 +1041,9 @@ public class GraphQLServletExtender {
 
 					_replaceFieldDefinition(
 						graphQLInterfaceType, graphQLObjectType);
-
 					_replaceFieldNodes(
 						builder, graphQLInterfaceType, graphQLSchemaBuilder,
 						graphQLObjectType);
-
 					_replaceInterface(graphQLInterfaceType, graphQLObjectType);
 				}
 			}
