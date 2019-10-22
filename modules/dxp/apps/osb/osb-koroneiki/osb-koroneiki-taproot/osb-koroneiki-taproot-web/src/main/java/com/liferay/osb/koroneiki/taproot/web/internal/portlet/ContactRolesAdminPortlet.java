@@ -15,7 +15,6 @@
 package com.liferay.osb.koroneiki.taproot.web.internal.portlet;
 
 import com.liferay.osb.koroneiki.taproot.constants.TaprootPortletKeys;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import javax.portlet.Portlet;
 
@@ -40,5 +39,5 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = Portlet.class
 )
-public class ContactRolesAdminPortlet extends MVCPortlet {
+public class ContactRolesAdminPortlet extends BaseAdminPortlet {
 }
