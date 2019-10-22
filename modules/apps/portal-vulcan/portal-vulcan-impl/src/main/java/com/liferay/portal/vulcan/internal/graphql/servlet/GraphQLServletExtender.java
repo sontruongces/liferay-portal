@@ -927,7 +927,7 @@ public class GraphQLServletExtender {
 			ContextProviderUtil.getMultivaluedHashMap(parameterMap));
 	}
 
-	private Field _getFieldDefinitionsByName(
+	private Field _getFieldDefinitionsByNameField(
 			GraphQLObjectType graphQLObjectType)
 		throws NoSuchFieldException {
 
@@ -1058,7 +1058,7 @@ public class GraphQLServletExtender {
 			GraphQLObjectType graphQLObjectType)
 		throws Exception {
 
-		Field field = _getFieldDefinitionsByName(graphQLObjectType);
+		Field field = _getFieldDefinitionsByNameField(graphQLObjectType);
 
 		Map<String, GraphQLFieldDefinition> fieldDefinitionMap =
 			(Map<String, GraphQLFieldDefinition>)field.get(graphQLObjectType);
@@ -1101,7 +1101,7 @@ public class GraphQLServletExtender {
 			graphQLObjectType.getFieldDefinition("contentType");
 
 		if (graphQLFieldDefinition != null) {
-			Field field = _getFieldDefinitionsByName(graphQLObjectType);
+			Field field = _getFieldDefinitionsByNameField(graphQLObjectType);
 
 			Map<String, GraphQLFieldDefinition> fieldDefinitionMap =
 				(Map<String, GraphQLFieldDefinition>)field.get(
