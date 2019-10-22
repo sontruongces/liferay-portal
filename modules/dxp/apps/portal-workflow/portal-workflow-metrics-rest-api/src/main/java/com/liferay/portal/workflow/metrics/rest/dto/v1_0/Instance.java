@@ -38,6 +38,8 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -175,6 +177,7 @@ public class Instance {
 	protected String assetType;
 
 	@Schema
+	@Valid
 	public AssigneeUser[] getAssigneeUsers() {
 		return assigneeUsers;
 	}
@@ -203,6 +206,7 @@ public class Instance {
 	protected AssigneeUser[] assigneeUsers;
 
 	@Schema
+	@Valid
 	public CreatorUser getCreatorUser() {
 		return creatorUser;
 	}
@@ -341,6 +345,7 @@ public class Instance {
 	protected Long processId;
 
 	@Schema
+	@Valid
 	public SLAResult[] getSlaResults() {
 		return slaResults;
 	}
@@ -369,6 +374,7 @@ public class Instance {
 	protected SLAResult[] slaResults;
 
 	@Schema
+	@Valid
 	public SLAStatus getSLAStatus() {
 		return slaStatus;
 	}
@@ -406,6 +412,7 @@ public class Instance {
 	protected SLAStatus slaStatus;
 
 	@Schema
+	@Valid
 	public Status getStatus() {
 		return status;
 	}

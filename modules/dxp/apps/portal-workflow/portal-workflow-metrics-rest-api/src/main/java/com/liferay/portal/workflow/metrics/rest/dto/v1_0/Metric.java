@@ -34,6 +34,8 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -82,6 +84,7 @@ public class Metric {
 	}
 
 	@Schema
+	@Valid
 	public Histogram[] getHistograms() {
 		return histograms;
 	}
@@ -110,6 +113,7 @@ public class Metric {
 	protected Histogram[] histograms;
 
 	@Schema
+	@Valid
 	public Unit getUnit() {
 		return unit;
 	}

@@ -36,6 +36,8 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -213,6 +215,7 @@ public class SLA {
 	protected String name;
 
 	@Schema
+	@Valid
 	public PauseNodeKeys getPauseNodeKeys() {
 		return pauseNodeKeys;
 	}
@@ -269,6 +272,7 @@ public class SLA {
 	protected Long processId;
 
 	@Schema
+	@Valid
 	public StartNodeKeys getStartNodeKeys() {
 		return startNodeKeys;
 	}
@@ -325,6 +329,7 @@ public class SLA {
 	protected Integer status;
 
 	@Schema
+	@Valid
 	public StopNodeKeys getStopNodeKeys() {
 		return stopNodeKeys;
 	}

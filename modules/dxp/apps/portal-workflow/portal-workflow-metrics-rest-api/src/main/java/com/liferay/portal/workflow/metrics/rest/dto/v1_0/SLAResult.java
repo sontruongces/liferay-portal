@@ -38,6 +38,8 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -221,6 +223,7 @@ public class SLAResult {
 	protected Long remainingTime;
 
 	@Schema
+	@Valid
 	public Status getStatus() {
 		return status;
 	}
