@@ -1060,7 +1060,7 @@ public class GraphQLServletExtender {
 
 		Field field = _getFieldDefinitionsByNameField(graphQLObjectType);
 
-		Map<String, GraphQLFieldDefinition> fieldDefinitionMap =
+		Map<String, GraphQLFieldDefinition> graphQLFieldDefinitions =
 			(Map<String, GraphQLFieldDefinition>)field.get(graphQLObjectType);
 
 		for (GraphQLFieldDefinition graphQLFieldDefinition :
@@ -1082,12 +1082,12 @@ public class GraphQLServletExtender {
 
 				method.invoke(graphQLFieldDefinition, graphQLInterfaceType);
 
-				fieldDefinitionMap.put(
+				graphQLFieldDefinitions.put(
 					graphQLFieldDefinition.getName(), graphQLFieldDefinition);
 			}
 		}
 
-		field.set(graphQLObjectType, fieldDefinitionMap);
+		field.set(graphQLObjectType, graphQLFieldDefinitions);
 	}
 
 	private void _replaceFieldNodes(
@@ -1103,14 +1103,14 @@ public class GraphQLServletExtender {
 		if (graphQLFieldDefinition != null) {
 			Field field = _getFieldDefinitionsByNameField(graphQLObjectType);
 
-			Map<String, GraphQLFieldDefinition> fieldDefinitionMap =
+			Map<String, GraphQLFieldDefinition> graphQLFieldDefinitions =
 				(Map<String, GraphQLFieldDefinition>)field.get(
 					graphQLObjectType);
 
 			GraphQLFieldDefinition.Builder graphQLFieldDefinitionBuilder =
 				GraphQLFieldDefinition.newFieldDefinition();
 
-			fieldDefinitionMap.put(
+			graphQLFieldDefinitions.put(
 				"graphQLNode",
 				graphQLFieldDefinitionBuilder.name(
 					"graphQLNode"
@@ -1127,7 +1127,7 @@ public class GraphQLServletExtender {
 					"GraphQLNode", new GraphQLNodeTypeResolver()
 				).build());
 
-			field.set(graphQLObjectType, fieldDefinitionMap);
+			field.set(graphQLObjectType, graphQLFieldDefinitions);
 		}
 	}
 
