@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.TeamRoleEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
+import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
@@ -169,6 +170,10 @@ public class TeamRoleResourceImpl
 			ActionKeys.PERMISSIONS);
 
 		List<String> actionIds = new ArrayList<>();
+
+		if (GetterUtil.getBoolean(teamRolePermission.getAssignTeam())) {
+			actionIds.add(TaprootActionKeys.ASSIGN_TEAM);
+		}
 
 		if (GetterUtil.getBoolean(teamRolePermission.getDelete())) {
 			actionIds.add(ActionKeys.DELETE);

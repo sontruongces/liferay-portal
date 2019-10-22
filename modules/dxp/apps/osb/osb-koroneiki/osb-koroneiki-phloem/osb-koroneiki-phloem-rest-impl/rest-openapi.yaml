@@ -626,6 +626,8 @@ components:
             type: object
         TeamRolePermission:
             properties:
+                assignTeam:
+                    type: boolean
                 delete:
                     type: boolean
                 permissions:
