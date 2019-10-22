@@ -1042,8 +1042,8 @@ public class GraphQLServletExtender {
 					_replaceFieldDefinition(
 						graphQLInterfaceType, graphQLObjectType);
 					_replaceFieldNodes(
-						builder, graphQLInterfaceType, graphQLSchemaBuilder,
-						graphQLObjectType);
+						builder, graphQLInterfaceType, graphQLObjectType,
+						graphQLSchemaBuilder);
 					_replaceInterface(graphQLInterfaceType, graphQLObjectType);
 				}
 			}
@@ -1093,8 +1093,8 @@ public class GraphQLServletExtender {
 	private void _replaceFieldNodes(
 			GraphQLCodeRegistry.Builder builder,
 			GraphQLInterfaceType graphQLInterfaceType,
-			GraphQLSchema.Builder graphQLSchemaBuilder,
-			GraphQLObjectType graphQLObjectType)
+			GraphQLObjectType graphQLObjectType,
+			GraphQLSchema.Builder graphQLSchemaBuilder)
 		throws Exception {
 
 		GraphQLFieldDefinition graphQLFieldDefinition =
