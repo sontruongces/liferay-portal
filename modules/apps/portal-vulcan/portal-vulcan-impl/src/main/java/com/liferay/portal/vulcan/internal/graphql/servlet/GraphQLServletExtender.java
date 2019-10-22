@@ -1097,10 +1097,10 @@ public class GraphQLServletExtender {
 			GraphQLObjectType graphQLObjectType)
 		throws Exception {
 
-		GraphQLFieldDefinition contentType =
+		GraphQLFieldDefinition graphQLFieldDefinition =
 			graphQLObjectType.getFieldDefinition("contentType");
 
-		if (contentType != null) {
+		if (graphQLFieldDefinition != null) {
 			Field field = _getFieldDefinitionsByName(graphQLObjectType);
 
 			Map<String, GraphQLFieldDefinition> fieldDefinitionMap =
