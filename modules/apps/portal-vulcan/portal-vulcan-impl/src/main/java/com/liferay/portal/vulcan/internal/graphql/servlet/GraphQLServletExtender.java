@@ -548,12 +548,12 @@ public class GraphQLServletExtender {
 
 		Object instance = null;
 
-		GraphQLFieldDefinition fieldDefinition =
+		GraphQLFieldDefinition graphQLFieldDefinition =
 			dataFetchingEnvironment.getFieldDefinition();
 
 		if ((dataFetchingEnvironment.getRoot() ==
 				dataFetchingEnvironment.getSource()) ||
-			Objects.equals(fieldDefinition.getName(), "graphQLNode")) {
+			Objects.equals(graphQLFieldDefinition.getName(), "graphQLNode")) {
 
 			instance = _createQueryInstance(
 				method.getDeclaringClass(), dataFetchingEnvironment);
