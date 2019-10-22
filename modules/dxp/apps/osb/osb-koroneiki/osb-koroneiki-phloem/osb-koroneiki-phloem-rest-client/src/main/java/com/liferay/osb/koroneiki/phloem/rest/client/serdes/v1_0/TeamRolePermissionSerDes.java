@@ -55,6 +55,16 @@ public class TeamRolePermissionSerDes {
 
 		sb.append("{");
 
+		if (teamRolePermission.getAssignTeam() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"assignTeam\": ");
+
+			sb.append(teamRolePermission.getAssignTeam());
+		}
+
 		if (teamRolePermission.getDelete() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -139,6 +149,15 @@ public class TeamRolePermissionSerDes {
 		}
 
 		Map<String, String> map = new HashMap<>();
+
+		if (teamRolePermission.getAssignTeam() == null) {
+			map.put("assignTeam", null);
+		}
+		else {
+			map.put(
+				"assignTeam",
+				String.valueOf(teamRolePermission.getAssignTeam()));
+		}
 
 		if (teamRolePermission.getDelete() == null) {
 			map.put("delete", null);
@@ -236,7 +255,13 @@ public class TeamRolePermissionSerDes {
 			TeamRolePermission teamRolePermission, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "delete")) {
+			if (Objects.equals(jsonParserFieldName, "assignTeam")) {
+				if (jsonParserFieldValue != null) {
+					teamRolePermission.setAssignTeam(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "delete")) {
 				if (jsonParserFieldValue != null) {
 					teamRolePermission.setDelete((Boolean)jsonParserFieldValue);
 				}

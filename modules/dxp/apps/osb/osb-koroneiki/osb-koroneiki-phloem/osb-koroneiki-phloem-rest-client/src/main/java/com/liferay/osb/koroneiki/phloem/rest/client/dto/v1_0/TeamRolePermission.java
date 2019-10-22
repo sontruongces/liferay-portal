@@ -28,6 +28,27 @@ import javax.annotation.Generated;
 @Generated("")
 public class TeamRolePermission {
 
+	public Boolean getAssignTeam() {
+		return assignTeam;
+	}
+
+	public void setAssignTeam(Boolean assignTeam) {
+		this.assignTeam = assignTeam;
+	}
+
+	public void setAssignTeam(
+		UnsafeSupplier<Boolean, Exception> assignTeamUnsafeSupplier) {
+
+		try {
+			assignTeam = assignTeamUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean assignTeam;
+
 	public Boolean getDelete() {
 		return delete;
 	}

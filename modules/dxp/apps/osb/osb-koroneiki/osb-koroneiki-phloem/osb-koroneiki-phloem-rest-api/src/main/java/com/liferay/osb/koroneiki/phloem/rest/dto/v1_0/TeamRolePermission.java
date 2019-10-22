@@ -45,6 +45,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TeamRolePermission {
 
 	@Schema
+	public Boolean getAssignTeam() {
+		return assignTeam;
+	}
+
+	public void setAssignTeam(Boolean assignTeam) {
+		this.assignTeam = assignTeam;
+	}
+
+	@JsonIgnore
+	public void setAssignTeam(
+		UnsafeSupplier<Boolean, Exception> assignTeamUnsafeSupplier) {
+
+		try {
+			assignTeam = assignTeamUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean assignTeam;
+
+	@Schema
 	public Boolean getDelete() {
 		return delete;
 	}
@@ -208,6 +236,16 @@ public class TeamRolePermission {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (assignTeam != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"assignTeam\": ");
+
+			sb.append(assignTeam);
+		}
 
 		if (delete != null) {
 			if (sb.length() > 1) {
