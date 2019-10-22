@@ -177,8 +177,6 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 		try {
 			db.runSQL(
 				"alter table Release_ add schemaVersion VARCHAR(75) null");
-
-			populateVersion();
 		}
 		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
@@ -188,18 +186,11 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 
 		// Get release build number
 
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		try {
-			con = DataAccess.getConnection();
-
-			ps = con.prepareStatement(_SQL_GET_BUILD_NUMBER);
-
-			ps.setLong(1, ReleaseConstants.DEFAULT_ID);
-
-			rs = ps.executeQuery();
+		try (Connection con = DataAccess.getConnection();
+			PreparedStatement ps = con.prepareStatement(
+				"select buildNumber from Release_ where releaseId = " +
+					ReleaseConstants.DEFAULT_ID);
+			ResultSet rs = ps.executeQuery()) {
 
 			int buildNumber = 0;
 
@@ -234,16 +225,13 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 				_log.warn(exception.getMessage());
 			}
 		}
-		finally {
-			DataAccess.cleanUp(con, ps, rs);
-		}
 
 		// Create tables and populate with default data
 
 		if (GetterUtil.getBoolean(
 				PropsUtil.get(PropsKeys.SCHEMA_RUN_ENABLED))) {
 
-			releaseLocalService.createTablesAndPopulate();
+			createTablesAndPopulate();
 
 			testSupportsStringCaseSensitiveQuery();
 
@@ -383,7 +371,12 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 
 	protected int addReleaseInfo() throws Exception {
 		try (Connection con = DataAccess.getConnection();
-			PreparedStatement ps = con.prepareStatement(_SQL_INSERT_RELEASE)) {
+			PreparedStatement ps = con.prepareStatement(
+				StringBundler.concat(
+					"insert into Release_ (releaseId, createDate, ",
+					"modifiedDate, servletContextName, schemaVersion, ",
+					"buildNumber, verified) values (",
+					ReleaseConstants.DEFAULT_ID, ", ?, ?, ?, ?, ?, ?)"))) {
 
 			java.sql.Date now = new java.sql.Date(System.currentTimeMillis());
 
@@ -404,13 +397,6 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 		}
 
 		return ReleaseInfo.getBuildNumber();
-	}
-
-	protected void populateVersion() {
-
-		// This method is called if and only if the version column did not
-		// previously exist and was safely added to the database
-
 	}
 
 	protected void testSupportsStringCaseSensitiveQuery() {
@@ -462,25 +448,18 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 	}
 
 	protected int testSupportsStringCaseSensitiveQuery(String testString) {
-		int count = 0;
-
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		try {
-			con = DataAccess.getConnection();
-
-			ps = con.prepareStatement(
-				_SQL_TEST_DATABASE_STRING_CASE_SENSITIVITY);
+		try (Connection con = DataAccess.getConnection();
+			PreparedStatement ps = con.prepareStatement(
+				"select count(*) from Release_ where releaseId = ? and " +
+					"testString = ?")) {
 
 			ps.setLong(1, ReleaseConstants.DEFAULT_ID);
 			ps.setString(2, testString);
 
-			rs = ps.executeQuery();
-
-			if (rs.next()) {
-				count = rs.getInt(1);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt(1);
+				}
 			}
 		}
 		catch (Exception exception) {
@@ -488,23 +467,9 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 				_log.warn(exception.getMessage());
 			}
 		}
-		finally {
-			DataAccess.cleanUp(con, ps, rs);
-		}
 
-		return count;
+		return 0;
 	}
-
-	private static final String _SQL_GET_BUILD_NUMBER =
-		"select buildNumber from Release_ where releaseId = ?";
-
-	private static final String _SQL_INSERT_RELEASE =
-		"insert into Release_ (releaseId, createDate, modifiedDate, " +
-			"servletContextName, schemaVersion, buildNumber, verified) " +
-				"values (1, ?, ?, ?, ?, ?, ?)";
-
-	private static final String _SQL_TEST_DATABASE_STRING_CASE_SENSITIVITY =
-		"select count(*) from Release_ where releaseId = ? and testString = ?";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ReleaseLocalServiceImpl.class);
