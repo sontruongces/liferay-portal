@@ -1388,10 +1388,10 @@ public class GraphQLServletExtender {
 
 			Class<?> clazz = source.getClass();
 
-			Method contentTypeMethod = clazz.getMethod("getContentType");
+			Method getContentTypeMethod = clazz.getMethod("getContentType");
 
 			String fieldName = StringUtil.lowerCaseFirstLetter(
-				(String)contentTypeMethod.invoke(source));
+				(String)getContentTypeMethod.invoke(source));
 
 			GraphQLFieldDefinition graphQLFieldDefinition =
 				dataFetchingEnvironment.getFieldDefinition();
@@ -1408,12 +1408,12 @@ public class GraphQLServletExtender {
 				DataFetchingEnvironmentImpl.newDataFetchingEnvironment(
 					dataFetchingEnvironment);
 
-			Method idMethod = clazz.getMethod("getId");
+			Method getIdMethod = clazz.getMethod("getId");
 
 			return dataFetcher.get(
 				dataFetchingEnvironmentBuilder.arguments(
 					Collections.singletonMap(
-						fieldName + "Id", idMethod.invoke(source))
+						fieldName + "Id", getIdMethod.invoke(source))
 				).build());
 		}
 
