@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.util;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * @author Hugo Huijser
@@ -29,20 +28,21 @@ public class LinkedHashMapBuilder<K, V> {
 	public static final class LinkedHashMapWrapper<K, V> {
 
 		public LinkedHashMapWrapper(K key, V value) {
-			_map.put(key, value);
+			_linkedHashMap.put(key, value);
 		}
 
-		public Map<K, V> build() {
-			return _map;
+		public LinkedHashMap<K, V> build() {
+			return _linkedHashMap;
 		}
 
 		public LinkedHashMapWrapper<K, V> put(K key, V value) {
-			_map.put(key, value);
+			_linkedHashMap.put(key, value);
 
 			return this;
 		}
 
-		private final Map<K, V> _map = new LinkedHashMap<>();
+		private final LinkedHashMap<K, V> _linkedHashMap =
+			new LinkedHashMap<>();
 
 	}
 
