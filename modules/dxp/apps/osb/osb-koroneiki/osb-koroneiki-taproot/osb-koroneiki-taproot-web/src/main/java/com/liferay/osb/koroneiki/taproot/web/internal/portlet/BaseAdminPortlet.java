@@ -64,25 +64,25 @@ public abstract class BaseAdminPortlet extends MVCPortlet {
 
 		String domain = ParamUtil.getString(resourceRequest, "domain");
 
-		if (domain.length() == 1) {
-			domain += StringPool.PERCENT;
-		}
-		else {
-			domain = StringPool.PERCENT + domain + StringPool.PERCENT;
-		}
+		if (Validator.isNotNull(domain)) {
+			if (domain.length() == 1) {
+				domain += StringPool.PERCENT;
+			}
+			else {
+				domain = StringPool.PERCENT + domain + StringPool.PERCENT;
+			}
 
-		List<ExternalLink> externalLinks = externalLinkLocalService.search(
-			domain);
+			List<ExternalLink> externalLinks = externalLinkLocalService.search(
+				domain);
 
-		JSONArray externalLinksArray = JSONFactoryUtil.createJSONArray();
+			JSONArray externalLinksArray = JSONFactoryUtil.createJSONArray();
 
-		for (ExternalLink externalLink : externalLinks) {
-			if (Validator.isNotNull(domain)) {
+			for (ExternalLink externalLink : externalLinks) {
 				externalLinksArray.put(externalLink.getDomain());
 			}
-		}
 
-		writeJSON(resourceRequest, resourceResponse, externalLinksArray);
+			writeJSON(resourceRequest, resourceResponse, externalLinksArray);
+		}
 	}
 
 	protected void serveExternalLinkEntityNames(
@@ -93,25 +93,26 @@ public abstract class BaseAdminPortlet extends MVCPortlet {
 
 		String entityName = ParamUtil.getString(resourceRequest, "entityName");
 
-		if (entityName.length() == 1) {
-			entityName += StringPool.PERCENT;
-		}
-		else {
-			entityName = StringPool.PERCENT + entityName + StringPool.PERCENT;
-		}
+		if (Validator.isNotNull(entityName)) {
+			if (entityName.length() == 1) {
+				entityName += StringPool.PERCENT;
+			}
+			else {
+				entityName =
+					StringPool.PERCENT + entityName + StringPool.PERCENT;
+			}
 
-		List<ExternalLink> externalLinks = externalLinkLocalService.search(
-			domain, entityName);
+			List<ExternalLink> externalLinks = externalLinkLocalService.search(
+				domain, entityName);
 
-		JSONArray externalLinksArray = JSONFactoryUtil.createJSONArray();
+			JSONArray externalLinksArray = JSONFactoryUtil.createJSONArray();
 
-		for (ExternalLink externalLink : externalLinks) {
-			if (Validator.isNotNull(entityName)) {
+			for (ExternalLink externalLink : externalLinks) {
 				externalLinksArray.put(externalLink.getEntityName());
 			}
-		}
 
-		writeJSON(resourceRequest, resourceResponse, externalLinksArray);
+			writeJSON(resourceRequest, resourceResponse, externalLinksArray);
+		}
 	}
 
 	@Reference

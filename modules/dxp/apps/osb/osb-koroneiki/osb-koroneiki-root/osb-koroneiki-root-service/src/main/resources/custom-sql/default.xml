@@ -20,7 +20,7 @@
 			FROM
 				Koroneiki_ExternalLink
 			WHERE
-				(Koroneiki_ExternalLink.domain LIKE ?) AND
+				(Koroneiki_ExternalLink.domain = ?) AND
 				(Koroneiki_ExternalLink.entityName LIKE ?)
 			GROUP BY
 				Koroneiki_ExternalLink.entityName

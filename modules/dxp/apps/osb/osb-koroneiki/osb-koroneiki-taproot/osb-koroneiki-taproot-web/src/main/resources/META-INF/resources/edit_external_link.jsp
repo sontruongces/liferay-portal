@@ -69,7 +69,7 @@ renderResponse.setTitle(title);
 	var autoCompleteConfig = {
 		activateFirstItem: true,
 		maxResults: 10,
-		minQueryLength: 2,
+		minQueryLength: 1,
 		render: false,
 		resultHighlighter: 'phraseMatch'
 	};
@@ -79,25 +79,27 @@ renderResponse.setTitle(title);
 	if (domain) {
 		domain.plug(A.Plugin.AutoComplete, autoCompleteConfig);
 
+		domain.ac.render();
+
 		domain.on(
 			'input',
 			function() {
-				A.debounce(
-					AUI.$.ajax(
-						'<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="externalLinkDomains" />',
-						{
-							data: {
-								<portlet:namespace />domain: domain.val()
-							},
-							success: function(responseData) {
-								domain.ac.set('source', responseData);
-
-								domain.ac.render();
+				if (domain.val() != '') {
+					A.debounce(
+						AUI.$.ajax(
+							'<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="externalLinkDomains" />',
+							{
+								data: {
+									<portlet:namespace />domain: domain.val()
+								},
+								success: function(responseData) {
+									domain.ac.set('source', responseData);
+								}
 							}
-						}
-					),
-					50
-				);
+						),
+						50
+					);
+				}
 			}
 		);
 	}
@@ -107,26 +109,28 @@ renderResponse.setTitle(title);
 	if (entityName) {
 		entityName.plug(A.Plugin.AutoComplete, autoCompleteConfig);
 
+		entityName.ac.render();
+
 		entityName.on(
 			'input',
 			function() {
-				A.debounce(
-					AUI.$.ajax(
-						'<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="externalLinkEntityNames" />',
-						{
-							data: {
-								<portlet:namespace />domain: domain.val(),
-								<portlet:namespace />entityName: entityName.val()
-							},
-							success: function(responseData) {
-								entityName.ac.set('source', responseData);
-
-								entityName.ac.render();
+				if ((domain.val() != '') && (entityName.val() != '')) {
+					A.debounce(
+						AUI.$.ajax(
+							'<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="externalLinkEntityNames" />',
+							{
+								data: {
+									<portlet:namespace />domain: domain.val(),
+									<portlet:namespace />entityName: entityName.val()
+								},
+								success: function(responseData) {
+									entityName.ac.set('source', responseData);
+								}
 							}
-						}
-					),
-					50
-				);
+						),
+						50
+					);
+				}
 			}
 		);
 	}
