@@ -10,7 +10,7 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "3.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.configuration.metatype.api", version: "2.0.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "4.4.0"
-	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "4.10.0"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "4.34.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib", version: "4.0.0"
 	compileOnly group: "org.apache.felix", name: "org.apache.felix.http.servlet-api", version: "1.1.2"
 	compileOnly group: "org.glassfish.web", name: "javax.servlet.jsp.jstl", version: "1.2.3"

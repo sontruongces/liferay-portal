@@ -12,7 +12,7 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.portal.workflow.metrics.api", version: "2.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.workflow.metrics.sla.api", version: "1.1.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "4.0.0"
-	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "4.0.0"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "4.34.0"
 	compileOnly group: "io.swagger.core.v3", name: "swagger-annotations", version: "2.0.5"
 	compileOnly group: "javax.validation", name: "validation-api", version: "2.0.1.Final"
 	compileOnly group: "javax.ws.rs", name: "javax.ws.rs-api", version: "2.1"
