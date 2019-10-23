@@ -95,20 +95,6 @@ public class DDMFormDisplayContextTest extends PowerMockito {
 
 		renderRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
 
-		User user = mock(User.class);
-
-		when(
-			user.isDefaultUser()
-		).thenReturn(
-			Boolean.TRUE
-		);
-
-		when(
-			themeDisplay.getUser()
-		).thenReturn(
-			user
-		);
-
 		PortletDisplay portletDisplay = mock(PortletDisplay.class);
 
 		when(
@@ -121,6 +107,20 @@ public class DDMFormDisplayContextTest extends PowerMockito {
 			themeDisplay.getPortletDisplay()
 		).thenReturn(
 			portletDisplay
+		);
+
+		User user = mock(User.class);
+
+		when(
+			user.isDefaultUser()
+		).thenReturn(
+			Boolean.TRUE
+		);
+
+		when(
+			themeDisplay.getUser()
+		).thenReturn(
+			user
 		);
 
 		DDMFormDisplayContext ddmFormDisplayContext =
