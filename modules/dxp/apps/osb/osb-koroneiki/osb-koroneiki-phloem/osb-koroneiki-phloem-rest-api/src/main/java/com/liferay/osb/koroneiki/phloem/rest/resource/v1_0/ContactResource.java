@@ -93,6 +93,10 @@ public interface ContactResource {
 			String contactUuid, ContactPermission contactPermission)
 		throws Exception;
 
+	public Page<Contact> getTeamTeamKeyContactsPage(
+			String teamKey, Pagination pagination)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

@@ -400,6 +400,21 @@ public class Query {
 	}
 
 	@GraphQLField
+	public ContactPage getTeamTeamKeyContactsPage(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactResource -> new ContactPage(
+				contactResource.getTeamTeamKeyContactsPage(
+					teamKey, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
 	public ContactRolePage getAccountAccountKeyContactByOktaRolesPage(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("oktaId") String oktaId,
@@ -464,6 +479,39 @@ public class Query {
 			this::_populateResourceContext,
 			contactRoleResource -> contactRoleResource.getContactRole(
 				contactRoleKey));
+	}
+
+	@GraphQLField
+	public ContactRolePage getTeamTeamKeyContactByOktaRolesPage(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("oktaId") String oktaId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactRoleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactRoleResource -> new ContactRolePage(
+				contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
+					teamKey, oktaId, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public ContactRolePage getTeamTeamKeyContactByUuidContactUuidRolesPage(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("contactUuid") String contactUuid,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactRoleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactRoleResource -> new ContactRolePage(
+				contactRoleResource.
+					getTeamTeamKeyContactByUuidContactUuidRolesPage(
+						teamKey, contactUuid, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLField

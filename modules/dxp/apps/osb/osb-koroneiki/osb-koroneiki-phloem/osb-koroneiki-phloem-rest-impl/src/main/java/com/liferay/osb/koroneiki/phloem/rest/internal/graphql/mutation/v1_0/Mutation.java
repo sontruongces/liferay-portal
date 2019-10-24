@@ -1016,6 +1016,130 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public boolean deleteTeamContactByOkta(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("oktaIds") String[] oktaIds)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.deleteTeamContactByOkta(
+				teamKey, oktaIds));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean putTeamContactByOkta(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("oktaIds") String[] oktaIds)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.putTeamContactByOkta(
+				teamKey, oktaIds));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteTeamContactByOktaRole(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("oktaId") String oktaId,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.deleteTeamContactByOktaRole(
+				teamKey, oktaId, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean putTeamContactByOktaRole(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("oktaId") String oktaId,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.putTeamContactByOktaRole(
+				teamKey, oktaId, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteTeamContactByUuid(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("contactUuids") String[] contactUuids)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.deleteTeamContactByUuid(
+				teamKey, contactUuids));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean putTeamContactByUuid(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("contactUuids") String[] contactUuids)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.putTeamContactByUuid(
+				teamKey, contactUuids));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteTeamContactByUuidContactUuidRole(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("contactUuid") String contactUuid,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.deleteTeamContactByUuidContactUuidRole(
+				teamKey, contactUuid, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean putTeamContactByUuidContactUuidRole(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("contactUuid") String contactUuid,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.putTeamContactByUuidContactUuidRole(
+				teamKey, contactUuid, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
 	public boolean deleteTeamTeamPermission(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("teamPermission") TeamPermission teamPermission)

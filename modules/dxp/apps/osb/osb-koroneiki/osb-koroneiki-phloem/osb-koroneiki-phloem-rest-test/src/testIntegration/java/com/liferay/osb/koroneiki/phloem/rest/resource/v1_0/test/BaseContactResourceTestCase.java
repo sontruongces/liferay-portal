@@ -597,6 +597,109 @@ public abstract class BaseContactResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Test
+	public void testGetTeamTeamKeyContactsPage() throws Exception {
+		Page<Contact> page = contactResource.getTeamTeamKeyContactsPage(
+			testGetTeamTeamKeyContactsPage_getTeamKey(), Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String teamKey = testGetTeamTeamKeyContactsPage_getTeamKey();
+		String irrelevantTeamKey =
+			testGetTeamTeamKeyContactsPage_getIrrelevantTeamKey();
+
+		if ((irrelevantTeamKey != null)) {
+			Contact irrelevantContact =
+				testGetTeamTeamKeyContactsPage_addContact(
+					irrelevantTeamKey, randomIrrelevantContact());
+
+			page = contactResource.getTeamTeamKeyContactsPage(
+				irrelevantTeamKey, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantContact),
+				(List<Contact>)page.getItems());
+			assertValid(page);
+		}
+
+		Contact contact1 = testGetTeamTeamKeyContactsPage_addContact(
+			teamKey, randomContact());
+
+		Contact contact2 = testGetTeamTeamKeyContactsPage_addContact(
+			teamKey, randomContact());
+
+		page = contactResource.getTeamTeamKeyContactsPage(
+			teamKey, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contact1, contact2), (List<Contact>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetTeamTeamKeyContactsPageWithPagination()
+		throws Exception {
+
+		String teamKey = testGetTeamTeamKeyContactsPage_getTeamKey();
+
+		Contact contact1 = testGetTeamTeamKeyContactsPage_addContact(
+			teamKey, randomContact());
+
+		Contact contact2 = testGetTeamTeamKeyContactsPage_addContact(
+			teamKey, randomContact());
+
+		Contact contact3 = testGetTeamTeamKeyContactsPage_addContact(
+			teamKey, randomContact());
+
+		Page<Contact> page1 = contactResource.getTeamTeamKeyContactsPage(
+			teamKey, Pagination.of(1, 2));
+
+		List<Contact> contacts1 = (List<Contact>)page1.getItems();
+
+		Assert.assertEquals(contacts1.toString(), 2, contacts1.size());
+
+		Page<Contact> page2 = contactResource.getTeamTeamKeyContactsPage(
+			teamKey, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Contact> contacts2 = (List<Contact>)page2.getItems();
+
+		Assert.assertEquals(contacts2.toString(), 1, contacts2.size());
+
+		Page<Contact> page3 = contactResource.getTeamTeamKeyContactsPage(
+			teamKey, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contact1, contact2, contact3),
+			(List<Contact>)page3.getItems());
+	}
+
+	protected Contact testGetTeamTeamKeyContactsPage_addContact(
+			String teamKey, Contact contact)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetTeamTeamKeyContactsPage_getTeamKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetTeamTeamKeyContactsPage_getIrrelevantTeamKey()
+		throws Exception {
+
+		return null;
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

@@ -89,6 +89,68 @@ public interface TeamResource {
 			String teamKey, Team team)
 		throws Exception;
 
+	public void deleteTeamContactByOkta(String teamKey, String[] oktaIds)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteTeamContactByOktaHttpResponse(
+			String teamKey, String[] oktaIds)
+		throws Exception;
+
+	public void putTeamContactByOkta(String teamKey, String[] oktaIds)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putTeamContactByOktaHttpResponse(
+			String teamKey, String[] oktaIds)
+		throws Exception;
+
+	public void deleteTeamContactByOktaRole(
+			String teamKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteTeamContactByOktaRoleHttpResponse(
+			String teamKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public void putTeamContactByOktaRole(
+			String teamKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putTeamContactByOktaRoleHttpResponse(
+			String teamKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public void deleteTeamContactByUuid(String teamKey, String[] contactUuids)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteTeamContactByUuidHttpResponse(
+			String teamKey, String[] contactUuids)
+		throws Exception;
+
+	public void putTeamContactByUuid(String teamKey, String[] contactUuids)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putTeamContactByUuidHttpResponse(
+			String teamKey, String[] contactUuids)
+		throws Exception;
+
+	public void deleteTeamContactByUuidContactUuidRole(
+			String teamKey, String contactUuid, String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			deleteTeamContactByUuidContactUuidRoleHttpResponse(
+				String teamKey, String contactUuid, String[] contactRoleKeys)
+		throws Exception;
+
+	public void putTeamContactByUuidContactUuidRole(
+			String teamKey, String contactUuid, String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			putTeamContactByUuidContactUuidRoleHttpResponse(
+				String teamKey, String contactUuid, String[] contactRoleKeys)
+		throws Exception;
+
 	public void deleteTeamTeamPermission(
 			String teamKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamPermission
@@ -501,6 +563,403 @@ public interface TeamResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/koroneiki-rest/v1.0/teams/{teamKey}",
 				teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteTeamContactByOkta(String teamKey, String[] oktaIds)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteTeamContactByOktaHttpResponse(teamKey, oktaIds);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse deleteTeamContactByOktaHttpResponse(
+				String teamKey, String[] oktaIds)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (oktaIds != null) {
+				for (int i = 0; i < oktaIds.length; i++) {
+					httpInvoker.parameter(
+						"oktaIds", String.valueOf(oktaIds[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id",
+				teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putTeamContactByOkta(String teamKey, String[] oktaIds)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putTeamContactByOktaHttpResponse(teamKey, oktaIds);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putTeamContactByOktaHttpResponse(
+				String teamKey, String[] oktaIds)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(oktaIds.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (oktaIds != null) {
+				for (int i = 0; i < oktaIds.length; i++) {
+					httpInvoker.parameter(
+						"oktaIds", String.valueOf(oktaIds[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id",
+				teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteTeamContactByOktaRole(
+				String teamKey, String oktaId, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteTeamContactByOktaRoleHttpResponse(
+					teamKey, oktaId, contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse deleteTeamContactByOktaRoleHttpResponse(
+				String teamKey, String oktaId, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles",
+				teamKey, oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putTeamContactByOktaRole(
+				String teamKey, String oktaId, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putTeamContactByOktaRoleHttpResponse(
+					teamKey, oktaId, contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putTeamContactByOktaRoleHttpResponse(
+				String teamKey, String oktaId, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles",
+				teamKey, oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteTeamContactByUuid(
+				String teamKey, String[] contactUuids)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteTeamContactByUuidHttpResponse(teamKey, contactUuids);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse deleteTeamContactByUuidHttpResponse(
+				String teamKey, String[] contactUuids)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (contactUuids != null) {
+				for (int i = 0; i < contactUuids.length; i++) {
+					httpInvoker.parameter(
+						"contactUuids", String.valueOf(contactUuids[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-uuid",
+				teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putTeamContactByUuid(String teamKey, String[] contactUuids)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putTeamContactByUuidHttpResponse(teamKey, contactUuids);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putTeamContactByUuidHttpResponse(
+				String teamKey, String[] contactUuids)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contactUuids.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (contactUuids != null) {
+				for (int i = 0; i < contactUuids.length; i++) {
+					httpInvoker.parameter(
+						"contactUuids", String.valueOf(contactUuids[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-uuid",
+				teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteTeamContactByUuidContactUuidRole(
+				String teamKey, String contactUuid, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteTeamContactByUuidContactUuidRoleHttpResponse(
+					teamKey, contactUuid, contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteTeamContactByUuidContactUuidRoleHttpResponse(
+					String teamKey, String contactUuid,
+					String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles",
+				teamKey, contactUuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putTeamContactByUuidContactUuidRole(
+				String teamKey, String contactUuid, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putTeamContactByUuidContactUuidRoleHttpResponse(
+					teamKey, contactUuid, contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				putTeamContactByUuidContactUuidRoleHttpResponse(
+					String teamKey, String contactUuid,
+					String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles",
+				teamKey, contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

@@ -177,6 +177,14 @@ public interface ContactResource {
 					ContactPermission contactPermission)
 		throws Exception;
 
+	public Page<Contact> getTeamTeamKeyContactsPage(
+			String teamKey, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getTeamTeamKeyContactsPageHttpResponse(
+			String teamKey, Pagination pagination)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -1000,6 +1008,56 @@ public interface ContactResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/contact-permissions",
 				contactUuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Contact> getTeamTeamKeyContactsPage(
+				String teamKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getTeamTeamKeyContactsPageHttpResponse(teamKey, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse getTeamTeamKeyContactsPageHttpResponse(
+				String teamKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts",
+				teamKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

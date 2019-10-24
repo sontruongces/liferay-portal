@@ -202,6 +202,178 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	}
 
 	@Override
+	@DELETE
+	@Operation(description = "Unassigns contacts from the team.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-okta-id")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void deleteTeamContactByOkta(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
+				oktaIds)
+		throws Exception {
+	}
+
+	@Override
+	@Operation(description = "Assigns contacts to the team.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-okta-id")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void putTeamContactByOkta(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
+				oktaIds)
+		throws Exception {
+	}
+
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns roles from the contact for the team.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void deleteTeamContactByOktaRole(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
+				String[] contactRoleKeys)
+		throws Exception {
+	}
+
+	@Override
+	@Operation(description = "Assigns roles to the contact for the team.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void putTeamContactByOktaRole(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
+				String[] contactRoleKeys)
+		throws Exception {
+	}
+
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns contacts from the team.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-uuid")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void deleteTeamContactByUuid(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
+				String[] contactUuids)
+		throws Exception {
+	}
+
+	@Override
+	@Operation(description = "Assigns contacts to the team.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-uuid")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void putTeamContactByUuid(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
+				String[] contactUuids)
+		throws Exception {
+	}
+
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns roles from the contact for the team.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void deleteTeamContactByUuidContactUuidRole(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
+				String[] contactRoleKeys)
+		throws Exception {
+	}
+
+	@Override
+	@Operation(description = "Assigns roles to the contact for the team.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Team")})
+	public void putTeamContactByUuidContactUuidRole(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
+				String[] contactRoleKeys)
+		throws Exception {
+	}
+
+	@Override
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "teamKey")})

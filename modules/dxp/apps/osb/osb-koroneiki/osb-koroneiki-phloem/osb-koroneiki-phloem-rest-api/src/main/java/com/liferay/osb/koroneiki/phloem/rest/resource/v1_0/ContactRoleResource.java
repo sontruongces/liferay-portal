@@ -72,6 +72,14 @@ public interface ContactRoleResource {
 			String contactRoleKey, ContactRolePermission contactRolePermission)
 		throws Exception;
 
+	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
+			String teamKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole> getTeamTeamKeyContactByUuidContactUuidRolesPage(
+			String teamKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

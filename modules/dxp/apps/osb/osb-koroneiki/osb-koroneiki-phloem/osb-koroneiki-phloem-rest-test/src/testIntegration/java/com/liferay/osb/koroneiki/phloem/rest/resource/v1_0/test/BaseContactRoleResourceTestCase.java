@@ -750,6 +750,290 @@ public abstract class BaseContactRoleResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Test
+	public void testGetTeamTeamKeyContactByOktaRolesPage() throws Exception {
+		Page<ContactRole> page =
+			contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
+				testGetTeamTeamKeyContactByOktaRolesPage_getTeamKey(),
+				testGetTeamTeamKeyContactByOktaRolesPage_getOktaId(),
+				Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String teamKey = testGetTeamTeamKeyContactByOktaRolesPage_getTeamKey();
+		String irrelevantTeamKey =
+			testGetTeamTeamKeyContactByOktaRolesPage_getIrrelevantTeamKey();
+		String oktaId = testGetTeamTeamKeyContactByOktaRolesPage_getOktaId();
+		String irrelevantOktaId =
+			testGetTeamTeamKeyContactByOktaRolesPage_getIrrelevantOktaId();
+
+		if ((irrelevantTeamKey != null) && (irrelevantOktaId != null)) {
+			ContactRole irrelevantContactRole =
+				testGetTeamTeamKeyContactByOktaRolesPage_addContactRole(
+					irrelevantTeamKey, irrelevantOktaId,
+					randomIrrelevantContactRole());
+
+			page = contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
+				irrelevantTeamKey, irrelevantOktaId, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantContactRole),
+				(List<ContactRole>)page.getItems());
+			assertValid(page);
+		}
+
+		ContactRole contactRole1 =
+			testGetTeamTeamKeyContactByOktaRolesPage_addContactRole(
+				teamKey, oktaId, randomContactRole());
+
+		ContactRole contactRole2 =
+			testGetTeamTeamKeyContactByOktaRolesPage_addContactRole(
+				teamKey, oktaId, randomContactRole());
+
+		page = contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
+			teamKey, oktaId, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contactRole1, contactRole2),
+			(List<ContactRole>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetTeamTeamKeyContactByOktaRolesPageWithPagination()
+		throws Exception {
+
+		String teamKey = testGetTeamTeamKeyContactByOktaRolesPage_getTeamKey();
+		String oktaId = testGetTeamTeamKeyContactByOktaRolesPage_getOktaId();
+
+		ContactRole contactRole1 =
+			testGetTeamTeamKeyContactByOktaRolesPage_addContactRole(
+				teamKey, oktaId, randomContactRole());
+
+		ContactRole contactRole2 =
+			testGetTeamTeamKeyContactByOktaRolesPage_addContactRole(
+				teamKey, oktaId, randomContactRole());
+
+		ContactRole contactRole3 =
+			testGetTeamTeamKeyContactByOktaRolesPage_addContactRole(
+				teamKey, oktaId, randomContactRole());
+
+		Page<ContactRole> page1 =
+			contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
+				teamKey, oktaId, Pagination.of(1, 2));
+
+		List<ContactRole> contactRoles1 = (List<ContactRole>)page1.getItems();
+
+		Assert.assertEquals(contactRoles1.toString(), 2, contactRoles1.size());
+
+		Page<ContactRole> page2 =
+			contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
+				teamKey, oktaId, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<ContactRole> contactRoles2 = (List<ContactRole>)page2.getItems();
+
+		Assert.assertEquals(contactRoles2.toString(), 1, contactRoles2.size());
+
+		Page<ContactRole> page3 =
+			contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
+				teamKey, oktaId, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contactRole1, contactRole2, contactRole3),
+			(List<ContactRole>)page3.getItems());
+	}
+
+	protected ContactRole
+			testGetTeamTeamKeyContactByOktaRolesPage_addContactRole(
+				String teamKey, String oktaId, ContactRole contactRole)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetTeamTeamKeyContactByOktaRolesPage_getTeamKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetTeamTeamKeyContactByOktaRolesPage_getIrrelevantTeamKey()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String testGetTeamTeamKeyContactByOktaRolesPage_getOktaId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetTeamTeamKeyContactByOktaRolesPage_getIrrelevantOktaId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testGetTeamTeamKeyContactByUuidContactUuidRolesPage()
+		throws Exception {
+
+		Page<ContactRole> page =
+			contactRoleResource.getTeamTeamKeyContactByUuidContactUuidRolesPage(
+				testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getTeamKey(),
+				testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getContactUuid(),
+				Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String teamKey =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getTeamKey();
+		String irrelevantTeamKey =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getIrrelevantTeamKey();
+		String contactUuid =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getContactUuid();
+		String irrelevantContactUuid =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getIrrelevantContactUuid();
+
+		if ((irrelevantTeamKey != null) && (irrelevantContactUuid != null)) {
+			ContactRole irrelevantContactRole =
+				testGetTeamTeamKeyContactByUuidContactUuidRolesPage_addContactRole(
+					irrelevantTeamKey, irrelevantContactUuid,
+					randomIrrelevantContactRole());
+
+			page =
+				contactRoleResource.
+					getTeamTeamKeyContactByUuidContactUuidRolesPage(
+						irrelevantTeamKey, irrelevantContactUuid,
+						Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantContactRole),
+				(List<ContactRole>)page.getItems());
+			assertValid(page);
+		}
+
+		ContactRole contactRole1 =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_addContactRole(
+				teamKey, contactUuid, randomContactRole());
+
+		ContactRole contactRole2 =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_addContactRole(
+				teamKey, contactUuid, randomContactRole());
+
+		page =
+			contactRoleResource.getTeamTeamKeyContactByUuidContactUuidRolesPage(
+				teamKey, contactUuid, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contactRole1, contactRole2),
+			(List<ContactRole>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetTeamTeamKeyContactByUuidContactUuidRolesPageWithPagination()
+		throws Exception {
+
+		String teamKey =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getTeamKey();
+		String contactUuid =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getContactUuid();
+
+		ContactRole contactRole1 =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_addContactRole(
+				teamKey, contactUuid, randomContactRole());
+
+		ContactRole contactRole2 =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_addContactRole(
+				teamKey, contactUuid, randomContactRole());
+
+		ContactRole contactRole3 =
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_addContactRole(
+				teamKey, contactUuid, randomContactRole());
+
+		Page<ContactRole> page1 =
+			contactRoleResource.getTeamTeamKeyContactByUuidContactUuidRolesPage(
+				teamKey, contactUuid, Pagination.of(1, 2));
+
+		List<ContactRole> contactRoles1 = (List<ContactRole>)page1.getItems();
+
+		Assert.assertEquals(contactRoles1.toString(), 2, contactRoles1.size());
+
+		Page<ContactRole> page2 =
+			contactRoleResource.getTeamTeamKeyContactByUuidContactUuidRolesPage(
+				teamKey, contactUuid, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<ContactRole> contactRoles2 = (List<ContactRole>)page2.getItems();
+
+		Assert.assertEquals(contactRoles2.toString(), 1, contactRoles2.size());
+
+		Page<ContactRole> page3 =
+			contactRoleResource.getTeamTeamKeyContactByUuidContactUuidRolesPage(
+				teamKey, contactUuid, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contactRole1, contactRole2, contactRole3),
+			(List<ContactRole>)page3.getItems());
+	}
+
+	protected ContactRole
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_addContactRole(
+				String teamKey, String contactUuid, ContactRole contactRole)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getTeamKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getIrrelevantTeamKey()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getContactUuid()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetTeamTeamKeyContactByUuidContactUuidRolesPage_getIrrelevantContactUuid()
+		throws Exception {
+
+		return null;
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

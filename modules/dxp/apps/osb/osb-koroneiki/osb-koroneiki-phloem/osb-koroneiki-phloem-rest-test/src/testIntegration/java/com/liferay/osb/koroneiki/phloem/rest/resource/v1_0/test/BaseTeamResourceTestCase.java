@@ -677,6 +677,46 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	@Test
+	public void testDeleteTeamContactByOkta() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutTeamContactByOkta() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteTeamContactByOktaRole() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutTeamContactByOktaRole() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteTeamContactByUuid() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutTeamContactByUuid() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteTeamContactByUuidContactUuidRole() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutTeamContactByUuidContactUuidRole() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testDeleteTeamTeamPermission() throws Exception {
 		Assert.assertTrue(false);
 	}

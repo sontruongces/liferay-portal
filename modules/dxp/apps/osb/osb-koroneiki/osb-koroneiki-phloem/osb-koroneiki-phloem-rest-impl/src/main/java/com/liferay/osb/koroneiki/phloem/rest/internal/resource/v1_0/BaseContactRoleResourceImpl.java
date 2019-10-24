@@ -235,6 +235,56 @@ public abstract class BaseContactRoleResourceImpl
 		throws Exception {
 	}
 
+	@Override
+	@GET
+	@Operation(description = "Retrieves the team's contact's contact roles.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@GET
+	@Operation(description = "Retrieves the team's contact's contact roles.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public Page<ContactRole> getTeamTeamKeyContactByUuidContactUuidRolesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

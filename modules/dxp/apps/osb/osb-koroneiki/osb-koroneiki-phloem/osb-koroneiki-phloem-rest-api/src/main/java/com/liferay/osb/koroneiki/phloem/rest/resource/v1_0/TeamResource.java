@@ -62,6 +62,34 @@ public interface TeamResource {
 
 	public Team putTeam(String teamKey, Team team) throws Exception;
 
+	public void deleteTeamContactByOkta(String teamKey, String[] oktaIds)
+		throws Exception;
+
+	public void putTeamContactByOkta(String teamKey, String[] oktaIds)
+		throws Exception;
+
+	public void deleteTeamContactByOktaRole(
+			String teamKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public void putTeamContactByOktaRole(
+			String teamKey, String oktaId, String[] contactRoleKeys)
+		throws Exception;
+
+	public void deleteTeamContactByUuid(String teamKey, String[] contactUuids)
+		throws Exception;
+
+	public void putTeamContactByUuid(String teamKey, String[] contactUuids)
+		throws Exception;
+
+	public void deleteTeamContactByUuidContactUuidRole(
+			String teamKey, String contactUuid, String[] contactRoleKeys)
+		throws Exception;
+
+	public void putTeamContactByUuidContactUuidRole(
+			String teamKey, String contactUuid, String[] contactRoleKeys)
+		throws Exception;
+
 	public void deleteTeamTeamPermission(
 			String teamKey, TeamPermission teamPermission)
 		throws Exception;

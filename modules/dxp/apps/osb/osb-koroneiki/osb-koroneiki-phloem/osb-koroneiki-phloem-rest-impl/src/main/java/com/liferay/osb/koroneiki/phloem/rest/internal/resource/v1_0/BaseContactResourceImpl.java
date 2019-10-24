@@ -323,6 +323,28 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		throws Exception {
 	}
 
+	@Override
+	@GET
+	@Operation(description = "Retrieves the team's contacts.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Contact")})
+	public Page<Contact> getTeamTeamKeyContactsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

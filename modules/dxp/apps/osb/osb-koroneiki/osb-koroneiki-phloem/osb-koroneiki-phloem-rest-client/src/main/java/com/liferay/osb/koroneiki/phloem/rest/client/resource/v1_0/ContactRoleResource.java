@@ -119,6 +119,24 @@ public interface ContactRoleResource {
 					ContactRolePermission contactRolePermission)
 		throws Exception;
 
+	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
+			String teamKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getTeamTeamKeyContactByOktaRolesPageHttpResponse(
+				String teamKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole> getTeamTeamKeyContactByUuidContactUuidRolesPage(
+			String teamKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getTeamTeamKeyContactByUuidContactUuidRolesPageHttpResponse(
+				String teamKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -614,6 +632,111 @@ public interface ContactRoleResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/contact-roles/{contactRoleKey}/contact-role-permissions",
 				contactRoleKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
+				String teamKey, String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getTeamTeamKeyContactByOktaRolesPageHttpResponse(
+					teamKey, oktaId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getTeamTeamKeyContactByOktaRolesPageHttpResponse(
+					String teamKey, String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles",
+				teamKey, oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ContactRole>
+				getTeamTeamKeyContactByUuidContactUuidRolesPage(
+					String teamKey, String contactUuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getTeamTeamKeyContactByUuidContactUuidRolesPageHttpResponse(
+					teamKey, contactUuid, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getTeamTeamKeyContactByUuidContactUuidRolesPageHttpResponse(
+					String teamKey, String contactUuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles",
+				teamKey, contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
