@@ -1,0 +1,8 @@
+Bundle-Name: Liferay OSB Koroneiki Phytohormone API
+Bundle-SymbolicName: com.liferay.osb.koroneiki.phytohormone.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.osb.koroneiki.phytohormone.exception,\
+	com.liferay.osb.koroneiki.phytohormone.model,\
+	com.liferay.osb.koroneiki.phytohormone.service,\
+	com.liferay.osb.koroneiki.phytohormone.service.persistence

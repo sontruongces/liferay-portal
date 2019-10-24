@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.osb.koroneiki.phytohormone.model.Entitlement">
+		<field name="entitlementId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="entitlementDefinitionId" type="long" />
+		<field name="classNameId" type="long" />
+		<field name="classPK" type="long" />
+		<field name="name" type="String" />
+	</model>
+	<model name="com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition">
+		<field name="uuid" type="String" />
+		<field name="entitlementDefinitionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="classNameId" type="long" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="definition" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="status" type="int" />
+	</model>
+</model-hints>
