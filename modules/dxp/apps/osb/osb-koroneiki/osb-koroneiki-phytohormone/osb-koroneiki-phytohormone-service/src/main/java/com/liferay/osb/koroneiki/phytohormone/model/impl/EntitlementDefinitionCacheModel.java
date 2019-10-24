@@ -1,0 +1,232 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package com.liferay.osb.koroneiki.phytohormone.model.impl;
+
+import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
+import com.liferay.petra.lang.HashUtil;
+import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.model.CacheModel;
+
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
+import java.util.Date;
+
+/**
+ * The cache model class for representing EntitlementDefinition in entity cache.
+ *
+ * @author Brian Wing Shun Chan
+ * @generated
+ */
+public class EntitlementDefinitionCacheModel
+	implements CacheModel<EntitlementDefinition>, Externalizable {
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof EntitlementDefinitionCacheModel)) {
+			return false;
+		}
+
+		EntitlementDefinitionCacheModel entitlementDefinitionCacheModel =
+			(EntitlementDefinitionCacheModel)obj;
+
+		if (entitlementDefinitionId ==
+				entitlementDefinitionCacheModel.entitlementDefinitionId) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, entitlementDefinitionId);
+	}
+
+	@Override
+	public String toString() {
+		StringBundler sb = new StringBundler(23);
+
+		sb.append("{uuid=");
+		sb.append(uuid);
+		sb.append(", entitlementDefinitionId=");
+		sb.append(entitlementDefinitionId);
+		sb.append(", companyId=");
+		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", createDate=");
+		sb.append(createDate);
+		sb.append(", modifiedDate=");
+		sb.append(modifiedDate);
+		sb.append(", classNameId=");
+		sb.append(classNameId);
+		sb.append(", name=");
+		sb.append(name);
+		sb.append(", description=");
+		sb.append(description);
+		sb.append(", definition=");
+		sb.append(definition);
+		sb.append(", status=");
+		sb.append(status);
+		sb.append("}");
+
+		return sb.toString();
+	}
+
+	@Override
+	public EntitlementDefinition toEntityModel() {
+		EntitlementDefinitionImpl entitlementDefinitionImpl =
+			new EntitlementDefinitionImpl();
+
+		if (uuid == null) {
+			entitlementDefinitionImpl.setUuid("");
+		}
+		else {
+			entitlementDefinitionImpl.setUuid(uuid);
+		}
+
+		entitlementDefinitionImpl.setEntitlementDefinitionId(
+			entitlementDefinitionId);
+		entitlementDefinitionImpl.setCompanyId(companyId);
+		entitlementDefinitionImpl.setUserId(userId);
+
+		if (createDate == Long.MIN_VALUE) {
+			entitlementDefinitionImpl.setCreateDate(null);
+		}
+		else {
+			entitlementDefinitionImpl.setCreateDate(new Date(createDate));
+		}
+
+		if (modifiedDate == Long.MIN_VALUE) {
+			entitlementDefinitionImpl.setModifiedDate(null);
+		}
+		else {
+			entitlementDefinitionImpl.setModifiedDate(new Date(modifiedDate));
+		}
+
+		entitlementDefinitionImpl.setClassNameId(classNameId);
+
+		if (name == null) {
+			entitlementDefinitionImpl.setName("");
+		}
+		else {
+			entitlementDefinitionImpl.setName(name);
+		}
+
+		if (description == null) {
+			entitlementDefinitionImpl.setDescription("");
+		}
+		else {
+			entitlementDefinitionImpl.setDescription(description);
+		}
+
+		if (definition == null) {
+			entitlementDefinitionImpl.setDefinition("");
+		}
+		else {
+			entitlementDefinitionImpl.setDefinition(definition);
+		}
+
+		entitlementDefinitionImpl.setStatus(status);
+
+		entitlementDefinitionImpl.resetOriginalValues();
+
+		return entitlementDefinitionImpl;
+	}
+
+	@Override
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		uuid = objectInput.readUTF();
+
+		entitlementDefinitionId = objectInput.readLong();
+
+		companyId = objectInput.readLong();
+
+		userId = objectInput.readLong();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
+
+		classNameId = objectInput.readLong();
+		name = objectInput.readUTF();
+		description = objectInput.readUTF();
+		definition = objectInput.readUTF();
+
+		status = objectInput.readInt();
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		if (uuid == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(uuid);
+		}
+
+		objectOutput.writeLong(entitlementDefinitionId);
+
+		objectOutput.writeLong(companyId);
+
+		objectOutput.writeLong(userId);
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+
+		objectOutput.writeLong(classNameId);
+
+		if (name == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(name);
+		}
+
+		if (description == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
+
+		if (definition == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(definition);
+		}
+
+		objectOutput.writeInt(status);
+	}
+
+	public String uuid;
+	public long entitlementDefinitionId;
+	public long companyId;
+	public long userId;
+	public long createDate;
+	public long modifiedDate;
+	public long classNameId;
+	public String name;
+	public String description;
+	public String definition;
+	public int status;
+
+}
