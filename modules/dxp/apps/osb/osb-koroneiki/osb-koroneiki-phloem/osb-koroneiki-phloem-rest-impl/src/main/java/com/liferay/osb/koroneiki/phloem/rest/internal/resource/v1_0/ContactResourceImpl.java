@@ -22,6 +22,7 @@ import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemP
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -162,6 +163,20 @@ public class ContactResourceImpl
 	@Override
 	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
 		return _entityModel;
+	}
+
+	@Override
+	public Page<Contact> getTeamTeamKeyContactsPage(
+			String teamKey, Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_contactService.getTeamContacts(
+					teamKey, pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				contact -> ContactUtil.toContact(contact)),
+			pagination, _contactService.getTeamContactsCount(teamKey));
 	}
 
 	@Override
@@ -314,5 +329,8 @@ public class ContactResourceImpl
 
 	@Reference
 	private PhloemPermissionUtil _phloemPermissionUtil;
+
+	@Reference
+	private TeamLocalService _teamLocalService;
 
 }

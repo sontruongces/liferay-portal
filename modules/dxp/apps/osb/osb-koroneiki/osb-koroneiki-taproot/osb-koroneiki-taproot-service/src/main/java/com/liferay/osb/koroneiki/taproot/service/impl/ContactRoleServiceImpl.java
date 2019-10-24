@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactRolePermission;
+import com.liferay.osb.koroneiki.taproot.permission.TeamPermission;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactRoleServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -133,6 +134,31 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 		return contactRole;
 	}
 
+	public List<ContactRole> getContactTeamContactRoles(
+			long teamId, long contactId, int start, int end)
+		throws PortalException {
+
+		_contactPermission.check(
+			getPermissionChecker(), contactId, ActionKeys.VIEW);
+
+		_teamPermission.check(getPermissionChecker(), teamId, ActionKeys.VIEW);
+
+		return contactRoleLocalService.getContactTeamContactRoles(
+			teamId, contactId);
+	}
+
+	public int getContactTeamContactRolesCount(long teamId, long contactId)
+		throws PortalException {
+
+		_contactPermission.check(
+			getPermissionChecker(), contactId, ActionKeys.VIEW);
+
+		_teamPermission.check(getPermissionChecker(), teamId, ActionKeys.VIEW);
+
+		return contactRoleLocalService.getContactTeamContactRolesCount(
+			teamId, contactId);
+	}
+
 	public ContactRole updateContactRole(
 			long contactRoleId, String name, String description)
 		throws PortalException {
@@ -152,5 +178,8 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 
 	@Reference
 	private ContactRolePermission _contactRolePermission;
+
+	@Reference
+	private TeamPermission _teamPermission;
 
 }

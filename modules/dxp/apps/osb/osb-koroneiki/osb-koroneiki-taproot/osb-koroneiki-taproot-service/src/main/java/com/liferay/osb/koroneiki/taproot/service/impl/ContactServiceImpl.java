@@ -154,6 +154,14 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 			team.getTeamId(), start, end);
 	}
 
+	public int getTeamContactsCount(String teamKey) throws PortalException {
+		Team team = _teamLocalService.getTeam(teamKey);
+
+		_teamPermission.check(getPermissionChecker(), team, ActionKeys.VIEW);
+
+		return contactLocalService.getTeamContactsCount(team.getTeamId());
+	}
+
 	public Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,

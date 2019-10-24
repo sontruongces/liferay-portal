@@ -24,10 +24,12 @@ import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleService;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
@@ -127,6 +129,26 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
+	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
+			String teamKey, String oktaId, Pagination pagination)
+		throws Exception {
+
+		return _getTeamContactRolesPage(
+			_contactLocalService.getContactByOktaId(oktaId), teamKey,
+			pagination);
+	}
+
+	@Override
+	public Page<ContactRole> getTeamTeamKeyContactByUuidContactUuidRolesPage(
+			String teamKey, String contactUuid, Pagination pagination)
+		throws Exception {
+
+		return _getTeamContactRolesPage(
+			_contactLocalService.getContactByUuid(contactUuid), teamKey,
+			pagination);
+	}
+
+	@Override
 	public ContactRole postContactRole(ContactRole contactRole)
 		throws Exception {
 
@@ -180,6 +202,23 @@ public class ContactRoleResourceImpl
 			pagination,
 			_contactRoleService.getContactAccountContactRolesCount(
 				account.getAccountId(), contact.getContactId()));
+	}
+
+	private Page<ContactRole> _getTeamContactRolesPage(
+			Contact contact, String teamKey, Pagination pagination)
+		throws PortalException {
+
+		Team team = _teamLocalService.getTeam(teamKey);
+
+		return Page.of(
+			transform(
+				_contactRoleService.getContactTeamContactRoles(
+					team.getTeamId(), contact.getContactId(),
+					pagination.getStartPosition(), pagination.getEndPosition()),
+				contactRole -> ContactRoleUtil.toContactRole(contactRole)),
+			pagination,
+			_contactRoleService.getContactTeamContactRolesCount(
+				team.getTeamId(), contact.getContactId()));
 	}
 
 	private void _updateContactRolePermission(
@@ -248,5 +287,8 @@ public class ContactRoleResourceImpl
 
 	@Reference
 	private PhloemPermissionUtil _phloemPermissionUtil;
+
+	@Reference
+	private TeamLocalService _teamLocalService;
 
 }

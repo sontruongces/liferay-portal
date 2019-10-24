@@ -215,6 +215,14 @@ public class ContactRoleLocalServiceImpl
 			null, params, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
+	public int getContactTeamContactRolesCount(long teamId, long contactId) {
+		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+		params.put("teamContact", new Long[] {teamId, contactId});
+
+		return contactRoleFinder.countByName(null, params);
+	}
+
 	public ContactRole getMemberContactRole(int type) {
 		return _memberContactRoles.get(type);
 	}

@@ -20,9 +20,16 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.TeamEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
+import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
+import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -57,6 +64,55 @@ public class TeamResourceImpl
 	@Override
 	public void deleteTeam(String teamKey) throws Exception {
 		_teamService.deleteTeam(teamKey);
+	}
+
+	@Override
+	public void deleteTeamContactByOkta(String teamKey, String[] oktaIds)
+		throws Exception {
+
+		List<Contact> contacts = new ArrayList<>(oktaIds.length);
+
+		for (String oktaId : oktaIds) {
+			contacts.add(
+				_oktaContactIdentityProvider.getContactByProviderId(oktaId));
+		}
+
+		_deleteTeamContacts(contacts, teamKey);
+	}
+
+	@Override
+	public void deleteTeamContactByOktaRole(
+			String teamKey, String oktaId, String[] contactRoleKeys)
+		throws Exception {
+
+		_deleteTeamContactRole(
+			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
+			teamKey, contactRoleKeys);
+	}
+
+	@Override
+	public void deleteTeamContactByUuid(String teamKey, String[] contactUuids)
+		throws Exception {
+
+		List<Contact> contacts = new ArrayList<>(contactUuids.length);
+
+		for (String contactUuid : contactUuids) {
+			contacts.add(
+				_webContactIdentityProvider.getContactByProviderId(
+					contactUuid));
+		}
+
+		_deleteTeamContacts(contacts, teamKey);
+	}
+
+	@Override
+	public void deleteTeamContactByUuidContactUuidRole(
+			String teamKey, String contactUuid, String[] contactRoleKeys)
+		throws Exception {
+
+		_deleteTeamContactRole(
+			_webContactIdentityProvider.getContactByProviderId(contactUuid),
+			teamKey, contactRoleKeys);
 	}
 
 	@Override
@@ -142,11 +198,122 @@ public class TeamResourceImpl
 	}
 
 	@Override
+	public void putTeamContactByOkta(String teamKey, String[] oktaIds)
+		throws Exception {
+
+		List<Contact> contacts = new ArrayList<>(oktaIds.length);
+
+		for (String oktaId : oktaIds) {
+			contacts.add(
+				_oktaContactIdentityProvider.getContactByProviderId(oktaId));
+		}
+
+		_putTeamContacts(contacts, teamKey);
+	}
+
+	@Override
+	public void putTeamContactByOktaRole(
+			String teamKey, String oktaId, String[] contactRoleKeys)
+		throws Exception {
+
+		_putTeamContactRole(
+			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
+			teamKey, contactRoleKeys);
+	}
+
+	@Override
+	public void putTeamContactByUuid(String teamKey, String[] contactUuids)
+		throws Exception {
+
+		List<Contact> contacts = new ArrayList<>(contactUuids.length);
+
+		for (String contactUuid : contactUuids) {
+			contacts.add(
+				_webContactIdentityProvider.getContactByProviderId(
+					contactUuid));
+		}
+
+		_putTeamContacts(contacts, teamKey);
+	}
+
+	@Override
+	public void putTeamContactByUuidContactUuidRole(
+			String teamKey, String contactUuid, String[] contactRoleKeys)
+		throws Exception {
+
+		_putTeamContactRole(
+			_webContactIdentityProvider.getContactByProviderId(contactUuid),
+			teamKey, contactRoleKeys);
+	}
+
+	@Override
 	public void putTeamTeamPermission(
 			String teamKey, TeamPermission teamPermission)
 		throws Exception {
 
 		_updateTeamPermission(teamKey, "add", teamPermission);
+	}
+
+	private void _deleteTeamContactRole(
+			Contact contact, String teamKey, String[] contactRoleKeys)
+		throws PortalException {
+
+		com.liferay.osb.koroneiki.taproot.model.Team team =
+			_teamLocalService.getTeam(teamKey);
+
+		for (String contactRoleKey : contactRoleKeys) {
+			ContactRole contactRole = _contactRoleLocalService.getContactRole(
+				contactRoleKey);
+
+			_contactTeamRoleService.deleteContactTeamRole(
+				contact.getContactId(), team.getTeamId(),
+				contactRole.getContactRoleId());
+		}
+	}
+
+	private void _deleteTeamContacts(List<Contact> contacts, String teamKey)
+		throws PortalException {
+
+		com.liferay.osb.koroneiki.taproot.model.Team team =
+			_teamLocalService.getTeam(teamKey);
+
+		for (Contact contact : contacts) {
+			_contactTeamRoleService.deleteContactTeamRoles(
+				contact.getContactId(), team.getTeamId());
+		}
+	}
+
+	private void _putTeamContactRole(
+			Contact contact, String teamKey, String[] contactRoleKeys)
+		throws PortalException {
+
+		com.liferay.osb.koroneiki.taproot.model.Team team =
+			_teamLocalService.getTeam(teamKey);
+
+		for (String contactRoleKey : contactRoleKeys) {
+			ContactRole contactRole = _contactRoleLocalService.getContactRole(
+				contactRoleKey);
+
+			_contactTeamRoleService.addContactTeamRole(
+				contact.getContactId(), team.getTeamId(),
+				contactRole.getContactRoleId());
+		}
+	}
+
+	private void _putTeamContacts(List<Contact> contacts, String teamKey)
+		throws PortalException {
+
+		com.liferay.osb.koroneiki.taproot.model.Team team =
+			_teamLocalService.getTeam(teamKey);
+
+		ContactRole contactRole = _contactRoleLocalService.getMemberContactRole(
+			ContactRoleType.TEAM);
+
+		for (Contact contact : contacts) {
+			_contactTeamRoleService.addContactTeamRole(
+				contact.getContactId(), team.getTeamId(),
+				contactRole.getContactRoleId());
+		}
 	}
 
 	private void _updateTeamPermission(
@@ -195,6 +362,15 @@ public class TeamResourceImpl
 	private static final EntityModel _entityModel = new TeamEntityModel();
 
 	@Reference
+	private ContactRoleLocalService _contactRoleLocalService;
+
+	@Reference
+	private ContactTeamRoleService _contactTeamRoleService;
+
+	@Reference(target = "(provider=okta)")
+	private ContactIdentityProvider _oktaContactIdentityProvider;
+
+	@Reference
 	private PhloemPermissionUtil _phloemPermissionUtil;
 
 	@Reference
@@ -206,5 +382,8 @@ public class TeamResourceImpl
 
 	@Reference
 	private TeamService _teamService;
+
+	@Reference(target = "(provider=web)")
+	private ContactIdentityProvider _webContactIdentityProvider;
 
 }

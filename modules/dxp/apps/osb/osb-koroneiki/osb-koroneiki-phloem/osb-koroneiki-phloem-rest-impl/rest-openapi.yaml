@@ -3827,6 +3827,313 @@ paths:
                                 type: array
                     description: ""
             tags: ["AuditEntry"]
+    "/teams/{teamKey}/contacts":
+        get:
+            description: Retrieves the team's contacts.
+            operationId: getTeamTeamKeyContactsPage
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Contact"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Contact"
+                                type: array
+                    description: ""
+            tags: ["Contact"]
+    "/teams/{teamKey}/contacts/by-okta-id":
+        delete:
+            description: Unassigns contacts from the team.
+            operationId: deleteTeamContactByOkta
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]
+        put:
+            description: Assigns contacts to the team.
+            operationId: putTeamContactByOkta
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]
+    "/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles":
+        delete:
+            description: Unassigns roles from the contact for the team.
+            operationId: deleteTeamContactByOktaRole
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]
+        get:
+            description: Retrieves the team's contact's contact roles.
+            operationId: getTeamTeamKeyContactByOktaRolesPage
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description: ""
+            tags: ["ContactRole"]
+        put:
+            description: Assigns roles to the contact for the team.
+            operationId: putTeamContactByOktaRole
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]
+    "/teams/{teamKey}/contacts/by-uuid":
+        delete:
+            description: Unassigns contacts from the team.
+            operationId: deleteTeamContactByUuid
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactUuids
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]
+        put:
+            description: Assigns contacts to the team.
+            operationId: putTeamContactByUuid
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactUuids
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]
+    "/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles":
+        delete:
+            description: Unassigns roles from the contact for the team.
+            operationId: deleteTeamContactByUuidContactUuidRole
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]
+        get:
+            description: Retrieves the team's contact's contact roles.
+            operationId: getTeamTeamKeyContactByUuidContactUuidRolesPage
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description: ""
+            tags: ["ContactRole"]
+        put:
+            description: Assigns roles to the contact for the team.
+            operationId: putTeamContactByUuidContactUuidRole
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description: ""
+            tags: ["Team"]
     "/teams/{teamKey}/external-links":
         get:
             description: Retrieves the team's external links.
