@@ -478,6 +478,43 @@ public class ContactServiceHttp {
 		}
 	}
 
+	public static int getTeamContactsCount(
+			HttpPrincipal httpPrincipal, String teamKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ContactServiceUtil.class, "getTeamContactsCount",
+				_getTeamContactsCountParameterTypes11);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, teamKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
 			HttpPrincipal httpPrincipal, long contactId, String uuid,
 			String oktaId, String firstName, String middleName, String lastName,
@@ -487,7 +524,7 @@ public class ContactServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactServiceUtil.class, "updateContact",
-				_updateContactParameterTypes11);
+				_updateContactParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactId, uuid, oktaId, firstName, middleName,
@@ -546,7 +583,9 @@ public class ContactServiceHttp {
 		new Class[] {String.class};
 	private static final Class<?>[] _getTeamContactsParameterTypes10 =
 		new Class[] {String.class, int.class, int.class};
-	private static final Class<?>[] _updateContactParameterTypes11 =
+	private static final Class<?>[] _getTeamContactsCountParameterTypes11 =
+		new Class[] {String.class};
+	private static final Class<?>[] _updateContactParameterTypes12 =
 		new Class[] {
 			long.class, String.class, String.class, String.class, String.class,
 			String.class, String.class, String.class

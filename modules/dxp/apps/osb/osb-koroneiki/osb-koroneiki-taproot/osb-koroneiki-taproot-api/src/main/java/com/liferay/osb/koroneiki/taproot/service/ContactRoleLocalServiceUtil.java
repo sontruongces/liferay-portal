@@ -331,6 +331,12 @@ public class ContactRoleLocalServiceUtil {
 		return getService().getContactTeamContactRoles(teamId, contactId);
 	}
 
+	public static int getContactTeamContactRolesCount(
+		long teamId, long contactId) {
+
+		return getService().getContactTeamContactRolesCount(teamId, contactId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

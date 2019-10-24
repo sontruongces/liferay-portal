@@ -262,6 +262,21 @@ public class ContactServiceSoap {
 		}
 	}
 
+	public static int getTeamContactsCount(String teamKey)
+		throws RemoteException {
+
+		try {
+			int returnValue = ContactServiceUtil.getTeamContactsCount(teamKey);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
 			updateContact(
 				long contactId, String uuid, String oktaId, String firstName,

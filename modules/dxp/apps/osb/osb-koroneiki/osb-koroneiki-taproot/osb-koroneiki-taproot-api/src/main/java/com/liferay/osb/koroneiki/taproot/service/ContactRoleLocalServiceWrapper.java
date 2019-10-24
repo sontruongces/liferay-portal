@@ -350,6 +350,12 @@ public class ContactRoleLocalServiceWrapper
 	}
 
 	@Override
+	public int getContactTeamContactRolesCount(long teamId, long contactId) {
+		return _contactRoleLocalService.getContactTeamContactRolesCount(
+			teamId, contactId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

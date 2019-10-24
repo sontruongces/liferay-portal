@@ -133,6 +133,12 @@ public class ContactServiceUtil {
 		return getService().getTeamContacts(teamKey, start, end);
 	}
 
+	public static int getTeamContactsCount(String teamKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeamContactsCount(teamKey);
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,

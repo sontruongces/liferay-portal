@@ -83,6 +83,15 @@ public interface ContactRoleService extends BaseService {
 	public ContactRole getContactRole(String contactRoleKey)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ContactRole> getContactTeamContactRoles(
+			long teamId, long contactId, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getContactTeamContactRolesCount(long teamId, long contactId)
+		throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

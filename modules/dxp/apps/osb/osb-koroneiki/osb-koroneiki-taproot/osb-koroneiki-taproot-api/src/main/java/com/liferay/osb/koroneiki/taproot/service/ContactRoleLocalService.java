@@ -275,6 +275,9 @@ public interface ContactRoleLocalService
 		long teamId, long contactId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getContactTeamContactRolesCount(long teamId, long contactId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 

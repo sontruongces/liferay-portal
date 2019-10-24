@@ -135,6 +135,13 @@ public class ContactServiceWrapper
 	}
 
 	@Override
+	public int getTeamContactsCount(String teamKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactService.getTeamContactsCount(teamKey);
+	}
+
+	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,

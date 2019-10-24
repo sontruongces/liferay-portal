@@ -104,6 +104,23 @@ public class ContactRoleServiceUtil {
 		return getService().getContactRole(contactRoleKey);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
+				getContactTeamContactRoles(
+					long teamId, long contactId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactTeamContactRoles(
+			teamId, contactId, start, end);
+	}
+
+	public static int getContactTeamContactRolesCount(
+			long teamId, long contactId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactTeamContactRolesCount(teamId, contactId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

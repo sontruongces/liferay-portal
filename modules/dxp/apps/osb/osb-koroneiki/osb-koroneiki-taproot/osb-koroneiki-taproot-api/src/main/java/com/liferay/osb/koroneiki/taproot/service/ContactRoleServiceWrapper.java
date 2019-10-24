@@ -103,6 +103,24 @@ public class ContactRoleServiceWrapper
 		return _contactRoleService.getContactRole(contactRoleKey);
 	}
 
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
+			getContactTeamContactRoles(
+				long teamId, long contactId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactRoleService.getContactTeamContactRoles(
+			teamId, contactId, start, end);
+	}
+
+	@Override
+	public int getContactTeamContactRolesCount(long teamId, long contactId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactRoleService.getContactTeamContactRolesCount(
+			teamId, contactId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
