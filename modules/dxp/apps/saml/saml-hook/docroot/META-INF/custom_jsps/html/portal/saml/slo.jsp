@@ -53,7 +53,7 @@ JSONArray samlSloRequestInfosJSONArray = samlSloContextJSONObject.getJSONArray("
 </h3>
 
 <h4>
-	<liferay-ui:icon image="activate" /> <liferay-ui:message key="please-do-not-leave-this-page-to-avoid-inconsistencies" />
+	<liferay-ui:icon image="activate" /> <liferay-ui:message key="please-do-not-leave-this-page-in-order-to-avoid-inconsistencies" />
 </h4>
 
 <div id="samlSloResults"></div>
