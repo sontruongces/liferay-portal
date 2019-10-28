@@ -324,7 +324,7 @@ public class ReportsEngineDisplayContext {
 		return false;
 	}
 
-	public Boolean isDisabled() throws PortalException {
+	public boolean isDisabled() throws PortalException {
 		if (getTotalItems() == 0) {
 			return true;
 		}
