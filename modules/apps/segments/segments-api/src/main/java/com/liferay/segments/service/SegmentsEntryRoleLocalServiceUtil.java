@@ -37,6 +37,15 @@ public class SegmentsEntryRoleLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.segments.service.impl.SegmentsEntryRoleLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.segments.model.SegmentsEntryRole
+			addSegmentsEntryRole(
+				long roleId, long segmentsEntryId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addSegmentsEntryRole(
+			roleId, segmentsEntryId, serviceContext);
+	}
 
 	/**
 	 * Adds the segments entry role to the database. Also notifies the appropriate model listeners.
@@ -88,6 +97,13 @@ public class SegmentsEntryRoleLocalServiceUtil {
 		return getService().deleteSegmentsEntryRole(segmentsEntryRoleId);
 	}
 
+	public static com.liferay.segments.model.SegmentsEntryRole
+			deleteSegmentsEntryRole(long roleId, long segmentsEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().deleteSegmentsEntryRole(roleId, segmentsEntryId);
+	}
+
 	/**
 	 * Deletes the segments entry role from the database. Also notifies the appropriate model listeners.
 	 *
@@ -99,6 +115,18 @@ public class SegmentsEntryRoleLocalServiceUtil {
 			com.liferay.segments.model.SegmentsEntryRole segmentsEntryRole) {
 
 		return getService().deleteSegmentsEntryRole(segmentsEntryRole);
+	}
+
+	public static void deleteSegmentsEntryRoles(long segmentsEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteSegmentsEntryRoles(segmentsEntryId);
+	}
+
+	public static void deleteSegmentsEntryRolesByRoleId(long roleId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteSegmentsEntryRolesByRoleId(roleId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
@@ -252,6 +280,18 @@ public class SegmentsEntryRoleLocalServiceUtil {
 		return getService().getSegmentsEntryRoles(start, end);
 	}
 
+	public static java.util.List<com.liferay.segments.model.SegmentsEntryRole>
+		getSegmentsEntryRoles(long segmentsEntryId) {
+
+		return getService().getSegmentsEntryRoles(segmentsEntryId);
+	}
+
+	public static java.util.List<com.liferay.segments.model.SegmentsEntryRole>
+		getSegmentsEntryRolesByRoleId(long roleId) {
+
+		return getService().getSegmentsEntryRolesByRoleId(roleId);
+	}
+
 	/**
 	 * Returns the number of segments entry roles.
 	 *
@@ -259,6 +299,14 @@ public class SegmentsEntryRoleLocalServiceUtil {
 	 */
 	public static int getSegmentsEntryRolesCount() {
 		return getService().getSegmentsEntryRolesCount();
+	}
+
+	public static int getSegmentsEntryRolesCount(long segmentsEntryId) {
+		return getService().getSegmentsEntryRolesCount(segmentsEntryId);
+	}
+
+	public static int getSegmentsEntryRolesCountByRoleId(long roleId) {
+		return getService().getSegmentsEntryRolesCountByRoleId(roleId);
 	}
 
 	/**
