@@ -122,6 +122,17 @@ public abstract class BaseAccountGraphQLTestCase {
 				continue;
 			}
 
+			if (Objects.equals("internal", fieldName)) {
+				if (!Objects.equals(
+						account.getInternal(),
+						(Boolean)jsonObject.getBoolean("internal"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("key", fieldName)) {
 				if (!Objects.equals(
 						account.getKey(),
@@ -241,6 +252,7 @@ public abstract class BaseAccountGraphQLTestCase {
 				dateModified = RandomTestUtil.nextDate();
 				description = RandomTestUtil.randomString();
 				faxNumber = RandomTestUtil.randomString();
+				internal = RandomTestUtil.randomBoolean();
 				key = RandomTestUtil.randomString();
 				logoId = RandomTestUtil.randomLong();
 				name = RandomTestUtil.randomString();

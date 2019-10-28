@@ -437,6 +437,36 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Industry industry;
 
+	@Schema(
+		description = "A flag that identifies whether this account is an internal or test account."
+	)
+	public Boolean getInternal() {
+		return internal;
+	}
+
+	public void setInternal(Boolean internal) {
+		this.internal = internal;
+	}
+
+	@JsonIgnore
+	public void setInternal(
+		UnsafeSupplier<Boolean, Exception> internalUnsafeSupplier) {
+
+		try {
+			internal = internalUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean internal;
+
 	@Schema(description = "The account's key.")
 	public String getKey() {
 		return key;
@@ -983,6 +1013,16 @@ public class Account {
 			sb.append(industry);
 
 			sb.append("\"");
+		}
+
+		if (internal != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"internal\": ");
+
+			sb.append(internal);
 		}
 
 		if (key != null) {

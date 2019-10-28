@@ -339,6 +339,27 @@ public class Account {
 
 	protected Industry industry;
 
+	public Boolean getInternal() {
+		return internal;
+	}
+
+	public void setInternal(Boolean internal) {
+		this.internal = internal;
+	}
+
+	public void setInternal(
+		UnsafeSupplier<Boolean, Exception> internalUnsafeSupplier) {
+
+		try {
+			internal = internalUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean internal;
+
 	public String getKey() {
 		return key;
 	}

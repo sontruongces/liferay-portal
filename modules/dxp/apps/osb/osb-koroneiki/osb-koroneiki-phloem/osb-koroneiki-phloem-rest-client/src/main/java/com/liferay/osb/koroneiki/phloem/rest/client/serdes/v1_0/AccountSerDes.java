@@ -203,6 +203,16 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getInternal() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"internal\": ");
+
+			sb.append(account.getInternal());
+		}
+
 		if (account.getKey() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -474,6 +484,13 @@ public class AccountSerDes {
 			map.put("industry", String.valueOf(account.getIndustry()));
 		}
 
+		if (account.getInternal() == null) {
+			map.put("internal", null);
+		}
+		else {
+			map.put("internal", String.valueOf(account.getInternal()));
+		}
+
 		if (account.getKey() == null) {
 			map.put("key", null);
 		}
@@ -693,6 +710,11 @@ public class AccountSerDes {
 				if (jsonParserFieldValue != null) {
 					account.setIndustry(
 						Account.Industry.create((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "internal")) {
+				if (jsonParserFieldValue != null) {
+					account.setInternal((Boolean)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "key")) {
