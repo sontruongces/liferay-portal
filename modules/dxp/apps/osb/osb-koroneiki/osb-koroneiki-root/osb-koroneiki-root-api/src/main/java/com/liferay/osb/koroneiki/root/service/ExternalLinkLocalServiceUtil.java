@@ -333,16 +333,12 @@ public class ExternalLinkLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static java.util.List
-		<com.liferay.osb.koroneiki.root.model.ExternalLink> search(
-			String domain) {
-
+	public static java.util.List<String> search(String domain) {
 		return getService().search(domain);
 	}
 
-	public static java.util.List
-		<com.liferay.osb.koroneiki.root.model.ExternalLink> search(
-			String domain, String entityName) {
+	public static java.util.List<String> search(
+		String domain, String entityName) {
 
 		return getService().search(domain, entityName);
 	}

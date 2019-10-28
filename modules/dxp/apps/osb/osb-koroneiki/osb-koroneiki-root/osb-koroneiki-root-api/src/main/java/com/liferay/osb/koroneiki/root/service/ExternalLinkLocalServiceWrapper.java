@@ -352,16 +352,12 @@ public class ExternalLinkLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
-		search(String domain) {
-
+	public java.util.List<String> search(String domain) {
 		return _externalLinkLocalService.search(domain);
 	}
 
 	@Override
-	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
-		search(String domain, String entityName) {
-
+	public java.util.List<String> search(String domain, String entityName) {
 		return _externalLinkLocalService.search(domain, entityName);
 	}
 
