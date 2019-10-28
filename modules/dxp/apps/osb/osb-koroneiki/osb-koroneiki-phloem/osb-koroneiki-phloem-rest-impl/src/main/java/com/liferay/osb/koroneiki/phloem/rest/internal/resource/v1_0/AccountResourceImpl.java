@@ -261,7 +261,7 @@ public class AccountResourceImpl
 				account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
 				account.getFaxNumber(), account.getWebsite(), industry, tier,
-				account.getSoldBy(), status),
+				account.getSoldBy(), status, account.getInternal()),
 			contextAcceptLanguage.getPreferredLocale());
 	}
 
@@ -303,7 +303,7 @@ public class AccountResourceImpl
 				0, account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
 				account.getFaxNumber(), account.getWebsite(), industry, tier,
-				account.getSoldBy(), status),
+				account.getSoldBy(), status, account.getInternal()),
 			contextAcceptLanguage.getPreferredLocale());
 	}
 
@@ -334,6 +334,8 @@ public class AccountResourceImpl
 			account.getFaxNumber(), curAccount.getFaxNumber());
 		String website = GetterUtil.getString(
 			account.getWebsite(), curAccount.getWebsite());
+		boolean internal = GetterUtil.getBoolean(
+			account.getInternal(), curAccount.getInternal());
 
 		String industry = curAccount.getIndustry();
 
@@ -367,7 +369,7 @@ public class AccountResourceImpl
 				accountKey, curAccount.getParentAccountId(), account.getName(),
 				code, description, notes, logoId, contactEmailAddress,
 				profileEmailAddress, phoneNumber, faxNumber, website, industry,
-				tier, soldBy, status),
+				tier, soldBy, status, internal),
 			contextAcceptLanguage.getPreferredLocale());
 	}
 

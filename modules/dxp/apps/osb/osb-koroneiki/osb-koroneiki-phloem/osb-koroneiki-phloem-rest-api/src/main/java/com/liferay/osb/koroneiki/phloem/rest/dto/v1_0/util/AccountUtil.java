@@ -43,6 +43,7 @@ public class AccountUtil {
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);
 				faxNumber = account.getFaxNumber();
 				industry = Industry.create(account.getIndustry());
+				internal = account.getInternal();
 				key = account.getAccountKey();
 				logoId = account.getLogoId();
 				name = account.getName();
