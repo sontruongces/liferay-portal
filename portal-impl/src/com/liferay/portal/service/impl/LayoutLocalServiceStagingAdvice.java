@@ -61,6 +61,7 @@ import java.lang.reflect.Method;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -491,9 +492,9 @@ public class LayoutLocalServiceStagingAdvice implements BeanFactoryAware {
 			new Class<?>[] {Layout.class, ModelWrapper.class},
 			new LayoutStagingHandler(layout));
 
-		Map<Layout, Object> proxiedLayouts = HashMapBuilder.<Layout, Object>put(
-			layout, proxiedLayout
-		).build();
+		Map<Layout, Object> proxiedLayouts = new HashMap<>();
+
+		proxiedLayouts.put(layout, proxiedLayout);
 
 		ProxiedLayoutsThreadLocal.setProxiedLayouts(
 			new ObjectValuePair<>(currentServiceContext, proxiedLayouts));
