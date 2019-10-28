@@ -7,9 +7,9 @@ definition {
 			LexiconCard.clickCard(card = "${pageTemplateName}");
 		}
 		else {
-			Navigator.gotoNavNested(navNested = "Basic Templates");
+			Navigator.gotoNavNested(navNested = "Basic Pages");
 
-			LexiconCard.clickCard(card = "Blank");
+			LexiconCard.clickCard(card = "Content Page");
 		}
 	}
 
