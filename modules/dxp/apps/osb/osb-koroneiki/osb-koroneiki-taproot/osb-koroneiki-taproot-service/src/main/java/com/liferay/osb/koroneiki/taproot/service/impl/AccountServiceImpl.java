@@ -48,7 +48,7 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			String notes, long logoId, String contactEmailAddress,
 			String profileEmailAddress, String phoneNumber, String faxNumber,
 			String website, String industry, String tier, String soldBy,
-			int status)
+			int status, boolean internal)
 		throws PortalException {
 
 		_accountPermission.check(
@@ -57,7 +57,7 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 		return accountLocalService.addAccount(
 			getUserId(), parentAccountId, name, code, description, notes,
 			logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
-			faxNumber, website, industry, tier, soldBy, status);
+			faxNumber, website, industry, tier, soldBy, status, internal);
 	}
 
 	public Account deleteAccount(long accountId) throws PortalException {
@@ -155,7 +155,8 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, int status)
+			String industry, String tier, String soldBy, int status,
+			boolean internal)
 		throws PortalException {
 
 		_accountPermission.check(
@@ -164,7 +165,8 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 		return accountLocalService.updateAccount(
 			getUserId(), accountId, parentAccountId, name, code, description,
 			notes, logoId, contactEmailAddress, profileEmailAddress,
-			phoneNumber, faxNumber, website, industry, tier, soldBy, status);
+			phoneNumber, faxNumber, website, industry, tier, soldBy, status,
+			internal);
 	}
 
 	public Account updateAccount(
@@ -172,7 +174,8 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, int status)
+			String industry, String tier, String soldBy, int status,
+			boolean internal)
 		throws PortalException {
 
 		Account account = accountLocalService.getAccount(accountKey);
@@ -184,7 +187,7 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			getUserId(), account.getAccountId(), parentAccountId, name, code,
 			description, notes, logoId, contactEmailAddress,
 			profileEmailAddress, phoneNumber, faxNumber, website, industry,
-			tier, soldBy, status);
+			tier, soldBy, status, internal);
 	}
 
 	@Reference

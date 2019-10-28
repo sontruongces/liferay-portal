@@ -82,7 +82,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, int status)
+			String industry, String tier, String soldBy, int status,
+			boolean internal)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -117,6 +118,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setStatusByUserName(user.getFullName());
 		account.setStatusDate(new Date());
 		account.setStatusMessage(StringPool.BLANK);
+		account.setInternal(internal);
 
 		accountPersistence.update(account);
 
@@ -256,7 +258,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			String code, String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, int status)
+			String industry, String tier, String soldBy, int status,
+			boolean internal)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -286,6 +289,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setStatusByUserName(user.getFullName());
 		account.setStatusDate(new Date());
 		account.setStatusMessage(StringPool.BLANK);
+		account.setInternal(internal);
 
 		return accountPersistence.update(account);
 	}

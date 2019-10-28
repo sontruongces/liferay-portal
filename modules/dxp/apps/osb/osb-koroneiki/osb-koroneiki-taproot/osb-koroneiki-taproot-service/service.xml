@@ -38,6 +38,7 @@
 		<column name="statusByUserName" type="String" />
 		<column name="statusDate" type="Date" />
 		<column name="statusMessage" type="String" />
+		<column name="internal" type="boolean" />
 
 		<!-- Finder methods -->
 

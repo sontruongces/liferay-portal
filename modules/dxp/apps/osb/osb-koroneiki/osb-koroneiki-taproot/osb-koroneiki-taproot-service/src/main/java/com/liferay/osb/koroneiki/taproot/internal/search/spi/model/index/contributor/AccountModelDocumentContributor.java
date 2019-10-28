@@ -80,6 +80,7 @@ public class AccountModelDocumentContributor
 			"contactEmailAddress", account.getContactEmailAddress());
 		document.addKeyword("faxNumber", account.getFaxNumber());
 		document.addKeyword("industry", account.getIndustry());
+		document.addKeyword("internal", account.isInternal());
 		document.addText("notes", account.getNotes());
 		document.addKeyword("phoneNumber", account.getPhoneNumber());
 		document.addKeyword(
