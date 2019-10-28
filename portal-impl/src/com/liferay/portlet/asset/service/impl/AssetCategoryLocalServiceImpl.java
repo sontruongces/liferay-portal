@@ -49,6 +49,7 @@ import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -155,9 +156,9 @@ public class AssetCategoryLocalServiceImpl
 
 		titleMap.put(locale, title);
 
-		Map<Locale, String> descriptionMap = new HashMap<>();
-
-		descriptionMap.put(locale, StringPool.BLANK);
+		Map<Locale, String> descriptionMap = HashMapBuilder.<Locale, String>put(
+			locale, StringPool.BLANK
+		).build();
 
 		return assetCategoryLocalService.addCategory(
 			userId, groupId, AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID,
@@ -688,11 +689,14 @@ public class AssetCategoryLocalServiceImpl
 
 		SearchContext searchContext = new SearchContext();
 
-		Map<String, Serializable> attributes = new HashMap<>();
-
-		attributes.put(Field.ASSET_PARENT_CATEGORY_IDS, parentCategoryIds);
-		attributes.put(Field.ASSET_VOCABULARY_IDS, vocabularyIds);
-		attributes.put(Field.TITLE, title);
+		Map<String, Serializable> attributes =
+			HashMapBuilder.<String, Serializable>put(
+				Field.ASSET_PARENT_CATEGORY_IDS, parentCategoryIds
+			).put(
+				Field.ASSET_VOCABULARY_IDS, vocabularyIds
+			).put(
+				Field.TITLE, title
+			).build();
 
 		searchContext.setAttributes(attributes);
 
