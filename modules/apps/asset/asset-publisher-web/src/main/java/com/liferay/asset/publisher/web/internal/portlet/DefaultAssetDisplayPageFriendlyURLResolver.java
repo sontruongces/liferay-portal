@@ -277,11 +277,10 @@ public class DefaultAssetDisplayPageFriendlyURLResolver
 
 		_portal.addPageSubtitle(
 			journalArticle.getTitle(locale), httpServletRequest);
-
-		String description = HtmlUtil.unescape(
-			HtmlUtil.stripHtml(journalArticle.getDescription(locale)));
-
-		_portal.addPageDescription(description, httpServletRequest);
+		_portal.addPageDescription(
+			HtmlUtil.unescape(
+				HtmlUtil.stripHtml(journalArticle.getDescription(locale))),
+			httpServletRequest);
 
 		InfoDisplayObjectProvider infoDisplayObjectProvider =
 			_getInfoDisplayObjectProvider(journalArticle);

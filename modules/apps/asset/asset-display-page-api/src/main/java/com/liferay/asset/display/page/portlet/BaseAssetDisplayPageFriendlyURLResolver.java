@@ -96,12 +96,11 @@ public abstract class BaseAssetDisplayPageFriendlyURLResolver
 
 		Locale locale = portal.getLocale(httpServletRequest);
 
-		String description = HtmlUtil.unescape(
-			HtmlUtil.stripHtml(
-				infoDisplayObjectProvider.getDescription(locale)));
-
-		portal.setPageDescription(description, httpServletRequest);
-
+		portal.setPageDescription(
+			HtmlUtil.unescape(
+				HtmlUtil.stripHtml(
+					infoDisplayObjectProvider.getDescription(locale))),
+			httpServletRequest);
 		portal.setPageKeywords(
 			infoDisplayObjectProvider.getKeywords(locale), httpServletRequest);
 		portal.setPageTitle(
