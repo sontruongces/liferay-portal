@@ -14,7 +14,6 @@
 
 package com.liferay.osb.koroneiki.taproot.web.internal.portlet;
 
-import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -72,16 +71,15 @@ public abstract class BaseAdminPortlet extends MVCPortlet {
 				domain = StringPool.PERCENT + domain + StringPool.PERCENT;
 			}
 
-			List<ExternalLink> externalLinks = externalLinkLocalService.search(
-				domain);
+			List<String> domains = externalLinkLocalService.search(domain);
 
-			JSONArray externalLinksArray = JSONFactoryUtil.createJSONArray();
+			JSONArray domainsArray = JSONFactoryUtil.createJSONArray();
 
-			for (ExternalLink externalLink : externalLinks) {
-				externalLinksArray.put(externalLink.getDomain());
+			for (String curDomain : domains) {
+				domainsArray.put(curDomain);
 			}
 
-			writeJSON(resourceRequest, resourceResponse, externalLinksArray);
+			writeJSON(resourceRequest, resourceResponse, domainsArray);
 		}
 	}
 
@@ -102,16 +100,16 @@ public abstract class BaseAdminPortlet extends MVCPortlet {
 					StringPool.PERCENT + entityName + StringPool.PERCENT;
 			}
 
-			List<ExternalLink> externalLinks = externalLinkLocalService.search(
+			List<String> entityNames = externalLinkLocalService.search(
 				domain, entityName);
 
-			JSONArray externalLinksArray = JSONFactoryUtil.createJSONArray();
+			JSONArray entityNamesArray = JSONFactoryUtil.createJSONArray();
 
-			for (ExternalLink externalLink : externalLinks) {
-				externalLinksArray.put(externalLink.getEntityName());
+			for (String curEntityName : entityNames) {
+				entityNamesArray.put(curEntityName);
 			}
 
-			writeJSON(resourceRequest, resourceResponse, externalLinksArray);
+			writeJSON(resourceRequest, resourceResponse, entityNamesArray);
 		}
 	}
 

@@ -14,7 +14,6 @@
 
 package com.liferay.osb.koroneiki.trunk.web.internal.portlet;
 
-import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkPortletKeys;
 import com.liferay.petra.string.StringPool;
@@ -83,25 +82,24 @@ public class ProductsAdminPortlet extends MVCPortlet {
 
 		String domain = ParamUtil.getString(resourceRequest, "domain");
 
-		if (domain.length() == 1) {
-			domain += StringPool.PERCENT;
-		}
-		else {
-			domain = StringPool.PERCENT + domain + StringPool.PERCENT;
-		}
-
-		List<ExternalLink> externalLinks = _externalLinkLocalService.search(
-			domain);
-
-		JSONArray externalLinksArray = JSONFactoryUtil.createJSONArray();
-
-		for (ExternalLink externalLink : externalLinks) {
-			if (Validator.isNotNull(domain)) {
-				externalLinksArray.put(externalLink.getDomain());
+		if (Validator.isNotNull(domain)) {
+			if (domain.length() == 1) {
+				domain += StringPool.PERCENT;
 			}
-		}
+			else {
+				domain = StringPool.PERCENT + domain + StringPool.PERCENT;
+			}
 
-		writeJSON(resourceRequest, resourceResponse, externalLinksArray);
+			List<String> domains = _externalLinkLocalService.search(domain);
+
+			JSONArray domainsArray = JSONFactoryUtil.createJSONArray();
+
+			for (String curDomain : domains) {
+				domainsArray.put(curDomain);
+			}
+
+			writeJSON(resourceRequest, resourceResponse, domainsArray);
+		}
 	}
 
 	protected void serveExternalLinkEntityNames(
@@ -112,25 +110,26 @@ public class ProductsAdminPortlet extends MVCPortlet {
 
 		String entityName = ParamUtil.getString(resourceRequest, "entityName");
 
-		if (entityName.length() == 1) {
-			entityName += StringPool.PERCENT;
-		}
-		else {
-			entityName = StringPool.PERCENT + entityName + StringPool.PERCENT;
-		}
-
-		List<ExternalLink> externalLinks = _externalLinkLocalService.search(
-			domain, entityName);
-
-		JSONArray externalLinksArray = JSONFactoryUtil.createJSONArray();
-
-		for (ExternalLink externalLink : externalLinks) {
-			if (Validator.isNotNull(entityName)) {
-				externalLinksArray.put(externalLink.getEntityName());
+		if (Validator.isNotNull(entityName)) {
+			if (entityName.length() == 1) {
+				entityName += StringPool.PERCENT;
 			}
-		}
+			else {
+				entityName =
+					StringPool.PERCENT + entityName + StringPool.PERCENT;
+			}
 
-		writeJSON(resourceRequest, resourceResponse, externalLinksArray);
+			List<String> entityNames = _externalLinkLocalService.search(
+				domain, entityName);
+
+			JSONArray entityNamesArray = JSONFactoryUtil.createJSONArray();
+
+			for (String curEntityName : entityNames) {
+				entityNamesArray.put(curEntityName);
+			}
+
+			writeJSON(resourceRequest, resourceResponse, entityNamesArray);
+		}
 	}
 
 	@Reference

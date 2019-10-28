@@ -127,12 +127,12 @@ public class ExternalLinkLocalServiceImpl
 			classNameLocalService.getClassNameId(className), classPK);
 	}
 
-	public List<ExternalLink> search(String domain) {
+	public List<String> search(String domain) {
 		return externalLinkFinder.findByDomain(
 			domain, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
-	public List<ExternalLink> search(String domain, String entityName) {
+	public List<String> search(String domain, String entityName) {
 		return externalLinkFinder.findByD_EN(
 			domain, entityName, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
