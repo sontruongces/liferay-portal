@@ -88,29 +88,30 @@ public class XPackSecuritySettingsContributor implements SettingsContributor {
 		ClientSettingsHelper clientSettingsHelper) {
 
 		clientSettingsHelper.put(
-			"xpack.ssl.certificate",
+			"xpack.security.transport.ssl.certificate",
 			xPackSecurityConfiguration.sslCertificatePath());
 		clientSettingsHelper.putArray(
-			"xpack.ssl.certificate_authorities",
+			"xpack.security.transport.ssl.certificate_authorities",
 			xPackSecurityConfiguration.sslCertificateAuthoritiesPaths());
 		clientSettingsHelper.put(
-			"xpack.ssl.key", xPackSecurityConfiguration.sslKeyPath());
+			"xpack.security.transport.ssl.key",
+			xPackSecurityConfiguration.sslKeyPath());
 	}
 
 	protected void configurePKCSPaths(
 		ClientSettingsHelper clientSettingsHelper) {
 
 		clientSettingsHelper.put(
-			"xpack.ssl.keystore.password",
+			"xpack.security.transport.ssl.keystore.password",
 			xPackSecurityConfiguration.sslKeystorePassword());
 		clientSettingsHelper.put(
-			"xpack.ssl.keystore.path",
+			"xpack.security.transport.ssl.keystore.path",
 			xPackSecurityConfiguration.sslKeystorePath());
 		clientSettingsHelper.put(
-			"xpack.ssl.truststore.password",
+			"xpack.security.transport.ssl.truststore.password",
 			xPackSecurityConfiguration.sslTruststorePassword());
 		clientSettingsHelper.put(
-			"xpack.ssl.truststore.path",
+			"xpack.security.transport.ssl.truststore.path",
 			xPackSecurityConfiguration.sslTruststorePath());
 	}
 
