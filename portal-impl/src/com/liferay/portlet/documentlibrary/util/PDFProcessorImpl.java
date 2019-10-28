@@ -915,8 +915,6 @@ public class PDFProcessorImpl
 		throws Exception {
 
 		try (PDDocument pdDocument = PDDocument.load(file)) {
-			Map<String, Integer> scaledDimensions = new HashMap<>();
-
 			PDDocumentCatalog pdDocumentCatalog =
 				pdDocument.getDocumentCatalog();
 
@@ -935,6 +933,8 @@ public class PDFProcessorImpl
 			float height = pdRectangle.getHeight();
 
 			int scaledHeight = (int)Math.round(widthFactor * height);
+
+			Map<String, Integer> scaledDimensions = new HashMap<>();
 
 			scaledDimensions.put("height", scaledHeight);
 

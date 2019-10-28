@@ -1366,9 +1366,9 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	protected Map<String, String> getPortletPreferencesMap()
 		throws PortalException {
 
-		Map<String, String> portletPreferencesMap = new HashMap<>();
-
 		User user = getUser();
+
+		Map<String, String> portletPreferencesMap = new HashMap<>();
 
 		portletPreferencesMap.put(
 			SyncServiceConfigurationKeys.

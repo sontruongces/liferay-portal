@@ -189,8 +189,6 @@ public class JournalArticleStagedModelDataHandler
 	public Map<String, String> getReferenceAttributes(
 		PortletDataContext portletDataContext, JournalArticle article) {
 
-		Map<String, String> referenceAttributes = new HashMap<>();
-
 		String articleResourceUuid = null;
 
 		try {
@@ -210,6 +208,8 @@ public class JournalArticleStagedModelDataHandler
 
 			throw eire;
 		}
+
+		Map<String, String> referenceAttributes = new HashMap<>();
 
 		referenceAttributes.put("article-resource-uuid", articleResourceUuid);
 

@@ -98,8 +98,6 @@ public class ContributedFragmentManagementToolbarDisplayContext
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		Map<String, Object> componentContext = new HashMap<>();
-
 		PortletURL copyContributedFragmentEntryURL =
 			liferayPortletResponse.createActionURL();
 
@@ -108,6 +106,8 @@ public class ContributedFragmentManagementToolbarDisplayContext
 			"/fragment/copy_contributed_fragment_entry");
 		copyContributedFragmentEntryURL.setParameter(
 			"redirect", themeDisplay.getURLCurrent());
+
+		Map<String, Object> componentContext = new HashMap<>();
 
 		componentContext.put(
 			"copyContributedFragmentEntryURL",
