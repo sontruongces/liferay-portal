@@ -615,22 +615,22 @@ public class EditAssetListDisplayContext {
 			assetBrowserURL.setWindowState(LiferayWindowState.POP_UP);
 
 			if (!curRendererFactory.isSupportsClassTypes()) {
+				String type = curRendererFactory.getTypeName(
+					_themeDisplay.getLocale());
+
 				Map<String, Object> data = HashMapBuilder.<String, Object>put(
 					"destroyOnHide", true
 				).put(
 					"groupid", String.valueOf(_themeDisplay.getScopeGroupId())
 				).put(
 					"href", assetBrowserURL.toString()
-				).build();
-
-				String type = curRendererFactory.getTypeName(
-					_themeDisplay.getLocale());
-
-				data.put(
+				).put(
 					"title",
 					LanguageUtil.format(
-						_httpServletRequest, "select-x", type, false));
-				data.put("type", type);
+						_httpServletRequest, "select-x", type, false)
+				).put(
+					"type", type
+				).build();
 
 				manualAddIconDataMap.put(type, data);
 
@@ -647,25 +647,25 @@ public class EditAssetListDisplayContext {
 					_themeDisplay.getLocale());
 
 			for (ClassType assetAvailableClassType : assetAvailableClassTypes) {
-				Map<String, Object> data = HashMapBuilder.<String, Object>put(
-					"destroyOnHide", true
-				).put(
-					"groupid", String.valueOf(_themeDisplay.getScopeGroupId())
-				).build();
-
 				assetBrowserURL.setParameter(
 					"subtypeSelectionId",
 					String.valueOf(assetAvailableClassType.getClassTypeId()));
 
-				data.put("href", assetBrowserURL.toString());
-
 				String type = assetAvailableClassType.getName();
 
-				data.put(
+				Map<String, Object> data = HashMapBuilder.<String, Object>put(
+					"destroyOnHide", true
+				).put(
+					"groupid", String.valueOf(_themeDisplay.getScopeGroupId())
+				).put(
+					"href", assetBrowserURL.toString()
+				).put(
 					"title",
 					LanguageUtil.format(
-						_httpServletRequest, "select-x", type, false));
-				data.put("type", type);
+						_httpServletRequest, "select-x", type, false)
+				).put(
+					"type", type
+				).build();
 
 				manualAddIconDataMap.put(type, data);
 			}

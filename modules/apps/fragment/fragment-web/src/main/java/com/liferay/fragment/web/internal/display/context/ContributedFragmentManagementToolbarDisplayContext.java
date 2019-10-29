@@ -107,12 +107,6 @@ public class ContributedFragmentManagementToolbarDisplayContext
 		copyContributedFragmentEntryURL.setParameter(
 			"redirect", themeDisplay.getURLCurrent());
 
-		Map<String, Object> componentContext =
-			HashMapBuilder.<String, Object>put(
-				"copyContributedFragmentEntryURL",
-				copyContributedFragmentEntryURL.toString()
-			).build();
-
 		PortletURL selectFragmentCollectionURL =
 			liferayPortletResponse.createActionURL();
 
@@ -120,9 +114,14 @@ public class ContributedFragmentManagementToolbarDisplayContext
 			"mvcRenderCommandName", "/fragment/select_fragment_collection");
 		selectFragmentCollectionURL.setWindowState(LiferayWindowState.POP_UP);
 
-		componentContext.put(
-			"selectFragmentCollectionURL",
-			selectFragmentCollectionURL.toString());
+		Map<String, Object> componentContext =
+			HashMapBuilder.<String, Object>put(
+				"copyContributedFragmentEntryURL",
+				copyContributedFragmentEntryURL.toString()
+			).put(
+				"selectFragmentCollectionURL",
+				selectFragmentCollectionURL.toString()
+			).build();
 
 		return componentContext;
 	}
