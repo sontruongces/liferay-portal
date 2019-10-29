@@ -324,7 +324,7 @@ public class FragmentDisplayContext {
 			"mvcRenderCommandName", "/fragment/view_import");
 		viewImportURL.setWindowState(LiferayWindowState.POP_UP);
 
-		Map<String, Object> context = HashMapBuilder.<String, Object>put(
+		return HashMapBuilder.<String, Object>put(
 			"deleteFragmentCollectionURL",
 			deleteFragmentCollectionURL.toString()
 		).put(
@@ -339,8 +339,6 @@ public class FragmentDisplayContext {
 		).put(
 			"viewImportURL", viewImportURL.toString()
 		).build();
-
-		return context;
 	}
 
 	public SearchContainer getFragmentEntriesSearchContainer() {
