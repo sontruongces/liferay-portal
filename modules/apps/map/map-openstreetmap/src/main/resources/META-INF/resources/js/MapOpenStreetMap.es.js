@@ -153,11 +153,12 @@ MapOpenStreetMap.POSITION_MAP = {
  * @static
  */
 MapOpenStreetMap.STATE = {
-	...MapBase.STATE
+	...MapBase.STATE,
+
 	/**
 	 * Url used for fetching map tile information
 	 * @type {string}
-	 */,
+	 */
 	tileURI: Config.string().value(
 		'//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 	)

@@ -21,11 +21,11 @@ import {fetch} from 'frontend-js-web';
 export function fetchDocuments(url, params) {
 	const fetchUrl = new URL(url);
 
-	for (const property in params) {
+	Object.keys(params).forEach(property => {
 		if (params[property]) {
 			fetchUrl.searchParams.set(property, params[property]);
 		}
-	}
+	});
 
 	return fetch(fetchUrl)
 		.then(response => response.json())

@@ -9,8 +9,7 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
-import {useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Redirect} from 'react-router-dom';
 import MaskedInput from 'react-text-mask';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';

@@ -30,7 +30,7 @@ describe('Tooltip', () => {
 		}
 	});
 
-	it('Should render component with tooltip after mouse over', () => {
+	it('renders component with tooltip after mouse over', () => {
 		component = shallow(
 			<Tooltip {...props} position={'right'}>
 				{'Target'}
@@ -42,7 +42,7 @@ describe('Tooltip', () => {
 		expect(component).toMatchSnapshot();
 	});
 
-	it('Should render component with tooltip markup', () => {
+	it('renders component with tooltip markup', () => {
 		component = shallow(<Tooltip {...props}>{'Target'}</Tooltip>);
 
 		const instance = component.instance();
@@ -52,7 +52,7 @@ describe('Tooltip', () => {
 		expect(component).toMatchSnapshot();
 	});
 
-	it('Should render component with tooltip with bottom position', () => {
+	it('renders component with tooltip with bottom position', () => {
 		jest.useFakeTimers();
 
 		component = shallow(
@@ -68,7 +68,7 @@ describe('Tooltip', () => {
 		expect(component.find(TooltipBase).render()).toMatchSnapshot();
 	});
 
-	it('Should render component with tooltip with left position', () => {
+	it('renders component with tooltip with left position', () => {
 		component = shallow(
 			<Tooltip {...props} position={'right'}>
 				{'Target'}
@@ -82,7 +82,7 @@ describe('Tooltip', () => {
 		expect(component.find(TooltipBase).render()).toMatchSnapshot();
 	});
 
-	it('Should render component with tooltip with right position', () => {
+	it('renders component with tooltip with right position', () => {
 		component = shallow(
 			<Tooltip {...props} position={'right'}>
 				{'Target'}
@@ -96,7 +96,7 @@ describe('Tooltip', () => {
 		expect(component.find(TooltipBase).render()).toMatchSnapshot();
 	});
 
-	it('Should render component with tooltip with top position', () => {
+	it('renders component with tooltip with top position', () => {
 		component = shallow(<Tooltip {...props}>{'Target'}</Tooltip>);
 
 		const instance = component.instance();
@@ -106,7 +106,7 @@ describe('Tooltip', () => {
 		expect(component.find(TooltipBase).render()).toMatchSnapshot();
 	});
 
-	it('Should render component without tooltip after mouse leave', () => {
+	it('renders component without tooltip after mouse leave', () => {
 		component = shallow(
 			<Tooltip {...props} position={'right'}>
 				{'Target'}
@@ -119,7 +119,7 @@ describe('Tooltip', () => {
 		expect(component).toMatchSnapshot();
 	});
 
-	it('Should render component without tooltip markup', () => {
+	it('renders component without tooltip markup', () => {
 		component = shallow(<Tooltip {...props}>{'Target'}</Tooltip>);
 
 		expect(component).toMatchSnapshot();

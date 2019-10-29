@@ -97,7 +97,7 @@ class ItemSelectorField extends Component {
 	 * @review
 	 */
 	_handleSelectTemplateValueChanged() {
-		const targetElement = event.delegateTarget;
+		const targetElement = window.event.delegateTarget;
 
 		const selectedItem = this.configurationValues[this.field.name];
 
