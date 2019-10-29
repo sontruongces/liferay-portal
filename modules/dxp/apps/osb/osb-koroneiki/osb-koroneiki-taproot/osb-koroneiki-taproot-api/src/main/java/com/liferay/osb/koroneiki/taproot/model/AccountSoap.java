@@ -52,6 +52,7 @@ public class AccountSoap implements Serializable {
 		soapModel.setIndustry(model.getIndustry());
 		soapModel.setTier(model.getTier());
 		soapModel.setSoldBy(model.getSoldBy());
+		soapModel.setInternal(model.isInternal());
 		soapModel.setStatus(model.getStatus());
 		soapModel.setStatusByUserId(model.getStatusByUserId());
 		soapModel.setStatusByUserName(model.getStatusByUserName());
@@ -278,6 +279,18 @@ public class AccountSoap implements Serializable {
 		_soldBy = soldBy;
 	}
 
+	public boolean getInternal() {
+		return _internal;
+	}
+
+	public boolean isInternal() {
+		return _internal;
+	}
+
+	public void setInternal(boolean internal) {
+		_internal = internal;
+	}
+
 	public int getStatus() {
 		return _status;
 	}
@@ -339,6 +352,7 @@ public class AccountSoap implements Serializable {
 	private String _industry;
 	private String _tier;
 	private String _soldBy;
+	private boolean _internal;
 	private int _status;
 	private long _statusByUserId;
 	private String _statusByUserName;

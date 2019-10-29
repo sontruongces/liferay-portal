@@ -3662,6 +3662,7 @@ public class AccountPersistenceImpl
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("code", "code_");
+		dbColumnNames.put("internal", "internal_");
 
 		setDBColumnNames(dbColumnNames);
 	}
@@ -4588,7 +4589,7 @@ public class AccountPersistenceImpl
 		AccountPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid", "code"});
+		new String[] {"uuid", "code", "internal"});
 
 	static {
 		try {

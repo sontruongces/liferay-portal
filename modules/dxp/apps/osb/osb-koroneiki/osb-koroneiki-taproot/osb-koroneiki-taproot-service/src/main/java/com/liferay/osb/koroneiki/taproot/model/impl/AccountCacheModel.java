@@ -60,7 +60,7 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(53);
+		StringBundler sb = new StringBundler(55);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -104,6 +104,8 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 		sb.append(tier);
 		sb.append(", soldBy=");
 		sb.append(soldBy);
+		sb.append(", internal=");
+		sb.append(internal);
 		sb.append(", status=");
 		sb.append(status);
 		sb.append(", statusByUserId=");
@@ -243,6 +245,7 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 			accountImpl.setSoldBy(soldBy);
 		}
 
+		accountImpl.setInternal(internal);
 		accountImpl.setStatus(status);
 		accountImpl.setStatusByUserId(statusByUserId);
 
@@ -300,6 +303,8 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 		industry = objectInput.readUTF();
 		tier = objectInput.readUTF();
 		soldBy = objectInput.readUTF();
+
+		internal = objectInput.readBoolean();
 
 		status = objectInput.readInt();
 
@@ -421,6 +426,8 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 			objectOutput.writeUTF(soldBy);
 		}
 
+		objectOutput.writeBoolean(internal);
+
 		objectOutput.writeInt(status);
 
 		objectOutput.writeLong(statusByUserId);
@@ -463,6 +470,7 @@ public class AccountCacheModel implements CacheModel<Account>, Externalizable {
 	public String industry;
 	public String tier;
 	public String soldBy;
+	public boolean internal;
 	public int status;
 	public long statusByUserId;
 	public String statusByUserName;

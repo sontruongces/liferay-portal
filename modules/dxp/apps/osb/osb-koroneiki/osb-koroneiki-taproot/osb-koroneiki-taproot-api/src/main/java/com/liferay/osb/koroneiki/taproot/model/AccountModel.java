@@ -390,6 +390,27 @@ public interface AccountModel
 	public void setSoldBy(String soldBy);
 
 	/**
+	 * Returns the internal of this account.
+	 *
+	 * @return the internal of this account
+	 */
+	public boolean getInternal();
+
+	/**
+	 * Returns <code>true</code> if this account is internal.
+	 *
+	 * @return <code>true</code> if this account is internal; <code>false</code> otherwise
+	 */
+	public boolean isInternal();
+
+	/**
+	 * Sets whether this account is internal.
+	 *
+	 * @param internal the internal of this account
+	 */
+	public void setInternal(boolean internal);
+
+	/**
 	 * Returns the status of this account.
 	 *
 	 * @return the status of this account

@@ -45,6 +45,7 @@ public abstract class AccountFinderBaseImpl
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("code", "code_");
+		dbColumnNames.put("internal", "internal_");
 
 		setDBColumnNames(dbColumnNames);
 	}

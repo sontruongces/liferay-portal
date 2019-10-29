@@ -29,6 +29,7 @@
 		<field name="industry" type="String" />
 		<field name="tier" type="String" />
 		<field name="soldBy" type="String" />
+		<field name="internal" type="boolean" />
 		<field name="status" type="int" />
 		<field name="statusByUserId" type="long" />
 		<field name="statusByUserName" type="String" />

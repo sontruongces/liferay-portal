@@ -20,6 +20,7 @@ create table Koroneiki_Account (
 	industry VARCHAR(75) null,
 	tier VARCHAR(75) null,
 	soldBy VARCHAR(75) null,
+	internal_ BOOLEAN,
 	status INTEGER,
 	statusByUserId LONG,
 	statusByUserName VARCHAR(75) null,

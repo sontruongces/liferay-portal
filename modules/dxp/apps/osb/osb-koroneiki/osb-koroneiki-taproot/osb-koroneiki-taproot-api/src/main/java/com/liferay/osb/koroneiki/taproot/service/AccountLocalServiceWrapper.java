@@ -49,13 +49,14 @@ public class AccountLocalServiceWrapper
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, int status)
+			String industry, String tier, String soldBy, boolean internal,
+			int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountLocalService.addAccount(
 			userId, parentAccountId, name, code, description, notes, logoId,
 			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
-			website, industry, tier, soldBy, status);
+			website, industry, tier, soldBy, internal, status);
 	}
 
 	/**
@@ -406,13 +407,14 @@ public class AccountLocalServiceWrapper
 			String code, String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, int status)
+			String industry, String tier, String soldBy, boolean internal,
+			int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountLocalService.updateAccount(
 			userId, accountId, parentAccountId, name, code, description, notes,
 			logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
-			faxNumber, website, industry, tier, soldBy, status);
+			faxNumber, website, industry, tier, soldBy, internal, status);
 	}
 
 	@Override

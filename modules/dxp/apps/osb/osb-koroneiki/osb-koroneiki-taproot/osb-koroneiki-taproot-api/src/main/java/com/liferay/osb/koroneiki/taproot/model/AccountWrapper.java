@@ -64,6 +64,7 @@ public class AccountWrapper
 		attributes.put("industry", getIndustry());
 		attributes.put("tier", getTier());
 		attributes.put("soldBy", getSoldBy());
+		attributes.put("internal", isInternal());
 		attributes.put("status", getStatus());
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
@@ -201,6 +202,12 @@ public class AccountWrapper
 
 		if (soldBy != null) {
 			setSoldBy(soldBy);
+		}
+
+		Boolean internal = (Boolean)attributes.get("internal");
+
+		if (internal != null) {
+			setInternal(internal);
 		}
 
 		Integer status = (Integer)attributes.get("status");
@@ -343,6 +350,16 @@ public class AccountWrapper
 	@Override
 	public String getIndustry() {
 		return model.getIndustry();
+	}
+
+	/**
+	 * Returns the internal of this account.
+	 *
+	 * @return the internal of this account
+	 */
+	@Override
+	public boolean getInternal() {
+		return model.getInternal();
 	}
 
 	/**
@@ -618,6 +635,16 @@ public class AccountWrapper
 	}
 
 	/**
+	 * Returns <code>true</code> if this account is internal.
+	 *
+	 * @return <code>true</code> if this account is internal; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isInternal() {
+		return model.isInternal();
+	}
+
+	/**
 	 * Returns <code>true</code> if this account is pending.
 	 *
 	 * @return <code>true</code> if this account is pending; <code>false</code> otherwise
@@ -735,6 +762,16 @@ public class AccountWrapper
 	@Override
 	public void setIndustry(String industry) {
 		model.setIndustry(industry);
+	}
+
+	/**
+	 * Sets whether this account is internal.
+	 *
+	 * @param internal the internal of this account
+	 */
+	@Override
+	public void setInternal(boolean internal) {
+		model.setInternal(internal);
 	}
 
 	/**

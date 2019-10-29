@@ -56,7 +56,7 @@ public interface AccountService extends BaseService {
 			String notes, long logoId, String contactEmailAddress,
 			String profileEmailAddress, String phoneNumber, String faxNumber,
 			String website, String industry, String tier, String soldBy,
-			int status)
+			boolean internal, int status)
 		throws PortalException;
 
 	public Account deleteAccount(long accountId) throws PortalException;
@@ -106,7 +106,8 @@ public interface AccountService extends BaseService {
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, int status)
+			String industry, String tier, String soldBy, boolean internal,
+			int status)
 		throws PortalException;
 
 	public Account updateAccount(
@@ -114,7 +115,8 @@ public interface AccountService extends BaseService {
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, int status)
+			String industry, String tier, String soldBy, boolean internal,
+			int status)
 		throws PortalException;
 
 }
