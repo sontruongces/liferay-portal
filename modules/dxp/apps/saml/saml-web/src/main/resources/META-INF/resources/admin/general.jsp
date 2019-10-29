@@ -98,7 +98,8 @@ String samlRole = properties.getProperty(PortletPropsKeys.SAML_ROLE, samlProvide
 		function(uri) {
 			var dialog = Liferay.Util.Window.getWindow({
 				id: '<portlet:namespace />certificateDialog',
-				title : '<%= UnicodeLanguageUtil.get(request, "certificate-and-private-key") %>',
+				title:
+					'<%= UnicodeLanguageUtil.get(request, "certificate-and-private-key") %>',
 				uri: uri,
 				dialog: {
 					cache: false,
@@ -125,6 +126,6 @@ String samlRole = properties.getProperty(PortletPropsKeys.SAML_ROLE, samlProvide
 				window.location.replace('<%= HtmlUtil.escapeJS(refreshViewURL) %>');
 			}
 		},
-		['aui-base','aui-dialog','aui-dialog-iframe']
+		['aui-base', 'aui-dialog', 'aui-dialog-iframe']
 	);
 </aui:script>

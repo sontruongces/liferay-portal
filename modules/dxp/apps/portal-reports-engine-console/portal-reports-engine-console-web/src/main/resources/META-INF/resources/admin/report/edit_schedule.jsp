@@ -144,21 +144,29 @@ renderResponse.setTitle(LanguageUtil.get(request, "new-report-entry"));
 										function useVariable<%= keyJSId %>() {
 											var A = AUI();
 
-											var type = A.one('#<%= renderResponse.getNamespace() + "useVariable" + HtmlUtil.escapeJS(key) %>').get('value');
-											var day = A.one('#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) + "Day" %>');
-											var month = A.one('#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) + "Month" %>');
-											var year = A.one('#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) + "Year" %>');
+											var type = A.one(
+												'#<%= renderResponse.getNamespace() + "useVariable" + HtmlUtil.escapeJS(key) %>'
+											).get('value');
+											var day = A.one(
+												'#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) + "Day" %>'
+											);
+											var month = A.one(
+												'#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) + "Month" %>'
+											);
+											var year = A.one(
+												'#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) + "Year" %>'
+											);
 
-											if ((type == 'startDate') || (type =='endDate')) {
+											if (type == 'startDate' || type == 'endDate') {
 												day.attr('disabled', 'disabled');
 												month.attr('disabled', 'disabled');
 												year.attr('disabled', 'disabled');
 
-												if (type =='endDate') {
-													document.<portlet:namespace />fm.<portlet:namespace />endDateType[1].checked = 'true';
+												if (type == 'endDate') {
+													document.<portlet:namespace />fm.<portlet:namespace />endDateType[1].checked =
+														'true';
 												}
-											}
-											else {
+											} else {
 												day.attr('disabled', '');
 												month.attr('disabled', '');
 												year.attr('disabled', '');

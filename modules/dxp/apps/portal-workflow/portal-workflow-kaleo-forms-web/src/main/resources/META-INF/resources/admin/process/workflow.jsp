@@ -234,24 +234,23 @@ if (tabs1.equals("published")) {
 
 			var workflowDefinition = event.name + '@' + event.version;
 
-			A.one('#<portlet:namespace />workflowDefinition').val(workflowDefinition);
+			A.one('#<portlet:namespace />workflowDefinition').val(
+				workflowDefinition
+			);
 
 			A.one('#<portlet:namespace />workflowDefinitionDisplay').html(
-				A.Lang.sub(
-					'{title}',
-					{
-						title: Liferay.Util.escapeHTML(event.title)
-					}
-				)
+				A.Lang.sub('{title}', {
+					title: Liferay.Util.escapeHTML(event.title)
+				})
 			);
 
-			var kaleoFormsAdmin = Liferay.component('<portlet:namespace/>KaleoFormsAdmin');
-
-			kaleoFormsAdmin.saveInPortletSession(
-				{
-					workflowDefinition: workflowDefinition
-				}
+			var kaleoFormsAdmin = Liferay.component(
+				'<portlet:namespace/>KaleoFormsAdmin'
 			);
+
+			kaleoFormsAdmin.saveInPortletSession({
+				workflowDefinition: workflowDefinition
+			});
 
 			kaleoFormsAdmin.updateNavigationControls();
 		},
@@ -266,14 +265,12 @@ if (tabs1.equals("published")) {
 
 			var WIN = A.config.win;
 
-			Liferay.Util.openWindow(
-				{
-					id: A.guid(),
-					refreshWindow: WIN,
-					title: '<liferay-ui:message key="workflow" />',
-					uri: uri
-				}
-			);
+			Liferay.Util.openWindow({
+				id: A.guid(),
+				refreshWindow: WIN,
+				title: '<liferay-ui:message key="workflow" />',
+				uri: uri
+			});
 		},
 		['liferay-util']
 	);

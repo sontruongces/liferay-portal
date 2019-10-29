@@ -200,28 +200,38 @@ else {
 </aui:form>
 
 <script type="text/javascript">
-	AUI().ready(
-		function(A) {
-			Liferay.Report.initialize(
-				{
-					namespace:'<portlet:namespace />',
-					parameters: '<%= HtmlUtil.escapeJS(BeanParamUtil.getString(definition, request, "reportParameters")) %>'
-				}
-			);
-		}
-	);
+	AUI().ready(function(A) {
+		Liferay.Report.initialize({
+			namespace: '<portlet:namespace />',
+			parameters:
+				'<%= HtmlUtil.escapeJS(BeanParamUtil.getString(definition, request, "reportParameters")) %>'
+		});
+	});
 
 	function <portlet:namespace />addReport() {
-		submitForm(document.<portlet:namespace />fm, '<portlet:renderURL><portlet:param name="mvcPath" value="/admin/report/generate_report.jsp" /><portlet:param name="definitionId" value="<%= String.valueOf(definitionId) %>" /></portlet:renderURL>');
+		submitForm(
+			document.<portlet:namespace />fm,
+			'<portlet:renderURL><portlet:param name="mvcPath" value="/admin/report/generate_report.jsp" /><portlet:param name="definitionId" value="<%= String.valueOf(definitionId) %>" /></portlet:renderURL>'
+		);
 	}
 
 	function <portlet:namespace />addScheduler() {
-		submitForm(document.<portlet:namespace />fm, '<portlet:renderURL><portlet:param name="mvcPath" value="/admin/report/edit_schedule.jsp" /><portlet:param name="definitionId" value="<%= String.valueOf(definitionId) %>" /></portlet:renderURL>');
+		submitForm(
+			document.<portlet:namespace />fm,
+			'<portlet:renderURL><portlet:param name="mvcPath" value="/admin/report/edit_schedule.jsp" /><portlet:param name="definitionId" value="<%= String.valueOf(definitionId) %>" /></portlet:renderURL>'
+		);
 	}
 
 	function <portlet:namespace />deleteDefinition() {
-		if (confirm('<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-delete-this") %>')) {
-			submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="deleteDefinition"><portlet:param name="redirect" value="<%= definitionsURL %>" /></portlet:actionURL>');
+		if (
+			confirm(
+				'<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-delete-this") %>'
+			)
+		) {
+			submitForm(
+				document.<portlet:namespace />fm,
+				'<portlet:actionURL name="deleteDefinition"><portlet:param name="redirect" value="<%= definitionsURL %>" /></portlet:actionURL>'
+			);
 		}
 	}
 </script>

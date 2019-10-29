@@ -40,53 +40,53 @@
 				content.show();
 			}
 
-			var dialog = Liferay.Util.Window.getWindow(
-				{
-					dialog: {
-						bodyContent: form,
-						cssClass: 'kaleo-process-export-dialog',
-						height: 286,
-						render: '#p_p_id<portlet:namespace />',
-						toolbars: {
-							footer: [
-								{
-									cssClass: 'btn-primary',
-									label: '<%= UnicodeLanguageUtil.get(request, "ok") %>',
-									on: {
-										click: function() {
-											submitForm(form, url, false);
+			var dialog = Liferay.Util.Window.getWindow({
+				dialog: {
+					bodyContent: form,
+					cssClass: 'kaleo-process-export-dialog',
+					height: 286,
+					render: '#p_p_id<portlet:namespace />',
+					toolbars: {
+						footer: [
+							{
+								cssClass: 'btn-primary',
+								label:
+									'<%= UnicodeLanguageUtil.get(request, "ok") %>',
+								on: {
+									click: function() {
+										submitForm(form, url, false);
 
-											dialog.hide();
-										}
-									},
-									primary: true
+										dialog.hide();
+									}
 								},
-								{
-									label: '<%= UnicodeLanguageUtil.get(request, "cancel") %>',
-									on: {
-										click: function() {
-											dialog.hide();
-										}
+								primary: true
+							},
+							{
+								label:
+									'<%= UnicodeLanguageUtil.get(request, "cancel") %>',
+								on: {
+									click: function() {
+										dialog.hide();
 									}
 								}
-							],
-							header: [
-								{
-									cssClass: 'close',
-									label: '\u00D7',
-									on: {
-										click: function(event) {
-											dialog.hide();
-										}
+							}
+						],
+						header: [
+							{
+								cssClass: 'close',
+								label: '\u00D7',
+								on: {
+									click: function(event) {
+										dialog.hide();
 									}
 								}
-							]
-						},
-						width: 350
+							}
+						]
 					},
-					title: '<%= UnicodeLanguageUtil.get(request, "export") %>'
-				}
-			);
+					width: 350
+				},
+				title: '<%= UnicodeLanguageUtil.get(request, "export") %>'
+			});
 		},
 		['liferay-util-window']
 	);

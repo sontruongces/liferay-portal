@@ -115,7 +115,9 @@ long assertionLifetime = GetterUtil.getLong(request.getAttribute(SamlWebKeys.SAM
 		function() {
 			var A = AUI();
 
-			var uploadMetadataXmlForm = A.one('#<portlet:namespace />uploadMetadataXmlForm');
+			var uploadMetadataXmlForm = A.one(
+				'#<portlet:namespace />uploadMetadataXmlForm'
+			);
 
 			if (uploadMetadataXmlForm) {
 				uploadMetadataXmlForm.show();

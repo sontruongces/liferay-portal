@@ -126,8 +126,14 @@ RankingPortletDisplayContext rankingPortletDisplayContext = (RankingPortletDispl
 
 <aui:script>
 	var deleteResultsRankingsEntries = function() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-this" />')) {
-			var form = document.querySelector('#<portlet:namespace />resultsRankingEntriesFm');
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-this" />'
+			)
+		) {
+			var form = document.querySelector(
+				'#<portlet:namespace />resultsRankingEntriesFm'
+			);
 
 			if (form) {
 				submitForm(form);
@@ -136,21 +142,18 @@ RankingPortletDisplayContext rankingPortletDisplayContext = (RankingPortletDispl
 	};
 
 	var ACTIONS = {
-		'deleteResultsRankingsEntries': deleteResultsRankingsEntries
+		deleteResultsRankingsEntries: deleteResultsRankingsEntries
 	};
 
-	Liferay.componentReady('resultsRankingEntriesManagementToolbar').then(
-		function(managementToolbar) {
-			managementToolbar.on(
-				'actionItemClicked',
-				function(event) {
-					var itemData = event.data.item.data;
+	Liferay.componentReady('resultsRankingEntriesManagementToolbar').then(function(
+		managementToolbar
+	) {
+		managementToolbar.on('actionItemClicked', function(event) {
+			var itemData = event.data.item.data;
 
-					if (itemData && itemData.action && ACTIONS[itemData.action]) {
-						ACTIONS[itemData.action]();
-					}
-				}
-			);
-		}
-	);
+			if (itemData && itemData.action && ACTIONS[itemData.action]) {
+				ACTIONS[itemData.action]();
+			}
+		});
+	});
 </aui:script>

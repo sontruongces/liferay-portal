@@ -333,12 +333,9 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 								<aui:script>
 									var sidenavSlider = $('#<portlet:namespace />infoPanelId');
 
-									sidenavSlider.on(
-										'open.lexicon.sidenav',
-										function(event) {
-											$(document).trigger('screenChange.lexicon.sidenav');
-										}
-									);
+									sidenavSlider.on('open.lexicon.sidenav', function(event) {
+										$(document).trigger('screenChange.lexicon.sidenav');
+									});
 
 									Liferay.provide(
 										window,
@@ -348,13 +345,13 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 
 											var kaleoDesigner = <portlet:namespace />kaleoDesigner;
 
-											if ((tabContentNode === kaleoDesigner.viewNode) && kaleoDesigner.editor) {
-												setTimeout(
-													function() {
-														kaleoDesigner.set('definition', kaleoDesigner.editor.get('value'));
-													},
-													0
-												);
+											if (tabContentNode === kaleoDesigner.viewNode && kaleoDesigner.editor) {
+												setTimeout(function() {
+													kaleoDesigner.set(
+														'definition',
+														kaleoDesigner.editor.get('value')
+													);
+												}, 0);
 											}
 										},
 										['aui-base']
@@ -368,7 +365,9 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 
 											<portlet:namespace />updateTitle();
 
-											<portlet:namespace />updateAction('<portlet:actionURL name="publishKaleoDefinitionVersion" />');
+											<portlet:namespace />updateAction(
+												'<portlet:actionURL name="publishKaleoDefinitionVersion" />'
+											);
 
 											submitForm(document.<portlet:namespace />fm);
 										},
@@ -383,7 +382,9 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 
 											<portlet:namespace />updateTitle();
 
-											<portlet:namespace />updateAction('<portlet:actionURL name="saveKaleoDefinitionVersion" />');
+											<portlet:namespace />updateAction(
+												'<portlet:actionURL name="saveKaleoDefinitionVersion" />'
+											);
 
 											submitForm(document.<portlet:namespace />fm);
 										},
@@ -415,8 +416,7 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 
 											if (activeTab === <portlet:namespace />kaleoDesigner.sourceNode) {
 												content.val(<portlet:namespace />kaleoDesigner.editor.get('value'));
-											}
-											else {
+											} else {
 												content.val(<portlet:namespace />kaleoDesigner.getContent());
 											}
 										},
@@ -432,7 +432,9 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 											var titlePlaceholderInput = titleComponent.get('inputPlaceholder');
 
 											if (!titlePlaceholderInput.val()) {
-												titlePlaceholderInput.val('<liferay-ui:message key="untitled-workflow" />');
+												titlePlaceholderInput.val(
+													'<liferay-ui:message key="untitled-workflow" />'
+												);
 											}
 										},
 										['aui-base']
@@ -456,7 +458,11 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 									%>
 
 									<c:if test="<%= (kaleoDefinitionVersion != null) && Validator.isNotNull(saveCallback) %>">
-										Liferay.Util.getOpener()['<%= HtmlUtil.escapeJS(saveCallback) %>']('<%= HtmlUtil.escapeJS(name) %>', <%= version %>, <%= draftVersion %>);
+										Liferay.Util.getOpener()['<%= HtmlUtil.escapeJS(saveCallback) %>'](
+											'<%= HtmlUtil.escapeJS(name) %>',
+											<%= version %>,
+											<%= draftVersion %>
+										);
 									</c:if>
 								</aui:script>
 
@@ -467,146 +473,147 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 										site: 2
 									};
 
-									<portlet:namespace />kaleoDesigner = new Liferay.KaleoDesigner(
-										{
+									<portlet:namespace />kaleoDesigner = new Liferay.KaleoDesigner({
+
+										<%
+										String availableFields = ParamUtil.getString(request, "availableFields");
+										%>
+
+										<c:if test="<%= Validator.isNotNull(availableFields) %>">
+											availableFields: A.Object.getValue(
+												window,
+												'<%= HtmlUtil.escapeJS(availableFields) %>'.split('.')
+											),
+										</c:if>
+
+										<%
+										String availablePropertyModels = ParamUtil.getString(request, "availablePropertyModels", "Liferay.KaleoDesigner.AVAILABLE_PROPERTY_MODELS.KALEO_FORMS_EDIT");
+										%>
+
+										<c:if test="<%= Validator.isNotNull(availablePropertyModels) %>">
+											availablePropertyModels: A.Object.getValue(
+												window,
+												'<%= HtmlUtil.escapeJS(availablePropertyModels) %>'.split('.')
+											),
+										</c:if>
+
+										boundingBox: '#<portlet:namespace />propertyBuilder',
+										data: {
 
 											<%
-											String availableFields = ParamUtil.getString(request, "availableFields");
+											long kaleoProcessId = ParamUtil.getLong(request, "kaleoProcessId");
 											%>
 
-											<c:if test="<%= Validator.isNotNull(availableFields) %>">
-												availableFields: A.Object.getValue(window, '<%= HtmlUtil.escapeJS(availableFields) %>'.split('.')),
-											</c:if>
+											kaleoProcessId: '<%= kaleoProcessId %>'
+										},
 
-											<%
-											String availablePropertyModels = ParamUtil.getString(request, "availablePropertyModels", "Liferay.KaleoDesigner.AVAILABLE_PROPERTY_MODELS.KALEO_FORMS_EDIT");
-											%>
+										<c:if test="<%= Validator.isNotNull(content) %>">
+											definition: '<%= HtmlUtil.escapeJS(content) %>',
+										</c:if>
 
-											<c:if test="<%= Validator.isNotNull(availablePropertyModels) %>">
-												availablePropertyModels: A.Object.getValue(window, '<%= HtmlUtil.escapeJS(availablePropertyModels) %>'.split('.')),
-											</c:if>
+										<%
+										String propertiesSaveCallback = ParamUtil.getString(request, "propertiesSaveCallback");
+										%>
 
-											boundingBox: '#<portlet:namespace />propertyBuilder',
-											data: {
-
-												<%
-												long kaleoProcessId = ParamUtil.getLong(request, "kaleoProcessId");
-												%>
-
-												kaleoProcessId: '<%= kaleoProcessId %>'
+										<c:if test="<%= Validator.isNotNull(propertiesSaveCallback) %>">
+											on: {
+												save: Liferay.Util.getOpener()[
+													'<%= HtmlUtil.escapeJS(propertiesSaveCallback) %>'
+												]
 											},
+										</c:if>
 
-											<c:if test="<%= Validator.isNotNull(content) %>">
-												definition: '<%= HtmlUtil.escapeJS(content) %>',
-											</c:if>
+										portletNamespace: '<portlet:namespace />',
 
-											<%
-											String propertiesSaveCallback = ParamUtil.getString(request, "propertiesSaveCallback");
-											%>
+										<%
+										String portletResourceNamespace = ParamUtil.getString(request, "portletResourceNamespace");
+										%>
 
-											<c:if test="<%= Validator.isNotNull(propertiesSaveCallback) %>">
-												on: {
-													save: Liferay.Util.getOpener()['<%= HtmlUtil.escapeJS(propertiesSaveCallback) %>']
-												},
-											</c:if>
-
-											portletNamespace: '<portlet:namespace />',
-
-											<%
-											String portletResourceNamespace = ParamUtil.getString(request, "portletResourceNamespace");
-											%>
-
-											portletResourceNamespace: '<%= HtmlUtil.escapeJS(portletResourceNamespace) %>',
-											srcNode: '#<portlet:namespace />propertyBuilderContent'
-										}
-									).render();
+										portletResourceNamespace:
+											'<%= HtmlUtil.escapeJS(portletResourceNamespace) %>',
+										srcNode: '#<portlet:namespace />propertyBuilderContent'
+									}).render();
 
 									<c:if test="<%= kaleoDesignerDisplayContext.isDefinitionInputDisabled(isPreviewBeforeRestoreState, kaleoDefinitionVersion, permissionChecker) %>">
-										<portlet:namespace />kaleoDesigner.after(
-											'render',
-											function() {
-												$('#<portlet:namespace />propertyBuilder').find('.diagram-builder-controls').detach();
+										<portlet:namespace />kaleoDesigner.after('render', function() {
+											$('#<portlet:namespace />propertyBuilder')
+												.find('.diagram-builder-controls')
+												.detach();
 
-												<portlet:namespace />kaleoDesigner.detachAll();
+											<portlet:namespace />kaleoDesigner.detachAll();
 
-												<portlet:namespace />kaleoDesigner.set('readOnly', true);
-											}
-										);
+											<portlet:namespace />kaleoDesigner.set('readOnly', true);
+										});
 									</c:if>
 
 									var uploadFile = $('#<portlet:namespace />upload');
 
 									var previousContent = '';
 
-									uploadFile.on(
-										'change',
-										function(evt) {
-											var files = evt.target.files;
+									uploadFile.on('change', function(evt) {
+										var files = evt.target.files;
 
-											if (files) {
-												var reader = new FileReader();
+										if (files) {
+											var reader = new FileReader();
 
-												reader.onloadend = function(evt) {
-													if (evt.target.readyState == FileReader.DONE) {
-														previousContent = <portlet:namespace />kaleoDesigner.getEditorContent();
+											reader.onloadend = function(evt) {
+												if (evt.target.readyState == FileReader.DONE) {
+													previousContent = <portlet:namespace />kaleoDesigner.getEditorContent();
 
-														<portlet:namespace />kaleoDesigner.setEditorContent(evt.target.result);
+													<portlet:namespace />kaleoDesigner.setEditorContent(
+														evt.target.result
+													);
 
-														uploadFile.val('');
+													uploadFile.val('');
 
-														Liferay.KaleoDesignerDialogs.showDefinitionImportSuccessMessage('<portlet:namespace />');
-													}
-												};
+													Liferay.KaleoDesignerDialogs.showDefinitionImportSuccessMessage(
+														'<portlet:namespace />'
+													);
+												}
+											};
 
-												reader.readAsText(files[0]);
-											}
+											reader.readAsText(files[0]);
 										}
-									);
+									});
 
 									<c:if test="<%= !kaleoDesignerDisplayContext.isDefinitionInputDisabled(isPreviewBeforeRestoreState, kaleoDefinitionVersion, permissionChecker) %>">
 										var uploadLink = $('#<portlet:namespace />uploadLink');
 
-										uploadLink.on(
-											'click',
-											function(event) {
-												event.preventDefault();
-												uploadFile.trigger('click');
-											}
-										);
+										uploadLink.on('click', function(event) {
+											event.preventDefault();
+											uploadFile.trigger('click');
+										});
 									</c:if>
 
-									<portlet:namespace />kaleoDesigner.contentTabView.after(
-										{
-											selectionChange: <portlet:namespace />afterTabViewChange
-										}
-									);
+									<portlet:namespace />kaleoDesigner.contentTabView.after({
+										selectionChange: <portlet:namespace />afterTabViewChange
+									});
 
 									var fields = <portlet:namespace />kaleoDesigner.get('fields');
 
 									if (fields.size() == 0) {
-										<portlet:namespace />kaleoDesigner.set(
-											'fields',
-											[
-												{
-													name: 'StartNode',
-													type: 'start',
-													xy: [100, 40]
-												},
+										<portlet:namespace />kaleoDesigner.set('fields', [
+											{
+												name: 'StartNode',
+												type: 'start',
+												xy: [100, 40]
+											},
 
-												{
-													actions: {
-														description: [Liferay.KaleoDesignerStrings.approve],
-														executionType: ['onEntry'],
-														name: [Liferay.KaleoDesignerStrings.approve],
-														script: ['com.liferay.portal.kernel.workflow.WorkflowStatusManagerUtil.updateStatus(com.liferay.portal.kernel.workflow.WorkflowConstants.getLabelStatus("approved"), workflowContext);'],
-														scriptLanguage: ['groovy']
-													},
-													name: 'EndNode',
-													type: 'end',
-													xy: [100, 500]
-												}
-											]
-										);
+											{
+												actions: {
+													description: [Liferay.KaleoDesignerStrings.approve],
+													executionType: ['onEntry'],
+													name: [Liferay.KaleoDesignerStrings.approve],
+													script: [
+														'com.liferay.portal.kernel.workflow.WorkflowStatusManagerUtil.updateStatus(com.liferay.portal.kernel.workflow.WorkflowConstants.getLabelStatus("approved"), workflowContext);'
+													],
+													scriptLanguage: ['groovy']
+												},
+												name: 'EndNode',
+												type: 'end',
+												xy: [100, 500]
+											}
+										]);
 
 										<portlet:namespace />kaleoDesigner.connect('StartNode', 'EndNode');
 									}
@@ -623,15 +630,34 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 
 										var type = MAP_ROLE_TYPES[roleType] || 0;
 
-										var autocomplete = Liferay.KaleoDesignerAutoCompleteUtil.create('<portlet:namespace />', inputNode, '<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="roles" />', null, resultTextLocator, selectFn);
+										var autocomplete = Liferay.KaleoDesignerAutoCompleteUtil.create(
+											'<portlet:namespace />',
+											inputNode,
+											'<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="roles" />',
+											null,
+											resultTextLocator,
+											selectFn
+										);
 
-										autocomplete.set('requestTemplate', '&<portlet:namespace />type=' + type + '&<portlet:namespace />keywords={query}');
+										autocomplete.set(
+											'requestTemplate',
+											'&<portlet:namespace />type=' +
+												type +
+												'&<portlet:namespace />keywords={query}'
+										);
 
 										autocomplete.sendRequest('');
 									};
 
 									var createUserAutocomplete = function(inputNode, resultTextLocator, selectFn) {
-										var autocomplete = Liferay.KaleoDesignerAutoCompleteUtil.create('<portlet:namespace />', inputNode, '<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="users" />', null, resultTextLocator, selectFn);
+										var autocomplete = Liferay.KaleoDesignerAutoCompleteUtil.create(
+											'<portlet:namespace />',
+											inputNode,
+											'<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="users" />',
+											null,
+											resultTextLocator,
+											selectFn
+										);
 
 										autocomplete.sendRequest('');
 									};
@@ -643,39 +669,29 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 
 											var inputName = inputNode.attr('name');
 
-											if ((inputName == 'roleName') || (inputName == 'roleNameAC')) {
-												createRoleAutocomplete(
-													inputNode,
-													null,
-													function(event) {
-														var data = event.result.raw;
-														var roleId = inputNode.next('[name=roleId]');
+											if (inputName == 'roleName' || inputName == 'roleNameAC') {
+												createRoleAutocomplete(inputNode, null, function(event) {
+													var data = event.result.raw;
+													var roleId = inputNode.next('[name=roleId]');
 
-														if (roleId) {
-															roleId.val(data.roleId);
+													if (roleId) {
+														roleId.val(data.roleId);
+													}
+												});
+											} else if (inputName == 'fullName') {
+												createUserAutocomplete(inputNode, inputName, function(event) {
+													var data = event.result.raw;
+
+													A.each(data, function(item, index, collection) {
+														var input = inputNode
+															.siblings('[name=' + index + ']')
+															.first();
+
+														if (input) {
+															input.val(data[index]);
 														}
-													}
-												);
-											}
-											else if (inputName == 'fullName') {
-												createUserAutocomplete(
-													inputNode,
-													inputName,
-													function(event) {
-														var data = event.result.raw;
-
-														A.each(
-															data,
-															function(item, index, collection) {
-																var input = inputNode.siblings('[name=' + index + ']').first();
-
-																if (input) {
-																	input.val(data[index]);
-																}
-															}
-														);
-													}
-												);
+													});
+												});
 											}
 										},
 										'.assignments-cell-editor-input'
@@ -688,12 +704,12 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 											var titlePlaceholderInput = titleComponent.get('inputPlaceholder');
 
 											if (titlePlaceholderInput) {
-												titlePlaceholderInput.after(
-													'change',
-													function(event) {
-														<portlet:namespace />kaleoDesigner.set('definitionName', titleComponent.getValue());
-													}
-												);
+												titlePlaceholderInput.after('change', function(event) {
+													<portlet:namespace />kaleoDesigner.set(
+														'definitionName',
+														titleComponent.getValue()
+													);
+												});
 											}
 										</c:when>
 									</c:choose>
@@ -717,15 +733,21 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 													var openerWindow = Liferay.Util.getTop();
 
 													<c:if test="<%= Validator.isNotNull(openerWindowName) %>">
-														var openerDialog = Liferay.Util.getWindow('<%= HtmlUtil.escapeJS(openerWindowName) %>');
+														var openerDialog = Liferay.Util.getWindow(
+															'<%= HtmlUtil.escapeJS(openerWindowName) %>'
+														);
 
-														openerWindow = openerDialog.iframe.node.get('contentWindow').getDOM();
+														openerWindow = openerDialog.iframe.node
+															.get('contentWindow')
+															.getDOM();
 													</c:if>
 
-													openerWindow.Liferay.Portlet.refresh('#p_p_id<%= HtmlUtil.escapeJS(portletResourceNamespace) %>');
+													openerWindow.Liferay.Portlet.refresh(
+														'#p_p_id<%= HtmlUtil.escapeJS(portletResourceNamespace) %>'
+													);
 												</c:if>
 											}
-										}
+										};
 
 										dialog.on('visibleChange', dialog._dialogAction);
 									}
@@ -791,12 +813,15 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 			<aui:script use="liferay-kaleo-designer-dialogs">
 				var duplicateWorkflowTitle = '<liferay-ui:message key="duplicate-workflow" />';
 
-				Liferay.on(
-					'<portlet:namespace />duplicateDefinition',
-						function(event) {
-							Liferay.KaleoDesignerDialogs.confirmBeforeDuplicateDialog(this, '<%= duplicateWorkflowDefinition %>', duplicateWorkflowTitle, '<%= randomNamespace %>', '<portlet:namespace />');
-					}
-				);
+				Liferay.on('<portlet:namespace />duplicateDefinition', function(event) {
+					Liferay.KaleoDesignerDialogs.confirmBeforeDuplicateDialog(
+						this,
+						'<%= duplicateWorkflowDefinition %>',
+						duplicateWorkflowTitle,
+						'<%= randomNamespace %>',
+						'<portlet:namespace />'
+					);
+				});
 			</aui:script>
 		</c:if>
 	</c:when>

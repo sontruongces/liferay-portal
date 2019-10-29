@@ -115,7 +115,8 @@ KaleoTaskFormPair initialStateKaleoTaskFormPair = KaleoFormsUtil.getInitialState
 		function(classPK, mode, sessionParamName) {
 			Liferay.Util.openDDMPortlet(
 				{
-					basePortletURL: '<%= PortletURLFactoryUtil.create(request, DDMPortletKeys.DYNAMIC_DATA_MAPPING, themeDisplay.getPlid(), PortletRequest.RENDER_PHASE) %>',
+					basePortletURL:
+						'<%= PortletURLFactoryUtil.create(request, DDMPortletKeys.DYNAMIC_DATA_MAPPING, themeDisplay.getPlid(), PortletRequest.RENDER_PHASE) %>',
 					classNameId: <%= PortalUtil.getClassNameId(DDMStructure.class) %>,
 					classPK: classPK,
 					dialog: {
@@ -124,13 +125,16 @@ KaleoTaskFormPair initialStateKaleoTaskFormPair = KaleoFormsUtil.getInitialState
 					id: 'ddmDialog',
 					mode: mode,
 					mvcPath: '/select_template.jsp',
-					navigationStartsOn: '<%= DDMNavigationHelper.SELECT_TEMPLATE %>',
-					portletResourceNamespace: '<%= renderResponse.getNamespace() %>',
+					navigationStartsOn:
+						'<%= DDMNavigationHelper.SELECT_TEMPLATE %>',
+					portletResourceNamespace:
+						'<%= renderResponse.getNamespace() %>',
 					refererPortletName: '<%= portletDisplay.getId() %>',
 					resourceClassNameId: <%= scopeClassNameId %>,
 					showBackURL: false,
 					showHeader: false,
-					structureAvailableFields: '<%= renderResponse.getNamespace() + "getAvailableFields" %>',
+					structureAvailableFields:
+						'<%= renderResponse.getNamespace() + "getAvailableFields" %>',
 					title: '<liferay-ui:message key="form" />'
 				},
 				function(event) {
@@ -145,13 +149,14 @@ KaleoTaskFormPair initialStateKaleoTaskFormPair = KaleoFormsUtil.getInitialState
 						{
 							after: {
 								success: function() {
-									window.location = decodeURIComponent('<%= HtmlUtil.escapeURL(backURL) %>');
+									window.location = decodeURIComponent(
+										'<%= HtmlUtil.escapeURL(backURL) %>'
+									);
 								}
 							},
 							data: data
 						}
 					);
-
 				}
 			);
 		},
@@ -166,14 +171,12 @@ KaleoTaskFormPair initialStateKaleoTaskFormPair = KaleoFormsUtil.getInitialState
 
 			var WIN = A.config.win;
 
-			Liferay.Util.openWindow(
-				{
-					id: A.guid(),
-					refreshWindow: WIN,
-					title: '<liferay-ui:message key="forms" />',
-					uri: uri
-				}
-			);
+			Liferay.Util.openWindow({
+				id: A.guid(),
+				refreshWindow: WIN,
+				title: '<liferay-ui:message key="forms" />',
+				uri: uri
+			});
 		},
 		['liferay-util']
 	);
@@ -190,18 +193,16 @@ KaleoTaskFormPair initialStateKaleoTaskFormPair = KaleoFormsUtil.getInitialState
 
 			data[taskFormPairsParamName] = 0;
 
-			A.io.request(
-				'<portlet:resourceURL id="saveInPortletSession" />',
-				{
-					after: {
-						success: function() {
-							window.location = decodeURIComponent('<%= HtmlUtil.escapeURL(backURL) %>');
-						}
-					},
-					data: data
-				}
-			);
-
+			A.io.request('<portlet:resourceURL id="saveInPortletSession" />', {
+				after: {
+					success: function() {
+						window.location = decodeURIComponent(
+							'<%= HtmlUtil.escapeURL(backURL) %>'
+						);
+					}
+				},
+				data: data
+			});
 		},
 		['aui-base']
 	);

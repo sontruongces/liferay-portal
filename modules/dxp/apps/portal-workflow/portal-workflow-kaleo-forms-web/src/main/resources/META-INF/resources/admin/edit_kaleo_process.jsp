@@ -109,26 +109,22 @@ renderResponse.setTitle(title);
 			var form = Liferay.Form.get('<portlet:namespace />fm');
 
 			if (form === event.form) {
-				Liferay.component(
-					'<portlet:namespace/>KaleoFormsAdmin',
-					function() {
-						return new Liferay.KaleoFormsAdmin(
-							{
-								currentURL: '<%= currentURL %>',
-								form: form,
-								kaleoProcessId: <%= kaleoProcessId %>,
-								namespace: '<portlet:namespace />',
-								portletId: '<%= PortalUtil.getPortletId(request) %>',
-								saveInPortletSessionURL: '<portlet:resourceURL id="saveInPortletSession" />',
-								tabView: Liferay.component('<portlet:namespace />fmTabview')
-							}
-						);
-					}
-				);
+				Liferay.component('<portlet:namespace/>KaleoFormsAdmin', function() {
+					return new Liferay.KaleoFormsAdmin({
+						currentURL: '<%= currentURL %>',
+						form: form,
+						kaleoProcessId: <%= kaleoProcessId %>,
+						namespace: '<portlet:namespace />',
+						portletId: '<%= PortalUtil.getPortletId(request) %>',
+						saveInPortletSessionURL:
+							'<portlet:resourceURL id="saveInPortletSession" />',
+						tabView: Liferay.component('<portlet:namespace />fmTabview')
+					});
+				});
 
 				Liferay.component('<portlet:namespace/>KaleoFormsAdmin').syncUI();
 			}
-		}
+		};
 
 		Liferay.after('form:registered', afterFormRegistered);
 

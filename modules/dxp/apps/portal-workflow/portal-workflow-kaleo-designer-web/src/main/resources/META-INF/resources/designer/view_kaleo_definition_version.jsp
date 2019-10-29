@@ -111,16 +111,14 @@ renderResponse.setTitle(kaleoDefinitionVersion.getTitle(locale));
 <aui:script use="aui-ace-editor,liferay-xml-formatter">
 	var STR_VALUE = 'value';
 
-	var contentEditor = new A.AceEditor(
-		{
-			boundingBox: '#<portlet:namespace />contentEditor',
-			height: 600,
-			mode: 'xml',
-			readOnly: 'true',
-			tabSize: 4,
-			width: '100%'
-		}
-	).render();
+	var contentEditor = new A.AceEditor({
+		boundingBox: '#<portlet:namespace />contentEditor',
+		height: 600,
+		mode: 'xml',
+		readOnly: 'true',
+		tabSize: 4,
+		width: '100%'
+	}).render();
 
 	var xmlFormatter = new Liferay.XMLFormatter();
 

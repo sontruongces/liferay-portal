@@ -106,7 +106,9 @@ long clockSkew = GetterUtil.getLong(request.getAttribute(SamlWebKeys.SAML_CLOCK_
 		function() {
 			var A = AUI();
 
-			var uploadMetadataXmlForm = A.one('#<portlet:namespace />uploadMetadataXmlForm');
+			var uploadMetadataXmlForm = A.one(
+				'#<portlet:namespace />uploadMetadataXmlForm'
+			);
 
 			if (uploadMetadataXmlForm) {
 				uploadMetadataXmlForm.show();

@@ -168,11 +168,15 @@ JSONArray availableDefinitionsJSONArray = JSONFactoryUtil.createJSONArray();
 			var ddmStructureId = event.ddmStructureId;
 			var ddmStructureName = event.name;
 
-			A.one('#<portlet:namespace />ddmStructureDisplay').html(Liferay.Util.escapeHTML(ddmStructureName));
+			A.one('#<portlet:namespace />ddmStructureDisplay').html(
+				Liferay.Util.escapeHTML(ddmStructureName)
+			);
 			A.one('#<portlet:namespace />ddmStructureId').val(ddmStructureId);
 			A.one('#<portlet:namespace />ddmStructureName').val(ddmStructureName);
 
-			var kaleoFormsAdmin = Liferay.component('<portlet:namespace/>KaleoFormsAdmin');
+			var kaleoFormsAdmin = Liferay.component(
+				'<portlet:namespace/>KaleoFormsAdmin'
+			);
 
 			kaleoFormsAdmin.saveInPortletSession(
 				{
@@ -195,39 +199,32 @@ JSONArray availableDefinitionsJSONArray = JSONFactoryUtil.createJSONArray();
 
 			var WIN = A.config.win;
 
-			Liferay.Util.openWindow(
-				{
-					id: A.guid(),
-					refreshWindow: WIN,
-					title: title,
-					uri: uri
-				}
-			);
+			Liferay.Util.openWindow({
+				id: A.guid(),
+				refreshWindow: WIN,
+				title: title,
+				uri: uri
+			});
 		},
 		['liferay-util']
 	);
 </aui:script>
 
 <aui:script use="liferay-kaleo-forms-components">
-	var kaleoDefinitionPreview = new Liferay.KaleoDefinitionPreview(
-		{
-			availableDefinitions: <%= availableDefinitionsJSONArray.toString() %>,
-			height: 600,
-			namespace: '<portlet:namespace />',
-			on: {
-				choose: function(event) {
-					Liferay.fire(
-						'<portlet:namespace />chooseDefinition',
-						{
-							ddmStructureId: event.definitionId,
-							name: event.definitionName
-						}
-					);
-				}
-			},
-			width: 700
-		}
-	);
+	var kaleoDefinitionPreview = new Liferay.KaleoDefinitionPreview({
+		availableDefinitions: <%= availableDefinitionsJSONArray.toString() %>,
+		height: 600,
+		namespace: '<portlet:namespace />',
+		on: {
+			choose: function(event) {
+				Liferay.fire('<portlet:namespace />chooseDefinition', {
+					ddmStructureId: event.definitionId,
+					name: event.definitionName
+				});
+			}
+		},
+		width: 700
+	});
 
 	A.one('#p_p_id<portlet:namespace />').delegate(
 		'click',

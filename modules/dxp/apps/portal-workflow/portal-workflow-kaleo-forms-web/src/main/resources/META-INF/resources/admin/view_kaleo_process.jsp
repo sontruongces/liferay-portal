@@ -169,17 +169,14 @@ portletURL.setParameter("kaleoProcessId", String.valueOf(kaleoProcess.getKaleoPr
 			var dialog = Util.getWindow('<portlet:namespace />previewDialog');
 
 			if (!dialog) {
-				dialog = Util.Window.getWindow(
-					{
-						dialog: {
-							bodyContent: content
-						},
-						id: '<portlet:namespace />previewDialog',
-						title: Liferay.Language.get('preview')
-					}
-				);
-			}
-			else {
+				dialog = Util.Window.getWindow({
+					dialog: {
+						bodyContent: content
+					},
+					id: '<portlet:namespace />previewDialog',
+					title: Liferay.Language.get('preview')
+				});
+			} else {
 				dialog.show();
 
 				dialog.set('bodyContent', content);
@@ -191,15 +188,24 @@ portletURL.setParameter("kaleoProcessId", String.valueOf(kaleoProcess.getKaleoPr
 
 <aui:script sandbox="<%= true %>">
 	var deleteRecords = function() {
-		if (confirm('<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-delete-this") %>')) {
-			var searchContainer = document.getElementById('<portlet:namespace /><%= kaleoFormsViewRecordsDisplayContext.getSearchContainerId() %>');
+		if (
+			confirm(
+				'<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-delete-this") %>'
+			)
+		) {
+			var searchContainer = document.getElementById(
+				'<portlet:namespace /><%= kaleoFormsViewRecordsDisplayContext.getSearchContainerId() %>'
+			);
 
 			if (searchContainer) {
 				Liferay.Util.postForm(
 					document.<portlet:namespace />searchContainerForm,
 					{
 						data: {
-							ddlRecordIds: Liferay.Util.listCheckedExcept(searchContainer, '<portlet:namespace />allRowIds')
+							ddlRecordIds: Liferay.Util.listCheckedExcept(
+								searchContainer,
+								'<portlet:namespace />allRowIds'
+							)
 						},
 
 						<portlet:actionURL name="deleteDDLRecord" var="deleteDDLRecordURL">
@@ -215,23 +221,20 @@ portletURL.setParameter("kaleoProcessId", String.valueOf(kaleoProcess.getKaleoPr
 	};
 
 	var ACTIONS = {
-		'deleteRecords': deleteRecords
+		deleteRecords: deleteRecords
 	};
 
-	Liferay.componentReady('kaleoFormsRecordsManagementToolbar').then(
-		function(managementToolbar) {
-			managementToolbar.on(
-			['actionItemClicked'],
-				function(event) {
-					var itemData = event.data.item.data;
+	Liferay.componentReady('kaleoFormsRecordsManagementToolbar').then(function(
+		managementToolbar
+	) {
+		managementToolbar.on(['actionItemClicked'], function(event) {
+			var itemData = event.data.item.data;
 
-					if (itemData && itemData.action && ACTIONS[itemData.action]) {
-						ACTIONS[itemData.action]();
-					}
-				}
-			);
-		}
-	);
+			if (itemData && itemData.action && ACTIONS[itemData.action]) {
+				ACTIONS[itemData.action]();
+			}
+		});
+	});
 </aui:script>
 
 <%

@@ -27,11 +27,8 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 	var iframe = A.one('#<portlet:namespace />iframe');
 
 	if (iframe) {
-		iframe.plug(
-			A.Plugin.AutosizeIframe,
-			{
-				monitorHeight: true
-			}
-		);
+		iframe.plug(A.Plugin.AutosizeIframe, {
+			monitorHeight: true
+		});
 	}
 </aui:script>

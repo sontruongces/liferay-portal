@@ -22,7 +22,10 @@
 />
 
 <aui:script>
-	window.<portlet:namespace />openCreateOfficeDocument = function(formSubmitURL, dialogTitle) {
+	window.<portlet:namespace />openCreateOfficeDocument = function(
+		formSubmitURL,
+		dialogTitle
+	) {
 		Liferay.componentReady('<portlet:namespace />DocumentLibraryOpener').then(
 			function(openerOnedrive) {
 				openerOnedrive.createWithName({
@@ -31,9 +34,12 @@
 				});
 			}
 		);
-	}
+	};
 
-	window.<portlet:namespace />editOfficeDocument = function(formSubmitURL, dialogTitle) {
+	window.<portlet:namespace />editOfficeDocument = function(
+		formSubmitURL,
+		dialogTitle
+	) {
 		Liferay.componentReady('<portlet:namespace />DocumentLibraryOpener').then(
 			function(openerOnedrive) {
 				openerOnedrive.edit({
@@ -41,7 +47,7 @@
 				});
 			}
 		);
-	}
+	};
 
 	<%
 	String dialogMessage = (String)request.getAttribute("dialogMessage");

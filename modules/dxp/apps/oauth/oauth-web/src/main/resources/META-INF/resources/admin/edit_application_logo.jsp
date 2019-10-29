@@ -28,7 +28,9 @@ OAuthApplication oAuthApplication = OAuthApplicationLocalServiceUtil.fetchOAuthA
 	<c:when test='<%= SessionMessages.contains(renderRequest, "requestProcessed") %>'>
 		<aui:script>
 			window.close();
-			opener.<portlet:namespace />changeLogo('<%= themeDisplay.getPathImage() + "/logo?img_id=" + oAuthApplication.getLogoId() + "&t=" + WebServerServletTokenUtil.getToken(oAuthApplication.getLogoId()) %>');
+			opener.<portlet:namespace />changeLogo(
+				'<%= themeDisplay.getPathImage() + "/logo?img_id=" + oAuthApplication.getLogoId() + "&t=" + WebServerServletTokenUtil.getToken(oAuthApplication.getLogoId()) %>'
+			);
 		</aui:script>
 	</c:when>
 	<c:otherwise>
@@ -53,7 +55,9 @@ OAuthApplication oAuthApplication = OAuthApplicationLocalServiceUtil.fetchOAuthA
 
 		<c:if test="<%= windowState.equals(WindowState.MAXIMIZED) %>">
 			<aui:script>
-				Liferay.Util.focusFormField(document.<portlet:namespace />fm.<portlet:namespace />fileName);
+				Liferay.Util.focusFormField(
+					document.<portlet:namespace />fm.<portlet:namespace />fileName
+				);
 			</aui:script>
 		</c:if>
 	</c:otherwise>

@@ -88,76 +88,89 @@ renderResponse.setTitle((source != null) ? LanguageUtil.format(request, "edit-x"
 		function() {
 			var A = AUI();
 
-			var url = '<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>"><portlet:param name="mvcPath" value="/admin/data_source/test_database_connection.jsp" /></portlet:renderURL>';
+			var url =
+				'<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>"><portlet:param name="mvcPath" value="/admin/data_source/test_database_connection.jsp" /></portlet:renderURL>';
 
 			var data = {};
 
 			<c:if test="<%= source != null %>">
-				data.<portlet:namespace />sourceId = document.<portlet:namespace />fm['<portlet:namespace />sourceId'].value;
+				data.<portlet:namespace />sourceId =
+					document.<portlet:namespace />fm[
+						'<portlet:namespace />sourceId'
+					].value;
 			</c:if>
 
-			data.<portlet:namespace />driverClassName = document.<portlet:namespace />fm['<portlet:namespace />driverClassName'].value;
-			data.<portlet:namespace />driverUrl = document.<portlet:namespace />fm['<portlet:namespace />driverUrl'].value;
-			data.<portlet:namespace />driverUserName = document.<portlet:namespace />fm['<portlet:namespace />driverUserName'].value;
-			data.<portlet:namespace />driverPassword = document.<portlet:namespace />fm['<portlet:namespace />driverPassword'].value;
+			data.<portlet:namespace />driverClassName =
+				document.<portlet:namespace />fm[
+					'<portlet:namespace />driverClassName'
+				].value;
+			data.<portlet:namespace />driverUrl =
+				document.<portlet:namespace />fm[
+					'<portlet:namespace />driverUrl'
+				].value;
+			data.<portlet:namespace />driverUserName =
+				document.<portlet:namespace />fm[
+					'<portlet:namespace />driverUserName'
+				].value;
+			data.<portlet:namespace />driverPassword =
+				document.<portlet:namespace />fm[
+					'<portlet:namespace />driverPassword'
+				].value;
 
 			if (url != null) {
-				var databaseConnectionModal = Liferay.Util.Window.getWindow(
-					{
-						dialog: {
-							centered: true,
-							destroyOnHide: true,
-							height: 300,
-							hideOn: [],
-							modal: true,
-							resizable: false,
-							toolbars: {
-								footer: [
-									{
-										cssClass: 'btn-lg btn-primary',
-										label: '<liferay-ui:message key="close" />',
-										on: {
-											click: function() {
-												databaseConnectionModal.hide();
-											}
+				var databaseConnectionModal = Liferay.Util.Window.getWindow({
+					dialog: {
+						centered: true,
+						destroyOnHide: true,
+						height: 300,
+						hideOn: [],
+						modal: true,
+						resizable: false,
+						toolbars: {
+							footer: [
+								{
+									cssClass: 'btn-lg btn-primary',
+									label: '<liferay-ui:message key="close" />',
+									on: {
+										click: function() {
+											databaseConnectionModal.hide();
 										}
 									}
-								],
-								header: [
-									{
-										cssClass: 'close',
-										discardDefaultButtonCssClasses: true,
-										labelHTML: Liferay.Util.getLexiconIconTpl('times'),
-										on: {
-											click: function() {
-												databaseConnectionModal.hide();
-											}
+								}
+							],
+							header: [
+								{
+									cssClass: 'close',
+									discardDefaultButtonCssClasses: true,
+									labelHTML: Liferay.Util.getLexiconIconTpl(
+										'times'
+									),
+									on: {
+										click: function() {
+											databaseConnectionModal.hide();
 										}
 									}
-								]
-							},
-							width: 600
+								}
+							]
 						},
-						title: '<liferay-ui:message key="source" />'
-					}
-				);
+						width: 600
+					},
+					title: '<liferay-ui:message key="source" />'
+				});
 
 				databaseConnectionModal.render();
 
-				A.io.request(
-					url,
-					{
-						after: {
-							success: function() {
-								var response = this.get('responseData');
+				A.io.request(url, {
+					after: {
+						success: function() {
+							var response = this.get('responseData');
 
-								databaseConnectionModal.bodyNode.append(response);
-								databaseConnectionModal.show();
-							}
-						},
-						data: data
-					}
-				);
+							databaseConnectionModal.bodyNode.append(response);
+							databaseConnectionModal.show();
+						}
+					},
+					data: data
+				});
 			}
 		},
 		['aui-dialog', 'aui-io']

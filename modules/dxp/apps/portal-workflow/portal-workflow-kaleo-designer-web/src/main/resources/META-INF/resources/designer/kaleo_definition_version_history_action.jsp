@@ -65,7 +65,16 @@ KaleoDefinitionVersion kaleoDefinitionVersion = (KaleoDefinitionVersion)row.getO
 <aui:script use="liferay-kaleo-designer-utils">
 	var title = '<liferay-ui:message key="preview" />';
 
-	var previewBeforeRevert = A.rbind('previewBeforeRevert', Liferay.KaleoDesignerUtils, '<%= viewURL %>', '<%= revertURL %>', title);
+	var previewBeforeRevert = A.rbind(
+		'previewBeforeRevert',
+		Liferay.KaleoDesignerUtils,
+		'<%= viewURL %>',
+		'<%= revertURL %>',
+		title
+	);
 
-	Liferay.delegateClick('<portlet:namespace />previewBeforeRevert<%= kaleoDefinitionVersion.getVersion() %>', previewBeforeRevert);
+	Liferay.delegateClick(
+		'<portlet:namespace />previewBeforeRevert<%= kaleoDefinitionVersion.getVersion() %>',
+		previewBeforeRevert
+	);
 </aui:script>
