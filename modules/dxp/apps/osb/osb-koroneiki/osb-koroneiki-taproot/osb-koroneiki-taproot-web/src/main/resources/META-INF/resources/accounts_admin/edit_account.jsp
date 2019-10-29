@@ -124,6 +124,8 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 
 			<aui:input name="soldBy" />
 
+			<aui:input checked="<%= koroneikiAccount.isInternal() %>" name="internal" type="checkbox" />
+
 			<aui:select name="status">
 				<aui:option value="" />
 
@@ -138,8 +140,6 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 				%>
 
 			</aui:select>
-
-			<aui:input checked="<%= koroneikiAccount.isInternal() %>" name="internal" type="checkbox" />
 		</aui:fieldset>
 	</aui:fieldset-group>
 
