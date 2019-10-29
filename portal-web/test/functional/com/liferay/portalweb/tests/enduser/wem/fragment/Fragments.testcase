@@ -338,7 +338,7 @@ definition {
 
 			PageEditor.configureFragment(
 				borderColor = "lighter",
-				verticalSpace = "Small");
+				verticalSpace = "3");
 		}
 
 		task ("View the fragment style") {
