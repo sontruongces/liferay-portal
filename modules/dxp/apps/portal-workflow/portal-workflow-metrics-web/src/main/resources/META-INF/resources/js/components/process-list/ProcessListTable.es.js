@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
+import React from 'react';
+
 import ListHeadItem from '../../shared/components/list/ListHeadItem.es';
 import ProcessListItem from './ProcessListItem.es';
-import React from 'react';
 
 /**
  * @class

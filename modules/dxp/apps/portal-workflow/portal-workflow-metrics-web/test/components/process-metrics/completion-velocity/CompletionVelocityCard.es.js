@@ -10,9 +10,10 @@
  */
 
 import React from 'react';
-import fetch from '../../../mock/fetch.es';
+
 import CompletionVelocityCard from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/completion-velocity/CompletionVelocityCard.es';
 import {MockRouter as Router} from '../../../mock/MockRouter.es';
+import fetch from '../../../mock/fetch.es';
 
 test('Should render component', () => {
 	const props = {

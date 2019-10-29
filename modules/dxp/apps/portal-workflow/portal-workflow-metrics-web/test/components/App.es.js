@@ -9,10 +9,11 @@
  * distribution rights of the Software.
  */
 
-import App from '../../src/main/resources/META-INF/resources/js/components/App.es';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+
+import App from '../../src/main/resources/META-INF/resources/js/components/App.es';
 
 beforeAll(() => {
 	const vbody = document.createElement('div');

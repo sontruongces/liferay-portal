@@ -9,10 +9,11 @@
  * distribution rights of the Software.
  */
 
-import Icon from '../Icon.es';
 import React from 'react';
-import TabItem from './TabItem.es';
 import {withRouter} from 'react-router-dom';
+
+import Icon from '../Icon.es';
+import TabItem from './TabItem.es';
 
 class Tabs extends React.Component {
 	constructor(props) {

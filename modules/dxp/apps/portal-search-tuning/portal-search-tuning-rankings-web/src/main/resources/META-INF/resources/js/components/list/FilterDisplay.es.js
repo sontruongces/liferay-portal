@@ -10,8 +10,9 @@
  */
 
 import ClayButton from '@clayui/button';
-import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
+import React, {Component} from 'react';
+
 import {sub} from '../../utils/language.es';
 
 class FilterDisplay extends Component {
@@ -25,7 +26,7 @@ class FilterDisplay extends Component {
 		const {onClear, searchBarTerm, totalResultsCount} = this.props;
 
 		return (
-			<nav className="tbar tbar-inline-xs-down subnav-tbar subnav-tbar-primary">
+			<nav className="subnav-tbar subnav-tbar-primary tbar tbar-inline-xs-down">
 				<div className="container-fluid container-fluid-max-xl">
 					<ul className="tbar-nav tbar-nav-wrap">
 						<li className="tbar-item tbar-item-expand">

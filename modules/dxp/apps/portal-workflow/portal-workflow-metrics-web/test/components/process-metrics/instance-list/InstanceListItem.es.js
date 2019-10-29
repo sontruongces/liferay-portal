@@ -10,9 +10,10 @@
  */
 
 import {cleanup, fireEvent, render} from '@testing-library/react';
-import {InstanceListContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/instance-list/store/InstanceListStore.es';
-import InstanceListItem from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/instance-list/InstanceListItem.es';
 import React from 'react';
+
+import InstanceListItem from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/instance-list/InstanceListItem.es';
+import {InstanceListContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/instance-list/store/InstanceListStore.es';
 
 const instance = {
 	assetTitle: 'New Post',

@@ -9,9 +9,11 @@
  * distribution rights of the Software.
  */
 
-import Alias from '../../../../src/main/resources/META-INF/resources/js/components/alias/Alias.es';
-import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
+import React from 'react';
+
+import Alias from '../../../../src/main/resources/META-INF/resources/js/components/alias/Alias.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 describe('Alias', () => {

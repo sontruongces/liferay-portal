@@ -9,8 +9,9 @@
  * distribution rights of the Software.
  */
 
-import LoadingState from '../../../../src/main/resources/META-INF/resources/js/shared/components/loading/LoadingState.es';
 import React from 'react';
+
+import LoadingState from '../../../../src/main/resources/META-INF/resources/js/shared/components/loading/LoadingState.es';
 
 test('Should test component render', () => {
 	const component = shallow(<LoadingState />);

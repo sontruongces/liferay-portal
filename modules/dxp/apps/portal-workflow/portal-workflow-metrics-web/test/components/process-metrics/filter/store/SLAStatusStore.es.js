@@ -9,15 +9,16 @@
  * distribution rights of the Software.
  */
 
+import {renderHook} from '@testing-library/react-hooks';
+import React, {useContext} from 'react';
+import {act, create} from 'react-test-renderer';
+
 import {
 	slaStatusConstants,
 	useSLAStatus,
 	SLAStatusProvider,
 	SLAStatusContext
 } from '../../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/SLAStatusStore.es';
-import {act, create} from 'react-test-renderer';
-import React, {useContext} from 'react';
-import {renderHook} from '@testing-library/react-hooks';
 
 describe('The selected SLA statuses should', () => {
 	test('Be empty when there is no initial key', () => {

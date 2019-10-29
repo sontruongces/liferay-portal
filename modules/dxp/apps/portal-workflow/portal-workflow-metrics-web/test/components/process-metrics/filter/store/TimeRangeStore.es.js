@@ -10,15 +10,16 @@
  */
 
 import {cleanup, render, waitForElement} from '@testing-library/react';
+import {renderHook} from '@testing-library/react-hooks';
+import React, {useContext} from 'react';
+
 import {
 	TimeRangeContext,
 	TimeRangeProvider,
 	useTimeRange
 } from '../../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/TimeRangeStore.es';
-import React, {useContext} from 'react';
-import {MockRouter} from '../../../../mock/MockRouter.es';
-import {renderHook} from '@testing-library/react-hooks';
 import Request from '../../../../../src/main/resources/META-INF/resources/js/shared/components/request/Request.es';
+import {MockRouter} from '../../../../mock/MockRouter.es';
 
 const items = [
 	{
@@ -199,7 +200,7 @@ describe('The time range store, when receiving no items, should', () => {
 	test('Have only the "Custom Range" item', async () => {
 		clientMock.get.mockResolvedValueOnce({data: {items: []}});
 
-		const {result, waitForNextUpdate, unmount} = renderHook(
+		const {result, unmount, waitForNextUpdate} = renderHook(
 			({timeRangeKeys}) => useTimeRange(timeRangeKeys),
 			{
 				initialProps: {

@@ -9,11 +9,13 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
-import List from '../../../../src/main/resources/META-INF/resources/js/components/list/List.es';
 import {fireEvent, getByLabelText, render} from '@testing-library/react';
-import {getMockResultsData} from '../../mocks/data.es';
+import React from 'react';
+
+import List from '../../../../src/main/resources/META-INF/resources/js/components/list/List.es';
 import {resultsDataToMap} from '../../../../src/main/resources/META-INF/resources/js/utils/util.es';
+import {getMockResultsData} from '../../mocks/data.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 const DATA_MAP = resultsDataToMap(

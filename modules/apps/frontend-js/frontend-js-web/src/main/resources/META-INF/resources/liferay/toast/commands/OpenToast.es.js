@@ -12,8 +12,8 @@
  * details.
  */
 
-import dom from 'metal-dom';
 import {ClayToast} from 'clay-alert';
+import dom from 'metal-dom';
 
 /**
  * Function that implements the Toast pattern, which allows to present feedback
@@ -48,16 +48,14 @@ function openToast({
 		dom.removeChildren(alertContainer);
 	}
 
-	const mergedEvents = Object.assign(
-		{
-			disposed() {
-				if (!alertContainer.hasChildNodes()) {
-					dom.exitDocument(alertContainer);
-				}
+	const mergedEvents = {
+		disposed() {
+			if (!alertContainer.hasChildNodes()) {
+				dom.exitDocument(alertContainer);
 			}
 		},
-		events
-	);
+		...events
+	};
 
 	const clayToast = new ClayToast(
 		{
@@ -74,7 +72,7 @@ function openToast({
 
 	dom.removeClasses(clayToast.element, 'show');
 
-	requestAnimationFrame(function() {
+	requestAnimationFrame(() => {
 		dom.addClasses(clayToast.element, 'show');
 	});
 

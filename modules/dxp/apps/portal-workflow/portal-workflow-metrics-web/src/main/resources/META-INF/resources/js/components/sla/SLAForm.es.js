@@ -9,6 +9,21 @@
  * distribution rights of the Software.
  */
 
+import React from 'react';
+import {useContext, useState} from 'react';
+import {Redirect} from 'react-router-dom';
+import MaskedInput from 'react-text-mask';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+
+import Icon from '../../shared/components/Icon.es';
+import MultiSelect from '../../shared/components/MultiSelect.es';
+import LoadingState from '../../shared/components/loading/LoadingState.es';
+import {
+	BackLink,
+	BackRedirect
+} from '../../shared/components/router/routerWrapper.es';
+import {openErrorToast} from '../../shared/util/toast.es';
+import {AppContext, AppStatus} from '../AppContext.es';
 import {
 	ALERT_MESSAGE,
 	CALENDAR_KEY,
@@ -20,12 +35,12 @@ import {
 	START_NODE_KEYS,
 	STOP_NODE_KEYS
 } from './Constants.es';
-import {AppContext, AppStatus} from '../AppContext.es';
-import {
-	BackLink,
-	BackRedirect
-} from '../../shared/components/router/routerWrapper.es';
+import FieldError from './form/fieldError.es';
+import FieldLabel from './form/fieldLabel.es';
 import {Errors, useErrors} from './store/ErrorsStore.es';
+import {SLANodes, useSLANodes} from './store/SLANodeStore.es';
+import {SLA, useSLA} from './store/SLAStore.es';
+import calendarStore from './store/calendarStore.es';
 import {
 	hasErrors,
 	validateDuration,
@@ -33,20 +48,6 @@ import {
 	validateName,
 	validateNodeKeys
 } from './util/slaFormUtil.es';
-import {SLA, useSLA} from './store/SLAStore.es';
-import {SLANodes, useSLANodes} from './store/SLANodeStore.es';
-import {useContext, useState} from 'react';
-import calendarStore from './store/calendarStore.es';
-import createNumberMask from 'text-mask-addons/dist/createNumberMask';
-import FieldError from './form/fieldError.es';
-import FieldLabel from './form/fieldLabel.es';
-import Icon from '../../shared/components/Icon.es';
-import LoadingState from '../../shared/components/loading/LoadingState.es';
-import MaskedInput from 'react-text-mask';
-import MultiSelect from '../../shared/components/MultiSelect.es';
-import {openErrorToast} from '../../shared/util/toast.es';
-import React from 'react';
-import {Redirect} from 'react-router-dom';
 
 /**
  * SLA form component.

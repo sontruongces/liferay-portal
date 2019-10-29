@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+
 import SLAListItem from './SLAListItem.es';
 
 export default class SLAListTable extends React.Component {

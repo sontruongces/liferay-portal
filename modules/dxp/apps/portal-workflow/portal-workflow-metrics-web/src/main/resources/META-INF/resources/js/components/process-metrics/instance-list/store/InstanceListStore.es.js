@@ -10,14 +10,15 @@
  */
 
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {AppContext} from '../../../AppContext.es';
+
+import {getFiltersParam} from '../../../../shared/components/filter/util/filterUtil.es';
 import {ErrorContext} from '../../../../shared/components/request/Error.es';
 import {LoadingContext} from '../../../../shared/components/request/Loading.es';
+import {AppContext} from '../../../AppContext.es';
 import {ProcessStatusContext} from '../../filter/store/ProcessStatusStore.es';
 import {ProcessStepContext} from '../../filter/store/ProcessStepStore.es';
 import {SLAStatusContext} from '../../filter/store/SLAStatusStore.es';
 import {TimeRangeContext} from '../../filter/store/TimeRangeStore.es';
-import {getFiltersParam} from '../../../../shared/components/filter/util/filterUtil.es';
 
 const filterConstants = {
 	processStatus: 'statuses',

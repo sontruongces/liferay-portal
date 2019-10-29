@@ -9,9 +9,11 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
-import PageToolbar from '../../../src/main/resources/META-INF/resources/js/components/PageToolbar.es';
 import {render} from '@testing-library/react';
+import React from 'react';
+
+import PageToolbar from '../../../src/main/resources/META-INF/resources/js/components/PageToolbar.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 describe('PageToolbar', () => {

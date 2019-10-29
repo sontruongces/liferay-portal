@@ -10,12 +10,13 @@
  * distribution rights of the Software.
  */
 
+import moment from 'moment';
 import React, {createContext, useContext, useEffect, useState} from 'react';
+
 import {buildFallbackItems} from '../../../../shared/components/filter/util/filterEvents.es';
 import {compareArrays} from '../../../../shared/util/array.es';
-import moment from 'moment';
-import {TimeRangeContext} from './TimeRangeStore.es';
 import {usePrevious} from '../../../../shared/util/hooks.es';
+import {TimeRangeContext} from './TimeRangeStore.es';
 
 const velocityUnitConstants = {
 	days: 'Days',

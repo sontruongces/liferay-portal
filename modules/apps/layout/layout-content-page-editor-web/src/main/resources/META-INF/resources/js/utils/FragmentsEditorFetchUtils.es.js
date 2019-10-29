@@ -258,7 +258,7 @@ function removeExperience(
  */
 function addSegmentsExperience({name, segmentsEntryId}) {
 	const state = _store.getState();
-	const {classNameId, classPK, addSegmentsExperienceURL} = state;
+	const {addSegmentsExperienceURL, classNameId, classPK} = state;
 
 	const body = {
 		active: true,

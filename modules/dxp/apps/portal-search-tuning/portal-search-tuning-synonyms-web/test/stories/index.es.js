@@ -9,15 +9,15 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
+import {ClayIconSpriteContext} from '@clayui/icon';
 import {
 	STORYBOOK_CONSTANTS,
 	StorybookAddonKnobs,
 	StorybookReact
 } from 'liferay-npm-scripts/src/storybook';
+import React from 'react';
 
 import SynonymSetsForm from '../../src/main/resources/META-INF/resources/js/components/SynonymSetsForm.es';
-import {ClayIconSpriteContext} from '@clayui/icon';
 
 const {addDecorator, storiesOf} = StorybookReact;
 const {withKnobs} = StorybookAddonKnobs;

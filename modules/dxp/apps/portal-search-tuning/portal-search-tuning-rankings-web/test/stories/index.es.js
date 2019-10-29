@@ -9,31 +9,32 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
 import {
 	STORYBOOK_CONSTANTS,
 	StorybookAddonActions,
 	StorybookAddonKnobs,
 	StorybookReact
 } from 'liferay-npm-scripts/src/storybook';
+import React from 'react';
 
 import '../../src/main/resources/META-INF/resources/css/main.scss';
 
+import {ClayIconSpriteContext} from '@clayui/icon';
+
+import ThemeContext from '../../src/main/resources/META-INF/resources/js/ThemeContext.es';
+import PageToolbar from '../../src/main/resources/META-INF/resources/js/components/PageToolbar.es';
+import ResultRankingsForm from '../../src/main/resources/META-INF/resources/js/components/ResultRankingsForm.es';
 import AddResult from '../../src/main/resources/META-INF/resources/js/components/add_result/AddResult.es';
 import AddResultModal from '../../src/main/resources/META-INF/resources/js/components/add_result/AddResultModal.es';
 import AddResultSearchBar from '../../src/main/resources/META-INF/resources/js/components/add_result/AddResultSearchBar.es';
 import Alias from '../../src/main/resources/META-INF/resources/js/components/alias/Alias.es';
-import ClayEmptyState from '../../src/main/resources/META-INF/resources/js/components/shared/ClayEmptyState.es';
 import FilterDisplay from '../../src/main/resources/META-INF/resources/js/components/list/FilterDisplay.es';
 import FilterInput from '../../src/main/resources/META-INF/resources/js/components/list/FilterInput.es';
 import Item from '../../src/main/resources/META-INF/resources/js/components/list/Item.es';
 import ItemDragPreview from '../../src/main/resources/META-INF/resources/js/components/list/ItemDragPreview.es';
 import ItemDropdown from '../../src/main/resources/META-INF/resources/js/components/list/ItemDropdown.es';
 import List from '../../src/main/resources/META-INF/resources/js/components/list/List.es';
-import PageToolbar from '../../src/main/resources/META-INF/resources/js/components/PageToolbar.es';
-import ResultRankingsForm from '../../src/main/resources/META-INF/resources/js/components/ResultRankingsForm.es';
-import ThemeContext from '../../src/main/resources/META-INF/resources/js/ThemeContext.es';
-import {ClayIconSpriteContext} from '@clayui/icon';
+import ClayEmptyState from '../../src/main/resources/META-INF/resources/js/components/shared/ClayEmptyState.es';
 import {mockDataMap} from './mock-data.es';
 
 const {addDecorator, storiesOf} = StorybookReact;

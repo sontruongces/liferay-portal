@@ -13,15 +13,16 @@
  */
 
 import Component from 'metal-component';
-import {Config} from 'metal-state';
 import Soy from 'metal-soy';
+import {Config} from 'metal-state';
 
 import './TranslationStatus.es';
+
 import './SegmentsExperienceSelector.es';
+import {TOGGLE_SIDEBAR} from '../../actions/actions.es';
 import getConnectedComponent from '../../store/ConnectedComponent.es';
 import {setIn} from '../../utils/FragmentsEditorUpdateUtils.es';
 import templates from './FragmentsEditorToolbar.soy';
-import {TOGGLE_SIDEBAR} from '../../actions/actions.es';
 
 /**
  * FragmentsEditorToolbar

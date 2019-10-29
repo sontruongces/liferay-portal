@@ -10,8 +10,8 @@
  */
 
 import ClayButton from '@clayui/button';
-import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
+import React, {Component} from 'react';
 
 const DEFAULT_DESCRIPTION = Liferay.Language.get(
 	'sorry-there-are-no-results-found'

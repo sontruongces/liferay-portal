@@ -9,13 +9,14 @@
  * distribution rights of the Software.
  */
 
+import React from 'react';
+import {withRouter} from 'react-router-dom';
+
+import Icon from '../../../shared/components/Icon.es';
 import {
 	pushToHistory,
 	removeItem
 } from '../../../shared/components/filter/util/filterUtil.es';
-import Icon from '../../../shared/components/Icon.es';
-import React from 'react';
-import {withRouter} from 'react-router-dom';
 
 class FilterResultsItem extends React.Component {
 	onRemoveButtonClick() {

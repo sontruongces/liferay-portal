@@ -9,10 +9,9 @@
  * distribution rights of the Software.
  */
 
-import {FETCH_HIDDEN_DOCUMENTS_URL, getMockResultsData} from './mocks/data.es';
-
 const APIUtil = require('../../src/main/resources/META-INF/resources/js/utils/api.es');
 const LanguageUtil = require('../../src/main/resources/META-INF/resources/js/utils/language.es');
+import {FETCH_HIDDEN_DOCUMENTS_URL, getMockResultsData} from './mocks/data.es';
 
 /**
  * Mocks the `sub` function to be able to test the correct values are being

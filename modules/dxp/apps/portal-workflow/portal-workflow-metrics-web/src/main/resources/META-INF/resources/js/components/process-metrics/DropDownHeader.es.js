@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
+import React from 'react';
+
 import Icon from '../../shared/components/Icon.es';
 import PortalComponent from '../../shared/components/header-controller/PortalComponent.es';
-import React from 'react';
 
 const MenuItem = ({children}) => {
 	if (!children) return null;

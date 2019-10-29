@@ -9,18 +9,20 @@
  * distribution rights of the Software.
  */
 
+import {waitForElement} from '@testing-library/dom';
+import {render} from '@testing-library/react';
 import React from 'react';
+
 import {AppContext} from '../../../../src/main/resources/META-INF/resources/js/components/AppContext.es';
+import VelocityChart from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/completion-velocity/VelocityChart.es';
+import {VelocityDataContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/completion-velocity/store/VelocityDataStore.es';
+import {TimeRangeContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/TimeRangeStore.es';
+import {VelocityUnitContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/VelocityUnitStore.es';
 import {ErrorContext} from '../../../../src/main/resources/META-INF/resources/js/shared/components/request/Error.es';
 import {LoadingContext} from '../../../../src/main/resources/META-INF/resources/js/shared/components/request/Loading.es';
 import {MockRouter as Router} from '../../../mock/MockRouter.es';
-import {render} from '@testing-library/react';
-import {TimeRangeContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/TimeRangeStore.es';
-import {VelocityDataContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/completion-velocity/store/VelocityDataStore.es';
-import {VelocityUnitContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/VelocityUnitStore.es';
-import {waitForElement} from '@testing-library/dom';
 import fetch from '../../../mock/fetch.es';
-import VelocityChart from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/completion-velocity/VelocityChart.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 test('Should render velocity chart', async () => {

@@ -9,15 +9,16 @@
  * distribution rights of the Software.
  */
 
+import {renderHook} from '@testing-library/react-hooks';
+import React, {useContext} from 'react';
+import {act, create} from 'react-test-renderer';
+
 import {
 	processStatusConstants,
 	useProcessStatus,
 	ProcessStatusProvider,
 	ProcessStatusContext
 } from '../../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/ProcessStatusStore.es';
-import {act, create} from 'react-test-renderer';
-import React, {useContext} from 'react';
-import {renderHook} from '@testing-library/react-hooks';
 
 describe('The selected process statuses should', () => {
 	test('Be empty when there is no initial key', () => {

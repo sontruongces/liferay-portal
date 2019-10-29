@@ -9,9 +9,11 @@
  * distribution rights of the Software.
  */
 
-import ClayEmptyState from '../../../../src/main/resources/META-INF/resources/js/components/shared/ClayEmptyState.es';
-import React from 'react';
 import {render} from '@testing-library/react';
+import React from 'react';
+
+import ClayEmptyState from '../../../../src/main/resources/META-INF/resources/js/components/shared/ClayEmptyState.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 describe('ClayEmptyState', () => {

@@ -9,10 +9,11 @@
  * distribution rights of the Software.
  */
 
-import AddResultModal from './AddResultModal.es';
 import ClayButton from '@clayui/button';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+
+import AddResultModal from './AddResultModal.es';
 
 /**
  * A button that opens a modal to be able to search, select, and add results.

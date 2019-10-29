@@ -9,10 +9,11 @@
  * distribution rights of the Software.
  */
 
-import {Link, withRouter} from 'react-router-dom';
-import Icon from '../Icon.es';
 import pathToRegexp from 'path-to-regexp';
 import React from 'react';
+import {Link, withRouter} from 'react-router-dom';
+
+import Icon from '../Icon.es';
 
 /**
  * @class
@@ -42,9 +43,10 @@ class ListHeadItem extends React.Component {
 		const sortIcon =
 			order === 'asc' ? 'order-arrow-down' : 'order-arrow-up';
 
-		const pathname = pathToRegexp.compile(path)(
-			Object.assign({}, params, {sort: nextSort})
-		);
+		const pathname = pathToRegexp.compile(path)({
+			...params,
+			sort: nextSort
+		});
 
 		return (
 			<Link

@@ -12,8 +12,8 @@
  * details.
  */
 
-import Component from 'metal-component';
 import core from 'metal';
+import Component from 'metal-component';
 import Soy from 'metal-soy';
 
 import templates from './ColorPickerInput.soy';
@@ -32,7 +32,7 @@ class ColorPickerInput extends Component {
 	rendered() {
 		const instance = this;
 
-		AUI().use('aui-color-picker-popover', function(A) {
+		AUI().use('aui-color-picker-popover', A => {
 			instance.colorPickerPopover = new A.ColorPickerPopover({
 				color: instance.color,
 				constrain: true,

@@ -12,9 +12,10 @@
 import ClayButton from '@clayui/button';
 import ClayDropDown from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
-import React, {Component} from 'react';
-import {getPluralMessage} from '../../utils/language.es';
 import {PropTypes} from 'prop-types';
+import React, {Component} from 'react';
+
+import {getPluralMessage} from '../../utils/language.es';
 
 class ItemDropdown extends Component {
 	static propTypes = {

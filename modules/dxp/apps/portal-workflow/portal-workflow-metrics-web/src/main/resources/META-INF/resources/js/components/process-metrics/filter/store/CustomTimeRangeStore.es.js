@@ -9,21 +9,22 @@
  * distribution rights of the Software.
  */
 
+import {useContext, useState} from 'react';
+
+import {pushToHistory} from '../../../../shared/components/filter/util/filterUtil.es';
+import {
+	parse,
+	stringify
+} from '../../../../shared/components/router/queryString.es';
+import {useRouter} from '../../../../shared/components/router/useRouter.es';
+import moment from '../../../../shared/util/moment.es';
 import {
 	formatDateEnLocale,
 	formatQueryDate,
 	parseDateEnLocale,
 	parseDateMomentEnLocale
 } from '../../util/timeRangeUtil.es';
-import {
-	parse,
-	stringify
-} from '../../../../shared/components/router/queryString.es';
-import {useContext, useState} from 'react';
-import moment from '../../../../shared/util/moment.es';
-import {pushToHistory} from '../../../../shared/components/filter/util/filterUtil.es';
 import {TimeRangeContext} from './TimeRangeStore.es';
-import {useRouter} from '../../../../shared/components/router/useRouter.es';
 
 const useCustomTimeRange = filterKey => {
 	const [errors, setErrors] = useState(undefined);

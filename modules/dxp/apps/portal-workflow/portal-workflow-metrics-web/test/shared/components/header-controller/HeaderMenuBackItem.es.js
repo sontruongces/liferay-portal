@@ -9,11 +9,12 @@
  * distribution rights of the Software.
  */
 
-import HeaderMenuBackItem from '../../../../src/main/resources/META-INF/resources/js/shared/components/header-controller/HeaderMenuBackItem.es';
-import {MockRouter} from '../../../mock/MockRouter.es';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+
+import HeaderMenuBackItem from '../../../../src/main/resources/META-INF/resources/js/shared/components/header-controller/HeaderMenuBackItem.es';
+import {MockRouter} from '../../../mock/MockRouter.es';
 
 beforeAll(() => {
 	const vbody = document.createElement('div');

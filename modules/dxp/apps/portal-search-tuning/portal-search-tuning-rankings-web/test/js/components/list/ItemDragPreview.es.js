@@ -9,10 +9,12 @@
  * distribution rights of the Software.
  */
 
-import ItemDragPreview from '../../../../src/main/resources/META-INF/resources/js/components/list/ItemDragPreview.es';
-import React from 'react';
 import {render} from '@testing-library/react';
+import React from 'react';
+
+import ItemDragPreview from '../../../../src/main/resources/META-INF/resources/js/components/list/ItemDragPreview.es';
 import {mockDocument} from '../../mocks/data.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 // Mock pinned document since only pinned results can be dragged.

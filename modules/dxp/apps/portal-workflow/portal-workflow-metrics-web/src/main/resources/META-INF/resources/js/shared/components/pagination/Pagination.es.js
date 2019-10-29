@@ -9,10 +9,11 @@
  * distribution rights of the Software.
  */
 
-import PageItem from './PageItem.es';
-import PageLink from './PageLink.es';
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+
+import PageItem from './PageItem.es';
+import PageLink from './PageLink.es';
 
 /**
  * @class

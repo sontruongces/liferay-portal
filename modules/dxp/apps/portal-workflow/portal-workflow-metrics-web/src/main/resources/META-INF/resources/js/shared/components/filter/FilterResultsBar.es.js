@@ -9,14 +9,15 @@
  * distribution rights of the Software.
  */
 
+import React from 'react';
+import {withRouter} from 'react-router-dom';
+
 import {
 	pushToHistory,
 	removeFilters
 } from '../../../shared/components/filter/util/filterUtil.es';
-import FilterResultsItem from './FilterResultsItem.es';
-import React from 'react';
 import {sub} from '../../../shared/util/lang.es';
-import {withRouter} from 'react-router-dom';
+import FilterResultsItem from './FilterResultsItem.es';
 
 class FilterResultsBar extends React.Component {
 	onClearAllButtonClick() {

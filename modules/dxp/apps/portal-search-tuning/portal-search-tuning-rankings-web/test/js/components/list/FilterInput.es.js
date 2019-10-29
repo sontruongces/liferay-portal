@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
-import FilterInput from '../../../../src/main/resources/META-INF/resources/js/components/list/FilterInput.es';
 import {fireEvent, render} from '@testing-library/react';
+import React from 'react';
+
+import FilterInput from '../../../../src/main/resources/META-INF/resources/js/components/list/FilterInput.es';
 
 describe('FilterInput', () => {
 	it('has the searchbar term in the filter input', () => {

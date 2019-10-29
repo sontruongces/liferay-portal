@@ -9,13 +9,15 @@
  * distribution rights of the Software.
  */
 
-import AddResult from '../../../../src/main/resources/META-INF/resources/js/components/add_result/AddResult.es';
+import {fireEvent, render, wait} from '@testing-library/react';
 import React from 'react';
+
+import AddResult from '../../../../src/main/resources/META-INF/resources/js/components/add_result/AddResult.es';
 import {
 	FETCH_SEARCH_DOCUMENTS_URL,
 	getMockResultsData
 } from '../../mocks/data.es';
-import {fireEvent, render, wait} from '@testing-library/react';
+
 import '@testing-library/jest-dom/extend-expect';
 
 const MODAL_ID = 'add-result-modal';

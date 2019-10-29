@@ -10,10 +10,11 @@
  */
 
 import {cleanup, fireEvent, render} from '@testing-library/react';
-import {CustomTimeRangeForm} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/CustomTimeRangeForm.es';
-import {MockRouter} from '../../../mock/MockRouter.es';
 import React from 'react';
+
+import {CustomTimeRangeForm} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/CustomTimeRangeForm.es';
 import {TimeRangeContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/TimeRangeStore.es';
+import {MockRouter} from '../../../mock/MockRouter.es';
 
 describe('The custom time range form, when using a valid range, should', () => {
 	const timeRange = {

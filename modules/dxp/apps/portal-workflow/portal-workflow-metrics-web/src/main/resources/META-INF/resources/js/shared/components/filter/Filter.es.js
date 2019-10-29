@@ -9,18 +9,19 @@
  * distribution rights of the Software.
  */
 
+import getClassName from 'classnames';
+import React from 'react';
+import {withRouter} from 'react-router-dom';
+
+import Icon from '../Icon.es';
+import FilterItem from './FilterItem.es';
+import FilterSearch from './FilterSearch.es';
 import {
 	addClickOutsideListener,
 	removeClickOutsideListener,
 	handleClickOutside
 } from './util/filterEvents.es';
 import {getSelectedItemsQuery, pushToHistory} from './util/filterUtil.es';
-import FilterItem from './FilterItem.es';
-import FilterSearch from './FilterSearch.es';
-import getClassName from 'classnames';
-import Icon from '../Icon.es';
-import React from 'react';
-import {withRouter} from 'react-router-dom';
 
 class Filter extends React.Component {
 	constructor(props) {

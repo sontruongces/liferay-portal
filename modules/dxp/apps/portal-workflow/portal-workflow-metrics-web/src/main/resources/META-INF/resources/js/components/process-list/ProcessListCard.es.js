@@ -9,17 +9,18 @@
  * distribution rights of the Software.
  */
 
+import React from 'react';
+
+import ListView from '../../shared/components/list/ListView.es';
+import PaginationBar from '../../shared/components/pagination/PaginationBar.es';
+import Search from '../../shared/components/pagination/Search.es';
+import {AppContext} from '../AppContext.es';
 import {
 	REQUEST_ORIGIN_TYPE_FETCH,
 	REQUEST_ORIGIN_TYPE_SEARCH
 } from './Constants.es';
-import {AppContext} from '../AppContext.es';
-import ListView from '../../shared/components/list/ListView.es';
-import PaginationBar from '../../shared/components/pagination/PaginationBar.es';
 import ProcessListTable from './ProcessListTable.es';
-import React from 'react';
 import ResultsBar from './ResultsBar.es';
-import Search from '../../shared/components/pagination/Search.es';
 
 /**
  * @class

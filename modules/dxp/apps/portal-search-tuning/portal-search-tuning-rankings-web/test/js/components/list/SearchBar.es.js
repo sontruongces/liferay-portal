@@ -9,14 +9,16 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
-import SearchBar from '../../../../src/main/resources/META-INF/resources/js/components/list/SearchBar.es';
 import {render} from '@testing-library/react';
+import React from 'react';
+
+import SearchBar from '../../../../src/main/resources/META-INF/resources/js/components/list/SearchBar.es';
+import {resultsDataToMap} from '../../../../src/main/resources/META-INF/resources/js/utils/util.es';
 import {
 	FETCH_SEARCH_DOCUMENTS_URL,
 	getMockResultsData
 } from '../../mocks/data.es';
-import {resultsDataToMap} from '../../../../src/main/resources/META-INF/resources/js/utils/util.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 const DATA_MAP = resultsDataToMap(

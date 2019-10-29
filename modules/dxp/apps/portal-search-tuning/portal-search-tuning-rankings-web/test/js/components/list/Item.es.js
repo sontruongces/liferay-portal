@@ -9,9 +9,11 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
-import Item from '../../../../src/main/resources/META-INF/resources/js/components/list/Item.es';
 import {fireEvent, render, within} from '@testing-library/react';
+import React from 'react';
+
+import Item from '../../../../src/main/resources/META-INF/resources/js/components/list/Item.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 /* eslint-disable no-unused-vars */

@@ -10,10 +10,11 @@
  */
 
 import {cleanup, render} from '@testing-library/react';
-import {MockRouter} from '../../../mock/MockRouter.es';
+import React from 'react';
+
 import ProcessStatusFilter from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/ProcessStatusFilter.es';
 import {ProcessStatusProvider} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/ProcessStatusStore.es';
-import React from 'react';
+import {MockRouter} from '../../../mock/MockRouter.es';
 
 describe('The process status filter should', () => {
 	afterEach(cleanup);

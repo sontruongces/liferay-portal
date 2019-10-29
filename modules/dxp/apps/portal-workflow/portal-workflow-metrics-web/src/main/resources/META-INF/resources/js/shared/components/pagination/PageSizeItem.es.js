@@ -9,9 +9,9 @@
  * distribution rights of the Software.
  */
 
-import {Link, withRouter} from 'react-router-dom';
 import pathToRegexp from 'path-to-regexp';
 import React from 'react';
+import {Link, withRouter} from 'react-router-dom';
 
 /**
  * @class
@@ -25,7 +25,7 @@ class PageSizeItem extends React.Component {
 			pageSize
 		} = this.props;
 
-		const params = Object.assign({}, match.params, {page: 1, pageSize});
+		const params = {...match.params, page: 1, pageSize};
 
 		const pathname = pathToRegexp.compile(match.path)(params);
 

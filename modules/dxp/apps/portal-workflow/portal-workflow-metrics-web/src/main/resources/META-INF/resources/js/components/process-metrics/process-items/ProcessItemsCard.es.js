@@ -11,15 +11,16 @@
  */
 
 import React, {useContext, useEffect, useState} from 'react';
-import {AppContext} from '../../AppContext.es';
-import {ErrorContext} from '../../../shared/components/request/Error.es';
+
 import Icon from '../../../shared/components/Icon.es';
-import {LoadingContext} from '../../../shared/components/request/Loading.es';
 import Panel from '../../../shared/components/Panel.es';
-import PANELS from './Panels.es';
-import Request from '../../../shared/components/request/Request.es';
-import SummaryCard from './SummaryCard.es';
 import Tooltip from '../../../shared/components/Tooltip.es';
+import {ErrorContext} from '../../../shared/components/request/Error.es';
+import {LoadingContext} from '../../../shared/components/request/Loading.es';
+import Request from '../../../shared/components/request/Request.es';
+import {AppContext} from '../../AppContext.es';
+import PANELS from './Panels.es';
+import SummaryCard from './SummaryCard.es';
 
 function ProcessItemsCard({
 	children,

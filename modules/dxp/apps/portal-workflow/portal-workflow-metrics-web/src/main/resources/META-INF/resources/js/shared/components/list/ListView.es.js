@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
-import EmptyState from './EmptyState.es';
-import LoadingState from '../loading/LoadingState.es';
 import React from 'react';
+
+import LoadingState from '../loading/LoadingState.es';
+import EmptyState from './EmptyState.es';
 
 /**
  * ListView.

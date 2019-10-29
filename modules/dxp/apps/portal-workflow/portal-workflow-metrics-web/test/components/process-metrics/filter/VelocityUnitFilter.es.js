@@ -10,11 +10,12 @@
  */
 
 import {cleanup, render} from '@testing-library/react';
-import {MockRouter} from '../../../mock/MockRouter.es';
 import React from 'react';
-import {TimeRangeContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/TimeRangeStore.es';
+
 import {VelocityUnitFilter} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/VelocityUnitFilter.es';
+import {TimeRangeContext} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/TimeRangeStore.es';
 import {VelocityUnitProvider} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/VelocityUnitStore.es';
+import {MockRouter} from '../../../mock/MockRouter.es';
 
 const timeRange = {
 	dateEnd: new Date(2018, 3, 1),

@@ -10,10 +10,11 @@
  */
 
 import {cleanup, render} from '@testing-library/react';
-import {MockRouter} from '../../../mock/MockRouter.es';
 import React from 'react';
+
 import SLAStatusFilter from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/SLAStatusFilter.es';
 import {SLAStatusProvider} from '../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/SLAStatusStore.es';
+import {MockRouter} from '../../../mock/MockRouter.es';
 
 describe('The SLA status filter should', () => {
 	afterEach(cleanup);

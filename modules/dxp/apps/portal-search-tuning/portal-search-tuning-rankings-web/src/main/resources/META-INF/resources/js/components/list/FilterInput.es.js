@@ -11,8 +11,8 @@
 
 import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
-import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
+import React, {Component} from 'react';
 
 class FilterInput extends Component {
 	static propTypes = {

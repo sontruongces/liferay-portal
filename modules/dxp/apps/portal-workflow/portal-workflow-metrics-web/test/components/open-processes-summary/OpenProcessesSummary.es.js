@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
-import OpenProcessesSummary from '../../../src/main/resources/META-INF/resources/js/components/open-processes-summary/OpenProcessesSummary.es';
 import React from 'react';
 import renderer from 'react-test-renderer';
+
+import OpenProcessesSummary from '../../../src/main/resources/META-INF/resources/js/components/open-processes-summary/OpenProcessesSummary.es';
 
 test('Should render component', () => {
 	const component = renderer.create(<OpenProcessesSummary />);

@@ -40,7 +40,7 @@ class CalendarStore {
 	}
 
 	setState(props) {
-		this.state = Object.assign({}, this.getState(), props);
+		this.state = {...this.getState(), ...props};
 	}
 }
 

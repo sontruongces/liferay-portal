@@ -11,6 +11,7 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
+
 import ResultsBar from '../../../src/main/resources/META-INF/resources/js/components/process-list/ResultsBar.es';
 import {MockRouter as Router} from '../../mock/MockRouter.es';
 

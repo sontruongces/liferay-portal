@@ -12,13 +12,13 @@
  * details.
  */
 
-import position from 'metal-position';
 import {DragDrop} from 'metal-drag-drop';
+import position from 'metal-position';
 import State from 'metal-state';
 
-import {FRAGMENTS_EDITOR_ITEM_BORDERS} from '../../../../utils/constants';
 import {initializeDragDrop} from '../../../../utils/FragmentsEditorDragDrop.es';
 import {setDraggingItemPosition} from '../../../../utils/FragmentsEditorUpdateUtils.es';
+import {FRAGMENTS_EDITOR_ITEM_BORDERS} from '../../../../utils/constants';
 
 /**
  * SidebarLayoutsDragDrop

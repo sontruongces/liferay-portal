@@ -10,17 +10,18 @@
  */
 
 import ClayButton from '@clayui/button';
-import ClayEmptyState, {DISPLAY_STATES} from '../shared/ClayEmptyState.es';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
+import {PropTypes} from 'prop-types';
+import React, {PureComponent} from 'react';
+import {DragDropContext as dragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+
+import {KEY_CODES} from '../../utils/constants.es';
+import {isNull, toggleListItem} from '../../utils/util.es';
+import ClayEmptyState, {DISPLAY_STATES} from '../shared/ClayEmptyState.es';
 import Item from './Item.es';
 import ItemDragLayer from './ItemDragLayer.es';
-import React, {PureComponent} from 'react';
 import SearchBar from './SearchBar.es';
-import {DragDropContext as dragDropContext} from 'react-dnd';
-import {isNull, toggleListItem} from '../../utils/util.es';
-import {KEY_CODES} from '../../utils/constants.es';
-import {PropTypes} from 'prop-types';
 
 class List extends PureComponent {
 	static propTypes = {

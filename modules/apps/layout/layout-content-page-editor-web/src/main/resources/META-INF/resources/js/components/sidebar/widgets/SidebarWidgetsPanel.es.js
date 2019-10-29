@@ -13,10 +13,10 @@
  */
 
 import Component from 'metal-component';
+import {DragDrop} from 'metal-drag-drop';
 import position from 'metal-position';
 import Soy from 'metal-soy';
 import {Config} from 'metal-state';
-import {DragDrop} from 'metal-drag-drop';
 
 import {
 	ADD_PORTLET,
@@ -28,17 +28,17 @@ import {
 	enableSavingChangesStatusAction,
 	updateLastSaveDateAction
 } from '../../../actions/saveChanges.es';
-import {
-	FRAGMENTS_EDITOR_ITEM_BORDERS,
-	FRAGMENTS_EDITOR_ITEM_TYPES
-} from '../../../utils/constants';
 import {getConnectedComponent} from '../../../store/ConnectedComponent.es';
+import {shouldUpdateOnChangeProperties} from '../../../utils/FragmentsEditorComponentUtils.es';
 import {initializeDragDrop} from '../../../utils/FragmentsEditorDragDrop.es';
 import {
 	setDraggingItemPosition,
 	setIn
 } from '../../../utils/FragmentsEditorUpdateUtils.es';
-import {shouldUpdateOnChangeProperties} from '../../../utils/FragmentsEditorComponentUtils.es';
+import {
+	FRAGMENTS_EDITOR_ITEM_BORDERS,
+	FRAGMENTS_EDITOR_ITEM_TYPES
+} from '../../../utils/constants';
 import templates from './SidebarWidgetsPanel.soy';
 
 /**

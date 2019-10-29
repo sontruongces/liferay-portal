@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
-import {FilterResultsItem} from '../../../../src/main/resources/META-INF/resources/js/shared/components/filter/FilterResultsItem.es';
 import React from 'react';
 import renderer from 'react-test-renderer';
+
+import {FilterResultsItem} from '../../../../src/main/resources/META-INF/resources/js/shared/components/filter/FilterResultsItem.es';
 import {MockRouter as Router} from '../../../mock/MockRouter.es';
 
 test('Should render component', () => {

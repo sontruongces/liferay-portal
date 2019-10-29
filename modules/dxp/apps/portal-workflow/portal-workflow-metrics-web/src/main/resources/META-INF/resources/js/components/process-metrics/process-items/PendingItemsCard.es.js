@@ -9,8 +9,9 @@
  * distribution rights of the Software.
  */
 
-import ProcessItemsCard from './ProcessItemsCard.es';
 import React from 'react';
+
+import ProcessItemsCard from './ProcessItemsCard.es';
 
 const PendingItemsCard = ({processId}) => {
 	return (

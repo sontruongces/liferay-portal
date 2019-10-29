@@ -9,9 +9,11 @@
  * distribution rights of the Software.
  */
 
-import AddResultSearchBar from '../../../../src/main/resources/META-INF/resources/js/components/add_result/AddResultSearchBar.es';
-import React from 'react';
 import {render} from '@testing-library/react';
+import React from 'react';
+
+import AddResultSearchBar from '../../../../src/main/resources/META-INF/resources/js/components/add_result/AddResultSearchBar.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 const TEST_TEXT = 'search query test';

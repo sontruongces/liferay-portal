@@ -26,6 +26,7 @@ import {
 import getConnectedComponent from '../../store/ConnectedComponent.es';
 import {setIn} from '../../utils/FragmentsEditorUpdateUtils.es';
 import templates from './SegmentsExperienceSelector.soy';
+
 import './segmentsExperiences/modal.es';
 
 const DISMISS_ALERT_ANIMATION_WAIT = 500;
@@ -193,14 +194,15 @@ class SegmentsExperienceSelector extends Component {
 			segment => segment.segmentsEntryId !== state.defaultSegmentsEntryId
 		);
 
-		const innerState = Object.assign({}, state, {
+		const innerState = {
+			...state,
 			activeSegmentsExperienceName:
 				activeExperience && activeExperience.name,
 			availableSegmentsEntries,
 			availableSegmentsExperiences: availableSegmentsExperiencesArray,
 			classPK: state.classPK,
 			segmentsExperienceId: selectedSegmentsExperienceId
-		});
+		};
 
 		return innerState;
 	}
@@ -386,7 +388,7 @@ class SegmentsExperienceSelector extends Component {
 	 * @param {!string} name
 	 * @memberof SegmentsExperienceSelector
 	 */
-	_editSegmentsExperience({segmentsExperienceId, name, segmentsEntryId}) {
+	_editSegmentsExperience({name, segmentsEntryId, segmentsExperienceId}) {
 		this.store
 			.dispatch({
 				name,
@@ -616,7 +618,7 @@ class SegmentsExperienceSelector extends Component {
 	 * @param {!string} payload.segmentsExperienceId
 	 * @memberof SegmentsExperienceSelector
 	 */
-	_updatePriority({focusFallbackElement, priorityButton, payload}) {
+	_updatePriority({focusFallbackElement, payload, priorityButton}) {
 		const onBlur = () => {
 			focusFallbackElement.focus();
 			priorityButton.removeEventListener('blur', onBlur);
@@ -629,11 +631,7 @@ class SegmentsExperienceSelector extends Component {
 		};
 
 		this.store
-			.dispatch(
-				Object.assign({}, payload, {
-					type: UPDATE_SEGMENTS_EXPERIENCE_PRIORITY
-				})
-			)
+			.dispatch({...payload, type: UPDATE_SEGMENTS_EXPERIENCE_PRIORITY})
 			.done(removeBlurListener)
 			.failed(removeBlurListener);
 	}

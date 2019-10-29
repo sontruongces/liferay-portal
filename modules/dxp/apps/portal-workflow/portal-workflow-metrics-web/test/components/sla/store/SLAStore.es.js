@@ -10,12 +10,13 @@
  */
 
 import {act, renderHook} from '@testing-library/react-hooks';
+
 import {
 	START_NODE_KEYS,
 	STOP_NODE_KEYS
 } from '../../../../src/main/resources/META-INF/resources/js/components/sla/Constants.es';
-import client from '../../../mock/fetch.es';
 import {useSLA} from '../../../../src/main/resources/META-INF/resources/js/components/sla/store/SLAStore.es';
+import client from '../../../mock/fetch.es';
 
 test('Should change SLA form values', () => {
 	const nodeKeys = [

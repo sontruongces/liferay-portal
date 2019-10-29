@@ -11,8 +11,9 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {MockRouter as Router} from '../../../mock/MockRouter.es';
+
 import {Tabs} from '../../../../src/main/resources/META-INF/resources/js/shared/components/tabs/Tabs.es';
+import {MockRouter as Router} from '../../../mock/MockRouter.es';
 
 const tabs = [
 	{

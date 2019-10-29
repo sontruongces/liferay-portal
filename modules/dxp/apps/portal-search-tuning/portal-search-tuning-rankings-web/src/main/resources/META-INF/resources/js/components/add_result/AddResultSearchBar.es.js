@@ -11,8 +11,8 @@
 
 import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
-import React from 'react';
 import {PropTypes} from 'prop-types';
+import React from 'react';
 
 /**
  * The search bar at the top of the modal. Provides an input for searching

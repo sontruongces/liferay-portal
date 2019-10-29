@@ -10,6 +10,7 @@
  */
 
 import React, {useContext} from 'react';
+
 import Filter from '../../../shared/components/filter/Filter.es';
 import {ProcessStepContext} from './store/ProcessStepStore.es';
 

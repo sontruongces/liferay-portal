@@ -17,11 +17,12 @@ import Soy from 'metal-soy';
 import {Config} from 'metal-state';
 
 import '../../../common/AssetSelector.es';
+
 import './ItemSelectorFieldDelegateTemplate.soy';
-import templates from './ItemSelectorField.soy';
 import getConnectedComponent from '../../../../store/ConnectedComponent.es';
 import {openAssetBrowser} from '../../../../utils/FragmentsEditorDialogUtils';
 import {setIn} from '../../../../utils/FragmentsEditorUpdateUtils.es';
+import templates from './ItemSelectorField.soy';
 
 /**
  * ItemSelectorField

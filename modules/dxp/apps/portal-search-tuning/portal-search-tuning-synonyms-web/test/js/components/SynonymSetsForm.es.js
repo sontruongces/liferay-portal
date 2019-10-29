@@ -9,9 +9,11 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
-import SynonymSetsForm from '../../../src/main/resources/META-INF/resources/js/components/SynonymSetsForm.es';
 import {render} from '@testing-library/react';
+import React from 'react';
+
+import SynonymSetsForm from '../../../src/main/resources/META-INF/resources/js/components/SynonymSetsForm.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 const FORM_NAME = 'testForm';

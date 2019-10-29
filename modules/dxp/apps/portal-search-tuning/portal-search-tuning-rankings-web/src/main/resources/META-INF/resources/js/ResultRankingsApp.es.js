@@ -10,10 +10,11 @@
  */
 
 import React from 'react';
-import ResultRankingsForm from './components/ResultRankingsForm.es';
-import ThemeContext from './ThemeContext.es';
 
-export default function({props, context}) {
+import ThemeContext from './ThemeContext.es';
+import ResultRankingsForm from './components/ResultRankingsForm.es';
+
+export default function({context, props}) {
 	return (
 		<ThemeContext.Provider value={context}>
 			<div className="results-rankings-root">

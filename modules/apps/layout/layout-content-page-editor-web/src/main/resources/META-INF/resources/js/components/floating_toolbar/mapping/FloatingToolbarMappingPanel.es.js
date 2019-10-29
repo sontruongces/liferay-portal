@@ -16,8 +16,21 @@ import {PortletBase} from 'frontend-js-web';
 import Soy, {Config} from 'metal-soy';
 
 import '../../common/AssetSelector.es';
+
 import './FloatingToolbarMappingPanelDelegateTemplate.soy';
 import {ADD_MAPPED_ASSET_ENTRY} from '../../../actions/actions.es';
+import {
+	updateEditableValueFieldIdAction,
+	updateEditableValueMappedFieldAction
+} from '../../../actions/updateEditableValue.es';
+import getConnectedComponent from '../../../store/ConnectedComponent.es';
+import {
+	openAssetBrowser,
+	openCreateContentDialog
+} from '../../../utils/FragmentsEditorDialogUtils';
+import {getMappingSourceTypes} from '../../../utils/FragmentsEditorGetUtils.es';
+import {encodeAssetId} from '../../../utils/FragmentsEditorIdUtils.es';
+import {setIn} from '../../../utils/FragmentsEditorUpdateUtils.es';
 import {
 	BACKGROUND_IMAGE_FRAGMENT_ENTRY_PROCESSOR,
 	COMPATIBLE_TYPES,
@@ -25,18 +38,6 @@ import {
 	FRAGMENTS_EDITOR_ITEM_TYPES,
 	MAPPING_SOURCE_TYPE_IDS
 } from '../../../utils/constants';
-import {encodeAssetId} from '../../../utils/FragmentsEditorIdUtils.es';
-import getConnectedComponent from '../../../store/ConnectedComponent.es';
-import {getMappingSourceTypes} from '../../../utils/FragmentsEditorGetUtils.es';
-import {
-	openAssetBrowser,
-	openCreateContentDialog
-} from '../../../utils/FragmentsEditorDialogUtils';
-import {setIn} from '../../../utils/FragmentsEditorUpdateUtils.es';
-import {
-	updateEditableValueFieldIdAction,
-	updateEditableValueMappedFieldAction
-} from '../../../actions/updateEditableValue.es';
 import templates from './FloatingToolbarMappingPanel.soy';
 
 /**
@@ -371,11 +372,10 @@ class FloatingToolbarMappingPanel extends PortletBase {
 	_selectAssetEntry(assetEntry) {
 		this._selectedAssetEntry = assetEntry;
 
-		this.store.dispatch(
-			Object.assign({}, this._selectedAssetEntry, {
-				type: ADD_MAPPED_ASSET_ENTRY
-			})
-		);
+		this.store.dispatch({
+			...this._selectedAssetEntry,
+			type: ADD_MAPPED_ASSET_ENTRY
+		});
 
 		this._loadFields();
 	}

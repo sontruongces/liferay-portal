@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+
 import ReloadButton from '../../../../src/main/resources/META-INF/resources/js/shared/components/list/ReloadButton.es';
 
 test('Should component reload page', () => {

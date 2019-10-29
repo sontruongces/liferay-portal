@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
-import ItemDropdown from '../../../../src/main/resources/META-INF/resources/js/components/list/ItemDropdown.es';
 import {fireEvent, render} from '@testing-library/react';
+import React from 'react';
+
+import ItemDropdown from '../../../../src/main/resources/META-INF/resources/js/components/list/ItemDropdown.es';
 
 describe('ItemDropdown', () => {
 	it('has option to unpin a visible and pinned item', () => {

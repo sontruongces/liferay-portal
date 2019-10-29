@@ -13,14 +13,15 @@
  */
 
 import ClayIcon from '@clayui/icon';
-import CriteriaSidebarItem from './CriteriaSidebarItem.es';
-import dateFns from 'date-fns';
 import getCN from 'classnames';
+import dateFns from 'date-fns';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {jsDatetoYYYYMMDD} from '../../utils/utils.es';
+
 import {PROPERTY_TYPES} from '../../utils/constants.es';
 import {propertyGroupShape} from '../../utils/types.es';
+import {jsDatetoYYYYMMDD} from '../../utils/utils.es';
+import CriteriaSidebarItem from './CriteriaSidebarItem.es';
 
 const INPUT_DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -96,7 +97,7 @@ class CriteriaSidebarCollapse extends Component {
 			: properties;
 
 		return (
-			<ul className="sidebar-collapse-groups list-unstyled">
+			<ul className="list-unstyled sidebar-collapse-groups">
 				{propertyGroups.map(propertyGroup => {
 					const active = propertyGroup.propertyKey === propertyKey;
 
@@ -120,7 +121,7 @@ class CriteriaSidebarCollapse extends Component {
 								className="sidebar-collapse-header-root"
 								onClick={this._handleClick(key, active)}
 							>
-								<a className="sidebar-collapse-header d-flex justify-content-between">
+								<a className="d-flex justify-content-between sidebar-collapse-header">
 									{propertyGroup.name}
 									<span className="collapse-icon">
 										<ClayIcon

@@ -13,7 +13,9 @@
  */
 
 import 'clay-dropdown';
+
 import 'clay-label';
+
 import 'metal';
 import Component from 'metal-component';
 import Soy from 'metal-soy';
@@ -30,9 +32,7 @@ class ChangeDefaultLanguage extends Component {
 
 		this.defaultLanguage = defaultLanguage;
 		this.languages = this.languages.map(language => {
-			return Object.assign({}, language, {
-				checked: language.label === defaultLanguage
-			});
+			return {...language, checked: language.label === defaultLanguage};
 		});
 
 		const dropdown = event.target.refs.dropdown.refs.portal.element;

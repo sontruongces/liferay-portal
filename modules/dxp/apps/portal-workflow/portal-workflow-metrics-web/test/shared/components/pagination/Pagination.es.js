@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
-import {Pagination} from '../../../../src/main/resources/META-INF/resources/js/shared/components/pagination/Pagination.es';
 import React from 'react';
 import renderer from 'react-test-renderer';
+
+import {Pagination} from '../../../../src/main/resources/META-INF/resources/js/shared/components/pagination/Pagination.es';
 import {MockRouter as Router} from '../../../mock/MockRouter.es';
 
 test('Should render component', () => {

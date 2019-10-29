@@ -9,8 +9,9 @@
  * distribution rights of the Software.
  */
 
-import Item from './Item.es';
 import React from 'react';
+
+import Item from './Item.es';
 
 const DRAG_PREVIEW_STYLES = {
 	borderRadius: '2px',

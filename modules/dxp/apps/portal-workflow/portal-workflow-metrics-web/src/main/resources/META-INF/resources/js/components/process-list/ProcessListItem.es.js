@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
-import {AppContext} from '../AppContext.es';
-import {ChildLink} from '../../shared/components/router/routerWrapper.es';
 import React from 'react';
+
+import {ChildLink} from '../../shared/components/router/routerWrapper.es';
+import {AppContext} from '../AppContext.es';
 
 /**
  * @class
@@ -29,7 +30,7 @@ class ProcessListItem extends React.Component {
 
 		return (
 			<tr>
-				<td className="table-cell-expand table-cell-minw-200 table-title lfr-title-column">
+				<td className="lfr-title-column table-cell-expand table-cell-minw-200 table-title">
 					<ChildLink to={`/metrics/${id}`}>
 						<span>{title}</span>
 					</ChildLink>

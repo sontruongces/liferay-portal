@@ -9,8 +9,9 @@
  * distribution rights of the Software.
  */
 
-import Icon from '../../../shared/components/Icon.es';
 import React from 'react';
+
+import Icon from '../../../shared/components/Icon.es';
 
 const FieldError = ({error}) => (
 	<div className="form-feedback-group">

@@ -9,10 +9,11 @@
  * distribution rights of the Software.
  */
 
-import {Redirect, withRouter} from 'react-router-dom';
-import Icon from '../Icon.es';
 import pathToRegexp from 'path-to-regexp';
 import React from 'react';
+import {Redirect, withRouter} from 'react-router-dom';
+
+import Icon from '../Icon.es';
 
 /**
  * @class
@@ -63,9 +64,7 @@ class Search extends React.Component {
 				values.search = encodeURIComponent(value);
 			}
 
-			const pathname = pathToRegexp.compile(path)(
-				Object.assign({}, params, values)
-			);
+			const pathname = pathToRegexp.compile(path)({...params, ...values});
 
 			// eslint-disable-next-line react/no-direct-mutation-state
 			this.state.redirect = false;

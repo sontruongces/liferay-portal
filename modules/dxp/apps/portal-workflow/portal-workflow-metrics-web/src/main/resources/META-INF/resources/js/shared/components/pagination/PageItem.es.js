@@ -9,10 +9,11 @@
  * distribution rights of the Software.
  */
 
-import {Link, withRouter} from 'react-router-dom';
-import Icon from '../Icon.es';
 import pathToRegexp from 'path-to-regexp';
 import React from 'react';
+import {Link, withRouter} from 'react-router-dom';
+
+import Icon from '../Icon.es';
 
 /**
  * @class
@@ -38,9 +39,10 @@ class PageItem extends React.Component {
 		}
 
 		const renderLink = () => {
-			const pathname = pathToRegexp.compile(match.path)(
-				Object.assign({}, match.params, {page})
-			);
+			const pathname = pathToRegexp.compile(match.path)({
+				...match.params,
+				page
+			});
 
 			if (type) {
 				const isNext = type === 'next';

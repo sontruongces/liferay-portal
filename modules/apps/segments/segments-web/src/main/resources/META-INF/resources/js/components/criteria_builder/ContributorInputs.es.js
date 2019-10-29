@@ -14,6 +14,7 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import {initialContributorShape} from '../../utils/types.es';
 
 function ContributorInputs({contributors}) {

@@ -9,19 +9,21 @@
  * distribution rights of the Software.
  */
 
-import React from 'react';
-import ResultRankingsForm from '../../../src/main/resources/META-INF/resources/js/components/ResultRankingsForm.es';
 import {
 	fireEvent,
 	render,
 	waitForElement,
 	within
 } from '@testing-library/react';
+import React from 'react';
+
+import ResultRankingsForm from '../../../src/main/resources/META-INF/resources/js/components/ResultRankingsForm.es';
 import {
 	FETCH_HIDDEN_DOCUMENTS_URL,
 	FETCH_SEARCH_DOCUMENTS_URL,
 	FETCH_VISIBLE_DOCUMENTS_URL
 } from '../mocks/data.es';
+
 import '@testing-library/jest-dom/extend-expect';
 
 const FORM_NAME = 'testForm';

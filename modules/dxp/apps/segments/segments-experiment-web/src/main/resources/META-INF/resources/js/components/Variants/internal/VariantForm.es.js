@@ -1,6 +1,17 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ */
+
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
@@ -12,18 +23,19 @@
  * details.
  */
 
-import React, {useState, useRef, useEffect} from 'react';
 import ClayAlert from '@clayui/alert';
-import ValidatedInput from '../../ValidatedInput/ValidatedInput.es';
-import ClayModal from '@clayui/modal';
 import ClayButton from '@clayui/button';
+import ClayModal from '@clayui/modal';
+import React, {useState, useRef, useEffect} from 'react';
+
 import BusyButton from '../../BusyButton/BusyButton.es';
+import ValidatedInput from '../../ValidatedInput/ValidatedInput.es';
 
 export default function VariantForm({
-	onSave,
-	onClose,
-	name = '',
 	errorMessage,
+	name = '',
+	onClose,
+	onSave,
 	title,
 	variantId
 }) {

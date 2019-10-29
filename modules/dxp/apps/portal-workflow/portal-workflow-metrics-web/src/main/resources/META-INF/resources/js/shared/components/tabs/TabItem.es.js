@@ -9,9 +9,9 @@
  * distribution rights of the Software.
  */
 
-import {Link} from 'react-router-dom';
 import pathToRegexp from 'path-to-regexp';
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 export default class TabItem extends React.Component {
 	render() {

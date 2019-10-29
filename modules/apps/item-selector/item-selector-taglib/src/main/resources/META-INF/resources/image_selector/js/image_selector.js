@@ -14,7 +14,7 @@
 
 AUI.add(
 	'liferay-image-selector',
-	function(A) {
+	A => {
 		var Lang = A.Lang;
 
 		var CHANGE_IMAGE_CONTROLS_DELAY = 5000;
@@ -325,7 +325,7 @@ AUI.add(
 						instance._timer = A.later(
 							CHANGE_IMAGE_CONTROLS_DELAY,
 							instance,
-							function() {
+							() => {
 								rootNode.removeClass(CSS_CHECK_ACTIVE);
 
 								changeImageControls.toggle(true);
@@ -556,7 +556,7 @@ AUI.add(
 						'.browse-image-controls'
 					);
 
-					errorNodeAlert.on('visibleChange', function(event) {
+					errorNodeAlert.on('visibleChange', event => {
 						if (!event.newVal) {
 							browseImageControls.show();
 						}
@@ -571,7 +571,7 @@ AUI.add(
 					if (A.config.win.FileReader) {
 						var reader = new FileReader();
 
-						reader.addEventListener('loadend', function() {
+						reader.addEventListener('loadend', () => {
 							if (!instance._uploadCompleted) {
 								instance._updateImageData({
 									fileEntryId: '-1',

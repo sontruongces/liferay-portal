@@ -9,15 +9,16 @@
  * distribution rights of the Software.
  */
 
-import {getFiltersParam} from '../../../shared/components/filter/util/filterUtil.es';
-import Panel from '../../../shared/components/Panel.es';
-import {ProcessVelocityInfo} from './ProcessVelocityInfo.es';
 import React from 'react';
+
+import Panel from '../../../shared/components/Panel.es';
+import {getFiltersParam} from '../../../shared/components/filter/util/filterUtil.es';
 import Request from '../../../shared/components/request/Request.es';
+import {ProcessVelocityInfo} from './ProcessVelocityInfo.es';
+import VelocityChart from './VelocityChart.es';
+import VelocityFilters from './VelocityFilters.es';
 import {VelocityDataProvider} from './store/VelocityDataStore.es';
 import {VelocityFiltersProvider} from './store/VelocityFiltersStore.es';
-import VelocityFilters from './VelocityFilters.es';
-import VelocityChart from './VelocityChart.es';
 
 const CompletionVelocityCard = ({processId, query}) => {
 	const {velocityTimeRange = [], velocityUnit = []} = getFiltersParam(query);

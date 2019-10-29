@@ -9,15 +9,16 @@
  * distribution rights of the Software.
  */
 
-import AddResult from '../add_result/AddResult.es';
 import ClayButton from '@clayui/button';
+import {ClayCheckbox} from '@clayui/form';
 import ClayIcon from '@clayui/icon';
 import getCN from 'classnames';
-import ItemDropdown from './ItemDropdown.es';
-import React, {Component} from 'react';
-import {ClayCheckbox} from '@clayui/form';
-import {getPluralMessage} from '../../utils/language.es';
 import {PropTypes} from 'prop-types';
+import React, {Component} from 'react';
+
+import {getPluralMessage} from '../../utils/language.es';
+import AddResult from '../add_result/AddResult.es';
+import ItemDropdown from './ItemDropdown.es';
 
 class SearchBar extends Component {
 	static propTypes = {

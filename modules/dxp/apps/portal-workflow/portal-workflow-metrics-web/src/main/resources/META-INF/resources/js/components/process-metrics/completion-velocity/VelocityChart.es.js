@@ -9,6 +9,16 @@
  * distribution rights of the Software.
  */
 
+import LineChart from '@clayui/charts';
+import React, {useContext} from 'react';
+
+import TooltipChart from '../../../shared/components/chart/TooltipChart.es';
+import {
+	HOURS,
+	MONTHS,
+	WEEKS,
+	YEARS
+} from '../../../shared/util/chart-constants.es';
 import {
 	formatMonthDate,
 	formatWeekDateWithYear,
@@ -17,20 +27,11 @@ import {
 	getAxisMeasuresFromData,
 	getXAxisIntervals
 } from '../../../shared/util/chart.es';
-import {
-	HOURS,
-	MONTHS,
-	WEEKS,
-	YEARS
-} from '../../../shared/util/chart-constants.es';
-import React, {useContext} from 'react';
-import {AppContext} from '../../AppContext.es';
-import LineChart from '@clayui/charts';
 import moment from '../../../shared/util/moment.es';
+import {AppContext} from '../../AppContext.es';
 import {TimeRangeContext} from '../filter/store/TimeRangeStore.es';
-import TooltipChart from '../../../shared/components/chart/TooltipChart.es';
-import {VelocityDataContext} from './store/VelocityDataStore.es';
 import {VelocityUnitContext} from '../filter/store/VelocityUnitStore.es';
+import {VelocityDataContext} from './store/VelocityDataStore.es';
 
 const VelocityChart = () => {
 	const {getSelectedTimeRange} = useContext(TimeRangeContext);
@@ -48,7 +49,7 @@ const VelocityChart = () => {
 
 	const dataValues = [[...histograms.map(item => item.value)]];
 
-	const {maxValue, intervals} = getAxisMeasuresFromData(dataValues);
+	const {intervals, maxValue} = getAxisMeasuresFromData(dataValues);
 
 	const CHART_DATA_ID_1 = 'data_1';
 

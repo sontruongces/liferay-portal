@@ -13,18 +13,18 @@
  */
 
 import Component from 'metal-component';
-import {Config} from 'metal-state';
 import Soy from 'metal-soy';
+import {Config} from 'metal-state';
 
 import {
 	ADD_ROW,
 	CLEAR_DROP_TARGET,
 	UPDATE_DROP_TARGET
 } from '../../../actions/actions.es';
-import {FRAGMENTS_EDITOR_ITEM_TYPES} from '../../../utils/constants';
-import SidebarLayoutsDragDrop from './utils/SidebarLayoutsDragDrop.es';
 import {Store} from '../../../store/store.es';
+import {FRAGMENTS_EDITOR_ITEM_TYPES} from '../../../utils/constants';
 import templates from './SidebarLayoutsPanel.soy';
+import SidebarLayoutsDragDrop from './utils/SidebarLayoutsDragDrop.es';
 
 /**
  * SidebarLayoutsPanel

@@ -9,8 +9,9 @@
  * distribution rights of the Software.
  */
 
-import PortalComponent from './PortalComponent.es';
 import React from 'react';
+
+import PortalComponent from './PortalComponent.es';
 
 export default class HeaderTitle extends React.Component {
 	componentDidUpdate({title: prevTitle}) {

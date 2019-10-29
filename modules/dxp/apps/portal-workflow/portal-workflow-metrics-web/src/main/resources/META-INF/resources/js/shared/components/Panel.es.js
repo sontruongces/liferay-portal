@@ -10,8 +10,9 @@
  */
 
 import getCN from 'classnames';
-import Icon from './Icon.es';
 import React from 'react';
+
+import Icon from './Icon.es';
 import Tooltip from './Tooltip.es';
 
 const Body = ({children, elementClasses}) => {

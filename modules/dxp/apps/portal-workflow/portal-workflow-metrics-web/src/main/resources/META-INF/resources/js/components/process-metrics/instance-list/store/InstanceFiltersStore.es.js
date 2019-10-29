@@ -9,9 +9,10 @@
  * distribution rights of the Software.
  */
 
+import React from 'react';
+
 import {ProcessStatusProvider} from '../../filter/store/ProcessStatusStore.es';
 import {ProcessStepProvider} from '../../filter/store/ProcessStepStore.es';
-import React from 'react';
 import {SLAStatusProvider} from '../../filter/store/SLAStatusStore.es';
 import {TimeRangeProvider} from '../../filter/store/TimeRangeStore.es';
 

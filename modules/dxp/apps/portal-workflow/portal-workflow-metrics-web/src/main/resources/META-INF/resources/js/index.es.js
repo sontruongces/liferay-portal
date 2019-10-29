@@ -10,9 +10,10 @@
  */
 
 import 'string.prototype.startswith';
-import AppComponent from './components/App.es';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import AppComponent from './components/App.es';
 
 export default function(defaultDelta, deltas, isAmPm, maxPages, namespace) {
 	const container = document.getElementById(`${namespace}root`);

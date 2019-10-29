@@ -10,16 +10,17 @@
  */
 
 import React, {useContext} from 'react';
-import {filterConstants} from './store/InstanceListStore.es';
+
 import FilterResultsBar from '../../../shared/components/filter/FilterResultsBar.es';
-import SLAStatusFilter from '../filter/SLAStatusFilter.es';
-import {ProcessStatusContext} from '../filter/store/ProcessStatusStore.es';
 import ProcessStatusFilter from '../filter/ProcessStatusFilter.es';
-import {ProcessStepContext} from '../filter/store/ProcessStepStore.es';
 import ProcessStepFilter from '../filter/ProcessStepFilter.es';
+import SLAStatusFilter from '../filter/SLAStatusFilter.es';
+import {TimeRangeFilter} from '../filter/TimeRangeFilter.es';
+import {ProcessStatusContext} from '../filter/store/ProcessStatusStore.es';
+import {ProcessStepContext} from '../filter/store/ProcessStepStore.es';
 import {SLAStatusContext} from '../filter/store/SLAStatusStore.es';
 import {TimeRangeContext} from '../filter/store/TimeRangeStore.es';
-import {TimeRangeFilter} from '../filter/TimeRangeFilter.es';
+import {filterConstants} from './store/InstanceListStore.es';
 
 const InstanceListFilters = ({totalCount}) => {
 	const {isCompletedStatusSelected, processStatuses} = useContext(

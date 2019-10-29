@@ -10,9 +10,10 @@
  */
 
 import React, {useContext} from 'react';
+
 import Icon from '../../../shared/components/Icon.es';
-import {InstanceListContext} from './store/InstanceListStore.es';
 import moment from '../../../shared/util/moment.es';
+import {InstanceListContext} from './store/InstanceListStore.es';
 
 const getStatusIcon = status => {
 	if (status === 'OnTime') {

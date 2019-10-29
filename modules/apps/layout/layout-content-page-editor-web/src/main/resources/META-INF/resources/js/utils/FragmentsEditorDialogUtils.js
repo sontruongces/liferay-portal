@@ -12,8 +12,8 @@
  * details.
  */
 
-import CreateContentDialog from '../components/content/CreateContentDialog.es';
 import {UPDATE_LAST_SAVE_DATE} from '../actions/actions.es';
+import CreateContentDialog from '../components/content/CreateContentDialog.es';
 
 /**
  * @private
@@ -39,9 +39,9 @@ const DOWNLOAD_FILE_ENTRY_IMAGE_SELECTOR_RETURN_TYPE =
 function openAssetBrowser({
 	assetBrowserURL,
 	callback,
+	destroyedCallback = null,
 	eventName,
-	modalTitle,
-	destroyedCallback = null
+	modalTitle
 }) {
 	Liferay.Util.selectEntity(
 		{
@@ -88,9 +88,9 @@ function openCreateContentDialog(store) {
  */
 function openImageSelector({
 	callback,
+	destroyedCallback = null,
 	imageSelectorURL,
-	portletNamespace,
-	destroyedCallback = null
+	portletNamespace
 }) {
 	AUI().use('liferay-item-selector-dialog', A => {
 		const itemSelector = new A.LiferayItemSelectorDialog({

@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+
 import {TimeRangeProvider} from '../../filter/store/TimeRangeStore.es';
 import {VelocityUnitProvider} from '../../filter/store/VelocityUnitStore.es';
 

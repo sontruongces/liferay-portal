@@ -16,6 +16,7 @@ import ClayButton from '@clayui/button';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import {conjunctionShape} from '../../utils/types.es';
 
 class Conjunction extends React.Component {

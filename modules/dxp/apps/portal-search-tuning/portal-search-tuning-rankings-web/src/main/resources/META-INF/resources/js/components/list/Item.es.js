@@ -12,17 +12,18 @@
 import ClayButton from '@clayui/button';
 import {ClayCheckbox} from '@clayui/form';
 import ClayIcon from '@clayui/icon';
-import DRAG_TYPES from '../../utils/drag-types.es';
 import getCN from 'classnames';
-import ItemDropdown from './ItemDropdown.es';
+import {PropTypes} from 'prop-types';
 import React, {PureComponent} from 'react';
 import {DragSource as dragSource, DropTarget as dropTarget} from 'react-dnd';
-import {findDOMNode} from 'react-dom';
 import {getEmptyImage} from 'react-dnd-html5-backend';
-import {isNil} from '../../utils/util.es';
+import {findDOMNode} from 'react-dom';
+
 import {KEY_CODES} from '../../utils/constants.es';
-import {PropTypes} from 'prop-types';
+import DRAG_TYPES from '../../utils/drag-types.es';
 import {sub} from '../../utils/language.es';
+import {isNil} from '../../utils/util.es';
+import ItemDropdown from './ItemDropdown.es';
 
 const HOVER_TYPES = {
 	BOTTOM: 'bottom',

@@ -11,10 +11,11 @@
  */
 
 import React, {useContext, useEffect, useState} from 'react';
-import {AppContext} from '../../AppContext.es';
+
 import Icon from '../../../shared/components/Icon.es';
-import {InstanceListContext} from './store/InstanceListStore.es';
 import moment from '../../../shared/util/moment.es';
+import {AppContext} from '../../AppContext.es';
+import {InstanceListContext} from './store/InstanceListStore.es';
 
 function InstanceItemDetail({processId}) {
 	const {client} = useContext(AppContext);
@@ -202,7 +203,7 @@ function InstanceItemDetail({processId}) {
 						)}
 
 						<a
-							className="btn btn-secondary btn-sm mb-1 font-weight-medium mt-3"
+							className="btn btn-secondary btn-sm font-weight-medium mb-1 mt-3"
 							href={`/group/control_panel/manage/-/workflow_instance/view/${instanceId}`}
 							target="_blank"
 						>
