@@ -93,10 +93,12 @@ public interface EntitlementDefinitionLocalService
 	 *
 	 * @param entitlementDefinition the entitlement definition
 	 * @return the entitlement definition that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public EntitlementDefinition deleteEntitlementDefinition(
-		EntitlementDefinition entitlementDefinition);
+			EntitlementDefinition entitlementDefinition)
+		throws PortalException;
 
 	/**
 	 * Deletes the entitlement definition with the primary key from the database. Also notifies the appropriate model listeners.
@@ -271,6 +273,13 @@ public interface EntitlementDefinitionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<EntitlementDefinition> search(
+		long classNameId, String name, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int searchCount(long classNameId, String name);
 
 	/**
 	 * Updates the entitlement definition in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

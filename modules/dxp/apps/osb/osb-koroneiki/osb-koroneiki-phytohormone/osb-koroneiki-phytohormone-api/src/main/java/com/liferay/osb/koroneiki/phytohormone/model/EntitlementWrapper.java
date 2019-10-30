@@ -163,6 +163,13 @@ public class EntitlementWrapper
 		return model.getCreateDate();
 	}
 
+	@Override
+	public EntitlementDefinition getEntitlementDefinition()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getEntitlementDefinition();
+	}
+
 	/**
 	 * Returns the entitlement definition ID of this entitlement.
 	 *

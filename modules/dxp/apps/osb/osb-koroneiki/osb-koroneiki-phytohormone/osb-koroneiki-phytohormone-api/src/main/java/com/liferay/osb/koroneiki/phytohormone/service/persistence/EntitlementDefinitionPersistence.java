@@ -170,6 +170,62 @@ public interface EntitlementDefinitionPersistence
 		throws NoSuchEntitlementDefinitionException;
 
 	/**
+	 * Returns all the entitlement definitions that the user has permission to view where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @return the matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByUuid(String uuid);
+
+	/**
+	 * Returns a range of all the entitlement definitions that the user has permission to view where uuid = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param uuid the uuid
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByUuid(
+		String uuid, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions that the user has permissions to view where uuid = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param uuid the uuid
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByUuid(
+		String uuid, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<EntitlementDefinition>
+			orderByComparator);
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set of entitlement definitions that the user has permission to view where uuid = &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	public EntitlementDefinition[] filterFindByUuid_PrevAndNext(
+			long entitlementDefinitionId, String uuid,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException;
+
+	/**
 	 * Removes all the entitlement definitions where uuid = &#63; from the database.
 	 *
 	 * @param uuid the uuid
@@ -183,6 +239,14 @@ public interface EntitlementDefinitionPersistence
 	 * @return the number of matching entitlement definitions
 	 */
 	public int countByUuid(String uuid);
+
+	/**
+	 * Returns the number of entitlement definitions that the user has permission to view where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @return the number of matching entitlement definitions that the user has permission to view
+	 */
+	public int filterCountByUuid(String uuid);
 
 	/**
 	 * Returns all the entitlement definitions where uuid = &#63; and companyId = &#63;.
@@ -323,6 +387,67 @@ public interface EntitlementDefinitionPersistence
 		throws NoSuchEntitlementDefinitionException;
 
 	/**
+	 * Returns all the entitlement definitions that the user has permission to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @return the matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByUuid_C(
+		String uuid, long companyId);
+
+	/**
+	 * Returns a range of all the entitlement definitions that the user has permission to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByUuid_C(
+		String uuid, long companyId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions that the user has permissions to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByUuid_C(
+		String uuid, long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<EntitlementDefinition>
+			orderByComparator);
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set of entitlement definitions that the user has permission to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	public EntitlementDefinition[] filterFindByUuid_C_PrevAndNext(
+			long entitlementDefinitionId, String uuid, long companyId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException;
+
+	/**
 	 * Removes all the entitlement definitions where uuid = &#63; and companyId = &#63; from the database.
 	 *
 	 * @param uuid the uuid
@@ -338,6 +463,63 @@ public interface EntitlementDefinitionPersistence
 	 * @return the number of matching entitlement definitions
 	 */
 	public int countByUuid_C(String uuid, long companyId);
+
+	/**
+	 * Returns the number of entitlement definitions that the user has permission to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @return the number of matching entitlement definitions that the user has permission to view
+	 */
+	public int filterCountByUuid_C(String uuid, long companyId);
+
+	/**
+	 * Returns the entitlement definition where entitlementDefinitionKey = &#63; or throws a <code>NoSuchEntitlementDefinitionException</code> if it could not be found.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @return the matching entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a matching entitlement definition could not be found
+	 */
+	public EntitlementDefinition findByEntitlementDefinitionKey(
+			String entitlementDefinitionKey)
+		throws NoSuchEntitlementDefinitionException;
+
+	/**
+	 * Returns the entitlement definition where entitlementDefinitionKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @return the matching entitlement definition, or <code>null</code> if a matching entitlement definition could not be found
+	 */
+	public EntitlementDefinition fetchByEntitlementDefinitionKey(
+		String entitlementDefinitionKey);
+
+	/**
+	 * Returns the entitlement definition where entitlementDefinitionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching entitlement definition, or <code>null</code> if a matching entitlement definition could not be found
+	 */
+	public EntitlementDefinition fetchByEntitlementDefinitionKey(
+		String entitlementDefinitionKey, boolean useFinderCache);
+
+	/**
+	 * Removes the entitlement definition where entitlementDefinitionKey = &#63; from the database.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @return the entitlement definition that was removed
+	 */
+	public EntitlementDefinition removeByEntitlementDefinitionKey(
+			String entitlementDefinitionKey)
+		throws NoSuchEntitlementDefinitionException;
+
+	/**
+	 * Returns the number of entitlement definitions where entitlementDefinitionKey = &#63;.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @return the number of matching entitlement definitions
+	 */
+	public int countByEntitlementDefinitionKey(String entitlementDefinitionKey);
 
 	/**
 	 * Returns the entitlement definition where classNameId = &#63; and name = &#63; or throws a <code>NoSuchEntitlementDefinitionException</code> if it could not be found.
@@ -388,6 +570,231 @@ public interface EntitlementDefinitionPersistence
 	 * @return the number of matching entitlement definitions
 	 */
 	public int countByC_N(long classNameId, String name);
+
+	/**
+	 * Returns all the entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @return the matching entitlement definitions
+	 */
+	public java.util.List<EntitlementDefinition> findByC_LikeN(
+		long classNameId, String name);
+
+	/**
+	 * Returns a range of all the entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions
+	 */
+	public java.util.List<EntitlementDefinition> findByC_LikeN(
+		long classNameId, String name, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions
+	 */
+	public java.util.List<EntitlementDefinition> findByC_LikeN(
+		long classNameId, String name, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<EntitlementDefinition>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching entitlement definitions
+	 */
+	public java.util.List<EntitlementDefinition> findByC_LikeN(
+		long classNameId, String name, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<EntitlementDefinition>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a matching entitlement definition could not be found
+	 */
+	public EntitlementDefinition findByC_LikeN_First(
+			long classNameId, String name,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException;
+
+	/**
+	 * Returns the first entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching entitlement definition, or <code>null</code> if a matching entitlement definition could not be found
+	 */
+	public EntitlementDefinition fetchByC_LikeN_First(
+		long classNameId, String name,
+		com.liferay.portal.kernel.util.OrderByComparator<EntitlementDefinition>
+			orderByComparator);
+
+	/**
+	 * Returns the last entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a matching entitlement definition could not be found
+	 */
+	public EntitlementDefinition findByC_LikeN_Last(
+			long classNameId, String name,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException;
+
+	/**
+	 * Returns the last entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching entitlement definition, or <code>null</code> if a matching entitlement definition could not be found
+	 */
+	public EntitlementDefinition fetchByC_LikeN_Last(
+		long classNameId, String name,
+		com.liferay.portal.kernel.util.OrderByComparator<EntitlementDefinition>
+			orderByComparator);
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	public EntitlementDefinition[] findByC_LikeN_PrevAndNext(
+			long entitlementDefinitionId, long classNameId, String name,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException;
+
+	/**
+	 * Returns all the entitlement definitions that the user has permission to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @return the matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByC_LikeN(
+		long classNameId, String name);
+
+	/**
+	 * Returns a range of all the entitlement definitions that the user has permission to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByC_LikeN(
+		long classNameId, String name, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions that the user has permissions to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByC_LikeN(
+		long classNameId, String name, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<EntitlementDefinition>
+			orderByComparator);
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set of entitlement definitions that the user has permission to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	public EntitlementDefinition[] filterFindByC_LikeN_PrevAndNext(
+			long entitlementDefinitionId, long classNameId, String name,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException;
+
+	/**
+	 * Removes all the entitlement definitions where classNameId = &#63; and name LIKE &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 */
+	public void removeByC_LikeN(long classNameId, String name);
+
+	/**
+	 * Returns the number of entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @return the number of matching entitlement definitions
+	 */
+	public int countByC_LikeN(long classNameId, String name);
+
+	/**
+	 * Returns the number of entitlement definitions that the user has permission to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @return the number of matching entitlement definitions that the user has permission to view
+	 */
+	public int filterCountByC_LikeN(long classNameId, String name);
 
 	/**
 	 * Returns all the entitlement definitions where classNameId = &#63; and status = &#63;.
@@ -528,6 +935,67 @@ public interface EntitlementDefinitionPersistence
 		throws NoSuchEntitlementDefinitionException;
 
 	/**
+	 * Returns all the entitlement definitions that the user has permission to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @return the matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByC_S(
+		long classNameId, int status);
+
+	/**
+	 * Returns a range of all the entitlement definitions that the user has permission to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByC_S(
+		long classNameId, int status, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions that the user has permissions to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions that the user has permission to view
+	 */
+	public java.util.List<EntitlementDefinition> filterFindByC_S(
+		long classNameId, int status, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<EntitlementDefinition>
+			orderByComparator);
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set of entitlement definitions that the user has permission to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	public EntitlementDefinition[] filterFindByC_S_PrevAndNext(
+			long entitlementDefinitionId, long classNameId, int status,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException;
+
+	/**
 	 * Removes all the entitlement definitions where classNameId = &#63; and status = &#63; from the database.
 	 *
 	 * @param classNameId the class name ID
@@ -543,6 +1011,15 @@ public interface EntitlementDefinitionPersistence
 	 * @return the number of matching entitlement definitions
 	 */
 	public int countByC_S(long classNameId, int status);
+
+	/**
+	 * Returns the number of entitlement definitions that the user has permission to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @return the number of matching entitlement definitions that the user has permission to view
+	 */
+	public int filterCountByC_S(long classNameId, int status);
 
 	/**
 	 * Caches the entitlement definition in the entity cache if it is enabled.

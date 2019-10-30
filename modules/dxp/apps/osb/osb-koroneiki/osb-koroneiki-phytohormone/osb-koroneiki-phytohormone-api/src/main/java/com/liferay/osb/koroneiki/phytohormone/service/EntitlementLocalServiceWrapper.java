@@ -102,6 +102,11 @@ public class EntitlementLocalServiceWrapper
 		return _entitlementLocalService.deleteEntitlement(entitlementId);
 	}
 
+	@Override
+	public void deleteEntitlements(long classNameId, long classPK) {
+		_entitlementLocalService.deleteEntitlements(classNameId, classPK);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -254,9 +259,21 @@ public class EntitlementLocalServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.osb.koroneiki.phytohormone.model.Entitlement>
-			getEntitlements(long classNameId, long classPK) {
+			getEntitlements(
+				long classNameId, long classPK, int start, int end) {
 
-		return _entitlementLocalService.getEntitlements(classNameId, classPK);
+		return _entitlementLocalService.getEntitlements(
+			classNameId, classPK, start, end);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.osb.koroneiki.phytohormone.model.Entitlement>
+			getEntitlements(
+				String className, long classPK, int start, int end) {
+
+		return _entitlementLocalService.getEntitlements(
+			className, classPK, start, end);
 	}
 
 	/**

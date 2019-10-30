@@ -130,11 +130,13 @@ public abstract class EntitlementDefinitionLocalServiceBaseImpl
 	 *
 	 * @param entitlementDefinition the entitlement definition
 	 * @return the entitlement definition that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public EntitlementDefinition deleteEntitlementDefinition(
-		EntitlementDefinition entitlementDefinition) {
+			EntitlementDefinition entitlementDefinition)
+		throws PortalException {
 
 		return entitlementDefinitionPersistence.remove(entitlementDefinition);
 	}

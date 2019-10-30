@@ -168,6 +168,21 @@ public interface EntitlementDefinitionModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the entitlement definition key of this entitlement definition.
+	 *
+	 * @return the entitlement definition key of this entitlement definition
+	 */
+	@AutoEscape
+	public String getEntitlementDefinitionKey();
+
+	/**
+	 * Sets the entitlement definition key of this entitlement definition.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key of this entitlement definition
+	 */
+	public void setEntitlementDefinitionKey(String entitlementDefinitionKey);
+
+	/**
 	 * Returns the fully qualified class name of this entitlement definition.
 	 *
 	 * @return the fully qualified class name of this entitlement definition

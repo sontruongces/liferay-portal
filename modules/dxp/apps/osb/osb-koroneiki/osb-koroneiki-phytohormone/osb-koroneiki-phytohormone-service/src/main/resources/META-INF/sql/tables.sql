@@ -17,6 +17,7 @@ create table Koroneiki_EntitlementDefinition (
 	userId LONG,
 	createDate DATE null,
 	modifiedDate DATE null,
+	entitlementDefinitionKey VARCHAR(75) null,
 	classNameId LONG,
 	name VARCHAR(75) null,
 	description VARCHAR(75) null,

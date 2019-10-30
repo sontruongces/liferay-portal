@@ -51,6 +51,8 @@ public class EntitlementDefinitionWrapper
 		attributes.put("userId", getUserId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put(
+			"entitlementDefinitionKey", getEntitlementDefinitionKey());
 		attributes.put("classNameId", getClassNameId());
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
@@ -97,6 +99,13 @@ public class EntitlementDefinitionWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		String entitlementDefinitionKey = (String)attributes.get(
+			"entitlementDefinitionKey");
+
+		if (entitlementDefinitionKey != null) {
+			setEntitlementDefinitionKey(entitlementDefinitionKey);
 		}
 
 		Long classNameId = (Long)attributes.get("classNameId");
@@ -198,6 +207,23 @@ public class EntitlementDefinitionWrapper
 	@Override
 	public long getEntitlementDefinitionId() {
 		return model.getEntitlementDefinitionId();
+	}
+
+	/**
+	 * Returns the entitlement definition key of this entitlement definition.
+	 *
+	 * @return the entitlement definition key of this entitlement definition
+	 */
+	@Override
+	public String getEntitlementDefinitionKey() {
+		return model.getEntitlementDefinitionKey();
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
+		getExternalLinks() {
+
+		return model.getExternalLinks();
 	}
 
 	/**
@@ -343,6 +369,16 @@ public class EntitlementDefinitionWrapper
 	@Override
 	public void setEntitlementDefinitionId(long entitlementDefinitionId) {
 		model.setEntitlementDefinitionId(entitlementDefinitionId);
+	}
+
+	/**
+	 * Sets the entitlement definition key of this entitlement definition.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key of this entitlement definition
+	 */
+	@Override
+	public void setEntitlementDefinitionKey(String entitlementDefinitionKey) {
+		model.setEntitlementDefinitionKey(entitlementDefinitionKey);
 	}
 
 	/**

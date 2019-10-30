@@ -63,6 +63,10 @@ public interface Contact extends ContactModel, PersistedModel {
 	public java.util.List<ContactRole> getContactRoles(String accountKey)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
+	public java.util.List
+		<com.liferay.osb.koroneiki.phytohormone.model.Entitlement>
+			getEntitlements();
+
 	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
 		getExternalLinks();
 

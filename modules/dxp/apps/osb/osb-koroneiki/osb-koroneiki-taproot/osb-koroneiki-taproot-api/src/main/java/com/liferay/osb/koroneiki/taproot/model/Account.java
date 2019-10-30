@@ -64,6 +64,10 @@ public interface Account extends AccountModel, PersistedModel {
 	public java.util.List<Account> getChildAccounts()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
+	public java.util.List
+		<com.liferay.osb.koroneiki.phytohormone.model.Entitlement>
+			getEntitlements();
+
 	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
 		getExternalLinks();
 

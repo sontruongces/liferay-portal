@@ -64,7 +64,7 @@ public class EntitlementDefinitionCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -78,6 +78,8 @@ public class EntitlementDefinitionCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", entitlementDefinitionKey=");
+		sb.append(entitlementDefinitionKey);
 		sb.append(", classNameId=");
 		sb.append(classNameId);
 		sb.append(", name=");
@@ -124,6 +126,14 @@ public class EntitlementDefinitionCacheModel
 			entitlementDefinitionImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		if (entitlementDefinitionKey == null) {
+			entitlementDefinitionImpl.setEntitlementDefinitionKey("");
+		}
+		else {
+			entitlementDefinitionImpl.setEntitlementDefinitionKey(
+				entitlementDefinitionKey);
+		}
+
 		entitlementDefinitionImpl.setClassNameId(classNameId);
 
 		if (name == null) {
@@ -165,6 +175,7 @@ public class EntitlementDefinitionCacheModel
 		userId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+		entitlementDefinitionKey = objectInput.readUTF();
 
 		classNameId = objectInput.readLong();
 		name = objectInput.readUTF();
@@ -190,6 +201,13 @@ public class EntitlementDefinitionCacheModel
 		objectOutput.writeLong(userId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
+
+		if (entitlementDefinitionKey == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(entitlementDefinitionKey);
+		}
 
 		objectOutput.writeLong(classNameId);
 
@@ -223,6 +241,7 @@ public class EntitlementDefinitionCacheModel
 	public long userId;
 	public long createDate;
 	public long modifiedDate;
+	public String entitlementDefinitionKey;
 	public long classNameId;
 	public String name;
 	public String description;

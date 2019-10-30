@@ -104,6 +104,8 @@ public interface EntitlementLocalService
 	public Entitlement deleteEntitlement(long entitlementId)
 		throws PortalException;
 
+	public void deleteEntitlements(long classNameId, long classPK);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -209,7 +211,12 @@ public interface EntitlementLocalService
 	public List<Entitlement> getEntitlements(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Entitlement> getEntitlements(long classNameId, long classPK);
+	public List<Entitlement> getEntitlements(
+		long classNameId, long classPK, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Entitlement> getEntitlements(
+		String className, long classPK, int start, int end);
 
 	/**
 	 * Returns the number of entitlements.

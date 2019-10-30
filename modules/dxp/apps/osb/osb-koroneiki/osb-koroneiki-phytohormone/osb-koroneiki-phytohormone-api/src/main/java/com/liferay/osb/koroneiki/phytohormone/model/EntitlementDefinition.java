@@ -60,4 +60,7 @@ public interface EntitlementDefinition
 
 			};
 
+	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
+		getExternalLinks();
+
 }

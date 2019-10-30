@@ -28,11 +28,13 @@ import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
@@ -559,6 +561,365 @@ public class EntitlementDefinitionPersistenceImpl
 	}
 
 	/**
+	 * Returns all the entitlement definitions that the user has permission to view where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @return the matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByUuid(String uuid) {
+		return filterFindByUuid(
+			uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the entitlement definitions that the user has permission to view where uuid = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param uuid the uuid
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByUuid(
+		String uuid, int start, int end) {
+
+		return filterFindByUuid(uuid, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions that the user has permissions to view where uuid = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param uuid the uuid
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByUuid(
+		String uuid, int start, int end,
+		OrderByComparator<EntitlementDefinition> orderByComparator) {
+
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByUuid(uuid, start, end, orderByComparator);
+		}
+
+		uuid = Objects.toString(uuid, "");
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				3 + (orderByComparator.getOrderByFields().length * 2));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		boolean bindUuid = false;
+
+		if (uuid.isEmpty()) {
+			query.append(_FINDER_COLUMN_UUID_UUID_3_SQL);
+		}
+		else {
+			bindUuid = true;
+
+			query.append(_FINDER_COLUMN_UUID_UUID_2_SQL);
+		}
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+			}
+			else {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(
+					_FILTER_ENTITY_ALIAS, EntitlementDefinitionImpl.class);
+			}
+			else {
+				q.addEntity(
+					_FILTER_ENTITY_TABLE, EntitlementDefinitionImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			if (bindUuid) {
+				qPos.add(uuid);
+			}
+
+			return (List<EntitlementDefinition>)QueryUtil.list(
+				q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set of entitlement definitions that the user has permission to view where uuid = &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	@Override
+	public EntitlementDefinition[] filterFindByUuid_PrevAndNext(
+			long entitlementDefinitionId, String uuid,
+			OrderByComparator<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException {
+
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByUuid_PrevAndNext(
+				entitlementDefinitionId, uuid, orderByComparator);
+		}
+
+		uuid = Objects.toString(uuid, "");
+
+		EntitlementDefinition entitlementDefinition = findByPrimaryKey(
+			entitlementDefinitionId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			EntitlementDefinition[] array = new EntitlementDefinitionImpl[3];
+
+			array[0] = filterGetByUuid_PrevAndNext(
+				session, entitlementDefinition, uuid, orderByComparator, true);
+
+			array[1] = entitlementDefinition;
+
+			array[2] = filterGetByUuid_PrevAndNext(
+				session, entitlementDefinition, uuid, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected EntitlementDefinition filterGetByUuid_PrevAndNext(
+		Session session, EntitlementDefinition entitlementDefinition,
+		String uuid, OrderByComparator<EntitlementDefinition> orderByComparator,
+		boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		boolean bindUuid = false;
+
+		if (uuid.isEmpty()) {
+			query.append(_FINDER_COLUMN_UUID_UUID_3_SQL);
+		}
+		else {
+			bindUuid = true;
+
+			query.append(_FINDER_COLUMN_UUID_UUID_2_SQL);
+		}
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
+							true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
+							true));
+				}
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
+				}
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		if (getDB().isSupportsInlineDistinct()) {
+			q.addEntity(_FILTER_ENTITY_ALIAS, EntitlementDefinitionImpl.class);
+		}
+		else {
+			q.addEntity(_FILTER_ENTITY_TABLE, EntitlementDefinitionImpl.class);
+		}
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		if (bindUuid) {
+			qPos.add(uuid);
+		}
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						entitlementDefinition)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<EntitlementDefinition> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
 	 * Removes all the entitlement definitions where uuid = &#63; from the database.
 	 *
 	 * @param uuid the uuid
@@ -636,11 +997,78 @@ public class EntitlementDefinitionPersistenceImpl
 		return count.intValue();
 	}
 
+	/**
+	 * Returns the number of entitlement definitions that the user has permission to view where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @return the number of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public int filterCountByUuid(String uuid) {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return countByUuid(uuid);
+		}
+
+		uuid = Objects.toString(uuid, "");
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_ENTITLEMENTDEFINITION_WHERE);
+
+		boolean bindUuid = false;
+
+		if (uuid.isEmpty()) {
+			query.append(_FINDER_COLUMN_UUID_UUID_3_SQL);
+		}
+		else {
+			bindUuid = true;
+
+			query.append(_FINDER_COLUMN_UUID_UUID_2_SQL);
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(
+				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			if (bindUuid) {
+				qPos.add(uuid);
+			}
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
 	private static final String _FINDER_COLUMN_UUID_UUID_2 =
 		"entitlementDefinition.uuid = ?";
 
 	private static final String _FINDER_COLUMN_UUID_UUID_3 =
 		"(entitlementDefinition.uuid IS NULL OR entitlementDefinition.uuid = '')";
+
+	private static final String _FINDER_COLUMN_UUID_UUID_2_SQL =
+		"entitlementDefinition.uuid_ = ?";
+
+	private static final String _FINDER_COLUMN_UUID_UUID_3_SQL =
+		"(entitlementDefinition.uuid_ IS NULL OR entitlementDefinition.uuid_ = '')";
 
 	private FinderPath _finderPathWithPaginationFindByUuid_C;
 	private FinderPath _finderPathWithoutPaginationFindByUuid_C;
@@ -1140,6 +1568,382 @@ public class EntitlementDefinitionPersistenceImpl
 	}
 
 	/**
+	 * Returns all the entitlement definitions that the user has permission to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @return the matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByUuid_C(
+		String uuid, long companyId) {
+
+		return filterFindByUuid_C(
+			uuid, companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the entitlement definitions that the user has permission to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByUuid_C(
+		String uuid, long companyId, int start, int end) {
+
+		return filterFindByUuid_C(uuid, companyId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions that the user has permissions to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByUuid_C(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<EntitlementDefinition> orderByComparator) {
+
+		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
+			return findByUuid_C(uuid, companyId, start, end, orderByComparator);
+		}
+
+		uuid = Objects.toString(uuid, "");
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByFields().length * 2));
+		}
+		else {
+			query = new StringBundler(5);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		boolean bindUuid = false;
+
+		if (uuid.isEmpty()) {
+			query.append(_FINDER_COLUMN_UUID_C_UUID_3_SQL);
+		}
+		else {
+			bindUuid = true;
+
+			query.append(_FINDER_COLUMN_UUID_C_UUID_2_SQL);
+		}
+
+		query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+			}
+			else {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(
+					_FILTER_ENTITY_ALIAS, EntitlementDefinitionImpl.class);
+			}
+			else {
+				q.addEntity(
+					_FILTER_ENTITY_TABLE, EntitlementDefinitionImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			if (bindUuid) {
+				qPos.add(uuid);
+			}
+
+			qPos.add(companyId);
+
+			return (List<EntitlementDefinition>)QueryUtil.list(
+				q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set of entitlement definitions that the user has permission to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	@Override
+	public EntitlementDefinition[] filterFindByUuid_C_PrevAndNext(
+			long entitlementDefinitionId, String uuid, long companyId,
+			OrderByComparator<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException {
+
+		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
+			return findByUuid_C_PrevAndNext(
+				entitlementDefinitionId, uuid, companyId, orderByComparator);
+		}
+
+		uuid = Objects.toString(uuid, "");
+
+		EntitlementDefinition entitlementDefinition = findByPrimaryKey(
+			entitlementDefinitionId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			EntitlementDefinition[] array = new EntitlementDefinitionImpl[3];
+
+			array[0] = filterGetByUuid_C_PrevAndNext(
+				session, entitlementDefinition, uuid, companyId,
+				orderByComparator, true);
+
+			array[1] = entitlementDefinition;
+
+			array[2] = filterGetByUuid_C_PrevAndNext(
+				session, entitlementDefinition, uuid, companyId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected EntitlementDefinition filterGetByUuid_C_PrevAndNext(
+		Session session, EntitlementDefinition entitlementDefinition,
+		String uuid, long companyId,
+		OrderByComparator<EntitlementDefinition> orderByComparator,
+		boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(5);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		boolean bindUuid = false;
+
+		if (uuid.isEmpty()) {
+			query.append(_FINDER_COLUMN_UUID_C_UUID_3_SQL);
+		}
+		else {
+			bindUuid = true;
+
+			query.append(_FINDER_COLUMN_UUID_C_UUID_2_SQL);
+		}
+
+		query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
+							true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
+							true));
+				}
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
+				}
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		if (getDB().isSupportsInlineDistinct()) {
+			q.addEntity(_FILTER_ENTITY_ALIAS, EntitlementDefinitionImpl.class);
+		}
+		else {
+			q.addEntity(_FILTER_ENTITY_TABLE, EntitlementDefinitionImpl.class);
+		}
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		if (bindUuid) {
+			qPos.add(uuid);
+		}
+
+		qPos.add(companyId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						entitlementDefinition)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<EntitlementDefinition> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
 	 * Removes all the entitlement definitions where uuid = &#63; and companyId = &#63; from the database.
 	 *
 	 * @param uuid the uuid
@@ -1225,14 +2029,341 @@ public class EntitlementDefinitionPersistenceImpl
 		return count.intValue();
 	}
 
+	/**
+	 * Returns the number of entitlement definitions that the user has permission to view where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @return the number of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public int filterCountByUuid_C(String uuid, long companyId) {
+		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
+			return countByUuid_C(uuid, companyId);
+		}
+
+		uuid = Objects.toString(uuid, "");
+
+		StringBundler query = new StringBundler(3);
+
+		query.append(_FILTER_SQL_COUNT_ENTITLEMENTDEFINITION_WHERE);
+
+		boolean bindUuid = false;
+
+		if (uuid.isEmpty()) {
+			query.append(_FINDER_COLUMN_UUID_C_UUID_3_SQL);
+		}
+		else {
+			bindUuid = true;
+
+			query.append(_FINDER_COLUMN_UUID_C_UUID_2_SQL);
+		}
+
+		query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(
+				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			if (bindUuid) {
+				qPos.add(uuid);
+			}
+
+			qPos.add(companyId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
 	private static final String _FINDER_COLUMN_UUID_C_UUID_2 =
 		"entitlementDefinition.uuid = ? AND ";
 
 	private static final String _FINDER_COLUMN_UUID_C_UUID_3 =
 		"(entitlementDefinition.uuid IS NULL OR entitlementDefinition.uuid = '') AND ";
 
+	private static final String _FINDER_COLUMN_UUID_C_UUID_2_SQL =
+		"entitlementDefinition.uuid_ = ? AND ";
+
+	private static final String _FINDER_COLUMN_UUID_C_UUID_3_SQL =
+		"(entitlementDefinition.uuid_ IS NULL OR entitlementDefinition.uuid_ = '') AND ";
+
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"entitlementDefinition.companyId = ?";
+
+	private FinderPath _finderPathFetchByEntitlementDefinitionKey;
+	private FinderPath _finderPathCountByEntitlementDefinitionKey;
+
+	/**
+	 * Returns the entitlement definition where entitlementDefinitionKey = &#63; or throws a <code>NoSuchEntitlementDefinitionException</code> if it could not be found.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @return the matching entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a matching entitlement definition could not be found
+	 */
+	@Override
+	public EntitlementDefinition findByEntitlementDefinitionKey(
+			String entitlementDefinitionKey)
+		throws NoSuchEntitlementDefinitionException {
+
+		EntitlementDefinition entitlementDefinition =
+			fetchByEntitlementDefinitionKey(entitlementDefinitionKey);
+
+		if (entitlementDefinition == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("entitlementDefinitionKey=");
+			msg.append(entitlementDefinitionKey);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchEntitlementDefinitionException(msg.toString());
+		}
+
+		return entitlementDefinition;
+	}
+
+	/**
+	 * Returns the entitlement definition where entitlementDefinitionKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @return the matching entitlement definition, or <code>null</code> if a matching entitlement definition could not be found
+	 */
+	@Override
+	public EntitlementDefinition fetchByEntitlementDefinitionKey(
+		String entitlementDefinitionKey) {
+
+		return fetchByEntitlementDefinitionKey(entitlementDefinitionKey, true);
+	}
+
+	/**
+	 * Returns the entitlement definition where entitlementDefinitionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching entitlement definition, or <code>null</code> if a matching entitlement definition could not be found
+	 */
+	@Override
+	public EntitlementDefinition fetchByEntitlementDefinitionKey(
+		String entitlementDefinitionKey, boolean useFinderCache) {
+
+		entitlementDefinitionKey = Objects.toString(
+			entitlementDefinitionKey, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {entitlementDefinitionKey};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByEntitlementDefinitionKey, finderArgs, this);
+		}
+
+		if (result instanceof EntitlementDefinition) {
+			EntitlementDefinition entitlementDefinition =
+				(EntitlementDefinition)result;
+
+			if (!Objects.equals(
+					entitlementDefinitionKey,
+					entitlementDefinition.getEntitlementDefinitionKey())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+
+			boolean bindEntitlementDefinitionKey = false;
+
+			if (entitlementDefinitionKey.isEmpty()) {
+				query.append(
+					_FINDER_COLUMN_ENTITLEMENTDEFINITIONKEY_ENTITLEMENTDEFINITIONKEY_3);
+			}
+			else {
+				bindEntitlementDefinitionKey = true;
+
+				query.append(
+					_FINDER_COLUMN_ENTITLEMENTDEFINITIONKEY_ENTITLEMENTDEFINITIONKEY_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindEntitlementDefinitionKey) {
+					qPos.add(entitlementDefinitionKey);
+				}
+
+				List<EntitlementDefinition> list = q.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByEntitlementDefinitionKey,
+							finderArgs, list);
+					}
+				}
+				else {
+					EntitlementDefinition entitlementDefinition = list.get(0);
+
+					result = entitlementDefinition;
+
+					cacheResult(entitlementDefinition);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByEntitlementDefinitionKey, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (EntitlementDefinition)result;
+		}
+	}
+
+	/**
+	 * Removes the entitlement definition where entitlementDefinitionKey = &#63; from the database.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @return the entitlement definition that was removed
+	 */
+	@Override
+	public EntitlementDefinition removeByEntitlementDefinitionKey(
+			String entitlementDefinitionKey)
+		throws NoSuchEntitlementDefinitionException {
+
+		EntitlementDefinition entitlementDefinition =
+			findByEntitlementDefinitionKey(entitlementDefinitionKey);
+
+		return remove(entitlementDefinition);
+	}
+
+	/**
+	 * Returns the number of entitlement definitions where entitlementDefinitionKey = &#63;.
+	 *
+	 * @param entitlementDefinitionKey the entitlement definition key
+	 * @return the number of matching entitlement definitions
+	 */
+	@Override
+	public int countByEntitlementDefinitionKey(
+		String entitlementDefinitionKey) {
+
+		entitlementDefinitionKey = Objects.toString(
+			entitlementDefinitionKey, "");
+
+		FinderPath finderPath = _finderPathCountByEntitlementDefinitionKey;
+
+		Object[] finderArgs = new Object[] {entitlementDefinitionKey};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_ENTITLEMENTDEFINITION_WHERE);
+
+			boolean bindEntitlementDefinitionKey = false;
+
+			if (entitlementDefinitionKey.isEmpty()) {
+				query.append(
+					_FINDER_COLUMN_ENTITLEMENTDEFINITIONKEY_ENTITLEMENTDEFINITIONKEY_3);
+			}
+			else {
+				bindEntitlementDefinitionKey = true;
+
+				query.append(
+					_FINDER_COLUMN_ENTITLEMENTDEFINITIONKEY_ENTITLEMENTDEFINITIONKEY_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindEntitlementDefinitionKey) {
+					qPos.add(entitlementDefinitionKey);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_ENTITLEMENTDEFINITIONKEY_ENTITLEMENTDEFINITIONKEY_2 =
+			"entitlementDefinition.entitlementDefinitionKey = ?";
+
+	private static final String
+		_FINDER_COLUMN_ENTITLEMENTDEFINITIONKEY_ENTITLEMENTDEFINITIONKEY_3 =
+			"(entitlementDefinition.entitlementDefinitionKey IS NULL OR entitlementDefinition.entitlementDefinitionKey = '')";
 
 	private FinderPath _finderPathFetchByC_N;
 	private FinderPath _finderPathCountByC_N;
@@ -1505,6 +2636,1033 @@ public class EntitlementDefinitionPersistenceImpl
 
 	private static final String _FINDER_COLUMN_C_N_NAME_3 =
 		"(entitlementDefinition.name IS NULL OR entitlementDefinition.name = '')";
+
+	private FinderPath _finderPathWithPaginationFindByC_LikeN;
+	private FinderPath _finderPathWithPaginationCountByC_LikeN;
+
+	/**
+	 * Returns all the entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @return the matching entitlement definitions
+	 */
+	@Override
+	public List<EntitlementDefinition> findByC_LikeN(
+		long classNameId, String name) {
+
+		return findByC_LikeN(
+			classNameId, name, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions
+	 */
+	@Override
+	public List<EntitlementDefinition> findByC_LikeN(
+		long classNameId, String name, int start, int end) {
+
+		return findByC_LikeN(classNameId, name, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions
+	 */
+	@Override
+	public List<EntitlementDefinition> findByC_LikeN(
+		long classNameId, String name, int start, int end,
+		OrderByComparator<EntitlementDefinition> orderByComparator) {
+
+		return findByC_LikeN(
+			classNameId, name, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching entitlement definitions
+	 */
+	@Override
+	public List<EntitlementDefinition> findByC_LikeN(
+		long classNameId, String name, int start, int end,
+		OrderByComparator<EntitlementDefinition> orderByComparator,
+		boolean useFinderCache) {
+
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		finderPath = _finderPathWithPaginationFindByC_LikeN;
+		finderArgs = new Object[] {
+			classNameId, name, start, end, orderByComparator
+		};
+
+		List<EntitlementDefinition> list = null;
+
+		if (useFinderCache) {
+			list = (List<EntitlementDefinition>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (EntitlementDefinition entitlementDefinition : list) {
+					if ((classNameId !=
+							entitlementDefinition.getClassNameId()) ||
+						!StringUtil.wildcardMatches(
+							entitlementDefinition.getName(), name, '_', '%',
+							'\\', true)) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(4);
+			}
+
+			query.append(_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+
+			query.append(_FINDER_COLUMN_C_LIKEN_CLASSNAMEID_2);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				query.append(_FINDER_COLUMN_C_LIKEN_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_C_LIKEN_NAME_2);
+			}
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				list = (List<EntitlementDefinition>)QueryUtil.list(
+					q, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a matching entitlement definition could not be found
+	 */
+	@Override
+	public EntitlementDefinition findByC_LikeN_First(
+			long classNameId, String name,
+			OrderByComparator<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException {
+
+		EntitlementDefinition entitlementDefinition = fetchByC_LikeN_First(
+			classNameId, name, orderByComparator);
+
+		if (entitlementDefinition != null) {
+			return entitlementDefinition;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", nameLIKE");
+		msg.append(name);
+
+		msg.append("}");
+
+		throw new NoSuchEntitlementDefinitionException(msg.toString());
+	}
+
+	/**
+	 * Returns the first entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching entitlement definition, or <code>null</code> if a matching entitlement definition could not be found
+	 */
+	@Override
+	public EntitlementDefinition fetchByC_LikeN_First(
+		long classNameId, String name,
+		OrderByComparator<EntitlementDefinition> orderByComparator) {
+
+		List<EntitlementDefinition> list = findByC_LikeN(
+			classNameId, name, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a matching entitlement definition could not be found
+	 */
+	@Override
+	public EntitlementDefinition findByC_LikeN_Last(
+			long classNameId, String name,
+			OrderByComparator<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException {
+
+		EntitlementDefinition entitlementDefinition = fetchByC_LikeN_Last(
+			classNameId, name, orderByComparator);
+
+		if (entitlementDefinition != null) {
+			return entitlementDefinition;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", nameLIKE");
+		msg.append(name);
+
+		msg.append("}");
+
+		throw new NoSuchEntitlementDefinitionException(msg.toString());
+	}
+
+	/**
+	 * Returns the last entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching entitlement definition, or <code>null</code> if a matching entitlement definition could not be found
+	 */
+	@Override
+	public EntitlementDefinition fetchByC_LikeN_Last(
+		long classNameId, String name,
+		OrderByComparator<EntitlementDefinition> orderByComparator) {
+
+		int count = countByC_LikeN(classNameId, name);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<EntitlementDefinition> list = findByC_LikeN(
+			classNameId, name, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	@Override
+	public EntitlementDefinition[] findByC_LikeN_PrevAndNext(
+			long entitlementDefinitionId, long classNameId, String name,
+			OrderByComparator<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException {
+
+		name = Objects.toString(name, "");
+
+		EntitlementDefinition entitlementDefinition = findByPrimaryKey(
+			entitlementDefinitionId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			EntitlementDefinition[] array = new EntitlementDefinitionImpl[3];
+
+			array[0] = getByC_LikeN_PrevAndNext(
+				session, entitlementDefinition, classNameId, name,
+				orderByComparator, true);
+
+			array[1] = entitlementDefinition;
+
+			array[2] = getByC_LikeN_PrevAndNext(
+				session, entitlementDefinition, classNameId, name,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected EntitlementDefinition getByC_LikeN_PrevAndNext(
+		Session session, EntitlementDefinition entitlementDefinition,
+		long classNameId, String name,
+		OrderByComparator<EntitlementDefinition> orderByComparator,
+		boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		query.append(_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+
+		query.append(_FINDER_COLUMN_C_LIKEN_CLASSNAMEID_2);
+
+		boolean bindName = false;
+
+		if (name.isEmpty()) {
+			query.append(_FINDER_COLUMN_C_LIKEN_NAME_3);
+		}
+		else {
+			bindName = true;
+
+			query.append(_FINDER_COLUMN_C_LIKEN_NAME_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(classNameId);
+
+		if (bindName) {
+			qPos.add(name);
+		}
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						entitlementDefinition)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<EntitlementDefinition> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns all the entitlement definitions that the user has permission to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @return the matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByC_LikeN(
+		long classNameId, String name) {
+
+		return filterFindByC_LikeN(
+			classNameId, name, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the entitlement definitions that the user has permission to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByC_LikeN(
+		long classNameId, String name, int start, int end) {
+
+		return filterFindByC_LikeN(classNameId, name, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions that the user has permissions to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByC_LikeN(
+		long classNameId, String name, int start, int end,
+		OrderByComparator<EntitlementDefinition> orderByComparator) {
+
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByC_LikeN(
+				classNameId, name, start, end, orderByComparator);
+		}
+
+		name = Objects.toString(name, "");
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByFields().length * 2));
+		}
+		else {
+			query = new StringBundler(5);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_C_LIKEN_CLASSNAMEID_2);
+
+		boolean bindName = false;
+
+		if (name.isEmpty()) {
+			query.append(_FINDER_COLUMN_C_LIKEN_NAME_3);
+		}
+		else {
+			bindName = true;
+
+			query.append(_FINDER_COLUMN_C_LIKEN_NAME_2);
+		}
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+			}
+			else {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(
+					_FILTER_ENTITY_ALIAS, EntitlementDefinitionImpl.class);
+			}
+			else {
+				q.addEntity(
+					_FILTER_ENTITY_TABLE, EntitlementDefinitionImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(classNameId);
+
+			if (bindName) {
+				qPos.add(name);
+			}
+
+			return (List<EntitlementDefinition>)QueryUtil.list(
+				q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set of entitlement definitions that the user has permission to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	@Override
+	public EntitlementDefinition[] filterFindByC_LikeN_PrevAndNext(
+			long entitlementDefinitionId, long classNameId, String name,
+			OrderByComparator<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException {
+
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByC_LikeN_PrevAndNext(
+				entitlementDefinitionId, classNameId, name, orderByComparator);
+		}
+
+		name = Objects.toString(name, "");
+
+		EntitlementDefinition entitlementDefinition = findByPrimaryKey(
+			entitlementDefinitionId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			EntitlementDefinition[] array = new EntitlementDefinitionImpl[3];
+
+			array[0] = filterGetByC_LikeN_PrevAndNext(
+				session, entitlementDefinition, classNameId, name,
+				orderByComparator, true);
+
+			array[1] = entitlementDefinition;
+
+			array[2] = filterGetByC_LikeN_PrevAndNext(
+				session, entitlementDefinition, classNameId, name,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected EntitlementDefinition filterGetByC_LikeN_PrevAndNext(
+		Session session, EntitlementDefinition entitlementDefinition,
+		long classNameId, String name,
+		OrderByComparator<EntitlementDefinition> orderByComparator,
+		boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(5);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_C_LIKEN_CLASSNAMEID_2);
+
+		boolean bindName = false;
+
+		if (name.isEmpty()) {
+			query.append(_FINDER_COLUMN_C_LIKEN_NAME_3);
+		}
+		else {
+			bindName = true;
+
+			query.append(_FINDER_COLUMN_C_LIKEN_NAME_2);
+		}
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
+							true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
+							true));
+				}
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
+				}
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		if (getDB().isSupportsInlineDistinct()) {
+			q.addEntity(_FILTER_ENTITY_ALIAS, EntitlementDefinitionImpl.class);
+		}
+		else {
+			q.addEntity(_FILTER_ENTITY_TABLE, EntitlementDefinitionImpl.class);
+		}
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(classNameId);
+
+		if (bindName) {
+			qPos.add(name);
+		}
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						entitlementDefinition)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<EntitlementDefinition> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the entitlement definitions where classNameId = &#63; and name LIKE &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 */
+	@Override
+	public void removeByC_LikeN(long classNameId, String name) {
+		for (EntitlementDefinition entitlementDefinition :
+				findByC_LikeN(
+					classNameId, name, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(entitlementDefinition);
+		}
+	}
+
+	/**
+	 * Returns the number of entitlement definitions where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @return the number of matching entitlement definitions
+	 */
+	@Override
+	public int countByC_LikeN(long classNameId, String name) {
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathWithPaginationCountByC_LikeN;
+
+		Object[] finderArgs = new Object[] {classNameId, name};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_ENTITLEMENTDEFINITION_WHERE);
+
+			query.append(_FINDER_COLUMN_C_LIKEN_CLASSNAMEID_2);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				query.append(_FINDER_COLUMN_C_LIKEN_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_C_LIKEN_NAME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of entitlement definitions that the user has permission to view where classNameId = &#63; and name LIKE &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param name the name
+	 * @return the number of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public int filterCountByC_LikeN(long classNameId, String name) {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return countByC_LikeN(classNameId, name);
+		}
+
+		name = Objects.toString(name, "");
+
+		StringBundler query = new StringBundler(3);
+
+		query.append(_FILTER_SQL_COUNT_ENTITLEMENTDEFINITION_WHERE);
+
+		query.append(_FINDER_COLUMN_C_LIKEN_CLASSNAMEID_2);
+
+		boolean bindName = false;
+
+		if (name.isEmpty()) {
+			query.append(_FINDER_COLUMN_C_LIKEN_NAME_3);
+		}
+		else {
+			bindName = true;
+
+			query.append(_FINDER_COLUMN_C_LIKEN_NAME_2);
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(
+				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(classNameId);
+
+			if (bindName) {
+				qPos.add(name);
+			}
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	private static final String _FINDER_COLUMN_C_LIKEN_CLASSNAMEID_2 =
+		"entitlementDefinition.classNameId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_LIKEN_NAME_2 =
+		"entitlementDefinition.name LIKE ?";
+
+	private static final String _FINDER_COLUMN_C_LIKEN_NAME_3 =
+		"(entitlementDefinition.name IS NULL OR entitlementDefinition.name LIKE '')";
 
 	private FinderPath _finderPathWithPaginationFindByC_S;
 	private FinderPath _finderPathWithoutPaginationFindByC_S;
@@ -1977,6 +4135,358 @@ public class EntitlementDefinitionPersistenceImpl
 	}
 
 	/**
+	 * Returns all the entitlement definitions that the user has permission to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @return the matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByC_S(
+		long classNameId, int status) {
+
+		return filterFindByC_S(
+			classNameId, status, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the entitlement definitions that the user has permission to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @return the range of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByC_S(
+		long classNameId, int status, int start, int end) {
+
+		return filterFindByC_S(classNameId, status, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the entitlement definitions that the user has permissions to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>EntitlementDefinitionModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @param start the lower bound of the range of entitlement definitions
+	 * @param end the upper bound of the range of entitlement definitions (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public List<EntitlementDefinition> filterFindByC_S(
+		long classNameId, int status, int start, int end,
+		OrderByComparator<EntitlementDefinition> orderByComparator) {
+
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByC_S(
+				classNameId, status, start, end, orderByComparator);
+		}
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByFields().length * 2));
+		}
+		else {
+			query = new StringBundler(5);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_C_S_CLASSNAMEID_2);
+
+		query.append(_FINDER_COLUMN_C_S_STATUS_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+			}
+			else {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(
+					_FILTER_ENTITY_ALIAS, EntitlementDefinitionImpl.class);
+			}
+			else {
+				q.addEntity(
+					_FILTER_ENTITY_TABLE, EntitlementDefinitionImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(classNameId);
+
+			qPos.add(status);
+
+			return (List<EntitlementDefinition>)QueryUtil.list(
+				q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the entitlement definitions before and after the current entitlement definition in the ordered set of entitlement definitions that the user has permission to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * @param entitlementDefinitionId the primary key of the current entitlement definition
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next entitlement definition
+	 * @throws NoSuchEntitlementDefinitionException if a entitlement definition with the primary key could not be found
+	 */
+	@Override
+	public EntitlementDefinition[] filterFindByC_S_PrevAndNext(
+			long entitlementDefinitionId, long classNameId, int status,
+			OrderByComparator<EntitlementDefinition> orderByComparator)
+		throws NoSuchEntitlementDefinitionException {
+
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByC_S_PrevAndNext(
+				entitlementDefinitionId, classNameId, status,
+				orderByComparator);
+		}
+
+		EntitlementDefinition entitlementDefinition = findByPrimaryKey(
+			entitlementDefinitionId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			EntitlementDefinition[] array = new EntitlementDefinitionImpl[3];
+
+			array[0] = filterGetByC_S_PrevAndNext(
+				session, entitlementDefinition, classNameId, status,
+				orderByComparator, true);
+
+			array[1] = entitlementDefinition;
+
+			array[2] = filterGetByC_S_PrevAndNext(
+				session, entitlementDefinition, classNameId, status,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected EntitlementDefinition filterGetByC_S_PrevAndNext(
+		Session session, EntitlementDefinition entitlementDefinition,
+		long classNameId, int status,
+		OrderByComparator<EntitlementDefinition> orderByComparator,
+		boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(5);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_C_S_CLASSNAMEID_2);
+
+		query.append(_FINDER_COLUMN_C_S_STATUS_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
+							true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
+							true));
+				}
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
+				}
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(EntitlementDefinitionModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		if (getDB().isSupportsInlineDistinct()) {
+			q.addEntity(_FILTER_ENTITY_ALIAS, EntitlementDefinitionImpl.class);
+		}
+		else {
+			q.addEntity(_FILTER_ENTITY_TABLE, EntitlementDefinitionImpl.class);
+		}
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(classNameId);
+
+		qPos.add(status);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						entitlementDefinition)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<EntitlementDefinition> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
 	 * Removes all the entitlement definitions where classNameId = &#63; and status = &#63; from the database.
 	 *
 	 * @param classNameId the class name ID
@@ -2049,6 +4559,59 @@ public class EntitlementDefinitionPersistenceImpl
 		return count.intValue();
 	}
 
+	/**
+	 * Returns the number of entitlement definitions that the user has permission to view where classNameId = &#63; and status = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param status the status
+	 * @return the number of matching entitlement definitions that the user has permission to view
+	 */
+	@Override
+	public int filterCountByC_S(long classNameId, int status) {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return countByC_S(classNameId, status);
+		}
+
+		StringBundler query = new StringBundler(3);
+
+		query.append(_FILTER_SQL_COUNT_ENTITLEMENTDEFINITION_WHERE);
+
+		query.append(_FINDER_COLUMN_C_S_CLASSNAMEID_2);
+
+		query.append(_FINDER_COLUMN_C_S_STATUS_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), EntitlementDefinition.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(
+				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(classNameId);
+
+			qPos.add(status);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
 	private static final String _FINDER_COLUMN_C_S_CLASSNAMEID_2 =
 		"entitlementDefinition.classNameId = ? AND ";
 
@@ -2078,6 +4641,11 @@ public class EntitlementDefinitionPersistenceImpl
 		entityCache.putResult(
 			entityCacheEnabled, EntitlementDefinitionImpl.class,
 			entitlementDefinition.getPrimaryKey(), entitlementDefinition);
+
+		finderCache.putResult(
+			_finderPathFetchByEntitlementDefinitionKey,
+			new Object[] {entitlementDefinition.getEntitlementDefinitionKey()},
+			entitlementDefinition);
 
 		finderCache.putResult(
 			_finderPathFetchByC_N,
@@ -2171,6 +4739,17 @@ public class EntitlementDefinitionPersistenceImpl
 		EntitlementDefinitionModelImpl entitlementDefinitionModelImpl) {
 
 		Object[] args = new Object[] {
+			entitlementDefinitionModelImpl.getEntitlementDefinitionKey()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByEntitlementDefinitionKey, args, Long.valueOf(1),
+			false);
+		finderCache.putResult(
+			_finderPathFetchByEntitlementDefinitionKey, args,
+			entitlementDefinitionModelImpl, false);
+
+		args = new Object[] {
 			entitlementDefinitionModelImpl.getClassNameId(),
 			entitlementDefinitionModelImpl.getName()
 		};
@@ -2184,6 +4763,32 @@ public class EntitlementDefinitionPersistenceImpl
 	protected void clearUniqueFindersCache(
 		EntitlementDefinitionModelImpl entitlementDefinitionModelImpl,
 		boolean clearCurrent) {
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+				entitlementDefinitionModelImpl.getEntitlementDefinitionKey()
+			};
+
+			finderCache.removeResult(
+				_finderPathCountByEntitlementDefinitionKey, args);
+			finderCache.removeResult(
+				_finderPathFetchByEntitlementDefinitionKey, args);
+		}
+
+		if ((entitlementDefinitionModelImpl.getColumnBitmask() &
+			 _finderPathFetchByEntitlementDefinitionKey.getColumnBitmask()) !=
+				 0) {
+
+			Object[] args = new Object[] {
+				entitlementDefinitionModelImpl.
+					getOriginalEntitlementDefinitionKey()
+			};
+
+			finderCache.removeResult(
+				_finderPathCountByEntitlementDefinitionKey, args);
+			finderCache.removeResult(
+				_finderPathFetchByEntitlementDefinitionKey, args);
+		}
 
 		if (clearCurrent) {
 			Object[] args = new Object[] {
@@ -2855,6 +5460,20 @@ public class EntitlementDefinitionPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()});
 
+		_finderPathFetchByEntitlementDefinitionKey = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled,
+			EntitlementDefinitionImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchByEntitlementDefinitionKey",
+			new String[] {String.class.getName()},
+			EntitlementDefinitionModelImpl.
+				ENTITLEMENTDEFINITIONKEY_COLUMN_BITMASK);
+
+		_finderPathCountByEntitlementDefinitionKey = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByEntitlementDefinitionKey",
+			new String[] {String.class.getName()});
+
 		_finderPathFetchByC_N = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled,
 			EntitlementDefinitionImpl.class, FINDER_CLASS_NAME_ENTITY,
@@ -2866,6 +5485,21 @@ public class EntitlementDefinitionPersistenceImpl
 		_finderPathCountByC_N = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_N",
+			new String[] {Long.class.getName(), String.class.getName()});
+
+		_finderPathWithPaginationFindByC_LikeN = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled,
+			EntitlementDefinitionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_LikeN",
+			new String[] {
+				Long.class.getName(), String.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+
+		_finderPathWithPaginationCountByC_LikeN = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByC_LikeN",
 			new String[] {Long.class.getName(), String.class.getName()});
 
 		_finderPathWithPaginationFindByC_S = new FinderPath(
@@ -2953,8 +5587,33 @@ public class EntitlementDefinitionPersistenceImpl
 	private static final String _SQL_COUNT_ENTITLEMENTDEFINITION_WHERE =
 		"SELECT COUNT(entitlementDefinition) FROM EntitlementDefinition entitlementDefinition WHERE ";
 
+	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN =
+		"entitlementDefinition.entitlementDefinitionId";
+
+	private static final String _FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_WHERE =
+		"SELECT DISTINCT {entitlementDefinition.*} FROM Koroneiki_EntitlementDefinition entitlementDefinition WHERE ";
+
+	private static final String
+		_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_1 =
+			"SELECT {Koroneiki_EntitlementDefinition.*} FROM (SELECT DISTINCT entitlementDefinition.entitlementDefinitionId FROM Koroneiki_EntitlementDefinition entitlementDefinition WHERE ";
+
+	private static final String
+		_FILTER_SQL_SELECT_ENTITLEMENTDEFINITION_NO_INLINE_DISTINCT_WHERE_2 =
+			") TEMP_TABLE INNER JOIN Koroneiki_EntitlementDefinition ON TEMP_TABLE.entitlementDefinitionId = Koroneiki_EntitlementDefinition.entitlementDefinitionId";
+
+	private static final String _FILTER_SQL_COUNT_ENTITLEMENTDEFINITION_WHERE =
+		"SELECT COUNT(DISTINCT entitlementDefinition.entitlementDefinitionId) AS COUNT_VALUE FROM Koroneiki_EntitlementDefinition entitlementDefinition WHERE ";
+
+	private static final String _FILTER_ENTITY_ALIAS = "entitlementDefinition";
+
+	private static final String _FILTER_ENTITY_TABLE =
+		"Koroneiki_EntitlementDefinition";
+
 	private static final String _ORDER_BY_ENTITY_ALIAS =
 		"entitlementDefinition.";
+
+	private static final String _ORDER_BY_ENTITY_TABLE =
+		"Koroneiki_EntitlementDefinition.";
 
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
 		"No EntitlementDefinition exists with the primary key ";

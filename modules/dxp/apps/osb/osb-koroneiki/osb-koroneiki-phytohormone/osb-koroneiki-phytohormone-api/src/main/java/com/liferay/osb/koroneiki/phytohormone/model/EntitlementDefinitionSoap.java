@@ -40,6 +40,8 @@ public class EntitlementDefinitionSoap implements Serializable {
 		soapModel.setUserId(model.getUserId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setEntitlementDefinitionKey(
+			model.getEntitlementDefinitionKey());
 		soapModel.setClassNameId(model.getClassNameId());
 		soapModel.setName(model.getName());
 		soapModel.setDescription(model.getDescription());
@@ -155,6 +157,14 @@ public class EntitlementDefinitionSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public String getEntitlementDefinitionKey() {
+		return _entitlementDefinitionKey;
+	}
+
+	public void setEntitlementDefinitionKey(String entitlementDefinitionKey) {
+		_entitlementDefinitionKey = entitlementDefinitionKey;
+	}
+
 	public long getClassNameId() {
 		return _classNameId;
 	}
@@ -201,6 +211,7 @@ public class EntitlementDefinitionSoap implements Serializable {
 	private long _userId;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _entitlementDefinitionKey;
 	private long _classNameId;
 	private String _name;
 	private String _description;

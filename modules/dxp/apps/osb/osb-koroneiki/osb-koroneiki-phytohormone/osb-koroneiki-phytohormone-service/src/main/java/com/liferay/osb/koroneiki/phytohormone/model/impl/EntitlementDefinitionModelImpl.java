@@ -79,6 +79,7 @@ public class EntitlementDefinitionModelImpl
 		{"uuid_", Types.VARCHAR}, {"entitlementDefinitionId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"entitlementDefinitionKey", Types.VARCHAR},
 		{"classNameId", Types.BIGINT}, {"name", Types.VARCHAR},
 		{"description", Types.VARCHAR}, {"definition", Types.VARCHAR},
 		{"status", Types.INTEGER}
@@ -94,6 +95,7 @@ public class EntitlementDefinitionModelImpl
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("entitlementDefinitionKey", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("classNameId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
@@ -102,7 +104,7 @@ public class EntitlementDefinitionModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_EntitlementDefinition (uuid_ VARCHAR(75) null,entitlementDefinitionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,classNameId LONG,name VARCHAR(75) null,description VARCHAR(75) null,definition STRING null,status INTEGER)";
+		"create table Koroneiki_EntitlementDefinition (uuid_ VARCHAR(75) null,entitlementDefinitionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,entitlementDefinitionKey VARCHAR(75) null,classNameId LONG,name VARCHAR(75) null,description VARCHAR(75) null,definition STRING null,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_EntitlementDefinition";
@@ -123,11 +125,13 @@ public class EntitlementDefinitionModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 2L;
 
-	public static final long NAME_COLUMN_BITMASK = 4L;
+	public static final long ENTITLEMENTDEFINITIONKEY_COLUMN_BITMASK = 4L;
 
-	public static final long STATUS_COLUMN_BITMASK = 8L;
+	public static final long NAME_COLUMN_BITMASK = 8L;
 
-	public static final long UUID_COLUMN_BITMASK = 16L;
+	public static final long STATUS_COLUMN_BITMASK = 16L;
+
+	public static final long UUID_COLUMN_BITMASK = 32L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -159,6 +163,8 @@ public class EntitlementDefinitionModelImpl
 		model.setUserId(soapModel.getUserId());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setEntitlementDefinitionKey(
+			soapModel.getEntitlementDefinitionKey());
 		model.setClassNameId(soapModel.getClassNameId());
 		model.setName(soapModel.getName());
 		model.setDescription(soapModel.getDescription());
@@ -358,6 +364,13 @@ public class EntitlementDefinitionModelImpl
 			(BiConsumer<EntitlementDefinition, Date>)
 				EntitlementDefinition::setModifiedDate);
 		attributeGetterFunctions.put(
+			"entitlementDefinitionKey",
+			EntitlementDefinition::getEntitlementDefinitionKey);
+		attributeSetterBiConsumers.put(
+			"entitlementDefinitionKey",
+			(BiConsumer<EntitlementDefinition, String>)
+				EntitlementDefinition::setEntitlementDefinitionKey);
+		attributeGetterFunctions.put(
 			"classNameId", EntitlementDefinition::getClassNameId);
 		attributeSetterBiConsumers.put(
 			"classNameId",
@@ -506,6 +519,32 @@ public class EntitlementDefinitionModelImpl
 		_setModifiedDate = true;
 
 		_modifiedDate = modifiedDate;
+	}
+
+	@JSON
+	@Override
+	public String getEntitlementDefinitionKey() {
+		if (_entitlementDefinitionKey == null) {
+			return "";
+		}
+		else {
+			return _entitlementDefinitionKey;
+		}
+	}
+
+	@Override
+	public void setEntitlementDefinitionKey(String entitlementDefinitionKey) {
+		_columnBitmask |= ENTITLEMENTDEFINITIONKEY_COLUMN_BITMASK;
+
+		if (_originalEntitlementDefinitionKey == null) {
+			_originalEntitlementDefinitionKey = _entitlementDefinitionKey;
+		}
+
+		_entitlementDefinitionKey = entitlementDefinitionKey;
+	}
+
+	public String getOriginalEntitlementDefinitionKey() {
+		return GetterUtil.getString(_originalEntitlementDefinitionKey);
 	}
 
 	@Override
@@ -684,6 +723,8 @@ public class EntitlementDefinitionModelImpl
 		entitlementDefinitionImpl.setUserId(getUserId());
 		entitlementDefinitionImpl.setCreateDate(getCreateDate());
 		entitlementDefinitionImpl.setModifiedDate(getModifiedDate());
+		entitlementDefinitionImpl.setEntitlementDefinitionKey(
+			getEntitlementDefinitionKey());
 		entitlementDefinitionImpl.setClassNameId(getClassNameId());
 		entitlementDefinitionImpl.setName(getName());
 		entitlementDefinitionImpl.setDescription(getDescription());
@@ -760,6 +801,9 @@ public class EntitlementDefinitionModelImpl
 
 		entitlementDefinitionModelImpl._setModifiedDate = false;
 
+		entitlementDefinitionModelImpl._originalEntitlementDefinitionKey =
+			entitlementDefinitionModelImpl._entitlementDefinitionKey;
+
 		entitlementDefinitionModelImpl._originalClassNameId =
 			entitlementDefinitionModelImpl._classNameId;
 
@@ -813,6 +857,18 @@ public class EntitlementDefinitionModelImpl
 		}
 		else {
 			entitlementDefinitionCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
+
+		entitlementDefinitionCacheModel.entitlementDefinitionKey =
+			getEntitlementDefinitionKey();
+
+		String entitlementDefinitionKey =
+			entitlementDefinitionCacheModel.entitlementDefinitionKey;
+
+		if ((entitlementDefinitionKey != null) &&
+			(entitlementDefinitionKey.length() == 0)) {
+
+			entitlementDefinitionCacheModel.entitlementDefinitionKey = null;
 		}
 
 		entitlementDefinitionCacheModel.classNameId = getClassNameId();
@@ -931,6 +987,8 @@ public class EntitlementDefinitionModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private String _entitlementDefinitionKey;
+	private String _originalEntitlementDefinitionKey;
 	private long _classNameId;
 	private long _originalClassNameId;
 	private boolean _setOriginalClassNameId;

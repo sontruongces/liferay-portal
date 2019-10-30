@@ -204,6 +204,14 @@ public class ContactWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.osb.koroneiki.phytohormone.model.Entitlement>
+			getEntitlements() {
+
+		return model.getEntitlements();
+	}
+
+	@Override
 	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
 		getExternalLinks() {
 

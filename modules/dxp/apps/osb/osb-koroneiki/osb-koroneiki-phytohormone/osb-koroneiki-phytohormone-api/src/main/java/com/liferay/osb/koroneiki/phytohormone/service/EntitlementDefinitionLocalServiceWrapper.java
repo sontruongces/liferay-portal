@@ -79,12 +79,14 @@ public class EntitlementDefinitionLocalServiceWrapper
 	 *
 	 * @param entitlementDefinition the entitlement definition
 	 * @return the entitlement definition that was removed
+	 * @throws PortalException
 	 */
 	@Override
 	public com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
-		deleteEntitlementDefinition(
-			com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
-				entitlementDefinition) {
+			deleteEntitlementDefinition(
+				com.liferay.osb.koroneiki.phytohormone.model.
+					EntitlementDefinition entitlementDefinition)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _entitlementDefinitionLocalService.deleteEntitlementDefinition(
 			entitlementDefinition);
@@ -350,6 +352,21 @@ public class EntitlementDefinitionLocalServiceWrapper
 
 		return _entitlementDefinitionLocalService.getPersistedModel(
 			primaryKeyObj);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition>
+			search(long classNameId, String name, int start, int end) {
+
+		return _entitlementDefinitionLocalService.search(
+			classNameId, name, start, end);
+	}
+
+	@Override
+	public int searchCount(long classNameId, String name) {
+		return _entitlementDefinitionLocalService.searchCount(
+			classNameId, name);
 	}
 
 	/**
