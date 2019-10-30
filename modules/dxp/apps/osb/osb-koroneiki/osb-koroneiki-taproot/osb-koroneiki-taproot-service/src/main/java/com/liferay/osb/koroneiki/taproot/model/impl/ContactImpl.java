@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.taproot.model.impl;
 
+import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
+import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalServiceUtil;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -49,6 +51,12 @@ public class ContactImpl extends ContactBaseImpl {
 		Account account = AccountLocalServiceUtil.getAccount(accountKey);
 
 		return getContactRoles(account.getAccountId());
+	}
+
+	public List<Entitlement> getEntitlements() {
+		return EntitlementLocalServiceUtil.getEntitlements(
+			Contact.class.getName(), getContactId(), QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS);
 	}
 
 	public List<ExternalLink> getExternalLinks() {

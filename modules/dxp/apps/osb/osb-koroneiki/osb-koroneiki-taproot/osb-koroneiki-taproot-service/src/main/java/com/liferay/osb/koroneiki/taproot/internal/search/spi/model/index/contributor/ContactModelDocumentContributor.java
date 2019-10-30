@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.taproot.internal.search.spi.model.index.contributor;
 
+import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
+import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalService;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
@@ -76,6 +78,7 @@ public class ContactModelDocumentContributor
 		document.addTextSortable("lastName", contact.getLastName());
 
 		_contributeContactRoles(document, contact.getContactId());
+		_contributeEntitlements(document, contact.getContactId());
 		_contributeExternalLinks(document, contact.getContactId());
 	}
 
@@ -94,6 +97,25 @@ public class ContactModelDocumentContributor
 
 		document.addKeyword(
 			"contactRoleKeys", ArrayUtil.toStringArray(contactRoles.toArray()));
+	}
+
+	private void _contributeEntitlements(Document document, long contactId)
+		throws PortalException {
+
+		Set<String> entitlementNames = new HashSet<>();
+
+		List<Entitlement> entitlements =
+			_entitlementLocalService.getEntitlements(
+				Contact.class.getName(), contactId, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS);
+
+		for (Entitlement entitlement : entitlements) {
+			entitlementNames.add(entitlement.getName());
+		}
+
+		document.addKeyword(
+			"entitlements",
+			ArrayUtil.toStringArray(entitlementNames.toArray()));
 	}
 
 	private void _contributeExternalLinks(Document document, long contactId)
@@ -130,6 +152,9 @@ public class ContactModelDocumentContributor
 
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
+
+	@Reference
+	private EntitlementLocalService _entitlementLocalService;
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;

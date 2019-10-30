@@ -58,8 +58,23 @@ public class EntitlementLocalServiceImpl
 		return entitlementPersistence.update(entitlement);
 	}
 
-	public List<Entitlement> getEntitlements(long classNameId, long classPK) {
-		return entitlementPersistence.findByC_C(classNameId, classPK);
+	public void deleteEntitlements(long classNameId, long classPK) {
+		entitlementPersistence.removeByC_C(classNameId, classPK);
+	}
+
+	public List<Entitlement> getEntitlements(
+		long classNameId, long classPK, int start, int end) {
+
+		return entitlementPersistence.findByC_C(
+			classNameId, classPK, start, end);
+	}
+
+	public List<Entitlement> getEntitlements(
+		String className, long classPK, int start, int end) {
+
+		return entitlementPersistence.findByC_C(
+			classNameLocalService.getClassNameId(className), classPK, start,
+			end);
 	}
 
 }

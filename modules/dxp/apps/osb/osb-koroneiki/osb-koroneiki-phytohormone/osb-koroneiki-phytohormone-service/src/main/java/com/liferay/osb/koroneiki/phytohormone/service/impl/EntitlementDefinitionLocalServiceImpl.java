@@ -17,8 +17,10 @@ package com.liferay.osb.koroneiki.phytohormone.service.impl;
 import com.liferay.osb.koroneiki.phytohormone.exception.EntitlementDefinitionNameException;
 import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phytohormone.service.base.EntitlementDefinitionLocalServiceBaseImpl;
+import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -50,21 +52,56 @@ public class EntitlementDefinitionLocalServiceImpl
 		EntitlementDefinition entitlementDefinition =
 			entitlementDefinitionPersistence.create(entitlementDefinitionId);
 
-		entitlementDefinition.setCompanyId(user.getUserId());
+		entitlementDefinition.setCompanyId(user.getCompanyId());
 		entitlementDefinition.setUserId(userId);
+		entitlementDefinition.setEntitlementDefinitionKey(
+			ModelKeyGenerator.generate(entitlementDefinitionId));
 		entitlementDefinition.setClassNameId(classNameId);
 		entitlementDefinition.setName(name);
 		entitlementDefinition.setDescription(description);
 		entitlementDefinition.setDefinition(definition);
 		entitlementDefinition.setStatus(status);
 
+		resourceLocalService.addResources(
+			user.getCompanyId(), 0, userId,
+			EntitlementDefinition.class.getName(), entitlementDefinitionId,
+			false, false, false);
+
 		return entitlementDefinitionPersistence.update(entitlementDefinition);
+	}
+
+	@Override
+	public EntitlementDefinition deleteEntitlementDefinition(
+			EntitlementDefinition entitlementDefinition)
+		throws PortalException {
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+			entitlementDefinition.getCompanyId(),
+			EntitlementDefinition.class.getName(),
+			ResourceConstants.SCOPE_INDIVIDUAL,
+			entitlementDefinition.getEntitlementDefinitionId());
+
+		return entitlementDefinitionPersistence.remove(entitlementDefinition);
 	}
 
 	public List<EntitlementDefinition> getEntitlementDefinitions(
 		long classNameId, int status) {
 
 		return entitlementDefinitionPersistence.findByC_S(classNameId, status);
+	}
+
+	public List<EntitlementDefinition> search(
+		long classNameId, String name, int start, int end) {
+
+		return entitlementDefinitionPersistence.findByC_LikeN(
+			classNameId, name, start, end);
+	}
+
+	public int searchCount(long classNameId, String name) {
+		return entitlementDefinitionPersistence.countByC_LikeN(
+			classNameId, name);
 	}
 
 	public EntitlementDefinition updateEntitlementDefinition(

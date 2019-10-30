@@ -30,6 +30,8 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPCreationMenu" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPNavigationItemList" %><%@
+page import="com.liferay.osb.koroneiki.phytohormone.model.Entitlement" %><%@
+page import="com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition" %><%@
 page import="com.liferay.osb.koroneiki.root.constants.RootWebKeys" %><%@
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkDomainException" %><%@
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkEntityIdException" %><%@

@@ -68,6 +68,9 @@ public class EditAccountMVCRenderCommand implements MVCRenderCommand {
 			else if (tabs1.equals("contact-roles")) {
 				return "/accounts_admin/edit_account_contact_roles.jsp";
 			}
+			else if (tabs1.equals("entitlements")) {
+				return "/accounts_admin/edit_account_entitlements.jsp";
+			}
 			else if (tabs1.equals("external-links")) {
 				return "/accounts_admin/edit_account_external_links.jsp";
 			}

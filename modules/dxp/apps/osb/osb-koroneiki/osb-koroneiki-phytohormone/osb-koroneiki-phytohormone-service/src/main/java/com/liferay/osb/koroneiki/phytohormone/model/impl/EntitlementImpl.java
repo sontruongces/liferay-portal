@@ -14,12 +14,23 @@
 
 package com.liferay.osb.koroneiki.phytohormone.model.impl;
 
+import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
+import com.liferay.osb.koroneiki.phytohormone.service.EntitlementDefinitionLocalServiceUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 public class EntitlementImpl extends EntitlementBaseImpl {
 
 	public EntitlementImpl() {
+	}
+
+	public EntitlementDefinition getEntitlementDefinition()
+		throws PortalException {
+
+		return EntitlementDefinitionLocalServiceUtil.getEntitlementDefinition(
+			getEntitlementDefinitionId());
 	}
 
 }

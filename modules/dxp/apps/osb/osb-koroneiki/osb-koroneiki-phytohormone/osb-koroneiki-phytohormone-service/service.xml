@@ -54,6 +54,7 @@
 
 		<!-- Other fields -->
 
+		<column name="entitlementDefinitionKey" type="String" />
 		<column name="classNameId" type="long" />
 		<column name="name" type="String" />
 		<column name="description" type="String" />
@@ -68,9 +69,16 @@
 
 		<!-- Finder methods -->
 
+		<finder name="EntitlementDefinitionKey" return-type="EntitlementDefinition" unique="true">
+			<finder-column name="entitlementDefinitionKey" />
+		</finder>
 		<finder name="C_N" return-type="EntitlementDefinition">
 			<finder-column name="classNameId" />
 			<finder-column name="name" />
+		</finder>
+		<finder name="C_LikeN" return-type="Collection">
+			<finder-column name="classNameId" />
+			<finder-column comparator="LIKE" name="name" />
 		</finder>
 		<finder name="C_S" return-type="Collection">
 			<finder-column name="classNameId" />

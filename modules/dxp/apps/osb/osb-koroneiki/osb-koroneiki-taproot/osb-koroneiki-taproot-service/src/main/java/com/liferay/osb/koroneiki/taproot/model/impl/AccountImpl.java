@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.taproot.model.impl;
 
+import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
+import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalServiceUtil;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
@@ -42,6 +44,12 @@ public class AccountImpl extends AccountBaseImpl {
 	public List<Account> getChildAccounts() throws PortalException {
 		return AccountLocalServiceUtil.getAccounts(
 			getAccountId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	}
+
+	public List<Entitlement> getEntitlements() {
+		return EntitlementLocalServiceUtil.getEntitlements(
+			Account.class.getName(), getAccountId(), QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS);
 	}
 
 	public List<ExternalLink> getExternalLinks() {

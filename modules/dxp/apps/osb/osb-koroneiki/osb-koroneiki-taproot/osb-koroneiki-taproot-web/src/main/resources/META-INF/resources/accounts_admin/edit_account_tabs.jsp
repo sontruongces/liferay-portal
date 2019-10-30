@@ -93,6 +93,17 @@ long accountId = BeanParamUtil.getLong(koroneikiAccount, request, "accountId");
 
 				add(
 					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("entitlements"));
+
+						if (koroneikiAccount != null) {
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "entitlements", "accountId", accountId);
+						}
+
+						navigationItem.setLabel(LanguageUtil.get(request, "entitlements"));
+					});
+
+				add(
+					navigationItem -> {
 						navigationItem.setActive(tabs1.equals("external-links"));
 
 						if (koroneikiAccount != null) {

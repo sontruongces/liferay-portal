@@ -14,12 +14,25 @@
 
 package com.liferay.osb.koroneiki.phytohormone.model.impl;
 
+import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+
+import java.util.List;
+
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 public class EntitlementDefinitionImpl extends EntitlementDefinitionBaseImpl {
 
 	public EntitlementDefinitionImpl() {
+	}
+
+	public List<ExternalLink> getExternalLinks() {
+		return ExternalLinkLocalServiceUtil.getExternalLinks(
+			EntitlementDefinition.class.getName(), getEntitlementDefinitionId(),
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 }

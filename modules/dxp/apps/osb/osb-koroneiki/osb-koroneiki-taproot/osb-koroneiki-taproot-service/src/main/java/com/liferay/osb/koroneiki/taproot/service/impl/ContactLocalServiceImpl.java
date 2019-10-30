@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.taproot.service.impl;
 
+import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalService;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.exception.ContactEmailAddressException;
@@ -101,9 +102,14 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 		contactTeamRolePersistence.removeByContactId(contact.getContactId());
 
-		// External links
+		// Entitlements
 
 		long classNameId = classNameLocalService.getClassNameId(Contact.class);
+
+		_entitlementLocalService.deleteEntitlements(
+			classNameId, contact.getContactId());
+
+		// External links
 
 		_externalLinkLocalService.deleteExternalLinks(
 			classNameId, contact.getContactId());
@@ -287,6 +293,9 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 				emailAddress);
 		}
 	}
+
+	@Reference
+	private EntitlementLocalService _entitlementLocalService;
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;

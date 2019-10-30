@@ -1,0 +1,4 @@
+Bundle-Name: Liferay OSB Koroneiki Phytohormone Web
+Bundle-SymbolicName: com.liferay.osb.koroneiki.phytohormone.web
+Bundle-Version: 1.0.0
+-dsannotations-options: inherit
