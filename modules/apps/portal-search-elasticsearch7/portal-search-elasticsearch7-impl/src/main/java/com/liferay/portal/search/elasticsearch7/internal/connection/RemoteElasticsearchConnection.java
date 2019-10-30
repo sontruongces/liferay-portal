@@ -24,9 +24,10 @@ import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration;
+import com.liferay.portal.search.elasticsearch7.configuration.XPackSecurityConfiguration;
 import com.liferay.portal.search.elasticsearch7.internal.index.IndexFactory;
+import com.liferay.portal.search.elasticsearch7.internal.settings.SettingsBuilder;
 import com.liferay.portal.search.elasticsearch7.settings.SettingsContributor;
-import com.liferay.portal.search.elasticsearch7.settings.XPackSecuritySettings;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -55,7 +56,10 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
  * @author Michael C. Han
  */
 @Component(
-	configurationPid = "com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration",
+	configurationPid = {
+		"com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration",
+		"com.liferay.portal.search.elasticsearch7.configuration.XPackSecurityConfiguration"
+	},
 	immediate = true, property = "operation.mode=REMOTE",
 	service = ElasticsearchConnection.class
 )
@@ -78,7 +82,7 @@ public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 
 	@Activate
 	protected void activate(Map<String, Object> properties) {
-		replaceElasticsearchConfiguration(properties);
+		replaceConfigurations(properties);
 	}
 
 	@Override
@@ -109,6 +113,59 @@ public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 
 		transportClient.addTransportAddress(
 			new TransportAddress(inetAddress, port));
+	}
+
+	protected void configureAuthentication(SettingsBuilder settingsBuilder) {
+		String user =
+			xPackSecurityConfiguration.username() + ":" +
+				xPackSecurityConfiguration.password();
+
+		settingsBuilder.put("xpack.security.user", user);
+	}
+
+	protected void configurePEMPaths(SettingsBuilder settingsBuilder) {
+		settingsBuilder.put(
+			"xpack.security.transport.ssl.certificate",
+			xPackSecurityConfiguration.sslCertificatePath());
+		settingsBuilder.putList(
+			"xpack.security.transport.ssl.certificate_authorities",
+			xPackSecurityConfiguration.sslCertificateAuthoritiesPaths());
+		settingsBuilder.put(
+			"xpack.security.transport.ssl.key",
+			xPackSecurityConfiguration.sslKeyPath());
+	}
+
+	protected void configurePKCSPaths(SettingsBuilder settingsBuilder) {
+		settingsBuilder.put(
+			"xpack.security.transport.ssl.keystore.password",
+			xPackSecurityConfiguration.sslKeystorePassword());
+		settingsBuilder.put(
+			"xpack.security.transport.ssl.keystore.path",
+			xPackSecurityConfiguration.sslKeystorePath());
+		settingsBuilder.put(
+			"xpack.security.transport.ssl.truststore.password",
+			xPackSecurityConfiguration.sslTruststorePassword());
+		settingsBuilder.put(
+			"xpack.security.transport.ssl.truststore.path",
+			xPackSecurityConfiguration.sslTruststorePath());
+	}
+
+	protected void configureSSL(SettingsBuilder settingsBuilder) {
+		settingsBuilder.put("xpack.security.transport.ssl.enabled", "true");
+		settingsBuilder.put(
+			"xpack.security.transport.ssl.verification_mode",
+			StringUtil.toLowerCase(
+				xPackSecurityConfiguration.transportSSLVerificationMode()));
+
+		String certificateFormat =
+			xPackSecurityConfiguration.certificateFormat();
+
+		if (certificateFormat.equals("PKCS#12")) {
+			configurePKCSPaths(settingsBuilder);
+		}
+		else {
+			configurePEMPaths(settingsBuilder);
+		}
 	}
 
 	@Override
@@ -151,15 +208,21 @@ public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 	}
 
 	protected TransportClient createTransportClient() {
+		if (xPackSecurityConfiguration.requiresAuthentication()) {
+			configureAuthentication(settingsBuilder);
+
+			if (xPackSecurityConfiguration.transportSSLEnabled()) {
+				configureSSL(settingsBuilder);
+			}
+		}
+
 		Settings settings = settingsBuilder.build();
 
 		if (_log.isDebugEnabled()) {
 			_log.debug("Settings: " + settings.toString());
 		}
 
-		if ((xPackSecuritySettings != null) &&
-			xPackSecuritySettings.requiresXPackSecurity()) {
-
+		if (xPackSecurityConfiguration.requiresAuthentication()) {
 			return new PreBuiltXPackTransportClient(settings);
 		}
 
@@ -194,7 +257,7 @@ public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 
 	@Modified
 	protected synchronized void modified(Map<String, Object> properties) {
-		replaceElasticsearchConfiguration(properties);
+		replaceConfigurations(properties);
 
 		if (isConnected()) {
 			close();
@@ -216,11 +279,11 @@ public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 		super.removeSettingsContributor(settingsContributor);
 	}
 
-	protected void replaceElasticsearchConfiguration(
-		Map<String, Object> properties) {
-
+	protected void replaceConfigurations(Map<String, Object> properties) {
 		elasticsearchConfiguration = ConfigurableUtil.createConfigurable(
 			ElasticsearchConfiguration.class, properties);
+		xPackSecurityConfiguration = ConfigurableUtil.createConfigurable(
+			XPackSecurityConfiguration.class, properties);
 
 		String[] transportAddresses =
 			elasticsearchConfiguration.transportAddresses();
@@ -231,8 +294,7 @@ public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 	@Reference
 	protected Props props;
 
-	@Reference
-	protected XPackSecuritySettings xPackSecuritySettings;
+	protected volatile XPackSecurityConfiguration xPackSecurityConfiguration;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		RemoteElasticsearchConnection.class);
