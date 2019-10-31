@@ -1,0 +1,11 @@
+#
+# Liferay App Version 2.0.0
+#
+
+app.artifacts-2.0.0=\
+	com.liferay.portal.search.learning.to.rank.api-1.0.2.jar,\
+	com.liferay.portal.search.learning.to.rank.impl-1.0.2.jar
+
+app.change.log-2.0.0=LPS-100001
+
+app.git.id-2.0.0=fdbd6593c4de38486ff7b24df15a3d1d04f56d2c
