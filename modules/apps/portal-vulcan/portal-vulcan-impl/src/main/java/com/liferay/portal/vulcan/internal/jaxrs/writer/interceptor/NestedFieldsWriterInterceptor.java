@@ -704,9 +704,9 @@ public class NestedFieldsWriterInterceptor implements WriterInterceptor {
 		public boolean equals(Object obj) {
 			FactoryKey factoryKey = (FactoryKey)obj;
 
-			if (Objects.equals(factoryKey._resourceVersion, _resourceVersion) &&
-				Objects.equals(factoryKey._nestedFieldName, _nestedFieldName) &&
-				(factoryKey._parentClass == _parentClass)) {
+			if (Objects.equals(factoryKey._nestedFieldName, _nestedFieldName) &&
+				Objects.equals(factoryKey._parentClass, _parentClass) &&
+				Objects.equals(factoryKey._resourceVersion, _resourceVersion)) {
 
 				return true;
 			}
