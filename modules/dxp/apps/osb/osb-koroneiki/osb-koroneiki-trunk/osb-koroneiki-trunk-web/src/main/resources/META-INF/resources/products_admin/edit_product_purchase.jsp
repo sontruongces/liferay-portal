@@ -208,6 +208,13 @@ renderResponse.setTitle((productPurchase == null) ? LanguageUtil.get(request, "n
 
 			if (inputDateField) {
 				inputDateField.attr('disabled', checked);
+
+				if (checked) {
+					inputDateField.addClass('disabled');
+				}
+				else {
+					inputDateField.removeClass('disabled');
+				}
 			}
 
 			var monthField = A.one('#<portlet:namespace />' + dateParam + 'Month');
