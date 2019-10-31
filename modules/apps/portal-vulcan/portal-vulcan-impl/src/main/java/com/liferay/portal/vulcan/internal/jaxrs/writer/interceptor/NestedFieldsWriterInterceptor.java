@@ -407,7 +407,6 @@ public class NestedFieldsWriterInterceptor implements WriterInterceptor {
 			Parameter[] resourceMethodParameters =
 				resourceMethod.getParameters();
 
-			@SuppressWarnings("unchecked")
 			Map.Entry<String, Class<?>>[] resourceMethodArgNameTypeEntries =
 				new Map.Entry[resourceMethodParameters.length];
 
