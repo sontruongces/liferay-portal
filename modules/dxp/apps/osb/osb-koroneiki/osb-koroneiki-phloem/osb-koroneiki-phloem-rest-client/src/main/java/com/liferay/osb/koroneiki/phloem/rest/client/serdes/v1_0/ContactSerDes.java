@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.json.BaseJSONParser;
 
@@ -123,6 +124,26 @@ public class ContactSerDes {
 			sb.append(_escape(contact.getEmailAddress()));
 
 			sb.append("\"");
+		}
+
+		if (contact.getEntitlements() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"entitlements\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < contact.getEntitlements().length; i++) {
+				sb.append(String.valueOf(contact.getEntitlements()[i]));
+
+				if ((i + 1) < contact.getEntitlements().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (contact.getExternalLinks() != null) {
@@ -286,6 +307,13 @@ public class ContactSerDes {
 			map.put("emailAddress", String.valueOf(contact.getEmailAddress()));
 		}
 
+		if (contact.getEntitlements() == null) {
+			map.put("entitlements", null);
+		}
+		else {
+			map.put("entitlements", String.valueOf(contact.getEntitlements()));
+		}
+
 		if (contact.getExternalLinks() == null) {
 			map.put("externalLinks", null);
 		}
@@ -427,6 +455,18 @@ public class ContactSerDes {
 			else if (Objects.equals(jsonParserFieldName, "emailAddress")) {
 				if (jsonParserFieldValue != null) {
 					contact.setEmailAddress((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "entitlements")) {
+				if (jsonParserFieldValue != null) {
+					contact.setEntitlements(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> EntitlementSerDes.toDTO((String)object)
+						).toArray(
+							size -> new Entitlement[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "externalLinks")) {

@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
@@ -153,6 +154,26 @@ public class AccountSerDes {
 			sb.append(_escape(account.getDescription()));
 
 			sb.append("\"");
+		}
+
+		if (account.getEntitlements() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"entitlements\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < account.getEntitlements().length; i++) {
+				sb.append(String.valueOf(account.getEntitlements()[i]));
+
+				if ((i + 1) < account.getEntitlements().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (account.getExternalLinks() != null) {
@@ -462,6 +483,13 @@ public class AccountSerDes {
 			map.put("description", String.valueOf(account.getDescription()));
 		}
 
+		if (account.getEntitlements() == null) {
+			map.put("entitlements", null);
+		}
+		else {
+			map.put("entitlements", String.valueOf(account.getEntitlements()));
+		}
+
 		if (account.getExternalLinks() == null) {
 			map.put("externalLinks", null);
 		}
@@ -687,6 +715,18 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "description")) {
 				if (jsonParserFieldValue != null) {
 					account.setDescription((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "entitlements")) {
+				if (jsonParserFieldValue != null) {
+					account.setEntitlements(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> EntitlementSerDes.toDTO((String)object)
+						).toArray(
+							size -> new Entitlement[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "externalLinks")) {

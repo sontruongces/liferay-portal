@@ -342,6 +342,34 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
+	@Schema(description = "The account's entitlements.")
+	public Entitlement[] getEntitlements() {
+		return entitlements;
+	}
+
+	public void setEntitlements(Entitlement[] entitlements) {
+		this.entitlements = entitlements;
+	}
+
+	@JsonIgnore
+	public void setEntitlements(
+		UnsafeSupplier<Entitlement[], Exception> entitlementsUnsafeSupplier) {
+
+		try {
+			entitlements = entitlementsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Entitlement[] entitlements;
+
 	@Schema(
 		description = "The account's links to entities in external domains."
 	)
@@ -965,6 +993,26 @@ public class Account {
 			sb.append(_escape(description));
 
 			sb.append("\"");
+		}
+
+		if (entitlements != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"entitlements\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < entitlements.length; i++) {
+				sb.append(String.valueOf(entitlements[i]));
+
+				if ((i + 1) < entitlements.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (externalLinks != null) {

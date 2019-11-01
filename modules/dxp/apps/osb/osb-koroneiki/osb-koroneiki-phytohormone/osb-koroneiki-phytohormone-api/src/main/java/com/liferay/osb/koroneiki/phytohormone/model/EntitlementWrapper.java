@@ -180,6 +180,13 @@ public class EntitlementWrapper
 		return model.getEntitlementDefinitionId();
 	}
 
+	@Override
+	public String getEntitlementDefinitionKey()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getEntitlementDefinitionKey();
+	}
+
 	/**
 	 * Returns the entitlement ID of this entitlement.
 	 *

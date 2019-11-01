@@ -268,6 +268,27 @@ public class Account {
 
 	protected String description;
 
+	public Entitlement[] getEntitlements() {
+		return entitlements;
+	}
+
+	public void setEntitlements(Entitlement[] entitlements) {
+		this.entitlements = entitlements;
+	}
+
+	public void setEntitlements(
+		UnsafeSupplier<Entitlement[], Exception> entitlementsUnsafeSupplier) {
+
+		try {
+			entitlements = entitlementsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Entitlement[] entitlements;
+
 	public ExternalLink[] getExternalLinks() {
 		return externalLinks;
 	}

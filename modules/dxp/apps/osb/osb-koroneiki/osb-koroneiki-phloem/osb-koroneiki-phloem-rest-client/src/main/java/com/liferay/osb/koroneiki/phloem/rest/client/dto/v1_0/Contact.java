@@ -113,6 +113,27 @@ public class Contact {
 
 	protected String emailAddress;
 
+	public Entitlement[] getEntitlements() {
+		return entitlements;
+	}
+
+	public void setEntitlements(Entitlement[] entitlements) {
+		this.entitlements = entitlements;
+	}
+
+	public void setEntitlements(
+		UnsafeSupplier<Entitlement[], Exception> entitlementsUnsafeSupplier) {
+
+		try {
+			entitlements = entitlementsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Entitlement[] entitlements;
+
 	public ExternalLink[] getExternalLinks() {
 		return externalLinks;
 	}
