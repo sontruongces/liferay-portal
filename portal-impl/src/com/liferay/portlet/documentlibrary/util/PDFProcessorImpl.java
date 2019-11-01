@@ -940,7 +940,7 @@ public class PDFProcessorImpl
 
 			int scaledWidth = (int)Math.round(heightFactor * width);
 
-			return HashMapBuilder.<String, Integer>put(
+			return HashMapBuilder.put(
 				"height", scaledHeight
 			).put(
 				"width", scaledWidth
