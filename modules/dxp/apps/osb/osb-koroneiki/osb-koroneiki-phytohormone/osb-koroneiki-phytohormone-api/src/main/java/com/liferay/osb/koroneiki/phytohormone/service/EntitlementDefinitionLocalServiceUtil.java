@@ -294,6 +294,13 @@ public class EntitlementDefinitionLocalServiceUtil {
 		return getService().getEntitlementDefinitions(classNameId, status);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition>
+			getEntitlementDefinitions(String className, int status) {
+
+		return getService().getEntitlementDefinitions(className, status);
+	}
+
 	/**
 	 * Returns the number of entitlement definitions.
 	 *

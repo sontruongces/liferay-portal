@@ -247,6 +247,10 @@ public interface EntitlementDefinitionLocalService
 	public List<EntitlementDefinition> getEntitlementDefinitions(
 		long classNameId, int status);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<EntitlementDefinition> getEntitlementDefinitions(
+		String className, int status);
+
 	/**
 	 * Returns the number of entitlement definitions.
 	 *
