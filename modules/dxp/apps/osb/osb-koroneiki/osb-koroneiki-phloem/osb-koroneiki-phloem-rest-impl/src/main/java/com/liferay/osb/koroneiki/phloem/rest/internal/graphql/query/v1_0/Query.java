@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AuditEntry;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
@@ -29,6 +30,7 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AuditEntryResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.EntitlementDefinitionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
@@ -91,6 +93,14 @@ public class Query {
 
 		_contactRoleResourceComponentServiceObjects =
 			contactRoleResourceComponentServiceObjects;
+	}
+
+	public static void setEntitlementDefinitionResourceComponentServiceObjects(
+		ComponentServiceObjects<EntitlementDefinitionResource>
+			entitlementDefinitionResourceComponentServiceObjects) {
+
+		_entitlementDefinitionResourceComponentServiceObjects =
+			entitlementDefinitionResourceComponentServiceObjects;
 	}
 
 	public static void setExternalLinkResourceComponentServiceObjects(
@@ -512,6 +522,52 @@ public class Query {
 				contactRoleResource.
 					getTeamTeamKeyContactByUuidContactUuidRolesPage(
 						teamKey, contactUuid, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public EntitlementDefinitionPage getAccountEntitlementDefinitionsPage(
+			@GraphQLName("search") String search,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			entitlementDefinitionResource -> new EntitlementDefinitionPage(
+				entitlementDefinitionResource.
+					getAccountEntitlementDefinitionsPage(
+						search, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public EntitlementDefinitionPage getContactEntitlementDefinitionsPage(
+			@GraphQLName("search") String search,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			entitlementDefinitionResource -> new EntitlementDefinitionPage(
+				entitlementDefinitionResource.
+					getContactEntitlementDefinitionsPage(
+						search, Pagination.of(page, pageSize))));
+	}
+
+	@GraphQLField
+	public EntitlementDefinition getEntitlementDefinition(
+			@GraphQLName("entitlementDefinitionKey") String
+				entitlementDefinitionKey)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			entitlementDefinitionResource ->
+				entitlementDefinitionResource.getEntitlementDefinition(
+					entitlementDefinitionKey));
 	}
 
 	@GraphQLField
@@ -1120,6 +1176,30 @@ public class Query {
 
 	}
 
+	@GraphQLName("EntitlementDefinitionPage")
+	public class EntitlementDefinitionPage {
+
+		public EntitlementDefinitionPage(Page entitlementDefinitionPage) {
+			items = entitlementDefinitionPage.getItems();
+			page = entitlementDefinitionPage.getPage();
+			pageSize = entitlementDefinitionPage.getPageSize();
+			totalCount = entitlementDefinitionPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected java.util.Collection<EntitlementDefinition> items;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("ExternalLinkPage")
 	public class ExternalLinkPage {
 
@@ -1341,6 +1421,15 @@ public class Query {
 	}
 
 	private void _populateResourceContext(
+			EntitlementDefinitionResource entitlementDefinitionResource)
+		throws Exception {
+
+		entitlementDefinitionResource.setContextAcceptLanguage(_acceptLanguage);
+		entitlementDefinitionResource.setContextCompany(_company);
+		entitlementDefinitionResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
 			ExternalLinkResource externalLinkResource)
 		throws Exception {
 
@@ -1408,6 +1497,8 @@ public class Query {
 		_contactResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ContactRoleResource>
 		_contactRoleResourceComponentServiceObjects;
+	private static ComponentServiceObjects<EntitlementDefinitionResource>
+		_entitlementDefinitionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ExternalLinkResource>
 		_externalLinkResourceComponentServiceObjects;
 	private static ComponentServiceObjects<PostalAddressResource>

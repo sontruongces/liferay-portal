@@ -215,6 +215,11 @@ public interface EntitlementDefinitionLocalService
 			long entitlementDefinitionId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public EntitlementDefinition getEntitlementDefinition(
+			String entitlementDefinitionKey)
+		throws PortalException;
+
 	/**
 	 * Returns the entitlement definition with the matching UUID and company.
 	 *

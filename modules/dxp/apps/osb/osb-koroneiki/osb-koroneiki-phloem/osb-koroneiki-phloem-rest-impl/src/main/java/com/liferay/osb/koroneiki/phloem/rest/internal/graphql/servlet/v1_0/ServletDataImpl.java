@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AuditEntryResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.EntitlementDefinitionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
@@ -77,6 +78,8 @@ public class ServletDataImpl implements ServletData {
 			_contactResourceComponentServiceObjects);
 		Query.setContactRoleResourceComponentServiceObjects(
 			_contactRoleResourceComponentServiceObjects);
+		Query.setEntitlementDefinitionResourceComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects);
 		Query.setExternalLinkResourceComponentServiceObjects(
 			_externalLinkResourceComponentServiceObjects);
 		Query.setPostalAddressResourceComponentServiceObjects(
@@ -155,5 +158,9 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<AuditEntryResource>
 		_auditEntryResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<EntitlementDefinitionResource>
+		_entitlementDefinitionResourceComponentServiceObjects;
 
 }

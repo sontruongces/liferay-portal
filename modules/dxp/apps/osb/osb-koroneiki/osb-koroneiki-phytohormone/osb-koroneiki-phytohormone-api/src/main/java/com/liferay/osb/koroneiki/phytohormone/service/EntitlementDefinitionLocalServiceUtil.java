@@ -251,6 +251,14 @@ public class EntitlementDefinitionLocalServiceUtil {
 		return getService().getEntitlementDefinition(entitlementDefinitionId);
 	}
 
+	public static
+		com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
+				getEntitlementDefinition(String entitlementDefinitionKey)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getEntitlementDefinition(entitlementDefinitionKey);
+	}
+
 	/**
 	 * Returns the entitlement definition with the matching UUID and company.
 	 *

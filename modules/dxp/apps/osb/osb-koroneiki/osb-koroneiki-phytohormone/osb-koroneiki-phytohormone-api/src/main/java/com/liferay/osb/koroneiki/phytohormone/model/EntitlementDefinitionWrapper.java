@@ -266,6 +266,11 @@ public class EntitlementDefinitionWrapper
 		return model.getStatus();
 	}
 
+	@Override
+	public String getStatusLabel() {
+		return model.getStatusLabel();
+	}
+
 	/**
 	 * Returns the user ID of this entitlement definition.
 	 *

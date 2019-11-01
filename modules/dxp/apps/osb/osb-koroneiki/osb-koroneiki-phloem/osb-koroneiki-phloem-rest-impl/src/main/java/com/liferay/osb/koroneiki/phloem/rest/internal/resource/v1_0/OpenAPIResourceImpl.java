@@ -72,6 +72,8 @@ public class OpenAPIResourceImpl {
 
 			add(ContactRoleResourceImpl.class);
 
+			add(EntitlementDefinitionResourceImpl.class);
+
 			add(ExternalLinkResourceImpl.class);
 
 			add(PostalAddressResourceImpl.class);
