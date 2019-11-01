@@ -46,6 +46,10 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 			for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 				String field = entry.getKey();
 
+				if (_isIgnoredField(field)) {
+					continue;
+				}
+
 				auditEntryLocalService.addAuditEntry(
 					getUserId(), getClassNameId(model), getClassPK(model),
 					_auditSetId.get(), getFieldClassNameId(model),
@@ -66,6 +70,10 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 
 			for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 				String field = entry.getKey();
+
+				if (_isIgnoredField(field)) {
+					continue;
+				}
 
 				auditEntryLocalService.addAuditEntry(
 					getUserId(), getClassNameId(model), getClassPK(model),
@@ -93,6 +101,10 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 
 			for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 				String field = entry.getKey();
+
+				if (_isIgnoredField(field)) {
+					continue;
+				}
 
 				Object oldValue = oldAttributes.get(field);
 
@@ -158,6 +170,16 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 
 	@Reference
 	protected UserLocalService userLocalService;
+
+	private boolean _isIgnoredField(String field) {
+		if (field.equals("entityCacheEnabled") ||
+			field.equals("finderCacheEnabled")) {
+
+			return true;
+		}
+
+		return false;
+	}
 
 	private static final ThreadLocal<Long> _auditSetId =
 		new ThreadLocal<Long>() {

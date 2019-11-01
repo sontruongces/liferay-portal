@@ -92,6 +92,13 @@ public class EntitlementDefinitionLocalServiceImpl
 		return entitlementDefinitionPersistence.findByC_S(classNameId, status);
 	}
 
+	public List<EntitlementDefinition> getEntitlementDefinitions(
+		String className, int status) {
+
+		return entitlementDefinitionPersistence.findByC_S(
+			classNameLocalService.getClassNameId(className), status);
+	}
+
 	public List<EntitlementDefinition> search(
 		long classNameId, String name, int start, int end) {
 
