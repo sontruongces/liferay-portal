@@ -302,11 +302,6 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 		fieldsTemplateVariableGroup.addVariable(
 			"entry", null, PortletDisplayTemplateConstants.ENTRY);
 
-		Map<String, TemplateVariableGroup> templateVariableGroups =
-			LinkedHashMapBuilder.<String, TemplateVariableGroup>put(
-				"fields", fieldsTemplateVariableGroup
-			).build();
-
 		TemplateVariableGroup generalVariablesTemplateVariableGroup =
 			new TemplateVariableGroup("general-variables");
 
@@ -323,9 +318,6 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 		generalVariablesTemplateVariableGroup.addVariable(
 			"theme-display", ThemeDisplay.class,
 			PortletDisplayTemplateConstants.THEME_DISPLAY);
-
-		templateVariableGroups.put(
-			"general-variables", generalVariablesTemplateVariableGroup);
 
 		TemplateVariableGroup utilTemplateVariableGroup =
 			new TemplateVariableGroup("util");
@@ -347,7 +339,14 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 			"render-response", RenderResponse.class,
 			PortletDisplayTemplateConstants.RENDER_RESPONSE);
 
-		templateVariableGroups.put("util", utilTemplateVariableGroup);
+		Map<String, TemplateVariableGroup> templateVariableGroups =
+			LinkedHashMapBuilder.<String, TemplateVariableGroup>put(
+				"fields", fieldsTemplateVariableGroup
+			).put(
+				"general-variables", generalVariablesTemplateVariableGroup
+			).put(
+				"util", utilTemplateVariableGroup
+			).build();
 
 		return templateVariableGroups;
 	}

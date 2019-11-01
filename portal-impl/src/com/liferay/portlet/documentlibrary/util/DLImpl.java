@@ -323,6 +323,10 @@ public class DLImpl implements DL {
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
+		Company company = themeDisplay.getCompany();
+
+		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
+
 		Map<String, String> definitionTerms = LinkedHashMapBuilder.put(
 			"[$COMPANY_ID$]",
 			LanguageUtil.get(
@@ -365,31 +369,24 @@ public class DLImpl implements DL {
 			"[$FROM_ADDRESS$]", HtmlUtil.escape(emailFromAddress)
 		).put(
 			"[$FROM_NAME$]", HtmlUtil.escape(emailFromName)
-		).build();
-
-		Company company = themeDisplay.getCompany();
-
-		definitionTerms.put("[$PORTAL_URL$]", company.getVirtualHostname());
-
-		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
-
-		definitionTerms.put(
-			"[$PORTLET_NAME$]", HtmlUtil.escape(portletDisplay.getTitle()));
-
-		definitionTerms.put(
+		).put(
+			"[$PORTAL_URL$]", company.getVirtualHostname()
+		).put(
+			"[$PORTLET_NAME$]", HtmlUtil.escape(portletDisplay.getTitle())
+		).put(
 			"[$SITE_NAME$]",
 			LanguageUtil.get(
 				themeDisplay.getLocale(),
-				"the-site-name-associated-with-the-document"));
-		definitionTerms.put(
+				"the-site-name-associated-with-the-document")
+		).put(
 			"[$TO_ADDRESS$]",
 			LanguageUtil.get(
-				themeDisplay.getLocale(),
-				"the-address-of-the-email-recipient"));
-		definitionTerms.put(
+				themeDisplay.getLocale(), "the-address-of-the-email-recipient")
+		).put(
 			"[$TO_NAME$]",
 			LanguageUtil.get(
-				themeDisplay.getLocale(), "the-name-of-the-email-recipient"));
+				themeDisplay.getLocale(), "the-name-of-the-email-recipient")
+		).build();
 
 		return definitionTerms;
 	}
@@ -401,6 +398,8 @@ public class DLImpl implements DL {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
+
+		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
 		Map<String, String> definitionTerms = LinkedHashMapBuilder.put(
 			"[$COMPANY_ID$]",
@@ -430,18 +429,14 @@ public class DLImpl implements DL {
 			"[$DOCUMENT_USER_NAME$]",
 			LanguageUtil.get(
 				themeDisplay.getLocale(), "the-user-who-added-the-document")
-		).build();
-
-		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
-
-		definitionTerms.put(
-			"[$PORTLET_NAME$]", HtmlUtil.escape(portletDisplay.getTitle()));
-
-		definitionTerms.put(
+		).put(
+			"[$PORTLET_NAME$]", HtmlUtil.escape(portletDisplay.getTitle())
+		).put(
 			"[$SITE_NAME$]",
 			LanguageUtil.get(
 				themeDisplay.getLocale(),
-				"the-site-name-associated-with-the-document"));
+				"the-site-name-associated-with-the-document")
+		).build();
 
 		return definitionTerms;
 	}
