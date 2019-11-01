@@ -62,7 +62,13 @@ renderResponse.setTitle(koroneikiAccount.getName());
 				keyProperty="externalLinkId"
 				modelVar="externalLink"
 			>
+
+				<%
+				String url = ExternalLinkUrlGenerator.generate(portletPreferences.getValue(externalLink.getDomain() + StringPool.UNDERLINE + externalLink.getEntityName(), StringPool.BLANK), externalLink.getEntityId());
+				%>
+
 				<liferay-ui:search-container-column-text
+					href="<%= url %>"
 					name="domain"
 				>
 					<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="external-link" />">
@@ -73,11 +79,13 @@ renderResponse.setTitle(koroneikiAccount.getName());
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text
+					href="<%= url %>"
 					name="entity-name"
 					value="<%= externalLink.getEntityName() %>"
 				/>
 
 				<liferay-ui:search-container-column-text
+					href="<%= url %>"
 					name="entity-id"
 					value="<%= externalLink.getEntityId() %>"
 				/>
