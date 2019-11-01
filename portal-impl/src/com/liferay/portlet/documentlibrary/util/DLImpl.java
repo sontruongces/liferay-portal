@@ -327,7 +327,7 @@ public class DLImpl implements DL {
 
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
-		Map<String, String> definitionTerms = LinkedHashMapBuilder.put(
+		return LinkedHashMapBuilder.put(
 			"[$COMPANY_ID$]",
 			LanguageUtil.get(
 				themeDisplay.getLocale(),
@@ -387,8 +387,6 @@ public class DLImpl implements DL {
 			LanguageUtil.get(
 				themeDisplay.getLocale(), "the-name-of-the-email-recipient")
 		).build();
-
-		return definitionTerms;
 	}
 
 	@Override
@@ -401,7 +399,7 @@ public class DLImpl implements DL {
 
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
-		Map<String, String> definitionTerms = LinkedHashMapBuilder.put(
+		return LinkedHashMapBuilder.put(
 			"[$COMPANY_ID$]",
 			LanguageUtil.get(
 				themeDisplay.getLocale(),
@@ -437,8 +435,6 @@ public class DLImpl implements DL {
 				themeDisplay.getLocale(),
 				"the-site-name-associated-with-the-document")
 		).build();
-
-		return definitionTerms;
 	}
 
 	@Override
