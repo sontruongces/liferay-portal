@@ -74,7 +74,7 @@ public abstract class BaseDataDefinitionResourceImpl
 	@Path("/data-definitions/data-definition-fields/field-types")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "DataDefinition")})
-	public String getDataDefinitionDataDefinitionFieldFieldType()
+	public String getDataDefinitionDataDefinitionFieldFieldTypes()
 		throws Exception {
 
 		return StringPool.BLANK;

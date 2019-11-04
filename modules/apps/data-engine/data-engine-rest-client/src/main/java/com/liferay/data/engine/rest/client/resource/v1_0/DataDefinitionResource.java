@@ -39,11 +39,11 @@ public interface DataDefinitionResource {
 		return new Builder();
 	}
 
-	public String getDataDefinitionDataDefinitionFieldFieldType()
+	public String getDataDefinitionDataDefinitionFieldFieldTypes()
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getDataDefinitionDataDefinitionFieldFieldTypeHttpResponse()
+			getDataDefinitionDataDefinitionFieldFieldTypesHttpResponse()
 		throws Exception;
 
 	public void deleteDataDefinition(Long dataDefinitionId) throws Exception;
@@ -175,11 +175,11 @@ public interface DataDefinitionResource {
 	public static class DataDefinitionResourceImpl
 		implements DataDefinitionResource {
 
-		public String getDataDefinitionDataDefinitionFieldFieldType()
+		public String getDataDefinitionDataDefinitionFieldFieldTypes()
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getDataDefinitionDataDefinitionFieldFieldTypeHttpResponse();
+				getDataDefinitionDataDefinitionFieldFieldTypesHttpResponse();
 
 			String content = httpResponse.getContent();
 
@@ -193,7 +193,7 @@ public interface DataDefinitionResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getDataDefinitionDataDefinitionFieldFieldTypeHttpResponse()
+				getDataDefinitionDataDefinitionFieldFieldTypesHttpResponse()
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();

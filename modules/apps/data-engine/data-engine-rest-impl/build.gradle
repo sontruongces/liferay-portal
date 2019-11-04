@@ -6,7 +6,6 @@ dependencies {
 	compileOnly group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: "2.9.10"
 	compileOnly group: "com.liferay", name: "com.liferay.captcha.taglib", version: "3.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.data.engine.api", version: "2.1.0"
-	compileOnly group: "com.liferay", name: "com.liferay.data.engine.rest.api", version: "9.2.0"
 	compileOnly group: "com.liferay", name: "com.liferay.data.engine.spi", version: "3.2.0"
 	compileOnly group: "com.liferay", name: "com.liferay.dynamic.data.lists.api", version: "4.1.0"
 	compileOnly group: "com.liferay", name: "com.liferay.dynamic.data.mapping.api", version: "5.6.0"
@@ -35,4 +34,5 @@ dependencies {
 	compileOnly group: "org.osgi", name: "org.osgi.service.component", version: "1.3.0"
 	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations", version: "1.3.0"
 	compileOnly group: "org.osgi", name: "osgi.core", version: "6.0.0"
+	compileOnly project(":apps:data-engine:data-engine-rest-api")
 }

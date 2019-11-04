@@ -204,7 +204,7 @@ public abstract class BaseDataDefinitionResourceTestCase {
 	}
 
 	@Test
-	public void testGetDataDefinitionDataDefinitionFieldFieldType()
+	public void testGetDataDefinitionDataDefinitionFieldFieldTypes()
 		throws Exception {
 
 		Assert.assertTrue(false);
