@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -32,7 +33,8 @@ import java.util.Date;
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class TeamCacheModel implements CacheModel<Team>, Externalizable {
+public class TeamCacheModel
+	implements CacheModel<Team>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -46,7 +48,9 @@ public class TeamCacheModel implements CacheModel<Team>, Externalizable {
 
 		TeamCacheModel teamCacheModel = (TeamCacheModel)obj;
 
-		if (teamId == teamCacheModel.teamId) {
+		if ((teamId == teamCacheModel.teamId) &&
+			(mvccVersion == teamCacheModel.mvccVersion)) {
+
 			return true;
 		}
 
@@ -55,14 +59,28 @@ public class TeamCacheModel implements CacheModel<Team>, Externalizable {
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, teamId);
+		int hashCode = HashUtil.hash(0, teamId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
-		sb.append("{uuid=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", uuid=");
 		sb.append(uuid);
 		sb.append(", teamId=");
 		sb.append(teamId);
@@ -88,6 +106,8 @@ public class TeamCacheModel implements CacheModel<Team>, Externalizable {
 	@Override
 	public Team toEntityModel() {
 		TeamImpl teamImpl = new TeamImpl();
+
+		teamImpl.setMvccVersion(mvccVersion);
 
 		if (uuid == null) {
 			teamImpl.setUuid("");
@@ -137,6 +157,7 @@ public class TeamCacheModel implements CacheModel<Team>, Externalizable {
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
 		uuid = objectInput.readUTF();
 
 		teamId = objectInput.readLong();
@@ -154,6 +175,8 @@ public class TeamCacheModel implements CacheModel<Team>, Externalizable {
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -186,6 +209,7 @@ public class TeamCacheModel implements CacheModel<Team>, Externalizable {
 		}
 	}
 
+	public long mvccVersion;
 	public String uuid;
 	public long teamId;
 	public long companyId;

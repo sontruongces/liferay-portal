@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.AttachedModel;
 import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
@@ -37,7 +38,8 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface AuditEntryModel
-	extends AttachedModel, AuditedModel, BaseModel<AuditEntry>, ShardedModel {
+	extends AttachedModel, AuditedModel, BaseModel<AuditEntry>, MVCCModel,
+			ShardedModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -58,6 +60,22 @@ public interface AuditEntryModel
 	 * @param primaryKey the primary key of this audit entry
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the mvcc version of this audit entry.
+	 *
+	 * @return the mvcc version of this audit entry
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this audit entry.
+	 *
+	 * @param mvccVersion the mvcc version of this audit entry
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the audit entry ID of this audit entry.

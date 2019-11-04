@@ -31,6 +31,7 @@ public class ExternalLinkSoap implements Serializable {
 	public static ExternalLinkSoap toSoapModel(ExternalLink model) {
 		ExternalLinkSoap soapModel = new ExternalLinkSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setExternalLinkId(model.getExternalLinkId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setCreateDate(model.getCreateDate());
@@ -92,6 +93,14 @@ public class ExternalLinkSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setExternalLinkId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public long getExternalLinkId() {
@@ -174,6 +183,7 @@ public class ExternalLinkSoap implements Serializable {
 		_entityId = entityId;
 	}
 
+	private long _mvccVersion;
 	private long _externalLinkId;
 	private long _companyId;
 	private Date _createDate;

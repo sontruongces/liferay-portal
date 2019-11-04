@@ -2,6 +2,7 @@
 
 <model-hints>
 	<model name="com.liferay.osb.koroneiki.taproot.model.Account">
+		<field name="mvccVersion" type="long" />
 		<field name="uuid" type="String" />
 		<field name="accountId" type="long" />
 		<field name="companyId" type="long" />
@@ -37,6 +38,7 @@
 		<field name="statusMessage" type="String" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.Contact">
+		<field name="mvccVersion" type="long" />
 		<field name="uuid" type="String" />
 		<field name="contactId" type="long" />
 		<field name="companyId" type="long" />
@@ -52,11 +54,13 @@
 		<field name="languageId" type="String" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.ContactAccountRole">
+		<field name="mvccVersion" type="long" />
 		<field name="contactId" type="long" />
 		<field name="accountId" type="long" />
 		<field name="contactRoleId" type="long" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.ContactRole">
+		<field name="mvccVersion" type="long" />
 		<field name="uuid" type="String" />
 		<field name="contactRoleId" type="long" />
 		<field name="companyId" type="long" />
@@ -72,11 +76,13 @@
 		<field name="system" type="boolean" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.ContactTeamRole">
+		<field name="mvccVersion" type="long" />
 		<field name="contactId" type="long" />
 		<field name="teamId" type="long" />
 		<field name="contactRoleId" type="long" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.Team">
+		<field name="mvccVersion" type="long" />
 		<field name="uuid" type="String" />
 		<field name="teamId" type="long" />
 		<field name="companyId" type="long" />
@@ -88,11 +94,13 @@
 		<field name="name" type="String" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.TeamAccountRole">
+		<field name="mvccVersion" type="long" />
 		<field name="teamId" type="long" />
 		<field name="accountId" type="long" />
 		<field name="teamRoleId" type="long" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.TeamRole">
+		<field name="mvccVersion" type="long" />
 		<field name="uuid" type="String" />
 		<field name="teamRoleId" type="long" />
 		<field name="companyId" type="long" />

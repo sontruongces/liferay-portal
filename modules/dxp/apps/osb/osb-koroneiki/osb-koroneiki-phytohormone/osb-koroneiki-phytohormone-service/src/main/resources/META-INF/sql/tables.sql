@@ -1,4 +1,5 @@
 create table Koroneiki_Entitlement (
+	mvccVersion LONG default 0 not null,
 	entitlementId LONG not null primary key,
 	companyId LONG,
 	userId LONG,
@@ -11,6 +12,7 @@ create table Koroneiki_Entitlement (
 );
 
 create table Koroneiki_EntitlementDefinition (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	entitlementDefinitionId LONG not null primary key,
 	companyId LONG,

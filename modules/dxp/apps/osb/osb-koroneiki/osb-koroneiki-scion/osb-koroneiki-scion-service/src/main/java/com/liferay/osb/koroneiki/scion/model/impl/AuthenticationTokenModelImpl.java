@@ -73,17 +73,19 @@ public class AuthenticationTokenModelImpl
 	public static final String TABLE_NAME = "Koroneiki_AuthenticationToken";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"authenticationTokenId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"serviceProducerId", Types.BIGINT},
-		{"name", Types.VARCHAR}, {"prefix", Types.VARCHAR},
-		{"digest", Types.VARCHAR}, {"status", Types.INTEGER}
+		{"mvccVersion", Types.BIGINT}, {"authenticationTokenId", Types.BIGINT},
+		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"serviceProducerId", Types.BIGINT}, {"name", Types.VARCHAR},
+		{"prefix", Types.VARCHAR}, {"digest", Types.VARCHAR},
+		{"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("authenticationTokenId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
@@ -97,7 +99,7 @@ public class AuthenticationTokenModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_AuthenticationToken (authenticationTokenId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,serviceProducerId LONG,name VARCHAR(75) null,prefix VARCHAR(75) null,digest VARCHAR(75) null,status INTEGER)";
+		"create table Koroneiki_AuthenticationToken (mvccVersion LONG default 0 not null,authenticationTokenId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,serviceProducerId LONG,name VARCHAR(75) null,prefix VARCHAR(75) null,digest VARCHAR(75) null,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_AuthenticationToken";
@@ -145,6 +147,7 @@ public class AuthenticationTokenModelImpl
 
 		AuthenticationToken model = new AuthenticationTokenImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setAuthenticationTokenId(soapModel.getAuthenticationTokenId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
@@ -311,6 +314,12 @@ public class AuthenticationTokenModelImpl
 				new LinkedHashMap<String, BiConsumer<AuthenticationToken, ?>>();
 
 		attributeGetterFunctions.put(
+			"mvccVersion", AuthenticationToken::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<AuthenticationToken, Long>)
+				AuthenticationToken::setMvccVersion);
+		attributeGetterFunctions.put(
 			"authenticationTokenId",
 			AuthenticationToken::getAuthenticationTokenId);
 		attributeSetterBiConsumers.put(
@@ -371,6 +380,17 @@ public class AuthenticationTokenModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -594,6 +614,7 @@ public class AuthenticationTokenModelImpl
 		AuthenticationTokenImpl authenticationTokenImpl =
 			new AuthenticationTokenImpl();
 
+		authenticationTokenImpl.setMvccVersion(getMvccVersion());
 		authenticationTokenImpl.setAuthenticationTokenId(
 			getAuthenticationTokenId());
 		authenticationTokenImpl.setCompanyId(getCompanyId());
@@ -687,6 +708,8 @@ public class AuthenticationTokenModelImpl
 	public CacheModel<AuthenticationToken> toCacheModel() {
 		AuthenticationTokenCacheModel authenticationTokenCacheModel =
 			new AuthenticationTokenCacheModel();
+
+		authenticationTokenCacheModel.mvccVersion = getMvccVersion();
 
 		authenticationTokenCacheModel.authenticationTokenId =
 			getAuthenticationTokenId();
@@ -818,6 +841,7 @@ public class AuthenticationTokenModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private long _authenticationTokenId;
 	private long _companyId;
 	private long _userId;

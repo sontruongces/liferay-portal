@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.taproot.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 import com.liferay.portal.kernel.model.StagedModel;
 import com.liferay.portal.kernel.model.WorkflowedModel;
@@ -37,7 +38,8 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface AccountModel
-	extends BaseModel<Account>, ShardedModel, StagedModel, WorkflowedModel {
+	extends BaseModel<Account>, MVCCModel, ShardedModel, StagedModel,
+			WorkflowedModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -58,6 +60,22 @@ public interface AccountModel
 	 * @param primaryKey the primary key of this account
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the mvcc version of this account.
+	 *
+	 * @return the mvcc version of this account
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this account.
+	 *
+	 * @param mvccVersion the mvcc version of this account
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the uuid of this account.

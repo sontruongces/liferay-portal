@@ -74,19 +74,20 @@ public class ContactModelImpl
 	public static final String TABLE_NAME = "Koroneiki_Contact";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"contactId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"contactKey", Types.VARCHAR}, {"oktaId", Types.VARCHAR},
-		{"firstName", Types.VARCHAR}, {"middleName", Types.VARCHAR},
-		{"lastName", Types.VARCHAR}, {"emailAddress", Types.VARCHAR},
-		{"languageId", Types.VARCHAR}
+		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
+		{"contactId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"contactKey", Types.VARCHAR},
+		{"oktaId", Types.VARCHAR}, {"firstName", Types.VARCHAR},
+		{"middleName", Types.VARCHAR}, {"lastName", Types.VARCHAR},
+		{"emailAddress", Types.VARCHAR}, {"languageId", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("contactId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -103,7 +104,7 @@ public class ContactModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Contact (uuid_ VARCHAR(75) null,contactId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactKey VARCHAR(75) null,oktaId VARCHAR(75) null,firstName VARCHAR(75) null,middleName VARCHAR(75) null,lastName VARCHAR(75) null,emailAddress VARCHAR(75) null,languageId VARCHAR(75) null)";
+		"create table Koroneiki_Contact (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,contactId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactKey VARCHAR(75) null,oktaId VARCHAR(75) null,firstName VARCHAR(75) null,middleName VARCHAR(75) null,lastName VARCHAR(75) null,emailAddress VARCHAR(75) null,languageId VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Contact";
 
@@ -152,6 +153,7 @@ public class ContactModelImpl
 
 		Contact model = new ContactImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setUuid(soapModel.getUuid());
 		model.setContactId(soapModel.getContactId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -312,6 +314,9 @@ public class ContactModelImpl
 		Map<String, BiConsumer<Contact, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<Contact, ?>>();
 
+		attributeGetterFunctions.put("mvccVersion", Contact::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion", (BiConsumer<Contact, Long>)Contact::setMvccVersion);
 		attributeGetterFunctions.put("uuid", Contact::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid", (BiConsumer<Contact, String>)Contact::setUuid);
@@ -358,6 +363,17 @@ public class ContactModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -659,6 +675,7 @@ public class ContactModelImpl
 	public Object clone() {
 		ContactImpl contactImpl = new ContactImpl();
 
+		contactImpl.setMvccVersion(getMvccVersion());
 		contactImpl.setUuid(getUuid());
 		contactImpl.setContactId(getContactId());
 		contactImpl.setCompanyId(getCompanyId());
@@ -754,6 +771,8 @@ public class ContactModelImpl
 	@Override
 	public CacheModel<Contact> toCacheModel() {
 		ContactCacheModel contactCacheModel = new ContactCacheModel();
+
+		contactCacheModel.mvccVersion = getMvccVersion();
 
 		contactCacheModel.uuid = getUuid();
 
@@ -919,6 +938,7 @@ public class ContactModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private String _uuid;
 	private String _originalUuid;
 	private long _contactId;

@@ -43,6 +43,7 @@ public class ContactWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put("uuid", getUuid());
 		attributes.put("contactId", getContactId());
 		attributes.put("companyId", getCompanyId());
@@ -62,6 +63,12 @@ public class ContactWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		String uuid = (String)attributes.get("uuid");
 
 		if (uuid != null) {
@@ -274,6 +281,16 @@ public class ContactWrapper
 	}
 
 	/**
+	 * Returns the mvcc version of this contact.
+	 *
+	 * @return the mvcc version of this contact
+	 */
+	@Override
+	public long getMvccVersion() {
+		return model.getMvccVersion();
+	}
+
+	/**
 	 * Returns the okta ID of this contact.
 	 *
 	 * @return the okta ID of this contact
@@ -431,6 +448,16 @@ public class ContactWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the mvcc version of this contact.
+	 *
+	 * @param mvccVersion the mvcc version of this contact
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		model.setMvccVersion(mvccVersion);
 	}
 
 	/**

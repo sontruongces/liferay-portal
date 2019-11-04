@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.phytohormone.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 import com.liferay.portal.kernel.model.StagedModel;
 import com.liferay.portal.kernel.model.TypedModel;
@@ -37,8 +38,8 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface EntitlementDefinitionModel
-	extends BaseModel<EntitlementDefinition>, ShardedModel, StagedModel,
-			TypedModel {
+	extends BaseModel<EntitlementDefinition>, MVCCModel, ShardedModel,
+			StagedModel, TypedModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -59,6 +60,22 @@ public interface EntitlementDefinitionModel
 	 * @param primaryKey the primary key of this entitlement definition
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the mvcc version of this entitlement definition.
+	 *
+	 * @return the mvcc version of this entitlement definition
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this entitlement definition.
+	 *
+	 * @param mvccVersion the mvcc version of this entitlement definition
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the uuid of this entitlement definition.

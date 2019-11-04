@@ -31,6 +31,7 @@ public class EntitlementSoap implements Serializable {
 	public static EntitlementSoap toSoapModel(Entitlement model) {
 		EntitlementSoap soapModel = new EntitlementSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setEntitlementId(model.getEntitlementId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
@@ -92,6 +93,14 @@ public class EntitlementSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setEntitlementId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public long getEntitlementId() {
@@ -166,6 +175,7 @@ public class EntitlementSoap implements Serializable {
 		_name = name;
 	}
 
+	private long _mvccVersion;
 	private long _entitlementId;
 	private long _companyId;
 	private long _userId;

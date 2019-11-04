@@ -6,10 +6,11 @@
 	<import class="com.liferay.osb.koroneiki.trunk.model.ProductEntry" />
 	<import class="com.liferay.osb.koroneiki.trunk.model.ProductField" />
 	<import class="com.liferay.osb.koroneiki.trunk.model.ProductPurchase" />
-	<class name="com.liferay.osb.koroneiki.trunk.model.impl.ProductConsumptionImpl" table="Koroneiki_ProductConsumption">
+	<class dynamic-update="true" name="com.liferay.osb.koroneiki.trunk.model.impl.ProductConsumptionImpl" table="Koroneiki_ProductConsumption">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productConsumptionId" type="long">
 			<generator class="assigned" />
 		</id>
+		<version access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" name="mvccVersion" type="long" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="uuid_" name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -19,10 +20,11 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="accountId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="com.liferay.osb.koroneiki.trunk.model.impl.ProductEntryImpl" table="Koroneiki_ProductEntry">
+	<class dynamic-update="true" name="com.liferay.osb.koroneiki.trunk.model.impl.ProductEntryImpl" table="Koroneiki_ProductEntry">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productEntryId" type="long">
 			<generator class="assigned" />
 		</id>
+		<version access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" name="mvccVersion" type="long" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="uuid_" name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -31,10 +33,11 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productEntryKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.liferay.osb.koroneiki.trunk.model.impl.ProductFieldImpl" table="Koroneiki_ProductField">
+	<class dynamic-update="true" name="com.liferay.osb.koroneiki.trunk.model.impl.ProductFieldImpl" table="Koroneiki_ProductField">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productFieldId" type="long">
 			<generator class="assigned" />
 		</id>
+		<version access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" name="mvccVersion" type="long" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="classNameId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -42,10 +45,11 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="value" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.liferay.osb.koroneiki.trunk.model.impl.ProductPurchaseImpl" table="Koroneiki_ProductPurchase">
+	<class dynamic-update="true" name="com.liferay.osb.koroneiki.trunk.model.impl.ProductPurchaseImpl" table="Koroneiki_ProductPurchase">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productPurchaseId" type="long">
 			<generator class="assigned" />
 		</id>
+		<version access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" name="mvccVersion" type="long" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="uuid_" name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />

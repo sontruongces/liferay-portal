@@ -42,6 +42,7 @@ public class EntitlementWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put("entitlementId", getEntitlementId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
@@ -57,6 +58,12 @@ public class EntitlementWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		Long entitlementId = (Long)attributes.get("entitlementId");
 
 		if (entitlementId != null) {
@@ -208,6 +215,16 @@ public class EntitlementWrapper
 	}
 
 	/**
+	 * Returns the mvcc version of this entitlement.
+	 *
+	 * @return the mvcc version of this entitlement
+	 */
+	@Override
+	public long getMvccVersion() {
+		return model.getMvccVersion();
+	}
+
+	/**
 	 * Returns the name of this entitlement.
 	 *
 	 * @return the name of this entitlement
@@ -330,6 +347,16 @@ public class EntitlementWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the mvcc version of this entitlement.
+	 *
+	 * @param mvccVersion the mvcc version of this entitlement
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		model.setMvccVersion(mvccVersion);
 	}
 
 	/**

@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.util.Date;
  * @generated
  */
 public class ProductEntryCacheModel
-	implements CacheModel<ProductEntry>, Externalizable {
+	implements CacheModel<ProductEntry>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +49,9 @@ public class ProductEntryCacheModel
 		ProductEntryCacheModel productEntryCacheModel =
 			(ProductEntryCacheModel)obj;
 
-		if (productEntryId == productEntryCacheModel.productEntryId) {
+		if ((productEntryId == productEntryCacheModel.productEntryId) &&
+			(mvccVersion == productEntryCacheModel.mvccVersion)) {
+
 			return true;
 		}
 
@@ -57,14 +60,28 @@ public class ProductEntryCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, productEntryId);
+		int hashCode = HashUtil.hash(0, productEntryId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
-		sb.append("{uuid=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", uuid=");
 		sb.append(uuid);
 		sb.append(", productEntryId=");
 		sb.append(productEntryId);
@@ -88,6 +105,8 @@ public class ProductEntryCacheModel
 	@Override
 	public ProductEntry toEntityModel() {
 		ProductEntryImpl productEntryImpl = new ProductEntryImpl();
+
+		productEntryImpl.setMvccVersion(mvccVersion);
 
 		if (uuid == null) {
 			productEntryImpl.setUuid("");
@@ -135,6 +154,7 @@ public class ProductEntryCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
 		uuid = objectInput.readUTF();
 
 		productEntryId = objectInput.readLong();
@@ -150,6 +170,8 @@ public class ProductEntryCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -180,6 +202,7 @@ public class ProductEntryCacheModel
 		}
 	}
 
+	public long mvccVersion;
 	public String uuid;
 	public long productEntryId;
 	public long companyId;

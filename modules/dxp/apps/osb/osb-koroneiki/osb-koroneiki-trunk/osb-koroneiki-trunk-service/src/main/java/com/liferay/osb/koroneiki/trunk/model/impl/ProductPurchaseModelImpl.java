@@ -74,9 +74,10 @@ public class ProductPurchaseModelImpl
 	public static final String TABLE_NAME = "Koroneiki_ProductPurchase";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"productPurchaseId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
+		{"productPurchaseId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP},
 		{"productPurchaseKey", Types.VARCHAR}, {"accountId", Types.BIGINT},
 		{"productEntryId", Types.BIGINT}, {"startDate", Types.TIMESTAMP},
 		{"endDate", Types.TIMESTAMP}, {"quantity", Types.INTEGER}
@@ -86,6 +87,7 @@ public class ProductPurchaseModelImpl
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("productPurchaseId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -101,7 +103,7 @@ public class ProductPurchaseModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ProductPurchase (uuid_ VARCHAR(75) null,productPurchaseId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productPurchaseKey VARCHAR(75) null,accountId LONG,productEntryId LONG,startDate DATE null,endDate DATE null,quantity INTEGER)";
+		"create table Koroneiki_ProductPurchase (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,productPurchaseId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productPurchaseKey VARCHAR(75) null,accountId LONG,productEntryId LONG,startDate DATE null,endDate DATE null,quantity INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ProductPurchase";
@@ -151,6 +153,7 @@ public class ProductPurchaseModelImpl
 
 		ProductPurchase model = new ProductPurchaseImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setUuid(soapModel.getUuid());
 		model.setProductPurchaseId(soapModel.getProductPurchaseId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -316,6 +319,11 @@ public class ProductPurchaseModelImpl
 		Map<String, BiConsumer<ProductPurchase, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<ProductPurchase, ?>>();
 
+		attributeGetterFunctions.put(
+			"mvccVersion", ProductPurchase::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<ProductPurchase, Long>)ProductPurchase::setMvccVersion);
 		attributeGetterFunctions.put("uuid", ProductPurchase::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid",
@@ -381,6 +389,17 @@ public class ProductPurchaseModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -645,6 +664,7 @@ public class ProductPurchaseModelImpl
 	public Object clone() {
 		ProductPurchaseImpl productPurchaseImpl = new ProductPurchaseImpl();
 
+		productPurchaseImpl.setMvccVersion(getMvccVersion());
 		productPurchaseImpl.setUuid(getUuid());
 		productPurchaseImpl.setProductPurchaseId(getProductPurchaseId());
 		productPurchaseImpl.setCompanyId(getCompanyId());
@@ -748,6 +768,8 @@ public class ProductPurchaseModelImpl
 	public CacheModel<ProductPurchase> toCacheModel() {
 		ProductPurchaseCacheModel productPurchaseCacheModel =
 			new ProductPurchaseCacheModel();
+
+		productPurchaseCacheModel.mvccVersion = getMvccVersion();
 
 		productPurchaseCacheModel.uuid = getUuid();
 
@@ -892,6 +914,7 @@ public class ProductPurchaseModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private String _uuid;
 	private String _originalUuid;
 	private long _productPurchaseId;

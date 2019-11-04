@@ -41,6 +41,7 @@ public class ProductFieldWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put("productFieldId", getProductFieldId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
@@ -54,6 +55,12 @@ public class ProductFieldWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		Long productFieldId = (Long)attributes.get("productFieldId");
 
 		if (productFieldId != null) {
@@ -135,6 +142,16 @@ public class ProductFieldWrapper
 	@Override
 	public long getCompanyId() {
 		return model.getCompanyId();
+	}
+
+	/**
+	 * Returns the mvcc version of this product field.
+	 *
+	 * @return the mvcc version of this product field
+	 */
+	@Override
+	public long getMvccVersion() {
+		return model.getMvccVersion();
 	}
 
 	/**
@@ -240,6 +257,16 @@ public class ProductFieldWrapper
 	@Override
 	public void setCompanyId(long companyId) {
 		model.setCompanyId(companyId);
+	}
+
+	/**
+	 * Sets the mvcc version of this product field.
+	 *
+	 * @param mvccVersion the mvcc version of this product field
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		model.setMvccVersion(mvccVersion);
 	}
 
 	/**

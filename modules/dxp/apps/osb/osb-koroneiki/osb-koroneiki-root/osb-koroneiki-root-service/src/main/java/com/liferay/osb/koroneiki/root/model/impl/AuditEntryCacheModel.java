@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.root.model.AuditEntry;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.util.Date;
  * @generated
  */
 public class AuditEntryCacheModel
-	implements CacheModel<AuditEntry>, Externalizable {
+	implements CacheModel<AuditEntry>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -47,7 +48,9 @@ public class AuditEntryCacheModel
 
 		AuditEntryCacheModel auditEntryCacheModel = (AuditEntryCacheModel)obj;
 
-		if (auditEntryId == auditEntryCacheModel.auditEntryId) {
+		if ((auditEntryId == auditEntryCacheModel.auditEntryId) &&
+			(mvccVersion == auditEntryCacheModel.mvccVersion)) {
+
 			return true;
 		}
 
@@ -56,14 +59,28 @@ public class AuditEntryCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, auditEntryId);
+		int hashCode = HashUtil.hash(0, auditEntryId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(39);
+		StringBundler sb = new StringBundler(41);
 
-		sb.append("{auditEntryId=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", auditEntryId=");
 		sb.append(auditEntryId);
 		sb.append(", companyId=");
 		sb.append(companyId);
@@ -110,6 +127,7 @@ public class AuditEntryCacheModel
 	public AuditEntry toEntityModel() {
 		AuditEntryImpl auditEntryImpl = new AuditEntryImpl();
 
+		auditEntryImpl.setMvccVersion(mvccVersion);
 		auditEntryImpl.setAuditEntryId(auditEntryId);
 		auditEntryImpl.setCompanyId(companyId);
 		auditEntryImpl.setUserId(userId);
@@ -204,6 +222,8 @@ public class AuditEntryCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
+
 		auditEntryId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
@@ -234,6 +254,8 @@ public class AuditEntryCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		objectOutput.writeLong(auditEntryId);
 
 		objectOutput.writeLong(companyId);
@@ -317,6 +339,7 @@ public class AuditEntryCacheModel
 		}
 	}
 
+	public long mvccVersion;
 	public long auditEntryId;
 	public long companyId;
 	public long userId;

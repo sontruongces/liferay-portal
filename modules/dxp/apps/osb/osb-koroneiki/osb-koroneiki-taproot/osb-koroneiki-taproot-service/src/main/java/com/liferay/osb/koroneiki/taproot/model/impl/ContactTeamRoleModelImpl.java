@@ -65,21 +65,22 @@ public class ContactTeamRoleModelImpl
 	public static final String TABLE_NAME = "Koroneiki_ContactTeamRole";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"contactId", Types.BIGINT}, {"teamId", Types.BIGINT},
-		{"contactRoleId", Types.BIGINT}
+		{"mvccVersion", Types.BIGINT}, {"contactId", Types.BIGINT},
+		{"teamId", Types.BIGINT}, {"contactRoleId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("contactId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("teamId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("contactRoleId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ContactTeamRole (contactId LONG not null,teamId LONG not null,contactRoleId LONG not null,primary key (contactId, teamId, contactRoleId))";
+		"create table Koroneiki_ContactTeamRole (mvccVersion LONG default 0 not null,contactId LONG not null,teamId LONG not null,contactRoleId LONG not null,primary key (contactId, teamId, contactRoleId))";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ContactTeamRole";
@@ -123,6 +124,7 @@ public class ContactTeamRoleModelImpl
 
 		ContactTeamRole model = new ContactTeamRoleImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setContactId(soapModel.getContactId());
 		model.setTeamId(soapModel.getTeamId());
 		model.setContactRoleId(soapModel.getContactRoleId());
@@ -282,6 +284,11 @@ public class ContactTeamRoleModelImpl
 			new LinkedHashMap<String, BiConsumer<ContactTeamRole, ?>>();
 
 		attributeGetterFunctions.put(
+			"mvccVersion", ContactTeamRole::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<ContactTeamRole, Long>)ContactTeamRole::setMvccVersion);
+		attributeGetterFunctions.put(
 			"contactId", ContactTeamRole::getContactId);
 		attributeSetterBiConsumers.put(
 			"contactId",
@@ -301,6 +308,17 @@ public class ContactTeamRoleModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -395,6 +413,7 @@ public class ContactTeamRoleModelImpl
 	public Object clone() {
 		ContactTeamRoleImpl contactTeamRoleImpl = new ContactTeamRoleImpl();
 
+		contactTeamRoleImpl.setMvccVersion(getMvccVersion());
 		contactTeamRoleImpl.setContactId(getContactId());
 		contactTeamRoleImpl.setTeamId(getTeamId());
 		contactTeamRoleImpl.setContactRoleId(getContactRoleId());
@@ -476,6 +495,8 @@ public class ContactTeamRoleModelImpl
 			new ContactTeamRoleCacheModel();
 
 		contactTeamRoleCacheModel.contactTeamRolePK = getPrimaryKey();
+
+		contactTeamRoleCacheModel.mvccVersion = getMvccVersion();
 
 		contactTeamRoleCacheModel.contactId = getContactId();
 
@@ -559,6 +580,7 @@ public class ContactTeamRoleModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private long _contactId;
 	private long _originalContactId;
 	private boolean _setOriginalContactId;

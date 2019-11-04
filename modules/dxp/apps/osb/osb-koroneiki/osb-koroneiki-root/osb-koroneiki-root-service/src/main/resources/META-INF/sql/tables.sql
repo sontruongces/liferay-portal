@@ -1,4 +1,5 @@
 create table Koroneiki_AuditEntry (
+	mvccVersion LONG default 0 not null,
 	auditEntryId LONG not null primary key,
 	companyId LONG,
 	userId LONG,
@@ -21,6 +22,7 @@ create table Koroneiki_AuditEntry (
 );
 
 create table Koroneiki_ExternalLink (
+	mvccVersion LONG default 0 not null,
 	externalLinkId LONG not null primary key,
 	companyId LONG,
 	createDate DATE null,

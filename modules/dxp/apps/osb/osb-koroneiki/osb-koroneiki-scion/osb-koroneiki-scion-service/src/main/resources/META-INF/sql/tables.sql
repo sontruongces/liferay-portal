@@ -1,4 +1,5 @@
 create table Koroneiki_AuthenticationToken (
+	mvccVersion LONG default 0 not null,
 	authenticationTokenId LONG not null primary key,
 	companyId LONG,
 	userId LONG,
@@ -12,6 +13,7 @@ create table Koroneiki_AuthenticationToken (
 );
 
 create table Koroneiki_ServiceProducer (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	serviceProducerId LONG not null primary key,
 	companyId LONG,

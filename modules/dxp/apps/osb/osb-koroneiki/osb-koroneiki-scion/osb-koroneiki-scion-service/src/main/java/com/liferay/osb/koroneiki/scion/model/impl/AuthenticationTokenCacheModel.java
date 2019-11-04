@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.scion.model.AuthenticationToken;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.util.Date;
  * @generated
  */
 public class AuthenticationTokenCacheModel
-	implements CacheModel<AuthenticationToken>, Externalizable {
+	implements CacheModel<AuthenticationToken>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,8 +49,9 @@ public class AuthenticationTokenCacheModel
 		AuthenticationTokenCacheModel authenticationTokenCacheModel =
 			(AuthenticationTokenCacheModel)obj;
 
-		if (authenticationTokenId ==
-				authenticationTokenCacheModel.authenticationTokenId) {
+		if ((authenticationTokenId ==
+				authenticationTokenCacheModel.authenticationTokenId) &&
+			(mvccVersion == authenticationTokenCacheModel.mvccVersion)) {
 
 			return true;
 		}
@@ -59,14 +61,28 @@ public class AuthenticationTokenCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, authenticationTokenId);
+		int hashCode = HashUtil.hash(0, authenticationTokenId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
-		sb.append("{authenticationTokenId=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", authenticationTokenId=");
 		sb.append(authenticationTokenId);
 		sb.append(", companyId=");
 		sb.append(companyId);
@@ -96,6 +112,7 @@ public class AuthenticationTokenCacheModel
 		AuthenticationTokenImpl authenticationTokenImpl =
 			new AuthenticationTokenImpl();
 
+		authenticationTokenImpl.setMvccVersion(mvccVersion);
 		authenticationTokenImpl.setAuthenticationTokenId(authenticationTokenId);
 		authenticationTokenImpl.setCompanyId(companyId);
 		authenticationTokenImpl.setUserId(userId);
@@ -146,6 +163,8 @@ public class AuthenticationTokenCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
+
 		authenticationTokenId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
@@ -164,6 +183,8 @@ public class AuthenticationTokenCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		objectOutput.writeLong(authenticationTokenId);
 
 		objectOutput.writeLong(companyId);
@@ -198,6 +219,7 @@ public class AuthenticationTokenCacheModel
 		objectOutput.writeInt(status);
 	}
 
+	public long mvccVersion;
 	public long authenticationTokenId;
 	public long companyId;
 	public long userId;

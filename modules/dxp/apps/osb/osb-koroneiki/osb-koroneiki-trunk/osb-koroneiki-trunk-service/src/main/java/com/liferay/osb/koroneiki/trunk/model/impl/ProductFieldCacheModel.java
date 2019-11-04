@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -31,7 +32,7 @@ import java.io.ObjectOutput;
  * @generated
  */
 public class ProductFieldCacheModel
-	implements CacheModel<ProductField>, Externalizable {
+	implements CacheModel<ProductField>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -46,7 +47,9 @@ public class ProductFieldCacheModel
 		ProductFieldCacheModel productFieldCacheModel =
 			(ProductFieldCacheModel)obj;
 
-		if (productFieldId == productFieldCacheModel.productFieldId) {
+		if ((productFieldId == productFieldCacheModel.productFieldId) &&
+			(mvccVersion == productFieldCacheModel.mvccVersion)) {
+
 			return true;
 		}
 
@@ -55,14 +58,28 @@ public class ProductFieldCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, productFieldId);
+		int hashCode = HashUtil.hash(0, productFieldId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(17);
 
-		sb.append("{productFieldId=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", productFieldId=");
 		sb.append(productFieldId);
 		sb.append(", companyId=");
 		sb.append(companyId);
@@ -85,6 +102,7 @@ public class ProductFieldCacheModel
 	public ProductField toEntityModel() {
 		ProductFieldImpl productFieldImpl = new ProductFieldImpl();
 
+		productFieldImpl.setMvccVersion(mvccVersion);
 		productFieldImpl.setProductFieldId(productFieldId);
 		productFieldImpl.setCompanyId(companyId);
 		productFieldImpl.setUserId(userId);
@@ -112,6 +130,8 @@ public class ProductFieldCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
+
 		productFieldId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
@@ -127,6 +147,8 @@ public class ProductFieldCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		objectOutput.writeLong(productFieldId);
 
 		objectOutput.writeLong(companyId);
@@ -152,6 +174,7 @@ public class ProductFieldCacheModel
 		}
 	}
 
+	public long mvccVersion;
 	public long productFieldId;
 	public long companyId;
 	public long userId;

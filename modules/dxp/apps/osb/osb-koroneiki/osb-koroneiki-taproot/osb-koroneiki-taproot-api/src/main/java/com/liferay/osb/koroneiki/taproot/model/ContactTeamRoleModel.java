@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.taproot.model;
 
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactTeamRolePK;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -31,7 +32,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @ProviderType
-public interface ContactTeamRoleModel extends BaseModel<ContactTeamRole> {
+public interface ContactTeamRoleModel
+	extends BaseModel<ContactTeamRole>, MVCCModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -52,6 +54,22 @@ public interface ContactTeamRoleModel extends BaseModel<ContactTeamRole> {
 	 * @param primaryKey the primary key of this contact team role
 	 */
 	public void setPrimaryKey(ContactTeamRolePK primaryKey);
+
+	/**
+	 * Returns the mvcc version of this contact team role.
+	 *
+	 * @return the mvcc version of this contact team role
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this contact team role.
+	 *
+	 * @param mvccVersion the mvcc version of this contact team role
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the contact ID of this contact team role.

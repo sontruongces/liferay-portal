@@ -41,6 +41,7 @@ public class TeamAccountRoleWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put("teamId", getTeamId());
 		attributes.put("accountId", getAccountId());
 		attributes.put("teamRoleId", getTeamRoleId());
@@ -50,6 +51,12 @@ public class TeamAccountRoleWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		Long teamId = (Long)attributes.get("teamId");
 
 		if (teamId != null) {
@@ -84,6 +91,16 @@ public class TeamAccountRoleWrapper
 	@Override
 	public long getAccountId() {
 		return model.getAccountId();
+	}
+
+	/**
+	 * Returns the mvcc version of this team account role.
+	 *
+	 * @return the mvcc version of this team account role
+	 */
+	@Override
+	public long getMvccVersion() {
+		return model.getMvccVersion();
 	}
 
 	/**
@@ -151,6 +168,16 @@ public class TeamAccountRoleWrapper
 	@Override
 	public void setAccountId(long accountId) {
 		model.setAccountId(accountId);
+	}
+
+	/**
+	 * Sets the mvcc version of this team account role.
+	 *
+	 * @param mvccVersion the mvcc version of this team account role
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		model.setMvccVersion(mvccVersion);
 	}
 
 	/**

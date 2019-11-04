@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.scion.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
@@ -35,7 +36,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface AuthenticationTokenModel
-	extends BaseModel<AuthenticationToken>, ShardedModel {
+	extends BaseModel<AuthenticationToken>, MVCCModel, ShardedModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -56,6 +57,22 @@ public interface AuthenticationTokenModel
 	 * @param primaryKey the primary key of this authentication token
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the mvcc version of this authentication token.
+	 *
+	 * @return the mvcc version of this authentication token
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this authentication token.
+	 *
+	 * @param mvccVersion the mvcc version of this authentication token
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the authentication token ID of this authentication token.

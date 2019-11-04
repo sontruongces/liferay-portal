@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.util.Date;
  * @generated
  */
 public class EntitlementCacheModel
-	implements CacheModel<Entitlement>, Externalizable {
+	implements CacheModel<Entitlement>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +49,9 @@ public class EntitlementCacheModel
 		EntitlementCacheModel entitlementCacheModel =
 			(EntitlementCacheModel)obj;
 
-		if (entitlementId == entitlementCacheModel.entitlementId) {
+		if ((entitlementId == entitlementCacheModel.entitlementId) &&
+			(mvccVersion == entitlementCacheModel.mvccVersion)) {
+
 			return true;
 		}
 
@@ -57,14 +60,28 @@ public class EntitlementCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, entitlementId);
+		int hashCode = HashUtil.hash(0, entitlementId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
-		sb.append("{entitlementId=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", entitlementId=");
 		sb.append(entitlementId);
 		sb.append(", companyId=");
 		sb.append(companyId);
@@ -91,6 +108,7 @@ public class EntitlementCacheModel
 	public Entitlement toEntityModel() {
 		EntitlementImpl entitlementImpl = new EntitlementImpl();
 
+		entitlementImpl.setMvccVersion(mvccVersion);
 		entitlementImpl.setEntitlementId(entitlementId);
 		entitlementImpl.setCompanyId(companyId);
 		entitlementImpl.setUserId(userId);
@@ -127,6 +145,8 @@ public class EntitlementCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
+
 		entitlementId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
@@ -145,6 +165,8 @@ public class EntitlementCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		objectOutput.writeLong(entitlementId);
 
 		objectOutput.writeLong(companyId);
@@ -167,6 +189,7 @@ public class EntitlementCacheModel
 		}
 	}
 
+	public long mvccVersion;
 	public long entitlementId;
 	public long companyId;
 	public long userId;

@@ -31,6 +31,7 @@ public class AuditEntrySoap implements Serializable {
 	public static AuditEntrySoap toSoapModel(AuditEntry model) {
 		AuditEntrySoap soapModel = new AuditEntrySoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setAuditEntryId(model.getAuditEntryId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
@@ -101,6 +102,14 @@ public class AuditEntrySoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setAuditEntryId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public long getAuditEntryId() {
@@ -255,6 +264,7 @@ public class AuditEntrySoap implements Serializable {
 		_description = description;
 	}
 
+	private long _mvccVersion;
 	private long _auditEntryId;
 	private long _companyId;
 	private long _userId;

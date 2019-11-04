@@ -73,9 +73,9 @@ public class EntitlementModelImpl
 	public static final String TABLE_NAME = "Koroneiki_Entitlement";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"entitlementId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP},
+		{"mvccVersion", Types.BIGINT}, {"entitlementId", Types.BIGINT},
+		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"entitlementDefinitionId", Types.BIGINT},
 		{"classNameId", Types.BIGINT}, {"classPK", Types.BIGINT},
 		{"name", Types.VARCHAR}
@@ -85,6 +85,7 @@ public class EntitlementModelImpl
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("entitlementId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
@@ -97,7 +98,7 @@ public class EntitlementModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Entitlement (entitlementId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,entitlementDefinitionId LONG,classNameId LONG,classPK LONG,name VARCHAR(75) null)";
+		"create table Koroneiki_Entitlement (mvccVersion LONG default 0 not null,entitlementId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,entitlementDefinitionId LONG,classNameId LONG,classPK LONG,name VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_Entitlement";
@@ -142,6 +143,7 @@ public class EntitlementModelImpl
 
 		Entitlement model = new EntitlementImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setEntitlementId(soapModel.getEntitlementId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
@@ -303,6 +305,11 @@ public class EntitlementModelImpl
 			new LinkedHashMap<String, BiConsumer<Entitlement, ?>>();
 
 		attributeGetterFunctions.put(
+			"mvccVersion", Entitlement::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<Entitlement, Long>)Entitlement::setMvccVersion);
+		attributeGetterFunctions.put(
 			"entitlementId", Entitlement::getEntitlementId);
 		attributeSetterBiConsumers.put(
 			"entitlementId",
@@ -345,6 +352,17 @@ public class EntitlementModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -567,6 +585,7 @@ public class EntitlementModelImpl
 	public Object clone() {
 		EntitlementImpl entitlementImpl = new EntitlementImpl();
 
+		entitlementImpl.setMvccVersion(getMvccVersion());
 		entitlementImpl.setEntitlementId(getEntitlementId());
 		entitlementImpl.setCompanyId(getCompanyId());
 		entitlementImpl.setUserId(getUserId());
@@ -660,6 +679,8 @@ public class EntitlementModelImpl
 	public CacheModel<Entitlement> toCacheModel() {
 		EntitlementCacheModel entitlementCacheModel =
 			new EntitlementCacheModel();
+
+		entitlementCacheModel.mvccVersion = getMvccVersion();
 
 		entitlementCacheModel.entitlementId = getEntitlementId();
 
@@ -776,6 +797,7 @@ public class EntitlementModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private long _entitlementId;
 	private long _companyId;
 	private long _userId;

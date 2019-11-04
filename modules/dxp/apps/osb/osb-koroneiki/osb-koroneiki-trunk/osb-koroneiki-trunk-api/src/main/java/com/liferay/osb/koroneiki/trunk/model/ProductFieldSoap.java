@@ -30,6 +30,7 @@ public class ProductFieldSoap implements Serializable {
 	public static ProductFieldSoap toSoapModel(ProductField model) {
 		ProductFieldSoap soapModel = new ProductFieldSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setProductFieldId(model.getProductFieldId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
@@ -90,6 +91,14 @@ public class ProductFieldSoap implements Serializable {
 		setProductFieldId(pk);
 	}
 
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
+	}
+
 	public long getProductFieldId() {
 		return _productFieldId;
 	}
@@ -146,6 +155,7 @@ public class ProductFieldSoap implements Serializable {
 		_value = value;
 	}
 
+	private long _mvccVersion;
 	private long _productFieldId;
 	private long _companyId;
 	private long _userId;

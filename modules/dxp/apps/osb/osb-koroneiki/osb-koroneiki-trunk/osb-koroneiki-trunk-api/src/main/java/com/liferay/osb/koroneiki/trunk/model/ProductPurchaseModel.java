@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.trunk.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 import com.liferay.portal.kernel.model.StagedModel;
 
@@ -36,7 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface ProductPurchaseModel
-	extends BaseModel<ProductPurchase>, ShardedModel, StagedModel {
+	extends BaseModel<ProductPurchase>, MVCCModel, ShardedModel, StagedModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -57,6 +58,22 @@ public interface ProductPurchaseModel
 	 * @param primaryKey the primary key of this product purchase
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the mvcc version of this product purchase.
+	 *
+	 * @return the mvcc version of this product purchase
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this product purchase.
+	 *
+	 * @param mvccVersion the mvcc version of this product purchase
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the uuid of this product purchase.

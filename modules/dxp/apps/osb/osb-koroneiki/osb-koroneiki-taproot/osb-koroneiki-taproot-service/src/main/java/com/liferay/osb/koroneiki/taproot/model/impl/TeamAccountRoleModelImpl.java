@@ -65,21 +65,22 @@ public class TeamAccountRoleModelImpl
 	public static final String TABLE_NAME = "Koroneiki_TeamAccountRole";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"teamId", Types.BIGINT}, {"accountId", Types.BIGINT},
-		{"teamRoleId", Types.BIGINT}
+		{"mvccVersion", Types.BIGINT}, {"teamId", Types.BIGINT},
+		{"accountId", Types.BIGINT}, {"teamRoleId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("teamId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("accountId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("teamRoleId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_TeamAccountRole (teamId LONG not null,accountId LONG not null,teamRoleId LONG not null,primary key (teamId, accountId, teamRoleId))";
+		"create table Koroneiki_TeamAccountRole (mvccVersion LONG default 0 not null,teamId LONG not null,accountId LONG not null,teamRoleId LONG not null,primary key (teamId, accountId, teamRoleId))";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_TeamAccountRole";
@@ -123,6 +124,7 @@ public class TeamAccountRoleModelImpl
 
 		TeamAccountRole model = new TeamAccountRoleImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setTeamId(soapModel.getTeamId());
 		model.setAccountId(soapModel.getAccountId());
 		model.setTeamRoleId(soapModel.getTeamRoleId());
@@ -281,6 +283,11 @@ public class TeamAccountRoleModelImpl
 		Map<String, BiConsumer<TeamAccountRole, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<TeamAccountRole, ?>>();
 
+		attributeGetterFunctions.put(
+			"mvccVersion", TeamAccountRole::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<TeamAccountRole, Long>)TeamAccountRole::setMvccVersion);
 		attributeGetterFunctions.put("teamId", TeamAccountRole::getTeamId);
 		attributeSetterBiConsumers.put(
 			"teamId",
@@ -300,6 +307,17 @@ public class TeamAccountRoleModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -394,6 +412,7 @@ public class TeamAccountRoleModelImpl
 	public Object clone() {
 		TeamAccountRoleImpl teamAccountRoleImpl = new TeamAccountRoleImpl();
 
+		teamAccountRoleImpl.setMvccVersion(getMvccVersion());
 		teamAccountRoleImpl.setTeamId(getTeamId());
 		teamAccountRoleImpl.setAccountId(getAccountId());
 		teamAccountRoleImpl.setTeamRoleId(getTeamRoleId());
@@ -475,6 +494,8 @@ public class TeamAccountRoleModelImpl
 			new TeamAccountRoleCacheModel();
 
 		teamAccountRoleCacheModel.teamAccountRolePK = getPrimaryKey();
+
+		teamAccountRoleCacheModel.mvccVersion = getMvccVersion();
 
 		teamAccountRoleCacheModel.teamId = getTeamId();
 
@@ -558,6 +579,7 @@ public class TeamAccountRoleModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private long _teamId;
 	private long _originalTeamId;
 	private boolean _setOriginalTeamId;

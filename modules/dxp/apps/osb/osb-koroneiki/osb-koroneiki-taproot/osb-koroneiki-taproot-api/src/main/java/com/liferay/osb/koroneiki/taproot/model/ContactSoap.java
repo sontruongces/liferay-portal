@@ -31,6 +31,7 @@ public class ContactSoap implements Serializable {
 	public static ContactSoap toSoapModel(Contact model) {
 		ContactSoap soapModel = new ContactSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setUuid(model.getUuid());
 		soapModel.setContactId(model.getContactId());
 		soapModel.setCompanyId(model.getCompanyId());
@@ -95,6 +96,14 @@ public class ContactSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setContactId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public String getUuid() {
@@ -201,6 +210,7 @@ public class ContactSoap implements Serializable {
 		_languageId = languageId;
 	}
 
+	private long _mvccVersion;
 	private String _uuid;
 	private long _contactId;
 	private long _companyId;

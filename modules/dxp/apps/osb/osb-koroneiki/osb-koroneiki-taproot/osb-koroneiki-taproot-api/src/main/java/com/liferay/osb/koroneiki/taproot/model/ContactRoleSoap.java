@@ -31,6 +31,7 @@ public class ContactRoleSoap implements Serializable {
 	public static ContactRoleSoap toSoapModel(ContactRole model) {
 		ContactRoleSoap soapModel = new ContactRoleSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setUuid(model.getUuid());
 		soapModel.setContactRoleId(model.getContactRoleId());
 		soapModel.setCompanyId(model.getCompanyId());
@@ -93,6 +94,14 @@ public class ContactRoleSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setContactRoleId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public String getUuid() {
@@ -187,6 +196,7 @@ public class ContactRoleSoap implements Serializable {
 		_system = system;
 	}
 
+	private long _mvccVersion;
 	private String _uuid;
 	private long _contactRoleId;
 	private long _companyId;

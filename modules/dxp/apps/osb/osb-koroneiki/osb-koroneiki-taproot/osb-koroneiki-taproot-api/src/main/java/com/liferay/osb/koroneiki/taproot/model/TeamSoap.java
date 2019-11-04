@@ -31,6 +31,7 @@ public class TeamSoap implements Serializable {
 	public static TeamSoap toSoapModel(Team model) {
 		TeamSoap soapModel = new TeamSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setUuid(model.getUuid());
 		soapModel.setTeamId(model.getTeamId());
 		soapModel.setCompanyId(model.getCompanyId());
@@ -90,6 +91,14 @@ public class TeamSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setTeamId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public String getUuid() {
@@ -164,6 +173,7 @@ public class TeamSoap implements Serializable {
 		_name = name;
 	}
 
+	private long _mvccVersion;
 	private String _uuid;
 	private long _teamId;
 	private long _companyId;

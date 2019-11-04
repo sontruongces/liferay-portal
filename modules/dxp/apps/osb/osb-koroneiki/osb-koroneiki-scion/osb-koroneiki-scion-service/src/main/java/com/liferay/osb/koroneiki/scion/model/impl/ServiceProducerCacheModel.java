@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.scion.model.ServiceProducer;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -31,7 +32,7 @@ import java.io.ObjectOutput;
  * @generated
  */
 public class ServiceProducerCacheModel
-	implements CacheModel<ServiceProducer>, Externalizable {
+	implements CacheModel<ServiceProducer>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -46,7 +47,10 @@ public class ServiceProducerCacheModel
 		ServiceProducerCacheModel serviceProducerCacheModel =
 			(ServiceProducerCacheModel)obj;
 
-		if (serviceProducerId == serviceProducerCacheModel.serviceProducerId) {
+		if ((serviceProducerId ==
+				serviceProducerCacheModel.serviceProducerId) &&
+			(mvccVersion == serviceProducerCacheModel.mvccVersion)) {
+
 			return true;
 		}
 
@@ -55,14 +59,28 @@ public class ServiceProducerCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, serviceProducerId);
+		int hashCode = HashUtil.hash(0, serviceProducerId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(17);
 
-		sb.append("{uuid=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", uuid=");
 		sb.append(uuid);
 		sb.append(", serviceProducerId=");
 		sb.append(serviceProducerId);
@@ -84,6 +102,8 @@ public class ServiceProducerCacheModel
 	@Override
 	public ServiceProducer toEntityModel() {
 		ServiceProducerImpl serviceProducerImpl = new ServiceProducerImpl();
+
+		serviceProducerImpl.setMvccVersion(mvccVersion);
 
 		if (uuid == null) {
 			serviceProducerImpl.setUuid("");
@@ -118,6 +138,7 @@ public class ServiceProducerCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
 		uuid = objectInput.readUTF();
 
 		serviceProducerId = objectInput.readLong();
@@ -133,6 +154,8 @@ public class ServiceProducerCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -163,6 +186,7 @@ public class ServiceProducerCacheModel
 		}
 	}
 
+	public long mvccVersion;
 	public String uuid;
 	public long serviceProducerId;
 	public long companyId;

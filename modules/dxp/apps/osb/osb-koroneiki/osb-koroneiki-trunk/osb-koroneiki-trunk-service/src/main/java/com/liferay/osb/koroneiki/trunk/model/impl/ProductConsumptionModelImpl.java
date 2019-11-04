@@ -75,9 +75,10 @@ public class ProductConsumptionModelImpl
 	public static final String TABLE_NAME = "Koroneiki_ProductConsumption";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"productConsumptionId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
+		{"productConsumptionId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP},
 		{"productConsumptionKey", Types.VARCHAR}, {"accountId", Types.BIGINT},
 		{"productEntryId", Types.BIGINT}
 	};
@@ -86,6 +87,7 @@ public class ProductConsumptionModelImpl
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("productConsumptionId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -98,7 +100,7 @@ public class ProductConsumptionModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ProductConsumption (uuid_ VARCHAR(75) null,productConsumptionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productConsumptionKey VARCHAR(75) null,accountId LONG,productEntryId LONG)";
+		"create table Koroneiki_ProductConsumption (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,productConsumptionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productConsumptionKey VARCHAR(75) null,accountId LONG,productEntryId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ProductConsumption";
@@ -150,6 +152,7 @@ public class ProductConsumptionModelImpl
 
 		ProductConsumption model = new ProductConsumptionImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setUuid(soapModel.getUuid());
 		model.setProductConsumptionId(soapModel.getProductConsumptionId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -314,6 +317,12 @@ public class ProductConsumptionModelImpl
 			attributeSetterBiConsumers =
 				new LinkedHashMap<String, BiConsumer<ProductConsumption, ?>>();
 
+		attributeGetterFunctions.put(
+			"mvccVersion", ProductConsumption::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<ProductConsumption, Long>)
+				ProductConsumption::setMvccVersion);
 		attributeGetterFunctions.put("uuid", ProductConsumption::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid",
@@ -373,6 +382,17 @@ public class ProductConsumptionModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -618,6 +638,7 @@ public class ProductConsumptionModelImpl
 		ProductConsumptionImpl productConsumptionImpl =
 			new ProductConsumptionImpl();
 
+		productConsumptionImpl.setMvccVersion(getMvccVersion());
 		productConsumptionImpl.setUuid(getUuid());
 		productConsumptionImpl.setProductConsumptionId(
 			getProductConsumptionId());
@@ -726,6 +747,8 @@ public class ProductConsumptionModelImpl
 	public CacheModel<ProductConsumption> toCacheModel() {
 		ProductConsumptionCacheModel productConsumptionCacheModel =
 			new ProductConsumptionCacheModel();
+
+		productConsumptionCacheModel.mvccVersion = getMvccVersion();
 
 		productConsumptionCacheModel.uuid = getUuid();
 
@@ -852,6 +875,7 @@ public class ProductConsumptionModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private String _uuid;
 	private String _originalUuid;
 	private long _productConsumptionId;

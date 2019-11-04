@@ -32,6 +32,7 @@ public class ContactTeamRoleSoap implements Serializable {
 	public static ContactTeamRoleSoap toSoapModel(ContactTeamRole model) {
 		ContactTeamRoleSoap soapModel = new ContactTeamRoleSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setContactId(model.getContactId());
 		soapModel.setTeamId(model.getTeamId());
 		soapModel.setContactRoleId(model.getContactRoleId());
@@ -96,6 +97,14 @@ public class ContactTeamRoleSoap implements Serializable {
 		setContactRoleId(pk.contactRoleId);
 	}
 
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
+	}
+
 	public long getContactId() {
 		return _contactId;
 	}
@@ -120,6 +129,7 @@ public class ContactTeamRoleSoap implements Serializable {
 		_contactRoleId = contactRoleId;
 	}
 
+	private long _mvccVersion;
 	private long _contactId;
 	private long _teamId;
 	private long _contactRoleId;

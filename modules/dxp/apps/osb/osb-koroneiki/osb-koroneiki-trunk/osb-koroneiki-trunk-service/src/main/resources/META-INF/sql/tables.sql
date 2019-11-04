@@ -1,4 +1,5 @@
 create table Koroneiki_ProductConsumption (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	productConsumptionId LONG not null primary key,
 	companyId LONG,
@@ -11,6 +12,7 @@ create table Koroneiki_ProductConsumption (
 );
 
 create table Koroneiki_ProductEntry (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	productEntryId LONG not null primary key,
 	companyId LONG,
@@ -22,6 +24,7 @@ create table Koroneiki_ProductEntry (
 );
 
 create table Koroneiki_ProductField (
+	mvccVersion LONG default 0 not null,
 	productFieldId LONG not null primary key,
 	companyId LONG,
 	userId LONG,
@@ -32,6 +35,7 @@ create table Koroneiki_ProductField (
 );
 
 create table Koroneiki_ProductPurchase (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	productPurchaseId LONG not null primary key,
 	companyId LONG,

@@ -33,6 +33,7 @@ public class AuthenticationTokenSoap implements Serializable {
 
 		AuthenticationTokenSoap soapModel = new AuthenticationTokenSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setAuthenticationTokenId(model.getAuthenticationTokenId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
@@ -103,6 +104,14 @@ public class AuthenticationTokenSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setAuthenticationTokenId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public long getAuthenticationTokenId() {
@@ -185,6 +194,7 @@ public class AuthenticationTokenSoap implements Serializable {
 		_status = status;
 	}
 
+	private long _mvccVersion;
 	private long _authenticationTokenId;
 	private long _companyId;
 	private long _userId;

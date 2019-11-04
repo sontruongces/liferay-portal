@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.util.Date;
  * @generated
  */
 public class EntitlementDefinitionCacheModel
-	implements CacheModel<EntitlementDefinition>, Externalizable {
+	implements CacheModel<EntitlementDefinition>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,8 +49,9 @@ public class EntitlementDefinitionCacheModel
 		EntitlementDefinitionCacheModel entitlementDefinitionCacheModel =
 			(EntitlementDefinitionCacheModel)obj;
 
-		if (entitlementDefinitionId ==
-				entitlementDefinitionCacheModel.entitlementDefinitionId) {
+		if ((entitlementDefinitionId ==
+				entitlementDefinitionCacheModel.entitlementDefinitionId) &&
+			(mvccVersion == entitlementDefinitionCacheModel.mvccVersion)) {
 
 			return true;
 		}
@@ -59,14 +61,28 @@ public class EntitlementDefinitionCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, entitlementDefinitionId);
+		int hashCode = HashUtil.hash(0, entitlementDefinitionId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(27);
 
-		sb.append("{uuid=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", uuid=");
 		sb.append(uuid);
 		sb.append(", entitlementDefinitionId=");
 		sb.append(entitlementDefinitionId);
@@ -99,6 +115,8 @@ public class EntitlementDefinitionCacheModel
 	public EntitlementDefinition toEntityModel() {
 		EntitlementDefinitionImpl entitlementDefinitionImpl =
 			new EntitlementDefinitionImpl();
+
+		entitlementDefinitionImpl.setMvccVersion(mvccVersion);
 
 		if (uuid == null) {
 			entitlementDefinitionImpl.setUuid("");
@@ -166,6 +184,7 @@ public class EntitlementDefinitionCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
 		uuid = objectInput.readUTF();
 
 		entitlementDefinitionId = objectInput.readLong();
@@ -187,6 +206,8 @@ public class EntitlementDefinitionCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -235,6 +256,7 @@ public class EntitlementDefinitionCacheModel
 		objectOutput.writeInt(status);
 	}
 
+	public long mvccVersion;
 	public String uuid;
 	public long entitlementDefinitionId;
 	public long companyId;

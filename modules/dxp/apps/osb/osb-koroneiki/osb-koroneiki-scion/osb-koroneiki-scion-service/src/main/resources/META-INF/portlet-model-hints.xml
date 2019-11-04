@@ -2,6 +2,7 @@
 
 <model-hints>
 	<model name="com.liferay.osb.koroneiki.scion.model.AuthenticationToken">
+		<field name="mvccVersion" type="long" />
 		<field name="authenticationTokenId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
@@ -14,6 +15,7 @@
 		<field name="status" type="int" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.scion.model.ServiceProducer">
+		<field name="mvccVersion" type="long" />
 		<field name="uuid" type="String" />
 		<field name="serviceProducerId" type="long" />
 		<field name="companyId" type="long" />

@@ -2,6 +2,7 @@
 
 <model-hints>
 	<model name="com.liferay.osb.koroneiki.root.model.AuditEntry">
+		<field name="mvccVersion" type="long" />
 		<field name="auditEntryId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
@@ -33,6 +34,7 @@
 		</field>
 	</model>
 	<model name="com.liferay.osb.koroneiki.root.model.ExternalLink">
+		<field name="mvccVersion" type="long" />
 		<field name="externalLinkId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="createDate" type="Date" />

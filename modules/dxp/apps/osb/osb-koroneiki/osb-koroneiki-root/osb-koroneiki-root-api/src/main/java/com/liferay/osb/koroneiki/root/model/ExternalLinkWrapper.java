@@ -42,6 +42,7 @@ public class ExternalLinkWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put("externalLinkId", getExternalLinkId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("createDate", getCreateDate());
@@ -58,6 +59,12 @@ public class ExternalLinkWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		Long externalLinkId = (Long)attributes.get("externalLinkId");
 
 		if (externalLinkId != null) {
@@ -230,6 +237,16 @@ public class ExternalLinkWrapper
 	}
 
 	/**
+	 * Returns the mvcc version of this external link.
+	 *
+	 * @return the mvcc version of this external link
+	 */
+	@Override
+	public long getMvccVersion() {
+		return model.getMvccVersion();
+	}
+
+	/**
 	 * Returns the primary key of this external link.
 	 *
 	 * @return the primary key of this external link
@@ -352,6 +369,16 @@ public class ExternalLinkWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the mvcc version of this external link.
+	 *
+	 * @param mvccVersion the mvcc version of this external link
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		model.setMvccVersion(mvccVersion);
 	}
 
 	/**

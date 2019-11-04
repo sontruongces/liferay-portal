@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.taproot.service.persistence.TeamAccountRolePK;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -32,7 +33,7 @@ import java.io.ObjectOutput;
  * @generated
  */
 public class TeamAccountRoleCacheModel
-	implements CacheModel<TeamAccountRole>, Externalizable {
+	implements CacheModel<TeamAccountRole>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +49,8 @@ public class TeamAccountRoleCacheModel
 			(TeamAccountRoleCacheModel)obj;
 
 		if (teamAccountRolePK.equals(
-				teamAccountRoleCacheModel.teamAccountRolePK)) {
+				teamAccountRoleCacheModel.teamAccountRolePK) &&
+			(mvccVersion == teamAccountRoleCacheModel.mvccVersion)) {
 
 			return true;
 		}
@@ -58,14 +60,28 @@ public class TeamAccountRoleCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, teamAccountRolePK);
+		int hashCode = HashUtil.hash(0, teamAccountRolePK);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(9);
 
-		sb.append("{teamId=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", teamId=");
 		sb.append(teamId);
 		sb.append(", accountId=");
 		sb.append(accountId);
@@ -80,6 +96,7 @@ public class TeamAccountRoleCacheModel
 	public TeamAccountRole toEntityModel() {
 		TeamAccountRoleImpl teamAccountRoleImpl = new TeamAccountRoleImpl();
 
+		teamAccountRoleImpl.setMvccVersion(mvccVersion);
 		teamAccountRoleImpl.setTeamId(teamId);
 		teamAccountRoleImpl.setAccountId(accountId);
 		teamAccountRoleImpl.setTeamRoleId(teamRoleId);
@@ -91,6 +108,8 @@ public class TeamAccountRoleCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
+
 		teamId = objectInput.readLong();
 
 		accountId = objectInput.readLong();
@@ -103,6 +122,8 @@ public class TeamAccountRoleCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		objectOutput.writeLong(teamId);
 
 		objectOutput.writeLong(accountId);
@@ -110,6 +131,7 @@ public class TeamAccountRoleCacheModel
 		objectOutput.writeLong(teamRoleId);
 	}
 
+	public long mvccVersion;
 	public long teamId;
 	public long accountId;
 	public long teamRoleId;

@@ -71,17 +71,19 @@ public class ExternalLinkModelImpl
 	public static final String TABLE_NAME = "Koroneiki_ExternalLink";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"externalLinkId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"externalLinkKey", Types.VARCHAR}, {"classNameId", Types.BIGINT},
-		{"classPK", Types.BIGINT}, {"domain", Types.VARCHAR},
-		{"entityName", Types.VARCHAR}, {"entityId", Types.VARCHAR}
+		{"mvccVersion", Types.BIGINT}, {"externalLinkId", Types.BIGINT},
+		{"companyId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"externalLinkKey", Types.VARCHAR},
+		{"classNameId", Types.BIGINT}, {"classPK", Types.BIGINT},
+		{"domain", Types.VARCHAR}, {"entityName", Types.VARCHAR},
+		{"entityId", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("externalLinkId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
@@ -95,7 +97,7 @@ public class ExternalLinkModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ExternalLink (externalLinkId LONG not null primary key,companyId LONG,createDate DATE null,modifiedDate DATE null,externalLinkKey VARCHAR(75) null,classNameId LONG,classPK LONG,domain VARCHAR(75) null,entityName VARCHAR(255) null,entityId VARCHAR(150) null)";
+		"create table Koroneiki_ExternalLink (mvccVersion LONG default 0 not null,externalLinkId LONG not null primary key,companyId LONG,createDate DATE null,modifiedDate DATE null,externalLinkKey VARCHAR(75) null,classNameId LONG,classPK LONG,domain VARCHAR(75) null,entityName VARCHAR(255) null,entityId VARCHAR(150) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ExternalLink";
@@ -147,6 +149,7 @@ public class ExternalLinkModelImpl
 
 		ExternalLink model = new ExternalLinkImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setExternalLinkId(soapModel.getExternalLinkId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setCreateDate(soapModel.getCreateDate());
@@ -308,6 +311,11 @@ public class ExternalLinkModelImpl
 			new LinkedHashMap<String, BiConsumer<ExternalLink, ?>>();
 
 		attributeGetterFunctions.put(
+			"mvccVersion", ExternalLink::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<ExternalLink, Long>)ExternalLink::setMvccVersion);
+		attributeGetterFunctions.put(
 			"externalLinkId", ExternalLink::getExternalLinkId);
 		attributeSetterBiConsumers.put(
 			"externalLinkId",
@@ -356,6 +364,17 @@ public class ExternalLinkModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -614,6 +633,7 @@ public class ExternalLinkModelImpl
 	public Object clone() {
 		ExternalLinkImpl externalLinkImpl = new ExternalLinkImpl();
 
+		externalLinkImpl.setMvccVersion(getMvccVersion());
 		externalLinkImpl.setExternalLinkId(getExternalLinkId());
 		externalLinkImpl.setCompanyId(getCompanyId());
 		externalLinkImpl.setCreateDate(getCreateDate());
@@ -715,6 +735,8 @@ public class ExternalLinkModelImpl
 	public CacheModel<ExternalLink> toCacheModel() {
 		ExternalLinkCacheModel externalLinkCacheModel =
 			new ExternalLinkCacheModel();
+
+		externalLinkCacheModel.mvccVersion = getMvccVersion();
 
 		externalLinkCacheModel.externalLinkId = getExternalLinkId();
 
@@ -850,6 +872,7 @@ public class ExternalLinkModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private long _externalLinkId;
 	private long _companyId;
 	private Date _createDate;

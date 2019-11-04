@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.taproot.model;
 
 import com.liferay.osb.koroneiki.taproot.service.persistence.TeamAccountRolePK;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -31,7 +32,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @ProviderType
-public interface TeamAccountRoleModel extends BaseModel<TeamAccountRole> {
+public interface TeamAccountRoleModel
+	extends BaseModel<TeamAccountRole>, MVCCModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -52,6 +54,22 @@ public interface TeamAccountRoleModel extends BaseModel<TeamAccountRole> {
 	 * @param primaryKey the primary key of this team account role
 	 */
 	public void setPrimaryKey(TeamAccountRolePK primaryKey);
+
+	/**
+	 * Returns the mvcc version of this team account role.
+	 *
+	 * @return the mvcc version of this team account role
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this team account role.
+	 *
+	 * @param mvccVersion the mvcc version of this team account role
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the team ID of this team account role.

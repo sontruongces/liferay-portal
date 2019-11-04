@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.util.Date;
  * @generated
  */
 public class ContactRoleCacheModel
-	implements CacheModel<ContactRole>, Externalizable {
+	implements CacheModel<ContactRole>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +49,9 @@ public class ContactRoleCacheModel
 		ContactRoleCacheModel contactRoleCacheModel =
 			(ContactRoleCacheModel)obj;
 
-		if (contactRoleId == contactRoleCacheModel.contactRoleId) {
+		if ((contactRoleId == contactRoleCacheModel.contactRoleId) &&
+			(mvccVersion == contactRoleCacheModel.mvccVersion)) {
+
 			return true;
 		}
 
@@ -57,14 +60,28 @@ public class ContactRoleCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, contactRoleId);
+		int hashCode = HashUtil.hash(0, contactRoleId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
-		sb.append("{uuid=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", uuid=");
 		sb.append(uuid);
 		sb.append(", contactRoleId=");
 		sb.append(contactRoleId);
@@ -94,6 +111,8 @@ public class ContactRoleCacheModel
 	@Override
 	public ContactRole toEntityModel() {
 		ContactRoleImpl contactRoleImpl = new ContactRoleImpl();
+
+		contactRoleImpl.setMvccVersion(mvccVersion);
 
 		if (uuid == null) {
 			contactRoleImpl.setUuid("");
@@ -151,6 +170,7 @@ public class ContactRoleCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
 		uuid = objectInput.readUTF();
 
 		contactRoleId = objectInput.readLong();
@@ -171,6 +191,8 @@ public class ContactRoleCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -212,6 +234,7 @@ public class ContactRoleCacheModel
 		objectOutput.writeBoolean(system);
 	}
 
+	public long mvccVersion;
 	public String uuid;
 	public long contactRoleId;
 	public long companyId;

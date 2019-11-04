@@ -75,13 +75,14 @@ public class AccountModelImpl
 	public static final String TABLE_NAME = "Koroneiki_Account";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"accountId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"accountKey", Types.VARCHAR}, {"parentAccountId", Types.BIGINT},
-		{"name", Types.VARCHAR}, {"code_", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"notes", Types.VARCHAR},
-		{"logoId", Types.BIGINT}, {"contactEmailAddress", Types.VARCHAR},
+		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
+		{"accountId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"accountKey", Types.VARCHAR},
+		{"parentAccountId", Types.BIGINT}, {"name", Types.VARCHAR},
+		{"code_", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"notes", Types.VARCHAR}, {"logoId", Types.BIGINT},
+		{"contactEmailAddress", Types.VARCHAR},
 		{"profileEmailAddress", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
 		{"faxNumber", Types.VARCHAR}, {"website", Types.VARCHAR},
 		{"industry", Types.VARCHAR}, {"tier", Types.VARCHAR},
@@ -95,6 +96,7 @@ public class AccountModelImpl
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("accountId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -125,7 +127,7 @@ public class AccountModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Account (uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,notes STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,industry VARCHAR(75) null,tier VARCHAR(75) null,soldBy VARCHAR(75) null,internal_ BOOLEAN,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
+		"create table Koroneiki_Account (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,notes STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,industry VARCHAR(75) null,tier VARCHAR(75) null,soldBy VARCHAR(75) null,internal_ BOOLEAN,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Account";
 
@@ -176,6 +178,7 @@ public class AccountModelImpl
 
 		Account model = new AccountImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setUuid(soapModel.getUuid());
 		model.setAccountId(soapModel.getAccountId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -350,6 +353,9 @@ public class AccountModelImpl
 		Map<String, BiConsumer<Account, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<Account, ?>>();
 
+		attributeGetterFunctions.put("mvccVersion", Account::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion", (BiConsumer<Account, Long>)Account::setMvccVersion);
 		attributeGetterFunctions.put("uuid", Account::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid", (BiConsumer<Account, String>)Account::setUuid);
@@ -451,6 +457,17 @@ public class AccountModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -1060,6 +1077,7 @@ public class AccountModelImpl
 	public Object clone() {
 		AccountImpl accountImpl = new AccountImpl();
 
+		accountImpl.setMvccVersion(getMvccVersion());
 		accountImpl.setUuid(getUuid());
 		accountImpl.setAccountId(getAccountId());
 		accountImpl.setCompanyId(getCompanyId());
@@ -1174,6 +1192,8 @@ public class AccountModelImpl
 	@Override
 	public CacheModel<Account> toCacheModel() {
 		AccountCacheModel accountCacheModel = new AccountCacheModel();
+
+		accountCacheModel.mvccVersion = getMvccVersion();
 
 		accountCacheModel.uuid = getUuid();
 
@@ -1426,6 +1446,7 @@ public class AccountModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private String _uuid;
 	private String _originalUuid;
 	private long _accountId;

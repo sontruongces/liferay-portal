@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.taproot.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 import com.liferay.portal.kernel.model.StagedModel;
 
@@ -35,7 +36,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @ProviderType
-public interface TeamModel extends BaseModel<Team>, ShardedModel, StagedModel {
+public interface TeamModel
+	extends BaseModel<Team>, MVCCModel, ShardedModel, StagedModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -56,6 +58,22 @@ public interface TeamModel extends BaseModel<Team>, ShardedModel, StagedModel {
 	 * @param primaryKey the primary key of this team
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the mvcc version of this team.
+	 *
+	 * @return the mvcc version of this team
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this team.
+	 *
+	 * @param mvccVersion the mvcc version of this team
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the uuid of this team.

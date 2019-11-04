@@ -71,16 +71,17 @@ public class ServiceProducerModelImpl
 	public static final String TABLE_NAME = "Koroneiki_ServiceProducer";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"serviceProducerId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"authorizationUserId", Types.BIGINT}, {"name", Types.VARCHAR},
-		{"description", Types.VARCHAR}
+		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
+		{"serviceProducerId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"authorizationUserId", Types.BIGINT},
+		{"name", Types.VARCHAR}, {"description", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("serviceProducerId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -91,7 +92,7 @@ public class ServiceProducerModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ServiceProducer (uuid_ VARCHAR(75) null,serviceProducerId LONG not null primary key,companyId LONG,userId LONG,authorizationUserId LONG,name VARCHAR(75) null,description STRING null)";
+		"create table Koroneiki_ServiceProducer (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,serviceProducerId LONG not null primary key,companyId LONG,userId LONG,authorizationUserId LONG,name VARCHAR(75) null,description STRING null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ServiceProducer";
@@ -137,6 +138,7 @@ public class ServiceProducerModelImpl
 
 		ServiceProducer model = new ServiceProducerImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setUuid(soapModel.getUuid());
 		model.setServiceProducerId(soapModel.getServiceProducerId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -297,6 +299,11 @@ public class ServiceProducerModelImpl
 		Map<String, BiConsumer<ServiceProducer, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<ServiceProducer, ?>>();
 
+		attributeGetterFunctions.put(
+			"mvccVersion", ServiceProducer::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<ServiceProducer, Long>)ServiceProducer::setMvccVersion);
 		attributeGetterFunctions.put("uuid", ServiceProducer::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid",
@@ -337,6 +344,17 @@ public class ServiceProducerModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -536,6 +554,7 @@ public class ServiceProducerModelImpl
 	public Object clone() {
 		ServiceProducerImpl serviceProducerImpl = new ServiceProducerImpl();
 
+		serviceProducerImpl.setMvccVersion(getMvccVersion());
 		serviceProducerImpl.setUuid(getUuid());
 		serviceProducerImpl.setServiceProducerId(getServiceProducerId());
 		serviceProducerImpl.setCompanyId(getCompanyId());
@@ -622,6 +641,8 @@ public class ServiceProducerModelImpl
 	public CacheModel<ServiceProducer> toCacheModel() {
 		ServiceProducerCacheModel serviceProducerCacheModel =
 			new ServiceProducerCacheModel();
+
+		serviceProducerCacheModel.mvccVersion = getMvccVersion();
 
 		serviceProducerCacheModel.uuid = getUuid();
 
@@ -732,6 +753,7 @@ public class ServiceProducerModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private String _uuid;
 	private String _originalUuid;
 	private long _serviceProducerId;

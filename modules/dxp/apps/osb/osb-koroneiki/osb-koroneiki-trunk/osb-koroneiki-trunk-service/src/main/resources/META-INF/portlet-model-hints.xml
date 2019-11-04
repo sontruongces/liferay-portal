@@ -2,6 +2,7 @@
 
 <model-hints>
 	<model name="com.liferay.osb.koroneiki.trunk.model.ProductConsumption">
+		<field name="mvccVersion" type="long" />
 		<field name="uuid" type="String" />
 		<field name="productConsumptionId" type="long" />
 		<field name="companyId" type="long" />
@@ -13,6 +14,7 @@
 		<field name="productEntryId" type="long" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.trunk.model.ProductEntry">
+		<field name="mvccVersion" type="long" />
 		<field name="uuid" type="String" />
 		<field name="productEntryId" type="long" />
 		<field name="companyId" type="long" />
@@ -23,6 +25,7 @@
 		<field name="name" type="String" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.trunk.model.ProductField">
+		<field name="mvccVersion" type="long" />
 		<field name="productFieldId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
@@ -32,6 +35,7 @@
 		<field name="value" type="String" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.trunk.model.ProductPurchase">
+		<field name="mvccVersion" type="long" />
 		<field name="uuid" type="String" />
 		<field name="productPurchaseId" type="long" />
 		<field name="companyId" type="long" />

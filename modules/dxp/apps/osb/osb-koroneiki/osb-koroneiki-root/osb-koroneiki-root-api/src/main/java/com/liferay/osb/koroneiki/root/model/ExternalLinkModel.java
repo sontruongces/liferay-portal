@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.root.model;
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.AttachedModel;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
@@ -36,7 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface ExternalLinkModel
-	extends AttachedModel, BaseModel<ExternalLink>, ShardedModel {
+	extends AttachedModel, BaseModel<ExternalLink>, MVCCModel, ShardedModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -57,6 +58,22 @@ public interface ExternalLinkModel
 	 * @param primaryKey the primary key of this external link
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the mvcc version of this external link.
+	 *
+	 * @return the mvcc version of this external link
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this external link.
+	 *
+	 * @param mvccVersion the mvcc version of this external link
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the external link ID of this external link.

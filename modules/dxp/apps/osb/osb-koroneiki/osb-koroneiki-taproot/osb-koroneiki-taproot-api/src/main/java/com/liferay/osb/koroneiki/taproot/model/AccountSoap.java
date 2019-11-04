@@ -31,6 +31,7 @@ public class AccountSoap implements Serializable {
 	public static AccountSoap toSoapModel(Account model) {
 		AccountSoap soapModel = new AccountSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setUuid(model.getUuid());
 		soapModel.setAccountId(model.getAccountId());
 		soapModel.setCompanyId(model.getCompanyId());
@@ -109,6 +110,14 @@ public class AccountSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setAccountId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public String getUuid() {
@@ -331,6 +340,7 @@ public class AccountSoap implements Serializable {
 		_statusMessage = statusMessage;
 	}
 
+	private long _mvccVersion;
 	private String _uuid;
 	private long _accountId;
 	private long _companyId;

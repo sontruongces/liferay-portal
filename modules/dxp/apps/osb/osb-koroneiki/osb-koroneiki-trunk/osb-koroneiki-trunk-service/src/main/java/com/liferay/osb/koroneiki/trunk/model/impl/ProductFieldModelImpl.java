@@ -72,16 +72,17 @@ public class ProductFieldModelImpl
 	public static final String TABLE_NAME = "Koroneiki_ProductField";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"productFieldId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"userId", Types.BIGINT}, {"classNameId", Types.BIGINT},
-		{"classPK", Types.BIGINT}, {"name", Types.VARCHAR},
-		{"value", Types.VARCHAR}
+		{"mvccVersion", Types.BIGINT}, {"productFieldId", Types.BIGINT},
+		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
+		{"classNameId", Types.BIGINT}, {"classPK", Types.BIGINT},
+		{"name", Types.VARCHAR}, {"value", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("productFieldId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
@@ -92,7 +93,7 @@ public class ProductFieldModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ProductField (productFieldId LONG not null primary key,companyId LONG,userId LONG,classNameId LONG,classPK LONG,name VARCHAR(75) null,value VARCHAR(75) null)";
+		"create table Koroneiki_ProductField (mvccVersion LONG default 0 not null,productFieldId LONG not null primary key,companyId LONG,userId LONG,classNameId LONG,classPK LONG,name VARCHAR(75) null,value VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ProductField";
@@ -136,6 +137,7 @@ public class ProductFieldModelImpl
 
 		ProductField model = new ProductFieldImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setProductFieldId(soapModel.getProductFieldId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
@@ -294,6 +296,11 @@ public class ProductFieldModelImpl
 			new LinkedHashMap<String, BiConsumer<ProductField, ?>>();
 
 		attributeGetterFunctions.put(
+			"mvccVersion", ProductField::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<ProductField, Long>)ProductField::setMvccVersion);
+		attributeGetterFunctions.put(
 			"productFieldId", ProductField::getProductFieldId);
 		attributeSetterBiConsumers.put(
 			"productFieldId",
@@ -325,6 +332,17 @@ public class ProductFieldModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -510,6 +528,7 @@ public class ProductFieldModelImpl
 	public Object clone() {
 		ProductFieldImpl productFieldImpl = new ProductFieldImpl();
 
+		productFieldImpl.setMvccVersion(getMvccVersion());
 		productFieldImpl.setProductFieldId(getProductFieldId());
 		productFieldImpl.setCompanyId(getCompanyId());
 		productFieldImpl.setUserId(getUserId());
@@ -595,6 +614,8 @@ public class ProductFieldModelImpl
 	public CacheModel<ProductField> toCacheModel() {
 		ProductFieldCacheModel productFieldCacheModel =
 			new ProductFieldCacheModel();
+
+		productFieldCacheModel.mvccVersion = getMvccVersion();
 
 		productFieldCacheModel.productFieldId = getProductFieldId();
 
@@ -698,6 +719,7 @@ public class ProductFieldModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private long _productFieldId;
 	private long _companyId;
 	private long _userId;

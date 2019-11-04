@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.util.Date;
  * @generated
  */
 public class ProductPurchaseCacheModel
-	implements CacheModel<ProductPurchase>, Externalizable {
+	implements CacheModel<ProductPurchase>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +49,10 @@ public class ProductPurchaseCacheModel
 		ProductPurchaseCacheModel productPurchaseCacheModel =
 			(ProductPurchaseCacheModel)obj;
 
-		if (productPurchaseId == productPurchaseCacheModel.productPurchaseId) {
+		if ((productPurchaseId ==
+				productPurchaseCacheModel.productPurchaseId) &&
+			(mvccVersion == productPurchaseCacheModel.mvccVersion)) {
+
 			return true;
 		}
 
@@ -57,14 +61,28 @@ public class ProductPurchaseCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, productPurchaseId);
+		int hashCode = HashUtil.hash(0, productPurchaseId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(27);
 
-		sb.append("{uuid=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", uuid=");
 		sb.append(uuid);
 		sb.append(", productPurchaseId=");
 		sb.append(productPurchaseId);
@@ -96,6 +114,8 @@ public class ProductPurchaseCacheModel
 	@Override
 	public ProductPurchase toEntityModel() {
 		ProductPurchaseImpl productPurchaseImpl = new ProductPurchaseImpl();
+
+		productPurchaseImpl.setMvccVersion(mvccVersion);
 
 		if (uuid == null) {
 			productPurchaseImpl.setUuid("");
@@ -155,6 +175,7 @@ public class ProductPurchaseCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
 		uuid = objectInput.readUTF();
 
 		productPurchaseId = objectInput.readLong();
@@ -177,6 +198,8 @@ public class ProductPurchaseCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -208,6 +231,7 @@ public class ProductPurchaseCacheModel
 		objectOutput.writeInt(quantity);
 	}
 
+	public long mvccVersion;
 	public String uuid;
 	public long productPurchaseId;
 	public long companyId;

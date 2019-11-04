@@ -30,6 +30,7 @@ public class ServiceProducerSoap implements Serializable {
 	public static ServiceProducerSoap toSoapModel(ServiceProducer model) {
 		ServiceProducerSoap soapModel = new ServiceProducerSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setUuid(model.getUuid());
 		soapModel.setServiceProducerId(model.getServiceProducerId());
 		soapModel.setCompanyId(model.getCompanyId());
@@ -96,6 +97,14 @@ public class ServiceProducerSoap implements Serializable {
 		setServiceProducerId(pk);
 	}
 
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
+	}
+
 	public String getUuid() {
 		return _uuid;
 	}
@@ -152,6 +161,7 @@ public class ServiceProducerSoap implements Serializable {
 		_description = description;
 	}
 
+	private long _mvccVersion;
 	private String _uuid;
 	private long _serviceProducerId;
 	private long _companyId;

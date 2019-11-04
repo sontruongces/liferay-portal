@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -32,7 +33,8 @@ import java.util.Date;
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
+public class ContactCacheModel
+	implements CacheModel<Contact>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -46,7 +48,9 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 
 		ContactCacheModel contactCacheModel = (ContactCacheModel)obj;
 
-		if (contactId == contactCacheModel.contactId) {
+		if ((contactId == contactCacheModel.contactId) &&
+			(mvccVersion == contactCacheModel.mvccVersion)) {
+
 			return true;
 		}
 
@@ -55,14 +59,28 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, contactId);
+		int hashCode = HashUtil.hash(0, contactId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(29);
 
-		sb.append("{uuid=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", uuid=");
 		sb.append(uuid);
 		sb.append(", contactId=");
 		sb.append(contactId);
@@ -96,6 +114,8 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 	@Override
 	public Contact toEntityModel() {
 		ContactImpl contactImpl = new ContactImpl();
+
+		contactImpl.setMvccVersion(mvccVersion);
 
 		if (uuid == null) {
 			contactImpl.setUuid("");
@@ -178,6 +198,7 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
 		uuid = objectInput.readUTF();
 
 		contactId = objectInput.readLong();
@@ -198,6 +219,8 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -263,6 +286,7 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable {
 		}
 	}
 
+	public long mvccVersion;
 	public String uuid;
 	public long contactId;
 	public long companyId;

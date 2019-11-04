@@ -74,18 +74,19 @@ public class ContactRoleModelImpl
 	public static final String TABLE_NAME = "Koroneiki_ContactRole";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"contactRoleId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"contactRoleKey", Types.VARCHAR}, {"name", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"type_", Types.INTEGER},
-		{"system_", Types.BOOLEAN}
+		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
+		{"contactRoleId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"contactRoleKey", Types.VARCHAR},
+		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"type_", Types.INTEGER}, {"system_", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("contactRoleId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -100,7 +101,7 @@ public class ContactRoleModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ContactRole (uuid_ VARCHAR(75) null,contactRoleId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactRoleKey VARCHAR(75) null,name VARCHAR(75) null,description STRING null,type_ INTEGER,system_ BOOLEAN)";
+		"create table Koroneiki_ContactRole (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,contactRoleId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactRoleKey VARCHAR(75) null,name VARCHAR(75) null,description STRING null,type_ INTEGER,system_ BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ContactRole";
@@ -147,6 +148,7 @@ public class ContactRoleModelImpl
 
 		ContactRole model = new ContactRoleImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setUuid(soapModel.getUuid());
 		model.setContactRoleId(soapModel.getContactRoleId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -308,6 +310,11 @@ public class ContactRoleModelImpl
 		Map<String, BiConsumer<ContactRole, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<ContactRole, ?>>();
 
+		attributeGetterFunctions.put(
+			"mvccVersion", ContactRole::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<ContactRole, Long>)ContactRole::setMvccVersion);
 		attributeGetterFunctions.put("uuid", ContactRole::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid", (BiConsumer<ContactRole, String>)ContactRole::setUuid);
@@ -356,6 +363,17 @@ public class ContactRoleModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -623,6 +641,7 @@ public class ContactRoleModelImpl
 	public Object clone() {
 		ContactRoleImpl contactRoleImpl = new ContactRoleImpl();
 
+		contactRoleImpl.setMvccVersion(getMvccVersion());
 		contactRoleImpl.setUuid(getUuid());
 		contactRoleImpl.setContactRoleId(getContactRoleId());
 		contactRoleImpl.setCompanyId(getCompanyId());
@@ -719,6 +738,8 @@ public class ContactRoleModelImpl
 	public CacheModel<ContactRole> toCacheModel() {
 		ContactRoleCacheModel contactRoleCacheModel =
 			new ContactRoleCacheModel();
+
+		contactRoleCacheModel.mvccVersion = getMvccVersion();
 
 		contactRoleCacheModel.uuid = getUuid();
 
@@ -856,6 +877,7 @@ public class ContactRoleModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private String _uuid;
 	private String _originalUuid;
 	private long _contactRoleId;

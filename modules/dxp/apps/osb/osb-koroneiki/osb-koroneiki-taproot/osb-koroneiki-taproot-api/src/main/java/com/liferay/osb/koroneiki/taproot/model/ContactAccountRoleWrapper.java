@@ -41,6 +41,7 @@ public class ContactAccountRoleWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put("contactId", getContactId());
 		attributes.put("accountId", getAccountId());
 		attributes.put("contactRoleId", getContactRoleId());
@@ -50,6 +51,12 @@ public class ContactAccountRoleWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		Long contactId = (Long)attributes.get("contactId");
 
 		if (contactId != null) {
@@ -121,6 +128,16 @@ public class ContactAccountRoleWrapper
 	}
 
 	/**
+	 * Returns the mvcc version of this contact account role.
+	 *
+	 * @return the mvcc version of this contact account role
+	 */
+	@Override
+	public long getMvccVersion() {
+		return model.getMvccVersion();
+	}
+
+	/**
 	 * Returns the primary key of this contact account role.
 	 *
 	 * @return the primary key of this contact account role
@@ -171,6 +188,16 @@ public class ContactAccountRoleWrapper
 	@Override
 	public void setContactRoleId(long contactRoleId) {
 		model.setContactRoleId(contactRoleId);
+	}
+
+	/**
+	 * Sets the mvcc version of this contact account role.
+	 *
+	 * @param mvccVersion the mvcc version of this contact account role
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		model.setMvccVersion(mvccVersion);
 	}
 
 	/**

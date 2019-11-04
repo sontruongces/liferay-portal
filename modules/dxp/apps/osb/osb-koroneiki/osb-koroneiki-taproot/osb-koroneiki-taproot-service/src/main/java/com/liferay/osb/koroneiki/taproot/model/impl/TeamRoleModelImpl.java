@@ -74,17 +74,19 @@ public class TeamRoleModelImpl
 	public static final String TABLE_NAME = "Koroneiki_TeamRole";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"teamRoleId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"teamRoleKey", Types.VARCHAR}, {"name", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"type_", Types.INTEGER}
+		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
+		{"teamRoleId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"teamRoleKey", Types.VARCHAR},
+		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"type_", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("teamRoleId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -98,7 +100,7 @@ public class TeamRoleModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_TeamRole (uuid_ VARCHAR(75) null,teamRoleId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,teamRoleKey VARCHAR(75) null,name VARCHAR(75) null,description VARCHAR(75) null,type_ INTEGER)";
+		"create table Koroneiki_TeamRole (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,teamRoleId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,teamRoleKey VARCHAR(75) null,name VARCHAR(75) null,description VARCHAR(75) null,type_ INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_TeamRole";
 
@@ -144,6 +146,7 @@ public class TeamRoleModelImpl
 
 		TeamRole model = new TeamRoleImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setUuid(soapModel.getUuid());
 		model.setTeamRoleId(soapModel.getTeamRoleId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -302,6 +305,10 @@ public class TeamRoleModelImpl
 		Map<String, BiConsumer<TeamRole, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<TeamRole, ?>>();
 
+		attributeGetterFunctions.put("mvccVersion", TeamRole::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<TeamRole, Long>)TeamRole::setMvccVersion);
 		attributeGetterFunctions.put("uuid", TeamRole::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid", (BiConsumer<TeamRole, String>)TeamRole::setUuid);
@@ -340,6 +347,17 @@ public class TeamRoleModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -590,6 +608,7 @@ public class TeamRoleModelImpl
 	public Object clone() {
 		TeamRoleImpl teamRoleImpl = new TeamRoleImpl();
 
+		teamRoleImpl.setMvccVersion(getMvccVersion());
 		teamRoleImpl.setUuid(getUuid());
 		teamRoleImpl.setTeamRoleId(getTeamRoleId());
 		teamRoleImpl.setCompanyId(getCompanyId());
@@ -682,6 +701,8 @@ public class TeamRoleModelImpl
 	@Override
 	public CacheModel<TeamRole> toCacheModel() {
 		TeamRoleCacheModel teamRoleCacheModel = new TeamRoleCacheModel();
+
+		teamRoleCacheModel.mvccVersion = getMvccVersion();
 
 		teamRoleCacheModel.uuid = getUuid();
 
@@ -817,6 +838,7 @@ public class TeamRoleModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private String _uuid;
 	private String _originalUuid;
 	private long _teamRoleId;

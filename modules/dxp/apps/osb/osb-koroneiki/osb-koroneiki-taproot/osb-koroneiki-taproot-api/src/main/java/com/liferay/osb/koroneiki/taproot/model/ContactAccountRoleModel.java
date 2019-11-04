@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.taproot.model;
 
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactAccountRolePK;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -31,7 +32,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @ProviderType
-public interface ContactAccountRoleModel extends BaseModel<ContactAccountRole> {
+public interface ContactAccountRoleModel
+	extends BaseModel<ContactAccountRole>, MVCCModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -52,6 +54,22 @@ public interface ContactAccountRoleModel extends BaseModel<ContactAccountRole> {
 	 * @param primaryKey the primary key of this contact account role
 	 */
 	public void setPrimaryKey(ContactAccountRolePK primaryKey);
+
+	/**
+	 * Returns the mvcc version of this contact account role.
+	 *
+	 * @return the mvcc version of this contact account role
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this contact account role.
+	 *
+	 * @param mvccVersion the mvcc version of this contact account role
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the contact ID of this contact account role.

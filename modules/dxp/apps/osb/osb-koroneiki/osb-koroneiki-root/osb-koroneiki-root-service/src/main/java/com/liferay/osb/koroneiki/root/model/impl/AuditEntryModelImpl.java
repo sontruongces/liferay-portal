@@ -74,22 +74,23 @@ public class AuditEntryModelImpl
 	public static final String TABLE_NAME = "Koroneiki_AuditEntry";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"auditEntryId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"auditEntryKey", Types.VARCHAR}, {"classNameId", Types.BIGINT},
-		{"classPK", Types.BIGINT}, {"auditSetId", Types.BIGINT},
-		{"fieldClassNameId", Types.BIGINT}, {"fieldClassPK", Types.BIGINT},
-		{"action", Types.VARCHAR}, {"field", Types.VARCHAR},
-		{"oldLabel", Types.VARCHAR}, {"oldValue", Types.VARCHAR},
-		{"newLabel", Types.VARCHAR}, {"newValue", Types.VARCHAR},
-		{"description", Types.VARCHAR}
+		{"mvccVersion", Types.BIGINT}, {"auditEntryId", Types.BIGINT},
+		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
+		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"auditEntryKey", Types.VARCHAR},
+		{"classNameId", Types.BIGINT}, {"classPK", Types.BIGINT},
+		{"auditSetId", Types.BIGINT}, {"fieldClassNameId", Types.BIGINT},
+		{"fieldClassPK", Types.BIGINT}, {"action", Types.VARCHAR},
+		{"field", Types.VARCHAR}, {"oldLabel", Types.VARCHAR},
+		{"oldValue", Types.VARCHAR}, {"newLabel", Types.VARCHAR},
+		{"newValue", Types.VARCHAR}, {"description", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("auditEntryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
@@ -112,7 +113,7 @@ public class AuditEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_AuditEntry (auditEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,auditEntryKey VARCHAR(75) null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action VARCHAR(75) null,field VARCHAR(75) null,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null)";
+		"create table Koroneiki_AuditEntry (mvccVersion LONG default 0 not null,auditEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,auditEntryKey VARCHAR(75) null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action VARCHAR(75) null,field VARCHAR(75) null,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_AuditEntry";
@@ -162,6 +163,7 @@ public class AuditEntryModelImpl
 
 		AuditEntry model = new AuditEntryImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setAuditEntryId(soapModel.getAuditEntryId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
@@ -329,6 +331,10 @@ public class AuditEntryModelImpl
 		Map<String, BiConsumer<AuditEntry, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<AuditEntry, ?>>();
 
+		attributeGetterFunctions.put("mvccVersion", AuditEntry::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<AuditEntry, Long>)AuditEntry::setMvccVersion);
 		attributeGetterFunctions.put(
 			"auditEntryId", AuditEntry::getAuditEntryId);
 		attributeSetterBiConsumers.put(
@@ -411,6 +417,17 @@ public class AuditEntryModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -803,6 +820,7 @@ public class AuditEntryModelImpl
 	public Object clone() {
 		AuditEntryImpl auditEntryImpl = new AuditEntryImpl();
 
+		auditEntryImpl.setMvccVersion(getMvccVersion());
 		auditEntryImpl.setAuditEntryId(getAuditEntryId());
 		auditEntryImpl.setCompanyId(getCompanyId());
 		auditEntryImpl.setUserId(getUserId());
@@ -914,6 +932,8 @@ public class AuditEntryModelImpl
 	@Override
 	public CacheModel<AuditEntry> toCacheModel() {
 		AuditEntryCacheModel auditEntryCacheModel = new AuditEntryCacheModel();
+
+		auditEntryCacheModel.mvccVersion = getMvccVersion();
 
 		auditEntryCacheModel.auditEntryId = getAuditEntryId();
 
@@ -1097,6 +1117,7 @@ public class AuditEntryModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private long _auditEntryId;
 	private long _companyId;
 	private long _userId;

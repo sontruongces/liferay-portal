@@ -76,9 +76,10 @@ public class EntitlementDefinitionModelImpl
 	public static final String TABLE_NAME = "Koroneiki_EntitlementDefinition";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"entitlementDefinitionId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
+		{"entitlementDefinitionId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP},
 		{"entitlementDefinitionKey", Types.VARCHAR},
 		{"classNameId", Types.BIGINT}, {"name", Types.VARCHAR},
 		{"description", Types.VARCHAR}, {"definition", Types.VARCHAR},
@@ -89,6 +90,7 @@ public class EntitlementDefinitionModelImpl
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("entitlementDefinitionId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -104,7 +106,7 @@ public class EntitlementDefinitionModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_EntitlementDefinition (uuid_ VARCHAR(75) null,entitlementDefinitionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,entitlementDefinitionKey VARCHAR(75) null,classNameId LONG,name VARCHAR(75) null,description VARCHAR(75) null,definition STRING null,status INTEGER)";
+		"create table Koroneiki_EntitlementDefinition (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,entitlementDefinitionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,entitlementDefinitionKey VARCHAR(75) null,classNameId LONG,name VARCHAR(75) null,description VARCHAR(75) null,definition STRING null,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_EntitlementDefinition";
@@ -156,6 +158,7 @@ public class EntitlementDefinitionModelImpl
 
 		EntitlementDefinition model = new EntitlementDefinitionImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setUuid(soapModel.getUuid());
 		model.setEntitlementDefinitionId(
 			soapModel.getEntitlementDefinitionId());
@@ -327,6 +330,12 @@ public class EntitlementDefinitionModelImpl
 				new LinkedHashMap
 					<String, BiConsumer<EntitlementDefinition, ?>>();
 
+		attributeGetterFunctions.put(
+			"mvccVersion", EntitlementDefinition::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			(BiConsumer<EntitlementDefinition, Long>)
+				EntitlementDefinition::setMvccVersion);
 		attributeGetterFunctions.put("uuid", EntitlementDefinition::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid",
@@ -404,6 +413,17 @@ public class EntitlementDefinitionModelImpl
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -716,6 +736,7 @@ public class EntitlementDefinitionModelImpl
 		EntitlementDefinitionImpl entitlementDefinitionImpl =
 			new EntitlementDefinitionImpl();
 
+		entitlementDefinitionImpl.setMvccVersion(getMvccVersion());
 		entitlementDefinitionImpl.setUuid(getUuid());
 		entitlementDefinitionImpl.setEntitlementDefinitionId(
 			getEntitlementDefinitionId());
@@ -824,6 +845,8 @@ public class EntitlementDefinitionModelImpl
 	public CacheModel<EntitlementDefinition> toCacheModel() {
 		EntitlementDefinitionCacheModel entitlementDefinitionCacheModel =
 			new EntitlementDefinitionCacheModel();
+
+		entitlementDefinitionCacheModel.mvccVersion = getMvccVersion();
 
 		entitlementDefinitionCacheModel.uuid = getUuid();
 
@@ -977,6 +1000,7 @@ public class EntitlementDefinitionModelImpl
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private String _uuid;
 	private String _originalUuid;
 	private long _entitlementDefinitionId;

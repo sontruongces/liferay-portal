@@ -31,6 +31,7 @@ public class ProductConsumptionSoap implements Serializable {
 	public static ProductConsumptionSoap toSoapModel(ProductConsumption model) {
 		ProductConsumptionSoap soapModel = new ProductConsumptionSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setUuid(model.getUuid());
 		soapModel.setProductConsumptionId(model.getProductConsumptionId());
 		soapModel.setCompanyId(model.getCompanyId());
@@ -100,6 +101,14 @@ public class ProductConsumptionSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setProductConsumptionId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public String getUuid() {
@@ -174,6 +183,7 @@ public class ProductConsumptionSoap implements Serializable {
 		_productEntryId = productEntryId;
 	}
 
+	private long _mvccVersion;
 	private String _uuid;
 	private long _productConsumptionId;
 	private long _companyId;

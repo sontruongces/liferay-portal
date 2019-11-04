@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.util.Date;
  * @generated
  */
 public class ProductConsumptionCacheModel
-	implements CacheModel<ProductConsumption>, Externalizable {
+	implements CacheModel<ProductConsumption>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,8 +49,9 @@ public class ProductConsumptionCacheModel
 		ProductConsumptionCacheModel productConsumptionCacheModel =
 			(ProductConsumptionCacheModel)obj;
 
-		if (productConsumptionId ==
-				productConsumptionCacheModel.productConsumptionId) {
+		if ((productConsumptionId ==
+				productConsumptionCacheModel.productConsumptionId) &&
+			(mvccVersion == productConsumptionCacheModel.mvccVersion)) {
 
 			return true;
 		}
@@ -59,14 +61,28 @@ public class ProductConsumptionCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, productConsumptionId);
+		int hashCode = HashUtil.hash(0, productConsumptionId);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
-		sb.append("{uuid=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", uuid=");
 		sb.append(uuid);
 		sb.append(", productConsumptionId=");
 		sb.append(productConsumptionId);
@@ -93,6 +109,8 @@ public class ProductConsumptionCacheModel
 	public ProductConsumption toEntityModel() {
 		ProductConsumptionImpl productConsumptionImpl =
 			new ProductConsumptionImpl();
+
+		productConsumptionImpl.setMvccVersion(mvccVersion);
 
 		if (uuid == null) {
 			productConsumptionImpl.setUuid("");
@@ -137,6 +155,7 @@ public class ProductConsumptionCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
 		uuid = objectInput.readUTF();
 
 		productConsumptionId = objectInput.readLong();
@@ -155,6 +174,8 @@ public class ProductConsumptionCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -182,6 +203,7 @@ public class ProductConsumptionCacheModel
 		objectOutput.writeLong(productEntryId);
 	}
 
+	public long mvccVersion;
 	public String uuid;
 	public long productConsumptionId;
 	public long companyId;

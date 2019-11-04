@@ -73,17 +73,18 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 	public static final String TABLE_NAME = "Koroneiki_Team";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"teamId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"teamKey", Types.VARCHAR}, {"accountId", Types.BIGINT},
-		{"name", Types.VARCHAR}
+		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
+		{"teamId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"teamKey", Types.VARCHAR},
+		{"accountId", Types.BIGINT}, {"name", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
 		new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("teamId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -96,7 +97,7 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Team (uuid_ VARCHAR(75) null,teamId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,teamKey VARCHAR(75) null,accountId LONG,name VARCHAR(75) null)";
+		"create table Koroneiki_Team (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,teamId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,teamKey VARCHAR(75) null,accountId LONG,name VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Team";
 
@@ -144,6 +145,7 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 
 		Team model = new TeamImpl();
 
+		model.setMvccVersion(soapModel.getMvccVersion());
 		model.setUuid(soapModel.getUuid());
 		model.setTeamId(soapModel.getTeamId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -296,6 +298,9 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 		Map<String, BiConsumer<Team, ?>> attributeSetterBiConsumers =
 			new LinkedHashMap<String, BiConsumer<Team, ?>>();
 
+		attributeGetterFunctions.put("mvccVersion", Team::getMvccVersion);
+		attributeSetterBiConsumers.put(
+			"mvccVersion", (BiConsumer<Team, Long>)Team::setMvccVersion);
 		attributeGetterFunctions.put("uuid", Team::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid", (BiConsumer<Team, String>)Team::setUuid);
@@ -328,6 +333,17 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
+	}
+
+	@JSON
+	@Override
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	@JSON
@@ -562,6 +578,7 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 	public Object clone() {
 		TeamImpl teamImpl = new TeamImpl();
 
+		teamImpl.setMvccVersion(getMvccVersion());
 		teamImpl.setUuid(getUuid());
 		teamImpl.setTeamId(getTeamId());
 		teamImpl.setCompanyId(getCompanyId());
@@ -655,6 +672,8 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 	@Override
 	public CacheModel<Team> toCacheModel() {
 		TeamCacheModel teamCacheModel = new TeamCacheModel();
+
+		teamCacheModel.mvccVersion = getMvccVersion();
 
 		teamCacheModel.uuid = getUuid();
 
@@ -780,6 +799,7 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
+	private long _mvccVersion;
 	private String _uuid;
 	private String _originalUuid;
 	private long _teamId;

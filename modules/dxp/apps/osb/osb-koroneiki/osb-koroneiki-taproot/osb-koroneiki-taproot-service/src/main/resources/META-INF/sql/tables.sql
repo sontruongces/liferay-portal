@@ -1,4 +1,5 @@
 create table Koroneiki_Account (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	accountId LONG not null primary key,
 	companyId LONG,
@@ -29,6 +30,7 @@ create table Koroneiki_Account (
 );
 
 create table Koroneiki_Contact (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	contactId LONG not null primary key,
 	companyId LONG,
@@ -45,6 +47,7 @@ create table Koroneiki_Contact (
 );
 
 create table Koroneiki_ContactAccountRole (
+	mvccVersion LONG default 0 not null,
 	contactId LONG not null,
 	accountId LONG not null,
 	contactRoleId LONG not null,
@@ -52,6 +55,7 @@ create table Koroneiki_ContactAccountRole (
 );
 
 create table Koroneiki_ContactRole (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	contactRoleId LONG not null primary key,
 	companyId LONG,
@@ -66,6 +70,7 @@ create table Koroneiki_ContactRole (
 );
 
 create table Koroneiki_ContactTeamRole (
+	mvccVersion LONG default 0 not null,
 	contactId LONG not null,
 	teamId LONG not null,
 	contactRoleId LONG not null,
@@ -73,6 +78,7 @@ create table Koroneiki_ContactTeamRole (
 );
 
 create table Koroneiki_Team (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	teamId LONG not null primary key,
 	companyId LONG,
@@ -85,6 +91,7 @@ create table Koroneiki_Team (
 );
 
 create table Koroneiki_TeamAccountRole (
+	mvccVersion LONG default 0 not null,
 	teamId LONG not null,
 	accountId LONG not null,
 	teamRoleId LONG not null,
@@ -92,6 +99,7 @@ create table Koroneiki_TeamAccountRole (
 );
 
 create table Koroneiki_TeamRole (
+	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,
 	teamRoleId LONG not null primary key,
 	companyId LONG,

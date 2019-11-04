@@ -33,6 +33,7 @@ public class EntitlementDefinitionSoap implements Serializable {
 
 		EntitlementDefinitionSoap soapModel = new EntitlementDefinitionSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
 		soapModel.setUuid(model.getUuid());
 		soapModel.setEntitlementDefinitionId(
 			model.getEntitlementDefinitionId());
@@ -107,6 +108,14 @@ public class EntitlementDefinitionSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setEntitlementDefinitionId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
 	}
 
 	public String getUuid() {
@@ -205,6 +214,7 @@ public class EntitlementDefinitionSoap implements Serializable {
 		_status = status;
 	}
 
+	private long _mvccVersion;
 	private String _uuid;
 	private long _entitlementDefinitionId;
 	private long _companyId;

@@ -42,6 +42,7 @@ public class AuditEntryWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put("auditEntryId", getAuditEntryId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
@@ -67,6 +68,12 @@ public class AuditEntryWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long mvccVersion = (Long)attributes.get("mvccVersion");
+
+		if (mvccVersion != null) {
+			setMvccVersion(mvccVersion);
+		}
+
 		Long auditEntryId = (Long)attributes.get("auditEntryId");
 
 		if (auditEntryId != null) {
@@ -323,6 +330,16 @@ public class AuditEntryWrapper
 	}
 
 	/**
+	 * Returns the mvcc version of this audit entry.
+	 *
+	 * @return the mvcc version of this audit entry
+	 */
+	@Override
+	public long getMvccVersion() {
+		return model.getMvccVersion();
+	}
+
+	/**
 	 * Returns the new label of this audit entry.
 	 *
 	 * @return the new label of this audit entry
@@ -545,6 +562,16 @@ public class AuditEntryWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the mvcc version of this audit entry.
+	 *
+	 * @param mvccVersion the mvcc version of this audit entry
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		model.setMvccVersion(mvccVersion);
 	}
 
 	/**

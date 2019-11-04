@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.taproot.service.persistence.ContactAccountRoleP
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -32,7 +33,7 @@ import java.io.ObjectOutput;
  * @generated
  */
 public class ContactAccountRoleCacheModel
-	implements CacheModel<ContactAccountRole>, Externalizable {
+	implements CacheModel<ContactAccountRole>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +49,8 @@ public class ContactAccountRoleCacheModel
 			(ContactAccountRoleCacheModel)obj;
 
 		if (contactAccountRolePK.equals(
-				contactAccountRoleCacheModel.contactAccountRolePK)) {
+				contactAccountRoleCacheModel.contactAccountRolePK) &&
+			(mvccVersion == contactAccountRoleCacheModel.mvccVersion)) {
 
 			return true;
 		}
@@ -58,14 +60,28 @@ public class ContactAccountRoleCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, contactAccountRolePK);
+		int hashCode = HashUtil.hash(0, contactAccountRolePK);
+
+		return HashUtil.hash(hashCode, mvccVersion);
+	}
+
+	@Override
+	public long getMvccVersion() {
+		return mvccVersion;
+	}
+
+	@Override
+	public void setMvccVersion(long mvccVersion) {
+		this.mvccVersion = mvccVersion;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(9);
 
-		sb.append("{contactId=");
+		sb.append("{mvccVersion=");
+		sb.append(mvccVersion);
+		sb.append(", contactId=");
 		sb.append(contactId);
 		sb.append(", accountId=");
 		sb.append(accountId);
@@ -81,6 +97,7 @@ public class ContactAccountRoleCacheModel
 		ContactAccountRoleImpl contactAccountRoleImpl =
 			new ContactAccountRoleImpl();
 
+		contactAccountRoleImpl.setMvccVersion(mvccVersion);
 		contactAccountRoleImpl.setContactId(contactId);
 		contactAccountRoleImpl.setAccountId(accountId);
 		contactAccountRoleImpl.setContactRoleId(contactRoleId);
@@ -92,6 +109,8 @@ public class ContactAccountRoleCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		mvccVersion = objectInput.readLong();
+
 		contactId = objectInput.readLong();
 
 		accountId = objectInput.readLong();
@@ -104,6 +123,8 @@ public class ContactAccountRoleCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
+		objectOutput.writeLong(mvccVersion);
+
 		objectOutput.writeLong(contactId);
 
 		objectOutput.writeLong(accountId);
@@ -111,6 +132,7 @@ public class ContactAccountRoleCacheModel
 		objectOutput.writeLong(contactRoleId);
 	}
 
+	public long mvccVersion;
 	public long contactId;
 	public long accountId;
 	public long contactRoleId;

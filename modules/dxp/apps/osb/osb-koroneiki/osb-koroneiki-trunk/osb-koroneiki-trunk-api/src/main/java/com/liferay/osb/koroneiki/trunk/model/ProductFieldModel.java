@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.trunk.model;
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.AttachedModel;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -34,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface ProductFieldModel
-	extends AttachedModel, BaseModel<ProductField>, ShardedModel {
+	extends AttachedModel, BaseModel<ProductField>, MVCCModel, ShardedModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -55,6 +56,22 @@ public interface ProductFieldModel
 	 * @param primaryKey the primary key of this product field
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the mvcc version of this product field.
+	 *
+	 * @return the mvcc version of this product field
+	 */
+	@Override
+	public long getMvccVersion();
+
+	/**
+	 * Sets the mvcc version of this product field.
+	 *
+	 * @param mvccVersion the mvcc version of this product field
+	 */
+	@Override
+	public void setMvccVersion(long mvccVersion);
 
 	/**
 	 * Returns the product field ID of this product field.
