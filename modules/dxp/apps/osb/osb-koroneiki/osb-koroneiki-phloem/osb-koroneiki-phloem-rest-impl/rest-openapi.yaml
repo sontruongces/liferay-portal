@@ -1,105 +1,130 @@
 components:
     schemas:
         Account:
-            description: Represents an account.
+            description:
+                Represents an account.
             properties:
                 code:
-                    description: The code of the account.
+                    description:
+                        The code of the account.
                     type: string
                 contactEmailAddress:
-                    description: The account's contact email address.
+                    description:
+                        The account's contact email address.
                     type: string
                 contacts:
-                    description: The account's contacts.
+                    description:
+                        The account's contacts.
                     items:
                         $ref: "#/components/schemas/Contact"
                     readOnly: true
                     type: array
                 dateCreated:
-                    description: The account's creation date.
+                    description:
+                        The account's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 dateModified:
-                    description: The most recent time that any of the account's fields changed.
+                    description:
+                        The most recent time that any of the account's fields changed.
                     format: date-time
                     readOnly: true
                     type: string
                 description:
-                    description: The description of the account.
+                    description:
+                        The description of the account.
                     type: string
                 entitlements:
-                    description: The account's entitlements.
+                    description:
+                        The account's entitlements.
                     items:
                         $ref: "#/components/schemas/Entitlement"
                     readOnly: true
                     type: array
                 externalLinks:
-                    description: The account's links to entities in external domains.
+                    description:
+                        The account's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
                     readOnly: true
                     type: array
                 faxNumber:
-                    description: The account's fax number.
+                    description:
+                        The account's fax number.
                     type: string
                 industry:
-                    description: The industry of the account.
+                    description:
+                        The industry of the account.
                     enum: ["Aerospace and Defense", "Agriculture", "Automotive", "Consulting/Market Research", "Education", "Energy", "Engineering", "Financial Services", "Food Services", "Government (Federal)", "Government (State/Local)", "Healthcare", "Hospitality/Leisure", "Insurance", "Manufacturing", "Media/Entertainment", "Not for Profit/NGO", "Other", "Pharmaceuticals", "Professional Services (Agency/Business)", "Professional Services (Technical/Web/IT)", "Retail/Consumer Products", "Technology", "Telecommunications", "Transportaion", "Utilities"]
                     type: string
                 internal:
-                    description: A flag that identifies whether this account is an internal or test account.
+                    description:
+                        A flag that identifies whether this account is an internal or test account.
                     type: boolean
                 key:
-                    description: The account's key.
+                    description:
+                        The account's key.
                     readOnly: true
                     type: string
                 logoId:
                     deprecated: true
-                    description: The assetAttachmentId of the account's logo.
+                    description:
+                        The assetAttachmentId of the account's logo.
                     format: int64
                     type: integer
                 name:
-                    description: The name of the account.
+                    description:
+                        The name of the account.
                     type: string
                 notes:
-                    description: The notes of the account.
+                    description:
+                        The notes of the account.
                     type: string
                 parentAccountKey:
-                    description: The account's parent account key.
+                    description:
+                        The account's parent account key.
                     readOnly: true
                     type: string
                 phoneNumber:
-                    description: The account's phone number.
+                    description:
+                        The account's phone number.
                     type: string
                 postalAddresses:
-                    description: The account's postal addresses.
+                    description:
+                        The account's postal addresses.
                     items:
                         $ref: "#/components/schemas/PostalAddress"
                     readOnly: true
                     type: array
                 productPurchases:
-                    description: The products that the account has purchased.
+                    description:
+                        The products that the account has purchased.
                     items:
                         $ref: "#/components/schemas/ProductPurchase"
                     readOnly: true
                     type: array
                 profileEmailAddress:
-                    description: The account's profile email address.
+                    description:
+                        The account's profile email address.
                     type: string
                 soldBy:
-                    description: The region which sold the salesforce opportunity.
+                    description:
+                        The region which sold the salesforce opportunity.
                     type: string
                 status:
-                    description: The status of the account.
+                    description:
+                        The status of the account.
                     enum: ["Approved", "Closed", "Expired", "Inactive", "Pending", "Pending Validation", "Rejected"]
                     type: string
                 tier:
-                    description: The tier of the account.
+                    description:
+                        The tier of the account.
                     enum: ["OEM", "Premier", "Regular", "Strategic"]
                     type: string
                 website:
-                    description: The account's website.
+                    description:
+                        The account's website.
                     type: string
             required:
                 - name
@@ -125,126 +150,155 @@ components:
                     type: boolean
             type: object
         AuditEntry:
-            description: An audit log that records changes to objects.
+            description:
+                An audit log that records changes to objects.
             properties:
                 action:
-                    description: The action performed on the object.
+                    description:
+                        The action performed on the object.
                     enum: ["Add", "Delete", "Update"]
                     readOnly: true
                     type: string
                 auditSetId:
-                    description: The id of related audit entries.
+                    description:
+                        The id of related audit entries.
                     format: int64
                     readOnly: true
                     type: integer
                 className:
-                    description: The name of the audited object.
+                    description:
+                        The name of the audited object.
                     readOnly: true
                     type: string
                 classPK:
-                    description: The primary key of the audited object.
+                    description:
+                        The primary key of the audited object.
                     format: int64
                     readOnly: true
                     type: integer
                 dateCreated:
-                    description: The audit entry's creation date.
+                    description:
+                        The audit entry's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 description:
-                    description: The description of the audit entry.
+                    description:
+                        The description of the audit entry.
                     readOnly: true
                     type: string
                 field:
-                    description: The field of the audited object.
+                    description:
+                        The field of the audited object.
                     readOnly: true
                     type: string
                 fieldClassName:
-                    description: If the field is on a child object of the audited object, the name of the child object. Otherwise the name of the audited object.
+                    description:
+                        If the field is on a child object of the audited object, the name of the child object. Otherwise the name of the audited object.
                     readOnly: true
                     type: string
                 fieldClassPK:
-                    description: If the field is on a child object of the audited object, the primary key of the child object. Otherwise the primary key of the audited object.
+                    description:
+                        If the field is on a child object of the audited object, the primary key of the child object. Otherwise the primary key of the audited object.
                     format: int64
                     readOnly: true
                     type: integer
                 key:
-                    description: The audit entry's key.
+                    description:
+                        The audit entry's key.
                     readOnly: true
                     type: string
                 newValue:
-                    description: The new value of the field on the audited object.
+                    description:
+                        The new value of the field on the audited object.
                     readOnly: true
                     type: string
                 oldValue:
-                    description: The old value of the field on the audited object.
+                    description:
+                        The old value of the field on the audited object.
                     readOnly: true
                     type: string
                 userId:
-                    description: The ID of the user performing the audited action.
+                    description:
+                        The ID of the user performing the audited action.
                     format: int64
                     readOnly: true
                     type: integer
                 userName:
-                    description: The full name of the user performing the audited action.
+                    description:
+                        The full name of the user performing the audited action.
                     readOnly: true
                     type: string
             type: object
         Contact:
-            description: Represents a contact.
+            description:
+                Represents a contact.
             properties:
                 contactRoles:
-                    description: The contact's roles.
+                    description:
+                        The contact's roles.
                     items:
                         $ref: "#/components/schemas/ContactRole"
                     readOnly: true
                     type: array
                 dateCreated:
-                    description: The contact's creation date.
+                    description:
+                        The contact's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 dateModified:
-                    description: The most recent time that any of the contact's fields changed.
+                    description:
+                        The most recent time that any of the contact's fields changed.
                     format: date-time
                     readOnly: true
                     type: string
                 emailAddress:
-                    description: The email address of the contact.
+                    description:
+                        The email address of the contact.
                     type: string
                 entitlements:
-                    description: The contact's entitlements.
+                    description:
+                        The contact's entitlements.
                     items:
                         $ref: "#/components/schemas/Entitlement"
                     readOnly: true
                     type: array
                 externalLinks:
-                    description: The account's links to entities in external domains.
+                    description:
+                        The account's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
                     readOnly: true
                     type: array
                 firstName:
-                    description: The first name of the contact.
+                    description:
+                        The first name of the contact.
                     type: string
                 key:
-                    description: The contact's key.
+                    description:
+                        The contact's key.
                     readOnly: true
                     type: string
                 languageId:
-                    description: The language ID of the contact.
+                    description:
+                        The language ID of the contact.
                     type: string
                 lastName:
-                    description: The last name of the contact.
+                    description:
+                        The last name of the contact.
                     type: string
                 middleName:
-                    description: The middle name of the contact.
+                    description:
+                        The middle name of the contact.
                     type: string
                 oktaId:
-                    description: The ID provisioned from Okta.
+                    description:
+                        The ID provisioned from Okta.
                     type: string
                 uuid:
-                    description: A universal identifier to reference this contact.
+                    description:
+                        A universal identifier to reference this contact.
                     type: string
             required:
                 - emailAddress
@@ -268,34 +322,42 @@ components:
                     type: boolean
             type: object
         ContactRole:
-            description: Represents a contact role.
+            description:
+                Represents a contact role.
             properties:
                 dateCreated:
-                    description: The contact role's creation date.
+                    description:
+                        The contact role's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 dateModified:
-                    description: The most recent time that any of the contact role's fields changed.
+                    description:
+                        The most recent time that any of the contact role's fields changed.
                     format: date-time
                     readOnly: true
                     type: string
                 description:
-                    description: The description of the contact role.
+                    description:
+                        The description of the contact role.
                     type: string
                 key:
-                    description: The contact role's key.
+                    description:
+                        The contact role's key.
                     readOnly: true
                     type: string
                 name:
-                    description: The name of the contact role.
+                    description:
+                        The name of the contact role.
                     type: string
                 system:
-                    description: A flag that identifies whether this is a system role.
+                    description:
+                        A flag that identifies whether this is a system role.
                     readOnly: true
                     type: boolean
                 type:
-                    description: The contact role's type.
+                    description:
+                        The contact role's type.
                     enum: ["Account", "Team"]
                     type: string
             required:
@@ -321,71 +383,88 @@ components:
                     type: boolean
             type: object
         Entitlement:
-            description: Represents products/services an account or contact is entitled to receive.
+            description:
+                Represents products/services an account or contact is entitled to receive.
             properties:
                 entitlementDefinitionKey:
-                    description: The key of the entitlement's definition.
+                    description:
+                        The key of the entitlement's definition.
                     readOnly: true
                     type: string
                 name:
-                    description: The name of the entitlement.
+                    description:
+                        The name of the entitlement.
                     readOnly: true
                     type: string
             type: object
         EntitlementDefinition:
-            description: A definition of what an entitlement is.
+            description:
+                A definition of what an entitlement is.
             properties:
                 dateCreated:
-                    description: The contact role's creation date.
+                    description:
+                        The contact role's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 dateModified:
-                    description: The most recent time that any of the contact role's fields changed.
+                    description:
+                        The most recent time that any of the contact role's fields changed.
                     format: date-time
                     readOnly: true
                     type: string
                 definition:
-                    description: Defines who has access to the entitlement using SQL.
+                    description:
+                        Defines who has access to the entitlement using SQL.
                     readOnly: true
                     type: string
                 description:
-                    description: The description of the entitlement.
+                    description:
+                        The description of the entitlement.
                     readOnly: true
                     type: string
                 key:
-                    description: The entitlement definition's key.
+                    description:
+                        The entitlement definition's key.
                     readOnly: true
                     type: string
                 name:
-                    description: The name of the entitlement.
+                    description:
+                        The name of the entitlement.
                     readOnly: true
                     type: string
                 status:
-                    description: The status of the entitlement definition.
+                    description:
+                        The status of the entitlement definition.
                     enum: ["Approved", "Inactive"]
                     readOnly: true
                     type: string
             type: object
         ExternalLink:
-            description: Represents a link to an entity in a different domain.
+            description:
+                Represents a link to an entity in a different domain.
             properties:
                 dateCreated:
-                    description: The external link's creation date.
+                    description:
+                        The external link's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 domain:
-                    description: The external domain.
+                    description:
+                        The external domain.
                     type: string
                 entityId:
-                    description: The unique ID for the entity.
+                    description:
+                        The unique ID for the entity.
                     type: string
                 entityName:
-                    description: The unique classification for the entity.
+                    description:
+                        The unique classification for the entity.
                     type: string
                 key:
-                    description: The external link's key.
+                    description:
+                        The external link's key.
                     readOnly: true
                     type: string
             required:
@@ -394,99 +473,123 @@ components:
                 - entityName
             type: object
         PostalAddress:
-            description: Represents a mailing address. This follows the [`PostalAddress`](https://www.schema.org/PostalAddress) specification.
+            description:
+                Represents a mailing address. This follows the [`PostalAddress`](https://www.schema.org/PostalAddress) specification.
             properties:
                 addressCountry:
-                    description: The address's country (e.g., United States).
+                    description:
+                        The address's country (e.g., United States).
                     type: string
                 addressLocality:
-                    description: The address's locality (e.g., city).
+                    description:
+                        The address's locality (e.g., city).
                     type: string
                 addressRegion:
-                    description: The address's region (e.g., California).
+                    description:
+                        The address's region (e.g., California).
                     type: string
                 addressType:
-                    description: The address's type.
+                    description:
+                        The address's type.
                     type: string
                 id:
-                    description: The address's ID.
+                    description:
+                        The address's ID.
                     format: int64
                     readOnly: true
                     type: integer
                 mailing:
                     default: false
-                    description: A flag that identifies whether this is a mailing addrress.
+                    description:
+                        A flag that identifies whether this is a mailing addrress.
                     type: boolean
                 postalCode:
-                    description: The address's postal code (e.g., zip code).
+                    description:
+                        The address's postal code (e.g., zip code).
                     type: string
                 primary:
                     default: false
-                    description: A flag that identifies whether this is the main address of the user/organization.
+                    description:
+                        A flag that identifies whether this is the main address of the user/organization.
                     type: boolean
                 streetAddressLine1:
-                    description: The street address's first line (e.g., 1600 Amphitheatre Pkwy.).
+                    description:
+                        The street address's first line (e.g., 1600 Amphitheatre Pkwy.).
                     type: string
                 streetAddressLine2:
-                    description: The street address's second line.
+                    description:
+                        The street address's second line.
                     type: string
                 streetAddressLine3:
-                    description: The street address's third line.
+                    description:
+                        The street address's third line.
                     type: string
             type: object
         Product:
-            description: Represents a product.
+            description:
+                Represents a product.
             properties:
                 dateCreated:
-                    description: The product's creation date.
+                    description:
+                        The product's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 dateModified:
-                    description: The most recent time that any of the product's fields changed.
+                    description:
+                        The most recent time that any of the product's fields changed.
                     format: date-time
                     readOnly: true
                     type: string
                 externalLinks:
-                    description: The product's links to entities in external domains.
+                    description:
+                        The product's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
                     readOnly: true
                     type: array
                 key:
-                    description: The product's key.
+                    description:
+                        The product's key.
                     readOnly: true
                     type: string
                 name:
-                    description: The name of the product.
+                    description:
+                        The name of the product.
                     type: string
             required:
                 - name
             type: object
         ProductConsumption:
-            description: Represents a product consumption.
+            description:
+                Represents a product consumption.
             properties:
                 accountKey:
-                    description: The key of the account consuming the product.
+                    description:
+                        The key of the account consuming the product.
                     readOnly: true
                     type: string
                 dateCreated:
-                    description: The product consumption's creation date.
+                    description:
+                        The product consumption's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 externalLinks:
-                    description: The product consumption's links to entities in external domains.
+                    description:
+                        The product consumption's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
                     readOnly: true
                     type: array
                 key:
-                    description: The product consumption's key.
+                    description:
+                        The product consumption's key.
                     readOnly: true
                     type: string
                 productKey:
-                    description: The key of the product being consumed.
+                    description:
+                        The key of the product being consumed.
                     type: string
                 properties:
                     additionalProperties:
@@ -530,42 +633,51 @@ components:
                     type: boolean
             type: object
         ProductPurchase:
-            description: Represents a product purchase.
+            description:
+                Represents a product purchase.
             properties:
                 accountKey:
-                    description: The key of the account purchasing the product.
+                    description:
+                        The key of the account purchasing the product.
                     readOnly: true
                     type: string
                 dateCreated:
-                    description: The product purchase's creation date.
+                    description:
+                        The product purchase's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 endDate:
-                    description: The product purchase's end date.
+                    description:
+                        The product purchase's end date.
                     format: date-time
                     type: string
                 externalLinks:
-                    description: The product purchase's links to entities in external domains.
+                    description:
+                        The product purchase's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
                     readOnly: true
                     type: array
                 key:
-                    description: The product purchase's key.
+                    description:
+                        The product purchase's key.
                     readOnly: true
                     type: string
                 perpetual:
-                    description: A flag that identifies if the product purchase has a start and end date.
+                    description:
+                        A flag that identifies if the product purchase has a start and end date.
                     type: boolean
                 product:
-                    description: The product that is being purchased.
+                    description:
+                        The product that is being purchased.
                     items:
                         $ref: "#/components/schemas/Product"
                     readOnly: true
                     type: object
                 productKey:
-                    description: The key of the product being purchased.
+                    description:
+                        The key of the product being purchased.
                     type: string
                 properties:
                     additionalProperties:
@@ -573,10 +685,12 @@ components:
                     type: object
                 quantity:
                     default: 1
-                    description: The quantity of the product purchased.
+                    description:
+                        The quantity of the product purchased.
                     type: integer
                 startDate:
-                    description: The product purchase's start date.
+                    description:
+                        The product purchase's start date.
                     format: date-time
                     type: string
             required:
@@ -599,40 +713,48 @@ components:
                     type: boolean
             type: object
         Team:
-            description: Represents a team.
+            description:
+                Represents a team.
             properties:
                 accountKey:
-                    description: The team's account's key.
+                    description:
+                        The team's account's key.
                     readOnly: true
                     type: string
                 contacts:
-                    description: The account's contacts.
+                    description:
+                        The account's contacts.
                     items:
                         $ref: "#/components/schemas/Contact"
                     readOnly: true
                     type: array
                 dateCreated:
-                    description: The team's creation date.
+                    description:
+                        The team's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 dateModified:
-                    description: The most recent time that any of the team's fields changed.
+                    description:
+                        The most recent time that any of the team's fields changed.
                     format: date-time
                     readOnly: true
                     type: string
                 externalLinks:
-                    description: The team's links to entities in external domains.
+                    description:
+                        The team's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
                     readOnly: true
                     type: array
                 key:
-                    description: The team's key.
+                    description:
+                        The team's key.
                     readOnly: true
                     type: string
                 name:
-                    description: The name of the team.
+                    description:
+                        The name of the team.
                     type: string
             required:
                 - name
@@ -656,30 +778,37 @@ components:
                     type: boolean
             type: object
         TeamRole:
-            description: Represents a team role.
+            description:
+                Represents a team role.
             properties:
                 dateCreated:
-                    description: The team role's creation date.
+                    description:
+                        The team role's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 dateModified:
-                    description: The most recent time that any of the team role's fields changed.
+                    description:
+                        The most recent time that any of the team role's fields changed.
                     format: date-time
                     readOnly: true
                     type: string
                 description:
-                    description: The description of the team role.
+                    description:
+                        The description of the team role.
                     type: string
                 key:
-                    description: The team role's key.
+                    description:
+                        The team role's key.
                     readOnly: true
                     type: string
                 name:
-                    description: The name of the team role.
+                    description:
+                        The name of the team role.
                     type: string
                 type:
-                    description: The team role's type.
+                    description:
+                        The team role's type.
                     enum: ["Account", "Regular"]
                     type: string
             required:
@@ -705,7 +834,8 @@ components:
                     type: boolean
             type: object
 info:
-    description: ""
+    description:
+        ""
     license:
         name: "Apache 2.0"
         url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -715,7 +845,8 @@ openapi: 3.0.1
 paths:
     "/accounts":
         get:
-            description: Retrieves the accounts. Results can be paginated, filtered, searched, and sorted.
+            description:
+                Retrieves the accounts. Results can be paginated, filtered, searched, and sorted.
             operationId: getAccountsPage
             parameters:
                 - in: query
@@ -751,7 +882,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Account"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         post:
             operationId: postAccount
@@ -773,11 +905,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Account"
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/by-external-link/{domain}/{entityName}/{entityId}":
         get:
-            description: Retrieves the account by the external link.
+            description:
+                Retrieves the account by the external link.
             operationId: getAccountByExternalLinkDomainEntityNameEntity
             parameters:
                 - in: path
@@ -816,11 +950,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Account"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/entitlement-definitions":
         get:
-            description: Retrieves the account entitlement definitions. Results can be paginated, filtered, searched, and sorted.
+            description:
+                Retrieves the account entitlement definitions. Results can be paginated, filtered, searched, and sorted.
             operationId: getAccountEntitlementDefinitionsPage
             parameters:
                 - in: query
@@ -848,7 +984,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/EntitlementDefinition"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["EntitlementDefinition"]
     "/accounts/{accountKey}":
         delete:
@@ -863,10 +1000,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         get:
-            description: Retrieves the account.
+            description:
+                Retrieves the account.
             operationId: getAccount
             parameters:
                 - in: path
@@ -883,7 +1022,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Account"
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         put:
             operationId: putAccount
@@ -911,7 +1051,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Account"
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/{accountKey}/account-permissions":
         delete:
@@ -930,12 +1071,14 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/AccountPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         put:
             operationId: putAccountAccountPermission
@@ -953,16 +1096,19 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/AccountPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/{accountKey}/assigned-teams/{teamKey}/roles":
         delete:
-            description: Unassigns roles from the team for the account.
+            description:
+                Unassigns roles from the team for the account.
             operationId: deleteAccountAssignedTeamTeamKeyRole
             parameters:
                 - in: path
@@ -986,10 +1132,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         get:
-            description: Retrieves the roles of the team for the account.
+            description:
+                Retrieves the roles of the team for the account.
             operationId: getAccountAccountKeyAssignedTeamTeamKeyRolesPage
             parameters:
                 - in: path
@@ -1023,10 +1171,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/TeamRole"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["TeamRole"]
         put:
-            description: Assigns roles to the team for the account.
+            description:
+                Assigns roles to the team for the account.
             operationId: putAccountAssignedTeamTeamKeyRole
             parameters:
                 - in: path
@@ -1050,11 +1200,13 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/{accountKey}/audit-entries":
         get:
-            description: Retrieves the account's audit history.
+            description:
+                Retrieves the account's audit history.
             operationId: getAccountAccountKeyAuditEntriesPage
             parameters:
                 - in: path
@@ -1083,11 +1235,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/AuditEntry"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["AuditEntry"]
     "/accounts/{accountKey}/child-accounts":
         get:
-            description: Retrieves the account's child accounts.
+            description:
+                Retrieves the account's child accounts.
             operationId: getAccountChildAccountsPage
             parameters:
                 - in: path
@@ -1116,7 +1270,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Account"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         post:
             operationId: postAccountChildAccount
@@ -1144,11 +1299,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Account"
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/{accountKey}/contacts":
         get:
-            description: Retrieves the account's contacts.
+            description:
+                Retrieves the account's contacts.
             operationId: getAccountAccountKeyContactsPage
             parameters:
                 - in: path
@@ -1177,11 +1334,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Contact"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
     "/accounts/{accountKey}/contacts/by-okta-id":
         delete:
-            description: Unassigns contacts from the account.
+            description:
+                Unassigns contacts from the account.
             operationId: deleteAccountContactByOkta
             parameters:
                 - in: path
@@ -1200,10 +1359,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         put:
-            description: Assigns contacts to the account.
+            description:
+                Assigns contacts to the account.
             operationId: putAccountContactByOkta
             parameters:
                 - in: path
@@ -1222,11 +1383,13 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles":
         delete:
-            description: Unassigns roles from the contact for the account.
+            description:
+                Unassigns roles from the contact for the account.
             operationId: deleteAccountContactByOktaRole
             parameters:
                 - in: path
@@ -1250,10 +1413,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         get:
-            description: Retrieves the account's contact's contact roles.
+            description:
+                Retrieves the account's contact's contact roles.
             operationId: getAccountAccountKeyContactByOktaRolesPage
             parameters:
                 - in: path
@@ -1287,10 +1452,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ContactRole"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
         put:
-            description: Assigns roles to the contact for the account.
+            description:
+                Assigns roles to the contact for the account.
             operationId: putAccountContactByOktaRole
             parameters:
                 - in: path
@@ -1314,11 +1481,13 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/{accountKey}/contacts/by-uuid":
         delete:
-            description: Unassigns contacts from the account.
+            description:
+                Unassigns contacts from the account.
             operationId: deleteAccountContactByUuid
             parameters:
                 - in: path
@@ -1337,10 +1506,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         put:
-            description: Assigns contacts to the account.
+            description:
+                Assigns contacts to the account.
             operationId: putAccountContactByUuid
             parameters:
                 - in: path
@@ -1359,11 +1530,13 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles":
         delete:
-            description: Unassigns roles from the contact for the account.
+            description:
+                Unassigns roles from the contact for the account.
             operationId: deleteAccountContactByUuidContactUuidRole
             parameters:
                 - in: path
@@ -1387,10 +1560,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
         get:
-            description: Retrieves the account's contact's contact roles.
+            description:
+                Retrieves the account's contact's contact roles.
             operationId: getAccountAccountKeyContactByUuidContactUuidRolesPage
             parameters:
                 - in: path
@@ -1424,10 +1599,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ContactRole"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
         put:
-            description: Assigns roles to the contact for the account.
+            description:
+                Assigns roles to the contact for the account.
             operationId: putAccountContactByUuidContactUuidRole
             parameters:
                 - in: path
@@ -1451,11 +1628,13 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/accounts/{accountKey}/external-links":
         get:
-            description: Retrieves the account's external links.
+            description:
+                Retrieves the account's external links.
             operationId: getAccountAccountKeyExternalLinksPage
             parameters:
                 - in: path
@@ -1484,10 +1663,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ExternalLink"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
         post:
-            description: Adds an external link to the account.
+            description:
+                Adds an external link to the account.
             operationId: postAccountAccountKeyExternalLink
             parameters:
                 - in: path
@@ -1513,11 +1694,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ExternalLink"
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
     "/accounts/{accountKey}/postal-addresses":
         get:
-            description: Retrieves the accounts's postal addresses.
+            description:
+                Retrieves the accounts's postal addresses.
             operationId: getAccountAccountKeyPostalAddressesPage
             parameters:
                 - in: path
@@ -1538,7 +1721,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/PostalAddress"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["PostalAddress"]
         post:
             operationId: postAccountAccountKeyPostalAddress
@@ -1566,11 +1750,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/PostalAddress"
-                    description: ""
+                    description:
+                        ""
             tags: ["PostalAddress"]
     "/accounts/{accountKey}/product-consumptions":
         get:
-            description: Retrieves the account's product consumptions.
+            description:
+                Retrieves the account's product consumptions.
             operationId: getAccountAccountKeyProductConsumptionsPage
             parameters:
                 - in: path
@@ -1599,7 +1785,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductConsumption"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
         post:
             operationId: postAccountAccountKeyProductConsumption
@@ -1627,11 +1814,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ProductConsumption"
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
     "/accounts/{accountKey}/product-purchases":
         get:
-            description: Retrieves the account's product purchases.
+            description:
+                Retrieves the account's product purchases.
             operationId: getAccountAccountKeyProductPurchasesPage
             parameters:
                 - in: path
@@ -1660,7 +1849,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductPurchase"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
         post:
             operationId: postAccountAccountKeyProductPurchase
@@ -1688,11 +1878,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ProductPurchase"
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
     "/accounts/{accountKey}/teams":
         get:
-            description: Retrieves the account's teams.
+            description:
+                Retrieves the account's teams.
             operationId: getAccountAccountKeyTeamsPage
             parameters:
                 - in: path
@@ -1721,7 +1913,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Team"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
         post:
             operationId: postAccountAccountKeyTeam
@@ -1749,11 +1942,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Team"
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
     "/audit-entries/{auditEntryKey}":
         get:
-            description: Retrieves the audit entry.
+            description:
+                Retrieves the audit entry.
             operationId: getAuditEntry
             parameters:
                 - in: path
@@ -1770,11 +1965,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/AuditEntry"
-                    description: ""
+                    description:
+                        ""
             tags: ["AuditEntry"]
     "/contact-roles":
         get:
-            description: Retrieves the contact roles. Results can be paginated, filtered, searched, and sorted.
+            description:
+                Retrieves the contact roles. Results can be paginated, filtered, searched, and sorted.
             operationId: getContactRolesPage
             parameters:
                 - in: query
@@ -1810,7 +2007,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ContactRole"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
         post:
             operationId: postContactRole
@@ -1832,7 +2030,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ContactRole"
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
     "/contact-roles/{contactRoleKey}":
         delete:
@@ -1847,10 +2046,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
         get:
-            description: Retrieves the contact role.
+            description:
+                Retrieves the contact role.
             operationId: getContactRole
             parameters:
                 - in: path
@@ -1867,7 +2068,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ContactRole"
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
         put:
             operationId: putContactRole
@@ -1895,11 +2097,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ContactRole"
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
     "/contact-roles/{contactRoleKey}/audit-entries":
         get:
-            description: Retrieves the contact role's audit history.
+            description:
+                Retrieves the contact role's audit history.
             operationId: getContactRoleContactRoleKeyAuditEntriesPage
             parameters:
                 - in: path
@@ -1928,7 +2132,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/AuditEntry"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["AuditEntry"]
     "/contact-roles/{contactRoleKey}/contact-role-permissions":
         delete:
@@ -1947,12 +2152,14 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ContactRolePermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
         put:
             operationId: putContactRoleContactRolePermission
@@ -1970,16 +2177,19 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ContactRolePermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
     "/contacts":
         get:
-            description: Retrieves the contacts. Results can be paginated, filtered, searched, and sorted.
+            description:
+                Retrieves the contacts. Results can be paginated, filtered, searched, and sorted.
             operationId: getContactsPage
             parameters:
                 - in: query
@@ -2015,7 +2225,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Contact"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
         post:
             operationId: postContact
@@ -2037,7 +2248,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Contact"
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
     "/contacts/by-email-address/{emailAddress}":
         delete:
@@ -2052,10 +2264,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
         get:
-            description: Retrieves the contact.
+            description:
+                Retrieves the contact.
             operationId: getContactByEmailAddresEmailAddress
             parameters:
                 - in: path
@@ -2072,7 +2286,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Contact"
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
         put:
             operationId: putContactByEmailAddresEmailAddress
@@ -2100,7 +2315,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Contact"
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
     "/contacts/by-okta-id/{oktaId}":
         delete:
@@ -2115,10 +2331,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
         get:
-            description: Retrieves the contact.
+            description:
+                Retrieves the contact.
             operationId: getContactByOkta
             parameters:
                 - in: path
@@ -2135,7 +2353,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Contact"
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
         put:
             operationId: putContactByOkta
@@ -2163,11 +2382,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Contact"
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
     "/contacts/by-okta-id/{oktaId}/audit-entries":
         get:
-            description: Retrieves the contact's audit history.
+            description:
+                Retrieves the contact's audit history.
             operationId: getContactByOktaAuditEntriesPage
             parameters:
                 - in: path
@@ -2196,7 +2417,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/AuditEntry"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["AuditEntry"]
     "/contacts/by-okta-id/{oktaId}/contact-permissions":
         delete:
@@ -2215,12 +2437,14 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ContactPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
         put:
             operationId: putContactByOktaContactPermission
@@ -2238,16 +2462,19 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ContactPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
     "/contacts/by-okta-id/{oktaId}/external-links":
         get:
-            description: Retrieves the contact's external links.
+            description:
+                Retrieves the contact's external links.
             operationId: getContactByOktaExternalLinksPage
             parameters:
                 - in: path
@@ -2276,10 +2503,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ExternalLink"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
         post:
-            description: Adds an external link to the contact.
+            description:
+                Adds an external link to the contact.
             operationId: postContactByOktaExternalLink
             parameters:
                 - in: path
@@ -2305,11 +2534,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ExternalLink"
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
     "/contacts/by-okta-id/{oktaId}/product-consumptions":
         get:
-            description: Retrieves the contacts product consumptions.
+            description:
+                Retrieves the contacts product consumptions.
             operationId: getContactByOktaProductConsumptionsPage
             parameters:
                 - in: path
@@ -2338,11 +2569,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductConsumption"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
     "/contacts/by-okta-id/{oktaId}/product-purchases":
         get:
-            description: Retrieves the contacts product purchases.
+            description:
+                Retrieves the contacts product purchases.
             operationId: getContactByOktaProductPurchasesPage
             parameters:
                 - in: path
@@ -2371,7 +2604,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductPurchase"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
     "/contacts/by-uuid/{contactUuid}":
         delete:
@@ -2386,10 +2620,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
         get:
-            description: Retrieves the contact.
+            description:
+                Retrieves the contact.
             operationId: getContactByUuidContactUuid
             parameters:
                 - in: path
@@ -2406,7 +2642,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Contact"
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
         put:
             operationId: putContactByUuidContactUuid
@@ -2434,11 +2671,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Contact"
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
     "/contacts/by-uuid/{contactUuid}/audit-entries":
         get:
-            description: Retrieves the contact's audit history.
+            description:
+                Retrieves the contact's audit history.
             operationId: getContactByUuidContactUuidAuditEntriesPage
             parameters:
                 - in: path
@@ -2467,7 +2706,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/AuditEntry"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["AuditEntry"]
     "/contacts/by-uuid/{contactUuid}/contact-permissions":
         delete:
@@ -2486,12 +2726,14 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ContactPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
         put:
             operationId: putContactByUuidContactUuidContactPermission
@@ -2509,16 +2751,19 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ContactPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
     "/contacts/by-uuid/{contactUuid}/external-links":
         get:
-            description: Retrieves the contact's external links.
+            description:
+                Retrieves the contact's external links.
             operationId: getContactByUuidContactUuidExternalLinksPage
             parameters:
                 - in: path
@@ -2547,10 +2792,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ExternalLink"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
         post:
-            description: Adds an external link to the contact.
+            description:
+                Adds an external link to the contact.
             operationId: postContactByUuidContactUuidExternalLink
             parameters:
                 - in: path
@@ -2576,11 +2823,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ExternalLink"
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
     "/contacts/by-uuid/{contactUuid}/product-consumptions":
         get:
-            description: Retrieves the contacts product consumptions.
+            description:
+                Retrieves the contacts product consumptions.
             operationId: getContactByUuidContactUuidProductConsumptionsPage
             parameters:
                 - in: path
@@ -2609,11 +2858,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductConsumption"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
     "/contacts/by-uuid/{contactUuid}/product-purchases":
         get:
-            description: Retrieves the contacts product purchases.
+            description:
+                Retrieves the contacts product purchases.
             operationId: getContactByUuidContactUuidProductPurchasesPage
             parameters:
                 - in: path
@@ -2642,11 +2893,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductPurchase"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
     "/contacts/entitlement-definitions":
         get:
-            description: Retrieves the contact entitlement definitions.
+            description:
+                Retrieves the contact entitlement definitions.
             operationId: getContactEntitlementDefinitionsPage
             parameters:
                 - in: query
@@ -2674,11 +2927,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/EntitlementDefinition"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["EntitlementDefinition"]
     "/entitlement-definitions/{entitlementDefinitionKey}":
         get:
-            description: Retrieves the entitlement definition.
+            description:
+                Retrieves the entitlement definition.
             operationId: getEntitlementDefinition
             parameters:
                 - in: path
@@ -2695,7 +2950,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/EntitlementDefinition"
-                    description: ""
+                    description:
+                        ""
             tags: ["EntitlementDefinition"]
     "/external-links/{externalLinkKey}":
         delete:
@@ -2710,10 +2966,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
         get:
-            description: Retrieves the external link.
+            description:
+                Retrieves the external link.
             operationId: getExternalLink
             parameters:
                 - in: path
@@ -2730,7 +2988,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ExternalLink"
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
     "/postal-addresses/{postalAddressId}":
         delete:
@@ -2746,10 +3005,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["PostalAddress"]
         get:
-            description: Retrieves the postal address.
+            description:
+                Retrieves the postal address.
             operationId: getPostalAddress
             parameters:
                 - in: path
@@ -2767,7 +3028,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/PostalAddress"
-                    description: ""
+                    description:
+                        ""
             tags: ["PostalAddress"]
         put:
             operationId: putPostalAddress
@@ -2796,11 +3058,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/PostalAddress"
-                    description: ""
+                    description:
+                        ""
             tags: ["PostalAddress"]
     "/product-consumptions":
         get:
-            description: Retrieves the product consumptions. Results can be paginated, filtered, searched, and sorted.
+            description:
+                Retrieves the product consumptions. Results can be paginated, filtered, searched, and sorted.
             operationId: getProductConsumptionsPage
             parameters:
                 - in: query
@@ -2836,11 +3100,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductConsumption"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
     "/product-consumptions/by-external-link/{domain}/{entityName}/{entityId}":
         get:
-            description: Retrieves the product consumptions by the external link.
+            description:
+                Retrieves the product consumptions by the external link.
             operationId: getProductConsumptionByExternalLinkDomainEntityNameEntity
             parameters:
                 - in: path
@@ -2879,7 +3145,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductConsumption"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
     "/product-consumptions/{productConsumptionKey}":
         delete:
@@ -2894,10 +3161,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
         get:
-            description: Retrieves the product consumption.
+            description:
+                Retrieves the product consumption.
             operationId: getProductConsumption
             parameters:
                 - in: path
@@ -2914,11 +3183,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ProductConsumption"
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
     "/product-consumptions/{productConsumptionKey}/external-links":
         get:
-            description: Retrieves the product consumption's external links.
+            description:
+                Retrieves the product consumption's external links.
             operationId: getProductConsumptionProductConsumptionKeyExternalLinksPage
             parameters:
                 - in: path
@@ -2947,10 +3218,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ExternalLink"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
         post:
-            description: Adds an external link to the product consumption.
+            description:
+                Adds an external link to the product consumption.
             operationId: postProductConsumptionProductConsumptionKeyExternalLink
             parameters:
                 - in: path
@@ -2976,7 +3249,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ExternalLink"
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
     "/product-consumptions/{productConsumptionKey}/product-consumption-permissions":
         delete:
@@ -2995,12 +3269,14 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ProductConsumptionPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
         put:
             operationId: putProductConsumptionProductConsumptionPermission
@@ -3018,16 +3294,19 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ProductConsumptionPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductConsumption"]
     "/product-purchases":
         get:
-            description: Retrieves the product purchases. Results can be paginated, filtered, searched, and sorted.
+            description:
+                Retrieves the product purchases. Results can be paginated, filtered, searched, and sorted.
             operationId: getProductPurchasesPage
             parameters:
                 - in: query
@@ -3063,11 +3342,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductPurchase"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
     "/product-purchases/by-external-link/{domain}/{entityName}/{entityId}":
         get:
-            description: Retrieves the product purchases by the external link.
+            description:
+                Retrieves the product purchases by the external link.
             operationId: getProductPurchaseByExternalLinkDomainEntityNameEntity
             parameters:
                 - in: path
@@ -3106,7 +3387,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ProductPurchase"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
     "/product-purchases/{productPurchaseKey}":
         delete:
@@ -3121,10 +3403,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
         get:
-            description: Retrieves the product purchase.
+            description:
+                Retrieves the product purchase.
             operationId: getProductPurchase
             parameters:
                 - in: path
@@ -3141,7 +3425,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ProductPurchase"
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
         put:
             operationId: putProductPurchase
@@ -3169,11 +3454,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ProductPurchase"
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
     "/product-purchases/{productPurchaseKey}/external-links":
         get:
-            description: Retrieves the product purchase's external links.
+            description:
+                Retrieves the product purchase's external links.
             operationId: getProductPurchaseProductPurchaseKeyExternalLinksPage
             parameters:
                 - in: path
@@ -3202,10 +3489,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ExternalLink"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
         post:
-            description: Adds an external link to the product purchase.
+            description:
+                Adds an external link to the product purchase.
             operationId: postProductPurchaseProductPurchaseKeyExternalLink
             parameters:
                 - in: path
@@ -3231,7 +3520,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ExternalLink"
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
     "/product-purchases/{productPurchaseKey}/product-purchase-permissions":
         delete:
@@ -3250,12 +3540,14 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ProductPurchasePermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
         put:
             operationId: putProductPurchaseProductPurchasePermission
@@ -3273,16 +3565,19 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ProductPurchasePermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["ProductPurchase"]
     "/products":
         get:
-            description: Retrieves the products. Results can be paginated, filtered, searched, and sorted.
+            description:
+                Retrieves the products. Results can be paginated, filtered, searched, and sorted.
             operationId: getProductsPage
             parameters:
                 - in: query
@@ -3318,7 +3613,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Product"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Product"]
         post:
             operationId: postProduct
@@ -3340,11 +3636,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Product"
-                    description: ""
+                    description:
+                        ""
             tags: ["Product"]
     "/products/by-external-link/{domain}/{entityName}/{entityId}":
         get:
-            description: Retrieves the products by the external link.
+            description:
+                Retrieves the products by the external link.
             operationId: getProductByExternalLinkDomainEntityNameEntity
             parameters:
                 - in: path
@@ -3383,7 +3681,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Product"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Product"]
     "/products/{productKey}":
         delete:
@@ -3398,10 +3697,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Product"]
         get:
-            description: Retrieves the product.
+            description:
+                Retrieves the product.
             operationId: getProduct
             parameters:
                 - in: path
@@ -3418,7 +3719,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Product"
-                    description: ""
+                    description:
+                        ""
             tags: ["Product"]
         put:
             operationId: putProduct
@@ -3446,11 +3748,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Product"
-                    description: ""
+                    description:
+                        ""
             tags: ["Product"]
     "/products/{productKey}/external-links":
         get:
-            description: Retrieves the product's external links.
+            description:
+                Retrieves the product's external links.
             operationId: getProductProductKeyExternalLinksPage
             parameters:
                 - in: path
@@ -3479,10 +3783,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ExternalLink"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
         post:
-            description: Adds an external link to the product.
+            description:
+                Adds an external link to the product.
             operationId: postProductProductKeyExternalLink
             parameters:
                 - in: path
@@ -3508,7 +3814,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ExternalLink"
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
     "/products/{productKey}/product-permissions":
         delete:
@@ -3527,12 +3834,14 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ProducePermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Product"]
         put:
             operationId: putProductProductPermission
@@ -3550,16 +3859,19 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/ProducePermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Product"]
     "/team-roles":
         get:
-            description: Retrieves the team roles. Results can be paginated, filtered, searched, and sorted.
+            description:
+                Retrieves the team roles. Results can be paginated, filtered, searched, and sorted.
             operationId: getTeamRolesPage
             parameters:
                 - in: query
@@ -3595,7 +3907,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/TeamRole"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["TeamRole"]
         post:
             operationId: postTeamRole
@@ -3617,7 +3930,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/TeamRole"
-                    description: ""
+                    description:
+                        ""
             tags: ["TeamRole"]
     "/team-roles/{teamRoleKey}":
         delete:
@@ -3632,10 +3946,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["TeamRole"]
         get:
-            description: Retrieves the team role.
+            description:
+                Retrieves the team role.
             operationId: getTeamRole
             parameters:
                 - in: path
@@ -3652,7 +3968,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/TeamRole"
-                    description: ""
+                    description:
+                        ""
             tags: ["TeamRole"]
         put:
             operationId: putTeamRole
@@ -3680,11 +3997,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/TeamRole"
-                    description: ""
+                    description:
+                        ""
             tags: ["TeamRole"]
     "/team-roles/{teamRoleKey}/audit-entries":
         get:
-            description: Retrieves the team role's audit history.
+            description:
+                Retrieves the team role's audit history.
             operationId: getTeamRoleTeamRoleKeyAuditEntriesPage
             parameters:
                 - in: path
@@ -3713,7 +4032,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/AuditEntry"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["AuditEntry"]
     "/team-roles/{teamRoleKey}/team-role-permissions":
         delete:
@@ -3732,12 +4052,14 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/TeamRolePermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["TeamRole"]
         put:
             operationId: putTeamRoleTeamRolePermission
@@ -3755,16 +4077,19 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/TeamRolePermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["TeamRole"]
     "/teams":
         get:
-            description: Retrieves the teams. Results can be paginated, filtered, searched, and sorted.
+            description:
+                Retrieves the teams. Results can be paginated, filtered, searched, and sorted.
             operationId: getTeamsPage
             parameters:
                 - in: query
@@ -3800,11 +4125,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Team"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
     "/teams/by-external-link/{domain}/{entityName}/{entityId}":
         get:
-            description: Retrieves the team by the external link.
+            description:
+                Retrieves the team by the external link.
             operationId: getTeamByExternalLinkDomainEntityNameEntity
             parameters:
                 - in: path
@@ -3843,7 +4170,8 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Team"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
     "/teams/{teamKey}":
         delete:
@@ -3858,10 +4186,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
         get:
-            description: Retrieves the team.
+            description:
+                Retrieves the team.
             operationId: getTeam
             parameters:
                 - in: path
@@ -3878,7 +4208,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Team"
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
         put:
             operationId: putTeam
@@ -3906,11 +4237,13 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Team"
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
     "/teams/{teamKey}/assigned-accounts":
         get:
-            description: Retrieves the team's assigned accounts.
+            description:
+                Retrieves the team's assigned accounts.
             operationId: getTeamTeamKeyAssignedAccountsPage
             parameters:
                 - in: path
@@ -3939,11 +4272,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Account"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Account"]
     "/teams/{teamKey}/audit-entries":
         get:
-            description: Retrieves the team's audit history.
+            description:
+                Retrieves the team's audit history.
             operationId: getTeamTeamKeyAuditEntriesPage
             parameters:
                 - in: path
@@ -3972,11 +4307,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/AuditEntry"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["AuditEntry"]
     "/teams/{teamKey}/contacts":
         get:
-            description: Retrieves the team's contacts.
+            description:
+                Retrieves the team's contacts.
             operationId: getTeamTeamKeyContactsPage
             parameters:
                 - in: path
@@ -4005,11 +4342,13 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Contact"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["Contact"]
     "/teams/{teamKey}/contacts/by-okta-id":
         delete:
-            description: Unassigns contacts from the team.
+            description:
+                Unassigns contacts from the team.
             operationId: deleteTeamContactByOkta
             parameters:
                 - in: path
@@ -4028,10 +4367,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
         put:
-            description: Assigns contacts to the team.
+            description:
+                Assigns contacts to the team.
             operationId: putTeamContactByOkta
             parameters:
                 - in: path
@@ -4050,11 +4391,13 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
     "/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles":
         delete:
-            description: Unassigns roles from the contact for the team.
+            description:
+                Unassigns roles from the contact for the team.
             operationId: deleteTeamContactByOktaRole
             parameters:
                 - in: path
@@ -4078,10 +4421,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
         get:
-            description: Retrieves the team's contact's contact roles.
+            description:
+                Retrieves the team's contact's contact roles.
             operationId: getTeamTeamKeyContactByOktaRolesPage
             parameters:
                 - in: path
@@ -4115,10 +4460,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ContactRole"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
         put:
-            description: Assigns roles to the contact for the team.
+            description:
+                Assigns roles to the contact for the team.
             operationId: putTeamContactByOktaRole
             parameters:
                 - in: path
@@ -4142,11 +4489,13 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
     "/teams/{teamKey}/contacts/by-uuid":
         delete:
-            description: Unassigns contacts from the team.
+            description:
+                Unassigns contacts from the team.
             operationId: deleteTeamContactByUuid
             parameters:
                 - in: path
@@ -4165,10 +4514,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
         put:
-            description: Assigns contacts to the team.
+            description:
+                Assigns contacts to the team.
             operationId: putTeamContactByUuid
             parameters:
                 - in: path
@@ -4187,11 +4538,13 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
     "/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles":
         delete:
-            description: Unassigns roles from the contact for the team.
+            description:
+                Unassigns roles from the contact for the team.
             operationId: deleteTeamContactByUuidContactUuidRole
             parameters:
                 - in: path
@@ -4215,10 +4568,12 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
         get:
-            description: Retrieves the team's contact's contact roles.
+            description:
+                Retrieves the team's contact's contact roles.
             operationId: getTeamTeamKeyContactByUuidContactUuidRolesPage
             parameters:
                 - in: path
@@ -4252,10 +4607,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ContactRole"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ContactRole"]
         put:
-            description: Assigns roles to the contact for the team.
+            description:
+                Assigns roles to the contact for the team.
             operationId: putTeamContactByUuidContactUuidRole
             parameters:
                 - in: path
@@ -4279,11 +4636,13 @@ paths:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
     "/teams/{teamKey}/external-links":
         get:
-            description: Retrieves the team's external links.
+            description:
+                Retrieves the team's external links.
             operationId: getTeamTeamKeyExternalLinksPage
             parameters:
                 - in: path
@@ -4312,10 +4671,12 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/ExternalLink"
                                 type: array
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
         post:
-            description: Adds an external link to the team.
+            description:
+                Adds an external link to the team.
             operationId: postTeamTeamKeyExternalLink
             parameters:
                 - in: path
@@ -4341,7 +4702,8 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ExternalLink"
-                    description: ""
+                    description:
+                        ""
             tags: ["ExternalLink"]
     "/teams/{teamKey}/team-permissions":
         delete:
@@ -4360,12 +4722,14 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/TeamPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
         put:
             operationId: putTeamTeamPermission
@@ -4383,10 +4747,12 @@ paths:
                     application/xml:
                         schema:
                             $ref: "#/components/schemas/TeamPermission"
-                description: ""
+                description:
+                    ""
             responses:
                 204:
                     content:
                         application/json: {}
-                    description: ""
+                    description:
+                        ""
             tags: ["Team"]
