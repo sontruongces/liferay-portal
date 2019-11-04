@@ -34,5 +34,5 @@ dependencies {
 	compileOnly group: "org.osgi", name: "org.osgi.service.component", version: "1.3.0"
 	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations", version: "1.3.0"
 	compileOnly group: "org.osgi", name: "osgi.core", version: "6.0.0"
-	compileOnly project(":apps:data-engine:data-engine-rest-api")
+	compileOnly group: "com.liferay", name: "com.liferay.data.engine.rest.api", version: "10.0.0"
 }

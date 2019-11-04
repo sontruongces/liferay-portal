@@ -10,7 +10,7 @@ dependencies {
 
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
 	compileOnly group: "com.liferay", name: "com.liferay.data.engine.api", version: "2.0.0"
-	compileOnly group: "com.liferay", name: "com.liferay.data.engine.rest.api", version: "9.0.0"
+	compileOnly group: "com.liferay", name: "com.liferay.data.engine.rest.api", version: "10.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.data.engine.spi", version: "3.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.dynamic.data.mapping.api", version: "5.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.frontend.editor.taglib", version: "2.0.0"
