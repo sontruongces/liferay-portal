@@ -166,7 +166,7 @@ public class Contact {
 	@NotEmpty
 	protected String emailAddress;
 
-	@Schema(description = "The account's entitlements.")
+	@Schema(description = "The contact's entitlements.")
 	public Entitlement[] getEntitlements() {
 		return entitlements;
 	}

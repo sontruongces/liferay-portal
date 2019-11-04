@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.EntitlementDefinition;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.json.BaseJSONParser;
 
 import java.text.DateFormat;
@@ -25,6 +26,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Generated;
 
@@ -121,6 +123,30 @@ public class EntitlementDefinitionSerDes {
 			sb.append("\"");
 		}
 
+		if (entitlementDefinition.getExternalLinks() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"externalLinks\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < entitlementDefinition.getExternalLinks().length;
+				 i++) {
+
+				sb.append(
+					String.valueOf(
+						entitlementDefinition.getExternalLinks()[i]));
+
+				if ((i + 1) < entitlementDefinition.getExternalLinks().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (entitlementDefinition.getKey() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -213,6 +239,15 @@ public class EntitlementDefinitionSerDes {
 			map.put(
 				"description",
 				String.valueOf(entitlementDefinition.getDescription()));
+		}
+
+		if (entitlementDefinition.getExternalLinks() == null) {
+			map.put("externalLinks", null);
+		}
+		else {
+			map.put(
+				"externalLinks",
+				String.valueOf(entitlementDefinition.getExternalLinks()));
 		}
 
 		if (entitlementDefinition.getKey() == null) {
@@ -317,6 +352,18 @@ public class EntitlementDefinitionSerDes {
 				if (jsonParserFieldValue != null) {
 					entitlementDefinition.setDescription(
 						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "externalLinks")) {
+				if (jsonParserFieldValue != null) {
+					entitlementDefinition.setExternalLinks(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> ExternalLinkSerDes.toDTO((String)object)
+						).toArray(
+							size -> new ExternalLink[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "key")) {

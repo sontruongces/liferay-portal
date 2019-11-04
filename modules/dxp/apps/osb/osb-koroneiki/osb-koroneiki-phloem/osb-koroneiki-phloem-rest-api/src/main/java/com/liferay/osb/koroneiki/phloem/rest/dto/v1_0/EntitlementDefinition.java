@@ -83,7 +83,7 @@ public class EntitlementDefinition {
 
 	}
 
-	@Schema(description = "The contact role's creation date.")
+	@Schema(description = "The entitlement definition's creation date.")
 	public Date getDateCreated() {
 		return dateCreated;
 	}
@@ -112,7 +112,7 @@ public class EntitlementDefinition {
 	protected Date dateCreated;
 
 	@Schema(
-		description = "The most recent time that any of the contact role's fields changed."
+		description = "The most recent time that any of the entitlement definition's fields changed."
 	)
 	public Date getDateModified() {
 		return dateModified;
@@ -198,6 +198,36 @@ public class EntitlementDefinition {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String description;
+
+	@Schema(
+		description = "The entitlement definition's links to entities in external domains."
+	)
+	public ExternalLink[] getExternalLinks() {
+		return externalLinks;
+	}
+
+	public void setExternalLinks(ExternalLink[] externalLinks) {
+		this.externalLinks = externalLinks;
+	}
+
+	@JsonIgnore
+	public void setExternalLinks(
+		UnsafeSupplier<ExternalLink[], Exception> externalLinksUnsafeSupplier) {
+
+		try {
+			externalLinks = externalLinksUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected ExternalLink[] externalLinks;
 
 	@Schema(description = "The entitlement definition's key.")
 	public String getKey() {
@@ -373,6 +403,26 @@ public class EntitlementDefinition {
 			sb.append(_escape(description));
 
 			sb.append("\"");
+		}
+
+		if (externalLinks != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"externalLinks\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < externalLinks.length; i++) {
+				sb.append(String.valueOf(externalLinks[i]));
+
+				if ((i + 1) < externalLinks.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (key != null) {

@@ -470,6 +470,14 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("externalLinks", additionalAssertFieldName)) {
+				if (entitlementDefinition.getExternalLinks() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("key", additionalAssertFieldName)) {
 				if (entitlementDefinition.getKey() == null) {
 					valid = false;
@@ -576,6 +584,17 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 				if (!Objects.deepEquals(
 						entitlementDefinition1.getDescription(),
 						entitlementDefinition2.getDescription())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("externalLinks", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						entitlementDefinition1.getExternalLinks(),
+						entitlementDefinition2.getExternalLinks())) {
 
 					return false;
 				}
@@ -758,6 +777,11 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("externalLinks")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("key")) {
