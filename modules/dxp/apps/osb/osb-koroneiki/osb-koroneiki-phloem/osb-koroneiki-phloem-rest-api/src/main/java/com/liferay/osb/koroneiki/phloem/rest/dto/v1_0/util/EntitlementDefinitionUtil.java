@@ -15,6 +15,8 @@
 package com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.EntitlementDefinition;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
+import com.liferay.portal.vulcan.util.TransformUtil;
 
 /**
  * @author Amos Fong
@@ -32,6 +34,9 @@ public class EntitlementDefinitionUtil {
 				dateModified = entitlementDefinition.getModifiedDate();
 				definition = entitlementDefinition.getDefinition();
 				description = entitlementDefinition.getDescription();
+				externalLinks = TransformUtil.transformToArray(
+					entitlementDefinition.getExternalLinks(),
+					ExternalLinkUtil::toExternalLink, ExternalLink.class);
 				key = entitlementDefinition.getEntitlementDefinitionKey();
 				name = entitlementDefinition.getName();
 				status = Status.create(entitlementDefinition.getStatusLabel());

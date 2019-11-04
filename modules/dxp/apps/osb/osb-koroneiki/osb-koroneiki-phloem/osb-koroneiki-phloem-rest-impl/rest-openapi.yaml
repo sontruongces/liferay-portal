@@ -403,13 +403,13 @@ components:
             properties:
                 dateCreated:
                     description:
-                        The contact role's creation date.
+                        The entitlement definition's creation date.
                     format: date-time
                     readOnly: true
                     type: string
                 dateModified:
                     description:
-                        The most recent time that any of the contact role's fields changed.
+                        The most recent time that any of the entitlement definition's fields changed.
                     format: date-time
                     readOnly: true
                     type: string
@@ -423,6 +423,13 @@ components:
                         The description of the entitlement.
                     readOnly: true
                     type: string
+                externalLinks:
+                    description:
+                        The entitlement definition's links to entities in external domains.
+                    items:
+                        $ref: "#/components/schemas/ExternalLink"
+                    readOnly: true
+                    type: array
                 key:
                     description:
                         The entitlement definition's key.
