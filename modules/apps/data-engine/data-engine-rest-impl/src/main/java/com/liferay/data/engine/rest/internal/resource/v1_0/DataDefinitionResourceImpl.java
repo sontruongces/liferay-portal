@@ -137,7 +137,7 @@ public class DataDefinitionResourceImpl
 	}
 
 	@Override
-	public String getDataDefinitionDataDefinitionFieldFieldType()
+	public String getDataDefinitionDataDefinitionFieldFieldTypes()
 		throws Exception {
 
 		JSONArray jsonArray = _jsonFactory.createJSONArray();
