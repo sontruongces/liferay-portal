@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.phytohormone.model.impl;
 import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
+import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 
 import java.util.List;
@@ -33,6 +34,10 @@ public class EntitlementDefinitionImpl extends EntitlementDefinitionBaseImpl {
 		return ExternalLinkLocalServiceUtil.getExternalLinks(
 			EntitlementDefinition.class.getName(), getEntitlementDefinitionId(),
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	}
+
+	public String getStatusLabel() {
+		return WorkflowConstants.getStatusLabel(getStatus());
 	}
 
 }

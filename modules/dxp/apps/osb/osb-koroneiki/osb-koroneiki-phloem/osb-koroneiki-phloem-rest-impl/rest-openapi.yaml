@@ -818,6 +818,38 @@ paths:
                                 type: array
                     description: ""
             tags: ["Account"]
+    "/accounts/entitlement-definitions":
+        get:
+            description: Retrieves the account entitlement definitions. Results can be paginated, filtered, searched, and sorted.
+            operationId: getAccountEntitlementDefinitionsPage
+            parameters:
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/EntitlementDefinition"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/EntitlementDefinition"
+                                type: array
+                    description: ""
+            tags: ["EntitlementDefinition"]
     "/accounts/{accountKey}":
         delete:
             operationId: deleteAccount
@@ -2612,6 +2644,59 @@ paths:
                                 type: array
                     description: ""
             tags: ["ProductPurchase"]
+    "/contacts/entitlement-definitions":
+        get:
+            description: Retrieves the contact entitlement definitions.
+            operationId: getContactEntitlementDefinitionsPage
+            parameters:
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/EntitlementDefinition"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/EntitlementDefinition"
+                                type: array
+                    description: ""
+            tags: ["EntitlementDefinition"]
+    "/entitlement-definitions/{entitlementDefinitionKey}":
+        get:
+            description: Retrieves the entitlement definition.
+            operationId: getEntitlementDefinition
+            parameters:
+                - in: path
+                  name: entitlementDefinitionKey
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/EntitlementDefinition"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/EntitlementDefinition"
+                    description: ""
+            tags: ["EntitlementDefinition"]
     "/external-links/{externalLinkKey}":
         delete:
             operationId: deleteExternalLink

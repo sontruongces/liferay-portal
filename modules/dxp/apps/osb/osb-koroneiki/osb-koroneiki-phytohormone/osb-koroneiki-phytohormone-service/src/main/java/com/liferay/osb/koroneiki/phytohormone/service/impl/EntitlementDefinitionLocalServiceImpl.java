@@ -86,6 +86,14 @@ public class EntitlementDefinitionLocalServiceImpl
 		return entitlementDefinitionPersistence.remove(entitlementDefinition);
 	}
 
+	public EntitlementDefinition getEntitlementDefinition(
+			String entitlementDefinitionKey)
+		throws PortalException {
+
+		return entitlementDefinitionPersistence.findByEntitlementDefinitionKey(
+			entitlementDefinitionKey);
+	}
+
 	public List<EntitlementDefinition> getEntitlementDefinitions(
 		long classNameId, int status) {
 

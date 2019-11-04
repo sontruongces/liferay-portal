@@ -43,6 +43,9 @@ public class ContactEntityModel implements EntityModel {
 				locale -> "emailAddress", String::valueOf),
 			new CollectionEntityField(
 				new StringEntityField(
+					"entitlements", locale -> "entitlements")),
+			new CollectionEntityField(
+				new StringEntityField(
 					"externalLinkDomains", locale -> "externalLinkDomains")),
 			new CollectionEntityField(
 				new StringEntityField(
