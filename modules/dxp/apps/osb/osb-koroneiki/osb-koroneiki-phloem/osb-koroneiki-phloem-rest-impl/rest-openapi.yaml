@@ -28,6 +28,12 @@ components:
                 description:
                     description: The description of the account.
                     type: string
+                entitlements:
+                    description: The account's entitlements.
+                    items:
+                        $ref: "#/components/schemas/Entitlement"
+                    readOnly: true
+                    type: array
                 externalLinks:
                     description: The account's links to entities in external domains.
                     items:
@@ -206,6 +212,12 @@ components:
                 emailAddress:
                     description: The email address of the contact.
                     type: string
+                entitlements:
+                    description: The contact's entitlements.
+                    items:
+                        $ref: "#/components/schemas/Entitlement"
+                    readOnly: true
+                    type: array
                 externalLinks:
                     description: The account's links to entities in external domains.
                     items:
@@ -307,6 +319,53 @@ components:
                     type: boolean
                 view:
                     type: boolean
+            type: object
+        Entitlement:
+            description: Represents products/services an account or contact is entitled to receive.
+            properties:
+                entitlementDefinitionKey:
+                    description: The key of the entitlement's definition.
+                    readOnly: true
+                    type: string
+                name:
+                    description: The name of the entitlement.
+                    readOnly: true
+                    type: string
+            type: object
+        EntitlementDefinition:
+            description: A definition of what an entitlement is.
+            properties:
+                dateCreated:
+                    description: The contact role's creation date.
+                    format: date-time
+                    readOnly: true
+                    type: string
+                dateModified:
+                    description: The most recent time that any of the contact role's fields changed.
+                    format: date-time
+                    readOnly: true
+                    type: string
+                definition:
+                    description: Defines who has access to the entitlement using SQL.
+                    readOnly: true
+                    type: string
+                description:
+                    description: The description of the entitlement.
+                    readOnly: true
+                    type: string
+                key:
+                    description: The entitlement definition's key.
+                    readOnly: true
+                    type: string
+                name:
+                    description: The name of the entitlement.
+                    readOnly: true
+                    type: string
+                status:
+                    description: The status of the entitlement definition.
+                    enum: ["Approved", "Inactive"]
+                    readOnly: true
+                    type: string
             type: object
         ExternalLink:
             description: Represents a link to an entity in a different domain.

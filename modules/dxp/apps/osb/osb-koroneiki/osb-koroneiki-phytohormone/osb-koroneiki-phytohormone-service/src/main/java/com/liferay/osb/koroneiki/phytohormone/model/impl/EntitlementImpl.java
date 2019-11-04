@@ -33,4 +33,11 @@ public class EntitlementImpl extends EntitlementBaseImpl {
 			getEntitlementDefinitionId());
 	}
 
+	public String getEntitlementDefinitionKey() throws PortalException {
+		EntitlementDefinition entitlementDefinition =
+			getEntitlementDefinition();
+
+		return entitlementDefinition.getEntitlementDefinitionKey();
+	}
+
 }

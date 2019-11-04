@@ -88,6 +88,15 @@ renderResponse.setTitle((entitlementDefinition == null) ? LanguageUtil.get(reque
 	<aui:button-row>
 		<aui:button type="submit" />
 
+		<c:if test="<%= entitlementDefinition != null %>">
+			<portlet:actionURL name="/entitlement_definitions_admin/synchronize_entitlement_definition" var="synchronizeEntitlementDefinitionURL">
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="entitlementDefinitionId" value="<%= String.valueOf(entitlementDefinition.getEntitlementDefinitionId()) %>" />
+			</portlet:actionURL>
+
+			<aui:button href="<%= synchronizeEntitlementDefinitionURL %>" type="submit" value="synchronize" />
+		</c:if>
+
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>

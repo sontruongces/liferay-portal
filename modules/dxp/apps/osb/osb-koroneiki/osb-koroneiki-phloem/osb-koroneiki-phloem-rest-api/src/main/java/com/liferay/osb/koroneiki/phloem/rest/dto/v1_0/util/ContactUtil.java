@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Entitlement;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
@@ -32,6 +33,9 @@ public class ContactUtil {
 				dateCreated = contact.getCreateDate();
 				dateModified = contact.getModifiedDate();
 				emailAddress = contact.getEmailAddress();
+				entitlements = TransformUtil.transformToArray(
+					contact.getEntitlements(), EntitlementUtil::toEntitlement,
+					Entitlement.class);
 				externalLinks = TransformUtil.transformToArray(
 					contact.getExternalLinks(),
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);

@@ -14,32 +14,20 @@
 
 package com.liferay.osb.koroneiki.phytohormone.internal.messaging;
 
-import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phytohormone.service.EntitlementDefinitionLocalService;
 import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
-import com.liferay.portal.kernel.messaging.DestinationNames;
-import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
-import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
-import com.liferay.portal.kernel.scheduler.SchedulerEntry;
-import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
-import com.liferay.portal.kernel.scheduler.TimeUnit;
-import com.liferay.portal.kernel.scheduler.Trigger;
-import com.liferay.portal.kernel.scheduler.TriggerFactory;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.CalendarUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,86 +35,76 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.time.StopWatch;
 
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Amos Fong
  */
-@Component(immediate = true, service = {})
-public class SynchronizeEntitlementMessageListener extends BaseMessageListener {
+public abstract class BaseEntitlementsMessageListener
+	extends BaseMessageListener {
 
-	@Activate
-	protected void activate(Map<String, Object> properties) {
-		Class<?> clazz = getClass();
+	protected void processEntitlementDefinition(
+		long companyId, long entitlementDefinitionId, long classNameId,
+		String name, String definition) {
 
-		String className = clazz.getName();
+		StopWatch stopWatch = new StopWatch();
 
-		int checkInterval = GetterUtil.getInteger(
-			properties.get("check.interval"), 15);
+		stopWatch.start();
 
-		Trigger trigger = _triggerFactory.createTrigger(
-			className, className, null, null, checkInterval, TimeUnit.MINUTE);
+		try {
+			if (_log.isDebugEnabled()) {
+				_log.debug("Adding entitlements for " + name);
+			}
 
-		SchedulerEntry schedulerEntry = new SchedulerEntryImpl(
-			className, trigger);
-
-		_schedulerEngineHelper.register(
-			this, schedulerEntry, DestinationNames.SCHEDULER_DISPATCH);
-	}
-
-	@Deactivate
-	protected void deactivate() {
-		_schedulerEngineHelper.unregister(this);
-	}
-
-	@Override
-	protected void doReceive(Message message) throws Exception {
-		if (_log.isDebugEnabled()) {
-			_log.debug("Running account entitlement synchronization");
+			_addEntitlements(
+				companyId, entitlementDefinitionId, classNameId, definition);
 		}
-
-		List<EntitlementDefinition> entitlementDefinitions =
-			_entitlementDefinitionLocalService.getEntitlementDefinitions(
-				Account.class.getName(), WorkflowConstants.STATUS_APPROVED);
-
-		for (EntitlementDefinition entitlementDefinition :
-				entitlementDefinitions) {
-
-			_processEntitlementDefinition(
-				entitlementDefinition.getCompanyId(),
-				entitlementDefinition.getEntitlementDefinitionId(),
-				entitlementDefinition.getClassNameId(),
-				entitlementDefinition.getName(),
-				entitlementDefinition.getDefinition());
+		catch (Exception e) {
+			_log.error(e, e);
 		}
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Running contact entitlement synchronization");
+			_log.debug("Finished in " + stopWatch.getTime() + "ms");
 		}
 
-		entitlementDefinitions =
-			_entitlementDefinitionLocalService.getEntitlementDefinitions(
-				Contact.class.getName(), WorkflowConstants.STATUS_APPROVED);
+		stopWatch.reset();
 
-		for (EntitlementDefinition entitlementDefinition :
-				entitlementDefinitions) {
+		stopWatch.start();
 
-			_processEntitlementDefinition(
-				entitlementDefinition.getCompanyId(),
-				entitlementDefinition.getEntitlementDefinitionId(),
-				entitlementDefinition.getClassNameId(),
-				entitlementDefinition.getName(),
-				entitlementDefinition.getDefinition());
+		try {
+			if (_log.isDebugEnabled()) {
+				_log.debug("Removing entitlements for " + name);
+			}
+
+			_removeEntitlements(entitlementDefinitionId, definition);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+		}
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Finished in " + stopWatch.getTime() + "ms");
 		}
 	}
+
+	@Reference
+	protected EntitlementDefinitionLocalService
+		entitlementDefinitionLocalService;
+
+	@Reference
+	protected EntitlementLocalService entitlementLocalService;
+
+	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED)
+	protected ModuleServiceLifecycle moduleServiceLifecycle;
+
+	@Reference
+	protected Portal portal;
+
+	@Reference
+	protected UserLocalService userLocalService;
 
 	private void _addEntitlements(
 			long companyId, long entitlementDefinitionId, long classNameId,
@@ -135,7 +113,7 @@ public class SynchronizeEntitlementMessageListener extends BaseMessageListener {
 
 		int count = 0;
 
-		long defaultUserId = _userLocalService.getDefaultUserId(companyId);
+		long defaultUserId = userLocalService.getDefaultUserId(companyId);
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -146,7 +124,7 @@ public class SynchronizeEntitlementMessageListener extends BaseMessageListener {
 
 			String columnName = null;
 
-			if (classNameId == _portal.getClassNameId(Account.class)) {
+			if (classNameId == portal.getClassNameId(Account.class)) {
 				columnName = "Koroneiki_Account.accountId";
 			}
 			else {
@@ -163,7 +141,7 @@ public class SynchronizeEntitlementMessageListener extends BaseMessageListener {
 			while (resultSet.next()) {
 				long classPK = resultSet.getLong(columnName);
 
-				_entitlementLocalService.addEntitlement(
+				entitlementLocalService.addEntitlement(
 					defaultUserId, entitlementDefinitionId, classNameId,
 					classPK);
 
@@ -218,50 +196,6 @@ public class SynchronizeEntitlementMessageListener extends BaseMessageListener {
 		return StringUtil.replace(sb.toString(), "[$NOW$]", now.toString());
 	}
 
-	private void _processEntitlementDefinition(
-		long companyId, long entitlementDefinitionId, long classNameId,
-		String name, String definition) {
-
-		StopWatch stopWatch = new StopWatch();
-
-		stopWatch.start();
-
-		try {
-			if (_log.isDebugEnabled()) {
-				_log.debug("Adding entitlements for " + name);
-			}
-
-			_addEntitlements(
-				companyId, entitlementDefinitionId, classNameId, definition);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
-
-		if (_log.isDebugEnabled()) {
-			_log.debug("Finished in " + stopWatch.getTime() + "ms");
-		}
-
-		stopWatch.reset();
-
-		stopWatch.start();
-
-		try {
-			if (_log.isDebugEnabled()) {
-				_log.debug("Removing entitlements for " + name);
-			}
-
-			_removeEntitlements(entitlementDefinitionId, definition);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
-
-		if (_log.isDebugEnabled()) {
-			_log.debug("Finished in " + stopWatch.getTime() + "ms");
-		}
-	}
-
 	private void _removeEntitlements(
 			long entitlementDefinitionId, String definition)
 		throws Exception {
@@ -286,7 +220,7 @@ public class SynchronizeEntitlementMessageListener extends BaseMessageListener {
 				long entitlementId = resultSet.getLong(
 					"Koroneiki_Entitlement.entitlementId");
 
-				_entitlementLocalService.deleteEntitlement(entitlementId);
+				entitlementLocalService.deleteEntitlement(entitlementId);
 
 				count++;
 			}
@@ -301,28 +235,6 @@ public class SynchronizeEntitlementMessageListener extends BaseMessageListener {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		SynchronizeEntitlementMessageListener.class);
-
-	@Reference
-	private EntitlementDefinitionLocalService
-		_entitlementDefinitionLocalService;
-
-	@Reference
-	private EntitlementLocalService _entitlementLocalService;
-
-	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED)
-	private ModuleServiceLifecycle _moduleServiceLifecycle;
-
-	@Reference
-	private Portal _portal;
-
-	@Reference
-	private SchedulerEngineHelper _schedulerEngineHelper;
-
-	@Reference
-	private TriggerFactory _triggerFactory;
-
-	@Reference
-	private UserLocalService _userLocalService;
+		BaseEntitlementsMessageListener.class);
 
 }
