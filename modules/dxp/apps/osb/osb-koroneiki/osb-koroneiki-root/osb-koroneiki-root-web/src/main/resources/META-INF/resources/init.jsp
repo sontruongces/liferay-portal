@@ -21,11 +21,8 @@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.osb.koroneiki.root.constants.RootPortletKeys" %><%@
-page import="com.liferay.petra.string.StringPool" %><%@
-page import="com.liferay.portal.kernel.service.PortletPreferencesLocalServiceUtil" %><%@
+<%@ page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
-page import="com.liferay.portal.kernel.util.PortletKeys" %><%@
 page import="com.liferay.portal.kernel.util.StringUtil" %>
 
 <%@ page import="java.util.Map" %>
@@ -35,7 +32,3 @@ page import="com.liferay.portal.kernel.util.StringUtil" %>
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
-
-<%
-portletPreferences = PortletPreferencesLocalServiceUtil.getPreferences(company.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT, PortletKeys.PREFS_OWNER_TYPE_LAYOUT, PortletKeys.PREFS_PLID_SHARED, RootPortletKeys.EXTERNAL_LINKS_ADMIN);
-%>

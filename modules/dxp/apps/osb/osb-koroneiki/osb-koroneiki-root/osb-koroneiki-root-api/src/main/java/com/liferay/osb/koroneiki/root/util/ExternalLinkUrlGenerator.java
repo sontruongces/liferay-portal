@@ -14,14 +14,31 @@
 
 package com.liferay.osb.koroneiki.root.util;
 
+import com.liferay.osb.koroneiki.root.constants.RootPortletKeys;
+import com.liferay.portal.kernel.service.PortletPreferencesLocalServiceUtil;
+import com.liferay.portal.kernel.util.PortletKeys;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+
+import javax.portlet.PortletPreferences;
 
 /**
  * @author Kyle Bischof
  */
 public class ExternalLinkUrlGenerator {
 
-	public static String generate(String url, String entityId) {
+	public static String generate(
+		long companyId, String domain, String entityName, String entityId) {
+
+		PortletPreferences portletPreferences =
+			PortletPreferencesLocalServiceUtil.getPreferences(
+				companyId, companyId, PortletKeys.PREFS_OWNER_TYPE_COMPANY,
+				PortletKeys.PREFS_PLID_SHARED,
+				RootPortletKeys.EXTERNAL_LINKS_ADMIN);
+
+		String url = portletPreferences.getValue(
+			domain + StringPool.UNDERLINE + entityName, StringPool.BLANK);
+
 		return StringUtil.replace(url, "[$ENTITY_ID$]", entityId);
 	}
 

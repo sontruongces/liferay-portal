@@ -64,7 +64,7 @@ renderResponse.setTitle(productEntry.getName());
 			>
 
 				<%
-				String url = ExternalLinkUrlGenerator.generate(portletPreferences.getValue(externalLink.getDomain() + StringPool.UNDERLINE + externalLink.getEntityName(), StringPool.BLANK), externalLink.getEntityId());
+				String url = ExternalLinkUrlGenerator.generate(company.getCompanyId(), externalLink.getDomain(), externalLink.getEntityName(), externalLink.getEntityId());
 				%>
 
 				<liferay-ui:search-container-column-text

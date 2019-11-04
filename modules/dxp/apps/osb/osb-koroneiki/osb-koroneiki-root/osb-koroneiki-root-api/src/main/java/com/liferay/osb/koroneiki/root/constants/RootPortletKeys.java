@@ -20,7 +20,6 @@ package com.liferay.osb.koroneiki.root.constants;
 public class RootPortletKeys {
 
 	public static final String EXTERNAL_LINKS_ADMIN =
-		"com_liferay_osb_koroneiki_root_web_portlet_" +
-			"ExternalLinksAdminPortlet";
+		"com_liferay_osb_koroneiki_root_web_portlet_ExternalLinksAdminPortlet";
 
 }

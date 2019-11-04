@@ -16,13 +16,10 @@ package com.liferay.osb.koroneiki.root.web.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.root.constants.RootPortletKeys;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.PortletPreferencesLocalService;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortletKeys;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import javax.portlet.ActionRequest;
@@ -50,14 +47,7 @@ public class EditExternalLinkMappingsMVCActionCommand
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		Company company = _companyLocalService.getCompanyByWebId("liferay.com");
-
-		PortletPreferences portletPreferences =
-			_portletPreferencesLocalService.getPreferences(
-				company.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT,
-				PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
-				PortletKeys.PREFS_PLID_SHARED,
-				RootPortletKeys.EXTERNAL_LINKS_ADMIN);
+		PortletPreferences portletPreferences = actionRequest.getPreferences();
 
 		int[] externalLinkIndexes = StringUtil.split(
 			ParamUtil.getString(actionRequest, "externalLinkIndexes"), 0);
@@ -76,9 +66,6 @@ public class EditExternalLinkMappingsMVCActionCommand
 
 		portletPreferences.store();
 	}
-
-	@Reference
-	private CompanyLocalService _companyLocalService;
 
 	@Reference
 	private PortletPreferencesLocalService _portletPreferencesLocalService;

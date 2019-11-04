@@ -32,7 +32,6 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPNavigationItemList" %><%@
 page import="com.liferay.osb.koroneiki.phytohormone.model.Entitlement" %><%@
 page import="com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition" %><%@
-page import="com.liferay.osb.koroneiki.root.constants.RootPortletKeys" %><%@
 page import="com.liferay.osb.koroneiki.root.constants.RootWebKeys" %><%@
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkDomainException" %><%@
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkEntityIdException" %><%@
@@ -92,14 +91,12 @@ page import="com.liferay.portal.kernel.model.ListType" %><%@
 page import="com.liferay.portal.kernel.model.ListTypeConstants" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.service.AddressLocalServiceUtil" %><%@
-page import="com.liferay.portal.kernel.service.PortletPreferencesLocalServiceUtil" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ListUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
-page import="com.liferay.portal.kernel.util.PortletKeys" %><%@
 page import="com.liferay.portal.kernel.util.StringUtil" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.taglib.search.ResultRow" %>
@@ -113,7 +110,3 @@ page import="java.util.Map" %>
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
-
-<%
-portletPreferences = PortletPreferencesLocalServiceUtil.getPreferences(company.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT, PortletKeys.PREFS_OWNER_TYPE_LAYOUT, PortletKeys.PREFS_PLID_SHARED, RootPortletKeys.EXTERNAL_LINKS_ADMIN);
-%>

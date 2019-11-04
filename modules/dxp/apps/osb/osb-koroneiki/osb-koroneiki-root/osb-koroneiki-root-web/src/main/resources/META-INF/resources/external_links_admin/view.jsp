@@ -22,10 +22,10 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 <portlet:actionURL name="/external_links_admin/edit_external_link_mappings" var="editExternalLinkMappingsURL" />
 
-<aui:form action="<%= editExternalLinkMappingsURL %>" method="post" name="fm">
+<aui:form action="<%= editExternalLinkMappingsURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 
-	<div class="form-group">
+	<aui:fieldset-group>
 		<h3 class="sheet-subtitle"><liferay-ui:message key="external-link-mappings" /></h3>
 
 		<aui:fieldset id='<%= renderResponse.getNamespace() + "externalLinks" %>'>
@@ -72,7 +72,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 			<aui:input name="externalLinkIndexes" type="hidden" value="<%= StringUtil.merge(externalLinkIndexes) %>" />
 		</aui:fieldset>
-	</div>
+	</aui:fieldset-group>
 
 	<liferay-frontend:fieldset
 		collapsed="<%= true %>"
@@ -83,7 +83,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 			[$ENTITY_ID$]
 		</dt>
 		<dd>
-			The primaryKey of the external object
+			The unique identifier of the external object.
 		</dd>
 	</liferay-frontend:fieldset>
 

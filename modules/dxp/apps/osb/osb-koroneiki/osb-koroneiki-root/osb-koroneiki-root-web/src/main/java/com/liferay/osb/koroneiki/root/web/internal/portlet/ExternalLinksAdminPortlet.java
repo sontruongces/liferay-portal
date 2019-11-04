@@ -28,6 +28,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true,
 	property = {
 		"com.liferay.portlet.display-category=category.hidden",
+		"com.liferay.portlet.preferences-company-wide=true",
 		"com.liferay.portlet.render-weight=0",
 		"javax.portlet.display-name=External Links",
 		"javax.portlet.expiration-cache=0",
