@@ -76,8 +76,8 @@ class ResultRankingsForm extends Component {
 		fetchDocumentsVisibleUrl: PropTypes.string.isRequired,
 		formName: PropTypes.string.isRequired,
 		initialAliases: PropTypes.arrayOf(String),
-		searchQuery: PropTypes.string.isRequired,
-		status: PropTypes.number.isRequired
+		initialInactive: PropTypes.bool,
+		searchQuery: PropTypes.string.isRequired
 	};
 
 	static defaultProps = {
@@ -85,12 +85,6 @@ class ResultRankingsForm extends Component {
 	};
 
 	state = {
-		/**
-		 * Indicates whether ranking is active or inactive.
-		 * @type {boolean}
-		 */
-		active: !!this.props.status,
-
 		/**
 		 * Number of the active tab.
 		 * @type {number}
@@ -153,6 +147,12 @@ class ResultRankingsForm extends Component {
 		 * @type {number}
 		 */
 		hiddenCur: 0,
+
+		/**
+		 * Indicates whether ranking is active or inactive.
+		 * @type {boolean}
+		 */
+		inactive: this.props.initialInactive,
 
 		/**
 		 * A full list of IDs which include hidden and pinned items.
@@ -278,7 +278,7 @@ class ResultRankingsForm extends Component {
 	 */
 	_handleActive = () => {
 		this.setState(state => ({
-			active: !state.active
+			inactive: !state.inactive
 		}));
 	};
 
@@ -688,7 +688,6 @@ class ResultRankingsForm extends Component {
 		const {cancelUrl, fetchDocumentsSearchUrl, searchQuery} = this.props;
 
 		const {
-			active,
 			activeTabKeyValue,
 			aliases,
 			dataLoadIndex,
@@ -698,6 +697,7 @@ class ResultRankingsForm extends Component {
 			displayError,
 			displayErrorHidden,
 			hiddenCur,
+			inactive,
 			resultIdsHidden,
 			resultIdsPinned,
 			showDebugger,
@@ -736,10 +736,7 @@ class ResultRankingsForm extends Component {
 					value={dataLoadIndex.pinned.start}
 				/>
 
-				<HiddenInput
-					name={`${namespace}status`}
-					value={active ? 1 : 0}
-				/>
+				<HiddenInput name={`${namespace}inactive`} value={inactive} />
 
 				<HiddenInput
 					name={`${namespace}workflowAction`}
@@ -747,7 +744,7 @@ class ResultRankingsForm extends Component {
 				/>
 
 				<PageToolbar
-					active={active}
+					inactive={inactive}
 					onCancel={cancelUrl}
 					onChangeActive={this._handleActive}
 					onPublish={this._handlePublish}
