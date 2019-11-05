@@ -14,8 +14,10 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactPermission;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
@@ -23,6 +25,7 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -30,6 +33,8 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -118,6 +123,17 @@ public class ContactResourceImpl
 			pagination, _contactService.getAccountContactsCount(accountKey));
 	}
 
+	@NestedField(parentClass = Account.class, value = "contacts")
+	public List<Contact> getAccountNestedFieldContacts(
+			@NestedFieldId("key") String accountKey)
+		throws Exception {
+
+		return transform(
+			_contactService.getAccountContacts(
+				accountKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+			contact -> ContactUtil.toContact(contact));
+	}
+
 	@Override
 	public Contact getContactByEmailAddresEmailAddress(String emailAddress)
 		throws Exception {
@@ -163,6 +179,17 @@ public class ContactResourceImpl
 	@Override
 	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
 		return _entityModel;
+	}
+
+	@NestedField(parentClass = Team.class, value = "contacts")
+	public List<Contact> getTeamNestedFieldContacts(
+			@NestedFieldId("key") String teamKey)
+		throws Exception {
+
+		return transform(
+			_contactService.getTeamContacts(
+				teamKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+			contact -> ContactUtil.toContact(contact));
 	}
 
 	@Override
