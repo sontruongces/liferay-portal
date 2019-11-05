@@ -21,6 +21,11 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.PortletPreferencesLocalService;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
+
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -49,6 +54,8 @@ public class EditExternalLinkMappingsMVCActionCommand
 
 		PortletPreferences portletPreferences = actionRequest.getPreferences();
 
+		Set<String> keys = new HashSet<>();
+
 		int[] externalLinkIndexes = StringUtil.split(
 			ParamUtil.getString(actionRequest, "externalLinkIndexes"), 0);
 
@@ -60,8 +67,25 @@ public class EditExternalLinkMappingsMVCActionCommand
 			String url = ParamUtil.getString(
 				actionRequest, "url_" + externalLinkIndex);
 
-			portletPreferences.setValue(
-				domain + StringPool.UNDERLINE + entityName, url);
+			if (Validator.isNotNull(domain) &&
+				Validator.isNotNull(entityName) && Validator.isNotNull(url)) {
+
+				String key = domain + StringPool.UNDERLINE + entityName;
+
+				keys.add(key);
+
+				portletPreferences.setValue(key, url);
+			}
+		}
+
+		Enumeration<String> names = portletPreferences.getNames();
+
+		while (names.hasMoreElements()) {
+			String name = names.nextElement();
+
+			if (!keys.contains(name)) {
+				portletPreferences.reset(name);
+			}
 		}
 
 		portletPreferences.store();

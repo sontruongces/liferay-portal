@@ -31,18 +31,28 @@ String redirect = ParamUtil.getString(request, "redirect");
 		<aui:fieldset id='<%= renderResponse.getNamespace() + "externalLinks" %>'>
 
 			<%
-			Map<String, String[]> map = portletPreferences.getMap();
+			Map<String, String[]> map = new HashMap<>(portletPreferences.getMap());
+
+			if (map.size() < 1) {
+				map.put(StringPool.BLANK, new String[] {StringPool.BLANK});
+			}
 
 			int[] externalLinkIndexes = new int[map.size()];
 
 			int i = 0;
 
+			String domain = StringPool.BLANK;
+			String entityName = StringPool.BLANK;
+			String url = StringPool.BLANK;
+
 			for (Map.Entry<String, String[]> entry : map.entrySet()) {
 				String key = entry.getKey();
 
-				String domain = key.split(StringPool.UNDERLINE)[0];
-				String entityName = key.split(StringPool.UNDERLINE)[1];
-				String url = entry.getValue()[0];
+				if (!key.equals(StringPool.BLANK)) {
+					domain = key.split(StringPool.UNDERLINE)[0];
+					entityName = key.split(StringPool.UNDERLINE)[1];
+					url = entry.getValue()[0];
+				}
 
 				externalLinkIndexes[i] = i;
 			%>

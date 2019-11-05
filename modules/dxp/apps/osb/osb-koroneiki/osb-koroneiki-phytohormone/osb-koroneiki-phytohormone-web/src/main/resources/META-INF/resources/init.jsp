@@ -36,6 +36,7 @@ page import="com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition"
 page import="com.liferay.osb.koroneiki.phytohormone.web.internal.display.context.EntitlementDefinitionsDisplayContext" %><%@
 page import="com.liferay.osb.koroneiki.phytohormone.web.internal.display.context.ViewEntitlementDefinitionsManagementToolbarDisplayContext" %><%@
 page import="com.liferay.osb.koroneiki.root.constants.RootWebKeys" %><%@
+page import="com.liferay.osb.koroneiki.root.util.ExternalLinkUrlGenerator" %><%@
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkDomainException" %><%@
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkEntityIdException" %><%@
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkEntityNameException" %><%@
