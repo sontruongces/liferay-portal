@@ -117,14 +117,14 @@ public class TextFieldType extends BaseFieldType {
 			DataFieldOptionUtil.toJSONObject(
 				spiDataDefinitionField.getCustomProperties(), "options")
 		).put(
+			"placeholder",
+			CustomPropertiesUtil.getMap(
+				spiDataDefinitionField.getCustomProperties(), "placeholder")
+		).put(
 			"showAsSwitcher",
 			MapUtil.getBoolean(
 				spiDataDefinitionField.getCustomProperties(), "showAsSwitcher",
 				true)
-		).put(
-			"placeholder",
-			CustomPropertiesUtil.getMap(
-				spiDataDefinitionField.getCustomProperties(), "placeholder")
 		).put(
 			"tooltip",
 			CustomPropertiesUtil.getMap(

@@ -228,9 +228,9 @@ public abstract class BaseFieldType implements FieldType {
 			"tip",
 			LocalizedValueUtil.toJSONObject(spiDataDefinitionField.getTip())
 		).put(
-			"visible", spiDataDefinitionField.getVisible()
-		).put(
 			"type", type
+		).put(
+			"visible", spiDataDefinitionField.getVisible()
 		);
 	}
 
