@@ -28,6 +28,10 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.PostalAddressSerDes;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
@@ -40,6 +44,8 @@ import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.test.log.CaptureAppender;
+import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -48,7 +54,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -60,6 +68,7 @@ import javax.annotation.Generated;
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.log4j.Level;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -243,6 +252,7 @@ public abstract class BasePostalAddressResourceTestCase {
 		assertValid(page);
 
 		postalAddressResource.deletePostalAddress(postalAddress1.getId());
+
 		postalAddressResource.deletePostalAddress(postalAddress2.getId());
 	}
 
@@ -317,6 +327,53 @@ public abstract class BasePostalAddressResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLDeletePostalAddress() throws Exception {
+		PostalAddress postalAddress =
+			testGraphQLPostalAddress_addPostalAddress();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"mutation",
+			new GraphQLField(
+				"deletePostalAddress",
+				new HashMap<String, Object>() {
+					{
+						put("postalAddressId", postalAddress.getId());
+					}
+				}));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(dataJSONObject.getBoolean("deletePostalAddress"));
+
+		try (CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"graphql.execution.SimpleDataFetcherExceptionHandler",
+					Level.WARN)) {
+
+			graphQLField = new GraphQLField(
+				"query",
+				new GraphQLField(
+					"postalAddress",
+					new HashMap<String, Object>() {
+						{
+							put("postalAddressId", postalAddress.getId());
+						}
+					},
+					new GraphQLField("id")));
+
+			jsonObject = JSONFactoryUtil.createJSONObject(
+				invoke(graphQLField.toString()));
+
+			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+
+			Assert.assertTrue(errorsJSONArray.length() > 0);
+		}
+	}
+
+	@Test
 	public void testGetPostalAddress() throws Exception {
 		PostalAddress postPostalAddress =
 			testGetPostalAddress_addPostalAddress();
@@ -333,6 +390,34 @@ public abstract class BasePostalAddressResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetPostalAddress() throws Exception {
+		PostalAddress postalAddress =
+			testGraphQLPostalAddress_addPostalAddress();
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"postalAddress",
+				new HashMap<String, Object>() {
+					{
+						put("postalAddressId", postalAddress.getId());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(
+			equalsJSONObject(
+				postalAddress, dataJSONObject.getJSONObject("postalAddress")));
 	}
 
 	@Test
@@ -356,6 +441,13 @@ public abstract class BasePostalAddressResourceTestCase {
 	}
 
 	protected PostalAddress testPutPostalAddress_addPostalAddress()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected PostalAddress testGraphQLPostalAddress_addPostalAddress()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -412,6 +504,25 @@ public abstract class BasePostalAddressResourceTestCase {
 			Assert.assertTrue(
 				postalAddresses2 + " does not contain " + postalAddress1,
 				contains);
+		}
+	}
+
+	protected void assertEqualsJSONArray(
+		List<PostalAddress> postalAddresses, JSONArray jsonArray) {
+
+		for (PostalAddress postalAddress : postalAddresses) {
+			boolean contains = false;
+
+			for (Object object : jsonArray) {
+				if (equalsJSONObject(postalAddress, (JSONObject)object)) {
+					contains = true;
+
+					break;
+				}
+			}
+
+			Assert.assertTrue(
+				jsonArray + " does not contain " + postalAddress, contains);
 		}
 	}
 
@@ -538,6 +649,18 @@ public abstract class BasePostalAddressResourceTestCase {
 
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[0];
+	}
+
+	protected List<GraphQLField> getGraphQLFields() {
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
+
+			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+		}
+
+		return graphQLFields;
 	}
 
 	protected String[] getIgnoredEntityFieldNames() {
@@ -688,6 +811,137 @@ public abstract class BasePostalAddressResourceTestCase {
 		return true;
 	}
 
+	protected boolean equalsJSONObject(
+		PostalAddress postalAddress, JSONObject jsonObject) {
+
+		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("addressCountry", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getAddressCountry(),
+						jsonObject.getString("addressCountry"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("addressLocality", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getAddressLocality(),
+						jsonObject.getString("addressLocality"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("addressRegion", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getAddressRegion(),
+						jsonObject.getString("addressRegion"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("addressType", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getAddressType(),
+						jsonObject.getString("addressType"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("id", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getId(), jsonObject.getLong("id"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("mailing", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getMailing(),
+						jsonObject.getBoolean("mailing"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("postalCode", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getPostalCode(),
+						jsonObject.getString("postalCode"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("primary", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getPrimary(),
+						jsonObject.getBoolean("primary"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("streetAddressLine1", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getStreetAddressLine1(),
+						jsonObject.getString("streetAddressLine1"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("streetAddressLine2", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getStreetAddressLine2(),
+						jsonObject.getString("streetAddressLine2"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("streetAddressLine3", fieldName)) {
+				if (!Objects.deepEquals(
+						postalAddress.getStreetAddressLine3(),
+						jsonObject.getString("streetAddressLine3"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid field name " + fieldName);
+		}
+
+		return true;
+	}
+
 	protected java.util.Collection<EntityField> getEntityFields()
 		throws Exception {
 
@@ -821,6 +1075,23 @@ public abstract class BasePostalAddressResourceTestCase {
 			"Invalid entity field " + entityFieldName);
 	}
 
+	protected String invoke(String query) throws Exception {
+		HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+		httpInvoker.body(
+			JSONUtil.put(
+				"query", query
+			).toString(),
+			"application/json");
+		httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+		httpInvoker.path("http://localhost:8080/o/graphql");
+		httpInvoker.userNameAndPassword("test@liferay.com:test");
+
+		HttpInvoker.HttpResponse httpResponse = httpInvoker.invoke();
+
+		return httpResponse.getContent();
+	}
+
 	protected PostalAddress randomPostalAddress() throws Exception {
 		return new PostalAddress() {
 			{
@@ -853,6 +1124,64 @@ public abstract class BasePostalAddressResourceTestCase {
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
+
+	protected class GraphQLField {
+
+		public GraphQLField(String key, GraphQLField... graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = graphQLFields;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder(_key);
+
+			if (!_parameterMap.isEmpty()) {
+				sb.append("(");
+
+				for (Map.Entry<String, Object> entry :
+						_parameterMap.entrySet()) {
+
+					sb.append(entry.getKey());
+					sb.append(":");
+					sb.append(entry.getValue());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append(")");
+			}
+
+			if (_graphQLFields.length > 0) {
+				sb.append("{");
+
+				for (GraphQLField graphQLField : _graphQLFields) {
+					sb.append(graphQLField.toString());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append("}");
+			}
+
+			return sb.toString();
+		}
+
+		private final GraphQLField[] _graphQLFields;
+		private final String _key;
+		private final Map<String, Object> _parameterMap;
+
+	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BasePostalAddressResourceTestCase.class);

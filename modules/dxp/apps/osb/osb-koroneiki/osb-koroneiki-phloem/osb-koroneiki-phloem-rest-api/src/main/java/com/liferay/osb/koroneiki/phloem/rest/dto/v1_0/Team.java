@@ -36,6 +36,7 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -80,6 +81,7 @@ public class Team {
 	protected String accountKey;
 
 	@Schema(description = "The account's contacts.")
+	@Valid
 	public Contact[] getContacts() {
 		return contacts;
 	}
@@ -166,6 +168,7 @@ public class Team {
 	protected Date dateModified;
 
 	@Schema(description = "The team's links to entities in external domains.")
+	@Valid
 	public ExternalLink[] getExternalLinks() {
 		return externalLinks;
 	}
@@ -390,6 +393,12 @@ public class Team {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

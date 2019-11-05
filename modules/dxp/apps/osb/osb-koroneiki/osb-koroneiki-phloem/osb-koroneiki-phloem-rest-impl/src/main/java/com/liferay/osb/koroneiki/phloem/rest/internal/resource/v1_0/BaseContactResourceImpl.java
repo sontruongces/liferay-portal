@@ -64,6 +64,11 @@ import javax.ws.rs.core.UriInfo;
 @Path("/v1.0")
 public abstract class BaseContactResourceImpl implements ContactResource {
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the account's contacts.")
@@ -86,6 +91,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(
@@ -112,6 +122,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts' -d $'{"emailAddress": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
@@ -122,6 +137,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return new Contact();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Parameters(
@@ -136,6 +156,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the contact.")
@@ -153,6 +178,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return new Contact();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}' -d $'{"emailAddress": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -171,6 +201,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return new Contact();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
@@ -183,6 +218,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the contact.")
@@ -198,6 +238,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return new Contact();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}' -d $'{"emailAddress": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -214,6 +259,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return new Contact();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/contact-permissions' -d $'{"delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
@@ -228,6 +278,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/contact-permissions' -d $'{"delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -242,6 +297,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Parameters(
@@ -256,6 +316,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the contact.")
@@ -273,6 +338,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return new Contact();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}' -d $'{"emailAddress": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -291,6 +361,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		return new Contact();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/contact-permissions' -d $'{"delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
@@ -307,6 +382,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/contact-permissions' -d $'{"delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -323,6 +403,11 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the team's contacts.")
@@ -351,6 +436,22 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 
 	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
+	}
+
+	public void setContextHttpServletRequest(
+		HttpServletRequest contextHttpServletRequest) {
+
+		this.contextHttpServletRequest = contextHttpServletRequest;
+	}
+
+	public void setContextHttpServletResponse(
+		HttpServletResponse contextHttpServletResponse) {
+
+		this.contextHttpServletResponse = contextHttpServletResponse;
+	}
+
+	public void setContextUriInfo(UriInfo contextUriInfo) {
+		this.contextUriInfo = contextUriInfo;
 	}
 
 	public void setContextUser(User contextUser) {

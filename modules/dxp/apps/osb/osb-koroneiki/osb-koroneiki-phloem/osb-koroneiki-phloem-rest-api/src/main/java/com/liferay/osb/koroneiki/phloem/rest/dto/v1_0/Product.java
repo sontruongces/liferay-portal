@@ -36,6 +36,7 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -112,6 +113,7 @@ public class Product {
 	@Schema(
 		description = "The product's links to entities in external domains."
 	)
+	@Valid
 	public ExternalLink[] getExternalLinks() {
 		return externalLinks;
 	}
@@ -302,6 +304,12 @@ public class Product {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

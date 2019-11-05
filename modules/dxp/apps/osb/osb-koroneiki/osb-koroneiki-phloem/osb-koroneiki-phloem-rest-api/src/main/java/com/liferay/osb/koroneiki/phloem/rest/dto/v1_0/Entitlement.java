@@ -160,6 +160,12 @@ public class Entitlement {
 		return sb.toString();
 	}
 
+	@Schema(
+		defaultValue = "com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Entitlement",
+		name = "x-class-name"
+	)
+	public String xClassName;
+
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
 

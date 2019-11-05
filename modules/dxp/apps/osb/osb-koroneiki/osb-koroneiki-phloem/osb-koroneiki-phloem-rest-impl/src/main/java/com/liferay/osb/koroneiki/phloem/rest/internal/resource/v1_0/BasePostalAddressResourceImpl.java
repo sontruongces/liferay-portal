@@ -59,6 +59,11 @@ import javax.ws.rs.core.UriInfo;
 public abstract class BasePostalAddressResourceImpl
 	implements PostalAddressResource {
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/postal-addresses'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the accounts's postal addresses.")
@@ -76,6 +81,11 @@ public abstract class BasePostalAddressResourceImpl
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/postal-addresses' -d $'{"addressCountry": ___, "addressLocality": ___, "addressRegion": ___, "addressType": ___, "mailing": ___, "postalCode": ___, "primary": ___, "streetAddressLine1": ___, "streetAddressLine2": ___, "streetAddressLine3": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
@@ -94,6 +104,11 @@ public abstract class BasePostalAddressResourceImpl
 		return new PostalAddress();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/postal-addresses/{postalAddressId}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Parameters(
@@ -108,6 +123,11 @@ public abstract class BasePostalAddressResourceImpl
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/postal-addresses/{postalAddressId}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the postal address.")
@@ -125,6 +145,11 @@ public abstract class BasePostalAddressResourceImpl
 		return new PostalAddress();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/postal-addresses/{postalAddressId}' -d $'{"addressCountry": ___, "addressLocality": ___, "addressRegion": ___, "addressType": ___, "mailing": ___, "postalCode": ___, "primary": ___, "streetAddressLine1": ___, "streetAddressLine2": ___, "streetAddressLine3": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -149,6 +174,22 @@ public abstract class BasePostalAddressResourceImpl
 
 	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
+	}
+
+	public void setContextHttpServletRequest(
+		HttpServletRequest contextHttpServletRequest) {
+
+		this.contextHttpServletRequest = contextHttpServletRequest;
+	}
+
+	public void setContextHttpServletResponse(
+		HttpServletResponse contextHttpServletResponse) {
+
+		this.contextHttpServletResponse = contextHttpServletResponse;
+	}
+
+	public void setContextUriInfo(UriInfo contextUriInfo) {
+		this.contextUriInfo = contextUriInfo;
 	}
 
 	public void setContextUser(User contextUser) {

@@ -36,6 +36,7 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -52,6 +53,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Contact {
 
 	@Schema(description = "The contact's roles.")
+	@Valid
 	public ContactRole[] getContactRoles() {
 		return contactRoles;
 	}
@@ -167,6 +169,7 @@ public class Contact {
 	protected String emailAddress;
 
 	@Schema(description = "The contact's entitlements.")
+	@Valid
 	public Entitlement[] getEntitlements() {
 		return entitlements;
 	}
@@ -197,6 +200,7 @@ public class Contact {
 	@Schema(
 		description = "The account's links to entities in external domains."
 	)
+	@Valid
 	public ExternalLink[] getExternalLinks() {
 		return externalLinks;
 	}
@@ -652,6 +656,12 @@ public class Contact {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

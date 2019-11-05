@@ -58,6 +58,11 @@ import javax.ws.rs.core.UriInfo;
 public abstract class BaseEntitlementDefinitionResourceImpl
 	implements EntitlementDefinitionResource {
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/entitlement-definitions'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(
@@ -81,6 +86,11 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/entitlement-definitions'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the contact entitlement definitions.")
@@ -102,6 +112,11 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/entitlement-definitions/{entitlementDefinitionKey}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the entitlement definition.")
@@ -128,6 +143,22 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 
 	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
+	}
+
+	public void setContextHttpServletRequest(
+		HttpServletRequest contextHttpServletRequest) {
+
+		this.contextHttpServletRequest = contextHttpServletRequest;
+	}
+
+	public void setContextHttpServletResponse(
+		HttpServletResponse contextHttpServletResponse) {
+
+		this.contextHttpServletResponse = contextHttpServletResponse;
+	}
+
+	public void setContextUriInfo(UriInfo contextUriInfo) {
+		this.contextUriInfo = contextUriInfo;
 	}
 
 	public void setContextUser(User contextUser) {

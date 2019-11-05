@@ -279,6 +279,12 @@ public class ProductPurchasePermission {
 		return sb.toString();
 	}
 
+	@Schema(
+		defaultValue = "com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchasePermission",
+		name = "x-class-name"
+	)
+	public String xClassName;
+
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
 

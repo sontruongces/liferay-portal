@@ -29,6 +29,9 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.EntitlementDefinitionResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.EntitlementDefinitionSerDes;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
@@ -49,7 +52,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -376,6 +381,11 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Test
+	public void testGraphQLGetEntitlementDefinition() throws Exception {
+		Assert.assertTrue(true);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {
@@ -436,6 +446,31 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 			Assert.assertTrue(
 				entitlementDefinitions2 + " does not contain " +
 					entitlementDefinition1,
+				contains);
+		}
+	}
+
+	protected void assertEqualsJSONArray(
+		List<EntitlementDefinition> entitlementDefinitions,
+		JSONArray jsonArray) {
+
+		for (EntitlementDefinition entitlementDefinition :
+				entitlementDefinitions) {
+
+			boolean contains = false;
+
+			for (Object object : jsonArray) {
+				if (equalsJSONObject(
+						entitlementDefinition, (JSONObject)object)) {
+
+					contains = true;
+
+					break;
+				}
+			}
+
+			Assert.assertTrue(
+				jsonArray + " does not contain " + entitlementDefinition,
 				contains);
 		}
 	}
@@ -530,6 +565,18 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[0];
+	}
+
+	protected List<GraphQLField> getGraphQLFields() {
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
+
+			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+		}
+
+		return graphQLFields;
 	}
 
 	protected String[] getIgnoredEntityFieldNames() {
@@ -638,6 +685,61 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
+		}
+
+		return true;
+	}
+
+	protected boolean equalsJSONObject(
+		EntitlementDefinition entitlementDefinition, JSONObject jsonObject) {
+
+		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("definition", fieldName)) {
+				if (!Objects.deepEquals(
+						entitlementDefinition.getDefinition(),
+						jsonObject.getString("definition"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("description", fieldName)) {
+				if (!Objects.deepEquals(
+						entitlementDefinition.getDescription(),
+						jsonObject.getString("description"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("key", fieldName)) {
+				if (!Objects.deepEquals(
+						entitlementDefinition.getKey(),
+						jsonObject.getString("key"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("name", fieldName)) {
+				if (!Objects.deepEquals(
+						entitlementDefinition.getName(),
+						jsonObject.getString("name"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -809,6 +911,23 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 			"Invalid entity field " + entityFieldName);
 	}
 
+	protected String invoke(String query) throws Exception {
+		HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+		httpInvoker.body(
+			JSONUtil.put(
+				"query", query
+			).toString(),
+			"application/json");
+		httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+		httpInvoker.path("http://localhost:8080/o/graphql");
+		httpInvoker.userNameAndPassword("test@liferay.com:test");
+
+		HttpInvoker.HttpResponse httpResponse = httpInvoker.invoke();
+
+		return httpResponse.getContent();
+	}
+
 	protected EntitlementDefinition randomEntitlementDefinition()
 		throws Exception {
 
@@ -843,6 +962,64 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
+
+	protected class GraphQLField {
+
+		public GraphQLField(String key, GraphQLField... graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = graphQLFields;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder(_key);
+
+			if (!_parameterMap.isEmpty()) {
+				sb.append("(");
+
+				for (Map.Entry<String, Object> entry :
+						_parameterMap.entrySet()) {
+
+					sb.append(entry.getKey());
+					sb.append(":");
+					sb.append(entry.getValue());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append(")");
+			}
+
+			if (_graphQLFields.length > 0) {
+				sb.append("{");
+
+				for (GraphQLField graphQLField : _graphQLFields) {
+					sb.append(graphQLField.toString());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append("}");
+			}
+
+			return sb.toString();
+		}
+
+		private final GraphQLField[] _graphQLFields;
+		private final String _key;
+		private final Map<String, Object> _parameterMap;
+
+	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BaseEntitlementDefinitionResourceTestCase.class);

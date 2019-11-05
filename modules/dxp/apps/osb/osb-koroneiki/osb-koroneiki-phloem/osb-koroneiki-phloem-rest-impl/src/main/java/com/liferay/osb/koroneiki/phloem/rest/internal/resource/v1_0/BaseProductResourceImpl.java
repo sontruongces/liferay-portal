@@ -64,6 +64,11 @@ import javax.ws.rs.core.UriInfo;
 @Path("/v1.0")
 public abstract class BaseProductResourceImpl implements ProductResource {
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/products'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(
@@ -90,6 +95,11 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/products' -d $'{"name": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
@@ -100,6 +110,11 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		return new Product();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/products/by-external-link/{domain}/{entityName}/{entityId}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the products by the external link.")
@@ -115,7 +130,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Path("/products/by-external-link/{domain}/{entityName}/{entityId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Page<Product> getProductByExternalLinkDomainEntityNameEntity(
+	public Page<Product> getProductByExternalLinkDomainEntityNameEntityPage(
 			@NotNull @Parameter(hidden = true) @PathParam("domain") String
 				domain,
 			@NotNull @Parameter(hidden = true) @PathParam("entityName") String
@@ -128,6 +143,11 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/products/{productKey}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Parameters(
@@ -142,6 +162,11 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/products/{productKey}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the product.")
@@ -159,6 +184,11 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		return new Product();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/products/{productKey}' -d $'{"name": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -177,6 +207,11 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		return new Product();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/products/{productKey}/product-permissions' -d $'{"consume": ___, "delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
@@ -193,6 +228,11 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/products/{productKey}/product-permissions' -d $'{"consume": ___, "delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -215,6 +255,22 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 
 	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
+	}
+
+	public void setContextHttpServletRequest(
+		HttpServletRequest contextHttpServletRequest) {
+
+		this.contextHttpServletRequest = contextHttpServletRequest;
+	}
+
+	public void setContextHttpServletResponse(
+		HttpServletResponse contextHttpServletResponse) {
+
+		this.contextHttpServletResponse = contextHttpServletResponse;
+	}
+
+	public void setContextUriInfo(UriInfo contextUriInfo) {
+		this.contextUriInfo = contextUriInfo;
 	}
 
 	public void setContextUser(User contextUser) {

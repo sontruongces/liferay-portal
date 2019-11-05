@@ -47,12 +47,18 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
 
@@ -159,8 +165,13 @@ public class Query {
 			teamRoleResourceComponentServiceObjects;
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accounts(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AccountPage getAccountsPage(
+	public AccountPage accounts(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -179,8 +190,13 @@ public class Query {
 					_sortsBiFunction.apply(accountResource, sortsString))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountByExternalLinkDomainEntityNameEntity(domain: ___, entityId: ___, entityName: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AccountPage getAccountByExternalLinkDomainEntityNameEntity(
+	public AccountPage accountByExternalLinkDomainEntityNameEntity(
 			@GraphQLName("domain") String domain,
 			@GraphQLName("entityName") String entityName,
 			@GraphQLName("entityId") String entityId,
@@ -192,13 +208,19 @@ public class Query {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> new AccountPage(
-				accountResource.getAccountByExternalLinkDomainEntityNameEntity(
-					domain, entityName, entityId,
-					Pagination.of(page, pageSize))));
+				accountResource.
+					getAccountByExternalLinkDomainEntityNameEntityPage(
+						domain, entityName, entityId,
+						Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {account(accountKey: ___){code, contactEmailAddress, contacts, dateCreated, dateModified, description, entitlements, externalLinks, faxNumber, industry, internal, key, logoId, name, notes, parentAccountKey, phoneNumber, postalAddresses, productPurchases, profileEmailAddress, soldBy, status, tier, website}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public Account getAccount(@GraphQLName("accountKey") String accountKey)
+	public Account account(@GraphQLName("accountKey") String accountKey)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -207,8 +229,13 @@ public class Query {
 			accountResource -> accountResource.getAccount(accountKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountChildAccounts(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AccountPage getAccountChildAccountsPage(
+	public AccountPage accountChildAccounts(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -222,8 +249,13 @@ public class Query {
 					accountKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyAssignedAccounts(page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AccountPage getTeamTeamKeyAssignedAccountsPage(
+	public AccountPage teamTeamKeyAssignedAccounts(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -237,8 +269,13 @@ public class Query {
 					teamKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyAuditEntries(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AuditEntryPage getAccountAccountKeyAuditEntriesPage(
+	public AuditEntryPage accountAccountKeyAuditEntries(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -252,8 +289,13 @@ public class Query {
 					accountKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {auditEntry(auditEntryKey: ___){action, auditSetId, className, classPK, dateCreated, description, field, fieldClassName, fieldClassPK, key, newValue, oldValue, userId, userName}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AuditEntry getAuditEntry(
+	public AuditEntry auditEntry(
 			@GraphQLName("auditEntryKey") String auditEntryKey)
 		throws Exception {
 
@@ -264,8 +306,13 @@ public class Query {
 				auditEntryKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactRoleContactRoleKeyAuditEntries(contactRoleKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AuditEntryPage getContactRoleContactRoleKeyAuditEntriesPage(
+	public AuditEntryPage contactRoleContactRoleKeyAuditEntries(
 			@GraphQLName("contactRoleKey") String contactRoleKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -279,8 +326,13 @@ public class Query {
 					contactRoleKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaAuditEntries(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AuditEntryPage getContactByOktaAuditEntriesPage(
+	public AuditEntryPage contactByOktaAuditEntries(
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -294,8 +346,13 @@ public class Query {
 					oktaId, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByUuidContactUuidAuditEntries(contactUuid: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AuditEntryPage getContactByUuidContactUuidAuditEntriesPage(
+	public AuditEntryPage contactByUuidContactUuidAuditEntries(
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -309,8 +366,13 @@ public class Query {
 					contactUuid, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamRoleTeamRoleKeyAuditEntries(page: ___, pageSize: ___, teamRoleKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AuditEntryPage getTeamRoleTeamRoleKeyAuditEntriesPage(
+	public AuditEntryPage teamRoleTeamRoleKeyAuditEntries(
 			@GraphQLName("teamRoleKey") String teamRoleKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -324,8 +386,13 @@ public class Query {
 					teamRoleKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyAuditEntries(page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public AuditEntryPage getTeamTeamKeyAuditEntriesPage(
+	public AuditEntryPage teamTeamKeyAuditEntries(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -339,8 +406,13 @@ public class Query {
 					teamKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyContacts(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ContactPage getAccountAccountKeyContactsPage(
+	public ContactPage accountAccountKeyContacts(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -354,8 +426,13 @@ public class Query {
 					accountKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contacts(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ContactPage getContactsPage(
+	public ContactPage contacts(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -374,8 +451,13 @@ public class Query {
 					_sortsBiFunction.apply(contactResource, sortsString))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByEmailAddresEmailAddress(emailAddress: ___){contactRoles, dateCreated, dateModified, emailAddress, entitlements, externalLinks, firstName, key, languageId, lastName, middleName, oktaId, uuid}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public Contact getContactByEmailAddresEmailAddress(
+	public Contact contactByEmailAddresEmailAddress(
 			@GraphQLName("emailAddress") String emailAddress)
 		throws Exception {
 
@@ -387,8 +469,13 @@ public class Query {
 					emailAddress));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOkta(oktaId: ___){contactRoles, dateCreated, dateModified, emailAddress, entitlements, externalLinks, firstName, key, languageId, lastName, middleName, oktaId, uuid}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public Contact getContactByOkta(@GraphQLName("oktaId") String oktaId)
+	public Contact contactByOkta(@GraphQLName("oktaId") String oktaId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -397,8 +484,13 @@ public class Query {
 			contactResource -> contactResource.getContactByOkta(oktaId));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByUuidContactUuid(contactUuid: ___){contactRoles, dateCreated, dateModified, emailAddress, entitlements, externalLinks, firstName, key, languageId, lastName, middleName, oktaId, uuid}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public Contact getContactByUuidContactUuid(
+	public Contact contactByUuidContactUuid(
 			@GraphQLName("contactUuid") String contactUuid)
 		throws Exception {
 
@@ -409,8 +501,13 @@ public class Query {
 				contactUuid));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyContacts(page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ContactPage getTeamTeamKeyContactsPage(
+	public ContactPage teamTeamKeyContacts(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -424,8 +521,13 @@ public class Query {
 					teamKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyContactByOktaRoles(accountKey: ___, oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ContactRolePage getAccountAccountKeyContactByOktaRolesPage(
+	public ContactRolePage accountAccountKeyContactByOktaRoles(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
@@ -440,13 +542,17 @@ public class Query {
 					accountKey, oktaId, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyContactByUuidContactUuidRoles(accountKey: ___, contactUuid: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ContactRolePage
-			getAccountAccountKeyContactByUuidContactUuidRolesPage(
-				@GraphQLName("accountKey") String accountKey,
-				@GraphQLName("contactUuid") String contactUuid,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
+	public ContactRolePage accountAccountKeyContactByUuidContactUuidRoles(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactUuid") String contactUuid,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -459,8 +565,13 @@ public class Query {
 						Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactRoles(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ContactRolePage getContactRolesPage(
+	public ContactRolePage contactRoles(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -479,8 +590,13 @@ public class Query {
 					_sortsBiFunction.apply(contactRoleResource, sortsString))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactRole(contactRoleKey: ___){dateCreated, dateModified, description, key, name, system, type}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ContactRole getContactRole(
+	public ContactRole contactRole(
 			@GraphQLName("contactRoleKey") String contactRoleKey)
 		throws Exception {
 
@@ -491,8 +607,13 @@ public class Query {
 				contactRoleKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyContactByOktaRoles(oktaId: ___, page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ContactRolePage getTeamTeamKeyContactByOktaRolesPage(
+	public ContactRolePage teamTeamKeyContactByOktaRoles(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
@@ -507,8 +628,13 @@ public class Query {
 					teamKey, oktaId, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyContactByUuidContactUuidRoles(contactUuid: ___, page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ContactRolePage getTeamTeamKeyContactByUuidContactUuidRolesPage(
+	public ContactRolePage teamTeamKeyContactByUuidContactUuidRoles(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("pageSize") int pageSize,
@@ -524,8 +650,13 @@ public class Query {
 						teamKey, contactUuid, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountEntitlementDefinitions(page: ___, pageSize: ___, search: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public EntitlementDefinitionPage getAccountEntitlementDefinitionsPage(
+	public EntitlementDefinitionPage accountEntitlementDefinitions(
 			@GraphQLName("search") String search,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -540,8 +671,13 @@ public class Query {
 						search, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactEntitlementDefinitions(page: ___, pageSize: ___, search: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public EntitlementDefinitionPage getContactEntitlementDefinitionsPage(
+	public EntitlementDefinitionPage contactEntitlementDefinitions(
 			@GraphQLName("search") String search,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -556,8 +692,13 @@ public class Query {
 						search, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {entitlementDefinition(entitlementDefinitionKey: ___){dateCreated, dateModified, definition, description, externalLinks, key, name, status}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public EntitlementDefinition getEntitlementDefinition(
+	public EntitlementDefinition entitlementDefinition(
 			@GraphQLName("entitlementDefinitionKey") String
 				entitlementDefinitionKey)
 		throws Exception {
@@ -570,8 +711,13 @@ public class Query {
 					entitlementDefinitionKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyExternalLinks(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ExternalLinkPage getAccountAccountKeyExternalLinksPage(
+	public ExternalLinkPage accountAccountKeyExternalLinks(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -585,8 +731,13 @@ public class Query {
 					accountKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaExternalLinks(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ExternalLinkPage getContactByOktaExternalLinksPage(
+	public ExternalLinkPage contactByOktaExternalLinks(
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -600,8 +751,13 @@ public class Query {
 					oktaId, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByUuidContactUuidExternalLinks(contactUuid: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ExternalLinkPage getContactByUuidContactUuidExternalLinksPage(
+	public ExternalLinkPage contactByUuidContactUuidExternalLinks(
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -616,8 +772,13 @@ public class Query {
 						contactUuid, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {externalLink(externalLinkKey: ___){dateCreated, domain, entityId, entityName, key}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ExternalLink getExternalLink(
+	public ExternalLink externalLink(
 			@GraphQLName("externalLinkKey") String externalLinkKey)
 		throws Exception {
 
@@ -628,9 +789,14 @@ public class Query {
 				externalLinkKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productConsumptionProductConsumptionKeyExternalLinks(page: ___, pageSize: ___, productConsumptionKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
 	public ExternalLinkPage
-			getProductConsumptionProductConsumptionKeyExternalLinksPage(
+			productConsumptionProductConsumptionKeyExternalLinks(
 				@GraphQLName("productConsumptionKey") String
 					productConsumptionKey,
 				@GraphQLName("pageSize") int pageSize,
@@ -646,12 +812,16 @@ public class Query {
 						productConsumptionKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productPurchaseProductPurchaseKeyExternalLinks(page: ___, pageSize: ___, productPurchaseKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ExternalLinkPage
-			getProductPurchaseProductPurchaseKeyExternalLinksPage(
-				@GraphQLName("productPurchaseKey") String productPurchaseKey,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
+	public ExternalLinkPage productPurchaseProductPurchaseKeyExternalLinks(
+			@GraphQLName("productPurchaseKey") String productPurchaseKey,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -663,8 +833,13 @@ public class Query {
 						productPurchaseKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productProductKeyExternalLinks(page: ___, pageSize: ___, productKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ExternalLinkPage getProductProductKeyExternalLinksPage(
+	public ExternalLinkPage productProductKeyExternalLinks(
 			@GraphQLName("productKey") String productKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -678,8 +853,13 @@ public class Query {
 					productKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyExternalLinks(page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ExternalLinkPage getTeamTeamKeyExternalLinksPage(
+	public ExternalLinkPage teamTeamKeyExternalLinks(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -693,8 +873,13 @@ public class Query {
 					teamKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyPostalAddresses(accountKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public PostalAddressPage getAccountAccountKeyPostalAddressesPage(
+	public PostalAddressPage accountAccountKeyPostalAddresses(
 			@GraphQLName("accountKey") String accountKey)
 		throws Exception {
 
@@ -706,8 +891,13 @@ public class Query {
 					accountKey)));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {postalAddress(postalAddressId: ___){addressCountry, addressLocality, addressRegion, addressType, id, mailing, postalCode, primary, streetAddressLine1, streetAddressLine2, streetAddressLine3}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public PostalAddress getPostalAddress(
+	public PostalAddress postalAddress(
 			@GraphQLName("postalAddressId") Long postalAddressId)
 		throws Exception {
 
@@ -718,8 +908,13 @@ public class Query {
 				postalAddressId));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {products(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductPage getProductsPage(
+	public ProductPage products(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -738,8 +933,13 @@ public class Query {
 					_sortsBiFunction.apply(productResource, sortsString))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productByExternalLinkDomainEntityNameEntity(domain: ___, entityId: ___, entityName: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductPage getProductByExternalLinkDomainEntityNameEntity(
+	public ProductPage productByExternalLinkDomainEntityNameEntity(
 			@GraphQLName("domain") String domain,
 			@GraphQLName("entityName") String entityName,
 			@GraphQLName("entityId") String entityId,
@@ -751,13 +951,19 @@ public class Query {
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			productResource -> new ProductPage(
-				productResource.getProductByExternalLinkDomainEntityNameEntity(
-					domain, entityName, entityId,
-					Pagination.of(page, pageSize))));
+				productResource.
+					getProductByExternalLinkDomainEntityNameEntityPage(
+						domain, entityName, entityId,
+						Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(productKey: ___){dateCreated, dateModified, externalLinks, key, name}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public Product getProduct(@GraphQLName("productKey") String productKey)
+	public Product product(@GraphQLName("productKey") String productKey)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -766,8 +972,13 @@ public class Query {
 			productResource -> productResource.getProduct(productKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyProductConsumptions(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductConsumptionPage getAccountAccountKeyProductConsumptionsPage(
+	public ProductConsumptionPage accountAccountKeyProductConsumptions(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -782,8 +993,13 @@ public class Query {
 						accountKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaProductConsumptions(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductConsumptionPage getContactByOktaProductConsumptionsPage(
+	public ProductConsumptionPage contactByOktaProductConsumptions(
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -798,12 +1014,16 @@ public class Query {
 						oktaId, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByUuidContactUuidProductConsumptions(contactUuid: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductConsumptionPage
-			getContactByUuidContactUuidProductConsumptionsPage(
-				@GraphQLName("contactUuid") String contactUuid,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
+	public ProductConsumptionPage contactByUuidContactUuidProductConsumptions(
+			@GraphQLName("contactUuid") String contactUuid,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -815,8 +1035,13 @@ public class Query {
 						contactUuid, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productConsumptions(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductConsumptionPage getProductConsumptionsPage(
+	public ProductConsumptionPage productConsumptions(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -837,9 +1062,14 @@ public class Query {
 						productConsumptionResource, sortsString))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productConsumptionByExternalLinkDomainEntityNameEntity(domain: ___, entityId: ___, entityName: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
 	public ProductConsumptionPage
-			getProductConsumptionByExternalLinkDomainEntityNameEntity(
+			productConsumptionByExternalLinkDomainEntityNameEntity(
 				@GraphQLName("domain") String domain,
 				@GraphQLName("entityName") String entityName,
 				@GraphQLName("entityId") String entityId,
@@ -852,13 +1082,18 @@ public class Query {
 			this::_populateResourceContext,
 			productConsumptionResource -> new ProductConsumptionPage(
 				productConsumptionResource.
-					getProductConsumptionByExternalLinkDomainEntityNameEntity(
+					getProductConsumptionByExternalLinkDomainEntityNameEntityPage(
 						domain, entityName, entityId,
 						Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productConsumption(productConsumptionKey: ___){accountKey, dateCreated, externalLinks, key, productKey, properties}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductConsumption getProductConsumption(
+	public ProductConsumption productConsumption(
 			@GraphQLName("productConsumptionKey") String productConsumptionKey)
 		throws Exception {
 
@@ -870,8 +1105,13 @@ public class Query {
 					productConsumptionKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyProductPurchases(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductPurchasePage getAccountAccountKeyProductPurchasesPage(
+	public ProductPurchasePage accountAccountKeyProductPurchases(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -886,8 +1126,13 @@ public class Query {
 						accountKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaProductPurchases(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductPurchasePage getContactByOktaProductPurchasesPage(
+	public ProductPurchasePage contactByOktaProductPurchases(
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -901,8 +1146,13 @@ public class Query {
 					oktaId, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByUuidContactUuidProductPurchases(contactUuid: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductPurchasePage getContactByUuidContactUuidProductPurchasesPage(
+	public ProductPurchasePage contactByUuidContactUuidProductPurchases(
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -917,8 +1167,13 @@ public class Query {
 						contactUuid, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productPurchases(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductPurchasePage getProductPurchasesPage(
+	public ProductPurchasePage productPurchases(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -939,9 +1194,14 @@ public class Query {
 						productPurchaseResource, sortsString))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productPurchaseByExternalLinkDomainEntityNameEntity(domain: ___, entityId: ___, entityName: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
 	public ProductPurchasePage
-			getProductPurchaseByExternalLinkDomainEntityNameEntity(
+			productPurchaseByExternalLinkDomainEntityNameEntity(
 				@GraphQLName("domain") String domain,
 				@GraphQLName("entityName") String entityName,
 				@GraphQLName("entityId") String entityId,
@@ -954,13 +1214,18 @@ public class Query {
 			this::_populateResourceContext,
 			productPurchaseResource -> new ProductPurchasePage(
 				productPurchaseResource.
-					getProductPurchaseByExternalLinkDomainEntityNameEntity(
+					getProductPurchaseByExternalLinkDomainEntityNameEntityPage(
 						domain, entityName, entityId,
 						Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productPurchase(productPurchaseKey: ___){accountKey, dateCreated, endDate, externalLinks, key, perpetual, product, productKey, properties, quantity, startDate}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public ProductPurchase getProductPurchase(
+	public ProductPurchase productPurchase(
 			@GraphQLName("productPurchaseKey") String productPurchaseKey)
 		throws Exception {
 
@@ -971,8 +1236,13 @@ public class Query {
 				productPurchaseResource.getProductPurchase(productPurchaseKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyTeams(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public TeamPage getAccountAccountKeyTeamsPage(
+	public TeamPage accountAccountKeyTeams(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -986,8 +1256,13 @@ public class Query {
 					accountKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teams(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public TeamPage getTeamsPage(
+	public TeamPage teams(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -1005,8 +1280,13 @@ public class Query {
 					_sortsBiFunction.apply(teamResource, sortsString))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamByExternalLinkDomainEntityNameEntity(domain: ___, entityId: ___, entityName: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public TeamPage getTeamByExternalLinkDomainEntityNameEntity(
+	public TeamPage teamByExternalLinkDomainEntityNameEntity(
 			@GraphQLName("domain") String domain,
 			@GraphQLName("entityName") String entityName,
 			@GraphQLName("entityId") String entityId,
@@ -1018,23 +1298,31 @@ public class Query {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> new TeamPage(
-				teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+				teamResource.getTeamByExternalLinkDomainEntityNameEntityPage(
 					domain, entityName, entityId,
 					Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {team(teamKey: ___){accountKey, contacts, dateCreated, dateModified, externalLinks, key, name}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public Team getTeam(@GraphQLName("teamKey") String teamKey)
-		throws Exception {
-
+	public Team team(@GraphQLName("teamKey") String teamKey) throws Exception {
 		return _applyComponentServiceObjects(
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.getTeam(teamKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyAssignedTeamTeamKeyRoles(accountKey: ___, page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public TeamRolePage getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
+	public TeamRolePage accountAccountKeyAssignedTeamTeamKeyRoles(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("pageSize") int pageSize,
@@ -1050,8 +1338,13 @@ public class Query {
 						accountKey, teamKey, Pagination.of(page, pageSize))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamRoles(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public TeamRolePage getTeamRolesPage(
+	public TeamRolePage teamRoles(
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -1070,14 +1363,844 @@ public class Query {
 					_sortsBiFunction.apply(teamRoleResource, sortsString))));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamRole(teamRoleKey: ___){dateCreated, dateModified, description, key, name, type}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	public TeamRole getTeamRole(@GraphQLName("teamRoleKey") String teamRoleKey)
+	public TeamRole teamRole(@GraphQLName("teamRoleKey") String teamRoleKey)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_teamRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamRoleResource -> teamRoleResource.getTeamRole(teamRoleKey));
+	}
+
+	@GraphQLTypeExtension(Contact.class)
+	public class GetContactByOktaAuditEntriesPageTypeExtension {
+
+		public GetContactByOktaAuditEntriesPageTypeExtension(Contact contact) {
+			_contact = contact;
+		}
+
+		@GraphQLField
+		public AuditEntryPage byOktaAuditEntries(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_auditEntryResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				auditEntryResource -> new AuditEntryPage(
+					auditEntryResource.getContactByOktaAuditEntriesPage(
+						_contact.getOktaId(), Pagination.of(page, pageSize))));
+		}
+
+		private Contact _contact;
+
+	}
+
+	@GraphQLTypeExtension(Product.class)
+	public class GetProductProductKeyExternalLinksPageTypeExtension {
+
+		public GetProductProductKeyExternalLinksPageTypeExtension(
+			Product product) {
+
+			_product = product;
+		}
+
+		@GraphQLField
+		public ExternalLinkPage productKeyExternalLinks(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_externalLinkResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				externalLinkResource -> new ExternalLinkPage(
+					externalLinkResource.getProductProductKeyExternalLinksPage(
+						_product.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Product _product;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyProductPurchasesPageTypeExtension {
+
+		public GetAccountAccountKeyProductPurchasesPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public ProductPurchasePage accountKeyProductPurchases(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productPurchaseResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productPurchaseResource -> new ProductPurchasePage(
+					productPurchaseResource.
+						getAccountAccountKeyProductPurchasesPage(
+							_account.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyAssignedTeamTeamKeyRolesPageTypeExtension {
+
+		public GetAccountAccountKeyAssignedTeamTeamKeyRolesPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public TeamRolePage accountKeyAssignedTeamTeamKeyRoles(
+				@GraphQLName("teamKey") String teamKey,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_teamRoleResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				teamRoleResource -> new TeamRolePage(
+					teamRoleResource.
+						getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
+							_account.getKey(), teamKey,
+							Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyPostalAddressesPageTypeExtension {
+
+		public GetAccountAccountKeyPostalAddressesPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public PostalAddressPage accountKeyPostalAddresses() throws Exception {
+			return _applyComponentServiceObjects(
+				_postalAddressResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				postalAddressResource -> new PostalAddressPage(
+					postalAddressResource.
+						getAccountAccountKeyPostalAddressesPage(
+							_account.getKey())));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyTeamsPageTypeExtension {
+
+		public GetAccountAccountKeyTeamsPageTypeExtension(Account account) {
+			_account = account;
+		}
+
+		@GraphQLField
+		public TeamPage accountKeyTeams(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_teamResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				teamResource -> new TeamPage(
+					teamResource.getAccountAccountKeyTeamsPage(
+						_account.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Team.class)
+	public class GetTeamTeamKeyExternalLinksPageTypeExtension {
+
+		public GetTeamTeamKeyExternalLinksPageTypeExtension(Team team) {
+			_team = team;
+		}
+
+		@GraphQLField
+		public ExternalLinkPage teamKeyExternalLinks(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_externalLinkResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				externalLinkResource -> new ExternalLinkPage(
+					externalLinkResource.getTeamTeamKeyExternalLinksPage(
+						_team.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Team _team;
+
+	}
+
+	@GraphQLTypeExtension(Contact.class)
+	public class GetContactByOktaProductConsumptionsPageTypeExtension {
+
+		public GetContactByOktaProductConsumptionsPageTypeExtension(
+			Contact contact) {
+
+			_contact = contact;
+		}
+
+		@GraphQLField
+		public ProductConsumptionPage byOktaProductConsumptions(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productConsumptionResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productConsumptionResource -> new ProductConsumptionPage(
+					productConsumptionResource.
+						getContactByOktaProductConsumptionsPage(
+							_contact.getOktaId(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Contact _contact;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyExternalLinksPageTypeExtension {
+
+		public GetAccountAccountKeyExternalLinksPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public ExternalLinkPage accountKeyExternalLinks(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_externalLinkResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				externalLinkResource -> new ExternalLinkPage(
+					externalLinkResource.getAccountAccountKeyExternalLinksPage(
+						_account.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyAuditEntriesPageTypeExtension {
+
+		public GetAccountAccountKeyAuditEntriesPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public AuditEntryPage accountKeyAuditEntries(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_auditEntryResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				auditEntryResource -> new AuditEntryPage(
+					auditEntryResource.getAccountAccountKeyAuditEntriesPage(
+						_account.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyProductConsumptionsPageTypeExtension {
+
+		public GetAccountAccountKeyProductConsumptionsPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public ProductConsumptionPage accountKeyProductConsumptions(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productConsumptionResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productConsumptionResource -> new ProductConsumptionPage(
+					productConsumptionResource.
+						getAccountAccountKeyProductConsumptionsPage(
+							_account.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Team.class)
+	public class GetTeamTeamKeyAssignedAccountsPageTypeExtension {
+
+		public GetTeamTeamKeyAssignedAccountsPageTypeExtension(Team team) {
+			_team = team;
+		}
+
+		@GraphQLField
+		public AccountPage teamKeyAssignedAccounts(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_accountResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				accountResource -> new AccountPage(
+					accountResource.getTeamTeamKeyAssignedAccountsPage(
+						_team.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Team _team;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyContactsPageTypeExtension {
+
+		public GetAccountAccountKeyContactsPageTypeExtension(Account account) {
+			_account = account;
+		}
+
+		@GraphQLField
+		public ContactPage accountKeyContacts(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_contactResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				contactResource -> new ContactPage(
+					contactResource.getAccountAccountKeyContactsPage(
+						_account.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountChildAccountsPageTypeExtension {
+
+		public GetAccountChildAccountsPageTypeExtension(Account account) {
+			_account = account;
+		}
+
+		@GraphQLField
+		public AccountPage childAccounts(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_accountResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				accountResource -> new AccountPage(
+					accountResource.getAccountChildAccountsPage(
+						_account.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class
+		GetAccountAccountKeyContactByUuidContactUuidRolesPageTypeExtension {
+
+		public GetAccountAccountKeyContactByUuidContactUuidRolesPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public ContactRolePage accountKeyContactByUuidContactUuidRoles(
+				@GraphQLName("contactUuid") String contactUuid,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_contactRoleResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				contactRoleResource -> new ContactRolePage(
+					contactRoleResource.
+						getAccountAccountKeyContactByUuidContactUuidRolesPage(
+							_account.getKey(), contactUuid,
+							Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Contact.class)
+	public class GetContactByOktaExternalLinksPageTypeExtension {
+
+		public GetContactByOktaExternalLinksPageTypeExtension(Contact contact) {
+			_contact = contact;
+		}
+
+		@GraphQLField
+		public ExternalLinkPage byOktaExternalLinks(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_externalLinkResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				externalLinkResource -> new ExternalLinkPage(
+					externalLinkResource.getContactByOktaExternalLinksPage(
+						_contact.getOktaId(), Pagination.of(page, pageSize))));
+		}
+
+		private Contact _contact;
+
+	}
+
+	@GraphQLTypeExtension(TeamRole.class)
+	public class GetTeamRoleTeamRoleKeyAuditEntriesPageTypeExtension {
+
+		public GetTeamRoleTeamRoleKeyAuditEntriesPageTypeExtension(
+			TeamRole teamRole) {
+
+			_teamRole = teamRole;
+		}
+
+		@GraphQLField
+		public AuditEntryPage teamRoleKeyAuditEntries(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_auditEntryResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				auditEntryResource -> new AuditEntryPage(
+					auditEntryResource.getTeamRoleTeamRoleKeyAuditEntriesPage(
+						_teamRole.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private TeamRole _teamRole;
+
+	}
+
+	@GraphQLTypeExtension(Team.class)
+	public class GetTeamTeamKeyContactByUuidContactUuidRolesPageTypeExtension {
+
+		public GetTeamTeamKeyContactByUuidContactUuidRolesPageTypeExtension(
+			Team team) {
+
+			_team = team;
+		}
+
+		@GraphQLField
+		public ContactRolePage teamKeyContactByUuidContactUuidRoles(
+				@GraphQLName("contactUuid") String contactUuid,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_contactRoleResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				contactRoleResource -> new ContactRolePage(
+					contactRoleResource.
+						getTeamTeamKeyContactByUuidContactUuidRolesPage(
+							_team.getKey(), contactUuid,
+							Pagination.of(page, pageSize))));
+		}
+
+		private Team _team;
+
+	}
+
+	@GraphQLTypeExtension(ProductConsumption.class)
+	public class
+		GetProductConsumptionProductConsumptionKeyExternalLinksPageTypeExtension {
+
+		public GetProductConsumptionProductConsumptionKeyExternalLinksPageTypeExtension(
+			ProductConsumption productConsumption) {
+
+			_productConsumption = productConsumption;
+		}
+
+		@GraphQLField
+		public ExternalLinkPage productConsumptionKeyExternalLinks(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_externalLinkResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				externalLinkResource -> new ExternalLinkPage(
+					externalLinkResource.
+						getProductConsumptionProductConsumptionKeyExternalLinksPage(
+							_productConsumption.getKey(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private ProductConsumption _productConsumption;
+
+	}
+
+	@GraphQLTypeExtension(Contact.class)
+	public class
+		GetContactByUuidContactUuidProductConsumptionsPageTypeExtension {
+
+		public GetContactByUuidContactUuidProductConsumptionsPageTypeExtension(
+			Contact contact) {
+
+			_contact = contact;
+		}
+
+		@GraphQLField
+		public ProductConsumptionPage byUuidContactUuidProductConsumptions(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productConsumptionResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productConsumptionResource -> new ProductConsumptionPage(
+					productConsumptionResource.
+						getContactByUuidContactUuidProductConsumptionsPage(
+							_contact.getUuid(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Contact _contact;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyContactByOktaRolesPageTypeExtension {
+
+		public GetAccountAccountKeyContactByOktaRolesPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public ContactRolePage accountKeyContactByOktaRoles(
+				@GraphQLName("oktaId") String oktaId,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_contactRoleResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				contactRoleResource -> new ContactRolePage(
+					contactRoleResource.
+						getAccountAccountKeyContactByOktaRolesPage(
+							_account.getKey(), oktaId,
+							Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Team.class)
+	public class GetTeamTeamKeyAuditEntriesPageTypeExtension {
+
+		public GetTeamTeamKeyAuditEntriesPageTypeExtension(Team team) {
+			_team = team;
+		}
+
+		@GraphQLField
+		public AuditEntryPage teamKeyAuditEntries(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_auditEntryResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				auditEntryResource -> new AuditEntryPage(
+					auditEntryResource.getTeamTeamKeyAuditEntriesPage(
+						_team.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Team _team;
+
+	}
+
+	@GraphQLTypeExtension(Contact.class)
+	public class GetContactByUuidContactUuidExternalLinksPageTypeExtension {
+
+		public GetContactByUuidContactUuidExternalLinksPageTypeExtension(
+			Contact contact) {
+
+			_contact = contact;
+		}
+
+		@GraphQLField
+		public ExternalLinkPage byUuidContactUuidExternalLinks(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_externalLinkResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				externalLinkResource -> new ExternalLinkPage(
+					externalLinkResource.
+						getContactByUuidContactUuidExternalLinksPage(
+							_contact.getUuid(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Contact _contact;
+
+	}
+
+	@GraphQLTypeExtension(Team.class)
+	public class GetTeamTeamKeyContactsPageTypeExtension {
+
+		public GetTeamTeamKeyContactsPageTypeExtension(Team team) {
+			_team = team;
+		}
+
+		@GraphQLField
+		public ContactPage teamKeyContacts(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_contactResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				contactResource -> new ContactPage(
+					contactResource.getTeamTeamKeyContactsPage(
+						_team.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Team _team;
+
+	}
+
+	@GraphQLTypeExtension(Team.class)
+	public class GetTeamTeamKeyContactByOktaRolesPageTypeExtension {
+
+		public GetTeamTeamKeyContactByOktaRolesPageTypeExtension(Team team) {
+			_team = team;
+		}
+
+		@GraphQLField
+		public ContactRolePage teamKeyContactByOktaRoles(
+				@GraphQLName("oktaId") String oktaId,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_contactRoleResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				contactRoleResource -> new ContactRolePage(
+					contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
+						_team.getKey(), oktaId,
+						Pagination.of(page, pageSize))));
+		}
+
+		private Team _team;
+
+	}
+
+	@GraphQLTypeExtension(ContactRole.class)
+	public class GetContactRoleContactRoleKeyAuditEntriesPageTypeExtension {
+
+		public GetContactRoleContactRoleKeyAuditEntriesPageTypeExtension(
+			ContactRole contactRole) {
+
+			_contactRole = contactRole;
+		}
+
+		@GraphQLField
+		public AuditEntryPage contactRoleKeyAuditEntries(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_auditEntryResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				auditEntryResource -> new AuditEntryPage(
+					auditEntryResource.
+						getContactRoleContactRoleKeyAuditEntriesPage(
+							_contactRole.getKey(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private ContactRole _contactRole;
+
+	}
+
+	@GraphQLTypeExtension(Contact.class)
+	public class GetContactByUuidContactUuidAuditEntriesPageTypeExtension {
+
+		public GetContactByUuidContactUuidAuditEntriesPageTypeExtension(
+			Contact contact) {
+
+			_contact = contact;
+		}
+
+		@GraphQLField
+		public AuditEntryPage byUuidContactUuidAuditEntries(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_auditEntryResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				auditEntryResource -> new AuditEntryPage(
+					auditEntryResource.
+						getContactByUuidContactUuidAuditEntriesPage(
+							_contact.getUuid(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Contact _contact;
+
+	}
+
+	@GraphQLTypeExtension(ProductPurchase.class)
+	public class
+		GetProductPurchaseProductPurchaseKeyExternalLinksPageTypeExtension {
+
+		public GetProductPurchaseProductPurchaseKeyExternalLinksPageTypeExtension(
+			ProductPurchase productPurchase) {
+
+			_productPurchase = productPurchase;
+		}
+
+		@GraphQLField
+		public ExternalLinkPage productPurchaseKeyExternalLinks(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_externalLinkResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				externalLinkResource -> new ExternalLinkPage(
+					externalLinkResource.
+						getProductPurchaseProductPurchaseKeyExternalLinksPage(
+							_productPurchase.getKey(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private ProductPurchase _productPurchase;
+
+	}
+
+	@GraphQLTypeExtension(Contact.class)
+	public class GetContactByOktaProductPurchasesPageTypeExtension {
+
+		public GetContactByOktaProductPurchasesPageTypeExtension(
+			Contact contact) {
+
+			_contact = contact;
+		}
+
+		@GraphQLField
+		public ProductPurchasePage byOktaProductPurchases(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productPurchaseResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productPurchaseResource -> new ProductPurchasePage(
+					productPurchaseResource.
+						getContactByOktaProductPurchasesPage(
+							_contact.getOktaId(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Contact _contact;
+
+	}
+
+	@GraphQLTypeExtension(Contact.class)
+	public class GetContactByUuidContactUuidProductPurchasesPageTypeExtension {
+
+		public GetContactByUuidContactUuidProductPurchasesPageTypeExtension(
+			Contact contact) {
+
+			_contact = contact;
+		}
+
+		@GraphQLField
+		public ProductPurchasePage byUuidContactUuidProductPurchases(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productPurchaseResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productPurchaseResource -> new ProductPurchasePage(
+					productPurchaseResource.
+						getContactByUuidContactUuidProductPurchasesPage(
+							_contact.getUuid(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Contact _contact;
+
 	}
 
 	@GraphQLName("AccountPage")
@@ -1392,6 +2515,9 @@ public class Query {
 
 		accountResource.setContextAcceptLanguage(_acceptLanguage);
 		accountResource.setContextCompany(_company);
+		accountResource.setContextHttpServletRequest(_httpServletRequest);
+		accountResource.setContextHttpServletResponse(_httpServletResponse);
+		accountResource.setContextUriInfo(_uriInfo);
 		accountResource.setContextUser(_user);
 	}
 
@@ -1400,6 +2526,9 @@ public class Query {
 
 		auditEntryResource.setContextAcceptLanguage(_acceptLanguage);
 		auditEntryResource.setContextCompany(_company);
+		auditEntryResource.setContextHttpServletRequest(_httpServletRequest);
+		auditEntryResource.setContextHttpServletResponse(_httpServletResponse);
+		auditEntryResource.setContextUriInfo(_uriInfo);
 		auditEntryResource.setContextUser(_user);
 	}
 
@@ -1408,6 +2537,9 @@ public class Query {
 
 		contactResource.setContextAcceptLanguage(_acceptLanguage);
 		contactResource.setContextCompany(_company);
+		contactResource.setContextHttpServletRequest(_httpServletRequest);
+		contactResource.setContextHttpServletResponse(_httpServletResponse);
+		contactResource.setContextUriInfo(_uriInfo);
 		contactResource.setContextUser(_user);
 	}
 
@@ -1417,6 +2549,9 @@ public class Query {
 
 		contactRoleResource.setContextAcceptLanguage(_acceptLanguage);
 		contactRoleResource.setContextCompany(_company);
+		contactRoleResource.setContextHttpServletRequest(_httpServletRequest);
+		contactRoleResource.setContextHttpServletResponse(_httpServletResponse);
+		contactRoleResource.setContextUriInfo(_uriInfo);
 		contactRoleResource.setContextUser(_user);
 	}
 
@@ -1426,6 +2561,11 @@ public class Query {
 
 		entitlementDefinitionResource.setContextAcceptLanguage(_acceptLanguage);
 		entitlementDefinitionResource.setContextCompany(_company);
+		entitlementDefinitionResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		entitlementDefinitionResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		entitlementDefinitionResource.setContextUriInfo(_uriInfo);
 		entitlementDefinitionResource.setContextUser(_user);
 	}
 
@@ -1435,6 +2575,10 @@ public class Query {
 
 		externalLinkResource.setContextAcceptLanguage(_acceptLanguage);
 		externalLinkResource.setContextCompany(_company);
+		externalLinkResource.setContextHttpServletRequest(_httpServletRequest);
+		externalLinkResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		externalLinkResource.setContextUriInfo(_uriInfo);
 		externalLinkResource.setContextUser(_user);
 	}
 
@@ -1444,6 +2588,10 @@ public class Query {
 
 		postalAddressResource.setContextAcceptLanguage(_acceptLanguage);
 		postalAddressResource.setContextCompany(_company);
+		postalAddressResource.setContextHttpServletRequest(_httpServletRequest);
+		postalAddressResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		postalAddressResource.setContextUriInfo(_uriInfo);
 		postalAddressResource.setContextUser(_user);
 	}
 
@@ -1452,6 +2600,9 @@ public class Query {
 
 		productResource.setContextAcceptLanguage(_acceptLanguage);
 		productResource.setContextCompany(_company);
+		productResource.setContextHttpServletRequest(_httpServletRequest);
+		productResource.setContextHttpServletResponse(_httpServletResponse);
+		productResource.setContextUriInfo(_uriInfo);
 		productResource.setContextUser(_user);
 	}
 
@@ -1461,6 +2612,11 @@ public class Query {
 
 		productConsumptionResource.setContextAcceptLanguage(_acceptLanguage);
 		productConsumptionResource.setContextCompany(_company);
+		productConsumptionResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		productConsumptionResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productConsumptionResource.setContextUriInfo(_uriInfo);
 		productConsumptionResource.setContextUser(_user);
 	}
 
@@ -1470,6 +2626,11 @@ public class Query {
 
 		productPurchaseResource.setContextAcceptLanguage(_acceptLanguage);
 		productPurchaseResource.setContextCompany(_company);
+		productPurchaseResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		productPurchaseResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productPurchaseResource.setContextUriInfo(_uriInfo);
 		productPurchaseResource.setContextUser(_user);
 	}
 
@@ -1478,6 +2639,9 @@ public class Query {
 
 		teamResource.setContextAcceptLanguage(_acceptLanguage);
 		teamResource.setContextCompany(_company);
+		teamResource.setContextHttpServletRequest(_httpServletRequest);
+		teamResource.setContextHttpServletResponse(_httpServletResponse);
+		teamResource.setContextUriInfo(_uriInfo);
 		teamResource.setContextUser(_user);
 	}
 
@@ -1486,6 +2650,9 @@ public class Query {
 
 		teamRoleResource.setContextAcceptLanguage(_acceptLanguage);
 		teamRoleResource.setContextCompany(_company);
+		teamRoleResource.setContextHttpServletRequest(_httpServletRequest);
+		teamRoleResource.setContextHttpServletResponse(_httpServletResponse);
+		teamRoleResource.setContextUriInfo(_uriInfo);
 		teamRoleResource.setContextUser(_user);
 	}
 
@@ -1518,6 +2685,9 @@ public class Query {
 	private BiFunction<Object, String, Filter> _filterBiFunction;
 	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private Company _company;
+	private HttpServletRequest _httpServletRequest;
+	private HttpServletResponse _httpServletResponse;
+	private UriInfo _uriInfo;
 	private User _user;
 
 }

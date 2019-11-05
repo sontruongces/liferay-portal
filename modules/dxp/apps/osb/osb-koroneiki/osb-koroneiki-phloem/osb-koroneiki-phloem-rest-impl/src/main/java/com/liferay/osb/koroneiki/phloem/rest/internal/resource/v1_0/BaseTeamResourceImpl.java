@@ -64,6 +64,11 @@ import javax.ws.rs.core.UriInfo;
 @Path("/v1.0")
 public abstract class BaseTeamResourceImpl implements TeamResource {
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the account's teams.")
@@ -86,6 +91,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/teams' -d $'{"name": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
@@ -104,6 +114,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		return new Team();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(
@@ -130,6 +145,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/by-external-link/{domain}/{entityName}/{entityId}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the team by the external link.")
@@ -145,7 +165,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Path("/teams/by-external-link/{domain}/{entityName}/{entityId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
-	public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
+	public Page<Team> getTeamByExternalLinkDomainEntityNameEntityPage(
 			@NotNull @Parameter(hidden = true) @PathParam("domain") String
 				domain,
 			@NotNull @Parameter(hidden = true) @PathParam("entityName") String
@@ -158,6 +178,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "teamKey")})
@@ -170,6 +195,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the team.")
@@ -185,6 +215,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		return new Team();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}' -d $'{"name": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -201,6 +236,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		return new Team();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Operation(description = "Unassigns contacts from the team.")
@@ -221,6 +261,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Operation(description = "Assigns contacts to the team.")
 	@PUT
@@ -241,6 +286,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Operation(description = "Unassigns roles from the contact for the team.")
@@ -264,6 +314,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Operation(description = "Assigns roles to the contact for the team.")
 	@PUT
@@ -287,6 +342,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-uuid'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Operation(description = "Unassigns contacts from the team.")
@@ -307,6 +367,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-uuid'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Operation(description = "Assigns contacts to the team.")
 	@PUT
@@ -327,6 +392,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Operation(description = "Unassigns roles from the contact for the team.")
@@ -350,6 +420,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Operation(description = "Assigns roles to the contact for the team.")
 	@PUT
@@ -373,6 +448,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/team-permissions' -d $'{"assignContact": ___, "delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
@@ -387,6 +467,11 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/team-permissions' -d $'{"assignContact": ___, "delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -407,6 +492,22 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 
 	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
+	}
+
+	public void setContextHttpServletRequest(
+		HttpServletRequest contextHttpServletRequest) {
+
+		this.contextHttpServletRequest = contextHttpServletRequest;
+	}
+
+	public void setContextHttpServletResponse(
+		HttpServletResponse contextHttpServletResponse) {
+
+		this.contextHttpServletResponse = contextHttpServletResponse;
+	}
+
+	public void setContextUriInfo(UriInfo contextUriInfo) {
+		this.contextUriInfo = contextUriInfo;
 	}
 
 	public void setContextUser(User contextUser) {

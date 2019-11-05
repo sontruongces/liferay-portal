@@ -38,6 +38,7 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -53,6 +54,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Account")
 public class Account {
 
+	@GraphQLName("Industry")
 	public static enum Industry {
 
 		AEROSPACE_AND_DEFENSE("Aerospace and Defense"),
@@ -105,6 +107,7 @@ public class Account {
 
 	}
 
+	@GraphQLName("Status")
 	public static enum Status {
 
 		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
@@ -140,6 +143,7 @@ public class Account {
 
 	}
 
+	@GraphQLName("Tier")
 	public static enum Tier {
 
 		OEM("OEM"), PREMIER("Premier"), REGULAR("Regular"),
@@ -229,6 +233,7 @@ public class Account {
 	protected String contactEmailAddress;
 
 	@Schema(description = "The account's contacts.")
+	@Valid
 	public Contact[] getContacts() {
 		return contacts;
 	}
@@ -343,6 +348,7 @@ public class Account {
 	protected String description;
 
 	@Schema(description = "The account's entitlements.")
+	@Valid
 	public Entitlement[] getEntitlements() {
 		return entitlements;
 	}
@@ -373,6 +379,7 @@ public class Account {
 	@Schema(
 		description = "The account's links to entities in external domains."
 	)
+	@Valid
 	public ExternalLink[] getExternalLinks() {
 		return externalLinks;
 	}
@@ -429,6 +436,7 @@ public class Account {
 	protected String faxNumber;
 
 	@Schema(description = "The industry of the account.")
+	@Valid
 	public Industry getIndustry() {
 		return industry;
 	}
@@ -662,6 +670,7 @@ public class Account {
 	protected String phoneNumber;
 
 	@Schema(description = "The account's postal addresses.")
+	@Valid
 	public PostalAddress[] getPostalAddresses() {
 		return postalAddresses;
 	}
@@ -691,6 +700,7 @@ public class Account {
 	protected PostalAddress[] postalAddresses;
 
 	@Schema(description = "The products that the account has purchased.")
+	@Valid
 	public ProductPurchase[] getProductPurchases() {
 		return productPurchases;
 	}
@@ -776,6 +786,7 @@ public class Account {
 	protected String soldBy;
 
 	@Schema(description = "The status of the account.")
+	@Valid
 	public Status getStatus() {
 		return status;
 	}
@@ -813,6 +824,7 @@ public class Account {
 	protected Status status;
 
 	@Schema(description = "The tier of the account.")
+	@Valid
 	public Tier getTier() {
 		return tier;
 	}
@@ -1267,6 +1279,12 @@ public class Account {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

@@ -64,6 +64,11 @@ import javax.ws.rs.core.UriInfo;
 @Path("/v1.0")
 public abstract class BaseAccountResourceImpl implements AccountResource {
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(
@@ -90,6 +95,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts' -d $'{"code": ___, "contactEmailAddress": ___, "description": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
@@ -100,6 +110,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		return new Account();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/by-external-link/{domain}/{entityName}/{entityId}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the account by the external link.")
@@ -115,7 +130,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Path("/accounts/by-external-link/{domain}/{entityName}/{entityId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
-	public Page<Account> getAccountByExternalLinkDomainEntityNameEntity(
+	public Page<Account> getAccountByExternalLinkDomainEntityNameEntityPage(
 			@NotNull @Parameter(hidden = true) @PathParam("domain") String
 				domain,
 			@NotNull @Parameter(hidden = true) @PathParam("entityName") String
@@ -128,6 +143,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Parameters(
@@ -142,6 +162,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the account.")
@@ -159,6 +184,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		return new Account();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}' -d $'{"code": ___, "contactEmailAddress": ___, "description": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -177,6 +207,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		return new Account();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/account-permissions' -d $'{"assignContact": ___, "assignTeam": ___, "delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
@@ -193,6 +228,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/account-permissions' -d $'{"assignContact": ___, "assignTeam": ___, "delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
@@ -209,6 +249,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/assigned-teams/{teamKey}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Operation(description = "Unassigns roles from the team for the account.")
@@ -232,6 +277,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/assigned-teams/{teamKey}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Operation(description = "Assigns roles to the team for the account.")
 	@PUT
@@ -255,6 +305,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the account's child accounts.")
@@ -277,6 +332,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts' -d $'{"code": ___, "contactEmailAddress": ___, "description": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
@@ -295,6 +355,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		return new Account();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Operation(description = "Unassigns contacts from the account.")
@@ -315,6 +380,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Operation(description = "Assigns contacts to the account.")
 	@PUT
@@ -335,6 +405,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Operation(
@@ -360,6 +435,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Operation(description = "Assigns roles to the contact for the account.")
 	@PUT
@@ -383,6 +463,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Operation(description = "Unassigns contacts from the account.")
@@ -403,6 +488,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Operation(description = "Assigns contacts to the account.")
 	@PUT
@@ -423,6 +513,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@DELETE
 	@Operation(
@@ -448,6 +543,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@Operation(description = "Assigns roles to the contact for the account.")
 	@PUT
@@ -471,6 +571,11 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/assigned-accounts'  -u 'test@liferay.com:test'
+	 */
 	@Override
 	@GET
 	@Operation(description = "Retrieves the team's assigned accounts.")
@@ -499,6 +604,22 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 
 	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
+	}
+
+	public void setContextHttpServletRequest(
+		HttpServletRequest contextHttpServletRequest) {
+
+		this.contextHttpServletRequest = contextHttpServletRequest;
+	}
+
+	public void setContextHttpServletResponse(
+		HttpServletResponse contextHttpServletResponse) {
+
+		this.contextHttpServletResponse = contextHttpServletResponse;
+	}
+
+	public void setContextUriInfo(UriInfo contextUriInfo) {
+		this.contextUriInfo = contextUriInfo;
 	}
 
 	public void setContextUser(User contextUser) {

@@ -38,6 +38,8 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -50,6 +52,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "AuditEntry")
 public class AuditEntry {
 
+	@GraphQLName("Action")
 	public static enum Action {
 
 		ADD("Add"), DELETE("Delete"), UPDATE("Update");
@@ -84,6 +87,7 @@ public class AuditEntry {
 	}
 
 	@Schema(description = "The action performed on the object.")
+	@Valid
 	public Action getAction() {
 		return action;
 	}
@@ -702,6 +706,12 @@ public class AuditEntry {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AuditEntry",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

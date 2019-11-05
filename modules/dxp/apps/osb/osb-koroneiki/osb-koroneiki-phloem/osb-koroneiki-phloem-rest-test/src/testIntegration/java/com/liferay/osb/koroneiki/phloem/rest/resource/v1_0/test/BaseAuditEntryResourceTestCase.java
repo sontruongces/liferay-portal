@@ -29,6 +29,9 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.AuditEntryResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.AuditEntrySerDes;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
@@ -49,7 +52,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import java.text.DateFormat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -316,6 +321,11 @@ public abstract class BaseAuditEntryResourceTestCase {
 	@Test
 	public void testGetAuditEntry() throws Exception {
 		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGraphQLGetAuditEntry() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	@Test
@@ -958,6 +968,25 @@ public abstract class BaseAuditEntryResourceTestCase {
 		}
 	}
 
+	protected void assertEqualsJSONArray(
+		List<AuditEntry> auditEntries, JSONArray jsonArray) {
+
+		for (AuditEntry auditEntry : auditEntries) {
+			boolean contains = false;
+
+			for (Object object : jsonArray) {
+				if (equalsJSONObject(auditEntry, (JSONObject)object)) {
+					contains = true;
+
+					break;
+				}
+			}
+
+			Assert.assertTrue(
+				jsonArray + " does not contain " + auditEntry, contains);
+		}
+	}
+
 	protected void assertValid(AuditEntry auditEntry) {
 		boolean valid = true;
 
@@ -1099,6 +1128,18 @@ public abstract class BaseAuditEntryResourceTestCase {
 
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[0];
+	}
+
+	protected List<GraphQLField> getGraphQLFields() {
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
+
+			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+		}
+
+		return graphQLFields;
 	}
 
 	protected String[] getIgnoredEntityFieldNames() {
@@ -1262,6 +1303,146 @@ public abstract class BaseAuditEntryResourceTestCase {
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
+		}
+
+		return true;
+	}
+
+	protected boolean equalsJSONObject(
+		AuditEntry auditEntry, JSONObject jsonObject) {
+
+		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("auditSetId", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getAuditSetId(),
+						jsonObject.getLong("auditSetId"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("className", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getClassName(),
+						jsonObject.getString("className"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("classPK", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getClassPK(),
+						jsonObject.getLong("classPK"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("description", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getDescription(),
+						jsonObject.getString("description"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("field", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getField(), jsonObject.getString("field"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("fieldClassName", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getFieldClassName(),
+						jsonObject.getString("fieldClassName"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("fieldClassPK", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getFieldClassPK(),
+						jsonObject.getLong("fieldClassPK"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("key", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getKey(), jsonObject.getString("key"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("newValue", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getNewValue(),
+						jsonObject.getString("newValue"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("oldValue", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getOldValue(),
+						jsonObject.getString("oldValue"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("userId", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getUserId(), jsonObject.getLong("userId"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("userName", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getUserName(),
+						jsonObject.getString("userName"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1441,6 +1622,23 @@ public abstract class BaseAuditEntryResourceTestCase {
 			"Invalid entity field " + entityFieldName);
 	}
 
+	protected String invoke(String query) throws Exception {
+		HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+		httpInvoker.body(
+			JSONUtil.put(
+				"query", query
+			).toString(),
+			"application/json");
+		httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+		httpInvoker.path("http://localhost:8080/o/graphql");
+		httpInvoker.userNameAndPassword("test@liferay.com:test");
+
+		HttpInvoker.HttpResponse httpResponse = httpInvoker.invoke();
+
+		return httpResponse.getContent();
+	}
+
 	protected AuditEntry randomAuditEntry() throws Exception {
 		return new AuditEntry() {
 			{
@@ -1475,6 +1673,64 @@ public abstract class BaseAuditEntryResourceTestCase {
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
+
+	protected class GraphQLField {
+
+		public GraphQLField(String key, GraphQLField... graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = graphQLFields;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder(_key);
+
+			if (!_parameterMap.isEmpty()) {
+				sb.append("(");
+
+				for (Map.Entry<String, Object> entry :
+						_parameterMap.entrySet()) {
+
+					sb.append(entry.getKey());
+					sb.append(":");
+					sb.append(entry.getValue());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append(")");
+			}
+
+			if (_graphQLFields.length > 0) {
+				sb.append("{");
+
+				for (GraphQLField graphQLField : _graphQLFields) {
+					sb.append(graphQLField.toString());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append("}");
+			}
+
+			return sb.toString();
+		}
+
+		private final GraphQLField[] _graphQLFields;
+		private final String _key;
+		private final Map<String, Object> _parameterMap;
+
+	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BaseAuditEntryResourceTestCase.class);

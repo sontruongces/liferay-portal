@@ -30,6 +30,10 @@ import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.TeamSerDes;
 import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
@@ -43,6 +47,8 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.test.log.CaptureAppender;
+import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -52,9 +58,11 @@ import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -68,6 +76,7 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.log4j.Level;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -434,7 +443,7 @@ public abstract class BaseTeamResourceTestCase {
 		testGetTeamsPageWithSort(
 			EntityField.Type.STRING,
 			(entityField, team1, team2) -> {
-				Class clazz = team1.getClass();
+				Class<?> clazz = team1.getClass();
 
 				Method method = clazz.getMethod(
 					"get" +
@@ -503,40 +512,45 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	@Test
-	public void testGetTeamByExternalLinkDomainEntityNameEntity()
+	public void testGraphQLGetTeamsPage() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGetTeamByExternalLinkDomainEntityNameEntityPage()
 		throws Exception {
 
 		Page<Team> page =
-			teamResource.getTeamByExternalLinkDomainEntityNameEntity(
-				testGetTeamByExternalLinkDomainEntityNameEntity_getDomain(),
-				testGetTeamByExternalLinkDomainEntityNameEntity_getEntityName(),
-				testGetTeamByExternalLinkDomainEntityNameEntity_getEntityId(),
+			teamResource.getTeamByExternalLinkDomainEntityNameEntityPage(
+				testGetTeamByExternalLinkDomainEntityNameEntityPage_getDomain(),
+				testGetTeamByExternalLinkDomainEntityNameEntityPage_getEntityName(),
+				testGetTeamByExternalLinkDomainEntityNameEntityPage_getEntityId(),
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		String domain =
-			testGetTeamByExternalLinkDomainEntityNameEntity_getDomain();
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getDomain();
 		String irrelevantDomain =
-			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantDomain();
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getIrrelevantDomain();
 		String entityName =
-			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityName();
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getEntityName();
 		String irrelevantEntityName =
-			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName();
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getIrrelevantEntityName();
 		String entityId =
-			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityId();
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getEntityId();
 		String irrelevantEntityId =
-			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId();
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getIrrelevantEntityId();
 
 		if ((irrelevantDomain != null) && (irrelevantEntityName != null) &&
 			(irrelevantEntityId != null)) {
 
 			Team irrelevantTeam =
-				testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
+				testGetTeamByExternalLinkDomainEntityNameEntityPage_addTeam(
 					irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
 					randomIrrelevantTeam());
 
-			page = teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+			page = teamResource.getTeamByExternalLinkDomainEntityNameEntityPage(
 				irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
 				Pagination.of(1, 2));
 
@@ -547,13 +561,15 @@ public abstract class BaseTeamResourceTestCase {
 			assertValid(page);
 		}
 
-		Team team1 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
-			domain, entityName, entityId, randomTeam());
+		Team team1 =
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_addTeam(
+				domain, entityName, entityId, randomTeam());
 
-		Team team2 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
-			domain, entityName, entityId, randomTeam());
+		Team team2 =
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_addTeam(
+				domain, entityName, entityId, randomTeam());
 
-		page = teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+		page = teamResource.getTeamByExternalLinkDomainEntityNameEntityPage(
 			domain, entityName, entityId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -564,27 +580,30 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	@Test
-	public void testGetTeamByExternalLinkDomainEntityNameEntityWithPagination()
+	public void testGetTeamByExternalLinkDomainEntityNameEntityPageWithPagination()
 		throws Exception {
 
 		String domain =
-			testGetTeamByExternalLinkDomainEntityNameEntity_getDomain();
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getDomain();
 		String entityName =
-			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityName();
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getEntityName();
 		String entityId =
-			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityId();
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getEntityId();
 
-		Team team1 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
-			domain, entityName, entityId, randomTeam());
+		Team team1 =
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_addTeam(
+				domain, entityName, entityId, randomTeam());
 
-		Team team2 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
-			domain, entityName, entityId, randomTeam());
+		Team team2 =
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_addTeam(
+				domain, entityName, entityId, randomTeam());
 
-		Team team3 = testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
-			domain, entityName, entityId, randomTeam());
+		Team team3 =
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_addTeam(
+				domain, entityName, entityId, randomTeam());
 
 		Page<Team> page1 =
-			teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+			teamResource.getTeamByExternalLinkDomainEntityNameEntityPage(
 				domain, entityName, entityId, Pagination.of(1, 2));
 
 		List<Team> teams1 = (List<Team>)page1.getItems();
@@ -592,7 +611,7 @@ public abstract class BaseTeamResourceTestCase {
 		Assert.assertEquals(teams1.toString(), 2, teams1.size());
 
 		Page<Team> page2 =
-			teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+			teamResource.getTeamByExternalLinkDomainEntityNameEntityPage(
 				domain, entityName, entityId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -602,14 +621,14 @@ public abstract class BaseTeamResourceTestCase {
 		Assert.assertEquals(teams2.toString(), 1, teams2.size());
 
 		Page<Team> page3 =
-			teamResource.getTeamByExternalLinkDomainEntityNameEntity(
+			teamResource.getTeamByExternalLinkDomainEntityNameEntityPage(
 				domain, entityName, entityId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(team1, team2, team3), (List<Team>)page3.getItems());
 	}
 
-	protected Team testGetTeamByExternalLinkDomainEntityNameEntity_addTeam(
+	protected Team testGetTeamByExternalLinkDomainEntityNameEntityPage_addTeam(
 			String domain, String entityName, String entityId, Team team)
 		throws Exception {
 
@@ -617,7 +636,8 @@ public abstract class BaseTeamResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	protected String testGetTeamByExternalLinkDomainEntityNameEntity_getDomain()
+	protected String
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getDomain()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -625,14 +645,14 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	protected String
-			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantDomain()
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getIrrelevantDomain()
 		throws Exception {
 
 		return null;
 	}
 
 	protected String
-			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityName()
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getEntityName()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -640,14 +660,14 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	protected String
-			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName()
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getIrrelevantEntityName()
 		throws Exception {
 
 		return null;
 	}
 
 	protected String
-			testGetTeamByExternalLinkDomainEntityNameEntity_getEntityId()
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getEntityId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -655,7 +675,7 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	protected String
-			testGetTeamByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId()
+			testGetTeamByExternalLinkDomainEntityNameEntityPage_getIrrelevantEntityId()
 		throws Exception {
 
 		return null;
@@ -667,8 +687,59 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLDeleteTeam() throws Exception {
+		Team team = testGraphQLTeam_addTeam();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"mutation",
+			new GraphQLField(
+				"deleteTeam",
+				new HashMap<String, Object>() {
+					{
+						put("teamId", team.getId());
+					}
+				}));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(dataJSONObject.getBoolean("deleteTeam"));
+
+		try (CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"graphql.execution.SimpleDataFetcherExceptionHandler",
+					Level.WARN)) {
+
+			graphQLField = new GraphQLField(
+				"query",
+				new GraphQLField(
+					"team",
+					new HashMap<String, Object>() {
+						{
+							put("teamId", team.getId());
+						}
+					},
+					new GraphQLField("id")));
+
+			jsonObject = JSONFactoryUtil.createJSONObject(
+				invoke(graphQLField.toString()));
+
+			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+
+			Assert.assertTrue(errorsJSONArray.length() > 0);
+		}
+	}
+
+	@Test
 	public void testGetTeam() throws Exception {
 		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGraphQLGetTeam() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	@Test
@@ -770,6 +841,25 @@ public abstract class BaseTeamResourceTestCase {
 		}
 	}
 
+	protected void assertEqualsJSONArray(
+		List<Team> teams, JSONArray jsonArray) {
+
+		for (Team team : teams) {
+			boolean contains = false;
+
+			for (Object object : jsonArray) {
+				if (equalsJSONObject(team, (JSONObject)object)) {
+					contains = true;
+
+					break;
+				}
+			}
+
+			Assert.assertTrue(
+				jsonArray + " does not contain " + team, contains);
+		}
+	}
+
 	protected void assertValid(Team team) {
 		boolean valid = true;
 
@@ -853,6 +943,18 @@ public abstract class BaseTeamResourceTestCase {
 		return new String[0];
 	}
 
+	protected List<GraphQLField> getGraphQLFields() {
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
+
+			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+		}
+
+		return graphQLFields;
+	}
+
 	protected String[] getIgnoredEntityFieldNames() {
 		return new String[0];
 	}
@@ -934,6 +1036,46 @@ public abstract class BaseTeamResourceTestCase {
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
+		}
+
+		return true;
+	}
+
+	protected boolean equalsJSONObject(Team team, JSONObject jsonObject) {
+		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("accountKey", fieldName)) {
+				if (!Objects.deepEquals(
+						team.getAccountKey(),
+						jsonObject.getString("accountKey"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("key", fieldName)) {
+				if (!Objects.deepEquals(
+						team.getKey(), jsonObject.getString("key"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("name", fieldName)) {
+				if (!Objects.deepEquals(
+						team.getName(), jsonObject.getString("name"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1089,6 +1231,23 @@ public abstract class BaseTeamResourceTestCase {
 			"Invalid entity field " + entityFieldName);
 	}
 
+	protected String invoke(String query) throws Exception {
+		HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+		httpInvoker.body(
+			JSONUtil.put(
+				"query", query
+			).toString(),
+			"application/json");
+		httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+		httpInvoker.path("http://localhost:8080/o/graphql");
+		httpInvoker.userNameAndPassword("test@liferay.com:test");
+
+		HttpInvoker.HttpResponse httpResponse = httpInvoker.invoke();
+
+		return httpResponse.getContent();
+	}
+
 	protected Team randomTeam() throws Exception {
 		return new Team() {
 			{
@@ -1115,6 +1274,64 @@ public abstract class BaseTeamResourceTestCase {
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
+
+	protected class GraphQLField {
+
+		public GraphQLField(String key, GraphQLField... graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = graphQLFields;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder(_key);
+
+			if (!_parameterMap.isEmpty()) {
+				sb.append("(");
+
+				for (Map.Entry<String, Object> entry :
+						_parameterMap.entrySet()) {
+
+					sb.append(entry.getKey());
+					sb.append(":");
+					sb.append(entry.getValue());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append(")");
+			}
+
+			if (_graphQLFields.length > 0) {
+				sb.append("{");
+
+				for (GraphQLField graphQLField : _graphQLFields) {
+					sb.append(graphQLField.toString());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append("}");
+			}
+
+			return sb.toString();
+		}
+
+		private final GraphQLField[] _graphQLFields;
+		private final String _key;
+		private final Map<String, Object> _parameterMap;
+
+	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BaseTeamResourceTestCase.class);

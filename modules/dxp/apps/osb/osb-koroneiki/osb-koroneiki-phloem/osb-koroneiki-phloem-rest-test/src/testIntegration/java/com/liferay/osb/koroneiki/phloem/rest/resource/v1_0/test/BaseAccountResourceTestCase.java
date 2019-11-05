@@ -30,6 +30,10 @@ import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.AccountResourc
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.AccountSerDes;
 import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
@@ -43,6 +47,8 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.test.log.CaptureAppender;
+import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -52,9 +58,11 @@ import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -68,6 +76,7 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.log4j.Level;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -338,7 +347,7 @@ public abstract class BaseAccountResourceTestCase {
 		testGetAccountsPageWithSort(
 			EntityField.Type.STRING,
 			(entityField, account1, account2) -> {
-				Class clazz = account1.getClass();
+				Class<?> clazz = account1.getClass();
 
 				Method method = clazz.getMethod(
 					"get" +
@@ -413,6 +422,11 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetAccountsPage() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testPostAccount() throws Exception {
 		Account randomAccount = randomAccount();
 
@@ -430,43 +444,44 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testGetAccountByExternalLinkDomainEntityNameEntity()
+	public void testGetAccountByExternalLinkDomainEntityNameEntityPage()
 		throws Exception {
 
 		Page<Account> page =
-			accountResource.getAccountByExternalLinkDomainEntityNameEntity(
-				testGetAccountByExternalLinkDomainEntityNameEntity_getDomain(),
-				testGetAccountByExternalLinkDomainEntityNameEntity_getEntityName(),
-				testGetAccountByExternalLinkDomainEntityNameEntity_getEntityId(),
+			accountResource.getAccountByExternalLinkDomainEntityNameEntityPage(
+				testGetAccountByExternalLinkDomainEntityNameEntityPage_getDomain(),
+				testGetAccountByExternalLinkDomainEntityNameEntityPage_getEntityName(),
+				testGetAccountByExternalLinkDomainEntityNameEntityPage_getEntityId(),
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		String domain =
-			testGetAccountByExternalLinkDomainEntityNameEntity_getDomain();
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getDomain();
 		String irrelevantDomain =
-			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantDomain();
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getIrrelevantDomain();
 		String entityName =
-			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityName();
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getEntityName();
 		String irrelevantEntityName =
-			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName();
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getIrrelevantEntityName();
 		String entityId =
-			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityId();
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getEntityId();
 		String irrelevantEntityId =
-			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId();
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getIrrelevantEntityId();
 
 		if ((irrelevantDomain != null) && (irrelevantEntityName != null) &&
 			(irrelevantEntityId != null)) {
 
 			Account irrelevantAccount =
-				testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+				testGetAccountByExternalLinkDomainEntityNameEntityPage_addAccount(
 					irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
 					randomIrrelevantAccount());
 
 			page =
-				accountResource.getAccountByExternalLinkDomainEntityNameEntity(
-					irrelevantDomain, irrelevantEntityName, irrelevantEntityId,
-					Pagination.of(1, 2));
+				accountResource.
+					getAccountByExternalLinkDomainEntityNameEntityPage(
+						irrelevantDomain, irrelevantEntityName,
+						irrelevantEntityId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -477,15 +492,16 @@ public abstract class BaseAccountResourceTestCase {
 		}
 
 		Account account1 =
-			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_addAccount(
 				domain, entityName, entityId, randomAccount());
 
 		Account account2 =
-			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_addAccount(
 				domain, entityName, entityId, randomAccount());
 
-		page = accountResource.getAccountByExternalLinkDomainEntityNameEntity(
-			domain, entityName, entityId, Pagination.of(1, 2));
+		page =
+			accountResource.getAccountByExternalLinkDomainEntityNameEntityPage(
+				domain, entityName, entityId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -495,30 +511,30 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testGetAccountByExternalLinkDomainEntityNameEntityWithPagination()
+	public void testGetAccountByExternalLinkDomainEntityNameEntityPageWithPagination()
 		throws Exception {
 
 		String domain =
-			testGetAccountByExternalLinkDomainEntityNameEntity_getDomain();
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getDomain();
 		String entityName =
-			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityName();
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getEntityName();
 		String entityId =
-			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityId();
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getEntityId();
 
 		Account account1 =
-			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_addAccount(
 				domain, entityName, entityId, randomAccount());
 
 		Account account2 =
-			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_addAccount(
 				domain, entityName, entityId, randomAccount());
 
 		Account account3 =
-			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_addAccount(
 				domain, entityName, entityId, randomAccount());
 
 		Page<Account> page1 =
-			accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+			accountResource.getAccountByExternalLinkDomainEntityNameEntityPage(
 				domain, entityName, entityId, Pagination.of(1, 2));
 
 		List<Account> accounts1 = (List<Account>)page1.getItems();
@@ -526,7 +542,7 @@ public abstract class BaseAccountResourceTestCase {
 		Assert.assertEquals(accounts1.toString(), 2, accounts1.size());
 
 		Page<Account> page2 =
-			accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+			accountResource.getAccountByExternalLinkDomainEntityNameEntityPage(
 				domain, entityName, entityId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -536,7 +552,7 @@ public abstract class BaseAccountResourceTestCase {
 		Assert.assertEquals(accounts2.toString(), 1, accounts2.size());
 
 		Page<Account> page3 =
-			accountResource.getAccountByExternalLinkDomainEntityNameEntity(
+			accountResource.getAccountByExternalLinkDomainEntityNameEntityPage(
 				domain, entityName, entityId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
@@ -545,7 +561,7 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	protected Account
-			testGetAccountByExternalLinkDomainEntityNameEntity_addAccount(
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_addAccount(
 				String domain, String entityName, String entityId,
 				Account account)
 		throws Exception {
@@ -555,7 +571,7 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	protected String
-			testGetAccountByExternalLinkDomainEntityNameEntity_getDomain()
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getDomain()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -563,14 +579,14 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	protected String
-			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantDomain()
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getIrrelevantDomain()
 		throws Exception {
 
 		return null;
 	}
 
 	protected String
-			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityName()
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getEntityName()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -578,14 +594,14 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	protected String
-			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantEntityName()
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getIrrelevantEntityName()
 		throws Exception {
 
 		return null;
 	}
 
 	protected String
-			testGetAccountByExternalLinkDomainEntityNameEntity_getEntityId()
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getEntityId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -593,7 +609,7 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	protected String
-			testGetAccountByExternalLinkDomainEntityNameEntity_getIrrelevantEntityId()
+			testGetAccountByExternalLinkDomainEntityNameEntityPage_getIrrelevantEntityId()
 		throws Exception {
 
 		return null;
@@ -605,8 +621,59 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLDeleteAccount() throws Exception {
+		Account account = testGraphQLAccount_addAccount();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"mutation",
+			new GraphQLField(
+				"deleteAccount",
+				new HashMap<String, Object>() {
+					{
+						put("accountId", account.getId());
+					}
+				}));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(dataJSONObject.getBoolean("deleteAccount"));
+
+		try (CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"graphql.execution.SimpleDataFetcherExceptionHandler",
+					Level.WARN)) {
+
+			graphQLField = new GraphQLField(
+				"query",
+				new GraphQLField(
+					"account",
+					new HashMap<String, Object>() {
+						{
+							put("accountId", account.getId());
+						}
+					},
+					new GraphQLField("id")));
+
+			jsonObject = JSONFactoryUtil.createJSONObject(
+				invoke(graphQLField.toString()));
+
+			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+
+			Assert.assertTrue(errorsJSONArray.length() > 0);
+		}
+	}
+
+	@Test
 	public void testGetAccount() throws Exception {
 		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGraphQLGetAccount() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	@Test
@@ -954,6 +1021,25 @@ public abstract class BaseAccountResourceTestCase {
 		}
 	}
 
+	protected void assertEqualsJSONArray(
+		List<Account> accounts, JSONArray jsonArray) {
+
+		for (Account account : accounts) {
+			boolean contains = false;
+
+			for (Object object : jsonArray) {
+				if (equalsJSONObject(account, (JSONObject)object)) {
+					contains = true;
+
+					break;
+				}
+			}
+
+			Assert.assertTrue(
+				jsonArray + " does not contain " + account, contains);
+		}
+	}
+
 	protected void assertValid(Account account) {
 		boolean valid = true;
 
@@ -1175,6 +1261,18 @@ public abstract class BaseAccountResourceTestCase {
 
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[0];
+	}
+
+	protected List<GraphQLField> getGraphQLFields() {
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
+
+			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+		}
+
+		return graphQLFields;
 	}
 
 	protected String[] getIgnoredEntityFieldNames() {
@@ -1447,6 +1545,163 @@ public abstract class BaseAccountResourceTestCase {
 		return true;
 	}
 
+	protected boolean equalsJSONObject(Account account, JSONObject jsonObject) {
+		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("code", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getCode(), jsonObject.getString("code"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("contactEmailAddress", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getContactEmailAddress(),
+						jsonObject.getString("contactEmailAddress"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("description", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getDescription(),
+						jsonObject.getString("description"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("faxNumber", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getFaxNumber(),
+						jsonObject.getString("faxNumber"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("internal", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getInternal(),
+						jsonObject.getBoolean("internal"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("key", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getKey(), jsonObject.getString("key"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("logoId", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getLogoId(), jsonObject.getLong("logoId"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("name", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getName(), jsonObject.getString("name"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("notes", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getNotes(), jsonObject.getString("notes"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("parentAccountKey", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getParentAccountKey(),
+						jsonObject.getString("parentAccountKey"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("phoneNumber", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getPhoneNumber(),
+						jsonObject.getString("phoneNumber"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("profileEmailAddress", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getProfileEmailAddress(),
+						jsonObject.getString("profileEmailAddress"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("soldBy", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getSoldBy(), jsonObject.getString("soldBy"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("website", fieldName)) {
+				if (!Objects.deepEquals(
+						account.getWebsite(),
+						jsonObject.getString("website"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid field name " + fieldName);
+		}
+
+		return true;
+	}
+
 	protected java.util.Collection<EntityField> getEntityFields()
 		throws Exception {
 
@@ -1709,6 +1964,23 @@ public abstract class BaseAccountResourceTestCase {
 			"Invalid entity field " + entityFieldName);
 	}
 
+	protected String invoke(String query) throws Exception {
+		HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+		httpInvoker.body(
+			JSONUtil.put(
+				"query", query
+			).toString(),
+			"application/json");
+		httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+		httpInvoker.path("http://localhost:8080/o/graphql");
+		httpInvoker.userNameAndPassword("test@liferay.com:test");
+
+		HttpInvoker.HttpResponse httpResponse = httpInvoker.invoke();
+
+		return httpResponse.getContent();
+	}
+
 	protected Account randomAccount() throws Exception {
 		return new Account() {
 			{
@@ -1746,6 +2018,64 @@ public abstract class BaseAccountResourceTestCase {
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
+
+	protected class GraphQLField {
+
+		public GraphQLField(String key, GraphQLField... graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = graphQLFields;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder(_key);
+
+			if (!_parameterMap.isEmpty()) {
+				sb.append("(");
+
+				for (Map.Entry<String, Object> entry :
+						_parameterMap.entrySet()) {
+
+					sb.append(entry.getKey());
+					sb.append(":");
+					sb.append(entry.getValue());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append(")");
+			}
+
+			if (_graphQLFields.length > 0) {
+				sb.append("{");
+
+				for (GraphQLField graphQLField : _graphQLFields) {
+					sb.append(graphQLField.toString());
+					sb.append(",");
+				}
+
+				sb.setLength(sb.length() - 1);
+
+				sb.append("}");
+			}
+
+			return sb.toString();
+		}
+
+		private final GraphQLField[] _graphQLFields;
+		private final String _key;
+		private final Map<String, Object> _parameterMap;
+
+	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BaseAccountResourceTestCase.class);

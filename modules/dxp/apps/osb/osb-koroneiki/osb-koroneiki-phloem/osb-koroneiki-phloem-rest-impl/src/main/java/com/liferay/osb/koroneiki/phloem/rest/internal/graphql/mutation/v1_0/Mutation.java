@@ -45,11 +45,17 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import javax.annotation.Generated;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
 
@@ -141,7 +147,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Account postAccount(@GraphQLName("account") Account account)
+	public Account createAccount(@GraphQLName("account") Account account)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -163,7 +169,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Account putAccount(
+	public Account updateAccount(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("account") Account account)
 		throws Exception {
@@ -191,7 +197,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putAccountAccountPermission(
+	public boolean updateAccountAccountPermission(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("accountPermission") AccountPermission
 				accountPermission)
@@ -224,7 +230,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putAccountAssignedTeamTeamKeyRole(
+	public boolean updateAccountAssignedTeamTeamKeyRole(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("teamRoleKeys") String[] teamRoleKeys)
@@ -241,7 +247,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Account postAccountChildAccount(
+	public Account createAccountChildAccount(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("account") Account account)
 		throws Exception {
@@ -269,7 +275,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putAccountContactByOkta(
+	public boolean updateAccountContactByOkta(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("oktaIds") String[] oktaIds)
 		throws Exception {
@@ -300,7 +306,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putAccountContactByOktaRole(
+	public boolean updateAccountContactByOktaRole(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -331,7 +337,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putAccountContactByUuid(
+	public boolean updateAccountContactByUuid(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
@@ -363,7 +369,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putAccountContactByUuidContactUuidRole(
+	public boolean updateAccountContactByUuidContactUuidRole(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -380,7 +386,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Contact postContact(@GraphQLName("contact") Contact contact)
+	public Contact createContact(@GraphQLName("contact") Contact contact)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -405,7 +411,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Contact putContactByEmailAddresEmailAddress(
+	public Contact updateContactByEmailAddresEmailAddress(
 			@GraphQLName("emailAddress") String emailAddress,
 			@GraphQLName("contact") Contact contact)
 		throws Exception {
@@ -431,7 +437,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Contact putContactByOkta(
+	public Contact updateContactByOkta(
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contact") Contact contact)
 		throws Exception {
@@ -461,7 +467,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putContactByOktaContactPermission(
+	public boolean updateContactByOktaContactPermission(
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contactPermission") ContactPermission
 				contactPermission)
@@ -492,7 +498,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Contact putContactByUuidContactUuid(
+	public Contact updateContactByUuidContactUuid(
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contact") Contact contact)
 		throws Exception {
@@ -522,7 +528,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putContactByUuidContactUuidContactPermission(
+	public boolean updateContactByUuidContactUuidContactPermission(
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactPermission") ContactPermission
 				contactPermission)
@@ -539,7 +545,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ContactRole postContactRole(
+	public ContactRole createContactRole(
 			@GraphQLName("contactRole") ContactRole contactRole)
 		throws Exception {
 
@@ -565,7 +571,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ContactRole putContactRole(
+	public ContactRole updateContactRole(
 			@GraphQLName("contactRoleKey") String contactRoleKey,
 			@GraphQLName("contactRole") ContactRole contactRole)
 		throws Exception {
@@ -595,7 +601,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putContactRoleContactRolePermission(
+	public boolean updateContactRoleContactRolePermission(
 			@GraphQLName("contactRoleKey") String contactRoleKey,
 			@GraphQLName("contactRolePermission") ContactRolePermission
 				contactRolePermission)
@@ -612,7 +618,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postAccountAccountKeyExternalLink(
+	public ExternalLink createAccountAccountKeyExternalLink(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -626,7 +632,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postContactByOktaExternalLink(
+	public ExternalLink createContactByOktaExternalLink(
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -640,7 +646,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postContactByUuidContactUuidExternalLink(
+	public ExternalLink createContactByUuidContactUuidExternalLink(
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -668,9 +674,11 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postProductConsumptionProductConsumptionKeyExternalLink(
-			@GraphQLName("productConsumptionKey") String productConsumptionKey,
-			@GraphQLName("externalLink") ExternalLink externalLink)
+	public ExternalLink
+			createProductConsumptionProductConsumptionKeyExternalLink(
+				@GraphQLName("productConsumptionKey") String
+					productConsumptionKey,
+				@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -683,7 +691,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postProductPurchaseProductPurchaseKeyExternalLink(
+	public ExternalLink createProductPurchaseProductPurchaseKeyExternalLink(
 			@GraphQLName("productPurchaseKey") String productPurchaseKey,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -698,7 +706,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postProductProductKeyExternalLink(
+	public ExternalLink createProductProductKeyExternalLink(
 			@GraphQLName("productKey") String productKey,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -712,7 +720,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ExternalLink postTeamTeamKeyExternalLink(
+	public ExternalLink createTeamTeamKeyExternalLink(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -726,7 +734,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public PostalAddress postAccountAccountKeyPostalAddress(
+	public PostalAddress createAccountAccountKeyPostalAddress(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("postalAddress") PostalAddress postalAddress)
 		throws Exception {
@@ -754,7 +762,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public PostalAddress putPostalAddress(
+	public PostalAddress updatePostalAddress(
 			@GraphQLName("postalAddressId") Long postalAddressId,
 			@GraphQLName("postalAddress") PostalAddress postalAddress)
 		throws Exception {
@@ -767,7 +775,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Product postProduct(@GraphQLName("product") Product product)
+	public Product createProduct(@GraphQLName("product") Product product)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -789,7 +797,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Product putProduct(
+	public Product updateProduct(
 			@GraphQLName("productKey") String productKey,
 			@GraphQLName("product") Product product)
 		throws Exception {
@@ -817,7 +825,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putProductProductPermission(
+	public boolean updateProductProductPermission(
 			@GraphQLName("productKey") String productKey,
 			@GraphQLName("productPermission") ProductPermission
 				productPermission)
@@ -833,7 +841,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ProductConsumption postAccountAccountKeyProductConsumption(
+	public ProductConsumption createAccountAccountKeyProductConsumption(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("productConsumption") ProductConsumption
 				productConsumption)
@@ -882,7 +890,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putProductConsumptionProductConsumptionPermission(
+	public boolean updateProductConsumptionProductConsumptionPermission(
 			@GraphQLName("productConsumptionKey") String productConsumptionKey,
 			@GraphQLName("productConsumptionPermission")
 				ProductConsumptionPermission productConsumptionPermission)
@@ -900,7 +908,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ProductPurchase postAccountAccountKeyProductPurchase(
+	public ProductPurchase createAccountAccountKeyProductPurchase(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("productPurchase") ProductPurchase productPurchase)
 		throws Exception {
@@ -929,7 +937,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ProductPurchase putProductPurchase(
+	public ProductPurchase updateProductPurchase(
 			@GraphQLName("productPurchaseKey") String productPurchaseKey,
 			@GraphQLName("productPurchase") ProductPurchase productPurchase)
 		throws Exception {
@@ -961,7 +969,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putProductPurchaseProductPurchasePermission(
+	public boolean updateProductPurchaseProductPurchasePermission(
 			@GraphQLName("productPurchaseKey") String productPurchaseKey,
 			@GraphQLName("productPurchasePermission") ProductPurchasePermission
 				productPurchasePermission)
@@ -979,7 +987,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Team postAccountAccountKeyTeam(
+	public Team createAccountAccountKeyTeam(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("team") Team team)
 		throws Exception {
@@ -1004,7 +1012,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Team putTeam(
+	public Team updateTeam(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("team") Team team)
 		throws Exception {
@@ -1031,7 +1039,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putTeamContactByOkta(
+	public boolean updateTeamContactByOkta(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("oktaIds") String[] oktaIds)
 		throws Exception {
@@ -1062,7 +1070,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putTeamContactByOktaRole(
+	public boolean updateTeamContactByOktaRole(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -1093,7 +1101,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putTeamContactByUuid(
+	public boolean updateTeamContactByUuid(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
@@ -1124,7 +1132,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putTeamContactByUuidContactUuidRole(
+	public boolean updateTeamContactByUuidContactUuidRole(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -1155,7 +1163,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putTeamTeamPermission(
+	public boolean updateTeamTeamPermission(
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("teamPermission") TeamPermission teamPermission)
 		throws Exception {
@@ -1170,7 +1178,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public TeamRole postTeamRole(@GraphQLName("teamRole") TeamRole teamRole)
+	public TeamRole createTeamRole(@GraphQLName("teamRole") TeamRole teamRole)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1193,7 +1201,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public TeamRole putTeamRole(
+	public TeamRole updateTeamRole(
 			@GraphQLName("teamRoleKey") String teamRoleKey,
 			@GraphQLName("teamRole") TeamRole teamRole)
 		throws Exception {
@@ -1223,7 +1231,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean putTeamRoleTeamRolePermission(
+	public boolean updateTeamRoleTeamRolePermission(
 			@GraphQLName("teamRoleKey") String teamRoleKey,
 			@GraphQLName("teamRolePermission") TeamRolePermission
 				teamRolePermission)
@@ -1281,6 +1289,10 @@ public class Mutation {
 
 		accountResource.setContextAcceptLanguage(_acceptLanguage);
 		accountResource.setContextCompany(_company);
+		accountResource.setContextHttpServletRequest(_httpServletRequest);
+		accountResource.setContextHttpServletResponse(_httpServletResponse);
+		accountResource.setContextUriInfo(_uriInfo);
+		accountResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(ContactResource contactResource)
@@ -1288,6 +1300,10 @@ public class Mutation {
 
 		contactResource.setContextAcceptLanguage(_acceptLanguage);
 		contactResource.setContextCompany(_company);
+		contactResource.setContextHttpServletRequest(_httpServletRequest);
+		contactResource.setContextHttpServletResponse(_httpServletResponse);
+		contactResource.setContextUriInfo(_uriInfo);
+		contactResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(
@@ -1296,6 +1312,10 @@ public class Mutation {
 
 		contactRoleResource.setContextAcceptLanguage(_acceptLanguage);
 		contactRoleResource.setContextCompany(_company);
+		contactRoleResource.setContextHttpServletRequest(_httpServletRequest);
+		contactRoleResource.setContextHttpServletResponse(_httpServletResponse);
+		contactRoleResource.setContextUriInfo(_uriInfo);
+		contactRoleResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(
@@ -1304,6 +1324,11 @@ public class Mutation {
 
 		externalLinkResource.setContextAcceptLanguage(_acceptLanguage);
 		externalLinkResource.setContextCompany(_company);
+		externalLinkResource.setContextHttpServletRequest(_httpServletRequest);
+		externalLinkResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		externalLinkResource.setContextUriInfo(_uriInfo);
+		externalLinkResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(
@@ -1312,6 +1337,11 @@ public class Mutation {
 
 		postalAddressResource.setContextAcceptLanguage(_acceptLanguage);
 		postalAddressResource.setContextCompany(_company);
+		postalAddressResource.setContextHttpServletRequest(_httpServletRequest);
+		postalAddressResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		postalAddressResource.setContextUriInfo(_uriInfo);
+		postalAddressResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(ProductResource productResource)
@@ -1319,6 +1349,10 @@ public class Mutation {
 
 		productResource.setContextAcceptLanguage(_acceptLanguage);
 		productResource.setContextCompany(_company);
+		productResource.setContextHttpServletRequest(_httpServletRequest);
+		productResource.setContextHttpServletResponse(_httpServletResponse);
+		productResource.setContextUriInfo(_uriInfo);
+		productResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(
@@ -1327,6 +1361,12 @@ public class Mutation {
 
 		productConsumptionResource.setContextAcceptLanguage(_acceptLanguage);
 		productConsumptionResource.setContextCompany(_company);
+		productConsumptionResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		productConsumptionResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productConsumptionResource.setContextUriInfo(_uriInfo);
+		productConsumptionResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(
@@ -1335,6 +1375,12 @@ public class Mutation {
 
 		productPurchaseResource.setContextAcceptLanguage(_acceptLanguage);
 		productPurchaseResource.setContextCompany(_company);
+		productPurchaseResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		productPurchaseResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productPurchaseResource.setContextUriInfo(_uriInfo);
+		productPurchaseResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(TeamResource teamResource)
@@ -1342,6 +1388,10 @@ public class Mutation {
 
 		teamResource.setContextAcceptLanguage(_acceptLanguage);
 		teamResource.setContextCompany(_company);
+		teamResource.setContextHttpServletRequest(_httpServletRequest);
+		teamResource.setContextHttpServletResponse(_httpServletResponse);
+		teamResource.setContextUriInfo(_uriInfo);
+		teamResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(TeamRoleResource teamRoleResource)
@@ -1349,6 +1399,10 @@ public class Mutation {
 
 		teamRoleResource.setContextAcceptLanguage(_acceptLanguage);
 		teamRoleResource.setContextCompany(_company);
+		teamRoleResource.setContextHttpServletRequest(_httpServletRequest);
+		teamRoleResource.setContextHttpServletResponse(_httpServletResponse);
+		teamRoleResource.setContextUriInfo(_uriInfo);
+		teamRoleResource.setContextUser(_user);
 	}
 
 	private static ComponentServiceObjects<AccountResource>
@@ -1374,5 +1428,9 @@ public class Mutation {
 
 	private AcceptLanguage _acceptLanguage;
 	private Company _company;
+	private HttpServletRequest _httpServletRequest;
+	private HttpServletResponse _httpServletResponse;
+	private UriInfo _uriInfo;
+	private User _user;
 
 }

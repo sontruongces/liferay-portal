@@ -38,6 +38,8 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -50,6 +52,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "EntitlementDefinition")
 public class EntitlementDefinition {
 
+	@GraphQLName("Status")
 	public static enum Status {
 
 		APPROVED("Approved"), INACTIVE("Inactive");
@@ -202,6 +205,7 @@ public class EntitlementDefinition {
 	@Schema(
 		description = "The entitlement definition's links to entities in external domains."
 	)
+	@Valid
 	public ExternalLink[] getExternalLinks() {
 		return externalLinks;
 	}
@@ -282,6 +286,7 @@ public class EntitlementDefinition {
 	protected String name;
 
 	@Schema(description = "The status of the entitlement definition.")
+	@Valid
 	public Status getStatus() {
 		return status;
 	}
@@ -471,6 +476,12 @@ public class EntitlementDefinition {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.EntitlementDefinition",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

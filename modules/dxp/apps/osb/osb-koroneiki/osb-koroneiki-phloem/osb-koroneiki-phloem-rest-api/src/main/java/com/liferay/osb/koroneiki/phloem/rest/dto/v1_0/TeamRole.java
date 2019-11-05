@@ -38,6 +38,7 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -54,6 +55,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "TeamRole")
 public class TeamRole {
 
+	@GraphQLName("Type")
 	public static enum Type {
 
 		ACCOUNT("Account"), REGULAR("Regular");
@@ -227,6 +229,7 @@ public class TeamRole {
 	protected String name;
 
 	@Schema(description = "The team role's type.")
+	@Valid
 	public Type getType() {
 		return type;
 	}
@@ -380,6 +383,12 @@ public class TeamRole {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

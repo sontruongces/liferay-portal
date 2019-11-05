@@ -20,7 +20,9 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductPurchaseSerDes;
 
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -85,13 +87,13 @@ public interface ProductPurchaseResource {
 		throws Exception;
 
 	public Page<ProductPurchase>
-			getProductPurchaseByExternalLinkDomainEntityNameEntity(
+			getProductPurchaseByExternalLinkDomainEntityNameEntityPage(
 				String domain, String entityName, String entityId,
 				Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getProductPurchaseByExternalLinkDomainEntityNameEntityHttpResponse(
+			getProductPurchaseByExternalLinkDomainEntityNameEntityPageHttpResponse(
 				String domain, String entityName, String entityId,
 				Pagination pagination)
 		throws Exception;
@@ -165,8 +167,20 @@ public interface ProductPurchaseResource {
 			return this;
 		}
 
+		public Builder header(String key, String value) {
+			_headers.put(key, value);
+
+			return this;
+		}
+
 		public Builder locale(Locale locale) {
 			_locale = locale;
+
+			return this;
+		}
+
+		public Builder parameter(String key, String value) {
+			_parameters.put(key, value);
 
 			return this;
 		}
@@ -174,10 +188,12 @@ public interface ProductPurchaseResource {
 		private Builder() {
 		}
 
+		private Map<String, String> _headers = new LinkedHashMap<>();
 		private String _host = "localhost";
 		private Locale _locale;
 		private String _login = "test@liferay.com";
 		private String _password = "test";
+		private Map<String, String> _parameters = new LinkedHashMap<>();
 		private int _port = 8080;
 		private String _scheme = "http";
 
@@ -215,6 +231,18 @@ public interface ProductPurchaseResource {
 			if (_builder._locale != null) {
 				httpInvoker.header(
 					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
@@ -280,6 +308,18 @@ public interface ProductPurchaseResource {
 					"Accept-Language", _builder._locale.toLanguageTag());
 			}
 
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
 
 			httpInvoker.path(
@@ -323,6 +363,18 @@ public interface ProductPurchaseResource {
 			if (_builder._locale != null) {
 				httpInvoker.header(
 					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
@@ -378,6 +430,18 @@ public interface ProductPurchaseResource {
 					"Accept-Language", _builder._locale.toLanguageTag());
 			}
 
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
 			if (pagination != null) {
@@ -431,6 +495,18 @@ public interface ProductPurchaseResource {
 					"Accept-Language", _builder._locale.toLanguageTag());
 			}
 
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
 			if (search != null) {
@@ -464,13 +540,13 @@ public interface ProductPurchaseResource {
 		}
 
 		public Page<ProductPurchase>
-				getProductPurchaseByExternalLinkDomainEntityNameEntity(
+				getProductPurchaseByExternalLinkDomainEntityNameEntityPage(
 					String domain, String entityName, String entityId,
 					Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getProductPurchaseByExternalLinkDomainEntityNameEntityHttpResponse(
+				getProductPurchaseByExternalLinkDomainEntityNameEntityPageHttpResponse(
 					domain, entityName, entityId, pagination);
 
 			String content = httpResponse.getContent();
@@ -485,7 +561,7 @@ public interface ProductPurchaseResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getProductPurchaseByExternalLinkDomainEntityNameEntityHttpResponse(
+				getProductPurchaseByExternalLinkDomainEntityNameEntityPageHttpResponse(
 					String domain, String entityName, String entityId,
 					Pagination pagination)
 			throws Exception {
@@ -495,6 +571,18 @@ public interface ProductPurchaseResource {
 			if (_builder._locale != null) {
 				httpInvoker.header(
 					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
@@ -542,6 +630,18 @@ public interface ProductPurchaseResource {
 			if (_builder._locale != null) {
 				httpInvoker.header(
 					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
@@ -593,6 +693,18 @@ public interface ProductPurchaseResource {
 			if (_builder._locale != null) {
 				httpInvoker.header(
 					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
@@ -650,6 +762,18 @@ public interface ProductPurchaseResource {
 					"Accept-Language", _builder._locale.toLanguageTag());
 			}
 
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
 			httpInvoker.path(
@@ -695,6 +819,18 @@ public interface ProductPurchaseResource {
 			if (_builder._locale != null) {
 				httpInvoker.header(
 					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
@@ -745,6 +881,18 @@ public interface ProductPurchaseResource {
 			if (_builder._locale != null) {
 				httpInvoker.header(
 					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
