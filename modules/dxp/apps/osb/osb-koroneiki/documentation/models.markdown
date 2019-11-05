@@ -23,6 +23,30 @@ A `Contact Role` is role a `Contact` has when assigned to an `Account` or
 `Team`. By default, when a `Contact` is assigned to an `Account` or `Team`, they
 get the `Member` role.
 
+### Entitlement
+
+An `Entitlement` is a convenience layer for `Accounts` and `Contacts` so you can
+easily see what they are entitled to. Entitlements should generally be products
+or services a customer has access to based on their `ProductPurchases`,
+`ContactRoles`, `Account` fields, etc. defined in the `EntitlementDefinition`.
+
+Examples:
+Analytics Cloud Admin
+Commerce Customer
+Customer
+DXP Customer
+DXP Trial
+Enterprise Search Customer
+Knowledge Base
+LCS User
+Partner
+Ticket Support
+
+### EntitlementDefinition
+
+An `EntitlementDefinition` defines which `Accounts` or `Contacts` gets what
+entitlements based of on certain criteria.
+
 ### ExternalLink
 
 An `External Link` creates a relationship between Koroneiki models and external
