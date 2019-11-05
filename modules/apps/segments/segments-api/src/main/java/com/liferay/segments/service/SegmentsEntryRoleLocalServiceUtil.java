@@ -39,12 +39,12 @@ public class SegmentsEntryRoleLocalServiceUtil {
 	 */
 	public static com.liferay.segments.model.SegmentsEntryRole
 			addSegmentsEntryRole(
-				long roleId, long segmentsEntryId,
+				long segmentsEntryId, long roleId,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addSegmentsEntryRole(
-			roleId, segmentsEntryId, serviceContext);
+			segmentsEntryId, roleId, serviceContext);
 	}
 
 	/**
@@ -98,10 +98,10 @@ public class SegmentsEntryRoleLocalServiceUtil {
 	}
 
 	public static com.liferay.segments.model.SegmentsEntryRole
-			deleteSegmentsEntryRole(long roleId, long segmentsEntryId)
+			deleteSegmentsEntryRole(long segmentsEntryId, long roleId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().deleteSegmentsEntryRole(roleId, segmentsEntryId);
+		return getService().deleteSegmentsEntryRole(segmentsEntryId, roleId);
 	}
 
 	/**

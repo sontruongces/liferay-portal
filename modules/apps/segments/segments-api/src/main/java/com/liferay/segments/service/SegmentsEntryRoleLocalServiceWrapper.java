@@ -35,12 +35,12 @@ public class SegmentsEntryRoleLocalServiceWrapper
 
 	@Override
 	public com.liferay.segments.model.SegmentsEntryRole addSegmentsEntryRole(
-			long roleId, long segmentsEntryId,
+			long segmentsEntryId, long roleId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _segmentsEntryRoleLocalService.addSegmentsEntryRole(
-			roleId, segmentsEntryId, serviceContext);
+			segmentsEntryId, roleId, serviceContext);
 	}
 
 	/**
@@ -101,11 +101,11 @@ public class SegmentsEntryRoleLocalServiceWrapper
 
 	@Override
 	public com.liferay.segments.model.SegmentsEntryRole deleteSegmentsEntryRole(
-			long roleId, long segmentsEntryId)
+			long segmentsEntryId, long roleId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _segmentsEntryRoleLocalService.deleteSegmentsEntryRole(
-			roleId, segmentsEntryId);
+			segmentsEntryId, roleId);
 	}
 
 	/**
