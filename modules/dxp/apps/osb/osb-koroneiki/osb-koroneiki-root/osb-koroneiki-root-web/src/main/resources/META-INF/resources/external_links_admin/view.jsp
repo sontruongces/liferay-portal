@@ -33,8 +33,8 @@ String redirect = ParamUtil.getString(request, "redirect");
 			<%
 			Map<String, String[]> map = new HashMap<>(portletPreferences.getMap());
 
-			if (map.size() < 1) {
-				map.put(StringPool.BLANK, new String[] {StringPool.BLANK});
+			if (map.isEmpty()) {
+				map.put(StringPool.BLANK, new String[0]);
 			}
 
 			int[] externalLinkIndexes = new int[map.size()];
@@ -48,7 +48,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 			for (Map.Entry<String, String[]> entry : map.entrySet()) {
 				String key = entry.getKey();
 
-				if (!key.equals(StringPool.BLANK)) {
+				if (Validator.isNotNull(key)) {
 					domain = key.split(StringPool.UNDERLINE)[0];
 					entityName = key.split(StringPool.UNDERLINE)[1];
 					url = entry.getValue()[0];
