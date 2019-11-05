@@ -131,7 +131,7 @@ public class ProductPurchaseResourceImpl
 
 	@Override
 	public Page<ProductPurchase>
-			getProductPurchaseByExternalLinkDomainEntityNameEntity(
+			getProductPurchaseByExternalLinkDomainEntityNameEntityPage(
 				String domain, String entityName, String entityId,
 				Pagination pagination)
 		throws Exception {

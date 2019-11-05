@@ -149,7 +149,7 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public Page<Account> getAccountByExternalLinkDomainEntityNameEntity(
+	public Page<Account> getAccountByExternalLinkDomainEntityNameEntityPage(
 			String domain, String entityName, String entityId,
 			Pagination pagination)
 		throws Exception {

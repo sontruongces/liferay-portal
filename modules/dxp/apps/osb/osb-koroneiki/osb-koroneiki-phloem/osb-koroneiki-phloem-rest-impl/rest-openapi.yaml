@@ -919,7 +919,7 @@ paths:
         get:
             description:
                 Retrieves the account by the external link.
-            operationId: getAccountByExternalLinkDomainEntityNameEntity
+            operationId: getAccountByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
                   name: domain
@@ -3114,7 +3114,7 @@ paths:
         get:
             description:
                 Retrieves the product consumptions by the external link.
-            operationId: getProductConsumptionByExternalLinkDomainEntityNameEntity
+            operationId: getProductConsumptionByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
                   name: domain
@@ -3356,7 +3356,7 @@ paths:
         get:
             description:
                 Retrieves the product purchases by the external link.
-            operationId: getProductPurchaseByExternalLinkDomainEntityNameEntity
+            operationId: getProductPurchaseByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
                   name: domain
@@ -3650,7 +3650,7 @@ paths:
         get:
             description:
                 Retrieves the products by the external link.
-            operationId: getProductByExternalLinkDomainEntityNameEntity
+            operationId: getProductByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
                   name: domain
@@ -4139,7 +4139,7 @@ paths:
         get:
             description:
                 Retrieves the team by the external link.
-            operationId: getTeamByExternalLinkDomainEntityNameEntity
+            operationId: getTeamByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
                   name: domain

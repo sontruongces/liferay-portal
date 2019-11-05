@@ -148,7 +148,7 @@ public class TeamResourceImpl
 	}
 
 	@Override
-	public Page<Team> getTeamByExternalLinkDomainEntityNameEntity(
+	public Page<Team> getTeamByExternalLinkDomainEntityNameEntityPage(
 			String domain, String entityName, String entityId,
 			Pagination pagination)
 		throws Exception {

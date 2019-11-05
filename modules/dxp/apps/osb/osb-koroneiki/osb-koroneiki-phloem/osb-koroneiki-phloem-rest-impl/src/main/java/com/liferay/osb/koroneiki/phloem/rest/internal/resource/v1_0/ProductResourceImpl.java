@@ -81,7 +81,7 @@ public class ProductResourceImpl
 	}
 
 	@Override
-	public Page<Product> getProductByExternalLinkDomainEntityNameEntity(
+	public Page<Product> getProductByExternalLinkDomainEntityNameEntityPage(
 			String domain, String entityName, String entityId,
 			Pagination pagination)
 		throws Exception {

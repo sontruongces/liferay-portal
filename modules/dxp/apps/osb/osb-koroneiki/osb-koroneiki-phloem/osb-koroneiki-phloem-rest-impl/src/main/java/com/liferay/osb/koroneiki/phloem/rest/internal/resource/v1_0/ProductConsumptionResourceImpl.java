@@ -134,7 +134,7 @@ public class ProductConsumptionResourceImpl
 
 	@Override
 	public Page<ProductConsumption>
-			getProductConsumptionByExternalLinkDomainEntityNameEntity(
+			getProductConsumptionByExternalLinkDomainEntityNameEntityPage(
 				String domain, String entityName, String entityId,
 				Pagination pagination)
 		throws Exception {
