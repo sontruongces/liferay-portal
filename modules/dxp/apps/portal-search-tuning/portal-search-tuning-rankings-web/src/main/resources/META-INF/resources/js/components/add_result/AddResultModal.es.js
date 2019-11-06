@@ -17,7 +17,7 @@ import ClayModal, {useModal} from '@clayui/modal';
 import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import ThemeContext from '../../ThemeContext.es';
 import {
@@ -26,6 +26,7 @@ import {
 	FETCH_OPTIONS,
 	KEY_CODES
 } from '../../utils/constants.es';
+import {usePrevious} from '../../utils/hooks.es';
 import {getPluralMessage} from '../../utils/language.es';
 import {buildUrl, resultsDataToMap, toggleListItem} from '../../utils/util.es';
 import Item from '../list/Item.es';
@@ -59,6 +60,9 @@ function AddResultModal({
 	const [searchQuery, setSearchQuery] = useState('');
 	const [selectedIds, setSelectedIds] = useState([]);
 
+	const prevDelta = usePrevious(delta);
+	const prevPage = usePrevious(page);
+
 	/**
 	 * Stores the full object data of selected results. This is used to
 	 * transform the `selectedIds` into a the list of objects to send to
@@ -84,6 +88,15 @@ function AddResultModal({
 				loading: status < 4
 			})
 	});
+
+	/**
+	 * Fetches for new data when the delta or page change.
+	 */
+	useEffect(() => {
+		if (prevDelta !== delta || prevPage !== page) {
+			refetch();
+		}
+	}, [delta, page, prevDelta, prevPage, refetch]);
 
 	/**
 	 * Deselects all items on the current page.
@@ -161,8 +174,6 @@ function AddResultModal({
 	function _handleDeltaChange(newDelta) {
 		setDelta(newDelta);
 		setPage(1);
-
-		_handleRefetch();
 	}
 
 	/**
@@ -171,8 +182,6 @@ function AddResultModal({
 	 */
 	function _handlePageChange(newPage) {
 		setPage(newPage);
-
-		_handleRefetch();
 	}
 
 	/**
@@ -200,7 +209,6 @@ function AddResultModal({
 
 		if (event.key === KEY_CODES.ENTER) {
 			setPage(1);
-			setSelectedIds([]);
 
 			_handleRefetch();
 		}
@@ -386,34 +394,25 @@ function AddResultModal({
 					</ul>
 				</div>
 
-				{/*
-					Temporarily hide pagination bar until pagination is fixed
-					in LPS-96397. (LPS-101090)
-				*/}
-
-				{false && (
-					<div className="add-result-container">
-						<ClayPaginationBarWithBasicItems
-							activeDelta={delta}
-							activePage={page}
-							deltas={DELTAS}
-							ellipsisBuffer={1}
-							labels={{
-								paginationResults: Liferay.Language.get(
-									'showing-x-to-x-of-x-entries'
-								),
-								perPageItems: Liferay.Language.get('x-items'),
-								selectPerPageItems: Liferay.Language.get(
-									'x-items'
-								)
-							}}
-							onDeltaChange={_handleDeltaChange}
-							onPageChange={_handlePageChange}
-							spritemap={spritemap}
-							totalItems={resource.total}
-						/>
-					</div>
-				)}
+				<div className="add-result-container">
+					<ClayPaginationBarWithBasicItems
+						activeDelta={delta}
+						activePage={page}
+						deltas={DELTAS}
+						ellipsisBuffer={1}
+						labels={{
+							paginationResults: Liferay.Language.get(
+								'showing-x-to-x-of-x-entries'
+							),
+							perPageItems: Liferay.Language.get('x-items'),
+							selectPerPageItems: Liferay.Language.get('x-items')
+						}}
+						onDeltaChange={_handleDeltaChange}
+						onPageChange={_handlePageChange}
+						spritemap={spritemap}
+						totalItems={resource.total}
+					/>
+				</div>
 			</>
 		);
 	}

@@ -33,7 +33,7 @@ export const DELTAS = [
 /**
  * Delta that will be initially selected.
  */
-export const DEFAULT_DELTA = DELTAS[4];
+export const DEFAULT_DELTA = DELTAS[2]; // 20
 
 export const KEY_CODES = {
 	ARROW_DOWN: 'ArrowDown',
