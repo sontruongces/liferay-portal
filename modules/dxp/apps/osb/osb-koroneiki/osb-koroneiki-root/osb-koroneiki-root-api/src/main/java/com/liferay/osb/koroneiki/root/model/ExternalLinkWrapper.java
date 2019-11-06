@@ -256,6 +256,11 @@ public class ExternalLinkWrapper
 		return model.getPrimaryKey();
 	}
 
+	@Override
+	public String getUrl() {
+		return model.getUrl();
+	}
+
 	/**
 	 * NOTE FOR DEVELOPERS:
 	 *

@@ -58,4 +58,6 @@ public interface ExternalLink extends ExternalLinkModel, PersistedModel {
 
 		};
 
+	public String getUrl();
+
 }
