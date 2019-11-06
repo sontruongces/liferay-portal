@@ -132,6 +132,25 @@ public class ExternalLink {
 
 	protected String key;
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public void setUrl(UnsafeSupplier<String, Exception> urlUnsafeSupplier) {
+		try {
+			url = urlUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String url;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {

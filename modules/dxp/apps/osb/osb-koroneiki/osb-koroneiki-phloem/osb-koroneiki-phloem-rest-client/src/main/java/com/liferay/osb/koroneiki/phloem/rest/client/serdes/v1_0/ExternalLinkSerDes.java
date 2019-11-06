@@ -132,6 +132,20 @@ public class ExternalLinkSerDes {
 			sb.append("\"");
 		}
 
+		if (externalLink.getUrl() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"url\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(externalLink.getUrl()));
+
+			sb.append("\"");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -186,6 +200,13 @@ public class ExternalLinkSerDes {
 			map.put("key", String.valueOf(externalLink.getKey()));
 		}
 
+		if (externalLink.getUrl() == null) {
+			map.put("url", null);
+		}
+		else {
+			map.put("url", String.valueOf(externalLink.getUrl()));
+		}
+
 		return map;
 	}
 
@@ -231,6 +252,11 @@ public class ExternalLinkSerDes {
 			else if (Objects.equals(jsonParserFieldName, "key")) {
 				if (jsonParserFieldValue != null) {
 					externalLink.setKey((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "url")) {
+				if (jsonParserFieldValue != null) {
+					externalLink.setUrl((String)jsonParserFieldValue);
 				}
 			}
 			else {

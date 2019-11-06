@@ -184,6 +184,7 @@ public abstract class BaseExternalLinkResourceTestCase {
 		externalLink.setEntityId(regex);
 		externalLink.setEntityName(regex);
 		externalLink.setKey(regex);
+		externalLink.setUrl(regex);
 
 		String json = ExternalLinkSerDes.toJSON(externalLink);
 
@@ -195,6 +196,7 @@ public abstract class BaseExternalLinkResourceTestCase {
 		Assert.assertEquals(regex, externalLink.getEntityId());
 		Assert.assertEquals(regex, externalLink.getEntityName());
 		Assert.assertEquals(regex, externalLink.getKey());
+		Assert.assertEquals(regex, externalLink.getUrl());
 	}
 
 	@Test
@@ -1397,6 +1399,14 @@ public abstract class BaseExternalLinkResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("url", additionalAssertFieldName)) {
+				if (externalLink.getUrl() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1505,6 +1515,16 @@ public abstract class BaseExternalLinkResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("url", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						externalLink1.getUrl(), externalLink2.getUrl())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1553,6 +1573,16 @@ public abstract class BaseExternalLinkResourceTestCase {
 			if (Objects.equals("key", fieldName)) {
 				if (!Objects.deepEquals(
 						externalLink.getKey(), jsonObject.getString("key"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("url", fieldName)) {
+				if (!Objects.deepEquals(
+						externalLink.getUrl(), jsonObject.getString("url"))) {
 
 					return false;
 				}
@@ -1682,6 +1712,14 @@ public abstract class BaseExternalLinkResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("url")) {
+			sb.append("'");
+			sb.append(String.valueOf(externalLink.getUrl()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		throw new IllegalArgumentException(
 			"Invalid entity field " + entityFieldName);
 	}
@@ -1711,6 +1749,7 @@ public abstract class BaseExternalLinkResourceTestCase {
 				entityId = RandomTestUtil.randomString();
 				entityName = RandomTestUtil.randomString();
 				key = RandomTestUtil.randomString();
+				url = RandomTestUtil.randomString();
 			}
 		};
 	}

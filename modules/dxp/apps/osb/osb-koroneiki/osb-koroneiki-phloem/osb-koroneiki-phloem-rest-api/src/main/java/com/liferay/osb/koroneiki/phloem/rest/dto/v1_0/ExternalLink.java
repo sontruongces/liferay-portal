@@ -192,6 +192,32 @@ public class ExternalLink {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
+	@Schema(description = "The url of the external entity.")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	@JsonIgnore
+	public void setUrl(UnsafeSupplier<String, Exception> urlUnsafeSupplier) {
+		try {
+			url = urlUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String url;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -288,6 +314,20 @@ public class ExternalLink {
 			sb.append("\"");
 
 			sb.append(_escape(key));
+
+			sb.append("\"");
+		}
+
+		if (url != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"url\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(url));
 
 			sb.append("\"");
 		}
