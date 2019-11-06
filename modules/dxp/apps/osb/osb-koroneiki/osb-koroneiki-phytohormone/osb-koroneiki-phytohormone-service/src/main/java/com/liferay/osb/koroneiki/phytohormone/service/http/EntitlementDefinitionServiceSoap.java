@@ -14,9 +14,15 @@
 
 package com.liferay.osb.koroneiki.phytohormone.service.http;
 
+import com.liferay.osb.koroneiki.phytohormone.service.EntitlementDefinitionServiceUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * <code>com.liferay.osb.koroneiki.phytohormone.service.EntitlementDefinitionServiceUtil</code> service
+ * <code>EntitlementDefinitionServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -54,4 +60,67 @@ package com.liferay.osb.koroneiki.phytohormone.service.http;
  * @generated
  */
 public class EntitlementDefinitionServiceSoap {
+
+	public static
+		com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinitionSoap
+				addEntitlementDefinition(
+					long classNameId, String name, String description,
+					String definition, int status)
+			throws RemoteException {
+
+		try {
+			com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
+				returnValue =
+					EntitlementDefinitionServiceUtil.addEntitlementDefinition(
+						classNameId, name, description, definition, status);
+
+			return com.liferay.osb.koroneiki.phytohormone.model.
+				EntitlementDefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinitionSoap
+				deleteEntitlementDefinition(long entitlementDefinitionId)
+			throws RemoteException {
+
+		try {
+			com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
+				returnValue =
+					EntitlementDefinitionServiceUtil.
+						deleteEntitlementDefinition(entitlementDefinitionId);
+
+			return com.liferay.osb.koroneiki.phytohormone.model.
+				EntitlementDefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void synchronizeEntitlementDefinition(
+			long entitlementDefinitionId)
+		throws RemoteException {
+
+		try {
+			EntitlementDefinitionServiceUtil.synchronizeEntitlementDefinition(
+				entitlementDefinitionId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		EntitlementDefinitionServiceSoap.class);
+
 }

@@ -41,7 +41,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.constraints.NotNull;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -89,6 +92,24 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/entitlement-definitions' -d $'{"definition": ___, "description": ___, "name": ___, "status": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Path("/accounts/entitlement-definitions")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "EntitlementDefinition")})
+	public EntitlementDefinition postAccountEntitlementDefinition(
+			EntitlementDefinition entitlementDefinition)
+		throws Exception {
+
+		return new EntitlementDefinition();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/entitlement-definitions'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -110,6 +131,71 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/entitlement-definitions' -d $'{"definition": ___, "description": ___, "name": ___, "status": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Path("/contacts/entitlement-definitions")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "EntitlementDefinition")})
+	public EntitlementDefinition postContactEntitlementDefinition(
+			EntitlementDefinition entitlementDefinition)
+		throws Exception {
+
+		return new EntitlementDefinition();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/entitlement-definitions/{entitlementDefinitionKey}/synchronize'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Operation(
+		description = "Immediately runs a synchronization of the entitlement definition."
+	)
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "entitlementDefinitionKey")
+		}
+	)
+	@Path("/entitlement-definitions/{entitlementDefinitionKey}/synchronize")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "EntitlementDefinition")})
+	public void postEntitlementDefinitionSynchronize(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("entitlementDefinitionKey") String
+				entitlementDefinitionKey)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/entitlement-definitions/{entitlementDefinitionKey}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "entitlementDefinitionKey")
+		}
+	)
+	@Path("/entitlement-definitions/{entitlementDefinitionKey}")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "EntitlementDefinition")})
+	public void deleteEntitlementDefinition(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("entitlementDefinitionKey") String
+				entitlementDefinitionKey)
+		throws Exception {
 	}
 
 	/**

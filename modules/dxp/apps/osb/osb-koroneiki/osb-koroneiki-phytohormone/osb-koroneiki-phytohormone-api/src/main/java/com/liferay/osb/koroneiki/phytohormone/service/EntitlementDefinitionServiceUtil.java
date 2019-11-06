@@ -39,12 +39,44 @@ public class EntitlementDefinitionServiceUtil {
 	 */
 
 	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link EntitlementDefinitionServiceUtil} to access the entitlement definition remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.phytohormone.service.impl.EntitlementDefinitionServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
+	public static
+		com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
+				addEntitlementDefinition(
+					long classNameId, String name, String description,
+					String definition, int status)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addEntitlementDefinition(
+			classNameId, name, description, definition, status);
+	}
+
+	public static
+		com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
+				deleteEntitlementDefinition(long entitlementDefinitionId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().deleteEntitlementDefinition(
+			entitlementDefinitionId);
+	}
+
+	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static void synchronizeEntitlementDefinition(
+			long entitlementDefinitionId)
+		throws Exception {
+
+		getService().synchronizeEntitlementDefinition(entitlementDefinitionId);
 	}
 
 	public static EntitlementDefinitionService getService() {

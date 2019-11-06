@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.phytohormone.service;
 
+import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -47,6 +48,14 @@ public interface EntitlementDefinitionService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link EntitlementDefinitionServiceUtil} to access the entitlement definition remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.phytohormone.service.impl.EntitlementDefinitionServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public EntitlementDefinition addEntitlementDefinition(
+			long classNameId, String name, String description,
+			String definition, int status)
+		throws PortalException;
+
+	public EntitlementDefinition deleteEntitlementDefinition(
+			long entitlementDefinitionId)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -54,5 +63,8 @@ public interface EntitlementDefinitionService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	public void synchronizeEntitlementDefinition(long entitlementDefinitionId)
+		throws Exception;
 
 }

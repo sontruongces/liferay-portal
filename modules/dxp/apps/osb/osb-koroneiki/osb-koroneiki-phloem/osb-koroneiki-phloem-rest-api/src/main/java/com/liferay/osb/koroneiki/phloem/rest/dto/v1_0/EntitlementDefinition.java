@@ -39,6 +39,7 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -49,6 +50,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("EntitlementDefinition")
 @JsonFilter("Liferay.Vulcan")
+@Schema(requiredProperties = {"name"})
 @XmlRootElement(name = "EntitlementDefinition")
 public class EntitlementDefinition {
 
@@ -171,7 +173,7 @@ public class EntitlementDefinition {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String definition;
 
 	@Schema(description = "The description of the entitlement.")
@@ -199,7 +201,7 @@ public class EntitlementDefinition {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
 	@Schema(
@@ -282,7 +284,8 @@ public class EntitlementDefinition {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotEmpty
 	protected String name;
 
 	@Schema(description = "The status of the entitlement definition.")
@@ -320,7 +323,7 @@ public class EntitlementDefinition {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Status status;
 
 	@Override

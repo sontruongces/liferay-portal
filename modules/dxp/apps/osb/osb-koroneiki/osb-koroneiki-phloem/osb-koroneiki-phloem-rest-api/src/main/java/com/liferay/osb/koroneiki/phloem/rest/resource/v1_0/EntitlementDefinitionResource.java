@@ -46,8 +46,23 @@ public interface EntitlementDefinitionResource {
 			String search, Pagination pagination)
 		throws Exception;
 
+	public EntitlementDefinition postAccountEntitlementDefinition(
+			EntitlementDefinition entitlementDefinition)
+		throws Exception;
+
 	public Page<EntitlementDefinition> getContactEntitlementDefinitionsPage(
 			String search, Pagination pagination)
+		throws Exception;
+
+	public EntitlementDefinition postContactEntitlementDefinition(
+			EntitlementDefinition entitlementDefinition)
+		throws Exception;
+
+	public void postEntitlementDefinitionSynchronize(
+			String entitlementDefinitionKey)
+		throws Exception;
+
+	public void deleteEntitlementDefinition(String entitlementDefinitionKey)
 		throws Exception;
 
 	public EntitlementDefinition getEntitlementDefinition(

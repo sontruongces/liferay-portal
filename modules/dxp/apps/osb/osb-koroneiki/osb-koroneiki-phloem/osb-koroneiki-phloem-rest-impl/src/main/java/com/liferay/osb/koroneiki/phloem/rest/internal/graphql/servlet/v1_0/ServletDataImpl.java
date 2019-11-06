@@ -55,6 +55,8 @@ public class ServletDataImpl implements ServletData {
 			_contactResourceComponentServiceObjects);
 		Mutation.setContactRoleResourceComponentServiceObjects(
 			_contactRoleResourceComponentServiceObjects);
+		Mutation.setEntitlementDefinitionResourceComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects);
 		Mutation.setExternalLinkResourceComponentServiceObjects(
 			_externalLinkResourceComponentServiceObjects);
 		Mutation.setPostalAddressResourceComponentServiceObjects(
@@ -128,6 +130,10 @@ public class ServletDataImpl implements ServletData {
 		_contactRoleResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<EntitlementDefinitionResource>
+		_entitlementDefinitionResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ExternalLinkResource>
 		_externalLinkResourceComponentServiceObjects;
 
@@ -158,9 +164,5 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<AuditEntryResource>
 		_auditEntryResourceComponentServiceObjects;
-
-	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<EntitlementDefinitionResource>
-		_entitlementDefinitionResourceComponentServiceObjects;
 
 }

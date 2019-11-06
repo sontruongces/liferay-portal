@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRolePermission;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
@@ -35,6 +36,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.EntitlementDefinitionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
@@ -88,6 +90,14 @@ public class Mutation {
 
 		_contactRoleResourceComponentServiceObjects =
 			contactRoleResourceComponentServiceObjects;
+	}
+
+	public static void setEntitlementDefinitionResourceComponentServiceObjects(
+		ComponentServiceObjects<EntitlementDefinitionResource>
+			entitlementDefinitionResourceComponentServiceObjects) {
+
+		_entitlementDefinitionResourceComponentServiceObjects =
+			entitlementDefinitionResourceComponentServiceObjects;
 	}
 
 	public static void setExternalLinkResourceComponentServiceObjects(
@@ -613,6 +623,67 @@ public class Mutation {
 			contactRoleResource ->
 				contactRoleResource.putContactRoleContactRolePermission(
 					contactRoleKey, contactRolePermission));
+
+		return true;
+	}
+
+	@GraphQLField
+	public EntitlementDefinition createAccountEntitlementDefinition(
+			@GraphQLName("entitlementDefinition") EntitlementDefinition
+				entitlementDefinition)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			entitlementDefinitionResource ->
+				entitlementDefinitionResource.postAccountEntitlementDefinition(
+					entitlementDefinition));
+	}
+
+	@GraphQLField
+	public EntitlementDefinition createContactEntitlementDefinition(
+			@GraphQLName("entitlementDefinition") EntitlementDefinition
+				entitlementDefinition)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			entitlementDefinitionResource ->
+				entitlementDefinitionResource.postContactEntitlementDefinition(
+					entitlementDefinition));
+	}
+
+	@GraphQLField
+	public boolean createEntitlementDefinitionSynchronize(
+			@GraphQLName("entitlementDefinitionKey") String
+				entitlementDefinitionKey)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			entitlementDefinitionResource ->
+				entitlementDefinitionResource.
+					postEntitlementDefinitionSynchronize(
+						entitlementDefinitionKey));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteEntitlementDefinition(
+			@GraphQLName("entitlementDefinitionKey") String
+				entitlementDefinitionKey)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			entitlementDefinitionResource ->
+				entitlementDefinitionResource.deleteEntitlementDefinition(
+					entitlementDefinitionKey));
 
 		return true;
 	}
@@ -1319,6 +1390,20 @@ public class Mutation {
 	}
 
 	private void _populateResourceContext(
+			EntitlementDefinitionResource entitlementDefinitionResource)
+		throws Exception {
+
+		entitlementDefinitionResource.setContextAcceptLanguage(_acceptLanguage);
+		entitlementDefinitionResource.setContextCompany(_company);
+		entitlementDefinitionResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		entitlementDefinitionResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		entitlementDefinitionResource.setContextUriInfo(_uriInfo);
+		entitlementDefinitionResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
 			ExternalLinkResource externalLinkResource)
 		throws Exception {
 
@@ -1411,6 +1496,8 @@ public class Mutation {
 		_contactResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ContactRoleResource>
 		_contactRoleResourceComponentServiceObjects;
+	private static ComponentServiceObjects<EntitlementDefinitionResource>
+		_entitlementDefinitionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ExternalLinkResource>
 		_externalLinkResourceComponentServiceObjects;
 	private static ComponentServiceObjects<PostalAddressResource>
