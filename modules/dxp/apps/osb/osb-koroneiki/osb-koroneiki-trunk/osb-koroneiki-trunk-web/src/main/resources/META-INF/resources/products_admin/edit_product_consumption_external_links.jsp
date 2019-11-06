@@ -64,7 +64,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "consumption"));
 			>
 
 				<%
-				String url = ExternalLinkUrlGenerator.generate(company.getCompanyId(), externalLink.getDomain(), externalLink.getEntityName(), externalLink.getEntityId());
+				String url = externalLink.getUrl();
 				%>
 
 				<liferay-ui:search-container-column-text

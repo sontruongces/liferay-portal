@@ -34,7 +34,6 @@ page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkDomainExceptio
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkEntityIdException" %><%@
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkEntityNameException" %><%@
 page import="com.liferay.osb.koroneiki.root.model.ExternalLink" %><%@
-page import="com.liferay.osb.koroneiki.root.util.ExternalLinkUrlGenerator" %><%@
 page import="com.liferay.osb.koroneiki.taproot.constants.TaprootPortletKeys" %><%@
 page import="com.liferay.osb.koroneiki.taproot.exception.NoSuchAccountException" %><%@
 page import="com.liferay.osb.koroneiki.taproot.model.Account" %><%@
