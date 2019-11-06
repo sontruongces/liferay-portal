@@ -68,3 +68,32 @@ app.artifacts-2.0.2=\
 app.change.log-2.0.2=[[trimmed]]0 LPS-100635 LPS-100769 LPS-100797 LPS-100833 LPS-100862 LPS-100866 LPS-100901 LPS-100905 LPS-100920 LPS-100921 LPS-100922 LPS-101089 LPS-101122 LPS-101196 LPS-101208 LPS-101241 LPS-101288 LPS-101294 LPS-101336 LPS-101395 LPS-101525 LPS-101544 LPS-101662 LPS-101696 LPS-101698 LPS-101831 LPS-101948 LPS-101970 LPS-102042 LPS-102120 LPS-102153 LPS-102293 LPS-102373 LPS-102403 LPS-102450 LPS-102451 LPS-102511 LPS-102521 LPS-102617 LPS-67565 LPS-77699 LPS-84119 LPS-85785 LPS-86806 LPS-94070 LPS-94087 LPS-94148 LPS-94150 LPS-94192 LPS-94403 LPS-94987 LPS-95525 LPS-96766 LPS-96863 LPS-97212 LPS-97234 LPS-97251 LPS-97315 LPS-97446 LPS-97525 LPS-98278 LPS-98368 LPS-98372 LPS-98527 LPS-98659 LPS-98669 LPS-98817 LPS-98857 LPS-98877 LPS-98878 LPS-98879 LPS-98962 LPS-99039 LPS-99093 LPS-99120 LPS-99216 LPS-99221 LPS-99236 LPS-99252 LPS-99346 LPS-99386 LPS-99389 LPS-99390 LPS-99488 LPS-99541 LPS-99566 LPS-99623 LPS-99657 LPS-99662 LPS-99754 LPS-99827 LPS-99840 LPS-99893 LPS-99898 LPS-99916 LPS-99961
 
 app.git.id-2.0.2=d0d490c1a0a4bdf614d8a137a5e902ab1509be1b
+
+#
+# Liferay App Version 2.0.3
+#
+
+app.artifacts-2.0.3=\
+	com.liferay.dynamic.data.mapping.api-5.7.0.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.impl-3.0.10.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.instance-2.0.6.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.web-3.0.12.jar,\
+	com.liferay.dynamic.data.mapping.expression-4.0.9.jar,\
+	com.liferay.dynamic.data.mapping.form.analytics-3.0.7.jar,\
+	com.liferay.dynamic.data.mapping.form.builder-2.0.42.jar,\
+	com.liferay.dynamic.data.mapping.form.evaluator.impl-2.0.17.jar,\
+	com.liferay.dynamic.data.mapping.form.field.type-4.0.40.jar,\
+	com.liferay.dynamic.data.mapping.form.renderer-4.0.32.jar,\
+	com.liferay.dynamic.data.mapping.form.taglib-2.0.14.jar,\
+	com.liferay.dynamic.data.mapping.form.values.factory-4.0.9.jar,\
+	com.liferay.dynamic.data.mapping.form.values.query-4.0.2.jar,\
+	com.liferay.dynamic.data.mapping.form.web-2.0.45.jar,\
+	com.liferay.dynamic.data.mapping.lang-4.0.13.jar,\
+	com.liferay.dynamic.data.mapping.service-4.0.38.jar,\
+	com.liferay.dynamic.data.mapping.taglib-4.1.9.jar,\
+	com.liferay.dynamic.data.mapping.validator-4.0.11.jar,\
+	com.liferay.dynamic.data.mapping.web-3.0.30.jar
+
+app.change.log-2.0.3=LPS-100348 LPS-100416 LPS-100448 LPS-100862 LPS-101515 LPS-101662 LPS-102042 LPS-102153 LPS-102342 LPS-102403 LPS-102450 LPS-102451 LPS-102511 LPS-102521 LPS-102616 LPS-102617 LPS-102621 LPS-102678 LPS-102700 LPS-102733 LPS-102817 LPS-103049 LPS-103068 LPS-103252 LPS-103302 LPS-103511 LPS-77699 LPS-84119 LPS-97315 LPS-97841 LPS-98032 LPS-98183 LPS-98372 LPS-99389 LPS-99541 LPS-99840 LPS-99916
+
+app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134

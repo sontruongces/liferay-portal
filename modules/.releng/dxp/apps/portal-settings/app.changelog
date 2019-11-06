@@ -44,3 +44,21 @@ app.artifacts-2.0.2=\
 app.change.log-2.0.2=LPS-100207 LPS-100215 LPS-100448 LPS-100901 LPS-101241 LPS-77699 LPS-90049 LPS-90052 LPS-90053 LPS-98877 LPS-98879 LPS-99665 LPS-99875
 
 app.git.id-2.0.2=d0d490c1a0a4bdf614d8a137a5e902ab1509be1b
+
+#
+# Liferay App Version 2.0.3
+#
+
+app.artifacts-2.0.3=\
+	com.liferay.portal.settings.api-4.0.6.jar,\
+	com.liferay.portal.settings.authentication.cas.web-3.0.9.jar,\
+	com.liferay.portal.settings.authentication.facebook.connect.web-3.0.6.jar,\
+	com.liferay.portal.settings.authentication.ldap.web-3.0.15.jar,\
+	com.liferay.portal.settings.authentication.openid.connect.web-4.0.6.jar,\
+	com.liferay.portal.settings.authentication.opensso.web-3.0.10.jar,\
+	com.liferay.portal.settings.lang-3.0.7.jar,\
+	com.liferay.portal.settings.web-3.0.16.jar
+
+app.change.log-2.0.3=LPS-100207 LPS-100215 LPS-100448 LPS-100901 LPS-101241 LPS-102700 LPS-102907 LPS-103302 LPS-68220 LPS-77425 LPS-77699 LPS-79653 LPS-80332 LPS-84119 LPS-84758 LPS-85296 LPS-86408 LPS-87037 LPS-88907 LPS-90049 LPS-90052 LPS-90053 LPS-90254 LPS-93427 LPS-95413 LPS-95555 LPS-98032 LPS-98877 LPS-98879 LPS-99875
+
+app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134

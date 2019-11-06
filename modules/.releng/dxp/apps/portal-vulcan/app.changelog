@@ -37,3 +37,17 @@ app.artifacts-2.0.2=\
 app.change.log-2.0.2=COMMERCE-1217 LPS-100020 LPS-100333 LPS-100427 LPS-100448 LPS-100656 LPS-100977 LPS-101260 LPS-101716 LPS-102255 LPS-77699 LPS-84119 LPS-94523 LPS-96640 LPS-96641 LPS-98879 LPS-99356 LPS-99357 LPS-99360 LPS-99361 LPS-99362
 
 app.git.id-2.0.2=d0d490c1a0a4bdf614d8a137a5e902ab1509be1b
+
+#
+# Liferay App Version 2.0.3
+#
+
+app.artifacts-2.0.3=\
+	com.liferay.portal.vulcan.api-3.9.1.jar,\
+	com.liferay.portal.vulcan.impl-3.0.38.jar,\
+	io.swagger.core.v3.swagger-annotations-2.0.5.jar,\
+	javax.validation.api-2.0.1.Final.jar
+
+app.change.log-2.0.3=LPS-102255 LPS-102576 LPS-102700 LPS-102773 LPS-103302 LPS-103420 LPS-77699 LPS-84119 LPS-94523
+
+app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134

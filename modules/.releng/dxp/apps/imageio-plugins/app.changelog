@@ -8,3 +8,14 @@ app.artifacts-2.0.0=\
 app.change.log-2.0.0=LPS-77425 LPS-80332 LPS-86408
 
 app.git.id-2.0.0=9094583983554fe632bcceec86440a682a6daead
+
+#
+# Liferay App Version 2.0.1
+#
+
+app.artifacts-2.0.1=\
+	com.liferay.imageio.plugins-3.0.1.jar
+
+app.change.log-2.0.1=LPS-103302 LPS-77425 LPS-80332 LPS-86408
+
+app.git.id-2.0.1=5d6e4d40e7174ddd4846f356e4799f1b4821b134

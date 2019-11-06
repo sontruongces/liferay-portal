@@ -34,3 +34,16 @@ app.artifacts-2.0.2=\
 app.change.log-2.0.2=LPS-100196 LPS-100448 LPS-100626 LPS-100901 LPS-101912 LPS-101932 LPS-102451 LPS-86237 LPS-89232 LPS-92331 LPS-94069 LPS-95492 LPS-95493 LPS-95494 LPS-95495 LPS-96376 LPS-96933 LPS-98371 LPS-98879 LPS-99149 LPS-99630
 
 app.git.id-2.0.2=d0d490c1a0a4bdf614d8a137a5e902ab1509be1b
+
+#
+# Liferay App Version 2.0.3
+#
+
+app.artifacts-2.0.3=\
+	com.liferay.frontend.css.common-4.0.3.jar,\
+	com.liferay.frontend.css.rtl.servlet-3.0.9.jar,\
+	com.liferay.frontend.css.web-3.0.16.jar
+
+app.change.log-2.0.3=LPS-100626 LPS-102451 LPS-103302 LPS-89232
+
+app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134

@@ -65,3 +65,31 @@ app.artifacts-2.0.2=\
 app.change.log-2.0.2=LPS-100067 LPS-100195 LPS-100201 LPS-100311 LPS-100328 LPS-100337 LPS-100352 LPS-100448 LPS-100471 LPS-100472 LPS-100527 LPS-100542 LPS-100596 LPS-100625 LPS-100641 LPS-100758 LPS-100792 LPS-100806 LPS-100901 LPS-100905 LPS-100925 LPS-100956 LPS-101089 LPS-101208 LPS-101245 LPS-101289 LPS-101336 LPS-101383 LPS-101400 LPS-101427 LPS-101786 LPS-101822 LPS-101946 LPS-101970 LPS-102053 LPS-102158 LPS-102252 LPS-102405 LPS-67565 LPS-77425 LPS-77699 LPS-80332 LPS-84119 LPS-85296 LPS-86806 LPS-90008 LPS-95020 LPS-96151 LPS-97162 LPS-97554 LPS-98473 LPS-98748 LPS-98877 LPS-98879 LPS-98946 LPS-99086 LPS-99221 LPS-99231 LPS-99252 LPS-99390 LPS-99415 LPS-99657 LPS-99690 LPS-99703 LPS-99787 LPS-99807 LPS-99857 LPS-99880 LPS-99927 LPS-99967 LPS-99992
 
 app.git.id-2.0.2=d0d490c1a0a4bdf614d8a137a5e902ab1509be1b
+
+#
+# Liferay App Version 2.0.3
+#
+
+app.artifacts-2.0.3=\
+	com.liferay.journal.api-4.5.2.jar,\
+	com.liferay.journal.content.asset.addon.entry.api-2.0.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.comments-3.0.6.jar,\
+	com.liferay.journal.content.asset.addon.entry.conversions-4.0.9.jar,\
+	com.liferay.journal.content.asset.addon.entry.locales-3.0.5.jar,\
+	com.liferay.journal.content.asset.addon.entry.print-4.0.6.jar,\
+	com.liferay.journal.content.asset.addon.entry.ratings-4.0.5.jar,\
+	com.liferay.journal.content.asset.addon.entry.related.assets-4.0.5.jar,\
+	com.liferay.journal.content.web-4.0.23.jar,\
+	com.liferay.journal.editor.configuration-3.0.5.jar,\
+	com.liferay.journal.item.selector.api-3.0.4.jar,\
+	com.liferay.journal.item.selector.web-3.0.7.jar,\
+	com.liferay.journal.lang-4.0.22.jar,\
+	com.liferay.journal.ratings.definition-4.0.1.jar,\
+	com.liferay.journal.service-5.0.44.jar,\
+	com.liferay.journal.taglib-3.0.5.jar,\
+	com.liferay.journal.terms.of.use-4.0.5.jar,\
+	com.liferay.journal.web-3.0.41.jar
+
+app.change.log-2.0.3=LPS-100067 LPS-100337 LPS-100352 LPS-100448 LPS-100758 LPS-100792 LPS-101089 LPS-101208 LPS-101289 LPS-101515 LPS-102053 LPS-102252 LPS-102342 LPS-102367 LPS-102701 LPS-102749 LPS-102786 LPS-102795 LPS-102817 LPS-103068 LPS-103252 LPS-103268 LPS-103302 LPS-103511 LPS-77425 LPS-77699 LPS-80332 LPS-84119 LPS-85296 LPS-97554 LPS-98032 LPS-98969 LPS-99703 LPS-99787 LPS-99967
+
+app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134

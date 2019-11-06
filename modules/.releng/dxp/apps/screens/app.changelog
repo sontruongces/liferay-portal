@@ -32,3 +32,15 @@ app.artifacts-5.0.2=\
 app.change.log-5.0.2=LPS-100448 LPS-100596 LPS-101089 LPS-101208 LPS-86806 LPS-95555 LPS-98877 LPS-98879 LPS-99260 LPS-99807
 
 app.git.id-5.0.2=d0d490c1a0a4bdf614d8a137a5e902ab1509be1b
+
+#
+# Liferay App Version 5.0.3
+#
+
+app.artifacts-5.0.3=\
+	com.liferay.screens.api-5.0.4.jar,\
+	com.liferay.screens.service-3.0.10.jar
+
+app.change.log-5.0.3=LPS-101089 LPS-101208 LPS-103302 LPS-86806 LPS-99260
+
+app.git.id-5.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
