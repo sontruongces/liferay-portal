@@ -75,6 +75,11 @@ public class EntitlementDefinitionLocalServiceImpl
 			EntitlementDefinition entitlementDefinition)
 		throws PortalException {
 
+		// Entitlements
+
+		entitlementPersistence.removeByEntitlementDefinitionId(
+			entitlementDefinition.getEntitlementDefinitionId());
+
 		// Resources
 
 		resourceLocalService.deleteResource(
@@ -84,6 +89,18 @@ public class EntitlementDefinitionLocalServiceImpl
 			entitlementDefinition.getEntitlementDefinitionId());
 
 		return entitlementDefinitionPersistence.remove(entitlementDefinition);
+	}
+
+	@Override
+	public EntitlementDefinition deleteEntitlementDefinition(
+			long entitlementDefinitionId)
+		throws PortalException {
+
+		EntitlementDefinition entitlementDefinition =
+			entitlementDefinitionPersistence.findByPrimaryKey(
+				entitlementDefinitionId);
+
+		return deleteEntitlementDefinition(entitlementDefinition);
 	}
 
 	public EntitlementDefinition getEntitlementDefinition(

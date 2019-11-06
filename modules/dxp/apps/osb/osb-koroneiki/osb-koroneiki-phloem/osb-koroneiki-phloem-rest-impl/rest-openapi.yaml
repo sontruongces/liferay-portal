@@ -416,12 +416,10 @@ components:
                 definition:
                     description:
                         Defines who has access to the entitlement using SQL.
-                    readOnly: true
                     type: string
                 description:
                     description:
                         The description of the entitlement.
-                    readOnly: true
                     type: string
                 externalLinks:
                     description:
@@ -438,14 +436,14 @@ components:
                 name:
                     description:
                         The name of the entitlement.
-                    readOnly: true
                     type: string
                 status:
                     description:
                         The status of the entitlement definition.
                     enum: ["Approved", "Inactive"]
-                    readOnly: true
                     type: string
+            required:
+                - name
             type: object
         ExternalLink:
             description:
@@ -996,6 +994,29 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/EntitlementDefinition"
                                 type: array
+                    description:
+                        ""
+            tags: ["EntitlementDefinition"]
+        post:
+            operationId: postAccountEntitlementDefinition
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/EntitlementDefinition"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/EntitlementDefinition"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/EntitlementDefinition"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/EntitlementDefinition"
                     description:
                         ""
             tags: ["EntitlementDefinition"]
@@ -2942,7 +2963,45 @@ paths:
                     description:
                         ""
             tags: ["EntitlementDefinition"]
+        post:
+            operationId: postContactEntitlementDefinition
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/EntitlementDefinition"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/EntitlementDefinition"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/EntitlementDefinition"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/EntitlementDefinition"
+                    description:
+                        ""
+            tags: ["EntitlementDefinition"]
     "/entitlement-definitions/{entitlementDefinitionKey}":
+        delete:
+            operationId: deleteEntitlementDefinition
+            parameters:
+                - in: path
+                  name: entitlementDefinitionKey
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description:
+                        ""
+            tags: ["EntitlementDefinition"]
         get:
             description:
                 Retrieves the entitlement definition.
@@ -2962,6 +3021,24 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/EntitlementDefinition"
+                    description:
+                        ""
+            tags: ["EntitlementDefinition"]
+    "/entitlement-definitions/{entitlementDefinitionKey}/synchronize":
+        post:
+            description:
+                Immediately runs a synchronization of the entitlement definition.
+            operationId: postEntitlementDefinitionSynchronize
+            parameters:
+                - in: path
+                  name: entitlementDefinitionKey
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                204:
+                    content:
+                        application/json: {}
                     description:
                         ""
             tags: ["EntitlementDefinition"]

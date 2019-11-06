@@ -14,12 +14,10 @@
 
 package com.liferay.osb.koroneiki.phytohormone.web.internal.portlet.action;
 
-import com.liferay.osb.koroneiki.phytohormone.constants.PhytohormoneDestinationNames;
 import com.liferay.osb.koroneiki.phytohormone.constants.PhytohormonePortletKeys;
+import com.liferay.osb.koroneiki.phytohormone.service.EntitlementDefinitionService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.messaging.Message;
-import com.liferay.portal.kernel.messaging.MessageBus;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -52,13 +50,8 @@ public class SynchronizeEntitlementDefinitionMVCActionCommand
 			long entitlementDefinitionId = ParamUtil.getLong(
 				actionRequest, "entitlementDefinitionId");
 
-			Message message = new Message();
-
-			message.put("entitlementDefinitionId", entitlementDefinitionId);
-
-			_messageBus.sendMessage(
-				PhytohormoneDestinationNames.SYNCHRONIZE_ENTITLEMENT_DEFINITION,
-				message);
+			_entitlementDefinitionService.synchronizeEntitlementDefinition(
+				entitlementDefinitionId);
 
 			sendRedirect(actionRequest, actionResponse);
 		}
@@ -73,6 +66,6 @@ public class SynchronizeEntitlementDefinitionMVCActionCommand
 		SynchronizeEntitlementDefinitionMVCActionCommand.class);
 
 	@Reference
-	private MessageBus _messageBus;
+	private EntitlementDefinitionService _entitlementDefinitionService;
 
 }
