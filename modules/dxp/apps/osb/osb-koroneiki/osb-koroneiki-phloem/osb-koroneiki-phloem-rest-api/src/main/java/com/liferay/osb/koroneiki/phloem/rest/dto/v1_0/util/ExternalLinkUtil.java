@@ -15,6 +15,10 @@
 package com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.root.util.ExternalLinkUrlGenerator;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.util.PropsValues;
 
 /**
  * @author Amos Fong
@@ -25,6 +29,9 @@ public class ExternalLinkUtil {
 			com.liferay.osb.koroneiki.root.model.ExternalLink externalLink)
 		throws Exception {
 
+		Company company = CompanyLocalServiceUtil.getCompanyByWebId(
+			PropsValues.COMPANY_DEFAULT_WEB_ID);
+
 		return new ExternalLink() {
 			{
 				dateCreated = externalLink.getCreateDate();
@@ -32,6 +39,8 @@ public class ExternalLinkUtil {
 				entityId = externalLink.getEntityId();
 				entityName = externalLink.getEntityName();
 				key = externalLink.getExternalLinkKey();
+				url = ExternalLinkUrlGenerator.generate(
+					company.getCompanyId(), domain, entityName, entityId);
 			}
 		};
 	}

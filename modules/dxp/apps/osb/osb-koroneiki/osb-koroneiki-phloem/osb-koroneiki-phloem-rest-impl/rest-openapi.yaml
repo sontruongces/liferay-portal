@@ -474,6 +474,11 @@ components:
                         The external link's key.
                     readOnly: true
                     type: string
+                url:
+                    description:
+                        The url of the external entity.
+                    readOnly: true
+                    type: string
             required:
                 - domain
                 - entityId
