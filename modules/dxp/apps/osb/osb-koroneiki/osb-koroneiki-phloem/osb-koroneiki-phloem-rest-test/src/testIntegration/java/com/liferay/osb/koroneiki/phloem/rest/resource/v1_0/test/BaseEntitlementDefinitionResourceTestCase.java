@@ -30,7 +30,6 @@ import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.EntitlementDef
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.EntitlementDefinitionSerDes;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -45,8 +44,6 @@ import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
-import com.liferay.portal.test.log.CaptureAppender;
-import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -70,7 +67,6 @@ import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.log4j.Level;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -425,65 +421,13 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 	}
 
 	@Test
-	public void testPostEntitlementDefinitionSynchronize() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testDeleteEntitlementDefinition() throws Exception {
 		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testGraphQLDeleteEntitlementDefinition() throws Exception {
-		EntitlementDefinition entitlementDefinition =
-			testGraphQLEntitlementDefinition_addEntitlementDefinition();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteEntitlementDefinition",
-				new HashMap<String, Object>() {
-					{
-						put(
-							"entitlementDefinitionId",
-							entitlementDefinition.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(
-			dataJSONObject.getBoolean("deleteEntitlementDefinition"));
-
-		try (CaptureAppender captureAppender =
-				Log4JLoggerTestUtil.configureLog4JLogger(
-					"graphql.execution.SimpleDataFetcherExceptionHandler",
-					Level.WARN)) {
-
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"entitlementDefinition",
-					new HashMap<String, Object>() {
-						{
-							put(
-								"entitlementDefinitionId",
-								entitlementDefinition.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
-
-			Assert.assertTrue(errorsJSONArray.length() > 0);
-		}
+		Assert.assertTrue(false);
 	}
 
 	@Test
@@ -494,6 +438,11 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 	@Test
 	public void testGraphQLGetEntitlementDefinition() throws Exception {
 		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPostEntitlementDefinitionSynchronize() throws Exception {
+		Assert.assertTrue(false);
 	}
 
 	protected void assertHttpResponseStatusCode(

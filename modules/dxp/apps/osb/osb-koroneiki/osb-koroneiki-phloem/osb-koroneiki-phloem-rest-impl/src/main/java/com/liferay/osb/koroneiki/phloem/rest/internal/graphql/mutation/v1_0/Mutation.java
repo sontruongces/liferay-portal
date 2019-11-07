@@ -656,6 +656,22 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public boolean deleteEntitlementDefinition(
+			@GraphQLName("entitlementDefinitionKey") String
+				entitlementDefinitionKey)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_entitlementDefinitionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			entitlementDefinitionResource ->
+				entitlementDefinitionResource.deleteEntitlementDefinition(
+					entitlementDefinitionKey));
+
+		return true;
+	}
+
+	@GraphQLField
 	public boolean createEntitlementDefinitionSynchronize(
 			@GraphQLName("entitlementDefinitionKey") String
 				entitlementDefinitionKey)
@@ -668,22 +684,6 @@ public class Mutation {
 				entitlementDefinitionResource.
 					postEntitlementDefinitionSynchronize(
 						entitlementDefinitionKey));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean deleteEntitlementDefinition(
-			@GraphQLName("entitlementDefinitionKey") String
-				entitlementDefinitionKey)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_entitlementDefinitionResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			entitlementDefinitionResource ->
-				entitlementDefinitionResource.deleteEntitlementDefinition(
-					entitlementDefinitionKey));
 
 		return true;
 	}

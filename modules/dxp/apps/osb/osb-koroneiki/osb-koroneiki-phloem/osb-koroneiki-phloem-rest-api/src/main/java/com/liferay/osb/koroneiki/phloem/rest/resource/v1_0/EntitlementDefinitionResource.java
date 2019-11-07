@@ -58,14 +58,14 @@ public interface EntitlementDefinitionResource {
 			EntitlementDefinition entitlementDefinition)
 		throws Exception;
 
-	public void postEntitlementDefinitionSynchronize(
-			String entitlementDefinitionKey)
-		throws Exception;
-
 	public void deleteEntitlementDefinition(String entitlementDefinitionKey)
 		throws Exception;
 
 	public EntitlementDefinition getEntitlementDefinition(
+			String entitlementDefinitionKey)
+		throws Exception;
+
+	public void postEntitlementDefinitionSynchronize(
 			String entitlementDefinitionKey)
 		throws Exception;
 
