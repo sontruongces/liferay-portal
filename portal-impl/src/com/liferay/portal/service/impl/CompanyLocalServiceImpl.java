@@ -567,10 +567,8 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			virtualHostname);
 
 		if ((virtualHost == null) && virtualHostname.startsWith("xn--")) {
-			String virtualHostnameUnicode = IDN.toUnicode(virtualHostname);
-
 			virtualHost = virtualHostPersistence.fetchByHostname(
-				virtualHostnameUnicode);
+				IDN.toUnicode(virtualHostname));
 		}
 
 		if ((virtualHost == null) || (virtualHost.getLayoutSetId() != 0)) {
@@ -670,10 +668,8 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 				virtualHostname);
 
 			if ((virtualHost == null) && virtualHostname.startsWith("xn--")) {
-				String virtualHostnameUnicode = IDN.toUnicode(virtualHostname);
-
 				virtualHost = virtualHostPersistence.findByHostname(
-					virtualHostnameUnicode);
+					IDN.toUnicode(virtualHostname));
 			}
 
 			if (virtualHost.getLayoutSetId() != 0) {
