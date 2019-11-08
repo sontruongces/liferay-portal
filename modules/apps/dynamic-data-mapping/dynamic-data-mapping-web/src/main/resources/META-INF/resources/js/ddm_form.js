@@ -4009,12 +4009,10 @@ AUI.add(
 						var defaultLocale = instance.getDefaultLocale();
 
 						instance.get('availableLanguageIds').forEach(locale => {
-							if (Object.keys(localizationMap).includes(locale)) {
-								return;
+							if (!localizationMap[locale]) {
+								localizationMap[locale] =
+									localizationMap[defaultLocale];
 							}
-
-							localizationMap[locale] =
-								localizationMap[defaultLocale];
 						});
 
 						field.set('localizationMap', localizationMap);
