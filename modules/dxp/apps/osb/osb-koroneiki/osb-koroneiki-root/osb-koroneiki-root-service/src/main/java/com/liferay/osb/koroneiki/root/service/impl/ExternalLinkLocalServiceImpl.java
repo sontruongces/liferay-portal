@@ -54,7 +54,7 @@ public class ExternalLinkLocalServiceImpl
 		ExternalLink externalLink = externalLinkPersistence.create(
 			externalLinkId);
 
-		externalLink.setCompanyId(user.getUserId());
+		externalLink.setCompanyId(user.getCompanyId());
 		externalLink.setExternalLinkKey(
 			ModelKeyGenerator.generate(externalLinkId));
 		externalLink.setClassNameId(classNameId);

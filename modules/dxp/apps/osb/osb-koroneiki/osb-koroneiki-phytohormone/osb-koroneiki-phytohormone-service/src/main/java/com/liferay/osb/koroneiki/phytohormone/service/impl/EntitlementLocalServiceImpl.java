@@ -49,7 +49,8 @@ public class EntitlementLocalServiceImpl
 
 		Entitlement entitlement = entitlementPersistence.create(entitlementId);
 
-		entitlement.setCompanyId(user.getUserId());
+		entitlement.setCompanyId(user.getCompanyId());
+		entitlement.setUserId(user.getUserId());
 		entitlement.setEntitlementDefinitionId(entitlementDefinitionId);
 		entitlement.setClassNameId(classNameId);
 		entitlement.setClassPK(classPK);
