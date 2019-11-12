@@ -5666,7 +5666,7 @@ paths:
         # @review
         get:
             description:
-                Retrieves the Site's message board messages.
+                Retrieves the site's message board messages.
             operationId: getSiteMessageBoardMessagesPage
             parameters:
                 - in: path
