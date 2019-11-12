@@ -98,7 +98,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts' -d $'{"code": ___, "contactEmailAddress": ___, "description": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -187,7 +187,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}' -d $'{"code": ___, "contactEmailAddress": ___, "description": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -335,7 +335,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts' -d $'{"code": ___, "contactEmailAddress": ___, "description": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -353,6 +353,118 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 
 		return new Account();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns contacts from the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactEmailAddresses")
+		}
+	)
+	@Path("/accounts/{accountKey}/contacts/by-email-address")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountContactByEmailAddres(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true)
+			@QueryParam("contactEmailAddresses") String[] contactEmailAddresses)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Operation(description = "Assigns contacts to the account.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactEmailAddresses")
+		}
+	)
+	@Path("/accounts/{accountKey}/contacts/by-email-address")
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void putAccountContactByEmailAddres(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true)
+			@QueryParam("contactEmailAddresses") String[] contactEmailAddresses)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(
+		description = "Unassigns roles from the contact for the account."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactEmailAddress"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
+		}
+	)
+	@Path(
+		"/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles"
+	)
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("contactEmailAddress")
+				String contactEmailAddress,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
+				String[] contactRoleKeys)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Operation(description = "Assigns roles to the contact for the account.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactEmailAddress"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
+		}
+	)
+	@Path(
+		"/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles"
+	)
+	@Produces("application/json")
+	@Tags(value = {@Tag(name = "Account")})
+	public void putAccountContactByEmailAddresContactEmailAddressRole(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("contactEmailAddress")
+				String contactEmailAddress,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
+				String[] contactRoleKeys)
+		throws Exception {
 	}
 
 	/**

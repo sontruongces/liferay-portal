@@ -271,6 +271,13 @@ public class ContactRoleLocalServiceUtil {
 		return getService().getContactRole(contactRoleKey);
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
+			getContactRole(String name, int type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactRole(name, type);
+	}
+
 	/**
 	 * Returns the contact role with the matching UUID and company.
 	 *

@@ -524,6 +524,30 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyContactByEmailAddresContactEmailAddressRoles(accountKey: ___, contactEmailAddress: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ContactRolePage
+			accountAccountKeyContactByEmailAddresContactEmailAddressRoles(
+				@GraphQLName("accountKey") String accountKey,
+				@GraphQLName("contactEmailAddress") String contactEmailAddress,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactRoleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactRoleResource -> new ContactRolePage(
+				contactRoleResource.
+					getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+						accountKey, contactEmailAddress,
+						Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyContactByOktaRoles(accountKey: ___, oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -1481,6 +1505,39 @@ public class Query {
 					teamRoleResource.
 						getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 							_account.getKey(), teamKey,
+							Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class
+		GetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPageTypeExtension {
+
+		public GetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public ContactRolePage
+				accountKeyContactByEmailAddresContactEmailAddressRoles(
+					@GraphQLName("contactEmailAddress") String
+						contactEmailAddress,
+					@GraphQLName("pageSize") int pageSize,
+					@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_contactRoleResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				contactRoleResource -> new ContactRolePage(
+					contactRoleResource.
+						getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+							_account.getKey(), contactEmailAddress,
 							Pagination.of(page, pageSize))));
 		}
 

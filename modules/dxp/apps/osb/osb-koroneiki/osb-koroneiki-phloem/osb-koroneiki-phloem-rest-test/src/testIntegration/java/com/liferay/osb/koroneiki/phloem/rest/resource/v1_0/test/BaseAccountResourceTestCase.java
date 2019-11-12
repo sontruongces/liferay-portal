@@ -779,6 +779,30 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
+	public void testDeleteAccountContactByEmailAddres() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutAccountContactByEmailAddres() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteAccountContactByEmailAddresContactEmailAddressRole()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutAccountContactByEmailAddresContactEmailAddressRole()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testDeleteAccountContactByOkta() throws Exception {
 		Assert.assertTrue(false);
 	}

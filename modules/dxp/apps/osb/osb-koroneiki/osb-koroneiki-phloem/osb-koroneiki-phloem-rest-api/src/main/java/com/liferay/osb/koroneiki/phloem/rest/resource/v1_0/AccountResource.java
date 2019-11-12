@@ -86,6 +86,24 @@ public interface AccountResource {
 	public Account postAccountChildAccount(String accountKey, Account account)
 		throws Exception;
 
+	public void deleteAccountContactByEmailAddres(
+			String accountKey, String[] contactEmailAddresses)
+		throws Exception;
+
+	public void putAccountContactByEmailAddres(
+			String accountKey, String[] contactEmailAddresses)
+		throws Exception;
+
+	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
+			String accountKey, String contactEmailAddress,
+			String[] contactRoleKeys)
+		throws Exception;
+
+	public void putAccountContactByEmailAddresContactEmailAddressRole(
+			String accountKey, String contactEmailAddress,
+			String[] contactRoleKeys)
+		throws Exception;
+
 	public void deleteAccountContactByOkta(String accountKey, String[] oktaIds)
 		throws Exception;
 

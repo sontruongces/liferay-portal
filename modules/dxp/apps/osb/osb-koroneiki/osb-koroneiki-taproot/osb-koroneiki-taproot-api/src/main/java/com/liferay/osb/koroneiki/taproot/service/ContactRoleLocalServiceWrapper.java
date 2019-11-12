@@ -284,6 +284,14 @@ public class ContactRoleLocalServiceWrapper
 		return _contactRoleLocalService.getContactRole(contactRoleKey);
 	}
 
+	@Override
+	public com.liferay.osb.koroneiki.taproot.model.ContactRole getContactRole(
+			String name, int type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contactRoleLocalService.getContactRole(name, type);
+	}
+
 	/**
 	 * Returns the contact role with the matching UUID and company.
 	 *

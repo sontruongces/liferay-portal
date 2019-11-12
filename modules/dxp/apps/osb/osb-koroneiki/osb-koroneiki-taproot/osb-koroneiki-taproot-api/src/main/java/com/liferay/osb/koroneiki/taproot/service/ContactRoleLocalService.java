@@ -229,6 +229,10 @@ public interface ContactRoleLocalService
 	public ContactRole getContactRole(String contactRoleKey)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ContactRole getContactRole(String name, int type)
+		throws PortalException;
+
 	/**
 	 * Returns the contact role with the matching UUID and company.
 	 *

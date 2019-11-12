@@ -78,7 +78,7 @@ public class Contact {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ContactRole[] contactRoles;
 
 	@Schema(description = "The contact's creation date.")
@@ -225,7 +225,7 @@ public class Contact {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ExternalLink[] externalLinks;
 
 	@Schema(description = "The first name of the contact.")

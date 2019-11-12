@@ -139,6 +139,45 @@ public interface AccountResource {
 			String accountKey, Account account)
 		throws Exception;
 
+	public void deleteAccountContactByEmailAddres(
+			String accountKey, String[] contactEmailAddresses)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			deleteAccountContactByEmailAddresHttpResponse(
+				String accountKey, String[] contactEmailAddresses)
+		throws Exception;
+
+	public void putAccountContactByEmailAddres(
+			String accountKey, String[] contactEmailAddresses)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putAccountContactByEmailAddresHttpResponse(
+			String accountKey, String[] contactEmailAddresses)
+		throws Exception;
+
+	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
+			String accountKey, String contactEmailAddress,
+			String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			deleteAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
+				String accountKey, String contactEmailAddress,
+				String[] contactRoleKeys)
+		throws Exception;
+
+	public void putAccountContactByEmailAddresContactEmailAddressRole(
+			String accountKey, String contactEmailAddress,
+			String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			putAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
+				String accountKey, String contactEmailAddress,
+				String[] contactRoleKeys)
+		throws Exception;
+
 	public void deleteAccountContactByOkta(String accountKey, String[] oktaIds)
 		throws Exception;
 
@@ -1009,6 +1048,265 @@ public interface AccountResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts",
 				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteAccountContactByEmailAddres(
+				String accountKey, String[] contactEmailAddresses)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteAccountContactByEmailAddresHttpResponse(
+					accountKey, contactEmailAddresses);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteAccountContactByEmailAddresHttpResponse(
+					String accountKey, String[] contactEmailAddresses)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (contactEmailAddresses != null) {
+				for (int i = 0; i < contactEmailAddresses.length; i++) {
+					httpInvoker.parameter(
+						"contactEmailAddresses",
+						String.valueOf(contactEmailAddresses[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putAccountContactByEmailAddres(
+				String accountKey, String[] contactEmailAddresses)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putAccountContactByEmailAddresHttpResponse(
+					accountKey, contactEmailAddresses);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				putAccountContactByEmailAddresHttpResponse(
+					String accountKey, String[] contactEmailAddresses)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(
+				contactEmailAddresses.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (contactEmailAddresses != null) {
+				for (int i = 0; i < contactEmailAddresses.length; i++) {
+					httpInvoker.parameter(
+						"contactEmailAddresses",
+						String.valueOf(contactEmailAddresses[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteAccountContactByEmailAddresContactEmailAddressRole(
+				String accountKey, String contactEmailAddress,
+				String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
+					accountKey, contactEmailAddress, contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
+					String accountKey, String contactEmailAddress,
+					String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles",
+				accountKey, contactEmailAddress);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putAccountContactByEmailAddresContactEmailAddressRole(
+				String accountKey, String contactEmailAddress,
+				String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
+					accountKey, contactEmailAddress, contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				putAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
+					String accountKey, String contactEmailAddress,
+					String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles",
+				accountKey, contactEmailAddress);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

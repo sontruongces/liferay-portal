@@ -39,6 +39,18 @@ public interface ContactRoleResource {
 		return new Builder();
 	}
 
+	public Page<ContactRole>
+			getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception;
+
 	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
 			String accountKey, String oktaId, Pagination pagination)
 		throws Exception;
@@ -193,6 +205,73 @@ public interface ContactRoleResource {
 	}
 
 	public static class ContactRoleResourceImpl implements ContactRoleResource {
+
+		public Page<ContactRole>
+				getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+					String accountKey, String contactEmailAddress,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
+					accountKey, contactEmailAddress, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
+					String accountKey, String contactEmailAddress,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles",
+				accountKey, contactEmailAddress);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
 
 		public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
 				String accountKey, String oktaId, Pagination pagination)

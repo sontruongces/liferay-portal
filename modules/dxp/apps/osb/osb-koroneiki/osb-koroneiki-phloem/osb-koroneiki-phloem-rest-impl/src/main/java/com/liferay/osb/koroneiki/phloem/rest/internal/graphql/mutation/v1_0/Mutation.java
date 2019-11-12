@@ -270,6 +270,75 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public boolean deleteAccountContactByEmailAddres(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactEmailAddresses") String[]
+				contactEmailAddresses)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource ->
+				accountResource.deleteAccountContactByEmailAddres(
+					accountKey, contactEmailAddresses));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean updateAccountContactByEmailAddres(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactEmailAddresses") String[]
+				contactEmailAddresses)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.putAccountContactByEmailAddres(
+				accountKey, contactEmailAddresses));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteAccountContactByEmailAddresContactEmailAddressRole(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactEmailAddress") String contactEmailAddress,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource ->
+				accountResource.
+					deleteAccountContactByEmailAddresContactEmailAddressRole(
+						accountKey, contactEmailAddress, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean updateAccountContactByEmailAddresContactEmailAddressRole(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactEmailAddress") String contactEmailAddress,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource ->
+				accountResource.
+					putAccountContactByEmailAddresContactEmailAddressRole(
+						accountKey, contactEmailAddress, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
 	public boolean deleteAccountContactByOkta(
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("oktaIds") String[] oktaIds)

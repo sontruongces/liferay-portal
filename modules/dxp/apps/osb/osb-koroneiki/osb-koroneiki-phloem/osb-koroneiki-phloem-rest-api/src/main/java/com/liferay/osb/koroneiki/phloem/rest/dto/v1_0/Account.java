@@ -258,7 +258,7 @@ public class Account {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Contact[] contacts;
 
 	@Schema(description = "The account's creation date.")
@@ -404,7 +404,7 @@ public class Account {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ExternalLink[] externalLinks;
 
 	@Schema(description = "The account's fax number.")
@@ -696,7 +696,7 @@ public class Account {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected PostalAddress[] postalAddresses;
 
 	@Schema(description = "The products that the account has purchased.")
@@ -726,7 +726,7 @@ public class Account {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ProductPurchase[] productPurchases;
 
 	@Schema(description = "The account's profile email address.")

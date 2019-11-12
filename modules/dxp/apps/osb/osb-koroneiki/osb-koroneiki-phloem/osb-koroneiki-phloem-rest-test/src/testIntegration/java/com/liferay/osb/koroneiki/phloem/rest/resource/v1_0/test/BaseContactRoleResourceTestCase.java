@@ -198,6 +198,162 @@ public abstract class BaseContactRoleResourceTestCase {
 	}
 
 	@Test
+	public void testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage()
+		throws Exception {
+
+		Page<ContactRole> page =
+			contactRoleResource.
+				getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+					testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getAccountKey(),
+					testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getContactEmailAddress(),
+					Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String accountKey =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getAccountKey();
+		String irrelevantAccountKey =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getIrrelevantAccountKey();
+		String contactEmailAddress =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getContactEmailAddress();
+		String irrelevantContactEmailAddress =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getIrrelevantContactEmailAddress();
+
+		if ((irrelevantAccountKey != null) &&
+			(irrelevantContactEmailAddress != null)) {
+
+			ContactRole irrelevantContactRole =
+				testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_addContactRole(
+					irrelevantAccountKey, irrelevantContactEmailAddress,
+					randomIrrelevantContactRole());
+
+			page =
+				contactRoleResource.
+					getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+						irrelevantAccountKey, irrelevantContactEmailAddress,
+						Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantContactRole),
+				(List<ContactRole>)page.getItems());
+			assertValid(page);
+		}
+
+		ContactRole contactRole1 =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_addContactRole(
+				accountKey, contactEmailAddress, randomContactRole());
+
+		ContactRole contactRole2 =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_addContactRole(
+				accountKey, contactEmailAddress, randomContactRole());
+
+		page =
+			contactRoleResource.
+				getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+					accountKey, contactEmailAddress, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contactRole1, contactRole2),
+			(List<ContactRole>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPageWithPagination()
+		throws Exception {
+
+		String accountKey =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getAccountKey();
+		String contactEmailAddress =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getContactEmailAddress();
+
+		ContactRole contactRole1 =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_addContactRole(
+				accountKey, contactEmailAddress, randomContactRole());
+
+		ContactRole contactRole2 =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_addContactRole(
+				accountKey, contactEmailAddress, randomContactRole());
+
+		ContactRole contactRole3 =
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_addContactRole(
+				accountKey, contactEmailAddress, randomContactRole());
+
+		Page<ContactRole> page1 =
+			contactRoleResource.
+				getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+					accountKey, contactEmailAddress, Pagination.of(1, 2));
+
+		List<ContactRole> contactRoles1 = (List<ContactRole>)page1.getItems();
+
+		Assert.assertEquals(contactRoles1.toString(), 2, contactRoles1.size());
+
+		Page<ContactRole> page2 =
+			contactRoleResource.
+				getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+					accountKey, contactEmailAddress, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<ContactRole> contactRoles2 = (List<ContactRole>)page2.getItems();
+
+		Assert.assertEquals(contactRoles2.toString(), 1, contactRoles2.size());
+
+		Page<ContactRole> page3 =
+			contactRoleResource.
+				getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+					accountKey, contactEmailAddress, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contactRole1, contactRole2, contactRole3),
+			(List<ContactRole>)page3.getItems());
+	}
+
+	protected ContactRole
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_addContactRole(
+				String accountKey, String contactEmailAddress,
+				ContactRole contactRole)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getAccountKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getIrrelevantAccountKey()
+		throws Exception {
+
+		return null;
+	}
+
+	protected String
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getContactEmailAddress()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage_getIrrelevantContactEmailAddress()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
 	public void testGetAccountAccountKeyContactByOktaRolesPage()
 		throws Exception {
 

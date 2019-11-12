@@ -45,6 +45,12 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ContactRoleResource {
 
+	public Page<ContactRole>
+			getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception;
+
 	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
 			String accountKey, String oktaId, Pagination pagination)
 		throws Exception;
