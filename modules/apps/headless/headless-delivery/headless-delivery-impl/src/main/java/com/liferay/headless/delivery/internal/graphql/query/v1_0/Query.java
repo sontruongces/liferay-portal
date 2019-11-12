@@ -1748,7 +1748,7 @@ public class Query {
 				Query.this::_populateResourceContext,
 				documentFolderResource ->
 					documentFolderResource.getDocumentFolder(
-						_document.getDocumentFolderId()));
+						_document.getId()));
 		}
 
 		private Document _document;
