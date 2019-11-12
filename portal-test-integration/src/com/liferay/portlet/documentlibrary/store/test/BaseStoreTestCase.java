@@ -44,7 +44,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author Preston Crary
+ * @author     Preston Crary
  * @deprecated As of Mueller (7.2.x), replaced by {@link
  *             com.liferay.portal.store.test.util.BaseStoreTestCase}
  */

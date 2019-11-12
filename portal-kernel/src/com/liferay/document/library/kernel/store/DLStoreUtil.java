@@ -186,8 +186,8 @@ public class DLStoreUtil {
 	/**
 	 * Ensures company's root directory exists.
 	 *
+	 * @param      companyId the primary key of the company
 	 * @deprecated As of Mueller (7.2.x), with no direct replacement
-	 * @param companyId the primary key of the company
 	 */
 	@Deprecated
 	public static void checkRoot(long companyId) {
@@ -509,9 +509,9 @@ public class DLStoreUtil {
 	/**
 	 * Moves an existing directory.
 	 *
+	 * @param      srcDir the original directory's name
+	 * @param      destDir the new directory's name
 	 * @deprecated As of Mueller (7.2.x), with no direct replacement
-	 * @param srcDir the original directory's name
-	 * @param destDir the new directory's name
 	 */
 	@Deprecated
 	public static void move(String srcDir, String destDir) {

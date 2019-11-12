@@ -648,8 +648,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 *             DDLRecordVersionLocalService#getRecordVersion(
-	 *             long)}
+	 *             DDLRecordVersionLocalService#getRecordVersion(long)}
 	 */
 	@Deprecated
 	@Override
@@ -662,8 +661,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 *             DDLRecordVersionLocalService#getRecordVersion(
-	 *             long, String)}
+	 *             DDLRecordVersionLocalService#getRecordVersion(long, String)}
 	 */
 	@Deprecated
 	@Override
@@ -676,8 +674,8 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 *             DDLRecordVersionLocalService#getRecordVersions(
-	 *             long, int, int, OrderByComparator)}
+	 *             DDLRecordVersionLocalService#getRecordVersions(long, int,
+	 *             int, OrderByComparator)}
 	 */
 	@Deprecated
 	@Override
@@ -692,8 +690,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 *             DDLRecordVersionLocalService#getRecordVersionsCount(
-	 *             long)}
+	 *             DDLRecordVersionLocalService#getRecordVersionsCount(long)}
 	 */
 	@Deprecated
 	@Override
