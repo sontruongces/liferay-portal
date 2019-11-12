@@ -47,6 +47,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * The persistence implementation for the saml sp idp connection service.
@@ -974,6 +975,18 @@ public class SamlSpIdpConnectionPersistenceImpl
 
 			clearUniqueFindersCache(
 				(SamlSpIdpConnectionModelImpl)samlSpIdpConnection, true);
+		}
+	}
+
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				SamlSpIdpConnectionModelImpl.ENTITY_CACHE_ENABLED,
+				SamlSpIdpConnectionImpl.class, primaryKey);
 		}
 	}
 
