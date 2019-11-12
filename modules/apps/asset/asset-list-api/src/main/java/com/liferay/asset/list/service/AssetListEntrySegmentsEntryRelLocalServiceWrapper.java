@@ -147,6 +147,15 @@ public class AssetListEntrySegmentsEntryRelLocalServiceWrapper
 				assetListEntryId);
 	}
 
+	@Override
+	public void deleteAssetListEntrySegmentsEntryRelBySegmentsEntryId(
+		long segmentsEntryId) {
+
+		_assetListEntrySegmentsEntryRelLocalService.
+			deleteAssetListEntrySegmentsEntryRelBySegmentsEntryId(
+				segmentsEntryId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

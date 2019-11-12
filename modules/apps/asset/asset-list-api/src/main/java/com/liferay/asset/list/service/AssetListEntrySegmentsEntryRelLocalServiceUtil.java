@@ -137,6 +137,13 @@ public class AssetListEntrySegmentsEntryRelLocalServiceUtil {
 			assetListEntryId);
 	}
 
+	public static void deleteAssetListEntrySegmentsEntryRelBySegmentsEntryId(
+		long segmentsEntryId) {
+
+		getService().deleteAssetListEntrySegmentsEntryRelBySegmentsEntryId(
+			segmentsEntryId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
