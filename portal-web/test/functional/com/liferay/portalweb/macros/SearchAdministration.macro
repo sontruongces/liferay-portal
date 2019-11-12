@@ -33,6 +33,7 @@ definition {
 			value1 = "Execute");
 
 		var reindexElapsedTime = "0";
+		var reindexStartTime = "0";
 		var searchEngineVendor = selenium.getText("//div[contains(@class,'alert alert-info')]//strong[1]");
 
 		if (contains("${searchEngineVendor}", "Elasticsearch")) {
@@ -40,6 +41,18 @@ definition {
 
 			var curl = "http://localhost:9200/_tasks";
 			var elasticsearchTasks = JSONCurlUtil.get("${curl}");
+
+			while ((!(contains("${elasticsearchTasks}", "indices:data/write/bulk"))) && ("${reindexStartTime}" != "10")) {
+				Pause(locator1 = "1000");
+
+				var reindexStartTime = ${reindexStartTime} + 1;
+
+				echo("Current Elasticsearch Tasks:");
+
+				elasticsearchTasks = JSONCurlUtil.get("${curl}");
+			}
+
+			echo("Started reindexing ${reindexStartTime} second(s) after clicking 'Execute'.");
 
 			while (contains("${elasticsearchTasks}", "indices:data/write/bulk") && ("${reindexElapsedTime}" != "120")) {
 				Pause(locator1 = "5000");
