@@ -14,11 +14,13 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchasePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductPurchaseEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
@@ -32,6 +34,7 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -187,10 +190,23 @@ public class ProductPurchaseResourceImpl
 		List<ProductField> productFields = getProductFields(
 			productPurchase.getProperties(), null);
 
-		return ProductPurchaseUtil.toProductPurchase(
-			_productPurchaseService.addProductPurchase(
-				accountKey, productPurchase.getProductKey(), startDate, endDate,
-				quantity, productFields));
+		ProductPurchase curProductPurchase =
+			ProductPurchaseUtil.toProductPurchase(
+				_productPurchaseService.addProductPurchase(
+					accountKey, productPurchase.getProductKey(), startDate,
+					endDate, quantity, productFields));
+
+		if (!ArrayUtil.isEmpty(productPurchase.getExternalLinks())) {
+			for (ExternalLink externalLink :
+					productPurchase.getExternalLinks()) {
+
+				_externalLinkResource.
+					postProductPurchaseProductPurchaseKeyExternalLink(
+						curProductPurchase.getKey(), externalLink);
+			}
+		}
+
+		return curProductPurchase;
 	}
 
 	@Override
@@ -330,6 +346,9 @@ public class ProductPurchaseResourceImpl
 
 	@Reference
 	private ContactLocalService _contactLocalService;
+
+	@Reference
+	private ExternalLinkResource _externalLinkResource;
 
 	@Reference
 	private PhloemPermissionUtil _phloemPermissionUtil;

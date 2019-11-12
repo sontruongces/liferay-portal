@@ -196,6 +196,12 @@ public class ContactRoleLocalServiceImpl
 		return contactRolePersistence.findByContactRoleKey(contactRoleKey);
 	}
 
+	public ContactRole getContactRole(String name, int type)
+		throws PortalException {
+
+		return contactRolePersistence.findByN_T(name, type);
+	}
+
 	public List<ContactRole> getContactRoles(int type, int start, int end) {
 		return contactRolePersistence.findByType(type, start, end);
 	}

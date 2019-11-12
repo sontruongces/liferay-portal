@@ -17,7 +17,6 @@ components:
                         The account's contacts.
                     items:
                         $ref: "#/components/schemas/Contact"
-                    readOnly: true
                     type: array
                 dateCreated:
                     description:
@@ -47,7 +46,6 @@ components:
                         The account's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
-                    readOnly: true
                     type: array
                 faxNumber:
                     description:
@@ -95,14 +93,12 @@ components:
                         The account's postal addresses.
                     items:
                         $ref: "#/components/schemas/PostalAddress"
-                    readOnly: true
                     type: array
                 productPurchases:
                     description:
                         The products that the account has purchased.
                     items:
                         $ref: "#/components/schemas/ProductPurchase"
-                    readOnly: true
                     type: array
                 profileEmailAddress:
                     description:
@@ -239,7 +235,6 @@ components:
                         The contact's roles.
                     items:
                         $ref: "#/components/schemas/ContactRole"
-                    readOnly: true
                     type: array
                 dateCreated:
                     description:
@@ -667,7 +662,6 @@ components:
                         The product purchase's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
-                    readOnly: true
                     type: array
                 key:
                     description:
@@ -1370,6 +1364,153 @@ paths:
                     description:
                         ""
             tags: ["Contact"]
+    "/accounts/{accountKey}/contacts/by-email-address":
+        delete:
+            description:
+                Unassigns contacts from the account.
+            operationId: deleteAccountContactByEmailAddres
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactEmailAddresses
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description:
+                        ""
+            tags: ["Account"]
+        put:
+            description:
+                Assigns contacts to the account.
+            operationId: putAccountContactByEmailAddres
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactEmailAddresses
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description:
+                        ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles":
+        delete:
+            description:
+                Unassigns roles from the contact for the account.
+            operationId: deleteAccountContactByEmailAddresContactEmailAddressRole
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactEmailAddress
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description:
+                        ""
+            tags: ["Account"]
+        get:
+            description:
+                Retrieves the account's contact's contact roles.
+            operationId: getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactEmailAddress
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactRole"]
+        put:
+            description:
+                Assigns roles to the contact for the account.
+            operationId: putAccountContactByEmailAddresContactEmailAddressRole
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactEmailAddress
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                    description:
+                        ""
+            tags: ["Account"]
     "/accounts/{accountKey}/contacts/by-okta-id":
         delete:
             description:

@@ -16,16 +16,22 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AccountPermission;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.AccountUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.AccountEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
-import com.liferay.osb.koroneiki.taproot.model.Contact;
-import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
@@ -40,8 +46,10 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -91,18 +99,39 @@ public class AccountResourceImpl
 		}
 	}
 
+	public void deleteAccountContactByEmailAddres(
+			String accountKey, String[] contactEmailAddresses)
+		throws Exception {
+
+		for (String contactEmailAddress : contactEmailAddresses) {
+			_deleteAccountContact(
+				accountKey,
+				_oktaContactIdentityProvider.getContactByEmailAddress(
+					contactEmailAddress));
+		}
+	}
+
+	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
+			String accountKey, String contactEmailAddress,
+			String[] contactRoleKeys)
+		throws Exception {
+
+		_deleteAccountContactRole(
+			accountKey,
+			_oktaContactIdentityProvider.getContactByEmailAddress(
+				contactEmailAddress),
+			contactRoleKeys);
+	}
+
 	@Override
 	public void deleteAccountContactByOkta(String accountKey, String[] oktaIds)
 		throws Exception {
 
-		List<Contact> contacts = new ArrayList<>(oktaIds.length);
-
 		for (String oktaId : oktaIds) {
-			contacts.add(
+			_deleteAccountContact(
+				accountKey,
 				_oktaContactIdentityProvider.getContactByProviderId(oktaId));
 		}
-
-		_deleteAccountContacts(contacts, accountKey);
 	}
 
 	@Override
@@ -111,8 +140,9 @@ public class AccountResourceImpl
 		throws Exception {
 
 		_deleteAccountContactRole(
+			accountKey,
 			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
-			accountKey, contactRoleKeys);
+			contactRoleKeys);
 	}
 
 	@Override
@@ -120,15 +150,12 @@ public class AccountResourceImpl
 			String accountKey, String[] contactUuids)
 		throws Exception {
 
-		List<Contact> contacts = new ArrayList<>(contactUuids.length);
-
 		for (String contactUuid : contactUuids) {
-			contacts.add(
+			_deleteAccountContact(
+				accountKey,
 				_webContactIdentityProvider.getContactByProviderId(
 					contactUuid));
 		}
-
-		_deleteAccountContacts(contacts, accountKey);
 	}
 
 	@Override
@@ -137,8 +164,9 @@ public class AccountResourceImpl
 		throws Exception {
 
 		_deleteAccountContactRole(
+			accountKey,
 			_webContactIdentityProvider.getContactByProviderId(contactUuid),
-			accountKey, contactRoleKeys);
+			contactRoleKeys);
 	}
 
 	@Override
@@ -229,82 +257,14 @@ public class AccountResourceImpl
 
 	@Override
 	public Account postAccount(Account account) throws Exception {
-		String industry = StringPool.BLANK;
-
-		Account.Industry accountIndustry = account.getIndustry();
-
-		if (accountIndustry != null) {
-			industry = accountIndustry.toString();
-		}
-
-		String tier = StringPool.BLANK;
-
-		Account.Tier accountTier = account.getTier();
-
-		if (accountTier != null) {
-			tier = accountTier.toString();
-		}
-
-		int status = WorkflowConstants.STATUS_APPROVED;
-
-		Account.Status accountStatus = account.getStatus();
-
-		if (accountStatus != null) {
-			status = WorkflowConstants.getLabelStatus(accountStatus.toString());
-		}
-
-		return AccountUtil.toAccount(
-			_accountService.addAccount(
-				0, account.getName(), account.getCode(),
-				account.getDescription(), account.getNotes(),
-				GetterUtil.getLong(account.getLogoId()),
-				account.getContactEmailAddress(),
-				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(), industry, tier,
-				account.getSoldBy(), account.getInternal(), status),
-			contextAcceptLanguage.getPreferredLocale());
+		return _postAccount(null, account);
 	}
 
 	@Override
 	public Account postAccountChildAccount(String accountKey, Account account)
 		throws Exception {
 
-		com.liferay.osb.koroneiki.taproot.model.Account parentAccount =
-			_accountLocalService.getAccount(accountKey);
-
-		String industry = StringPool.BLANK;
-
-		Account.Industry accountIndustry = account.getIndustry();
-
-		if (accountIndustry != null) {
-			industry = accountIndustry.toString();
-		}
-
-		String tier = StringPool.BLANK;
-
-		Account.Tier accountTier = account.getTier();
-
-		if (accountTier != null) {
-			tier = accountTier.toString();
-		}
-
-		int status = WorkflowConstants.STATUS_APPROVED;
-
-		Account.Status accountStatus = account.getStatus();
-
-		if (accountStatus != null) {
-			status = WorkflowConstants.getLabelStatus(accountStatus.toString());
-		}
-
-		return AccountUtil.toAccount(
-			_accountService.addAccount(
-				parentAccount.getAccountId(), account.getName(),
-				account.getCode(), account.getDescription(), account.getNotes(),
-				0, account.getContactEmailAddress(),
-				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(), industry, tier,
-				account.getSoldBy(), account.getInternal(), status),
-			contextAcceptLanguage.getPreferredLocale());
+		return _postAccount(accountKey, account);
 	}
 
 	@Override
@@ -393,17 +353,40 @@ public class AccountResourceImpl
 	}
 
 	@Override
+	public void putAccountContactByEmailAddres(
+			String accountKey, String[] contactEmailAddresses)
+		throws Exception {
+
+		for (String contactEmailAddress : contactEmailAddresses) {
+			_putAccountContact(
+				accountKey,
+				_oktaContactIdentityProvider.getContactByEmailAddress(
+					contactEmailAddress));
+		}
+	}
+
+	@Override
+	public void putAccountContactByEmailAddresContactEmailAddressRole(
+			String accountKey, String contactEmailAddress,
+			String[] contactRoleKeys)
+		throws Exception {
+
+		_putAccountContactRole(
+			accountKey,
+			_oktaContactIdentityProvider.getContactByEmailAddress(
+				contactEmailAddress),
+			contactRoleKeys);
+	}
+
+	@Override
 	public void putAccountContactByOkta(String accountKey, String[] oktaIds)
 		throws Exception {
 
-		List<Contact> contacts = new ArrayList<>(oktaIds.length);
-
 		for (String oktaId : oktaIds) {
-			contacts.add(
+			_putAccountContact(
+				accountKey,
 				_oktaContactIdentityProvider.getContactByProviderId(oktaId));
 		}
-
-		_putAccountContacts(contacts, accountKey);
 	}
 
 	@Override
@@ -412,8 +395,9 @@ public class AccountResourceImpl
 		throws Exception {
 
 		_putAccountContactRole(
+			accountKey,
 			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
-			accountKey, contactRoleKeys);
+			contactRoleKeys);
 	}
 
 	@Override
@@ -421,15 +405,12 @@ public class AccountResourceImpl
 			String accountKey, String[] contactUuids)
 		throws Exception {
 
-		List<Contact> contacts = new ArrayList<>(contactUuids.length);
-
 		for (String contactUuid : contactUuids) {
-			contacts.add(
+			_putAccountContact(
+				accountKey,
 				_webContactIdentityProvider.getContactByProviderId(
 					contactUuid));
 		}
-
-		_putAccountContacts(contacts, accountKey);
 	}
 
 	@Override
@@ -438,20 +419,35 @@ public class AccountResourceImpl
 		throws Exception {
 
 		_putAccountContactRole(
+			accountKey,
 			_webContactIdentityProvider.getContactByProviderId(contactUuid),
-			accountKey, contactRoleKeys);
+			contactRoleKeys);
+	}
+
+	private void _deleteAccountContact(
+			String accountKey,
+			com.liferay.osb.koroneiki.taproot.model.Contact contact)
+		throws PortalException {
+
+		com.liferay.osb.koroneiki.taproot.model.Account account =
+			_accountLocalService.getAccount(accountKey);
+
+		_contactAccountRoleService.deleteContactAccountRoles(
+			contact.getContactId(), account.getAccountId());
 	}
 
 	private void _deleteAccountContactRole(
-			Contact contact, String accountKey, String[] contactRoleKeys)
+			String accountKey,
+			com.liferay.osb.koroneiki.taproot.model.Contact contact,
+			String[] contactRoleKeys)
 		throws PortalException {
 
 		com.liferay.osb.koroneiki.taproot.model.Account account =
 			_accountLocalService.getAccount(accountKey);
 
 		for (String contactRoleKey : contactRoleKeys) {
-			ContactRole contactRole = _contactRoleLocalService.getContactRole(
-				contactRoleKey);
+			com.liferay.osb.koroneiki.taproot.model.ContactRole contactRole =
+				_contactRoleLocalService.getContactRole(contactRoleKey);
 
 			_contactAccountRoleService.deleteContactAccountRole(
 				contact.getContactId(), account.getAccountId(),
@@ -459,46 +455,164 @@ public class AccountResourceImpl
 		}
 	}
 
-	private void _deleteAccountContacts(
-			List<Contact> contacts, String accountKey)
+	private String _getContactRoleKey(ContactRole contactRole)
+		throws Exception {
+
+		if (Validator.isNotNull(contactRole.getKey())) {
+			return contactRole.getKey();
+		}
+
+		com.liferay.osb.koroneiki.taproot.model.ContactRole curContactRole =
+			_contactRoleLocalService.getContactRole(
+				contactRole.getName(), ContactRoleType.ACCOUNT);
+
+		return curContactRole.getContactRoleKey();
+	}
+
+	private Account _postAccount(String parentAccountKey, Account account)
+		throws Exception {
+
+		long parentAccountId = 0;
+
+		if (Validator.isNotNull(parentAccountKey)) {
+			com.liferay.osb.koroneiki.taproot.model.Account parentAccount =
+				_accountLocalService.getAccount(parentAccountKey);
+
+			parentAccountId = parentAccount.getAccountId();
+		}
+
+		String industry = StringPool.BLANK;
+
+		Account.Industry accountIndustry = account.getIndustry();
+
+		if (accountIndustry != null) {
+			industry = accountIndustry.toString();
+		}
+
+		String tier = StringPool.BLANK;
+
+		Account.Tier accountTier = account.getTier();
+
+		if (accountTier != null) {
+			tier = accountTier.toString();
+		}
+
+		int status = WorkflowConstants.STATUS_APPROVED;
+
+		Account.Status accountStatus = account.getStatus();
+
+		if (accountStatus != null) {
+			status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+		}
+
+		Account curAccount = AccountUtil.toAccount(
+			_accountService.addAccount(
+				parentAccountId, account.getName(), account.getCode(),
+				account.getDescription(), account.getNotes(),
+				GetterUtil.getLong(account.getLogoId()),
+				account.getContactEmailAddress(),
+				account.getProfileEmailAddress(), account.getPhoneNumber(),
+				account.getFaxNumber(), account.getWebsite(), industry, tier,
+				account.getSoldBy(),
+				GetterUtil.getBoolean(account.getInternal()), status),
+			contextAcceptLanguage.getPreferredLocale());
+
+		if (!ArrayUtil.isEmpty(account.getContacts())) {
+			for (Contact contact : account.getContacts()) {
+				String[] contactRoleKeys = new String[0];
+
+				if (!ArrayUtil.isEmpty(contact.getContactRoles())) {
+					for (ContactRole contactRole : contact.getContactRoles()) {
+						contactRoleKeys = ArrayUtil.append(
+							contactRoleKeys, _getContactRoleKey(contactRole));
+					}
+				}
+
+				if (Validator.isNotNull(contact.getOktaId())) {
+					putAccountContactByOkta(
+						curAccount.getKey(),
+						new String[] {contact.getOktaId()});
+
+					putAccountContactByOktaRole(
+						curAccount.getKey(), contact.getOktaId(),
+						contactRoleKeys);
+				}
+				else if (Validator.isNotNull(contact.getUuid())) {
+					putAccountContactByUuid(
+						curAccount.getKey(), new String[] {contact.getUuid()});
+
+					putAccountContactByUuidContactUuidRole(
+						curAccount.getKey(), contact.getUuid(),
+						contactRoleKeys);
+				}
+				else {
+					putAccountContactByEmailAddres(
+						curAccount.getKey(),
+						new String[] {contact.getEmailAddress()});
+
+					putAccountContactByEmailAddresContactEmailAddressRole(
+						curAccount.getKey(), contact.getEmailAddress(),
+						contactRoleKeys);
+				}
+			}
+		}
+
+		if (!ArrayUtil.isEmpty(account.getExternalLinks())) {
+			for (ExternalLink externalLink : account.getExternalLinks()) {
+				_externalLinkResource.postAccountAccountKeyExternalLink(
+					curAccount.getKey(), externalLink);
+			}
+		}
+
+		if (!ArrayUtil.isEmpty(account.getPostalAddresses())) {
+			for (PostalAddress postalAddress : account.getPostalAddresses()) {
+				_postalAddressResource.postAccountAccountKeyPostalAddress(
+					curAccount.getKey(), postalAddress);
+			}
+		}
+
+		if (!ArrayUtil.isEmpty(account.getProductPurchases())) {
+			for (ProductPurchase productPurchase :
+					account.getProductPurchases()) {
+
+				_productPurchaseResource.postAccountAccountKeyProductPurchase(
+					curAccount.getKey(), productPurchase);
+			}
+		}
+
+		return curAccount;
+	}
+
+	private void _putAccountContact(
+			String accountKey,
+			com.liferay.osb.koroneiki.taproot.model.Contact contact)
 		throws PortalException {
 
 		com.liferay.osb.koroneiki.taproot.model.Account account =
 			_accountLocalService.getAccount(accountKey);
 
-		for (Contact contact : contacts) {
-			_contactAccountRoleService.deleteContactAccountRoles(
-				contact.getContactId(), account.getAccountId());
-		}
+		com.liferay.osb.koroneiki.taproot.model.ContactRole contactRole =
+			_contactRoleLocalService.getMemberContactRole(
+				ContactRoleType.ACCOUNT);
+
+		_contactAccountRoleService.addContactAccountRole(
+			contact.getContactId(), account.getAccountId(),
+			contactRole.getContactRoleId());
 	}
 
 	private void _putAccountContactRole(
-			Contact contact, String accountKey, String[] contactRoleKeys)
+			String accountKey,
+			com.liferay.osb.koroneiki.taproot.model.Contact contact,
+			String[] contactRoleKeys)
 		throws PortalException {
 
 		com.liferay.osb.koroneiki.taproot.model.Account account =
 			_accountLocalService.getAccount(accountKey);
 
 		for (String contactRoleKey : contactRoleKeys) {
-			ContactRole contactRole = _contactRoleLocalService.getContactRole(
-				contactRoleKey);
+			com.liferay.osb.koroneiki.taproot.model.ContactRole contactRole =
+				_contactRoleLocalService.getContactRole(contactRoleKey);
 
-			_contactAccountRoleService.addContactAccountRole(
-				contact.getContactId(), account.getAccountId(),
-				contactRole.getContactRoleId());
-		}
-	}
-
-	private void _putAccountContacts(List<Contact> contacts, String accountKey)
-		throws PortalException {
-
-		com.liferay.osb.koroneiki.taproot.model.Account account =
-			_accountLocalService.getAccount(accountKey);
-
-		ContactRole contactRole = _contactRoleLocalService.getMemberContactRole(
-			ContactRoleType.ACCOUNT);
-
-		for (Contact contact : contacts) {
 			_contactAccountRoleService.addContactAccountRole(
 				contact.getContactId(), account.getAccountId(),
 				contactRole.getContactRoleId());
@@ -575,11 +689,20 @@ public class AccountResourceImpl
 	@Reference
 	private ContactService _contactService;
 
+	@Reference
+	private ExternalLinkResource _externalLinkResource;
+
 	@Reference(target = "(provider=okta)")
 	private ContactIdentityProvider _oktaContactIdentityProvider;
 
 	@Reference
 	private PhloemPermissionUtil _phloemPermissionUtil;
+
+	@Reference
+	private PostalAddressResource _postalAddressResource;
+
+	@Reference
+	private ProductPurchaseResource _productPurchaseResource;
 
 	@Reference
 	private TeamAccountRoleService _teamAccountRoleService;
