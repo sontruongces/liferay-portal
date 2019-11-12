@@ -316,8 +316,7 @@ public abstract class BaseTrashHandler implements TrashHandler {
 	}
 
 	/**
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 *             #isDeletable(long)}
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #isDeletable(long)}
 	 */
 	@Deprecated
 	@Override
@@ -333,8 +332,7 @@ public abstract class BaseTrashHandler implements TrashHandler {
 	}
 
 	/**
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 *             #isMovable(long)}
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #isMovable(long)}
 	 */
 	@Deprecated
 	@Override
