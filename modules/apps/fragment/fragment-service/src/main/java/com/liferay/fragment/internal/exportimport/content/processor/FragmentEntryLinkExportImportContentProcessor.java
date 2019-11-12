@@ -85,10 +85,6 @@ public class FragmentEntryLinkExportImportContentProcessor
 				replaceExportContentReferences(
 					portletDataContext, stagedModel, content, true, false);
 
-		if (!content.startsWith("{")) {
-			return content;
-		}
-
 		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
 			content);
 
@@ -156,10 +152,6 @@ public class FragmentEntryLinkExportImportContentProcessor
 			_dlReferencesExportImportContentProcessor.
 				replaceImportContentReferences(
 					portletDataContext, stagedModel, content);
-
-		if (!content.startsWith("{")) {
-			return content;
-		}
 
 		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
 			content);
