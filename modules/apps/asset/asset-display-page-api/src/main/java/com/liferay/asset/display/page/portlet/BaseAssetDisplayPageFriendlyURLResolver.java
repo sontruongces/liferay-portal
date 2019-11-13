@@ -282,7 +282,7 @@ public abstract class BaseAssetDisplayPageFriendlyURLResolver
 				friendlyURL.length() - versionClassPKValue.length() - 1);
 		}
 
-		return http.encodePath(urlTitle);
+		return urlTitle;
 	}
 
 	private long _getVersionClassPK(String friendlyURL) {
