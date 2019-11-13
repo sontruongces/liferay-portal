@@ -51,7 +51,6 @@ import com.liferay.staging.StagingGroupHelper;
 import com.liferay.staging.StagingGroupHelperUtil;
 
 import javax.portlet.ActionRequest;
-import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.ResourceURL;
 import javax.portlet.WindowStateException;
@@ -73,12 +72,10 @@ public class FolderActionDisplayContext {
 	}
 
 	public String getAddFileShortcutURL() {
-		ThemeDisplay themeDisplay = _dlRequestHelper.getThemeDisplay();
+		LiferayPortletResponse liferayPortletResponse =
+			_dlRequestHelper.getLiferayPortletResponse();
 
-		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
-			_httpServletRequest, themeDisplay.getScopeGroup(),
-			DLPortletKeys.DOCUMENT_LIBRARY_ADMIN, 0, 0,
-			PortletRequest.RENDER_PHASE);
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "/document_library/edit_file_shortcut");
@@ -91,12 +88,10 @@ public class FolderActionDisplayContext {
 	}
 
 	public String getAddFolderURL() {
-		ThemeDisplay themeDisplay = _dlRequestHelper.getThemeDisplay();
+		LiferayPortletResponse liferayPortletResponse =
+			_dlRequestHelper.getLiferayPortletResponse();
 
-		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
-			_httpServletRequest, themeDisplay.getScopeGroup(),
-			DLPortletKeys.DOCUMENT_LIBRARY_ADMIN, 0, 0,
-			PortletRequest.RENDER_PHASE);
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "/document_library/edit_folder");
@@ -145,12 +140,10 @@ public class FolderActionDisplayContext {
 	}
 
 	public String getAddRepositoryURL() {
-		ThemeDisplay themeDisplay = _dlRequestHelper.getThemeDisplay();
+		LiferayPortletResponse liferayPortletResponse =
+			_dlRequestHelper.getLiferayPortletResponse();
 
-		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
-			_httpServletRequest, themeDisplay.getScopeGroup(),
-			DLPortletKeys.DOCUMENT_LIBRARY_ADMIN, 0, 0,
-			PortletRequest.RENDER_PHASE);
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "/document_library/edit_repository");
@@ -225,12 +218,10 @@ public class FolderActionDisplayContext {
 	public String getEditFolderURL() {
 		Folder folder = _getFolder();
 
-		ThemeDisplay themeDisplay = _dlRequestHelper.getThemeDisplay();
+		LiferayPortletResponse liferayPortletResponse =
+			_dlRequestHelper.getLiferayPortletResponse();
 
-		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
-			_httpServletRequest, themeDisplay.getScopeGroup(),
-			DLPortletKeys.DOCUMENT_LIBRARY_ADMIN, 0, 0,
-			PortletRequest.RENDER_PHASE);
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		if ((folder == null) || !DLFolderUtil.isRepositoryRoot(folder)) {
 			portletURL.setParameter(
