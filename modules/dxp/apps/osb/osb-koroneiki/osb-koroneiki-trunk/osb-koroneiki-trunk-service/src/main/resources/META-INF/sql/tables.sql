@@ -47,5 +47,6 @@ create table Koroneiki_ProductPurchase (
 	productEntryId LONG,
 	startDate DATE null,
 	endDate DATE null,
-	quantity INTEGER
+	quantity INTEGER,
+	status INTEGER
 );

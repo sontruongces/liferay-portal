@@ -80,7 +80,8 @@ public class ProductPurchaseModelImpl
 		{"modifiedDate", Types.TIMESTAMP},
 		{"productPurchaseKey", Types.VARCHAR}, {"accountId", Types.BIGINT},
 		{"productEntryId", Types.BIGINT}, {"startDate", Types.TIMESTAMP},
-		{"endDate", Types.TIMESTAMP}, {"quantity", Types.INTEGER}
+		{"endDate", Types.TIMESTAMP}, {"quantity", Types.INTEGER},
+		{"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -100,10 +101,11 @@ public class ProductPurchaseModelImpl
 		TABLE_COLUMNS_MAP.put("startDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("endDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("quantity", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ProductPurchase (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,productPurchaseId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productPurchaseKey VARCHAR(75) null,accountId LONG,productEntryId LONG,startDate DATE null,endDate DATE null,quantity INTEGER)";
+		"create table Koroneiki_ProductPurchase (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,productPurchaseId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productPurchaseKey VARCHAR(75) null,accountId LONG,productEntryId LONG,startDate DATE null,endDate DATE null,quantity INTEGER,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ProductPurchase";
@@ -166,6 +168,7 @@ public class ProductPurchaseModelImpl
 		model.setStartDate(soapModel.getStartDate());
 		model.setEndDate(soapModel.getEndDate());
 		model.setQuantity(soapModel.getQuantity());
+		model.setStatus(soapModel.getStatus());
 
 		return model;
 	}
@@ -384,6 +387,10 @@ public class ProductPurchaseModelImpl
 		attributeSetterBiConsumers.put(
 			"quantity",
 			(BiConsumer<ProductPurchase, Integer>)ProductPurchase::setQuantity);
+		attributeGetterFunctions.put("status", ProductPurchase::getStatus);
+		attributeSetterBiConsumers.put(
+			"status",
+			(BiConsumer<ProductPurchase, Integer>)ProductPurchase::setStatus);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -622,6 +629,17 @@ public class ProductPurchaseModelImpl
 		_quantity = quantity;
 	}
 
+	@JSON
+	@Override
+	public int getStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		_status = status;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -677,6 +695,7 @@ public class ProductPurchaseModelImpl
 		productPurchaseImpl.setStartDate(getStartDate());
 		productPurchaseImpl.setEndDate(getEndDate());
 		productPurchaseImpl.setQuantity(getQuantity());
+		productPurchaseImpl.setStatus(getStatus());
 
 		productPurchaseImpl.resetOriginalValues();
 
@@ -838,6 +857,8 @@ public class ProductPurchaseModelImpl
 
 		productPurchaseCacheModel.quantity = getQuantity();
 
+		productPurchaseCacheModel.status = getStatus();
+
 		return productPurchaseCacheModel;
 	}
 
@@ -936,6 +957,7 @@ public class ProductPurchaseModelImpl
 	private Date _startDate;
 	private Date _endDate;
 	private int _quantity;
+	private int _status;
 	private long _columnBitmask;
 	private ProductPurchase _escapedModel;
 

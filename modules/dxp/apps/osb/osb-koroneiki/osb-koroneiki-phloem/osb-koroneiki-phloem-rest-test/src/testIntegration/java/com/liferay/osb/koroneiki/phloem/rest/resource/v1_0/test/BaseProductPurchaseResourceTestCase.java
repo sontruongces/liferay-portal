@@ -1229,6 +1229,14 @@ public abstract class BaseProductPurchaseResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("status", additionalAssertFieldName)) {
+				if (productPurchase.getStatus() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1398,6 +1406,17 @@ public abstract class BaseProductPurchaseResourceTestCase {
 				if (!Objects.deepEquals(
 						productPurchase1.getStartDate(),
 						productPurchase2.getStartDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("status", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						productPurchase1.getStatus(),
+						productPurchase2.getStatus())) {
 
 					return false;
 				}
@@ -1675,6 +1694,11 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			}
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("status")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		throw new IllegalArgumentException(

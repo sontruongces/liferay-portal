@@ -78,7 +78,7 @@ public class ProductPurchaseCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -106,6 +106,8 @@ public class ProductPurchaseCacheModel
 		sb.append(endDate);
 		sb.append(", quantity=");
 		sb.append(quantity);
+		sb.append(", status=");
+		sb.append(status);
 		sb.append("}");
 
 		return sb.toString();
@@ -167,6 +169,7 @@ public class ProductPurchaseCacheModel
 		}
 
 		productPurchaseImpl.setQuantity(quantity);
+		productPurchaseImpl.setStatus(status);
 
 		productPurchaseImpl.resetOriginalValues();
 
@@ -194,6 +197,8 @@ public class ProductPurchaseCacheModel
 		endDate = objectInput.readLong();
 
 		quantity = objectInput.readInt();
+
+		status = objectInput.readInt();
 	}
 
 	@Override
@@ -229,6 +234,8 @@ public class ProductPurchaseCacheModel
 		objectOutput.writeLong(endDate);
 
 		objectOutput.writeInt(quantity);
+
+		objectOutput.writeInt(status);
 	}
 
 	public long mvccVersion;
@@ -244,5 +251,6 @@ public class ProductPurchaseCacheModel
 	public long startDate;
 	public long endDate;
 	public int quantity;
+	public int status;
 
 }

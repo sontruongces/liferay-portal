@@ -55,7 +55,7 @@ public class ProductPurchaseServiceHttp {
 			addProductPurchase(
 				HttpPrincipal httpPrincipal, long accountId,
 				long productEntryId, java.util.Date startDate,
-				java.util.Date endDate, int quantity,
+				java.util.Date endDate, int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
@@ -68,7 +68,7 @@ public class ProductPurchaseServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId, productEntryId, startDate, endDate,
-				quantity, productFields);
+				quantity, status, productFields);
 
 			Object returnObj = null;
 
@@ -101,7 +101,7 @@ public class ProductPurchaseServiceHttp {
 			addProductPurchase(
 				HttpPrincipal httpPrincipal, String accountKey,
 				String productEntryKey, java.util.Date startDate,
-				java.util.Date endDate, int quantity,
+				java.util.Date endDate, int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
@@ -114,7 +114,7 @@ public class ProductPurchaseServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey, productEntryKey, startDate, endDate,
-				quantity, productFields);
+				quantity, status, productFields);
 
 			Object returnObj = null;
 
@@ -635,6 +635,7 @@ public class ProductPurchaseServiceHttp {
 			updateProductPurchase(
 				HttpPrincipal httpPrincipal, long productPurchaseId,
 				java.util.Date startDate, java.util.Date endDate, int quantity,
+				int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
@@ -647,7 +648,7 @@ public class ProductPurchaseServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productPurchaseId, startDate, endDate, quantity,
-				productFields);
+				status, productFields);
 
 			Object returnObj = null;
 
@@ -682,12 +683,12 @@ public class ProductPurchaseServiceHttp {
 	private static final Class<?>[] _addProductPurchaseParameterTypes0 =
 		new Class[] {
 			long.class, long.class, java.util.Date.class, java.util.Date.class,
-			int.class, java.util.List.class
+			int.class, int.class, java.util.List.class
 		};
 	private static final Class<?>[] _addProductPurchaseParameterTypes1 =
 		new Class[] {
 			String.class, String.class, java.util.Date.class,
-			java.util.Date.class, int.class, java.util.List.class
+			java.util.Date.class, int.class, int.class, java.util.List.class
 		};
 	private static final Class<?>[] _deleteProductPurchaseParameterTypes2 =
 		new Class[] {long.class};
@@ -724,7 +725,7 @@ public class ProductPurchaseServiceHttp {
 	private static final Class<?>[] _updateProductPurchaseParameterTypes14 =
 		new Class[] {
 			long.class, java.util.Date.class, java.util.Date.class, int.class,
-			java.util.List.class
+			int.class, java.util.List.class
 		};
 
 }

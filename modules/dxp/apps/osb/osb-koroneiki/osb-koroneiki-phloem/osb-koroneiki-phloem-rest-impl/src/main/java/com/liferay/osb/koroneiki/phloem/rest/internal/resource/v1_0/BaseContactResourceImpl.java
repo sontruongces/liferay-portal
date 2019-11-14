@@ -125,7 +125,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts' -d $'{"contactRoles": ___, "emailAddress": ___, "externalLinks": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts' -d $'{"contactRoles": ___, "emailAddress": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -181,7 +181,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}' -d $'{"contactRoles": ___, "emailAddress": ___, "externalLinks": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}' -d $'{"contactRoles": ___, "emailAddress": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -241,7 +241,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}' -d $'{"contactRoles": ___, "emailAddress": ___, "externalLinks": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}' -d $'{"contactRoles": ___, "emailAddress": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -341,7 +341,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}' -d $'{"contactRoles": ___, "emailAddress": ___, "externalLinks": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}' -d $'{"contactRoles": ___, "emailAddress": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

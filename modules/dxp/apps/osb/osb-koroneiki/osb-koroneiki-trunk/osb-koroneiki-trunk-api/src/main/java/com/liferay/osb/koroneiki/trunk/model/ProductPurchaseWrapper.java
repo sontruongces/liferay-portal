@@ -56,6 +56,7 @@ public class ProductPurchaseWrapper
 		attributes.put("startDate", getStartDate());
 		attributes.put("endDate", getEndDate());
 		attributes.put("quantity", getQuantity());
+		attributes.put("status", getStatus());
 
 		return attributes;
 	}
@@ -139,6 +140,12 @@ public class ProductPurchaseWrapper
 
 		if (quantity != null) {
 			setQuantity(quantity);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
 		}
 	}
 
@@ -308,6 +315,21 @@ public class ProductPurchaseWrapper
 	}
 
 	/**
+	 * Returns the status of this product purchase.
+	 *
+	 * @return the status of this product purchase
+	 */
+	@Override
+	public int getStatus() {
+		return model.getStatus();
+	}
+
+	@Override
+	public String getStatusLabel() {
+		return model.getStatusLabel();
+	}
+
+	/**
 	 * Returns the user ID of this product purchase.
 	 *
 	 * @return the user ID of this product purchase
@@ -470,6 +492,16 @@ public class ProductPurchaseWrapper
 	@Override
 	public void setStartDate(Date startDate) {
 		model.setStartDate(startDate);
+	}
+
+	/**
+	 * Sets the status of this product purchase.
+	 *
+	 * @param status the status of this product purchase
+	 */
+	@Override
+	public void setStatus(int status) {
+		model.setStatus(status);
 	}
 
 	/**

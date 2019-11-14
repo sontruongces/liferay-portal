@@ -214,6 +214,20 @@ public class ProductPurchaseSerDes {
 			sb.append("\"");
 		}
 
+		if (productPurchase.getStatus() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append("\"");
+
+			sb.append(productPurchase.getStatus());
+
+			sb.append("\"");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -310,6 +324,13 @@ public class ProductPurchaseSerDes {
 			"startDate",
 			liferayToJSONDateFormat.format(productPurchase.getStartDate()));
 
+		if (productPurchase.getStatus() == null) {
+			map.put("status", null);
+		}
+		else {
+			map.put("status", String.valueOf(productPurchase.getStatus()));
+		}
+
 		return map;
 	}
 
@@ -398,6 +419,13 @@ public class ProductPurchaseSerDes {
 				if (jsonParserFieldValue != null) {
 					productPurchase.setStartDate(
 						toDate((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "status")) {
+				if (jsonParserFieldValue != null) {
+					productPurchase.setStatus(
+						ProductPurchase.Status.create(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else {

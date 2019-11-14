@@ -69,7 +69,8 @@ public interface ProductPurchaseLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductPurchase addProductPurchase(
 			long userId, long accountId, long productEntryId, Date startDate,
-			Date endDate, int quantity, List<ProductField> productFields)
+			Date endDate, int quantity, int status,
+			List<ProductField> productFields)
 		throws PortalException;
 
 	/**
@@ -301,7 +302,7 @@ public interface ProductPurchaseLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductPurchase updateProductPurchase(
 			long userId, long productPurchaseId, Date startDate, Date endDate,
-			int quantity, List<ProductField> productFields)
+			int quantity, int status, List<ProductField> productFields)
 		throws PortalException;
 
 	/**

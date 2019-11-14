@@ -14,9 +14,11 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.dto.v1_0;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
@@ -51,6 +53,40 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Schema(requiredProperties = {"productKey"})
 @XmlRootElement(name = "ProductPurchase")
 public class ProductPurchase {
+
+	@GraphQLName("Status")
+	public static enum Status {
+
+		APPROVED("Approved"), CANCELLED("Cancelled");
+
+		@JsonCreator
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
 
 	@Schema(description = "The key of the account purchasing the product.")
 	public String getAccountKey() {
@@ -367,6 +403,44 @@ public class ProductPurchase {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date startDate;
 
+	@Schema(description = "The workflow status of the product purchase.")
+	@Valid
+	public Status getStatus() {
+		return status;
+	}
+
+	@JsonIgnore
+	public String getStatusAsString() {
+		if (status == null) {
+			return null;
+		}
+
+		return status.toString();
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	@JsonIgnore
+	public void setStatus(
+		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
+
+		try {
+			status = statusUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Status status;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -537,6 +611,20 @@ public class ProductPurchase {
 			sb.append("\"");
 
 			sb.append(liferayToJSONDateFormat.format(startDate));
+
+			sb.append("\"");
+		}
+
+		if (status != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append("\"");
+
+			sb.append(status);
 
 			sb.append("\"");
 		}

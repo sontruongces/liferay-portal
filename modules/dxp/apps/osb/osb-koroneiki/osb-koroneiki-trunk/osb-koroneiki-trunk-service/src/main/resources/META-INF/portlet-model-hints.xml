@@ -52,5 +52,6 @@
 			<hint name="show-time">false</hint>
 		</field>
 		<field name="quantity" type="int" />
+		<field name="status" type="int" />
 	</model>
 </model-hints>

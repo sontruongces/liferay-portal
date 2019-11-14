@@ -267,4 +267,18 @@ public interface ProductPurchaseModel
 	 */
 	public void setQuantity(int quantity);
 
+	/**
+	 * Returns the status of this product purchase.
+	 *
+	 * @return the status of this product purchase
+	 */
+	public int getStatus();
+
+	/**
+	 * Sets the status of this product purchase.
+	 *
+	 * @param status the status of this product purchase
+	 */
+	public void setStatus(int status);
+
 }
