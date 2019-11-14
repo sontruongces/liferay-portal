@@ -205,13 +205,15 @@ public class TaskResourceImpl
 
 		if (completed) {
 			booleanQuery.addMustNotQueryClauses(
-				_queries.term("status", WorkfowMetricsSLAStatus.RUNNING));
+				_queries.term(
+					"status", WorkfowMetricsSLAStatus.RUNNING.name()));
 		}
 		else {
 			booleanQuery.addMustNotQueryClauses(
-				_queries.term("status", WorkfowMetricsSLAStatus.COMPLETED));
-			booleanQuery.addMustNotQueryClauses(
-				_queries.term("status", WorkfowMetricsSLAStatus.EXPIRED));
+				_queries.term(
+					"status", WorkfowMetricsSLAStatus.COMPLETED.name()),
+				_queries.term(
+					"status", WorkfowMetricsSLAStatus.EXPIRED.name()));
 		}
 
 		TermsQuery termsQuery = _queries.terms("taskName");

@@ -92,7 +92,7 @@ public class ResourceHelper {
 		BooleanQuery booleanQuery = _queries.booleanQuery();
 
 		return booleanQuery.addMustNotQueryClauses(
-			_queries.term("status", WorkfowMetricsSLAStatus.NEW));
+			_queries.term("status", WorkfowMetricsSLAStatus.NEW.name()));
 	}
 
 	public ScriptedMetricAggregation createOnTimeScriptedMetricAggregation() {
