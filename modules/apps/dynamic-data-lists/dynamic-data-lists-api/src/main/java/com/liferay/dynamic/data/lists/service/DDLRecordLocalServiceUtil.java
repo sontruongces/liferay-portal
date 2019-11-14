@@ -718,8 +718,7 @@ public class DDLRecordLocalServiceUtil {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 DDLRecordVersionLocalService#getRecordVersion(
-	 long)}
+	 DDLRecordVersionLocalService#getRecordVersion(long)}
 	 */
 	@Deprecated
 	public static com.liferay.dynamic.data.lists.model.DDLRecordVersion
@@ -731,8 +730,7 @@ public class DDLRecordLocalServiceUtil {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 DDLRecordVersionLocalService#getRecordVersion(
-	 long, String)}
+	 DDLRecordVersionLocalService#getRecordVersion(long, String)}
 	 */
 	@Deprecated
 	public static com.liferay.dynamic.data.lists.model.DDLRecordVersion
@@ -744,8 +742,8 @@ public class DDLRecordLocalServiceUtil {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 DDLRecordVersionLocalService#getRecordVersions(
-	 long, int, int, OrderByComparator)}
+	 DDLRecordVersionLocalService#getRecordVersions(long, int,
+	 int, OrderByComparator)}
 	 */
 	@Deprecated
 	public static java.util.List
@@ -762,8 +760,7 @@ public class DDLRecordLocalServiceUtil {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 DDLRecordVersionLocalService#getRecordVersionsCount(
-	 long)}
+	 DDLRecordVersionLocalService#getRecordVersionsCount(long)}
 	 */
 	@Deprecated
 	public static int getRecordVersionsCount(long recordId) {

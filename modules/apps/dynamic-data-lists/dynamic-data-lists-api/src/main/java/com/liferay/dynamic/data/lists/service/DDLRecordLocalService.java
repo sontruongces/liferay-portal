@@ -591,8 +591,7 @@ public interface DDLRecordLocalService
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 DDLRecordVersionLocalService#getRecordVersion(
-	 long)}
+	 DDLRecordVersionLocalService#getRecordVersion(long)}
 	 */
 	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -601,8 +600,7 @@ public interface DDLRecordLocalService
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 DDLRecordVersionLocalService#getRecordVersion(
-	 long, String)}
+	 DDLRecordVersionLocalService#getRecordVersion(long, String)}
 	 */
 	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -611,8 +609,8 @@ public interface DDLRecordLocalService
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 DDLRecordVersionLocalService#getRecordVersions(
-	 long, int, int, OrderByComparator)}
+	 DDLRecordVersionLocalService#getRecordVersions(long, int,
+	 int, OrderByComparator)}
 	 */
 	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -622,8 +620,7 @@ public interface DDLRecordLocalService
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 DDLRecordVersionLocalService#getRecordVersionsCount(
-	 long)}
+	 DDLRecordVersionLocalService#getRecordVersionsCount(long)}
 	 */
 	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

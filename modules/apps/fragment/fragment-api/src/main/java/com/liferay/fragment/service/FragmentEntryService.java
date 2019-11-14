@@ -236,7 +236,8 @@ public interface FragmentEntryService extends BaseService {
 
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 #getFragmentEntriesByStatus(Long, Long, Integer, Integer, Integer, OrderByComparator)}
+	 #getFragmentEntriesByStatus(Long, Long, Integer, Integer,
+	 Integer, OrderByComparator)}
 	 */
 	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -251,7 +252,8 @@ public interface FragmentEntryService extends BaseService {
 
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 #getFragmentEntriesByNameAndStatus(Long, Long, String, Integer, Integer, Integer, OrderByComparator)}
+	 #getFragmentEntriesByNameAndStatus(Long, Long, String,
+	 Integer, Integer, Integer, OrderByComparator)}
 	 */
 	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -261,7 +263,8 @@ public interface FragmentEntryService extends BaseService {
 
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 #getFragmentEntriesByName(Long, Long, String, Integer, Integer, OrderByComparator)}
+	 #getFragmentEntriesByName(Long, Long, String, Integer,
+	 Integer, OrderByComparator)}
 	 */
 	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -290,7 +293,8 @@ public interface FragmentEntryService extends BaseService {
 
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 #getFragmentEntriesByTypeAndStatus(Long, Long, Integer, Integer)}
+	 #getFragmentEntriesByTypeAndStatus(Long, Long, Integer,
+	 Integer)}
 	 */
 	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -358,8 +362,8 @@ public interface FragmentEntryService extends BaseService {
 
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 #updateFragmentEntry(long, String, String, String,
-	 String, String, int)}
+	 #updateFragmentEntry(long, String, String, String, String,
+	 String, int)}
 	 */
 	@Deprecated
 	public FragmentEntry updateFragmentEntry(
@@ -369,8 +373,8 @@ public interface FragmentEntryService extends BaseService {
 
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 #updateFragmentEntry(long, String, String, String,
-	 String, String, long, int)}
+	 #updateFragmentEntry(long, String, String, String, String,
+	 String, long, int)}
 	 */
 	@Deprecated
 	public FragmentEntry updateFragmentEntry(
