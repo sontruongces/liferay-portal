@@ -68,6 +68,8 @@ public class ProductPurchaseModelDocumentContributor
 
 		document.addText(Field.NAME, productEntry.getName());
 
+		document.addKeyword(Field.STATUS, productPurchase.getStatus());
+
 		document.addKeyword("accountKey", productPurchase.getAccountKey());
 		document.addDate("endDate", productPurchase.getEndDate());
 		document.addKeyword("perpetual", productPurchase.isPerpetual());
