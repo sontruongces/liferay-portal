@@ -53,7 +53,7 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 	public ProductPurchase addProductPurchase(
 			long accountId, long productEntryId, Date startDate, Date endDate,
-			int quantity, List<ProductField> productFields)
+			int quantity, int status, List<ProductField> productFields)
 		throws PortalException {
 
 		_productPurchasePermission.check(
@@ -61,12 +61,13 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 		return productPurchaseLocalService.addProductPurchase(
 			getUserId(), accountId, productEntryId, startDate, endDate,
-			quantity, productFields);
+			quantity, status, productFields);
 	}
 
 	public ProductPurchase addProductPurchase(
 			String accountKey, String productEntryKey, Date startDate,
-			Date endDate, int quantity, List<ProductField> productFields)
+			Date endDate, int quantity, int status,
+			List<ProductField> productFields)
 		throws PortalException {
 
 		Account account = _accountLocalService.getAccount(accountKey);
@@ -75,7 +76,7 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 		return addProductPurchase(
 			account.getAccountId(), productEntry.getProductEntryId(), startDate,
-			endDate, quantity, productFields);
+			endDate, quantity, status, productFields);
 	}
 
 	public ProductPurchase deleteProductPurchase(long productPurchaseId)
@@ -220,7 +221,7 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 	public ProductPurchase updateProductPurchase(
 			long productPurchaseId, Date startDate, Date endDate, int quantity,
-			List<ProductField> productFields)
+			int status, List<ProductField> productFields)
 		throws PortalException {
 
 		_productPurchasePermission.check(
@@ -228,7 +229,7 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 		return productPurchaseLocalService.updateProductPurchase(
 			getUserId(), productPurchaseId, startDate, endDate, quantity,
-			productFields);
+			status, productFields);
 	}
 
 	@Reference

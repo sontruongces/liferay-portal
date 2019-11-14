@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.trunk.model.impl;
 
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
+import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
@@ -81,6 +82,10 @@ public class ProductPurchaseImpl extends ProductPurchaseBaseImpl {
 		}
 
 		return productFieldsMap;
+	}
+
+	public String getStatusLabel() {
+		return WorkflowConstants.getStatusLabel(getStatus());
 	}
 
 	public boolean isPerpetual() {

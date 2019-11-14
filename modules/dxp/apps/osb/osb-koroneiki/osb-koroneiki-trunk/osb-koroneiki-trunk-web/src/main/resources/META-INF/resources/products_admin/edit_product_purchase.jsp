@@ -135,6 +135,21 @@ renderResponse.setTitle((productPurchase == null) ? LanguageUtil.get(request, "n
 			<aui:input disabled="<%= perpetual %>" name="endDate" showTime="<%= false %>" />
 
 			<aui:input name="quantity" value="<%= String.valueOf(quantity) %>" />
+
+			<aui:select name="status">
+				<aui:option value="" />
+
+				<%
+				for (com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase.Status status : com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase.Status.values()) {
+				%>
+
+					<aui:option label="<%= status %>" value="<%= WorkflowConstants.getLabelStatus(status.toString()) %>" />
+
+				<%
+				}
+				%>
+
+			</aui:select>
 		</aui:fieldset>
 
 		<div class="form-group">

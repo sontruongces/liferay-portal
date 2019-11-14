@@ -22,6 +22,8 @@ public class WorkflowConstants
 
 	public static final String LABEL_APPROVED = "Approved";
 
+	public static final String LABEL_CANCELLED = "Cancelled";
+
 	public static final String LABEL_CLOSED = "Closed";
 
 	public static final String LABEL_EXPIRED = "Expired";
@@ -34,20 +36,20 @@ public class WorkflowConstants
 
 	public static final String LABEL_REJECTED = "Rejected";
 
+	public static final int STATUS_CANCELLED = 600;
+
 	public static final int STATUS_CLOSED = 400;
 
 	public static final int STATUS_PENDING_VALIDATION = 100;
 
 	public static final int STATUS_REJECTED = 500;
 
-	public static final int[] VALUES = {
-		STATUS_APPROVED, STATUS_CLOSED, STATUS_EXPIRED, STATUS_INACTIVE,
-		STATUS_PENDING, STATUS_PENDING_VALIDATION, STATUS_REJECTED
-	};
-
 	public static int getLabelStatus(String label) {
 		if (label.equals(LABEL_APPROVED)) {
 			return STATUS_APPROVED;
+		}
+		else if (label.equals(LABEL_CANCELLED)) {
+			return STATUS_CANCELLED;
 		}
 		else if (label.equals(LABEL_CLOSED)) {
 			return STATUS_CLOSED;
@@ -75,6 +77,9 @@ public class WorkflowConstants
 	public static String getStatusLabel(int status) {
 		if (status == STATUS_APPROVED) {
 			return LABEL_APPROVED;
+		}
+		else if (status == STATUS_CANCELLED) {
+			return LABEL_CANCELLED;
 		}
 		else if (status == STATUS_CLOSED) {
 			return LABEL_CLOSED;

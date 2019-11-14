@@ -43,6 +43,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"com.liferay.portlet.css-class-wrapper=koroneiki-products-admin-portlet",
 		"com.liferay.portlet.display-category=category.hidden",
+		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.render-weight=0",
 		"javax.portlet.display-name=Products",
 		"javax.portlet.expiration-cache=0",

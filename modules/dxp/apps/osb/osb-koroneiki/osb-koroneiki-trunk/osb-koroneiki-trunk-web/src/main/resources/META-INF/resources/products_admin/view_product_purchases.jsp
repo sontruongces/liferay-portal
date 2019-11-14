@@ -94,6 +94,13 @@ ViewProductPurchasesManagementToolbarDisplayContext viewProductPurchasesManageme
 				value="<%= String.valueOf(productPurchase.getQuantity()) %>"
 			/>
 
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="status"
+			>
+				<span class="label label-sm label-<%= StringUtil.lowerCase(productPurchase.getStatusLabel()) %>"><%= StringUtil.lowerCase(productPurchase.getStatusLabel()) %></span>
+			</liferay-ui:search-container-column-text>
+
 			<liferay-ui:search-container-column-jsp
 				align="right"
 				path="/products_admin/product_purchase_action.jsp"

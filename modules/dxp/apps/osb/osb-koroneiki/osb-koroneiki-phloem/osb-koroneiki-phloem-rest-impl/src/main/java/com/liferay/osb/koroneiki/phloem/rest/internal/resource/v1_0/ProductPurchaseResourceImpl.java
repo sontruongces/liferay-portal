@@ -22,6 +22,7 @@ import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductP
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
+import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
@@ -187,6 +188,16 @@ public class ProductPurchaseResourceImpl
 
 		int quantity = GetterUtil.getInteger(productPurchase.getQuantity(), 1);
 
+		int status = WorkflowConstants.STATUS_APPROVED;
+
+		ProductPurchase.Status productPurchaseStatus =
+			productPurchase.getStatus();
+
+		if (productPurchaseStatus != null) {
+			status = WorkflowConstants.getLabelStatus(
+				productPurchaseStatus.toString());
+		}
+
 		List<ProductField> productFields = getProductFields(
 			productPurchase.getProperties(), null);
 
@@ -194,7 +205,7 @@ public class ProductPurchaseResourceImpl
 			ProductPurchaseUtil.toProductPurchase(
 				_productPurchaseService.addProductPurchase(
 					accountKey, productPurchase.getProductKey(), startDate,
-					endDate, quantity, productFields));
+					endDate, quantity, status, productFields));
 
 		if (!ArrayUtil.isEmpty(productPurchase.getExternalLinks())) {
 			for (ExternalLink externalLink :
@@ -241,6 +252,16 @@ public class ProductPurchaseResourceImpl
 		int quantity = GetterUtil.getInteger(
 			productPurchase.getQuantity(), curProductPurchase.getQuantity());
 
+		int status = curProductPurchase.getStatus();
+
+		ProductPurchase.Status productPurchaseStatus =
+			productPurchase.getStatus();
+
+		if (productPurchaseStatus != null) {
+			status = WorkflowConstants.getLabelStatus(
+				productPurchaseStatus.toString());
+		}
+
 		List<ProductField> productFields = getProductFields(
 			productPurchase.getProperties(),
 			curProductPurchase.getProductFields());
@@ -248,7 +269,7 @@ public class ProductPurchaseResourceImpl
 		return ProductPurchaseUtil.toProductPurchase(
 			_productPurchaseService.updateProductPurchase(
 				curProductPurchase.getProductPurchaseId(), startDate, endDate,
-				quantity, productFields));
+				quantity, status, productFields));
 	}
 
 	@Override

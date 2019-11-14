@@ -136,6 +136,7 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 			null);
 
 		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
+		int status = ParamUtil.getInteger(actionRequest, "status");
 
 		List<ProductField> productFields = new ArrayList<>();
 
@@ -165,12 +166,13 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 
 		if (productPurchaseId <= 0) {
 			_productPurchaseService.addProductPurchase(
-				accountId, productEntryId, startDate, endDate, quantity,
+				accountId, productEntryId, startDate, endDate, quantity, status,
 				productFields);
 		}
 		else {
 			_productPurchaseService.updateProductPurchase(
-				productPurchaseId, startDate, endDate, quantity, productFields);
+				productPurchaseId, startDate, endDate, quantity, status,
+				productFields);
 		}
 	}
 

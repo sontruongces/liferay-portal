@@ -35,6 +35,7 @@ page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkEntityIdExcept
 page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkEntityNameException" %><%@
 page import="com.liferay.osb.koroneiki.root.model.ExternalLink" %><%@
 page import="com.liferay.osb.koroneiki.taproot.constants.TaprootPortletKeys" %><%@
+page import="com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants" %><%@
 page import="com.liferay.osb.koroneiki.taproot.exception.NoSuchAccountException" %><%@
 page import="com.liferay.osb.koroneiki.taproot.model.Account" %><%@
 page import="com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil" %><%@

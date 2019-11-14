@@ -697,6 +697,11 @@ components:
                         The product purchase's start date.
                     format: date-time
                     type: string
+                status:
+                    description:
+                        The workflow status of the product purchase.
+                    enum: ["Approved", "Cancelled"]
+                    type: string
             required:
                 - productKey
             type: object

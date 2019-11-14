@@ -59,7 +59,8 @@ public class ProductPurchaseLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductPurchase addProductPurchase(
 			long userId, long accountId, long productEntryId, Date startDate,
-			Date endDate, int quantity, List<ProductField> productFields)
+			Date endDate, int quantity, int status,
+			List<ProductField> productFields)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -80,6 +81,7 @@ public class ProductPurchaseLocalServiceImpl
 		productPurchase.setStartDate(startDate);
 		productPurchase.setEndDate(endDate);
 		productPurchase.setQuantity(quantity);
+		productPurchase.setStatus(status);
 
 		productPurchasePersistence.update(productPurchase);
 
@@ -220,7 +222,7 @@ public class ProductPurchaseLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductPurchase updateProductPurchase(
 			long userId, long productPurchaseId, Date startDate, Date endDate,
-			int quantity, List<ProductField> productFields)
+			int quantity, int status, List<ProductField> productFields)
 		throws PortalException {
 
 		validate(startDate, endDate, quantity);
@@ -231,6 +233,7 @@ public class ProductPurchaseLocalServiceImpl
 		productPurchase.setStartDate(startDate);
 		productPurchase.setEndDate(endDate);
 		productPurchase.setQuantity(quantity);
+		productPurchase.setStatus(status);
 
 		productPurchasePersistence.update(productPurchase);
 

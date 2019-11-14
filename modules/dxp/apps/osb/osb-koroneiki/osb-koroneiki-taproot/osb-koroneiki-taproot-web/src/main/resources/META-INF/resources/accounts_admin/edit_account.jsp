@@ -130,10 +130,10 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 				<aui:option value="" />
 
 				<%
-				for (int status : WorkflowConstants.VALUES) {
+				for (com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Status status : com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Status.values()) {
 				%>
 
-					<aui:option label="<%= WorkflowConstants.getStatusLabel(status) %>" value="<%= status %>" />
+					<aui:option label="<%= status %>" value="<%= WorkflowConstants.getLabelStatus(status.toString()) %>" />
 
 				<%
 				}
