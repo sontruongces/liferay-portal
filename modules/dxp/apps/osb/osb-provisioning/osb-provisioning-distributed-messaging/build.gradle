@@ -1,0 +1,13 @@
+dependencies {
+	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "4.0.0"
+	compileOnly group: "com.rabbitmq", name: "amqp-client", version: "5.7.3"
+	compileOnly project(":private:apps:osb-distributed-messaging:osb-distributed-messaging-api")
+	compileOnly project(":private:apps:osb-distributed-messaging:osb-distributed-messaging-rabbitmq-connector")
+	compileOnly project(":private:apps:osb-distributed-messaging:osb-distributed-messaging-subscribing-api")
+}
+
+deployDependencies {
+	from configurations.compileOnly
+	include "amqp-client-*.jar"
+}
