@@ -43,6 +43,7 @@ public class ProductPurchaseSoap implements Serializable {
 		soapModel.setProductEntryId(model.getProductEntryId());
 		soapModel.setStartDate(model.getStartDate());
 		soapModel.setEndDate(model.getEndDate());
+		soapModel.setOriginalEndDate(model.getOriginalEndDate());
 		soapModel.setQuantity(model.getQuantity());
 		soapModel.setStatus(model.getStatus());
 
@@ -200,6 +201,14 @@ public class ProductPurchaseSoap implements Serializable {
 		_endDate = endDate;
 	}
 
+	public Date getOriginalEndDate() {
+		return _originalEndDate;
+	}
+
+	public void setOriginalEndDate(Date originalEndDate) {
+		_originalEndDate = originalEndDate;
+	}
+
 	public int getQuantity() {
 		return _quantity;
 	}
@@ -228,6 +237,7 @@ public class ProductPurchaseSoap implements Serializable {
 	private long _productEntryId;
 	private Date _startDate;
 	private Date _endDate;
+	private Date _originalEndDate;
 	private int _quantity;
 	private int _status;
 

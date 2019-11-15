@@ -55,12 +55,13 @@ public interface ProductPurchaseService extends BaseService {
 	 */
 	public ProductPurchase addProductPurchase(
 			long accountId, long productEntryId, Date startDate, Date endDate,
-			int quantity, int status, List<ProductField> productFields)
+			Date originalEndDate, int quantity, int status,
+			List<ProductField> productFields)
 		throws PortalException;
 
 	public ProductPurchase addProductPurchase(
 			String accountKey, String productEntryKey, Date startDate,
-			Date endDate, int quantity, int status,
+			Date endDate, Date originalEndDate, int quantity, int status,
 			List<ProductField> productFields)
 		throws PortalException;
 
@@ -124,8 +125,9 @@ public interface ProductPurchaseService extends BaseService {
 		throws PortalException;
 
 	public ProductPurchase updateProductPurchase(
-			long productPurchaseId, Date startDate, Date endDate, int quantity,
-			int status, List<ProductField> productFields)
+			long productPurchaseId, Date startDate, Date endDate,
+			Date originalEndDate, int quantity, int status,
+			List<ProductField> productFields)
 		throws PortalException;
 
 }

@@ -95,7 +95,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/product-purchases' -d $'{"endDate": ___, "externalLinks": ___, "perpetual": ___, "productKey": ___, "properties": ___, "quantity": ___, "startDate": ___, "status": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/product-purchases' -d $'{"endDate": ___, "externalLinks": ___, "originalEndDate": ___, "perpetual": ___, "productKey": ___, "properties": ___, "quantity": ___, "startDate": ___, "status": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -283,7 +283,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/product-purchases/{productPurchaseKey}' -d $'{"endDate": ___, "externalLinks": ___, "perpetual": ___, "productKey": ___, "properties": ___, "quantity": ___, "startDate": ___, "status": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/product-purchases/{productPurchaseKey}' -d $'{"endDate": ___, "externalLinks": ___, "originalEndDate": ___, "perpetual": ___, "productKey": ___, "properties": ___, "quantity": ___, "startDate": ___, "status": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

@@ -145,6 +145,22 @@ public class ProductPurchaseSerDes {
 			sb.append("\"");
 		}
 
+		if (productPurchase.getOriginalEndDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"originalEndDate\": ");
+
+			sb.append("\"");
+
+			sb.append(
+				liferayToJSONDateFormat.format(
+					productPurchase.getOriginalEndDate()));
+
+			sb.append("\"");
+		}
+
 		if (productPurchase.getPerpetual() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -282,6 +298,11 @@ public class ProductPurchaseSerDes {
 			map.put("key", String.valueOf(productPurchase.getKey()));
 		}
 
+		map.put(
+			"originalEndDate",
+			liferayToJSONDateFormat.format(
+				productPurchase.getOriginalEndDate()));
+
 		if (productPurchase.getPerpetual() == null) {
 			map.put("perpetual", null);
 		}
@@ -384,6 +405,12 @@ public class ProductPurchaseSerDes {
 			else if (Objects.equals(jsonParserFieldName, "key")) {
 				if (jsonParserFieldValue != null) {
 					productPurchase.setKey((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "originalEndDate")) {
+				if (jsonParserFieldValue != null) {
+					productPurchase.setOriginalEndDate(
+						toDate((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "perpetual")) {

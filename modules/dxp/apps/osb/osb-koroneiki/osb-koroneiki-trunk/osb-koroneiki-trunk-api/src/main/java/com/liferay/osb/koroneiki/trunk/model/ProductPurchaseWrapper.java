@@ -55,6 +55,7 @@ public class ProductPurchaseWrapper
 		attributes.put("productEntryId", getProductEntryId());
 		attributes.put("startDate", getStartDate());
 		attributes.put("endDate", getEndDate());
+		attributes.put("originalEndDate", getOriginalEndDate());
 		attributes.put("quantity", getQuantity());
 		attributes.put("status", getStatus());
 
@@ -134,6 +135,12 @@ public class ProductPurchaseWrapper
 
 		if (endDate != null) {
 			setEndDate(endDate);
+		}
+
+		Date originalEndDate = (Date)attributes.get("originalEndDate");
+
+		if (originalEndDate != null) {
+			setOriginalEndDate(originalEndDate);
 		}
 
 		Integer quantity = (Integer)attributes.get("quantity");
@@ -228,6 +235,16 @@ public class ProductPurchaseWrapper
 	@Override
 	public long getMvccVersion() {
 		return model.getMvccVersion();
+	}
+
+	/**
+	 * Returns the original end date of this product purchase.
+	 *
+	 * @return the original end date of this product purchase
+	 */
+	@Override
+	public Date getOriginalEndDate() {
+		return model.getOriginalEndDate();
 	}
 
 	/**
@@ -432,6 +449,16 @@ public class ProductPurchaseWrapper
 	@Override
 	public void setMvccVersion(long mvccVersion) {
 		model.setMvccVersion(mvccVersion);
+	}
+
+	/**
+	 * Sets the original end date of this product purchase.
+	 *
+	 * @param originalEndDate the original end date of this product purchase
+	 */
+	@Override
+	public void setOriginalEndDate(Date originalEndDate) {
+		model.setOriginalEndDate(originalEndDate);
 	}
 
 	/**

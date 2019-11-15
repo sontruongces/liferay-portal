@@ -254,6 +254,20 @@ public interface ProductPurchaseModel
 	public void setEndDate(Date endDate);
 
 	/**
+	 * Returns the original end date of this product purchase.
+	 *
+	 * @return the original end date of this product purchase
+	 */
+	public Date getOriginalEndDate();
+
+	/**
+	 * Sets the original end date of this product purchase.
+	 *
+	 * @param originalEndDate the original end date of this product purchase
+	 */
+	public void setOriginalEndDate(Date originalEndDate);
+
+	/**
 	 * Returns the quantity of this product purchase.
 	 *
 	 * @return the quantity of this product purchase

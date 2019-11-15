@@ -46,30 +46,31 @@ public class ProductPurchaseServiceUtil {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
 				long accountId, long productEntryId, java.util.Date startDate,
-				java.util.Date endDate, int quantity, int status,
+				java.util.Date endDate, java.util.Date originalEndDate,
+				int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addProductPurchase(
-			accountId, productEntryId, startDate, endDate, quantity, status,
-			productFields);
+			accountId, productEntryId, startDate, endDate, originalEndDate,
+			quantity, status, productFields);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
 				String accountKey, String productEntryKey,
-				java.util.Date startDate, java.util.Date endDate, int quantity,
-				int status,
+				java.util.Date startDate, java.util.Date endDate,
+				java.util.Date originalEndDate, int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addProductPurchase(
-			accountKey, productEntryKey, startDate, endDate, quantity, status,
-			productFields);
+			accountKey, productEntryKey, startDate, endDate, originalEndDate,
+			quantity, status, productFields);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
@@ -174,15 +175,16 @@ public class ProductPurchaseServiceUtil {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			updateProductPurchase(
 				long productPurchaseId, java.util.Date startDate,
-				java.util.Date endDate, int quantity, int status,
+				java.util.Date endDate, java.util.Date originalEndDate,
+				int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateProductPurchase(
-			productPurchaseId, startDate, endDate, quantity, status,
-			productFields);
+			productPurchaseId, startDate, endDate, originalEndDate, quantity,
+			status, productFields);
 	}
 
 	public static ProductPurchaseService getService() {

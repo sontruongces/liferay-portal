@@ -1181,6 +1181,14 @@ public abstract class BaseProductPurchaseResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("originalEndDate", additionalAssertFieldName)) {
+				if (productPurchase.getOriginalEndDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("perpetual", additionalAssertFieldName)) {
 				if (productPurchase.getPerpetual() == null) {
 					valid = false;
@@ -1340,6 +1348,17 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			if (Objects.equals("key", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						productPurchase1.getKey(), productPurchase2.getKey())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("originalEndDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						productPurchase1.getOriginalEndDate(),
+						productPurchase2.getOriginalEndDate())) {
 
 					return false;
 				}
@@ -1635,6 +1654,40 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("originalEndDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							productPurchase.getOriginalEndDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							productPurchase.getOriginalEndDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(
+					_dateFormat.format(productPurchase.getOriginalEndDate()));
+			}
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("perpetual")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1729,6 +1782,7 @@ public abstract class BaseProductPurchaseResourceTestCase {
 				dateCreated = RandomTestUtil.nextDate();
 				endDate = RandomTestUtil.nextDate();
 				key = RandomTestUtil.randomString();
+				originalEndDate = RandomTestUtil.nextDate();
 				perpetual = RandomTestUtil.randomBoolean();
 				productKey = RandomTestUtil.randomString();
 				quantity = RandomTestUtil.randomInt();

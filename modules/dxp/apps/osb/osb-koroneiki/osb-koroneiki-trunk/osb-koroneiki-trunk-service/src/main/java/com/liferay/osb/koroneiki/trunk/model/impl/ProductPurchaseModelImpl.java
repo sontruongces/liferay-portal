@@ -80,8 +80,8 @@ public class ProductPurchaseModelImpl
 		{"modifiedDate", Types.TIMESTAMP},
 		{"productPurchaseKey", Types.VARCHAR}, {"accountId", Types.BIGINT},
 		{"productEntryId", Types.BIGINT}, {"startDate", Types.TIMESTAMP},
-		{"endDate", Types.TIMESTAMP}, {"quantity", Types.INTEGER},
-		{"status", Types.INTEGER}
+		{"endDate", Types.TIMESTAMP}, {"originalEndDate", Types.TIMESTAMP},
+		{"quantity", Types.INTEGER}, {"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -100,12 +100,13 @@ public class ProductPurchaseModelImpl
 		TABLE_COLUMNS_MAP.put("productEntryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("startDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("endDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("originalEndDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("quantity", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ProductPurchase (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,productPurchaseId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productPurchaseKey VARCHAR(75) null,accountId LONG,productEntryId LONG,startDate DATE null,endDate DATE null,quantity INTEGER,status INTEGER)";
+		"create table Koroneiki_ProductPurchase (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,productPurchaseId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productPurchaseKey VARCHAR(75) null,accountId LONG,productEntryId LONG,startDate DATE null,endDate DATE null,originalEndDate DATE null,quantity INTEGER,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ProductPurchase";
@@ -167,6 +168,7 @@ public class ProductPurchaseModelImpl
 		model.setProductEntryId(soapModel.getProductEntryId());
 		model.setStartDate(soapModel.getStartDate());
 		model.setEndDate(soapModel.getEndDate());
+		model.setOriginalEndDate(soapModel.getOriginalEndDate());
 		model.setQuantity(soapModel.getQuantity());
 		model.setStatus(soapModel.getStatus());
 
@@ -383,6 +385,12 @@ public class ProductPurchaseModelImpl
 		attributeSetterBiConsumers.put(
 			"endDate",
 			(BiConsumer<ProductPurchase, Date>)ProductPurchase::setEndDate);
+		attributeGetterFunctions.put(
+			"originalEndDate", ProductPurchase::getOriginalEndDate);
+		attributeSetterBiConsumers.put(
+			"originalEndDate",
+			(BiConsumer<ProductPurchase, Date>)
+				ProductPurchase::setOriginalEndDate);
 		attributeGetterFunctions.put("quantity", ProductPurchase::getQuantity);
 		attributeSetterBiConsumers.put(
 			"quantity",
@@ -620,6 +628,17 @@ public class ProductPurchaseModelImpl
 
 	@JSON
 	@Override
+	public Date getOriginalEndDate() {
+		return _originalEndDate;
+	}
+
+	@Override
+	public void setOriginalEndDate(Date originalEndDate) {
+		_originalEndDate = originalEndDate;
+	}
+
+	@JSON
+	@Override
 	public int getQuantity() {
 		return _quantity;
 	}
@@ -694,6 +713,7 @@ public class ProductPurchaseModelImpl
 		productPurchaseImpl.setProductEntryId(getProductEntryId());
 		productPurchaseImpl.setStartDate(getStartDate());
 		productPurchaseImpl.setEndDate(getEndDate());
+		productPurchaseImpl.setOriginalEndDate(getOriginalEndDate());
 		productPurchaseImpl.setQuantity(getQuantity());
 		productPurchaseImpl.setStatus(getStatus());
 
@@ -855,6 +875,16 @@ public class ProductPurchaseModelImpl
 			productPurchaseCacheModel.endDate = Long.MIN_VALUE;
 		}
 
+		Date originalEndDate = getOriginalEndDate();
+
+		if (originalEndDate != null) {
+			productPurchaseCacheModel.originalEndDate =
+				originalEndDate.getTime();
+		}
+		else {
+			productPurchaseCacheModel.originalEndDate = Long.MIN_VALUE;
+		}
+
 		productPurchaseCacheModel.quantity = getQuantity();
 
 		productPurchaseCacheModel.status = getStatus();
@@ -956,6 +986,7 @@ public class ProductPurchaseModelImpl
 	private boolean _setOriginalProductEntryId;
 	private Date _startDate;
 	private Date _endDate;
+	private Date _originalEndDate;
 	private int _quantity;
 	private int _status;
 	private long _columnBitmask;

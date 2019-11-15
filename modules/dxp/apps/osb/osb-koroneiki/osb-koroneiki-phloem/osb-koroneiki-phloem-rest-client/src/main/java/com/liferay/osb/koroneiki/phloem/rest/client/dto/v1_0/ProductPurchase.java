@@ -164,6 +164,27 @@ public class ProductPurchase {
 
 	protected String key;
 
+	public Date getOriginalEndDate() {
+		return originalEndDate;
+	}
+
+	public void setOriginalEndDate(Date originalEndDate) {
+		this.originalEndDate = originalEndDate;
+	}
+
+	public void setOriginalEndDate(
+		UnsafeSupplier<Date, Exception> originalEndDateUnsafeSupplier) {
+
+		try {
+			originalEndDate = originalEndDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date originalEndDate;
+
 	public Boolean getPerpetual() {
 		return perpetual;
 	}

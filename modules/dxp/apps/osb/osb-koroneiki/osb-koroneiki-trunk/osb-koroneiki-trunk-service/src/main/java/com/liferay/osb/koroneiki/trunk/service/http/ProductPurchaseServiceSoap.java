@@ -64,7 +64,8 @@ public class ProductPurchaseServiceSoap {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap
 			addProductPurchase(
 				long accountId, long productEntryId, java.util.Date startDate,
-				java.util.Date endDate, int quantity, int status,
+				java.util.Date endDate, java.util.Date originalEndDate,
+				int quantity, int status,
 				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
 					productFields)
 		throws RemoteException {
@@ -72,8 +73,8 @@ public class ProductPurchaseServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.trunk.model.ProductPurchase returnValue =
 				ProductPurchaseServiceUtil.addProductPurchase(
-					accountId, productEntryId, startDate, endDate, quantity,
-					status,
+					accountId, productEntryId, startDate, endDate,
+					originalEndDate, quantity, status,
 					com.liferay.osb.koroneiki.trunk.model.impl.
 						ProductFieldModelImpl.toModels(productFields));
 
@@ -90,8 +91,8 @@ public class ProductPurchaseServiceSoap {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap
 			addProductPurchase(
 				String accountKey, String productEntryKey,
-				java.util.Date startDate, java.util.Date endDate, int quantity,
-				int status,
+				java.util.Date startDate, java.util.Date endDate,
+				java.util.Date originalEndDate, int quantity, int status,
 				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
 					productFields)
 		throws RemoteException {
@@ -99,8 +100,8 @@ public class ProductPurchaseServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.trunk.model.ProductPurchase returnValue =
 				ProductPurchaseServiceUtil.addProductPurchase(
-					accountKey, productEntryKey, startDate, endDate, quantity,
-					status,
+					accountKey, productEntryKey, startDate, endDate,
+					originalEndDate, quantity, status,
 					com.liferay.osb.koroneiki.trunk.model.impl.
 						ProductFieldModelImpl.toModels(productFields));
 
@@ -348,7 +349,8 @@ public class ProductPurchaseServiceSoap {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap
 			updateProductPurchase(
 				long productPurchaseId, java.util.Date startDate,
-				java.util.Date endDate, int quantity, int status,
+				java.util.Date endDate, java.util.Date originalEndDate,
+				int quantity, int status,
 				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
 					productFields)
 		throws RemoteException {
@@ -356,7 +358,8 @@ public class ProductPurchaseServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.trunk.model.ProductPurchase returnValue =
 				ProductPurchaseServiceUtil.updateProductPurchase(
-					productPurchaseId, startDate, endDate, quantity, status,
+					productPurchaseId, startDate, endDate, originalEndDate,
+					quantity, status,
 					com.liferay.osb.koroneiki.trunk.model.impl.
 						ProductFieldModelImpl.toModels(productFields));
 

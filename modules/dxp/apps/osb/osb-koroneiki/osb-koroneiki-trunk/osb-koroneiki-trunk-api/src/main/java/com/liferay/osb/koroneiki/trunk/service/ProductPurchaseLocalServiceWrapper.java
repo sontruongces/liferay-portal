@@ -42,16 +42,16 @@ public class ProductPurchaseLocalServiceWrapper
 	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
 				long userId, long accountId, long productEntryId,
-				java.util.Date startDate, java.util.Date endDate, int quantity,
-				int status,
+				java.util.Date startDate, java.util.Date endDate,
+				java.util.Date originalEndDate, int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseLocalService.addProductPurchase(
-			userId, accountId, productEntryId, startDate, endDate, quantity,
-			status, productFields);
+			userId, accountId, productEntryId, startDate, endDate,
+			originalEndDate, quantity, status, productFields);
 	}
 
 	/**
@@ -412,15 +412,16 @@ public class ProductPurchaseLocalServiceWrapper
 	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			updateProductPurchase(
 				long userId, long productPurchaseId, java.util.Date startDate,
-				java.util.Date endDate, int quantity, int status,
+				java.util.Date endDate, java.util.Date originalEndDate,
+				int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseLocalService.updateProductPurchase(
-			userId, productPurchaseId, startDate, endDate, quantity, status,
-			productFields);
+			userId, productPurchaseId, startDate, endDate, originalEndDate,
+			quantity, status, productFields);
 	}
 
 	/**

@@ -41,31 +41,32 @@ public class ProductPurchaseServiceWrapper
 	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
 				long accountId, long productEntryId, java.util.Date startDate,
-				java.util.Date endDate, int quantity, int status,
+				java.util.Date endDate, java.util.Date originalEndDate,
+				int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseService.addProductPurchase(
-			accountId, productEntryId, startDate, endDate, quantity, status,
-			productFields);
+			accountId, productEntryId, startDate, endDate, originalEndDate,
+			quantity, status, productFields);
 	}
 
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			addProductPurchase(
 				String accountKey, String productEntryKey,
-				java.util.Date startDate, java.util.Date endDate, int quantity,
-				int status,
+				java.util.Date startDate, java.util.Date endDate,
+				java.util.Date originalEndDate, int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseService.addProductPurchase(
-			accountKey, productEntryKey, startDate, endDate, quantity, status,
-			productFields);
+			accountKey, productEntryKey, startDate, endDate, originalEndDate,
+			quantity, status, productFields);
 	}
 
 	@Override
@@ -186,15 +187,16 @@ public class ProductPurchaseServiceWrapper
 	public com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			updateProductPurchase(
 				long productPurchaseId, java.util.Date startDate,
-				java.util.Date endDate, int quantity, int status,
+				java.util.Date endDate, java.util.Date originalEndDate,
+				int quantity, int status,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productPurchaseService.updateProductPurchase(
-			productPurchaseId, startDate, endDate, quantity, status,
-			productFields);
+			productPurchaseId, startDate, endDate, originalEndDate, quantity,
+			status, productFields);
 	}
 
 	@Override

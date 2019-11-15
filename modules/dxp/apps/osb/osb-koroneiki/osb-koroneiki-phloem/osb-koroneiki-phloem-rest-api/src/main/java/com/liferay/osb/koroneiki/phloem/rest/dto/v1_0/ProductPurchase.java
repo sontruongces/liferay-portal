@@ -144,7 +144,9 @@ public class ProductPurchase {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
-	@Schema(description = "The product purchase's end date.")
+	@Schema(
+		description = "The product purchase's actual end date including extensions or grace periods."
+	)
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -228,6 +230,36 @@ public class ProductPurchase {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
+
+	@Schema(
+		description = "The product purchase's original end date that was purchased from sales."
+	)
+	public Date getOriginalEndDate() {
+		return originalEndDate;
+	}
+
+	public void setOriginalEndDate(Date originalEndDate) {
+		this.originalEndDate = originalEndDate;
+	}
+
+	@JsonIgnore
+	public void setOriginalEndDate(
+		UnsafeSupplier<Date, Exception> originalEndDateUnsafeSupplier) {
+
+		try {
+			originalEndDate = originalEndDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date originalEndDate;
 
 	@Schema(
 		description = "A flag that identifies if the product purchase has a start and end date."
@@ -543,6 +575,20 @@ public class ProductPurchase {
 			sb.append("\"");
 
 			sb.append(_escape(key));
+
+			sb.append("\"");
+		}
+
+		if (originalEndDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"originalEndDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(originalEndDate));
 
 			sb.append("\"");
 		}

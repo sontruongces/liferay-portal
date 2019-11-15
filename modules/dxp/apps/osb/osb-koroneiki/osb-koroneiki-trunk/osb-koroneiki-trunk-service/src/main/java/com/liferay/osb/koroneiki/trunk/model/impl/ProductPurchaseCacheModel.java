@@ -78,7 +78,7 @@ public class ProductPurchaseCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -104,6 +104,8 @@ public class ProductPurchaseCacheModel
 		sb.append(startDate);
 		sb.append(", endDate=");
 		sb.append(endDate);
+		sb.append(", originalEndDate=");
+		sb.append(originalEndDate);
 		sb.append(", quantity=");
 		sb.append(quantity);
 		sb.append(", status=");
@@ -168,6 +170,13 @@ public class ProductPurchaseCacheModel
 			productPurchaseImpl.setEndDate(new Date(endDate));
 		}
 
+		if (originalEndDate == Long.MIN_VALUE) {
+			productPurchaseImpl.setOriginalEndDate(null);
+		}
+		else {
+			productPurchaseImpl.setOriginalEndDate(new Date(originalEndDate));
+		}
+
 		productPurchaseImpl.setQuantity(quantity);
 		productPurchaseImpl.setStatus(status);
 
@@ -195,6 +204,7 @@ public class ProductPurchaseCacheModel
 		productEntryId = objectInput.readLong();
 		startDate = objectInput.readLong();
 		endDate = objectInput.readLong();
+		originalEndDate = objectInput.readLong();
 
 		quantity = objectInput.readInt();
 
@@ -232,6 +242,7 @@ public class ProductPurchaseCacheModel
 		objectOutput.writeLong(productEntryId);
 		objectOutput.writeLong(startDate);
 		objectOutput.writeLong(endDate);
+		objectOutput.writeLong(originalEndDate);
 
 		objectOutput.writeInt(quantity);
 
@@ -250,6 +261,7 @@ public class ProductPurchaseCacheModel
 	public long productEntryId;
 	public long startDate;
 	public long endDate;
+	public long originalEndDate;
 	public int quantity;
 	public int status;
 
