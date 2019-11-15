@@ -423,14 +423,6 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 			<propertyregex
 				input="${elastic.xpack.user.passwords}"
 				override="true"
-				property="elastic.xpack.kibana.user.password"
-				regexp="(PASSWORD kibana = )(\S*)"
-				select="\2"
-			/>
-
-			<propertyregex
-				input="${elastic.xpack.user.passwords}"
-				override="true"
 				property="elastic.xpack.elastic.user.password"
 				regexp="(PASSWORD elastic = )(\S*)"
 				select="\2"
