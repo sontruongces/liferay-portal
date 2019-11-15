@@ -135,6 +135,17 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 			endDateMonth, endDateDay, endDateYear, themeDisplay.getTimeZone(),
 			null);
 
+		int originalEndDateMonth = ParamUtil.getInteger(
+			actionRequest, "originalEndDateMonth");
+		int originalEndDateDay = ParamUtil.getInteger(
+			actionRequest, "originalEndDateDay");
+		int originalEndDateYear = ParamUtil.getInteger(
+			actionRequest, "originalEndDateYear");
+
+		Date originalEndDate = _portal.getDate(
+			originalEndDateMonth, originalEndDateDay, originalEndDateYear,
+			themeDisplay.getTimeZone(), null);
+
 		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
 		int status = ParamUtil.getInteger(actionRequest, "status");
 
@@ -166,13 +177,13 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 
 		if (productPurchaseId <= 0) {
 			_productPurchaseService.addProductPurchase(
-				accountId, productEntryId, startDate, endDate, quantity, status,
-				productFields);
+				accountId, productEntryId, startDate, endDate, originalEndDate,
+				quantity, status, productFields);
 		}
 		else {
 			_productPurchaseService.updateProductPurchase(
-				productPurchaseId, startDate, endDate, quantity, status,
-				productFields);
+				productPurchaseId, startDate, endDate, originalEndDate,
+				quantity, status, productFields);
 		}
 	}
 

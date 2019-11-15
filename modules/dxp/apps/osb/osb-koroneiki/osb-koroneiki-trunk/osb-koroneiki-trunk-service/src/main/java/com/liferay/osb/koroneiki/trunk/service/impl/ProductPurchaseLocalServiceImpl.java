@@ -59,11 +59,15 @@ public class ProductPurchaseLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductPurchase addProductPurchase(
 			long userId, long accountId, long productEntryId, Date startDate,
-			Date endDate, int quantity, int status,
+			Date endDate, Date originalEndDate, int quantity, int status,
 			List<ProductField> productFields)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
+
+		if (originalEndDate == null) {
+			originalEndDate = endDate;
+		}
 
 		validate(accountId, productEntryId, startDate, endDate, quantity);
 
@@ -80,6 +84,7 @@ public class ProductPurchaseLocalServiceImpl
 		productPurchase.setProductEntryId(productEntryId);
 		productPurchase.setStartDate(startDate);
 		productPurchase.setEndDate(endDate);
+		productPurchase.setOriginalEndDate(originalEndDate);
 		productPurchase.setQuantity(quantity);
 		productPurchase.setStatus(status);
 
@@ -222,8 +227,13 @@ public class ProductPurchaseLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductPurchase updateProductPurchase(
 			long userId, long productPurchaseId, Date startDate, Date endDate,
-			int quantity, int status, List<ProductField> productFields)
+			Date originalEndDate, int quantity, int status,
+			List<ProductField> productFields)
 		throws PortalException {
+
+		if (originalEndDate == null) {
+			originalEndDate = endDate;
+		}
 
 		validate(startDate, endDate, quantity);
 
@@ -232,6 +242,7 @@ public class ProductPurchaseLocalServiceImpl
 
 		productPurchase.setStartDate(startDate);
 		productPurchase.setEndDate(endDate);
+		productPurchase.setOriginalEndDate(originalEndDate);
 		productPurchase.setQuantity(quantity);
 		productPurchase.setStatus(status);
 

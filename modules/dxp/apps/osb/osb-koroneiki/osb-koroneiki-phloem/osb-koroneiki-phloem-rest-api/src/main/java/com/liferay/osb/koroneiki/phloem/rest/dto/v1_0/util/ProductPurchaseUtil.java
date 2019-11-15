@@ -37,6 +37,7 @@ public class ProductPurchaseUtil {
 					productPurchase.getExternalLinks(),
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);
 				key = productPurchase.getProductPurchaseKey();
+				originalEndDate = productPurchase.getOriginalEndDate();
 
 				if ((productPurchase.getEndDate() == null) &&
 					(productPurchase.getEndDate() == null)) {

@@ -125,14 +125,16 @@ renderResponse.setTitle((productPurchase == null) ? LanguageUtil.get(request, "n
 			</c:choose>
 
 			<%
-			String taglibOnClick = renderResponse.getNamespace() + "toggleDate(this.checked, 'startDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'endDate');";
+			String taglibOnClick = renderResponse.getNamespace() + "toggleDate(this.checked, 'startDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'endDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'originalEndDate');";
 			%>
 
 			<aui:input checked="<%= perpetual %>" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
 
-			<aui:input disabled="<%= perpetual %>" name="startDate" showTime="<%= false %>" />
+			<aui:input disabled="<%= perpetual %>" name="startDate" />
 
-			<aui:input disabled="<%= perpetual %>" name="endDate" showTime="<%= false %>" />
+			<aui:input disabled="<%= perpetual %>" name="endDate" />
+
+			<aui:input disabled="<%= perpetual %>" name="originalEndDate" />
 
 			<aui:input name="quantity" value="<%= String.valueOf(quantity) %>" />
 

@@ -53,7 +53,8 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 	public ProductPurchase addProductPurchase(
 			long accountId, long productEntryId, Date startDate, Date endDate,
-			int quantity, int status, List<ProductField> productFields)
+			Date originalEndDate, int quantity, int status,
+			List<ProductField> productFields)
 		throws PortalException {
 
 		_productPurchasePermission.check(
@@ -61,12 +62,12 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 		return productPurchaseLocalService.addProductPurchase(
 			getUserId(), accountId, productEntryId, startDate, endDate,
-			quantity, status, productFields);
+			originalEndDate, quantity, status, productFields);
 	}
 
 	public ProductPurchase addProductPurchase(
 			String accountKey, String productEntryKey, Date startDate,
-			Date endDate, int quantity, int status,
+			Date endDate, Date originalEndDate, int quantity, int status,
 			List<ProductField> productFields)
 		throws PortalException {
 
@@ -76,7 +77,7 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 
 		return addProductPurchase(
 			account.getAccountId(), productEntry.getProductEntryId(), startDate,
-			endDate, quantity, status, productFields);
+			endDate, originalEndDate, quantity, status, productFields);
 	}
 
 	public ProductPurchase deleteProductPurchase(long productPurchaseId)
@@ -220,16 +221,17 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 	}
 
 	public ProductPurchase updateProductPurchase(
-			long productPurchaseId, Date startDate, Date endDate, int quantity,
-			int status, List<ProductField> productFields)
+			long productPurchaseId, Date startDate, Date endDate,
+			Date originalEndDate, int quantity, int status,
+			List<ProductField> productFields)
 		throws PortalException {
 
 		_productPurchasePermission.check(
 			getPermissionChecker(), productPurchaseId, ActionKeys.UPDATE);
 
 		return productPurchaseLocalService.updateProductPurchase(
-			getUserId(), productPurchaseId, startDate, endDate, quantity,
-			status, productFields);
+			getUserId(), productPurchaseId, startDate, endDate, originalEndDate,
+			quantity, status, productFields);
 	}
 
 	@Reference

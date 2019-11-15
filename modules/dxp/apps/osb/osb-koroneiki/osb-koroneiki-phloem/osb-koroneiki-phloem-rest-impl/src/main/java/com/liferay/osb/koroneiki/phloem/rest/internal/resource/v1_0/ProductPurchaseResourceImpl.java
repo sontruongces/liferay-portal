@@ -192,12 +192,14 @@ public class ProductPurchaseResourceImpl
 
 		Date startDate = productPurchase.getStartDate();
 		Date endDate = productPurchase.getEndDate();
+		Date originalEndDate = productPurchase.getOriginalEndDate();
 
 		if ((productPurchase.getPerpetual() != null) &&
 			productPurchase.getPerpetual()) {
 
 			startDate = null;
 			endDate = null;
+			originalEndDate = null;
 		}
 
 		int quantity = GetterUtil.getInteger(productPurchase.getQuantity(), 1);
@@ -219,7 +221,7 @@ public class ProductPurchaseResourceImpl
 			ProductPurchaseUtil.toProductPurchase(
 				_productPurchaseService.addProductPurchase(
 					accountKey, productPurchase.getProductKey(), startDate,
-					endDate, quantity, status, productFields));
+					endDate, originalEndDate, quantity, status, productFields));
 
 		if (!ArrayUtil.isEmpty(productPurchase.getExternalLinks())) {
 			for (ExternalLink externalLink :
@@ -256,11 +258,18 @@ public class ProductPurchaseResourceImpl
 			endDate = curProductPurchase.getEndDate();
 		}
 
+		Date originalEndDate = productPurchase.getOriginalEndDate();
+
+		if (originalEndDate == null) {
+			originalEndDate = curProductPurchase.getOriginalEndDate();
+		}
+
 		if ((productPurchase.getPerpetual() != null) &&
 			productPurchase.getPerpetual()) {
 
 			startDate = null;
 			endDate = null;
+			originalEndDate = null;
 		}
 
 		int quantity = GetterUtil.getInteger(
@@ -283,7 +292,7 @@ public class ProductPurchaseResourceImpl
 		return ProductPurchaseUtil.toProductPurchase(
 			_productPurchaseService.updateProductPurchase(
 				curProductPurchase.getProductPurchaseId(), startDate, endDate,
-				quantity, status, productFields));
+				originalEndDate, quantity, status, productFields));
 	}
 
 	@Override

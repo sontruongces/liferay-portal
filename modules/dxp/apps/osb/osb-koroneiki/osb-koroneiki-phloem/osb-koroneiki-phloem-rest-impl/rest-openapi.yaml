@@ -654,7 +654,7 @@ components:
                     type: string
                 endDate:
                     description:
-                        The product purchase's end date.
+                        The product purchase's actual end date including extensions or grace periods.
                     format: date-time
                     type: string
                 externalLinks:
@@ -667,6 +667,11 @@ components:
                     description:
                         The product purchase's key.
                     readOnly: true
+                    type: string
+                originalEndDate:
+                    description:
+                        The product purchase's original end date that was purchased from sales.
+                    format: date-time
                     type: string
                 perpetual:
                     description:
