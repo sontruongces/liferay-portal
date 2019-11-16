@@ -310,7 +310,7 @@ String navigation = ParamUtil.getString(request, "navigation");
 
 		Map<String, Object> tagsContext = new HashMap<>();
 
-		long groupIds[] = PortalUtil.getCurrentAndAncestorSiteGroupIds(scopeGroupId);
+		long[] groupIds = PortalUtil.getCurrentAndAncestorSiteGroupIds(scopeGroupId);
 
 		tagsContext.put("groupIds", groupIds);
 		tagsContext.put("pathModule", pathModule);
