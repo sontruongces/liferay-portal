@@ -10,10 +10,11 @@
  */
 
 import {cleanup, render, waitForElement} from '@testing-library/react';
+import React from 'react';
+
 import PromisesResolver, {
 	PromisesResolverContext
 } from '../../../../src/main/resources/META-INF/resources/js/shared/components/request/PromisesResolver.es';
-import React from 'react';
 
 describe('The pending view should', () => {
 	afterEach(cleanup);
