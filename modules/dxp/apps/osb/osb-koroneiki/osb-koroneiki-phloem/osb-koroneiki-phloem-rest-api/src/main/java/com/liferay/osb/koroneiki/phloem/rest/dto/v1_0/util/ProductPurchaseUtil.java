@@ -54,6 +54,7 @@ public class ProductPurchaseUtil {
 				properties = productPurchase.getProductFieldsMap();
 				quantity = productPurchase.getQuantity();
 				startDate = productPurchase.getStartDate();
+				status = Status.create(productPurchase.getStatusLabel());
 			}
 		};
 	}
