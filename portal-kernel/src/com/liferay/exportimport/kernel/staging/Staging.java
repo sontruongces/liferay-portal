@@ -93,9 +93,8 @@ public interface Staging {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 *             com.liferay.exportimport.kernel.service.StagingLocalServiceUtil#
-	 *             checkDefaultLayoutSetBranches(long, Group, boolean, boolean,
-	 *             boolean, ServiceContext)}
+	 *             com.liferay.exportimport.kernel.service.StagingLocalServiceUtil#checkDefaultLayoutSetBranches(
+	 *             long, Group, boolean, boolean, boolean, ServiceContext)}
 	 */
 	@Deprecated
 	public void checkDefaultLayoutSetBranches(
@@ -181,8 +180,7 @@ public interface Staging {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 *             #getErrorMessagesJSONArray(Locale, Map<String,
-	 *             MissingReference>)}
+	 *             #getErrorMessagesJSONArray(Locale, Map)}
 	 */
 	@Deprecated
 	public JSONArray getErrorMessagesJSONArray(
@@ -270,8 +268,7 @@ public interface Staging {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 *             #getWarningMessagesJSONArray(Locale, Map<String,
-	 *             MissingReference>)}
+	 *             #getWarningMessagesJSONArray(Locale, Map)}
 	 */
 	@Deprecated
 	public JSONArray getWarningMessagesJSONArray(

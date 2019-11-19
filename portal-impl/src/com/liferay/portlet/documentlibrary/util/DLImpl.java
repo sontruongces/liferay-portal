@@ -1089,9 +1089,8 @@ public class DLImpl implements DL {
 
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
-	 *             com.liferay.document.library.web.internal.util.
-	 *             DLSubscriptionUtil#isSubscribedToFileEntryType(long, long,
-	 *             long, long)}
+	 *             com.liferay.document.library.web.internal.util.DLSubscriptionUtil#isSubscribedToFileEntryType(
+	 *             long, long, long, long)}
 	 */
 	@Deprecated
 	@Override
@@ -1111,9 +1110,8 @@ public class DLImpl implements DL {
 
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
-	 *             com.liferay.document.library.web.internal.util.
-	 *             DLSubscriptionUtil#isSubscribedToFolder(long, long, long,
-	 *             long)}
+	 *             com.liferay.document.library.web.internal.util.DLSubscriptionUtil#isSubscribedToFolder(
+	 *             long, long, long, long)}
 	 */
 	@Deprecated
 	@Override
@@ -1126,9 +1124,8 @@ public class DLImpl implements DL {
 
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
-	 *             com.liferay.document.library.web.internal.util.
-	 *             DLSubscriptionUtil#isSubscribedToFolder(long, long, long,
-	 *             long, boolean)}
+	 *             com.liferay.document.library.web.internal.util.DLSubscriptionUtil#isSubscribedToFolder(
+	 *             long, long, long, long, boolean)}
 	 */
 	@Deprecated
 	@Override

@@ -713,8 +713,7 @@ public class StagingImpl implements Staging {
 
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
-	 *             #getErrorMessagesJSONArray(Locale, Map<String,
-	 *             MissingReference>)}
+	 *             #getErrorMessagesJSONArray(Locale, Map)}
 	 */
 	@Deprecated
 	@Override
@@ -2051,8 +2050,7 @@ public class StagingImpl implements Staging {
 
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
-	 *             #getWarningMessagesJSONArray(Locale, Map<String,
-	 *             MissingReference>)}
+	 *             #getWarningMessagesJSONArray(Locale, Map)}
 	 */
 	@Deprecated
 	@Override
