@@ -43,9 +43,12 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * @author Eudaldo Alonso
  */
+@ProviderType
 public interface AssetPublisherHelper {
 
 	public static final String SCOPE_ID_CHILD_GROUP_PREFIX = "ChildGroup_";
