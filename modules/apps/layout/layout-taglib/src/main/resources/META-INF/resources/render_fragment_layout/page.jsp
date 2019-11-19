@@ -24,7 +24,7 @@ int previewType = (int)request.getAttribute("liferay-layout:render-fragment-layo
 long[] segmentsExperienceIds = (long[])request.getAttribute("liferay-layout:render-fragment-layout:segmentsExperienceIds");
 JSONArray structureJSONArray = (JSONArray)request.getAttribute("liferay-layout:render-fragment-layout:structureJSONArray");
 
-RenderFragmentLayoutDisplayContext renderFragmentLayoutDisplayContext = new RenderFragmentLayoutDisplayContext(request);
+RenderFragmentLayoutDisplayContext renderFragmentLayoutDisplayContext = new RenderFragmentLayoutDisplayContext(request, response);
 %>
 
 <c:if test="<%= structureJSONArray != null %>">
@@ -33,7 +33,11 @@ RenderFragmentLayoutDisplayContext renderFragmentLayoutDisplayContext = new Rend
 		<%
 		try {
 			request.setAttribute(WebKeys.PORTLET_DECORATE, Boolean.FALSE);
+		%>
 
+			<%= renderFragmentLayoutDisplayContext.getPortletPaths() %>
+
+			<%
 			for (int i = 0; i < structureJSONArray.length(); i++) {
 				JSONObject rowJSONObject = structureJSONArray.getJSONObject(i);
 
@@ -57,7 +61,7 @@ RenderFragmentLayoutDisplayContext renderFragmentLayoutDisplayContext = new Rend
 						paddingHorizontal = rowConfigJSONObject.getLong("paddingHorizontal", paddingHorizontal);
 						paddingVertical = rowConfigJSONObject.getLong("paddingVertical", paddingVertical);
 					}
-		%>
+			%>
 
 					<section class="bg-<%= backgroundColorCssClass %>" style="<%= Validator.isNotNull(backgroundImage) ? "background-image: url(" + backgroundImage + "); background-position: 50% 50%; background-repeat: no-repeat; background-size: cover;" : StringPool.BLANK %>">
 						<div class="<%= Objects.equals(containerType, "fluid") ? "container-fluid" : "container" %> <%= (paddingHorizontal != 3L) ? "px-" + paddingHorizontal : "" %> py-<%= paddingVertical %>">
