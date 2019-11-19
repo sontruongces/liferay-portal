@@ -58,6 +58,14 @@ public class SearchSearchRequest
 		return _fetchSource;
 	}
 
+	public String[] getFetchSourceExcludes() {
+		return _fetchSourceExcludes;
+	}
+
+	public String[] getFetchSourceIncludes() {
+		return _fetchSourceIncludes;
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by GroupByRequest
 	 */
@@ -191,6 +199,14 @@ public class SearchSearchRequest
 		_fetchSource = fetchSource;
 	}
 
+	public void setFetchSourceExcludes(String[] fetchSourceExcludes) {
+		_fetchSourceExcludes = fetchSourceExcludes;
+	}
+
+	public void setFetchSourceIncludes(String[] fetchSourceIncludes) {
+		_fetchSourceIncludes = fetchSourceIncludes;
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by GroupByRequest
 	 */
@@ -289,6 +305,8 @@ public class SearchSearchRequest
 	private boolean _allFieldsSelected;
 	private String _alternateUidFieldName;
 	private Boolean _fetchSource;
+	private String[] _fetchSourceExcludes;
+	private String[] _fetchSourceIncludes;
 	private GroupBy _groupBy;
 	private List<GroupByRequest> _groupByRequests = Collections.emptyList();
 	private Highlight _highlight;
