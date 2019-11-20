@@ -37,7 +37,6 @@ import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
-import com.liferay.portal.kernel.util.LocaleUtil;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -50,7 +49,7 @@ public class MessageFactory {
 
 	public Message create(Account account) throws Exception {
 		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account dtoAccount =
-			AccountUtil.toAccount(account, LocaleUtil.US);
+			AccountUtil.toAccount(account);
 
 		return new Message(dtoAccount.toString());
 	}
@@ -135,7 +134,7 @@ public class MessageFactory {
 
 	protected JSONObject toJSONObject(Account account) throws Exception {
 		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account dtoAccount =
-			AccountUtil.toAccount(account, LocaleUtil.US);
+			AccountUtil.toAccount(account);
 
 		return _jsonFactory.createJSONObject(dtoAccount.toString());
 	}

@@ -19,17 +19,14 @@ import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.model.ListType;
 import com.liferay.portal.kernel.model.Region;
-
-import java.util.Locale;
+import com.liferay.portal.kernel.util.LocaleUtil;
 
 /**
  * @author Kyle Bischof
  */
 public class PostalAddressUtil {
 
-	public static PostalAddress toPostalAddress(
-		Address address, Locale locale) {
-
+	public static PostalAddress toPostalAddress(Address address) {
 		ListType listType = address.getType();
 
 		return new PostalAddress() {
@@ -52,7 +49,7 @@ public class PostalAddressUtil {
 
 						Country country = address.getCountry();
 
-						return country.getName(locale);
+						return country.getName(LocaleUtil.US);
 					});
 				setAddressRegion(
 					() -> {

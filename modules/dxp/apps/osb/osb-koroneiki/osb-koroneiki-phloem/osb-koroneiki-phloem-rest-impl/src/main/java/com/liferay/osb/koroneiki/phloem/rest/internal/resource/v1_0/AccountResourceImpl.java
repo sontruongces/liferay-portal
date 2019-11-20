@@ -171,9 +171,7 @@ public class AccountResourceImpl
 
 	@Override
 	public Account getAccount(String accountKey) throws Exception {
-		return AccountUtil.toAccount(
-			_accountService.getAccount(accountKey),
-			contextAcceptLanguage.getPreferredLocale());
+		return AccountUtil.toAccount(_accountService.getAccount(accountKey));
 	}
 
 	@Override
@@ -187,8 +185,7 @@ public class AccountResourceImpl
 				_accountService.getAccounts(
 					domain, entityName, entityId, pagination.getStartPosition(),
 					pagination.getEndPosition()),
-				account -> AccountUtil.toAccount(
-					account, contextAcceptLanguage.getPreferredLocale())),
+				account -> AccountUtil.toAccount(account)),
 			pagination,
 			_accountService.getAccountsCount(domain, entityName, entityId));
 	}
@@ -206,8 +203,7 @@ public class AccountResourceImpl
 				_accountService.getAccounts(
 					curAccount.getAccountId(), pagination.getStartPosition(),
 					pagination.getEndPosition()),
-				account -> AccountUtil.toAccount(
-					account, contextAcceptLanguage.getPreferredLocale())),
+				account -> AccountUtil.toAccount(account)),
 			pagination,
 			_accountService.getAccountsCount(curAccount.getAccountId()));
 	}
@@ -228,8 +224,7 @@ public class AccountResourceImpl
 				contextCompany.getCompanyId()),
 			document -> AccountUtil.toAccount(
 				_accountLocalService.getAccount(
-					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
-				contextAcceptLanguage.getPreferredLocale()),
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
 			sorts);
 	}
 
@@ -250,8 +245,7 @@ public class AccountResourceImpl
 				_accountService.getTeamAccounts(
 					team.getTeamId(), pagination.getStartPosition(),
 					pagination.getEndPosition()),
-				account -> AccountUtil.toAccount(
-					account, contextAcceptLanguage.getPreferredLocale())),
+				account -> AccountUtil.toAccount(account)),
 			pagination, _accountService.getTeamAccountsCount(team.getTeamId()));
 	}
 
@@ -329,8 +323,7 @@ public class AccountResourceImpl
 				accountKey, curAccount.getParentAccountId(), account.getName(),
 				code, description, notes, logoId, contactEmailAddress,
 				profileEmailAddress, phoneNumber, faxNumber, website, industry,
-				tier, soldBy, internal, status),
-			contextAcceptLanguage.getPreferredLocale());
+				tier, soldBy, internal, status));
 	}
 
 	@Override
@@ -514,8 +507,7 @@ public class AccountResourceImpl
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
 				account.getFaxNumber(), account.getWebsite(), industry, tier,
 				account.getSoldBy(),
-				GetterUtil.getBoolean(account.getInternal()), status),
-			contextAcceptLanguage.getPreferredLocale());
+				GetterUtil.getBoolean(account.getInternal()), status));
 
 		if (!ArrayUtil.isEmpty(account.getContacts())) {
 			for (Contact contact : account.getContacts()) {

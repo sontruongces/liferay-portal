@@ -20,16 +20,13 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
-import java.util.Locale;
-
 /**
  * @author Amos Fong
  */
 public class AccountUtil {
 
 	public static Account toAccount(
-			com.liferay.osb.koroneiki.taproot.model.Account account,
-			Locale locale)
+			com.liferay.osb.koroneiki.taproot.model.Account account)
 		throws Exception {
 
 		return new Account() {
@@ -55,8 +52,7 @@ public class AccountUtil {
 				phoneNumber = account.getPhoneNumber();
 				postalAddresses = TransformUtil.transformToArray(
 					account.getAddresses(),
-					address -> PostalAddressUtil.toPostalAddress(
-						address, locale),
+					address -> PostalAddressUtil.toPostalAddress(address),
 					PostalAddress.class);
 				profileEmailAddress = account.getProfileEmailAddress();
 				soldBy = account.getSoldBy();

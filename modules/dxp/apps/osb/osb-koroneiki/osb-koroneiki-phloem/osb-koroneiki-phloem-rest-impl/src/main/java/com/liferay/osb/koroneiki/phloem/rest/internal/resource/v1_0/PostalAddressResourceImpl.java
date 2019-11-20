@@ -67,8 +67,7 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 		return Page.of(
 			transform(
 				account.getAddresses(),
-				address -> PostalAddressUtil.toPostalAddress(
-					address, contextAcceptLanguage.getPreferredLocale())));
+				address -> PostalAddressUtil.toPostalAddress(address)));
 	}
 
 	@Override
@@ -76,8 +75,7 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 		throws Exception {
 
 		return PostalAddressUtil.toPostalAddress(
-			_addressService.getAddress(postalAddressId),
-			contextAcceptLanguage.getPreferredLocale());
+			_addressService.getAddress(postalAddressId));
 	}
 
 	@Override
@@ -118,8 +116,7 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 				postalAddress.getPostalCode(), regionId, countryId, listTypeId,
 				GetterUtil.getBoolean(postalAddress.getMailing()),
 				GetterUtil.getBoolean(postalAddress.getPrimary()),
-				new ServiceContext()),
-			contextAcceptLanguage.getPreferredLocale());
+				new ServiceContext()));
 	}
 
 	@Override
@@ -156,8 +153,7 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 				postalAddress.getAddressLocality(),
 				postalAddress.getPostalCode(), regionId, countryId, listTypeId,
 				GetterUtil.getBoolean(postalAddress.getMailing()),
-				GetterUtil.getBoolean(postalAddress.getPrimary())),
-			contextAcceptLanguage.getPreferredLocale());
+				GetterUtil.getBoolean(postalAddress.getPrimary())));
 	}
 
 	private long _getCountryId(String addressCountry) throws PortalException {
