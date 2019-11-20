@@ -9,14 +9,15 @@
  * distribution rights of the Software.
  */
 
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useMemo} from 'react';
 
 import {getFiltersParam} from '../../../shared/components/filter/util/filterUtil.es';
-import ListView from '../../../shared/components/list/ListView.es';
+import LoadingState from '../../../shared/components/loading/LoadingState.es';
 import ReloadButton from '../../../shared/components/list/ReloadButton.es';
 import PaginationBar from '../../../shared/components/pagination/PaginationBar.es';
-import {ErrorContext} from '../../../shared/components/request/Error.es';
-import {LoadingContext} from '../../../shared/components/request/Loading.es';
+import PromisesResolver from '../../../shared/components/request/PromisesResolver.es';
+import {AppContext} from '../../AppContext.es';
+import EmptyState from '../../../shared/components/list/EmptyState.es';
 import Request from '../../../shared/components/request/Request.es';
 import InstanceItemDetail from './InstanceItemDetail.es';
 import InstanceListFilters from './InstanceListFilters.es';
@@ -35,6 +36,17 @@ export function InstanceListCard({page, pageSize, processId, query}) {
 		taskKeys = [],
 		timeRange = []
 	} = filters;
+
+	const {client, setTitle} = useContext(AppContext);
+
+	useEffect(() => {
+		client.get(`/processes/${processId}/title`).then(({data}) => {
+			setTitle(`${data}: ${Liferay.Language.get('all-items')}`);
+			return data;
+		});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<Request>
@@ -60,6 +72,7 @@ export function InstanceListCard({page, pageSize, processId, query}) {
 						page={page}
 						pageSize={pageSize}
 						processId={processId}
+						query={query}
 					/>
 				</InstanceListProvider>
 			</InstanceFiltersProvider>
@@ -67,43 +80,71 @@ export function InstanceListCard({page, pageSize, processId, query}) {
 	);
 }
 
-const Body = ({page, pageSize, processId}) => {
-	const {error} = useContext(ErrorContext);
-	const {items = [], searching, totalCount} = useContext(InstanceListContext);
-	const {loading} = useContext(LoadingContext);
+const Body = ({page, pageSize, processId, query}) => {
+	const {fetchInstances, items, searching, totalCount} = useContext(
+		InstanceListContext
+	);
 
 	const emptyMessageText = searching
 		? Liferay.Language.get('no-results-were-found')
 		: Liferay.Language.get(
 				'once-there-are-active-processes-metrics-will-appear-here'
 		  );
-	const errorMessageText = error
-		? Liferay.Language.get(
-				'there-was-a-problem-retrieving-data-please-try-reloading-the-page'
-		  )
-		: null;
-	const fetching = !loading && !totalCount;
+	const errorMessageText = Liferay.Language.get(
+		'there-was-a-problem-retrieving-data-please-try-reloading-the-page'
+	);
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const promises = useMemo(() => [fetchInstances()], [
+		page,
+		pageSize,
+		processId,
+		query
+	]);
 
 	return (
 		<>
 			<div className="container-fluid-1280 mt-4">
-				<ListView
-					emptyActionButton={<ReloadButton />}
-					emptyMessageText={emptyMessageText}
-					errorMessageText={errorMessageText}
-					fetching={fetching}
-					loading={loading}
-					searching={searching && totalCount === 0}
-				>
-					<InstanceListTable items={items} />
+				<PromisesResolver promises={promises}>
+					<PromisesResolver.Pending>
+						<div className={`border-1 pb-6 pt-6 sheet`}>
+							<LoadingState />
+						</div>
+					</PromisesResolver.Pending>
 
-					<PaginationBar
-						page={page}
-						pageCount={items.length}
-						pageSize={pageSize}
-						totalCount={totalCount}
-					/>
-				</ListView>
+					<PromisesResolver.Resolved>
+						{items && items.length ? (
+							<>
+								<InstanceListTable items={items} />
+
+								<PaginationBar
+									page={page}
+									pageCount={items.length}
+									pageSize={pageSize}
+									totalCount={totalCount}
+								/>
+							</>
+						) : (
+							<EmptyState
+								className="border-1"
+								hideAnimation={false}
+								message={emptyMessageText}
+								type="not-found"
+							/>
+						)}
+					</PromisesResolver.Resolved>
+
+					<PromisesResolver.Rejected>
+						<EmptyState
+							actionButton={<ReloadButton />}
+							className="border-1"
+							hideAnimation={true}
+							message={errorMessageText}
+							messageClassName="small"
+							type="error"
+						/>
+					</PromisesResolver.Rejected>
+				</PromisesResolver>
 			</div>
 
 			<InstanceItemDetail processId={processId} />
