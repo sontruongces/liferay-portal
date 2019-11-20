@@ -42,8 +42,8 @@ public class ContactUtil {
 				firstName = contact.getFirstName();
 				key = contact.getContactKey();
 				languageId = contact.getLanguageId();
-				middleName = contact.getMiddleName();
 				lastName = contact.getLastName();
+				middleName = contact.getMiddleName();
 				oktaId = contact.getOktaId();
 				uuid = contact.getUuid();
 			}
