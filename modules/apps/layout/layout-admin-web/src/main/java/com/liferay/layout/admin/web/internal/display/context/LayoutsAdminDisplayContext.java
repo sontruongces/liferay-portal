@@ -334,6 +334,8 @@ public class LayoutsAdminDisplayContext {
 		copyLayoutRenderURL.setParameter(
 			"mvcRenderCommandName", "/layout/add_layout");
 		copyLayoutRenderURL.setParameter(
+			"privateLayout", String.valueOf(isPrivateLayout()));
+		copyLayoutRenderURL.setParameter(
 			"sourcePlid", String.valueOf(layout.getPlid()));
 		copyLayoutRenderURL.setWindowState(LiferayWindowState.POP_UP);
 
