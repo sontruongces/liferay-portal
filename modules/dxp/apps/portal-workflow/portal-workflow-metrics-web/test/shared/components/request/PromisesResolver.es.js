@@ -111,29 +111,6 @@ describe('The PromisesResolver should not', () => {
 	});
 });
 
-describe('The PromisesResolver child components should', () => {
-	afterEach(() => {
-		cleanup();
-		console.error.mockClear();
-	});
-
-	beforeEach(() => {
-		console.error = jest.fn();
-	});
-
-	test('Not render without the compatible parent', () => {
-		render(
-			<PromisesResolver.Rejected>
-				<span data-testid="childComponentSpan">Rejected</span>
-			</PromisesResolver.Rejected>
-		);
-
-		expect(console.error).toHaveBeenCalledWith(
-			'The component can be only used into its parent'
-		);
-	});
-});
-
 describe('The rejected view should', () => {
 	afterEach(cleanup);
 

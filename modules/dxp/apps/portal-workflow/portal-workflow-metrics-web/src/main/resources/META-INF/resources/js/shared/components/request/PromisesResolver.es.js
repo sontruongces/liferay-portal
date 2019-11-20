@@ -42,8 +42,6 @@ const usePromisesResolverContext = () => {
 	const promisesResolverContext = useContext(PromisesResolverContext);
 
 	if (!promisesResolverContext) {
-		console.error('The component can be only used into its parent');
-
 		return {};
 	}
 
