@@ -77,6 +77,18 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
+	public Page<ContactRole>
+			getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception {
+
+		return _getAccountContactRolesPage(
+			_contactLocalService.getContactByEmailAddress(contactEmailAddress),
+			accountKey, pagination);
+	}
+
+	@Override
 	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
 			String accountKey, String oktaId, Pagination pagination)
 		throws Exception {
