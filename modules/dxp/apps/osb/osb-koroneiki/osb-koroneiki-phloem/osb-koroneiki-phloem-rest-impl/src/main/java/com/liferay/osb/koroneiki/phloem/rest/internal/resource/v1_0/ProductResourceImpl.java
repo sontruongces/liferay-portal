@@ -14,11 +14,13 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductEntryEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
@@ -30,6 +32,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -118,8 +121,17 @@ public class ProductResourceImpl
 
 	@Override
 	public Product postProduct(Product product) throws Exception {
-		return ProductUtil.toProduct(
+		Product curProduct = ProductUtil.toProduct(
 			_productEntryService.addProductEntry(product.getName()));
+
+		if (!ArrayUtil.isEmpty(product.getExternalLinks())) {
+			for (ExternalLink externalLink : product.getExternalLinks()) {
+				_externalLinkResource.postProductProductKeyExternalLink(
+					curProduct.getKey(), externalLink);
+			}
+		}
+
+		return curProduct;
 	}
 
 	@Override
@@ -185,6 +197,9 @@ public class ProductResourceImpl
 
 	private static final EntityModel _entityModel =
 		new ProductEntryEntityModel();
+
+	@Reference
+	private ExternalLinkResource _externalLinkResource;
 
 	@Reference
 	private PhloemPermissionUtil _phloemPermissionUtil;
