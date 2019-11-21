@@ -16,6 +16,7 @@ package com.liferay.osb.provisioning.distributed.messaging.internal.subscribing;
 
 import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.distributed.messaging.subscribing.MessageSubscriber;
+import com.liferay.osb.provisioning.message.parser.MessageParser;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
@@ -38,8 +39,8 @@ public class DossieraCreateMessageSubscriber implements MessageSubscriber {
 			JSONObject jsonObject = _jsonFactory.createJSONObject(
 				(String)message.getPayload());
 
-			// call dossiera parse method
-
+			_dossieraCreateMessageParser.parse(
+				"dossiera.provisioning.create", jsonObject);
 		}
 		catch (Exception e) {
 			_log.error(message);
@@ -50,6 +51,9 @@ public class DossieraCreateMessageSubscriber implements MessageSubscriber {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DossieraCreateMessageSubscriber.class);
+
+	@Reference(target = "(type=dossiera.create)")
+	private MessageParser _dossieraCreateMessageParser;
 
 	@Reference
 	private JSONFactory _jsonFactory;

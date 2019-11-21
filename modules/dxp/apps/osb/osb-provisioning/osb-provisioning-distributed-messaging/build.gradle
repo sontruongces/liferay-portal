@@ -5,6 +5,8 @@ dependencies {
 	compileOnly project(":private:apps:osb-distributed-messaging:osb-distributed-messaging-api")
 	compileOnly project(":private:apps:osb-distributed-messaging:osb-distributed-messaging-rabbitmq-connector")
 	compileOnly project(":private:apps:osb-distributed-messaging:osb-distributed-messaging-subscribing-api")
+	compileOnly project(":private:apps:osb-provisioning:osb-provisioning-message:osb-provisioning-message-api")
+	compileOnly project(":private:apps:osb-provisioning:osb-provisioning-message:osb-provisioning-message-service")
 }
 
 deployDependencies {

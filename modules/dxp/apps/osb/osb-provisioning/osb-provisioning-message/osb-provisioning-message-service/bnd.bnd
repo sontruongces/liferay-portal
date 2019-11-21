@@ -1,0 +1,3 @@
+Bundle-Name: Liferay OSB Provisioning Message Service
+Bundle-SymbolicName: com.liferay.osb.provisioning.message.service
+Bundle-Version: 1.0.0
