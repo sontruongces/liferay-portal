@@ -35,6 +35,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import java.util.Map;
+
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -51,17 +53,17 @@ public class UserMigration {
 			ContactRoleType.ACCOUNT);
 	}
 
-	public void migrate(long userId) throws Exception {
+	public void migrate(long userId, Map<Long, Long> roleMap) throws Exception {
 		try (Connection connection = DataAccess.getConnection()) {
-			_migrateCorpEntries(connection, userId);
+			_migrateCorpEntries(connection, userId, roleMap);
 
-			_migrateCorpProjects(connection, userId);
+			_migrateCorpProjects(connection, userId, roleMap);
 		}
 	}
 
 	private void _migrateContactAccountRoles(
-			Connection connection, long webUserId, long webOrganizationId,
-			long contactId, long accountId)
+			Connection connection, Map<Long, Long> roleMap, long webUserId,
+			long webOrganizationId, long contactId, long accountId)
 		throws Exception {
 
 		_contactAccountRoleLocalService.addContactAccountRole(
@@ -83,8 +85,16 @@ public class UserMigration {
 			while (resultSet.next()) {
 				long roleId = resultSet.getLong("roleId");
 
+				Long contactRoleId = roleMap.get(roleId);
+
+				if (contactRoleId == null) {
+					_log.error("Unable to find contact role " + roleId);
+
+					continue;
+				}
+
 				ContactRole contactRole =
-					_contactRoleLocalService.fetchContactRole(roleId);
+					_contactRoleLocalService.fetchContactRole(contactRoleId);
 
 				if (contactRole == null) {
 					_log.error("Unable to find contact role " + roleId);
@@ -98,7 +108,8 @@ public class UserMigration {
 		}
 	}
 
-	private void _migrateCorpEntries(Connection connection, long userId)
+	private void _migrateCorpEntries(
+			Connection connection, long userId, Map<Long, Long> roleMap)
 		throws Exception {
 
 		StringBundler sb = new StringBundler(8);
@@ -138,13 +149,14 @@ public class UserMigration {
 				}
 
 				_migrateContactAccountRoles(
-					connection, webUserId, webOrganizationId,
+					connection, roleMap, webUserId, webOrganizationId,
 					contact.getContactId(), accountId);
 			}
 		}
 	}
 
-	private void _migrateCorpProjects(Connection connection, long userId)
+	private void _migrateCorpProjects(
+			Connection connection, long userId, Map<Long, Long> roleMap)
 		throws Exception {
 
 		StringBundler sb = new StringBundler(10);
@@ -158,7 +170,7 @@ public class UserMigration {
 		sb.append("OSB_CorpProject.organizationId = ");
 		sb.append("WEB_Users_Orgs.organizationId inner join OSB_AccountEntry ");
 		sb.append("on OSB_AccountEntry.corpProjectUuid = ");
-		sb.append("OSB_CorpProject.uuid_");
+		sb.append("OSB_CorpProject.uuid_ where OSB_AccountEntry.status != 500");
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
 				sb.toString());
@@ -188,7 +200,7 @@ public class UserMigration {
 				Account account = _accountLocalService.getAccount(accountKey);
 
 				_migrateContactAccountRoles(
-					connection, webUserId, webOrganizationId,
+					connection, roleMap, webUserId, webOrganizationId,
 					contact.getContactId(), account.getAccountId());
 			}
 		}

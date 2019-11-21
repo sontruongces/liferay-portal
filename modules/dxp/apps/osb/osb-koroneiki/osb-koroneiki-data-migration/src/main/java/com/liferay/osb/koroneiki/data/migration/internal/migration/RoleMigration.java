@@ -14,10 +14,13 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.ResourceLocalService;
-import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
+import com.liferay.portal.kernel.util.StringPool;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -28,45 +31,32 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = RoleMigration.class)
 public class RoleMigration {
 
-	public void migrate(long userId) throws Exception {
-		User user = _userLocalService.getUser(userId);
+	public Map<Long, Long> migrate(long userId) throws Exception {
+		Map<Long, Long> roleMap = new HashMap<>();
 
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			12324522, false, false, false);
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			33118240, false, false, false);
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			33118252, false, false, false);
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			33118264, false, false, false);
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			90852750, false, false, false);
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			90852751, false, false, false);
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			106868290, false, false, false);
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			112936638, false, false, false);
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			112936646, false, false, false);
-		_resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, ContactRole.class.getName(),
-			112936656, false, false, false);
+		roleMap.put(12324522L, _addContactRole(userId, "Admin"));
+		roleMap.put(33118240L, _addContactRole(userId, "Buyer"));
+		roleMap.put(33118252L, _addContactRole(userId, "Developer"));
+		roleMap.put(33118264L, _addContactRole(userId, "LCS User"));
+		roleMap.put(90852750L, _addContactRole(userId, "Sales Manager"));
+		roleMap.put(90852751L, _addContactRole(userId, "Sales Representative"));
+		roleMap.put(
+			106868290L, _addContactRole(userId, "Analytics Cloud Owner"));
+		roleMap.put(112936638L, _addContactRole(userId, "Partner Manager"));
+		roleMap.put(112936646L, _addContactRole(userId, "Partner Member"));
+		roleMap.put(112936656L, _addContactRole(userId, "Partner Watcher"));
+
+		return roleMap;
+	}
+
+	private long _addContactRole(long userId, String name) throws Exception {
+		ContactRole contactRole = _contactRoleLocalService.addContactRole(
+			userId, name, StringPool.BLANK, ContactRoleType.ACCOUNT);
+
+		return contactRole.getContactRoleId();
 	}
 
 	@Reference
-	private ResourceLocalService _resourceLocalService;
-
-	@Reference
-	private UserLocalService _userLocalService;
+	private ContactRoleLocalService _contactRoleLocalService;
 
 }

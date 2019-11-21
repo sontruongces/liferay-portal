@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Industry;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Tier;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -48,11 +50,14 @@ public class CorpProjectMigration {
 	public void migrate(long userId) throws Exception {
 		User user = _userLocalService.getUser(userId);
 
-		StringBundler sb = new StringBundler(4);
+		StringBundler sb = new StringBundler(7);
 
 		sb.append("select OSB_CorpProject.*, ");
-		sb.append("OSB_AccountEntry.dossieraAccountKey from OSB_CorpProject ");
-		sb.append("inner join OSB_AccountEntry on ");
+		sb.append("OSB_AccountEntry.dossieraAccountKey, ");
+		sb.append("OSB_AccountEntry.code_, OSB_AccountEntry.type_, ");
+		sb.append("OSB_AccountEntry.industry, OSB_AccountEntry.tier, ");
+		sb.append("OSB_AccountEntry.notes, OSB_AccountEntry.status from ");
+		sb.append("OSB_CorpProject inner join OSB_AccountEntry on ");
 		sb.append("OSB_AccountEntry.corpProjectUuid = OSB_CorpProject.uuid_");
 
 		try (Connection connection = DataAccess.getConnection();
@@ -61,6 +66,12 @@ public class CorpProjectMigration {
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
 			while (resultSet.next()) {
+				int status = resultSet.getInt("status");
+
+				if (status == 500) {
+					continue;
+				}
+
 				Account account = _accountLocalService.createAccount(
 					resultSet.getLong("corpProjectId"));
 
@@ -76,6 +87,11 @@ public class CorpProjectMigration {
 				account.setParentAccountId(parentAccountId);
 
 				account.setName(resultSet.getString("name"));
+				account.setCode(resultSet.getString("code_"));
+				account.setNotes(resultSet.getString("notes"));
+				account.setIndustry(_getIndustry(resultSet.getInt("industry")));
+				account.setTier(_getTier(resultSet.getInt("tier")));
+				account.setInternal(_getInternal(resultSet.getInt("type_")));
 				account.setStatus(WorkflowConstants.STATUS_APPROVED);
 				account.setStatusByUserId(userId);
 				account.setStatusByUserName(user.getFullName());
@@ -109,6 +125,97 @@ public class CorpProjectMigration {
 		}
 	}
 
+	private String _getIndustry(int industry) {
+		if (industry == 35000) {
+			return Industry.AEROSPACE_AND_DEFENSE.toString();
+		}
+		else if (industry == 35001) {
+			return Industry.AGRICULTURE.toString();
+		}
+		else if (industry == 35002) {
+			return Industry.AUTOMOTIVE.toString();
+		}
+		else if (industry == 35003) {
+			return Industry.CONSULTING_MARKET_RESEARCH.toString();
+		}
+		else if (industry == 35004) {
+			return Industry.RETAIL_CONSUMER_PRODUCTS.toString();
+		}
+		else if (industry == 35005) {
+			return Industry.EDUCATION.toString();
+		}
+		else if (industry == 35006) {
+			return Industry.ENERGY.toString();
+		}
+		else if (industry == 35007) {
+			return Industry.FINANCIAL_SERVICES.toString();
+		}
+		else if (industry == 35009) {
+			return Industry.HEALTHCARE.toString();
+		}
+		else if (industry == 35010) {
+			return Industry.HOSPITALITY_LEISURE.toString();
+		}
+		else if (industry == 35011) {
+			return Industry.INSURANCE.toString();
+		}
+		else if (industry == 35012) {
+			return Industry.MANUFACTURING.toString();
+		}
+		else if (industry == 35013) {
+			return Industry.MEDIA_ENTERTAINMENT.toString();
+		}
+		else if (industry == 35014) {
+			return Industry.NOT_FOR_PROFIT_NGO.toString();
+		}
+		else if (industry == 35015) {
+			return Industry.OTHER.toString();
+		}
+		else if (industry == 35016) {
+			return Industry.PHARMACEUTICALS.toString();
+		}
+		else if (industry == 35018) {
+			return Industry.TECHNOLOGY.toString();
+		}
+		else if (industry == 35019) {
+			return Industry.TELECOMMUNICATIONS.toString();
+		}
+		else if (industry == 35020) {
+			return Industry.TRANSPORTAION.toString();
+		}
+		else if (industry == 35022) {
+			return Industry.UTILITIES.toString();
+		}
+		else if (industry == 35023) {
+			return Industry.ENGINEERING.toString();
+		}
+		else if (industry == 35024) {
+			return Industry.GOVERNMENT_FEDERAL.toString();
+		}
+		else if (industry == 35025) {
+			return Industry.GOVERNMENT_STATE_LOCAL.toString();
+		}
+		else if (industry == 35026) {
+			return Industry.PROFESSIONAL_SERVICES_AGENCY_BUSINESS.toString();
+		}
+		else if (industry == 35027) {
+			return Industry.PROFESSIONAL_SERVICES_TECHNICAL_WEB_IT.toString();
+		}
+		else if (industry == 35028) {
+			return Industry.FOOD_SERVICES.toString();
+		}
+
+		return StringPool.BLANK;
+	}
+
+	private boolean _getInternal(int type) {
+		if (type == 3) {
+			return true;
+		}
+
+		return false;
+	}
+
 	private long _getParentAccountId(String dossieraAccountKey)
 		throws Exception {
 
@@ -135,6 +242,23 @@ public class CorpProjectMigration {
 		}
 
 		return 0;
+	}
+
+	private String _getTier(int tier) {
+		if (tier == 1) {
+			return Tier.REGULAR.toString();
+		}
+		else if (tier == 2) {
+			return Tier.OEM.toString();
+		}
+		else if (tier == 3) {
+			return Tier.PREMIER.toString();
+		}
+		else if (tier == 4) {
+			return Tier.STRATEGIC.toString();
+		}
+
+		return StringPool.BLANK;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

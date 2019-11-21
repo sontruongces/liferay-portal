@@ -27,6 +27,8 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.Map;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
@@ -66,9 +68,10 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 
 			_corpProjectMigration.migrate(themeDisplay.getUserId());
 
-			_roleMigration.migrate(themeDisplay.getUserId());
+			Map<Long, Long> roleMap = _roleMigration.migrate(
+				themeDisplay.getUserId());
 
-			_userMigration.migrate(themeDisplay.getUserId());
+			_userMigration.migrate(themeDisplay.getUserId(), roleMap);
 
 			if (_log.isInfoEnabled()) {
 				_log.info("Migration took " + stopWatch.getTime() + " ms");
