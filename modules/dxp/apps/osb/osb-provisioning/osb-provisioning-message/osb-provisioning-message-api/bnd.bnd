@@ -1,7 +1,0 @@
-Bundle-Name: Liferay OSB Provisioning Message API
-Bundle-SymbolicName: com.liferay.osb.provisioning.message.api
-Bundle-Version: 1.0.0
-Export-Package:\
-	com.liferay.osb.provisioning.message.connector,\
-	com.liferay.osb.provisioning.message.constants,\
-	com.liferay.osb.provisioning.message.parser
