@@ -67,9 +67,6 @@ public class TestItemSelectorView
 
 	private final List<ItemSelectorReturnType>
 		_supportedItemSelectorReturnTypes = Collections.unmodifiableList(
-			ListUtil.fromArray(
-				new ItemSelectorReturnType[] {
-					new FileEntryItemSelectorReturnType()
-				}));
+			ListUtil.fromArray(new FileEntryItemSelectorReturnType()));
 
 }

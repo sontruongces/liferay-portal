@@ -117,10 +117,7 @@ public class ParentSitesItemSelectorView
 
 	private static final List<ItemSelectorReturnType>
 		_supportedItemSelectorReturnTypes = Collections.unmodifiableList(
-			ListUtil.fromArray(
-				new ItemSelectorReturnType[] {
-					new SiteItemSelectorReturnType()
-				}));
+			ListUtil.fromArray(new SiteItemSelectorReturnType()));
 
 	@Reference
 	private AssetPublisherHelper _assetPublisherHelper;

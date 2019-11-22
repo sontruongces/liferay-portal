@@ -72,9 +72,6 @@ public class FlickrItemSelectorView
 
 	private static final List<ItemSelectorReturnType>
 		_supportedItemSelectorReturnTypes = Collections.unmodifiableList(
-			ListUtil.fromArray(
-				new ItemSelectorReturnType[] {
-					new TestURLItemSelectorReturnType()
-				}));
+			ListUtil.fromArray(new TestURLItemSelectorReturnType()));
 
 }
