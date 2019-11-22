@@ -19,9 +19,8 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactUtil;
-import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
 import com.liferay.osb.provisioning.message.connector.WebServiceConnector;
 import com.liferay.osb.provisioning.message.constants.SalesforceConstants;
 import com.liferay.osb.provisioning.message.parser.MessageParser;
@@ -29,7 +28,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
@@ -106,24 +104,26 @@ public class DossieraCreateMessageParser implements MessageParser {
 	}
 
 	protected PostalAddress getPostalAddress(JSONObject jsonObject) {
-		String city = jsonObject.getString("_city");
-		String countryName = jsonObject.getString("_country");
-		String postalCode = jsonObject.getString("_postalCode");
-		String regionName = jsonObject.getString("_region");
-		String street = jsonObject.getString("_street");
-
 		PostalAddress postalAddress = new PostalAddress();
+
+		String city = jsonObject.getString("_city");
 
 		city = ModelHintsUtil.trimString(Address.class.getName(), "city", city);
 
 		postalAddress.setAddressLocality(city);
+
+		String countryName = jsonObject.getString("_country");
+		String regionName = jsonObject.getString("_region");
 
 		if (Validator.isNotNull(countryName)) {
 			postalAddress.setAddressCountry(countryName);
 			postalAddress.setAddressRegion(regionName);
 		}
 
+		String street = jsonObject.getString("_street");
+
 		String street1 = street;
+
 		String street2 = StringPool.BLANK;
 		String street3 = StringPool.BLANK;
 
@@ -150,7 +150,7 @@ public class DossieraCreateMessageParser implements MessageParser {
 		postalAddress.setStreetAddressLine2(street2);
 		postalAddress.setStreetAddressLine3(street3);
 
-		postalAddress.setPostalCode(postalCode);
+		postalAddress.setPostalCode(jsonObject.getString("_postalCode"));
 
 		return postalAddress;
 	}
@@ -193,9 +193,7 @@ public class DossieraCreateMessageParser implements MessageParser {
 			return false;
 		}
 
-		String[] productFamilyTokens = {"E", "S"};
-
-		for (String productFamilyToken : productFamilyTokens) {
+		for (String productFamilyToken : _PRODUCT_FAMILY_TOKENS) {
 			if (salesforceOpportunityProductFamily.contains(
 					productFamilyToken)) {
 
@@ -281,7 +279,7 @@ public class DossieraCreateMessageParser implements MessageParser {
 		JSONArray contactsJSONArray = jsonObject.getJSONArray("_contacts");
 
 		if (contactsJSONArray == null) {
-			return new ArrayList<>();
+			return Collections.emptyList();
 		}
 
 		ArrayList<Contact> contacts = new ArrayList<>(
@@ -290,29 +288,12 @@ public class DossieraCreateMessageParser implements MessageParser {
 		for (int i = 0; i < contactsJSONArray.length(); i++) {
 			JSONObject contactJSONObject = contactsJSONArray.getJSONObject(i);
 
-			String emailAddress = contactJSONObject.getString("_emailAddress");
-
-			try {
-				Contact oktaContact = ContactUtil.toContact(
-					_oktaContactIdentityProvider.fetchContactByEmailAddress(
-						emailAddress));
-
-				if (oktaContact == null) {
-					continue;
-				}
-			}
-			catch (Exception e) {
-				throw new PortalException(e);
-			}
-
-			String firstName = contactJSONObject.getString("_firstName");
-			String lastName = contactJSONObject.getString("_lastName");
-
 			Contact contact = new Contact();
 
-			contact.setFirstName(firstName);
-			contact.setLastName(lastName);
-			contact.setEmailAddress(emailAddress);
+			contact.setFirstName(contactJSONObject.getString("_firstName"));
+			contact.setLastName(contactJSONObject.getString("_lastName"));
+			contact.setEmailAddress(
+				contactJSONObject.getString("_emailAddress"));
 
 			String role = contactJSONObject.getString("_role");
 
@@ -321,40 +302,7 @@ public class DossieraCreateMessageParser implements MessageParser {
 			contactRole.setName(role);
 			contactRole.setType(ContactRole.Type.create("Account"));
 
-			try {
-				boolean createContactRole = true;
-
-				JSONObject contactRolesJSONObject =
-					_webServiceConnector.getContactRoles(role);
-
-				JSONArray itemsJSONArray = contactRolesJSONObject.getJSONArray(
-					"items");
-
-				if (itemsJSONArray != null) {
-					for (int j = 0; j < itemsJSONArray.length(); j++) {
-						JSONObject contactRoleJSONObject =
-							itemsJSONArray.getJSONObject(i);
-
-						String name = contactRoleJSONObject.getString("name");
-
-						if (name.equals(role)) {
-							createContactRole = false;
-
-							break;
-						}
-					}
-				}
-
-				if (createContactRole) {
-					_webServiceConnector.postContactRole(
-						contactRole.toString());
-				}
-
-				contact.setContactRoles(new ContactRole[] {contactRole});
-			}
-			catch (Exception e) {
-				throw new PortalException(e);
-			}
+			contact.setContactRoles(new ContactRole[] {contactRole});
 
 			contacts.add(contact);
 		}
@@ -407,98 +355,62 @@ public class DossieraCreateMessageParser implements MessageParser {
 				JSONObject purchasedProductJSONObject =
 					purchasedProductsJSONArray.getJSONObject(j);
 
-				int endDateDay = purchasedProductJSONObject.getInt("_endDay");
-				int endDateMonth =
-					purchasedProductJSONObject.getInt("_endMonth") - 1;
-				int endDateYear = purchasedProductJSONObject.getInt("_endYear");
-
-				int startDateDay = purchasedProductJSONObject.getInt(
-					"_startDay");
-				int startDateMonth =
-					purchasedProductJSONObject.getInt("_startMonth") - 1;
-				int startDateYear = purchasedProductJSONObject.getInt(
-					"_startYear");
-
-				Date startDate = _portal.getDate(
-					startDateMonth, startDateDay, startDateYear);
-
-				Date endDate = _portal.getDate(
-					endDateMonth, endDateDay, endDateYear);
-
 				ProductPurchase productPurchase = new ProductPurchase();
 
+				Date endDate = _portal.getDate(
+					purchasedProductJSONObject.getInt("_endMonth") - 1,
+					purchasedProductJSONObject.getInt("_endDay"),
+					purchasedProductJSONObject.getInt("_endYear"));
+
 				productPurchase.setEndDate(endDate);
+
+				Date startDate = _portal.getDate(
+					purchasedProductJSONObject.getInt("_startMonth") - 1,
+					purchasedProductJSONObject.getInt("_startDay"),
+					purchasedProductJSONObject.getInt("_startYear"));
+
 				productPurchase.setStartDate(startDate);
 
-				try {
-					String name = purchasedProductJSONObject.getString("_name");
+				Product product = new Product();
 
-					JSONObject productResponse =
-						_webServiceConnector.getProductByExternalLink(
-							"salesforce", "product",
-							purchasedProductJSONObject.getString("_name"));
+				String productName = purchasedProductJSONObject.getString(
+					"_name");
 
-					JSONArray itemsJSONArray = productResponse.getJSONArray(
-						"items");
+				product.setName(productName);
 
-					if (itemsJSONArray != null) {
-						JSONObject productJSONObject =
-							itemsJSONArray.getJSONObject(0);
+				ExternalLink externalLink = new ExternalLink();
 
-						String productKey = productJSONObject.getString("key");
+				externalLink.setDomain("salesforce");
+				externalLink.setEntityName("product");
+				externalLink.setEntityId(productName);
 
-						productPurchase.setProductKey(productKey);
-					}
-					else {
-						JSONObject externalLinkJSONObject = JSONUtil.put(
-							"domain", "salesforce"
-						).put(
-							"entityId", name
-						).put(
-							"entityName", "product"
-						);
+				product.setExternalLinks(new ExternalLink[] {externalLink});
 
-						JSONArray externalLinksJSONArray = JSONUtil.put(
-							externalLinkJSONObject);
-
-						JSONObject productJSONObject = JSONUtil.put(
-							"externalLinks", externalLinksJSONArray
-						).put(
-							"name", name
-						);
-
-						productResponse = _webServiceConnector.postProduct(
-							productJSONObject.toString());
-
-						String productKey = productResponse.getString("key");
-
-						productPurchase.setProductKey(productKey);
-					}
-				}
-				catch (Exception e) {
-					throw new PortalException(e);
-				}
+				productPurchase.setProduct(product);
 
 				Map<String, String> properties = new HashMap<>();
 
 				String environment = purchasedProductJSONObject.getString(
 					"_environment");
-				String productType = purchasedProductJSONObject.getString(
-					"_productType");
-				int quantity = purchasedProductJSONObject.getInt("_quantity");
-				String sizing = purchasedProductJSONObject.getString("_sizing");
 
 				if (Validator.isNotNull(environment)) {
 					properties.put("environment", environment);
 				}
 
+				String productType = purchasedProductJSONObject.getString(
+					"_productType");
+
 				if (Validator.isNotNull(productType)) {
 					properties.put("productType", productType);
 				}
 
+				int quantity = purchasedProductJSONObject.getInt("_quantity");
+
 				if (quantity > 0) {
 					properties.put("quantity", String.valueOf(quantity));
 				}
+
+				String sizing = purchasedProductJSONObject.getString("_sizing");
 
 				if (Validator.isNotNull(sizing)) {
 					properties.put("sizing", sizing);
@@ -553,11 +465,10 @@ public class DossieraCreateMessageParser implements MessageParser {
 		return false;
 	}
 
+	private static final String[] _PRODUCT_FAMILY_TOKENS = {"E", "S"};
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		DossieraCreateMessageParser.class);
-
-	@Reference(target = "(provider=okta)")
-	private ContactIdentityProvider _oktaContactIdentityProvider;
 
 	@Reference
 	private Portal _portal;
