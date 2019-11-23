@@ -189,6 +189,9 @@ public interface AccountLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Account fetchAccount(long accountId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Account fetchAccount(String accountKey);
+
 	/**
 	 * Returns the account with the matching UUID and company.
 	 *

@@ -207,6 +207,12 @@ public class AccountLocalServiceUtil {
 		return getService().fetchAccount(accountId);
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.Account fetchAccount(
+		String accountKey) {
+
+		return getService().fetchAccount(accountKey);
+	}
+
 	/**
 	 * Returns the account with the matching UUID and company.
 	 *

@@ -209,6 +209,13 @@ public class AccountLocalServiceWrapper
 		return _accountLocalService.fetchAccount(accountId);
 	}
 
+	@Override
+	public com.liferay.osb.koroneiki.taproot.model.Account fetchAccount(
+		String accountKey) {
+
+		return _accountLocalService.fetchAccount(accountKey);
+	}
+
 	/**
 	 * Returns the account with the matching UUID and company.
 	 *
