@@ -187,6 +187,10 @@ public class SegmentsExperimentDisplayContext {
 		return segmentsExperimentsJSONArray;
 	}
 
+	public String getLiferayAnalyticsURL(long companyId) {
+		return PrefsPropsUtil.getString(companyId, "liferayAnalyticsURL");
+	}
+
 	public String getRunSegmentsExperimenttURL() {
 		return _getSegmentsExperimentActionURL("/run_segments_experiment");
 	}
@@ -325,14 +329,14 @@ public class SegmentsExperimentDisplayContext {
 			return StringPool.BLANK;
 		}
 
-		String asahFaroURL = PrefsPropsUtil.getString(
-			segmentsExperiment.getCompanyId(), "liferayAnalyticsURL");
+		String liferayAnalyticsURL = getLiferayAnalyticsURL(
+			segmentsExperiment.getCompanyId());
 
-		if (Validator.isNull(asahFaroURL)) {
+		if (Validator.isNull(liferayAnalyticsURL)) {
 			return StringPool.BLANK;
 		}
 
-		return asahFaroURL + "/tests/overview/" +
+		return liferayAnalyticsURL + "/tests/overview/" +
 			segmentsExperiment.getSegmentsExperimentKey();
 	}
 

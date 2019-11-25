@@ -16,67 +16,68 @@
 
 <%@ include file="/init.jsp" %>
 
+<%
+SegmentsExperimentDisplayContext segmentsExperimentDisplayContext = (SegmentsExperimentDisplayContext)request.getAttribute(SegmentsExperimentWebKeys.SEGMENTS_EXPERIMENT_DISPLAY_CONTEXT);
+%>
+
 <c:choose>
 	<c:when test="<%= SegmentsExperimentUtil.isAnalyticsEnabled(themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId()) %>">
-
-		<%
-		SegmentsExperimentDisplayContext segmentsExperimentDisplayContext = (SegmentsExperimentDisplayContext)request.getAttribute(SegmentsExperimentWebKeys.SEGMENTS_EXPERIMENT_DISPLAY_CONTEXT);
-
-		String segmentsExperimentRootId = renderResponse.getNamespace() + "-segments-experiment-root";
-		%>
-
-		<div id="<%= segmentsExperimentRootId %>"></div>
+		<div id="<%= renderResponse.getNamespace() + "-segments-experiment-root" %>"></div>
 
 		<aui:script require='<%= npmResolvedPackageName + "/js/index.es as segmentsExperimentsApp" %>'>
-			segmentsExperimentsApp.default('<%= segmentsExperimentRootId %>', {
-				context: {
-					assetsPath: '<%= segmentsExperimentDisplayContext.getAssetsPath() %>',
-					contentPageEditorNamespace:
-						'<%= segmentsExperimentDisplayContext.getContentPageEditorPortletNamespace() %>',
-					endpoints: {
-						calculateSegmentsExperimentEstimatedDurationURL:
-							'<%= segmentsExperimentDisplayContext.getCalculateSegmentsExperimentEstimatedDurationURL() %>',
-						createSegmentsExperimentURL:
-							'<%= segmentsExperimentDisplayContext.getCreateSegmentsExperimentURL() %>',
-						createSegmentsVariantURL:
-							'<%= segmentsExperimentDisplayContext.getCreateSegmentsVariantURL() %>',
-						deleteSegmentsExperimentURL:
-							'<%= segmentsExperimentDisplayContext.getDeleteSegmentsExperimentURL() %>',
-						deleteSegmentsVariantURL:
-							'<%= segmentsExperimentDisplayContext.getDeleteSegmentsVariantURL() %>',
-						editSegmentsExperimentStatusURL:
-							'<%= segmentsExperimentDisplayContext.getEditSegmentsExperimentStatusURL() %>',
-						editSegmentsExperimentURL:
-							'<%= segmentsExperimentDisplayContext.getEditSegmentsExperimentURL() %>',
-						editSegmentsVariantLayoutURL:
-							'<%= segmentsExperimentDisplayContext.getEditSegmentsVariantLayoutURL() %>',
-						editSegmentsVariantURL:
-							'<%= segmentsExperimentDisplayContext.getEditSegmentsVariantURL() %>',
-						runSegmentsExperimentURL:
-							'<%= segmentsExperimentDisplayContext.getRunSegmentsExperimenttURL() %>'
+			segmentsExperimentsApp.default(
+				'<%= renderResponse.getNamespace() + "-segments-experiment-root" %>',
+				{
+					context: {
+						assetsPath:
+							'<%= segmentsExperimentDisplayContext.getAssetsPath() %>',
+						contentPageEditorNamespace:
+							'<%= segmentsExperimentDisplayContext.getContentPageEditorPortletNamespace() %>',
+						endpoints: {
+							calculateSegmentsExperimentEstimatedDurationURL:
+								'<%= segmentsExperimentDisplayContext.getCalculateSegmentsExperimentEstimatedDurationURL() %>',
+							createSegmentsExperimentURL:
+								'<%= segmentsExperimentDisplayContext.getCreateSegmentsExperimentURL() %>',
+							createSegmentsVariantURL:
+								'<%= segmentsExperimentDisplayContext.getCreateSegmentsVariantURL() %>',
+							deleteSegmentsExperimentURL:
+								'<%= segmentsExperimentDisplayContext.getDeleteSegmentsExperimentURL() %>',
+							deleteSegmentsVariantURL:
+								'<%= segmentsExperimentDisplayContext.getDeleteSegmentsVariantURL() %>',
+							editSegmentsExperimentStatusURL:
+								'<%= segmentsExperimentDisplayContext.getEditSegmentsExperimentStatusURL() %>',
+							editSegmentsExperimentURL:
+								'<%= segmentsExperimentDisplayContext.getEditSegmentsExperimentURL() %>',
+							editSegmentsVariantLayoutURL:
+								'<%= segmentsExperimentDisplayContext.getEditSegmentsVariantLayoutURL() %>',
+							editSegmentsVariantURL:
+								'<%= segmentsExperimentDisplayContext.getEditSegmentsVariantURL() %>',
+							runSegmentsExperimentURL:
+								'<%= segmentsExperimentDisplayContext.getRunSegmentsExperimenttURL() %>'
+						},
+						namespace: '<portlet:namespace />',
+						page: {
+							classPK: '<%= themeDisplay.getPlid() %>',
+							classNameId:
+								'<%= PortalUtil.getClassNameId(Layout.class.getName()) %>',
+							type: '<%= layout.getType() %>'
+						}
 					},
-					namespace: '<portlet:namespace />',
-					page: {
-						classPK: '<%= themeDisplay.getPlid() %>',
-						classNameId:
-							'<%= PortalUtil.getClassNameId(Layout.class.getName()) %>',
-						type: '<%= layout.getType() %>'
+					props: {
+						historySegmentsExperiments: <%= segmentsExperimentDisplayContext.getHistorySegmentsExperimentsJSONArray(locale) %>,
+						initialSegmentsVariants: <%= segmentsExperimentDisplayContext.getSegmentsExperimentRelsJSONArray(locale) %>,
+						segmentsExperiences: <%= segmentsExperimentDisplayContext.getSegmentsExperiencesJSONArray(locale) %>,
+						segmentsExperiment: <%= segmentsExperimentDisplayContext.getSegmentsExperimentJSONObject(locale) %>,
+						segmentsExperimentGoals: <%= segmentsExperimentDisplayContext.getSegmentsExperimentGoalsJSONArray(locale) %>,
+						selectedSegmentsExperienceId:
+							'<%= segmentsExperimentDisplayContext.getSelectedSegmentsExperienceId() %>',
+						viewSegmentsExperimentDetailsURL:
+							'<%= segmentsExperimentDisplayContext.getViewSegmentsExperimentDetailsURL() %>',
+						winnerSegmentsVariantId:
+							'<%= segmentsExperimentDisplayContext.getWinnerSegmentsExperienceId() %>'
 					}
-				},
-				props: {
-					historySegmentsExperiments: <%= segmentsExperimentDisplayContext.getHistorySegmentsExperimentsJSONArray(locale) %>,
-					initialSegmentsVariants: <%= segmentsExperimentDisplayContext.getSegmentsExperimentRelsJSONArray(locale) %>,
-					segmentsExperiences: <%= segmentsExperimentDisplayContext.getSegmentsExperiencesJSONArray(locale) %>,
-					segmentsExperiment: <%= segmentsExperimentDisplayContext.getSegmentsExperimentJSONObject(locale) %>,
-					segmentsExperimentGoals: <%= segmentsExperimentDisplayContext.getSegmentsExperimentGoalsJSONArray(locale) %>,
-					selectedSegmentsExperienceId:
-						'<%= segmentsExperimentDisplayContext.getSelectedSegmentsExperienceId() %>',
-					viewSegmentsExperimentDetailsURL:
-						'<%= segmentsExperimentDisplayContext.getViewSegmentsExperimentDetailsURL() %>',
-					winnerSegmentsVariantId:
-						'<%= segmentsExperimentDisplayContext.getWinnerSegmentsExperienceId() %>'
 				}
-			});
+			);
 		</aui:script>
 	</c:when>
 	<c:otherwise>
@@ -90,14 +91,28 @@
 
 			<p><liferay-ui:message key="connect-to-analytics-cloud-help" /></p>
 
-			<liferay-ui:icon
-				label="<%= true %>"
-				linkCssClass="btn btn-primary btn-sm mb-4"
-				markupView="lexicon"
-				message="start-free-trial"
-				target="_blank"
-				url="<%= SegmentsExperimentUtil.ANALYTICS_CLOUD_TRIAL_URL %>"
-			/>
+			<c:choose>
+				<c:when test="<%= SegmentsExperimentUtil.isAnalyticsEnabled(themeDisplay.getCompanyId()) %>">
+					<liferay-ui:icon
+						label="<%= true %>"
+						linkCssClass="btn btn-primary btn-sm mb-4"
+						markupView="lexicon"
+						message="open-analytics-cloud"
+						target="_blank"
+						url="<%= segmentsExperimentDisplayContext.getLiferayAnalyticsURL(themeDisplay.getCompanyId()) %>"
+					/>
+				</c:when>
+				<c:otherwise>
+					<liferay-ui:icon
+						label="<%= true %>"
+						linkCssClass="btn btn-primary btn-sm mb-4"
+						markupView="lexicon"
+						message="start-free-trial"
+						target="_blank"
+						url="<%= SegmentsExperimentUtil.ANALYTICS_CLOUD_TRIAL_URL %>"
+					/>
+				</c:otherwise>
+			</c:choose>
 
 			<portlet:actionURL name="/hide_segments_experiment_panel" var="hideSegmentsExperimentPanelURL">
 				<portlet:param name="redirect" value="<%= themeDisplay.getLayoutFriendlyURL(layout) %>" />
