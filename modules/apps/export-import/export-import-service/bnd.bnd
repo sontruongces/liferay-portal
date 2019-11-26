@@ -1,4 +1,4 @@
 Bundle-Name: Liferay Export Import Service
 Bundle-SymbolicName: com.liferay.exportimport.service
-Bundle-Version: 6.0.37
+Bundle-Version: 6.0.38
 -includeresource: content=../../staging/staging-lang/src/main/resources/content
