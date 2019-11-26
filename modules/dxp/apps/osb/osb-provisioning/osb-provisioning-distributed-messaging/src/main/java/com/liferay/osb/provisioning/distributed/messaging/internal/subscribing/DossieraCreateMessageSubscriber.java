@@ -14,15 +14,15 @@
 
 package com.liferay.osb.provisioning.distributed.messaging.internal.subscribing;
 
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.provisioning.distributed.messaging.internal.constants.SalesforceConstants;
-import com.liferay.osb.provisioning.koroneiki.web.service.connector.KoroneikiWebServiceConnector;
+import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -86,7 +86,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			postalAddress, contacts.toArray(new Contact[0]), externalLinks,
 			productPurchases.toArray(new ProductPurchase[0]), jsonObject);
 
-		_koroneikiWebServiceConnector.postAccount(account.toString());
+		_accountWebService.postAccount(account);
 	}
 
 	protected PostalAddress getPostalAddress(JSONObject jsonObject) {
@@ -457,7 +457,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		DossieraCreateMessageSubscriber.class);
 
 	@Reference
-	private KoroneikiWebServiceConnector _koroneikiWebServiceConnector;
+	private AccountWebService _accountWebService;
 
 	@Reference
 	private Portal _portal;
