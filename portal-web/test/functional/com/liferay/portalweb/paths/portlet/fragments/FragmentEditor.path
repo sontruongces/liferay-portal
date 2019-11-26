@@ -73,6 +73,11 @@
 	<td>//button[contains(@class,'${colorPalette}')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>FRAGMENTS_EDITOR_IE</td>
+	<td>//div[contains(@class,'fragment-editor')]/div[contains(@class,'source-editor')][${key_editorNumber}]//div[contains(@class,'ace-editor')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
