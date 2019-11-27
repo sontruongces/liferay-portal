@@ -1,0 +1,10 @@
+#
+# Liferay App Version 5.0.0
+#
+
+app.artifacts-5.0.0=\
+	com.liferay.portal.rules.engine.drools-3.0.9.jar
+
+app.change.log-5.0.0=LPS-103302 LPS-77425 LPS-84119 LPS-95013 LPS-95555 LPS-96095 LPS-98631 LRQA-47460
+
+app.git.id-5.0.0=28914f8afdb10c05249d9d94450e4bb7d8f41444
