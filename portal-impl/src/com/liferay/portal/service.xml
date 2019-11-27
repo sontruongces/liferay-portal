@@ -3226,14 +3226,9 @@
 		<finder name="Hostname" return-type="VirtualHost" unique="true">
 			<finder-column name="hostname" />
 		</finder>
-		<finder name="C_L" return-type="Collection">
+		<finder name="C_L" return-type="VirtualHost" where="defaultVirtualHost  = [$TRUE$]">
 			<finder-column name="companyId" />
 			<finder-column name="layoutSetId" />
-		</finder>
-		<finder name="C_L_D" return-type="VirtualHost">
-			<finder-column name="companyId" />
-			<finder-column name="layoutSetId" />
-			<finder-column name="defaultVirtualHost" />
 		</finder>
 
 		<!-- References -->

@@ -116,13 +116,11 @@ public class VirtualHostModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
-	public static final long DEFAULTVIRTUALHOST_COLUMN_BITMASK = 2L;
+	public static final long HOSTNAME_COLUMN_BITMASK = 2L;
 
-	public static final long HOSTNAME_COLUMN_BITMASK = 4L;
+	public static final long LAYOUTSETID_COLUMN_BITMASK = 4L;
 
-	public static final long LAYOUTSETID_COLUMN_BITMASK = 8L;
-
-	public static final long VIRTUALHOSTID_COLUMN_BITMASK = 16L;
+	public static final long VIRTUALHOSTID_COLUMN_BITMASK = 8L;
 
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
 		com.liferay.portal.util.PropsUtil.get(
@@ -398,19 +396,7 @@ public class VirtualHostModelImpl
 
 	@Override
 	public void setDefaultVirtualHost(boolean defaultVirtualHost) {
-		_columnBitmask |= DEFAULTVIRTUALHOST_COLUMN_BITMASK;
-
-		if (!_setOriginalDefaultVirtualHost) {
-			_setOriginalDefaultVirtualHost = true;
-
-			_originalDefaultVirtualHost = _defaultVirtualHost;
-		}
-
 		_defaultVirtualHost = defaultVirtualHost;
-	}
-
-	public boolean getOriginalDefaultVirtualHost() {
-		return _originalDefaultVirtualHost;
 	}
 
 	@Override
@@ -553,11 +539,6 @@ public class VirtualHostModelImpl
 
 		virtualHostModelImpl._originalHostname = virtualHostModelImpl._hostname;
 
-		virtualHostModelImpl._originalDefaultVirtualHost =
-			virtualHostModelImpl._defaultVirtualHost;
-
-		virtualHostModelImpl._setOriginalDefaultVirtualHost = false;
-
 		virtualHostModelImpl._columnBitmask = 0;
 	}
 
@@ -676,8 +657,6 @@ public class VirtualHostModelImpl
 	private String _hostname;
 	private String _originalHostname;
 	private boolean _defaultVirtualHost;
-	private boolean _originalDefaultVirtualHost;
-	private boolean _setOriginalDefaultVirtualHost;
 	private String _languageId;
 	private long _columnBitmask;
 	private VirtualHost _escapedModel;

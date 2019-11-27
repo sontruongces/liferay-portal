@@ -16,7 +16,9 @@ package com.liferay.portal.service.impl;
 
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.AvailableLocaleException;
 import com.liferay.portal.kernel.exception.NoSuchVirtualHostException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -57,8 +59,7 @@ public class VirtualHostLocalServiceImpl
 	@Deprecated
 	@Override
 	public VirtualHost fetchVirtualHost(long companyId, long layoutSetId) {
-		return virtualHostPersistence.fetchByC_L_D(
-			companyId, layoutSetId, true);
+		return virtualHostPersistence.fetchByC_L(companyId, layoutSetId);
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class VirtualHostLocalServiceImpl
 	public VirtualHost getVirtualHost(long companyId, long layoutSetId)
 		throws PortalException {
 
-		return virtualHostPersistence.findByC_L_D(companyId, layoutSetId, true);
+		return virtualHostPersistence.findByC_L(companyId, layoutSetId);
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class VirtualHostLocalServiceImpl
 	public List<VirtualHost> getVirtualHosts(long companyId, long layoutSetId)
 		throws PortalException {
 
-		return virtualHostPersistence.findByC_L(companyId, layoutSetId);
+		return _getVirtualHosts(companyId, layoutSetId);
 	}
 
 	/**
@@ -146,7 +147,7 @@ public class VirtualHostLocalServiceImpl
 		}
 
 		List<VirtualHost> virtualHosts = new ArrayList<>(
-			virtualHostPersistence.findByC_L(companyId, layoutSetId));
+			_getVirtualHosts(companyId, layoutSetId));
 
 		boolean first = true;
 
@@ -245,6 +246,18 @@ public class VirtualHostLocalServiceImpl
 		}
 
 		return virtualHosts;
+	}
+
+	private List<VirtualHost> _getVirtualHosts(
+		long companyId, long layoutSetId) {
+
+		DynamicQuery dynamicQuery = dynamicQuery();
+
+		dynamicQuery.add(RestrictionsFactoryUtil.eq("companyId", companyId));
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.eq("layoutSetId", layoutSetId));
+
+		return virtualHostPersistence.findWithDynamicQuery(dynamicQuery);
 	}
 
 }

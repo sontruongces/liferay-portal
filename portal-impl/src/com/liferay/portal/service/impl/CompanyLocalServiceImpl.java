@@ -21,9 +21,11 @@ import com.liferay.petra.encryptor.EncryptorException;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.AccountNameException;
 import com.liferay.portal.kernel.exception.CompanyMxException;
 import com.liferay.portal.kernel.exception.CompanyVirtualHostException;
@@ -1571,8 +1573,14 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			}
 		}
 		else {
-			List<VirtualHost> virtualHosts = virtualHostPersistence.findByC_L(
-				companyId, 0);
+			DynamicQuery dynamicQuery = virtualHostLocalService.dynamicQuery();
+
+			dynamicQuery.add(
+				RestrictionsFactoryUtil.eq("companyId", companyId));
+			dynamicQuery.add(RestrictionsFactoryUtil.eq("layoutSetId", 0));
+
+			List<VirtualHost> virtualHosts =
+				virtualHostPersistence.findWithDynamicQuery(dynamicQuery);
 
 			if (!virtualHosts.isEmpty()) {
 				for (VirtualHost virtualHost : virtualHosts) {

@@ -19,6 +19,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.exception.LayoutSetVirtualHostException;
 import com.liferay.portal.kernel.exception.NoSuchImageException;
+import com.liferay.portal.kernel.exception.NoSuchVirtualHostException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -163,8 +164,19 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 
 		// Virtual host
 
-		virtualHostPersistence.removeByC_L(
-			layoutSet.getCompanyId(), layoutSet.getLayoutSetId());
+		try {
+			virtualHostPersistence.removeByC_L(
+				layoutSet.getCompanyId(), layoutSet.getLayoutSetId());
+		}
+		catch (NoSuchVirtualHostException noSuchVirtualHostException) {
+
+			// LPS-52675
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					noSuchVirtualHostException, noSuchVirtualHostException);
+			}
+		}
 	}
 
 	@Override
@@ -632,24 +644,36 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 				virtualHostnames);
 		}
 		else {
-			virtualHostPersistence.removeByC_L(
-				layoutSet.getCompanyId(), layoutSet.getLayoutSetId());
+			try {
+				virtualHostPersistence.removeByC_L(
+					layoutSet.getCompanyId(), layoutSet.getLayoutSetId());
 
-			layoutSetPersistence.clearCache(layoutSet);
+				layoutSetPersistence.clearCache(layoutSet);
 
-			TransactionCommitCallbackUtil.registerCallback(
-				new Callable<Void>() {
+				TransactionCommitCallbackUtil.registerCallback(
+					new Callable<Void>() {
 
-					@Override
-					public Void call() {
-						EntityCacheUtil.removeResult(
-							LayoutSetModelImpl.ENTITY_CACHE_ENABLED,
-							LayoutSetImpl.class, layoutSet.getLayoutSetId());
+						@Override
+						public Void call() {
+							EntityCacheUtil.removeResult(
+								LayoutSetModelImpl.ENTITY_CACHE_ENABLED,
+								LayoutSetImpl.class,
+								layoutSet.getLayoutSetId());
 
-						return null;
-					}
+							return null;
+						}
 
-				});
+					});
+			}
+			catch (NoSuchVirtualHostException noSuchVirtualHostException) {
+
+				// LPS-52675
+
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						noSuchVirtualHostException, noSuchVirtualHostException);
+				}
+			}
 		}
 
 		return layoutSet;

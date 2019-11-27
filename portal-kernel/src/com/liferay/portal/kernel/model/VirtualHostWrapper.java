@@ -177,6 +177,16 @@ public class VirtualHostWrapper
 		return model.getVirtualHostId();
 	}
 
+	/**
+	 * Returns <code>true</code> if this virtual host is default virtual host.
+	 *
+	 * @return <code>true</code> if this virtual host is default virtual host; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isDefaultVirtualHost() {
+		return model.isDefaultVirtualHost();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();

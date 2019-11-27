@@ -178,15 +178,6 @@ public class VirtualHostPersistenceTest {
 	}
 
 	@Test
-	public void testCountByC_L_D() throws Exception {
-		_persistence.countByC_L_D(
-			RandomTestUtil.nextLong(), RandomTestUtil.nextLong(),
-			RandomTestUtil.randomBoolean());
-
-		_persistence.countByC_L_D(0L, 0L, RandomTestUtil.randomBoolean());
-	}
-
-	@Test
 	public void testFindByPrimaryKeyExisting() throws Exception {
 		VirtualHost newVirtualHost = addVirtualHost();
 
@@ -449,11 +440,6 @@ public class VirtualHostPersistenceTest {
 			Long.valueOf(existingVirtualHost.getLayoutSetId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingVirtualHost, "getOriginalLayoutSetId",
-				new Class<?>[0]));
-		Assert.assertEquals(
-			Boolean.valueOf(existingVirtualHost.getDefaultVirtualHost()),
-			ReflectionTestUtil.<Boolean>invoke(
-				existingVirtualHost, "getOriginalDefaultVirtualHost",
 				new Class<?>[0]));
 	}
 
