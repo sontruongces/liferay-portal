@@ -80,6 +80,8 @@ renderResponse.setTitle(role.getTitle(locale));
 	<aui:input name="removeUserIds" type="hidden" />
 	<aui:input name="addGroupIds" type="hidden" />
 	<aui:input name="removeGroupIds" type="hidden" />
+	<aui:input name="addSegmentsEntryIds" type="hidden" />
+	<aui:input name="removeSegmentsEntryIds" type="hidden" />
 
 	<%
 	request.setAttribute("edit_role_assignments.jsp-displayStyle", displayStyle);
@@ -134,7 +136,11 @@ renderResponse.setTitle(role.getTitle(locale));
 
 						if (selectedItem.type === 'users') {
 							data.addUserIds = selectedItem.value;
-						} else {
+						}
+						else if (selectedItem.type == 'segments') {
+							data.addSegmentsEntryIds = selectedItem.value;
+						}
+						else {
 							data.addGroupIds = selectedItem.value;
 						}
 
@@ -151,6 +157,7 @@ renderResponse.setTitle(role.getTitle(locale));
 			<portlet:renderURL var="selectAssigneesURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 				<portlet:param name="mvcPath" value="/select_assignees.jsp" />
 				<portlet:param name="tabs2" value="<%= tabs2 %>" />
+				<portlet:param name="tabs3" value="available" />
 				<portlet:param name="roleId" value="<%= String.valueOf(roleId) %>" />
 				<portlet:param name="displayStyle" value="<%= displayStyle %>" />
 			</portlet:renderURL>
@@ -174,7 +181,11 @@ renderResponse.setTitle(role.getTitle(locale));
 
 		if (assigneeType === 'users') {
 			data.removeUserIds = ids;
-		} else {
+		}
+		else if (assigneeType == 'segments') {
+			data.removeSegmentsEntryIds = ids;
+		}
+		else {
 			data.removeGroupIds = ids;
 		}
 
