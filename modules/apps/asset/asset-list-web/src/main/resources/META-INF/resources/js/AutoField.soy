@@ -21,8 +21,8 @@
 	]>}
 	{@param tagSelectorURL: string}
 	{@param vocabularyIds: list<string>}
-
 	{@param? queryLogicIndexes: string}
+	{@param? onSelectedItemsChange_: any}
 
 	<div id="{$id}">
 		<input
@@ -52,6 +52,7 @@
 						{param rule: $rule /}
 						{param tagSelectorURL: $tagSelectorURL /}
 						{param vocabularyIds: $vocabularyIds /}
+						{param onSelectedItemsChange_: $onSelectedItemsChange_ /}
 					{/call}
 				{/foreach}
 			{/if}
@@ -105,6 +106,7 @@
 	]}
 	{@param tagSelectorURL: string}
 	{@param vocabularyIds: list<string>}
+	{@param? onSelectedItemsChange_: any}
 
 	<li class="timeline-item">
 		<div class="panel panel-default">
@@ -144,23 +146,29 @@
 					{call com.liferay.asset.taglib.AssetVocabularyCategoriesSelector.render}
 						{param categoryIds: $rule.queryValues ?: '' /}
 						{param eventName: $namespace + 'selectCategory' /}
+						{param events: [
+							'selectedItemsChange': $onSelectedItemsChange_
+						] /}
 						{param groupIds: $groupIds /}
-						{param id: $namespace + 'assetCategoriesSelector' + $index /}
+						{param id: $namespace + 'assetSelector' + $index /}
 						{param inputName: $namespace + 'queryCategoryIds' + $index /}
 						{param spritemap: $pathThemeImages + '/lexicon/icons.svg' /}
 						{param portletURL: $categorySelectorURL /}
-						{param selectedItems: $rule.selectedItems ?: [] /}
+						{param selectedItems: $rule.selectedItems /}
 						{param vocabularyIds: $vocabularyIds /}
 					{/call}
 				{else}
 					{call com.liferay.asset.taglib.AssetTagsSelector.render}
 						{param eventName: $namespace + 'selectTag' /}
+						{param events: [
+							'selectedItemsChange': $onSelectedItemsChange_
+						] /}
 						{param groupIds: $groupIds /}
-						{param id: $namespace + 'assetTagsSelector' + $index /}
+						{param id: $namespace + 'assetSelector' + $index /}
 						{param inputName: $namespace + 'queryTagNames' + $index /}
 						{param spritemap: $pathThemeImages + '/lexicon/icons.svg' /}
 						{param portletURL: $tagSelectorURL /}
-						{param selectedItems: $rule.selectedItems ?: [] /}
+						{param selectedItems: $rule.selectedItems /}
 						{param tagNames: $rule.queryValues ?: '' /}
 					{/call}
 				{/if}

@@ -229,6 +229,12 @@ class AssetTagsSelector extends Component {
 			selectedItems: this.selectedItems
 		});
 	}
+
+	syncSelectedItems(event) {
+		this.emit('selectedItemsChange', {
+			selectedItems: event
+		});
+	}
 }
 
 /**
