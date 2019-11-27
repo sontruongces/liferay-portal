@@ -261,8 +261,7 @@ public class AssetEntryQuery {
 	}
 
 	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *             #getAllKeywords())}
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link #getAllKeywords()}
 	 */
 	@Deprecated
 	public String getKeywords() {
@@ -482,11 +481,6 @@ public class AssetEntryQuery {
 		_toString = null;
 	}
 
-	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *             #setAllKeywords(String[] keywords))}
-	 */
-	@Deprecated
 	public void setKeywords(String keywords) {
 		_keywords = keywords;
 	}
