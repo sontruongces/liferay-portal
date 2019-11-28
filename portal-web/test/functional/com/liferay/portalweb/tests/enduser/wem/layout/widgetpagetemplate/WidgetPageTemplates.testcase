@@ -284,6 +284,7 @@ definition {
 
 		LAR.importSiteCP(
 			larFileName = "college-and-department-page-templates.lar",
+			siteName = "Guest",
 			uploadFrom = "dependencies");
 
 		ProductMenu.gotoPortlet(
