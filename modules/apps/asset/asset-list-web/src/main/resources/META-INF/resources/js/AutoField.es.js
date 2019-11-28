@@ -33,6 +33,7 @@ class AutoField extends Component {
 
 	created() {
 		this.on('rulesChanged', this.onRulesChanged_);
+		this.onRulesChanged_();
 	}
 
 	/**
