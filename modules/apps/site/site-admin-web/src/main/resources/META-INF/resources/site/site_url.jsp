@@ -30,13 +30,17 @@ Set<Locale> availableLocales = LanguageUtil.getAvailableLocales(liveGroupId);
 TreeMap<String, String> publicVirtualHostnames = publicLayoutSet.getVirtualHostnames();
 
 if (publicVirtualHostnames.isEmpty()) {
-	publicVirtualHostnames.put(StringPool.BLANK, StringPool.BLANK);
+	publicVirtualHostnames = TreeMapBuilder.put(
+		StringPool.BLANK, StringPool.BLANK
+	).build();
 }
 
 TreeMap<String, String> privateVirtualHostnames = privateLayoutSet.getVirtualHostnames();
 
 if (privateVirtualHostnames.isEmpty()) {
-	privateVirtualHostnames.put(StringPool.BLANK, StringPool.BLANK);
+	privateVirtualHostnames = TreeMapBuilder.put(
+		StringPool.BLANK, StringPool.BLANK
+	).build();
 }
 %>
 
@@ -220,7 +224,9 @@ if (privateVirtualHostnames.isEmpty()) {
 		TreeMap<String, String> stagingPublicVirtualHostnames = stagingPublicLayoutSet.getVirtualHostnames();
 
 		if (stagingPublicVirtualHostnames.isEmpty()) {
-			stagingPublicVirtualHostnames.put(StringPool.BLANK, StringPool.BLANK);
+			stagingPublicVirtualHostnames = TreeMapBuilder.put(
+				StringPool.BLANK, StringPool.BLANK
+			).build();
 		}
 		%>
 
@@ -267,7 +273,9 @@ if (privateVirtualHostnames.isEmpty()) {
 		TreeMap<String, String> stagingPrivateVirtualHostnames = stagingPrivateLayoutSet.getVirtualHostnames();
 
 		if (stagingPrivateVirtualHostnames.isEmpty()) {
-			stagingPrivateVirtualHostnames.put(StringPool.BLANK, StringPool.BLANK);
+			stagingPrivateVirtualHostnames = TreeMapBuilder.put(
+				StringPool.BLANK, StringPool.BLANK
+			).build();
 		}
 		%>
 
