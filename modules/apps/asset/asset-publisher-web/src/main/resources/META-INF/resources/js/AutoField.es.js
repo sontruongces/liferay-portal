@@ -21,11 +21,6 @@ import 'asset-taglib/asset_categories_selector/AssetCategoriesSelector.es';
 
 import 'asset-taglib/asset_tags_selector/AssetTagsSelector.es';
 
-const DEFAULT_RULE = {
-	queryContains: true,
-	type: 'assetTags'
-};
-
 /**
  * AutoField
  *
@@ -47,7 +42,11 @@ class AutoField extends Component {
 	 */
 
 	addRule_() {
-		this.rules = this.rules.concat(DEFAULT_RULE);
+		this.rules = this.rules.concat({
+			queryContains: true,
+			selectedItems: [],
+			type: 'assetTags'
+		});
 	}
 
 	/**
@@ -64,6 +63,7 @@ class AutoField extends Component {
 		rules[itemIndex] = {
 			queryAndOperator: 'all',
 			queryContains: true,
+			selectedItems: [],
 			type: event.target.value
 		};
 
@@ -96,6 +96,16 @@ class AutoField extends Component {
 	onRulesChanged_() {
 		this.queryLogicIndexes = Object.keys(this.rules).toString();
 	}
+
+	onSelectedItemsChange_(data, event) {
+		var targetId = event.target.id;
+
+		var itemIndex = targetId.replace(this.namespace + 'assetSelector', '');
+
+		var rule = this.rules[itemIndex];
+
+		rule.selectedItems = data.selectedItems;
+	}
 }
 
 AutoField.STATE = {
@@ -126,7 +136,13 @@ AutoField.STATE = {
 	 */
 
 	rules: {
-		value: [DEFAULT_RULE]
+		value: [
+			{
+				queryContains: true,
+				selectedItems: [],
+				type: 'assetTags'
+			}
+		]
 	}
 };
 
