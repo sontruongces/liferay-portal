@@ -66,7 +66,7 @@ public class AssigneeUser {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The user's ID.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
 
@@ -94,7 +94,7 @@ public class AssigneeUser {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "A relative URL to the user's profile image.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String image;
 
@@ -120,7 +120,7 @@ public class AssigneeUser {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The user's full name.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String name;
 
