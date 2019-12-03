@@ -233,6 +233,7 @@ import java.io.Serializable;
 
 import java.lang.reflect.Method;
 
+import java.net.IDN;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -4227,7 +4228,7 @@ public class PortalImpl implements Portal {
 		if (Validator.isNotNull(virtualHostname)) {
 			String domain = themeDisplay.getPortalDomain();
 
-			if (domain.startsWith(virtualHostname)) {
+			if (_isSameHostName(virtualHostname, domain)) {
 				serverName = virtualHostname;
 			}
 		}
@@ -8844,7 +8845,14 @@ public class PortalImpl implements Portal {
 			return virtualHostName.regionMatches(0, portalDomain, 0, pos);
 		}
 
-		return virtualHostName.equals(portalDomain);
+		if (virtualHostName.equals(portalDomain) ||
+			(portalDomain.contains("xn--") &&
+			 virtualHostName.equals(IDN.toUnicode(portalDomain)))) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private static final Log _logWebServerServlet = LogFactoryUtil.getLog(
