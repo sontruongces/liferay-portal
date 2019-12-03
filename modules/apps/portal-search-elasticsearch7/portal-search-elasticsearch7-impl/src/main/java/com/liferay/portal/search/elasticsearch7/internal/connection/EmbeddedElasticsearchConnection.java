@@ -72,6 +72,8 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 public class EmbeddedElasticsearchConnection
 	extends BaseElasticsearchConnection {
 
+	public static final String CONNECTION_ID = "EMBEDDED";
+
 	@Override
 	public void close() {
 		super.close();
@@ -134,6 +136,11 @@ public class EmbeddedElasticsearchConnection
 		_node = null;
 
 		_file.deltree(_jnaTmpDirName);
+	}
+
+	@Override
+	public String getConnectionId() {
+		return CONNECTION_ID;
 	}
 
 	public Node getNode() {

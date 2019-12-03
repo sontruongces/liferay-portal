@@ -16,15 +16,20 @@ package com.liferay.portal.search.elasticsearch7.internal.information;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.search.configuration.CrossClusterReplicationConfigurationWrapper;
+import com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration;
+import com.liferay.portal.search.elasticsearch7.configuration.OperationMode;
 import com.liferay.portal.search.elasticsearch7.internal.ElasticsearchSearchEngine;
-import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnection;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnectionManager;
-import com.liferay.portal.search.elasticsearch7.internal.connection.OperationMode;
 import com.liferay.portal.search.engine.SearchEngineInformation;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,16 +40,23 @@ import org.elasticsearch.action.admin.cluster.node.info.NodesInfoResponse;
 import org.elasticsearch.client.AdminClient;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.ClusterAdminClient;
+import org.elasticsearch.cluster.ClusterName;
 import org.elasticsearch.cluster.node.DiscoveryNode;
 import org.elasticsearch.common.unit.TimeValue;
 
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
 
 /**
  * @author Adam Brandizzi
  */
-@Component(immediate = true, service = SearchEngineInformation.class)
+@Component(
+	configurationPid = "com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration",
+	immediate = true, service = SearchEngineInformation.class
+)
 public class ElasticsearchSearchEngineInformation
 	implements SearchEngineInformation {
 
@@ -55,47 +67,27 @@ public class ElasticsearchSearchEngineInformation
 
 	@Override
 	public String getNodesString() {
-		try {
-			Client client = elasticsearchConnectionManager.getClient();
+		String clusterNodesString = getClusterNodesString(
+			elasticsearchConnectionManager.getClient());
 
-			if (client == null) {
-				return StringPool.BLANK;
+		if (isCrossClusterReplicationEnabled()) {
+			String localClusterNodesString = getClusterNodesString(
+				elasticsearchConnectionManager.getClient(true));
+
+			if (!Validator.isBlank(localClusterNodesString)) {
+				StringBundler sb = new StringBundler(5);
+
+				sb.append("Remote Cluster = ");
+				sb.append(clusterNodesString);
+				sb.append(StringPool.COMMA_AND_SPACE);
+				sb.append("Local Cluster = ");
+				sb.append(localClusterNodesString);
+
+				clusterNodesString = sb.toString();
 			}
-
-			List<NodeInfo> nodeInfos = _getClusterNodes(client);
-
-			Stream<NodeInfo> stream = nodeInfos.stream();
-
-			return stream.map(
-				nodeInfo -> {
-					DiscoveryNode node = nodeInfo.getNode();
-
-					StringBundler sb = new StringBundler(5);
-
-					sb.append(node.getName());
-					sb.append(StringPool.SPACE);
-					sb.append(StringPool.OPEN_PARENTHESIS);
-					sb.append(node.getVersion());
-					sb.append(StringPool.CLOSE_PARENTHESIS);
-
-					return sb.toString();
-				}
-			).collect(
-				Collectors.joining(StringPool.COMMA_AND_SPACE)
-			);
 		}
-		catch (Exception exception) {
-			_log.error("Unable to get node information", exception);
 
-			StringBundler sb = new StringBundler(4);
-
-			sb.append(StringPool.OPEN_PARENTHESIS);
-			sb.append("Error: ");
-			sb.append(exception.toString());
-			sb.append(StringPool.CLOSE_PARENTHESIS);
-
-			return sb.toString();
-		}
+		return clusterNodesString;
 	}
 
 	/**
@@ -120,12 +112,10 @@ public class ElasticsearchSearchEngineInformation
 
 	@Override
 	public String getVendorString() {
-		ElasticsearchConnection elasticsearchConnection =
-			elasticsearchConnectionManager.getElasticsearchConnection();
+		OperationMode operationMode =
+			elasticsearchConfiguration.operationMode();
 
-		if (elasticsearchConnection.getOperationMode() ==
-				OperationMode.EMBEDDED) {
-
+		if (Objects.equals(operationMode, OperationMode.EMBEDDED)) {
 			return elasticsearchSearchEngine.getVendor() + StringPool.SPACE +
 				"(Embedded)";
 		}
@@ -133,13 +123,95 @@ public class ElasticsearchSearchEngineInformation
 		return elasticsearchSearchEngine.getVendor();
 	}
 
+	@Activate
+	@Modified
+	protected void activate(Map<String, Object> properties) {
+		elasticsearchConfiguration = ConfigurableUtil.createConfigurable(
+			ElasticsearchConfiguration.class, properties);
+	}
+
+	protected String getClusterNodesString(Client client) {
+		try {
+			if (client == null) {
+				return StringPool.BLANK;
+			}
+
+			ClusterInfo clusterInfo = _getClusterInfo(client);
+
+			String clusterName = clusterInfo.getClusterName();
+
+			List<NodeInfo> nodeInfos = clusterInfo.getNodeInfoList();
+
+			Stream<NodeInfo> stream = nodeInfos.stream();
+
+			String nodesString = stream.map(
+				nodeInfo -> {
+					DiscoveryNode node = nodeInfo.getNode();
+
+					StringBundler sb = new StringBundler(5);
+
+					sb.append(node.getName());
+					sb.append(StringPool.SPACE);
+					sb.append(StringPool.OPEN_PARENTHESIS);
+					sb.append(node.getVersion());
+					sb.append(StringPool.CLOSE_PARENTHESIS);
+
+					return sb.toString();
+				}
+			).collect(
+				Collectors.joining(StringPool.COMMA_AND_SPACE)
+			);
+
+			StringBundler sb = new StringBundler(6);
+
+			sb.append(clusterName);
+			sb.append(StringPool.COLON);
+			sb.append(StringPool.SPACE);
+			sb.append(StringPool.OPEN_BRACKET);
+			sb.append(nodesString);
+			sb.append(StringPool.CLOSE_BRACKET);
+
+			return sb.toString();
+		}
+		catch (Exception exception) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to get node information", exception);
+			}
+
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(StringPool.OPEN_PARENTHESIS);
+			sb.append("Error: ");
+			sb.append(exception.toString());
+			sb.append(StringPool.CLOSE_PARENTHESIS);
+
+			return sb.toString();
+		}
+	}
+
+	protected boolean isCrossClusterReplicationEnabled() {
+		if (crossClusterReplicationConfigurationWrapper == null) {
+			return false;
+		}
+
+		return crossClusterReplicationConfigurationWrapper.isCCREnabled();
+	}
+
+	@Reference(cardinality = ReferenceCardinality.OPTIONAL)
+	protected volatile CrossClusterReplicationConfigurationWrapper
+		crossClusterReplicationConfigurationWrapper;
+
+	protected volatile ElasticsearchConfiguration elasticsearchConfiguration;
+
 	@Reference
 	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
 
 	@Reference
 	protected ElasticsearchSearchEngine elasticsearchSearchEngine;
 
-	private List<NodeInfo> _getClusterNodes(Client client) {
+	private ClusterInfo _getClusterInfo(Client client) {
+		ClusterInfo clusterInfo = new ClusterInfo();
+
 		AdminClient adminClient = client.admin();
 
 		ClusterAdminClient clusterAdminClient = adminClient.cluster();
@@ -152,10 +224,39 @@ public class ElasticsearchSearchEngineInformation
 		NodesInfoResponse nodesInfoResponse = nodesInfoRequestBuilder.get(
 			timeout);
 
-		return nodesInfoResponse.getNodes();
+		ClusterName clusterName = nodesInfoResponse.getClusterName();
+
+		clusterInfo.setClusterName(clusterName.value());
+
+		clusterInfo.setNodeInfoList(nodesInfoResponse.getNodes());
+
+		return clusterInfo;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ElasticsearchSearchEngineInformation.class);
+
+	private class ClusterInfo {
+
+		public String getClusterName() {
+			return _clusterName;
+		}
+
+		public List<NodeInfo> getNodeInfoList() {
+			return _nodeInfoList;
+		}
+
+		public void setClusterName(String clusterName) {
+			_clusterName = clusterName;
+		}
+
+		public void setNodeInfoList(List<NodeInfo> nodeInfoList) {
+			_nodeInfoList = nodeInfoList;
+		}
+
+		private String _clusterName;
+		private List<NodeInfo> _nodeInfoList;
+
+	}
 
 }

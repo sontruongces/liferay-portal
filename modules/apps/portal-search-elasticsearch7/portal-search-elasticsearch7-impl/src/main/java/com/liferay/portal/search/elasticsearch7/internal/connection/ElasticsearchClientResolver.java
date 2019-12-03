@@ -23,4 +23,6 @@ public interface ElasticsearchClientResolver {
 
 	public Client getClient();
 
+	public Client getClient(boolean preferLocalCluster);
+
 }
