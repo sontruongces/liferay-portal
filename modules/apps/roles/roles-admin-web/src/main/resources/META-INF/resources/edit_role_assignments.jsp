@@ -136,11 +136,9 @@ renderResponse.setTitle(role.getTitle(locale));
 
 						if (selectedItem.type === 'users') {
 							data.addUserIds = selectedItem.value;
-						}
-						else if (selectedItem.type == 'segments') {
+						} else if (selectedItem.type == 'segments') {
 							data.addSegmentsEntryIds = selectedItem.value;
-						}
-						else {
+						} else {
 							data.addGroupIds = selectedItem.value;
 						}
 
@@ -181,11 +179,9 @@ renderResponse.setTitle(role.getTitle(locale));
 
 		if (assigneeType === 'users') {
 			data.removeUserIds = ids;
-		}
-		else if (assigneeType == 'segments') {
+		} else if (assigneeType == 'segments') {
 			data.removeSegmentsEntryIds = ids;
-		}
-		else {
+		} else {
 			data.removeGroupIds = ids;
 		}
 
