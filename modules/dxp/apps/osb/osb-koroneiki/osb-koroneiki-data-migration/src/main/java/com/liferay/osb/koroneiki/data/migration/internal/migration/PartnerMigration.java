@@ -1,0 +1,296 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package com.liferay.osb.koroneiki.data.migration.internal.migration;
+
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
+import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
+import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.Team;
+import com.liferay.osb.koroneiki.taproot.model.TeamRole;
+import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalService;
+import com.liferay.portal.kernel.dao.jdbc.DataAccess;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+/**
+ * @author Kyle Bischof
+ */
+@Component(immediate = true, service = PartnerMigration.class)
+public class PartnerMigration {
+
+	public void migrate(long userId) throws Exception {
+		try (Connection connection = DataAccess.getConnection()) {
+			_migratePartnerEntries(connection, userId);
+
+			_migratePartnerWorkers(connection, userId);
+		}
+	}
+
+	private void _assignTeam(
+			Connection connection, long partnerEntryId, long teamId,
+			long[] teamRoleIds)
+		throws Exception {
+
+		StringBundler sb = new StringBundler(3);
+
+		sb.append("select corpProjectId, partnerManagedSupport from ");
+		sb.append("OSB_AccountEntry where partnerEntryId = ");
+		sb.append(partnerEntryId);
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(
+				sb.toString());
+			ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			while (resultSet.next()) {
+				long corpProjectId = resultSet.getLong(1);
+
+				Account account = _accountLocalService.fetchAccount(
+					corpProjectId);
+
+				if (account == null) {
+					_log.error(
+						"Unable to find account with account id " +
+							corpProjectId);
+
+					continue;
+				}
+
+				_teamAccountRoleLocalService.addTeamAccountRole(
+					teamId, account.getAccountId(), teamRoleIds[1]);
+
+				boolean partnerManagedSupport = resultSet.getBoolean(2);
+
+				if (partnerManagedSupport) {
+					_teamAccountRoleLocalService.addTeamAccountRole(
+						teamId, account.getAccountId(), teamRoleIds[0]);
+				}
+			}
+		}
+	}
+
+	private Account _getAccount(String dossieraAccountKey)
+		throws PortalException {
+
+		List<ExternalLink> externalLinks =
+			_externalLinkLocalService.getExternalLinks(
+				_classNameLocalService.getClassNameId(Account.class),
+				"dossiera", "account", dossieraAccountKey, 0, 1);
+
+		if (externalLinks.isEmpty()) {
+			return null;
+		}
+
+		ExternalLink externalLink = externalLinks.get(0);
+
+		return _accountLocalService.getAccount(externalLink.getClassPK());
+	}
+
+	private void _migratePartnerEntries(Connection connection, long userId)
+		throws Exception {
+
+		TeamRole flsTeamRole = _teamRoleLocalService.addTeamRole(
+			userId, "First Line Support", StringPool.BLANK,
+			TeamRoleType.ACCOUNT);
+		TeamRole partnerTeamRole = _teamRoleLocalService.addTeamRole(
+			userId, "Partner", StringPool.BLANK, TeamRoleType.ACCOUNT);
+
+		StringBundler sb = new StringBundler(2);
+
+		sb.append("select dossieraAccountKey, code_, notes, partnerEntryId ");
+		sb.append("from OSB_PartnerEntry");
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(
+				sb.toString());
+			ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			while (resultSet.next()) {
+				String dossieraAccountKey = resultSet.getString(1);
+
+				Account account = _getAccount(dossieraAccountKey);
+
+				if (account == null) {
+					_log.error(
+						"Unable to find account with dossiera account key " +
+							dossieraAccountKey);
+
+					continue;
+				}
+
+				String code = resultSet.getString(2);
+
+				String notes = resultSet.getString(3);
+
+				account.setNotes(notes);
+
+				_accountLocalService.updateAccount(account);
+
+				Team team = _teamLocalService.addTeam(
+					userId, account.getAccountId(), code);
+
+				long partnerEntryId = resultSet.getLong(4);
+
+				_assignTeam(
+					connection, partnerEntryId, team.getTeamId(),
+					new long[] {
+						flsTeamRole.getTeamRoleId(),
+						partnerTeamRole.getTeamRoleId()
+					});
+			}
+		}
+	}
+
+	private void _migratePartnerWorkers(Connection connection, long userId)
+		throws Exception {
+
+		Map<Integer, Long> roleMap = new HashMap<>();
+
+		roleMap.put(1, 112936638L);
+		roleMap.put(2, 112936646L);
+		roleMap.put(3, 112936656L);
+
+		StringBundler sb = new StringBundler(9);
+
+		sb.append("select role, dossieraAccountKey, CUSTOMER_User.uuid_, ");
+		sb.append("CUSTOMER_User.firstName, CUSTOMER_User.middleName, ");
+		sb.append("CUSTOMER_User.lastName, CUSTOMER_User.emailAddress, ");
+		sb.append("CUSTOMER_User.languageId from OSB_PartnerWorker inner ");
+		sb.append("join CUSTOMER_User on CUSTOMER_User.userId = ");
+		sb.append("OSB_PartnerWorker.userId inner join OSB_PartnerEntry on ");
+		sb.append("OSB_PartnerEntry.partnerEntryId = ");
+		sb.append("OSB_PartnerWorker.partnerEntryId where dossieraAccountKey ");
+		sb.append("!= ''");
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(
+				sb.toString());
+			ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			while (resultSet.next()) {
+				String dossieraAccountKey = resultSet.getString(2);
+
+				Account account = _getAccount(dossieraAccountKey);
+
+				if (account == null) {
+					_log.error(
+						"Unable to find account with dossiera account key " +
+							dossieraAccountKey);
+
+					continue;
+				}
+
+				int roleId = resultSet.getInt(1);
+				String contactUuid = resultSet.getString(3);
+				String contactFirstName = resultSet.getString(4);
+				String contactMiddleName = resultSet.getString(5);
+				String contactLastName = resultSet.getString(6);
+				String contactEmailAddress = resultSet.getString(7);
+				String contactLanguageId = resultSet.getString(8);
+
+				Contact contact = _contactLocalService.fetchContactByUuid(
+					contactUuid);
+
+				if (contact == null) {
+					contact = _contactLocalService.addContact(
+						contactUuid, userId, StringPool.BLANK, contactFirstName,
+						contactMiddleName, contactLastName, contactEmailAddress,
+						contactLanguageId);
+				}
+
+				if ((roleId < 1) || (roleId > 3)) {
+					_log.error(
+						"Unable to find contactRoleId with partner role = " +
+							roleId);
+
+					continue;
+				}
+
+				Long contactRoleId = _roleMigration.getPortalContactRoleId(
+					roleMap.get(roleId));
+
+				if (Validator.isNotNull(contactRoleId)) {
+					_contactAccountRoleLocalService.addContactAccountRole(
+						contact.getContactId(), account.getAccountId(),
+						contactRoleId);
+				}
+				else {
+					_log.error(
+						"Unable to find contactRoleId with partner role = " +
+							roleId);
+				}
+			}
+		}
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		PartnerMigration.class);
+
+	@Reference
+	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private ClassNameLocalService _classNameLocalService;
+
+	@Reference
+	private ContactAccountRoleLocalService _contactAccountRoleLocalService;
+
+	@Reference
+	private ContactLocalService _contactLocalService;
+
+	@Reference
+	private ContactRoleLocalService _contactRoleLocalService;
+
+	@Reference
+	private ContactTeamRoleLocalService _contactTeamRoleLocalService;
+
+	@Reference
+	private ExternalLinkLocalService _externalLinkLocalService;
+
+	@Reference
+	private RoleMigration _roleMigration;
+
+	@Reference
+	private TeamAccountRoleLocalService _teamAccountRoleLocalService;
+
+	@Reference
+	private TeamLocalService _teamLocalService;
+
+	@Reference
+	private TeamRoleLocalService _teamRoleLocalService;
+
+}

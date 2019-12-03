@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.data.migration.internal.portlet.action;
 import com.liferay.osb.koroneiki.data.migration.internal.constants.DataMigrationPortletKeys;
 import com.liferay.osb.koroneiki.data.migration.internal.migration.CorpEntryMigration;
 import com.liferay.osb.koroneiki.data.migration.internal.migration.CorpProjectMigration;
+import com.liferay.osb.koroneiki.data.migration.internal.migration.PartnerMigration;
 import com.liferay.osb.koroneiki.data.migration.internal.migration.ProductEntryMigration;
 import com.liferay.osb.koroneiki.data.migration.internal.migration.RoleMigration;
 import com.liferay.osb.koroneiki.data.migration.internal.migration.UserMigration;
@@ -73,6 +74,8 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 
 			_userMigration.migrate(themeDisplay.getUserId());
 
+			_partnerMigration.migrate(themeDisplay.getUserId());
+
 			if (_log.isInfoEnabled()) {
 				_log.info("Migration took " + stopWatch.getTime() + " ms");
 			}
@@ -97,6 +100,9 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CorpProjectMigration _corpProjectMigration;
+
+	@Reference
+	private PartnerMigration _partnerMigration;
 
 	@Reference
 	private ProductEntryMigration _productEntryMigration;
