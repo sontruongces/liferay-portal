@@ -160,6 +160,10 @@ public class ContactRoleLocalServiceImpl
 			contactRoleLocalService.getContactRole(contactRoleId));
 	}
 
+	public ContactRole fetchContactRole(String name, int type) {
+		return contactRolePersistence.fetchByN_T(name, type);
+	}
+
 	public List<ContactRole> getContactAccountContactRoles(
 		long accountId, long contactId, int start, int end) {
 

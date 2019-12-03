@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchasePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
@@ -22,10 +23,13 @@ import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductP
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
+import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
@@ -38,6 +42,7 @@ import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
@@ -47,6 +52,7 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -190,6 +196,8 @@ public class ProductPurchaseResourceImpl
 			String accountKey, ProductPurchase productPurchase)
 		throws Exception {
 
+		String productKey = _getProductKey(productPurchase);
+
 		Date startDate = productPurchase.getStartDate();
 		Date endDate = productPurchase.getEndDate();
 		Date originalEndDate = productPurchase.getOriginalEndDate();
@@ -215,13 +223,13 @@ public class ProductPurchaseResourceImpl
 		}
 
 		List<ProductField> productFields = getProductFields(
-			productPurchase.getProperties(), null);
+			productPurchase.getProperties(), Collections.emptyList());
 
 		ProductPurchase curProductPurchase =
 			ProductPurchaseUtil.toProductPurchase(
 				_productPurchaseService.addProductPurchase(
-					accountKey, productPurchase.getProductKey(), startDate,
-					endDate, originalEndDate, quantity, status, productFields));
+					accountKey, productKey, startDate, endDate, originalEndDate,
+					quantity, status, productFields));
 
 		if (!ArrayUtil.isEmpty(productPurchase.getExternalLinks())) {
 			for (ExternalLink externalLink :
@@ -343,6 +351,32 @@ public class ProductPurchaseResourceImpl
 				contact.getContactId()));
 	}
 
+	private String _getProductKey(ProductPurchase productPurchase)
+		throws Exception {
+
+		Product product = productPurchase.getProduct();
+
+		if (product != null) {
+			if (Validator.isNotNull(product.getKey())) {
+				return product.getKey();
+			}
+
+			ProductEntry productEntry =
+				_productEntryLocalService.fetchProductEntryByName(
+					product.getName());
+
+			if (productEntry != null) {
+				return productEntry.getProductEntryKey();
+			}
+
+			product = _productResource.postProduct(product);
+
+			return product.getKey();
+		}
+
+		return productPurchase.getProductKey();
+	}
+
 	private void _updateProductPurchasePermission(
 			String productPurchaseKey, String operation,
 			ProductPurchasePermission productPurchasePermission)
@@ -398,6 +432,9 @@ public class ProductPurchaseResourceImpl
 	private PhloemPermissionUtil _phloemPermissionUtil;
 
 	@Reference
+	private ProductEntryLocalService _productEntryLocalService;
+
+	@Reference
 	private ProductFieldLocalService _productFieldLocalService;
 
 	@Reference
@@ -409,5 +446,8 @@ public class ProductPurchaseResourceImpl
 
 	@Reference
 	private ProductPurchaseService _productPurchaseService;
+
+	@Reference
+	private ProductResource _productResource;
 
 }

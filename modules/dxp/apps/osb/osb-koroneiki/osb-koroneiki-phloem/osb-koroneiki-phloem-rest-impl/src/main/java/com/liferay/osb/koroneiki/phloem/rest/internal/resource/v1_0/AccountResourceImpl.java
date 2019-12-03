@@ -25,6 +25,8 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.AccountUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.AccountEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
@@ -456,10 +458,16 @@ public class AccountResourceImpl
 		}
 
 		com.liferay.osb.koroneiki.taproot.model.ContactRole curContactRole =
-			_contactRoleLocalService.getContactRole(
+			_contactRoleLocalService.fetchContactRole(
 				contactRole.getName(), ContactRoleType.ACCOUNT);
 
-		return curContactRole.getContactRoleKey();
+		if (curContactRole != null) {
+			return curContactRole.getContactRoleKey();
+		}
+
+		contactRole = _contactRoleResource.postContactRole(contactRole);
+
+		return contactRole.getKey();
 	}
 
 	private Account _postAccount(String parentAccountKey, Account account)
@@ -538,6 +546,8 @@ public class AccountResourceImpl
 						contactRoleKeys);
 				}
 				else {
+					_postContact(contact);
+
 					putAccountContactByEmailAddres(
 						curAccount.getKey(),
 						new String[] {contact.getEmailAddress()});
@@ -573,6 +583,16 @@ public class AccountResourceImpl
 		}
 
 		return curAccount;
+	}
+
+	private void _postContact(Contact contact) throws Exception {
+		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
+			_oktaContactIdentityProvider.fetchContactByEmailAddress(
+				contact.getEmailAddress());
+
+		if (curContact == null) {
+			_contactResource.postContact(contact);
+		}
 	}
 
 	private void _putAccountContact(
@@ -676,7 +696,13 @@ public class AccountResourceImpl
 	private ContactAccountRoleService _contactAccountRoleService;
 
 	@Reference
+	private ContactResource _contactResource;
+
+	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
+
+	@Reference
+	private ContactRoleResource _contactRoleResource;
 
 	@Reference
 	private ContactService _contactService;

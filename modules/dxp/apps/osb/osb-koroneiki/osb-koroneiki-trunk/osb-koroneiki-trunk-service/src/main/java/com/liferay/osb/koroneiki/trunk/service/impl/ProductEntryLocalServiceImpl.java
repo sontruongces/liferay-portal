@@ -136,6 +136,10 @@ public class ProductEntryLocalServiceImpl
 		return productEntryPersistence.remove(productEntry);
 	}
 
+	public ProductEntry fetchProductEntryByName(String name) {
+		return productEntryPersistence.fetchByName(name);
+	}
+
 	public ProductEntry getProductEntry(String productEntryKey)
 		throws PortalException {
 

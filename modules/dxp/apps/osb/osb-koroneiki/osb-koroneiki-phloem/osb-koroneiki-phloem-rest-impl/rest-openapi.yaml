@@ -681,7 +681,6 @@ components:
                         The product that is being purchased.
                     items:
                         $ref: "#/components/schemas/Product"
-                    readOnly: true
                     type: object
                 productKey:
                     description:
@@ -706,8 +705,6 @@ components:
                         The workflow status of the product purchase.
                     enum: ["Approved", "Cancelled"]
                     type: string
-            required:
-                - productKey
             type: object
         ProductPurchasePermission:
             properties:
