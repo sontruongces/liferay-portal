@@ -63,7 +63,7 @@ public class ElasticsearchIndexInformation implements IndexInformation {
 	}
 
 	protected IndicesAdminClient getIndicesAdminClient() {
-		Client client = elasticsearchClientResolver.getClient();
+		Client client = elasticsearchClientResolver.getClient(true);
 
 		AdminClient adminClient = client.admin();
 
