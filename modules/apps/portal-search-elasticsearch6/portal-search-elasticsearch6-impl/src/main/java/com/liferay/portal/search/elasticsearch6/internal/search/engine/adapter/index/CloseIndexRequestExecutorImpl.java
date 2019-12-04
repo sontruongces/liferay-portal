@@ -50,7 +50,7 @@ public class CloseIndexRequestExecutorImpl
 
 		CloseIndexRequestBuilder closeIndexRequestBuilder =
 			CloseIndexAction.INSTANCE.newRequestBuilder(
-				_elasticsearchClientResolver.getClient());
+				_elasticsearchClientResolver.getClient(false));
 
 		closeIndexRequestBuilder.setIndices(closeIndexRequest.getIndexNames());
 

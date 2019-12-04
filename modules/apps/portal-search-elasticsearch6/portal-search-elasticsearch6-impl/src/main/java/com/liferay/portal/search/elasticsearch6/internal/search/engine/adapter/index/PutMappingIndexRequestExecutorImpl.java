@@ -52,7 +52,7 @@ public class PutMappingIndexRequestExecutorImpl
 	protected PutMappingRequestBuilder createPutMappingRequestBuilder(
 		PutMappingIndexRequest putMappingIndexRequest) {
 
-		Client client = _elasticsearchClientResolver.getClient();
+		Client client = _elasticsearchClientResolver.getClient(false);
 
 		AdminClient adminClient = client.admin();
 

@@ -49,7 +49,7 @@ public class OpenIndexRequestExecutorImpl implements OpenIndexRequestExecutor {
 
 		OpenIndexRequestBuilder openIndexRequestBuilder =
 			OpenIndexAction.INSTANCE.newRequestBuilder(
-				_elasticsearchClientResolver.getClient());
+				_elasticsearchClientResolver.getClient(false));
 
 		openIndexRequestBuilder.setIndices(openIndexRequest.getIndexNames());
 

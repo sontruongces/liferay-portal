@@ -52,7 +52,7 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 	public DeleteRequestBuilder translate(
 		DeleteDocumentRequest deleteDocumentRequest) {
 
-		Client client = _elasticsearchClientResolver.getClient();
+		Client client = _elasticsearchClientResolver.getClient(false);
 
 		DeleteRequestBuilder deleteRequestBuilder = client.prepareDelete();
 
@@ -94,7 +94,7 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 	public IndexRequestBuilder translate(
 		IndexDocumentRequest indexDocumentRequest) {
 
-		Client client = _elasticsearchClientResolver.getClient();
+		Client client = _elasticsearchClientResolver.getClient(false);
 
 		IndexRequestBuilder indexRequestBuilder = client.prepareIndex();
 
@@ -115,7 +115,7 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 	public UpdateRequestBuilder translate(
 		UpdateDocumentRequest updateDocumentRequest) {
 
-		Client client = _elasticsearchClientResolver.getClient();
+		Client client = _elasticsearchClientResolver.getClient(false);
 
 		UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate();
 

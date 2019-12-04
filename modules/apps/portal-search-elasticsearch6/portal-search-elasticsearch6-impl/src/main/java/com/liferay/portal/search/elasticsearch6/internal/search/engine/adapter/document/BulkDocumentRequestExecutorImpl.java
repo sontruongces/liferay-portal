@@ -104,7 +104,7 @@ public class BulkDocumentRequestExecutorImpl
 
 		BulkRequestBuilder bulkRequestBuilder =
 			BulkAction.INSTANCE.newRequestBuilder(
-				_elasticsearchClientResolver.getClient());
+				_elasticsearchClientResolver.getClient(false));
 
 		if (bulkDocumentRequest.isRefresh()) {
 			bulkRequestBuilder.setRefreshPolicy(

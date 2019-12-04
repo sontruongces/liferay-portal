@@ -49,7 +49,7 @@ public class CreateIndexRequestExecutorImpl
 
 		CreateIndexRequestBuilder createIndexRequestBuilder =
 			CreateIndexAction.INSTANCE.newRequestBuilder(
-				_elasticsearchClientResolver.getClient());
+				_elasticsearchClientResolver.getClient(false));
 
 		createIndexRequestBuilder.setIndex(createIndexRequest.getIndexName());
 		createIndexRequestBuilder.setSource(

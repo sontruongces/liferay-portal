@@ -75,7 +75,7 @@ public class RefreshIndexRequestExecutorImpl
 	protected RefreshRequestBuilder createRefreshRequestBuilder(
 		RefreshIndexRequest refreshIndexRequest) {
 
-		Client client = _elasticsearchClientResolver.getClient();
+		Client client = _elasticsearchClientResolver.getClient(false);
 
 		AdminClient adminClient = client.admin();
 

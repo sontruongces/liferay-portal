@@ -49,7 +49,7 @@ public class DeleteIndexRequestExecutorImpl
 	protected DeleteIndexRequestBuilder createDeleteIndexRequestBuilder(
 		DeleteIndexRequest deleteIndexRequest) {
 
-		Client client = _elasticsearchClientResolver.getClient();
+		Client client = _elasticsearchClientResolver.getClient(false);
 
 		AdminClient adminClient = client.admin();
 

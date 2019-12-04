@@ -58,7 +58,7 @@ public class DeleteByQueryDocumentRequestExecutorImpl
 
 		DeleteByQueryRequestBuilder deleteByQueryRequestBuilder =
 			DeleteByQueryAction.INSTANCE.newRequestBuilder(
-				_elasticsearchClientResolver.getClient());
+				_elasticsearchClientResolver.getClient(false));
 
 		QueryBuilder queryBuilder = _queryTranslator.translate(
 			deleteByQueryDocumentRequest.getQuery(), null);
