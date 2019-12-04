@@ -44,7 +44,8 @@ public class SearchSearchRequestExecutorImpl
 		SearchSearchRequest searchSearchRequest) {
 
 		SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(
-			_elasticsearchClientResolver.getClient(), SearchAction.INSTANCE);
+			_elasticsearchClientResolver.getClient(true),
+			SearchAction.INSTANCE);
 
 		_searchSearchRequestAssembler.assemble(
 			searchRequestBuilder, searchSearchRequest);

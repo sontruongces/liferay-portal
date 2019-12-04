@@ -41,7 +41,8 @@ public class CountSearchRequestExecutorImpl
 	@Override
 	public CountSearchResponse execute(CountSearchRequest countSearchRequest) {
 		SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(
-			_elasticsearchClientResolver.getClient(), SearchAction.INSTANCE);
+			_elasticsearchClientResolver.getClient(true),
+			SearchAction.INSTANCE);
 
 		_commonSearchRequestBuilderAssembler.assemble(
 			searchRequestBuilder, countSearchRequest);

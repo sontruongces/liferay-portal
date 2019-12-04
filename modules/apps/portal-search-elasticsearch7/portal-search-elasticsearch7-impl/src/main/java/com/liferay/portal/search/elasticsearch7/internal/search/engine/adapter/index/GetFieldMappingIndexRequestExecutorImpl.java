@@ -77,7 +77,7 @@ public class GetFieldMappingIndexRequestExecutorImpl
 		createGetFieldMappingsRequestBuilder(
 			GetFieldMappingIndexRequest getFieldMappingIndexRequest) {
 
-		Client client = _elasticsearchClientResolver.getClient();
+		Client client = _elasticsearchClientResolver.getClient(true);
 
 		AdminClient adminClient = client.admin();
 

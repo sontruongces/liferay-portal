@@ -74,7 +74,7 @@ public class StateClusterRequestExecutorImpl
 
 		ClusterStateRequestBuilder clusterStateRequestBuilder =
 			new ClusterStateRequestBuilder(
-				_elasticsearchClientResolver.getClient(),
+				_elasticsearchClientResolver.getClient(true),
 				ClusterStateAction.INSTANCE);
 
 		clusterStateRequestBuilder.setIndices(
