@@ -76,7 +76,7 @@ public class StatsClusterRequestExecutorImpl
 		StatsClusterRequest statsClusterRequest) {
 
 		return ClusterStatsAction.INSTANCE.newRequestBuilder(
-			_elasticsearchClientResolver.getClient());
+			_elasticsearchClientResolver.getClient(true));
 	}
 
 	@Reference(unbind = "-")

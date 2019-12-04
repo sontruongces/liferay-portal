@@ -57,7 +57,7 @@ public class HealthClusterRequestExecutorImpl
 
 		ClusterHealthRequestBuilder clusterHealthRequestBuilder =
 			ClusterHealthAction.INSTANCE.newRequestBuilder(
-				_elasticsearchClientResolver.getClient());
+				_elasticsearchClientResolver.getClient(true));
 
 		clusterHealthRequestBuilder.setIndices(
 			healthClusterRequest.getIndexNames());

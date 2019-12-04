@@ -49,7 +49,7 @@ public class MultisearchSearchRequestExecutorImpl
 	public MultisearchSearchResponse execute(
 		MultisearchSearchRequest multisearchSearchRequest) {
 
-		Client client = _elasticsearchClientResolver.getClient();
+		Client client = _elasticsearchClientResolver.getClient(true);
 
 		MultiSearchRequestBuilder multiSearchRequestBuilder =
 			MultiSearchAction.INSTANCE.newRequestBuilder(client);

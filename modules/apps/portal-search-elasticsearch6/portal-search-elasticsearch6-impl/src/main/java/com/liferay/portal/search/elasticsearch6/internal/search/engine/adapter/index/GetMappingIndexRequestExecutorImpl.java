@@ -73,7 +73,7 @@ public class GetMappingIndexRequestExecutorImpl
 	protected GetMappingsRequestBuilder createGetMappingsRequestBuilder(
 		GetMappingIndexRequest getMappingIndexRequest) {
 
-		Client client = _elasticsearchClientResolver.getClient();
+		Client client = _elasticsearchClientResolver.getClient(true);
 
 		AdminClient adminClient = client.admin();
 

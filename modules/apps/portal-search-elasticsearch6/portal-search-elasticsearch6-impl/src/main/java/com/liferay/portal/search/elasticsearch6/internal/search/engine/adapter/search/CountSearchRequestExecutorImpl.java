@@ -40,7 +40,7 @@ public class CountSearchRequestExecutorImpl
 	public CountSearchResponse execute(CountSearchRequest countSearchRequest) {
 		SearchRequestBuilder searchRequestBuilder =
 			SearchAction.INSTANCE.newRequestBuilder(
-				_elasticsearchClientResolver.getClient());
+				_elasticsearchClientResolver.getClient(true));
 
 		_commonSearchRequestBuilderAssembler.assemble(
 			searchRequestBuilder, countSearchRequest);
