@@ -188,6 +188,9 @@ public interface ContactRoleLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ContactRole fetchContactRole(long contactRoleId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ContactRole fetchContactRole(String name, int type);
+
 	/**
 	 * Returns the contact role with the matching UUID and company.
 	 *

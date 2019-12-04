@@ -211,6 +211,13 @@ public class ProductEntryLocalServiceWrapper
 		return _productEntryLocalService.fetchProductEntry(productEntryId);
 	}
 
+	@Override
+	public com.liferay.osb.koroneiki.trunk.model.ProductEntry
+		fetchProductEntryByName(String name) {
+
+		return _productEntryLocalService.fetchProductEntryByName(name);
+	}
+
 	/**
 	 * Returns the product entry with the matching UUID and company.
 	 *

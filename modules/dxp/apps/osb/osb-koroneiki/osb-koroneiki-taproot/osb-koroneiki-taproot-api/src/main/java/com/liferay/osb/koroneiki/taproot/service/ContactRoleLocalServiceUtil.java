@@ -208,6 +208,12 @@ public class ContactRoleLocalServiceUtil {
 		return getService().fetchContactRole(contactRoleId);
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
+		fetchContactRole(String name, int type) {
+
+		return getService().fetchContactRole(name, type);
+	}
+
 	/**
 	 * Returns the contact role with the matching UUID and company.
 	 *

@@ -206,6 +206,12 @@ public class ProductEntryLocalServiceUtil {
 		return getService().fetchProductEntry(productEntryId);
 	}
 
+	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
+		fetchProductEntryByName(String name) {
+
+		return getService().fetchProductEntryByName(name);
+	}
+
 	/**
 	 * Returns the product entry with the matching UUID and company.
 	 *

@@ -184,6 +184,9 @@ public interface ProductEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ProductEntry fetchProductEntry(long productEntryId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ProductEntry fetchProductEntryByName(String name);
+
 	/**
 	 * Returns the product entry with the matching UUID and company.
 	 *
