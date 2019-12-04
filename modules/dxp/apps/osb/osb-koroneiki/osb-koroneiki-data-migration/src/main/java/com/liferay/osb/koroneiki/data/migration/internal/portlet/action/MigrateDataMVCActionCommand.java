@@ -64,17 +64,13 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 			ThemeDisplay themeDisplay =
 				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-			_corpEntryMigration.migrate(themeDisplay.getUserId());
-
-			_corpProjectMigration.migrate(themeDisplay.getUserId());
-
-			_productEntryMigration.migrate(themeDisplay.getUserId());
-
 			_roleMigration.migrate(themeDisplay.getUserId());
 
-			_userMigration.migrate(themeDisplay.getUserId());
-
+			_corpEntryMigration.migrate(themeDisplay.getUserId());
+			_corpProjectMigration.migrate(themeDisplay.getUserId());
 			_partnerMigration.migrate(themeDisplay.getUserId());
+			_productEntryMigration.migrate(themeDisplay.getUserId());
+			_userMigration.migrate(themeDisplay.getUserId());
 
 			if (_log.isInfoEnabled()) {
 				_log.info("Migration took " + stopWatch.getTime() + " ms");

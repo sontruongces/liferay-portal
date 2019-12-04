@@ -36,15 +36,12 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -56,6 +53,17 @@ import org.osgi.service.component.annotations.Reference;
 public class PartnerMigration {
 
 	public void migrate(long userId) throws Exception {
+		TeamRole flsTeamRole = _teamRoleLocalService.addTeamRole(
+			userId, "First Line Support", StringPool.BLANK,
+			TeamRoleType.ACCOUNT);
+
+		_flsTeamRoleId = flsTeamRole.getTeamRoleId();
+
+		TeamRole partnerTeamRole = _teamRoleLocalService.addTeamRole(
+			userId, "Partner", StringPool.BLANK, TeamRoleType.ACCOUNT);
+
+		_partnerTeamRoleId = partnerTeamRole.getTeamRoleId();
+
 		try (Connection connection = DataAccess.getConnection()) {
 			_migratePartnerEntries(connection, userId);
 
@@ -64,8 +72,7 @@ public class PartnerMigration {
 	}
 
 	private void _assignTeam(
-			Connection connection, long partnerEntryId, long teamId,
-			long[] teamRoleIds)
+			Connection connection, long partnerEntryId, long teamId)
 		throws Exception {
 
 		StringBundler sb = new StringBundler(3);
@@ -93,13 +100,13 @@ public class PartnerMigration {
 				}
 
 				_teamAccountRoleLocalService.addTeamAccountRole(
-					teamId, account.getAccountId(), teamRoleIds[1]);
+					teamId, account.getAccountId(), _partnerTeamRoleId);
 
 				boolean partnerManagedSupport = resultSet.getBoolean(2);
 
 				if (partnerManagedSupport) {
 					_teamAccountRoleLocalService.addTeamAccountRole(
-						teamId, account.getAccountId(), teamRoleIds[0]);
+						teamId, account.getAccountId(), _flsTeamRoleId);
 				}
 			}
 		}
@@ -125,12 +132,6 @@ public class PartnerMigration {
 	private void _migratePartnerEntries(Connection connection, long userId)
 		throws Exception {
 
-		TeamRole flsTeamRole = _teamRoleLocalService.addTeamRole(
-			userId, "First Line Support", StringPool.BLANK,
-			TeamRoleType.ACCOUNT);
-		TeamRole partnerTeamRole = _teamRoleLocalService.addTeamRole(
-			userId, "Partner", StringPool.BLANK, TeamRoleType.ACCOUNT);
-
 		StringBundler sb = new StringBundler(2);
 
 		sb.append("select dossieraAccountKey, code_, notes, partnerEntryId ");
@@ -153,37 +154,26 @@ public class PartnerMigration {
 					continue;
 				}
 
-				String code = resultSet.getString(2);
-
 				String notes = resultSet.getString(3);
 
 				account.setNotes(notes);
 
 				_accountLocalService.updateAccount(account);
 
+				String code = resultSet.getString(2);
+
 				Team team = _teamLocalService.addTeam(
 					userId, account.getAccountId(), code);
 
 				long partnerEntryId = resultSet.getLong(4);
 
-				_assignTeam(
-					connection, partnerEntryId, team.getTeamId(),
-					new long[] {
-						flsTeamRole.getTeamRoleId(),
-						partnerTeamRole.getTeamRoleId()
-					});
+				_assignTeam(connection, partnerEntryId, team.getTeamId());
 			}
 		}
 	}
 
 	private void _migratePartnerWorkers(Connection connection, long userId)
 		throws Exception {
-
-		Map<Integer, Long> roleMap = new HashMap<>();
-
-		roleMap.put(1, 112936638L);
-		roleMap.put(2, 112936646L);
-		roleMap.put(3, 112936656L);
 
 		StringBundler sb = new StringBundler(9);
 
@@ -214,7 +204,7 @@ public class PartnerMigration {
 					continue;
 				}
 
-				int roleId = resultSet.getInt(1);
+				int role = resultSet.getInt(1);
 				String contactUuid = resultSet.getString(3);
 				String contactFirstName = resultSet.getString(4);
 				String contactMiddleName = resultSet.getString(5);
@@ -232,18 +222,10 @@ public class PartnerMigration {
 						contactLanguageId);
 				}
 
-				if ((roleId < 1) || (roleId > 3)) {
-					_log.error(
-						"Unable to find contactRoleId with partner role = " +
-							roleId);
+				Long contactRoleId =
+					_roleMigration.getPartnerWorkerContactRoleId(role);
 
-					continue;
-				}
-
-				Long contactRoleId = _roleMigration.getPortalContactRoleId(
-					roleMap.get(roleId));
-
-				if (Validator.isNotNull(contactRoleId)) {
+				if (contactRoleId != null) {
 					_contactAccountRoleLocalService.addContactAccountRole(
 						contact.getContactId(), account.getAccountId(),
 						contactRoleId);
@@ -251,7 +233,7 @@ public class PartnerMigration {
 				else {
 					_log.error(
 						"Unable to find contactRoleId with partner role = " +
-							roleId);
+							role);
 				}
 			}
 		}
@@ -280,6 +262,9 @@ public class PartnerMigration {
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
+
+	private long _flsTeamRoleId;
+	private long _partnerTeamRoleId;
 
 	@Reference
 	private RoleMigration _roleMigration;

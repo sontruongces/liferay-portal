@@ -39,11 +39,33 @@ public class RoleMigration {
 		return _accountWorkerRoleMap.get(role);
 	}
 
+	public Long getPartnerWorkerContactRoleId(int role) {
+		return _partnerWorkerRoleMap.get(role);
+	}
+
 	public Long getPortalContactRoleId(long roleId) {
 		return _portalRoleMap.get(roleId);
 	}
 
 	public void migrate(long userId) throws Exception {
+		long partnerManagerContactRoleId = _addContactRole(
+			userId, "Partner Manager");
+
+		_portalRoleMap.put(112936638L, partnerManagerContactRoleId);
+		_partnerWorkerRoleMap.put(1, partnerManagerContactRoleId);
+
+		long partnerMemberContactRoleId = _addContactRole(
+			userId, "Partner Member");
+
+		_portalRoleMap.put(112936646L, partnerMemberContactRoleId);
+		_partnerWorkerRoleMap.put(2, partnerMemberContactRoleId);
+
+		long partnerWatcherContactRoleId = _addContactRole(
+			userId, "Partner Watcher");
+
+		_portalRoleMap.put(112936656L, partnerWatcherContactRoleId);
+		_partnerWorkerRoleMap.put(3, partnerWatcherContactRoleId);
+
 		_portalRoleMap.put(12324522L, _addContactRole(userId, "Admin"));
 		_portalRoleMap.put(33118240L, _addContactRole(userId, "Buyer"));
 		_portalRoleMap.put(33118252L, _addContactRole(userId, "Developer"));
@@ -53,12 +75,6 @@ public class RoleMigration {
 			90852751L, _addContactRole(userId, "Sales Representative"));
 		_portalRoleMap.put(
 			106868290L, _addContactRole(userId, "Analytics Cloud Owner"));
-		_portalRoleMap.put(
-			112936638L, _addContactRole(userId, "Partner Manager"));
-		_portalRoleMap.put(
-			112936646L, _addContactRole(userId, "Partner Member"));
-		_portalRoleMap.put(
-			112936656L, _addContactRole(userId, "Partner Watcher"));
 
 		long supportContactContactRoleId = _addContactRole(
 			userId, "Support Contact");
@@ -95,6 +111,7 @@ public class RoleMigration {
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
 
+	private final Map<Integer, Long> _partnerWorkerRoleMap = new HashMap<>();
 	private final Map<Long, Long> _portalRoleMap = new HashMap<>();
 
 }
