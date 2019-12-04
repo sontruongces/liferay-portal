@@ -77,7 +77,8 @@ public class FlushIndexRequestExecutorImpl
 		FlushIndexRequest flushIndexRequest) {
 
 		FlushRequestBuilder flushRequestBuilder = new FlushRequestBuilder(
-			_elasticsearchClientResolver.getClient(), FlushAction.INSTANCE);
+			_elasticsearchClientResolver.getClient(false),
+			FlushAction.INSTANCE);
 
 		flushRequestBuilder.setIndices(flushIndexRequest.getIndexNames());
 		flushRequestBuilder.setForce(flushIndexRequest.isForce());

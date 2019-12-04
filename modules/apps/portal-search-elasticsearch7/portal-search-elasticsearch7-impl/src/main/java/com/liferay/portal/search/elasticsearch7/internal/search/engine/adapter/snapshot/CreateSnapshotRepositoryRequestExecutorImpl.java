@@ -53,7 +53,7 @@ public class CreateSnapshotRepositoryRequestExecutorImpl
 
 		PutRepositoryRequestBuilder putRepositoryRequestBuilder =
 			new PutRepositoryRequestBuilder(
-				_elasticsearchClientResolver.getClient(),
+				_elasticsearchClientResolver.getClient(false),
 				PutRepositoryAction.INSTANCE);
 
 		putRepositoryRequestBuilder.setName(

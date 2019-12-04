@@ -89,7 +89,7 @@ public class GetSnapshotRepositoriesRequestExecutorImpl
 
 		GetRepositoriesRequestBuilder getRepositoriesRequestBuilder =
 			new GetRepositoriesRequestBuilder(
-				_elasticsearchClientResolver.getClient(),
+				_elasticsearchClientResolver.getClient(false),
 				GetRepositoriesAction.INSTANCE);
 
 		getRepositoriesRequestBuilder.addRepositories(

@@ -55,7 +55,7 @@ public class CreateSnapshotRequestExecutorImpl
 
 		CreateSnapshotRequestBuilder createSnapshotRequestBuilder =
 			new CreateSnapshotRequestBuilder(
-				_elasticsearchClientResolver.getClient(),
+				_elasticsearchClientResolver.getClient(false),
 				CreateSnapshotAction.INSTANCE);
 
 		if (ArrayUtil.isNotEmpty(createSnapshotRequest.getIndexNames())) {

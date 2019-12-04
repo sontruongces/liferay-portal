@@ -61,7 +61,7 @@ public class RestoreSnapshotRequestExecutorImpl
 
 		RestoreSnapshotRequestBuilder restoreSnapshotRequestBuilder =
 			new RestoreSnapshotRequestBuilder(
-				_elasticsearchClientResolver.getClient(),
+				_elasticsearchClientResolver.getClient(false),
 				RestoreSnapshotAction.INSTANCE);
 
 		restoreSnapshotRequestBuilder.setIncludeAliases(

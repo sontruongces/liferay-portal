@@ -51,7 +51,7 @@ public class DeleteSnapshotRequestExecutorImpl
 
 		DeleteSnapshotRequestBuilder deleteSnapshotRequestBuilder =
 			new DeleteSnapshotRequestBuilder(
-				_elasticsearchClientResolver.getClient(),
+				_elasticsearchClientResolver.getClient(false),
 				DeleteSnapshotAction.INSTANCE);
 
 		deleteSnapshotRequestBuilder.setRepository(

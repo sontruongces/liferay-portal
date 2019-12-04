@@ -67,7 +67,7 @@ public class GetSnapshotsRequestExecutorImpl
 
 		GetSnapshotsRequestBuilder getSnapshotsRequestBuilder =
 			new GetSnapshotsRequestBuilder(
-				_elasticsearchClientResolver.getClient(),
+				_elasticsearchClientResolver.getClient(false),
 				GetSnapshotsAction.INSTANCE);
 
 		getSnapshotsRequestBuilder.setIgnoreUnavailable(

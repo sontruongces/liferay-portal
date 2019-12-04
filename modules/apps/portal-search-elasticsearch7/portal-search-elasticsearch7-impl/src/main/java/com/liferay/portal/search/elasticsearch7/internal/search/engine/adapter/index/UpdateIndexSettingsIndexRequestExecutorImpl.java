@@ -53,7 +53,7 @@ public class UpdateIndexSettingsIndexRequestExecutorImpl
 
 		UpdateSettingsRequestBuilder updateSettingsRequestBuilder =
 			new UpdateSettingsRequestBuilder(
-				_elasticsearchClientResolver.getClient(),
+				_elasticsearchClientResolver.getClient(false),
 				UpdateSettingsAction.INSTANCE);
 
 		updateSettingsRequestBuilder.setIndices(
