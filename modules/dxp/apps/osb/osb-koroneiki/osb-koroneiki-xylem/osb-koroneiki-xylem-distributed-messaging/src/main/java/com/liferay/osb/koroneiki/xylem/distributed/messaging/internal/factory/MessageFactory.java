@@ -15,15 +15,23 @@
 package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.factory;
 
 import com.liferay.osb.distributed.messaging.Message;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.AccountUtil;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactRoleUtil;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactUtil;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductConsumptionUtil;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductUtil;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamRoleUtil;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util.AccountUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util.ContactRoleUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util.ContactUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util.ProductConsumptionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util.ProductPurchaseUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util.ProductUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util.TeamRoleUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util.TeamUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.AccountSerDes;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactRoleSerDes;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactSerDes;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductConsumptionSerDes;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductPurchaseSerDes;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductSerDes;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.TeamRoleSerDes;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.TeamSerDes;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
@@ -48,17 +56,17 @@ import org.osgi.service.component.annotations.Reference;
 public class MessageFactory {
 
 	public Message create(Account account) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account dtoAccount =
-			AccountUtil.toAccount(account);
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account
+			dtoAccount = AccountUtil.toAccount(account);
 
-		return new Message(dtoAccount.toString());
+		return new Message(AccountSerDes.toJSON(dtoAccount));
 	}
 
 	public Message create(Contact contact) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact dtoContact =
-			ContactUtil.toContact(contact);
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact
+			dtoContact = ContactUtil.toContact(contact);
 
-		return new Message(dtoContact.toString());
+		return new Message(ContactSerDes.toJSON(dtoContact));
 	}
 
 	public Message create(ContactAccountRole contactAccountRole)
@@ -76,41 +84,42 @@ public class MessageFactory {
 	}
 
 	public Message create(ContactRole contactRole) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole
 			dtoContactRole = ContactRoleUtil.toContactRole(contactRole);
 
-		return new Message(dtoContactRole.toString());
+		return new Message(ContactRoleSerDes.toJSON(dtoContactRole));
 	}
 
 	public Message create(ProductConsumption productConsumption)
 		throws Exception {
 
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductConsumption
 			dtoProductConsumption = ProductConsumptionUtil.toProductConsumption(
 				productConsumption);
 
-		return new Message(dtoProductConsumption.toString());
+		return new Message(
+			ProductConsumptionSerDes.toJSON(dtoProductConsumption));
 	}
 
 	public Message create(ProductEntry productEntry) throws Exception {
 		Product dtoProduct = ProductUtil.toProduct(productEntry);
 
-		return new Message(dtoProduct.toString());
+		return new Message(ProductSerDes.toJSON(dtoProduct));
 	}
 
 	public Message create(ProductPurchase productPurchase) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase
 			dtoProductPurchase = ProductPurchaseUtil.toProductPurchase(
 				productPurchase);
 
-		return new Message(dtoProductPurchase.toString());
+		return new Message(ProductPurchaseSerDes.toJSON(dtoProductPurchase));
 	}
 
 	public Message create(Team team) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team dtoTeam =
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team dtoTeam =
 			TeamUtil.toTeam(team);
 
-		return new Message(dtoTeam.toString());
+		return new Message(TeamSerDes.toJSON(dtoTeam));
 	}
 
 	public Message create(TeamAccountRole teamAccountRole) throws Exception {
@@ -126,47 +135,49 @@ public class MessageFactory {
 	}
 
 	public Message create(TeamRole teamRole) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole dtoTeamRole =
-			TeamRoleUtil.toTeamRole(teamRole);
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole
+			dtoTeamRole = TeamRoleUtil.toTeamRole(teamRole);
 
-		return new Message(dtoTeamRole.toString());
+		return new Message(TeamRoleSerDes.toJSON(dtoTeamRole));
 	}
 
 	protected JSONObject toJSONObject(Account account) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account dtoAccount =
-			AccountUtil.toAccount(account);
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account
+			dtoAccount = AccountUtil.toAccount(account);
 
-		return _jsonFactory.createJSONObject(dtoAccount.toString());
+		return _jsonFactory.createJSONObject(AccountSerDes.toJSON(dtoAccount));
 	}
 
 	protected JSONObject toJSONObject(Contact contact) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact dtoContact =
-			ContactUtil.toContact(contact);
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact
+			dtoContact = ContactUtil.toContact(contact);
 
-		return _jsonFactory.createJSONObject(dtoContact.toString());
+		return _jsonFactory.createJSONObject(ContactSerDes.toJSON(dtoContact));
 	}
 
 	protected JSONObject toJSONObject(ContactRole contactRole)
 		throws Exception {
 
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole
 			dtoContactRole = ContactRoleUtil.toContactRole(contactRole);
 
-		return _jsonFactory.createJSONObject(dtoContactRole.toString());
+		return _jsonFactory.createJSONObject(
+			ContactRoleSerDes.toJSON(dtoContactRole));
 	}
 
 	protected JSONObject toJSONObject(Team team) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team dtoTeam =
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team dtoTeam =
 			TeamUtil.toTeam(team);
 
-		return _jsonFactory.createJSONObject(dtoTeam.toString());
+		return _jsonFactory.createJSONObject(TeamSerDes.toJSON(dtoTeam));
 	}
 
 	protected JSONObject toJSONObject(TeamRole teamRole) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole dtoTeamRole =
-			TeamRoleUtil.toTeamRole(teamRole);
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole
+			dtoTeamRole = TeamRoleUtil.toTeamRole(teamRole);
 
-		return _jsonFactory.createJSONObject(dtoTeamRole.toString());
+		return _jsonFactory.createJSONObject(
+			TeamRoleSerDes.toJSON(dtoTeamRole));
 	}
 
 	@Reference

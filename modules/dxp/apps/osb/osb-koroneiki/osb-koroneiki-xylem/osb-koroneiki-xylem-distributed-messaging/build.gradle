@@ -8,6 +8,7 @@ dependencies {
 	compileOnly project(":private:apps:osb-distributed-messaging:osb-distributed-messaging-rabbitmq-connector")
 	compileOnly project(":private:apps:osb-distributed-messaging:osb-distributed-messaging-subscribing-api")
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-api")
+	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-client")
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-phytohormone:osb-koroneiki-phytohormone-api")
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-root:osb-koroneiki-root-api")
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-taproot:osb-koroneiki-taproot-api")
