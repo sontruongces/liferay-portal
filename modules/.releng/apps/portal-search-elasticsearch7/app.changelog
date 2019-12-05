@@ -1,0 +1,14 @@
+#
+# Liferay App Version 3.0.0
+#
+
+app.artifacts-3.0.0=\
+	com.ctc.wstx-4.4.1.jar,\
+	com.liferay.portal.search.elasticsearch7.api-1.0.4.jar,\
+	com.liferay.portal.search.elasticsearch7.impl-1.0.7.jar,\
+	com.liferay.portal.search.elasticsearch7.spi-1.0.3.jar,\
+	org.codehaus.stax2-3.1.4.jar
+
+app.change.log-3.0.0=LPS-102048 LPS-102853 LPS-102883 LPS-103252 LPS-104435 LPS-77699 LPS-97585 LPS-99723 LPS-99728
+
+app.git.id-3.0.0=baa73f540e41b91c54dddf31b7a1c0a20cb2e9c7
