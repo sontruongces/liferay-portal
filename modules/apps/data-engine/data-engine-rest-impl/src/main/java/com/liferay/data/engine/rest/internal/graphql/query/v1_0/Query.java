@@ -685,6 +685,7 @@ public class Query {
 
 		public DataDefinitionPage(Page dataDefinitionPage) {
 			items = dataDefinitionPage.getItems();
+			lastPage = dataDefinitionPage.getLastPage();
 			page = dataDefinitionPage.getPage();
 			pageSize = dataDefinitionPage.getPageSize();
 			totalCount = dataDefinitionPage.getTotalCount();
@@ -692,6 +693,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<DataDefinition> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -709,6 +713,7 @@ public class Query {
 
 		public DataLayoutPage(Page dataLayoutPage) {
 			items = dataLayoutPage.getItems();
+			lastPage = dataLayoutPage.getLastPage();
 			page = dataLayoutPage.getPage();
 			pageSize = dataLayoutPage.getPageSize();
 			totalCount = dataLayoutPage.getTotalCount();
@@ -716,6 +721,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<DataLayout> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -733,6 +741,7 @@ public class Query {
 
 		public DataListViewPage(Page dataListViewPage) {
 			items = dataListViewPage.getItems();
+			lastPage = dataListViewPage.getLastPage();
 			page = dataListViewPage.getPage();
 			pageSize = dataListViewPage.getPageSize();
 			totalCount = dataListViewPage.getTotalCount();
@@ -740,6 +749,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<DataListView> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -757,6 +769,7 @@ public class Query {
 
 		public DataRecordPage(Page dataRecordPage) {
 			items = dataRecordPage.getItems();
+			lastPage = dataRecordPage.getLastPage();
 			page = dataRecordPage.getPage();
 			pageSize = dataRecordPage.getPageSize();
 			totalCount = dataRecordPage.getTotalCount();
@@ -764,6 +777,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<DataRecord> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -781,6 +797,7 @@ public class Query {
 
 		public DataRecordCollectionPage(Page dataRecordCollectionPage) {
 			items = dataRecordCollectionPage.getItems();
+			lastPage = dataRecordCollectionPage.getLastPage();
 			page = dataRecordCollectionPage.getPage();
 			pageSize = dataRecordCollectionPage.getPageSize();
 			totalCount = dataRecordCollectionPage.getTotalCount();
@@ -788,6 +805,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<DataRecordCollection> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
