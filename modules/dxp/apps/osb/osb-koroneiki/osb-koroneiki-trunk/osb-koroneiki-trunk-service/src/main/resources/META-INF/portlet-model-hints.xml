@@ -32,7 +32,9 @@
 		<field name="classNameId" type="long" />
 		<field name="classPK" type="long" />
 		<field name="name" type="String" />
-		<field name="value" type="String" />
+		<field name="value" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 	</model>
 	<model name="com.liferay.osb.koroneiki.trunk.model.ProductPurchase">
 		<field name="mvccVersion" type="long" />
