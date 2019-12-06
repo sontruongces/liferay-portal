@@ -3,6 +3,5 @@ Bundle-SymbolicName: com.liferay.osb.koroneiki.phloem.rest.client
 Bundle-Version: 1.0.0
 Export-Package:\
 	com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0,\
-	com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util,\
-	com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0,\
-	com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0
+	com.liferay.osb.koroneiki.phloem.rest.client.function,\
+	com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0

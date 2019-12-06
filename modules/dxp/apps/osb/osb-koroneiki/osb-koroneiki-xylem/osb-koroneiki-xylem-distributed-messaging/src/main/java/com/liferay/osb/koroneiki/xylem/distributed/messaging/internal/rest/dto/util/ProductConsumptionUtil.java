@@ -12,30 +12,32 @@
  *
  */
 
-package com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util;
+package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
-import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductConsumption;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 /**
  * @author Kyle Bischof
  */
-public class ProductUtil {
+public class ProductConsumptionUtil {
 
-	public static Product toProduct(ProductEntry productEntry)
+	public static ProductConsumption toProductConsumption(
+			com.liferay.osb.koroneiki.trunk.model.ProductConsumption
+				productConsumption)
 		throws Exception {
 
-		return new Product() {
+		return new ProductConsumption() {
 			{
-				dateCreated = productEntry.getCreateDate();
-				dateModified = productEntry.getModifiedDate();
+				accountKey = productConsumption.getAccountKey();
+				dateCreated = productConsumption.getCreateDate();
 				externalLinks = TransformUtil.transformToArray(
-					productEntry.getExternalLinks(),
+					productConsumption.getExternalLinks(),
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);
-				key = productEntry.getProductEntryKey();
-				name = productEntry.getName();
+				key = productConsumption.getProductConsumptionKey();
+				productKey = productConsumption.getProductEntryKey();
+				properties = productConsumption.getProductFieldsMap();
 			}
 		};
 	}

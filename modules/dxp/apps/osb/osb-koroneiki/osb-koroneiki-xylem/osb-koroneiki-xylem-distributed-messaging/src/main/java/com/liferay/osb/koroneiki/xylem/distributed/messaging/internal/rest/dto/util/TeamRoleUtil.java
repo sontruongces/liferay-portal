@@ -12,25 +12,27 @@
  *
  */
 
-package com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util;
+package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util;
 
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole;
 
 /**
  * @author Kyle Bischof
  */
-public class EntitlementUtil {
+public class TeamRoleUtil {
 
-	public static Entitlement toEntitlement(
-			com.liferay.osb.koroneiki.phytohormone.model.Entitlement
-				entitlement)
+	public static TeamRole toTeamRole(
+			com.liferay.osb.koroneiki.taproot.model.TeamRole teamRole)
 		throws Exception {
 
-		return new Entitlement() {
+		return new TeamRole() {
 			{
-				entitlementDefinitionKey =
-					entitlement.getEntitlementDefinitionKey();
-				name = entitlement.getName();
+				dateCreated = teamRole.getCreateDate();
+				dateModified = teamRole.getModifiedDate();
+				description = teamRole.getDescription();
+				key = teamRole.getTeamRoleKey();
+				name = teamRole.getName();
+				type = Type.create(teamRole.getTypeLabel());
 			}
 		};
 	}

@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.util;
+package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
