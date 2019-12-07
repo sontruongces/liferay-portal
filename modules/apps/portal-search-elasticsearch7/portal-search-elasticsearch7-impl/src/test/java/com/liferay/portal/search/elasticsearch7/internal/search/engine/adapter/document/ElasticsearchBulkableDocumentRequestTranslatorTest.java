@@ -40,8 +40,10 @@ import org.elasticsearch.common.xcontent.XContentHelper;
 import org.elasticsearch.common.xcontent.XContentType;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -49,35 +51,40 @@ import org.junit.Test;
  */
 public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 
+	@BeforeClass
+	public static void setUpClass() throws Exception {
+		_elasticsearchFixture = new ElasticsearchFixture(
+			ElasticsearchBulkableDocumentRequestTranslatorTest.class);
+
+		_elasticsearchFixture.setUp();
+	}
+
+	@AfterClass
+	public static void tearDownClass() throws Exception {
+		_elasticsearchFixture.tearDown();
+	}
+
 	@Before
 	public void setUp() throws Exception {
-		ElasticsearchFixture elasticsearchFixture = new ElasticsearchFixture(
-			getClass());
-
 		ElasticsearchDocumentFactory elasticsearchDocumentFactory =
 			createElasticsearchDocumentFactory();
 
 		ElasticsearchBulkableDocumentRequestTranslator
 			elasticsearchBulkableDocumentRequestTranslator =
 				createElasticsearchBulkableDocumentRequestTranslator(
-					elasticsearchFixture, elasticsearchDocumentFactory);
+					_elasticsearchFixture, elasticsearchDocumentFactory);
 
 		_elasticsearchBulkableDocumentRequestTranslator =
 			elasticsearchBulkableDocumentRequestTranslator;
 
 		_elasticsearchDocumentFactory = elasticsearchDocumentFactory;
 
-		_elasticsearchFixture = elasticsearchFixture;
-
 		_documentFixture.setUp();
-		_elasticsearchFixture.setUp();
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		_documentFixture.tearDown();
-
-		_elasticsearchFixture.tearDown();
 	}
 
 	@Test
@@ -308,10 +315,11 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 
 	private static final String _MAPPING_NAME = "testMapping";
 
+	private static ElasticsearchFixture _elasticsearchFixture;
+
 	private final DocumentFixture _documentFixture = new DocumentFixture();
 	private ElasticsearchBulkableDocumentRequestTranslator
 		_elasticsearchBulkableDocumentRequestTranslator;
 	private ElasticsearchDocumentFactory _elasticsearchDocumentFactory;
-	private ElasticsearchFixture _elasticsearchFixture;
 
 }

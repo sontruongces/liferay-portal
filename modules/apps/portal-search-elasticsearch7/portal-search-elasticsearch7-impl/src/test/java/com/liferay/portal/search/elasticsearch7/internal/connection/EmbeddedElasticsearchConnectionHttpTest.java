@@ -36,9 +36,10 @@ import org.elasticsearch.http.HttpInfo;
 
 import org.hamcrest.CoreMatchers;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.mockito.MockitoAnnotations;
@@ -48,10 +49,8 @@ import org.mockito.MockitoAnnotations;
  */
 public class EmbeddedElasticsearchConnectionHttpTest {
 
-	@Before
-	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-
+	@BeforeClass
+	public static void setUpClass() throws Exception {
 		_clusterName = RandomTestUtil.randomString();
 
 		Map<String, Object> properties = new HashMap<String, Object>() {
@@ -68,9 +67,14 @@ public class EmbeddedElasticsearchConnectionHttpTest {
 		_elasticsearchFixture.setUp();
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@AfterClass
+	public static void tearDownClass() throws Exception {
 		_elasticsearchFixture.tearDown();
+	}
+
+	@Before
+	public void setUp() throws Exception {
+		MockitoAnnotations.initMocks(this);
 	}
 
 	@Test
@@ -115,7 +119,7 @@ public class EmbeddedElasticsearchConnectionHttpTest {
 		}
 	}
 
-	private String _clusterName;
-	private ElasticsearchFixture _elasticsearchFixture;
+	private static String _clusterName;
+	private static ElasticsearchFixture _elasticsearchFixture;
 
 }

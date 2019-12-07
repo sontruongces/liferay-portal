@@ -38,8 +38,10 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.client.IndicesAdminClient;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -47,12 +49,22 @@ import org.junit.Test;
  */
 public class ElasticsearchSearchEngineAdapterClusterRequestTest {
 
-	@Before
-	public void setUp() throws Exception {
-		_elasticsearchFixture = new ElasticsearchFixture(getClass());
+	@BeforeClass
+	public static void setUpClass() throws Exception {
+		_elasticsearchFixture = new ElasticsearchFixture(
+			ElasticsearchSearchEngineAdapterClusterRequestTest.class.
+				getSimpleName());
 
 		_elasticsearchFixture.setUp();
+	}
 
+	@AfterClass
+	public static void tearDownClass() throws Exception {
+		_elasticsearchFixture.tearDown();
+	}
+
+	@Before
+	public void setUp() throws Exception {
 		_searchEngineAdapter = createSearchEngineAdapter(_elasticsearchFixture);
 
 		createIndex();
@@ -61,8 +73,6 @@ public class ElasticsearchSearchEngineAdapterClusterRequestTest {
 	@After
 	public void tearDown() throws Exception {
 		deleteIndex();
-
-		_elasticsearchFixture.tearDown();
 	}
 
 	@Test
@@ -197,7 +207,8 @@ public class ElasticsearchSearchEngineAdapterClusterRequestTest {
 
 	private static final String _INDEX_NAME = "test_request_index";
 
-	private ElasticsearchFixture _elasticsearchFixture;
+	private static ElasticsearchFixture _elasticsearchFixture;
+
 	private SearchEngineAdapter _searchEngineAdapter;
 
 }
