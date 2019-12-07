@@ -93,7 +93,7 @@ public class ProductFieldModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ProductField (mvccVersion LONG default 0 not null,productFieldId LONG not null primary key,companyId LONG,userId LONG,classNameId LONG,classPK LONG,name VARCHAR(75) null,value VARCHAR(75) null)";
+		"create table Koroneiki_ProductField (mvccVersion LONG default 0 not null,productFieldId LONG not null primary key,companyId LONG,userId LONG,classNameId LONG,classPK LONG,name VARCHAR(75) null,value STRING null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ProductField";

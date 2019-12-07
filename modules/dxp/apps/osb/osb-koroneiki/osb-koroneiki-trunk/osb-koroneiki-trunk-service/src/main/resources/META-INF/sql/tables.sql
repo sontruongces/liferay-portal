@@ -31,7 +31,7 @@ create table Koroneiki_ProductField (
 	classNameId LONG,
 	classPK LONG,
 	name VARCHAR(75) null,
-	value VARCHAR(75) null
+	value STRING null
 );
 
 create table Koroneiki_ProductPurchase (
