@@ -40,16 +40,23 @@
 		<div id="<portlet:namespace />ConditionForm"></div>
 
 		<%
-		Map<String, Object> context = new HashMap<>();
-
-		context.put("categorySelectorURL", editAssetListDisplayContext.getCategorySelectorURL());
-		context.put("groupIds", ListUtil.toList(editAssetListDisplayContext.getReferencedModelsGroupIds()));
-		context.put("id", "autofield");
-		context.put("namespace", liferayPortletResponse.getNamespace());
-		context.put("pathThemeImages", themeDisplay.getPathThemeImages());
-		context.put("rules", editAssetListDisplayContext.getAutoFieldRulesJSONArray());
-		context.put("tagSelectorURL", editAssetListDisplayContext.getTagSelectorURL());
-		context.put("vocabularyIds", editAssetListDisplayContext.getVocabularyIds());
+		Map<String, Object> context = HashMapBuilder.<String, Object>put(
+			"categorySelectorURL", editAssetListDisplayContext.getCategorySelectorURL()
+		).put(
+			"groupIds", ListUtil.toList(editAssetListDisplayContext.getReferencedModelsGroupIds())
+		).put(
+			"id", "autofield"
+		).put(
+			"namespace", liferayPortletResponse.getNamespace()
+		).put(
+			"pathThemeImages", themeDisplay.getPathThemeImages()
+		).put(
+			"rules", editAssetListDisplayContext.getAutoFieldRulesJSONArray()
+		).put(
+			"tagSelectorURL", editAssetListDisplayContext.getTagSelectorURL()
+		).put(
+			"vocabularyIds", editAssetListDisplayContext.getVocabularyIds()
+		).build();
 		%>
 
 		<soy:component-renderer
