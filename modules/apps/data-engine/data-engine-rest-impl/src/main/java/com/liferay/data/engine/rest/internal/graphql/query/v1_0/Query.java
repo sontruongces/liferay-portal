@@ -45,6 +45,8 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.validation.constraints.NotEmpty;
+
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
@@ -137,8 +139,7 @@ public class Query {
 	 */
 	@GraphQLField
 	public DataDefinitionPage dataDefinitions(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("keywords") String keywords,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page,
@@ -162,8 +163,7 @@ public class Query {
 	 */
 	@GraphQLField
 	public DataDefinition siteDataDefinition(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("dataDefinitionKey") String dataDefinitionKey)
 		throws Exception {
 
@@ -221,8 +221,7 @@ public class Query {
 	 */
 	@GraphQLField
 	public DataLayoutPage dataLayouts(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("keywords") String keywords,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page,
@@ -245,8 +244,7 @@ public class Query {
 	 */
 	@GraphQLField
 	public DataLayout siteDataLayout(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("dataLayoutKey") String dataLayoutKey)
 		throws Exception {
 
@@ -422,8 +420,7 @@ public class Query {
 	 */
 	@GraphQLField
 	public DataRecordCollectionPage dataRecordCollections(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("keywords") String keywords,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -444,8 +441,7 @@ public class Query {
 	 */
 	@GraphQLField
 	public DataRecordCollection siteDataRecordCollection(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("dataRecordCollectionKey") String
 				dataRecordCollectionKey)
 		throws Exception {

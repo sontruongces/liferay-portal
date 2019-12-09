@@ -40,6 +40,8 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.validation.constraints.NotEmpty;
+
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
@@ -139,8 +141,7 @@ public class Mutation {
 
 	@GraphQLField
 	public boolean createSiteDataDefinitionPermission(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("operation") String operation,
 			@GraphQLName("dataDefinitionPermission") DataDefinitionPermission
 				dataDefinitionPermission)
@@ -158,8 +159,7 @@ public class Mutation {
 
 	@GraphQLField
 	public DataDefinition createSiteDataDefinition(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("dataDefinition") DataDefinition dataDefinition)
 		throws Exception {
 
@@ -232,8 +232,7 @@ public class Mutation {
 
 	@GraphQLField
 	public boolean createSiteDataLayoutPermission(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("operation") String operation,
 			@GraphQLName("dataLayoutPermission") DataLayoutPermission
 				dataLayoutPermission)
@@ -413,8 +412,7 @@ public class Mutation {
 
 	@GraphQLField
 	public boolean createSiteDataRecordCollectionPermission(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("operation") String operation,
 			@GraphQLName("dataRecordCollectionPermission")
 				DataRecordCollectionPermission dataRecordCollectionPermission)
