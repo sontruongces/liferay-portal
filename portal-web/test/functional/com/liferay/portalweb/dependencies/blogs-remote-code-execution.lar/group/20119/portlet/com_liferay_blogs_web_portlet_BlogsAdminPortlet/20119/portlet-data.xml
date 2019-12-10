@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<BlogsAdminPortletDataHandler self-path="/group/20119/portlet/com_liferay_blogs_web_portlet_BlogsAdminPortlet/20119/portlet-data.xml" group-id="20119">
+	<BlogsEntry>
+		<staged-model group-id="20119" uuid="89625e52-499f-cdcb-c368-f017c5510795" path="/group/20119/com.liferay.blogs.model.BlogsEntry/37625.xml" user-uuid="88303ade-cb3a-bcb6-8dc0-9f9d6ded011e" asset-entry-priority="0.0">
+			<references>
+				<reference class-name="com.liferay.asset.display.page.model.AssetDisplayPageEntry" class-pk="37631" attached-class-name="com.liferay.blogs.model.BlogsEntry" group-id="20119" group-key="Guest" live-group-id="20119" type="dependency" uuid="ad49d11e-c642-369d-b39a-8ce065f9d474" company-id="20096" missing="false"/>
+			</references>
+		</staged-model>
+	</BlogsEntry>
+	<FriendlyURLEntry>
+		<staged-model uuid="d9779de0-a22b-6f7d-f799-95eb52b5c1f2" group-id="20119" resource-class-name="com.liferay.blogs.model.BlogsEntry" mainEntry="true" path="/company/20096/com.liferay.friendly.url.model.FriendlyURLEntry/37627.xml" attached-class-name="com.liferay.blogs.model.BlogsEntry" asset-entry-priority="0.0">
+			<references>
+				<reference class-name="com.liferay.blogs.model.BlogsEntry" class-pk="37625" group-id="20119" group-key="Guest" live-group-id="20119" type="dependency" uuid="89625e52-499f-cdcb-c368-f017c5510795" company-id="20096" missing="false"/>
+			</references>
+		</staged-model>
+	</FriendlyURLEntry>
+	<AssetDisplayPageEntry>
+		<staged-model uuid="ad49d11e-c642-369d-b39a-8ce065f9d474" group-id="20119" path="/company/20096/com.liferay.asset.display.page.model.AssetDisplayPageEntry/37631.xml" attached-class-name="com.liferay.blogs.model.BlogsEntry" user-uuid="88303ade-cb3a-bcb6-8dc0-9f9d6ded011e" asset-entry-priority="0.0"/>
+	</AssetDisplayPageEntry>
+</BlogsAdminPortletDataHandler>
