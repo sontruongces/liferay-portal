@@ -419,32 +419,45 @@ public class LayoutLocalServiceStagingAdvice implements BeanFactoryAware {
 			boolean updateLayoutSet, ServiceContext serviceContext)
 		throws PortalException {
 
-		SystemEventHierarchyEntry systemEventHierarchyEntry =
-			SystemEventHierarchyEntryThreadLocal.push(
-				Layout.class, layout.getPlid());
+		boolean mergeLayoutPrototypesIsInProgress = false;
 
-		if (systemEventHierarchyEntry == null) {
-			layoutLocalService.deleteLayout(
-				layout, updateLayoutSet, serviceContext);
-		}
-		else {
-			try {
+		try {
+			mergeLayoutPrototypesIsInProgress =
+				MergeLayoutPrototypesThreadLocal.isInProgress();
+
+			MergeLayoutPrototypesThreadLocal.setInProgress(true);
+
+			SystemEventHierarchyEntry systemEventHierarchyEntry =
+				SystemEventHierarchyEntryThreadLocal.push(
+					Layout.class, layout.getPlid());
+
+			if (systemEventHierarchyEntry == null) {
 				layoutLocalService.deleteLayout(
 					layout, updateLayoutSet, serviceContext);
-
-				systemEventHierarchyEntry =
-					SystemEventHierarchyEntryThreadLocal.peek();
-
-				SystemEventLocalServiceUtil.addSystemEvent(
-					0, layout.getGroupId(), Layout.class.getName(),
-					layout.getPlid(), layout.getUuid(), null,
-					SystemEventConstants.TYPE_DELETE,
-					systemEventHierarchyEntry.getExtraData());
 			}
-			finally {
-				SystemEventHierarchyEntryThreadLocal.pop(
-					Layout.class, layout.getPlid());
+			else {
+				try {
+					layoutLocalService.deleteLayout(
+						layout, updateLayoutSet, serviceContext);
+
+					systemEventHierarchyEntry =
+						SystemEventHierarchyEntryThreadLocal.peek();
+
+					SystemEventLocalServiceUtil.addSystemEvent(
+						0, layout.getGroupId(), Layout.class.getName(),
+						layout.getPlid(), layout.getUuid(), null,
+						SystemEventConstants.TYPE_DELETE,
+						systemEventHierarchyEntry.getExtraData());
+				}
+				finally {
+					SystemEventHierarchyEntryThreadLocal.pop(
+						Layout.class, layout.getPlid());
+				}
 			}
+		}
+		finally {
+			MergeLayoutPrototypesThreadLocal.setInProgress(
+				mergeLayoutPrototypesIsInProgress);
 		}
 	}
 
