@@ -21,6 +21,8 @@ String randomNamespace = PortalUtil.generateRandomKey(request, "portlet_document
 
 FileVersion fileVersion = (FileVersion)request.getAttribute(WebKeys.DOCUMENT_LIBRARY_FILE_VERSION);
 
+String mimeType = fileVersion.getMimeType();
+
 String previewQueryString = "&imagePreview=1";
 
 int status = ParamUtil.getInteger(request, "status", WorkflowConstants.STATUS_ANY);
@@ -29,10 +31,7 @@ if (status != WorkflowConstants.STATUS_ANY) {
 	previewQueryString += "&status=" + status;
 }
 
-Map<String, Object> context = new HashMap<>();
-
-context.put("imageURL", DLURLHelperUtil.getPreviewURL(fileVersion.getFileEntry(), fileVersion, themeDisplay, previewQueryString));
-context.put("spritemap", themeDisplay.getPathThemeImages() + "/lexicon/icons.svg");
+String previewURL = DLURLHelperUtil.getPreviewURL(fileVersion.getFileEntry(), fileVersion, themeDisplay, previewQueryString);
 %>
 
 <liferay-util:html-top
@@ -41,9 +40,29 @@ context.put("spritemap", themeDisplay.getPathThemeImages() + "/lexicon/icons.svg
 	<link href="<%= PortalUtil.getStaticResourceURL(request, application.getContextPath() + "/preview/css/main.css") %>" rel="stylesheet" type="text/css" />
 </liferay-util:html-top>
 
-<soy:component-renderer
-	componentId='<%= renderResponse.getNamespace() + randomNamespace + "previewImage" %>'
-	context="<%= context %>"
-	module="preview/js/ImagePreviewer.es"
-	templateNamespace="com.liferay.document.library.preview.ImagePreviewer.render"
-/>
+<c:choose>
+	<c:when test="<%= mimeType.equals(ContentTypes.IMAGE_SVG_XML) %>">
+		<div class="preview-file">
+			<div class="preview-file-container preview-file-max-height">
+				<img class="preview-file-image-vectorial" src="<%= previewURL %>" />
+			</div>
+		</div>
+	</c:when>
+	<c:otherwise>
+
+		<%
+		Map<String, Object> context = HashMapBuilder.<String, Object>put(
+			"imageURL", previewURL
+		).build();
+
+		context.put("spritemap", themeDisplay.getPathThemeImages() + "/lexicon/icons.svg");
+		%>
+
+		<soy:component-renderer
+			componentId='<%= renderResponse.getNamespace() + randomNamespace + "previewImage" %>'
+			context="<%= context %>"
+			module="preview/js/ImagePreviewer.es"
+			templateNamespace="com.liferay.document.library.preview.ImagePreviewer.render"
+		/>
+	</c:otherwise>
+</c:choose>
