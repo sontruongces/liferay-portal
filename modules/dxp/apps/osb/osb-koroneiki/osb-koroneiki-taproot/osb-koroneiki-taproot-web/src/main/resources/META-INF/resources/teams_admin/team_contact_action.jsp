@@ -50,7 +50,7 @@ Contact koroneikiContact = (Contact)row.getObject();
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete
-		confirmation="are-you-sure-you-want-to-remove-this-contact"
+		confirmation="are-you-sure-you-want-to-unassign-this-contact"
 		message="remove-membership"
 		url="<%= deleteURL %>"
 	/>

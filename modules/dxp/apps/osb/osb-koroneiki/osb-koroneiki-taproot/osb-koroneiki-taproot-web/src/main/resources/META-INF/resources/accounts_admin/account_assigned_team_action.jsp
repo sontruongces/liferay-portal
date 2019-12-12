@@ -50,7 +50,7 @@ Team team = (Team)row.getObject();
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete
-		confirmation="are-you-sure-you-want-to-remove-this-team"
+		confirmation="are-you-sure-you-want-to-unassign-this-team"
 		message="remove-assignment"
 		url="<%= deleteURL %>"
 	/>

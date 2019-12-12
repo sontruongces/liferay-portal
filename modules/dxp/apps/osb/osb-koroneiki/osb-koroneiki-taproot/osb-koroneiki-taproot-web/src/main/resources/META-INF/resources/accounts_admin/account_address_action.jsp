@@ -48,7 +48,7 @@ long addressId = ParamUtil.getLong(request, "addressId");
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete
-		confirmation="are-you-sure-you-want-to-remove-this-address"
+		confirmation="are-you-sure-you-want-to-delete-this-address"
 		url="<%= deleteURL %>"
 	/>
 </liferay-ui:icon-menu>
