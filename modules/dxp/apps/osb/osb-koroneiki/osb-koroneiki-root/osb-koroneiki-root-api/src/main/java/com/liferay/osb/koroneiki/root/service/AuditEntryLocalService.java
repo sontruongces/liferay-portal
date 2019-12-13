@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -74,7 +75,7 @@ public interface AuditEntryLocalService
 			long userId, long classNameId, long classPK, long auditSetId,
 			long fieldClassNameId, long fieldClassPK, String action,
 			String field, String oldLabel, String oldValue, String newLabel,
-			String newValue, String description)
+			String newValue, String description, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
