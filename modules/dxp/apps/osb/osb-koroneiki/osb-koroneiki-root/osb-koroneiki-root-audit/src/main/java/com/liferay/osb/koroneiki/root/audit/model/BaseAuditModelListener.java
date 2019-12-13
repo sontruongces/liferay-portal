@@ -55,7 +55,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 					_auditSetId.get(), getFieldClassNameId(model),
 					getFieldClassPK(model), AuditEntry.Action.ADD.toString(),
 					field, StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
-					String.valueOf(entry.getValue()), StringPool.BLANK);
+					String.valueOf(entry.getValue()), StringPool.BLANK, null);
 			}
 		}
 		catch (PortalException pe) {
@@ -80,7 +80,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 					_auditSetId.get(), getFieldClassNameId(model),
 					getFieldClassPK(model), AuditEntry.Action.DELETE.toString(),
 					field, StringPool.BLANK, String.valueOf(entry.getValue()),
-					StringPool.BLANK, StringPool.BLANK, StringPool.BLANK);
+					StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, null);
 			}
 		}
 		catch (PortalException pe) {
@@ -118,7 +118,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 						AuditEntry.Action.UPDATE.toString(), field,
 						StringPool.BLANK, String.valueOf(oldValue),
 						StringPool.BLANK, String.valueOf(value),
-						StringPool.BLANK);
+						StringPool.BLANK, null);
 				}
 			}
 		}

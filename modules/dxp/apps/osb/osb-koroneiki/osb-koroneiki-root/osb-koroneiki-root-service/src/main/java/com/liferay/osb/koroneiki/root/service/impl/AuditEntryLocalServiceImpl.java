@@ -22,6 +22,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 			long userId, long classNameId, long classPK, long auditSetId,
 			long fieldClassNameId, long fieldClassPK, String action,
 			String field, String oldLabel, String oldValue, String newLabel,
-			String newValue, String description)
+			String newValue, String description, ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -70,7 +71,7 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 		auditEntry.setNewValue(newValue);
 		auditEntry.setDescription(description);
 
-		return auditEntryPersistence.update(auditEntry);
+		return auditEntryPersistence.update(auditEntry, serviceContext);
 	}
 
 	public List<AuditEntry> getAuditEntries(

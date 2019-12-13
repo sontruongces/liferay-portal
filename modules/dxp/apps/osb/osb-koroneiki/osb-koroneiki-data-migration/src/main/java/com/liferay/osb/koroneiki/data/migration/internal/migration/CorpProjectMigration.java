@@ -17,14 +17,17 @@ package com.liferay.osb.koroneiki.data.migration.internal.migration;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Industry;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Tier;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.AuditEntryLocalService;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -100,6 +103,9 @@ public class CorpProjectMigration {
 
 				_accountLocalService.addAccount(account);
 
+				_migrateAuditEntries(
+					connection, userId, account.getAccountId());
+
 				if (Validator.isNotNull(
 						resultSet.getString("dossieraProjectKey"))) {
 
@@ -123,6 +129,114 @@ public class CorpProjectMigration {
 				}
 			}
 		}
+	}
+
+	private String _getAction(int action) {
+		if (action == 1) {
+			return "Add";
+		}
+		else if (action == 2) {
+			return "Assign";
+		}
+		else if (action == 3) {
+			return "Delete";
+		}
+		else if (action == 5) {
+			return "Unassign";
+		}
+		else if (action == 6) {
+			return "Update";
+		}
+		else if (action == 7) {
+			return "Renew";
+		}
+		else if (action == 11) {
+			return "Audit";
+		}
+
+		return StringPool.BLANK;
+	}
+
+	private String _getField(int field) {
+		if (field == 34015) {
+			return "Role";
+		}
+		else if (field == 34017) {
+			return "Status";
+		}
+		else if (field == 34021) {
+			return "User";
+		}
+		else if (field == 34025) {
+			return "Renew Count";
+		}
+		else if (field == 34054) {
+			return "Tier";
+		}
+		else if (field == 34055) {
+			return "Partner";
+		}
+		else if (field == 34058) {
+			return "Corp Project";
+		}
+		else if (field == 34059) {
+			return "Corp Entry Name";
+		}
+		else if (field == 34060) {
+			return "Name";
+		}
+		else if (field == 34061) {
+			return "Code";
+		}
+		else if (field == 34062) {
+			return "Type";
+		}
+		else if (field == 34063) {
+			return "Industry";
+		}
+		else if (field == 34064) {
+			return "Partner Managed Support";
+		}
+		else if (field == 34065) {
+			return "Instructions";
+		}
+		else if (field == 34066) {
+			return "Notes";
+		}
+		else if (field == 34067) {
+			return "Renewal Contact User";
+		}
+		else if (field == 34069) {
+			return "Address";
+		}
+		else if (field == 34070) {
+			return "Languages";
+		}
+		else if (field == 34071) {
+			return "Support Regions";
+		}
+		else if (field == 34072) {
+			return "N/A";
+		}
+		else if (field == 34078) {
+			return "Dossiera Account Key";
+		}
+
+		return StringPool.BLANK;
+	}
+
+	private long _getFieldClassNameId(long fieldClassNameId) {
+		if ((fieldClassNameId == 1400962) || (fieldClassNameId == 1400964)) {
+			return _classNameLocalService.getClassNameId(Account.class);
+		}
+		else if (fieldClassNameId == 1400963) {
+			return _classNameLocalService.getClassNameId(Account.class);
+		}
+		else if (fieldClassNameId == 1400969) {
+			return _classNameLocalService.getClassNameId(ProductPurchase.class);
+		}
+
+		return 0;
 	}
 
 	private String _getIndustry(int industry) {
@@ -261,11 +375,57 @@ public class CorpProjectMigration {
 		return StringPool.BLANK;
 	}
 
+	private void _migrateAuditEntries(
+			Connection connection, long userId, long corpProjectId)
+		throws Exception {
+
+		StringBundler sb = new StringBundler(5);
+
+		sb.append("select OSB_AuditEntry.* from OSB_AuditEntry inner join ");
+		sb.append("OSB_AccountEntry on OSB_AccountEntry.accountEntryId = ");
+		sb.append("OSB_AuditEntry.classPK where ");
+		sb.append("OSB_AccountEntry.corpProjectId = ");
+		sb.append(corpProjectId);
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(
+				sb.toString());
+			ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			while (resultSet.next()) {
+				Date createDate = resultSet.getDate("createDate");
+				long auditSetId = resultSet.getLong("auditSetId");
+				long fieldClassNameId = resultSet.getLong("fieldClassNameId");
+				int action = resultSet.getInt("action");
+				int field = resultSet.getInt("field");
+				String oldLabel = resultSet.getString("oldLabel");
+				String oldValue = resultSet.getString("oldValue");
+				String newLabel = resultSet.getString("newLabel");
+				String newValue = resultSet.getString("newValue");
+				String description = resultSet.getString("description");
+
+				ServiceContext serviceContext = new ServiceContext();
+
+				serviceContext.setCreateDate(createDate);
+
+				_auditEntryLocalService.addAuditEntry(
+					userId,
+					_classNameLocalService.getClassNameId(Account.class),
+					corpProjectId, auditSetId,
+					_getFieldClassNameId(fieldClassNameId), 0,
+					_getAction(action), _getField(field), oldLabel, oldValue,
+					newLabel, newValue, description, serviceContext);
+			}
+		}
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		CorpProjectMigration.class);
 
 	@Reference
 	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private AuditEntryLocalService _auditEntryLocalService;
 
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
