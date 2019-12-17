@@ -161,7 +161,7 @@ class Form extends Component {
 				this._handleAddFieldButtonClicked.bind(this)
 			),
 			dom.on(
-				`#${namespace}ControlMenu *[data-title="Back"]`,
+				`#${namespace}ControlMenu *[title="Back"]`,
 				'click',
 				this._handleBackButtonClicked
 			),
