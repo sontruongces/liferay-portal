@@ -3645,9 +3645,16 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			group.getCompanyId(), groupId, group.getClassNameId(),
 			group.getClassPK(), StringPool.BLANK, friendlyURL);
 
-		validateFriendlyURL(
-			group.getCompanyId(), group.getGroupId(), group.getClassNameId(),
-			group.getClassPK(), friendlyURL);
+		if (group.isUser()) {
+			friendlyURL = getValidatedFriendlyURL(
+				group.getCompanyId(), group.getGroupId(),
+				group.getClassNameId(), group.getClassPK(), friendlyURL);
+		}
+		else {
+			validateFriendlyURL(
+				group.getCompanyId(), group.getGroupId(),
+				group.getClassNameId(), group.getClassPK(), friendlyURL);
+		}
 
 		group.setFriendlyURL(friendlyURL);
 
@@ -3714,9 +3721,16 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 				group.getGroupId());
 		}
 
-		validateFriendlyURL(
-			group.getCompanyId(), group.getGroupId(), group.getClassNameId(),
-			group.getClassPK(), friendlyURL);
+		if (group.isUser()) {
+			friendlyURL = getValidatedFriendlyURL(
+				group.getCompanyId(), group.getGroupId(),
+				group.getClassNameId(), group.getClassPK(), friendlyURL);
+		}
+		else {
+			validateFriendlyURL(
+				group.getCompanyId(), group.getGroupId(),
+				group.getClassNameId(), group.getClassPK(), friendlyURL);
+		}
 
 		validateParentGroup(group.getGroupId(), parentGroupId);
 
