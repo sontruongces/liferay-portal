@@ -468,8 +468,8 @@ public class LayoutStagedModelDataHandler
 
 		Layout existingLayout = null;
 
-		String friendlyURL = layout.getFriendlyURL();
 		String uuid = layout.getUuid();
+		String friendlyURL = layout.getFriendlyURL();
 
 		String layoutsImportMode = MapUtil.getString(
 			portletDataContext.getParameterMap(),
