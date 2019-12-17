@@ -142,7 +142,7 @@ public class NotificationTemplateContextFactory {
 						calendar.getGroupId());
 
 					if (calendarGroup.isSite()) {
-						return calendarGroup.getName(user.getLocale());
+						return calendarGroup.getName(user.getLocale(), true);
 					}
 
 					return StringPool.BLANK;
@@ -150,7 +150,7 @@ public class NotificationTemplateContextFactory {
 			).put(
 				"startTime", startTime
 			).put(
-				"title", calendarBooking.getTitle(user.getLocale())
+				"title", calendarBooking.getTitle(user.getLocale(), true)
 			).put(
 				"url", calendarBookingURL
 			).build();
