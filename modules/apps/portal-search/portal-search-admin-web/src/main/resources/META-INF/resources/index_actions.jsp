@@ -33,7 +33,7 @@ page import="com.liferay.portal.kernel.search.IndexerClassNameComparator" %><%@
 page import="com.liferay.portal.kernel.search.IndexerRegistryUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.search.admin.web.internal.constants.SearchAdminWebKeys" %><%@
-page import="com.liferay.portal.search.admin.web.internal.display.context.IndexActionsDisplayContext" %>
+page import="com.liferay.portal.search.admin.web.internal.display.context.SearchEngineDisplayContext" %>
 
 <%@ page import="java.io.Serializable" %>
 
@@ -48,7 +48,8 @@ page import="java.util.Map" %>
 <portlet:defineObjects />
 
 <%
-IndexActionsDisplayContext indexActionsDisplayContext = (IndexActionsDisplayContext)request.getAttribute(SearchAdminWebKeys.INDEX_ACTIONS_DISPLAY_CONTEXT);
+SearchEngineDisplayContext
+	searchEngineDisplayContext = (SearchEngineDisplayContext)request.getAttribute(SearchAdminWebKeys.SEARCH_ENGINE_DISPLAY_CONTEXT);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
@@ -70,11 +71,11 @@ portletURL.setParameter("mvcRenderCommandName", "/search_admin/view");
 		<div class="panel panel-default search-admin-tabs" id="adminSearchInformationPanel">
 			<div class="panel-body">
 				<c:choose>
-					<c:when test="<%= !indexActionsDisplayContext.isMissingSearchEngine() %>">
+					<c:when test="<%= !searchEngineDisplayContext.isMissingSearchEngine() %>">
 						<div class="alert alert-info">
-							<liferay-ui:message key="search-engine-vendor" />: <strong><%= indexActionsDisplayContext.getVendorString() %></strong>,
-							<liferay-ui:message key="client-version" />: <strong><%= indexActionsDisplayContext.getClientVersionString() %></strong>,
-							<liferay-ui:message key="nodes" />: <strong><%= indexActionsDisplayContext.getNodesString() %></strong>
+							<liferay-ui:message key="search-engine-vendor" />: <strong><%= searchEngineDisplayContext.getVendorString() %></strong>,
+							<liferay-ui:message key="client-version" />: <strong><%= searchEngineDisplayContext.getClientVersionString() %></strong>,
+							<liferay-ui:message key="nodes" />: <strong><%= searchEngineDisplayContext.getNodesString() %></strong>
 						</div>
 					</c:when>
 					<c:otherwise>

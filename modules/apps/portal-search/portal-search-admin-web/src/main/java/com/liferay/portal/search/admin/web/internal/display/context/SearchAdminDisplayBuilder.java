@@ -18,6 +18,7 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItemList;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.index.IndexInformation;
 
 import java.util.Objects;
@@ -44,19 +45,19 @@ public class SearchAdminDisplayBuilder {
 		SearchAdminDisplayContext searchAdminDisplayContext =
 			new SearchAdminDisplayContext();
 
-		boolean indexInformationAvailable = isIndexInformationAvailable();
-
-		searchAdminDisplayContext.setIndexInformationAvailable(
-			indexInformationAvailable);
-
 		NavigationItemList navigationItemList = new NavigationItemList();
 		String selectedTab = getSelectedTab();
 
 		addNavigationItemList(navigationItemList, "index-actions", selectedTab);
 
-		if (indexInformationAvailable) {
+		if (isIndexInformationAvailable()) {
 			addNavigationItemList(
 				navigationItemList, "field-mappings", selectedTab);
+		}
+
+		if (isSearchEngineInformationAvailable()) {
+			addNavigationItemList(
+				navigationItemList, "search-engine", selectedTab);
 		}
 
 		searchAdminDisplayContext.setNavigationItemList(navigationItemList);
@@ -67,6 +68,12 @@ public class SearchAdminDisplayBuilder {
 
 	public void setIndexInformation(IndexInformation indexInformation) {
 		_indexInformation = indexInformation;
+	}
+
+	public void setSearchEngineInformation(
+		SearchEngineInformation searchEngineInformation) {
+
+		_searchEngineInformation = searchEngineInformation;
 	}
 
 	protected void addNavigationItemList(
@@ -88,13 +95,27 @@ public class SearchAdminDisplayBuilder {
 		String selectedTab = ParamUtil.getString(
 			_renderRequest, "tabs1", "index-actions");
 
-		if (isIndexInformationAvailable() &&
-			Objects.equals(selectedTab, "field-mappings")) {
+		if (!Objects.equals(selectedTab, "field-mappings") &&
+			!Objects.equals(selectedTab, "index-actions") &&
+			!Objects.equals(selectedTab, "search-engine")) {
 
-			selectedTab = "field-mappings";
+			return "index-actions";
 		}
-		else {
-			selectedTab = "index-actions";
+
+		if (Objects.equals(selectedTab, "index-actions")) {
+			return "index-actions";
+		}
+
+		if (Objects.equals(selectedTab, "field-mappings") &&
+			!isIndexInformationAvailable()) {
+
+			return "index-actions";
+		}
+
+		if (Objects.equals(selectedTab, "search-engine") &&
+			!isSearchEngineInformationAvailable()) {
+
+			return "index-actions";
 		}
 
 		return selectedTab;
@@ -108,10 +129,21 @@ public class SearchAdminDisplayBuilder {
 		return false;
 	}
 
+	protected boolean isSearchEngineInformationAvailable() {
+		if ((_searchEngineInformation != null) &&
+			(_searchEngineInformation.getConnectionInformationList() != null)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
 	private IndexInformation _indexInformation;
 	private final Language _language;
 	private final Portal _portal;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
+	private SearchEngineInformation _searchEngineInformation;
 
 }
