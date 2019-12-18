@@ -102,6 +102,13 @@ public class SubscriptionSender implements Serializable {
 		hooks.add(hook);
 	}
 
+	public void addPersistedStagingSubscribers(String className, long classPK) {
+		ObjectValuePair<String, Long> ovp = new ObjectValuePair<>(
+			className, classPK);
+
+		_persistestedStagingSubscribersOVPs.add(ovp);
+	}
+
 	public void addPersistedSubscribers(String className, long classPK) {
 		ObjectValuePair<String, Long> ovp = new ObjectValuePair<>(
 			className, classPK);
@@ -153,6 +160,30 @@ public class SubscriptionSender implements Serializable {
 			}
 
 			_persistestedSubscribersOVPs.clear();
+
+			for (ObjectValuePair<String, Long> ovp :
+					_persistestedStagingSubscribersOVPs) {
+
+				String className = ovp.getKey();
+				long classPK = ovp.getValue();
+
+				List<Subscription> subscriptions =
+					SubscriptionLocalServiceUtil.getSubscriptions(
+						companyId, className, classPK);
+
+				for (Subscription subscription : subscriptions) {
+					try {
+						notifyPersistedSubscriber(subscription, false);
+					}
+					catch (Exception e) {
+						_log.error(
+							"Unable to process subscription: " + subscription,
+							e);
+					}
+				}
+			}
+
+			_persistestedStagingSubscribersOVPs.clear();
 
 			for (ObjectValuePair<String, String> ovp :
 					_runtimeSubscribersOVPs) {
@@ -596,11 +627,27 @@ public class SubscriptionSender implements Serializable {
 	protected void notifyPersistedSubscriber(Subscription subscription)
 		throws Exception {
 
-		notifyPersistedSubscriber(subscription, _className, _classPK);
+		notifyPersistedSubscriber(subscription, true);
+	}
+
+	protected void notifyPersistedSubscriber(
+			Subscription subscription, boolean notifyImmediately)
+		throws Exception {
+
+		notifyPersistedSubscriber(
+			subscription, _className, _classPK, notifyImmediately);
 	}
 
 	protected void notifyPersistedSubscriber(
 			Subscription subscription, String className, long classPK)
+		throws Exception {
+
+		notifyPersistedSubscriber(subscription, _className, _classPK, true);
+	}
+
+	protected void notifyPersistedSubscriber(
+			Subscription subscription, String className, long classPK,
+			boolean notifyImmediately)
 		throws Exception {
 
 		User user = UserLocalServiceUtil.fetchUserById(
@@ -620,21 +667,42 @@ public class SubscriptionSender implements Serializable {
 
 		String emailAddress = user.getEmailAddress();
 
-		if (_sentEmailAddresses.contains(emailAddress)) {
-			if (_log.isDebugEnabled()) {
-				_log.debug("Do not send a duplicate email to " + emailAddress);
+		if (notifyImmediately) {
+			if (_sentEmailAddresses.contains(emailAddress)) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Do not send a duplicate email to " + emailAddress);
+				}
+
+				return;
 			}
 
-			return;
-		}
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Add " + emailAddress +
+						" to the list of users who have received an email");
+			}
 
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				"Add " + emailAddress +
-					" to the list of users who have received an email");
+			_sentEmailAddresses.add(emailAddress);
 		}
+		else {
+			if (_stagingOutboxEmailAddresses.contains(emailAddress)) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Do not send a duplicate email to " + emailAddress);
+				}
 
-		_sentEmailAddresses.add(emailAddress);
+				return;
+			}
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Add " + emailAddress +
+						" to the list of users who will receive an email");
+			}
+
+			_stagingOutboxEmailAddresses.add(emailAddress);
+		}
 
 		if (!user.isActive()) {
 			if (_log.isDebugEnabled()) {
@@ -661,7 +729,7 @@ public class SubscriptionSender implements Serializable {
 
 		_notifyHooks(Hook.Event.PERSISTED_SUBSCRIBER_FOUND, subscription);
 
-		sendNotification(user);
+		sendNotification(user, notifyImmediately);
 	}
 
 	protected void notifyRuntimeSubscriber(InternetAddress to, Locale locale)
@@ -857,6 +925,12 @@ public class SubscriptionSender implements Serializable {
 	}
 
 	protected void sendNotification(User user) throws Exception {
+		sendNotification(user, true);
+	}
+
+	protected void sendNotification(User user, boolean notifyImmediately)
+		throws Exception {
+
 		if (currentUserId == user.getUserId()) {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Skip user " + currentUserId);
@@ -865,11 +939,20 @@ public class SubscriptionSender implements Serializable {
 			return;
 		}
 
-		sendEmailNotification(user);
-		sendUserNotification(user);
+		if (notifyImmediately) {
+			sendEmailNotification(user);
+		}
+
+		sendUserNotification(user, notifyImmediately);
 	}
 
 	protected void sendUserNotification(User user) throws Exception {
+		sendNotification(user, true);
+	}
+
+	protected void sendUserNotification(User user, boolean notifyImmediately)
+		throws Exception {
+
 		JSONObject notificationEventJSONObject =
 			JSONFactoryUtil.createJSONObject();
 
@@ -880,10 +963,20 @@ public class SubscriptionSender implements Serializable {
 				_notificationType,
 				UserNotificationDeliveryConstants.TYPE_PUSH)) {
 
-			UserNotificationEventLocalServiceUtil.sendUserNotificationEvents(
-				user.getUserId(), portletId,
-				UserNotificationDeliveryConstants.TYPE_PUSH,
-				notificationEventJSONObject);
+			if (notifyImmediately) {
+				UserNotificationEventLocalServiceUtil.
+					sendUserNotificationEvents(
+						user.getUserId(), portletId,
+						UserNotificationDeliveryConstants.TYPE_PUSH,
+						notificationEventJSONObject);
+			}
+			else {
+				UserNotificationEventLocalServiceUtil.
+					storeUserNotificationEvents(
+						user.getUserId(), portletId,
+						UserNotificationDeliveryConstants.TYPE_PUSH, false,
+						notificationEventJSONObject);
+			}
 		}
 
 		if (UserNotificationManagerUtil.isDeliver(
@@ -891,10 +984,20 @@ public class SubscriptionSender implements Serializable {
 				_notificationType,
 				UserNotificationDeliveryConstants.TYPE_WEBSITE)) {
 
-			UserNotificationEventLocalServiceUtil.sendUserNotificationEvents(
-				user.getUserId(), portletId,
-				UserNotificationDeliveryConstants.TYPE_WEBSITE,
-				notificationEventJSONObject);
+			if (notifyImmediately) {
+				UserNotificationEventLocalServiceUtil.
+					sendUserNotificationEvents(
+						user.getUserId(), portletId,
+						UserNotificationDeliveryConstants.TYPE_WEBSITE,
+						notificationEventJSONObject);
+			}
+			else {
+				UserNotificationEventLocalServiceUtil.
+					storeUserNotificationEvents(
+						user.getUserId(), portletId,
+						UserNotificationDeliveryConstants.TYPE_WEBSITE, false,
+						notificationEventJSONObject);
+			}
 		}
 	}
 
@@ -1050,9 +1153,12 @@ public class SubscriptionSender implements Serializable {
 	private long _notificationClassNameId;
 	private int _notificationType;
 	private final List<ObjectValuePair<String, Long>>
+		_persistestedStagingSubscribersOVPs = new ArrayList<>();
+	private final List<ObjectValuePair<String, Long>>
 		_persistestedSubscribersOVPs = new ArrayList<>();
 	private final List<ObjectValuePair<String, String>>
 		_runtimeSubscribersOVPs = new ArrayList<>();
 	private final Set<String> _sentEmailAddresses = new HashSet<>();
+	private final Set<String> _stagingOutboxEmailAddresses = new HashSet<>();
 
 }
