@@ -264,9 +264,9 @@ public class SubscriptionSender implements Serializable {
 			return true;
 		}
 
-		for (ObjectValuePair<String, Long> ovp : _persistestedSubscribersOVPs) {
-			String className = ovp.getKey();
-			long classPK = ovp.getValue();
+		for (Tuple tuple : _persistedSubscribersTuples) {
+			String className = (String)tuple.getObject(0);
+			long classPK = (long)tuple.getObject(1);
 
 			List<Subscription> subscriptions =
 				SubscriptionLocalServiceUtil.getSubscriptions(
