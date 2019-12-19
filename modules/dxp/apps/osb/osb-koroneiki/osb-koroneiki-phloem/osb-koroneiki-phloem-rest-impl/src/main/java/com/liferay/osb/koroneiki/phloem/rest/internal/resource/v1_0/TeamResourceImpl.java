@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamUtil;
@@ -29,6 +30,7 @@ import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
@@ -37,6 +39,8 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -124,6 +128,20 @@ public class TeamResourceImpl
 	}
 
 	@Override
+	public Page<Team> getAccountAccountKeyAssignedTeamsPage(
+			String accountKey, Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_teamService.getAccountAssignedTeams(
+					accountKey, pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				TeamUtil::toTeam),
+			pagination, _teamService.getAccountAssignedTeamsCount(accountKey));
+	}
+
+	@Override
 	public Page<Team> getAccountAccountKeyTeamsPage(
 			String accountKey, Pagination pagination)
 		throws Exception {
@@ -135,6 +153,17 @@ public class TeamResourceImpl
 					pagination.getEndPosition()),
 				TeamUtil::toTeam),
 			pagination, _teamService.getAccountTeamsCount(accountKey));
+	}
+
+	@NestedField(parentClass = Account.class, value = "assignedTeams")
+	public List<Team> getAccountNestedFieldAssignedTeams(
+			@NestedFieldId("key") String accountKey)
+		throws Exception {
+
+		return transform(
+			_teamService.getAccountAssignedTeams(
+				accountKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+			team -> TeamUtil.toTeam(team));
 	}
 
 	@Override

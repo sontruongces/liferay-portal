@@ -4,6 +4,13 @@ components:
             description:
                 Represents an account.
             properties:
+                assignedTeams:
+                    description:
+                        The teams that are assigned to this account.
+                    items:
+                        $ref: "#/components/schemas/Team"
+                    readOnly: true
+                    type: array
                 code:
                     description:
                         The code of the account.
@@ -860,25 +867,25 @@ paths:
             operationId: getAccountsPage
             parameters:
                 - in: query
-                      name: filter
-                      schema:
-                          type: string
+                  name: filter
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
                 - in: query
-                      name: sort
-                      schema:
-                          type: string
+                  name: sort
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -925,28 +932,28 @@ paths:
             operationId: getAccountByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
-                      name: domain
-                      required: true
-                      schema:
-                          type: string
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityName
-                      required: true
-                      schema:
-                          type: string
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityId
-                      required: true
-                      schema:
-                          type: string
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -970,17 +977,17 @@ paths:
             operationId: getAccountEntitlementDefinitionsPage
             parameters:
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -1025,10 +1032,10 @@ paths:
             operationId: deleteAccount
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -1042,10 +1049,10 @@ paths:
             operationId: getAccount
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -1062,10 +1069,10 @@ paths:
             operationId: putAccount
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -1092,10 +1099,10 @@ paths:
             operationId: deleteAccountAccountPermission
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -1117,10 +1124,10 @@ paths:
             operationId: putAccountAccountPermission
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -1138,6 +1145,41 @@ paths:
                     description:
                         ""
             tags: ["Account"]
+    "/accounts/{accountKey}/assigned-teams":
+        get:
+            description:
+                Retrieves the teams assigned to the account.
+            operationId: getAccountAccountKeyAssignedTeamsPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Team"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Team"
+                                type: array
+                    description:
+                        ""
+            tags: ["Team"]
     "/accounts/{accountKey}/assigned-teams/{teamKey}/roles":
         delete:
             description:
@@ -1145,22 +1187,22 @@ paths:
             operationId: deleteAccountAssignedTeamTeamKeyRole
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: teamRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: teamRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1174,23 +1216,23 @@ paths:
             operationId: getAccountAccountKeyAssignedTeamTeamKeyRolesPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -1213,22 +1255,22 @@ paths:
             operationId: putAccountAssignedTeamTeamKeyRole
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: teamRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: teamRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1243,18 +1285,18 @@ paths:
             operationId: getAccountAccountKeyAuditEntriesPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -1278,18 +1320,18 @@ paths:
             operationId: getAccountChildAccountsPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -1310,10 +1352,10 @@ paths:
             operationId: postAccountChildAccount
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -1342,18 +1384,18 @@ paths:
             operationId: getAccountAccountKeyContactsPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -1377,17 +1419,17 @@ paths:
             operationId: deleteAccountContactByEmailAddres
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactEmailAddresses
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactEmailAddresses
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1401,17 +1443,17 @@ paths:
             operationId: putAccountContactByEmailAddres
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactEmailAddresses
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactEmailAddresses
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1426,22 +1468,22 @@ paths:
             operationId: deleteAccountContactByEmailAddresContactEmailAddressRole
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: contactEmailAddress
-                      required: true
-                      schema:
-                          type: string
+                  name: contactEmailAddress
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1455,23 +1497,23 @@ paths:
             operationId: getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: contactEmailAddress
-                      required: true
-                      schema:
-                          type: string
+                  name: contactEmailAddress
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -1494,22 +1536,22 @@ paths:
             operationId: putAccountContactByEmailAddresContactEmailAddressRole
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: contactEmailAddress
-                      required: true
-                      schema:
-                          type: string
+                  name: contactEmailAddress
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1524,17 +1566,17 @@ paths:
             operationId: deleteAccountContactByOkta
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: oktaIds
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1548,17 +1590,17 @@ paths:
             operationId: putAccountContactByOkta
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: oktaIds
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1573,22 +1615,22 @@ paths:
             operationId: deleteAccountContactByOktaRole
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1602,23 +1644,23 @@ paths:
             operationId: getAccountAccountKeyContactByOktaRolesPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -1641,22 +1683,22 @@ paths:
             operationId: putAccountContactByOktaRole
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1671,17 +1713,17 @@ paths:
             operationId: deleteAccountContactByUuid
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactUuids
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactUuids
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1695,17 +1737,17 @@ paths:
             operationId: putAccountContactByUuid
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactUuids
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactUuids
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1720,22 +1762,22 @@ paths:
             operationId: deleteAccountContactByUuidContactUuidRole
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1749,23 +1791,23 @@ paths:
             operationId: getAccountAccountKeyContactByUuidContactUuidRolesPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -1788,22 +1830,22 @@ paths:
             operationId: putAccountContactByUuidContactUuidRole
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -1818,18 +1860,18 @@ paths:
             operationId: getAccountAccountKeyExternalLinksPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -1852,10 +1894,10 @@ paths:
             operationId: postAccountAccountKeyExternalLink
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -1884,10 +1926,10 @@ paths:
             operationId: getAccountAccountKeyPostalAddressesPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -1908,10 +1950,10 @@ paths:
             operationId: postAccountAccountKeyPostalAddress
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -1940,18 +1982,18 @@ paths:
             operationId: getAccountAccountKeyProductConsumptionsPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -1972,10 +2014,10 @@ paths:
             operationId: postAccountAccountKeyProductConsumption
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2004,18 +2046,18 @@ paths:
             operationId: getAccountAccountKeyProductPurchasesPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2036,10 +2078,10 @@ paths:
             operationId: postAccountAccountKeyProductPurchase
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2068,18 +2110,18 @@ paths:
             operationId: getAccountAccountKeyTeamsPage
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2100,10 +2142,10 @@ paths:
             operationId: postAccountAccountKeyTeam
             parameters:
                 - in: path
-                      name: accountKey
-                      required: true
-                      schema:
-                          type: string
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2132,10 +2174,10 @@ paths:
             operationId: getAuditEntry
             parameters:
                 - in: path
-                      name: auditEntryKey
-                      required: true
-                      schema:
-                          type: string
+                  name: auditEntryKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -2155,25 +2197,25 @@ paths:
             operationId: getContactRolesPage
             parameters:
                 - in: query
-                      name: filter
-                      schema:
-                          type: string
+                  name: filter
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
                 - in: query
-                      name: sort
-                      schema:
-                          type: string
+                  name: sort
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -2218,10 +2260,10 @@ paths:
             operationId: deleteContactRole
             parameters:
                 - in: path
-                      name: contactRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: contactRoleKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -2235,10 +2277,10 @@ paths:
             operationId: getContactRole
             parameters:
                 - in: path
-                      name: contactRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: contactRoleKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -2255,10 +2297,10 @@ paths:
             operationId: putContactRole
             parameters:
                 - in: path
-                      name: contactRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: contactRoleKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2287,18 +2329,18 @@ paths:
             operationId: getContactRoleContactRoleKeyAuditEntriesPage
             parameters:
                 - in: path
-                      name: contactRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: contactRoleKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2320,10 +2362,10 @@ paths:
             operationId: deleteContactRoleContactRolePermission
             parameters:
                 - in: path
-                      name: contactRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: contactRoleKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2345,10 +2387,10 @@ paths:
             operationId: putContactRoleContactRolePermission
             parameters:
                 - in: path
-                      name: contactRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: contactRoleKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2373,25 +2415,25 @@ paths:
             operationId: getContactsPage
             parameters:
                 - in: query
-                      name: filter
-                      schema:
-                          type: string
+                  name: filter
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
                 - in: query
-                      name: sort
-                      schema:
-                          type: string
+                  name: sort
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -2436,10 +2478,10 @@ paths:
             operationId: deleteContactByEmailAddresEmailAddress
             parameters:
                 - in: path
-                      name: emailAddress
-                      required: true
-                      schema:
-                          type: string
+                  name: emailAddress
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -2453,10 +2495,10 @@ paths:
             operationId: getContactByEmailAddresEmailAddress
             parameters:
                 - in: path
-                      name: emailAddress
-                      required: true
-                      schema:
-                          type: string
+                  name: emailAddress
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -2473,10 +2515,10 @@ paths:
             operationId: putContactByEmailAddresEmailAddress
             parameters:
                 - in: path
-                      name: emailAddress
-                      required: true
-                      schema:
-                          type: string
+                  name: emailAddress
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2503,10 +2545,10 @@ paths:
             operationId: deleteContactByOkta
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -2520,10 +2562,10 @@ paths:
             operationId: getContactByOkta
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -2540,10 +2582,10 @@ paths:
             operationId: putContactByOkta
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2572,18 +2614,18 @@ paths:
             operationId: getContactByOktaAuditEntriesPage
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2605,10 +2647,10 @@ paths:
             operationId: deleteContactByOktaContactPermission
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2630,10 +2672,10 @@ paths:
             operationId: putContactByOktaContactPermission
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2658,18 +2700,18 @@ paths:
             operationId: getContactByOktaExternalLinksPage
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2692,10 +2734,10 @@ paths:
             operationId: postContactByOktaExternalLink
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2724,18 +2766,18 @@ paths:
             operationId: getContactByOktaProductConsumptionsPage
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2759,18 +2801,18 @@ paths:
             operationId: getContactByOktaProductPurchasesPage
             parameters:
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2792,10 +2834,10 @@ paths:
             operationId: deleteContactByUuidContactUuid
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -2809,10 +2851,10 @@ paths:
             operationId: getContactByUuidContactUuid
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -2829,10 +2871,10 @@ paths:
             operationId: putContactByUuidContactUuid
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2861,18 +2903,18 @@ paths:
             operationId: getContactByUuidContactUuidAuditEntriesPage
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2894,10 +2936,10 @@ paths:
             operationId: deleteContactByUuidContactUuidContactPermission
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2919,10 +2961,10 @@ paths:
             operationId: putContactByUuidContactUuidContactPermission
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -2947,18 +2989,18 @@ paths:
             operationId: getContactByUuidContactUuidExternalLinksPage
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -2981,10 +3023,10 @@ paths:
             operationId: postContactByUuidContactUuidExternalLink
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -3013,18 +3055,18 @@ paths:
             operationId: getContactByUuidContactUuidProductConsumptionsPage
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -3048,18 +3090,18 @@ paths:
             operationId: getContactByUuidContactUuidProductPurchasesPage
             parameters:
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -3083,17 +3125,17 @@ paths:
             operationId: getContactEntitlementDefinitionsPage
             parameters:
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3138,10 +3180,10 @@ paths:
             operationId: deleteEntitlementDefinition
             parameters:
                 - in: path
-                      name: entitlementDefinitionKey
-                      required: true
-                      schema:
-                          type: string
+                  name: entitlementDefinitionKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -3155,10 +3197,10 @@ paths:
             operationId: getEntitlementDefinition
             parameters:
                 - in: path
-                      name: entitlementDefinitionKey
-                      required: true
-                      schema:
-                          type: string
+                  name: entitlementDefinitionKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3178,10 +3220,10 @@ paths:
             operationId: postEntitlementDefinitionSynchronize
             parameters:
                 - in: path
-                      name: entitlementDefinitionKey
-                      required: true
-                      schema:
-                          type: string
+                  name: entitlementDefinitionKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -3194,10 +3236,10 @@ paths:
             operationId: deleteExternalLink
             parameters:
                 - in: path
-                      name: externalLinkKey
-                      required: true
-                      schema:
-                          type: string
+                  name: externalLinkKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -3211,10 +3253,10 @@ paths:
             operationId: getExternalLink
             parameters:
                 - in: path
-                      name: externalLinkKey
-                      required: true
-                      schema:
-                          type: string
+                  name: externalLinkKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3232,11 +3274,11 @@ paths:
             operationId: deletePostalAddress
             parameters:
                 - in: path
-                      name: postalAddressId
-                      required: true
-                      schema:
-                          format: int64
-                          type: integer
+                  name: postalAddressId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
             responses:
                 204:
                     content:
@@ -3250,11 +3292,11 @@ paths:
             operationId: getPostalAddress
             parameters:
                 - in: path
-                      name: postalAddressId
-                      required: true
-                      schema:
-                          format: int64
-                          type: integer
+                  name: postalAddressId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
             responses:
                 200:
                     content:
@@ -3271,11 +3313,11 @@ paths:
             operationId: putPostalAddress
             parameters:
                 - in: path
-                      name: postalAddressId
-                      required: true
-                      schema:
-                          format: int64
-                          type: integer
+                  name: postalAddressId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
             requestBody:
                 content:
                     application/json:
@@ -3304,25 +3346,25 @@ paths:
             operationId: getProductConsumptionsPage
             parameters:
                 - in: query
-                      name: filter
-                      schema:
-                          type: string
+                  name: filter
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
                 - in: query
-                      name: sort
-                      schema:
-                          type: string
+                  name: sort
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3346,28 +3388,28 @@ paths:
             operationId: getProductConsumptionByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
-                      name: domain
-                      required: true
-                      schema:
-                          type: string
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityName
-                      required: true
-                      schema:
-                          type: string
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityId
-                      required: true
-                      schema:
-                          type: string
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -3389,10 +3431,10 @@ paths:
             operationId: deleteProductConsumption
             parameters:
                 - in: path
-                      name: productConsumptionKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productConsumptionKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -3406,10 +3448,10 @@ paths:
             operationId: getProductConsumption
             parameters:
                 - in: path
-                      name: productConsumptionKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productConsumptionKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3429,18 +3471,18 @@ paths:
             operationId: getProductConsumptionProductConsumptionKeyExternalLinksPage
             parameters:
                 - in: path
-                      name: productConsumptionKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productConsumptionKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -3463,10 +3505,10 @@ paths:
             operationId: postProductConsumptionProductConsumptionKeyExternalLink
             parameters:
                 - in: path
-                      name: productConsumptionKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productConsumptionKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -3493,10 +3535,10 @@ paths:
             operationId: deleteProductConsumptionProductConsumptionPermission
             parameters:
                 - in: path
-                      name: productConsumptionKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productConsumptionKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -3518,10 +3560,10 @@ paths:
             operationId: putProductConsumptionProductConsumptionPermission
             parameters:
                 - in: path
-                      name: productConsumptionKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productConsumptionKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -3546,25 +3588,25 @@ paths:
             operationId: getProductPurchasesPage
             parameters:
                 - in: query
-                      name: filter
-                      schema:
-                          type: string
+                  name: filter
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
                 - in: query
-                      name: sort
-                      schema:
-                          type: string
+                  name: sort
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3588,28 +3630,28 @@ paths:
             operationId: getProductPurchaseByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
-                      name: domain
-                      required: true
-                      schema:
-                          type: string
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityName
-                      required: true
-                      schema:
-                          type: string
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityId
-                      required: true
-                      schema:
-                          type: string
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -3631,10 +3673,10 @@ paths:
             operationId: deleteProductPurchase
             parameters:
                 - in: path
-                      name: productPurchaseKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productPurchaseKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -3648,10 +3690,10 @@ paths:
             operationId: getProductPurchase
             parameters:
                 - in: path
-                      name: productPurchaseKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productPurchaseKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3668,10 +3710,10 @@ paths:
             operationId: putProductPurchase
             parameters:
                 - in: path
-                      name: productPurchaseKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productPurchaseKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -3700,18 +3742,18 @@ paths:
             operationId: getProductPurchaseProductPurchaseKeyExternalLinksPage
             parameters:
                 - in: path
-                      name: productPurchaseKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productPurchaseKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -3734,10 +3776,10 @@ paths:
             operationId: postProductPurchaseProductPurchaseKeyExternalLink
             parameters:
                 - in: path
-                      name: productPurchaseKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productPurchaseKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -3764,10 +3806,10 @@ paths:
             operationId: deleteProductPurchaseProductPurchasePermission
             parameters:
                 - in: path
-                      name: productPurchaseKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productPurchaseKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -3789,10 +3831,10 @@ paths:
             operationId: putProductPurchaseProductPurchasePermission
             parameters:
                 - in: path
-                      name: productPurchaseKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productPurchaseKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -3817,25 +3859,25 @@ paths:
             operationId: getProductsPage
             parameters:
                 - in: query
-                      name: filter
-                      schema:
-                          type: string
+                  name: filter
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
                 - in: query
-                      name: sort
-                      schema:
-                          type: string
+                  name: sort
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3882,28 +3924,28 @@ paths:
             operationId: getProductByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
-                      name: domain
-                      required: true
-                      schema:
-                          type: string
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityName
-                      required: true
-                      schema:
-                          type: string
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityId
-                      required: true
-                      schema:
-                          type: string
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -3925,10 +3967,10 @@ paths:
             operationId: deleteProduct
             parameters:
                 - in: path
-                      name: productKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -3942,10 +3984,10 @@ paths:
             operationId: getProduct
             parameters:
                 - in: path
-                      name: productKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3962,10 +4004,10 @@ paths:
             operationId: putProduct
             parameters:
                 - in: path
-                      name: productKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -3994,18 +4036,18 @@ paths:
             operationId: getProductProductKeyExternalLinksPage
             parameters:
                 - in: path
-                      name: productKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -4028,10 +4070,10 @@ paths:
             operationId: postProductProductKeyExternalLink
             parameters:
                 - in: path
-                      name: productKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -4058,10 +4100,10 @@ paths:
             operationId: deleteProductProductPermission
             parameters:
                 - in: path
-                      name: productKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -4083,10 +4125,10 @@ paths:
             operationId: putProductProductPermission
             parameters:
                 - in: path
-                      name: productKey
-                      required: true
-                      schema:
-                          type: string
+                  name: productKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -4111,25 +4153,25 @@ paths:
             operationId: getTeamRolesPage
             parameters:
                 - in: query
-                      name: filter
-                      schema:
-                          type: string
+                  name: filter
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
                 - in: query
-                      name: sort
-                      schema:
-                          type: string
+                  name: sort
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -4174,10 +4216,10 @@ paths:
             operationId: deleteTeamRole
             parameters:
                 - in: path
-                      name: teamRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamRoleKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -4191,10 +4233,10 @@ paths:
             operationId: getTeamRole
             parameters:
                 - in: path
-                      name: teamRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamRoleKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -4211,10 +4253,10 @@ paths:
             operationId: putTeamRole
             parameters:
                 - in: path
-                      name: teamRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamRoleKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -4243,18 +4285,18 @@ paths:
             operationId: getTeamRoleTeamRoleKeyAuditEntriesPage
             parameters:
                 - in: path
-                      name: teamRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamRoleKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -4276,10 +4318,10 @@ paths:
             operationId: deleteTeamRoleTeamRolePermission
             parameters:
                 - in: path
-                      name: teamRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamRoleKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -4301,10 +4343,10 @@ paths:
             operationId: putTeamRoleTeamRolePermission
             parameters:
                 - in: path
-                      name: teamRoleKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamRoleKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -4329,25 +4371,25 @@ paths:
             operationId: getTeamsPage
             parameters:
                 - in: query
-                      name: filter
-                      schema:
-                          type: string
+                  name: filter
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
                 - in: query
-                      name: search
-                      schema:
-                          type: string
+                  name: search
+                  schema:
+                      type: string
                 - in: query
-                      name: sort
-                      schema:
-                          type: string
+                  name: sort
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -4371,28 +4413,28 @@ paths:
             operationId: getTeamByExternalLinkDomainEntityNameEntityPage
             parameters:
                 - in: path
-                      name: domain
-                      required: true
-                      schema:
-                          type: string
+                  name: domain
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityName
-                      required: true
-                      schema:
-                          type: string
+                  name: entityName
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: entityId
-                      required: true
-                      schema:
-                          type: string
+                  name: entityId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -4414,10 +4456,10 @@ paths:
             operationId: deleteTeam
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 204:
                     content:
@@ -4431,10 +4473,10 @@ paths:
             operationId: getTeam
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -4451,10 +4493,10 @@ paths:
             operationId: putTeam
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -4483,18 +4525,18 @@ paths:
             operationId: getTeamTeamKeyAssignedAccountsPage
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -4518,18 +4560,18 @@ paths:
             operationId: getTeamTeamKeyAuditEntriesPage
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -4553,18 +4595,18 @@ paths:
             operationId: getTeamTeamKeyContactsPage
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -4588,17 +4630,17 @@ paths:
             operationId: deleteTeamContactByOkta
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: oktaIds
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -4612,17 +4654,17 @@ paths:
             operationId: putTeamContactByOkta
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: oktaIds
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -4637,22 +4679,22 @@ paths:
             operationId: deleteTeamContactByOktaRole
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -4666,23 +4708,23 @@ paths:
             operationId: getTeamTeamKeyContactByOktaRolesPage
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -4705,22 +4747,22 @@ paths:
             operationId: putTeamContactByOktaRole
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: oktaId
-                      required: true
-                      schema:
-                          type: string
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -4735,17 +4777,17 @@ paths:
             operationId: deleteTeamContactByUuid
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactUuids
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactUuids
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -4759,17 +4801,17 @@ paths:
             operationId: putTeamContactByUuid
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactUuids
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactUuids
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -4784,22 +4826,22 @@ paths:
             operationId: deleteTeamContactByUuidContactUuidRole
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -4813,23 +4855,23 @@ paths:
             operationId: getTeamTeamKeyContactByUuidContactUuidRolesPage
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -4852,22 +4894,22 @@ paths:
             operationId: putTeamContactByUuidContactUuidRole
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: path
-                      name: contactUuid
-                      required: true
-                      schema:
-                          type: string
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: contactRoleKeys
-                      required: true
-                      schema:
-                          items:
-                              type: string
-                          type: array
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
             responses:
                 204:
                     content:
@@ -4882,18 +4924,18 @@ paths:
             operationId: getTeamTeamKeyExternalLinksPage
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
                 - in: query
-                      name: page
-                      schema:
-                          type: integer
+                  name: page
+                  schema:
+                      type: integer
                 - in: query
-                      name: pageSize
-                      schema:
-                          type: integer
+                  name: pageSize
+                  schema:
+                      type: integer
             responses:
                 200:
                     content:
@@ -4916,10 +4958,10 @@ paths:
             operationId: postTeamTeamKeyExternalLink
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -4946,10 +4988,10 @@ paths:
             operationId: deleteTeamTeamPermission
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:
@@ -4971,10 +5013,10 @@ paths:
             operationId: putTeamTeamPermission
             parameters:
                 - in: path
-                      name: teamKey
-                      required: true
-                      schema:
-                          type: string
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
             requestBody:
                 content:
                     application/json:

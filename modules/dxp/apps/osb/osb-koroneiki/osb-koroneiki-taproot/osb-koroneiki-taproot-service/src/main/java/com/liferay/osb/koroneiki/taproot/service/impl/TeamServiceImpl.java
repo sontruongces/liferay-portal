@@ -73,6 +73,31 @@ public class TeamServiceImpl extends TeamServiceBaseImpl {
 		return teamLocalService.deleteTeam(team.getTeamId());
 	}
 
+	public List<Team> getAccountAssignedTeams(
+			String accountKey, int start, int end)
+		throws PortalException {
+
+		Account account = _accountLocalService.getAccount(accountKey);
+
+		_accountPermission.check(
+			getPermissionChecker(), account, ActionKeys.VIEW);
+
+		return teamLocalService.getAccountAssignedTeams(
+			account.getAccountId(), start, end);
+	}
+
+	public int getAccountAssignedTeamsCount(String accountKey)
+		throws PortalException {
+
+		Account account = _accountLocalService.getAccount(accountKey);
+
+		_accountPermission.check(
+			getPermissionChecker(), account, ActionKeys.VIEW);
+
+		return teamLocalService.getAccountAssignedTeamsCount(
+			account.getAccountId());
+	}
+
 	public List<Team> getAccountTeams(long accountId, int start, int end)
 		throws PortalException {
 
