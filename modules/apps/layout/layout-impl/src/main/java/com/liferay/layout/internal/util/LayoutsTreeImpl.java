@@ -347,13 +347,12 @@ public class LayoutsTreeImpl implements LayoutsTree {
 		int count = _layoutService.getLayoutsCount(
 			groupId, privateLayout, parentLayoutId);
 
-		int totalCount = _layoutLocalService.getLayoutsCount(
-			_groupLocalService.getGroup(groupId), privateLayout,
-			parentLayoutId);
-
 		List<Layout> layouts = _getPaginatedLayouts(
 			httpServletRequest, groupId, privateLayout, parentLayoutId,
-			incomplete, treeId, childLayout, count, totalCount);
+			incomplete, treeId, childLayout, count,
+			_layoutLocalService.getLayoutsCount(
+				_groupLocalService.getGroup(groupId), privateLayout,
+				parentLayoutId));
 
 		for (Layout layout : layouts) {
 			LayoutTreeNode layoutTreeNode = new LayoutTreeNode(layout);
