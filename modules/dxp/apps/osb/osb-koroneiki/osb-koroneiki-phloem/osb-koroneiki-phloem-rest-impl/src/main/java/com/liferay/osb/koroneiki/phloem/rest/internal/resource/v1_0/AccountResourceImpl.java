@@ -291,14 +291,6 @@ public class AccountResourceImpl
 		String website = GetterUtil.getString(
 			account.getWebsite(), curAccount.getWebsite());
 
-		String industry = curAccount.getIndustry();
-
-		Account.Industry accountIndustry = account.getIndustry();
-
-		if (accountIndustry != null) {
-			industry = accountIndustry.toString();
-		}
-
 		String tier = curAccount.getTier();
 
 		Account.Tier accountTier = account.getTier();
@@ -324,8 +316,8 @@ public class AccountResourceImpl
 			_accountService.updateAccount(
 				accountKey, curAccount.getParentAccountId(), account.getName(),
 				code, description, notes, logoId, contactEmailAddress,
-				profileEmailAddress, phoneNumber, faxNumber, website, industry,
-				tier, soldBy, internal, status));
+				profileEmailAddress, phoneNumber, faxNumber, website, tier,
+				soldBy, internal, status));
 	}
 
 	@Override
@@ -482,14 +474,6 @@ public class AccountResourceImpl
 			parentAccountId = parentAccount.getAccountId();
 		}
 
-		String industry = StringPool.BLANK;
-
-		Account.Industry accountIndustry = account.getIndustry();
-
-		if (accountIndustry != null) {
-			industry = accountIndustry.toString();
-		}
-
 		String tier = StringPool.BLANK;
 
 		Account.Tier accountTier = account.getTier();
@@ -513,7 +497,7 @@ public class AccountResourceImpl
 				GetterUtil.getLong(account.getLogoId()),
 				account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(), industry, tier,
+				account.getFaxNumber(), account.getWebsite(), tier,
 				account.getSoldBy(),
 				GetterUtil.getBoolean(account.getInternal()), status));
 

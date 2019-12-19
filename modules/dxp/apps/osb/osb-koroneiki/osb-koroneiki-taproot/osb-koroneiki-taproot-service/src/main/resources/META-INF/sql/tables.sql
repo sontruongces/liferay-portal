@@ -18,7 +18,6 @@ create table Koroneiki_Account (
 	phoneNumber VARCHAR(75) null,
 	faxNumber VARCHAR(75) null,
 	website VARCHAR(75) null,
-	industry VARCHAR(75) null,
 	tier VARCHAR(75) null,
 	soldBy VARCHAR(75) null,
 	internal_ BOOLEAN,

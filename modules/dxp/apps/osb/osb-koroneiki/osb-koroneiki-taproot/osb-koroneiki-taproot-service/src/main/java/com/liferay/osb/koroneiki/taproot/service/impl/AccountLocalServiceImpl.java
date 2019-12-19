@@ -82,9 +82,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			long userId, long parentAccountId, String name, String code,
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, boolean internal,
-			int status)
+			String phoneNumber, String faxNumber, String website, String tier,
+			String soldBy, boolean internal, int status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -111,7 +110,6 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setPhoneNumber(phoneNumber);
 		account.setFaxNumber(faxNumber);
 		account.setWebsite(website);
-		account.setIndustry(industry);
 		account.setTier(tier);
 		account.setSoldBy(soldBy);
 		account.setInternal(internal);
@@ -267,9 +265,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			long userId, long accountId, long parentAccountId, String name,
 			String code, String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, boolean internal,
-			int status)
+			String phoneNumber, String faxNumber, String website, String tier,
+			String soldBy, boolean internal, int status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -291,7 +288,6 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setPhoneNumber(phoneNumber);
 		account.setFaxNumber(faxNumber);
 		account.setWebsite(website);
-		account.setIndustry(industry);
 		account.setTier(tier);
 		account.setSoldBy(soldBy);
 		account.setInternal(internal);

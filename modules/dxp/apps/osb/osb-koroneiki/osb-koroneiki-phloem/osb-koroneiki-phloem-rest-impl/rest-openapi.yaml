@@ -58,11 +58,6 @@ components:
                     description:
                         The account's fax number.
                     type: string
-                industry:
-                    description:
-                        The industry of the account.
-                    enum: ["Aerospace and Defense", "Agriculture", "Automotive", "Consulting/Market Research", "Education", "Energy", "Engineering", "Financial Services", "Food Services", "Government (Federal)", "Government (State/Local)", "Healthcare", "Hospitality/Leisure", "Insurance", "Manufacturing", "Media/Entertainment", "Not for Profit/NGO", "Other", "Pharmaceuticals", "Professional Services (Agency/Business)", "Professional Services (Technical/Web/IT)", "Retail/Consumer Products", "Technology", "Telecommunications", "Transportaion", "Utilities"]
-                    type: string
                 internal:
                     description:
                         A flag that identifies whether this account is an internal or test account.

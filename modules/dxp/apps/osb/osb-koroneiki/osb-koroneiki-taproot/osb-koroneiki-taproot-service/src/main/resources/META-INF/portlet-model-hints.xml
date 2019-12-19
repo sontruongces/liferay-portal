@@ -27,7 +27,6 @@
 		<field name="phoneNumber" type="String" />
 		<field name="faxNumber" type="String" />
 		<field name="website" type="String" />
-		<field name="industry" type="String" />
 		<field name="tier" type="String" />
 		<field name="soldBy" type="String" />
 		<field name="internal" type="boolean" />

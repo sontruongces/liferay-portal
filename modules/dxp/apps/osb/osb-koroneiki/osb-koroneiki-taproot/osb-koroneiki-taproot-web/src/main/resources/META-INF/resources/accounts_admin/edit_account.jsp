@@ -92,21 +92,6 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 
 			<aui:input name="website" />
 
-			<aui:select name="industry">
-				<aui:option value="" />
-
-				<%
-				for (com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Industry industry : com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Industry.values()) {
-				%>
-
-					<aui:option label="<%= industry %>" value="<%= industry %>" />
-
-				<%
-				}
-				%>
-
-			</aui:select>
-
 			<aui:select name="tier">
 				<aui:option value="" />
 

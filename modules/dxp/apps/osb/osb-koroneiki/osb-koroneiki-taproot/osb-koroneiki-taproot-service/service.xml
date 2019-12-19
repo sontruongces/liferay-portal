@@ -30,7 +30,6 @@
 		<column name="phoneNumber" type="String" />
 		<column name="faxNumber" type="String" />
 		<column name="website" type="String" />
-		<column name="industry" type="String" />
 		<column name="tier" type="String" />
 		<column name="soldBy" type="String" />
 		<column name="internal" type="boolean" />

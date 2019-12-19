@@ -14,7 +14,6 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Industry;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Tier;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.AuditEntryLocalService;
@@ -58,10 +57,10 @@ public class CorpProjectMigration {
 		sb.append("select OSB_CorpProject.*, ");
 		sb.append("OSB_AccountEntry.dossieraAccountKey, ");
 		sb.append("OSB_AccountEntry.code_, OSB_AccountEntry.type_, ");
-		sb.append("OSB_AccountEntry.industry, OSB_AccountEntry.tier, ");
-		sb.append("OSB_AccountEntry.notes, OSB_AccountEntry.status from ");
-		sb.append("OSB_CorpProject inner join OSB_AccountEntry on ");
-		sb.append("OSB_AccountEntry.corpProjectUuid = OSB_CorpProject.uuid_");
+		sb.append("OSB_AccountEntry.tier, OSB_AccountEntry.notes, ");
+		sb.append("OSB_AccountEntry.status from OSB_CorpProject inner join ");
+		sb.append("OSB_AccountEntry on OSB_AccountEntry.corpProjectUuid = ");
+		sb.append("OSB_CorpProject.uuid_");
 
 		try (Connection connection = DataAccess.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(
@@ -92,7 +91,6 @@ public class CorpProjectMigration {
 				account.setName(resultSet.getString("name"));
 				account.setCode(resultSet.getString("code_"));
 				account.setNotes(resultSet.getString("notes"));
-				account.setIndustry(_getIndustry(resultSet.getInt("industry")));
 				account.setTier(_getTier(resultSet.getInt("tier")));
 				account.setInternal(_getInternal(resultSet.getInt("type_")));
 				account.setStatus(WorkflowConstants.STATUS_APPROVED);
@@ -191,9 +189,6 @@ public class CorpProjectMigration {
 		else if (field == 34062) {
 			return "Type";
 		}
-		else if (field == 34063) {
-			return "Industry";
-		}
 		else if (field == 34064) {
 			return "Partner Managed Support";
 		}
@@ -237,89 +232,6 @@ public class CorpProjectMigration {
 		}
 
 		return 0;
-	}
-
-	private String _getIndustry(int industry) {
-		if (industry == 35000) {
-			return Industry.AEROSPACE_AND_DEFENSE.toString();
-		}
-		else if (industry == 35001) {
-			return Industry.AGRICULTURE.toString();
-		}
-		else if (industry == 35002) {
-			return Industry.AUTOMOTIVE.toString();
-		}
-		else if (industry == 35003) {
-			return Industry.CONSULTING_MARKET_RESEARCH.toString();
-		}
-		else if (industry == 35004) {
-			return Industry.RETAIL_CONSUMER_PRODUCTS.toString();
-		}
-		else if (industry == 35005) {
-			return Industry.EDUCATION.toString();
-		}
-		else if (industry == 35006) {
-			return Industry.ENERGY.toString();
-		}
-		else if (industry == 35007) {
-			return Industry.FINANCIAL_SERVICES.toString();
-		}
-		else if (industry == 35009) {
-			return Industry.HEALTHCARE.toString();
-		}
-		else if (industry == 35010) {
-			return Industry.HOSPITALITY_LEISURE.toString();
-		}
-		else if (industry == 35011) {
-			return Industry.INSURANCE.toString();
-		}
-		else if (industry == 35012) {
-			return Industry.MANUFACTURING.toString();
-		}
-		else if (industry == 35013) {
-			return Industry.MEDIA_ENTERTAINMENT.toString();
-		}
-		else if (industry == 35014) {
-			return Industry.NOT_FOR_PROFIT_NGO.toString();
-		}
-		else if (industry == 35015) {
-			return Industry.OTHER.toString();
-		}
-		else if (industry == 35016) {
-			return Industry.PHARMACEUTICALS.toString();
-		}
-		else if (industry == 35018) {
-			return Industry.TECHNOLOGY.toString();
-		}
-		else if (industry == 35019) {
-			return Industry.TELECOMMUNICATIONS.toString();
-		}
-		else if (industry == 35020) {
-			return Industry.TRANSPORTAION.toString();
-		}
-		else if (industry == 35022) {
-			return Industry.UTILITIES.toString();
-		}
-		else if (industry == 35023) {
-			return Industry.ENGINEERING.toString();
-		}
-		else if (industry == 35024) {
-			return Industry.GOVERNMENT_FEDERAL.toString();
-		}
-		else if (industry == 35025) {
-			return Industry.GOVERNMENT_STATE_LOCAL.toString();
-		}
-		else if (industry == 35026) {
-			return Industry.PROFESSIONAL_SERVICES_AGENCY_BUSINESS.toString();
-		}
-		else if (industry == 35027) {
-			return Industry.PROFESSIONAL_SERVICES_TECHNICAL_WEB_IT.toString();
-		}
-		else if (industry == 35028) {
-			return Industry.FOOD_SERVICES.toString();
-		}
-
-		return StringPool.BLANK;
 	}
 
 	private boolean _getInternal(int type) {
