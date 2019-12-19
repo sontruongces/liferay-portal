@@ -45,6 +45,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TeamResource {
 
+	public Page<Team> getAccountAccountKeyAssignedTeamsPage(
+			String accountKey, Pagination pagination)
+		throws Exception;
+
 	public Page<Team> getAccountAccountKeyTeamsPage(
 			String accountKey, Pagination pagination)
 		throws Exception;

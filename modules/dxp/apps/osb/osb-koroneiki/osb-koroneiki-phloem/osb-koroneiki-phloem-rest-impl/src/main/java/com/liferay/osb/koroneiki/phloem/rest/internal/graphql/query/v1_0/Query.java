@@ -217,7 +217,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {account(accountKey: ___){code, contactEmailAddress, contacts, dateCreated, dateModified, description, entitlements, externalLinks, faxNumber, industry, internal, key, logoId, name, notes, parentAccountKey, phoneNumber, postalAddresses, productPurchases, profileEmailAddress, soldBy, status, tier, website}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {account(accountKey: ___){assignedTeams, code, contactEmailAddress, contacts, dateCreated, dateModified, description, entitlements, externalLinks, faxNumber, industry, internal, key, logoId, name, notes, parentAccountKey, phoneNumber, postalAddresses, productPurchases, profileEmailAddress, soldBy, status, tier, website}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Account account(@GraphQLName("accountKey") String accountKey)
@@ -1263,6 +1263,26 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyAssignedTeams(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public TeamPage accountAccountKeyAssignedTeams(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> new TeamPage(
+				teamResource.getAccountAccountKeyAssignedTeamsPage(
+					accountKey, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyTeams(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -1506,6 +1526,33 @@ public class Query {
 						getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
 							_account.getKey(), teamKey,
 							Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyAssignedTeamsPageTypeExtension {
+
+		public GetAccountAccountKeyAssignedTeamsPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public TeamPage accountKeyAssignedTeams(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_teamResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				teamResource -> new TeamPage(
+					teamResource.getAccountAccountKeyAssignedTeamsPage(
+						_account.getKey(), Pagination.of(page, pageSize))));
 		}
 
 		private Account _account;

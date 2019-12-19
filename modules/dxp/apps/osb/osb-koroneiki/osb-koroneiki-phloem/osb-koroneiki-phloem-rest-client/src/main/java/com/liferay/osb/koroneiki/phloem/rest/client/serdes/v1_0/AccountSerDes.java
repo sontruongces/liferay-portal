@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.client.json.BaseJSONParser;
 
 import java.text.DateFormat;
@@ -64,6 +65,26 @@ public class AccountSerDes {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (account.getAssignedTeams() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"assignedTeams\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < account.getAssignedTeams().length; i++) {
+				sb.append(String.valueOf(account.getAssignedTeams()[i]));
+
+				if ((i + 1) < account.getAssignedTeams().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
 
 		if (account.getCode() != null) {
 			if (sb.length() > 1) {
@@ -445,6 +466,14 @@ public class AccountSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (account.getAssignedTeams() == null) {
+			map.put("assignedTeams", null);
+		}
+		else {
+			map.put(
+				"assignedTeams", String.valueOf(account.getAssignedTeams()));
+		}
+
 		if (account.getCode() == null) {
 			map.put("code", null);
 		}
@@ -638,7 +667,19 @@ public class AccountSerDes {
 			Account account, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "code")) {
+			if (Objects.equals(jsonParserFieldName, "assignedTeams")) {
+				if (jsonParserFieldValue != null) {
+					account.setAssignedTeams(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> TeamSerDes.toDTO((String)object)
+						).toArray(
+							size -> new Team[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "code")) {
 				if (jsonParserFieldValue != null) {
 					account.setCode((String)jsonParserFieldValue);
 				}

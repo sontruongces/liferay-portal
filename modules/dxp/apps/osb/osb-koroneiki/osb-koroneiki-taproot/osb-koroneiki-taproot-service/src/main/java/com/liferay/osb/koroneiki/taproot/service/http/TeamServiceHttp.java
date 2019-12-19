@@ -200,6 +200,85 @@ public class TeamServiceHttp {
 	}
 
 	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+			getAccountAssignedTeams(
+				HttpPrincipal httpPrincipal, String accountKey, int start,
+				int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TeamServiceUtil.class, "getAccountAssignedTeams",
+				_getAccountAssignedTeamsParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountKey, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.taproot.model.Team>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getAccountAssignedTeamsCount(
+			HttpPrincipal httpPrincipal, String accountKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TeamServiceUtil.class, "getAccountAssignedTeamsCount",
+				_getAccountAssignedTeamsCountParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
 			getAccountTeams(
 				HttpPrincipal httpPrincipal, long accountId, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -207,7 +286,7 @@ public class TeamServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamServiceUtil.class, "getAccountTeams",
-				_getAccountTeamsParameterTypes4);
+				_getAccountTeamsParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId, start, end);
@@ -248,7 +327,7 @@ public class TeamServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamServiceUtil.class, "getAccountTeams",
-				_getAccountTeamsParameterTypes5);
+				_getAccountTeamsParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey, start, end);
@@ -287,7 +366,7 @@ public class TeamServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamServiceUtil.class, "getAccountTeamsCount",
-				_getAccountTeamsCountParameterTypes6);
+				_getAccountTeamsCountParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId);
@@ -325,7 +404,7 @@ public class TeamServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamServiceUtil.class, "getAccountTeamsCount",
-				_getAccountTeamsCountParameterTypes7);
+				_getAccountTeamsCountParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey);
@@ -362,7 +441,7 @@ public class TeamServiceHttp {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				TeamServiceUtil.class, "getTeam", _getTeamParameterTypes8);
+				TeamServiceUtil.class, "getTeam", _getTeamParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, teamId);
 
@@ -398,7 +477,7 @@ public class TeamServiceHttp {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				TeamServiceUtil.class, "getTeam", _getTeamParameterTypes9);
+				TeamServiceUtil.class, "getTeam", _getTeamParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, teamKey);
 
@@ -436,7 +515,7 @@ public class TeamServiceHttp {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				TeamServiceUtil.class, "getTeams", _getTeamsParameterTypes10);
+				TeamServiceUtil.class, "getTeams", _getTeamsParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId, start, end);
@@ -476,7 +555,7 @@ public class TeamServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamServiceUtil.class, "getTeamsCount",
-				_getTeamsCountParameterTypes11);
+				_getTeamsCountParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId);
@@ -514,7 +593,7 @@ public class TeamServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamServiceUtil.class, "updateTeam",
-				_updateTeamParameterTypes12);
+				_updateTeamParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamId, name);
@@ -552,7 +631,7 @@ public class TeamServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamServiceUtil.class, "updateTeam",
-				_updateTeamParameterTypes13);
+				_updateTeamParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamKey, name);
@@ -597,29 +676,35 @@ public class TeamServiceHttp {
 	private static final Class<?>[] _deleteTeamParameterTypes3 = new Class[] {
 		String.class
 	};
-	private static final Class<?>[] _getAccountTeamsParameterTypes4 =
-		new Class[] {long.class, int.class, int.class};
-	private static final Class<?>[] _getAccountTeamsParameterTypes5 =
+	private static final Class<?>[] _getAccountAssignedTeamsParameterTypes4 =
 		new Class[] {String.class, int.class, int.class};
-	private static final Class<?>[] _getAccountTeamsCountParameterTypes6 =
+	private static final Class<?>[]
+		_getAccountAssignedTeamsCountParameterTypes5 = new Class[] {
+			String.class
+		};
+	private static final Class<?>[] _getAccountTeamsParameterTypes6 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[] _getAccountTeamsParameterTypes7 =
+		new Class[] {String.class, int.class, int.class};
+	private static final Class<?>[] _getAccountTeamsCountParameterTypes8 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getAccountTeamsCountParameterTypes7 =
+	private static final Class<?>[] _getAccountTeamsCountParameterTypes9 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getTeamParameterTypes8 = new Class[] {
+	private static final Class<?>[] _getTeamParameterTypes10 = new Class[] {
 		long.class
 	};
-	private static final Class<?>[] _getTeamParameterTypes9 = new Class[] {
+	private static final Class<?>[] _getTeamParameterTypes11 = new Class[] {
 		String.class
 	};
-	private static final Class<?>[] _getTeamsParameterTypes10 = new Class[] {
+	private static final Class<?>[] _getTeamsParameterTypes12 = new Class[] {
 		String.class, String.class, String.class, int.class, int.class
 	};
-	private static final Class<?>[] _getTeamsCountParameterTypes11 =
+	private static final Class<?>[] _getTeamsCountParameterTypes13 =
 		new Class[] {String.class, String.class, String.class};
-	private static final Class<?>[] _updateTeamParameterTypes12 = new Class[] {
+	private static final Class<?>[] _updateTeamParameterTypes14 = new Class[] {
 		long.class, String.class
 	};
-	private static final Class<?>[] _updateTeamParameterTypes13 = new Class[] {
+	private static final Class<?>[] _updateTeamParameterTypes15 = new Class[] {
 		String.class, String.class
 	};
 

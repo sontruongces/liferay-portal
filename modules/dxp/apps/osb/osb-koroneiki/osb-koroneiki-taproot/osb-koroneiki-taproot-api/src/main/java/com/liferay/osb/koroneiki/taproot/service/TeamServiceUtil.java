@@ -72,6 +72,19 @@ public class TeamServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+			getAccountAssignedTeams(String accountKey, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAccountAssignedTeams(accountKey, start, end);
+	}
+
+	public static int getAccountAssignedTeamsCount(String accountKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAccountAssignedTeamsCount(accountKey);
+	}
+
+	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
 			getAccountTeams(long accountId, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

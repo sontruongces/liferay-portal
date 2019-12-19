@@ -68,6 +68,21 @@ public class TeamServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+			getAccountAssignedTeams(String accountKey, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamService.getAccountAssignedTeams(accountKey, start, end);
+	}
+
+	@Override
+	public int getAccountAssignedTeamsCount(String accountKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamService.getAccountAssignedTeamsCount(accountKey);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
 			getAccountTeams(long accountId, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

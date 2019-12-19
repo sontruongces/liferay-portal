@@ -178,6 +178,35 @@ public class Account {
 
 	}
 
+	@Schema(description = "The teams that are assigned to this account.")
+	@Valid
+	public Team[] getAssignedTeams() {
+		return assignedTeams;
+	}
+
+	public void setAssignedTeams(Team[] assignedTeams) {
+		this.assignedTeams = assignedTeams;
+	}
+
+	@JsonIgnore
+	public void setAssignedTeams(
+		UnsafeSupplier<Team[], Exception> assignedTeamsUnsafeSupplier) {
+
+		try {
+			assignedTeams = assignedTeamsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Team[] assignedTeams;
+
 	@Schema(description = "The code of the account.")
 	public String getCode() {
 		return code;
@@ -916,6 +945,26 @@ public class Account {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (assignedTeams != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"assignedTeams\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < assignedTeams.length; i++) {
+				sb.append(String.valueOf(assignedTeams[i]));
+
+				if ((i + 1) < assignedTeams.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
 
 		if (code != null) {
 			if (sb.length() > 1) {

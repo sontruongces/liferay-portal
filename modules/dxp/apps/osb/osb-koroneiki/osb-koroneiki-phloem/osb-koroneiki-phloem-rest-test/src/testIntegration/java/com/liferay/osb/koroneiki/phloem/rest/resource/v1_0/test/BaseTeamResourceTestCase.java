@@ -198,6 +198,111 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	@Test
+	public void testGetAccountAccountKeyAssignedTeamsPage() throws Exception {
+		Page<Team> page = teamResource.getAccountAccountKeyAssignedTeamsPage(
+			testGetAccountAccountKeyAssignedTeamsPage_getAccountKey(),
+			Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String accountKey =
+			testGetAccountAccountKeyAssignedTeamsPage_getAccountKey();
+		String irrelevantAccountKey =
+			testGetAccountAccountKeyAssignedTeamsPage_getIrrelevantAccountKey();
+
+		if ((irrelevantAccountKey != null)) {
+			Team irrelevantTeam =
+				testGetAccountAccountKeyAssignedTeamsPage_addTeam(
+					irrelevantAccountKey, randomIrrelevantTeam());
+
+			page = teamResource.getAccountAccountKeyAssignedTeamsPage(
+				irrelevantAccountKey, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantTeam), (List<Team>)page.getItems());
+			assertValid(page);
+		}
+
+		Team team1 = testGetAccountAccountKeyAssignedTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		Team team2 = testGetAccountAccountKeyAssignedTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		page = teamResource.getAccountAccountKeyAssignedTeamsPage(
+			accountKey, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(team1, team2), (List<Team>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetAccountAccountKeyAssignedTeamsPageWithPagination()
+		throws Exception {
+
+		String accountKey =
+			testGetAccountAccountKeyAssignedTeamsPage_getAccountKey();
+
+		Team team1 = testGetAccountAccountKeyAssignedTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		Team team2 = testGetAccountAccountKeyAssignedTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		Team team3 = testGetAccountAccountKeyAssignedTeamsPage_addTeam(
+			accountKey, randomTeam());
+
+		Page<Team> page1 = teamResource.getAccountAccountKeyAssignedTeamsPage(
+			accountKey, Pagination.of(1, 2));
+
+		List<Team> teams1 = (List<Team>)page1.getItems();
+
+		Assert.assertEquals(teams1.toString(), 2, teams1.size());
+
+		Page<Team> page2 = teamResource.getAccountAccountKeyAssignedTeamsPage(
+			accountKey, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Team> teams2 = (List<Team>)page2.getItems();
+
+		Assert.assertEquals(teams2.toString(), 1, teams2.size());
+
+		Page<Team> page3 = teamResource.getAccountAccountKeyAssignedTeamsPage(
+			accountKey, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(team1, team2, team3), (List<Team>)page3.getItems());
+	}
+
+	protected Team testGetAccountAccountKeyAssignedTeamsPage_addTeam(
+			String accountKey, Team team)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetAccountAccountKeyAssignedTeamsPage_getAccountKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyAssignedTeamsPage_getIrrelevantAccountKey()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
 	public void testGetAccountAccountKeyTeamsPage() throws Exception {
 		Page<Team> page = teamResource.getAccountAccountKeyTeamsPage(
 			testGetAccountAccountKeyTeamsPage_getAccountKey(),

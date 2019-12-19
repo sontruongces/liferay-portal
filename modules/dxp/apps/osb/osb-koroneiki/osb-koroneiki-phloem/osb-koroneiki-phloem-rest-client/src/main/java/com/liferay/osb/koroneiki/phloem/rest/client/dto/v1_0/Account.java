@@ -144,6 +144,27 @@ public class Account {
 
 	}
 
+	public Team[] getAssignedTeams() {
+		return assignedTeams;
+	}
+
+	public void setAssignedTeams(Team[] assignedTeams) {
+		this.assignedTeams = assignedTeams;
+	}
+
+	public void setAssignedTeams(
+		UnsafeSupplier<Team[], Exception> assignedTeamsUnsafeSupplier) {
+
+		try {
+			assignedTeams = assignedTeamsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Team[] assignedTeams;
+
 	public String getCode() {
 		return code;
 	}

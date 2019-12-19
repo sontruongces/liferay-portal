@@ -60,6 +60,15 @@ public interface TeamService extends BaseService {
 	public Team deleteTeam(String teamKey) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Team> getAccountAssignedTeams(
+			String accountKey, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAccountAssignedTeamsCount(String accountKey)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Team> getAccountTeams(long accountId, int start, int end)
 		throws PortalException;
 

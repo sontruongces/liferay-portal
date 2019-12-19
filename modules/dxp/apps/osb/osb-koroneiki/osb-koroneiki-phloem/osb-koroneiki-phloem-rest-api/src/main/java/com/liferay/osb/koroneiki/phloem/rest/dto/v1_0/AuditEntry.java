@@ -55,7 +55,8 @@ public class AuditEntry {
 	@GraphQLName("Action")
 	public static enum Action {
 
-		ADD("Add"), DELETE("Delete"), UPDATE("Update");
+		ADD("Add"), ASSIGN("Assign"), DELETE("Delete"), RENEW("Renew"),
+		UNASSIGN("Unassign"), UPDATE("Update");
 
 		@JsonCreator
 		public static Action create(String value) {
