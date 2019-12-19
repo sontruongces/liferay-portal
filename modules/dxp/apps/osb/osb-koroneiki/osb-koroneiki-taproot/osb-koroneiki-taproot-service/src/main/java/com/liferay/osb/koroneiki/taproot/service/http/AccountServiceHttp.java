@@ -55,9 +55,8 @@ public class AccountServiceHttp {
 			HttpPrincipal httpPrincipal, long parentAccountId, String name,
 			String code, String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, boolean internal,
-			int status)
+			String phoneNumber, String faxNumber, String website, String tier,
+			String soldBy, boolean internal, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -68,7 +67,7 @@ public class AccountServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, parentAccountId, name, code, description, notes,
 				logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
-				faxNumber, website, industry, tier, soldBy, internal, status);
+				faxNumber, website, tier, soldBy, internal, status);
 
 			Object returnObj = null;
 
@@ -488,9 +487,8 @@ public class AccountServiceHttp {
 			HttpPrincipal httpPrincipal, long accountId, long parentAccountId,
 			String name, String code, String description, String notes,
 			long logoId, String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, boolean internal,
-			int status)
+			String phoneNumber, String faxNumber, String website, String tier,
+			String soldBy, boolean internal, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -501,8 +499,8 @@ public class AccountServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId, parentAccountId, name, code, description,
 				notes, logoId, contactEmailAddress, profileEmailAddress,
-				phoneNumber, faxNumber, website, industry, tier, soldBy,
-				internal, status);
+				phoneNumber, faxNumber, website, tier, soldBy, internal,
+				status);
 
 			Object returnObj = null;
 
@@ -535,8 +533,8 @@ public class AccountServiceHttp {
 			long parentAccountId, String name, String code, String description,
 			String notes, long logoId, String contactEmailAddress,
 			String profileEmailAddress, String phoneNumber, String faxNumber,
-			String website, String industry, String tier, String soldBy,
-			boolean internal, int status)
+			String website, String tier, String soldBy, boolean internal,
+			int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -547,8 +545,8 @@ public class AccountServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey, parentAccountId, name, code, description,
 				notes, logoId, contactEmailAddress, profileEmailAddress,
-				phoneNumber, faxNumber, website, industry, tier, soldBy,
-				internal, status);
+				phoneNumber, faxNumber, website, tier, soldBy, internal,
+				status);
 
 			Object returnObj = null;
 
@@ -581,8 +579,7 @@ public class AccountServiceHttp {
 	private static final Class<?>[] _addAccountParameterTypes0 = new Class[] {
 		long.class, String.class, String.class, String.class, String.class,
 		long.class, String.class, String.class, String.class, String.class,
-		String.class, String.class, String.class, String.class, boolean.class,
-		int.class
+		String.class, String.class, String.class, boolean.class, int.class
 	};
 	private static final Class<?>[] _deleteAccountParameterTypes1 =
 		new Class[] {long.class};
@@ -613,14 +610,14 @@ public class AccountServiceHttp {
 			long.class, long.class, String.class, String.class, String.class,
 			String.class, long.class, String.class, String.class, String.class,
 			String.class, String.class, String.class, String.class,
-			String.class, boolean.class, int.class
+			boolean.class, int.class
 		};
 	private static final Class<?>[] _updateAccountParameterTypes12 =
 		new Class[] {
 			String.class, long.class, String.class, String.class, String.class,
 			String.class, long.class, String.class, String.class, String.class,
 			String.class, String.class, String.class, String.class,
-			String.class, boolean.class, int.class
+			boolean.class, int.class
 		};
 
 }

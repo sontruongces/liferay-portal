@@ -62,7 +62,6 @@ public class AccountWrapper
 		attributes.put("phoneNumber", getPhoneNumber());
 		attributes.put("faxNumber", getFaxNumber());
 		attributes.put("website", getWebsite());
-		attributes.put("industry", getIndustry());
 		attributes.put("tier", getTier());
 		attributes.put("soldBy", getSoldBy());
 		attributes.put("internal", isInternal());
@@ -191,12 +190,6 @@ public class AccountWrapper
 
 		if (website != null) {
 			setWebsite(website);
-		}
-
-		String industry = (String)attributes.get("industry");
-
-		if (industry != null) {
-			setIndustry(industry);
 		}
 
 		String tier = (String)attributes.get("tier");
@@ -355,16 +348,6 @@ public class AccountWrapper
 	@Override
 	public String getFaxNumber() {
 		return model.getFaxNumber();
-	}
-
-	/**
-	 * Returns the industry of this account.
-	 *
-	 * @return the industry of this account
-	 */
-	@Override
-	public String getIndustry() {
-		return model.getIndustry();
 	}
 
 	/**
@@ -777,16 +760,6 @@ public class AccountWrapper
 	@Override
 	public void setFaxNumber(String faxNumber) {
 		model.setFaxNumber(faxNumber);
-	}
-
-	/**
-	 * Sets the industry of this account.
-	 *
-	 * @param industry the industry of this account
-	 */
-	@Override
-	public void setIndustry(String industry) {
-		model.setIndustry(industry);
 	}
 
 	/**

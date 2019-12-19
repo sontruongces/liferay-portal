@@ -363,21 +363,6 @@ public interface AccountModel
 	public void setWebsite(String website);
 
 	/**
-	 * Returns the industry of this account.
-	 *
-	 * @return the industry of this account
-	 */
-	@AutoEscape
-	public String getIndustry();
-
-	/**
-	 * Sets the industry of this account.
-	 *
-	 * @param industry the industry of this account
-	 */
-	public void setIndustry(String industry);
-
-	/**
 	 * Returns the tier of this account.
 	 *
 	 * @return the tier of this account

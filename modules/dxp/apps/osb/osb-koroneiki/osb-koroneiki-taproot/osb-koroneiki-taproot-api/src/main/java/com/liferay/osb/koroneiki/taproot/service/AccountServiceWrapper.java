@@ -40,14 +40,14 @@ public class AccountServiceWrapper
 			long parentAccountId, String name, String code, String description,
 			String notes, long logoId, String contactEmailAddress,
 			String profileEmailAddress, String phoneNumber, String faxNumber,
-			String website, String industry, String tier, String soldBy,
-			boolean internal, int status)
+			String website, String tier, String soldBy, boolean internal,
+			int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountService.addAccount(
 			parentAccountId, name, code, description, notes, logoId,
 			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
-			website, industry, tier, soldBy, internal, status);
+			website, tier, soldBy, internal, status);
 	}
 
 	@Override
@@ -146,15 +146,14 @@ public class AccountServiceWrapper
 			long accountId, long parentAccountId, String name, String code,
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, boolean internal,
-			int status)
+			String phoneNumber, String faxNumber, String website, String tier,
+			String soldBy, boolean internal, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountService.updateAccount(
 			accountId, parentAccountId, name, code, description, notes, logoId,
 			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
-			website, industry, tier, soldBy, internal, status);
+			website, tier, soldBy, internal, status);
 	}
 
 	@Override
@@ -162,15 +161,14 @@ public class AccountServiceWrapper
 			String accountKey, long parentAccountId, String name, String code,
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, boolean internal,
-			int status)
+			String phoneNumber, String faxNumber, String website, String tier,
+			String soldBy, boolean internal, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountService.updateAccount(
 			accountKey, parentAccountId, name, code, description, notes, logoId,
 			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
-			website, industry, tier, soldBy, internal, status);
+			website, tier, soldBy, internal, status);
 	}
 
 	@Override

@@ -79,9 +79,8 @@ public interface AccountLocalService
 			long userId, long parentAccountId, String name, String code,
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, boolean internal,
-			int status)
+			String phoneNumber, String faxNumber, String website, String tier,
+			String soldBy, boolean internal, int status)
 		throws PortalException;
 
 	/**
@@ -312,9 +311,8 @@ public interface AccountLocalService
 			long userId, long accountId, long parentAccountId, String name,
 			String code, String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website,
-			String industry, String tier, String soldBy, boolean internal,
-			int status)
+			String phoneNumber, String faxNumber, String website, String tier,
+			String soldBy, boolean internal, int status)
 		throws PortalException;
 
 }

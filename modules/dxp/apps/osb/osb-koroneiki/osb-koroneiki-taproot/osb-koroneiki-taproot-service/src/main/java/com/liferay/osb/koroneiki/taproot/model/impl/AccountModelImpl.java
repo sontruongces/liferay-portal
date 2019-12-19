@@ -85,11 +85,10 @@ public class AccountModelImpl
 		{"contactEmailAddress", Types.VARCHAR},
 		{"profileEmailAddress", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
 		{"faxNumber", Types.VARCHAR}, {"website", Types.VARCHAR},
-		{"industry", Types.VARCHAR}, {"tier", Types.VARCHAR},
-		{"soldBy", Types.VARCHAR}, {"internal_", Types.BOOLEAN},
-		{"status", Types.INTEGER}, {"statusByUserId", Types.BIGINT},
-		{"statusByUserName", Types.VARCHAR}, {"statusDate", Types.TIMESTAMP},
-		{"statusMessage", Types.VARCHAR}
+		{"tier", Types.VARCHAR}, {"soldBy", Types.VARCHAR},
+		{"internal_", Types.BOOLEAN}, {"status", Types.INTEGER},
+		{"statusByUserId", Types.BIGINT}, {"statusByUserName", Types.VARCHAR},
+		{"statusDate", Types.TIMESTAMP}, {"statusMessage", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -115,7 +114,6 @@ public class AccountModelImpl
 		TABLE_COLUMNS_MAP.put("phoneNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("faxNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("website", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("industry", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("tier", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("soldBy", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("internal_", Types.BOOLEAN);
@@ -127,7 +125,7 @@ public class AccountModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Account (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,notes STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,industry VARCHAR(75) null,tier VARCHAR(75) null,soldBy VARCHAR(75) null,internal_ BOOLEAN,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
+		"create table Koroneiki_Account (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,notes STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,tier VARCHAR(75) null,soldBy VARCHAR(75) null,internal_ BOOLEAN,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Account";
 
@@ -197,7 +195,6 @@ public class AccountModelImpl
 		model.setPhoneNumber(soapModel.getPhoneNumber());
 		model.setFaxNumber(soapModel.getFaxNumber());
 		model.setWebsite(soapModel.getWebsite());
-		model.setIndustry(soapModel.getIndustry());
 		model.setTier(soapModel.getTier());
 		model.setSoldBy(soapModel.getSoldBy());
 		model.setInternal(soapModel.isInternal());
@@ -419,9 +416,6 @@ public class AccountModelImpl
 		attributeGetterFunctions.put("website", Account::getWebsite);
 		attributeSetterBiConsumers.put(
 			"website", (BiConsumer<Account, String>)Account::setWebsite);
-		attributeGetterFunctions.put("industry", Account::getIndustry);
-		attributeSetterBiConsumers.put(
-			"industry", (BiConsumer<Account, String>)Account::setIndustry);
 		attributeGetterFunctions.put("tier", Account::getTier);
 		attributeSetterBiConsumers.put(
 			"tier", (BiConsumer<Account, String>)Account::setTier);
@@ -811,22 +805,6 @@ public class AccountModelImpl
 
 	@JSON
 	@Override
-	public String getIndustry() {
-		if (_industry == null) {
-			return "";
-		}
-		else {
-			return _industry;
-		}
-	}
-
-	@Override
-	public void setIndustry(String industry) {
-		_industry = industry;
-	}
-
-	@JSON
-	@Override
 	public String getTier() {
 		if (_tier == null) {
 			return "";
@@ -1096,7 +1074,6 @@ public class AccountModelImpl
 		accountImpl.setPhoneNumber(getPhoneNumber());
 		accountImpl.setFaxNumber(getFaxNumber());
 		accountImpl.setWebsite(getWebsite());
-		accountImpl.setIndustry(getIndustry());
 		accountImpl.setTier(getTier());
 		accountImpl.setSoldBy(getSoldBy());
 		accountImpl.setInternal(isInternal());
@@ -1315,14 +1292,6 @@ public class AccountModelImpl
 			accountCacheModel.website = null;
 		}
 
-		accountCacheModel.industry = getIndustry();
-
-		String industry = accountCacheModel.industry;
-
-		if ((industry != null) && (industry.length() == 0)) {
-			accountCacheModel.industry = null;
-		}
-
 		accountCacheModel.tier = getTier();
 
 		String tier = accountCacheModel.tier;
@@ -1474,7 +1443,6 @@ public class AccountModelImpl
 	private String _phoneNumber;
 	private String _faxNumber;
 	private String _website;
-	private String _industry;
 	private String _tier;
 	private String _soldBy;
 	private boolean _internal;

@@ -50,7 +50,6 @@ public class AccountSoap implements Serializable {
 		soapModel.setPhoneNumber(model.getPhoneNumber());
 		soapModel.setFaxNumber(model.getFaxNumber());
 		soapModel.setWebsite(model.getWebsite());
-		soapModel.setIndustry(model.getIndustry());
 		soapModel.setTier(model.getTier());
 		soapModel.setSoldBy(model.getSoldBy());
 		soapModel.setInternal(model.isInternal());
@@ -264,14 +263,6 @@ public class AccountSoap implements Serializable {
 		_website = website;
 	}
 
-	public String getIndustry() {
-		return _industry;
-	}
-
-	public void setIndustry(String industry) {
-		_industry = industry;
-	}
-
 	public String getTier() {
 		return _tier;
 	}
@@ -359,7 +350,6 @@ public class AccountSoap implements Serializable {
 	private String _phoneNumber;
 	private String _faxNumber;
 	private String _website;
-	private String _industry;
 	private String _tier;
 	private String _soldBy;
 	private boolean _internal;

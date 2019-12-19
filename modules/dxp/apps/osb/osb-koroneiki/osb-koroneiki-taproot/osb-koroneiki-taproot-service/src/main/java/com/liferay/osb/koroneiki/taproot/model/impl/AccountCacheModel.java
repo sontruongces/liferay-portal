@@ -76,7 +76,7 @@ public class AccountCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(57);
+		StringBundler sb = new StringBundler(55);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -116,8 +116,6 @@ public class AccountCacheModel
 		sb.append(faxNumber);
 		sb.append(", website=");
 		sb.append(website);
-		sb.append(", industry=");
-		sb.append(industry);
 		sb.append(", tier=");
 		sb.append(tier);
 		sb.append(", soldBy=");
@@ -244,13 +242,6 @@ public class AccountCacheModel
 			accountImpl.setWebsite(website);
 		}
 
-		if (industry == null) {
-			accountImpl.setIndustry("");
-		}
-		else {
-			accountImpl.setIndustry(industry);
-		}
-
 		if (tier == null) {
 			accountImpl.setTier("");
 		}
@@ -321,7 +312,6 @@ public class AccountCacheModel
 		phoneNumber = objectInput.readUTF();
 		faxNumber = objectInput.readUTF();
 		website = objectInput.readUTF();
-		industry = objectInput.readUTF();
 		tier = objectInput.readUTF();
 		soldBy = objectInput.readUTF();
 
@@ -428,13 +418,6 @@ public class AccountCacheModel
 			objectOutput.writeUTF(website);
 		}
 
-		if (industry == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(industry);
-		}
-
 		if (tier == null) {
 			objectOutput.writeUTF("");
 		}
@@ -491,7 +474,6 @@ public class AccountCacheModel
 	public String phoneNumber;
 	public String faxNumber;
 	public String website;
-	public String industry;
 	public String tier;
 	public String soldBy;
 	public boolean internal;
