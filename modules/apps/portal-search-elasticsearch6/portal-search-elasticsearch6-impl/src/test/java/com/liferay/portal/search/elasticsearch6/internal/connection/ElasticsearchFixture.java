@@ -103,6 +103,11 @@ public class ElasticsearchFixture implements ElasticsearchClientResolver {
 		return _embeddedElasticsearchConnection.getClient();
 	}
 
+	@Override
+	public Client getClient(boolean preferLocalCluster) {
+		return _embeddedElasticsearchConnection.getClient();
+	}
+
 	public ClusterHealthResponse getClusterHealthResponse(
 		HealthExpectations healthExpectations) {
 
