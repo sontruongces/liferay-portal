@@ -220,6 +220,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>BODY_VERTICAL_ELLIPSIS_IE</td>
+	<td>//div[contains(@class,'portlet') and contains(@class,'container')]//a[contains(@class,'icon-monospaced')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>HEADER_VERTICAL_ELLIPSIS</td>
 	<td>//*[@data-qa-id='header']//a[span/*[name()='svg'][contains(@class,'icon-ellipsis')]]</td>
 	<td></td>
