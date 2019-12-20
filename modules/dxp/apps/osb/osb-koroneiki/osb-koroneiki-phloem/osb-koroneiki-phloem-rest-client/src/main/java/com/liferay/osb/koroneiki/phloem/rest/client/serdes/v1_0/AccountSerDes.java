@@ -231,20 +231,6 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
-		if (account.getIndustry() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"industry\": ");
-
-			sb.append("\"");
-
-			sb.append(account.getIndustry());
-
-			sb.append("\"");
-		}
-
 		if (account.getInternal() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -534,13 +520,6 @@ public class AccountSerDes {
 			map.put("faxNumber", String.valueOf(account.getFaxNumber()));
 		}
 
-		if (account.getIndustry() == null) {
-			map.put("industry", null);
-		}
-		else {
-			map.put("industry", String.valueOf(account.getIndustry()));
-		}
-
 		if (account.getInternal() == null) {
 			map.put("internal", null);
 		}
@@ -748,12 +727,6 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "faxNumber")) {
 				if (jsonParserFieldValue != null) {
 					account.setFaxNumber((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "industry")) {
-				if (jsonParserFieldValue != null) {
-					account.setIndustry(
-						Account.Industry.create((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "internal")) {

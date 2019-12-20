@@ -98,7 +98,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -187,7 +187,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -335,7 +335,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "industry": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "internal": ___, "logoId": ___, "name": ___, "notes": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "soldBy": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

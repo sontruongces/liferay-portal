@@ -217,7 +217,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {account(accountKey: ___){assignedTeams, code, contactEmailAddress, contacts, dateCreated, dateModified, description, entitlements, externalLinks, faxNumber, industry, internal, key, logoId, name, notes, parentAccountKey, phoneNumber, postalAddresses, productPurchases, profileEmailAddress, soldBy, status, tier, website}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {account(accountKey: ___){assignedTeams, code, contactEmailAddress, contacts, dateCreated, dateModified, description, entitlements, externalLinks, faxNumber, internal, key, logoId, name, notes, parentAccountKey, phoneNumber, postalAddresses, productPurchases, profileEmailAddress, soldBy, status, tier, website}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Account account(@GraphQLName("accountKey") String accountKey)

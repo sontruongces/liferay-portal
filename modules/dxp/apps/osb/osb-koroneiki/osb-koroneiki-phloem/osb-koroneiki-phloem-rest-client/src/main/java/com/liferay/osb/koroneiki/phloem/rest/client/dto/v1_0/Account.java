@@ -29,56 +29,6 @@ import javax.annotation.Generated;
 @Generated("")
 public class Account {
 
-	public static enum Industry {
-
-		AEROSPACE_AND_DEFENSE("Aerospace and Defense"),
-		AGRICULTURE("Agriculture"), AUTOMOTIVE("Automotive"),
-		CONSULTING_MARKET_RESEARCH("Consulting/Market Research"),
-		EDUCATION("Education"), ENERGY("Energy"), ENGINEERING("Engineering"),
-		FINANCIAL_SERVICES("Financial Services"),
-		FOOD_SERVICES("Food Services"),
-		GOVERNMENT_FEDERAL("Government (Federal)"),
-		GOVERNMENT_STATE_LOCAL("Government (State/Local)"),
-		HEALTHCARE("Healthcare"), HOSPITALITY_LEISURE("Hospitality/Leisure"),
-		INSURANCE("Insurance"), MANUFACTURING("Manufacturing"),
-		MEDIA_ENTERTAINMENT("Media/Entertainment"),
-		NOT_FOR_PROFIT_NGO("Not for Profit/NGO"), OTHER("Other"),
-		PHARMACEUTICALS("Pharmaceuticals"),
-		PROFESSIONAL_SERVICES_AGENCY_BUSINESS(
-			"Professional Services (Agency/Business)"),
-		PROFESSIONAL_SERVICES_TECHNICAL_WEB_IT(
-			"Professional Services (Technical/Web/IT)"),
-		RETAIL_CONSUMER_PRODUCTS("Retail/Consumer Products"),
-		TECHNOLOGY("Technology"), TELECOMMUNICATIONS("Telecommunications"),
-		TRANSPORTAION("Transportaion"), UTILITIES("Utilities");
-
-		public static Industry create(String value) {
-			for (Industry industry : values()) {
-				if (Objects.equals(industry.getValue(), value)) {
-					return industry;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Industry(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
 	public static enum Status {
 
 		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
@@ -351,35 +301,6 @@ public class Account {
 	}
 
 	protected String faxNumber;
-
-	public Industry getIndustry() {
-		return industry;
-	}
-
-	public String getIndustryAsString() {
-		if (industry == null) {
-			return null;
-		}
-
-		return industry.toString();
-	}
-
-	public void setIndustry(Industry industry) {
-		this.industry = industry;
-	}
-
-	public void setIndustry(
-		UnsafeSupplier<Industry, Exception> industryUnsafeSupplier) {
-
-		try {
-			industry = industryUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Industry industry;
 
 	public Boolean getInternal() {
 		return internal;

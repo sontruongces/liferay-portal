@@ -1099,14 +1099,6 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("industry", additionalAssertFieldName)) {
-				if (account.getIndustry() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("internal", additionalAssertFieldName)) {
 				if (account.getInternal() == null) {
 					valid = false;
@@ -1374,16 +1366,6 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("faxNumber", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getFaxNumber(), account2.getFaxNumber())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("industry", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						account1.getIndustry(), account2.getIndustry())) {
 
 					return false;
 				}
@@ -1862,11 +1844,6 @@ public abstract class BaseAccountResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
-		}
-
-		if (entityFieldName.equals("industry")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("internal")) {

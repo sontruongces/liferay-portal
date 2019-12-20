@@ -54,59 +54,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Account")
 public class Account {
 
-	@GraphQLName("Industry")
-	public static enum Industry {
-
-		AEROSPACE_AND_DEFENSE("Aerospace and Defense"),
-		AGRICULTURE("Agriculture"), AUTOMOTIVE("Automotive"),
-		CONSULTING_MARKET_RESEARCH("Consulting/Market Research"),
-		EDUCATION("Education"), ENERGY("Energy"), ENGINEERING("Engineering"),
-		FINANCIAL_SERVICES("Financial Services"),
-		FOOD_SERVICES("Food Services"),
-		GOVERNMENT_FEDERAL("Government (Federal)"),
-		GOVERNMENT_STATE_LOCAL("Government (State/Local)"),
-		HEALTHCARE("Healthcare"), HOSPITALITY_LEISURE("Hospitality/Leisure"),
-		INSURANCE("Insurance"), MANUFACTURING("Manufacturing"),
-		MEDIA_ENTERTAINMENT("Media/Entertainment"),
-		NOT_FOR_PROFIT_NGO("Not for Profit/NGO"), OTHER("Other"),
-		PHARMACEUTICALS("Pharmaceuticals"),
-		PROFESSIONAL_SERVICES_AGENCY_BUSINESS(
-			"Professional Services (Agency/Business)"),
-		PROFESSIONAL_SERVICES_TECHNICAL_WEB_IT(
-			"Professional Services (Technical/Web/IT)"),
-		RETAIL_CONSUMER_PRODUCTS("Retail/Consumer Products"),
-		TECHNOLOGY("Technology"), TELECOMMUNICATIONS("Telecommunications"),
-		TRANSPORTAION("Transportaion"), UTILITIES("Utilities");
-
-		@JsonCreator
-		public static Industry create(String value) {
-			for (Industry industry : values()) {
-				if (Objects.equals(industry.getValue(), value)) {
-					return industry;
-				}
-			}
-
-			return null;
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Industry(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
 	@GraphQLName("Status")
 	public static enum Status {
 
@@ -463,44 +410,6 @@ public class Account {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String faxNumber;
-
-	@Schema(description = "The industry of the account.")
-	@Valid
-	public Industry getIndustry() {
-		return industry;
-	}
-
-	@JsonIgnore
-	public String getIndustryAsString() {
-		if (industry == null) {
-			return null;
-		}
-
-		return industry.toString();
-	}
-
-	public void setIndustry(Industry industry) {
-		this.industry = industry;
-	}
-
-	@JsonIgnore
-	public void setIndustry(
-		UnsafeSupplier<Industry, Exception> industryUnsafeSupplier) {
-
-		try {
-			industry = industryUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Industry industry;
 
 	@Schema(
 		description = "A flag that identifies whether this account is an internal or test account."
@@ -1106,20 +1015,6 @@ public class Account {
 			sb.append("\"");
 
 			sb.append(_escape(faxNumber));
-
-			sb.append("\"");
-		}
-
-		if (industry != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"industry\": ");
-
-			sb.append("\"");
-
-			sb.append(industry);
 
 			sb.append("\"");
 		}
