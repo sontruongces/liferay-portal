@@ -4173,7 +4173,9 @@ AUI.add(
 
 						editor.create();
 
-						editor.setHTML(html);
+						CKEDITOR.on('instanceReady', () => {
+							editor.setHTML(html);
+						});
 					}
 				},
 
