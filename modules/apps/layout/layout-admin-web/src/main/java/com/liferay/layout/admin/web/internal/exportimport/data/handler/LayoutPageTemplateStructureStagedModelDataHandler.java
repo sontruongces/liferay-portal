@@ -80,11 +80,6 @@ public class LayoutPageTemplateStructureStagedModelDataHandler
 		importedLayoutPageTemplateStructure.setGroupId(
 			portletDataContext.getScopeGroupId());
 
-		LayoutPageTemplateStructure existingLayoutPageTemplateStructure =
-			_stagedModelRepository.fetchStagedModelByUuidAndGroupId(
-				layoutPageTemplateStructure.getUuid(),
-				portletDataContext.getScopeGroupId());
-
 		Element element = portletDataContext.getImportDataElement(
 			importedLayoutPageTemplateStructure);
 
@@ -92,6 +87,11 @@ public class LayoutPageTemplateStructureStagedModelDataHandler
 			_portal.getClassNameId(element.attributeValue("className")));
 		importedLayoutPageTemplateStructure.setClassPK(
 			GetterUtil.getLong(element.attributeValue("classPK")));
+
+		LayoutPageTemplateStructure existingLayoutPageTemplateStructure =
+			_stagedModelRepository.fetchStagedModelByUuidAndGroupId(
+				layoutPageTemplateStructure.getUuid(),
+				portletDataContext.getScopeGroupId());
 
 		if ((existingLayoutPageTemplateStructure == null) ||
 			!portletDataContext.isDataStrategyMirror()) {
