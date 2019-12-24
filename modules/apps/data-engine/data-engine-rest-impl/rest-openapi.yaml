@@ -339,6 +339,9 @@ paths:
                         application/json:
                             schema:
                                 type: string
+                        application/xml:
+                            schema:
+                                type: string
                     description:
                         ""
             tags: ["DataDefinition"]
@@ -356,6 +359,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataDefinition"]
@@ -438,6 +442,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataDefinition"]
@@ -731,6 +736,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataLayout"]
@@ -813,6 +819,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataLayout"]
@@ -830,6 +837,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataListView"]
@@ -897,6 +905,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataRecordCollection"]
@@ -979,6 +988,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataRecordCollection"]
@@ -1069,6 +1079,9 @@ paths:
                         application/json:
                             schema:
                                 type: string
+                        application/xml:
+                            schema:
+                                type: string
                     description:
                         ""
             tags: ["DataRecord"]
@@ -1086,6 +1099,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataRecord"]
@@ -1166,6 +1180,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataDefinition"]
@@ -1295,6 +1310,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataLayout"]
@@ -1395,6 +1411,7 @@ paths:
                 204:
                     content:
                         application/json: {}
+                        application/xml: {}
                     description:
                         ""
             tags: ["DataRecordCollection"]

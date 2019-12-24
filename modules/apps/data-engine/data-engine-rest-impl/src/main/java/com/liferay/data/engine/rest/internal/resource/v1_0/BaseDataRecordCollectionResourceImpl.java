@@ -126,7 +126,7 @@ public abstract class BaseDataRecordCollectionResourceImpl
 		}
 	)
 	@Path("/data-record-collections/{dataRecordCollectionId}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DataRecordCollection")})
 	public void deleteDataRecordCollection(
 			@NotNull @Parameter(hidden = true)
@@ -199,7 +199,7 @@ public abstract class BaseDataRecordCollectionResourceImpl
 	@Path(
 		"/data-record-collections/{dataRecordCollectionId}/data-record-collection-permissions"
 	)
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DataRecordCollection")})
 	public void postDataRecordCollectionDataRecordCollectionPermission(
 			@NotNull @Parameter(hidden = true)
@@ -225,7 +225,7 @@ public abstract class BaseDataRecordCollectionResourceImpl
 		}
 	)
 	@Path("/sites/{siteId}/data-record-collection-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DataRecordCollection")})
 	public void postSiteDataRecordCollectionPermission(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
