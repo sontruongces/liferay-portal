@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.factory;
 
 import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
+import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
@@ -23,12 +24,15 @@ import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.model.TeamAccountRole;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
+import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util.AccountUtil;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util.ContactRoleUtil;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util.ContactUtil;
+import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util.EntitlementUtil;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util.ProductConsumptionUtil;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util.ProductPurchaseUtil;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.util.ProductUtil;
@@ -37,6 +41,7 @@ import com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rest.dto.u
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.service.ClassNameLocalService;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -80,6 +85,30 @@ public class MessageFactory {
 			dtoContactRole = ContactRoleUtil.toContactRole(contactRole);
 
 		return new Message(dtoContactRole.toString());
+	}
+
+	public Message create(Entitlement entitlement) throws Exception {
+		JSONObject jsonObject = JSONUtil.put(
+			"entitlement", toJSONObject(entitlement));
+
+		if (entitlement.getClassNameId() ==
+				_classNameLocalService.getClassNameId(Account.class)) {
+
+			Account account = _accountLocalService.getAccount(
+				entitlement.getClassPK());
+
+			jsonObject.put("account", toJSONObject(account));
+		}
+		else if (entitlement.getClassNameId() ==
+					_classNameLocalService.getClassNameId(Contact.class)) {
+
+			Contact contact = _contactLocalService.getContact(
+				entitlement.getClassPK());
+
+			jsonObject.put("contact", toJSONObject(contact));
+		}
+
+		return new Message(jsonObject.toString());
 	}
 
 	public Message create(ProductConsumption productConsumption)
@@ -155,6 +184,15 @@ public class MessageFactory {
 		return _jsonFactory.createJSONObject(dtoContactRole.toString());
 	}
 
+	protected JSONObject toJSONObject(Entitlement entitlement)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement
+			dtoEntitlement = EntitlementUtil.toEntitlement(entitlement);
+
+		return _jsonFactory.createJSONObject(dtoEntitlement.toString());
+	}
+
 	protected JSONObject toJSONObject(Team team) throws Exception {
 		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team dtoTeam =
 			TeamUtil.toTeam(team);
@@ -168,6 +206,15 @@ public class MessageFactory {
 
 		return _jsonFactory.createJSONObject(dtoTeamRole.toString());
 	}
+
+	@Reference
+	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private ClassNameLocalService _classNameLocalService;
+
+	@Reference
+	private ContactLocalService _contactLocalService;
 
 	@Reference
 	private JSONFactory _jsonFactory;

@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 
@@ -29,12 +30,48 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Amos Fong
  */
-@Component(immediate = true, service = ModelListener.class)
+@Component(
+	immediate = true,
+	property = {
+		"create.topic=koroneiki.entitlement.create",
+		"remove.topic=koroneiki.entitlement.delete",
+		"update.topic=koroneiki.entitlement.update"
+	},
+	service = ModelListener.class
+)
 public class EntitlementModelListener
 	extends BaseXylemModelListener<Entitlement> {
 
 	@Override
 	public Message createMessage(Entitlement entitlement) throws Exception {
+		return messageFactory.create(entitlement);
+	}
+
+	@Override
+	public void onAfterCreate(Entitlement entitlement)
+		throws ModelListenerException {
+
+		super.onAfterCreate(entitlement);
+
+		publishingTasksThreadLocal.addPublishingTask(
+			_getParentTopic(entitlement), _getParentTopic(entitlement),
+			() -> createParentMessage(entitlement));
+	}
+
+	@Override
+	public void onAfterRemove(Entitlement entitlement)
+		throws ModelListenerException {
+
+		super.onAfterRemove(entitlement);
+
+		publishingTasksThreadLocal.addPublishingTask(
+			_getParentTopic(entitlement), _getParentTopic(entitlement),
+			() -> createParentMessage(entitlement));
+	}
+
+	protected Message createParentMessage(Entitlement entitlement)
+		throws Exception {
+
 		if (entitlement.getClassNameId() ==
 				_classNameLocalService.getClassNameId(Account.class)) {
 
@@ -55,22 +92,7 @@ public class EntitlementModelListener
 		return null;
 	}
 
-	@Override
-	protected String getCreateTopic(Entitlement entitlement) {
-		return _getTopic(entitlement);
-	}
-
-	@Override
-	protected String getRemoveTopic(Entitlement entitlement) {
-		return _getTopic(entitlement);
-	}
-
-	@Override
-	protected String getUpdateTopic(Entitlement entitlement) {
-		return _getTopic(entitlement);
-	}
-
-	private String _getTopic(Entitlement entitlement) {
+	private String _getParentTopic(Entitlement entitlement) {
 		if (entitlement.getClassNameId() ==
 				_classNameLocalService.getClassNameId(Account.class)) {
 
