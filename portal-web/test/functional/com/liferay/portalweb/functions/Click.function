@@ -170,6 +170,22 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
+	function waitForClayDropdownJSClick {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent(
+			"//script[contains(@src,'clay-dropdown/src/ClayDropdown.js')]"
+		);
+
+		selenium.pause("3000");
+
+		Click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
 	function waitForMenuToggleJSClick {
 		WaitForSPARefresh();
 
