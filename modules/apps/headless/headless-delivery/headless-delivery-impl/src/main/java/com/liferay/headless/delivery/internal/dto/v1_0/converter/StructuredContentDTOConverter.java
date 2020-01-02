@@ -319,9 +319,9 @@ public class StructuredContentDTOConverter implements DTOConverter {
 	}
 
 	private ContentField _toContentField(
-			DTOConverterContext dtoConverterContext,
 			DDMFormFieldValue ddmFormFieldValue, DLAppService dlAppService,
 			DLURLHelper dlURLHelper,
+			DTOConverterContext dtoConverterContext,
 			JournalArticleService journalArticleService,
 			LayoutLocalService layoutLocalService)
 		throws Exception {
@@ -344,7 +344,7 @@ public class StructuredContentDTOConverter implements DTOConverter {
 				nestedContentFields = TransformUtil.transformToArray(
 					ddmFormFieldValue.getNestedDDMFormFieldValues(),
 					value -> _toContentField(
-						dtoConverterContext, value, dlAppService, dlURLHelper,
+						value, dlAppService, dlURLHelper, dtoConverterContext,
 						journalArticleService, layoutLocalService),
 					ContentField.class);
 				repeatable = ddmFormField.isRepeatable();
@@ -408,8 +408,8 @@ public class StructuredContentDTOConverter implements DTOConverter {
 		return TransformUtil.transformToArray(
 			ddmFormValues.getDDMFormFieldValues(),
 			aDDMFormFieldValue -> _toContentField(
-				dtoConverterContext, aDDMFormFieldValue, dlAppService,
-				dlURLHelper, journalArticleService, layoutLocalService),
+				aDDMFormFieldValue, dlAppService, dlURLHelper,
+				dtoConverterContext, journalArticleService, layoutLocalService),
 			ContentField.class);
 	}
 
