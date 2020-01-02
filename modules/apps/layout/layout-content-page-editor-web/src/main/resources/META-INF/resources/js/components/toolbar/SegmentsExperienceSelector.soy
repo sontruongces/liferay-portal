@@ -321,7 +321,7 @@
 		{let $errorCreationCondition: ($_segmentsExperienceErrors and $_segmentsExperienceErrors.creation) ? true : false /}
 
 		{call com.liferay.layout.content.page.editor.web.SegmentsExperienceSeletorModal.render }
-			{param visible:  $creationModalCondition /}
+			{param visible: $creationModalCondition /}
 			{param error: [
 				'visible': $errorCreationCondition,
 				'message': $errorCreatingMessage,
@@ -340,7 +340,7 @@
 				],
 				'segmentSelector': [
 					'inputId': 'SegmentSelector',
-					'segments':  $availableSegmentsEntries,
+					'segments': $availableSegmentsEntries,
 					'label': $segmentLabel,
 					'value': ($modalStates and $modalStates.creation) ? $modalStates.creation.segmentsEntryId : null
 				]
@@ -366,7 +366,7 @@
 		{let $errorEditionCondition: ($_segmentsExperienceErrors and $_segmentsExperienceErrors.edition) ? true : false /}
 
 		{call com.liferay.layout.content.page.editor.web.SegmentsExperienceSeletorModal.render }
-			{param visible:  $editionModalCondition /}
+			{param visible: $editionModalCondition /}
 			{param error: [
 				'visible': $errorEditionCondition,
 				'message': $errorEditionMessage,
