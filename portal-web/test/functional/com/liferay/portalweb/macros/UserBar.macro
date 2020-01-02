@@ -5,7 +5,14 @@ definition {
 			Click.waitForClayDropdownJSClick(locator1 = "UserBar#USER_AVATAR_PORTRAIT");
 		}
 		else {
-			Click.waitForClayDropdownJSClick(locator1 = "UserBar#USER_AVATAR_ICON");
+			var browserType = PropsUtil.get("browser.type");
+
+			if ("${browserType}" == "internetexplorer") {
+				Click.waitForClayDropdownJSClick(locator1 = "UserBar#USER_AVATAR_ICON_IE");
+			}
+			else {
+				Click.waitForClayDropdownJSClick(locator1 = "UserBar#USER_AVATAR_ICON");
+			}
 		}
 
 		AssertVisible(locator1 = "UserBar#USER_AVATAR_DROPDOWN_PORTAL_OPEN");
