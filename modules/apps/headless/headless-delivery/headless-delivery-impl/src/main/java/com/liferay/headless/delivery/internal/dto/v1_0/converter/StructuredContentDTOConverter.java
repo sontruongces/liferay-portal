@@ -320,8 +320,7 @@ public class StructuredContentDTOConverter implements DTOConverter {
 
 	private ContentField _toContentField(
 			DDMFormFieldValue ddmFormFieldValue, DLAppService dlAppService,
-			DLURLHelper dlURLHelper,
-			DTOConverterContext dtoConverterContext,
+			DLURLHelper dlURLHelper, DTOConverterContext dtoConverterContext,
 			JournalArticleService journalArticleService,
 			LayoutLocalService layoutLocalService)
 		throws Exception {
@@ -359,13 +358,13 @@ public class StructuredContentDTOConverter implements DTOConverter {
 							return null;
 						}
 
+						Map<String, Object> map = new HashMap<>();
+
 						com.liferay.dynamic.data.mapping.model.Value ddmValue =
 							ddmFormFieldValue.getValue();
 
-						Map<String, Object> map = new HashMap<>();
-
 						Map<Locale, String> ddmValueValues =
-								ddmValue.getValues();
+							ddmValue.getValues();
 
 						for (Map.Entry<Locale, String> entry :
 								ddmValueValues.entrySet()) {
@@ -373,12 +372,9 @@ public class StructuredContentDTOConverter implements DTOConverter {
 							Value value = _getValue(
 								ddmFormField, dlAppService, dlURLHelper,
 								journalArticleService, layoutLocalService,
-								entry.getKey(),
-								entry.getValue());
+								entry.getKey(), entry.getValue());
 
-							map.put(
-								String.valueOf(entry.getKey()),
-								value);
+							map.put(String.valueOf(entry.getKey()), value);
 						}
 
 						return map;
