@@ -407,8 +407,8 @@ public class StructuredContentDTOConverter implements DTOConverter {
 
 		return TransformUtil.transformToArray(
 			ddmFormValues.getDDMFormFieldValues(),
-			aDDMFormFieldValue -> _toContentField(
-				aDDMFormFieldValue, dlAppService, dlURLHelper,
+			ddmFormFieldValue -> _toContentField(
+				ddmFormFieldValue, dlAppService, dlURLHelper,
 				dtoConverterContext, journalArticleService, layoutLocalService),
 			ContentField.class);
 	}
