@@ -43,7 +43,7 @@ public class SynonymSetFilterReaderImpl implements SynonymSetFilterReader {
 
 		Map<String, String> settings = getIndexIndexResponse.getSettings();
 
-		JSONObject jsonObject;
+		JSONObject jsonObject = null;
 
 		try {
 			jsonObject = jsonFactory.createJSONObject(
