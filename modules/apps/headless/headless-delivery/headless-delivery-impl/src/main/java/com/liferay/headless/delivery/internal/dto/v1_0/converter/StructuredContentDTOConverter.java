@@ -348,7 +348,6 @@ public class StructuredContentDTOConverter implements DTOConverter {
 						journalArticleService, layoutLocalService),
 					ContentField.class);
 				repeatable = ddmFormField.isRepeatable();
-
 				value = _toValue(
 					ddmFormField, ddmFormFieldValue.getValue(), dlAppService,
 					dlURLHelper, journalArticleService, layoutLocalService,
