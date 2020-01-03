@@ -369,12 +369,12 @@ public class StructuredContentDTOConverter implements DTOConverter {
 						for (Map.Entry<Locale, String> entry :
 								ddmValueValues.entrySet()) {
 
-							Value value = _getValue(
-								ddmFormField, dlAppService, dlURLHelper,
-								journalArticleService, layoutLocalService,
-								entry.getKey(), entry.getValue());
-
-							map.put(String.valueOf(entry.getKey()), value);
+							map.put(
+								String.valueOf(entry.getKey()),
+								_getValue(
+									ddmFormField, dlAppService, dlURLHelper,
+									journalArticleService, layoutLocalService,
+									entry.getKey(), entry.getValue()));
 						}
 
 						return map;
