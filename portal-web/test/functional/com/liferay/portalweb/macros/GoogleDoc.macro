@@ -61,9 +61,11 @@ definition {
 
 		MenuItem.click(menuItem = "Edit in ${dmDocumentTypeName}");
 
+		Pause(locator1 = "3000");
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
-		AssertElementPresent(
+		AssertElementPresent.pauseAssertVisible(
 			key_text = "Save and Return to ${siteName}",
 			locator1 = "Button#ANY");
 	}
