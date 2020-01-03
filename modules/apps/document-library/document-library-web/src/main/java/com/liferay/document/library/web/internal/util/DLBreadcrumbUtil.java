@@ -293,6 +293,14 @@ public class DLBreadcrumbUtil {
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		long scopeGroupId = themeDisplay.getScopeGroupId();
+
+		if (scopeGroupId != groupId) {
+			portletURL.setParameter(
+				"folderId",
+				String.valueOf(DLFolderConstants.DEFAULT_PARENT_FOLDER_ID));
+		}
+
 		portletURL.setParameter(parameterName, parameterValue);
 		portletURL.setParameter("groupId", String.valueOf(groupId));
 		portletURL.setParameter(
