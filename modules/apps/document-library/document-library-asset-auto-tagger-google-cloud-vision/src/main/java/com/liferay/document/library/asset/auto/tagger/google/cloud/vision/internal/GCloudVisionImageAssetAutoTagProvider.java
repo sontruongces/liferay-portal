@@ -146,9 +146,8 @@ public class GCloudVisionImageAssetAutoTagProvider
 		GCloudVisionImageAssetAutoTagProvider.class);
 
 	private static final List<String> _supportedMimeTypes = Arrays.asList(
-		ContentTypes.IMAGE_BMP, ContentTypes.IMAGE_GIF, "image/x-icon",
-		ContentTypes.IMAGE_JPEG, ContentTypes.IMAGE_PNG, "image/tiff",
-		"image/webp");
+		ContentTypes.IMAGE_BMP, ContentTypes.IMAGE_GIF, ContentTypes.IMAGE_JPEG,
+		ContentTypes.IMAGE_PNG, "image/tiff", "image/webp", "image/x-icon");
 
 	@Reference
 	private ConfigurationProvider _configurationProvider;
