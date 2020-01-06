@@ -217,8 +217,6 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		account.setContacts(contacts);
 		account.setExternalLinks(externalLinks);
-		account.setIndustry(
-			Account.Industry.create(accountJSONObject.getString("_industry")));
 		account.setPostalAddresses(new PostalAddress[] {postalAddress});
 		account.setProductPurchases(productPurchases);
 		account.setSoldBy(jsonObject.getString("_salesforceOpportunitySoldBy"));
