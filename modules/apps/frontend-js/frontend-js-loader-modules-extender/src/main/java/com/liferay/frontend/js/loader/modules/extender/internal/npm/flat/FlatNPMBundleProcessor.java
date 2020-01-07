@@ -542,6 +542,18 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 		Map<URL, Collection<String>> moduleDependenciesMap, String location,
 		boolean root) {
 
+		String name = packageJSONObject.getString("name");
+
+		if (Validator.isNull(name)) {
+			return;
+		}
+
+		String version = packageJSONObject.getString("version");
+
+		if (Validator.isNull(version)) {
+			return;
+		}
+
 		String mainModuleName = null;
 
 		String main = packageJSONObject.getString("main");
@@ -555,18 +567,6 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 			if (mainModuleName.startsWith("./")) {
 				mainModuleName = mainModuleName.substring(2);
 			}
-		}
-
-		String name = packageJSONObject.getString("name");
-
-		if (Validator.isNull(name)) {
-			return;
-		}
-
-		String version = packageJSONObject.getString("version");
-
-		if (Validator.isNull(version)) {
-			return;
 		}
 
 		FlatJSPackage flatJSPackage = new FlatJSPackage(
