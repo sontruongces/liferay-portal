@@ -47,7 +47,7 @@ public abstract class SharingEntryServiceBaseImpl
 	extends BaseServiceImpl
 	implements AopService, IdentifiableOSGiService, SharingEntryService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>SharingEntryService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sharing.service.SharingEntryServiceUtil</code>.

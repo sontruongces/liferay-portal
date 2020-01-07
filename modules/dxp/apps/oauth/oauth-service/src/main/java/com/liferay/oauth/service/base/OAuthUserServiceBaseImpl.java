@@ -47,7 +47,7 @@ public abstract class OAuthUserServiceBaseImpl
 	extends BaseServiceImpl
 	implements AopService, IdentifiableOSGiService, OAuthUserService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>OAuthUserService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.oauth.service.OAuthUserServiceUtil</code>.

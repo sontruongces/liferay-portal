@@ -36,7 +36,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ResourceBlockPermissionPersistence
 	extends BasePersistence<ResourceBlockPermission> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ResourceBlockPermissionUtil} to access the resource block permission persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

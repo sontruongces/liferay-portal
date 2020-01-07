@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface LayoutSetVersionPersistence
 	extends BasePersistence<LayoutSetVersion> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link LayoutSetVersionUtil} to access the layout set version persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

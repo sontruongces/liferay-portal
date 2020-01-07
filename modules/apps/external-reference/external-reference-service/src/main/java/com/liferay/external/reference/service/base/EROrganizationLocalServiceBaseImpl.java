@@ -45,7 +45,7 @@ public abstract class EROrganizationLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements AopService, EROrganizationLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>EROrganizationLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.external.reference.service.EROrganizationLocalServiceUtil</code>.

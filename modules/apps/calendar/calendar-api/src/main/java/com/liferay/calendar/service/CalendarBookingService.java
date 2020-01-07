@@ -51,7 +51,7 @@ import org.osgi.annotation.versioning.ProviderType;
 )
 public interface CalendarBookingService extends BaseService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CalendarBookingServiceUtil} to access the calendar booking remote service. Add custom service methods to <code>com.liferay.calendar.service.impl.CalendarBookingServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
@@ -365,7 +365,7 @@ public interface CalendarBookingService extends BaseService {
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
 	 #updateRecurringCalendarBooking(long, long, long[], Map, Map,
 	 String, long, long, boolean, long, String, long, String,
-	 ServiceContext)
+	 ServiceContext)}
 	 */
 	@Deprecated
 	public CalendarBooking updateRecurringCalendarBooking(

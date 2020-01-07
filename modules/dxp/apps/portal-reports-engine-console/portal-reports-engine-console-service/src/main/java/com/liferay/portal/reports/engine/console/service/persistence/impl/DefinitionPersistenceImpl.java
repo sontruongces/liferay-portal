@@ -77,7 +77,7 @@ import org.osgi.service.component.annotations.Reference;
 public class DefinitionPersistenceImpl
 	extends BasePersistenceImpl<Definition> implements DefinitionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DefinitionUtil</code> to access the definition persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

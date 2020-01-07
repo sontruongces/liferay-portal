@@ -31,7 +31,7 @@ import com.liferay.portal.kernel.model.LayoutVersion;
 public abstract class LayoutVersionBaseImpl
 	extends LayoutVersionModelImpl implements LayoutVersion {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout version model instance should use the <code>LayoutVersion</code> interface instead.

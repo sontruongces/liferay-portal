@@ -76,7 +76,7 @@ public class LayoutSEOEntryPersistenceImpl
 	extends BasePersistenceImpl<LayoutSEOEntry>
 	implements LayoutSEOEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>LayoutSEOEntryUtil</code> to access the layout seo entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

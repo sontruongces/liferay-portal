@@ -38,7 +38,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface DLContentModel
 	extends BaseModel<DLContent>, MVCCModel, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a document library content model instance should use the {@link DLContent} interface instead.

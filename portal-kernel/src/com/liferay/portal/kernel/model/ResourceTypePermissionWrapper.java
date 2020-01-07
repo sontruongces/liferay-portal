@@ -197,11 +197,6 @@ public class ResourceTypePermissionWrapper
 		return model.isGroupScope();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a resource type permission model instance should use the <code>ResourceTypePermission</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

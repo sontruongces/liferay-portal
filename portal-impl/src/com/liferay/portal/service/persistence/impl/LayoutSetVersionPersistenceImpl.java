@@ -63,7 +63,7 @@ public class LayoutSetVersionPersistenceImpl
 	extends BasePersistenceImpl<LayoutSetVersion>
 	implements LayoutSetVersionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>LayoutSetVersionUtil</code> to access the layout set version persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

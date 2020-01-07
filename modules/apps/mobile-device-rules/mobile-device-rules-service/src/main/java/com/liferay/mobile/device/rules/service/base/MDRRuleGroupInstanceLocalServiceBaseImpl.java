@@ -72,7 +72,7 @@ public abstract class MDRRuleGroupInstanceLocalServiceBaseImpl
 	implements AopService, IdentifiableOSGiService,
 			   MDRRuleGroupInstanceLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>MDRRuleGroupInstanceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.mobile.device.rules.service.MDRRuleGroupInstanceLocalServiceUtil</code>.

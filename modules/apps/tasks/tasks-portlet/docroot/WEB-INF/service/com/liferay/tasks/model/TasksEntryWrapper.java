@@ -347,11 +347,6 @@ public class TasksEntryWrapper
 		return model.getUserUuid();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a tasks entry model instance should use the <code>TasksEntry</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

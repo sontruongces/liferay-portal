@@ -67,7 +67,7 @@ public abstract class KaleoDefinitionServiceBaseImpl
 	extends BaseServiceImpl
 	implements AopService, IdentifiableOSGiService, KaleoDefinitionService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>KaleoDefinitionService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.workflow.kaleo.service.KaleoDefinitionServiceUtil</code>.

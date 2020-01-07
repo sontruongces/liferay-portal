@@ -69,7 +69,7 @@ import java.util.function.Function;
 public class LayoutVersionModelImpl
 	extends BaseModelImpl<LayoutVersion> implements LayoutVersionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout version model instance should use the <code>LayoutVersion</code> interface instead.

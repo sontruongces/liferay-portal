@@ -75,7 +75,7 @@ public interface LayoutLocalService
 	extends BaseLocalService, PersistedModelLocalService,
 			VersionService<Layout, LayoutVersion> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link LayoutLocalServiceUtil} to access the layout local service. Add custom service methods to <code>com.liferay.portal.service.impl.LayoutLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
