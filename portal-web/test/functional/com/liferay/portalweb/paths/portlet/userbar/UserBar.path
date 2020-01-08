@@ -34,9 +34,9 @@
 	<td></td>
 </tr>
 <tr>
-       <td>USER_AVATAR_ICON_IE</td>
-       <td>//span[@class='user-avatar-link']//span[contains(@class,'sticker-overlay')]</td>
-       <td></td>
+	<td>USER_AVATAR_ICON_IE</td>
+	<td>//span[@class='user-avatar-link']//span[contains(@class,'sticker-circle')]</td>
+	<td></td>
 </tr>
 <tr>
 	<td>USER_AVATAR_IMAGE</td>
