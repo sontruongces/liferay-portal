@@ -36,6 +36,7 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
+import java.util.Map;
 import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
@@ -681,12 +682,16 @@ public class Query {
 	public class DataDefinitionPage {
 
 		public DataDefinitionPage(Page dataDefinitionPage) {
+			actions = dataDefinitionPage.getActions();
 			items = dataDefinitionPage.getItems();
 			lastPage = dataDefinitionPage.getLastPage();
 			page = dataDefinitionPage.getPage();
 			pageSize = dataDefinitionPage.getPageSize();
 			totalCount = dataDefinitionPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<DataDefinition> items;
@@ -709,12 +714,16 @@ public class Query {
 	public class DataLayoutPage {
 
 		public DataLayoutPage(Page dataLayoutPage) {
+			actions = dataLayoutPage.getActions();
 			items = dataLayoutPage.getItems();
 			lastPage = dataLayoutPage.getLastPage();
 			page = dataLayoutPage.getPage();
 			pageSize = dataLayoutPage.getPageSize();
 			totalCount = dataLayoutPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<DataLayout> items;
@@ -737,12 +746,16 @@ public class Query {
 	public class DataListViewPage {
 
 		public DataListViewPage(Page dataListViewPage) {
+			actions = dataListViewPage.getActions();
 			items = dataListViewPage.getItems();
 			lastPage = dataListViewPage.getLastPage();
 			page = dataListViewPage.getPage();
 			pageSize = dataListViewPage.getPageSize();
 			totalCount = dataListViewPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<DataListView> items;
@@ -765,12 +778,16 @@ public class Query {
 	public class DataRecordPage {
 
 		public DataRecordPage(Page dataRecordPage) {
+			actions = dataRecordPage.getActions();
 			items = dataRecordPage.getItems();
 			lastPage = dataRecordPage.getLastPage();
 			page = dataRecordPage.getPage();
 			pageSize = dataRecordPage.getPageSize();
 			totalCount = dataRecordPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<DataRecord> items;
@@ -793,12 +810,16 @@ public class Query {
 	public class DataRecordCollectionPage {
 
 		public DataRecordCollectionPage(Page dataRecordCollectionPage) {
+			actions = dataRecordCollectionPage.getActions();
 			items = dataRecordCollectionPage.getItems();
 			lastPage = dataRecordCollectionPage.getLastPage();
 			page = dataRecordCollectionPage.getPage();
 			pageSize = dataRecordCollectionPage.getPageSize();
 			totalCount = dataRecordCollectionPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<DataRecordCollection> items;

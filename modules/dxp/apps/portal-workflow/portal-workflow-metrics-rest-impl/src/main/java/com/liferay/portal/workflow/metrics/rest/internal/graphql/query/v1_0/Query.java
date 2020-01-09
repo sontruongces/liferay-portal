@@ -44,6 +44,7 @@ import com.liferay.portal.workflow.metrics.rest.resource.v1_0.TaskResource;
 import com.liferay.portal.workflow.metrics.rest.resource.v1_0.TimeRangeResource;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
@@ -405,12 +406,16 @@ public class Query {
 	public class AssigneeUserPage {
 
 		public AssigneeUserPage(Page assigneeUserPage) {
+			actions = assigneeUserPage.getActions();
 			items = assigneeUserPage.getItems();
 			lastPage = assigneeUserPage.getLastPage();
 			page = assigneeUserPage.getPage();
 			pageSize = assigneeUserPage.getPageSize();
 			totalCount = assigneeUserPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<AssigneeUser> items;
@@ -433,12 +438,16 @@ public class Query {
 	public class CalendarPage {
 
 		public CalendarPage(Page calendarPage) {
+			actions = calendarPage.getActions();
 			items = calendarPage.getItems();
 			lastPage = calendarPage.getLastPage();
 			page = calendarPage.getPage();
 			pageSize = calendarPage.getPageSize();
 			totalCount = calendarPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Calendar> items;
@@ -461,12 +470,16 @@ public class Query {
 	public class InstancePage {
 
 		public InstancePage(Page instancePage) {
+			actions = instancePage.getActions();
 			items = instancePage.getItems();
 			lastPage = instancePage.getLastPage();
 			page = instancePage.getPage();
 			pageSize = instancePage.getPageSize();
 			totalCount = instancePage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Instance> items;
@@ -489,12 +502,16 @@ public class Query {
 	public class MetricPage {
 
 		public MetricPage(Page metricPage) {
+			actions = metricPage.getActions();
 			items = metricPage.getItems();
 			lastPage = metricPage.getLastPage();
 			page = metricPage.getPage();
 			pageSize = metricPage.getPageSize();
 			totalCount = metricPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Metric> items;
@@ -517,12 +534,16 @@ public class Query {
 	public class NodePage {
 
 		public NodePage(Page nodePage) {
+			actions = nodePage.getActions();
 			items = nodePage.getItems();
 			lastPage = nodePage.getLastPage();
 			page = nodePage.getPage();
 			pageSize = nodePage.getPageSize();
 			totalCount = nodePage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Node> items;
@@ -545,12 +566,16 @@ public class Query {
 	public class ProcessPage {
 
 		public ProcessPage(Page processPage) {
+			actions = processPage.getActions();
 			items = processPage.getItems();
 			lastPage = processPage.getLastPage();
 			page = processPage.getPage();
 			pageSize = processPage.getPageSize();
 			totalCount = processPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Process> items;
@@ -573,12 +598,16 @@ public class Query {
 	public class SLAPage {
 
 		public SLAPage(Page slaPage) {
+			actions = slaPage.getActions();
 			items = slaPage.getItems();
 			lastPage = slaPage.getLastPage();
 			page = slaPage.getPage();
 			pageSize = slaPage.getPageSize();
 			totalCount = slaPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<SLA> items;
@@ -601,12 +630,16 @@ public class Query {
 	public class TaskPage {
 
 		public TaskPage(Page taskPage) {
+			actions = taskPage.getActions();
 			items = taskPage.getItems();
 			lastPage = taskPage.getLastPage();
 			page = taskPage.getPage();
 			pageSize = taskPage.getPageSize();
 			totalCount = taskPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Task> items;
@@ -629,12 +662,16 @@ public class Query {
 	public class TimeRangePage {
 
 		public TimeRangePage(Page timeRangePage) {
+			actions = timeRangePage.getActions();
 			items = timeRangePage.getItems();
 			lastPage = timeRangePage.getLastPage();
 			page = timeRangePage.getPage();
 			pageSize = timeRangePage.getPageSize();
 			totalCount = timeRangePage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<TimeRange> items;
