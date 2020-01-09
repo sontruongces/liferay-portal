@@ -40,25 +40,15 @@ definition {
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
-		takeScreenshot();
-
 		Portlet.addPG(portletName = "Blogs");
 
-		takeScreenshot();
-
 		Navigator.gotoPage(pageName = "Blogs Page");
-
-		takeScreenshot();
 
 		Blogs.viewControlsPG();
 
 		User.logoutPG();
 
-		takeScreenshot();
-
 		Navigator.gotoPage(pageName = "Blogs Page");
-
-		takeScreenshot();
 
 		var browserType = PropsUtil.get("browser.type");
 		var key_portletName = "Blogs";

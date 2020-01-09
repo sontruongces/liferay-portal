@@ -368,8 +368,6 @@ definition {
 
 		IFrame.closeFrame();
 
-		takeScreenshot();
-
 		for (var count : list "1,2,3") {
 			JSONWebcontent.addWebContent(
 				content = "WC Content ${count}",
@@ -379,13 +377,9 @@ definition {
 
 		SearchPortlets.searchEmbedded(searchTerm = "WC Title");
 
-		takeScreenshot();
-
 		while (IsElementNotPresent(locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE", key_searchAssetTitle = "WC Title 1")) {
 			Pause(locator1 = "5000");
 		}
-
-		takeScreenshot();
 
 		Portlet.gotoPortletOptions(
 			portletName = "Search Results",
@@ -398,8 +392,6 @@ definition {
 			value1 = "2");
 
 		IFrame.closeFrame();
-
-		takeScreenshot();
 
 		SearchResultPortlet.paginateAndViewSearchResults(
 			searchAssetTitle = "WC Title 3",

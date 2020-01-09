@@ -266,8 +266,6 @@ definition {
 			locator1 = "Search#EMBEDDED_SEARCH_BAR",
 			value1 = "${searchTerm}");
 
-		takeScreenshot();
-
 		KeyPress(
 			locator1 = "Search#EMBEDDED_SEARCH_BAR",
 			value1 = "\RETURN");
