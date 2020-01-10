@@ -234,6 +234,8 @@ public class DDMFormInstanceLocalServiceImpl
 			DDMFormInstance.class.getName(),
 			ddmFormInstance.getFormInstanceId(), 0);
 
+		// LPS-97208
+
 		deleteDDMFormInstance(ddmFormInstance);
 	}
 
