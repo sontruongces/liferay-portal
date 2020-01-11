@@ -875,9 +875,8 @@ public class StructuredContentResourceImpl
 				GetterUtil.getBoolean(
 					contextHttpServletRequest.getHeader(
 						"X-Accept-All-Languages")),
-				_dtoConverterRegistry,
-				contextAcceptLanguage.getPreferredLocale(),
-				journalArticle.getResourcePrimKey(), contextUriInfo,
+				_dtoConverterRegistry, journalArticle.getResourcePrimKey(),
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
 				contextUser));
 	}
 
