@@ -210,6 +210,11 @@ public abstract class BaseMessageBoardThreadResourceImpl
 		MessageBoardThread existingMessageBoardThread = getMessageBoardThread(
 			messageBoardThreadId);
 
+		if (messageBoardThread.getActions() != null) {
+			existingMessageBoardThread.setActions(
+				messageBoardThread.getActions());
+		}
+
 		if (messageBoardThread.getArticleBody() != null) {
 			existingMessageBoardThread.setArticleBody(
 				messageBoardThread.getArticleBody());
