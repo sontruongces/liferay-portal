@@ -38,14 +38,14 @@ public class AccountImpl extends AccountBaseImpl {
 	public AccountImpl() {
 	}
 
-	public List<Team> getAssignedTeams() {
-		return TeamLocalServiceUtil.getAccountAssignedTeams(
-			getAccountId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-	}
-
 	public List<Address> getAddresses() {
 		return AddressLocalServiceUtil.getAddresses(
 			getCompanyId(), Account.class.getName(), getAccountId());
+	}
+
+	public List<Team> getAssignedTeams() {
+		return TeamLocalServiceUtil.getAccountAssignedTeams(
+			getAccountId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	public List<Account> getChildAccounts() throws PortalException {

@@ -33,8 +33,7 @@ public class AccountUtil {
 		return new Account() {
 			{
 				assignedTeams = TransformUtil.transformToArray(
-					account.getAssignedTeams(), TeamUtil::toTeam,
-					Team.class);
+					account.getAssignedTeams(), TeamUtil::toTeam, Team.class);
 				code = account.getCode();
 				contactEmailAddress = account.getContactEmailAddress();
 				dateCreated = account.getCreateDate();
