@@ -787,3 +787,30 @@ AssetCategory in order to make it possible to control the order of a list of
 assets with a given category.
 
 ---------------------------------------
+
+### Removed cache bootstrap feature
+- **Date:** 2020-Jan-8
+- **JIRA Ticket:** [LPS-96563](https://issues.liferay.com/browse/LPS-96563)
+
+#### What changed?
+
+The cache bootstrap feature has been removed, which means you can not use the
+following properties to enable/configure cache bootstrap:
+`ehcache.bootstrap.cache.loader.enabled`,
+`ehcache.bootstrap.cache.loader.properties.default`,
+`ehcache.bootstrap.cache.loader.properties.${specific.cache.name}`.
+
+#### Who is affected?
+
+This affects who is using the properties listed above.
+
+#### How should I update my code?
+
+There's no direct replacement for the removed feature. If you have code that
+depends on it, you would need to implement it by yourself.
+
+#### Why was this change made?
+
+This change was made to avoid security issues.
+
+---------------------------------------
