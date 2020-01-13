@@ -35,6 +35,8 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -72,9 +74,11 @@ public class TeamRoleResourceImpl
 		_updateTeamRolePermission(teamRoleKey, "delete", teamRolePermission);
 	}
 
+	@NestedField("teamRoles")
 	@Override
 	public Page<TeamRole> getAccountAccountKeyAssignedTeamTeamKeyRolesPage(
-			String accountKey, String teamKey, Pagination pagination)
+			String accountKey, @NestedFieldId("key") String teamKey,
+			Pagination pagination)
 		throws Exception {
 
 		Account account = _accountLocalService.getAccount(accountKey);
