@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.json.BaseJSONParser;
 
 import java.text.DateFormat;
@@ -172,6 +173,26 @@ public class TeamSerDes {
 			sb.append("\"");
 		}
 
+		if (team.getTeamRoles() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"teamRoles\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < team.getTeamRoles().length; i++) {
+				sb.append(String.valueOf(team.getTeamRoles()[i]));
+
+				if ((i + 1) < team.getTeamRoles().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -234,6 +255,13 @@ public class TeamSerDes {
 		}
 		else {
 			map.put("name", String.valueOf(team.getName()));
+		}
+
+		if (team.getTeamRoles() == null) {
+			map.put("teamRoles", null);
+		}
+		else {
+			map.put("teamRoles", String.valueOf(team.getTeamRoles()));
 		}
 
 		return map;
@@ -303,6 +331,18 @@ public class TeamSerDes {
 			else if (Objects.equals(jsonParserFieldName, "name")) {
 				if (jsonParserFieldValue != null) {
 					team.setName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "teamRoles")) {
+				if (jsonParserFieldValue != null) {
+					team.setTeamRoles(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> TeamRoleSerDes.toDTO((String)object)
+						).toArray(
+							size -> new TeamRole[size]
+						));
 				}
 			}
 			else {

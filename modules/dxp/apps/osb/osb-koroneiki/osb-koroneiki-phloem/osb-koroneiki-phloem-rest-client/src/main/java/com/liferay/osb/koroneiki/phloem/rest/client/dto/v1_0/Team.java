@@ -172,6 +172,27 @@ public class Team {
 
 	protected String name;
 
+	public TeamRole[] getTeamRoles() {
+		return teamRoles;
+	}
+
+	public void setTeamRoles(TeamRole[] teamRoles) {
+		this.teamRoles = teamRoles;
+	}
+
+	public void setTeamRoles(
+		UnsafeSupplier<TeamRole[], Exception> teamRolesUnsafeSupplier) {
+
+		try {
+			teamRoles = teamRolesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected TeamRole[] teamRoles;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {

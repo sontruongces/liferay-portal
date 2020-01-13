@@ -80,7 +80,7 @@ public class Team {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String accountKey;
 
-	@Schema(description = "The account's contacts.")
+	@Schema(description = "The team's contacts.")
 	@Valid
 	public Contact[] getContacts() {
 		return contacts;
@@ -249,6 +249,35 @@ public class Team {
 	@NotEmpty
 	protected String name;
 
+	@Schema(description = "The team's account team roles.")
+	@Valid
+	public TeamRole[] getTeamRoles() {
+		return teamRoles;
+	}
+
+	public void setTeamRoles(TeamRole[] teamRoles) {
+		this.teamRoles = teamRoles;
+	}
+
+	@JsonIgnore
+	public void setTeamRoles(
+		UnsafeSupplier<TeamRole[], Exception> teamRolesUnsafeSupplier) {
+
+		try {
+			teamRoles = teamRolesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected TeamRole[] teamRoles;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -387,6 +416,26 @@ public class Team {
 			sb.append(_escape(name));
 
 			sb.append("\"");
+		}
+
+		if (teamRoles != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"teamRoles\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < teamRoles.length; i++) {
+				sb.append(String.valueOf(teamRoles[i]));
+
+				if ((i + 1) < teamRoles.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		sb.append("}");

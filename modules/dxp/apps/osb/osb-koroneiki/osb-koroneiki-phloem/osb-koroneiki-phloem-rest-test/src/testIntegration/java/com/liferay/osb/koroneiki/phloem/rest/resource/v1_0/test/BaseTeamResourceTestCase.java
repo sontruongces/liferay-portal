@@ -974,6 +974,14 @@ public abstract class BaseTeamResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("teamRoles", additionalAssertFieldName)) {
+				if (team.getTeamRoles() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1087,6 +1095,16 @@ public abstract class BaseTeamResourceTestCase {
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(team1.getName(), team2.getName())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("teamRoles", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						team1.getTeamRoles(), team2.getTeamRoles())) {
+
 					return false;
 				}
 
@@ -1285,6 +1303,11 @@ public abstract class BaseTeamResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("teamRoles")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		throw new IllegalArgumentException(
