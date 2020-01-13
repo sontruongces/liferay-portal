@@ -269,6 +269,11 @@ public class AccountWrapper
 	}
 
 	@Override
+	public java.util.List<Team> getAssignedTeams() {
+		return model.getAssignedTeams();
+	}
+
+	@Override
 	public java.util.List<Account> getChildAccounts()
 		throws com.liferay.portal.kernel.exception.PortalException {
 
