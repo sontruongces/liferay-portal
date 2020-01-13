@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 /**
@@ -31,6 +32,9 @@ public class AccountUtil {
 
 		return new Account() {
 			{
+				assignedTeams = TransformUtil.transformToArray(
+					account.getAssignedTeams(), TeamUtil::toTeam,
+					Team.class);
 				code = account.getCode();
 				contactEmailAddress = account.getContactEmailAddress();
 				dateCreated = account.getCreateDate();

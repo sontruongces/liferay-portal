@@ -20,7 +20,9 @@ import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Address;
@@ -34,6 +36,11 @@ import java.util.List;
 public class AccountImpl extends AccountBaseImpl {
 
 	public AccountImpl() {
+	}
+
+	public List<Team> getAssignedTeams() {
+		return TeamLocalServiceUtil.getAccountAssignedTeams(
+			getAccountId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	public List<Address> getAddresses() {
