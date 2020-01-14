@@ -10,5 +10,8 @@
  */
 
 module.exports = {
-	extends: ['liferay/react']
+	extends: ['liferay/react'],
+	globals: {
+		process: true
+	}
 };
