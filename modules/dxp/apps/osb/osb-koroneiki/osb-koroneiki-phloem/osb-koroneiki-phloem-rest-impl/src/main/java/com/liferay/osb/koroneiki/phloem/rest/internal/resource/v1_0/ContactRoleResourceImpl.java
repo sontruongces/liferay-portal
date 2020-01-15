@@ -38,6 +38,8 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -76,10 +78,12 @@ public class ContactRoleResourceImpl
 			contactRoleKey, "delete", contactRolePermission);
 	}
 
+	@NestedField("contactRoles")
 	@Override
 	public Page<ContactRole>
 			getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
-				String accountKey, String contactEmailAddress,
+				String accountKey,
+				@NestedFieldId("emailAddress") String contactEmailAddress,
 				Pagination pagination)
 		throws Exception {
 

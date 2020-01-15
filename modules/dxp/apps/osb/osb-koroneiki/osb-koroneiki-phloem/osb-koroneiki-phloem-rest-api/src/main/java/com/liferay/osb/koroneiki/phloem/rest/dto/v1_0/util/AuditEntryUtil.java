@@ -35,8 +35,12 @@ public class AuditEntryUtil {
 				dateCreated = auditEntry.getCreateDate();
 				description = auditEntry.getDescription();
 				field = auditEntry.getField();
-				fieldClassName = PortalUtil.getClassName(
-					auditEntry.getFieldClassNameId());
+
+				if (auditEntry.getFieldClassNameId() > 0) {
+					fieldClassName = PortalUtil.getClassName(
+						auditEntry.getFieldClassNameId());
+				}
+
 				fieldClassPK = auditEntry.getClassPK();
 				key = auditEntry.getAuditEntryKey();
 				newValue = auditEntry.getNewValue();
