@@ -5749,7 +5749,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (params != null) {
 			attributes.put(
-				Field.GROUP_ID, (Long)params.getOrDefault("usersGroups", 0L));
+				Field.GROUP_ID, (Long)params.getOrDefault(Field.GROUP_ID, 0L));
 		}
 
 		attributes.put("city", city);
@@ -6031,7 +6031,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			else if (!key.equals("usersGroups") && !key.equals("usersOrgs") &&
 					 !key.equals("usersOrgsCount") &&
 					 !key.equals("usersRoles") && !key.equals("usersTeams") &&
-					 !key.equals("usersUserGroups")) {
+					 !key.equals("usersUserGroups") &&
+					 !key.equals(Field.GROUP_ID)) {
 
 				return true;
 			}
