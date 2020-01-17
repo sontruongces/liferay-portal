@@ -362,7 +362,7 @@ definition {
 			site = "Global");
 
 		ProductMenu.gotoPortlet(
-			category = "Constructor del sitio",
+			category = "Generador del sitio",
 			panel = "Site Administration",
 			portlet = "Páginas del sitio web");
 
