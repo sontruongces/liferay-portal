@@ -5437,7 +5437,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		user.setEmailAddressVerified(true);
 
-		user = userPersistence.update(user);
+		userPersistence.update(user);
 
 		ticketLocalService.deleteTicket(ticket);
 	}

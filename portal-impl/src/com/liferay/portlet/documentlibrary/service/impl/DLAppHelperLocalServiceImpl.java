@@ -1299,7 +1299,7 @@ public class DLAppHelperLocalServiceImpl
 			oldStatus = trashVersion.getStatus();
 		}
 
-		dlFileEntry = dlFileEntryLocalService.updateStatus(
+		dlFileEntryLocalService.updateStatus(
 			userId, dlFileEntry, dlFileVersions.get(0), oldStatus,
 			serviceContext, new HashMap<>());
 
