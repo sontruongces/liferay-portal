@@ -2025,6 +2025,14 @@ public class StagingImpl implements Staging {
 		UnicodeProperties typeSettingsProperties =
 			stagingGroup.getTypeSettingsProperties();
 
+		boolean setRemoteSiteURL = GetterUtil.getBoolean(
+			typeSettingsProperties.getProperty("setRemoteSiteURL"));
+
+		if (setRemoteSiteURL) {
+			return GetterUtil.getString(
+				typeSettingsProperties.getProperty("remoteSiteURL"));
+		}
+
 		HttpPrincipal httpPrincipal = new HttpPrincipal(
 			_stagingURLHelper.buildRemoteURL(typeSettingsProperties),
 			user.getLogin(), user.getPassword(), user.isPasswordEncrypted());
