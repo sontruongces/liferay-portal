@@ -527,7 +527,7 @@ definition {
 
 			AssertTextEquals(
 				locator1 = "APConfigurationSites#SITES_TABLE_NAME",
-				value1 = "${siteName} (Opens New Window)");
+				value1 = "${siteName}");
 
 			AssertTextEquals(
 				locator1 = "APConfigurationSites#SITES_TABLE_TYPE",
