@@ -62,7 +62,7 @@ public enum LicenseManagerMessageType {
 
 			return jsonObject;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return null;
 		}
 	}

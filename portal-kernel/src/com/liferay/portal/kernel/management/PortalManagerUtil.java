@@ -106,8 +106,8 @@ public class PortalManagerUtil {
 			_MANAGE_METHOD = PortalManagerUtil.class.getDeclaredMethod(
 				"manage", ManageAction.class);
 		}
-		catch (Exception e) {
-			throw new LoggedExceptionInInitializerError(e);
+		catch (Exception exception) {
+			throw new LoggedExceptionInInitializerError(exception);
 		}
 	}
 

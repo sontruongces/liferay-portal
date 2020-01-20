@@ -161,8 +161,9 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 				repositoryId, folderId, sourceFileName, mimeType, title,
 				description, changeLog, file, serviceContext);
 		}
-		catch (IOException ioe) {
-			throw new SystemException("Unable to write temporary file", ioe);
+		catch (IOException ioException) {
+			throw new SystemException(
+				"Unable to write temporary file", ioException);
 		}
 		finally {
 			FileUtil.delete(file);
@@ -285,9 +286,9 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 						repositoryId, folderId, sourceFileName, mimeType, title,
 						description, changeLog, file, serviceContext);
 				}
-				catch (IOException ioe) {
+				catch (IOException ioException) {
 					throw new SystemException(
-						"Unable to write temporary file", ioe);
+						"Unable to write temporary file", ioException);
 				}
 				finally {
 					FileUtil.delete(file);
@@ -1190,9 +1191,9 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 			return repository.getFileEntry(folderId, title);
 		}
-		catch (NoSuchFileEntryException nsfee) {
+		catch (NoSuchFileEntryException noSuchFileEntryException) {
 			if (folderId == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
-				throw nsfee;
+				throw noSuchFileEntryException;
 			}
 
 			Repository repository = repositoryProvider.getFolderRepository(
@@ -2402,8 +2403,8 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 			return repository.search(searchContext);
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -2422,8 +2423,8 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 			return repository.search(searchContext, query);
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -2653,8 +2654,9 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 				fileEntryId, sourceFileName, mimeType, title, description,
 				changeLog, dlVersionNumberIncrease, file, serviceContext);
 		}
-		catch (IOException ioe) {
-			throw new SystemException("Unable to write temporary file", ioe);
+		catch (IOException ioException) {
+			throw new SystemException(
+				"Unable to write temporary file", ioException);
 		}
 		finally {
 			FileUtil.delete(file);
@@ -2791,9 +2793,9 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 						description, changeLog, dlVersionNumberIncrease, file,
 						serviceContext);
 				}
-				catch (IOException ioe) {
+				catch (IOException ioException) {
 					throw new SystemException(
-						"Unable to write temporary file", ioe);
+						"Unable to write temporary file", ioException);
 				}
 				finally {
 					FileUtil.delete(file);
@@ -3087,11 +3089,11 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 					getUserId(), destinationFileEntry, null,
 					destinationFileVersion, serviceContext);
 			}
-			catch (PortalException pe) {
+			catch (PortalException portalException) {
 				toRepository.deleteFileEntry(
 					destinationFileEntry.getFileEntryId());
 
-				throw pe;
+				throw portalException;
 			}
 		}
 
@@ -3121,12 +3123,12 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 			return newFolder;
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (newFolder != null) {
 				toRepository.deleteFolder(newFolder.getFolderId());
 			}
 
-			throw pe;
+			throw portalException;
 		}
 	}
 
@@ -3155,8 +3157,8 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 					fileEntries.add(fileEntry);
 				}
-				catch (Exception e) {
-					_log.error(e, e);
+				catch (Exception exception) {
+					_log.error(exception, exception);
 				}
 			}
 
@@ -3258,14 +3260,14 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 			fromRepository.deleteFileEntry(oldFileEntryId);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			FileEntry fileEntry = toRepository.getFileEntry(newFileEntryId);
 
 			toRepository.deleteFileEntry(newFileEntryId);
 
 			dlAppHelperLocalService.deleteFileEntry(fileEntry);
 
-			throw pe;
+			throw portalException;
 		}
 	}
 
@@ -3278,15 +3280,15 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 			return repository.getFileEntryByUuid(uuid);
 		}
-		catch (NoSuchFileEntryException nsfee) {
+		catch (NoSuchFileEntryException noSuchFileEntryException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(nsfee, nsfee);
+				_log.debug(noSuchFileEntryException, noSuchFileEntryException);
 			}
 
 			return null;
 		}
-		catch (RepositoryException re) {
-			throw new NoSuchFileEntryException(re);
+		catch (RepositoryException repositoryException) {
+			throw new NoSuchFileEntryException(repositoryException);
 		}
 	}
 
@@ -3306,14 +3308,15 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 		try {
 			return repositoryProvider.getRepository(repositoryId);
 		}
-		catch (InvalidRepositoryIdException irie) {
+		catch (InvalidRepositoryIdException invalidRepositoryIdException) {
 			StringBundler sb = new StringBundler(3);
 
 			sb.append("No Group exists with the key {repositoryId=");
 			sb.append(repositoryId);
 			sb.append("}");
 
-			throw new NoSuchGroupException(sb.toString(), irie);
+			throw new NoSuchGroupException(
+				sb.toString(), invalidRepositoryIdException);
 		}
 	}
 

@@ -55,8 +55,8 @@ public class ComponentTag extends ParamAndPropertyAncestorTagImpl {
 			reactRenderer.renderReact(
 				componentDescriptor, data, request, jspWriter);
 		}
-		catch (Exception e) {
-			throw new JspException(e);
+		catch (Exception exception) {
+			throw new JspException(exception);
 		}
 		finally {
 			cleanUp();

@@ -75,8 +75,8 @@ public class CachelessTableMapperImpl
 			counts = getTableMappingSqlQuery.execute(
 				leftPrimaryKey, rightPrimaryKey);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 
 		if (counts.isEmpty()) {

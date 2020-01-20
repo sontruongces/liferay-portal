@@ -135,8 +135,8 @@ public class GroupSelectorTag extends IncludeTag {
 
 			_groupsCount = groups.size();
 		}
-		catch (PortalException pe) {
-			_log.error(pe, pe);
+		catch (PortalException portalException) {
+			_log.error(portalException, portalException);
 
 			_groups = Collections.emptyList();
 			_groupsCount = 0;

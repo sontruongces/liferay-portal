@@ -279,12 +279,12 @@ public class OrganizationIndexer extends BaseIndexer<Organization> {
 					indexableActionableDynamicQuery.addDocuments(
 						getDocument(organization));
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index organization " +
 								organization.getOrganizationId(),
-							pe);
+							portalException);
 					}
 				}
 			});

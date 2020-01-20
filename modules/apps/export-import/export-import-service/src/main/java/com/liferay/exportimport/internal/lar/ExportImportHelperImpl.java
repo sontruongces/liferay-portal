@@ -479,7 +479,7 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 			try {
 				layout = getLayoutOrCreateDummyRootLayout(plid);
 			}
-			catch (NoSuchLayoutException nsle) {
+			catch (NoSuchLayoutException noSuchLayoutException) {
 				if (_log.isWarnEnabled()) {
 					_log.warn("Unable to publish deleted layout " + plid);
 				}
@@ -487,7 +487,7 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 				// See LPS-36174
 
 				if (_log.isDebugEnabled()) {
-					_log.debug(nsle, nsle);
+					_log.debug(noSuchLayoutException, noSuchLayoutException);
 				}
 
 				entrySet.remove(plid);
@@ -914,7 +914,7 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 		try {
 			group = _groupLocalService.getGroup(groupedModel.getGroupId());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return false;
 		}
 
@@ -926,7 +926,7 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 			try {
 				scopeLayout = _layoutLocalService.getLayout(group.getClassPK());
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				return false;
 			}
 
@@ -981,7 +981,7 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 					MANIFEST_SUMMARY_KEYS,
 				manifestSummaryKeys);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Unable to process manifest for the process summary " +
@@ -1290,9 +1290,10 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 							_groupLocalService.updateGroup(oldScopeGroup);
 						}
 					}
-					catch (NoSuchLayoutException nsle) {
+					catch (NoSuchLayoutException noSuchLayoutException) {
 						if (_log.isWarnEnabled()) {
-							_log.warn(nsle, nsle);
+							_log.warn(
+								noSuchLayoutException, noSuchLayoutException);
 						}
 					}
 				}
@@ -1346,16 +1347,16 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 				groupIds.put(oldScopeGroupId, scopeGroup.getGroupId());
 			}
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 
 			// LPS-52675
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 
@@ -1738,9 +1739,9 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 				_configurationProvider.getCompanyConfiguration(
 					ExportImportServiceConfiguration.class, companyId);
 		}
-		catch (ConfigurationException ce) {
+		catch (ConfigurationException configurationException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(ce.getMessage());
+				_log.warn(configurationException.getMessage());
 			}
 		}
 
@@ -2042,7 +2043,7 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 					portlet = _portletLocalService.getPortletById(
 						_group.getCompanyId(), portletId);
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					return;
 				}
 

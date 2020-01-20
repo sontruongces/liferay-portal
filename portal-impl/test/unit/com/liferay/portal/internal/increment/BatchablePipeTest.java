@@ -181,7 +181,7 @@ public class BatchablePipeTest {
 							resultBlockingQueue.put(increasableEntry);
 						}
 					}
-					catch (InterruptedException ie) {
+					catch (InterruptedException interruptedException) {
 					}
 				}
 			}

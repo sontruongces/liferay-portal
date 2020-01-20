@@ -58,8 +58,8 @@ public class SynonymIndexerImpl implements SynonymIndexer {
 		try {
 			jsonObject = jsonFactory.createJSONObject(settings.get(indexName));
 		}
-		catch (JSONException jsone) {
-			throw new RuntimeException(jsone);
+		catch (JSONException jsonException) {
+			throw new RuntimeException(jsonException);
 		}
 
 		return JSONUtil.toStringArray(

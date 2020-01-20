@@ -52,8 +52,8 @@ public class XMLUtil {
 		try {
 			return document.formattedString(_XML_INDENT);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -70,11 +70,11 @@ public class XMLUtil {
 
 			return xml;
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
-		catch (DocumentException de) {
-			throw new SystemException(de);
+		catch (DocumentException documentException) {
+			throw new SystemException(documentException);
 		}
 	}
 

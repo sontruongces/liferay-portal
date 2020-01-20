@@ -54,8 +54,8 @@ public abstract class BaseConvertProcess implements ConvertProcess {
 						stopWatch.getTime(), " ms"));
 			}
 		}
-		catch (Exception e) {
-			throw new ConvertException(e);
+		catch (Exception exception) {
+			throw new ConvertException(exception);
 		}
 		finally {
 			setParameterValues(null);

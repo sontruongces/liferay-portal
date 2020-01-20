@@ -316,9 +316,9 @@ public class PollsQuestionLocalServiceImpl
 
 			return pollsQuestions;
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 		}
 
@@ -346,9 +346,9 @@ public class PollsQuestionLocalServiceImpl
 			return (int)indexer.searchCount(
 				buildSearchContext(companyId, groupIds, keywords));
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 		}
 

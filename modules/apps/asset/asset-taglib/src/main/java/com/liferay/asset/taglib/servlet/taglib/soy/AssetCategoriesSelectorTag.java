@@ -74,8 +74,8 @@ public class AssetCategoriesSelectorTag extends ComponentRendererTag {
 
 			putValue("vocabularies", getVocabularies());
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		String templateNamespace =
@@ -242,7 +242,7 @@ public class AssetCategoriesSelectorTag extends ComponentRendererTag {
 				categoryIdsTitles.add(categoryIdsTitle);
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return categoryIdsTitles;
@@ -267,7 +267,7 @@ public class AssetCategoriesSelectorTag extends ComponentRendererTag {
 
 			return PortalUtil.getCurrentAndAncestorSiteGroupIds(_groupIds);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return new long[0];
@@ -293,7 +293,7 @@ public class AssetCategoriesSelectorTag extends ComponentRendererTag {
 
 			return portletURL;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return null;

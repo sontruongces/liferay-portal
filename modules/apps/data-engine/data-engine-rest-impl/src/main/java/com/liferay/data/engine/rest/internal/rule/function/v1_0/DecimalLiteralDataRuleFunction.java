@@ -58,9 +58,9 @@ public class DecimalLiteralDataRuleFunction implements DataRuleFunction {
 
 			dataRuleFunctionResult.setValid(true);
 		}
-		catch (NumberFormatException nfe) {
+		catch (NumberFormatException numberFormatException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(nfe, nfe);
+				_log.debug(numberFormatException, numberFormatException);
 			}
 		}
 

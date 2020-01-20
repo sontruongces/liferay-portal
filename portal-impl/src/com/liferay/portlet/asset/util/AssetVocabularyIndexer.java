@@ -175,12 +175,12 @@ public class AssetVocabularyIndexer extends BaseIndexer<AssetVocabulary> {
 					indexableActionableDynamicQuery.addDocuments(
 						getDocument(assetVocabulary));
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index asset vocabulary " +
 								assetVocabulary.getVocabularyId(),
-							pe);
+							portalException);
 					}
 				}
 			});

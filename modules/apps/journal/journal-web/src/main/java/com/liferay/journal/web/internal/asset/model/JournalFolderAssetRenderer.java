@@ -198,7 +198,7 @@ public class JournalFolderAssetRenderer
 		try {
 			return getURLView(liferayPortletResponse, WindowState.MAXIMIZED);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return noSuchEntryRedirect;
 		}
 	}

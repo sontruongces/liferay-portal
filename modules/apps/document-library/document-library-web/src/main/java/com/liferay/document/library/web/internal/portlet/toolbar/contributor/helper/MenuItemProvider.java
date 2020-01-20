@@ -361,12 +361,12 @@ public class MenuItemProvider {
 				PortalUtil.getCurrentAndAncestorSiteGroupIds(groupId), folderId,
 				inherited);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
 				StringBundler.concat(
 					"Unable to get file entry types for group ", groupId,
 					" and folder ", folderId),
-				pe);
+				portalException);
 
 			return Collections.emptyList();
 		}
@@ -401,11 +401,11 @@ public class MenuItemProvider {
 					menuItems.add(urlMenuItem);
 				}
 			}
-			catch (PortalException pe) {
+			catch (PortalException portalException) {
 				_log.error(
 					"Unable to add menu item for file entry type " +
 						fileEntryType.getName(),
-					pe);
+					portalException);
 			}
 		}
 
@@ -428,8 +428,8 @@ public class MenuItemProvider {
 			return DLFolderPermission.contains(
 				permissionChecker, groupId, folderId, actionId);
 		}
-		catch (PortalException pe) {
-			_log.error(pe, pe);
+		catch (PortalException portalException) {
+			_log.error(portalException, portalException);
 
 			return false;
 		}

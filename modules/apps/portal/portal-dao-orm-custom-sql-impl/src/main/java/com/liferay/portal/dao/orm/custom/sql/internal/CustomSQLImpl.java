@@ -202,8 +202,8 @@ public class CustomSQLImpl implements CustomSQL {
 				}
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 		finally {
 			DataAccess.cleanUp(con);
@@ -855,7 +855,7 @@ public class CustomSQLImpl implements CustomSQL {
 				}
 			}
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			return sql;
 		}
 

@@ -111,8 +111,8 @@ public class RatingsEntryFinderImpl
 
 			list = q.list(true);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			if (list == null) {

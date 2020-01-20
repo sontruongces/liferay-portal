@@ -367,13 +367,13 @@ public class ClusterSchedulerEngine
 								addMemoryClusteredJob(schedulerResponse);
 							}
 						}
-						catch (Exception e) {
+						catch (Exception exception) {
 							_log.error(
 								StringBundler.concat(
 									"Unable to get a response from master for ",
 									"memory clustered job ",
 									getFullName(jobName, groupName)),
-								e);
+								exception);
 						}
 					}
 				}
@@ -619,17 +619,17 @@ public class ClusterSchedulerEngine
 
 				return;
 			}
-			catch (InterruptedException ie) {
+			catch (InterruptedException interruptedException) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						"Give up the master response waiting due to " +
 							"interruption",
-						ie);
+						interruptedException);
 				}
 
 				return;
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				StringBundler sb = new StringBundler(5);
 
 				sb.append(
@@ -639,7 +639,7 @@ public class ClusterSchedulerEngine
 				sb.append("\"clusterable.advice.call.master.timeout\", will ");
 				sb.append("retry again");
 
-				_log.error(sb.toString(), e);
+				_log.error(sb.toString(), exception);
 			}
 		}
 	}

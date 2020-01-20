@@ -226,9 +226,10 @@ public class AcceptorServletTest {
 
 				Assert.fail();
 			}
-			catch (RuntimeException re) {
+			catch (RuntimeException runtimeException) {
 				Assert.assertEquals(
-					"RuntimeException on prepare request", re.getMessage());
+					"RuntimeException on prepare request",
+					runtimeException.getMessage());
 			}
 
 			Assert.assertEquals(logRecords.toString(), 1, logRecords.size());
@@ -327,12 +328,12 @@ public class AcceptorServletTest {
 		@Override
 		public void transferResponse(
 			HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse, Exception e) {
+			HttpServletResponse httpServletResponse, Exception exception) {
 
 			Assert.assertSame(_preparedRequest, httpServletRequest);
 			Assert.assertSame(_preparedResponse, httpServletResponse);
 
-			_exception = e;
+			_exception = exception;
 		}
 
 		private Exception _exception;

@@ -90,7 +90,7 @@ public class ServerDetector {
 		try {
 			serverType = ServerType.valueOf(StringUtil.toUpperCase(serverId));
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 			serverType = _detectServerType();
 		}
 
@@ -100,8 +100,8 @@ public class ServerDetector {
 
 			field.set(null, serverType);
 		}
-		catch (Exception e) {
-			ReflectionUtil.throwException(e);
+		catch (Exception exception) {
+			ReflectionUtil.throwException(exception);
 		}
 	}
 
@@ -245,7 +245,7 @@ public class ServerDetector {
 
 			return true;
 		}
-		catch (ClassNotFoundException cnfe) {
+		catch (ClassNotFoundException classNotFoundException) {
 			if (ServerDetector.class.getResource(className) != null) {
 				return true;
 			}

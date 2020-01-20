@@ -244,8 +244,8 @@ public class VelocityManager extends BaseTemplateManager {
 
 			_velocityEngine.init();
 		}
-		catch (Exception e) {
-			throw new TemplateException(e);
+		catch (Exception exception) {
+			throw new TemplateException(exception);
 		}
 		finally {
 			currentThread.setContextClassLoader(contextClassLoader);
@@ -319,8 +319,8 @@ public class VelocityManager extends BaseTemplateManager {
 			_layoutIconMethod = VelocityTaglib.class.getMethod(
 				"layoutIcon", new Class<?>[] {Layout.class});
 		}
-		catch (NoSuchMethodException nsme) {
-			throw new ExceptionInInitializerError(nsme);
+		catch (NoSuchMethodException noSuchMethodException) {
+			throw new ExceptionInInitializerError(noSuchMethodException);
 		}
 	}
 

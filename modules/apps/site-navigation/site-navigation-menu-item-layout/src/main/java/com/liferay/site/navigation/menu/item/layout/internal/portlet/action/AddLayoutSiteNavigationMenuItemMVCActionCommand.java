@@ -152,7 +152,9 @@ public class AddLayoutSiteNavigationMenuItemMVCActionCommand
 			jsonObject.put(
 				"siteNavigationMenuItemId", layoutSiteNavigationMenuItemMap);
 		}
-		catch (SiteNavigationMenuItemNameException snmine) {
+		catch (SiteNavigationMenuItemNameException
+					siteNavigationMenuItemNameException) {
+
 			jsonObject.put(
 				"errorMessage",
 				LanguageUtil.get(

@@ -48,8 +48,8 @@ public class ReflectionUtil {
 		try {
 			return _cloneMethod.invoke(array);
 		}
-		catch (Exception e) {
-			return throwException(e);
+		catch (Exception exception) {
+			return throwException(exception);
 		}
 	}
 
@@ -169,8 +169,8 @@ public class ReflectionUtil {
 							classLoader.loadClass(interfaceClass.getName()));
 					}
 				}
-				catch (ClassNotFoundException cnfe) {
-					classNotFoundHandler.accept(cnfe);
+				catch (ClassNotFoundException classNotFoundException) {
+					classNotFoundHandler.accept(classNotFoundException);
 				}
 			}
 
@@ -310,8 +310,8 @@ public class ReflectionUtil {
 
 			_modifiersField.setAccessible(true);
 		}
-		catch (Exception e) {
-			throw new ExceptionInInitializerError(e);
+		catch (Exception exception) {
+			throw new ExceptionInInitializerError(exception);
 		}
 	}
 

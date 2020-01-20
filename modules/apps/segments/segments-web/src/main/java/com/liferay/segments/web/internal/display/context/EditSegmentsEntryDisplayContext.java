@@ -316,8 +316,8 @@ public class EditSegmentsEntryDisplayContext {
 		try {
 			siteDefaultLocale = PortalUtil.getSiteDefaultLocale(_getGroupId());
 		}
-		catch (PortalException pe) {
-			_log.error(pe, pe);
+		catch (PortalException portalException) {
+			_log.error(portalException, portalException);
 
 			siteDefaultLocale = LocaleUtil.getSiteDefault();
 		}
@@ -420,10 +420,11 @@ public class EditSegmentsEntryDisplayContext {
 						segmentsEntry.getSegmentsEntryId());
 			}
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to get the segments entry class PKs count", pe);
+					"Unable to get the segments entry class PKs count",
+					portalException);
 			}
 		}
 

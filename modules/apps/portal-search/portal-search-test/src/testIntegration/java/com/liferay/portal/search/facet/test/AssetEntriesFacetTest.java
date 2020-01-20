@@ -103,7 +103,7 @@ public class AssetEntriesFacetTest {
 			try {
 				filter.accept(new TestFilterVisitor(field, value));
 			}
-			catch (FoundException fe) {
+			catch (FoundException foundException) {
 				return true;
 			}
 

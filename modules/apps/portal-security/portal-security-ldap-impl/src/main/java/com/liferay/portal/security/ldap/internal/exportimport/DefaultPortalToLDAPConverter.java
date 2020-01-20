@@ -450,8 +450,8 @@ public class DefaultPortalToLDAPConverter implements PortalToLDAPConverter {
 
 				password = sb.toString();
 			}
-			catch (PwdEncryptorException pee) {
-				throw new SystemException(pee);
+			catch (PwdEncryptorException pwdEncryptorException) {
+				throw new SystemException(pwdEncryptorException);
 			}
 		}
 
@@ -470,8 +470,8 @@ public class DefaultPortalToLDAPConverter implements PortalToLDAPConverter {
 
 				return new String(unicodePassword);
 			}
-			catch (UnsupportedEncodingException uee) {
-				throw new SystemException(uee);
+			catch (UnsupportedEncodingException unsupportedEncodingException) {
+				throw new SystemException(unsupportedEncodingException);
 			}
 		}
 
@@ -503,13 +503,13 @@ public class DefaultPortalToLDAPConverter implements PortalToLDAPConverter {
 						modifications);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						StringBundler.concat(
 							"Unable to map field ", fieldName, " to class ",
 							object.getClass()),
-						e);
+						exception);
 				}
 			}
 		}
@@ -533,11 +533,11 @@ public class DefaultPortalToLDAPConverter implements PortalToLDAPConverter {
 				bytes = image.getTextObj();
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Unable to get the portrait for user " + user.getUserId(),
-					e);
+					exception);
 			}
 		}
 
@@ -584,13 +584,13 @@ public class DefaultPortalToLDAPConverter implements PortalToLDAPConverter {
 
 				addModificationItem(ldapAttributeName, value, modifications);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						StringBundler.concat(
 							"Unable to map field ", fieldName, " to class ",
 							object.getClass()),
-						e);
+						exception);
 				}
 			}
 		}

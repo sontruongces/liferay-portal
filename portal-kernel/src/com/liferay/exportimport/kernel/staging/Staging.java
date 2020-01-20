@@ -188,7 +188,7 @@ public interface Staging {
 		Map<String, Serializable> contextMap);
 
 	public JSONObject getExceptionMessagesJSONObject(
-		Locale locale, Exception e,
+		Locale locale, Exception exception,
 		ExportImportConfiguration exportImportConfiguration);
 
 	/**
@@ -198,7 +198,8 @@ public interface Staging {
 	 */
 	@Deprecated
 	public JSONObject getExceptionMessagesJSONObject(
-		Locale locale, Exception e, Map<String, Serializable> contextMap);
+		Locale locale, Exception exception,
+		Map<String, Serializable> contextMap);
 
 	public Group getLiveGroup(Group group);
 

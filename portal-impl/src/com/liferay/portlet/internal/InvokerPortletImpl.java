@@ -303,8 +303,8 @@ public class InvokerPortletImpl
 		try {
 			invokeAction(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			processException(e, actionRequest, actionResponse);
+		catch (Exception exception) {
+			processException(exception, actionRequest, actionResponse);
 		}
 
 		if (_log.isDebugEnabled()) {
@@ -326,8 +326,8 @@ public class InvokerPortletImpl
 		try {
 			invokeEvent(eventRequest, eventResponse);
 		}
-		catch (Exception e) {
-			processException(e, eventRequest, eventResponse);
+		catch (Exception exception) {
+			processException(exception, eventRequest, eventResponse);
 		}
 
 		if (_log.isDebugEnabled()) {
@@ -513,8 +513,8 @@ public class InvokerPortletImpl
 		try {
 			invokeResource(resourceRequest, resourceResponse);
 		}
-		catch (Exception e) {
-			processException(e, resourceRequest, resourceResponse);
+		catch (Exception exception) {
+			processException(exception, resourceRequest, resourceResponse);
 		}
 
 		if (_log.isDebugEnabled()) {
@@ -535,8 +535,8 @@ public class InvokerPortletImpl
 
 			closeable.close();
 		}
-		catch (IOException ioe) {
-			_log.error("Unable to close invoker filter container", ioe);
+		catch (IOException ioException) {
+			_log.error("Unable to close invoker filter container", ioException);
 		}
 	}
 
@@ -590,8 +590,8 @@ public class InvokerPortletImpl
 						httpServletRequest, httpServletResponse);
 				}
 			}
-			catch (ServletException se) {
-				Throwable cause = se.getRootCause();
+			catch (ServletException servletException) {
+				Throwable cause = servletException.getRootCause();
 
 				if (cause instanceof PortletException) {
 					throw (PortletException)cause;
@@ -662,10 +662,10 @@ public class InvokerPortletImpl
 				portletRequest, portletResponse, PortletRequest.HEADER_PHASE,
 				_invokerFilterContainer.getHeaderFilters());
 		}
-		catch (Exception e) {
-			processException(e, headerRequest, headerResponse);
+		catch (Exception exception) {
+			processException(exception, headerRequest, headerResponse);
 
-			throw e;
+			throw exception;
 		}
 	}
 
@@ -683,10 +683,10 @@ public class InvokerPortletImpl
 				portletRequest, portletResponse, PortletRequest.RENDER_PHASE,
 				_invokerFilterContainer.getRenderFilters());
 		}
-		catch (Exception e) {
-			processException(e, renderRequest, renderResponse);
+		catch (Exception exception) {
+			processException(exception, renderRequest, renderResponse);
 
-			throw e;
+			throw exception;
 		}
 
 		RenderResponseImpl renderResponseImpl =
@@ -710,7 +710,7 @@ public class InvokerPortletImpl
 	}
 
 	protected void processException(
-		Exception e, PortletRequest portletRequest,
+		Exception exception, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
 
 		if (portletResponse instanceof StateAwareResponseImpl) {
@@ -723,14 +723,14 @@ public class InvokerPortletImpl
 			stateAwareResponseImpl.reset();
 		}
 
-		if (e instanceof RuntimeException) {
+		if (exception instanceof RuntimeException) {
 
 			// PLT.5.4.7, TCK xxv
 
-			e = new PortletException(e);
+			exception = new PortletException(exception);
 		}
 
-		if (e instanceof UnavailableException) {
+		if (exception instanceof UnavailableException) {
 
 			// PLT.5.4.7, TCK xxiv
 
@@ -739,19 +739,19 @@ public class InvokerPortletImpl
 			PortletLocalServiceUtil.deletePortlet(_portletModel);
 		}
 
-		if (e instanceof PortletException) {
+		if (exception instanceof PortletException) {
 			if ((portletResponse instanceof StateAwareResponseImpl) &&
-				!(e instanceof UnavailableException)) {
+				!(exception instanceof UnavailableException)) {
 
 				return;
 			}
 
 			if (!(portletRequest instanceof RenderRequest)) {
-				portletRequest.setAttribute(_errorKey, e);
+				portletRequest.setAttribute(_errorKey, exception);
 			}
 		}
 		else {
-			ReflectionUtil.throwException(e);
+			ReflectionUtil.throwException(exception);
 		}
 	}
 

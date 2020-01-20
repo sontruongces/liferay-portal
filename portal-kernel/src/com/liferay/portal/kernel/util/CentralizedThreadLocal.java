@@ -74,7 +74,7 @@ public class CentralizedThreadLocal<T> extends ThreadLocal<T> {
 
 				break;
 			}
-			catch (ReflectiveOperationException roe) {
+			catch (ReflectiveOperationException reflectiveOperationException) {
 				clazz = clazz.getSuperclass();
 			}
 		}

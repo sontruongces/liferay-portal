@@ -670,17 +670,17 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 
 			super.doDispatch(renderRequest, renderResponse);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isInfoEnabled()) {
-				_log.info(pe.getMessage());
+				_log.info(portalException.getMessage());
 			}
 
-			_handleException(renderRequest, renderResponse, pe);
+			_handleException(renderRequest, renderResponse, portalException);
 		}
-		catch (Exception e) {
-			_log.error(e.getMessage());
+		catch (Exception exception) {
+			_log.error(exception.getMessage());
 
-			_handleException(renderRequest, renderResponse, e);
+			_handleException(renderRequest, renderResponse, exception);
 		}
 	}
 
@@ -1063,10 +1063,10 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 
 	private void _handleException(
 			RenderRequest renderRequest, RenderResponse renderResponse,
-			Exception e)
+			Exception exception)
 		throws IOException, PortletException {
 
-		SessionErrors.add(renderRequest, e.getClass());
+		SessionErrors.add(renderRequest, exception.getClass());
 
 		include("/error.jsp", renderRequest, renderResponse);
 	}
@@ -1119,8 +1119,8 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 					super.getResourceBundle(locale),
 					portletConfig.getResourceBundle(locale));
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 
 			return super.getResourceBundle(locale);

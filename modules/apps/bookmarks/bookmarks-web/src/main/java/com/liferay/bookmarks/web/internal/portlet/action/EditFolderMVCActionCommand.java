@@ -124,20 +124,20 @@ public class EditFolderMVCActionCommand extends BaseMVCActionCommand {
 				unsubscribeFolder(actionRequest);
 			}
 		}
-		catch (Exception e) {
-			if (e instanceof NoSuchFolderException ||
-				e instanceof PrincipalException) {
+		catch (Exception exception) {
+			if (exception instanceof NoSuchFolderException ||
+				exception instanceof PrincipalException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcPath", "/bookmarks/error.jsp");
 			}
-			else if (e instanceof FolderNameException) {
-				SessionErrors.add(actionRequest, e.getClass());
+			else if (exception instanceof FolderNameException) {
+				SessionErrors.add(actionRequest, exception.getClass());
 			}
 			else {
-				throw e;
+				throw exception;
 			}
 		}
 	}

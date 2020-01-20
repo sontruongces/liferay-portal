@@ -46,7 +46,7 @@ public class LayoutExceptionRequestHandler {
 
 	public void handlePortalException(
 			ActionRequest actionRequest, ActionResponse actionResponse,
-			PortalException pe)
+			PortalException portalException)
 		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
@@ -54,10 +54,11 @@ public class LayoutExceptionRequestHandler {
 
 		String errorMessage = null;
 
-		if (pe instanceof LayoutNameException) {
-			LayoutNameException lne = (LayoutNameException)pe;
+		if (portalException instanceof LayoutNameException) {
+			LayoutNameException layoutNameException =
+				(LayoutNameException)portalException;
 
-			if (lne.getType() == LayoutNameException.TOO_LONG) {
+			if (layoutNameException.getType() == LayoutNameException.TOO_LONG) {
 				errorMessage = LanguageUtil.format(
 					themeDisplay.getRequest(),
 					"page-name-cannot-exceed-x-characters",
@@ -70,14 +71,17 @@ public class LayoutExceptionRequestHandler {
 					"please-enter-a-valid-name-for-the-page");
 			}
 		}
-		else if (pe instanceof LayoutTypeException) {
-			LayoutTypeException lte = (LayoutTypeException)pe;
+		else if (portalException instanceof LayoutTypeException) {
+			LayoutTypeException layoutTypeException =
+				(LayoutTypeException)portalException;
 
-			if ((lte.getType() == LayoutTypeException.FIRST_LAYOUT) ||
-				(lte.getType() == LayoutTypeException.NOT_INSTANCEABLE)) {
+			if ((layoutTypeException.getType() ==
+					LayoutTypeException.FIRST_LAYOUT) ||
+				(layoutTypeException.getType() ==
+					LayoutTypeException.NOT_INSTANCEABLE)) {
 
 				errorMessage = _handleLayoutTypeException(
-					actionRequest, lte.getType());
+					actionRequest, layoutTypeException.getType());
 			}
 		}
 

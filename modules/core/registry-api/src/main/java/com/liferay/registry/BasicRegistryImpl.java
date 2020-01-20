@@ -545,11 +545,11 @@ public class BasicRegistryImpl implements Registry {
 			try {
 				_filter = _filterConstructor.newInstance(filterString);
 			}
-			catch (InvocationTargetException ite) {
-				throwException(ite.getCause());
+			catch (InvocationTargetException invocationTargetException) {
+				throwException(invocationTargetException.getCause());
 			}
-			catch (ReflectiveOperationException roe) {
-				throw new RuntimeException(roe);
+			catch (ReflectiveOperationException reflectiveOperationException) {
+				throw new RuntimeException(reflectiveOperationException);
 			}
 		}
 
@@ -561,11 +561,11 @@ public class BasicRegistryImpl implements Registry {
 			try {
 				return (boolean)_matchMethod.invoke(_filter, dictionary);
 			}
-			catch (InvocationTargetException ite) {
-				return throwException(ite.getCause());
+			catch (InvocationTargetException invocationTargetException) {
+				return throwException(invocationTargetException.getCause());
 			}
-			catch (ReflectiveOperationException roe) {
-				throw new RuntimeException(roe);
+			catch (ReflectiveOperationException reflectiveOperationException) {
+				throw new RuntimeException(reflectiveOperationException);
 			}
 		}
 
@@ -581,11 +581,11 @@ public class BasicRegistryImpl implements Registry {
 			try {
 				return (boolean)_matchMethod.invoke(_filter, dictionary);
 			}
-			catch (InvocationTargetException ite) {
-				return throwException(ite.getCause());
+			catch (InvocationTargetException invocationTargetException) {
+				return throwException(invocationTargetException.getCause());
 			}
-			catch (ReflectiveOperationException roe) {
-				throw new RuntimeException(roe);
+			catch (ReflectiveOperationException reflectiveOperationException) {
+				throw new RuntimeException(reflectiveOperationException);
 			}
 		}
 
@@ -618,8 +618,9 @@ public class BasicRegistryImpl implements Registry {
 
 				_matchMethod = filterClass.getMethod("match", Dictionary.class);
 			}
-			catch (ReflectiveOperationException roe) {
-				throw new ExceptionInInitializerError(roe);
+			catch (ReflectiveOperationException reflectiveOperationException) {
+				throw new ExceptionInInitializerError(
+					reflectiveOperationException);
 			}
 		}
 

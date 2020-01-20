@@ -97,8 +97,8 @@ public class UpgradeResourcePermission extends UpgradeProcess {
 			return resourceActionsImpl.getModelResourceGuestUnsupportedActions(
 				_CALENDAR_RESOURCE_NAME);
 		}
-		catch (Exception e) {
-			throw new UpgradeException(e);
+		catch (Exception exception) {
+			throw new UpgradeException(exception);
 		}
 	}
 
@@ -153,8 +153,8 @@ public class UpgradeResourcePermission extends UpgradeProcess {
 
 							ps.execute();
 						}
-						catch (SQLException sqle) {
-							throw new SystemException(sqle);
+						catch (SQLException sqlException) {
+							throw new SystemException(sqlException);
 						}
 					}
 

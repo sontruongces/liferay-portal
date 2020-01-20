@@ -187,10 +187,10 @@ public class SocketWelderTest {
 
 			Assert.fail();
 		}
-		catch (IllegalStateException ise) {
+		catch (IllegalStateException illegalStateException) {
 			Assert.assertEquals(
 				"Unable to weld a welder with state DESTROYED",
-				ise.getMessage());
+				illegalStateException.getMessage());
 		}
 
 		try {
@@ -198,10 +198,10 @@ public class SocketWelderTest {
 
 			Assert.fail();
 		}
-		catch (IllegalStateException ise) {
+		catch (IllegalStateException illegalStateException) {
 			Assert.assertEquals(
 				"Unable to weld a welder with state DESTROYED",
-				ise.getMessage());
+				illegalStateException.getMessage());
 		}
 	}
 

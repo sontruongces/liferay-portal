@@ -83,17 +83,17 @@ public class SlimRuntimeServlet extends HttpServlet {
 		try {
 			processStartupEvents();
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
 			System.out.println(
 				"Stopping the server due to unexpected startup errors");
 
-			if (e instanceof ServletException) {
-				throw (ServletException)e;
+			if (exception instanceof ServletException) {
+				throw (ServletException)exception;
 			}
 
-			throw new ServletException(e);
+			throw new ServletException(exception);
 		}
 
 		servletContext.setAttribute(WebKeys.STARTUP_FINISHED, Boolean.TRUE);

@@ -107,8 +107,8 @@ public class AssetPublisherPortletLayoutListener
 
 			_removeAssetListEntryUsage(plid, portletId);
 		}
-		catch (Exception e) {
-			throw new PortletLayoutListenerException(e);
+		catch (Exception exception) {
+			throw new PortletLayoutListenerException(exception);
 		}
 	}
 
@@ -195,8 +195,8 @@ public class AssetPublisherPortletLayoutListener
 					serviceContext);
 			}
 		}
-		catch (Exception e) {
-			throw new PortletLayoutListenerException(e);
+		catch (Exception exception) {
+			throw new PortletLayoutListenerException(exception);
 		}
 	}
 
@@ -225,8 +225,8 @@ public class AssetPublisherPortletLayoutListener
 				assetListEntryId, _portal.getClassNameId(Layout.class), plid,
 				portletId, serviceContext);
 		}
-		catch (PortalException pe) {
-			_log.error("Unable to add asset list entry usage", pe);
+		catch (PortalException portalException) {
+			_log.error("Unable to add asset list entry usage", portalException);
 		}
 	}
 

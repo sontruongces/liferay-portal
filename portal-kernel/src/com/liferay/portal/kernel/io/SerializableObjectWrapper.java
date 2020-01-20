@@ -195,8 +195,9 @@ public class SerializableObjectWrapper implements Externalizable {
 			try {
 				return deserializer.readObject();
 			}
-			catch (ClassNotFoundException cnfe) {
-				_log.error("Unable to deserialize object", cnfe);
+			catch (ClassNotFoundException classNotFoundException) {
+				_log.error(
+					"Unable to deserialize object", classNotFoundException);
 
 				return null;
 			}

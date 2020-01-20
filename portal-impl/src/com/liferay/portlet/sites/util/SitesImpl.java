@@ -739,9 +739,10 @@ public class SitesImpl implements Sites {
 				layout.getSourcePrototypeLayoutUuid(),
 				layoutSetPrototype.getGroupId(), true);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(
-				"Unable to fetch the the layout set prototype's layout", e);
+				"Unable to fetch the the layout set prototype's layout",
+				exception);
 		}
 
 		return null;
@@ -1041,9 +1042,9 @@ public class SitesImpl implements Sites {
 				return false;
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
@@ -1170,9 +1171,9 @@ public class SitesImpl implements Sites {
 				return GetterUtil.getBoolean(layoutsUpdateable, true);
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
@@ -1225,9 +1226,9 @@ public class SitesImpl implements Sites {
 				return GetterUtil.getBoolean(layoutUpdateable);
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
@@ -1393,7 +1394,7 @@ public class SitesImpl implements Sites {
 				layoutSetPrototype, layoutSet.getGroupId(),
 				layoutSet.isPrivateLayout(), parameterMap, importData);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			LayoutSet layoutSetPrototypeLayoutSet =
 				layoutSetPrototype.getLayoutSet();
 
@@ -1415,7 +1416,7 @@ public class SitesImpl implements Sites {
 			sb.append(" and layout set ");
 			sb.append(layoutSet.getLayoutSetId());
 
-			_log.error(sb.toString(), e);
+			_log.error(sb.toString(), exception);
 
 			layoutSetPrototypeSettingsProperties.setProperty(
 				MERGE_FAIL_COUNT, String.valueOf(mergeFailCount));
@@ -1770,8 +1771,8 @@ public class SitesImpl implements Sites {
 
 			applyLayoutPrototype(layoutPrototype, layout, true);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
 			prototypeTypeSettingsProperties.setProperty(
 				MERGE_FAIL_COUNT, String.valueOf(++mergeFailCount));
@@ -1857,11 +1858,11 @@ public class SitesImpl implements Sites {
 		try {
 			layoutSetPrototypeGroupId = layoutSetPrototype.getGroupId();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
 				"Unable to get groupId for layout set prototype " +
 					layoutSetPrototype.getLayoutSetPrototypeId(),
-				pe);
+				portalException);
 
 			return null;
 		}
@@ -1889,8 +1890,10 @@ public class SitesImpl implements Sites {
 						ExportImportConfigurationConstants.TYPE_EXPORT_LAYOUT,
 						exportLayoutSettingsMap);
 		}
-		catch (PortalException pe) {
-			_log.error("Unable to add draft export-import configuration", pe);
+		catch (PortalException portalException) {
+			_log.error(
+				"Unable to add draft export-import configuration",
+				portalException);
 
 			return null;
 		}
@@ -1901,11 +1904,11 @@ public class SitesImpl implements Sites {
 			file = ExportImportLocalServiceUtil.exportLayoutsAsFile(
 				exportImportConfiguration);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
 				"Unable to export layout set prototype " +
 					layoutSetPrototype.getLayoutSetPrototypeId(),
-				pe);
+				portalException);
 
 			return null;
 		}
@@ -1924,12 +1927,12 @@ public class SitesImpl implements Sites {
 						cacheFile.getAbsolutePath()));
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(
 				StringBundler.concat(
 					"Unable to copy file ", file.getAbsolutePath(), " to ",
 					cacheFile.getAbsolutePath()),
-				e);
+				exception);
 		}
 
 		return cacheFile;
@@ -2209,7 +2212,7 @@ public class SitesImpl implements Sites {
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return null;
 		}
 

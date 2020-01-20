@@ -44,8 +44,8 @@ public class CreationMenu extends HashMap {
 		try {
 			unsafeConsumer.accept(dropdownItem);
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 
 		_favoriteDropdownItems.add(dropdownItem);
@@ -61,8 +61,8 @@ public class CreationMenu extends HashMap {
 		try {
 			unsafeConsumer.accept(dropdownItem);
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 
 		_primaryDropdownItems.add(dropdownItem);
@@ -76,8 +76,8 @@ public class CreationMenu extends HashMap {
 		try {
 			unsafeConsumer.accept(dropdownItem);
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 
 		_restDropdownItems.add(dropdownItem);

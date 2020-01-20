@@ -77,9 +77,10 @@ public class ClusterLinkPortalCacheBootstrapLoader
 			ClusterLinkBootstrapLoaderHelperUtil.loadCachesFromCluster(
 				portalCacheManagerName, portalCacheName);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to load cache data from the cluster", e);
+				_log.warn(
+					"Unable to load cache data from the cluster", exception);
 			}
 		}
 	}
@@ -118,9 +119,10 @@ public class ClusterLinkPortalCacheBootstrapLoader
 			try {
 				doLoad(_portalCacheManagerName, _portalCacheName);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
-					_log.warn("Unable to asynchronously stream bootstrap", e);
+					_log.warn(
+						"Unable to asynchronously stream bootstrap", exception);
 				}
 			}
 		}

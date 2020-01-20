@@ -129,9 +129,10 @@ public class DBStore extends BaseStore {
 			_dlContentLocalService.deleteContent(
 				companyId, repositoryId, fileName, versionLabel);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			logFailedDeletion(
-				companyId, repositoryId, fileName, versionLabel, pe);
+				companyId, repositoryId, fileName, versionLabel,
+				portalException);
 		}
 	}
 
@@ -218,9 +219,9 @@ public class DBStore extends BaseStore {
 			dlContent = _dlContentLocalService.getContent(
 				companyId, repositoryId, fileName);
 		}
-		catch (NoSuchContentException nsce) {
+		catch (NoSuchContentException noSuchContentException) {
 			throw new NoSuchFileException(
-				companyId, repositoryId, fileName, nsce);
+				companyId, repositoryId, fileName, noSuchContentException);
 		}
 
 		return dlContent.getSize();
@@ -321,8 +322,8 @@ public class DBStore extends BaseStore {
 		try {
 			inputStream = new FileInputStream(file);
 		}
-		catch (FileNotFoundException fnfe) {
-			throw new SystemException(fnfe);
+		catch (FileNotFoundException fileNotFoundException) {
+			throw new SystemException(fileNotFoundException);
 		}
 
 		_dlContentLocalService.addContent(
@@ -359,10 +360,11 @@ public class DBStore extends BaseStore {
 			try {
 				length = fileChannel.size();
 			}
-			catch (IOException ioe) {
+			catch (IOException ioException) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
-						"Unable to detect file size from file channel", ioe);
+						"Unable to detect file size from file channel",
+						ioException);
 				}
 			}
 		}
@@ -390,8 +392,8 @@ public class DBStore extends BaseStore {
 			try {
 				bytes = FileUtil.getBytes(inputStream);
 			}
-			catch (IOException ioe) {
-				throw new SystemException(ioe);
+			catch (IOException ioException) {
+				throw new SystemException(ioException);
 			}
 
 			_dlContentLocalService.addContent(

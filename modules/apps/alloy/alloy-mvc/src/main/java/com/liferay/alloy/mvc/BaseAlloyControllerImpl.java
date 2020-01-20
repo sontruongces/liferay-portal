@@ -569,39 +569,40 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 			}
 		}
 		catch (Throwable t) {
-			Exception e = null;
+			Exception exception = null;
 
 			if (t instanceof Exception) {
-				e = (Exception)t;
+				exception = (Exception)t;
 			}
 			else {
-				e = new Exception(t);
+				exception = new Exception(t);
 			}
 
 			Object[] arguments = null;
 			String message = "an-unexpected-system-error-occurred";
 
-			Throwable rootCause = getRootCause(e);
+			Throwable rootCause = getRootCause(exception);
 
 			if (rootCause instanceof AlloyException) {
-				AlloyException ae = (AlloyException)rootCause;
+				AlloyException alloyException = (AlloyException)rootCause;
 
-				if (ae.log) {
+				if (alloyException.log) {
 					log.error(rootCause, rootCause);
 				}
 
-				if (ArrayUtil.isNotEmpty(ae.arguments)) {
-					arguments = ae.arguments;
+				if (ArrayUtil.isNotEmpty(alloyException.arguments)) {
+					arguments = alloyException.arguments;
 				}
 
 				message = rootCause.getMessage();
 			}
 			else {
-				log.error(e, e);
+				log.error(exception, exception);
 			}
 
 			renderError(
-				HttpServletResponse.SC_BAD_REQUEST, e, message, arguments);
+				HttpServletResponse.SC_BAD_REQUEST, exception, message,
+				arguments);
 		}
 		finally {
 			if (isRespondingTo()) {
@@ -768,12 +769,12 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 		return attributesMap;
 	}
 
-	protected String getStackTrace(Exception e) {
+	protected String getStackTrace(Exception exception) {
 		StringWriter stringWriter = new StringWriter();
 
 		PrintWriter printWriter = new PrintWriter(stringWriter);
 
-		e.printStackTrace(printWriter);
+		exception.printStackTrace(printWriter);
 
 		return stringWriter.toString();
 	}
@@ -906,8 +907,8 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 					MessageBusUtil.unregisterMessageListener(
 						destinationName, curMessageListener);
 				}
-				catch (Exception e) {
-					log.error(e, e);
+				catch (Exception exception) {
+					log.error(exception, exception);
 				}
 
 				break;
@@ -941,8 +942,8 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 					destinationName, null, 0);
 			}
 		}
-		catch (Exception e) {
-			log.error(e, e);
+		catch (Exception exception) {
+			log.error(exception, exception);
 		}
 	}
 
@@ -1167,10 +1168,11 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 	}
 
 	protected void renderError(
-			int status, Exception e, String pattern, Object... arguments)
+			int status, Exception exception, String pattern,
+			Object... arguments)
 		throws Exception {
 
-		Throwable rootCause = getRootCause(e);
+		Throwable rootCause = getRootCause(exception);
 
 		if (isRespondingTo()) {
 			responseContent = buildResponseContent(

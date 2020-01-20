@@ -578,7 +578,7 @@ public class AssetPublisherHelperImpl implements AssetPublisherHelper {
 						_portal.getCurrentURL(liferayPortletRequest));
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 		}
 
@@ -724,7 +724,7 @@ public class AssetPublisherHelperImpl implements AssetPublisherHelper {
 
 				groupIds.add(groupId);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 		}
 

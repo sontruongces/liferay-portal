@@ -73,8 +73,8 @@ public class UpgradeKernelPackage extends UpgradeProcess {
 				"UserNotificationEvent", "payload", "userNotificationEventId",
 				getResourceNames(), WildcardMode.LEADING);
 		}
-		catch (Exception e) {
-			throw new UpgradeException(e);
+		catch (Exception exception) {
+			throw new UpgradeException(exception);
 		}
 	}
 

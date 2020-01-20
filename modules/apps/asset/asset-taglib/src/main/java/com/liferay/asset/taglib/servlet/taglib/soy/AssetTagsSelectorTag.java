@@ -85,8 +85,8 @@ public class AssetTagsSelectorTag extends ComponentRendererTag {
 
 			putValue("tagNames", _getTagNames());
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		setTemplateNamespace(
@@ -251,7 +251,7 @@ public class AssetTagsSelectorTag extends ComponentRendererTag {
 
 			return portletURL.toString();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return null;

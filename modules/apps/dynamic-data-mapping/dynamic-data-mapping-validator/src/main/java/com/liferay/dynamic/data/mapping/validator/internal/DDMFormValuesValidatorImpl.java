@@ -157,8 +157,8 @@ public class DDMFormValuesValidatorImpl implements DDMFormValuesValidator {
 
 			return ddmExpression.evaluate();
 		}
-		catch (DDMExpressionException ddmee) {
-			throw new DDMFormValuesValidationException(ddmee);
+		catch (DDMExpressionException ddmExpressionException) {
+			throw new DDMFormValuesValidationException(ddmExpressionException);
 		}
 	}
 
@@ -204,8 +204,8 @@ public class DDMFormValuesValidatorImpl implements DDMFormValuesValidator {
 			ddmFormFieldValueValidator.validate(
 				ddmFormField, ddmFormFieldValue.getValue());
 		}
-		catch (Exception e) {
-			throw new MustSetValidValue(ddmFormField.getName(), e);
+		catch (Exception exception) {
+			throw new MustSetValidValue(ddmFormField.getName(), exception);
 		}
 	}
 

@@ -691,7 +691,7 @@ public class WorkflowMetricsRESTTestHelper {
 				method = ReflectionUtil.getDeclaredMethod(
 					indexerClass, methodName, Document.class);
 			}
-			catch (NoSuchMethodException nsme) {
+			catch (NoSuchMethodException noSuchMethodException) {
 			}
 
 			indexerClass = indexerClass.getSuperclass();

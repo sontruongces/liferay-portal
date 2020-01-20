@@ -174,8 +174,8 @@ public class ManageCollaboratorsViewMVCRenderCommand
 
 			return collaboratorsJSONArray;
 		}
-		catch (PortalException pe) {
-			throw new PortletException(pe);
+		catch (PortalException portalException) {
+			throw new PortletException(portalException);
 		}
 	}
 

@@ -236,9 +236,9 @@ public class JournalUtil {
 				try {
 					_populateTokens(tokens, articleGroupId, themeDisplayModel);
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					if (_log.isWarnEnabled()) {
-						_log.warn(e, e);
+						_log.warn(exception, exception);
 					}
 				}
 			}
@@ -350,8 +350,8 @@ public class JournalUtil {
 
 			content = XMLUtil.formatXML(document);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		return content;
@@ -705,8 +705,8 @@ public class JournalUtil {
 				ConfigurationProviderUtil.getCompanyConfiguration(
 					JournalServiceConfiguration.class, companyId);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		if (journalServiceConfiguration == null) {

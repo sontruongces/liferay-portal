@@ -83,8 +83,8 @@ public class DLFileEntryModelPreFilterContributor
 			relatedEntryIndexer.addRelatedClassNames(
 				booleanFilter, searchContext);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 
@@ -136,9 +136,9 @@ public class DLFileEntryModelPreFilterContributor
 							ddmStructureFieldValue,
 							ddmStructure.getFieldType(fieldName));
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					if (_log.isDebugEnabled()) {
-						_log.debug(e, e);
+						_log.debug(exception, exception);
 					}
 				}
 
@@ -153,8 +153,8 @@ public class DLFileEntryModelPreFilterContributor
 					new QueryFilter(booleanQuery), BooleanClauseOccur.MUST);
 			}
 		}
-		catch (PortalException pe) {
-			throw new SystemException(pe);
+		catch (PortalException portalException) {
+			throw new SystemException(portalException);
 		}
 	}
 

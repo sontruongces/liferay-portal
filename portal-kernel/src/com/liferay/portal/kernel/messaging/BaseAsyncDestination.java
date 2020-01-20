@@ -329,8 +329,8 @@ public abstract class BaseAsyncDestination extends BaseDestination {
 
 				permissionChecker = PermissionCheckerFactoryUtil.create(user);
 			}
-			catch (Exception e) {
-				throw new RuntimeException(e);
+			catch (Exception exception) {
+				throw new RuntimeException(exception);
 			}
 		}
 

@@ -47,7 +47,7 @@ public class FriendlyURLRandomizerBumper implements RandomizerBumper<String> {
 
 			return true;
 		}
-		catch (LayoutFriendlyURLException lfurle) {
+		catch (LayoutFriendlyURLException layoutFriendlyURLException) {
 			return false;
 		}
 	}

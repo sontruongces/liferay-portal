@@ -136,8 +136,10 @@ public class JournalArticleAssetEntryUsageActionMenuContributor
 								});
 						}
 					}
-					catch (PortalException pe) {
-						_log.error("Unable to check article permission", pe);
+					catch (PortalException portalException) {
+						_log.error(
+							"Unable to check article permission",
+							portalException);
 					}
 				}
 			}

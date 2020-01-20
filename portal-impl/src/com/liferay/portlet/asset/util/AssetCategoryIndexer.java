@@ -232,12 +232,12 @@ public class AssetCategoryIndexer extends BaseIndexer<AssetCategory> {
 						indexableActionableDynamicQuery.addDocuments(document);
 					}
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index asset category " +
 								category.getCategoryId(),
-							pe);
+							portalException);
 					}
 				}
 			});

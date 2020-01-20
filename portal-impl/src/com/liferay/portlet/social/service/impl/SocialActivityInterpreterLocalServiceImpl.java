@@ -177,8 +177,8 @@ public class SocialActivityInterpreterLocalServiceImpl
 				return null;
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		if (activity.getMirrorActivityId() > 0) {
@@ -188,7 +188,7 @@ public class SocialActivityInterpreterLocalServiceImpl
 				mirrorActivity = socialActivityLocalService.getActivity(
 					activity.getMirrorActivityId());
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			if (mirrorActivity != null) {
@@ -248,8 +248,8 @@ public class SocialActivityInterpreterLocalServiceImpl
 				return null;
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		List<SocialActivityInterpreter> activityInterpreters =

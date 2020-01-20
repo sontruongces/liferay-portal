@@ -137,9 +137,9 @@ public class RadioFieldType extends BaseFieldType {
 
 			return String.valueOf(jsonArray.get(0));
 		}
-		catch (JSONException jsone) {
+		catch (JSONException jsonException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(jsone, jsone);
+				_log.debug(jsonException, jsonException);
 			}
 
 			return json;

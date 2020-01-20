@@ -1175,8 +1175,8 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 				verified = true;
 			}
 		}
-		catch (ExpiredLockException ele) {
-			throw new NoSuchLockException(ele);
+		catch (ExpiredLockException expiredLockException) {
+			throw new NoSuchLockException(expiredLockException);
 		}
 
 		return verified;

@@ -156,8 +156,8 @@ public abstract class BaseJSONWebServiceClientImpl
 				_logger.debug(sb.toString());
 			}
 		}
-		catch (Exception e) {
-			_logger.error("Unable to configure client", e);
+		catch (Exception exception) {
+			_logger.error("Unable to configure client", exception);
 		}
 	}
 
@@ -167,8 +167,8 @@ public abstract class BaseJSONWebServiceClientImpl
 			try {
 				_asyncHttpClient.close();
 			}
-			catch (IOException ioe) {
-				_logger.error("Unable to close client", ioe);
+			catch (IOException ioException) {
+				_logger.error("Unable to close client", ioException);
 			}
 
 			_asyncHttpClient = null;
@@ -338,7 +338,7 @@ public abstract class BaseJSONWebServiceClientImpl
 
 			return _objectMapper.readValue(json, javaType);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw _getJSONWebServiceSerializeException(json, clazz);
 		}
 	}
@@ -384,7 +384,7 @@ public abstract class BaseJSONWebServiceClientImpl
 		try {
 			return _objectMapper.readValue(json, clazz);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw _getJSONWebServiceSerializeException(json, clazz);
 		}
 	}
@@ -463,7 +463,7 @@ public abstract class BaseJSONWebServiceClientImpl
 
 			return doPostAsJSON(url, json);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw _getJSONWebServiceSerializeException(object);
 		}
 	}
@@ -521,7 +521,7 @@ public abstract class BaseJSONWebServiceClientImpl
 		try {
 			return _objectMapper.readValue(json, clazz);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw _getJSONWebServiceSerializeException(json, clazz);
 		}
 	}
@@ -555,7 +555,7 @@ public abstract class BaseJSONWebServiceClientImpl
 		try {
 			return _objectMapper.readValue(json, clazz);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw _getJSONWebServiceSerializeException(json, clazz);
 		}
 	}
@@ -651,7 +651,7 @@ public abstract class BaseJSONWebServiceClientImpl
 		try {
 			return _objectMapper.readValue(json, clazz);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw _getJSONWebServiceSerializeException(json, clazz);
 		}
 	}
@@ -685,7 +685,7 @@ public abstract class BaseJSONWebServiceClientImpl
 		try {
 			return _objectMapper.readValue(json, clazz);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw _getJSONWebServiceSerializeException(json, clazz);
 		}
 	}
@@ -761,8 +761,8 @@ public abstract class BaseJSONWebServiceClientImpl
 		try {
 			afterPropertiesSet();
 		}
-		catch (IOReactorException iore) {
-			_logger.error(iore.getMessage());
+		catch (IOReactorException ioReactorException) {
+			_logger.error(ioReactorException.getMessage());
 		}
 	}
 
@@ -981,17 +981,19 @@ public abstract class BaseJSONWebServiceClientImpl
 			throw new JSONWebServiceTransportException.CommunicationFailure(
 				sb.toString(), statusCode);
 		}
-		catch (ExecutionException ee) {
+		catch (ExecutionException executionException) {
 			throw new JSONWebServiceTransportException.CommunicationFailure(
-				"Unable to transmit request to " + _hostName, ee);
+				"Unable to transmit request to " + _hostName,
+				executionException);
 		}
-		catch (InterruptedException ie) {
+		catch (InterruptedException interruptedException) {
 			throw new JSONWebServiceTransportException.CommunicationFailure(
-				"Unable to transmit request to " + _hostName, ie);
+				"Unable to transmit request to " + _hostName,
+				interruptedException);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw new JSONWebServiceTransportException.CommunicationFailure(
-				"Unable to transmit request to " + _hostName, ioe);
+				"Unable to transmit request to " + _hostName, ioException);
 		}
 		finally {
 			httpRequestBase.releaseConnection();
@@ -1055,8 +1057,8 @@ public abstract class BaseJSONWebServiceClientImpl
 			sslContext.init(
 				null, new TrustManager[] {new X509TrustManagerImpl()}, null);
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 
 		String[] httpProtocols = _split(System.getProperty("https.protocols"));

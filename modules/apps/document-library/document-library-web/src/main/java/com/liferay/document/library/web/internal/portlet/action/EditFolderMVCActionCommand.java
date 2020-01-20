@@ -103,17 +103,17 @@ public class EditFolderMVCActionCommand extends BaseMVCActionCommand {
 				_updateWorkflowDefinitions(actionRequest);
 			}
 		}
-		catch (NoSuchFolderException | PrincipalException e) {
-			SessionErrors.add(actionRequest, e.getClass());
+		catch (NoSuchFolderException | PrincipalException exception) {
+			SessionErrors.add(actionRequest, exception.getClass());
 
 			actionResponse.setRenderParameter(
 				"mvcPath", "/document_library/error.jsp");
 		}
 		catch (DuplicateFileEntryException | DuplicateFileException |
 			   DuplicateFolderNameException | FolderNameException |
-			   RequiredFileEntryTypeException e) {
+			   RequiredFileEntryTypeException exception) {
 
-			SessionErrors.add(actionRequest, e.getClass());
+			SessionErrors.add(actionRequest, exception.getClass());
 		}
 	}
 

@@ -88,8 +88,8 @@ public abstract class BaseSpellCheckIndexWriter
 				searchContext.getKeywords(), weight, keywordFieldName,
 				typeFieldValue, maxNGramLength);
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -107,8 +107,8 @@ public abstract class BaseSpellCheckIndexWriter
 					_querySuggestionMaxNGramLength);
 			}
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -123,8 +123,8 @@ public abstract class BaseSpellCheckIndexWriter
 				Field.KEYWORD_SEARCH, SuggestionConstants.TYPE_QUERY_SUGGESTION,
 				_querySuggestionMaxNGramLength);
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -141,8 +141,8 @@ public abstract class BaseSpellCheckIndexWriter
 					SuggestionConstants.TYPE_SPELL_CHECKER, 0);
 			}
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -157,8 +157,8 @@ public abstract class BaseSpellCheckIndexWriter
 				Field.SPELL_CHECK_WORD, SuggestionConstants.TYPE_SPELL_CHECKER,
 				0);
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -228,8 +228,8 @@ public abstract class BaseSpellCheckIndexWriter
 
 			uidSB.append(Base64.encode(bytes));
 		}
-		catch (Exception e) {
-			throw new IllegalStateException(e);
+		catch (Exception exception) {
+			throw new IllegalStateException(exception);
 		}
 
 		return uidSB.toString();

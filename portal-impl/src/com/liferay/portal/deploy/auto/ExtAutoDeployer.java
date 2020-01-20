@@ -54,8 +54,8 @@ public class ExtAutoDeployer extends ExtDeployer implements AutoDeployer {
 
 			checkArguments();
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 

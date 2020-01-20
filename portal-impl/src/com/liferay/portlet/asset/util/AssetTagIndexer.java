@@ -141,10 +141,11 @@ public class AssetTagIndexer extends BaseIndexer<AssetTag> {
 						indexableActionableDynamicQuery.addDocuments(document);
 					}
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
-							"Unable to index asset tag " + tag.getTagId(), pe);
+							"Unable to index asset tag " + tag.getTagId(),
+							portalException);
 					}
 				}
 			});

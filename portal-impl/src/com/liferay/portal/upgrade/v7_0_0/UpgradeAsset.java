@@ -173,9 +173,10 @@ public class UpgradeAsset extends UpgradeProcess {
 
 			ps.executeUpdate();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to update vocabulary " + vocabularyId, e);
+				_log.warn(
+					"Unable to update vocabulary " + vocabularyId, exception);
 			}
 		}
 	}

@@ -167,8 +167,8 @@ public class DisplayPageFriendlyURLResolverTest {
 
 			Assert.fail();
 		}
-		catch (NoSuchLayoutException nsle) {
-			_assertCause(nsle, urlTitle);
+		catch (NoSuchLayoutException noSuchLayoutException) {
+			_assertCause(noSuchLayoutException, urlTitle);
 		}
 	}
 
@@ -185,8 +185,8 @@ public class DisplayPageFriendlyURLResolverTest {
 
 			Assert.fail();
 		}
-		catch (NoSuchLayoutException nsle) {
-			_assertCause(nsle, urlTitle);
+		catch (NoSuchLayoutException noSuchLayoutException) {
+			_assertCause(noSuchLayoutException, urlTitle);
 		}
 	}
 
@@ -206,13 +206,15 @@ public class DisplayPageFriendlyURLResolverTest {
 
 			Assert.fail();
 		}
-		catch (NoSuchLayoutException nsle) {
-			_assertCause(nsle, urlTitle);
+		catch (NoSuchLayoutException noSuchLayoutException) {
+			_assertCause(noSuchLayoutException, urlTitle);
 		}
 	}
 
-	private void _assertCause(NoSuchLayoutException nsle, String urlTitle) {
-		Throwable cause = nsle.getCause();
+	private void _assertCause(
+		NoSuchLayoutException noSuchLayoutException, String urlTitle) {
+
+		Throwable cause = noSuchLayoutException.getCause();
 
 		Assert.assertTrue(
 			String.valueOf(cause), cause instanceof NoSuchArticleException);

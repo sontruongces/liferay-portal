@@ -118,8 +118,8 @@ public class DLStoreImpl implements DLStore {
 			try {
 				store.addFile(companyId, repositoryId, fileName, is);
 			}
-			catch (AccessDeniedException ade) {
-				throw new PrincipalException(ade);
+			catch (AccessDeniedException accessDeniedException) {
+				throw new PrincipalException(accessDeniedException);
 			}
 		}
 		else {
@@ -136,8 +136,8 @@ public class DLStoreImpl implements DLStore {
 					try {
 						store.addFile(companyId, repositoryId, fileName, is);
 					}
-					catch (AccessDeniedException ade) {
-						throw new PrincipalException(ade);
+					catch (AccessDeniedException accessDeniedException) {
+						throw new PrincipalException(accessDeniedException);
 					}
 				}
 				else {
@@ -150,9 +150,9 @@ public class DLStoreImpl implements DLStore {
 					store.addFile(companyId, repositoryId, fileName, tempFile);
 				}
 			}
-			catch (IOException ioe) {
+			catch (IOException ioException) {
 				throw new SystemException(
-					"Unable to scan file " + fileName, ioe);
+					"Unable to scan file " + fileName, ioException);
 			}
 			finally {
 				if (tempFile != null) {
@@ -239,8 +239,8 @@ public class DLStoreImpl implements DLStore {
 		try {
 			store.deleteFile(companyId, repositoryId, fileName, versionLabel);
 		}
-		catch (AccessDeniedException ade) {
-			throw new PrincipalException(ade);
+		catch (AccessDeniedException accessDeniedException) {
+			throw new PrincipalException(accessDeniedException);
 		}
 	}
 
@@ -477,8 +477,8 @@ public class DLStoreImpl implements DLStore {
 				store.updateFile(
 					companyId, repositoryId, fileName, versionLabel, is);
 			}
-			catch (AccessDeniedException ade) {
-				throw new PrincipalException(ade);
+			catch (AccessDeniedException accessDeniedException) {
+				throw new PrincipalException(accessDeniedException);
 			}
 		}
 		else {
@@ -497,8 +497,8 @@ public class DLStoreImpl implements DLStore {
 							companyId, repositoryId, fileName, versionLabel,
 							is);
 					}
-					catch (AccessDeniedException ade) {
-						throw new PrincipalException(ade);
+					catch (AccessDeniedException accessDeniedException) {
+						throw new PrincipalException(accessDeniedException);
 					}
 				}
 				else {
@@ -513,9 +513,9 @@ public class DLStoreImpl implements DLStore {
 						tempFile);
 				}
 			}
-			catch (IOException ioe) {
+			catch (IOException ioException) {
 				throw new SystemException(
-					"Unable to scan file " + fileName, ioe);
+					"Unable to scan file " + fileName, ioException);
 			}
 			finally {
 				if (tempFile != null) {

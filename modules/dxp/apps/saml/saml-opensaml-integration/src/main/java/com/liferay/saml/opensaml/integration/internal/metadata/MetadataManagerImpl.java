@@ -143,9 +143,9 @@ public class MetadataManagerImpl
 
 			return samlIdpSpConnection.getAssertionLifetime();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
@@ -167,9 +167,9 @@ public class MetadataManagerImpl
 			return StringUtil.splitLines(
 				samlIdpSpConnection.getAttributeNames());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
@@ -195,8 +195,8 @@ public class MetadataManagerImpl
 					new EntityIdCriterion(entityId),
 					new UsageCriterion(UsageType.ENCRYPTION)));
 		}
-		catch (ResolverException re) {
-			throw new SamlException(re);
+		catch (ResolverException resolverException) {
+			throw new SamlException(resolverException);
 		}
 	}
 
@@ -210,11 +210,12 @@ public class MetadataManagerImpl
 		try {
 			encryptionCredential = getEncryptionCredential();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"Unable to get encryption credential: " + e.getMessage(),
-					e);
+					"Unable to get encryption credential: " +
+						exception.getMessage(),
+					exception);
 			}
 		}
 
@@ -238,8 +239,8 @@ public class MetadataManagerImpl
 
 			return null;
 		}
-		catch (Exception e) {
-			throw new SamlException(e);
+		catch (Exception exception) {
+			throw new SamlException(exception);
 		}
 	}
 
@@ -252,8 +253,8 @@ public class MetadataManagerImpl
 			return OpenSamlUtil.marshall(
 				getEntityDescriptor(httpServletRequest));
 		}
-		catch (Exception e) {
-			throw new SamlException(e);
+		catch (Exception exception) {
+			throw new SamlException(exception);
 		}
 	}
 
@@ -280,9 +281,9 @@ public class MetadataManagerImpl
 
 			nameIdAttributeName = samlIdpSpConnection.getNameIdAttribute();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
@@ -305,9 +306,9 @@ public class MetadataManagerImpl
 
 				return samlIdpSpConnection.getNameIdFormat();
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e, e);
+					_log.debug(exception, exception);
 				}
 			}
 		}
@@ -319,9 +320,9 @@ public class MetadataManagerImpl
 
 				return samlSpIdpConnection.getNameIdFormat();
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e, e);
+					_log.debug(exception, exception);
 				}
 			}
 		}
@@ -441,8 +442,8 @@ public class MetadataManagerImpl
 					new EntityIdCriterion(entityId),
 					new UsageCriterion(UsageType.SIGNING)));
 		}
-		catch (ResolverException re) {
-			throw new SamlException(re);
+		catch (ResolverException resolverException) {
+			throw new SamlException(resolverException);
 		}
 	}
 
@@ -457,9 +458,9 @@ public class MetadataManagerImpl
 
 			return samlSpIdpConnection.getUserAttributeMappings();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
@@ -477,9 +478,9 @@ public class MetadataManagerImpl
 
 			return samlIdpSpConnection.isAttributesEnabled();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
@@ -497,9 +498,9 @@ public class MetadataManagerImpl
 
 			return samlIdpSpConnection.isAttributesNamespaceEnabled();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 

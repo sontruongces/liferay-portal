@@ -94,8 +94,8 @@ public class JournalContentPortletLayoutListener
 				layout.getGroupId(), layout.isPrivateLayout(),
 				layout.getLayoutId(), portletId, article.getArticleId(), true);
 		}
-		catch (Exception e) {
-			throw new PortletLayoutListenerException(e);
+		catch (Exception exception) {
+			throw new PortletLayoutListenerException(exception);
 		}
 	}
 
@@ -144,8 +144,8 @@ public class JournalContentPortletLayoutListener
 					layout.getCompanyId(), runtimePortletIds, layout.getPlid());
 			}
 		}
-		catch (Exception e) {
-			throw new PortletLayoutListenerException(e);
+		catch (Exception exception) {
+			throw new PortletLayoutListenerException(exception);
 		}
 	}
 
@@ -180,8 +180,8 @@ public class JournalContentPortletLayoutListener
 					true);
 			}
 		}
-		catch (Exception e) {
-			throw new PortletLayoutListenerException(e);
+		catch (Exception exception) {
+			throw new PortletLayoutListenerException(exception);
 		}
 	}
 

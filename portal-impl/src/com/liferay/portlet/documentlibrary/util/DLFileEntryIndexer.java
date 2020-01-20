@@ -136,7 +136,7 @@ public class DLFileEntryIndexer
 			fileEntry = DLAppLocalServiceUtil.getFileEntry(
 				comment.getClassPK());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return;
 		}
 
@@ -193,9 +193,9 @@ public class DLFileEntryIndexer
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isInfoEnabled()) {
-				_log.info("Unble to get file entry", e);
+				_log.info("Unble to get file entry", exception);
 			}
 
 			return false;
@@ -253,9 +253,9 @@ public class DLFileEntryIndexer
 						ddmStructureFieldValue,
 						ddmStructure.getFieldType(fieldName));
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e, e);
+					_log.debug(exception, exception);
 				}
 			}
 
@@ -341,7 +341,7 @@ public class DLFileEntryIndexer
 				ddmFormValues = StorageEngineManagerUtil.getDDMFormValues(
 					dlFileEntryMetadata.getDDMStorageId());
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			if (ddmFormValues != null) {
@@ -398,9 +398,9 @@ public class DLFileEntryIndexer
 				is = fileVersion.getContentStream(false);
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug("Error retrieving document stream", e);
+				_log.debug("Error retrieving document stream", exception);
 			}
 		}
 
@@ -424,9 +424,10 @@ public class DLFileEntryIndexer
 							localizedField, is, dlFileEntry.getTitle(),
 							PropsValues.DL_FILE_INDEXING_MAX_SIZE);
 					}
-					catch (IOException ioe) {
+					catch (IOException ioException) {
 						throw new SearchException(
-							"Cannot extract text from file" + dlFileEntry, ioe);
+							"Cannot extract text from file" + dlFileEntry,
+							ioException);
 					}
 				}
 				else if (_log.isDebugEnabled()) {
@@ -518,7 +519,7 @@ public class DLFileEntryIndexer
 				try {
 					is.close();
 				}
-				catch (IOException ioe) {
+				catch (IOException ioException) {
 				}
 			}
 		}
@@ -548,12 +549,12 @@ public class DLFileEntryIndexer
 		try {
 			dlFileVersion = dlFileEntry.getFileVersion();
 		}
-		catch (NoSuchFileVersionException nsfve) {
+		catch (NoSuchFileVersionException noSuchFileVersionException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Unable to get file version for file entry " +
 						dlFileEntry.getFileEntryId(),
-					nsfve);
+					noSuchFileVersionException);
 			}
 
 			return;
@@ -611,7 +612,7 @@ public class DLFileEntryIndexer
 				ddmFormValues = StorageEngineManagerUtil.getDDMFormValues(
 					dlFileEntryMetadata.getDDMStorageId());
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			if (ddmFormValues != null) {
@@ -651,12 +652,12 @@ public class DLFileEntryIndexer
 					indexableActionableDynamicQuery.addDocuments(
 						getDocument(dlFileEntry));
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index document library file entry " +
 								dlFileEntry.getFileEntryId(),
-							pe);
+							portalException);
 					}
 				}
 			});

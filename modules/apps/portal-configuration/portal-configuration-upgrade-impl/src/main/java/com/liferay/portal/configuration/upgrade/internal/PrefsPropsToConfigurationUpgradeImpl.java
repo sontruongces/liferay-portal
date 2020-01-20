@@ -92,8 +92,8 @@ public class PrefsPropsToConfigurationUpgradeImpl
 				configuration.update(properties);
 			}
 		}
-		catch (IOException | ReadOnlyException e) {
-			throw new UpgradeException(e);
+		catch (IOException | ReadOnlyException exception) {
+			throw new UpgradeException(exception);
 		}
 	}
 

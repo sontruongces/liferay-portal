@@ -141,10 +141,10 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 
 			StartupHelperUtil.setDbNew(true);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new SystemException(e);
+			throw new SystemException(exception);
 		}
 	}
 
@@ -184,9 +184,9 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 
 			populateVersion();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e.getMessage());
+				_log.debug(exception.getMessage());
 			}
 		}
 
@@ -223,9 +223,9 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 			try {
 				db.runSQL("alter table Release_ add state_ INTEGER");
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e.getMessage());
+					_log.debug(exception.getMessage());
 				}
 			}
 
@@ -233,9 +233,9 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 
 			return buildNumber;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(e.getMessage());
+				_log.warn(exception.getMessage());
 			}
 		}
 		finally {
@@ -430,9 +430,9 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 				db.runSQL(
 					"alter table Release_ add testString VARCHAR(1024) null");
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e.getMessage());
+					_log.debug(exception.getMessage());
 				}
 			}
 
@@ -441,9 +441,9 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 					"update Release_ set testString = '" +
 						ReleaseConstants.TEST_STRING + "'");
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e.getMessage());
+					_log.debug(exception.getMessage());
 				}
 			}
 
@@ -489,9 +489,9 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 				count = rs.getInt(1);
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(e.getMessage());
+				_log.warn(exception.getMessage());
 			}
 		}
 		finally {

@@ -141,11 +141,11 @@ public class AccountIndexer extends BaseIndexer<Account> {
 					indexableActionableDynamicQuery.addDocuments(
 						getDocument(account));
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index account " + account.getAccountId(),
-							pe);
+							portalException);
 					}
 				}
 			});

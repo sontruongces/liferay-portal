@@ -106,12 +106,12 @@ public class PersonalApplicationURLUtil {
 				group.getGroupId(), privateLayout,
 				PropsValues.CONTROL_PANEL_LAYOUT_FRIENDLY_URL);
 		}
-		catch (NoSuchLayoutException nsle) {
+		catch (NoSuchLayoutException noSuchLayoutException) {
 
 			// LPS-52675
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(nsle, nsle);
+				_log.debug(noSuchLayoutException, noSuchLayoutException);
 			}
 
 			layout = _addEmbeddedPersonalApplicationLayout(

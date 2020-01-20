@@ -50,8 +50,8 @@ public class SamlPersistenceServiceBundleActivator implements BundleActivator {
 
 					return null;
 				}
-				catch (UpgradeException ue) {
-					throw new RuntimeException(ue);
+				catch (UpgradeException upgradeException) {
+					throw new RuntimeException(upgradeException);
 				}
 			}
 

@@ -123,8 +123,8 @@ public class AspectJNewEnvTestRule extends NewEnvTestRule {
 				ClassPathUtil.getClassPathURLs(CLASS_PATH), adviceClasses,
 				dumpDir);
 		}
-		catch (MalformedURLException murle) {
-			throw new RuntimeException(murle);
+		catch (MalformedURLException malformedURLException) {
+			throw new RuntimeException(malformedURLException);
 		}
 	}
 
@@ -195,8 +195,8 @@ public class AspectJNewEnvTestRule extends NewEnvTestRule {
 						_encodedProcessCallable, weavingClassLoader),
 					"call", new Class<?>[0]);
 			}
-			catch (Exception e) {
-				throw new ProcessException(e);
+			catch (Exception exception) {
+				throw new ProcessException(exception);
 			}
 			finally {
 				currentThread.setContextClassLoader(contextClassLoader);

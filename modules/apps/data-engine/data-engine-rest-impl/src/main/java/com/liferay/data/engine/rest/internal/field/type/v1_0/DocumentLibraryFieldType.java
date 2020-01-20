@@ -178,8 +178,8 @@ public class DocumentLibraryFieldType extends BaseFieldType {
 				valueJSONObject.getString("uuid"),
 				valueJSONObject.getLong("groupId"));
 		}
-		catch (PortalException pe) {
-			_log.error("Unable to retrieve file entry ", pe);
+		catch (PortalException portalException) {
+			_log.error("Unable to retrieve file entry ", portalException);
 
 			return null;
 		}
@@ -238,8 +238,10 @@ public class DocumentLibraryFieldType extends BaseFieldType {
 				_portal.getControlPanelPlid(themeDisplay.getCompanyId()),
 				PortletKeys.ITEM_SELECTOR);
 		}
-		catch (PortalException pe) {
-			_log.error("Unable to generate item selector auth token ", pe);
+		catch (PortalException portalException) {
+			_log.error(
+				"Unable to generate item selector auth token ",
+				portalException);
 		}
 
 		return StringPool.BLANK;
@@ -283,9 +285,9 @@ public class DocumentLibraryFieldType extends BaseFieldType {
 		try {
 			return JSONFactoryUtil.createJSONObject(string);
 		}
-		catch (JSONException jsone) {
+		catch (JSONException jsonException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(jsone, jsone);
+				_log.debug(jsonException, jsonException);
 			}
 
 			return null;

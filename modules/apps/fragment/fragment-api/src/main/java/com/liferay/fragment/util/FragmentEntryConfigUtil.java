@@ -192,7 +192,7 @@ public class FragmentEntryConfigUtil {
 			editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
 				editableValues);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return null;
 		}
 
@@ -360,9 +360,9 @@ public class FragmentEntryConfigUtil {
 				return assetRenderer.getAssetObject();
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug("Unable to get asset entry: " + value, e);
+				_log.debug("Unable to get asset entry: " + value, exception);
 			}
 		}
 
@@ -401,10 +401,11 @@ public class FragmentEntryConfigUtil {
 
 			return jsonObject;
 		}
-		catch (JSONException jsone) {
+		catch (JSONException jsonException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"Unable to serialize asset entry to JSON: " + value, jsone);
+					"Unable to serialize asset entry to JSON: " + value,
+					jsonException);
 			}
 		}
 
@@ -426,11 +427,11 @@ public class FragmentEntryConfigUtil {
 
 			return configurationJSONObject.getJSONArray("fieldSets");
 		}
-		catch (JSONException jsone) {
+		catch (JSONException jsonException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Unable to parse configuration JSON: " + configuration,
-					jsone);
+					jsonException);
 			}
 		}
 
@@ -451,10 +452,11 @@ public class FragmentEntryConfigUtil {
 			try {
 				return JSONFactoryUtil.createJSONObject(value);
 			}
-			catch (JSONException jsone) {
+			catch (JSONException jsonException) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						"Unable to parse configuration JSON: " + value, jsone);
+						"Unable to parse configuration JSON: " + value,
+						jsonException);
 				}
 			}
 		}

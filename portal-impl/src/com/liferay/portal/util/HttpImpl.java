@@ -297,8 +297,8 @@ public class HttpImpl implements Http {
 		try {
 			return URLCodec.decodeURL(url, StringPool.UTF8);
 		}
-		catch (IllegalArgumentException iae) {
-			_log.error(iae.getMessage());
+		catch (IllegalArgumentException illegalArgumentException) {
+			_log.error(illegalArgumentException.getMessage());
 		}
 
 		return StringPool.BLANK;
@@ -330,7 +330,7 @@ public class HttpImpl implements Http {
 			try {
 				Thread.sleep(500);
 			}
-			catch (InterruptedException ie) {
+			catch (InterruptedException interruptedException) {
 			}
 
 			retry++;
@@ -519,7 +519,7 @@ public class HttpImpl implements Http {
 
 			return host;
 		}
-		catch (URISyntaxException urise) {
+		catch (URISyntaxException uriSyntaxException) {
 			return StringPool.BLANK;
 		}
 	}
@@ -548,7 +548,7 @@ public class HttpImpl implements Http {
 
 			return address.getHostAddress();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return url;
 		}
 	}
@@ -844,13 +844,13 @@ public class HttpImpl implements Http {
 					try {
 						value = decodeURL(kvp[1]);
 					}
-					catch (IllegalArgumentException iae) {
+					catch (IllegalArgumentException illegalArgumentException) {
 						if (_log.isInfoEnabled()) {
 							_log.info(
 								StringBundler.concat(
 									"Skipping parameter with key ", key,
 									" because of invalid value ", kvp[1]),
-								iae);
+								illegalArgumentException);
 						}
 
 						continue;
@@ -950,7 +950,7 @@ public class HttpImpl implements Http {
 
 			return urlObj.toString();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return url;
 		}
 	}
@@ -1721,8 +1721,9 @@ public class HttpImpl implements Http {
 		try {
 			uri = new URI(location);
 		}
-		catch (URISyntaxException urise) {
-			throw new IOException("Invalid URI: " + location, urise);
+		catch (URISyntaxException uriSyntaxException) {
+			throw new IOException(
+				"Invalid URI: " + location, uriSyntaxException);
 		}
 
 		BasicCookieStore basicCookieStore = null;
@@ -1943,9 +1944,10 @@ public class HttpImpl implements Http {
 						try {
 							referenceCloseableHttpResponse.close();
 						}
-						catch (IOException ioe) {
+						catch (IOException ioException) {
 							if (_log.isDebugEnabled()) {
-								_log.debug("Unable to close response", ioe);
+								_log.debug(
+									"Unable to close response", ioException);
 							}
 						}
 					}
@@ -1966,7 +1968,7 @@ public class HttpImpl implements Http {
 
 			};
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (httpEntity != null) {
 				EntityUtils.consumeQuietly(httpEntity);
 			}
@@ -1975,14 +1977,14 @@ public class HttpImpl implements Http {
 				try {
 					closeableHttpResponse.close();
 				}
-				catch (IOException ioe) {
+				catch (IOException ioException) {
 					if (_log.isWarnEnabled()) {
-						_log.warn("Unable to close response", e);
+						_log.warn("Unable to close response", exception);
 					}
 				}
 			}
 
-			throw new IOException(e);
+			throw new IOException(exception);
 		}
 		finally {
 			try {
@@ -1991,8 +1993,8 @@ public class HttpImpl implements Http {
 						toServletCookies(basicCookieStore.getCookies()));
 				}
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 	}

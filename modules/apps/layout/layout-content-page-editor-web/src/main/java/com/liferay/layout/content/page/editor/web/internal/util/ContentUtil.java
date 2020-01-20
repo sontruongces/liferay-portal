@@ -120,8 +120,9 @@ public class ContentUtil {
 				assetEntryIds.add(assetEntryUsage.getAssetEntryId());
 			}
 		}
-		catch (Exception e) {
-			_log.error("An error ocurred while getting mapped contents", e);
+		catch (Exception exception) {
+			_log.error(
+				"An error ocurred while getting mapped contents", exception);
 		}
 
 		return mappedContentsJSONArray;
@@ -216,13 +217,13 @@ public class ContentUtil {
 			return AssetEntryServiceUtil.getEntry(
 				PortalUtil.getClassName(classNameId), classPK);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					StringBundler.concat(
 						"Unable to get asset entry for class name ID ",
 						classNameId, " with primary key ", classPK),
-					pe);
+					portalException);
 			}
 		}
 
@@ -238,12 +239,12 @@ public class ContentUtil {
 			editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
 				fragmentEntryLink.getEditableValues());
 		}
-		catch (JSONException jsone) {
+		catch (JSONException jsonException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Unable to create JSON object from " +
 						fragmentEntryLink.getEditableValues(),
-					jsone);
+					jsonException);
 			}
 
 			return Collections.emptySet();

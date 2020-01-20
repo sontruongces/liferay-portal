@@ -234,7 +234,7 @@ public class JournalContentImpl
 					return null;
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			LayoutSet layoutSet = themeDisplay.getLayoutSet();
@@ -270,9 +270,11 @@ public class JournalContentImpl
 				try {
 					_portalCache.put(journalContentKey, articleDisplay);
 				}
-				catch (ClassCastException cce) {
+				catch (ClassCastException classCastException) {
 					if (_log.isWarnEnabled()) {
-						_log.warn("Unable to cache article display", cce);
+						_log.warn(
+							"Unable to cache article display",
+							classCastException);
 					}
 				}
 			}
@@ -303,13 +305,13 @@ public class JournalContentImpl
 				article, ddmTemplateKey, viewMode, languageId, page,
 				portletRequestModel, themeDisplay);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
 						"Unable to get display for ", groupId, StringPool.BLANK,
 						articleId, StringPool.BLANK, languageId),
-					pe);
+					portalException);
 			}
 
 			return null;
@@ -409,13 +411,13 @@ public class JournalContentImpl
 				article, ddmTemplateKey, viewMode, languageId, page,
 				portletRequestModel, themeDisplay);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
 						"Unable to get display for ", article.toString(),
 						StringPool.SPACE, languageId),
-					e);
+					exception);
 			}
 
 			return null;
@@ -439,7 +441,7 @@ public class JournalContentImpl
 				groupId, articleId, ddmTemplateKey, viewMode, languageId, page,
 				portletRequestModel, themeDisplay);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
@@ -486,8 +488,8 @@ public class JournalContentImpl
 			_clearTemplateCacheMethod = JournalContent.class.getMethod(
 				"clearCache", String.class);
 		}
-		catch (NoSuchMethodException nsme) {
-			throw new ExceptionInInitializerError(nsme);
+		catch (NoSuchMethodException noSuchMethodException) {
+			throw new ExceptionInInitializerError(noSuchMethodException);
 		}
 	}
 

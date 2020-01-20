@@ -101,7 +101,7 @@ public class MBThreadImpl extends MBThreadBaseImpl {
 
 			_attachmentsFolderId = folder.getFolderId();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return _attachmentsFolderId;
@@ -127,7 +127,7 @@ public class MBThreadImpl extends MBThreadBaseImpl {
 			return LockManagerUtil.getLock(
 				MBThread.class.getName(), getThreadId());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return null;
@@ -153,7 +153,7 @@ public class MBThreadImpl extends MBThreadBaseImpl {
 			return LockManagerUtil.hasLock(
 				userId, MBThread.class.getName(), getThreadId());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return false;
@@ -169,7 +169,7 @@ public class MBThreadImpl extends MBThreadBaseImpl {
 			return LockManagerUtil.isLocked(
 				MBThread.class.getName(), getThreadId());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return false;

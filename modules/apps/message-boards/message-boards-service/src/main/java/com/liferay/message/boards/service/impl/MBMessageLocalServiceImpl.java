@@ -1090,7 +1090,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 					MBMessageConstants.DEFAULT_PARENT_MESSAGE_ID, subject,
 					subject, new ServiceContext());
 			}
-			catch (SystemException se) {
+			catch (SystemException systemException) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						"Add failed, fetch {threadId=0, parentMessageId=" +
@@ -1101,7 +1101,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 					0, MBMessageConstants.DEFAULT_PARENT_MESSAGE_ID, null);
 
 				if (message == null) {
-					throw se;
+					throw systemException;
 				}
 			}
 			finally {
@@ -1396,13 +1396,13 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 			count = getChildMessagesCount(rootDiscussionMessageId, status);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
 						"Unable to obtain root discussion message id for ",
 						"class name ", className, " and class PK ", classPK),
-					pe);
+					portalException);
 			}
 		}
 
@@ -2248,8 +2248,8 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 			try {
 				notifyDiscussionSubscribers(userId, message, serviceContext);
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 
 			return;
@@ -2342,11 +2342,11 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 						themeDisplay, messageBody);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				_log.error(
 					StringBundler.concat(
 						"Unable to parse message ", message.getMessageId(),
-						": ", e.getMessage()));
+						": ", exception.getMessage()));
 			}
 		}
 
@@ -2450,8 +2450,9 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 				try {
 					LinkbackProducerUtil.sendPingback(sourceUri, targetUri);
 				}
-				catch (Exception e) {
-					_log.error("Error while sending pingback " + targetUri, e);
+				catch (Exception exception) {
+					_log.error(
+						"Error while sending pingback " + targetUri, exception);
 				}
 			}
 		}
@@ -2632,11 +2633,11 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 			return LanguageUtil.get(locale, "home") + " - " +
 				group.getDescriptiveName(locale);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
 				"Unable to get descriptive name for group " +
 					group.getGroupId(),
-				pe);
+				portalException);
 
 			return LanguageUtil.get(locale, "home");
 		}
@@ -2667,11 +2668,11 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 		try {
 			return group.getDescriptiveName(locale);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
 				"Unable to get descriptive name for group " +
 					group.getGroupId(),
-				pe);
+				portalException);
 		}
 
 		return StringPool.BLANK;

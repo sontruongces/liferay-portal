@@ -91,8 +91,8 @@ public class InitUtil {
 				}
 			}
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		catch (Exception exception) {
+			exception.printStackTrace();
 		}
 
 		StopWatch stopWatch = new StopWatch();
@@ -123,8 +123,8 @@ public class InitUtil {
 			PortalClassLoaderUtil.setClassLoader(
 				currentThread.getContextClassLoader());
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		catch (Exception exception) {
+			exception.printStackTrace();
 		}
 
 		// Properties
@@ -144,8 +144,8 @@ public class InitUtil {
 		try {
 			LogFactoryUtil.setLogFactory(new Log4jLogFactoryImpl());
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		catch (Exception exception) {
+			exception.printStackTrace();
 		}
 
 		// Log sanitizer
@@ -272,8 +272,8 @@ public class InitUtil {
 
 			registerSpringInitialized();
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 
 		_initialized = true;
@@ -328,8 +328,8 @@ public class InitUtil {
 		try {
 			ModuleFrameworkUtilAdapter.stopFramework(0);
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 
@@ -337,8 +337,8 @@ public class InitUtil {
 		try {
 			ModuleFrameworkUtilAdapter.stopRuntime();
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 

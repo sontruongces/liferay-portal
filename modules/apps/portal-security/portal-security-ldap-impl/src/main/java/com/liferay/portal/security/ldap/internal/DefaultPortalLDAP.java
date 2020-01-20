@@ -179,9 +179,9 @@ public class DefaultPortalLDAP implements PortalLDAP {
 		try {
 			ldapContext = new InitialLdapContext(environmentProperties, null);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to bind to the LDAP server", e);
+				_log.warn("Unable to bind to the LDAP server", exception);
 			}
 		}
 
@@ -861,13 +861,13 @@ public class DefaultPortalLDAP implements PortalLDAP {
 				return true;
 			}
 		}
-		catch (NameNotFoundException nnfe) {
+		catch (NameNotFoundException nameNotFoundException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
 						"Unable to determine if user DN ", userDN,
 						" is a member of group DN ", groupDN),
-					nnfe);
+					nameNotFoundException);
 			}
 		}
 		finally {
@@ -919,13 +919,13 @@ public class DefaultPortalLDAP implements PortalLDAP {
 				return true;
 			}
 		}
-		catch (NameNotFoundException nnfe) {
+		catch (NameNotFoundException nameNotFoundException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
 						"Unable to determine if group DN ", groupDN,
 						" is a member of user DN ", userDN),
-					nnfe);
+					nameNotFoundException);
 			}
 		}
 		finally {
@@ -988,7 +988,7 @@ public class DefaultPortalLDAP implements PortalLDAP {
 				return _getCookie(ldapContext.getResponseControls());
 			}
 		}
-		catch (OperationNotSupportedException onse) {
+		catch (OperationNotSupportedException operationNotSupportedException) {
 			if (enu != null) {
 				enu.close();
 			}

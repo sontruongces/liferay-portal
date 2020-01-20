@@ -244,7 +244,7 @@ public class BlogsEntryAttachmentFileEntryHelperTest {
 			return PortletFileRepositoryUtil.getPortletFileEntry(
 				groupId, folderId, fileName);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return null;
 		}
 	}

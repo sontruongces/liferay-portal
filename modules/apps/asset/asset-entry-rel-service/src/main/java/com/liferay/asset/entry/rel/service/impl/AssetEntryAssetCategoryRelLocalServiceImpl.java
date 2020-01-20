@@ -236,8 +236,8 @@ public class AssetEntryAssetCategoryRelLocalServiceImpl
 
 			indexer.reindex(assetObject);
 		}
-		catch (SearchException se) {
-			_log.error("Unable to reindex asset entry", se);
+		catch (SearchException searchException) {
+			_log.error("Unable to reindex asset entry", searchException);
 		}
 	}
 

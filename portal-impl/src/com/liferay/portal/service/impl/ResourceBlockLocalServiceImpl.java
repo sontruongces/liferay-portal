@@ -314,8 +314,8 @@ public class ResourceBlockLocalServiceImpl
 		try {
 			return (PermissionedModel)persistedModel;
 		}
-		catch (ClassCastException cce) {
-			throw new ResourceBlocksNotSupportedException(cce);
+		catch (ClassCastException classCastException) {
+			throw new ResourceBlocksNotSupportedException(classCastException);
 		}
 	}
 
@@ -493,7 +493,7 @@ public class ResourceBlockLocalServiceImpl
 
 				break;
 			}
-			catch (ORMException orme) {
+			catch (ORMException ormException) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						StringBundler.concat(
@@ -891,11 +891,11 @@ public class ResourceBlockLocalServiceImpl
 						resourceBlockPersistence.flush();
 					}
 				}
-				catch (SystemException se) {
+				catch (SystemException systemException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to add a new resource block. Retrying.",
-							se);
+							systemException);
 					}
 
 					// On failure, cancel all pending persistent entities
@@ -917,8 +917,8 @@ public class ResourceBlockLocalServiceImpl
 
 							connection.setAutoCommit(false);
 						}
-						catch (SQLException sqle) {
-							throw new SystemException(sqle);
+						catch (SQLException sqlException) {
+							throw new SystemException(sqlException);
 						}
 					}
 
@@ -954,7 +954,7 @@ public class ResourceBlockLocalServiceImpl
 					break;
 				}
 			}
-			catch (ORMException orme) {
+			catch (ORMException ormException) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						StringBundler.concat(
@@ -1110,11 +1110,11 @@ public class ResourceBlockLocalServiceImpl
 				resourceBlock.getName(), resourceBlock.getResourceBlockId(),
 				existingResourceBlock.getResourceBlockId());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(
 				"Unable to update resource block IDs for resource " +
 					resourceBlock.getName(),
-				e);
+				exception);
 
 			return;
 		}

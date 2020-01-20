@@ -145,9 +145,9 @@ public class AddSimpleLayoutMVCActionCommand
 			JSONPortletResponseUtil.writeJSON(
 				actionRequest, actionResponse, jsonObject);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 
 			SessionErrors.add(actionRequest, "layoutNameInvalid");
@@ -155,7 +155,7 @@ public class AddSimpleLayoutMVCActionCommand
 			hideDefaultErrorMessage(actionRequest);
 
 			_layoutExceptionRequestHandler.handlePortalException(
-				actionRequest, actionResponse, pe);
+				actionRequest, actionResponse, portalException);
 		}
 	}
 

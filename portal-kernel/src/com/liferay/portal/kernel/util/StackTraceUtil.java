@@ -28,9 +28,9 @@ public class StackTraceUtil {
 	 */
 	@Deprecated
 	public static String getCallerKey() {
-		Exception e = new Exception();
+		Exception exception = new Exception();
 
-		StackTraceElement[] stackTraceElements = e.getStackTrace();
+		StackTraceElement[] stackTraceElements = exception.getStackTrace();
 
 		StackTraceElement stackTraceElement = stackTraceElements[1];
 

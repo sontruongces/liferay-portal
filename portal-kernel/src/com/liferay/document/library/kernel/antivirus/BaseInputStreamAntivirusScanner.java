@@ -40,12 +40,13 @@ public abstract class BaseInputStreamAntivirusScanner
 		try (InputStream inputStream = new FileInputStream(file)) {
 			scan(inputStream);
 		}
-		catch (FileNotFoundException fnfe) {
-			throw new SystemException("Unable to scan file", fnfe);
+		catch (FileNotFoundException fileNotFoundException) {
+			throw new SystemException(
+				"Unable to scan file", fileNotFoundException);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(ioe, ioe);
+				_log.warn(ioException, ioException);
 			}
 		}
 	}

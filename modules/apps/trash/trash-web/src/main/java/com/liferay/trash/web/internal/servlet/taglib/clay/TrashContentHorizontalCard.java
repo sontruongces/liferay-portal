@@ -68,8 +68,8 @@ public class TrashContentHorizontalCard implements HorizontalCard {
 			return trashViewContentActionDropdownItemsProvider.
 				getActionDropdownItems();
 		}
-		catch (Exception e) {
-			_log.error("Unable to get trashed model actions", e);
+		catch (Exception exception) {
+			_log.error("Unable to get trashed model actions", exception);
 		}
 
 		return Collections.emptyList();
@@ -90,8 +90,9 @@ public class TrashContentHorizontalCard implements HorizontalCard {
 		try {
 			return _trashRenderer.getIconCssClass();
 		}
-		catch (PortalException pe) {
-			_log.error("Unable to get trash renderer icon css class", pe);
+		catch (PortalException portalException) {
+			_log.error(
+				"Unable to get trash renderer icon css class", portalException);
 		}
 
 		return "magic";

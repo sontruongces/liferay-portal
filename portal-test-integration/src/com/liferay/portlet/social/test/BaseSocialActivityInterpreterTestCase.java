@@ -212,8 +212,8 @@ public abstract class BaseSocialActivityInterpreterTestCase {
 			throw new IllegalStateException(
 				"No activity interpreter found for class " + className);
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 

@@ -250,8 +250,8 @@ public class LayoutTypeControllerImpl implements LayoutTypeController {
 
 			return values.contains(friendlyURL);
 		}
-		catch (SystemException se) {
-			throw new RuntimeException(se);
+		catch (SystemException systemException) {
+			throw new RuntimeException(systemException);
 		}
 	}
 

@@ -332,8 +332,8 @@ public class OAuth2ApplicationLocalServiceImpl
 			ImageToolUtil.write(
 				renderedImage, imageBag.getType(), unsyncByteArrayOutputStream);
 		}
-		catch (IOException ioe) {
-			throw new PortalException(ioe);
+		catch (IOException ioException) {
+			throw new PortalException(ioException);
 		}
 
 		String fileName = _portletFileRepository.getUniqueFileName(
@@ -613,9 +613,9 @@ public class OAuth2ApplicationLocalServiceImpl
 						redirectURI);
 				}
 			}
-			catch (URISyntaxException urise) {
+			catch (URISyntaxException uriSyntaxException) {
 				throw new OAuth2ApplicationRedirectURIException(
-					redirectURI, urise);
+					redirectURI, uriSyntaxException);
 			}
 		}
 	}

@@ -73,8 +73,8 @@ public abstract class BaseStore implements Store {
 			addFile(
 				companyId, repositoryId, fileName, unsyncByteArrayInputStream);
 		}
-		catch (IOException ioe) {
-			throw new SystemException("Unable to read bytes", ioe);
+		catch (IOException ioException) {
+			throw new SystemException("Unable to read bytes", ioException);
 		}
 	}
 
@@ -95,11 +95,11 @@ public abstract class BaseStore implements Store {
 		try (InputStream is = new FileInputStream(file)) {
 			addFile(companyId, repositoryId, fileName, is);
 		}
-		catch (FileNotFoundException fnfe) {
-			throw new SystemException(fnfe);
+		catch (FileNotFoundException fileNotFoundException) {
+			throw new SystemException(fileNotFoundException);
 		}
-		catch (IOException ioe) {
-			_log.error("Unable to add file", ioe);
+		catch (IOException ioException) {
+			_log.error("Unable to add file", ioException);
 		}
 	}
 
@@ -284,8 +284,8 @@ public abstract class BaseStore implements Store {
 
 			return FileUtil.getBytes(is);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -311,8 +311,8 @@ public abstract class BaseStore implements Store {
 
 			return FileUtil.getBytes(is);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -480,8 +480,8 @@ public abstract class BaseStore implements Store {
 				companyId, repositoryId, fileName, versionLabel,
 				unsyncByteArrayInputStream);
 		}
-		catch (IOException ioe) {
-			throw new SystemException("Unable to read bytes", ioe);
+		catch (IOException ioException) {
+			throw new SystemException("Unable to read bytes", ioException);
 		}
 	}
 
@@ -504,12 +504,13 @@ public abstract class BaseStore implements Store {
 		try (InputStream is = new FileInputStream(file)) {
 			updateFile(companyId, repositoryId, fileName, versionLabel, is);
 		}
-		catch (FileNotFoundException fnfe) {
+		catch (FileNotFoundException fileNotFoundException) {
 			throw new NoSuchFileException(
-				companyId, repositoryId, fileName, versionLabel, fnfe);
+				companyId, repositoryId, fileName, versionLabel,
+				fileNotFoundException);
 		}
-		catch (IOException ioe) {
-			_log.error("Unable to update file", ioe);
+		catch (IOException ioException) {
+			_log.error("Unable to update file", ioException);
 		}
 	}
 
@@ -582,10 +583,10 @@ public abstract class BaseStore implements Store {
 
 	protected void logFailedDeletion(
 		long companyId, long repositoryId, String fileName, String versionLabel,
-		Exception cause) {
+		Exception exception) {
 
-		if ((_log.isWarnEnabled() && (cause != null)) ||
-			(_log.isDebugEnabled() && (cause == null))) {
+		if ((_log.isWarnEnabled() && (exception != null)) ||
+			(_log.isDebugEnabled() && (exception == null))) {
 
 			StringBundler sb = new StringBundler(9);
 
@@ -603,11 +604,11 @@ public abstract class BaseStore implements Store {
 
 			sb.append("} because it does not exist");
 
-			if (_log.isWarnEnabled() && (cause != null)) {
-				_log.warn(sb.toString(), cause);
+			if (_log.isWarnEnabled() && (exception != null)) {
+				_log.warn(sb.toString(), exception);
 			}
 
-			if (_log.isDebugEnabled() && (cause == null)) {
+			if (_log.isDebugEnabled() && (exception == null)) {
 				_log.debug(sb.toString());
 			}
 		}
@@ -632,8 +633,8 @@ public abstract class BaseStore implements Store {
 				deleteFile(companyId, repositoryId, fileName, versionLabel);
 			}
 		}
-		catch (IOException | PortalException e) {
-			throw new SystemException(e);
+		catch (IOException | PortalException exception) {
+			throw new SystemException(exception);
 		}
 	}
 

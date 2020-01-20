@@ -136,7 +136,7 @@ public class KaleoLogLocalServiceImpl extends KaleoLogLocalServiceBaseImpl {
 
 			kaleoLog.setDuration(endDate.getTime() - startDate.getTime());
 		}
-		catch (NoSuchLogException nsle) {
+		catch (NoSuchLogException noSuchLogException) {
 		}
 
 		kaleoLogPersistence.update(kaleoLog);
@@ -305,7 +305,7 @@ public class KaleoLogLocalServiceImpl extends KaleoLogLocalServiceBaseImpl {
 
 			kaleoLog.setDuration(endDate.getTime() - startDate.getTime());
 		}
-		catch (NoSuchLogException nsle) {
+		catch (NoSuchLogException noSuchLogException) {
 		}
 
 		kaleoLogPersistence.update(kaleoLog);

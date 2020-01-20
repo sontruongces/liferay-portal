@@ -1999,7 +1999,7 @@ public class DDMStructureLocalServiceImpl
 
 				return getDDMDataProviderInstanceIds(jsonArray);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 		}
 
@@ -2200,12 +2200,14 @@ public class DDMStructureLocalServiceImpl
 			groupId, classNameId, structureKey);
 
 		if (structure != null) {
-			StructureDuplicateStructureKeyException sdske =
-				new StructureDuplicateStructureKeyException();
+			StructureDuplicateStructureKeyException
+				structureDuplicateStructureKeyException =
+					new StructureDuplicateStructureKeyException();
 
-			sdske.setStructureKey(structure.getStructureKey());
+			structureDuplicateStructureKeyException.setStructureKey(
+				structure.getStructureKey());
 
-			throw sdske;
+			throw structureDuplicateStructureKeyException;
 		}
 
 		validate(nameMap, getParentDDMForm(parentStructureId), ddmForm);
@@ -2226,23 +2228,25 @@ public class DDMStructureLocalServiceImpl
 				validate(parentDDMForm, ddmForm);
 			}
 		}
-		catch (DDMFormValidationException ddmfve) {
-			throw ddmfve;
+		catch (DDMFormValidationException ddmFormValidationException) {
+			throw ddmFormValidationException;
 		}
-		catch (LocaleException le) {
-			throw le;
+		catch (LocaleException localeException) {
+			throw localeException;
 		}
-		catch (StructureDuplicateElementException sdee) {
-			throw sdee;
+		catch (StructureDuplicateElementException
+					structureDuplicateElementException) {
+
+			throw structureDuplicateElementException;
 		}
-		catch (StructureNameException sne) {
-			throw sne;
+		catch (StructureNameException structureNameException) {
+			throw structureNameException;
 		}
-		catch (StructureDefinitionException sde) {
-			throw sde;
+		catch (StructureDefinitionException structureDefinitionException) {
+			throw structureDefinitionException;
 		}
-		catch (Exception e) {
-			throw new StructureDefinitionException(e);
+		catch (Exception exception) {
+			throw new StructureDefinitionException(exception);
 		}
 	}
 
@@ -2259,18 +2263,19 @@ public class DDMStructureLocalServiceImpl
 		}
 
 		if (!LanguageUtil.isAvailableLocale(contentDefaultLocale)) {
-			LocaleException le = new LocaleException(
+			LocaleException localeException = new LocaleException(
 				LocaleException.TYPE_CONTENT,
 				StringBundler.concat(
 					"The locale ", contentDefaultLocale,
 					" is not available in company ",
 					CompanyThreadLocal.getCompanyId()));
 
-			le.setSourceAvailableLocales(
+			localeException.setSourceAvailableLocales(
 				Collections.singleton(contentDefaultLocale));
-			le.setTargetAvailableLocales(LanguageUtil.getAvailableLocales());
+			localeException.setTargetAvailableLocales(
+				LanguageUtil.getAvailableLocales());
 
-			throw le;
+			throw localeException;
 		}
 	}
 

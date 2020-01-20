@@ -59,7 +59,7 @@ public class TestUploadHandler extends BaseUploadHandler {
 	@Override
 	protected void doHandleUploadException(
 		PortletRequest portletRequest, PortletResponse portletResponse,
-		PortalException pe, JSONObject jsonObject) {
+		PortalException portalException, JSONObject jsonObject) {
 	}
 
 	@Override

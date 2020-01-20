@@ -102,12 +102,12 @@ public class DLFileEntryAssetRendererFactory
 					"Unknown asset renderer type " + type);
 			}
 		}
-		catch (NoSuchFileEntryException nsfee) {
+		catch (NoSuchFileEntryException noSuchFileEntryException) {
 
 			// LPS-52675
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(nsfee, nsfee);
+				_log.debug(noSuchFileEntryException, noSuchFileEntryException);
 			}
 
 			fileVersion = _dlAppLocalService.getFileVersion(classPK);
@@ -160,7 +160,7 @@ public class DLFileEntryAssetRendererFactory
 
 			return dlFileEntryType.getName(locale);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return super.getTypeName(locale, subtypeId);
 		}
 	}
@@ -209,7 +209,7 @@ public class DLFileEntryAssetRendererFactory
 		try {
 			liferayPortletURL.setWindowState(windowState);
 		}
-		catch (WindowStateException wse) {
+		catch (WindowStateException windowStateException) {
 		}
 
 		return liferayPortletURL;

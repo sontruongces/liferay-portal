@@ -170,8 +170,8 @@ public class AMImageEntryLocalServiceImpl
 				_imageStorage.delete(
 					fileVersion, amImageEntry.getConfigurationUuid());
 			}
-			catch (AMRuntimeException.IOException amreioe) {
-				_log.error(amreioe, amreioe);
+			catch (AMRuntimeException.IOException ioException) {
+				_log.error(ioException, ioException);
 			}
 		}
 	}

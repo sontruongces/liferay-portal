@@ -60,7 +60,7 @@ public class AssetTagStatsLocalServiceImpl
 		try {
 			assetTagStatsPersistence.update(tagStats);
 		}
-		catch (SystemException se) {
+		catch (SystemException systemException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
@@ -72,7 +72,7 @@ public class AssetTagStatsLocalServiceImpl
 				tagId, classNameId, false);
 
 			if (tagStats == null) {
-				throw se;
+				throw systemException;
 			}
 		}
 

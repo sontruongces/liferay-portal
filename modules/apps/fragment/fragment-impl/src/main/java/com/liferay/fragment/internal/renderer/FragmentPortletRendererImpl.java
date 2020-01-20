@@ -65,8 +65,8 @@ public class FragmentPortletRendererImpl implements FragmentPortletRenderer {
 				_servletContext, httpServletRequest, pipingServletResponse,
 				"/portlet.jsp");
 		}
-		catch (IOException ioe) {
-			throw new FragmentEntryContentException(ioe);
+		catch (IOException ioException) {
+			throw new FragmentEntryContentException(ioException);
 		}
 
 		return unsyncStringWriter.toString();

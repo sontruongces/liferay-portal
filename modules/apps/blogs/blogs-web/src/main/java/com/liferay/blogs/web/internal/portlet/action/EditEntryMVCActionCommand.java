@@ -259,8 +259,8 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 				}
 			}
 		}
-		catch (AssetCategoryException | AssetTagException e) {
-			SessionErrors.add(actionRequest, e.getClass(), e);
+		catch (AssetCategoryException | AssetTagException exception) {
+			SessionErrors.add(actionRequest, exception.getClass(), exception);
 
 			actionResponse.setRenderParameter(
 				"mvcRenderCommandName", "/blogs/edit_entry");
@@ -273,17 +273,17 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 			   EntrySmallImageScaleException | EntryTitleException |
 			   EntryUrlTitleException | FileSizeException |
 			   LiferayFileItemException | SanitizerException |
-			   UploadRequestSizeException e) {
+			   UploadRequestSizeException exception) {
 
-			SessionErrors.add(actionRequest, e.getClass());
+			SessionErrors.add(actionRequest, exception.getClass());
 
 			actionResponse.setRenderParameter(
 				"mvcRenderCommandName", "/blogs/edit_entry");
 
 			hideDefaultSuccessMessage(actionRequest);
 		}
-		catch (NoSuchEntryException | PrincipalException e) {
-			SessionErrors.add(actionRequest, e.getClass());
+		catch (NoSuchEntryException | PrincipalException exception) {
+			SessionErrors.add(actionRequest, exception.getClass());
 
 			actionResponse.setRenderParameter("mvcPath", "/blogs/error.jsp");
 
@@ -546,8 +546,8 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 				_blogsEntryService.deleteEntry(entry.getEntryId());
 			}
 		}
-		catch (PortalException pe) {
-			ReflectionUtil.throwException(pe);
+		catch (PortalException portalException) {
+			ReflectionUtil.throwException(portalException);
 		}
 	}
 

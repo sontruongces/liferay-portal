@@ -89,8 +89,9 @@ public class TemporaryFileEntriesCapabilityImpl
 				fileName, mimeType, fileName, StringPool.BLANK,
 				StringPool.BLANK, file, serviceContext);
 		}
-		catch (IOException ioe) {
-			throw new SystemException("Unable to write temporary file", ioe);
+		catch (IOException ioException) {
+			throw new SystemException(
+				"Unable to write temporary file", ioException);
 		}
 		finally {
 			FileUtil.delete(file);
@@ -127,12 +128,12 @@ public class TemporaryFileEntriesCapabilityImpl
 
 			_documentRepository.deleteFileEntry(fileEntry.getFileEntryId());
 		}
-		catch (NoSuchModelException nsme) {
+		catch (NoSuchModelException noSuchModelException) {
 
 			// LPS-52675
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(nsme, nsme);
+				_log.debug(noSuchModelException, noSuchModelException);
 			}
 		}
 	}
@@ -149,12 +150,12 @@ public class TemporaryFileEntriesCapabilityImpl
 				temporaryFileEntriesScope.getUserId(), folder.getFolderId(),
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 		}
-		catch (NoSuchModelException nsme) {
+		catch (NoSuchModelException noSuchModelException) {
 
 			// LPS-52675
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(nsme, nsme);
+				_log.debug(noSuchModelException, noSuchModelException);
 			}
 
 			return Collections.emptyList();
@@ -208,12 +209,12 @@ public class TemporaryFileEntriesCapabilityImpl
 		try {
 			return _documentRepository.getFolder(parentFolderId, folderName);
 		}
-		catch (NoSuchFolderException nsfe) {
+		catch (NoSuchFolderException noSuchFolderException) {
 
 			// LPS-52675
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(nsfe, nsfe);
+				_log.debug(noSuchFolderException, noSuchFolderException);
 			}
 
 			return _documentRepository.addFolder(

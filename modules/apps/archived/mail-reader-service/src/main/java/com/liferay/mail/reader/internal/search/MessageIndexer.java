@@ -112,11 +112,11 @@ public class MessageIndexer extends BaseIndexer<Message> {
 					indexableActionableDynamicQuery.addDocuments(
 						getDocument(message));
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index message " + message.getMessageId(),
-							pe);
+							portalException);
 					}
 				}
 			});

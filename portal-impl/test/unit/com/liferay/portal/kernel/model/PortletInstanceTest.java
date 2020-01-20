@@ -63,7 +63,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -75,7 +75,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -87,7 +87,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -99,7 +99,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -111,7 +111,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -123,7 +123,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -135,7 +135,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -147,7 +147,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -159,7 +159,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -171,7 +171,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -183,7 +183,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -195,7 +195,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -207,7 +207,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -219,7 +219,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -231,7 +231,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -243,7 +243,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 
@@ -255,7 +255,7 @@ public class PortletInstanceTest {
 
 			Assert.fail();
 		}
-		catch (InvalidParameterException ipe) {
+		catch (InvalidParameterException invalidParameterException) {
 		}
 	}
 

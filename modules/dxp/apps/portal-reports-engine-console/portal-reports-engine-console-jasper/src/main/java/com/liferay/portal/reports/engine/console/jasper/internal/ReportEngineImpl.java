@@ -79,9 +79,10 @@ public class ReportEngineImpl implements ReportEngine {
 			_reportCompiler.compile(
 				reportRequest.getReportDesignRetriever(), true);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			throw new ReportGenerationException(
-				"Unable to compile report: " + StackTraceUtil.getStackTrace(e));
+				"Unable to compile report: " +
+					StackTraceUtil.getStackTrace(exception));
 		}
 	}
 
@@ -115,9 +116,10 @@ public class ReportEngineImpl implements ReportEngine {
 			reportFormatExporter.format(
 				jasperPrint, reportRequest, resultContainer);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			throw new ReportGenerationException(
-				"Unable to execute report: " + StackTraceUtil.getStackTrace(e));
+				"Unable to execute report: " +
+					StackTraceUtil.getStackTrace(exception));
 		}
 	}
 

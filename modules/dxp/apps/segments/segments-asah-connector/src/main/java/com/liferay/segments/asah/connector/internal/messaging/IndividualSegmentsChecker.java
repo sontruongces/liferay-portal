@@ -155,11 +155,11 @@ public class IndividualSegmentsChecker {
 				segmentsEntry.getSegmentsEntryId(), individualSegment.getId(),
 				nameMap, null, true, null, serviceContext);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
 				"Unable to process individual segment " +
 					individualSegment.getId(),
-				pe);
+				portalException);
 		}
 	}
 
@@ -186,9 +186,10 @@ public class IndividualSegmentsChecker {
 				segmentsEntry.getSegmentsEntryId(), userClassNameId,
 				userIdOptional.get(), _getServiceContext());
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
-				"Unable to process individual " + individual.getId(), pe);
+				"Unable to process individual " + individual.getId(),
+				portalException);
 		}
 	}
 
@@ -241,11 +242,11 @@ public class IndividualSegmentsChecker {
 						OrderByField.desc("dateModified")));
 			}
 		}
-		catch (RuntimeException re) {
+		catch (RuntimeException runtimeException) {
 			_log.error(
 				"Unable to retrieve individuals for individual segment " +
 					segmentsEntry.getSegmentsEntryKey(),
-				re);
+				runtimeException);
 		}
 	}
 
@@ -259,8 +260,9 @@ public class IndividualSegmentsChecker {
 					Collections.singletonList(
 						OrderByField.desc("dateModified")));
 		}
-		catch (RuntimeException re) {
-			_log.error("Unable to retrieve individual segments", re);
+		catch (RuntimeException runtimeException) {
+			_log.error(
+				"Unable to retrieve individual segments", runtimeException);
 
 			return;
 		}

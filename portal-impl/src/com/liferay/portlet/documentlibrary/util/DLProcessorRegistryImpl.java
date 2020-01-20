@@ -184,8 +184,8 @@ public class DLProcessorRegistryImpl implements DLProcessorRegistry {
 			fileEntryPreviewableProcessorMaxSize = PrefsPropsUtil.getLong(
 				PropsKeys.DL_FILE_ENTRY_PREVIEWABLE_PROCESSOR_MAX_SIZE);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		if (fileEntryPreviewableProcessorMaxSize == 0) {
@@ -269,8 +269,8 @@ public class DLProcessorRegistryImpl implements DLProcessorRegistry {
 		try {
 			return fileEntry.getLatestFileVersion(trusted);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
 			return null;
 		}

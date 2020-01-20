@@ -86,12 +86,12 @@ public class UpgradeKernelPackageTest extends UpgradeKernelPackage {
 
 			Assert.fail("Should throw UnsupportedOperationException");
 		}
-		catch (UnsupportedOperationException uoe) {
+		catch (UnsupportedOperationException unsupportedOperationException) {
 			Assert.assertEquals(
 				"This method is deprecated and replaced by " +
 					"upgradeLongTextTable(String, String, String, " +
 						"String[][], WildcardMode)",
-				uoe.getMessage());
+				unsupportedOperationException.getMessage());
 		}
 
 		try {
@@ -100,12 +100,12 @@ public class UpgradeKernelPackageTest extends UpgradeKernelPackage {
 
 			Assert.fail("Should throw UnsupportedOperationException");
 		}
-		catch (UnsupportedOperationException uoe) {
+		catch (UnsupportedOperationException unsupportedOperationException) {
 			Assert.assertEquals(
 				"This method is deprecated and replaced by " +
 					"upgradeLongTextTable(String, String, String, String, " +
 						"String[])",
-				uoe.getMessage());
+				unsupportedOperationException.getMessage());
 		}
 	}
 

@@ -82,7 +82,7 @@ public class SelectBasicPagesVerticalCard implements VerticalCard {
 
 			data.put("add-layout-url", addLayoutURL.toString());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return data;

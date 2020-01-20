@@ -78,9 +78,9 @@ public class ValidationDDMFormFieldTemplateContextContributor
 					}
 				};
 			}
-			catch (JSONException jsone) {
+			catch (JSONException jsonException) {
 				if (_log.isWarnEnabled()) {
-					_log.warn(jsone, jsone);
+					_log.warn(jsonException, jsonException);
 				}
 			}
 		}

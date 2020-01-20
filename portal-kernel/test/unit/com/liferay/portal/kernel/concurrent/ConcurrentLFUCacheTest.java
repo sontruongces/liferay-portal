@@ -34,7 +34,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		try {
@@ -42,7 +42,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		// maxSize is less than 0
@@ -52,7 +52,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		try {
@@ -60,7 +60,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		// loadFactor is 0
@@ -70,7 +70,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		// loadFactor is less than 0
@@ -80,7 +80,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		// loadFactor is 1
@@ -90,7 +90,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		// loadFactor is greater than 1
@@ -100,7 +100,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		// Small loadFactor causes _expectSize to be 0
@@ -110,7 +110,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		// Small maxSize causes _expectSize to be 0
@@ -120,7 +120,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		ConcurrentLFUCache<String, String> concurrentLFUCache =
@@ -146,7 +146,7 @@ public class ConcurrentLFUCacheTest {
 
 			Assert.fail();
 		}
-		catch (NullPointerException npe) {
+		catch (NullPointerException nullPointerException) {
 		}
 
 		concurrentLFUCache.put("key1", "value1");

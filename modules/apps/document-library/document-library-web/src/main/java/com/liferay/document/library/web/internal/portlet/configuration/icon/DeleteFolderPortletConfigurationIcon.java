@@ -76,8 +76,8 @@ public class DeleteFolderPortletConfigurationIcon
 			return LanguageUtil.get(
 				getResourceBundle(getLocale(portletRequest)), key);
 		}
-		catch (PortalException pe) {
-			return ReflectionUtil.throwException(pe);
+		catch (PortalException portalException) {
+			return ReflectionUtil.throwException(portalException);
 		}
 	}
 
@@ -151,8 +151,8 @@ public class DeleteFolderPortletConfigurationIcon
 
 			return portletURL.toString();
 		}
-		catch (PortalException pe) {
-			return ReflectionUtil.throwException(pe);
+		catch (PortalException portalException) {
+			return ReflectionUtil.throwException(portalException);
 		}
 	}
 

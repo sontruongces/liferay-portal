@@ -89,11 +89,11 @@ public class UpgradeGroup extends UpgradeProcess {
 							}
 						}
 					}
-					catch (SQLException sqle) {
+					catch (SQLException sqlException) {
 						_log.error(
 							"Unable to get groups with parent primary key " +
 								parentPrimaryKey,
-							sqle);
+							sqlException);
 					}
 
 					return treeModels;
@@ -110,11 +110,11 @@ public class UpgradeGroup extends UpgradeProcess {
 
 						preparedStatement.addBatch();
 					}
-					catch (SQLException sqle) {
+					catch (SQLException sqlException) {
 						_log.error(
 							"Unable to update groups with tree path " +
 								treePath,
-							sqle);
+							sqlException);
 					}
 				}
 
@@ -210,17 +210,17 @@ public class UpgradeGroup extends UpgradeProcess {
 					try {
 						rebuildTree(companyId, preparedStatement);
 					}
-					catch (PortalException pe) {
+					catch (PortalException portalException) {
 						_log.error(
 							"Unable to update tree paths for company " +
 								companyId,
-							pe);
+							portalException);
 					}
 
 					preparedStatement.executeBatch();
 				}
-				catch (SQLException sqle) {
-					_log.error("Unable to update tree paths", sqle);
+				catch (SQLException sqlException) {
+					_log.error("Unable to update tree paths", sqlException);
 				}
 			}
 		}
@@ -261,8 +261,9 @@ public class UpgradeGroup extends UpgradeProcess {
 
 				_ps.addBatch();
 			}
-			catch (SQLException sqle) {
-				_log.error("Unable to update tree path: " + treePath, sqle);
+			catch (SQLException sqlException) {
+				_log.error(
+					"Unable to update tree path: " + treePath, sqlException);
 			}
 		}
 

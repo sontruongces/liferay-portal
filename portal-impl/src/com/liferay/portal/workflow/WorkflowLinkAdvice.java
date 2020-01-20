@@ -48,8 +48,8 @@ public class WorkflowLinkAdvice {
 				"updateActive", long.class, long.class, String.class, int.class,
 				boolean.class);
 		}
-		catch (NoSuchMethodException nsme) {
-			throw new ExceptionInInitializerError(nsme);
+		catch (NoSuchMethodException noSuchMethodException) {
+			throw new ExceptionInInitializerError(noSuchMethodException);
 		}
 	}
 
@@ -83,8 +83,8 @@ public class WorkflowLinkAdvice {
 			try {
 				return method.invoke(_workflowDefinitionManager, arguments);
 			}
-			catch (InvocationTargetException ite) {
-				throw ite.getCause();
+			catch (InvocationTargetException invocationTargetException) {
+				throw invocationTargetException.getCause();
 			}
 		}
 

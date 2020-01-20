@@ -187,8 +187,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return 0;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -216,8 +216,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return roles.size();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -255,8 +255,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return 0;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -458,8 +458,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return q.list(true);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -488,8 +488,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return q.list(true);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -524,8 +524,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return (List<Role>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -552,8 +552,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return q.list(true);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -588,8 +588,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 				return roles.get(0);
 			}
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -647,8 +647,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return q.list(true);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -687,8 +687,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return q.list(true);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -766,8 +766,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return roleMap;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -806,8 +806,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return q.list(true);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -893,8 +893,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return 0;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -963,8 +963,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return 0;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1040,8 +1040,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return (List<Role>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1101,8 +1101,8 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 
 			return (List<Role>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);

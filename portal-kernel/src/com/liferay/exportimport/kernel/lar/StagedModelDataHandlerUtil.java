@@ -509,8 +509,8 @@ public class StagedModelDataHandlerUtil {
 
 						importStagedModel(portletDataContext, referenceElement);
 					}
-					catch (DocumentException de) {
-						throw new RuntimeException(de);
+					catch (DocumentException documentException) {
+						throw new RuntimeException(documentException);
 					}
 					finally {
 						portletDataContext.setImportDataRootElement(
@@ -527,8 +527,10 @@ public class StagedModelDataHandlerUtil {
 		try {
 			importStagedModel(portletDataContext, referenceElement);
 		}
-		catch (PortletDataException pde) {
-			if (pde.getCause() instanceof NullPointerException) {
+		catch (PortletDataException portletDataException) {
+			if (portletDataException.getCause() instanceof
+					NullPointerException) {
+
 				findReference = true;
 			}
 		}
@@ -573,20 +575,22 @@ public class StagedModelDataHandlerUtil {
 
 						return;
 					}
-					catch (Exception e) {
+					catch (Exception exception) {
 						if (_log.isDebugEnabled()) {
-							_log.debug(e, e);
+							_log.debug(exception, exception);
 						}
 					}
 				}
 			}
 
-			PortletDataException pde = new PortletDataException();
+			PortletDataException portletDataException =
+				new PortletDataException();
 
-			pde.setStagedModel(stagedModel);
-			pde.setType(PortletDataException.MISSING_REFERENCE);
+			portletDataException.setStagedModel(stagedModel);
+			portletDataException.setType(
+				PortletDataException.MISSING_REFERENCE);
 
-			throw pde;
+			throw portletDataException;
 		}
 		finally {
 			portletDataContext.setImportDataRootElement(importDataRootElement);
@@ -621,9 +625,9 @@ public class StagedModelDataHandlerUtil {
 				}
 			}
 		}
-		catch (XMLStreamException xmlse) {
+		catch (XMLStreamException xmlStreamException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(xmlse, xmlse);
+				_log.debug(xmlStreamException, xmlStreamException);
 			}
 		}
 

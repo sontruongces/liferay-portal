@@ -116,8 +116,8 @@ public class TikaSafeRandomizerBumper implements RandomizerBumper<byte[]> {
 					FileImpl.class.getName() + "$TikaConfigHolder"),
 				"_tikaConfig");
 		}
-		catch (Exception e) {
-			throw new ExceptionInInitializerError(e);
+		catch (Exception exception) {
+			throw new ExceptionInInitializerError(exception);
 		}
 	}
 

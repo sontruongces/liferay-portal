@@ -78,7 +78,7 @@ public class CustomPropertiesUtil {
 		try {
 			jsonArray = JSONFactoryUtil.createJSONArray(json);
 		}
-		catch (JSONException jsone) {
+		catch (JSONException jsonException) {
 			jsonArray = JSONFactoryUtil.createJSONArray();
 		}
 

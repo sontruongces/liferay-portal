@@ -167,7 +167,7 @@ public class ClusterLinkBootstrapLoaderHelperUtil {
 					10000),
 				TimeUnit.MILLISECONDS);
 		}
-		catch (InterruptedException ie) {
+		catch (InterruptedException interruptedException) {
 			return;
 		}
 
@@ -253,11 +253,11 @@ public class ClusterLinkBootstrapLoaderHelperUtil {
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			throw new Exception(
 				"Unable to load cache data from cluster node " +
 					clusterNodeResponse.getClusterNode(),
-				e);
+				exception);
 		}
 		finally {
 			if (socket != null) {
@@ -294,9 +294,10 @@ public class ClusterLinkBootstrapLoaderHelperUtil {
 					entry.getKey(), portalCacheNames.toArray(new String[0]));
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to load cache data from the cluster", e);
+				_log.warn(
+					"Unable to load cache data from the cluster", exception);
 			}
 		}
 		finally {
@@ -369,7 +370,7 @@ public class ClusterLinkBootstrapLoaderHelperUtil {
 				try {
 					socket = _serverSocket.accept();
 				}
-				catch (SocketTimeoutException ste) {
+				catch (SocketTimeoutException socketTimeoutException) {
 					if (_log.isDebugEnabled()) {
 						_log.debug(
 							"Terminating the socket thread " + getName() +
@@ -432,16 +433,16 @@ public class ClusterLinkBootstrapLoaderHelperUtil {
 					objectOutputStream.writeObject(_COMMAND_SOCKET_CLOSE);
 				}
 			}
-			catch (Exception e) {
-				throw new RuntimeException(e);
+			catch (Exception exception) {
+				throw new RuntimeException(exception);
 			}
 			finally {
 				if (socket != null) {
 					try {
 						socket.close();
 					}
-					catch (IOException ioe) {
-						throw new RuntimeException(ioe);
+					catch (IOException ioException) {
+						throw new RuntimeException(ioException);
 					}
 				}
 			}

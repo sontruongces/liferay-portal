@@ -2228,8 +2228,8 @@ public class StringUtil {
 		try (InputStream inputStream = clazz.getResourceAsStream(name)) {
 			return read(inputStream);
 		}
-		catch (IOException ioe) {
-			return ReflectionUtil.throwException(ioe);
+		catch (IOException ioException) {
+			return ReflectionUtil.throwException(ioException);
 		}
 	}
 
@@ -3716,7 +3716,7 @@ public class StringUtil {
 
 				value = booleanValue.booleanValue();
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			newArray[i] = value;
@@ -3749,7 +3749,7 @@ public class StringUtil {
 			try {
 				value = Double.parseDouble(array[i]);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			newArray[i] = value;
@@ -3781,7 +3781,7 @@ public class StringUtil {
 			try {
 				value = Float.parseFloat(array[i]);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			newArray[i] = value;
@@ -3813,7 +3813,7 @@ public class StringUtil {
 			try {
 				value = Integer.parseInt(array[i]);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			newArray[i] = value;
@@ -3845,7 +3845,7 @@ public class StringUtil {
 			try {
 				value = Long.parseLong(array[i]);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			newArray[i] = value;
@@ -3877,7 +3877,7 @@ public class StringUtil {
 			try {
 				value = Short.parseShort(array[i]);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			newArray[i] = value;

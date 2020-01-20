@@ -273,9 +273,9 @@ public class AddStructuredContentMVCActionCommand extends BaseMVCActionCommand {
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID, imageName,
 				image.getType(), bytes, serviceContext);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(e, e);
+				_log.warn(exception, exception);
 			}
 
 			throw new StorageFieldValueException(
@@ -297,9 +297,9 @@ public class AddStructuredContentMVCActionCommand extends BaseMVCActionCommand {
 
 			return false;
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 
 			return false;

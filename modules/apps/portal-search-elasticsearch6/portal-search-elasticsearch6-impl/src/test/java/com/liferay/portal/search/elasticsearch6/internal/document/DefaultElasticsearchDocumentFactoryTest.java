@@ -327,8 +327,8 @@ public class DefaultElasticsearchDocumentFactoryTest {
 
 			return xContentBuilder.endObject();
 		}
-		catch (IOException ioe) {
-			throw new RuntimeException(ioe);
+		catch (IOException ioException) {
+			throw new RuntimeException(ioException);
 		}
 	}
 

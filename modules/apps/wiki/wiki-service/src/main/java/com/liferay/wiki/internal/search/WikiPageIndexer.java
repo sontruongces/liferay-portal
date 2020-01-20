@@ -126,7 +126,7 @@ public class WikiPageIndexer
 		try {
 			page = _wikiPageLocalService.getPage(classPK);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return;
 		}
 
@@ -172,9 +172,10 @@ public class WikiPageIndexer
 				try {
 					_wikiNodeService.getNode(nodeId);
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					if (_log.isDebugEnabled()) {
-						_log.debug("Unable to get wiki node " + nodeId, e);
+						_log.debug(
+							"Unable to get wiki node " + nodeId, exception);
 					}
 
 					continue;
@@ -222,7 +223,7 @@ public class WikiPageIndexer
 
 			document.addText(Field.CONTENT, content);
 		}
-		catch (WikiFormatException wfe) {
+		catch (WikiFormatException wikiFormatException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Unable to get wiki engine for " + wikiPage.getFormat());
@@ -360,11 +361,11 @@ public class WikiPageIndexer
 					indexableActionableDynamicQuery.addDocuments(
 						getDocument(page));
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index wiki page " + page.getPageId(),
-							pe);
+							portalException);
 					}
 				}
 			});

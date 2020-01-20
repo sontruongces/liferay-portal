@@ -65,8 +65,8 @@ public class CaptchaFieldType extends BaseFieldType {
 			html = _renderCaptchaTag(
 				context, httpServletRequest, httpServletResponse);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		context.put("html", _soyDataFactory.createSoyRawData(html));

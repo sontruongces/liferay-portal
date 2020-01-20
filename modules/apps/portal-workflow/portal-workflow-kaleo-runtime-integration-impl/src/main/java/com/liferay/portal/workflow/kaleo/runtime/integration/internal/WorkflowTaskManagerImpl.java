@@ -129,17 +129,18 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 				userId, WorkflowTask.class.getName(), workflowTaskInstanceId,
 				String.valueOf(userId), false, 1000);
 		}
-		catch (PortalException pe) {
-			if (pe instanceof DuplicateLockException) {
+		catch (PortalException portalException) {
+			if (portalException instanceof DuplicateLockException) {
 				throw new WorkflowException(
 					StringBundler.concat(
 						"Workflow task ", workflowTaskInstanceId,
 						" is locked by user ", userId),
-					pe);
+					portalException);
 			}
 
 			throw new WorkflowException(
-				"Unable to lock workflow task " + workflowTaskInstanceId, pe);
+				"Unable to lock workflow task " + workflowTaskInstanceId,
+				portalException);
 		}
 
 		try {
@@ -180,8 +181,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return workflowTask;
 		}
-		catch (Exception e) {
-			throw new WorkflowException("Unable to complete task", e);
+		catch (Exception exception) {
+			throw new WorkflowException("Unable to complete task", exception);
 		}
 		finally {
 			lockManager.unlock(lock.getClassName(), lock.getKey());
@@ -207,8 +208,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 				WorkflowContextUtil.convert(
 					kaleoTaskInstanceToken.getWorkflowContext()));
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -242,8 +243,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return transitionNames;
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -279,8 +280,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return ArrayUtil.toLongArray(pooledActors.values());
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -299,8 +300,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 				WorkflowContextUtil.convert(
 					kaleoTaskInstanceToken.getWorkflowContext()));
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -316,8 +317,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 			return _kaleoTaskInstanceTokenLocalService.
 				getKaleoTaskInstanceTokensCount(completed, serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -335,8 +336,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 				getKaleoTaskInstanceTokensCount(
 					Role.class.getName(), roleId, completed, serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -354,8 +355,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 				getSubmittingUserKaleoTaskInstanceTokensCount(
 					userId, completed, serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -375,8 +376,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 					User.class.getName(), serviceContext.getUserId(), completed,
 					serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -394,8 +395,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 			return _kaleoTaskInstanceTokenLocalService.searchCount(
 				null, completed, Boolean.TRUE, serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -414,8 +415,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 			return _kaleoTaskInstanceTokenLocalService.searchCount(
 				workflowInstanceId, completed, Boolean.TRUE, serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -438,8 +439,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 				getKaleoTaskInstanceTokensCount(
 					workflowInstanceId, completed, serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -464,8 +465,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return toWorkflowTasks(kaleoTaskInstanceTokens);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -490,8 +491,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return toWorkflowTasks(kaleoTaskInstanceTokens);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -518,8 +519,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return toWorkflowTasks(kaleoTaskInstanceTokens);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -544,8 +545,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return toWorkflowTasks(kaleoTaskInstanceTokens);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -571,8 +572,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return toWorkflowTasks(kaleoTaskInstanceTokens);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -602,8 +603,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return toWorkflowTasks(kaleoTaskInstanceTokens);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -644,8 +645,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return false;
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -672,8 +673,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return toWorkflowTasks(kaleoTaskInstanceTokens);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -703,8 +704,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return toWorkflowTasks(kaleoTaskInstanceTokens);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -732,8 +733,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 			return toWorkflowTasks(kaleoTaskInstanceTokens);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -752,8 +753,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 			return _kaleoTaskInstanceTokenLocalService.searchCount(
 				keywords, completed, searchByUserRoles, serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -774,8 +775,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 				taskName, assetType, assetPrimaryKey, dueDateGT, dueDateLT,
 				completed, searchByUserRoles, andOperator, serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 
@@ -795,8 +796,8 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 				keywords, assetTypes, completed, searchByUserRoles,
 				serviceContext);
 		}
-		catch (Exception e) {
-			throw new WorkflowException(e);
+		catch (Exception exception) {
+			throw new WorkflowException(exception);
 		}
 	}
 

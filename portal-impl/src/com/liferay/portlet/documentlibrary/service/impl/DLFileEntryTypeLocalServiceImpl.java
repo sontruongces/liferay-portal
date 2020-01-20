@@ -195,8 +195,11 @@ public class DLFileEntryTypeLocalServiceImpl
 						dlFileEntryTypeLocalService.
 							getBasicDocumentDLFileEntryType();
 					}
-					catch (NoSuchFileEntryTypeException nsfete) {
-						ReflectionUtil.throwException(nsfete);
+					catch (NoSuchFileEntryTypeException
+								noSuchFileEntryTypeException) {
+
+						ReflectionUtil.throwException(
+							noSuchFileEntryTypeException);
 					}
 				}
 
@@ -871,9 +874,10 @@ public class DLFileEntryTypeLocalServiceImpl
 
 			return ddmStructure.getStructureId();
 		}
-		catch (StructureDefinitionException sde) {
+		catch (StructureDefinitionException structureDefinitionException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(sde, sde);
+				_log.warn(
+					structureDefinitionException, structureDefinitionException);
 			}
 
 			if (ddmStructure != null) {
@@ -1009,9 +1013,10 @@ public class DLFileEntryTypeLocalServiceImpl
 			return ArrayUtil.append(
 				ddmStructureIds, ddmStructure.getStructureId());
 		}
-		catch (StructureDefinitionException sde) {
+		catch (StructureDefinitionException structureDefinitionException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(sde, sde);
+				_log.warn(
+					structureDefinitionException, structureDefinitionException);
 			}
 
 			if (ddmStructure != null) {

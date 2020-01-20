@@ -227,9 +227,9 @@ public class JournalManagementToolbarDisplayContext
 		try {
 			return _getCreationMenu();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug("Unable to get creation menu", pe);
+				_log.debug("Unable to get creation menu", portalException);
 			}
 		}
 
@@ -435,9 +435,9 @@ public class JournalManagementToolbarDisplayContext
 		try {
 			return _isShowAddButton();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug("Unable to get creation menu", pe);
+				_log.debug("Unable to get creation menu", portalException);
 			}
 
 			return false;

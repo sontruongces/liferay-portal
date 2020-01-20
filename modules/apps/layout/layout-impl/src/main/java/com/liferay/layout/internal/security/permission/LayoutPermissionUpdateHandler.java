@@ -50,8 +50,8 @@ public class LayoutPermissionUpdateHandler implements PermissionUpdateHandler {
 		try {
 			_layoutLocalService.updateLayout(layout);
 		}
-		catch (PortalException pe) {
-			_log.error(pe.getMessage(), pe);
+		catch (PortalException portalException) {
+			_log.error(portalException.getMessage(), portalException);
 		}
 	}
 

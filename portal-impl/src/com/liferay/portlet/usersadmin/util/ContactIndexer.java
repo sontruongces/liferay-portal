@@ -181,11 +181,11 @@ public class ContactIndexer extends BaseIndexer<Contact> {
 					indexableActionableDynamicQuery.addDocuments(
 						getDocument(contact));
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index contact " + contact.getContactId(),
-							pe);
+							portalException);
 					}
 				}
 			});

@@ -44,8 +44,8 @@ public class MoreLikeThisQueryTest extends BaseMoreLikeThisQueryTestCase {
 
 			Assert.fail();
 		}
-		catch (SearchPhaseExecutionException spee) {
-			Throwable throwable = spee.getRootCause();
+		catch (SearchPhaseExecutionException searchPhaseExecutionException) {
+			Throwable throwable = searchPhaseExecutionException.getRootCause();
 
 			String message = throwable.getMessage();
 

@@ -377,12 +377,12 @@ public class KBArticleServiceImpl extends KBArticleServiceBaseImpl {
 			return getKBArticleAndAllDescendantKBArticles(
 				resourcePrimKey, status, orderByComparator);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 
 			// LPS-52675
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 
 			return Collections.emptyList();

@@ -583,8 +583,8 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 				extRepositoryObjectAdapters, start, end,
 				(OrderByComparator<Object>)obc);
 		}
-		catch (Exception e) {
-			throw new RepositoryException(e);
+		catch (Exception exception) {
+			throw new RepositoryException(exception);
 		}
 	}
 
@@ -620,8 +620,8 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 			return _extRepository.getExtRepositoryObjectsCount(
 				ExtRepositoryObjectType.OBJECT, extRepositoryFolderKey);
 		}
-		catch (PortalException pe) {
-			throw new SystemException(pe);
+		catch (PortalException portalException) {
+			throw new SystemException(portalException);
 		}
 	}
 
@@ -754,13 +754,14 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 			_extRepository.initRepository(
 				getTypeSettingsProperties(), credentialsProvider);
 		}
-		catch (PortalException | SystemException e) {
+		catch (PortalException | SystemException exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to initialize repository " + _extRepository, e);
+					"Unable to initialize repository " + _extRepository,
+					exception);
 			}
 
-			throw e;
+			throw exception;
 		}
 	}
 
@@ -890,7 +891,8 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 
 					needsCheckIn = true;
 				}
-				catch (UnsupportedOperationException uoe) {
+				catch (UnsupportedOperationException
+							unsupportedOperationException) {
 				}
 			}
 
@@ -906,7 +908,8 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 					_extRepository.checkInExtRepositoryFileEntry(
 						extRepositoryFileEntryKey, true, changeLog);
 				}
-				catch (UnsupportedOperationException uoe) {
+				catch (UnsupportedOperationException
+							unsupportedOperationException) {
 				}
 			}
 		}
@@ -949,8 +952,8 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 			extRepositorySearchResults = _extRepository.search(
 				searchContext, query, new ExtRepositoryQueryMapperImpl(this));
 		}
-		catch (PortalException | SystemException e) {
-			throw new SearchException("Unable to perform search", e);
+		catch (PortalException | SystemException exception) {
+			throw new SearchException("Unable to perform search", exception);
 		}
 
 		QueryConfig queryConfig = searchContext.getQueryConfig();
@@ -994,9 +997,9 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 
 				total++;
 			}
-			catch (PortalException | SystemException e) {
+			catch (PortalException | SystemException exception) {
 				if (_log.isWarnEnabled()) {
-					_log.warn("Invalid entry returned from search", e);
+					_log.warn("Invalid entry returned from search", exception);
 				}
 			}
 		}
@@ -1113,12 +1116,12 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 			return _toExtRepositoryObjectAdapter(
 				ExtRepositoryObjectAdapterType.FILE, extRepositoryFileEntry);
 		}
-		catch (PortalException | SystemException e) {
+		catch (PortalException | SystemException exception) {
 			if (needsCheckIn) {
 				_extRepository.cancelCheckOut(extRepositoryFileEntryKey);
 			}
 
-			throw e;
+			throw exception;
 		}
 	}
 
@@ -1235,9 +1238,10 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 		try {
 			return userLocalService.getDefaultUser(getCompanyId());
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
-				"Unable to get default user for company " + getCompanyId(), pe);
+				"Unable to get default user for company " + getCompanyId(),
+				portalException);
 
 			return null;
 		}
@@ -1313,12 +1317,12 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 				}
 			}
 		}
-		catch (PortalException | SystemException e) {
+		catch (PortalException | SystemException exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Unable to get login to connect to external repository " +
 						_extRepository,
-					e);
+					exception);
 			}
 
 			login = null;

@@ -54,8 +54,8 @@ public abstract class BaseJSPAssetEntryQueryProcessor
 		try {
 			requestDispatcher.include(httpServletRequest, httpServletResponse);
 		}
-		catch (ServletException se) {
-			_log.error("Unable to include " + jspPath, se);
+		catch (ServletException servletException) {
+			_log.error("Unable to include " + jspPath, servletException);
 		}
 	}
 

@@ -174,10 +174,10 @@ public class PorygonSiteInitializer implements SiteInitializer {
 
 			_addLayouts(ddmStructure, ddmTemplates, serviceContext);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new InitializationException(e);
+			throw new InitializationException(exception);
 		}
 	}
 

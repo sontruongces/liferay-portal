@@ -164,8 +164,8 @@ public class DocumentLibraryConvertProcess extends BaseConvertProcess {
 
 			return registry.getServices(DLStoreConvertProcess.class, null);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

@@ -81,9 +81,9 @@ public class OAuthRequestTokenAction extends BaseStrutsAction {
 
 			outputStream.close();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			OAuthUtil.handleException(
-				httpServletRequest, httpServletResponse, e, true);
+				httpServletRequest, httpServletResponse, exception, true);
 		}
 
 		return null;

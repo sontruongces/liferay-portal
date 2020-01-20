@@ -124,8 +124,8 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 						smallImageFileName,
 						MimeTypesUtil.getContentType(smallImageFileName), null);
 				}
-				catch (IOException ioe) {
-					_log.error("Unable to create image selector", ioe);
+				catch (IOException ioException) {
+					_log.error("Unable to create image selector", ioException);
 				}
 			}
 			else if (Validator.isNotNull(smallImageURL)) {
@@ -631,8 +631,8 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 						smallImageFileName,
 						MimeTypesUtil.getContentType(smallImageFileName), null);
 				}
-				catch (IOException ioe) {
-					_log.error("Unable to create image selector", ioe);
+				catch (IOException ioException) {
+					_log.error("Unable to create image selector", ioException);
 				}
 			}
 			else if (Validator.isNotNull(smallImageURL)) {

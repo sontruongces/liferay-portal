@@ -101,7 +101,7 @@ public class RemoteElasticsearchConnectionTest {
 
 			Assert.fail();
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 		}
 
 		Assert.assertFalse(_remoteElasticsearchConnection.isConnected());

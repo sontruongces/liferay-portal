@@ -96,7 +96,8 @@ public class SerializableObjectWrapperTest {
 
 		ClassLoader contextClassLoader = currentThread.getContextClassLoader();
 
-		ClassNotFoundException cnfe = new ClassNotFoundException();
+		ClassNotFoundException classNotFoundException =
+			new ClassNotFoundException();
 
 		currentThread.setContextClassLoader(
 			new ClassLoader() {
@@ -106,7 +107,7 @@ public class SerializableObjectWrapperTest {
 					throws ClassNotFoundException {
 
 					if (name.equals(SpecialTestSerializable.class.getName())) {
-						throw cnfe;
+						throw classNotFoundException;
 					}
 
 					return super.loadClass(name);
@@ -129,34 +130,34 @@ public class SerializableObjectWrapperTest {
 				_specialTestSerializableWrapper1.equals(
 					_getDeserializedObject(_specialTestSerializableWrapper1)));
 
-			_assertLogAndClear(logRecords, cnfe);
+			_assertLogAndClear(logRecords, classNotFoundException);
 
 			Assert.assertTrue(
 				Objects.equals(
 					_getDeserializedObject(_specialTestSerializableWrapper1),
 					_specialTestSerializableWrapper1));
 
-			_assertLogAndClear(logRecords, cnfe);
+			_assertLogAndClear(logRecords, classNotFoundException);
 
 			Assert.assertFalse(
 				_specialTestSerializableWrapper1.equals(
 					_getDeserializedObject(_specialTestSerializableWrapper2)));
 
-			_assertLogAndClear(logRecords, cnfe);
+			_assertLogAndClear(logRecords, classNotFoundException);
 
 			Assert.assertFalse(
 				Objects.equals(
 					_getDeserializedObject(_specialTestSerializableWrapper1),
 					_specialTestSerializableWrapper2));
 
-			_assertLogAndClear(logRecords, cnfe);
+			_assertLogAndClear(logRecords, classNotFoundException);
 
 			Assert.assertFalse(
 				Objects.equals(
 					_getDeserializedObject(_specialTestSerializableWrapper1),
 					_getDeserializedObject(_specialTestSerializableWrapper2)));
 
-			_assertLogAndClear(logRecords, cnfe);
+			_assertLogAndClear(logRecords, classNotFoundException);
 		}
 		finally {
 			currentThread.setContextClassLoader(contextClassLoader);
@@ -187,7 +188,8 @@ public class SerializableObjectWrapperTest {
 
 		ClassLoader contextClassLoader = currentThread.getContextClassLoader();
 
-		ClassNotFoundException cnfe = new ClassNotFoundException();
+		ClassNotFoundException classNotFoundException =
+			new ClassNotFoundException();
 
 		currentThread.setContextClassLoader(
 			new ClassLoader() {
@@ -197,7 +199,7 @@ public class SerializableObjectWrapperTest {
 					throws ClassNotFoundException {
 
 					if (name.equals(TestSerializable.class.getName())) {
-						throw cnfe;
+						throw classNotFoundException;
 					}
 
 					return super.loadClass(name);
@@ -217,7 +219,7 @@ public class SerializableObjectWrapperTest {
 				SerializableObjectWrapper.unwrap(
 					_getDeserializedObject(_testSerializableObjectWrapper)));
 
-			_assertLogAndClear(logRecords, cnfe);
+			_assertLogAndClear(logRecords, classNotFoundException);
 
 			// Test equals
 
@@ -242,7 +244,8 @@ public class SerializableObjectWrapperTest {
 	}
 
 	private void _assertLogAndClear(
-		List<LogRecord> logRecords, ClassNotFoundException cnfe) {
+		List<LogRecord> logRecords,
+		ClassNotFoundException classNotFoundException) {
 
 		Assert.assertEquals(logRecords.toString(), 1, logRecords.size());
 
@@ -250,7 +253,7 @@ public class SerializableObjectWrapperTest {
 
 		Assert.assertEquals(
 			"Unable to deserialize object", logRecord.getMessage());
-		Assert.assertSame(cnfe, logRecord.getThrown());
+		Assert.assertSame(classNotFoundException, logRecord.getThrown());
 
 		logRecords.clear();
 	}

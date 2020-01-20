@@ -670,7 +670,7 @@ public class AssetEntryQuery {
 				leftRightIds[3 * i + 1] = category.getLeftCategoryId();
 				leftRightIds[3 * i + 2] = category.getRightCategoryId();
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
 					_log.warn("Error retrieving category " + categoryId);
 				}

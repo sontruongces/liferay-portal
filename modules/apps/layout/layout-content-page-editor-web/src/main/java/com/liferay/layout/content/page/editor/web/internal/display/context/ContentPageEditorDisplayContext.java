@@ -1230,11 +1230,11 @@ public class ContentPageEditorDisplayContext {
 						themeDisplay.getLayout(), portlet,
 						ActionKeys.ADD_TO_PAGE);
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					_log.error(
 						"Unable to check portlet permissions for " +
 							portlet.getPortletId(),
-						pe);
+						portalException);
 
 					return false;
 				}

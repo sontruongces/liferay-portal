@@ -47,10 +47,10 @@ public class SlimRuntimeReleaseLocalServiceImpl
 
 			StartupHelperUtil.setDbNew(true);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new SystemException(e);
+			throw new SystemException(exception);
 		}
 	}
 

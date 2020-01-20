@@ -126,8 +126,8 @@ public class OutputStreamContainerFactoryTrackerImpl
 			try {
 				outputStreamWriter.flush();
 			}
-			catch (IOException ioe) {
-				_log.error(ioe.getLocalizedMessage());
+			catch (IOException ioException) {
+				_log.error(ioException.getLocalizedMessage());
 			}
 		}
 	}

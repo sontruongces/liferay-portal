@@ -77,9 +77,9 @@ public class VerifyUUIDTest extends BaseVerifyProcessTestCase {
 
 				});
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_verifyException(
-				e,
+				exception,
 				HashMapBuilder.put(
 					DBType.DB2, "DB2 SQL Error: SQLCODE="
 				).put(
@@ -124,9 +124,9 @@ public class VerifyUUIDTest extends BaseVerifyProcessTestCase {
 		try {
 			_testDoVerify(verifiableUUIDModels);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_verifyException(
-				e,
+				exception,
 				HashMapBuilder.put(
 					DBType.DB2, "DB2 SQL Error: SQLCODE="
 				).put(
@@ -167,9 +167,9 @@ public class VerifyUUIDTest extends BaseVerifyProcessTestCase {
 
 				});
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_verifyException(
-				e,
+				exception,
 				HashMapBuilder.put(
 					DBType.DB2, "DB2 SQL Error: SQLCODE="
 				).put(
@@ -196,7 +196,7 @@ public class VerifyUUIDTest extends BaseVerifyProcessTestCase {
 	}
 
 	private static void _verifyException(
-			Exception e, Map<DBType, String> expectedMessages)
+			Exception exception, Map<DBType, String> expectedMessages)
 		throws Exception {
 
 		DB db = DBManagerUtil.getDB();
@@ -206,10 +206,10 @@ public class VerifyUUIDTest extends BaseVerifyProcessTestCase {
 		String expectedMessagePrefix = expectedMessages.get(dbType);
 
 		if (expectedMessagePrefix == null) {
-			throw e;
+			throw exception;
 		}
 
-		String message = e.getMessage();
+		String message = exception.getMessage();
 
 		Assert.assertTrue(
 			message + " does not start " + expectedMessagePrefix,

@@ -105,12 +105,12 @@ public abstract class BaseUploadHandler implements UploadHandler {
 			JSONPortletResponseUtil.writeJSON(
 				portletRequest, portletResponse, jsonObject);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			handleUploadException(
-				portletRequest, portletResponse, pe, jsonObject);
+				portletRequest, portletResponse, portalException, jsonObject);
 		}
 	}
 
@@ -126,10 +126,10 @@ public abstract class BaseUploadHandler implements UploadHandler {
 
 	protected void doHandleUploadException(
 			PortletRequest portletRequest, PortletResponse portletResponse,
-			PortalException pe, JSONObject jsonObject)
+			PortalException portalException, JSONObject jsonObject)
 		throws PortalException {
 
-		throw pe;
+		throw portalException;
 	}
 
 	protected abstract FileEntry fetchFileEntry(
@@ -195,8 +195,8 @@ public abstract class BaseUploadHandler implements UploadHandler {
 				return imageJSONObject;
 			}
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -252,37 +252,39 @@ public abstract class BaseUploadHandler implements UploadHandler {
 
 	protected void handleUploadException(
 			PortletRequest portletRequest, PortletResponse portletResponse,
-			PortalException pe, JSONObject jsonObject)
+			PortalException portalException, JSONObject jsonObject)
 		throws PortalException {
 
 		jsonObject.put("success", Boolean.FALSE);
 
-		if (pe instanceof AntivirusScannerException ||
-			pe instanceof FileNameException ||
-			pe instanceof FileSizeException ||
-			pe instanceof UploadRequestSizeException) {
+		if (portalException instanceof AntivirusScannerException ||
+			portalException instanceof FileNameException ||
+			portalException instanceof FileSizeException ||
+			portalException instanceof UploadRequestSizeException) {
 
 			String errorMessage = StringPool.BLANK;
 			int errorType = 0;
 
-			if (pe instanceof AntivirusScannerException) {
+			if (portalException instanceof AntivirusScannerException) {
 				errorType =
 					ServletResponseConstants.SC_FILE_ANTIVIRUS_EXCEPTION;
-				AntivirusScannerException ase = (AntivirusScannerException)pe;
+				AntivirusScannerException antivirusScannerException =
+					(AntivirusScannerException)portalException;
 
 				ThemeDisplay themeDisplay =
 					(ThemeDisplay)portletRequest.getAttribute(
 						WebKeys.THEME_DISPLAY);
 
-				errorMessage = themeDisplay.translate(ase.getMessageKey());
+				errorMessage = themeDisplay.translate(
+					antivirusScannerException.getMessageKey());
 			}
-			else if (pe instanceof FileNameException) {
+			else if (portalException instanceof FileNameException) {
 				errorType = ServletResponseConstants.SC_FILE_NAME_EXCEPTION;
 			}
-			else if (pe instanceof FileSizeException) {
+			else if (portalException instanceof FileSizeException) {
 				errorType = ServletResponseConstants.SC_FILE_SIZE_EXCEPTION;
 			}
-			else if (pe instanceof UploadRequestSizeException) {
+			else if (portalException instanceof UploadRequestSizeException) {
 				errorType =
 					ServletResponseConstants.SC_UPLOAD_REQUEST_SIZE_EXCEPTION;
 			}
@@ -297,15 +299,15 @@ public abstract class BaseUploadHandler implements UploadHandler {
 		}
 		else {
 			doHandleUploadException(
-				portletRequest, portletResponse, pe, jsonObject);
+				portletRequest, portletResponse, portalException, jsonObject);
 		}
 
 		try {
 			JSONPortletResponseUtil.writeJSON(
 				portletRequest, portletResponse, jsonObject);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 

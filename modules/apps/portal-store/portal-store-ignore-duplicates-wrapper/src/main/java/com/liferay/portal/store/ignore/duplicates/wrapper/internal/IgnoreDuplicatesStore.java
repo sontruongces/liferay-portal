@@ -342,12 +342,12 @@ public abstract class IgnoreDuplicatesStore implements Store {
 		try {
 			storeAction.execute();
 		}
-		catch (DuplicateFileException dfe) {
+		catch (DuplicateFileException duplicateFileException) {
 
 			// LPS-52675
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(dfe, dfe);
+				_log.debug(duplicateFileException, duplicateFileException);
 			}
 
 			recoverStoreAction.execute();

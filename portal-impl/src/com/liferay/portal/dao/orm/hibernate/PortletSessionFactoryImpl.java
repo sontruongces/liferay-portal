@@ -56,8 +56,8 @@ public class PortletSessionFactoryImpl extends SessionFactoryImpl {
 			sessionFactory =
 				portletHibernateConfiguration.buildSessionFactory();
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
 			return null;
 		}

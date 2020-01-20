@@ -386,8 +386,8 @@ public class PortletDataContextImpl implements PortletDataContext {
 					roleName = ExportImportPermissionUtil.getTeamRoleName(
 						role.getDescriptiveName());
 				}
-				catch (PortalException pe) {
-					_log.error(pe, pe);
+				catch (PortalException portalException) {
+					_log.error(portalException, portalException);
 				}
 			}
 
@@ -572,14 +572,16 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 			zipWriter.addEntry(path, bytes);
 		}
-		catch (IOException ioe) {
-			ExportImportIOException eiioe = new ExportImportIOException(
-				PortletDataContextImpl.class.getName(), ioe);
+		catch (IOException ioException) {
+			ExportImportIOException exportImportIOException =
+				new ExportImportIOException(
+					PortletDataContextImpl.class.getName(), ioException);
 
-			eiioe.setFileName(path);
-			eiioe.setType(ExportImportIOException.ADD_ZIP_ENTRY_BYTES);
+			exportImportIOException.setFileName(path);
+			exportImportIOException.setType(
+				ExportImportIOException.ADD_ZIP_ENTRY_BYTES);
 
-			throw new SystemException(eiioe);
+			throw new SystemException(exportImportIOException);
 		}
 	}
 
@@ -594,14 +596,16 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 			zipWriter.addEntry(path, is);
 		}
-		catch (IOException ioe) {
-			ExportImportIOException eiioe = new ExportImportIOException(
-				PortletDataContextImpl.class.getName(), ioe);
+		catch (IOException ioException) {
+			ExportImportIOException exportImportIOException =
+				new ExportImportIOException(
+					PortletDataContextImpl.class.getName(), ioException);
 
-			eiioe.setFileName(path);
-			eiioe.setType(ExportImportIOException.ADD_ZIP_ENTRY_STREAM);
+			exportImportIOException.setFileName(path);
+			exportImportIOException.setType(
+				ExportImportIOException.ADD_ZIP_ENTRY_STREAM);
 
-			throw new SystemException(eiioe);
+			throw new SystemException(exportImportIOException);
 		}
 	}
 
@@ -621,14 +625,16 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 			zipWriter.addEntry(path, s);
 		}
-		catch (IOException ioe) {
-			ExportImportIOException eiioe = new ExportImportIOException(
-				PortletDataContextImpl.class.getName(), ioe);
+		catch (IOException ioException) {
+			ExportImportIOException exportImportIOException =
+				new ExportImportIOException(
+					PortletDataContextImpl.class.getName(), ioException);
 
-			eiioe.setFileName(path);
-			eiioe.setType(ExportImportIOException.ADD_ZIP_ENTRY_STRING);
+			exportImportIOException.setFileName(path);
+			exportImportIOException.setType(
+				ExportImportIOException.ADD_ZIP_ENTRY_STRING);
 
-			throw new SystemException(eiioe);
+			throw new SystemException(exportImportIOException);
 		}
 	}
 
@@ -1696,9 +1702,11 @@ public class PortletDataContextImpl implements PortletDataContext {
 				try {
 					team = TeamLocalServiceUtil.getTeam(_groupId, roleName);
 				}
-				catch (NoSuchTeamException nste) {
+				catch (NoSuchTeamException noSuchTeamException) {
 					if (_log.isWarnEnabled()) {
-						_log.warn("Team " + roleName + " does not exist", nste);
+						_log.warn(
+							"Team " + roleName + " does not exist",
+							noSuchTeamException);
 					}
 
 					continue;
@@ -1716,9 +1724,11 @@ public class PortletDataContextImpl implements PortletDataContext {
 					role = RoleLocalServiceUtil.getRole(_companyId, roleName);
 				}
 			}
-			catch (NoSuchRoleException nsre) {
+			catch (NoSuchRoleException noSuchRoleException) {
 				if (_log.isWarnEnabled()) {
-					_log.warn("Role " + roleName + " does not exist", nsre);
+					_log.warn(
+						"Role " + roleName + " does not exist",
+						noSuchRoleException);
 				}
 
 				continue;
@@ -1813,7 +1823,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 		try {
 			group = GroupLocalServiceUtil.getGroup(getGroupId());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		if (ExportImportThreadLocal.isStagingInProcess() && (group != null) &&
@@ -2278,9 +2288,9 @@ public class PortletDataContextImpl implements PortletDataContext {
 						expandoBridgeAttributes);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e, e);
+					_log.debug(exception, exception);
 				}
 			}
 		}
@@ -2401,16 +2411,16 @@ public class PortletDataContextImpl implements PortletDataContext {
 						referenceElement.addAttribute(
 							"scope-layout-uuid", scopeLayout.getUuid());
 					}
-					catch (NoSuchLayoutException nsle) {
+					catch (NoSuchLayoutException noSuchLayoutException) {
 						if (_log.isWarnEnabled()) {
 							_log.warn(
 								"Unable to find layout " + group.getClassPK(),
-								nsle);
+								noSuchLayoutException);
 						}
 					}
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
 					_log.warn("Unable to find group " + groupId);
 				}
@@ -2500,12 +2510,13 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	protected Element getExportDataGroupElement(String name) {
 		if (_exportDataRootElement == null) {
-			PortletDataException pde = new PortletDataException(
-				PortletDataException.EXPORT_DATA_GROUP_ELEMENT);
+			PortletDataException portletDataException =
+				new PortletDataException(
+					PortletDataException.EXPORT_DATA_GROUP_ELEMENT);
 
-			pde.setStagedModelClassName(name);
+			portletDataException.setStagedModelClassName(name);
 
-			throw new SystemException(pde);
+			throw new SystemException(portletDataException);
 		}
 
 		Element groupElement = _exportDataRootElement.element(name);
@@ -2519,12 +2530,13 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	protected Element getImportDataGroupElement(String name) {
 		if (_importDataRootElement == null) {
-			PortletDataException pde = new PortletDataException(
-				PortletDataException.IMPORT_DATA_GROUP_ELEMENT);
+			PortletDataException portletDataException =
+				new PortletDataException(
+					PortletDataException.IMPORT_DATA_GROUP_ELEMENT);
 
-			pde.setStagedModelClassName(name);
+			portletDataException.setStagedModelClassName(name);
 
-			throw new SystemException(pde);
+			throw new SystemException(portletDataException);
 		}
 
 		if (Validator.isNull(name)) {
@@ -2685,8 +2697,8 @@ public class PortletDataContextImpl implements PortletDataContext {
 		try {
 			return getUserId(auditedModel.getUserUuid());
 		}
-		catch (SystemException se) {
-			_log.error(se, se);
+		catch (SystemException systemException) {
+			_log.error(systemException, systemException);
 		}
 
 		return 0;
@@ -2723,7 +2735,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 			_xStream.alias("sql-timestamp", timestampClass);
 		}
-		catch (ClassNotFoundException cnfe) {
+		catch (ClassNotFoundException classNotFoundException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Unable to load class com.sybase.jdbc4.tds.SybTimestamp " +
@@ -2952,12 +2964,12 @@ public class PortletDataContextImpl implements PortletDataContext {
 					WorkflowDefinitionManagerUtil.getLatestWorkflowDefinition(
 						getCompanyId(), displayName);
 			}
-			catch (WorkflowException we) {
+			catch (WorkflowException workflowException) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
 						"Unable to get workflow definition with name " +
 							displayName,
-						we);
+						workflowException);
 				}
 
 				continue;
@@ -2993,8 +3005,9 @@ public class PortletDataContextImpl implements PortletDataContext {
 							workflowDefinition.getName(),
 							workflowDefinition.getVersion());
 				}
-				catch (PortalException pe) {
-					throw new PortletDataException(pe.getMessage(), pe);
+				catch (PortalException portalException) {
+					throw new PortletDataException(
+						portalException.getMessage(), portalException);
 				}
 			}
 		}

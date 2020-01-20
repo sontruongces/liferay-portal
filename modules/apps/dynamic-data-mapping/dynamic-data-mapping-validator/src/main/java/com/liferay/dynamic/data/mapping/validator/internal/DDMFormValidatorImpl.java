@@ -103,9 +103,9 @@ public class DDMFormValidatorImpl implements DDMFormValidator {
 			_ddmExpressionFactory.createBooleanDDMExpression(
 				ddmExpressionString);
 		}
-		catch (DDMExpressionException ddmee) {
+		catch (DDMExpressionException ddmExpressionException) {
 			throw new MustSetValidFormRuleExpression(
-				expressionType, ddmExpressionString, ddmee);
+				expressionType, ddmExpressionString, ddmExpressionException);
 		}
 	}
 
@@ -303,7 +303,7 @@ public class DDMFormValidatorImpl implements DDMFormValidator {
 				}
 			}
 		}
-		catch (DDMExpressionException ddmee) {
+		catch (DDMExpressionException ddmExpressionException) {
 			throw new MustSetValidValidationExpression(
 				ddmFormField.getName(),
 				ddmFormFieldValidationExpression.getValue());
@@ -324,7 +324,7 @@ public class DDMFormValidatorImpl implements DDMFormValidator {
 			_ddmExpressionFactory.createBooleanDDMExpression(
 				visibilityExpression);
 		}
-		catch (DDMExpressionException ddmee) {
+		catch (DDMExpressionException ddmExpressionException) {
 			throw new MustSetValidVisibilityExpression(
 				ddmFormField.getName(), visibilityExpression);
 		}

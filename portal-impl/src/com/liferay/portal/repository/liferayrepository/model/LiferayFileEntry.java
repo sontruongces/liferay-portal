@@ -132,8 +132,8 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 			DLAppHelperLocalServiceUtil.getFileAsStream(
 				PrincipalThreadLocal.getUserId(), this, true);
 		}
-		catch (Exception e) {
-			_log.error("Unable to get content stream", e);
+		catch (Exception exception) {
+			_log.error("Unable to get content stream", exception);
 		}
 
 		return inputStream;
@@ -147,8 +147,8 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 			DLAppHelperLocalServiceUtil.getFileAsStream(
 				PrincipalThreadLocal.getUserId(), this, true);
 		}
-		catch (Exception e) {
-			_log.error("Error getting document stream", e);
+		catch (Exception exception) {
+			_log.error("Error getting document stream", exception);
 		}
 
 		return inputStream;
@@ -226,9 +226,9 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 		try {
 			return new LiferayFolder(_dlFileEntry.getFolder());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 
 			return null;
@@ -292,9 +292,9 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 
 			return dlFileVersion.getMimeType();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 
 			return ContentTypes.APPLICATION_OCTET_STREAM;
@@ -404,8 +404,8 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 
 			versionUserId = dlFileVersion.getUserId();
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		return versionUserId;
@@ -425,8 +425,8 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 
 			versionUserName = dlFileVersion.getUserName();
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		return versionUserName;
@@ -446,8 +446,8 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 
 			versionUserUuid = dlFileVersion.getUserUuid();
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		return versionUserUuid;
@@ -492,9 +492,9 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 		try {
 			return _dlFileEntry.isInTrashContainer();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 
 			return false;
@@ -615,10 +615,10 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 		try {
 			return RepositoryProviderUtil.getRepository(getRepositoryId());
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			throw new SystemException(
 				"Unable to get repository for file entry " + getFileEntryId(),
-				pe);
+				portalException);
 		}
 	}
 

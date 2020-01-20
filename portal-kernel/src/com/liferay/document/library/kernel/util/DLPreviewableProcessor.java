@@ -263,8 +263,8 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 				}
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 
@@ -289,8 +289,8 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 					thumbnailFilePath, is);
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 
@@ -338,7 +338,7 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 
 			DLStoreUtil.deleteFile(companyId, REPOSITORY_ID, thumbnailFilePath);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 	}
 
@@ -400,7 +400,7 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 
 			return fileNames.length;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return 0;
@@ -576,9 +576,9 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 				portletDataContext, fileEntryElement, fileVersion, is, binPath,
 				binPathName);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(ioe, ioe);
+				_log.warn(ioException, ioException);
 			}
 		}
 	}
@@ -941,8 +941,8 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 				fileVersion.getCompanyId(), REPOSITORY_ID,
 				getThumbnailFilePath(fileVersion, imageType, index));
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		return false;

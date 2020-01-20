@@ -252,9 +252,9 @@ public class VerifyAuditedModel extends VerifyProcess {
 
 			ps.addBatch();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to verify model " + tableName, e);
+				_log.warn("Unable to verify model " + tableName, exception);
 			}
 		}
 	}

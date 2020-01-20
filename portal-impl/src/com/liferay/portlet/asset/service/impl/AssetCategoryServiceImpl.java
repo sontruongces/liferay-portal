@@ -114,13 +114,13 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 
 				assetCategoryLocalService.deleteCategory(categoryId);
 			}
-			catch (PortalException pe) {
+			catch (PortalException portalException) {
 				if (serviceContext == null) {
 					return null;
 				}
 
 				if (serviceContext.isFailOnPortalException()) {
-					throw pe;
+					throw portalException;
 				}
 
 				AssetCategory category =

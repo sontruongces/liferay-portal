@@ -256,8 +256,8 @@ public class DefaultSegmentsEntryProvider implements SegmentsEntryProvider {
 				matchesContext = _oDataMatcher.matches(
 					contextFilterString, context);
 			}
-			catch (PortalException pe) {
-				_log.error(pe, pe);
+			catch (PortalException portalException) {
+				_log.error(portalException, portalException);
 			}
 
 			if (matchesContext &&
@@ -302,8 +302,8 @@ public class DefaultSegmentsEntryProvider implements SegmentsEntryProvider {
 					matchesModel = true;
 				}
 			}
-			catch (PortalException pe) {
-				_log.error(pe, pe);
+			catch (PortalException portalException) {
+				_log.error(portalException, portalException);
 			}
 
 			if (matchesModel &&

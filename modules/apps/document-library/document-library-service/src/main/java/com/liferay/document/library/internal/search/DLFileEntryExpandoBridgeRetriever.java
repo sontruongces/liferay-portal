@@ -48,8 +48,8 @@ public class DLFileEntryExpandoBridgeRetriever
 				dlFileEntry.getCompanyId(), DLFileEntry.class.getName(),
 				dlFileVersion.getFileVersionId());
 		}
-		catch (PortalException pe) {
-			throw new SystemException(pe);
+		catch (PortalException portalException) {
+			throw new SystemException(portalException);
 		}
 	}
 

@@ -120,8 +120,8 @@ public class ConfigurationImpl
 
 			clearCache();
 		}
-		catch (Exception e) {
-			_log.error("The properties could not be added", e);
+		catch (Exception exception) {
+			_log.error("The properties could not be added", exception);
 		}
 	}
 
@@ -331,8 +331,8 @@ public class ConfigurationImpl
 
 			clearCache();
 		}
-		catch (Exception e) {
-			_log.error("The properties could not be removed", e);
+		catch (Exception exception) {
+			_log.error("The properties could not be removed", exception);
 		}
 	}
 
@@ -385,8 +385,8 @@ public class ConfigurationImpl
 
 				return company.getWebId();
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 

@@ -432,8 +432,8 @@ public class DLAppServiceWhenAddingAFileEntryTest extends BaseDLAppTestCase {
 
 				_success = true;
 			}
-			catch (Exception e) {
-				_log.error("Unable to add file " + _index, e);
+			catch (Exception exception) {
+				_log.error("Unable to add file " + _index, exception);
 			}
 		}
 
@@ -473,8 +473,8 @@ public class DLAppServiceWhenAddingAFileEntryTest extends BaseDLAppTestCase {
 					_success = true;
 				}
 			}
-			catch (Exception e) {
-				_log.error("Unable to get file " + _index, e);
+			catch (Exception exception) {
+				_log.error("Unable to get file " + _index, exception);
 			}
 		}
 

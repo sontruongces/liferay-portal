@@ -121,8 +121,8 @@ public class ServiceTestUtil {
 					try {
 						SchedulerEngineHelperUtil.start();
 					}
-					catch (Exception e) {
-						_log.error(e, e);
+					catch (Exception exception) {
+						_log.error(exception, exception);
 					}
 				}
 
@@ -147,8 +147,8 @@ public class ServiceTestUtil {
 		try {
 			DBUpgrader.verify();
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 
@@ -158,8 +158,8 @@ public class ServiceTestUtil {
 
 			setUser(TestPropsValues.getUser());
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 
@@ -178,8 +178,8 @@ public class ServiceTestUtil {
 		try {
 			SearchEngineHelperUtil.initialize(TestPropsValues.getCompanyId());
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 
@@ -262,8 +262,8 @@ public class ServiceTestUtil {
 		try {
 			_checkResourceActions();
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		// Workflow
@@ -279,8 +279,8 @@ public class ServiceTestUtil {
 				CompanyLocalServiceUtil.checkCompany(
 					TestPropsValues.COMPANY_WEB_ID);
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 	}
@@ -377,8 +377,8 @@ public class ServiceTestUtil {
 						" shutdown timeout");
 			}
 		}
-		catch (InterruptedException ie) {
-			ReflectionUtil.throwException(ie);
+		catch (InterruptedException interruptedException) {
+			ReflectionUtil.throwException(interruptedException);
 		}
 	}
 
@@ -460,8 +460,8 @@ public class ServiceTestUtil {
 								" termination waiting timeout");
 					}
 				}
-				catch (InterruptedException ie) {
-					ReflectionUtil.throwException(ie);
+				catch (InterruptedException interruptedException) {
+					ReflectionUtil.throwException(interruptedException);
 				}
 			}
 

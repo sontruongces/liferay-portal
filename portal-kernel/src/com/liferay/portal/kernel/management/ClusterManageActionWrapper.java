@@ -45,9 +45,9 @@ public class ClusterManageActionWrapper
 		try {
 			return doAction();
 		}
-		catch (SystemException se) {
+		catch (SystemException systemException) {
 			throw new ManageActionException(
-				"Failed to execute cluster manage action", se);
+				"Failed to execute cluster manage action", systemException);
 		}
 	}
 

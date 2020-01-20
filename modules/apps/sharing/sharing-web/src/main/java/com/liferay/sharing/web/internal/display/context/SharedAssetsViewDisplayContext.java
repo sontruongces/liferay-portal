@@ -383,8 +383,8 @@ public class SharedAssetsViewDisplayContext {
 
 			return urlMenuItem;
 		}
-		catch (WindowStateException wse) {
-			throw new SystemException(wse);
+		catch (WindowStateException windowStateException) {
+			throw new SystemException(windowStateException);
 		}
 	}
 

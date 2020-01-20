@@ -88,9 +88,9 @@ public class JournalArticleDemoDataCreatorImpl
 			try {
 				_journalArticleLocalService.deleteJournalArticle(entryId);
 			}
-			catch (NoSuchArticleException nsae) {
+			catch (NoSuchArticleException noSuchArticleException) {
 				if (_log.isWarnEnabled()) {
-					_log.warn(nsae, nsae);
+					_log.warn(noSuchArticleException, noSuchArticleException);
 				}
 			}
 

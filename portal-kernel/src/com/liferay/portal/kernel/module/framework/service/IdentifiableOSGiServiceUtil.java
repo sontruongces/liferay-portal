@@ -65,12 +65,15 @@ public class IdentifiableOSGiServiceUtil {
 					identifiableOSGiService.getOSGiServiceIdentifier(),
 					identifiableOSGiService);
 			}
-			catch (UnsupportedOperationException uoe) {
+			catch (UnsupportedOperationException
+						unsupportedOperationException) {
 
 				// LPS-89569
 
 				if (_log.isDebugEnabled()) {
-					_log.debug(uoe, uoe);
+					_log.debug(
+						unsupportedOperationException,
+						unsupportedOperationException);
 				}
 
 				return null;
@@ -89,12 +92,15 @@ public class IdentifiableOSGiServiceUtil {
 					identifiableOSGiService.getOSGiServiceIdentifier(),
 					identifiableOSGiService);
 			}
-			catch (UnsupportedOperationException uoe) {
+			catch (UnsupportedOperationException
+						unsupportedOperationException) {
 
 				// LPS-89569
 
 				if (_log.isDebugEnabled()) {
-					_log.debug(uoe, uoe);
+					_log.debug(
+						unsupportedOperationException,
+						unsupportedOperationException);
 				}
 			}
 		}
@@ -112,12 +118,15 @@ public class IdentifiableOSGiServiceUtil {
 				_identifiableOSGiServices.remove(
 					identifiableOSGiService.getOSGiServiceIdentifier());
 			}
-			catch (UnsupportedOperationException uoe) {
+			catch (UnsupportedOperationException
+						unsupportedOperationException) {
 
 				// LPS-89569
 
 				if (_log.isDebugEnabled()) {
-					_log.debug(uoe, uoe);
+					_log.debug(
+						unsupportedOperationException,
+						unsupportedOperationException);
 				}
 			}
 		}

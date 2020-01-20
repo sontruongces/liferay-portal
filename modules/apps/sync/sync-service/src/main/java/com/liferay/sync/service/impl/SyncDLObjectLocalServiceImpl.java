@@ -242,8 +242,8 @@ public class SyncDLObjectLocalServiceImpl
 				_syncDLFileVersionDiffLocalService.deleteSyncDLFileVersionDiffs(
 					typePK);
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 

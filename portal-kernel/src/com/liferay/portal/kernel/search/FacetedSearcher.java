@@ -246,8 +246,8 @@ public class FacetedSearcher extends BaseSearcher {
 
 			return IndexSearcherHelperUtil.search(searchContext, fullQuery);
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 

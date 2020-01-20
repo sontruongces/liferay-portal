@@ -60,7 +60,7 @@ public class OrderByComparatorFactoryUtil {
 					try {
 						columnInstance = columnClass.newInstance();
 					}
-					catch (Exception e) {
+					catch (Exception exception) {
 					}
 				}
 

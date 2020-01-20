@@ -90,15 +90,15 @@ public class UpgradeDDMStructure extends UpgradeProcess {
 			return new DDMFormRule(
 				condition, "setVisible('" + ddmFormFieldName + "', true)");
 		}
-		catch (DDMExpressionException ddmee) {
+		catch (DDMExpressionException ddmExpressionException) {
 			_log.error(
 				String.format(
 					"Unable to upgrade the visibility expression \"%s\" to a " +
 						"form rule",
 					visibilityExpression),
-				ddmee);
+				ddmExpressionException);
 
-			throw ddmee;
+			throw ddmExpressionException;
 		}
 	}
 

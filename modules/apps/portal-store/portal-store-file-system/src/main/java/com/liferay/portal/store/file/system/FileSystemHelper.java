@@ -53,19 +53,19 @@ public class FileSystemHelper {
 
 			supportHardLink = true;
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 		}
 		finally {
 			try {
 				Files.deleteIfExists(sourceFilePath);
 			}
-			catch (IOException ioe) {
+			catch (IOException ioException) {
 			}
 
 			try {
 				Files.deleteIfExists(destinationFilePath);
 			}
-			catch (IOException ioe) {
+			catch (IOException ioException) {
 			}
 		}
 
@@ -88,12 +88,12 @@ public class FileSystemHelper {
 			try {
 				Files.move(source.toPath(), destination.toPath());
 			}
-			catch (IOException ioe) {
+			catch (IOException ioException) {
 				throw new SystemException(
 					StringBundler.concat(
 						"File name was not renamed from ", source.getPath(),
 						" to ", destination.getPath()),
-					ioe);
+					ioException);
 			}
 		}
 		else {

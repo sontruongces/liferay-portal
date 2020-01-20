@@ -161,8 +161,8 @@ public class VideoDLPreviewRendererProvider
 
 				return previewFileURLs;
 			}
-			catch (Exception e) {
-				throw new PortalException(e);
+			catch (Exception exception) {
+				throw new PortalException(exception);
 			}
 		}
 		else {

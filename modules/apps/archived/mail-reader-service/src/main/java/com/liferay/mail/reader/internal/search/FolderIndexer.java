@@ -143,11 +143,11 @@ public class FolderIndexer extends BaseIndexer<Folder> {
 					indexableActionableDynamicQuery.addDocuments(
 						getDocument(folder));
 				}
-				catch (PortalException pe) {
+				catch (PortalException portalException) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index folder " + folder.getFolderId(),
-							pe);
+							portalException);
 					}
 				}
 			});

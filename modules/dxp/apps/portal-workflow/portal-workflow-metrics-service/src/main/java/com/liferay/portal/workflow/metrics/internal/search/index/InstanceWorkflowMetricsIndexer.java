@@ -195,9 +195,9 @@ public class InstanceWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 					assetEntry.getGroupId());
 			}
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 		}
 

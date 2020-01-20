@@ -42,10 +42,12 @@ public abstract class ThrowableAwareRunnable implements Runnable {
 		try (LoggingTimer loggingTimer = new LoggingTimer()) {
 			doRun();
 		}
-		catch (Exception e) {
-			_log.error("Unable to process runnable: " + e.getMessage(), e);
+		catch (Exception exception) {
+			_log.error(
+				"Unable to process runnable: " + exception.getMessage(),
+				exception);
 
-			_throwable = e;
+			_throwable = exception;
 		}
 	}
 

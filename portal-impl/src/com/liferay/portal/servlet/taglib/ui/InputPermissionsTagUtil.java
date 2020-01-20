@@ -76,10 +76,10 @@ public class InputPermissionsTagUtil {
 
 			PortalIncludeUtil.include(pageContext, page);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new JspException(e);
+			throw new JspException(exception);
 		}
 	}
 

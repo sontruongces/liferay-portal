@@ -285,9 +285,9 @@ public class RolesAdminPortlet extends MVCPortlet {
 				_userService.unsetRoleUsers(roleId, removeUserIds);
 			}
 			catch (RequiredRoleException.MustNotRemoveLastAdministator |
-				   RequiredRoleException.MustNotRemoveUserRole e) {
+				   RequiredRoleException.MustNotRemoveUserRole exception) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 			}
 		}
 

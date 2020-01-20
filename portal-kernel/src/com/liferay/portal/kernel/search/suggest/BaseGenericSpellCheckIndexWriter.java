@@ -160,12 +160,12 @@ public abstract class BaseGenericSpellCheckIndexWriter
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to index dictionaries", e);
+				_log.warn("Unable to index dictionaries", exception);
 			}
 
-			throw new SearchException(e.getMessage(), e);
+			throw new SearchException(exception.getMessage(), exception);
 		}
 	}
 

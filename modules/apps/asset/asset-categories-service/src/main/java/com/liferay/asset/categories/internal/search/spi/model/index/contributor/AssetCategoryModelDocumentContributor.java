@@ -146,8 +146,8 @@ public class AssetCategoryModelDocumentContributor
 		try {
 			return portal.getSiteDefaultLocale(assetCategory.getGroupId());
 		}
-		catch (PortalException pe) {
-			throw new SystemException(pe);
+		catch (PortalException portalException) {
+			throw new SystemException(portalException);
 		}
 	}
 

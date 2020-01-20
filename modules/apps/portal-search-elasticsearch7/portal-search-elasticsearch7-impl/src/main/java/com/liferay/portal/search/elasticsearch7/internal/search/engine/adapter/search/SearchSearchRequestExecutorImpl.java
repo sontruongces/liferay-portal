@@ -111,8 +111,8 @@ public class SearchSearchRequestExecutorImpl
 			return gson.toJson(
 				jsonParser.parse(searchRequestBuilder.toString()));
 		}
-		catch (Exception e) {
-			return e.getMessage();
+		catch (Exception exception) {
+			return exception.getMessage();
 		}
 	}
 

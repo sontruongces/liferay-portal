@@ -111,8 +111,8 @@ public class PortletRegistryImpl implements PortletRegistry {
 				portletIds.add(PortletIdCodec.encode(portletId, instanceId));
 			}
 		}
-		catch (PortalException pe) {
-			_log.error("Unable to get portlet IDs", pe);
+		catch (PortalException portalException) {
+			_log.error("Unable to get portlet IDs", portalException);
 		}
 
 		return portletIds;
@@ -173,11 +173,11 @@ public class PortletRegistryImpl implements PortletRegistry {
 					PortletJSONUtil.writeFooterPaths(
 						httpServletResponse, jsonObject);
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					_log.error(
 						"Unable to write portlet paths " +
 							portlet.getPortletId(),
-						e);
+						exception);
 				}
 			}
 		);

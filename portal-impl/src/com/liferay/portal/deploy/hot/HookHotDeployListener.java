@@ -462,9 +462,11 @@ public class HookHotDeployListener
 				servletContext, servletContextName, portletClassLoader,
 				hotDeployEvent.getPluginPackage(), rootElement);
 		}
-		catch (DuplicateCustomJspException dcje) {
+		catch (DuplicateCustomJspException duplicateCustomJspException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(servletContextName + " will be undeployed", dcje);
+				_log.warn(
+					servletContextName + " will be undeployed",
+					duplicateCustomJspException);
 			}
 
 			HotDeployUtil.fireUndeployEvent(
@@ -604,7 +606,7 @@ public class HookHotDeployListener
 		try {
 			return (BasePersistence<?>)PortalBeanLocatorUtil.locate(beanName);
 		}
-		catch (BeanLocatorException ble) {
+		catch (BeanLocatorException beanLocatorException) {
 			return (BasePersistence<?>)PortletBeanLocatorUtil.locate(
 				servletContextName, beanName);
 		}
@@ -1234,8 +1236,8 @@ public class HookHotDeployListener
 				ConfigurationFactoryUtil.getConfiguration(
 					portletClassLoader, name);
 		}
-		catch (Exception e) {
-			_log.error("Unable to read " + portalPropertiesLocation, e);
+		catch (Exception exception) {
+			_log.error("Unable to read " + portalPropertiesLocation, exception);
 		}
 
 		if (portalPropertiesConfiguration == null) {
@@ -1742,7 +1744,7 @@ public class HookHotDeployListener
 				_initServices(
 					servletContextName, serviceImplConstructor, serviceProxy);
 			}
-			catch (BeanLocatorException ble) {
+			catch (BeanLocatorException beanLocatorException) {
 				Registry registry = RegistryUtil.getRegistry();
 
 				registry.callService(
@@ -1753,8 +1755,8 @@ public class HookHotDeployListener
 								servletContextName, serviceImplConstructor,
 								registryServiceProxy);
 						}
-						catch (Exception e) {
-							ReflectionUtil.throwException(e);
+						catch (Exception exception) {
+							ReflectionUtil.throwException(exception);
 						}
 
 						return null;
@@ -2002,11 +2004,11 @@ public class HookHotDeployListener
 
 				field.setBoolean(null, value);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				_log.error(
 					StringBundler.concat(
 						"Error setting field ", fieldName, ": ",
-						e.getMessage()));
+						exception.getMessage()));
 			}
 		}
 
@@ -2027,11 +2029,11 @@ public class HookHotDeployListener
 
 				field.setInt(null, value);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				_log.error(
 					StringBundler.concat(
 						"Error setting field ", fieldName, ": ",
-						e.getMessage()));
+						exception.getMessage()));
 			}
 		}
 
@@ -2052,11 +2054,11 @@ public class HookHotDeployListener
 
 				field.setLong(null, value);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				_log.error(
 					StringBundler.concat(
 						"Error setting field ", fieldName, ": ",
-						e.getMessage()));
+						exception.getMessage()));
 			}
 		}
 
@@ -2076,11 +2078,11 @@ public class HookHotDeployListener
 
 				field.set(null, value);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				_log.error(
 					StringBundler.concat(
 						"Error setting field ", fieldName, ": ",
-						e.getMessage()));
+						exception.getMessage()));
 			}
 		}
 
@@ -2147,11 +2149,11 @@ public class HookHotDeployListener
 					propsValuesStringArray, stringArraysContainerMap, key,
 					fieldName);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				_log.error(
 					StringBundler.concat(
 						"Error setting field ", fieldName, ": ",
-						e.getMessage()));
+						exception.getMessage()));
 			}
 		}
 	}

@@ -145,8 +145,9 @@ public class FreeMarkerFragmentEntryProcessor
 		try {
 			template.processTemplate(unsyncStringWriter);
 		}
-		catch (TemplateException te) {
-			throw new FragmentEntryContentException(_getMessage(te), te);
+		catch (TemplateException templateException) {
+			throw new FragmentEntryContentException(
+				_getMessage(templateException), templateException);
 		}
 
 		return unsyncStringWriter.toString();
@@ -215,19 +216,20 @@ public class FreeMarkerFragmentEntryProcessor
 				template.processTemplate(new UnsyncStringWriter());
 			}
 		}
-		catch (TemplateException te) {
-			throw new FragmentEntryContentException(_getMessage(te), te);
+		catch (TemplateException templateException) {
+			throw new FragmentEntryContentException(
+				_getMessage(templateException), templateException);
 		}
 	}
 
-	private String _getMessage(TemplateException te) {
+	private String _getMessage(TemplateException templateException) {
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", getClass());
 
 		String message = LanguageUtil.get(
 			resourceBundle, "freemarker-syntax-is-invalid");
 
-		Throwable causeThrowable = te.getCause();
+		Throwable causeThrowable = templateException.getCause();
 
 		String causeThrowableMessage = causeThrowable.getLocalizedMessage();
 

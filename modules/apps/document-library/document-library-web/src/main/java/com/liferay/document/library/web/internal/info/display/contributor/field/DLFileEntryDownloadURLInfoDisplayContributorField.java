@@ -59,7 +59,7 @@ public class DLFileEntryDownloadURLInfoDisplayContributorField
 			return _dlURLHelper.getDownloadURL(
 				fileEntry, fileEntry.getFileVersion(), null, StringPool.BLANK);
 		}
-		catch (Exception pe) {
+		catch (Exception exception) {
 			return null;
 		}
 	}

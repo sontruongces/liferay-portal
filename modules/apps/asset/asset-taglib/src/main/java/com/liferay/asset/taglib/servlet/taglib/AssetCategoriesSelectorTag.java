@@ -169,7 +169,7 @@ public class AssetCategoriesSelectorTag extends IncludeTag {
 				categoryIdsTitles.add(categoryIdsTitle);
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return categoryIdsTitles;
@@ -194,7 +194,7 @@ public class AssetCategoriesSelectorTag extends IncludeTag {
 
 			return PortalUtil.getCurrentAndAncestorSiteGroupIds(_groupIds);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return new long[0];
@@ -225,7 +225,7 @@ public class AssetCategoriesSelectorTag extends IncludeTag {
 
 			return portletURL;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return null;

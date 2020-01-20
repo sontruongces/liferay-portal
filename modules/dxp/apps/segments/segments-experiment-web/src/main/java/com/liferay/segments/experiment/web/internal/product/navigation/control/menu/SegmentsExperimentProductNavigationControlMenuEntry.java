@@ -118,8 +118,8 @@ public class SegmentsExperimentProductNavigationControlMenuEntry
 				httpServletRequest, httpServletResponse,
 				this::_processBodyBottomTagBody);
 		}
-		catch (JspException je) {
-			throw new IOException(je);
+		catch (JspException jspException) {
+			throw new IOException(jspException);
 		}
 
 		return true;
@@ -150,8 +150,8 @@ public class SegmentsExperimentProductNavigationControlMenuEntry
 			try {
 				portletURL.setWindowState(LiferayWindowState.EXCLUSIVE);
 			}
-			catch (WindowStateException wse) {
-				ReflectionUtil.throwException(wse);
+			catch (WindowStateException windowStateException) {
+				ReflectionUtil.throwException(windowStateException);
 			}
 
 			values.put("dataURL", "data-url='" + portletURL.toString() + "'");
@@ -174,8 +174,8 @@ public class SegmentsExperimentProductNavigationControlMenuEntry
 				"iconTag",
 				iconTag.doTagAsString(httpServletRequest, httpServletResponse));
 		}
-		catch (JspException je) {
-			ReflectionUtil.throwException(je);
+		catch (JspException jspException) {
+			ReflectionUtil.throwException(jspException);
 		}
 
 		values.put("portletNamespace", _portletNamespace);
@@ -310,8 +310,8 @@ public class SegmentsExperimentProductNavigationControlMenuEntry
 
 			jspWriter.write("</div></div>");
 		}
-		catch (Exception e) {
-			ReflectionUtil.throwException(e);
+		catch (Exception exception) {
+			ReflectionUtil.throwException(exception);
 		}
 	}
 

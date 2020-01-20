@@ -355,12 +355,12 @@ public class UserIndexer extends BaseIndexer<User> {
 		try {
 			indexer.reindex(user.getContact());
 		}
-		catch (NoSuchContactException nsce) {
+		catch (NoSuchContactException noSuchContactException) {
 
 			// This is a temporary workaround for LPS-46825
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(nsce, nsce);
+				_log.debug(noSuchContactException, noSuchContactException);
 			}
 		}
 	}
@@ -396,10 +396,11 @@ public class UserIndexer extends BaseIndexer<User> {
 						indexableActionableDynamicQuery.addDocuments(
 							getDocument(user));
 					}
-					catch (PortalException pe) {
+					catch (PortalException portalException) {
 						if (_log.isWarnEnabled()) {
 							_log.warn(
-								"Unable to index user " + user.getUserId(), pe);
+								"Unable to index user " + user.getUserId(),
+								portalException);
 						}
 					}
 				}

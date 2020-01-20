@@ -41,9 +41,9 @@ public class DataDefinitionFieldUtil {
 			return JSONFactoryUtil.createJSONArray(
 				MapUtil.getString(defaultValue, languageId));
 		}
-		catch (JSONException jsone) {
+		catch (JSONException jsonException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(jsone, jsone);
+				_log.debug(jsonException, jsonException);
 			}
 
 			return MapUtil.getString(defaultValue, languageId);

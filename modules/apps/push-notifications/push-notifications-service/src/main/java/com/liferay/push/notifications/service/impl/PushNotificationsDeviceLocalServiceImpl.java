@@ -150,10 +150,10 @@ public class PushNotificationsDeviceLocalServiceImpl
 		try {
 			pushNotificationsSender.send(tokens, payloadJSONObject);
 		}
-		catch (PortalException pe) {
-			exception = pe;
+		catch (PortalException portalException) {
+			exception = portalException;
 
-			throw pe;
+			throw portalException;
 		}
 		catch (Exception e) {
 			exception = e;

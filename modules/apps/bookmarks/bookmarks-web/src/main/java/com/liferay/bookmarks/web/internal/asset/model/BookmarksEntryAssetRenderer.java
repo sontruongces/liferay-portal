@@ -200,7 +200,7 @@ public class BookmarksEntryAssetRenderer
 			return _bookmarksEntryModelResourcePermission.contains(
 				permissionChecker, _entry, ActionKeys.UPDATE);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return false;
@@ -212,7 +212,7 @@ public class BookmarksEntryAssetRenderer
 			return _bookmarksEntryModelResourcePermission.contains(
 				permissionChecker, _entry, ActionKeys.VIEW);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return true;

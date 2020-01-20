@@ -85,8 +85,8 @@ public class ObjectGraphUtil {
 							queue.offer(value);
 						}
 					}
-					catch (Exception e) {
-						ReflectionUtil.throwException(e);
+					catch (Exception exception) {
+						ReflectionUtil.throwException(exception);
 					}
 				}
 

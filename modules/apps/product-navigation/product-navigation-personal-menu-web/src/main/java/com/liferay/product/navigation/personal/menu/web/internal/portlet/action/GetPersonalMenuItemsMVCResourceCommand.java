@@ -82,8 +82,8 @@ public class GetPersonalMenuItemsMVCResourceCommand
 			ServletResponseUtil.write(
 				httpServletResponse, jsonArray.toString());
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 
@@ -187,8 +187,8 @@ public class GetPersonalMenuItemsMVCResourceCommand
 					personalMenuEntry.getPortletURL(
 						_portal.getHttpServletRequest(portletRequest)));
 			}
-			catch (PortalException pe) {
-				_log.error(pe, pe);
+			catch (PortalException portalException) {
+				_log.error(portalException, portalException);
 			}
 
 			jsonObject.put(

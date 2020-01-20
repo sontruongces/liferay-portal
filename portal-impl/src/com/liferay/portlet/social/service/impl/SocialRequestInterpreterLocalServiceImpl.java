@@ -252,10 +252,10 @@ public class SocialRequestInterpreterLocalServiceImpl
 
 			return extraDataJSONObject.getString("portletId");
 		}
-		catch (JSONException jsone) {
+		catch (JSONException jsonException) {
 			_log.error(
 				"Unable to create JSON object from " + request.getExtraData(),
-				jsone);
+				jsonException);
 
 			return StringPool.BLANK;
 		}

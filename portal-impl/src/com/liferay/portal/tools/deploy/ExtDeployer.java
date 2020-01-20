@@ -48,9 +48,9 @@ public class ExtDeployer extends BaseDeployer {
 
 		try (ExtDeployer extDeployer = new ExtDeployer(wars, jars)) {
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(ioe, ioe);
+				_log.warn(ioException, ioException);
 			}
 		}
 	}

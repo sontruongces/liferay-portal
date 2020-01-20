@@ -268,11 +268,11 @@ public class StagingUtil {
 	}
 
 	public static JSONObject getExceptionMessagesJSONObject(
-		Locale locale, Exception e,
+		Locale locale, Exception exception,
 		ExportImportConfiguration exportImportConfiguration) {
 
 		return _staging.getExceptionMessagesJSONObject(
-			locale, e, exportImportConfiguration);
+			locale, exception, exportImportConfiguration);
 	}
 
 	/**
@@ -282,9 +282,11 @@ public class StagingUtil {
 	 */
 	@Deprecated
 	public static JSONObject getExceptionMessagesJSONObject(
-		Locale locale, Exception e, Map<String, Serializable> contextMap) {
+		Locale locale, Exception exception,
+		Map<String, Serializable> contextMap) {
 
-		return _staging.getExceptionMessagesJSONObject(locale, e, contextMap);
+		return _staging.getExceptionMessagesJSONObject(
+			locale, exception, contextMap);
 	}
 
 	public static Group getLiveGroup(Group group) {

@@ -119,7 +119,8 @@ public class SpringJSONWebServiceScannerStrategy
 
 					return true;
 				}
-				catch (ReflectiveOperationException roe) {
+				catch (ReflectiveOperationException
+							reflectiveOperationException) {
 				}
 			}
 			else {

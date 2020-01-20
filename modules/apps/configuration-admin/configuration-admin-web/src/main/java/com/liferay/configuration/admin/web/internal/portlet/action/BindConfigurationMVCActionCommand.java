@@ -171,15 +171,18 @@ public class BindConfigurationMVCActionCommand implements MVCActionCommand {
 				actionResponse.sendRedirect(redirect);
 			}
 		}
-		catch (ConfigurationModelListenerException cmle) {
+		catch (ConfigurationModelListenerException
+					configurationModelListenerException) {
+
 			SessionErrors.add(
-				actionRequest, ConfigurationModelListenerException.class, cmle);
+				actionRequest, ConfigurationModelListenerException.class,
+				configurationModelListenerException);
 
 			actionResponse.setRenderParameter(
 				"mvcRenderCommandName", "/edit_configuration");
 		}
-		catch (IOException ioe) {
-			throw new PortletException(ioe);
+		catch (IOException ioException) {
+			throw new PortletException(ioException);
 		}
 
 		return true;
@@ -307,12 +310,12 @@ public class BindConfigurationMVCActionCommand implements MVCActionCommand {
 									oldFileName);
 						}
 					}
-					catch (Exception e) {
+					catch (Exception exception) {
 						if (_log.isWarnEnabled()) {
 							_log.warn(
 								"Unable to delete inconsistent factory " +
 									"configuration " + oldFileName,
-								e);
+								exception);
 						}
 					}
 				}
@@ -320,11 +323,13 @@ public class BindConfigurationMVCActionCommand implements MVCActionCommand {
 
 			configuration.update(configuredProperties);
 		}
-		catch (ConfigurationModelListenerException cmle) {
-			throw cmle;
+		catch (ConfigurationModelListenerException
+					configurationModelListenerException) {
+
+			throw configurationModelListenerException;
 		}
-		catch (IOException ioe) {
-			throw new PortletException(ioe);
+		catch (IOException ioException) {
+			throw new PortletException(ioException);
 		}
 	}
 

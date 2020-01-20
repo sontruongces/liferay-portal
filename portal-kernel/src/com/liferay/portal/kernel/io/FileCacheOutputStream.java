@@ -53,9 +53,9 @@ public class FileCacheOutputStream extends OutputStream {
 
 			FileUtil.delete(_tempFile);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(ioe.getMessage());
+				_log.warn(ioException.getMessage());
 			}
 		}
 	}

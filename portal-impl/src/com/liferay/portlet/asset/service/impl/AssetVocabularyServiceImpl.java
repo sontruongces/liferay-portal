@@ -92,13 +92,13 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 
 				assetVocabularyLocalService.deleteVocabulary(vocabularyId);
 			}
-			catch (PortalException pe) {
+			catch (PortalException portalException) {
 				if (serviceContext == null) {
 					return null;
 				}
 
 				if (serviceContext.isFailOnPortalException()) {
-					throw pe;
+					throw portalException;
 				}
 
 				AssetVocabulary vocabulary =

@@ -85,8 +85,8 @@ public class AMDLStoreConvertProcess implements DLStoreConvertProcess {
 							CompanyConstants.SYSTEM, fileVersionPath);
 					}
 				}
-				catch (IOException ioe) {
-					throw new PortalException(ioe);
+				catch (IOException ioException) {
+					throw new PortalException(ioException);
 				}
 			});
 

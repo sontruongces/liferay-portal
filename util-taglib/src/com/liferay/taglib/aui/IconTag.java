@@ -73,8 +73,8 @@ public class IconTag extends BaseIconTag {
 				new PipingServletResponse(
 					httpServletResponse, unsyncStringWriter));
 		}
-		catch (JspException je) {
-			throw new ServletException(je);
+		catch (JspException jspException) {
+			throw new ServletException(jspException);
 		}
 
 		return unsyncStringWriter.toString();
@@ -211,8 +211,8 @@ public class IconTag extends BaseIconTag {
 				jspWriter.write("</span>");
 			}
 		}
-		catch (Exception e) {
-			ReflectionUtil.throwException(e);
+		catch (Exception exception) {
+			ReflectionUtil.throwException(exception);
 		}
 	}
 

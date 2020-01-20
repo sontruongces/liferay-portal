@@ -85,8 +85,8 @@ public class GetSegmentsEntryClassPKsCountMVCResourceCommand
 
 			return false;
 		}
-		catch (Exception e) {
-			throw new PortletException(e);
+		catch (Exception exception) {
+			throw new PortletException(exception);
 		}
 	}
 
@@ -104,9 +104,10 @@ public class GetSegmentsEntryClassPKsCountMVCResourceCommand
 				companyId, criteria.getFilterString(Criteria.Type.MODEL),
 				locale);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to obtain the segment user count", pe);
+				_log.warn(
+					"Unable to obtain the segment user count", portalException);
 			}
 
 			return 0;

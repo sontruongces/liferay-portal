@@ -1171,9 +1171,10 @@ public class LayoutsAdminDisplayContext {
 			layoutFullURL = HttpUtil.setParameter(
 				layoutFullURL, "p_l_back_url", _themeDisplay.getURLCurrent());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(
-				"Unable to generate view layout URL for " + layoutFullURL, e);
+				"Unable to generate view layout URL for " + layoutFullURL,
+				exception);
 		}
 
 		return layoutFullURL;

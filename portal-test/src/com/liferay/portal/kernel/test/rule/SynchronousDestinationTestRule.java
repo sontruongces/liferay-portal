@@ -227,8 +227,8 @@ public class SynchronousDestinationTestRule
 					try {
 						endCountDownLatch.await();
 					}
-					catch (InterruptedException ie) {
-						ReflectionUtil.throwException(ie);
+					catch (InterruptedException interruptedException) {
+						ReflectionUtil.throwException(interruptedException);
 					}
 				}
 			};
@@ -242,8 +242,8 @@ public class SynchronousDestinationTestRule
 			try {
 				startCountDownLatch.await();
 			}
-			catch (InterruptedException ie) {
-				ReflectionUtil.throwException(ie);
+			catch (InterruptedException interruptedException) {
+				ReflectionUtil.throwException(interruptedException);
 			}
 
 			schedulerDestination.unregister(messageListener);
@@ -263,7 +263,7 @@ public class SynchronousDestinationTestRule
 
 					asyncDestination = true;
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 				}
 			}
 
@@ -354,8 +354,10 @@ public class SynchronousDestinationTestRule
 				try {
 					messageListener.receive(message);
 				}
-				catch (MessageListenerException mle) {
-					_log.error("Unable to process message " + message, mle);
+				catch (MessageListenerException messageListenerException) {
+					_log.error(
+						"Unable to process message " + message,
+						messageListenerException);
 				}
 			}
 		}

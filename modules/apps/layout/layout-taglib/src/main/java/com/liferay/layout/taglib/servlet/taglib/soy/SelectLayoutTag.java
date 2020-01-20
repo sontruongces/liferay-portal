@@ -68,7 +68,7 @@ public class SelectLayoutTag extends ComponentRendererTag {
 		try {
 			putValue("nodes", _getLayoutsJSONArray());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return SKIP_BODY;
 		}
 

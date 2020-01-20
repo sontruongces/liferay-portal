@@ -606,9 +606,9 @@ public class KaleoTaskInstanceTokenLocalServiceImpl
 
 			return kaleoTaskInstanceTokens;
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 		}
 
@@ -670,9 +670,9 @@ public class KaleoTaskInstanceTokenLocalServiceImpl
 
 			return (int)indexer.searchCount(searchContext);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 		}
 

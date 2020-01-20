@@ -83,8 +83,8 @@ public abstract class BaseSocialActivityInterpreter
 		try {
 			return doInterpret(activity, serviceContext);
 		}
-		catch (Exception e) {
-			_log.error("Unable to interpret activity", e);
+		catch (Exception exception) {
+			_log.error("Unable to interpret activity", exception);
 		}
 
 		return null;
@@ -97,8 +97,8 @@ public abstract class BaseSocialActivityInterpreter
 		try {
 			return doInterpret(activitySet, serviceContext);
 		}
-		catch (Exception e) {
-			_log.error("Unable to interpret activity set", e);
+		catch (Exception exception) {
+			_log.error("Unable to interpret activity set", exception);
 		}
 
 		return null;
@@ -265,7 +265,7 @@ public abstract class BaseSocialActivityInterpreter
 
 			return groupName;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return StringPool.BLANK;
 		}
 	}
@@ -307,7 +307,7 @@ public abstract class BaseSocialActivityInterpreter
 
 			return groupName;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return StringPool.BLANK;
 		}
 	}
@@ -333,8 +333,9 @@ public abstract class BaseSocialActivityInterpreter
 				return value;
 			}
 		}
-		catch (JSONException jsone) {
-			_log.error("Unable to create a JSON object from " + json, jsone);
+		catch (JSONException jsonException) {
+			_log.error(
+				"Unable to create a JSON object from " + json, jsonException);
 		}
 
 		return defaultValue;
@@ -473,7 +474,7 @@ public abstract class BaseSocialActivityInterpreter
 
 			return userName;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return StringPool.BLANK;
 		}
 	}
@@ -511,7 +512,7 @@ public abstract class BaseSocialActivityInterpreter
 
 			return userName;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return StringPool.BLANK;
 		}
 	}

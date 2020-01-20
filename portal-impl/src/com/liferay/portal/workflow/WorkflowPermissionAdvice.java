@@ -51,8 +51,8 @@ public class WorkflowPermissionAdvice {
 					long.class, long.class, String.class, Date.class,
 					Map.class);
 		}
-		catch (NoSuchMethodException nsme) {
-			throw new ExceptionInInitializerError(nsme);
+		catch (NoSuchMethodException noSuchMethodException) {
+			throw new ExceptionInInitializerError(noSuchMethodException);
 		}
 	}
 
@@ -77,8 +77,8 @@ public class WorkflowPermissionAdvice {
 			try {
 				return method.invoke(_workflowTaskManager, arguments);
 			}
-			catch (InvocationTargetException ite) {
-				throw ite.getCause();
+			catch (InvocationTargetException invocationTargetException) {
+				throw invocationTargetException.getCause();
 			}
 		}
 

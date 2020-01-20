@@ -58,8 +58,8 @@ public class DoPrivilegedHandler
 		try {
 			return doInvoke(proxy, method, arguments);
 		}
-		catch (InvocationTargetException ite) {
-			throw ite.getTargetException();
+		catch (InvocationTargetException invocationTargetException) {
+			throw invocationTargetException.getTargetException();
 		}
 	}
 
@@ -103,10 +103,10 @@ public class DoPrivilegedHandler
 			return AccessController.doPrivileged(
 				new InvokePrivilegedExceptionAction(_bean, method, arguments));
 		}
-		catch (PrivilegedActionException pae) {
-			Exception e = pae.getException();
+		catch (PrivilegedActionException privilegedActionException) {
+			Exception exception = privilegedActionException.getException();
 
-			throw e.getCause();
+			throw exception.getCause();
 		}
 	}
 

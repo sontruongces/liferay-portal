@@ -77,8 +77,8 @@ public class SharingButtonTag extends IncludeTag {
 				sharingJavaScriptFactory.createSharingOnClickMethod(
 					_className, _classPK, httpServletRequest));
 		}
-		catch (PortalException pe) {
-			_log.error("Unable to set onclick method", pe);
+		catch (PortalException portalException) {
+			_log.error("Unable to set onclick method", portalException);
 		}
 	}
 

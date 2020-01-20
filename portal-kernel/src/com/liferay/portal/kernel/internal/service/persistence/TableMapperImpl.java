@@ -398,8 +398,8 @@ public class TableMapperImpl<L extends BaseModel<L>, R extends BaseModel<R>>
 		try {
 			rowCount = deleteSqlUpdate.update(masterPrimaryKey);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 
 		if ((masterModelListeners.length > 0) ||
@@ -448,8 +448,8 @@ public class TableMapperImpl<L extends BaseModel<L>, R extends BaseModel<R>>
 					slaveBasePersistence.findByPrimaryKey(slavePrimaryKey));
 			}
 		}
-		catch (NoSuchModelException nsme) {
-			throw new SystemException(nsme);
+		catch (NoSuchModelException noSuchModelException) {
+			throw new SystemException(noSuchModelException);
 		}
 
 		if (obc != null) {
@@ -472,8 +472,8 @@ public class TableMapperImpl<L extends BaseModel<L>, R extends BaseModel<R>>
 			try {
 				primaryKeysList = mappingSqlQuery.execute(masterPrimaryKey);
 			}
-			catch (Exception e) {
-				throw new SystemException(e);
+			catch (Exception exception) {
+				throw new SystemException(exception);
 			}
 
 			primaryKeys = new long[primaryKeysList.size()];
@@ -546,8 +546,8 @@ public class TableMapperImpl<L extends BaseModel<L>, R extends BaseModel<R>>
 			addTableMappingSqlUpdate.update(
 				companyId, leftPrimaryKey, rightPrimaryKey);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 
 		for (ModelListener<L> leftModelListener : leftModelListeners) {
@@ -586,8 +586,8 @@ public class TableMapperImpl<L extends BaseModel<L>, R extends BaseModel<R>>
 			rowCount = deleteTableMappingSqlUpdate.update(
 				leftPrimaryKey, rightPrimaryKey);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 
 		if (rowCount > 0) {

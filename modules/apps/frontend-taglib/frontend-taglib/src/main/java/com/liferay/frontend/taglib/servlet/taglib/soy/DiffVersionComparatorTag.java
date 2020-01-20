@@ -171,9 +171,9 @@ public class DiffVersionComparatorTag extends ComponentRendererTag {
 				String.valueOf(_diffVersionsInfo.getPreviousVersion()));
 			putValue("resourceURL", _resourceURL.toString());
 		}
-		catch (PortalException | PortletException e) {
+		catch (PortalException | PortletException exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 

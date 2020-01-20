@@ -41,9 +41,9 @@ public abstract class SafeFileNameStore implements Store {
 			try {
 				store.move(dirName, safeDirName);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e, e);
+					_log.debug(exception, exception);
 				}
 			}
 		}
@@ -133,9 +133,9 @@ public abstract class SafeFileNameStore implements Store {
 
 				return;
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e, e);
+					_log.debug(exception, exception);
 				}
 			}
 		}
@@ -303,9 +303,9 @@ public abstract class SafeFileNameStore implements Store {
 			try {
 				store.move(dirName, safeDirName);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e, e);
+					_log.debug(exception, exception);
 				}
 			}
 		}

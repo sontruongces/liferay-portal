@@ -44,7 +44,7 @@ public class RSSUtil extends com.liferay.portal.kernel.util.RSSUtil {
 		try {
 			return output.outputString(feed);
 		}
-		catch (IllegalDataException ide) {
+		catch (IllegalDataException illegalDataException) {
 
 			// LEP-4450
 

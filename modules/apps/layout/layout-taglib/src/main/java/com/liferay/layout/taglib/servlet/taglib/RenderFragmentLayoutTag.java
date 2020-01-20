@@ -172,8 +172,8 @@ public class RenderFragmentLayoutTag extends IncludeTag {
 
 			return dataJSONObject.getJSONArray("structure");
 		}
-		catch (Exception e) {
-			_log.error("Unable to get structure JSON array", e);
+		catch (Exception exception) {
+			_log.error("Unable to get structure JSON array", exception);
 
 			return null;
 		}

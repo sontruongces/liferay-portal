@@ -84,8 +84,8 @@ public class FileSystemStore extends BaseStore {
 		try {
 			FileUtil.mkdirs(dirNameDir);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -105,8 +105,8 @@ public class FileSystemStore extends BaseStore {
 
 			FileUtil.write(fileNameVersionFile, is);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -139,8 +139,8 @@ public class FileSystemStore extends BaseStore {
 			fileSystemHelper.copy(
 				fromFileNameVersionFile, toFileNameVersionFile);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -238,8 +238,8 @@ public class FileSystemStore extends BaseStore {
 
 			return Files.readAllBytes(file.toPath());
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -255,8 +255,8 @@ public class FileSystemStore extends BaseStore {
 
 			return Files.readAllBytes(file.toPath());
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -277,9 +277,9 @@ public class FileSystemStore extends BaseStore {
 		try {
 			return new FileInputStream(fileNameVersionFile);
 		}
-		catch (FileNotFoundException fnfe) {
+		catch (FileNotFoundException fileNotFoundException) {
 			throw new NoSuchFileException(
-				companyId, repositoryId, fileName, fnfe);
+				companyId, repositoryId, fileName, fileNotFoundException);
 		}
 	}
 
@@ -437,8 +437,8 @@ public class FileSystemStore extends BaseStore {
 
 			FileUtil.write(fileNameVersionFile, is);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -518,8 +518,8 @@ public class FileSystemStore extends BaseStore {
 		try {
 			FileUtil.mkdirs(companyDir);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 
 		return companyDir;
@@ -614,8 +614,8 @@ public class FileSystemStore extends BaseStore {
 			try {
 				FileUtil.mkdirs(repositoryDir);
 			}
-			catch (IOException ioe) {
-				throw new SystemException(ioe);
+			catch (IOException ioException) {
+				throw new SystemException(ioException);
 			}
 
 			_repositoryDirs.put(repositoryDirKey, repositoryDir);
@@ -644,8 +644,8 @@ public class FileSystemStore extends BaseStore {
 		try {
 			FileUtil.mkdirs(_rootDir);
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 

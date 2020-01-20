@@ -145,7 +145,7 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 
 			field.set(serviceUtilClass, null);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 	}
 
@@ -264,7 +264,7 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 
 				mockHttpServletRequest.setParameter(kvp[0], value);
 			}
-			catch (UnsupportedEncodingException uee) {
+			catch (UnsupportedEncodingException unsupportedEncodingException) {
 			}
 		}
 
@@ -707,8 +707,8 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 			try {
 				return Collections.singleton(doResolve(criteriaSet));
 			}
-			catch (Exception e) {
-				throw new ResolverException(e);
+			catch (Exception exception) {
+				throw new ResolverException(exception);
 			}
 		}
 

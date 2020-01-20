@@ -122,8 +122,8 @@ public class PDFProcessorImpl
 		try {
 			return doGetPreviewFileCount(fileVersion);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		return 0;
@@ -166,8 +166,8 @@ public class PDFProcessorImpl
 				_queueGeneration(null, fileVersion);
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		return hasImages;
@@ -249,8 +249,8 @@ public class PDFProcessorImpl
 				}
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 
@@ -431,7 +431,8 @@ public class PDFProcessorImpl
 
 						return;
 					}
-					catch (UnsupportedOperationException uoe) {
+					catch (UnsupportedOperationException
+								unsupportedOperationException) {
 					}
 				}
 
@@ -467,9 +468,9 @@ public class PDFProcessorImpl
 				}
 			}
 		}
-		catch (NoSuchFileEntryException nsfee) {
+		catch (NoSuchFileEntryException noSuchFileEntryException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(nsfee, nsfee);
+				_log.debug(noSuchFileEntryException, noSuchFileEntryException);
 			}
 		}
 		finally {
@@ -586,7 +587,7 @@ public class PDFProcessorImpl
 
 			futures.put(processIdentity, future);
 		}
-		catch (TimeoutException te) {
+		catch (TimeoutException timeoutException) {
 			String errorMessage =
 				"Timeout when generating preview for " + file.getPath();
 
@@ -603,14 +604,14 @@ public class PDFProcessorImpl
 
 			_log.error(errorMessage);
 
-			throw te;
+			throw timeoutException;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_fileVersionPreviewEventListener.onFailure(fileVersion);
 
-			_log.error(e, e);
+			_log.error(exception, exception);
 
-			throw e;
+			throw exception;
 		}
 
 		// Store images
@@ -753,7 +754,7 @@ public class PDFProcessorImpl
 
 				futures.put(processIdentity, future);
 			}
-			catch (TimeoutException te) {
+			catch (TimeoutException timeoutException) {
 				String errorMessage = null;
 
 				if (generateThumbnail && generatePreview) {
@@ -784,14 +785,14 @@ public class PDFProcessorImpl
 
 				_fileVersionPreviewEventListener.onFailure(fileVersion);
 
-				throw te;
+				throw timeoutException;
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 
 				_fileVersionPreviewEventListener.onFailure(fileVersion);
 
-				throw e;
+				throw exception;
 			}
 		}
 		else {
@@ -901,9 +902,9 @@ public class PDFProcessorImpl
 
 				return pdDocument.getNumberOfPages();
 			}
-			catch (IOException ioe) {
-				if (!(ioe instanceof InvalidPasswordException)) {
-					_log.error(ioe, ioe);
+			catch (IOException ioException) {
+				if (!(ioException instanceof InvalidPasswordException)) {
+					_log.error(ioException, ioException);
 				}
 			}
 		}
@@ -1080,8 +1081,8 @@ public class PDFProcessorImpl
 
 				liferayConverter.generateImagesPB();
 			}
-			catch (Exception e) {
-				throw new ProcessException(e);
+			catch (Exception exception) {
+				throw new ProcessException(exception);
 			}
 
 			return StringPool.BLANK;

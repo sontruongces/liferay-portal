@@ -124,9 +124,9 @@ public abstract class BaseUpgradeAttachments extends UpgradeProcess {
 
 			return fileEntryId;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to add file entry " + name, e);
+				_log.warn("Unable to add file entry " + name, exception);
 			}
 
 			return -1;
@@ -188,11 +188,11 @@ public abstract class BaseUpgradeAttachments extends UpgradeProcess {
 
 			ps.executeUpdate();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Unable to add file version 1.0 for file entry " + title,
-					e);
+					exception);
 			}
 		}
 		finally {
@@ -276,9 +276,9 @@ public abstract class BaseUpgradeAttachments extends UpgradeProcess {
 
 			return folderId;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to add folder " + name, e);
+				_log.warn("Unable to add folder " + name, exception);
 			}
 
 			return -1;
@@ -336,10 +336,11 @@ public abstract class BaseUpgradeAttachments extends UpgradeProcess {
 
 			return repositoryId;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to add repository for portlet " + portletId, e);
+					"Unable to add repository for portlet " + portletId,
+					exception);
 			}
 
 			return -1;
@@ -381,9 +382,11 @@ public abstract class BaseUpgradeAttachments extends UpgradeProcess {
 
 			ps.executeUpdate();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to add resource permission " + className, e);
+				_log.warn(
+					"Unable to add resource permission " + className,
+					exception);
 			}
 		}
 		finally {
@@ -652,9 +655,10 @@ public abstract class BaseUpgradeAttachments extends UpgradeProcess {
 				DLStoreUtil.addFile(
 					companyId, containerModelFolderId, name, false, bytes);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
-					_log.warn("Unable to add attachment " + attachment, e);
+					_log.warn(
+						"Unable to add attachment " + attachment, exception);
 				}
 			}
 
@@ -662,9 +666,10 @@ public abstract class BaseUpgradeAttachments extends UpgradeProcess {
 				DLStoreUtil.deleteFile(
 					companyId, CompanyConstants.SYSTEM, attachment);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
-					_log.warn("Unable to delete attachment " + attachment, e);
+					_log.warn(
+						"Unable to delete attachment " + attachment, exception);
 				}
 			}
 		}

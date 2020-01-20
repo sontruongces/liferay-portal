@@ -141,10 +141,10 @@ public class LicenseUtil {
 
 			return (Map<String, String>)clusterNodeResponse.getResult();
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw e;
+			throw exception;
 		}
 	}
 
@@ -232,8 +232,8 @@ public class LicenseUtil {
 						httpServletRequest, clusterNode, orderUuid,
 						productEntryName, maxServers);
 				}
-				catch (Exception e) {
-					_log.error(e, e);
+				catch (Exception exception) {
+					_log.error(exception, exception);
 
 					InetAddress inetAddress = clusterNode.getBindInetAddress();
 
@@ -294,8 +294,8 @@ public class LicenseUtil {
 					"Your license has been successfully registered.");
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
 			attributes.put(
 				"ERROR_MESSAGE",
@@ -597,8 +597,10 @@ public class LicenseUtil {
 				macAddresses.add(sb.toString());
 			}
 		}
-		catch (SocketException se) {
-			_log.error("Unable to read local server network interfaces", se);
+		catch (SocketException socketException) {
+			_log.error(
+				"Unable to read local server network interfaces",
+				socketException);
 		}
 
 		_ipAddresses = Collections.unmodifiableSet(ipAddresses);

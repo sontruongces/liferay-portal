@@ -100,11 +100,11 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 			IndexWriterHelperUtil.deleteDocument(
 				getSearchEngineId(), companyId, uid, _commitImmediately);
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -117,11 +117,11 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 		try {
 			doDelete(object);
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -167,11 +167,11 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 
 			return document;
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -228,11 +228,11 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 
 			return fullQuery;
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -338,11 +338,11 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 
 			return summary;
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -489,8 +489,9 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 			try {
 				reindex(element);
 			}
-			catch (SearchException se) {
-				_log.error("Unable to index object: " + element, se);
+			catch (SearchException searchException) {
+				_log.error(
+					"Unable to index object: " + element, searchException);
 			}
 		}
 	}
@@ -507,19 +508,19 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 
 			doReindex(className, classPK);
 		}
-		catch (NoSuchModelException nsme) {
+		catch (NoSuchModelException noSuchModelException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
 						"Unable to index ", className, " ", classPK),
-					nsme);
+					noSuchModelException);
 			}
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -543,11 +544,11 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 
 			doReindex(ids);
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 		finally {
 			CompanyThreadLocal.setCompanyId(companyThreadLocalCompanyId);
@@ -570,11 +571,11 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 
 			doReindex(object);
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -617,11 +618,11 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 
 			return hits;
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -1494,9 +1495,9 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 				group = group.getParentGroup();
 			}
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug("Unable to get site group", pe);
+				_log.debug("Unable to get site group", portalException);
 			}
 		}
 
@@ -1583,9 +1584,9 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 					getLocalizedCountryNames(
 						CountryServiceUtil.getCountry(countryId)));
 			}
-			catch (NoSuchCountryException nsce) {
+			catch (NoSuchCountryException noSuchCountryException) {
 				if (_log.isWarnEnabled()) {
-					_log.warn(nsce.getMessage());
+					_log.warn(noSuchCountryException.getMessage());
 				}
 			}
 		}
@@ -1598,9 +1599,9 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 
 				regions.add(StringUtil.toLowerCase(region.getName()));
 			}
-			catch (NoSuchRegionException nsre) {
+			catch (NoSuchRegionException noSuchRegionException) {
 				if (_log.isWarnEnabled()) {
-					_log.warn(nsre.getMessage());
+					_log.warn(noSuchRegionException.getMessage());
 				}
 			}
 		}

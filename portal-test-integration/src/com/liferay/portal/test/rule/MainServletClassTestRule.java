@@ -108,9 +108,10 @@ public class MainServletClassTestRule extends ClassTestRule<Void> {
 			try {
 				_mainServlet.init(mockServletConfig);
 			}
-			catch (ServletException se) {
+			catch (ServletException servletException) {
 				throw new RuntimeException(
-					"The main servlet could not be initialized", se);
+					"The main servlet could not be initialized",
+					servletException);
 			}
 
 			ServiceTestUtil.initStaticServices();

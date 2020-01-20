@@ -63,8 +63,8 @@ public class OAuthWebBundleActivator implements BundleActivator {
 				try {
 					upgradeWebModuleRelease.upgrade();
 				}
-				catch (UpgradeException ue) {
-					throw new RuntimeException(ue);
+				catch (UpgradeException upgradeException) {
+					throw new RuntimeException(upgradeException);
 				}
 
 				return null;

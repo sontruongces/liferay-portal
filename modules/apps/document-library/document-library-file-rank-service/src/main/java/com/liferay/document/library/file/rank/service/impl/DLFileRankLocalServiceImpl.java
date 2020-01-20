@@ -74,7 +74,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 		try {
 			dlFileRankPersistence.update(dlFileRank);
 		}
-		catch (SystemException se) {
+		catch (SystemException systemException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
@@ -86,7 +86,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 				companyId, userId, fileEntryId, false);
 
 			if (dlFileRank == null) {
-				throw se;
+				throw systemException;
 			}
 		}
 
@@ -114,7 +114,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 				try {
 					dlFileRankPersistence.remove(dlFileRank);
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					if (_log.isWarnEnabled()) {
 						_log.warn("Unable to remove file rank " + fileRankId);
 					}
@@ -218,7 +218,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 			try {
 				dlFileRankPersistence.update(dlFileRank);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						StringBundler.concat(

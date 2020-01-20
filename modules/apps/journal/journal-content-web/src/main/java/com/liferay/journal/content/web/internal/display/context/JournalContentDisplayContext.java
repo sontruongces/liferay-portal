@@ -226,8 +226,8 @@ public class JournalContentDisplayContext {
 							_portletRequest, _portletResponse),
 						_themeDisplay);
 			}
-			catch (PortalException pe) {
-				_log.error(pe, pe);
+			catch (PortalException portalException) {
+				_log.error(portalException, portalException);
 			}
 		}
 
@@ -440,10 +440,10 @@ public class JournalContentDisplayContext {
 				PortalUtil.getClassNameId(DDMStructure.class),
 				ddmStructure.getStructureId(), true);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
 				"Unable to get DDM temmplate for article " + article.getId(),
-				pe);
+				portalException);
 		}
 
 		return _ddmTemplates;
@@ -659,8 +659,8 @@ public class JournalContentDisplayContext {
 
 			return portletURL.toString();
 		}
-		catch (Exception e) {
-			_log.error("Unable to get edit URL", e);
+		catch (Exception exception) {
+			_log.error("Unable to get edit URL", exception);
 
 			return StringPool.BLANK;
 		}
@@ -710,8 +710,8 @@ public class JournalContentDisplayContext {
 
 			return portletURL.toString();
 		}
-		catch (Exception e) {
-			_log.error("Unable to get view history URL", e);
+		catch (Exception exception) {
+			_log.error("Unable to get view history URL", exception);
 
 			return StringPool.BLANK;
 		}
@@ -939,11 +939,11 @@ public class JournalContentDisplayContext {
 					_themeDisplay.getPermissionChecker(), ddmTemplate,
 					ActionKeys.UPDATE);
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			_log.error(
 				"Unable to check permission on DDM template " +
 					ddmTemplate.getTemplateId(),
-				pe);
+				portalException);
 		}
 
 		return _showEditTemplateIcon;
@@ -1037,7 +1037,7 @@ public class JournalContentDisplayContext {
 
 			return (JournalArticle)assetRenderer.getAssetObject();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return null;

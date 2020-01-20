@@ -801,7 +801,7 @@ public class CompanyLocalServiceTest {
 
 				Assert.assertFalse(expectFailure);
 			}
-			catch (AccountNameException ane) {
+			catch (AccountNameException accountNameException) {
 				Assert.assertTrue(expectFailure);
 			}
 		}
@@ -843,7 +843,7 @@ public class CompanyLocalServiceTest {
 				Assert.assertEquals(originalMx, updatedMx);
 			}
 		}
-		catch (CompanyMxException cme) {
+		catch (CompanyMxException companyMxException) {
 			Assert.assertFalse(valid);
 			Assert.assertTrue(mailMxUpdate);
 		}
@@ -868,7 +868,7 @@ public class CompanyLocalServiceTest {
 
 				Assert.assertFalse(expectFailure);
 			}
-			catch (CompanyVirtualHostException cvhe) {
+			catch (CompanyVirtualHostException companyVirtualHostException) {
 				Assert.assertTrue(expectFailure);
 			}
 		}
