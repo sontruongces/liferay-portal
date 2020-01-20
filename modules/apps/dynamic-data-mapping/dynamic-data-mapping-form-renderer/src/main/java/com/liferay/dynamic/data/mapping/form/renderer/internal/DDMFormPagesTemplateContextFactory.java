@@ -196,8 +196,7 @@ public class DDMFormPagesTemplateContextFactory {
 			ddmFormLayoutPage.getDDMFormLayoutRows());
 
 		return HashMapBuilder.<String, Object>put(
-			"description",
-			getValue(_ddmFormRenderingContext, description.getString(_locale))
+			"description", description.getString(_locale)
 		).put(
 			"enabled", _pageEnabled
 		).put(
@@ -212,8 +211,7 @@ public class DDMFormPagesTemplateContextFactory {
 		).put(
 			"showRequiredFieldsWarning", showRequiredFieldsWarning
 		).put(
-			"title",
-			getValue(_ddmFormRenderingContext, title.getString(_locale))
+			"title", title.getString(_locale)
 		).build();
 	}
 
