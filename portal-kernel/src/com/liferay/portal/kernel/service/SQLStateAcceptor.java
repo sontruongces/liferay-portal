@@ -62,10 +62,10 @@ public class SQLStateAcceptor implements RetryAcceptor {
 	}
 
 	private boolean _scanForSQLState(
-		SQLException sqle, String expectedSQLState) {
+		SQLException sqlException1, String expectedSQLState) {
 
 		while (true) {
-			String sqlState = sqle.getSQLState();
+			String sqlState = sqlException1.getSQLState();
 
 			if (Validator.isNotNull(sqlState) &&
 				sqlState.startsWith(expectedSQLState)) {
@@ -73,13 +73,15 @@ public class SQLStateAcceptor implements RetryAcceptor {
 				return true;
 			}
 
-			SQLException nextSQLE = sqle.getNextException();
+			SQLException sqlException2 = sqlException1.getNextException();
 
-			if ((nextSQLE == null) || nextSQLE.equals(sqle)) {
+			if ((sqlException2 == null) ||
+				sqlException2.equals(sqlException1)) {
+
 				break;
 			}
 
-			sqle = nextSQLE;
+			sqlException1 = sqlException2;
 		}
 
 		return false;

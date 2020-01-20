@@ -239,12 +239,12 @@ public class DLSharepointStorageImpl extends BaseSharepointStorageImpl {
 
 			folder = DLAppServiceUtil.getFolder(parentFolderId);
 		}
-		catch (Exception e1) {
-			if (e1 instanceof NoSuchFolderException) {
+		catch (Exception exception1) {
+			if (exception1 instanceof NoSuchFolderException) {
 				try {
 					fileEntry = getFileEntry(sharepointRequest);
 				}
-				catch (Exception e2) {
+				catch (Exception exception2) {
 				}
 			}
 		}
@@ -420,12 +420,12 @@ public class DLSharepointStorageImpl extends BaseSharepointStorageImpl {
 
 			folder = DLAppServiceUtil.getFolder(parentFolderId);
 		}
-		catch (Exception e1) {
-			if (e1 instanceof NoSuchFolderException) {
+		catch (Exception exception1) {
+			if (exception1 instanceof NoSuchFolderException) {
 				try {
 					fileEntry = getFileEntry(sharepointRequest);
 				}
-				catch (Exception e2) {
+				catch (Exception exception2) {
 				}
 			}
 		}
@@ -448,11 +448,11 @@ public class DLSharepointStorageImpl extends BaseSharepointStorageImpl {
 
 				removedDocsTree.addChild(documentTree);
 			}
-			catch (Exception e1) {
+			catch (Exception exception1) {
 				try {
 					failedDocsTree.addChild(documentTree);
 				}
-				catch (Exception e2) {
+				catch (Exception exception2) {
 				}
 			}
 		}
@@ -464,11 +464,11 @@ public class DLSharepointStorageImpl extends BaseSharepointStorageImpl {
 
 				removedDirsTree.addChild(folderTree);
 			}
-			catch (Exception e1) {
+			catch (Exception exception1) {
 				try {
 					failedDirsTree.addChild(folderTree);
 				}
-				catch (Exception e2) {
+				catch (Exception exception2) {
 				}
 			}
 		}
