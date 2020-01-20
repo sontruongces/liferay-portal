@@ -18,7 +18,6 @@ import com.liferay.dynamic.data.mapping.model.DDMFormFieldOptions;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.render.DDMFormFieldRenderingContext;
 import com.liferay.portal.kernel.util.HashMapBuilder;
-import com.liferay.portal.kernel.util.HtmlUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,18 +45,15 @@ public class GridDDMFormFieldContextHelper {
 		}
 
 		for (String optionValue : _ddmFormFieldOptions.getOptionsValues()) {
-			LocalizedValue optionLabel = _ddmFormFieldOptions.getOptionLabels(
-				optionValue);
-
-			String optionLabelString = optionLabel.getString(_locale);
-
-			if (ddmFormFieldRenderingContext.isViewMode()) {
-				optionLabelString = HtmlUtil.extractText(optionLabelString);
-			}
-
 			options.add(
 				HashMapBuilder.put(
-					"label", optionLabelString
+					"label",
+					() -> {
+						LocalizedValue optionLabel =
+							_ddmFormFieldOptions.getOptionLabels(optionValue);
+
+						return optionLabel.getString(_locale);
+					}
 				).put(
 					"value", optionValue
 				).build());

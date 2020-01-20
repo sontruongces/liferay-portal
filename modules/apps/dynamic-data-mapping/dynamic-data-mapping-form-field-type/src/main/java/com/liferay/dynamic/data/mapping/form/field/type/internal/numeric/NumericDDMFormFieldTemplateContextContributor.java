@@ -162,13 +162,7 @@ public class NumericDDMFormFieldTemplateContextContributor
 			return StringPool.BLANK;
 		}
 
-		String valueString = value.getString(locale);
-
-		if (ddmFormFieldRenderingContext.isViewMode()) {
-			valueString = HtmlUtil.extractText(value.getString(locale));
-		}
-
-		return valueString;
+		return value.getString(locale);
 	}
 
 }

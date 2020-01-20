@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
-import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -53,18 +52,15 @@ public class CheckboxMultipleDDMFormFieldContextHelper {
 		List<Object> options = new ArrayList<>();
 
 		for (String optionValue : _ddmFormFieldOptions.getOptionsValues()) {
-			LocalizedValue optionLabel = _ddmFormFieldOptions.getOptionLabels(
-				optionValue);
-
-			String optionLabelString = optionLabel.getString(_locale);
-
-			if (ddmFormFieldRenderingContext.isViewMode()) {
-				optionLabelString = HtmlUtil.extractText(optionLabelString);
-			}
-
 			options.add(
 				HashMapBuilder.put(
-					"label", optionLabelString
+					"label",
+					() -> {
+						LocalizedValue optionLabel =
+							_ddmFormFieldOptions.getOptionLabels(optionValue);
+
+						return optionLabel.getString(_locale);
+					}
 				).put(
 					"value", optionValue
 				).build());
