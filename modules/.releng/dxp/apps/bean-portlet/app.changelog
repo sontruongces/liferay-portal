@@ -44,3 +44,15 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-103302 LPS-84119 LPS-95096 LPS-98877
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.bean.portlet.api-2.0.1.jar,\
+	com.liferay.bean.portlet.cdi.extension-2.0.9.jar
+
+app.change.log-2.0.4=LPS-103302 LPS-105380 LPS-106072 LPS-95096
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

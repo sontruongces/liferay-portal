@@ -50,3 +50,17 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100448 LPS-103302 LPS-77425 LPS-77699 LPS-80332 LPS-98032
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.ratings.analytics-2.0.4.jar,\
+	com.liferay.ratings.api-4.0.0.jar,\
+	com.liferay.ratings.page.ratings.web-4.0.8.jar,\
+	com.liferay.ratings.service-3.0.9.jar
+
+app.change.log-2.0.4=LPS-103302 LPS-105380 LPS-77425 LPS-80332 LPS-98032
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

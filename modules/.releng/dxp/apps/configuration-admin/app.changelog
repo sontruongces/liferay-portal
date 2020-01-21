@@ -44,3 +44,15 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100448 LPS-101841 LPS-102700 LPS-103302 LPS-103581 LPS-77699 LPS-97673
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.configuration.admin.api-2.1.5.jar,\
+	com.liferay.configuration.admin.web-3.0.41.jar
+
+app.change.log-2.0.4=LPS-100448 LPS-102655 LPS-103302 LPS-103581 LPS-103981 LPS-104004 LPS-104679 LPS-105380 LPS-105532 LPS-77699
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

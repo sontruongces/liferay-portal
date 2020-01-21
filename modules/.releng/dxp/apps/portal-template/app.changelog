@@ -66,3 +66,23 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100448 LPS-101089 LPS-102700 LPS-103252 LPS-103302 LPS-84119 LPS-95523 LPS-95524 LPS-99841 LPS-99917
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.portal.template.freemarker-5.0.18.jar,\
+	com.liferay.portal.template.react.renderer.api-3.0.0.jar,\
+	com.liferay.portal.template.react.renderer.impl-3.0.0.jar,\
+	com.liferay.portal.template.soy.api-2.1.3.jar,\
+	com.liferay.portal.template.soy.context.contributor-3.0.5.jar,\
+	com.liferay.portal.template.soy.impl-2.0.27.jar,\
+	com.liferay.portal.template.soy.renderer.api-1.0.4.jar,\
+	com.liferay.portal.template.soy.renderer.impl-1.0.11.jar,\
+	com.liferay.portal.template.velocity-4.0.15.jar,\
+	com.liferay.portal.template.xsl-4.0.9.jar
+
+app.change.log-2.0.4=LPS-102655 LPS-103252 LPS-103302 LPS-105380 LPS-95524
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

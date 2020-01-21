@@ -55,3 +55,19 @@ app.artifacts-1.0.3=\
 app.change.log-1.0.3=LPS-100016 LPS-100045 LPS-100095 LPS-100235 LPS-100242 LPS-100337 LPS-100352 LPS-100379 LPS-100418 LPS-100448 LPS-100469 LPS-100551 LPS-100552 LPS-100643 LPS-100652 LPS-100757 LPS-100926 LPS-100958 LPS-100982 LPS-101089 LPS-101208 LPS-101833 LPS-101862 LPS-101887 LPS-101903 LPS-101904 LPS-102062 LPS-102189 LPS-102478 LPS-102817 LPS-102983 LPS-103068 LPS-103252 LPS-103302 LPS-103511 LPS-104066 LPS-77699 LPS-83411 LPS-83416 LPS-84119 LPS-86806 LPS-94523 LPS-98032 LPS-98298 LPS-98877 LPS-98879 LPS-99224 LPS-99245 LPS-99282 LPS-99283 LPS-99284 LPS-99561 LPS-99883 LRQA-51488
 
 app.git.id-1.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 1.0.4
+#
+
+app.artifacts-1.0.4=\
+	com.liferay.document.library.opener.api-1.3.3.jar,\
+	com.liferay.document.library.opener.google.drive.api-1.2.2.jar,\
+	com.liferay.document.library.opener.google.drive.web-1.0.25.jar,\
+	com.liferay.document.library.opener.onedrive.web-1.0.10.jar,\
+	com.liferay.document.library.opener.service-1.0.17.jar,\
+	com.liferay.document.library.opener.uad-1.0.4.jar
+
+app.change.log-1.0.4=LPS-102655 LPS-103252 LPS-103302 LPS-104066 LPS-104129 LPS-105380 LPS-106662 LPS-106666 LPS-77699 LPS-98032
+
+app.git.id-1.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

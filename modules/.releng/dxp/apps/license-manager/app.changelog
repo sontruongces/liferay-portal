@@ -41,3 +41,14 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-101970 LPS-103302
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.license.manager.web-4.0.8.jar
+
+app.change.log-2.0.4=LPS-103302
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

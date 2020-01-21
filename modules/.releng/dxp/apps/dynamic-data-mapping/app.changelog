@@ -97,3 +97,32 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100348 LPS-100416 LPS-100448 LPS-100862 LPS-101515 LPS-101662 LPS-102042 LPS-102153 LPS-102342 LPS-102403 LPS-102450 LPS-102451 LPS-102511 LPS-102521 LPS-102616 LPS-102617 LPS-102621 LPS-102678 LPS-102700 LPS-102733 LPS-102817 LPS-103049 LPS-103068 LPS-103252 LPS-103302 LPS-103511 LPS-77699 LPS-84119 LPS-97315 LPS-97841 LPS-98032 LPS-98183 LPS-98372 LPS-99389 LPS-99541 LPS-99840 LPS-99916
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.dynamic.data.mapping.api-5.7.3.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.impl-3.0.11.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.instance-2.0.7.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.web-3.0.14.jar,\
+	com.liferay.dynamic.data.mapping.expression-4.0.11.jar,\
+	com.liferay.dynamic.data.mapping.form.analytics-3.0.7.jar,\
+	com.liferay.dynamic.data.mapping.form.builder-2.0.45.jar,\
+	com.liferay.dynamic.data.mapping.form.evaluator.impl-2.0.21.jar,\
+	com.liferay.dynamic.data.mapping.form.field.type-4.0.45.jar,\
+	com.liferay.dynamic.data.mapping.form.renderer-4.0.36.jar,\
+	com.liferay.dynamic.data.mapping.form.taglib-2.0.15.jar,\
+	com.liferay.dynamic.data.mapping.form.values.factory-4.0.9.jar,\
+	com.liferay.dynamic.data.mapping.form.values.query-4.0.3.jar,\
+	com.liferay.dynamic.data.mapping.form.web-2.0.48.jar,\
+	com.liferay.dynamic.data.mapping.lang-4.0.17.jar,\
+	com.liferay.dynamic.data.mapping.service-4.0.47.jar,\
+	com.liferay.dynamic.data.mapping.taglib-4.1.11.jar,\
+	com.liferay.dynamic.data.mapping.validator-4.0.12.jar,\
+	com.liferay.dynamic.data.mapping.web-3.0.37.jar
+
+app.change.log-2.0.4=LPS-100515 LPS-102655 LPS-102852 LPS-103049 LPS-103252 LPS-103302 LPS-103386 LPS-103418 LPS-103483 LPS-103511 LPS-103533 LPS-103640 LPS-103678 LPS-103694 LPS-103822 LPS-104129 LPS-104222 LPS-104247 LPS-104414 LPS-104679 LPS-104808 LPS-104809 LPS-105035 LPS-105077 LPS-105380 LPS-105571 LPS-105572 LPS-105752 LPS-105801 LPS-106476 LPS-106613 LPS-106662 LPS-106666 LPS-77699 LPS-84119 LPS-92932 LPS-94947 LPS-97302 LPS-98032
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

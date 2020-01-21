@@ -30,3 +30,14 @@ app.artifacts-2.0.2=\
 app.change.log-2.0.2=LPS-101089 LPS-103302 LPS-84119
 
 app.git.id-2.0.2=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.3
+#
+
+app.artifacts-2.0.3=\
+	com.liferay.portal.validation.api-2.0.4.jar
+
+app.change.log-2.0.3=LPS-103302
+
+app.git.id-2.0.3=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

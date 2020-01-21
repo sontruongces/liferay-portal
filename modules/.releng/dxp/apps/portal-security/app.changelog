@@ -74,3 +74,25 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100448 LPS-102451 LPS-102817 LPS-103068 LPS-103252 LPS-103302 LPS-77425 LPS-77699 LPS-80332 LPS-84119 LPS-84682 LPS-86806 LPS-98032 LPS-98728 LPS-99657 LPS-99771 LPS-99917 LPS-99959
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.portal.security.antisamy-4.0.10.jar,\
+	com.liferay.portal.security.auth.verifier-4.0.15.jar,\
+	com.liferay.portal.security.auto.login-4.0.12.jar,\
+	com.liferay.portal.security.exportimport.api-4.0.1.jar,\
+	com.liferay.portal.security.ldap.api-2.0.11.jar,\
+	com.liferay.portal.security.ldap.impl-2.0.20.jar,\
+	com.liferay.portal.security.permission.api-2.0.0.jar,\
+	com.liferay.portal.security.permission.impl-2.0.7.jar,\
+	com.liferay.portal.security.service.access.policy.api-4.0.13.jar,\
+	com.liferay.portal.security.service.access.policy.service-4.0.19.jar,\
+	com.liferay.portal.security.service.access.policy.web-3.0.14.jar,\
+	com.liferay.portal.security.service.access.quota.api-2.0.6.jar
+
+app.change.log-2.0.4=LPS-103252 LPS-103302 LPS-104129 LPS-105380 LPS-106662 LPS-106666 LPS-77699 LPS-84682 LPS-94947 LPS-98032 LPS-98895 LPS-99587
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

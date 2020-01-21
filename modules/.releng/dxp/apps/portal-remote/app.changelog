@@ -111,3 +111,35 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100448 LPS-100526 LPS-102056 LPS-102196 LPS-102451 LPS-102700 LPS-103252 LPS-103302 LPS-104001 LPS-77425 LPS-77699 LPS-79679 LPS-80332 LPS-80681 LPS-82460 LPS-82828 LPS-82850 LPS-83308 LPS-84119 LPS-85260 LPS-85678 LPS-86079 LPS-86332 LPS-86408 LPS-88464 LPS-91226 LPS-91463 LPS-91514 LPS-91539 LPS-94523 LPS-95442 LPS-96318 LPS-96318/LPS-96656 LPS-97701 LRQA-50606 LRQA-51488 OAUTH2-128 OAUTH2-137 OAUTH2-44
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.fasterxml.jackson.jaxrs.jackson-jaxrs-base-2.9.8.jar,\
+	com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider-2.9.8.jar,\
+	com.fasterxml.jackson.module.jackson-module-jaxb-annotations-2.9.8.jar,\
+	com.liferay.portal.remote.axis.extender-3.0.9.jar,\
+	com.liferay.portal.remote.cors.api-1.0.8.jar,\
+	com.liferay.portal.remote.cors.impl-1.0.9.jar,\
+	com.liferay.portal.remote.cxf.common-5.0.14.jar,\
+	com.liferay.portal.remote.http.tunnel.extender-4.0.8.jar,\
+	com.liferay.portal.remote.http.whiteboard.debug-4.0.2.jar,\
+	com.liferay.portal.remote.jaxrs.security.impl-1.0.4.jar,\
+	com.liferay.portal.remote.jaxrs.whiteboard-3.0.6.jar,\
+	com.liferay.portal.remote.jaxrs.whiteboard.debug-2.0.3.jar,\
+	com.liferay.portal.remote.jaxrs.whiteboard.jaxb.json-2.0.7.jar,\
+	com.liferay.portal.remote.json.web.service.extender-4.0.5.jar,\
+	com.liferay.portal.remote.rest.extender-4.0.6.jar,\
+	com.liferay.portal.remote.soap.extender.api-3.0.0.jar,\
+	com.liferay.portal.remote.soap.extender.impl-3.0.10.jar,\
+	geronimo-jaxrs_2.1_spec-1.1.jar,\
+	javax.json-api-1.0.jar,\
+	org.apache.aries.jax.rs.jackson-1.0.2.jar,\
+	org.apache.aries.jax.rs.whiteboard-1.0.6.jar,\
+	org.osgi.service.jaxrs-1.0.0.jar
+
+app.change.log-2.0.4=LPS-100526 LPS-102196 LPS-103252 LPS-103302 LPS-104001 LPS-105247 LPS-105380 LPS-105899 LPS-77425 LPS-77699 LPS-79679 LPS-80332 LPS-80681 LPS-82460 LPS-82828 LPS-82850 LPS-84119 LPS-85260 LPS-85678 LPS-86079 LPS-86332 LPS-88464 LPS-91226 LPS-91463 LPS-91514 LPS-91539 LPS-94523 LPS-95442 LPS-96318 LPS-96318/LPS-96656 LRQA-50606 OAUTH2-128 OAUTH2-137 OAUTH2-44
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

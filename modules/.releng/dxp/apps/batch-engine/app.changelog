@@ -1,0 +1,11 @@
+#
+# Liferay App Version 2.0.0
+#
+
+app.artifacts-2.0.0=\
+	com.liferay.batch.engine.api-2.0.1.jar,\
+	com.liferay.batch.engine.service-2.0.2.jar
+
+app.change.log-2.0.0=COMMERCE-1067 LPS-105380 LPS-106662 LPS-106666
+
+app.git.id-2.0.0=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

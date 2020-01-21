@@ -44,3 +44,15 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100448 LPS-103252 LPS-103302 LPS-78661 LPS-96525
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.portal.language.extender-4.0.5.jar,\
+	com.liferay.portal.language.servlet.filter-4.0.8.jar
+
+app.change.log-2.0.4=LPS-103252 LPS-103302 LPS-105380
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

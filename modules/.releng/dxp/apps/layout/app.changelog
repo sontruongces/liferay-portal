@@ -115,3 +115,39 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=[[trimmed]]PS-85849 LPS-86006 LPS-86408 LPS-86629 LPS-86806 LPS-87055 LPS-87536 LPS-87590 LPS-87755 LPS-87886 LPS-88181 LPS-88218 LPS-88251 LPS-88401 LPS-88453 LPS-88499 LPS-88721 LPS-88725 LPS-88766 LPS-88773 LPS-88823 LPS-89139 LPS-89154 LPS-89456 LPS-89483 LPS-89575 LPS-89612 LPS-90037 LPS-90083 LPS-90523 LPS-90753 LPS-90760 LPS-90927 LPS-90946 LPS-90999 LPS-91125 LPS-91186 LPS-91287 LPS-91288 LPS-91343 LPS-91440 LPS-91516 LPS-91519 LPS-91552 LPS-91753 LPS-91758 LPS-91759 LPS-91834 LPS-91856 LPS-92166 LPS-92248 LPS-92400 LPS-92448 LPS-92461 LPS-92471 LPS-92475 LPS-92511 LPS-92553 LPS-92603 LPS-92607 LPS-92715 LPS-92747 LPS-93099 LPS-93101 LPS-93115 LPS-93188 LPS-93201 LPS-93320 LPS-93390 LPS-93400 LPS-93425 LPS-93690 LPS-94019 LPS-94228 LPS-94633 LPS-94990 LPS-95096 LPS-95271 LPS-95413 LPS-95555 LPS-95740 LPS-95858 LPS-96046 LPS-96987 LPS-97094 LPS-98032 LPS-98138 LPS-98193 LPS-98354 LPS-98589 LPS-98877 LPS-98879 LPS-99067 LPS-99252 LPS-99326 LPS-99657 LPS-99786 LPS-99823 LPS-99917 LRDOCS-6300
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.layout.admin.api-2.0.1.jar,\
+	com.liferay.layout.admin.web-3.0.56.jar,\
+	com.liferay.layout.api-2.2.3.jar,\
+	com.liferay.layout.content.page.editor.api-1.1.0.jar,\
+	com.liferay.layout.content.page.editor.web-1.0.57.jar,\
+	com.liferay.layout.impl-4.0.21.jar,\
+	com.liferay.layout.item.selector.api-3.0.1.jar,\
+	com.liferay.layout.item.selector.web-3.0.7.jar,\
+	com.liferay.layout.page.template.api-2.4.4.jar,\
+	com.liferay.layout.page.template.service-2.1.26.jar,\
+	com.liferay.layout.prototype.api-3.0.0.jar,\
+	com.liferay.layout.prototype.impl-3.0.7.jar,\
+	com.liferay.layout.seo.api-1.1.3.jar,\
+	com.liferay.layout.seo.service-1.0.8.jar,\
+	com.liferay.layout.set.prototype.api-3.0.0.jar,\
+	com.liferay.layout.set.prototype.impl-4.0.8.jar,\
+	com.liferay.layout.set.prototype.web-3.0.12.jar,\
+	com.liferay.layout.taglib-4.1.15.jar,\
+	com.liferay.layout.type.controller.asset.display-2.0.9.jar,\
+	com.liferay.layout.type.controller.content-2.0.20.jar,\
+	com.liferay.layout.type.controller.control.panel-4.0.5.jar,\
+	com.liferay.layout.type.controller.display.page-1.0.28.jar,\
+	com.liferay.layout.type.controller.full.page.application-4.0.8.jar,\
+	com.liferay.layout.type.controller.link.to.page-2.0.10.jar,\
+	com.liferay.layout.type.controller.node-4.0.8.jar,\
+	com.liferay.layout.uad-4.0.2.jar
+
+app.change.log-2.0.4=LPS-100838 LPS-101762 LPS-102266 LPS-102838 LPS-103252 LPS-103302 LPS-103511 LPS-103514 LPS-103604 LPS-103676 LPS-104119 LPS-104129 LPS-104297 LPS-104756 LPS-105248 LPS-105380 LPS-105745 LPS-106110 LPS-106302 LPS-106465 LPS-106662 LPS-106666 LPS-77425 LPS-77699 LPS-80332 LPS-84119 LPS-95096 LPS-95555 LPS-95571 LPS-98032
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

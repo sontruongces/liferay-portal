@@ -71,3 +71,27 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100333 LPS-100337 LPS-100427 LPS-100448 LPS-100537 LPS-100865 LPS-102451 LPS-102720 LPS-102773 LPS-103302 LPS-103809 LPS-84119 LPS-89415 LPS-94523 LPS-96698 LPS-98387 LPS-98640
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.headless.admin.taxonomy.api-3.5.1.jar,\
+	com.liferay.headless.admin.taxonomy.impl-3.0.28.jar,\
+	com.liferay.headless.admin.user.api-12.0.0.jar,\
+	com.liferay.headless.admin.user.impl-3.0.29.jar,\
+	com.liferay.headless.admin.workflow.api-6.0.0.jar,\
+	com.liferay.headless.admin.workflow.impl-3.0.23.jar,\
+	com.liferay.headless.batch.engine.api-5.0.0.jar,\
+	com.liferay.headless.batch.engine.impl-2.0.3.jar,\
+	com.liferay.headless.common.spi-5.0.7.jar,\
+	com.liferay.headless.delivery.api-11.6.0.jar,\
+	com.liferay.headless.delivery.impl-3.0.40.jar,\
+	com.liferay.headless.discovery-2.0.1.jar,\
+	com.liferay.headless.form.api-9.2.1.jar,\
+	com.liferay.headless.form.impl-3.0.29.jar
+
+app.change.log-2.0.4=COMMERCE-1067 LPS-102388 LPS-102577 LPS-103252 LPS-103302 LPS-103420 LPS-103809 LPS-103874 LPS-104217 LPS-104390 LPS-105193 LPS-105225 LPS-105228 LPS-105233 LPS-105235 LPS-105237 LPS-105297 LPS-105304 LPS-105380 LPS-105719 LPS-105982 LPS-106128 LPS-106382 LPS-107326 LPS-84119 LPS-92096 LPS-94142 LPS-94523 LPS-98387
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

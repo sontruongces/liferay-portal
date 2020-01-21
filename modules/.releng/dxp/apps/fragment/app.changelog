@@ -86,3 +86,29 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100121 LPS-100337 LPS-100414 LPS-100448 LPS-100555 LPS-100572 LPS-100589 LPS-100839 LPS-100945 LPS-100963 LPS-101131 LPS-101556 LPS-101769 LPS-101832 LPS-102263 LPS-102451 LPS-102574 LPS-102575 LPS-102701 LPS-102765 LPS-102817 LPS-102992 LPS-103068 LPS-103252 LPS-103302 LPS-103511 LPS-77425 LPS-77699 LPS-79653 LPS-80332 LPS-84119 LPS-84621 LPS-85296 LPS-86629 LPS-87590 LPS-89291 LPS-89347 LPS-89575 LPS-90753 LPS-91772 LPS-94555 LPS-94782 LPS-94918 LPS-95555 LPS-96911 LPS-97638 LPS-97700 LPS-98032 LPS-98877 LPS-98879 LPS-99159 LPS-99657
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.fragment.api-4.0.6.jar,\
+	com.liferay.fragment.collection.contributor.basic.component-1.0.25.jar,\
+	com.liferay.fragment.collection.contributor.basic.section-1.0.18.jar,\
+	com.liferay.fragment.entry.processor.api-1.1.2.jar,\
+	com.liferay.fragment.entry.processor.background.image-1.0.11.jar,\
+	com.liferay.fragment.entry.processor.editable-2.0.30.jar,\
+	com.liferay.fragment.entry.processor.freemarker-1.0.20.jar,\
+	com.liferay.fragment.entry.processor.impl-1.0.11.jar,\
+	com.liferay.fragment.entry.processor.nullable-2.0.11.jar,\
+	com.liferay.fragment.entry.processor.portlet-2.0.21.jar,\
+	com.liferay.fragment.entry.processor.resources-1.0.10.jar,\
+	com.liferay.fragment.impl-2.0.38.jar,\
+	com.liferay.fragment.item.selector.api-2.0.0.jar,\
+	com.liferay.fragment.service-2.0.37.jar,\
+	com.liferay.fragment.taglib-2.0.10.jar,\
+	com.liferay.fragment.web-2.0.40.jar
+
+app.change.log-2.0.4=LPS-101568 LPS-102655 LPS-103252 LPS-103302 LPS-103511 LPS-104119 LPS-104129 LPS-104356 LPS-105380 LPS-106662 LPS-106666 LPS-77425 LPS-77699 LPS-80332 LPS-98032
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

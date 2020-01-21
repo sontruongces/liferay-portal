@@ -50,3 +50,17 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-100448 LPS-101241 LPS-103302 LPS-84119 LPS-95705 LPS-95865 LPS-98032
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.application.list.api-4.2.6.jar,\
+	com.liferay.application.list.my.account.permissions-3.0.7.jar,\
+	com.liferay.application.list.taglib-4.0.10.jar,\
+	com.liferay.application.list.user.personal.site.permissions-4.0.4.jar
+
+app.change.log-2.0.4=LPS-103302 LPS-105380 LPS-98032 LPS-98387
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1

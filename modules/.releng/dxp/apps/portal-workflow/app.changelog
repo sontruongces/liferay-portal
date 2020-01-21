@@ -113,3 +113,38 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=[[trimmed]]054 LPS-93105 LPS-93125 LPS-93131 LPS-93157 LPS-93220 LPS-93290 LPS-93410 LPS-93552 LPS-93553 LPS-93906 LPS-94146 LPS-94301 LPS-94328 LPS-94523 LPS-94672 LPS-94722 LPS-94726 LPS-94873 LPS-94927 LPS-94934 LPS-95030 LPS-95034 LPS-95069 LPS-95413 LPS-95555 LPS-95705 LPS-95803 LPS-95804 LPS-95806 LPS-95807 LPS-95808 LPS-95812 LPS-95823 LPS-95933 LPS-96018 LPS-96095 LPS-96127 LPS-96376 LPS-96409 LPS-96481 LPS-96524 LPS-96627 LPS-96657 LPS-96830 LPS-97072 LPS-97115 LPS-97155 LPS-97169 LPS-97254 LPS-97310 LPS-97419 LPS-97431 LPS-97433 LPS-97586, LPS-97592 LPS-97667 LPS-97748 LPS-97773 LPS-97985 LPS-98003 LPS-98024 LPS-98032 LPS-98111 LPS-98131 LPS-98182 LPS-98233 LPS-98239 LPS-98262 LPS-98265 LPS-98334 LPS-98342 LPS-98366 LPS-98397 LPS-98517 LPS-98579 LPS-98600 LPS-98615 LPS-98780 LPS-98788 LPS-98859 LPS-98877 LPS-98879 LPS-98959 LPS-99018 LPS-99105 LPS-99209 LPS-99252 LPS-99389 LPS-99516 LPS-99657 LPS-99722 LPS-99767 LPS-99782 LPS-99818 LPS-99982 LRDOCS-6300 LRDOCS-6550 LRQA-47907 LRQA-52117
 
 app.git.id-2.0.3=5d6e4d40e7174ddd4846f356e4799f1b4821b134
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.portal.workflow.api-5.1.6.jar,\
+	com.liferay.portal.workflow.kaleo.api-4.2.5.jar,\
+	com.liferay.portal.workflow.kaleo.definition.api-4.0.1.jar,\
+	com.liferay.portal.workflow.kaleo.definition.impl-4.0.6.jar,\
+	com.liferay.portal.workflow.kaleo.designer.web-3.1.15.jar,\
+	com.liferay.portal.workflow.kaleo.forms.api-3.1.4.jar,\
+	com.liferay.portal.workflow.kaleo.forms.service-3.0.15.jar,\
+	com.liferay.portal.workflow.kaleo.forms.web-3.0.16.jar,\
+	com.liferay.portal.workflow.kaleo.runtime.api-4.0.7.jar,\
+	com.liferay.portal.workflow.kaleo.runtime.form.impl-2.0.4.jar,\
+	com.liferay.portal.workflow.kaleo.runtime.impl-4.0.16.jar,\
+	com.liferay.portal.workflow.kaleo.runtime.integration.impl-3.0.7.jar,\
+	com.liferay.portal.workflow.kaleo.runtime.scripting.impl-3.0.5.jar,\
+	com.liferay.portal.workflow.kaleo.service-4.0.25.jar,\
+	com.liferay.portal.workflow.lang-4.0.12.jar,\
+	com.liferay.portal.workflow.metrics.api-2.0.5.jar,\
+	com.liferay.portal.workflow.metrics.lang-1.0.13.jar,\
+	com.liferay.portal.workflow.metrics.rest.api-3.2.2.jar,\
+	com.liferay.portal.workflow.metrics.rest.impl-1.0.20.jar,\
+	com.liferay.portal.workflow.metrics.service-1.0.17.jar,\
+	com.liferay.portal.workflow.metrics.sla.api-3.0.0.jar,\
+	com.liferay.portal.workflow.metrics.web-1.0.22.jar,\
+	com.liferay.portal.workflow.task.web-3.0.25.jar,\
+	com.liferay.portal.workflow.uad-4.0.1.jar,\
+	com.liferay.portal.workflow.web-2.0.21.jar
+
+app.change.log-2.0.4=[[trimmed]]94927 LPS-89082|LPS-95205 LPS-89119 LPS-89139 LPS-89146 LPS-89415 LPS-89416 LPS-89445 LPS-89456 LPS-89567 LPS-89911 LPS-90008 LPS-90047 LPS-90220 LPS-90523 LPS-90546 LPS-90627 LPS-90764 LPS-91242 LPS-91342 LPS-91343 LPS-91388 LPS-91420 LPS-91429 LPS-91531 LPS-91967 LPS-91970 LPS-92053 LPS-92053|LPS-95362 LPS-92099 LPS-92245 LPS-92420 LPS-92511 LPS-93038 LPS-93054 LPS-93157 LPS-93410 LPS-93552 LPS-93553 LPS-93906 LPS-94146 LPS-94301 LPS-94523 LPS-94672 LPS-94873 LPS-94927 LPS-95069 LPS-95413 LPS-95555 LPS-95705 LPS-95803 LPS-95804 LPS-95806 LPS-95807 LPS-95808 LPS-96018 LPS-96095 LPS-96127 LPS-96409 LPS-96481 LPS-96627 LPS-96657 LPS-96830 LPS-97072 LPS-97155 LPS-97169 LPS-97254 LPS-97310 LPS-97431 LPS-97433 LPS-97667 LPS-97773 LPS-97985 LPS-98003 LPS-98024 LPS-98032 LPS-98131 LPS-98239 LPS-98262 LPS-98366 LPS-98387 LPS-98397 LPS-98517 LPS-98780 LPS-98788 LPS-98877 LPS-98879 LPS-98959 LPS-99018 LPS-99105 LPS-99252 LPS-99657 LPS-99782 LPS-99818 LPS-99982 LRDOCS-6300 LRDOCS-6550 LRQA-52117
+
+app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
