@@ -56,7 +56,9 @@ public class PortletItemLocalServiceImpl
 		portletItem.setPortletId(portletId);
 		portletItem.setClassNameId(classNameId);
 
-		return portletItemPersistence.update(portletItem);
+		portletItemPersistence.update(portletItem);
+
+		return portletItem;
 	}
 
 	@Override
@@ -101,7 +103,7 @@ public class PortletItemLocalServiceImpl
 			portletItem.setUserId(userId);
 			portletItem.setUserName(user.getFullName());
 
-			portletItem = portletItemPersistence.update(portletItem);
+			portletItemPersistence.update(portletItem);
 		}
 		catch (NoSuchPortletItemException noSuchPortletItemException) {
 

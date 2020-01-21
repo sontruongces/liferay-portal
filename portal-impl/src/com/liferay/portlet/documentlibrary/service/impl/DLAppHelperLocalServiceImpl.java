@@ -833,7 +833,7 @@ public class DLAppHelperLocalServiceImpl
 				folder.getUuid(), folder.getGroupId(),
 				folder.getParentFolderId(), originalName, 2));
 
-		dlFolder = dlFolderPersistence.update(dlFolder);
+		dlFolderPersistence.update(dlFolder);
 
 		TrashEntry trashEntry = trashEntryLocalService.getEntry(
 			DLFolder.class.getName(), dlFolder.getFolderId());
@@ -1450,7 +1450,7 @@ public class DLAppHelperLocalServiceImpl
 		dlFileEntry.setFileName(trashTitle);
 		dlFileEntry.setTitle(trashTitle);
 
-		dlFileEntry = dlFileEntryPersistence.update(dlFileEntry);
+		dlFileEntryPersistence.update(dlFileEntry);
 
 		// Indexer
 
@@ -1573,7 +1573,7 @@ public class DLAppHelperLocalServiceImpl
 
 		dlFolder.setName(TrashUtil.getTrashTitle(trashEntry.getEntryId()));
 
-		dlFolder = dlFolderPersistence.update(dlFolder);
+		dlFolderPersistence.update(dlFolder);
 
 		// Folders, file entries, and file shortcuts
 
@@ -1788,8 +1788,7 @@ public class DLAppHelperLocalServiceImpl
 
 					dlFileVersion.setStatus(WorkflowConstants.STATUS_IN_TRASH);
 
-					dlFileVersion = dlFileVersionPersistence.update(
-						dlFileVersion);
+					dlFileVersionPersistence.update(dlFileVersion);
 
 					// Trash
 
@@ -1864,8 +1863,7 @@ public class DLAppHelperLocalServiceImpl
 
 				dlFileShortcut.setStatus(WorkflowConstants.STATUS_IN_TRASH);
 
-				dlFileShortcut = dlFileShortcutPersistence.update(
-					dlFileShortcut);
+				dlFileShortcutPersistence.update(dlFileShortcut);
 
 				// Trash
 
@@ -1915,7 +1913,7 @@ public class DLAppHelperLocalServiceImpl
 
 			childDLFolder.setStatus(WorkflowConstants.STATUS_IN_TRASH);
 
-			childDLFolder = dlFolderPersistence.update(childDLFolder);
+			dlFolderPersistence.update(childDLFolder);
 
 			// Trash
 
@@ -1941,7 +1939,7 @@ public class DLAppHelperLocalServiceImpl
 
 			childDLFolder.setStatus(oldStatus);
 
-			childDLFolder = dlFolderPersistence.update(childDLFolder);
+			dlFolderPersistence.update(childDLFolder);
 
 			// Trash
 

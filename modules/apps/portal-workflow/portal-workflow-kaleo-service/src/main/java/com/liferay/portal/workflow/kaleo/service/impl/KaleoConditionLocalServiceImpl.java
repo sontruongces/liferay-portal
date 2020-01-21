@@ -68,7 +68,9 @@ public class KaleoConditionLocalServiceImpl
 		kaleoCondition.setScriptRequiredContexts(
 			condition.getScriptRequiredContexts());
 
-		return kaleoConditionPersistence.update(kaleoCondition);
+		kaleoConditionPersistence.update(kaleoCondition);
+
+		return kaleoCondition;
 	}
 
 	@Override

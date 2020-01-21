@@ -99,8 +99,10 @@ public class KaleoTaskAssignmentInstanceLocalServiceImpl
 
 		kaleoTaskAssignmentInstance.setCompleted(false);
 
-		return kaleoTaskAssignmentInstancePersistence.update(
+		kaleoTaskAssignmentInstancePersistence.update(
 			kaleoTaskAssignmentInstance);
+
+		return kaleoTaskAssignmentInstance;
 	}
 
 	@Override
@@ -168,8 +170,10 @@ public class KaleoTaskAssignmentInstanceLocalServiceImpl
 		kaleoTaskAssignmentInstance.setCompleted(true);
 		kaleoTaskAssignmentInstance.setCompletionDate(new Date());
 
-		return kaleoTaskAssignmentInstancePersistence.update(
+		kaleoTaskAssignmentInstancePersistence.update(
 			kaleoTaskAssignmentInstance);
+
+		return kaleoTaskAssignmentInstance;
 	}
 
 	@Override

@@ -121,7 +121,7 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setStatus(SPIAdminConstants.STATUS_STOPPED);
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
 
-		spiDefinition = spiDefinitionPersistence.update(spiDefinition);
+		spiDefinitionPersistence.update(spiDefinition);
 
 		// Resources
 
@@ -281,7 +281,7 @@ public class SPIDefinitionLocalServiceImpl
 			spiDefinition.setStatus(SPIAdminConstants.STATUS_STARTED);
 			spiDefinition.setStatusMessage(null);
 
-			spiDefinition = spiDefinitionPersistence.update(spiDefinition);
+			spiDefinitionPersistence.update(spiDefinition);
 
 			SPIDefinitionMonitorUtil.register(spiDefinition);
 		}
@@ -449,7 +449,9 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setStatus(status);
 		spiDefinition.setStatusMessage(statusMessage);
 
-		return spiDefinitionPersistence.update(spiDefinition);
+		spiDefinitionPersistence.update(spiDefinition);
+
+		return spiDefinition;
 	}
 
 	@Override
@@ -494,7 +496,9 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setTypeSettings(normalizeTypeSettings(typeSettings));
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
 
-		return spiDefinitionPersistence.update(spiDefinition);
+		spiDefinitionPersistence.update(spiDefinition);
+
+		return spiDefinition;
 	}
 
 	@Override
@@ -513,7 +517,9 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setUserName(user.getFullName());
 		spiDefinition.setTypeSettings(typeSettings);
 
-		return spiDefinitionPersistence.update(spiDefinition);
+		spiDefinitionPersistence.update(spiDefinition);
+
+		return spiDefinition;
 	}
 
 	protected SPI createSPI(SPIDefinition spiDefinition)

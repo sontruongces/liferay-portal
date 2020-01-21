@@ -91,7 +91,9 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setTrashFolderId(trashFolderId);
 		account.setDefaultSender(defaultSender);
 
-		return accountPersistence.update(account);
+		accountPersistence.update(account);
+
+		return account;
 	}
 
 	@Override
@@ -167,7 +169,9 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setFolderPrefix(folderPrefix);
 		account.setDefaultSender(defaultSender);
 
-		return accountPersistence.update(account);
+		accountPersistence.update(account);
+
+		return account;
 	}
 
 	@Override
@@ -185,7 +189,9 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setSentFolderId(sentFolderId);
 		account.setTrashFolderId(trashFolderId);
 
-		return accountPersistence.update(account);
+		accountPersistence.update(account);
+
+		return account;
 	}
 
 	@Reference

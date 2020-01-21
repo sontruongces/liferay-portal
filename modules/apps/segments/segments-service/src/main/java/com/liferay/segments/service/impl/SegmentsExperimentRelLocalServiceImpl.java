@@ -85,7 +85,9 @@ public class SegmentsExperimentRelLocalServiceImpl
 		segmentsExperimentRel.setSegmentsExperimentId(segmentsExperimentId);
 		segmentsExperimentRel.setSegmentsExperienceId(segmentsExperienceId);
 
-		return segmentsExperimentRelPersistence.update(segmentsExperimentRel);
+		segmentsExperimentRelPersistence.update(segmentsExperimentRel);
+
+		return segmentsExperimentRel;
 	}
 
 	@Override

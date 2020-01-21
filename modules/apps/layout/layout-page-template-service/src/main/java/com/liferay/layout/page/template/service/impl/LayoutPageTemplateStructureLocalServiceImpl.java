@@ -82,9 +82,8 @@ public class LayoutPageTemplateStructureLocalServiceImpl
 		layoutPageTemplateStructure.setClassNameId(classNameId);
 		layoutPageTemplateStructure.setClassPK(classPK);
 
-		layoutPageTemplateStructure =
-			layoutPageTemplateStructurePersistence.update(
-				layoutPageTemplateStructure);
+		layoutPageTemplateStructurePersistence.update(
+			layoutPageTemplateStructure);
 
 		int count =
 			_fragmentEntryLinkLocalService.
@@ -219,9 +218,8 @@ public class LayoutPageTemplateStructureLocalServiceImpl
 
 		layoutPageTemplateStructure.setModifiedDate(new Date());
 
-		layoutPageTemplateStructure =
-			layoutPageTemplateStructurePersistence.update(
-				layoutPageTemplateStructure);
+		layoutPageTemplateStructurePersistence.update(
+			layoutPageTemplateStructure);
 
 		// Layout page template structure rel
 

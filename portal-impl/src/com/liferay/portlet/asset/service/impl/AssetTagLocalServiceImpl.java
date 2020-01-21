@@ -113,7 +113,9 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 		tag.setName(name);
 
-		return assetTagPersistence.update(tag);
+		assetTagPersistence.update(tag);
+
+		return tag;
 	}
 
 	/**
@@ -195,7 +197,9 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 		tag.setAssetCount(Math.max(0, tag.getAssetCount() - 1));
 
-		return assetTagPersistence.update(tag);
+		assetTagPersistence.update(tag);
+
+		return tag;
 	}
 
 	/**
@@ -600,7 +604,9 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 		tag.setAssetCount(tag.getAssetCount() + 1);
 
-		return assetTagPersistence.update(tag);
+		assetTagPersistence.update(tag);
+
+		return tag;
 	}
 
 	/**
@@ -708,7 +714,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 		tag.setName(name);
 
-		tag = assetTagPersistence.update(tag);
+		assetTagPersistence.update(tag);
 
 		// Indexer
 

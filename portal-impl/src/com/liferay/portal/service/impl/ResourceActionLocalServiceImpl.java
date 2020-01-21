@@ -63,7 +63,7 @@ public class ResourceActionLocalServiceImpl
 			resourceAction.setActionId(actionId);
 			resourceAction.setBitwiseValue(bitwiseValue);
 
-			resourceAction = resourceActionPersistence.update(resourceAction);
+			resourceActionPersistence.update(resourceAction);
 		}
 
 		return resourceAction;
@@ -178,8 +178,7 @@ public class ResourceActionLocalServiceImpl
 					resourceAction.setActionId(actionId);
 					resourceAction.setBitwiseValue(bitwiseValue);
 
-					resourceAction = resourceActionPersistence.update(
-						resourceAction);
+					resourceActionPersistence.update(resourceAction);
 				}
 				catch (Throwable t) {
 					resourceAction =

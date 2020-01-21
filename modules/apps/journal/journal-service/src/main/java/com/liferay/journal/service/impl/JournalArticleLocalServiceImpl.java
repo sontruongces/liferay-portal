@@ -795,7 +795,7 @@ public class JournalArticleLocalServiceImpl
 		article.setStatusDate(serviceContext.getModifiedDate(new Date()));
 		article.setExpandoBridgeAttributes(serviceContext);
 
-		article = journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
 
 		// Article localization
 
@@ -961,7 +961,9 @@ public class JournalArticleLocalServiceImpl
 
 		article.setResourcePrimKey(resourcePrimKey);
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	/**
@@ -1141,7 +1143,7 @@ public class JournalArticleLocalServiceImpl
 		ExpandoBridgeUtil.copyExpandoBridgeAttributes(
 			oldArticle.getExpandoBridge(), newArticle.getExpandoBridge());
 
-		newArticle = journalArticlePersistence.update(newArticle);
+		journalArticlePersistence.update(newArticle);
 
 		// Article localization
 
@@ -4225,7 +4227,7 @@ public class JournalArticleLocalServiceImpl
 		if (oldStatus == WorkflowConstants.STATUS_PENDING) {
 			article.setStatus(WorkflowConstants.STATUS_DRAFT);
 
-			article = journalArticlePersistence.update(article);
+			journalArticlePersistence.update(article);
 		}
 
 		article = updateStatus(
@@ -4410,7 +4412,9 @@ public class JournalArticleLocalServiceImpl
 			article.setContent(content);
 		}
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	/**
@@ -6328,7 +6332,9 @@ public class JournalArticleLocalServiceImpl
 
 		article.setUrlTitle(urlTitle);
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	@Override
@@ -6405,7 +6411,7 @@ public class JournalArticleLocalServiceImpl
 			article.getExpandoBridge(), article.getExpandoBridge(),
 			serviceContext);
 
-		article = journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
 
 		// Asset
 
@@ -6566,7 +6572,9 @@ public class JournalArticleLocalServiceImpl
 
 		article.setContent(content);
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	/**
@@ -6708,7 +6716,9 @@ public class JournalArticleLocalServiceImpl
 
 		article.setContent(content);
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	/**
@@ -7342,7 +7352,7 @@ public class JournalArticleLocalServiceImpl
 
 				article.setStatus(WorkflowConstants.STATUS_EXPIRED);
 
-				article = journalArticlePersistence.update(article);
+				journalArticlePersistence.update(article);
 
 				updatePreviousApprovedArticle(article);
 

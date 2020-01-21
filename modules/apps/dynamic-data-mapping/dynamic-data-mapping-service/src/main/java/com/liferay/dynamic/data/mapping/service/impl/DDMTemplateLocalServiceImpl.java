@@ -253,7 +253,7 @@ public class DDMTemplateLocalServiceImpl
 		template.setSmallImageId(counterLocalService.increment());
 		template.setSmallImageURL(smallImageURL);
 
-		template = ddmTemplatePersistence.update(template);
+		ddmTemplatePersistence.update(template);
 
 		// Resources
 
@@ -1500,7 +1500,7 @@ public class DDMTemplateLocalServiceImpl
 			user, template, version, serviceContext);
 
 		if (ddmTemplateVersion.isApproved()) {
-			template = ddmTemplatePersistence.update(template);
+			ddmTemplatePersistence.update(template);
 		}
 
 		return template;
@@ -1580,7 +1580,9 @@ public class DDMTemplateLocalServiceImpl
 		templateVersion.setStatusByUserName(user.getFullName());
 		templateVersion.setStatusDate(template.getModifiedDate());
 
-		return ddmTemplateVersionPersistence.update(templateVersion);
+		ddmTemplateVersionPersistence.update(templateVersion);
+
+		return templateVersion;
 	}
 
 	protected DDMTemplate copyTemplate(

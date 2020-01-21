@@ -76,9 +76,8 @@ public class LayoutPageTemplateCollectionLocalServiceImpl
 		layoutPageTemplateCollection.setName(name);
 		layoutPageTemplateCollection.setDescription(description);
 
-		layoutPageTemplateCollection =
-			layoutPageTemplateCollectionPersistence.update(
-				layoutPageTemplateCollection);
+		layoutPageTemplateCollectionPersistence.update(
+			layoutPageTemplateCollection);
 
 		// Resources
 
@@ -190,8 +189,10 @@ public class LayoutPageTemplateCollectionLocalServiceImpl
 		layoutPageTemplateCollection.setName(name);
 		layoutPageTemplateCollection.setDescription(description);
 
-		return layoutPageTemplateCollectionPersistence.update(
+		layoutPageTemplateCollectionPersistence.update(
 			layoutPageTemplateCollection);
+
+		return layoutPageTemplateCollection;
 	}
 
 	protected void validate(long groupId, String name) throws PortalException {

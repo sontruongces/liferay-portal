@@ -662,7 +662,9 @@ public class DDLRecordSetLocalServiceImpl
 
 		recordSet.setMinDisplayRows(minDisplayRows);
 
-		return ddlRecordSetPersistence.update(recordSet);
+		ddlRecordSetPersistence.update(recordSet);
+
+		return recordSet;
 	}
 
 	/**
@@ -788,7 +790,9 @@ public class DDLRecordSetLocalServiceImpl
 		recordSetVersion.setStatusByUserName(user.getFullName());
 		recordSetVersion.setStatusDate(recordSet.getModifiedDate());
 
-		return ddlRecordSetVersionPersistence.update(recordSetVersion);
+		ddlRecordSetVersionPersistence.update(recordSetVersion);
+
+		return recordSetVersion;
 	}
 
 	protected DDMFormValues deserialize(String content, DDMForm ddmForm) {

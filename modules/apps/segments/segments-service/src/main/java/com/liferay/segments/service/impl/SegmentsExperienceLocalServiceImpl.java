@@ -109,8 +109,7 @@ public class SegmentsExperienceLocalServiceImpl
 		segmentsExperience.setPriority(priority);
 		segmentsExperience.setActive(active);
 
-		segmentsExperience = segmentsExperiencePersistence.update(
-			segmentsExperience);
+		segmentsExperiencePersistence.update(segmentsExperience);
 
 		// Resources
 

@@ -61,7 +61,9 @@ public class FolderLocalServiceImpl extends FolderLocalServiceBaseImpl {
 		folder.setDisplayName(displayName);
 		folder.setRemoteMessageCount(remoteMessageCount);
 
-		return folderPersistence.update(folder);
+		folderPersistence.update(folder);
+
+		return folder;
 	}
 
 	@Override
@@ -158,7 +160,9 @@ public class FolderLocalServiceImpl extends FolderLocalServiceBaseImpl {
 		folder.setDisplayName(displayName);
 		folder.setRemoteMessageCount(remoteMessageCount);
 
-		return folderPersistence.update(folder);
+		folderPersistence.update(folder);
+
+		return folder;
 	}
 
 	@Reference

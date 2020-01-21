@@ -87,7 +87,7 @@ public class TasksEntryLocalServiceImpl extends TasksEntryLocalServiceBaseImpl {
 		tasksEntry.setDueDate(dueDate);
 		tasksEntry.setStatus(TasksEntryConstants.STATUS_OPEN);
 
-		tasksEntry = tasksEntryPersistence.update(tasksEntry);
+		tasksEntryPersistence.update(tasksEntry);
 
 		// Resources
 
@@ -329,7 +329,7 @@ public class TasksEntryLocalServiceImpl extends TasksEntryLocalServiceBaseImpl {
 
 		tasksEntry.setStatus(status);
 
-		tasksEntry = tasksEntryPersistence.update(tasksEntry);
+		tasksEntryPersistence.update(tasksEntry);
 
 		// Asset
 
@@ -378,7 +378,7 @@ public class TasksEntryLocalServiceImpl extends TasksEntryLocalServiceBaseImpl {
 
 		tasksEntry.setStatus(status);
 
-		tasksEntry = tasksEntryPersistence.update(tasksEntry);
+		tasksEntryPersistence.update(tasksEntry);
 
 		// Social
 

@@ -299,7 +299,7 @@ public class UserGroupRoleLocalServiceImpl
 		if (userGroupRole == null) {
 			userGroupRole = userGroupRolePersistence.create(userGroupRolePK);
 
-			userGroupRole = userGroupRolePersistence.update(userGroupRole);
+			userGroupRolePersistence.update(userGroupRole);
 		}
 
 		return userGroupRole;

@@ -419,7 +419,9 @@ public class FragmentEntryLocalServiceImpl
 		fragmentEntry.setStatusByUserName(user.getFullName());
 		fragmentEntry.setStatusDate(new Date());
 
-		return fragmentEntryPersistence.update(fragmentEntry);
+		fragmentEntryPersistence.update(fragmentEntry);
+
+		return fragmentEntry;
 	}
 
 	@Override
@@ -627,7 +629,9 @@ public class FragmentEntryLocalServiceImpl
 		fragmentEntry.setModifiedDate(new Date());
 		fragmentEntry.setPreviewFileEntryId(previewFileEntryId);
 
-		return fragmentEntryPersistence.update(fragmentEntry);
+		fragmentEntryPersistence.update(fragmentEntry);
+
+		return fragmentEntry;
 	}
 
 	/**
@@ -717,7 +721,7 @@ public class FragmentEntryLocalServiceImpl
 		fragmentEntry.setStatusByUserName(user.getFullName());
 		fragmentEntry.setStatusDate(new Date());
 
-		fragmentEntry = fragmentEntryPersistence.update(fragmentEntry);
+		fragmentEntryPersistence.update(fragmentEntry);
 
 		FragmentServiceConfiguration fragmentServiceConfiguration =
 			_configurationProvider.getCompanyConfiguration(

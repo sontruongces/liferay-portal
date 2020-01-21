@@ -428,7 +428,9 @@ public class DDMFormInstanceLocalServiceImpl
 		ddmFormInstanceVersion.setStatusByUserName(user.getFullName());
 		ddmFormInstanceVersion.setStatusDate(ddmFormInstance.getModifiedDate());
 
-		return ddmFormInstanceVersionPersistence.update(ddmFormInstanceVersion);
+		ddmFormInstanceVersionPersistence.update(ddmFormInstanceVersion);
+
+		return ddmFormInstanceVersion;
 	}
 
 	protected DDMFormInstance doUpdateFormInstance(

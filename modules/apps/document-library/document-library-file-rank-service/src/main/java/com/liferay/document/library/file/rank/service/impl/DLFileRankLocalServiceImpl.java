@@ -72,7 +72,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 		dlFileRank.setActive(true);
 
 		try {
-			dlFileRank = dlFileRankPersistence.update(dlFileRank);
+			dlFileRankPersistence.update(dlFileRank);
 		}
 		catch (SystemException systemException) {
 			if (_log.isWarnEnabled()) {
@@ -216,7 +216,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 			dlFileRank.setCreateDate(serviceContext.getCreateDate(null));
 
 			try {
-				dlFileRank = dlFileRankPersistence.update(dlFileRank);
+				dlFileRankPersistence.update(dlFileRank);
 			}
 			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {

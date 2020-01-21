@@ -112,8 +112,7 @@ public class KaleoTimerInstanceTokenLocalServiceImpl
 		kaleoTimerInstanceToken.setWorkflowContext(
 			WorkflowContextUtil.convert(workflowContext));
 
-		kaleoTimerInstanceToken = kaleoTimerInstanceTokenPersistence.update(
-			kaleoTimerInstanceToken);
+		kaleoTimerInstanceTokenPersistence.update(kaleoTimerInstanceToken);
 
 		scheduleTimer(kaleoTimerInstanceToken, kaleoTimer);
 
@@ -169,8 +168,7 @@ public class KaleoTimerInstanceTokenLocalServiceImpl
 		kaleoTimerInstanceToken.setCompleted(true);
 		kaleoTimerInstanceToken.setCompletionDate(new Date());
 
-		kaleoTimerInstanceToken = kaleoTimerInstanceTokenPersistence.update(
-			kaleoTimerInstanceToken);
+		kaleoTimerInstanceTokenPersistence.update(kaleoTimerInstanceToken);
 
 		deleteScheduledTimer(kaleoTimerInstanceToken);
 

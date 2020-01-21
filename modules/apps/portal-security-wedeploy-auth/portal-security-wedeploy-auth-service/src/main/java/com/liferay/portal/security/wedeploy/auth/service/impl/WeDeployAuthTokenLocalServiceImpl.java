@@ -120,8 +120,7 @@ public class WeDeployAuthTokenLocalServiceImpl
 		weDeployAuthToken.setToken(token);
 		weDeployAuthToken.setType(type);
 
-		weDeployAuthToken = weDeployAuthTokenPersistence.update(
-			weDeployAuthToken);
+		weDeployAuthTokenPersistence.update(weDeployAuthToken);
 
 		// Resources
 

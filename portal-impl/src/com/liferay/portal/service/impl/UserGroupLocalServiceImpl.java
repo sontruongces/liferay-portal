@@ -209,7 +209,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 			UserGroupImportTransactionThreadLocal.isOriginatesFromImport());
 		userGroup.setExpandoBridgeAttributes(serviceContext);
 
-		userGroup = userGroupPersistence.update(userGroup);
+		userGroupPersistence.update(userGroup);
 
 		// Group
 
@@ -968,7 +968,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 		userGroup.setDescription(description);
 		userGroup.setExpandoBridgeAttributes(serviceContext);
 
-		userGroup = userGroupPersistence.update(userGroup);
+		userGroupPersistence.update(userGroup);
 
 		// Indexer
 

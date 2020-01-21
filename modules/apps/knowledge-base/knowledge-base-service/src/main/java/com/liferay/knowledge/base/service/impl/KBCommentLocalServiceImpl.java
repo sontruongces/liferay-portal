@@ -98,7 +98,7 @@ public class KBCommentLocalServiceImpl extends KBCommentLocalServiceBaseImpl {
 		kbComment.setUserRating(userRating);
 		kbComment.setStatus(KBCommentConstants.STATUS_NEW);
 
-		kbComment = kbCommentPersistence.update(kbComment);
+		kbCommentPersistence.update(kbComment);
 
 		// Social
 
@@ -297,7 +297,7 @@ public class KBCommentLocalServiceImpl extends KBCommentLocalServiceBaseImpl {
 		kbComment.setUserRating(userRating);
 		kbComment.setStatus(status);
 
-		kbComment = kbCommentPersistence.update(kbComment);
+		kbCommentPersistence.update(kbComment);
 
 		// Social
 
@@ -339,7 +339,7 @@ public class KBCommentLocalServiceImpl extends KBCommentLocalServiceBaseImpl {
 
 		kbComment.setStatus(status);
 
-		kbComment = kbCommentPersistence.update(kbComment);
+		kbCommentPersistence.update(kbComment);
 
 		notifySubscribers(userId, kbComment, serviceContext);
 

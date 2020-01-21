@@ -75,7 +75,7 @@ public class RepositoryLocalServiceImpl extends RepositoryLocalServiceBaseImpl {
 				user, groupId, repositoryId, parentFolderId, name, description,
 				hidden, serviceContext));
 
-		repository = repositoryPersistence.update(repository);
+		repositoryPersistence.update(repository);
 
 		try {
 			RepositoryFactoryUtil.createRepository(repositoryId);
@@ -236,7 +236,7 @@ public class RepositoryLocalServiceImpl extends RepositoryLocalServiceBaseImpl {
 		repository.setName(name);
 		repository.setDescription(description);
 
-		repository = repositoryPersistence.update(repository);
+		repositoryPersistence.update(repository);
 
 		DLFolder dlFolder = dlFolderPersistence.findByPrimaryKey(
 			repository.getDlFolderId());

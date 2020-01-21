@@ -1015,7 +1015,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 		portlet.setRoles(roles);
 		portlet.setActive(active);
 
-		portlet = portletPersistence.update(portlet);
+		portletPersistence.update(portlet);
 
 		portletLocalService.removeCompanyPortletsPool(companyId);
 

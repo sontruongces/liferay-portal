@@ -78,8 +78,7 @@ public class LayoutSetPrototypeLocalServiceImpl
 
 		layoutSetPrototype.setSettingsProperties(settingsProperties);
 
-		layoutSetPrototype = layoutSetPrototypePersistence.update(
-			layoutSetPrototype);
+		layoutSetPrototypePersistence.update(layoutSetPrototype);
 
 		// Resources
 
@@ -254,7 +253,9 @@ public class LayoutSetPrototypeLocalServiceImpl
 
 		layoutSetPrototype.setSettingsProperties(settingsProperties);
 
-		return layoutSetPrototypePersistence.update(layoutSetPrototype);
+		layoutSetPrototypePersistence.update(layoutSetPrototype);
+
+		return layoutSetPrototype;
 	}
 
 	@Override
@@ -271,8 +272,7 @@ public class LayoutSetPrototypeLocalServiceImpl
 		layoutSetPrototype.setModifiedDate(new Date());
 		layoutSetPrototype.setSettings(settings);
 
-		layoutSetPrototype = layoutSetPrototypePersistence.update(
-			layoutSetPrototype);
+		layoutSetPrototypePersistence.update(layoutSetPrototype);
 
 		// Group
 

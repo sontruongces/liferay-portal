@@ -65,8 +65,7 @@ public class PortalPreferencesLocalServiceImpl
 		portalPreferences.setPreferences(defaultPreferences);
 
 		try {
-			portalPreferences = portalPreferencesPersistence.update(
-				portalPreferences);
+			portalPreferencesPersistence.update(portalPreferences);
 		}
 		catch (SystemException systemException) {
 			if (_log.isWarnEnabled()) {

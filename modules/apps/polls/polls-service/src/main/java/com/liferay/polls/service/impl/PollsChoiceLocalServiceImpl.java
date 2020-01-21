@@ -60,7 +60,9 @@ public class PollsChoiceLocalServiceImpl
 		choice.setName(name);
 		choice.setDescription(description);
 
-		return pollsChoicePersistence.update(choice);
+		pollsChoicePersistence.update(choice);
+
+		return choice;
 	}
 
 	@Override

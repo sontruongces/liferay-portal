@@ -110,7 +110,9 @@ public class KaleoInstanceTokenLocalServiceImpl
 
 		kaleoInstanceToken.setCompleted(false);
 
-		return kaleoInstanceTokenPersistence.update(kaleoInstanceToken);
+		kaleoInstanceTokenPersistence.update(kaleoInstanceToken);
+
+		return kaleoInstanceToken;
 	}
 
 	@Override
@@ -145,7 +147,9 @@ public class KaleoInstanceTokenLocalServiceImpl
 		kaleoInstanceToken.setCompleted(true);
 		kaleoInstanceToken.setCompletionDate(new Date());
 
-		return kaleoInstanceTokenPersistence.update(kaleoInstanceToken);
+		kaleoInstanceTokenPersistence.update(kaleoInstanceToken);
+
+		return kaleoInstanceToken;
 	}
 
 	@Override

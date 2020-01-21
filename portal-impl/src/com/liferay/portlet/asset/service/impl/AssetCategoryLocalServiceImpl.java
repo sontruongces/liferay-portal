@@ -124,7 +124,7 @@ public class AssetCategoryLocalServiceImpl
 		category.setDescriptionMap(descriptionMap);
 		category.setVocabularyId(vocabularyId);
 
-		category = assetCategoryPersistence.update(category);
+		assetCategoryPersistence.update(category);
 
 		// Resources
 
@@ -563,7 +563,9 @@ public class AssetCategoryLocalServiceImpl
 
 		category.setParentCategoryId(parentCategoryId);
 
-		return assetCategoryPersistence.update(category);
+		assetCategoryPersistence.update(category);
+
+		return category;
 	}
 
 	@Override
@@ -675,7 +677,9 @@ public class AssetCategoryLocalServiceImpl
 		category.setTitleMap(titleMap);
 		category.setDescriptionMap(descriptionMap);
 
-		return assetCategoryPersistence.update(category);
+		assetCategoryPersistence.update(category);
+
+		return category;
 	}
 
 	protected SearchContext buildSearchContext(
@@ -752,7 +756,7 @@ public class AssetCategoryLocalServiceImpl
 			for (AssetCategory childCategory : childrenCategories) {
 				childCategory.setVocabularyId(vocabularyId);
 
-				childCategory = assetCategoryPersistence.update(childCategory);
+				assetCategoryPersistence.update(childCategory);
 
 				updateChildrenVocabularyId(childCategory, vocabularyId);
 			}

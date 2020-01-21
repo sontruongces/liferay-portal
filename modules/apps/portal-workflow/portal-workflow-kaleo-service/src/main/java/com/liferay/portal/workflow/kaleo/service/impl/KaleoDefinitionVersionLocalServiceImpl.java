@@ -103,7 +103,9 @@ public class KaleoDefinitionVersionLocalServiceImpl
 		kaleoDefinitionVersion.setStatusByUserName(user.getFullName());
 		kaleoDefinitionVersion.setStatusDate(modifiedDate);
 
-		return kaleoDefinitionVersionPersistence.update(kaleoDefinitionVersion);
+		kaleoDefinitionVersionPersistence.update(kaleoDefinitionVersion);
+
+		return kaleoDefinitionVersion;
 	}
 
 	@Override

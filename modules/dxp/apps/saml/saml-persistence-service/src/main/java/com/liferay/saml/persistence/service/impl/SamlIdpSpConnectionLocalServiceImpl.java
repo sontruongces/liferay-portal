@@ -118,7 +118,9 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
 		samlIdpSpConnection.setNameIdFormat(nameIdFormat);
 
-		return samlIdpSpConnectionPersistence.update(samlIdpSpConnection);
+		samlIdpSpConnectionPersistence.update(samlIdpSpConnection);
+
+		return samlIdpSpConnection;
 	}
 
 	@Override
@@ -279,7 +281,9 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
 		samlIdpSpConnection.setNameIdFormat(nameIdFormat);
 
-		return samlIdpSpConnectionPersistence.update(samlIdpSpConnection);
+		samlIdpSpConnectionPersistence.update(samlIdpSpConnection);
+
+		return samlIdpSpConnection;
 	}
 
 	protected String getMetadataXml(

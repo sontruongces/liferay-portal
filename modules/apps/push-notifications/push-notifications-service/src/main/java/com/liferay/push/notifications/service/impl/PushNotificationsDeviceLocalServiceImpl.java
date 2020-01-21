@@ -76,8 +76,9 @@ public class PushNotificationsDeviceLocalServiceImpl
 		pushNotificationsDevice.setPlatform(platform);
 		pushNotificationsDevice.setToken(token);
 
-		return pushNotificationsDevicePersistence.update(
-			pushNotificationsDevice);
+		pushNotificationsDevicePersistence.update(pushNotificationsDevice);
+
+		return pushNotificationsDevice;
 	}
 
 	@Deactivate

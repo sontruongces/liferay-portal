@@ -62,7 +62,9 @@ public class SyncDeviceLocalServiceImpl extends SyncDeviceLocalServiceBaseImpl {
 		syncDevice.setHostname(hostname);
 		syncDevice.setStatus(SyncDeviceConstants.STATUS_ACTIVE);
 
-		return syncDevicePersistence.update(syncDevice);
+		syncDevicePersistence.update(syncDevice);
+
+		return syncDevice;
 	}
 
 	@Override
@@ -113,7 +115,9 @@ public class SyncDeviceLocalServiceImpl extends SyncDeviceLocalServiceBaseImpl {
 		syncDevice.setHostname(hostname);
 		syncDevice.setStatus(status);
 
-		return syncDevicePersistence.update(syncDevice);
+		syncDevicePersistence.update(syncDevice);
+
+		return syncDevice;
 	}
 
 }

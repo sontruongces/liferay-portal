@@ -409,7 +409,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 		message.setExpandoBridgeAttributes(serviceContext);
 
-		message = mbMessagePersistence.update(message);
+		mbMessagePersistence.update(message);
 
 		// Resources
 
@@ -732,7 +732,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 					childMessage.setParentMessageId(
 						MBMessageConstants.DEFAULT_PARENT_MESSAGE_ID);
 
-					childMessage = mbMessagePersistence.update(childMessage);
+					mbMessagePersistence.update(childMessage);
 
 					List<MBMessage> repliesMessages =
 						mbMessagePersistence.findByThreadReplies(
@@ -1840,7 +1840,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 		message.setStatusByUserName(user.getFullName());
 		message.setStatusDate(modifiedDate);
 
-		message = mbMessagePersistence.update(message);
+		mbMessagePersistence.update(message);
 
 		// Thread
 
@@ -2761,7 +2761,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 		message.setExpandoBridgeAttributes(serviceContext);
 
-		message = mbMessagePersistence.update(message);
+		mbMessagePersistence.update(message);
 
 		// Statistics
 

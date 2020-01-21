@@ -63,8 +63,10 @@ public class AssetEntryAssetCategoryRelLocalServiceImpl
 		assetEntryAssetCategoryRel.setAssetCategoryId(assetCategoryId);
 		assetEntryAssetCategoryRel.setPriority(priority);
 
-		return assetEntryAssetCategoryRelPersistence.update(
+		assetEntryAssetCategoryRelPersistence.update(
 			assetEntryAssetCategoryRel);
+
+		return assetEntryAssetCategoryRel;
 	}
 
 	@Override

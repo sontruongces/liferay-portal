@@ -77,7 +77,7 @@ public class SourceLocalServiceImpl extends SourceLocalServiceBaseImpl {
 		source.setDriverUserName(driverUserName);
 		source.setDriverPassword(driverPassword);
 
-		source = sourcePersistence.update(source);
+		sourcePersistence.update(source);
 
 		// Resources
 
@@ -164,7 +164,9 @@ public class SourceLocalServiceImpl extends SourceLocalServiceBaseImpl {
 		source.setDriverUserName(driverUserName);
 		source.setDriverPassword(driverPassword);
 
-		return sourcePersistence.update(source);
+		sourcePersistence.update(source);
+
+		return source;
 	}
 
 	protected void validate(

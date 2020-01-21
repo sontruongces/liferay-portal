@@ -93,7 +93,9 @@ public class SiteNavigationMenuItemLocalServiceImpl
 		siteNavigationMenuItem.setTypeSettings(typeSettings);
 		siteNavigationMenuItem.setOrder(order);
 
-		return siteNavigationMenuItemPersistence.update(siteNavigationMenuItem);
+		siteNavigationMenuItemPersistence.update(siteNavigationMenuItem);
+
+		return siteNavigationMenuItem;
 	}
 
 	@Override
@@ -240,8 +242,7 @@ public class SiteNavigationMenuItemLocalServiceImpl
 			parentSiteNavigationMenuItemId);
 		siteNavigationMenuItem.setOrder(order);
 
-		siteNavigationMenuItem = siteNavigationMenuItemPersistence.update(
-			siteNavigationMenuItem);
+		siteNavigationMenuItemPersistence.update(siteNavigationMenuItem);
 
 		// Child site navigation menu item
 
@@ -346,7 +347,9 @@ public class SiteNavigationMenuItemLocalServiceImpl
 		siteNavigationMenuItem.setName(name);
 		siteNavigationMenuItem.setTypeSettings(typeSettings);
 
-		return siteNavigationMenuItemPersistence.update(siteNavigationMenuItem);
+		siteNavigationMenuItemPersistence.update(siteNavigationMenuItem);
+
+		return siteNavigationMenuItem;
 	}
 
 	protected void validate(

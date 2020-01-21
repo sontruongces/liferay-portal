@@ -257,8 +257,10 @@ public class AssetListEntryAssetEntryRelLocalServiceImpl
 		assetListEntryAssetEntryRel.setSegmentsEntryId(segmentsEntryId);
 		assetListEntryAssetEntryRel.setPosition(position);
 
-		return assetListEntryAssetEntryRelPersistence.update(
+		assetListEntryAssetEntryRelPersistence.update(
 			assetListEntryAssetEntryRel);
+
+		return assetListEntryAssetEntryRel;
 	}
 
 	private List<AssetListEntryAssetEntryRel> _getAssetListEntryAssetEntryRels(

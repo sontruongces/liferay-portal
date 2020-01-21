@@ -58,7 +58,7 @@ public class AssetTagStatsLocalServiceImpl
 		tagStats.setClassNameId(classNameId);
 
 		try {
-			tagStats = assetTagStatsPersistence.update(tagStats);
+			assetTagStatsPersistence.update(tagStats);
 		}
 		catch (SystemException systemException) {
 			if (_log.isWarnEnabled()) {
@@ -203,7 +203,9 @@ public class AssetTagStatsLocalServiceImpl
 
 		tagStats.setAssetCount(assetCount);
 
-		return assetTagStatsPersistence.update(tagStats);
+		assetTagStatsPersistence.update(tagStats);
+
+		return tagStats;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

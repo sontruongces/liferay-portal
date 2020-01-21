@@ -101,7 +101,7 @@ public class PasswordPolicyLocalServiceImpl
 		passwordPolicy.setResetTicketMaxAge(resetTicketMaxAge);
 		passwordPolicy.setExpandoBridgeAttributes(serviceContext);
 
-		passwordPolicy = passwordPolicyPersistence.update(passwordPolicy);
+		passwordPolicyPersistence.update(passwordPolicy);
 
 		// Resources
 
@@ -379,7 +379,9 @@ public class PasswordPolicyLocalServiceImpl
 		passwordPolicy.setResetTicketMaxAge(resetTicketMaxAge);
 		passwordPolicy.setExpandoBridgeAttributes(serviceContext);
 
-		return passwordPolicyPersistence.update(passwordPolicy);
+		passwordPolicyPersistence.update(passwordPolicy);
+
+		return passwordPolicy;
 	}
 
 	protected void validate(long passwordPolicyId, long companyId, String name)

@@ -66,7 +66,9 @@ public class AssetCategoryPropertyLocalServiceImpl
 		categoryProperty.setKey(key);
 		categoryProperty.setValue(value);
 
-		return assetCategoryPropertyPersistence.update(categoryProperty);
+		assetCategoryPropertyPersistence.update(categoryProperty);
+
+		return categoryProperty;
 	}
 
 	@Override
@@ -165,7 +167,9 @@ public class AssetCategoryPropertyLocalServiceImpl
 		categoryProperty.setKey(key);
 		categoryProperty.setValue(value);
 
-		return assetCategoryPropertyPersistence.update(categoryProperty);
+		assetCategoryPropertyPersistence.update(categoryProperty);
+
+		return categoryProperty;
 	}
 
 	@Override
