@@ -120,8 +120,9 @@ public class WorkflowMetricsSLADefinitionLocalServiceImpl
 		workflowMetricsSLADefinition.setStatus(
 			WorkflowConstants.STATUS_APPROVED);
 
-		workflowMetricsSLADefinitionPersistence.update(
-			workflowMetricsSLADefinition);
+		workflowMetricsSLADefinition =
+			workflowMetricsSLADefinitionPersistence.update(
+				workflowMetricsSLADefinition);
 
 		addWorkflowMetricsSLADefinitionVersion(
 			user, workflowMetricsSLADefinition);
@@ -343,10 +344,8 @@ public class WorkflowMetricsSLADefinitionLocalServiceImpl
 		workflowMetricsSLADefinition.setStatusByUserName(user.getFullName());
 		workflowMetricsSLADefinition.setStatusDate(now);
 
-		workflowMetricsSLADefinitionVersionPersistence.update(
+		return workflowMetricsSLADefinitionVersionPersistence.update(
 			workflowMetricsSLADefinitionVersion);
-
-		return workflowMetricsSLADefinitionVersion;
 	}
 
 	protected String getNextVersion(String version) {
