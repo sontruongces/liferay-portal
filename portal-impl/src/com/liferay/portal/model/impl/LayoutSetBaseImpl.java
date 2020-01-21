@@ -48,8 +48,8 @@ public abstract class LayoutSetBaseImpl
 			try {
 				LayoutSetLocalServiceUtil.updateLayoutSet(this);
 			}
-			catch (PortalException pe) {
-				throw new SystemException(pe);
+			catch (PortalException portalException) {
+				throw new SystemException(portalException);
 			}
 		}
 	}

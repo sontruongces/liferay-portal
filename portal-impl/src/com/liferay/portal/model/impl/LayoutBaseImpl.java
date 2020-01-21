@@ -47,8 +47,8 @@ public abstract class LayoutBaseImpl extends LayoutModelImpl implements Layout {
 			try {
 				LayoutLocalServiceUtil.updateLayout(this);
 			}
-			catch (PortalException pe) {
-				throw new SystemException(pe);
+			catch (PortalException portalException) {
+				throw new SystemException(portalException);
 			}
 		}
 	}

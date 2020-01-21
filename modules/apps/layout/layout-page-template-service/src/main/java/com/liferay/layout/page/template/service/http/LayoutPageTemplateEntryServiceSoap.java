@@ -81,10 +81,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -108,10 +108,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -141,10 +141,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -174,10 +174,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -189,10 +189,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			LayoutPageTemplateEntryServiceUtil.deleteLayoutPageTemplateEntries(
 				layoutPageTemplateEntryIds);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -211,10 +211,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -234,10 +234,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -255,10 +255,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -276,10 +276,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -299,10 +299,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -322,10 +322,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -345,10 +345,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -368,10 +368,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -392,10 +392,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -420,10 +420,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -447,10 +447,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -472,10 +472,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -498,10 +498,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -524,10 +524,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -553,10 +553,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -582,10 +582,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -606,10 +606,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -632,10 +632,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -661,10 +661,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -690,10 +690,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -719,10 +719,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -748,10 +748,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -777,10 +777,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -806,10 +806,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -835,10 +835,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -863,10 +863,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -892,10 +892,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -909,10 +909,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -927,10 +927,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -946,10 +946,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -965,10 +965,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -984,10 +984,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1004,10 +1004,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1024,10 +1024,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1044,10 +1044,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1063,10 +1063,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1083,10 +1083,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1101,10 +1101,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1120,10 +1120,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1139,10 +1139,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1162,10 +1162,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1185,10 +1185,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1214,10 +1214,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1241,10 +1241,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1264,10 +1264,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1291,10 +1291,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -1311,10 +1311,10 @@ public class LayoutPageTemplateEntryServiceSoap {
 			return com.liferay.layout.page.template.model.
 				LayoutPageTemplateEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 

@@ -149,8 +149,8 @@ public abstract class LayoutSetLocalServiceBaseImpl
 
 			return layoutSet;
 		}
-		catch (PortalException pe) {
-			throw new SystemException(pe);
+		catch (PortalException portalException) {
+			throw new SystemException(portalException);
 		}
 	}
 
@@ -1150,8 +1150,8 @@ public abstract class LayoutSetLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 
