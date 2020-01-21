@@ -155,7 +155,12 @@ class Validation extends Component {
 			editingLanguageId,
 			validation: {fieldName: name}
 		} = this;
+		let errorMessage = '';
 		let parameter = '';
+
+		if (this.refs.errorMessage) {
+			errorMessage = this.refs.errorMessage.value;
+		}
 
 		if (this.refs.parameter) {
 			parameter = this.refs.parameter.value;
@@ -189,7 +194,7 @@ class Validation extends Component {
 			enableValidation,
 			errorMessage: {
 				...this.value.errorMessage,
-				[editingLanguageId]: this.refs.errorMessage.value
+				[editingLanguageId]: errorMessage
 			},
 			expression,
 			parameter: {
