@@ -94,8 +94,8 @@ public class ActionUtil {
 				actionName, clazz, id, methodName, permissionName, scopeChecker,
 				siteId, uriInfo);
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 
