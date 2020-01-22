@@ -173,7 +173,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 
 	private boolean _isIgnoredField(String field) {
 		if (field.equals("entityCacheEnabled") ||
-			field.equals("finderCacheEnabled")) {
+			field.equals("finderCacheEnabled") || field.equals("mvccVersion")) {
 
 			return true;
 		}
