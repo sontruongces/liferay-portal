@@ -17,12 +17,22 @@ package com.liferay.osb.koroneiki.xylem.distributed.messaging.model.listener;
 import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.distributed.messaging.publishing.MessagePublisher;
 import com.liferay.petra.lang.CentralizedThreadLocal;
-import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.transaction.NewTransactionLifecycleListener;
+import com.liferay.portal.kernel.transaction.TransactionAttribute;
+import com.liferay.portal.kernel.transaction.TransactionLifecycleListener;
+import com.liferay.portal.kernel.transaction.TransactionLifecycleManager;
+import com.liferay.portal.kernel.transaction.TransactionStatus;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -32,15 +42,47 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = PublishingTasksThreadLocal.class)
 public class PublishingTasksThreadLocal {
 
-	public static boolean isImportInProcess() {
-		return _importInProcess.get();
-	}
+	public static final TransactionLifecycleListener
+		TRANSACTION_LIFECYCLE_LISTENER = new NewTransactionLifecycleListener() {
 
-	public static void setImportInProcess(boolean importInProcess) {
-		_importInProcess.set(importInProcess);
-	}
+			@Override
+			protected void doCommitted(
+				TransactionAttribute transactionAttribute,
+				TransactionStatus transactionStatus) {
 
-	public void addPublishingTask(
+				Map<String, PublishingTask> publishingTasksMap =
+					_popPublishingTasksMapList();
+
+				Map<String, PublishingTask> parentPublishingTasksMap =
+					_peekPublishingTasksMapList();
+
+				if (parentPublishingTasksMap == null) {
+					_flushPublishingTasks(publishingTasksMap);
+				}
+				else {
+					parentPublishingTasksMap.putAll(publishingTasksMap);
+				}
+			}
+
+			@Override
+			protected void doCreated(
+				TransactionAttribute transactionAttribute,
+				TransactionStatus transactionStatus) {
+
+				_pushPublishingTasksMapList();
+			}
+
+			@Override
+			protected void doRollbacked(
+				TransactionAttribute transactionAttribute,
+				TransactionStatus transactionStatus, Throwable throwable) {
+
+				_popPublishingTasksMapList();
+			}
+
+		};
+
+	public static void addPublishingTask(
 		String key, String topic, Callable<Message> callable) {
 
 		if (isImportInProcess()) {
@@ -48,7 +90,26 @@ public class PublishingTasksThreadLocal {
 		}
 
 		Map<String, PublishingTask> publishingTasksMap =
-			_publishingTasksMap.get();
+			_peekPublishingTasksMapList();
+
+		if (publishingTasksMap == null) {
+			try {
+				callable.call();
+
+				return;
+			}
+			catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		if (publishingTasksMap ==
+				Collections.<String, PublishingTask>emptyMap()) {
+
+			publishingTasksMap = new LinkedHashMap<>();
+
+			_setPublishingTasksMap(publishingTasksMap);
+		}
 
 		PublishingTask publishingTask = publishingTasksMap.get(key);
 
@@ -60,43 +121,94 @@ public class PublishingTasksThreadLocal {
 		}
 	}
 
-	public void flush() throws Exception {
-		Map<String, PublishingTask> publishingTasksMap =
-			_publishingTasksMap.get();
+	public static boolean isImportInProcess() {
+		return _importInProcess.get();
+	}
+
+	public static void setImportInProcess(boolean importInProcess) {
+		_importInProcess.set(importInProcess);
+	}
+
+	@Activate
+	public void activate() {
+		TransactionLifecycleManager.register(TRANSACTION_LIFECYCLE_LISTENER);
+	}
+
+	@Reference(unbind = "-")
+	protected void setMessagePublisher(MessagePublisher messagePublisher) {
+		_messagePublisher = messagePublisher;
+	}
+
+	private static void _flushPublishingTasks(
+		Map<String, PublishingTask> publishingTasksMap) {
 
 		for (PublishingTask publishingTask : publishingTasksMap.values()) {
-			Message message = publishingTask.createMessage();
+			try {
+				Message message = publishingTask.createMessage();
 
-			if (message != null) {
-				_messagePublisher.publish(
-					publishingTask.getTopic(), publishingTask.createMessage());
+				if (message != null) {
+					_messagePublisher.publish(
+						publishingTask.getTopic(),
+						publishingTask.createMessage());
+				}
+			}
+			catch (Exception e) {
+				_log.error("Unable to publish message", e);
 			}
 		}
 	}
+
+	private static Map<String, PublishingTask> _peekPublishingTasksMapList() {
+		List<Map<String, PublishingTask>> publishingTasksMapList =
+			_publishingTasksMapListThreadLocal.get();
+
+		if (publishingTasksMapList.isEmpty()) {
+			return null;
+		}
+
+		return publishingTasksMapList.get(publishingTasksMapList.size() - 1);
+	}
+
+	private static Map<String, PublishingTask> _popPublishingTasksMapList() {
+		List<Map<String, PublishingTask>> publishingTasksMapList =
+			_publishingTasksMapListThreadLocal.get();
+
+		return publishingTasksMapList.remove(publishingTasksMapList.size() - 1);
+	}
+
+	private static void _pushPublishingTasksMapList() {
+		List<Map<String, PublishingTask>> publishingTasksMapList =
+			_publishingTasksMapListThreadLocal.get();
+
+		publishingTasksMapList.add(
+			Collections.<String, PublishingTask>emptyMap());
+	}
+
+	private static void _setPublishingTasksMap(
+		Map<String, PublishingTask> publishingTasksMap) {
+
+		List<Map<String, PublishingTask>> publishingTasksMapList =
+			_publishingTasksMapListThreadLocal.get();
+
+		publishingTasksMapList.set(
+			publishingTasksMapList.size() - 1, publishingTasksMap);
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		PublishingTasksThreadLocal.class);
 
 	private static final ThreadLocal<Boolean> _importInProcess =
 		new CentralizedThreadLocal<>(
 			PublishingTasksThreadLocal.class + "._importInProcess",
 			() -> Boolean.FALSE);
+	private static MessagePublisher _messagePublisher;
+	private static final ThreadLocal<List<Map<String, PublishingTask>>>
+		_publishingTasksMapListThreadLocal = new CentralizedThreadLocal<>(
+			PublishingTasksThreadLocal.class +
+				"._publishingTasksMapListThreadLocal",
+			ArrayList::new);
 
-	@Reference
-	private MessagePublisher _messagePublisher;
-
-	private final ThreadLocal<Map<String, PublishingTask>> _publishingTasksMap =
-		new CentralizedThreadLocal<>(
-			PublishingTasksThreadLocal.class + "._publishingTasksMap",
-			() -> {
-				TransactionCommitCallbackUtil.registerCallback(
-					() -> {
-						flush();
-
-						return null;
-					});
-
-				return new LinkedHashMap<>();
-			});
-
-	private class PublishingTask {
+	private static class PublishingTask {
 
 		public PublishingTask(String topic, Callable<Message> callable) {
 			_topic = topic;

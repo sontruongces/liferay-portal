@@ -20,9 +20,12 @@ import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.xylem.distributed.messaging.model.listener.PublishingTasksThreadLocal;
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -53,8 +56,8 @@ public class EntitlementModelListener
 
 		super.onAfterCreate(entitlement);
 
-		publishingTasksThreadLocal.addPublishingTask(
-			_getParentTopic(entitlement), _getParentTopic(entitlement),
+		PublishingTasksThreadLocal.addPublishingTask(
+			_getKey(entitlement), _getParentTopic(entitlement),
 			() -> createParentMessage(entitlement));
 	}
 
@@ -64,8 +67,8 @@ public class EntitlementModelListener
 
 		super.onAfterRemove(entitlement);
 
-		publishingTasksThreadLocal.addPublishingTask(
-			_getParentTopic(entitlement), _getParentTopic(entitlement),
+		PublishingTasksThreadLocal.addPublishingTask(
+			_getKey(entitlement), _getParentTopic(entitlement),
 			() -> createParentMessage(entitlement));
 	}
 
@@ -90,6 +93,16 @@ public class EntitlementModelListener
 		}
 
 		return null;
+	}
+
+	private String _getKey(Entitlement entitlement) {
+		StringBundler sb = new StringBundler(3);
+
+		sb.append(_getParentTopic(entitlement));
+		sb.append(StringPool.POUND);
+		sb.append(entitlement.getClassPK());
+
+		return sb.toString();
 	}
 
 	private String _getParentTopic(Entitlement entitlement) {

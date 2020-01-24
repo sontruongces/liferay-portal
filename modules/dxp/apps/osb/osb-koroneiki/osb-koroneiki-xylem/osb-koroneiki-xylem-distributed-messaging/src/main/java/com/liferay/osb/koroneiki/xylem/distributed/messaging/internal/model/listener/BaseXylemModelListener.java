@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.BaseModelListener;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	@Override
 	public void onAfterCreate(final T model) throws ModelListenerException {
 		try {
-			publishingTasksThreadLocal.addPublishingTask(
+			PublishingTasksThreadLocal.addPublishingTask(
 				getCreateKey(model), getCreateTopic(model),
 				() -> createMessage(model));
 		}
@@ -55,7 +56,7 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	@Override
 	public void onAfterRemove(final T model) throws ModelListenerException {
 		try {
-			publishingTasksThreadLocal.addPublishingTask(
+			PublishingTasksThreadLocal.addPublishingTask(
 				getRemoveKey(model), getRemoveTopic(model),
 				() -> createMessage(model));
 		}
@@ -69,7 +70,7 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	@Override
 	public void onAfterUpdate(final T model) throws ModelListenerException {
 		try {
-			publishingTasksThreadLocal.addPublishingTask(
+			PublishingTasksThreadLocal.addPublishingTask(
 				getUpdateKey(model), getUpdateTopic(model),
 				() -> createMessage(model));
 		}
@@ -89,7 +90,7 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	}
 
 	protected String getCreateKey(T model) throws PortalException {
-		return _updateTopic;
+		return _updateTopic + StringPool.POUND + model.getPrimaryKeyObj();
 	}
 
 	protected String getCreateTopic(T model) throws PortalException {
@@ -97,7 +98,7 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	}
 
 	protected String getRemoveKey(T model) throws PortalException {
-		return _removeTopic;
+		return _removeTopic + StringPool.POUND + model.getPrimaryKeyObj();
 	}
 
 	protected String getRemoveTopic(T model) throws PortalException {
@@ -105,7 +106,7 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	}
 
 	protected String getUpdateKey(T model) throws PortalException {
-		return _updateTopic;
+		return _updateTopic + StringPool.POUND + model.getPrimaryKeyObj();
 	}
 
 	protected String getUpdateTopic(T model) throws PortalException {
@@ -114,9 +115,6 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 
 	@Reference
 	protected MessageFactory messageFactory;
-
-	@Reference
-	protected PublishingTasksThreadLocal publishingTasksThreadLocal;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BaseXylemModelListener.class);
