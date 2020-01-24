@@ -135,13 +135,13 @@ public class ConfigurationModelToDDMFormConverter {
 	protected DDMFormFieldOptions getDDMFieldOptions(
 		AttributeDefinition attributeDefinition) {
 
+		DDMFormFieldOptions ddmFormFieldOptions = new DDMFormFieldOptions();
+
 		String pid = _configurationModel.getID();
 
 		if (_configurationModel.isFactory()) {
 			pid = _configurationModel.getFactoryPid();
 		}
-
-		DDMFormFieldOptions ddmFormFieldOptions = new DDMFormFieldOptions();
 
 		ConfigurationFieldOptionsProvider configurationFieldOptionsProvider =
 			ConfigurationFieldOptionsProviderUtil.
