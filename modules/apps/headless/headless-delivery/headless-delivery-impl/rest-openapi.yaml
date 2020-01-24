@@ -449,6 +449,11 @@ components:
                         The content's title.
                     readOnly: true
                     type: string
+                title_i18n:
+                    additionalProperties:
+                        type: string
+                    readOnly: true
+                    type: object
         ContentStructure:
             description:
                 Represents the content structure that backs structured content. This defines which form fields are
@@ -491,6 +496,11 @@ components:
                         The content structure's description.
                     readOnly: true
                     type: string
+                description_i18n:
+                    additionalProperties:
+                        type: string
+                    readOnly: true
+                    type: object
                 id:
                     description:
                         The content structure's ID.
@@ -502,6 +512,11 @@ components:
                         The content structure's name.
                     readOnly: true
                     type: string
+                name_i18n:
+                    additionalProperties:
+                        type: string
+                    readOnly: true
+                    type: object
                 siteId:
                     description:
                         The ID of the site to which the content structure is scoped.
@@ -528,6 +543,11 @@ components:
                         The form field's label.
                     readOnly: true
                     type: string
+                label_i18n:
+                    additionalProperties:
+                        type: string
+                    readOnly: true
+                    type: object
                 localizable:
                     description:
                         A flag that indicates whether the content is accessible in different languages.
@@ -559,6 +579,10 @@ components:
                                 description:
                                     The option's label.
                                 type: string
+                            label_i18n:
+                                additionalProperties:
+                                    type: string
+                                type: object
                             value:
                                 description:
                                     The internal value of the field option.
@@ -571,6 +595,11 @@ components:
                         The form field's default value.
                     readOnly: true
                     type: string
+                predefinedValue_i18n:
+                    additionalProperties:
+                        type: string
+                    readOnly: true
+                    type: object
                 repeatable:
                     description:
                         A flag that indicates whether this content can be rendered (and answered) several times.
@@ -648,6 +677,10 @@ components:
                         data:
                             description:
                                 The field's content for simple types.
+                            type: object
+                        data_i18n:
+                            additionalProperties:
+                                type: string
                             type: object
                         geo:
                             description:
