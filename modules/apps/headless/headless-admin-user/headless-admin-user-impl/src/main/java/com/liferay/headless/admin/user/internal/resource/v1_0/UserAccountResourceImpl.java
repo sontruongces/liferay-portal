@@ -247,7 +247,8 @@ public class UserAccountResourceImpl
 						postalAddresses = transformToArray(
 							user.getAddresses(),
 							address -> PostalAddressUtil.toPostalAddress(
-								address,
+								contextAcceptLanguage.isAcceptAllLanguages(),
+								address, user.getCompanyId(),
 								contextAcceptLanguage.getPreferredLocale()),
 							PostalAddress.class);
 						skype = contact.getSkypeSn();
@@ -261,6 +262,7 @@ public class UserAccountResourceImpl
 					}
 				};
 				customFields = CustomFieldsUtil.toCustomFields(
+					contextAcceptLanguage.isAcceptAllLanguages(),
 					User.class.getName(), user.getUserId(), user.getCompanyId(),
 					contextAcceptLanguage.getPreferredLocale());
 				dateCreated = user.getCreateDate();
@@ -289,7 +291,6 @@ public class UserAccountResourceImpl
 						contextCompany.getCompanyId(),
 						GroupConstants.DEFAULT_PARENT_GROUP_ID, true),
 					group -> _toSiteBrief(group), SiteBrief.class);
-
 				setDashboardURL(
 					() -> {
 						Group group = user.getGroup();
