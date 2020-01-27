@@ -1527,8 +1527,6 @@ public class LayoutStagedModelDataHandler
 			_exportImportHelper.setPortletScope(
 				portletDataContext, portletElement);
 
-			long portletPreferencesGroupId = portletDataContext.getGroupId();
-
 			Element portletDataElement = portletElement.element("portlet-data");
 
 			ManifestSummary manifestSummary =
@@ -1543,9 +1541,7 @@ public class LayoutStagedModelDataHandler
 					portletDataContext.getCompanyId(), portletId, parameterMap,
 					portletDataElement, manifestSummary);
 
-			if (layout != null) {
-				portletPreferencesGroupId = layout.getGroupId();
-			}
+			long portletPreferencesGroupId = layout.getGroupId();
 
 			try {
 				_exportImportLifecycleManager.fireExportImportLifecycleEvent(
