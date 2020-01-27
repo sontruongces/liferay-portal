@@ -614,12 +614,12 @@ public abstract class BaseDataLayoutResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			dataLayoutResource.postSiteDataLayoutPermissionHttpResponse(
-				null, null, null));
+				testGroup.getGroupId(), null, null));
 
 		assertHttpResponseStatusCode(
 			404,
 			dataLayoutResource.postSiteDataLayoutPermissionHttpResponse(
-				null, null, null));
+				testGroup.getGroupId(), null, null));
 	}
 
 	protected DataLayout testPostSiteDataLayoutPermission_addDataLayout()

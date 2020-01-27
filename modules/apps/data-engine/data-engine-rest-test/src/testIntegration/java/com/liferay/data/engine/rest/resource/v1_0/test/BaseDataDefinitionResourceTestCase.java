@@ -398,12 +398,12 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			dataDefinitionResource.postSiteDataDefinitionPermissionHttpResponse(
-				null, null, null));
+				testGroup.getGroupId(), null, null));
 
 		assertHttpResponseStatusCode(
 			404,
 			dataDefinitionResource.postSiteDataDefinitionPermissionHttpResponse(
-				null, null, null));
+				testGroup.getGroupId(), null, null));
 	}
 
 	protected DataDefinition

@@ -569,13 +569,13 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 			204,
 			dataRecordCollectionResource.
 				postSiteDataRecordCollectionPermissionHttpResponse(
-					null, null, null));
+					testGroup.getGroupId(), null, null));
 
 		assertHttpResponseStatusCode(
 			404,
 			dataRecordCollectionResource.
 				postSiteDataRecordCollectionPermissionHttpResponse(
-					null, null, null));
+					testGroup.getGroupId(), null, null));
 	}
 
 	protected DataRecordCollection
