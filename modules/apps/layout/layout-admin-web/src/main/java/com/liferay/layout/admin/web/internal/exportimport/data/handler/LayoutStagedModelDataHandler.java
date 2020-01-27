@@ -378,7 +378,8 @@ public class LayoutStagedModelDataHandler
 					layout.getType(), LayoutConstants.TYPE_PORTLET) ||
 				 Objects.equals(
 					 layout.getType(), LayoutConstants.TYPE_CONTENT) ||
-				 layout.isTypeAssetDisplay()) {
+				 Objects.equals(
+					 layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
 
 			exportLayoutPortlets(portletDataContext, layout, layoutElement);
 		}
@@ -840,7 +841,8 @@ public class LayoutStagedModelDataHandler
 		if ((Objects.equals(layout.getType(), LayoutConstants.TYPE_PORTLET) &&
 			 Validator.isNotNull(layout.getTypeSettings())) ||
 			Objects.equals(layout.getType(), LayoutConstants.TYPE_CONTENT) ||
-			layout.isTypeAssetDisplay()) {
+			Objects.equals(
+				layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
 
 			importLayoutPortlets(
 				portletDataContext, importedLayout, layoutElement);
@@ -1532,7 +1534,9 @@ public class LayoutStagedModelDataHandler
 			ManifestSummary manifestSummary =
 				portletDataContext.getManifestSummary();
 
-			if (layout.isTypeAssetDisplay()) {
+			if (Objects.equals(
+					layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
+
 				manifestSummary = null;
 			}
 
