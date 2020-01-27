@@ -32,16 +32,10 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class AccountServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.AccountServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
-	 */
-
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link AccountServiceUtil} to access the account remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.AccountServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.Account addAccount(
 			long parentAccountId, String name, String code, String description,
@@ -114,6 +108,20 @@ public class AccountServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getAccountsCount(domain, entityName, entityId);
+	}
+
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.Account> getContactAccounts(
+				long contactId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactAccounts(contactId, start, end);
+	}
+
+	public static int getContactAccountsCount(long contactId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getContactAccountsCount(contactId);
 	}
 
 	/**

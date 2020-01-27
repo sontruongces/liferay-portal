@@ -43,7 +43,7 @@ import org.osgi.annotation.versioning.ProviderType;
 )
 public interface ContactAccountRoleService extends BaseService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ContactAccountRoleServiceUtil} to access the contact account role remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactAccountRoleServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

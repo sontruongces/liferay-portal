@@ -58,7 +58,7 @@ public abstract class ContactRoleServiceBaseImpl
 	extends BaseServiceImpl
 	implements AopService, ContactRoleService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ContactRoleService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.ContactRoleServiceUtil</code>.
@@ -112,8 +112,8 @@ public abstract class ContactRoleServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

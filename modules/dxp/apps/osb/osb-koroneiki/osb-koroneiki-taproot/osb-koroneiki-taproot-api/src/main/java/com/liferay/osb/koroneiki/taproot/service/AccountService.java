@@ -46,7 +46,7 @@ import org.osgi.annotation.versioning.ProviderType;
 )
 public interface AccountService extends BaseService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link AccountServiceUtil} to access the account remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.AccountServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
@@ -86,6 +86,13 @@ public interface AccountService extends BaseService {
 	public int getAccountsCount(
 			String domain, String entityName, String entityId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Account> getContactAccounts(long contactId, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getContactAccountsCount(long contactId) throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.

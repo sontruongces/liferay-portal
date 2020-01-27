@@ -32,7 +32,7 @@ import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalServiceUtil;
 public abstract class TeamRoleBaseImpl
 	extends TeamRoleModelImpl implements TeamRole {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a team role model instance should use the <code>TeamRole</code> interface instead.

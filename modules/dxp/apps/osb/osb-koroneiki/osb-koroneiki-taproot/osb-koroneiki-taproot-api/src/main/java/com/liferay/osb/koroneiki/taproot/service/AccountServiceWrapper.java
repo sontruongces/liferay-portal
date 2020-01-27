@@ -30,11 +30,6 @@ public class AccountServiceWrapper
 		_accountService = accountService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link AccountServiceUtil} to access the account remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.AccountServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Account addAccount(
 			long parentAccountId, String name, String code, String description,
@@ -114,6 +109,21 @@ public class AccountServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountService.getAccountsCount(domain, entityName, entityId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Account>
+			getContactAccounts(long contactId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _accountService.getContactAccounts(contactId, start, end);
+	}
+
+	@Override
+	public int getContactAccountsCount(long contactId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _accountService.getContactAccountsCount(contactId);
 	}
 
 	/**

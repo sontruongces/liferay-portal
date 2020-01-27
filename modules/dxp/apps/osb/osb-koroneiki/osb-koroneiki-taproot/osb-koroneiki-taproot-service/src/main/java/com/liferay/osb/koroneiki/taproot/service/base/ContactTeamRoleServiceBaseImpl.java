@@ -58,7 +58,7 @@ public abstract class ContactTeamRoleServiceBaseImpl
 	extends BaseServiceImpl
 	implements AopService, ContactTeamRoleService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ContactTeamRoleService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleServiceUtil</code>.
@@ -112,8 +112,8 @@ public abstract class ContactTeamRoleServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

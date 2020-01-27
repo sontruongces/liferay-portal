@@ -37,7 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TeamAccountRolePersistence
 	extends BasePersistence<TeamAccountRole> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TeamAccountRoleUtil} to access the team account role persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

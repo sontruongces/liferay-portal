@@ -32,7 +32,7 @@ import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalServiceUtil;
 public abstract class ContactRoleBaseImpl
 	extends ContactRoleModelImpl implements ContactRole {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a contact role model instance should use the <code>ContactRole</code> interface instead.
