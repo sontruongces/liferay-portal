@@ -39,6 +39,7 @@ import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
 import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleService;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
 import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleService;
@@ -254,6 +255,42 @@ public class AccountResourceImpl
 				_accountLocalService.getAccount(
 					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
 			sorts);
+	}
+
+	@Override
+	public Page<Account> getContactByOktaAccountsPage(
+			String oktaId, Pagination pagination)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.getContactByOktaId(oktaId);
+
+		return Page.of(
+			transform(
+				_accountService.getContactAccounts(
+					contact.getContactId(), pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				account -> AccountUtil.toAccount(account)),
+			pagination,
+			_accountService.getContactAccountsCount(contact.getContactId()));
+	}
+
+	@Override
+	public Page<Account> getContactByUuidContactUuidAccountsPage(
+			String contactUuid, Pagination pagination)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.taproot.model.Contact contact =
+			_contactLocalService.getContactByUuid(contactUuid);
+
+		return Page.of(
+			transform(
+				_accountService.getContactAccounts(
+					contact.getContactId(), pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				account -> AccountUtil.toAccount(account)),
+			pagination,
+			_accountService.getContactAccountsCount(contact.getContactId()));
 	}
 
 	@Override
@@ -741,6 +778,9 @@ public class AccountResourceImpl
 
 	@Reference
 	private ContactAccountRoleService _contactAccountRoleService;
+
+	@Reference
+	private ContactLocalService _contactLocalService;
 
 	@Reference
 	private ContactResource _contactResource;
