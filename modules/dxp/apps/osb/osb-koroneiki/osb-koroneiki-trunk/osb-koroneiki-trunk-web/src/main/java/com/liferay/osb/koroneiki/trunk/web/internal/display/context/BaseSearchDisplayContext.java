@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.trunk.web.internal.display.context;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -98,7 +99,11 @@ public abstract class BaseSearchDisplayContext {
 	protected abstract SearchContainer createSearchContainer() throws Exception;
 
 	protected String getDefaultOrderByCol() {
-		return "name";
+		if (Validator.isNull(_keywords)) {
+			return "name";
+		}
+
+		return StringPool.BLANK;
 	}
 
 	protected final RenderRequest renderRequest;

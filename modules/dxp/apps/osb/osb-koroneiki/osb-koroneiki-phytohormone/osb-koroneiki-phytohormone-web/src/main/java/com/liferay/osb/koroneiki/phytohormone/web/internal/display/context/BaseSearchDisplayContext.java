@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -114,7 +115,11 @@ public abstract class BaseSearchDisplayContext {
 	protected abstract SearchContainer createSearchContainer() throws Exception;
 
 	protected String getDefaultOrderByCol() {
-		return "name";
+		if (Validator.isNull(_keywords)) {
+			return "name";
+		}
+
+		return StringPool.BLANK;
 	}
 
 	protected final PortletURL currentURLObj;
