@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.root.audit.model.listener;
 import com.liferay.osb.koroneiki.root.audit.model.BaseAuditModelListener;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
+import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ModelListener;
@@ -39,6 +40,15 @@ public class ProductConsumptionModelListener
 	@Override
 	protected long getClassPK(ProductConsumption productConsumption) {
 		return productConsumption.getAccountId();
+	}
+
+	@Override
+	protected String getDescription(ProductConsumption productConsumption)
+		throws PortalException {
+
+		ProductEntry productEntry = productConsumption.getProductEntry();
+
+		return productEntry.getName();
 	}
 
 	@Override

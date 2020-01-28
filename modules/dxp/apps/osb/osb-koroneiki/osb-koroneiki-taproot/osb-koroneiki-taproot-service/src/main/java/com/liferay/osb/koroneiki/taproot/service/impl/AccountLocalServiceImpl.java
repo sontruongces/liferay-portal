@@ -291,11 +291,14 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setTier(tier);
 		account.setSoldBy(soldBy);
 		account.setInternal(internal);
-		account.setStatus(status);
-		account.setStatusByUserId(userId);
-		account.setStatusByUserName(user.getFullName());
-		account.setStatusDate(new Date());
-		account.setStatusMessage(StringPool.BLANK);
+
+		if (status != account.getStatus()) {
+			account.setStatus(status);
+			account.setStatusByUserId(userId);
+			account.setStatusByUserName(user.getFullName());
+			account.setStatusDate(new Date());
+			account.setStatusMessage(StringPool.BLANK);
+		}
 
 		return accountPersistence.update(account);
 	}

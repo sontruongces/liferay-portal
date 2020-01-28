@@ -17,12 +17,11 @@ package com.liferay.osb.koroneiki.root.service.impl;
 import com.liferay.osb.koroneiki.root.model.AuditEntry;
 import com.liferay.osb.koroneiki.root.service.base.AuditEntryLocalServiceBaseImpl;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
-import com.liferay.petra.string.StringBundler;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 import java.util.List;
 
@@ -38,16 +37,31 @@ import org.osgi.service.component.annotations.Component;
 public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 
 	public AuditEntry addAuditEntry(
-			long userId, long classNameId, long classPK, long auditSetId,
-			long fieldClassNameId, long fieldClassPK, String action,
-			String field, String oldLabel, String oldValue, String newLabel,
-			String newValue, String description, ServiceContext serviceContext)
+			long userId, long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK, String action, String field, String oldLabel,
+			String oldValue, String newLabel, String newValue,
+			String description, ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
 
+		String agentName = user.getFullName();
+
+		if (serviceContext != null) {
+			agentName = GetterUtil.getString(
+				serviceContext.getAttribute("agentName"), agentName);
+		}
+
+		long auditSetId = 0;
+
+		if (serviceContext != null) {
+			auditSetId = GetterUtil.getLong(
+				serviceContext.getAttribute("auditSetId"));
+		}
+
 		if (auditSetId <= 0) {
-			auditSetId = getNextAuditSetId(classNameId, classPK);
+			auditSetId = counterLocalService.increment(
+				AuditEntry.class.getName());
 		}
 
 		long auditEntryId = counterLocalService.increment();
@@ -56,8 +70,8 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 
 		auditEntry.setCompanyId(user.getCompanyId());
 		auditEntry.setUserId(userId);
-		auditEntry.setUserName(user.getFullName());
 		auditEntry.setAuditEntryKey(ModelKeyGenerator.generate(auditEntryId));
+		auditEntry.setAgentName(agentName);
 		auditEntry.setClassNameId(classNameId);
 		auditEntry.setClassPK(classPK);
 		auditEntry.setAuditSetId(auditSetId);
@@ -105,18 +119,6 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 		throws PortalException {
 
 		return auditEntryPersistence.findByAuditEntryKey(auditEntryKey);
-	}
-
-	public long getNextAuditSetId(long classNameId, long classPK) {
-		StringBundler sb = new StringBundler(5);
-
-		sb.append(AuditEntry.class.getName());
-		sb.append(StringPool.POUND);
-		sb.append(classNameId);
-		sb.append(StringPool.POUND);
-		sb.append(classPK);
-
-		return counterLocalService.increment(sb.toString());
 	}
 
 }

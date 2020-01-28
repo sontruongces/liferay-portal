@@ -304,6 +304,7 @@ public class CorpProjectMigration {
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
 			while (resultSet.next()) {
+				String userName = resultSet.getString("userName");
 				Date createDate = resultSet.getDate("createDate");
 				long auditSetId = resultSet.getLong("auditSetId");
 				long fieldClassNameId = resultSet.getLong("fieldClassNameId");
@@ -317,13 +318,14 @@ public class CorpProjectMigration {
 
 				ServiceContext serviceContext = new ServiceContext();
 
+				serviceContext.setAttribute("agentName", userName);
+				serviceContext.setAttribute("auditSetId", auditSetId);
 				serviceContext.setCreateDate(createDate);
 
 				_auditEntryLocalService.addAuditEntry(
 					userId,
 					_classNameLocalService.getClassNameId(Account.class),
-					corpProjectId, auditSetId,
-					_getFieldClassNameId(fieldClassNameId), 0,
+					corpProjectId, _getFieldClassNameId(fieldClassNameId), 0,
 					_getAction(action), _getField(field), oldLabel, oldValue,
 					newLabel, newValue, description, serviceContext);
 			}

@@ -17,9 +17,9 @@ package com.liferay.osb.koroneiki.root.audit.model.listener;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AuditEntry;
 import com.liferay.osb.koroneiki.root.audit.model.BaseAuditModelListener;
 import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.model.Contact;
-import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
-import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.model.Team;
+import com.liferay.osb.koroneiki.taproot.model.TeamAccountRole;
+import com.liferay.osb.koroneiki.taproot.model.TeamRole;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -29,50 +29,48 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Kyle Bischof
  * @author Amos Fong
  */
 @Component(immediate = true, service = ModelListener.class)
-public class ContactAccountRoleModelListener
-	extends BaseAuditModelListener<ContactAccountRole> {
+public class TeamAccountRoleModelListener
+	extends BaseAuditModelListener<TeamAccountRole> {
 
 	@Override
-	public void onAfterCreate(ContactAccountRole contactAccountRole)
+	public void onAfterCreate(TeamAccountRole teamAccountRole)
 		throws ModelListenerException {
 
 		try {
-			Account account = contactAccountRole.getAccount();
-			Contact contact = contactAccountRole.getContact();
-			ContactRole contactRole = contactAccountRole.getContactRole();
+			Account account = teamAccountRole.getAccount();
+			Team team = teamAccountRole.getTeam();
+			TeamRole teamRole = teamAccountRole.getTeamRole();
 
 			ServiceContext serviceContext = getServiceContext(
 				classNameLocalService.getClassNameId(Account.class),
-				contactAccountRole.getAccountId());
+				teamAccountRole.getAccountId());
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
 				classNameLocalService.getClassNameId(Account.class),
-				contactAccountRole.getAccountId(),
-				classNameLocalService.getClassNameId(Contact.class),
-				contactAccountRole.getContactId(),
-				AuditEntry.Action.ASSIGN.toString(), "Contact Role",
-				StringPool.BLANK, StringPool.BLANK, contactRole.getName(),
-				String.valueOf(contactAccountRole.getContactRoleId()),
-				contact.getFullName(), serviceContext);
+				teamAccountRole.getAccountId(),
+				classNameLocalService.getClassNameId(Team.class),
+				teamAccountRole.getTeamId(),
+				AuditEntry.Action.ASSIGN.toString(), "Team Role",
+				StringPool.BLANK, StringPool.BLANK, teamRole.getName(),
+				String.valueOf(teamAccountRole.getTeamRoleId()), team.getName(),
+				serviceContext);
 
 			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Contact.class),
-				contactAccountRole.getContactId());
+				classNameLocalService.getClassNameId(Team.class),
+				teamAccountRole.getTeamId());
 
 			auditEntryLocalService.addAuditEntry(
-				getUserId(),
-				classNameLocalService.getClassNameId(Contact.class),
-				contactAccountRole.getContactId(),
-				classNameLocalService.getClassNameId(ContactRole.class),
-				contactAccountRole.getContactRoleId(),
+				getUserId(), classNameLocalService.getClassNameId(Team.class),
+				teamAccountRole.getTeamId(),
+				classNameLocalService.getClassNameId(TeamRole.class),
+				teamAccountRole.getTeamRoleId(),
 				AuditEntry.Action.ASSIGN.toString(), "Account",
 				StringPool.BLANK, StringPool.BLANK, account.getName(),
-				String.valueOf(account.getAccountId()), contactRole.getName(),
+				String.valueOf(account.getAccountId()), teamRole.getName(),
 				serviceContext);
 		}
 		catch (PortalException pe) {
@@ -81,43 +79,42 @@ public class ContactAccountRoleModelListener
 	}
 
 	@Override
-	public void onBeforeRemove(ContactAccountRole contactAccountRole)
+	public void onBeforeRemove(TeamAccountRole teamAccountRole)
 		throws ModelListenerException {
 
 		try {
-			Account account = contactAccountRole.getAccount();
-			Contact contact = contactAccountRole.getContact();
-			ContactRole contactRole = contactAccountRole.getContactRole();
+			Account account = teamAccountRole.getAccount();
+			Team team = teamAccountRole.getTeam();
+			TeamRole teamRole = teamAccountRole.getTeamRole();
 
 			ServiceContext serviceContext = getServiceContext(
 				classNameLocalService.getClassNameId(Account.class),
-				contactAccountRole.getAccountId());
+				teamAccountRole.getAccountId());
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
 				classNameLocalService.getClassNameId(Account.class),
-				contactAccountRole.getAccountId(),
-				classNameLocalService.getClassNameId(Contact.class),
-				contactAccountRole.getContactId(),
-				AuditEntry.Action.UNASSIGN.toString(), "Contact Role",
-				contactRole.getName(),
-				String.valueOf(contactAccountRole.getContactRoleId()),
-				StringPool.BLANK, StringPool.BLANK, contact.getFullName(),
+				teamAccountRole.getAccountId(),
+				classNameLocalService.getClassNameId(Team.class),
+				teamAccountRole.getTeamId(),
+				AuditEntry.Action.UNASSIGN.toString(), "Team Role",
+				teamRole.getName(),
+				String.valueOf(teamAccountRole.getTeamRoleId()),
+				StringPool.BLANK, StringPool.BLANK, team.getName(),
 				serviceContext);
 
 			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Contact.class),
-				contactAccountRole.getContactId());
+				classNameLocalService.getClassNameId(Team.class),
+				teamAccountRole.getTeamId());
 
 			auditEntryLocalService.addAuditEntry(
-				getUserId(),
-				classNameLocalService.getClassNameId(Contact.class),
-				contactAccountRole.getContactId(),
-				classNameLocalService.getClassNameId(ContactRole.class),
-				contactAccountRole.getContactRoleId(),
+				getUserId(), classNameLocalService.getClassNameId(Team.class),
+				teamAccountRole.getTeamId(),
+				classNameLocalService.getClassNameId(TeamRole.class),
+				teamAccountRole.getTeamRoleId(),
 				AuditEntry.Action.UNASSIGN.toString(), "Account",
 				StringPool.BLANK, StringPool.BLANK, account.getName(),
-				String.valueOf(account.getAccountId()), contactRole.getName(),
+				String.valueOf(account.getAccountId()), teamRole.getName(),
 				serviceContext);
 		}
 		catch (PortalException pe) {

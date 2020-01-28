@@ -15,54 +15,43 @@
 package com.liferay.osb.koroneiki.root.audit.model.listener;
 
 import com.liferay.osb.koroneiki.root.audit.model.BaseAuditModelListener;
-import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
-import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
-import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
+import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.model.ModelListener;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Kyle Bischof
+ * @author Amos Fong
  */
 @Component(immediate = true, service = ModelListener.class)
-public class ProductPurchaseModelListener
-	extends BaseAuditModelListener<ProductPurchase> {
+public class ExternalLinkModelListener
+	extends BaseAuditModelListener<ExternalLink> {
 
 	@Override
-	protected long getClassNameId(ProductPurchase productPurchase) {
-		return classNameLocalService.getClassNameId(Account.class);
+	protected long getClassNameId(ExternalLink externalLink) {
+		return externalLink.getClassNameId();
 	}
 
 	@Override
-	protected long getClassPK(ProductPurchase productPurchase) {
-		return productPurchase.getAccountId();
+	protected long getClassPK(ExternalLink externalLink) {
+		return externalLink.getClassPK();
 	}
 
 	@Override
-	protected String getDescription(ProductPurchase productPurchase)
-		throws PortalException {
-
-		ProductEntry productEntry = productPurchase.getProductEntry();
-
-		return productEntry.getName();
-	}
-
-	@Override
-	protected ProductPurchase getModel(long classPK) throws PortalException {
-		return _productPurchaseLocalService.getProductPurchase(classPK);
+	protected ExternalLink getModel(long classPK) throws PortalException {
+		return _externalLinkLocalService.getExternalLink(classPK);
 	}
 
 	@Override
 	protected boolean isSkipFieldUpdate(
 		String field, Object oldValue, Object newValue) {
 
-		if (field.equals("endDate") || field.equals("originalEndDate") ||
-			field.equals("productPurchaseId") || field.equals("startDate") ||
-			field.equals("status")) {
+		if (field.equals("domain") || field.equals("entityId") ||
+			field.equals("entityName")) {
 
 			return false;
 		}
@@ -71,6 +60,9 @@ public class ProductPurchaseModelListener
 	}
 
 	@Reference
-	private ProductPurchaseLocalService _productPurchaseLocalService;
+	private ExternalLinkLocalService _externalLinkLocalService;
+
+	@Reference
+	private JSONFactory _jsonFactory;
 
 }

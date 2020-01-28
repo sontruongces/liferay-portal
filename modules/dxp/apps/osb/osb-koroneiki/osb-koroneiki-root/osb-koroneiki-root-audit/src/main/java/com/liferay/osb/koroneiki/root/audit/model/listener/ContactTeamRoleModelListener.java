@@ -14,45 +14,112 @@
 
 package com.liferay.osb.koroneiki.root.audit.model.listener;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AuditEntry;
 import com.liferay.osb.koroneiki.root.audit.model.BaseAuditModelListener;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactTeamRole;
 import com.liferay.osb.koroneiki.taproot.model.Team;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.exception.ModelListenerException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ModelListener;
-
-import java.util.Map;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Kyle Bischof
+ * @author Amos Fong
  */
 @Component(immediate = true, service = ModelListener.class)
 public class ContactTeamRoleModelListener
 	extends BaseAuditModelListener<ContactTeamRole> {
 
 	@Override
-	protected long getClassNameId(ContactTeamRole model) {
-		return classNameLocalService.getClassNameId(Contact.class);
+	public void onAfterCreate(ContactTeamRole contactTeamRole)
+		throws ModelListenerException {
+
+		try {
+			Contact contact = contactTeamRole.getContact();
+			ContactRole contactRole = contactTeamRole.getContactRole();
+			Team team = contactTeamRole.getTeam();
+
+			ServiceContext serviceContext = getServiceContext(
+				classNameLocalService.getClassNameId(Contact.class),
+				contactTeamRole.getContactId());
+
+			auditEntryLocalService.addAuditEntry(
+				getUserId(),
+				classNameLocalService.getClassNameId(Contact.class),
+				contactTeamRole.getContactId(),
+				classNameLocalService.getClassNameId(ContactRole.class),
+				contactTeamRole.getContactRoleId(),
+				AuditEntry.Action.ASSIGN.toString(), "Team", StringPool.BLANK,
+				StringPool.BLANK, team.getName(),
+				String.valueOf(team.getTeamId()), contactRole.getName(),
+				serviceContext);
+
+			serviceContext = getServiceContext(
+				classNameLocalService.getClassNameId(Team.class),
+				contactTeamRole.getTeamId());
+
+			auditEntryLocalService.addAuditEntry(
+				getUserId(), classNameLocalService.getClassNameId(Team.class),
+				contactTeamRole.getTeamId(),
+				classNameLocalService.getClassNameId(Contact.class),
+				contactTeamRole.getContactId(),
+				AuditEntry.Action.ASSIGN.toString(), "Contact Role",
+				StringPool.BLANK, StringPool.BLANK, contactRole.getName(),
+				String.valueOf(contactTeamRole.getContactRoleId()),
+				contact.getFullName(), serviceContext);
+		}
+		catch (PortalException pe) {
+			throw new ModelListenerException(pe);
+		}
 	}
 
 	@Override
-	protected long getClassPK(ContactTeamRole model) {
-		Map<String, Object> attributes = model.getModelAttributes();
+	public void onBeforeRemove(ContactTeamRole contactTeamRole)
+		throws ModelListenerException {
 
-		return (Long)attributes.get("contactId");
-	}
+		try {
+			Contact contact = contactTeamRole.getContact();
+			ContactRole contactRole = contactTeamRole.getContactRole();
+			Team team = contactTeamRole.getTeam();
 
-	@Override
-	protected long getFieldClassNameId(ContactTeamRole model) {
-		return classNameLocalService.getClassNameId(Team.class);
-	}
+			ServiceContext serviceContext = getServiceContext(
+				classNameLocalService.getClassNameId(Contact.class),
+				contactTeamRole.getContactId());
 
-	@Override
-	protected long getFieldClassPK(ContactTeamRole model) {
-		Map<String, Object> attributes = model.getModelAttributes();
+			auditEntryLocalService.addAuditEntry(
+				getUserId(),
+				classNameLocalService.getClassNameId(Contact.class),
+				contactTeamRole.getContactId(),
+				classNameLocalService.getClassNameId(ContactRole.class),
+				contactTeamRole.getContactRoleId(),
+				AuditEntry.Action.UNASSIGN.toString(), "Team", StringPool.BLANK,
+				StringPool.BLANK, team.getName(),
+				String.valueOf(team.getTeamId()), contactRole.getName(),
+				serviceContext);
 
-		return (Long)attributes.get("teamId");
+			serviceContext = getServiceContext(
+				classNameLocalService.getClassNameId(Team.class),
+				contactTeamRole.getTeamId());
+
+			auditEntryLocalService.addAuditEntry(
+				getUserId(), classNameLocalService.getClassNameId(Team.class),
+				contactTeamRole.getTeamId(),
+				classNameLocalService.getClassNameId(Contact.class),
+				contactTeamRole.getContactId(),
+				AuditEntry.Action.UNASSIGN.toString(), "Contact Role",
+				StringPool.BLANK, StringPool.BLANK, contactRole.getName(),
+				String.valueOf(contactTeamRole.getContactRoleId()),
+				contact.getFullName(), serviceContext);
+		}
+		catch (PortalException pe) {
+			throw new ModelListenerException(pe);
+		}
 	}
 
 }

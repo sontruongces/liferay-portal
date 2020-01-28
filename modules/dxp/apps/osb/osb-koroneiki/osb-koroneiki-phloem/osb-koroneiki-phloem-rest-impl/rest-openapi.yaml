@@ -157,20 +157,14 @@ components:
                     enum: ["Add", "Assign", "Delete", "Renew", "Unassign", "Update"]
                     readOnly: true
                     type: string
+                agentName:
+                    description:
+                        The full name of the user performing the audited action.
+                    readOnly: true
+                    type: string
                 auditSetId:
                     description:
                         The id of related audit entries.
-                    format: int64
-                    readOnly: true
-                    type: integer
-                className:
-                    description:
-                        The name of the audited object.
-                    readOnly: true
-                    type: string
-                classPK:
-                    description:
-                        The primary key of the audited object.
                     format: int64
                     readOnly: true
                     type: integer
@@ -182,7 +176,7 @@ components:
                     type: string
                 description:
                     description:
-                        The description of the audit entry.
+                        Additional information describing what occurred.
                     readOnly: true
                     type: string
                 field:
@@ -190,17 +184,6 @@ components:
                         The field of the audited object.
                     readOnly: true
                     type: string
-                fieldClassName:
-                    description:
-                        If the field is on a child object of the audited object, the name of the child object. Otherwise the name of the audited object.
-                    readOnly: true
-                    type: string
-                fieldClassPK:
-                    description:
-                        If the field is on a child object of the audited object, the primary key of the child object. Otherwise the primary key of the audited object.
-                    format: int64
-                    readOnly: true
-                    type: integer
                 key:
                     description:
                         The audit entry's key.
@@ -216,15 +199,9 @@ components:
                         The old value of the field on the audited object.
                     readOnly: true
                     type: string
-                userId:
+                summary:
                     description:
-                        The ID of the user performing the audited action.
-                    format: int64
-                    readOnly: true
-                    type: integer
-                userName:
-                    description:
-                        The full name of the user performing the audited action.
+                        A summary of the what occurred.
                     readOnly: true
                     type: string
             type: object

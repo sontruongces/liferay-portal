@@ -31,6 +31,16 @@ public class EntitlementModelListener
 	extends BaseAuditModelListener<Entitlement> {
 
 	@Override
+	protected long getClassNameId(Entitlement entitlement) {
+		return entitlement.getClassNameId();
+	}
+
+	@Override
+	protected long getClassPK(Entitlement entitlement) {
+		return entitlement.getClassPK();
+	}
+
+	@Override
 	protected Entitlement getModel(long classPK) throws PortalException {
 		return _entitlementLocalService.getEntitlement(classPK);
 	}
