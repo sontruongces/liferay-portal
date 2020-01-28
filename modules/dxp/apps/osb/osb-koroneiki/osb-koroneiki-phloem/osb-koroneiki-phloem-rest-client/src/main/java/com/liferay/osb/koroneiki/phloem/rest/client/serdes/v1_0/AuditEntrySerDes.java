@@ -73,6 +73,20 @@ public class AuditEntrySerDes {
 			sb.append("\"");
 		}
 
+		if (auditEntry.getAgentName() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"agentName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(auditEntry.getAgentName()));
+
+			sb.append("\"");
+		}
+
 		if (auditEntry.getAuditSetId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -81,30 +95,6 @@ public class AuditEntrySerDes {
 			sb.append("\"auditSetId\": ");
 
 			sb.append(auditEntry.getAuditSetId());
-		}
-
-		if (auditEntry.getClassName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"className\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(auditEntry.getClassName()));
-
-			sb.append("\"");
-		}
-
-		if (auditEntry.getClassPK() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"classPK\": ");
-
-			sb.append(auditEntry.getClassPK());
 		}
 
 		if (auditEntry.getDateCreated() != null) {
@@ -150,30 +140,6 @@ public class AuditEntrySerDes {
 			sb.append("\"");
 		}
 
-		if (auditEntry.getFieldClassName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"fieldClassName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(auditEntry.getFieldClassName()));
-
-			sb.append("\"");
-		}
-
-		if (auditEntry.getFieldClassPK() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"fieldClassPK\": ");
-
-			sb.append(auditEntry.getFieldClassPK());
-		}
-
 		if (auditEntry.getKey() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -216,26 +182,16 @@ public class AuditEntrySerDes {
 			sb.append("\"");
 		}
 
-		if (auditEntry.getUserId() != null) {
+		if (auditEntry.getSummary() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"userId\": ");
-
-			sb.append(auditEntry.getUserId());
-		}
-
-		if (auditEntry.getUserName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"userName\": ");
+			sb.append("\"summary\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(auditEntry.getUserName()));
+			sb.append(_escape(auditEntry.getSummary()));
 
 			sb.append("\"");
 		}
@@ -268,25 +224,18 @@ public class AuditEntrySerDes {
 			map.put("action", String.valueOf(auditEntry.getAction()));
 		}
 
+		if (auditEntry.getAgentName() == null) {
+			map.put("agentName", null);
+		}
+		else {
+			map.put("agentName", String.valueOf(auditEntry.getAgentName()));
+		}
+
 		if (auditEntry.getAuditSetId() == null) {
 			map.put("auditSetId", null);
 		}
 		else {
 			map.put("auditSetId", String.valueOf(auditEntry.getAuditSetId()));
-		}
-
-		if (auditEntry.getClassName() == null) {
-			map.put("className", null);
-		}
-		else {
-			map.put("className", String.valueOf(auditEntry.getClassName()));
-		}
-
-		if (auditEntry.getClassPK() == null) {
-			map.put("classPK", null);
-		}
-		else {
-			map.put("classPK", String.valueOf(auditEntry.getClassPK()));
 		}
 
 		map.put(
@@ -305,23 +254,6 @@ public class AuditEntrySerDes {
 		}
 		else {
 			map.put("field", String.valueOf(auditEntry.getField()));
-		}
-
-		if (auditEntry.getFieldClassName() == null) {
-			map.put("fieldClassName", null);
-		}
-		else {
-			map.put(
-				"fieldClassName",
-				String.valueOf(auditEntry.getFieldClassName()));
-		}
-
-		if (auditEntry.getFieldClassPK() == null) {
-			map.put("fieldClassPK", null);
-		}
-		else {
-			map.put(
-				"fieldClassPK", String.valueOf(auditEntry.getFieldClassPK()));
 		}
 
 		if (auditEntry.getKey() == null) {
@@ -345,18 +277,11 @@ public class AuditEntrySerDes {
 			map.put("oldValue", String.valueOf(auditEntry.getOldValue()));
 		}
 
-		if (auditEntry.getUserId() == null) {
-			map.put("userId", null);
+		if (auditEntry.getSummary() == null) {
+			map.put("summary", null);
 		}
 		else {
-			map.put("userId", String.valueOf(auditEntry.getUserId()));
-		}
-
-		if (auditEntry.getUserName() == null) {
-			map.put("userName", null);
-		}
-		else {
-			map.put("userName", String.valueOf(auditEntry.getUserName()));
+			map.put("summary", String.valueOf(auditEntry.getSummary()));
 		}
 
 		return map;
@@ -386,20 +311,14 @@ public class AuditEntrySerDes {
 						AuditEntry.Action.create((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "agentName")) {
+				if (jsonParserFieldValue != null) {
+					auditEntry.setAgentName((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "auditSetId")) {
 				if (jsonParserFieldValue != null) {
 					auditEntry.setAuditSetId(
-						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "className")) {
-				if (jsonParserFieldValue != null) {
-					auditEntry.setClassName((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "classPK")) {
-				if (jsonParserFieldValue != null) {
-					auditEntry.setClassPK(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
@@ -419,17 +338,6 @@ public class AuditEntrySerDes {
 					auditEntry.setField((String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "fieldClassName")) {
-				if (jsonParserFieldValue != null) {
-					auditEntry.setFieldClassName((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "fieldClassPK")) {
-				if (jsonParserFieldValue != null) {
-					auditEntry.setFieldClassPK(
-						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
 			else if (Objects.equals(jsonParserFieldName, "key")) {
 				if (jsonParserFieldValue != null) {
 					auditEntry.setKey((String)jsonParserFieldValue);
@@ -445,15 +353,9 @@ public class AuditEntrySerDes {
 					auditEntry.setOldValue((String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "userId")) {
+			else if (Objects.equals(jsonParserFieldName, "summary")) {
 				if (jsonParserFieldValue != null) {
-					auditEntry.setUserId(
-						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "userName")) {
-				if (jsonParserFieldValue != null) {
-					auditEntry.setUserName((String)jsonParserFieldValue);
+					auditEntry.setSummary((String)jsonParserFieldValue);
 				}
 			}
 			else {

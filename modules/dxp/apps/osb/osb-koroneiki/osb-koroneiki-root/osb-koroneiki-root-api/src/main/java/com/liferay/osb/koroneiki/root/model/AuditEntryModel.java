@@ -16,7 +16,6 @@ package com.liferay.osb.koroneiki.root.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.AttachedModel;
-import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
@@ -38,8 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface AuditEntryModel
-	extends AttachedModel, AuditedModel, BaseModel<AuditEntry>, MVCCModel,
-			ShardedModel {
+	extends AttachedModel, BaseModel<AuditEntry>, MVCCModel, ShardedModel {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -112,7 +110,6 @@ public interface AuditEntryModel
 	 *
 	 * @return the user ID of this audit entry
 	 */
-	@Override
 	public long getUserId();
 
 	/**
@@ -120,7 +117,6 @@ public interface AuditEntryModel
 	 *
 	 * @param userId the user ID of this audit entry
 	 */
-	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -128,7 +124,6 @@ public interface AuditEntryModel
 	 *
 	 * @return the user uuid of this audit entry
 	 */
-	@Override
 	public String getUserUuid();
 
 	/**
@@ -136,32 +131,13 @@ public interface AuditEntryModel
 	 *
 	 * @param userUuid the user uuid of this audit entry
 	 */
-	@Override
 	public void setUserUuid(String userUuid);
-
-	/**
-	 * Returns the user name of this audit entry.
-	 *
-	 * @return the user name of this audit entry
-	 */
-	@AutoEscape
-	@Override
-	public String getUserName();
-
-	/**
-	 * Sets the user name of this audit entry.
-	 *
-	 * @param userName the user name of this audit entry
-	 */
-	@Override
-	public void setUserName(String userName);
 
 	/**
 	 * Returns the create date of this audit entry.
 	 *
 	 * @return the create date of this audit entry
 	 */
-	@Override
 	public Date getCreateDate();
 
 	/**
@@ -169,7 +145,6 @@ public interface AuditEntryModel
 	 *
 	 * @param createDate the create date of this audit entry
 	 */
-	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -177,7 +152,6 @@ public interface AuditEntryModel
 	 *
 	 * @return the modified date of this audit entry
 	 */
-	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -185,7 +159,6 @@ public interface AuditEntryModel
 	 *
 	 * @param modifiedDate the modified date of this audit entry
 	 */
-	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
@@ -202,6 +175,21 @@ public interface AuditEntryModel
 	 * @param auditEntryKey the audit entry key of this audit entry
 	 */
 	public void setAuditEntryKey(String auditEntryKey);
+
+	/**
+	 * Returns the agent name of this audit entry.
+	 *
+	 * @return the agent name of this audit entry
+	 */
+	@AutoEscape
+	public String getAgentName();
+
+	/**
+	 * Sets the agent name of this audit entry.
+	 *
+	 * @param agentName the agent name of this audit entry
+	 */
+	public void setAgentName(String agentName);
 
 	/**
 	 * Returns the fully qualified class name of this audit entry.

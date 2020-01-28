@@ -72,10 +72,10 @@ public interface AuditEntryLocalService
 	public AuditEntry addAuditEntry(AuditEntry auditEntry);
 
 	public AuditEntry addAuditEntry(
-			long userId, long classNameId, long classPK, long auditSetId,
-			long fieldClassNameId, long fieldClassPK, String action,
-			String field, String oldLabel, String oldValue, String newLabel,
-			String newValue, String description, ServiceContext serviceContext)
+			long userId, long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK, String action, String field, String oldLabel,
+			String oldValue, String newLabel, String newValue,
+			String description, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -241,9 +241,6 @@ public interface AuditEntryLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long getNextAuditSetId(long classNameId, long classPK);
 
 	/**
 	 * Returns the OSGi service identifier.

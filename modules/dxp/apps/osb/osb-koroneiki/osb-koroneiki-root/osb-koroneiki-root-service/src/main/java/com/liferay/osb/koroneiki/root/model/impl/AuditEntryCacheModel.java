@@ -86,14 +86,14 @@ public class AuditEntryCacheModel
 		sb.append(companyId);
 		sb.append(", userId=");
 		sb.append(userId);
-		sb.append(", userName=");
-		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
 		sb.append(", auditEntryKey=");
 		sb.append(auditEntryKey);
+		sb.append(", agentName=");
+		sb.append(agentName);
 		sb.append(", classNameId=");
 		sb.append(classNameId);
 		sb.append(", classPK=");
@@ -132,13 +132,6 @@ public class AuditEntryCacheModel
 		auditEntryImpl.setCompanyId(companyId);
 		auditEntryImpl.setUserId(userId);
 
-		if (userName == null) {
-			auditEntryImpl.setUserName("");
-		}
-		else {
-			auditEntryImpl.setUserName(userName);
-		}
-
 		if (createDate == Long.MIN_VALUE) {
 			auditEntryImpl.setCreateDate(null);
 		}
@@ -158,6 +151,13 @@ public class AuditEntryCacheModel
 		}
 		else {
 			auditEntryImpl.setAuditEntryKey(auditEntryKey);
+		}
+
+		if (agentName == null) {
+			auditEntryImpl.setAgentName("");
+		}
+		else {
+			auditEntryImpl.setAgentName(agentName);
 		}
 
 		auditEntryImpl.setClassNameId(classNameId);
@@ -229,10 +229,10 @@ public class AuditEntryCacheModel
 		companyId = objectInput.readLong();
 
 		userId = objectInput.readLong();
-		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		auditEntryKey = objectInput.readUTF();
+		agentName = objectInput.readUTF();
 
 		classNameId = objectInput.readLong();
 
@@ -261,14 +261,6 @@ public class AuditEntryCacheModel
 		objectOutput.writeLong(companyId);
 
 		objectOutput.writeLong(userId);
-
-		if (userName == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(userName);
-		}
-
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
@@ -277,6 +269,13 @@ public class AuditEntryCacheModel
 		}
 		else {
 			objectOutput.writeUTF(auditEntryKey);
+		}
+
+		if (agentName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(agentName);
 		}
 
 		objectOutput.writeLong(classNameId);
@@ -343,10 +342,10 @@ public class AuditEntryCacheModel
 	public long auditEntryId;
 	public long companyId;
 	public long userId;
-	public String userName;
 	public long createDate;
 	public long modifiedDate;
 	public String auditEntryKey;
+	public String agentName;
 	public long classNameId;
 	public long classPK;
 	public long auditSetId;

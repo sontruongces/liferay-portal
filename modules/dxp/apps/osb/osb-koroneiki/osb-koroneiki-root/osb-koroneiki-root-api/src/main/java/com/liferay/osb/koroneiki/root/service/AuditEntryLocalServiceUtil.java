@@ -51,17 +51,17 @@ public class AuditEntryLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.root.model.AuditEntry addAuditEntry(
-			long userId, long classNameId, long classPK, long auditSetId,
-			long fieldClassNameId, long fieldClassPK, String action,
-			String field, String oldLabel, String oldValue, String newLabel,
-			String newValue, String description,
+			long userId, long classNameId, long classPK, long fieldClassNameId,
+			long fieldClassPK, String action, String field, String oldLabel,
+			String oldValue, String newLabel, String newValue,
+			String description,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addAuditEntry(
-			userId, classNameId, classPK, auditSetId, fieldClassNameId,
-			fieldClassPK, action, field, oldLabel, oldValue, newLabel, newValue,
-			description, serviceContext);
+			userId, classNameId, classPK, fieldClassNameId, fieldClassPK,
+			action, field, oldLabel, oldValue, newLabel, newValue, description,
+			serviceContext);
 	}
 
 	/**
@@ -292,10 +292,6 @@ public class AuditEntryLocalServiceUtil {
 			getIndexableActionableDynamicQuery() {
 
 		return getService().getIndexableActionableDynamicQuery();
-	}
-
-	public static long getNextAuditSetId(long classNameId, long classPK) {
-		return getService().getNextAuditSetId(classNameId, classPK);
 	}
 
 	/**

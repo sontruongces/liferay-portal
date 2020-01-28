@@ -58,10 +58,10 @@ public interface Account extends AccountModel, PersistedModel {
 
 		};
 
-	public java.util.List<Team> getAssignedTeams();
-
 	public java.util.List<com.liferay.portal.kernel.model.Address>
 		getAddresses();
+
+	public java.util.List<Team> getAssignedTeams();
 
 	public java.util.List<Account> getChildAccounts()
 		throws com.liferay.portal.kernel.exception.PortalException;

@@ -76,8 +76,8 @@ public class AuditEntryModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"mvccVersion", Types.BIGINT}, {"auditEntryId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"auditEntryKey", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"auditEntryKey", Types.VARCHAR}, {"agentName", Types.VARCHAR},
 		{"classNameId", Types.BIGINT}, {"classPK", Types.BIGINT},
 		{"auditSetId", Types.BIGINT}, {"fieldClassNameId", Types.BIGINT},
 		{"fieldClassPK", Types.BIGINT}, {"action", Types.VARCHAR},
@@ -94,10 +94,10 @@ public class AuditEntryModelImpl
 		TABLE_COLUMNS_MAP.put("auditEntryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("auditEntryKey", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("agentName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("classNameId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("classPK", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("auditSetId", Types.BIGINT);
@@ -113,7 +113,7 @@ public class AuditEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_AuditEntry (mvccVersion LONG default 0 not null,auditEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,auditEntryKey VARCHAR(75) null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action VARCHAR(75) null,field VARCHAR(75) null,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null)";
+		"create table Koroneiki_AuditEntry (mvccVersion LONG default 0 not null,auditEntryId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,auditEntryKey VARCHAR(75) null,agentName VARCHAR(75) null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action VARCHAR(75) null,field VARCHAR(75) null,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_AuditEntry";
@@ -167,10 +167,10 @@ public class AuditEntryModelImpl
 		model.setAuditEntryId(soapModel.getAuditEntryId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
-		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setAuditEntryKey(soapModel.getAuditEntryKey());
+		model.setAgentName(soapModel.getAgentName());
 		model.setClassNameId(soapModel.getClassNameId());
 		model.setClassPK(soapModel.getClassPK());
 		model.setAuditSetId(soapModel.getAuditSetId());
@@ -347,10 +347,6 @@ public class AuditEntryModelImpl
 		attributeGetterFunctions.put("userId", AuditEntry::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<AuditEntry, Long>)AuditEntry::setUserId);
-		attributeGetterFunctions.put("userName", AuditEntry::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName",
-			(BiConsumer<AuditEntry, String>)AuditEntry::setUserName);
 		attributeGetterFunctions.put("createDate", AuditEntry::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
@@ -365,6 +361,10 @@ public class AuditEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"auditEntryKey",
 			(BiConsumer<AuditEntry, String>)AuditEntry::setAuditEntryKey);
+		attributeGetterFunctions.put("agentName", AuditEntry::getAgentName);
+		attributeSetterBiConsumers.put(
+			"agentName",
+			(BiConsumer<AuditEntry, String>)AuditEntry::setAgentName);
 		attributeGetterFunctions.put("classNameId", AuditEntry::getClassNameId);
 		attributeSetterBiConsumers.put(
 			"classNameId",
@@ -481,22 +481,6 @@ public class AuditEntryModelImpl
 
 	@JSON
 	@Override
-	public String getUserName() {
-		if (_userName == null) {
-			return "";
-		}
-		else {
-			return _userName;
-		}
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
-	@JSON
-	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -547,6 +531,22 @@ public class AuditEntryModelImpl
 
 	public String getOriginalAuditEntryKey() {
 		return GetterUtil.getString(_originalAuditEntryKey);
+	}
+
+	@JSON
+	@Override
+	public String getAgentName() {
+		if (_agentName == null) {
+			return "";
+		}
+		else {
+			return _agentName;
+		}
+	}
+
+	@Override
+	public void setAgentName(String agentName) {
+		_agentName = agentName;
 	}
 
 	@Override
@@ -824,10 +824,10 @@ public class AuditEntryModelImpl
 		auditEntryImpl.setAuditEntryId(getAuditEntryId());
 		auditEntryImpl.setCompanyId(getCompanyId());
 		auditEntryImpl.setUserId(getUserId());
-		auditEntryImpl.setUserName(getUserName());
 		auditEntryImpl.setCreateDate(getCreateDate());
 		auditEntryImpl.setModifiedDate(getModifiedDate());
 		auditEntryImpl.setAuditEntryKey(getAuditEntryKey());
+		auditEntryImpl.setAgentName(getAgentName());
 		auditEntryImpl.setClassNameId(getClassNameId());
 		auditEntryImpl.setClassPK(getClassPK());
 		auditEntryImpl.setAuditSetId(getAuditSetId());
@@ -941,14 +941,6 @@ public class AuditEntryModelImpl
 
 		auditEntryCacheModel.userId = getUserId();
 
-		auditEntryCacheModel.userName = getUserName();
-
-		String userName = auditEntryCacheModel.userName;
-
-		if ((userName != null) && (userName.length() == 0)) {
-			auditEntryCacheModel.userName = null;
-		}
-
 		Date createDate = getCreateDate();
 
 		if (createDate != null) {
@@ -973,6 +965,14 @@ public class AuditEntryModelImpl
 
 		if ((auditEntryKey != null) && (auditEntryKey.length() == 0)) {
 			auditEntryCacheModel.auditEntryKey = null;
+		}
+
+		auditEntryCacheModel.agentName = getAgentName();
+
+		String agentName = auditEntryCacheModel.agentName;
+
+		if ((agentName != null) && (agentName.length() == 0)) {
+			auditEntryCacheModel.agentName = null;
 		}
 
 		auditEntryCacheModel.classNameId = getClassNameId();
@@ -1121,12 +1121,12 @@ public class AuditEntryModelImpl
 	private long _auditEntryId;
 	private long _companyId;
 	private long _userId;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private String _auditEntryKey;
 	private String _originalAuditEntryKey;
+	private String _agentName;
 	private long _classNameId;
 	private long _originalClassNameId;
 	private boolean _setOriginalClassNameId;

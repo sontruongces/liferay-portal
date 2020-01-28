@@ -176,14 +176,13 @@ public abstract class BaseAuditEntryResourceTestCase {
 
 		AuditEntry auditEntry = randomAuditEntry();
 
-		auditEntry.setClassName(regex);
+		auditEntry.setAgentName(regex);
 		auditEntry.setDescription(regex);
 		auditEntry.setField(regex);
-		auditEntry.setFieldClassName(regex);
 		auditEntry.setKey(regex);
 		auditEntry.setNewValue(regex);
 		auditEntry.setOldValue(regex);
-		auditEntry.setUserName(regex);
+		auditEntry.setSummary(regex);
 
 		String json = AuditEntrySerDes.toJSON(auditEntry);
 
@@ -191,14 +190,13 @@ public abstract class BaseAuditEntryResourceTestCase {
 
 		auditEntry = AuditEntrySerDes.toDTO(json);
 
-		Assert.assertEquals(regex, auditEntry.getClassName());
+		Assert.assertEquals(regex, auditEntry.getAgentName());
 		Assert.assertEquals(regex, auditEntry.getDescription());
 		Assert.assertEquals(regex, auditEntry.getField());
-		Assert.assertEquals(regex, auditEntry.getFieldClassName());
 		Assert.assertEquals(regex, auditEntry.getKey());
 		Assert.assertEquals(regex, auditEntry.getNewValue());
 		Assert.assertEquals(regex, auditEntry.getOldValue());
-		Assert.assertEquals(regex, auditEntry.getUserName());
+		Assert.assertEquals(regex, auditEntry.getSummary());
 	}
 
 	@Test
@@ -1005,24 +1003,16 @@ public abstract class BaseAuditEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("agentName", additionalAssertFieldName)) {
+				if (auditEntry.getAgentName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("auditSetId", additionalAssertFieldName)) {
 				if (auditEntry.getAuditSetId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("className", additionalAssertFieldName)) {
-				if (auditEntry.getClassName() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("classPK", additionalAssertFieldName)) {
-				if (auditEntry.getClassPK() == null) {
 					valid = false;
 				}
 
@@ -1039,22 +1029,6 @@ public abstract class BaseAuditEntryResourceTestCase {
 
 			if (Objects.equals("field", additionalAssertFieldName)) {
 				if (auditEntry.getField() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("fieldClassName", additionalAssertFieldName)) {
-				if (auditEntry.getFieldClassName() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("fieldClassPK", additionalAssertFieldName)) {
-				if (auditEntry.getFieldClassPK() == null) {
 					valid = false;
 				}
 
@@ -1085,16 +1059,8 @@ public abstract class BaseAuditEntryResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("userId", additionalAssertFieldName)) {
-				if (auditEntry.getUserId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("userName", additionalAssertFieldName)) {
-				if (auditEntry.getUserName() == null) {
+			if (Objects.equals("summary", additionalAssertFieldName)) {
+				if (auditEntry.getSummary() == null) {
 					valid = false;
 				}
 
@@ -1164,31 +1130,21 @@ public abstract class BaseAuditEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("agentName", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry1.getAgentName(),
+						auditEntry2.getAgentName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("auditSetId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						auditEntry1.getAuditSetId(),
 						auditEntry2.getAuditSetId())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("className", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry1.getClassName(),
-						auditEntry2.getClassName())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("classPK", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry1.getClassPK(), auditEntry2.getClassPK())) {
 
 					return false;
 				}
@@ -1228,28 +1184,6 @@ public abstract class BaseAuditEntryResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("fieldClassName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry1.getFieldClassName(),
-						auditEntry2.getFieldClassName())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("fieldClassPK", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry1.getFieldClassPK(),
-						auditEntry2.getFieldClassPK())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("key", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						auditEntry1.getKey(), auditEntry2.getKey())) {
@@ -1280,19 +1214,9 @@ public abstract class BaseAuditEntryResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("userId", additionalAssertFieldName)) {
+			if (Objects.equals("summary", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						auditEntry1.getUserId(), auditEntry2.getUserId())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("userName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry1.getUserName(), auditEntry2.getUserName())) {
+						auditEntry1.getSummary(), auditEntry2.getSummary())) {
 
 					return false;
 				}
@@ -1312,32 +1236,21 @@ public abstract class BaseAuditEntryResourceTestCase {
 		AuditEntry auditEntry, JSONObject jsonObject) {
 
 		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("agentName", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getAgentName(),
+						jsonObject.getString("agentName"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("auditSetId", fieldName)) {
 				if (!Objects.deepEquals(
 						auditEntry.getAuditSetId(),
 						jsonObject.getLong("auditSetId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("className", fieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry.getClassName(),
-						jsonObject.getString("className"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("classPK", fieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry.getClassPK(),
-						jsonObject.getLong("classPK"))) {
 
 					return false;
 				}
@@ -1359,28 +1272,6 @@ public abstract class BaseAuditEntryResourceTestCase {
 			if (Objects.equals("field", fieldName)) {
 				if (!Objects.deepEquals(
 						auditEntry.getField(), jsonObject.getString("field"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("fieldClassName", fieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry.getFieldClassName(),
-						jsonObject.getString("fieldClassName"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("fieldClassPK", fieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry.getFieldClassPK(),
-						jsonObject.getLong("fieldClassPK"))) {
 
 					return false;
 				}
@@ -1420,20 +1311,10 @@ public abstract class BaseAuditEntryResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("userId", fieldName)) {
+			if (Objects.equals("summary", fieldName)) {
 				if (!Objects.deepEquals(
-						auditEntry.getUserId(), jsonObject.getLong("userId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("userName", fieldName)) {
-				if (!Objects.deepEquals(
-						auditEntry.getUserName(),
-						jsonObject.getString("userName"))) {
+						auditEntry.getSummary(),
+						jsonObject.getString("summary"))) {
 
 					return false;
 				}
@@ -1503,20 +1384,15 @@ public abstract class BaseAuditEntryResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("auditSetId")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("className")) {
+		if (entityFieldName.equals("agentName")) {
 			sb.append("'");
-			sb.append(String.valueOf(auditEntry.getClassName()));
+			sb.append(String.valueOf(auditEntry.getAgentName()));
 			sb.append("'");
 
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("classPK")) {
+		if (entityFieldName.equals("auditSetId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1568,19 +1444,6 @@ public abstract class BaseAuditEntryResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("fieldClassName")) {
-			sb.append("'");
-			sb.append(String.valueOf(auditEntry.getFieldClassName()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
-		if (entityFieldName.equals("fieldClassPK")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("key")) {
 			sb.append("'");
 			sb.append(String.valueOf(auditEntry.getKey()));
@@ -1605,14 +1468,9 @@ public abstract class BaseAuditEntryResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("userId")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("userName")) {
+		if (entityFieldName.equals("summary")) {
 			sb.append("'");
-			sb.append(String.valueOf(auditEntry.getUserName()));
+			sb.append(String.valueOf(auditEntry.getSummary()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1642,19 +1500,15 @@ public abstract class BaseAuditEntryResourceTestCase {
 	protected AuditEntry randomAuditEntry() throws Exception {
 		return new AuditEntry() {
 			{
+				agentName = RandomTestUtil.randomString();
 				auditSetId = RandomTestUtil.randomLong();
-				className = RandomTestUtil.randomString();
-				classPK = RandomTestUtil.randomLong();
 				dateCreated = RandomTestUtil.nextDate();
 				description = RandomTestUtil.randomString();
 				field = RandomTestUtil.randomString();
-				fieldClassName = RandomTestUtil.randomString();
-				fieldClassPK = RandomTestUtil.randomLong();
 				key = RandomTestUtil.randomString();
 				newValue = RandomTestUtil.randomString();
 				oldValue = RandomTestUtil.randomString();
-				userId = RandomTestUtil.randomLong();
-				userName = RandomTestUtil.randomString();
+				summary = RandomTestUtil.randomString();
 			}
 		};
 	}

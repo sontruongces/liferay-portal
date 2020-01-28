@@ -90,6 +90,27 @@ public class AuditEntry {
 
 	protected Action action;
 
+	public String getAgentName() {
+		return agentName;
+	}
+
+	public void setAgentName(String agentName) {
+		this.agentName = agentName;
+	}
+
+	public void setAgentName(
+		UnsafeSupplier<String, Exception> agentNameUnsafeSupplier) {
+
+		try {
+			agentName = agentNameUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String agentName;
+
 	public Long getAuditSetId() {
 		return auditSetId;
 	}
@@ -110,48 +131,6 @@ public class AuditEntry {
 	}
 
 	protected Long auditSetId;
-
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
-	public void setClassName(
-		UnsafeSupplier<String, Exception> classNameUnsafeSupplier) {
-
-		try {
-			className = classNameUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String className;
-
-	public Long getClassPK() {
-		return classPK;
-	}
-
-	public void setClassPK(Long classPK) {
-		this.classPK = classPK;
-	}
-
-	public void setClassPK(
-		UnsafeSupplier<Long, Exception> classPKUnsafeSupplier) {
-
-		try {
-			classPK = classPKUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Long classPK;
 
 	public Date getDateCreated() {
 		return dateCreated;
@@ -216,48 +195,6 @@ public class AuditEntry {
 
 	protected String field;
 
-	public String getFieldClassName() {
-		return fieldClassName;
-	}
-
-	public void setFieldClassName(String fieldClassName) {
-		this.fieldClassName = fieldClassName;
-	}
-
-	public void setFieldClassName(
-		UnsafeSupplier<String, Exception> fieldClassNameUnsafeSupplier) {
-
-		try {
-			fieldClassName = fieldClassNameUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String fieldClassName;
-
-	public Long getFieldClassPK() {
-		return fieldClassPK;
-	}
-
-	public void setFieldClassPK(Long fieldClassPK) {
-		this.fieldClassPK = fieldClassPK;
-	}
-
-	public void setFieldClassPK(
-		UnsafeSupplier<Long, Exception> fieldClassPKUnsafeSupplier) {
-
-		try {
-			fieldClassPK = fieldClassPKUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Long fieldClassPK;
-
 	public String getKey() {
 		return key;
 	}
@@ -319,47 +256,26 @@ public class AuditEntry {
 
 	protected String oldValue;
 
-	public Long getUserId() {
-		return userId;
+	public String getSummary() {
+		return summary;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
-	public void setUserId(
-		UnsafeSupplier<Long, Exception> userIdUnsafeSupplier) {
+	public void setSummary(
+		UnsafeSupplier<String, Exception> summaryUnsafeSupplier) {
 
 		try {
-			userId = userIdUnsafeSupplier.get();
+			summary = summaryUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Long userId;
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public void setUserName(
-		UnsafeSupplier<String, Exception> userNameUnsafeSupplier) {
-
-		try {
-			userName = userNameUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String userName;
+	protected String summary;
 
 	@Override
 	public boolean equals(Object object) {

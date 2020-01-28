@@ -76,6 +76,13 @@ public class ContactTeamRoleWrapper
 		}
 	}
 
+	@Override
+	public Contact getContact()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getContact();
+	}
+
 	/**
 	 * Returns the contact ID of this contact team role.
 	 *
@@ -84,6 +91,13 @@ public class ContactTeamRoleWrapper
 	@Override
 	public long getContactId() {
 		return model.getContactId();
+	}
+
+	@Override
+	public ContactRole getContactRole()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getContactRole();
 	}
 
 	/**
@@ -117,6 +131,13 @@ public class ContactTeamRoleWrapper
 			getPrimaryKey() {
 
 		return model.getPrimaryKey();
+	}
+
+	@Override
+	public Team getTeam()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getTeam();
 	}
 
 	/**

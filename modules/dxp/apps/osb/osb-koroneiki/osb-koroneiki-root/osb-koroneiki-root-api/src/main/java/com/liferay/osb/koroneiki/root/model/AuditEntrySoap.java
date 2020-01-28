@@ -35,10 +35,10 @@ public class AuditEntrySoap implements Serializable {
 		soapModel.setAuditEntryId(model.getAuditEntryId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
-		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setAuditEntryKey(model.getAuditEntryKey());
+		soapModel.setAgentName(model.getAgentName());
 		soapModel.setClassNameId(model.getClassNameId());
 		soapModel.setClassPK(model.getClassPK());
 		soapModel.setAuditSetId(model.getAuditSetId());
@@ -136,14 +136,6 @@ public class AuditEntrySoap implements Serializable {
 		_userId = userId;
 	}
 
-	public String getUserName() {
-		return _userName;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -166,6 +158,14 @@ public class AuditEntrySoap implements Serializable {
 
 	public void setAuditEntryKey(String auditEntryKey) {
 		_auditEntryKey = auditEntryKey;
+	}
+
+	public String getAgentName() {
+		return _agentName;
+	}
+
+	public void setAgentName(String agentName) {
+		_agentName = agentName;
 	}
 
 	public long getClassNameId() {
@@ -268,10 +268,10 @@ public class AuditEntrySoap implements Serializable {
 	private long _auditEntryId;
 	private long _companyId;
 	private long _userId;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _auditEntryKey;
+	private String _agentName;
 	private long _classNameId;
 	private long _classPK;
 	private long _auditSetId;

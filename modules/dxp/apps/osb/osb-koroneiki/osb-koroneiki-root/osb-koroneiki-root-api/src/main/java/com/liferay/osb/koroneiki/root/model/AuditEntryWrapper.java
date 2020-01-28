@@ -46,10 +46,10 @@ public class AuditEntryWrapper
 		attributes.put("auditEntryId", getAuditEntryId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("auditEntryKey", getAuditEntryKey());
+		attributes.put("agentName", getAgentName());
 		attributes.put("classNameId", getClassNameId());
 		attributes.put("classPK", getClassPK());
 		attributes.put("auditSetId", getAuditSetId());
@@ -92,12 +92,6 @@ public class AuditEntryWrapper
 			setUserId(userId);
 		}
 
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
-		}
-
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
@@ -114,6 +108,12 @@ public class AuditEntryWrapper
 
 		if (auditEntryKey != null) {
 			setAuditEntryKey(auditEntryKey);
+		}
+
+		String agentName = (String)attributes.get("agentName");
+
+		if (agentName != null) {
+			setAgentName(agentName);
 		}
 
 		Long classNameId = (Long)attributes.get("classNameId");
@@ -197,6 +197,16 @@ public class AuditEntryWrapper
 	@Override
 	public String getAction() {
 		return model.getAction();
+	}
+
+	/**
+	 * Returns the agent name of this audit entry.
+	 *
+	 * @return the agent name of this audit entry
+	 */
+	@Override
+	public String getAgentName() {
+		return model.getAgentName();
 	}
 
 	/**
@@ -400,16 +410,6 @@ public class AuditEntryWrapper
 	}
 
 	/**
-	 * Returns the user name of this audit entry.
-	 *
-	 * @return the user name of this audit entry
-	 */
-	@Override
-	public String getUserName() {
-		return model.getUserName();
-	}
-
-	/**
 	 * Returns the user uuid of this audit entry.
 	 *
 	 * @return the user uuid of this audit entry
@@ -437,6 +437,16 @@ public class AuditEntryWrapper
 	@Override
 	public void setAction(String action) {
 		model.setAction(action);
+	}
+
+	/**
+	 * Sets the agent name of this audit entry.
+	 *
+	 * @param agentName the agent name of this audit entry
+	 */
+	@Override
+	public void setAgentName(String agentName) {
+		model.setAgentName(agentName);
 	}
 
 	/**
@@ -632,16 +642,6 @@ public class AuditEntryWrapper
 	@Override
 	public void setUserId(long userId) {
 		model.setUserId(userId);
-	}
-
-	/**
-	 * Sets the user name of this audit entry.
-	 *
-	 * @param userName the user name of this audit entry
-	 */
-	@Override
-	public void setUserName(String userName) {
-		model.setUserName(userName);
 	}
 
 	/**

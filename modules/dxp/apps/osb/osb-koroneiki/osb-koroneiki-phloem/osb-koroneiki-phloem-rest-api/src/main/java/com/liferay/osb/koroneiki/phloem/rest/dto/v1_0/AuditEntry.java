@@ -125,6 +125,36 @@ public class AuditEntry {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Action action;
 
+	@Schema(
+		description = "The full name of the user performing the audited action."
+	)
+	public String getAgentName() {
+		return agentName;
+	}
+
+	public void setAgentName(String agentName) {
+		this.agentName = agentName;
+	}
+
+	@JsonIgnore
+	public void setAgentName(
+		UnsafeSupplier<String, Exception> agentNameUnsafeSupplier) {
+
+		try {
+			agentName = agentNameUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String agentName;
+
 	@Schema(description = "The id of related audit entries.")
 	public Long getAuditSetId() {
 		return auditSetId;
@@ -152,62 +182,6 @@ public class AuditEntry {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long auditSetId;
-
-	@Schema(description = "The name of the audited object.")
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
-	@JsonIgnore
-	public void setClassName(
-		UnsafeSupplier<String, Exception> classNameUnsafeSupplier) {
-
-		try {
-			className = classNameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String className;
-
-	@Schema(description = "The primary key of the audited object.")
-	public Long getClassPK() {
-		return classPK;
-	}
-
-	public void setClassPK(Long classPK) {
-		this.classPK = classPK;
-	}
-
-	@JsonIgnore
-	public void setClassPK(
-		UnsafeSupplier<Long, Exception> classPKUnsafeSupplier) {
-
-		try {
-			classPK = classPKUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Long classPK;
 
 	@Schema(description = "The audit entry's creation date.")
 	public Date getDateCreated() {
@@ -237,7 +211,7 @@ public class AuditEntry {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
-	@Schema(description = "The description of the audit entry.")
+	@Schema(description = "Additional information describing what occurred.")
 	public String getDescription() {
 		return description;
 	}
@@ -292,66 +266,6 @@ public class AuditEntry {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String field;
-
-	@Schema(
-		description = "If the field is on a child object of the audited object, the name of the child object. Otherwise the name of the audited object."
-	)
-	public String getFieldClassName() {
-		return fieldClassName;
-	}
-
-	public void setFieldClassName(String fieldClassName) {
-		this.fieldClassName = fieldClassName;
-	}
-
-	@JsonIgnore
-	public void setFieldClassName(
-		UnsafeSupplier<String, Exception> fieldClassNameUnsafeSupplier) {
-
-		try {
-			fieldClassName = fieldClassNameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String fieldClassName;
-
-	@Schema(
-		description = "If the field is on a child object of the audited object, the primary key of the child object. Otherwise the primary key of the audited object."
-	)
-	public Long getFieldClassPK() {
-		return fieldClassPK;
-	}
-
-	public void setFieldClassPK(Long fieldClassPK) {
-		this.fieldClassPK = fieldClassPK;
-	}
-
-	@JsonIgnore
-	public void setFieldClassPK(
-		UnsafeSupplier<Long, Exception> fieldClassPKUnsafeSupplier) {
-
-		try {
-			fieldClassPK = fieldClassPKUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Long fieldClassPK;
 
 	@Schema(description = "The audit entry's key.")
 	public String getKey() {
@@ -435,21 +349,21 @@ public class AuditEntry {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String oldValue;
 
-	@Schema(description = "The ID of the user performing the audited action.")
-	public Long getUserId() {
-		return userId;
+	@Schema(description = "A summary of the what occurred.")
+	public String getSummary() {
+		return summary;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	@JsonIgnore
-	public void setUserId(
-		UnsafeSupplier<Long, Exception> userIdUnsafeSupplier) {
+	public void setSummary(
+		UnsafeSupplier<String, Exception> summaryUnsafeSupplier) {
 
 		try {
-			userId = userIdUnsafeSupplier.get();
+			summary = summaryUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -461,37 +375,7 @@ public class AuditEntry {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Long userId;
-
-	@Schema(
-		description = "The full name of the user performing the audited action."
-	)
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	@JsonIgnore
-	public void setUserName(
-		UnsafeSupplier<String, Exception> userNameUnsafeSupplier) {
-
-		try {
-			userName = userNameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String userName;
+	protected String summary;
 
 	@Override
 	public boolean equals(Object object) {
@@ -537,6 +421,20 @@ public class AuditEntry {
 			sb.append("\"");
 		}
 
+		if (agentName != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"agentName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(agentName));
+
+			sb.append("\"");
+		}
+
 		if (auditSetId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -545,30 +443,6 @@ public class AuditEntry {
 			sb.append("\"auditSetId\": ");
 
 			sb.append(auditSetId);
-		}
-
-		if (className != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"className\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(className));
-
-			sb.append("\"");
-		}
-
-		if (classPK != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"classPK\": ");
-
-			sb.append(classPK);
 		}
 
 		if (dateCreated != null) {
@@ -613,30 +487,6 @@ public class AuditEntry {
 			sb.append("\"");
 		}
 
-		if (fieldClassName != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"fieldClassName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(fieldClassName));
-
-			sb.append("\"");
-		}
-
-		if (fieldClassPK != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"fieldClassPK\": ");
-
-			sb.append(fieldClassPK);
-		}
-
 		if (key != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -679,26 +529,16 @@ public class AuditEntry {
 			sb.append("\"");
 		}
 
-		if (userId != null) {
+		if (summary != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"userId\": ");
-
-			sb.append(userId);
-		}
-
-		if (userName != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"userName\": ");
+			sb.append("\"summary\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(userName));
+			sb.append(_escape(summary));
 
 			sb.append("\"");
 		}
