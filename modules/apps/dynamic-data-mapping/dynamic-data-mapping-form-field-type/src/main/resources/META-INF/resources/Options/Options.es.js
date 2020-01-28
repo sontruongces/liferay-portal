@@ -153,25 +153,25 @@ class Options extends Component {
 	normalizeOption(options, option, force) {
 		const {label, value} = option;
 		const desiredValue =
-			value || label || (force ? Liferay.Language.get('option') : '');
+			label || value || (force ? Liferay.Language.get('option') : '');
 		let normalizedValue = desiredValue;
 
-		if (this.shouldGenerateOptionValue(option)) {
-			let counter = 0;
-			const optionIndex = options.indexOf(option);
-
-			do {
-				if (counter > 0) {
-					normalizedValue = desiredValue + counter;
-				}
-
-				counter++;
-			} while (
-				this.findOptionByValue(options, normalizedValue, optionIndex)
-			);
-
-			normalizedValue = normalizeFieldName(normalizedValue);
+		if (!this.shouldGenerateOptionValue(option)) {
+			return option;
 		}
+
+		let counter = 0;
+		const optionIndex = options.indexOf(option);
+
+		do {
+			if (counter > 0) {
+				normalizedValue = desiredValue + counter;
+			}
+
+			counter++;
+		} while (this.findOptionByValue(options, normalizedValue, optionIndex));
+
+		normalizedValue = normalizeFieldName(normalizedValue);
 
 		return {
 			...option,
@@ -213,9 +213,11 @@ class Options extends Component {
 		return (
 			defaultLanguageId === editingLanguageId &&
 			(option.value === '' ||
-				new RegExp(`^${normalizeFieldName(option.label)}\\d*$`).test(
-					option.value
-				))
+				new RegExp(
+					`^(${normalizeFieldName(
+						option.label
+					)}|${Liferay.Language.get('option')})\\d*$`
+				).test(option.value))
 		);
 	}
 
@@ -364,7 +366,7 @@ class Options extends Component {
 		}
 
 		if (property === 'label') {
-			options = this.normalizeOptions(options);
+			options = this.normalizeOptions(options, true);
 		}
 
 		let newValue = {
