@@ -101,12 +101,16 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}/product-purchases")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public ProductPurchase postAccountAccountKeyProductPurchase(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			ProductPurchase productPurchase)
@@ -247,12 +251,16 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Override
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
+		}
 	)
 	@Path("/product-purchases/{productPurchaseKey}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public void deleteProductPurchase(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey)
 		throws Exception {
@@ -289,12 +297,16 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
+		}
 	)
 	@Path("/product-purchases/{productPurchaseKey}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public ProductPurchase putProductPurchase(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey,
 			ProductPurchase productPurchase)
@@ -312,7 +324,10 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
+		}
 	)
 	@Path(
 		"/product-purchases/{productPurchaseKey}/product-purchase-permissions"
@@ -320,6 +335,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public void deleteProductPurchaseProductPurchasePermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
@@ -335,7 +351,10 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
+		}
 	)
 	@Path(
 		"/product-purchases/{productPurchaseKey}/product-purchase-permissions"
@@ -343,6 +362,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public void putProductPurchaseProductPurchasePermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)

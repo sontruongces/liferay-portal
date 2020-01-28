@@ -198,10 +198,15 @@ public abstract class BaseContactRoleResourceImpl
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+	)
 	@Path("/contact-roles")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ContactRole")})
-	public ContactRole postContactRole(ContactRole contactRole)
+	public ContactRole postContactRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			ContactRole contactRole)
 		throws Exception {
 
 		return new ContactRole();
@@ -215,12 +220,16 @@ public abstract class BaseContactRoleResourceImpl
 	@Override
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")
+		}
 	)
 	@Path("/contact-roles/{contactRoleKey}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public void deleteContactRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("contactRoleKey")
 				String contactRoleKey)
 		throws Exception {
@@ -257,12 +266,16 @@ public abstract class BaseContactRoleResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")
+		}
 	)
 	@Path("/contact-roles/{contactRoleKey}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public ContactRole putContactRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("contactRoleKey")
 				String contactRoleKey,
 			ContactRole contactRole)
@@ -280,12 +293,16 @@ public abstract class BaseContactRoleResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")
+		}
 	)
 	@Path("/contact-roles/{contactRoleKey}/contact-role-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public void deleteContactRoleContactRolePermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("contactRoleKey")
 				String contactRoleKey,
 			ContactRolePermission contactRolePermission)
@@ -301,12 +318,16 @@ public abstract class BaseContactRoleResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")
+		}
 	)
 	@Path("/contact-roles/{contactRoleKey}/contact-role-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public void putContactRoleContactRolePermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("contactRoleKey")
 				String contactRoleKey,
 			ContactRolePermission contactRolePermission)

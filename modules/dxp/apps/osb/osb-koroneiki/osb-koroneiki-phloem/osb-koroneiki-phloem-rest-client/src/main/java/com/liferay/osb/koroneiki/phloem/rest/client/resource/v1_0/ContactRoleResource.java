@@ -80,17 +80,19 @@ public interface ContactRoleResource {
 			String sortString)
 		throws Exception;
 
-	public ContactRole postContactRole(ContactRole contactRole)
+	public ContactRole postContactRole(
+			String agentName, ContactRole contactRole)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postContactRoleHttpResponse(
-			ContactRole contactRole)
+			String agentName, ContactRole contactRole)
 		throws Exception;
 
-	public void deleteContactRole(String contactRoleKey) throws Exception;
+	public void deleteContactRole(String agentName, String contactRoleKey)
+		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteContactRoleHttpResponse(
-			String contactRoleKey)
+			String agentName, String contactRoleKey)
 		throws Exception;
 
 	public ContactRole getContactRole(String contactRoleKey) throws Exception;
@@ -100,35 +102,35 @@ public interface ContactRoleResource {
 		throws Exception;
 
 	public ContactRole putContactRole(
-			String contactRoleKey, ContactRole contactRole)
+			String agentName, String contactRoleKey, ContactRole contactRole)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putContactRoleHttpResponse(
-			String contactRoleKey, ContactRole contactRole)
+			String agentName, String contactRoleKey, ContactRole contactRole)
 		throws Exception;
 
 	public void deleteContactRoleContactRolePermission(
-			String contactRoleKey,
+			String agentName, String contactRoleKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteContactRoleContactRolePermissionHttpResponse(
-				String contactRoleKey,
+				String agentName, String contactRoleKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public void putContactRoleContactRolePermission(
-			String contactRoleKey,
+			String agentName, String contactRoleKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putContactRoleContactRolePermissionHttpResponse(
-				String contactRoleKey,
+				String agentName, String contactRoleKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactRolePermission contactRolePermission)
 		throws Exception;
@@ -479,11 +481,12 @@ public interface ContactRoleResource {
 			return httpInvoker.invoke();
 		}
 
-		public ContactRole postContactRole(ContactRole contactRole)
+		public ContactRole postContactRole(
+				String agentName, ContactRole contactRole)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = postContactRoleHttpResponse(
-				contactRole);
+				agentName, contactRole);
 
 			String content = httpResponse.getContent();
 
@@ -506,7 +509,7 @@ public interface ContactRoleResource {
 		}
 
 		public HttpInvoker.HttpResponse postContactRoleHttpResponse(
-				ContactRole contactRole)
+				String agentName, ContactRole contactRole)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -532,6 +535,10 @@ public interface ContactRoleResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/koroneiki-rest/v1.0/contact-roles");
@@ -542,9 +549,11 @@ public interface ContactRoleResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteContactRole(String contactRoleKey) throws Exception {
+		public void deleteContactRole(String agentName, String contactRoleKey)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				deleteContactRoleHttpResponse(contactRoleKey);
+				deleteContactRoleHttpResponse(agentName, contactRoleKey);
 
 			String content = httpResponse.getContent();
 
@@ -556,7 +565,7 @@ public interface ContactRoleResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteContactRoleHttpResponse(
-				String contactRoleKey)
+				String agentName, String contactRoleKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -579,6 +588,10 @@ public interface ContactRoleResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -656,11 +669,12 @@ public interface ContactRoleResource {
 		}
 
 		public ContactRole putContactRole(
-				String contactRoleKey, ContactRole contactRole)
+				String agentName, String contactRoleKey,
+				ContactRole contactRole)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = putContactRoleHttpResponse(
-				contactRoleKey, contactRole);
+				agentName, contactRoleKey, contactRole);
 
 			String content = httpResponse.getContent();
 
@@ -683,7 +697,8 @@ public interface ContactRoleResource {
 		}
 
 		public HttpInvoker.HttpResponse putContactRoleHttpResponse(
-				String contactRoleKey, ContactRole contactRole)
+				String agentName, String contactRoleKey,
+				ContactRole contactRole)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -709,6 +724,10 @@ public interface ContactRoleResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -722,14 +741,14 @@ public interface ContactRoleResource {
 		}
 
 		public void deleteContactRoleContactRolePermission(
-				String contactRoleKey,
+				String agentName, String contactRoleKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactRolePermission contactRolePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteContactRoleContactRolePermissionHttpResponse(
-					contactRoleKey, contactRolePermission);
+					agentName, contactRoleKey, contactRolePermission);
 
 			String content = httpResponse.getContent();
 
@@ -742,7 +761,7 @@ public interface ContactRoleResource {
 
 		public HttpInvoker.HttpResponse
 				deleteContactRoleContactRolePermissionHttpResponse(
-					String contactRoleKey,
+					String agentName, String contactRoleKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ContactRolePermission contactRolePermission)
 			throws Exception {
@@ -768,6 +787,10 @@ public interface ContactRoleResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -781,14 +804,14 @@ public interface ContactRoleResource {
 		}
 
 		public void putContactRoleContactRolePermission(
-				String contactRoleKey,
+				String agentName, String contactRoleKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactRolePermission contactRolePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putContactRoleContactRolePermissionHttpResponse(
-					contactRoleKey, contactRolePermission);
+					agentName, contactRoleKey, contactRolePermission);
 
 			String content = httpResponse.getContent();
 
@@ -801,7 +824,7 @@ public interface ContactRoleResource {
 
 		public HttpInvoker.HttpResponse
 				putContactRoleContactRolePermissionHttpResponse(
-					String contactRoleKey,
+					String agentName, String contactRoleKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ContactRolePermission contactRolePermission)
 			throws Exception {
@@ -829,6 +852,10 @@ public interface ContactRoleResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

@@ -49,12 +49,12 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postAccountAccountKeyExternalLink(
-			String accountKey, ExternalLink externalLink)
+			String agentName, String accountKey, ExternalLink externalLink)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postAccountAccountKeyExternalLinkHttpResponse(
-				String accountKey, ExternalLink externalLink)
+				String agentName, String accountKey, ExternalLink externalLink)
 		throws Exception;
 
 	public Page<ExternalLink> getContactByOktaExternalLinksPage(
@@ -67,11 +67,11 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postContactByOktaExternalLink(
-			String oktaId, ExternalLink externalLink)
+			String agentName, String oktaId, ExternalLink externalLink)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postContactByOktaExternalLinkHttpResponse(
-			String oktaId, ExternalLink externalLink)
+			String agentName, String oktaId, ExternalLink externalLink)
 		throws Exception;
 
 	public Page<ExternalLink> getContactByUuidContactUuidExternalLinksPage(
@@ -84,18 +84,19 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postContactByUuidContactUuidExternalLink(
-			String contactUuid, ExternalLink externalLink)
+			String agentName, String contactUuid, ExternalLink externalLink)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postContactByUuidContactUuidExternalLinkHttpResponse(
-				String contactUuid, ExternalLink externalLink)
+				String agentName, String contactUuid, ExternalLink externalLink)
 		throws Exception;
 
-	public void deleteExternalLink(String externalLinkKey) throws Exception;
+	public void deleteExternalLink(String agentName, String externalLinkKey)
+		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteExternalLinkHttpResponse(
-			String externalLinkKey)
+			String agentName, String externalLinkKey)
 		throws Exception;
 
 	public ExternalLink getExternalLink(String externalLinkKey)
@@ -116,12 +117,14 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postProductConsumptionProductConsumptionKeyExternalLink(
-			String productConsumptionKey, ExternalLink externalLink)
+			String agentName, String productConsumptionKey,
+			ExternalLink externalLink)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postProductConsumptionProductConsumptionKeyExternalLinkHttpResponse(
-				String productConsumptionKey, ExternalLink externalLink)
+				String agentName, String productConsumptionKey,
+				ExternalLink externalLink)
 		throws Exception;
 
 	public Page<ExternalLink>
@@ -135,12 +138,14 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postProductPurchaseProductPurchaseKeyExternalLink(
-			String productPurchaseKey, ExternalLink externalLink)
+			String agentName, String productPurchaseKey,
+			ExternalLink externalLink)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postProductPurchaseProductPurchaseKeyExternalLinkHttpResponse(
-				String productPurchaseKey, ExternalLink externalLink)
+				String agentName, String productPurchaseKey,
+				ExternalLink externalLink)
 		throws Exception;
 
 	public Page<ExternalLink> getProductProductKeyExternalLinksPage(
@@ -153,12 +158,12 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postProductProductKeyExternalLink(
-			String productKey, ExternalLink externalLink)
+			String agentName, String productKey, ExternalLink externalLink)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postProductProductKeyExternalLinkHttpResponse(
-				String productKey, ExternalLink externalLink)
+				String agentName, String productKey, ExternalLink externalLink)
 		throws Exception;
 
 	public Page<ExternalLink> getTeamTeamKeyExternalLinksPage(
@@ -170,11 +175,11 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postTeamTeamKeyExternalLink(
-			String teamKey, ExternalLink externalLink)
+			String agentName, String teamKey, ExternalLink externalLink)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postTeamTeamKeyExternalLinkHttpResponse(
-			String teamKey, ExternalLink externalLink)
+			String agentName, String teamKey, ExternalLink externalLink)
 		throws Exception;
 
 	public static class Builder {
@@ -298,12 +303,12 @@ public interface ExternalLinkResource {
 		}
 
 		public ExternalLink postAccountAccountKeyExternalLink(
-				String accountKey, ExternalLink externalLink)
+				String agentName, String accountKey, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postAccountAccountKeyExternalLinkHttpResponse(
-					accountKey, externalLink);
+					agentName, accountKey, externalLink);
 
 			String content = httpResponse.getContent();
 
@@ -327,7 +332,8 @@ public interface ExternalLinkResource {
 
 		public HttpInvoker.HttpResponse
 				postAccountAccountKeyExternalLinkHttpResponse(
-					String accountKey, ExternalLink externalLink)
+					String agentName, String accountKey,
+					ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -352,6 +358,10 @@ public interface ExternalLinkResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -430,11 +440,12 @@ public interface ExternalLinkResource {
 		}
 
 		public ExternalLink postContactByOktaExternalLink(
-				String oktaId, ExternalLink externalLink)
+				String agentName, String oktaId, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postContactByOktaExternalLinkHttpResponse(oktaId, externalLink);
+				postContactByOktaExternalLinkHttpResponse(
+					agentName, oktaId, externalLink);
 
 			String content = httpResponse.getContent();
 
@@ -458,7 +469,7 @@ public interface ExternalLinkResource {
 
 		public HttpInvoker.HttpResponse
 				postContactByOktaExternalLinkHttpResponse(
-					String oktaId, ExternalLink externalLink)
+					String agentName, String oktaId, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -483,6 +494,10 @@ public interface ExternalLinkResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -561,12 +576,12 @@ public interface ExternalLinkResource {
 		}
 
 		public ExternalLink postContactByUuidContactUuidExternalLink(
-				String contactUuid, ExternalLink externalLink)
+				String agentName, String contactUuid, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postContactByUuidContactUuidExternalLinkHttpResponse(
-					contactUuid, externalLink);
+					agentName, contactUuid, externalLink);
 
 			String content = httpResponse.getContent();
 
@@ -590,7 +605,8 @@ public interface ExternalLinkResource {
 
 		public HttpInvoker.HttpResponse
 				postContactByUuidContactUuidExternalLinkHttpResponse(
-					String contactUuid, ExternalLink externalLink)
+					String agentName, String contactUuid,
+					ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -616,6 +632,10 @@ public interface ExternalLinkResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -628,11 +648,11 @@ public interface ExternalLinkResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteExternalLink(String externalLinkKey)
+		public void deleteExternalLink(String agentName, String externalLinkKey)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteExternalLinkHttpResponse(externalLinkKey);
+				deleteExternalLinkHttpResponse(agentName, externalLinkKey);
 
 			String content = httpResponse.getContent();
 
@@ -644,7 +664,7 @@ public interface ExternalLinkResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteExternalLinkHttpResponse(
-				String externalLinkKey)
+				String agentName, String externalLinkKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -667,6 +687,10 @@ public interface ExternalLinkResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -810,12 +834,13 @@ public interface ExternalLinkResource {
 
 		public ExternalLink
 				postProductConsumptionProductConsumptionKeyExternalLink(
-					String productConsumptionKey, ExternalLink externalLink)
+					String agentName, String productConsumptionKey,
+					ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postProductConsumptionProductConsumptionKeyExternalLinkHttpResponse(
-					productConsumptionKey, externalLink);
+					agentName, productConsumptionKey, externalLink);
 
 			String content = httpResponse.getContent();
 
@@ -839,7 +864,8 @@ public interface ExternalLinkResource {
 
 		public HttpInvoker.HttpResponse
 				postProductConsumptionProductConsumptionKeyExternalLinkHttpResponse(
-					String productConsumptionKey, ExternalLink externalLink)
+					String agentName, String productConsumptionKey,
+					ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -864,6 +890,10 @@ public interface ExternalLinkResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -943,12 +973,13 @@ public interface ExternalLinkResource {
 		}
 
 		public ExternalLink postProductPurchaseProductPurchaseKeyExternalLink(
-				String productPurchaseKey, ExternalLink externalLink)
+				String agentName, String productPurchaseKey,
+				ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postProductPurchaseProductPurchaseKeyExternalLinkHttpResponse(
-					productPurchaseKey, externalLink);
+					agentName, productPurchaseKey, externalLink);
 
 			String content = httpResponse.getContent();
 
@@ -972,7 +1003,8 @@ public interface ExternalLinkResource {
 
 		public HttpInvoker.HttpResponse
 				postProductPurchaseProductPurchaseKeyExternalLinkHttpResponse(
-					String productPurchaseKey, ExternalLink externalLink)
+					String agentName, String productPurchaseKey,
+					ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -997,6 +1029,10 @@ public interface ExternalLinkResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -1075,12 +1111,12 @@ public interface ExternalLinkResource {
 		}
 
 		public ExternalLink postProductProductKeyExternalLink(
-				String productKey, ExternalLink externalLink)
+				String agentName, String productKey, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postProductProductKeyExternalLinkHttpResponse(
-					productKey, externalLink);
+					agentName, productKey, externalLink);
 
 			String content = httpResponse.getContent();
 
@@ -1104,7 +1140,8 @@ public interface ExternalLinkResource {
 
 		public HttpInvoker.HttpResponse
 				postProductProductKeyExternalLinkHttpResponse(
-					String productKey, ExternalLink externalLink)
+					String agentName, String productKey,
+					ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1129,6 +1166,10 @@ public interface ExternalLinkResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -1207,11 +1248,12 @@ public interface ExternalLinkResource {
 		}
 
 		public ExternalLink postTeamTeamKeyExternalLink(
-				String teamKey, ExternalLink externalLink)
+				String agentName, String teamKey, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postTeamTeamKeyExternalLinkHttpResponse(teamKey, externalLink);
+				postTeamTeamKeyExternalLinkHttpResponse(
+					agentName, teamKey, externalLink);
 
 			String content = httpResponse.getContent();
 
@@ -1234,7 +1276,7 @@ public interface ExternalLinkResource {
 		}
 
 		public HttpInvoker.HttpResponse postTeamTeamKeyExternalLinkHttpResponse(
-				String teamKey, ExternalLink externalLink)
+				String agentName, String teamKey, ExternalLink externalLink)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1259,6 +1301,10 @@ public interface ExternalLinkResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

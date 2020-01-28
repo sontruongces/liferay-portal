@@ -56,11 +56,12 @@ public interface TeamResource {
 			String accountKey, Pagination pagination)
 		throws Exception;
 
-	public Team postAccountAccountKeyTeam(String accountKey, Team team)
+	public Team postAccountAccountKeyTeam(
+			String agentName, String accountKey, Team team)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postAccountAccountKeyTeamHttpResponse(
-			String accountKey, Team team)
+			String agentName, String accountKey, Team team)
 		throws Exception;
 
 	public Page<Team> getTeamsPage(
@@ -84,9 +85,10 @@ public interface TeamResource {
 				Pagination pagination)
 		throws Exception;
 
-	public void deleteTeam(String teamKey) throws Exception;
+	public void deleteTeam(String agentName, String teamKey) throws Exception;
 
-	public HttpInvoker.HttpResponse deleteTeamHttpResponse(String teamKey)
+	public HttpInvoker.HttpResponse deleteTeamHttpResponse(
+			String agentName, String teamKey)
 		throws Exception;
 
 	public Team getTeam(String teamKey) throws Exception;
@@ -94,94 +96,107 @@ public interface TeamResource {
 	public HttpInvoker.HttpResponse getTeamHttpResponse(String teamKey)
 		throws Exception;
 
-	public Team putTeam(String teamKey, Team team) throws Exception;
-
-	public HttpInvoker.HttpResponse putTeamHttpResponse(
-			String teamKey, Team team)
+	public Team putTeam(String agentName, String teamKey, Team team)
 		throws Exception;
 
-	public void deleteTeamContactByOkta(String teamKey, String[] oktaIds)
+	public HttpInvoker.HttpResponse putTeamHttpResponse(
+			String agentName, String teamKey, Team team)
+		throws Exception;
+
+	public void deleteTeamContactByOkta(
+			String agentName, String teamKey, String[] oktaIds)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteTeamContactByOktaHttpResponse(
-			String teamKey, String[] oktaIds)
+			String agentName, String teamKey, String[] oktaIds)
 		throws Exception;
 
-	public void putTeamContactByOkta(String teamKey, String[] oktaIds)
+	public void putTeamContactByOkta(
+			String agentName, String teamKey, String[] oktaIds)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putTeamContactByOktaHttpResponse(
-			String teamKey, String[] oktaIds)
+			String agentName, String teamKey, String[] oktaIds)
 		throws Exception;
 
 	public void deleteTeamContactByOktaRole(
-			String teamKey, String oktaId, String[] contactRoleKeys)
+			String agentName, String teamKey, String oktaId,
+			String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteTeamContactByOktaRoleHttpResponse(
-			String teamKey, String oktaId, String[] contactRoleKeys)
+			String agentName, String teamKey, String oktaId,
+			String[] contactRoleKeys)
 		throws Exception;
 
 	public void putTeamContactByOktaRole(
-			String teamKey, String oktaId, String[] contactRoleKeys)
+			String agentName, String teamKey, String oktaId,
+			String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putTeamContactByOktaRoleHttpResponse(
-			String teamKey, String oktaId, String[] contactRoleKeys)
+			String agentName, String teamKey, String oktaId,
+			String[] contactRoleKeys)
 		throws Exception;
 
-	public void deleteTeamContactByUuid(String teamKey, String[] contactUuids)
+	public void deleteTeamContactByUuid(
+			String agentName, String teamKey, String[] contactUuids)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteTeamContactByUuidHttpResponse(
-			String teamKey, String[] contactUuids)
+			String agentName, String teamKey, String[] contactUuids)
 		throws Exception;
 
-	public void putTeamContactByUuid(String teamKey, String[] contactUuids)
+	public void putTeamContactByUuid(
+			String agentName, String teamKey, String[] contactUuids)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putTeamContactByUuidHttpResponse(
-			String teamKey, String[] contactUuids)
+			String agentName, String teamKey, String[] contactUuids)
 		throws Exception;
 
 	public void deleteTeamContactByUuidContactUuidRole(
-			String teamKey, String contactUuid, String[] contactRoleKeys)
+			String agentName, String teamKey, String contactUuid,
+			String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteTeamContactByUuidContactUuidRoleHttpResponse(
-				String teamKey, String contactUuid, String[] contactRoleKeys)
+				String agentName, String teamKey, String contactUuid,
+				String[] contactRoleKeys)
 		throws Exception;
 
 	public void putTeamContactByUuidContactUuidRole(
-			String teamKey, String contactUuid, String[] contactRoleKeys)
+			String agentName, String teamKey, String contactUuid,
+			String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putTeamContactByUuidContactUuidRoleHttpResponse(
-				String teamKey, String contactUuid, String[] contactRoleKeys)
+				String agentName, String teamKey, String contactUuid,
+				String[] contactRoleKeys)
 		throws Exception;
 
 	public void deleteTeamTeamPermission(
-			String teamKey,
+			String agentName, String teamKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamPermission
 				teamPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteTeamTeamPermissionHttpResponse(
-			String teamKey,
+			String agentName, String teamKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamPermission
 				teamPermission)
 		throws Exception;
 
 	public void putTeamTeamPermission(
-			String teamKey,
+			String agentName, String teamKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamPermission
 				teamPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putTeamTeamPermissionHttpResponse(
-			String teamKey,
+			String agentName, String teamKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamPermission
 				teamPermission)
 		throws Exception;
@@ -369,11 +384,13 @@ public interface TeamResource {
 			return httpInvoker.invoke();
 		}
 
-		public Team postAccountAccountKeyTeam(String accountKey, Team team)
+		public Team postAccountAccountKeyTeam(
+				String agentName, String accountKey, Team team)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postAccountAccountKeyTeamHttpResponse(accountKey, team);
+				postAccountAccountKeyTeamHttpResponse(
+					agentName, accountKey, team);
 
 			String content = httpResponse.getContent();
 
@@ -396,7 +413,7 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse postAccountAccountKeyTeamHttpResponse(
-				String accountKey, Team team)
+				String agentName, String accountKey, Team team)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -421,6 +438,10 @@ public interface TeamResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -574,9 +595,11 @@ public interface TeamResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteTeam(String teamKey) throws Exception {
+		public void deleteTeam(String agentName, String teamKey)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse = deleteTeamHttpResponse(
-				teamKey);
+				agentName, teamKey);
 
 			String content = httpResponse.getContent();
 
@@ -587,7 +610,8 @@ public interface TeamResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse deleteTeamHttpResponse(String teamKey)
+		public HttpInvoker.HttpResponse deleteTeamHttpResponse(
+				String agentName, String teamKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -610,6 +634,10 @@ public interface TeamResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -681,9 +709,11 @@ public interface TeamResource {
 			return httpInvoker.invoke();
 		}
 
-		public Team putTeam(String teamKey, Team team) throws Exception {
+		public Team putTeam(String agentName, String teamKey, Team team)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse = putTeamHttpResponse(
-				teamKey, team);
+				agentName, teamKey, team);
 
 			String content = httpResponse.getContent();
 
@@ -706,7 +736,7 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse putTeamHttpResponse(
-				String teamKey, Team team)
+				String agentName, String teamKey, Team team)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -732,6 +762,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/koroneiki-rest/v1.0/teams/{teamKey}",
@@ -743,11 +777,13 @@ public interface TeamResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteTeamContactByOkta(String teamKey, String[] oktaIds)
+		public void deleteTeamContactByOkta(
+				String agentName, String teamKey, String[] oktaIds)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteTeamContactByOktaHttpResponse(teamKey, oktaIds);
+				deleteTeamContactByOktaHttpResponse(
+					agentName, teamKey, oktaIds);
 
 			String content = httpResponse.getContent();
 
@@ -759,7 +795,7 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamContactByOktaHttpResponse(
-				String teamKey, String[] oktaIds)
+				String agentName, String teamKey, String[] oktaIds)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -783,6 +819,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			if (oktaIds != null) {
 				for (int i = 0; i < oktaIds.length; i++) {
 					httpInvoker.parameter(
@@ -802,11 +842,12 @@ public interface TeamResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putTeamContactByOkta(String teamKey, String[] oktaIds)
+		public void putTeamContactByOkta(
+				String agentName, String teamKey, String[] oktaIds)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putTeamContactByOktaHttpResponse(teamKey, oktaIds);
+				putTeamContactByOktaHttpResponse(agentName, teamKey, oktaIds);
 
 			String content = httpResponse.getContent();
 
@@ -818,7 +859,7 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse putTeamContactByOktaHttpResponse(
-				String teamKey, String[] oktaIds)
+				String agentName, String teamKey, String[] oktaIds)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -844,6 +885,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			if (oktaIds != null) {
 				for (int i = 0; i < oktaIds.length; i++) {
 					httpInvoker.parameter(
@@ -864,12 +909,13 @@ public interface TeamResource {
 		}
 
 		public void deleteTeamContactByOktaRole(
-				String teamKey, String oktaId, String[] contactRoleKeys)
+				String agentName, String teamKey, String oktaId,
+				String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteTeamContactByOktaRoleHttpResponse(
-					teamKey, oktaId, contactRoleKeys);
+					agentName, teamKey, oktaId, contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -881,7 +927,8 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamContactByOktaRoleHttpResponse(
-				String teamKey, String oktaId, String[] contactRoleKeys)
+				String agentName, String teamKey, String oktaId,
+				String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -905,6 +952,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			if (contactRoleKeys != null) {
 				for (int i = 0; i < contactRoleKeys.length; i++) {
 					httpInvoker.parameter(
@@ -925,12 +976,13 @@ public interface TeamResource {
 		}
 
 		public void putTeamContactByOktaRole(
-				String teamKey, String oktaId, String[] contactRoleKeys)
+				String agentName, String teamKey, String oktaId,
+				String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putTeamContactByOktaRoleHttpResponse(
-					teamKey, oktaId, contactRoleKeys);
+					agentName, teamKey, oktaId, contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -942,7 +994,8 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse putTeamContactByOktaRoleHttpResponse(
-				String teamKey, String oktaId, String[] contactRoleKeys)
+				String agentName, String teamKey, String oktaId,
+				String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -968,6 +1021,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			if (contactRoleKeys != null) {
 				for (int i = 0; i < contactRoleKeys.length; i++) {
 					httpInvoker.parameter(
@@ -988,11 +1045,12 @@ public interface TeamResource {
 		}
 
 		public void deleteTeamContactByUuid(
-				String teamKey, String[] contactUuids)
+				String agentName, String teamKey, String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteTeamContactByUuidHttpResponse(teamKey, contactUuids);
+				deleteTeamContactByUuidHttpResponse(
+					agentName, teamKey, contactUuids);
 
 			String content = httpResponse.getContent();
 
@@ -1004,7 +1062,7 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamContactByUuidHttpResponse(
-				String teamKey, String[] contactUuids)
+				String agentName, String teamKey, String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1028,6 +1086,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			if (contactUuids != null) {
 				for (int i = 0; i < contactUuids.length; i++) {
 					httpInvoker.parameter(
@@ -1047,11 +1109,13 @@ public interface TeamResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putTeamContactByUuid(String teamKey, String[] contactUuids)
+		public void putTeamContactByUuid(
+				String agentName, String teamKey, String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putTeamContactByUuidHttpResponse(teamKey, contactUuids);
+				putTeamContactByUuidHttpResponse(
+					agentName, teamKey, contactUuids);
 
 			String content = httpResponse.getContent();
 
@@ -1063,7 +1127,7 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse putTeamContactByUuidHttpResponse(
-				String teamKey, String[] contactUuids)
+				String agentName, String teamKey, String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1089,6 +1153,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			if (contactUuids != null) {
 				for (int i = 0; i < contactUuids.length; i++) {
 					httpInvoker.parameter(
@@ -1109,12 +1177,13 @@ public interface TeamResource {
 		}
 
 		public void deleteTeamContactByUuidContactUuidRole(
-				String teamKey, String contactUuid, String[] contactRoleKeys)
+				String agentName, String teamKey, String contactUuid,
+				String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteTeamContactByUuidContactUuidRoleHttpResponse(
-					teamKey, contactUuid, contactRoleKeys);
+					agentName, teamKey, contactUuid, contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -1127,7 +1196,7 @@ public interface TeamResource {
 
 		public HttpInvoker.HttpResponse
 				deleteTeamContactByUuidContactUuidRoleHttpResponse(
-					String teamKey, String contactUuid,
+					String agentName, String teamKey, String contactUuid,
 					String[] contactRoleKeys)
 			throws Exception {
 
@@ -1152,6 +1221,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			if (contactRoleKeys != null) {
 				for (int i = 0; i < contactRoleKeys.length; i++) {
 					httpInvoker.parameter(
@@ -1172,12 +1245,13 @@ public interface TeamResource {
 		}
 
 		public void putTeamContactByUuidContactUuidRole(
-				String teamKey, String contactUuid, String[] contactRoleKeys)
+				String agentName, String teamKey, String contactUuid,
+				String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putTeamContactByUuidContactUuidRoleHttpResponse(
-					teamKey, contactUuid, contactRoleKeys);
+					agentName, teamKey, contactUuid, contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -1190,7 +1264,7 @@ public interface TeamResource {
 
 		public HttpInvoker.HttpResponse
 				putTeamContactByUuidContactUuidRoleHttpResponse(
-					String teamKey, String contactUuid,
+					String agentName, String teamKey, String contactUuid,
 					String[] contactRoleKeys)
 			throws Exception {
 
@@ -1217,6 +1291,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			if (contactRoleKeys != null) {
 				for (int i = 0; i < contactRoleKeys.length; i++) {
 					httpInvoker.parameter(
@@ -1237,13 +1315,14 @@ public interface TeamResource {
 		}
 
 		public void deleteTeamTeamPermission(
-				String teamKey,
+				String agentName, String teamKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					TeamPermission teamPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteTeamTeamPermissionHttpResponse(teamKey, teamPermission);
+				deleteTeamTeamPermissionHttpResponse(
+					agentName, teamKey, teamPermission);
 
 			String content = httpResponse.getContent();
 
@@ -1255,7 +1334,7 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamTeamPermissionHttpResponse(
-				String teamKey,
+				String agentName, String teamKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					TeamPermission teamPermission)
 			throws Exception {
@@ -1281,6 +1360,10 @@ public interface TeamResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -1294,13 +1377,14 @@ public interface TeamResource {
 		}
 
 		public void putTeamTeamPermission(
-				String teamKey,
+				String agentName, String teamKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					TeamPermission teamPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putTeamTeamPermissionHttpResponse(teamKey, teamPermission);
+				putTeamTeamPermissionHttpResponse(
+					agentName, teamKey, teamPermission);
 
 			String content = httpResponse.getContent();
 
@@ -1312,7 +1396,7 @@ public interface TeamResource {
 		}
 
 		public HttpInvoker.HttpResponse putTeamTeamPermissionHttpResponse(
-				String teamKey,
+				String agentName, String teamKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					TeamPermission teamPermission)
 			throws Exception {
@@ -1339,6 +1423,10 @@ public interface TeamResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

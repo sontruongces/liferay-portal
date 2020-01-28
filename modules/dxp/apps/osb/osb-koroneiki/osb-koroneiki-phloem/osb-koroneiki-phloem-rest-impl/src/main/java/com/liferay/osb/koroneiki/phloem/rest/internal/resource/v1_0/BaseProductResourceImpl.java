@@ -103,10 +103,17 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+	)
 	@Path("/products")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Product postProduct(Product product) throws Exception {
+	public Product postProduct(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			Product product)
+		throws Exception {
+
 		return new Product();
 	}
 
@@ -151,12 +158,16 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Override
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productKey")
+		}
 	)
 	@Path("/products/{productKey}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Product")})
 	public void deleteProduct(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey)
 		throws Exception {
@@ -193,12 +204,16 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productKey")
+		}
 	)
 	@Path("/products/{productKey}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
 	public Product putProduct(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey,
 			Product product)
@@ -216,12 +231,16 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productKey")
+		}
 	)
 	@Path("/products/{productKey}/product-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Product")})
 	public void deleteProductProductPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey,
 			ProductPermission productPermission)
@@ -237,12 +256,16 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productKey")
+		}
 	)
 	@Path("/products/{productKey}/product-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Product")})
 	public void putProductProductPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey,
 			ProductPermission productPermission)

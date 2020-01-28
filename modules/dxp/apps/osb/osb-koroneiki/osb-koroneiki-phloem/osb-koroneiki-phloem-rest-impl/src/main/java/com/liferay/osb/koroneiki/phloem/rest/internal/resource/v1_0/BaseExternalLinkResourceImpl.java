@@ -48,6 +48,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -97,12 +98,16 @@ public abstract class BaseExternalLinkResourceImpl
 	@Operation(description = "Adds an external link to the account.")
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}/external-links")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postAccountAccountKeyExternalLink(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			ExternalLink externalLink)
@@ -147,11 +152,17 @@ public abstract class BaseExternalLinkResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@Operation(description = "Adds an external link to the contact.")
 	@POST
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId")
+		}
+	)
 	@Path("/contacts/by-okta-id/{oktaId}/external-links")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postContactByOktaExternalLink(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId,
 			ExternalLink externalLink)
@@ -197,12 +208,16 @@ public abstract class BaseExternalLinkResourceImpl
 	@Operation(description = "Adds an external link to the contact.")
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
+		}
 	)
 	@Path("/contacts/by-uuid/{contactUuid}/external-links")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postContactByUuidContactUuidExternalLink(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid,
 			ExternalLink externalLink)
@@ -219,12 +234,16 @@ public abstract class BaseExternalLinkResourceImpl
 	@Override
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "externalLinkKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "externalLinkKey")
+		}
 	)
 	@Path("/external-links/{externalLinkKey}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public void deleteExternalLink(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("externalLinkKey")
 				String externalLinkKey)
 		throws Exception {
@@ -296,6 +315,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@POST
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
 		}
 	)
@@ -303,6 +323,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postProductConsumptionProductConsumptionKeyExternalLink(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("productConsumptionKey") String productConsumptionKey,
 			ExternalLink externalLink)
@@ -349,12 +370,16 @@ public abstract class BaseExternalLinkResourceImpl
 	@Operation(description = "Adds an external link to the product purchase.")
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
+		}
 	)
 	@Path("/product-purchases/{productPurchaseKey}/external-links")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postProductPurchaseProductPurchaseKeyExternalLink(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey,
 			ExternalLink externalLink)
@@ -400,12 +425,16 @@ public abstract class BaseExternalLinkResourceImpl
 	@Operation(description = "Adds an external link to the product.")
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "productKey")
+		}
 	)
 	@Path("/products/{productKey}/external-links")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postProductProductKeyExternalLink(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey,
 			ExternalLink externalLink)
@@ -450,11 +479,17 @@ public abstract class BaseExternalLinkResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@Operation(description = "Adds an external link to the team.")
 	@POST
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "teamKey")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey")
+		}
+	)
 	@Path("/teams/{teamKey}/external-links")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postTeamTeamKeyExternalLink(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			ExternalLink externalLink)

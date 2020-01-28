@@ -49,12 +49,14 @@ public interface ProductPurchaseResource {
 		throws Exception;
 
 	public ProductPurchase postAccountAccountKeyProductPurchase(
-			String accountKey, ProductPurchase productPurchase)
+			String agentName, String accountKey,
+			ProductPurchase productPurchase)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postAccountAccountKeyProductPurchaseHttpResponse(
-				String accountKey, ProductPurchase productPurchase)
+				String agentName, String accountKey,
+				ProductPurchase productPurchase)
 		throws Exception;
 
 	public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
@@ -98,11 +100,12 @@ public interface ProductPurchaseResource {
 				Pagination pagination)
 		throws Exception;
 
-	public void deleteProductPurchase(String productPurchaseKey)
+	public void deleteProductPurchase(
+			String agentName, String productPurchaseKey)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteProductPurchaseHttpResponse(
-			String productPurchaseKey)
+			String agentName, String productPurchaseKey)
 		throws Exception;
 
 	public ProductPurchase getProductPurchase(String productPurchaseKey)
@@ -113,35 +116,37 @@ public interface ProductPurchaseResource {
 		throws Exception;
 
 	public ProductPurchase putProductPurchase(
-			String productPurchaseKey, ProductPurchase productPurchase)
+			String agentName, String productPurchaseKey,
+			ProductPurchase productPurchase)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putProductPurchaseHttpResponse(
-			String productPurchaseKey, ProductPurchase productPurchase)
+			String agentName, String productPurchaseKey,
+			ProductPurchase productPurchase)
 		throws Exception;
 
 	public void deleteProductPurchaseProductPurchasePermission(
-			String productPurchaseKey,
+			String agentName, String productPurchaseKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductPurchasePermission productPurchasePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteProductPurchaseProductPurchasePermissionHttpResponse(
-				String productPurchaseKey,
+				String agentName, String productPurchaseKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductPurchasePermission productPurchasePermission)
 		throws Exception;
 
 	public void putProductPurchaseProductPurchasePermission(
-			String productPurchaseKey,
+			String agentName, String productPurchaseKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductPurchasePermission productPurchasePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putProductPurchaseProductPurchasePermissionHttpResponse(
-				String productPurchaseKey,
+				String agentName, String productPurchaseKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductPurchasePermission productPurchasePermission)
 		throws Exception;
@@ -267,12 +272,13 @@ public interface ProductPurchaseResource {
 		}
 
 		public ProductPurchase postAccountAccountKeyProductPurchase(
-				String accountKey, ProductPurchase productPurchase)
+				String agentName, String accountKey,
+				ProductPurchase productPurchase)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postAccountAccountKeyProductPurchaseHttpResponse(
-					accountKey, productPurchase);
+					agentName, accountKey, productPurchase);
 
 			String content = httpResponse.getContent();
 
@@ -296,7 +302,8 @@ public interface ProductPurchaseResource {
 
 		public HttpInvoker.HttpResponse
 				postAccountAccountKeyProductPurchaseHttpResponse(
-					String accountKey, ProductPurchase productPurchase)
+					String agentName, String accountKey,
+					ProductPurchase productPurchase)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -321,6 +328,10 @@ public interface ProductPurchaseResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -606,11 +617,13 @@ public interface ProductPurchaseResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteProductPurchase(String productPurchaseKey)
+		public void deleteProductPurchase(
+				String agentName, String productPurchaseKey)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteProductPurchaseHttpResponse(productPurchaseKey);
+				deleteProductPurchaseHttpResponse(
+					agentName, productPurchaseKey);
 
 			String content = httpResponse.getContent();
 
@@ -622,7 +635,7 @@ public interface ProductPurchaseResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteProductPurchaseHttpResponse(
-				String productPurchaseKey)
+				String agentName, String productPurchaseKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -645,6 +658,10 @@ public interface ProductPurchaseResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -722,12 +739,13 @@ public interface ProductPurchaseResource {
 		}
 
 		public ProductPurchase putProductPurchase(
-				String productPurchaseKey, ProductPurchase productPurchase)
+				String agentName, String productPurchaseKey,
+				ProductPurchase productPurchase)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putProductPurchaseHttpResponse(
-					productPurchaseKey, productPurchase);
+					agentName, productPurchaseKey, productPurchase);
 
 			String content = httpResponse.getContent();
 
@@ -750,7 +768,8 @@ public interface ProductPurchaseResource {
 		}
 
 		public HttpInvoker.HttpResponse putProductPurchaseHttpResponse(
-				String productPurchaseKey, ProductPurchase productPurchase)
+				String agentName, String productPurchaseKey,
+				ProductPurchase productPurchase)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -776,6 +795,10 @@ public interface ProductPurchaseResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -789,14 +812,14 @@ public interface ProductPurchaseResource {
 		}
 
 		public void deleteProductPurchaseProductPurchasePermission(
-				String productPurchaseKey,
+				String agentName, String productPurchaseKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductPurchasePermission productPurchasePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteProductPurchaseProductPurchasePermissionHttpResponse(
-					productPurchaseKey, productPurchasePermission);
+					agentName, productPurchaseKey, productPurchasePermission);
 
 			String content = httpResponse.getContent();
 
@@ -809,7 +832,7 @@ public interface ProductPurchaseResource {
 
 		public HttpInvoker.HttpResponse
 				deleteProductPurchaseProductPurchasePermissionHttpResponse(
-					String productPurchaseKey,
+					String agentName, String productPurchaseKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ProductPurchasePermission productPurchasePermission)
 			throws Exception {
@@ -835,6 +858,10 @@ public interface ProductPurchaseResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -848,14 +875,14 @@ public interface ProductPurchaseResource {
 		}
 
 		public void putProductPurchaseProductPurchasePermission(
-				String productPurchaseKey,
+				String agentName, String productPurchaseKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductPurchasePermission productPurchasePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putProductPurchaseProductPurchasePermissionHttpResponse(
-					productPurchaseKey, productPurchasePermission);
+					agentName, productPurchaseKey, productPurchasePermission);
 
 			String content = httpResponse.getContent();
 
@@ -868,7 +895,7 @@ public interface ProductPurchaseResource {
 
 		public HttpInvoker.HttpResponse
 				putProductPurchaseProductPurchasePermissionHttpResponse(
-					String productPurchaseKey,
+					String agentName, String productPurchaseKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ProductPurchasePermission productPurchasePermission)
 			throws Exception {
@@ -896,6 +923,10 @@ public interface ProductPurchaseResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

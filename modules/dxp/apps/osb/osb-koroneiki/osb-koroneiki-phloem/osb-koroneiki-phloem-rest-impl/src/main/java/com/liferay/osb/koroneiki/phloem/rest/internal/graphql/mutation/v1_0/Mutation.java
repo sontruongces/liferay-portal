@@ -157,29 +157,35 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Account createAccount(@GraphQLName("account") Account account)
+	public Account createAccount(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("account") Account account)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.postAccount(account));
+			accountResource -> accountResource.postAccount(agentName, account));
 	}
 
 	@GraphQLField
-	public boolean deleteAccount(@GraphQLName("accountKey") String accountKey)
+	public boolean deleteAccount(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("accountKey") String accountKey)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.deleteAccount(accountKey));
+			accountResource -> accountResource.deleteAccount(
+				agentName, accountKey));
 
 		return true;
 	}
 
 	@GraphQLField
 	public Account updateAccount(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("account") Account account)
 		throws Exception {
@@ -187,11 +193,13 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			accountResource -> accountResource.putAccount(accountKey, account));
+			accountResource -> accountResource.putAccount(
+				agentName, accountKey, account));
 	}
 
 	@GraphQLField
 	public boolean deleteAccountAccountPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("accountPermission") AccountPermission
 				accountPermission)
@@ -201,13 +209,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.deleteAccountAccountPermission(
-				accountKey, accountPermission));
+				agentName, accountKey, accountPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateAccountAccountPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("accountPermission") AccountPermission
 				accountPermission)
@@ -217,13 +226,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.putAccountAccountPermission(
-				accountKey, accountPermission));
+				agentName, accountKey, accountPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteAccountAssignedTeamTeamKeyRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("teamRoleKeys") String[] teamRoleKeys)
@@ -234,13 +244,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			accountResource ->
 				accountResource.deleteAccountAssignedTeamTeamKeyRole(
-					accountKey, teamKey, teamRoleKeys));
+					agentName, accountKey, teamKey, teamRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateAccountAssignedTeamTeamKeyRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("teamRoleKeys") String[] teamRoleKeys)
@@ -251,13 +262,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			accountResource ->
 				accountResource.putAccountAssignedTeamTeamKeyRole(
-					accountKey, teamKey, teamRoleKeys));
+					agentName, accountKey, teamKey, teamRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public Account createAccountChildAccount(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("account") Account account)
 		throws Exception {
@@ -266,11 +278,12 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.postAccountChildAccount(
-				accountKey, account));
+				agentName, accountKey, account));
 	}
 
 	@GraphQLField
 	public boolean deleteAccountContactByEmailAddres(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactEmailAddresses") String[]
 				contactEmailAddresses)
@@ -281,13 +294,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			accountResource ->
 				accountResource.deleteAccountContactByEmailAddres(
-					accountKey, contactEmailAddresses));
+					agentName, accountKey, contactEmailAddresses));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateAccountContactByEmailAddres(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactEmailAddresses") String[]
 				contactEmailAddresses)
@@ -297,13 +311,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.putAccountContactByEmailAddres(
-				accountKey, contactEmailAddresses));
+				agentName, accountKey, contactEmailAddresses));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteAccountContactByEmailAddresContactEmailAddressRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactEmailAddress") String contactEmailAddress,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -315,13 +330,15 @@ public class Mutation {
 			accountResource ->
 				accountResource.
 					deleteAccountContactByEmailAddresContactEmailAddressRole(
-						accountKey, contactEmailAddress, contactRoleKeys));
+						agentName, accountKey, contactEmailAddress,
+						contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateAccountContactByEmailAddresContactEmailAddressRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactEmailAddress") String contactEmailAddress,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -333,13 +350,15 @@ public class Mutation {
 			accountResource ->
 				accountResource.
 					putAccountContactByEmailAddresContactEmailAddressRole(
-						accountKey, contactEmailAddress, contactRoleKeys));
+						agentName, accountKey, contactEmailAddress,
+						contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteAccountContactByOkta(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("oktaIds") String[] oktaIds)
 		throws Exception {
@@ -348,13 +367,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.deleteAccountContactByOkta(
-				accountKey, oktaIds));
+				agentName, accountKey, oktaIds));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateAccountContactByOkta(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("oktaIds") String[] oktaIds)
 		throws Exception {
@@ -363,13 +383,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.putAccountContactByOkta(
-				accountKey, oktaIds));
+				agentName, accountKey, oktaIds));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteAccountContactByOktaRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -379,13 +400,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.deleteAccountContactByOktaRole(
-				accountKey, oktaId, contactRoleKeys));
+				agentName, accountKey, oktaId, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateAccountContactByOktaRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -395,13 +417,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.putAccountContactByOktaRole(
-				accountKey, oktaId, contactRoleKeys));
+				agentName, accountKey, oktaId, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteAccountContactByUuid(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
@@ -410,13 +433,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.deleteAccountContactByUuid(
-				accountKey, contactUuids));
+				agentName, accountKey, contactUuids));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateAccountContactByUuid(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
@@ -425,13 +449,14 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.putAccountContactByUuid(
-				accountKey, contactUuids));
+				agentName, accountKey, contactUuids));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteAccountContactByUuidContactUuidRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -442,13 +467,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			accountResource ->
 				accountResource.deleteAccountContactByUuidContactUuidRole(
-					accountKey, contactUuid, contactRoleKeys));
+					agentName, accountKey, contactUuid, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateAccountContactByUuidContactUuidRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -459,23 +485,26 @@ public class Mutation {
 			this::_populateResourceContext,
 			accountResource ->
 				accountResource.putAccountContactByUuidContactUuidRole(
-					accountKey, contactUuid, contactRoleKeys));
+					agentName, accountKey, contactUuid, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
-	public Contact createContact(@GraphQLName("contact") Contact contact)
+	public Contact createContact(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("contact") Contact contact)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			contactResource -> contactResource.postContact(contact));
+			contactResource -> contactResource.postContact(agentName, contact));
 	}
 
 	@GraphQLField
 	public boolean deleteContactByEmailAddresEmailAddress(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("emailAddress") String emailAddress)
 		throws Exception {
 
@@ -484,13 +513,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			contactResource ->
 				contactResource.deleteContactByEmailAddresEmailAddress(
-					emailAddress));
+					agentName, emailAddress));
 
 		return true;
 	}
 
 	@GraphQLField
 	public Contact updateContactByEmailAddresEmailAddress(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("emailAddress") String emailAddress,
 			@GraphQLName("contact") Contact contact)
 		throws Exception {
@@ -500,23 +530,27 @@ public class Mutation {
 			this::_populateResourceContext,
 			contactResource ->
 				contactResource.putContactByEmailAddresEmailAddress(
-					emailAddress, contact));
+					agentName, emailAddress, contact));
 	}
 
 	@GraphQLField
-	public boolean deleteContactByOkta(@GraphQLName("oktaId") String oktaId)
+	public boolean deleteContactByOkta(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("oktaId") String oktaId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			contactResource -> contactResource.deleteContactByOkta(oktaId));
+			contactResource -> contactResource.deleteContactByOkta(
+				agentName, oktaId));
 
 		return true;
 	}
 
 	@GraphQLField
 	public Contact updateContactByOkta(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contact") Contact contact)
 		throws Exception {
@@ -525,11 +559,12 @@ public class Mutation {
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			contactResource -> contactResource.putContactByOkta(
-				oktaId, contact));
+				agentName, oktaId, contact));
 	}
 
 	@GraphQLField
 	public boolean deleteContactByOktaContactPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contactPermission") ContactPermission
 				contactPermission)
@@ -540,13 +575,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			contactResource ->
 				contactResource.deleteContactByOktaContactPermission(
-					oktaId, contactPermission));
+					agentName, oktaId, contactPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateContactByOktaContactPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contactPermission") ContactPermission
 				contactPermission)
@@ -557,13 +593,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			contactResource ->
 				contactResource.putContactByOktaContactPermission(
-					oktaId, contactPermission));
+					agentName, oktaId, contactPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteContactByUuidContactUuid(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactUuid") String contactUuid)
 		throws Exception {
 
@@ -571,13 +608,14 @@ public class Mutation {
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			contactResource -> contactResource.deleteContactByUuidContactUuid(
-				contactUuid));
+				agentName, contactUuid));
 
 		return true;
 	}
 
 	@GraphQLField
 	public Contact updateContactByUuidContactUuid(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contact") Contact contact)
 		throws Exception {
@@ -586,11 +624,12 @@ public class Mutation {
 			_contactResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			contactResource -> contactResource.putContactByUuidContactUuid(
-				contactUuid, contact));
+				agentName, contactUuid, contact));
 	}
 
 	@GraphQLField
 	public boolean deleteContactByUuidContactUuidContactPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactPermission") ContactPermission
 				contactPermission)
@@ -601,13 +640,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			contactResource ->
 				contactResource.deleteContactByUuidContactUuidContactPermission(
-					contactUuid, contactPermission));
+					agentName, contactUuid, contactPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateContactByUuidContactUuidContactPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactPermission") ContactPermission
 				contactPermission)
@@ -618,13 +658,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			contactResource ->
 				contactResource.putContactByUuidContactUuidContactPermission(
-					contactUuid, contactPermission));
+					agentName, contactUuid, contactPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public ContactRole createContactRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactRole") ContactRole contactRole)
 		throws Exception {
 
@@ -632,11 +673,12 @@ public class Mutation {
 			_contactRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			contactRoleResource -> contactRoleResource.postContactRole(
-				contactRole));
+				agentName, contactRole));
 	}
 
 	@GraphQLField
 	public boolean deleteContactRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactRoleKey") String contactRoleKey)
 		throws Exception {
 
@@ -644,13 +686,14 @@ public class Mutation {
 			_contactRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			contactRoleResource -> contactRoleResource.deleteContactRole(
-				contactRoleKey));
+				agentName, contactRoleKey));
 
 		return true;
 	}
 
 	@GraphQLField
 	public ContactRole updateContactRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactRoleKey") String contactRoleKey,
 			@GraphQLName("contactRole") ContactRole contactRole)
 		throws Exception {
@@ -659,11 +702,12 @@ public class Mutation {
 			_contactRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			contactRoleResource -> contactRoleResource.putContactRole(
-				contactRoleKey, contactRole));
+				agentName, contactRoleKey, contactRole));
 	}
 
 	@GraphQLField
 	public boolean deleteContactRoleContactRolePermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactRoleKey") String contactRoleKey,
 			@GraphQLName("contactRolePermission") ContactRolePermission
 				contactRolePermission)
@@ -674,13 +718,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			contactRoleResource ->
 				contactRoleResource.deleteContactRoleContactRolePermission(
-					contactRoleKey, contactRolePermission));
+					agentName, contactRoleKey, contactRolePermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateContactRoleContactRolePermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactRoleKey") String contactRoleKey,
 			@GraphQLName("contactRolePermission") ContactRolePermission
 				contactRolePermission)
@@ -691,13 +736,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			contactRoleResource ->
 				contactRoleResource.putContactRoleContactRolePermission(
-					contactRoleKey, contactRolePermission));
+					agentName, contactRoleKey, contactRolePermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public EntitlementDefinition createAccountEntitlementDefinition(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("entitlementDefinition") EntitlementDefinition
 				entitlementDefinition)
 		throws Exception {
@@ -707,11 +753,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			entitlementDefinitionResource ->
 				entitlementDefinitionResource.postAccountEntitlementDefinition(
-					entitlementDefinition));
+					agentName, entitlementDefinition));
 	}
 
 	@GraphQLField
 	public EntitlementDefinition createContactEntitlementDefinition(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("entitlementDefinition") EntitlementDefinition
 				entitlementDefinition)
 		throws Exception {
@@ -721,11 +768,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			entitlementDefinitionResource ->
 				entitlementDefinitionResource.postContactEntitlementDefinition(
-					entitlementDefinition));
+					agentName, entitlementDefinition));
 	}
 
 	@GraphQLField
 	public boolean deleteEntitlementDefinition(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("entitlementDefinitionKey") String
 				entitlementDefinitionKey)
 		throws Exception {
@@ -735,13 +783,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			entitlementDefinitionResource ->
 				entitlementDefinitionResource.deleteEntitlementDefinition(
-					entitlementDefinitionKey));
+					agentName, entitlementDefinitionKey));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean createEntitlementDefinitionSynchronize(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("entitlementDefinitionKey") String
 				entitlementDefinitionKey)
 		throws Exception {
@@ -752,13 +801,14 @@ public class Mutation {
 			entitlementDefinitionResource ->
 				entitlementDefinitionResource.
 					postEntitlementDefinitionSynchronize(
-						entitlementDefinitionKey));
+						agentName, entitlementDefinitionKey));
 
 		return true;
 	}
 
 	@GraphQLField
 	public ExternalLink createAccountAccountKeyExternalLink(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -768,11 +818,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			externalLinkResource ->
 				externalLinkResource.postAccountAccountKeyExternalLink(
-					accountKey, externalLink));
+					agentName, accountKey, externalLink));
 	}
 
 	@GraphQLField
 	public ExternalLink createContactByOktaExternalLink(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -782,11 +833,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			externalLinkResource ->
 				externalLinkResource.postContactByOktaExternalLink(
-					oktaId, externalLink));
+					agentName, oktaId, externalLink));
 	}
 
 	@GraphQLField
 	public ExternalLink createContactByUuidContactUuidExternalLink(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -796,11 +848,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			externalLinkResource ->
 				externalLinkResource.postContactByUuidContactUuidExternalLink(
-					contactUuid, externalLink));
+					agentName, contactUuid, externalLink));
 	}
 
 	@GraphQLField
 	public boolean deleteExternalLink(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("externalLinkKey") String externalLinkKey)
 		throws Exception {
 
@@ -808,7 +861,7 @@ public class Mutation {
 			_externalLinkResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			externalLinkResource -> externalLinkResource.deleteExternalLink(
-				externalLinkKey));
+				agentName, externalLinkKey));
 
 		return true;
 	}
@@ -816,6 +869,7 @@ public class Mutation {
 	@GraphQLField
 	public ExternalLink
 			createProductConsumptionProductConsumptionKeyExternalLink(
+				@GraphQLName("agentName") String agentName,
 				@GraphQLName("productConsumptionKey") String
 					productConsumptionKey,
 				@GraphQLName("externalLink") ExternalLink externalLink)
@@ -827,11 +881,12 @@ public class Mutation {
 			externalLinkResource ->
 				externalLinkResource.
 					postProductConsumptionProductConsumptionKeyExternalLink(
-						productConsumptionKey, externalLink));
+						agentName, productConsumptionKey, externalLink));
 	}
 
 	@GraphQLField
 	public ExternalLink createProductPurchaseProductPurchaseKeyExternalLink(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productPurchaseKey") String productPurchaseKey,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -842,11 +897,12 @@ public class Mutation {
 			externalLinkResource ->
 				externalLinkResource.
 					postProductPurchaseProductPurchaseKeyExternalLink(
-						productPurchaseKey, externalLink));
+						agentName, productPurchaseKey, externalLink));
 	}
 
 	@GraphQLField
 	public ExternalLink createProductProductKeyExternalLink(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productKey") String productKey,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -856,11 +912,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			externalLinkResource ->
 				externalLinkResource.postProductProductKeyExternalLink(
-					productKey, externalLink));
+					agentName, productKey, externalLink));
 	}
 
 	@GraphQLField
 	public ExternalLink createTeamTeamKeyExternalLink(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("externalLink") ExternalLink externalLink)
 		throws Exception {
@@ -870,11 +927,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			externalLinkResource ->
 				externalLinkResource.postTeamTeamKeyExternalLink(
-					teamKey, externalLink));
+					agentName, teamKey, externalLink));
 	}
 
 	@GraphQLField
 	public PostalAddress createAccountAccountKeyPostalAddress(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("postalAddress") PostalAddress postalAddress)
 		throws Exception {
@@ -884,11 +942,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			postalAddressResource ->
 				postalAddressResource.postAccountAccountKeyPostalAddress(
-					accountKey, postalAddress));
+					agentName, accountKey, postalAddress));
 	}
 
 	@GraphQLField
 	public boolean deletePostalAddress(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("postalAddressId") Long postalAddressId)
 		throws Exception {
 
@@ -896,13 +955,14 @@ public class Mutation {
 			_postalAddressResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			postalAddressResource -> postalAddressResource.deletePostalAddress(
-				postalAddressId));
+				agentName, postalAddressId));
 
 		return true;
 	}
 
 	@GraphQLField
 	public PostalAddress updatePostalAddress(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("postalAddressId") Long postalAddressId,
 			@GraphQLName("postalAddress") PostalAddress postalAddress)
 		throws Exception {
@@ -911,33 +971,39 @@ public class Mutation {
 			_postalAddressResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			postalAddressResource -> postalAddressResource.putPostalAddress(
-				postalAddressId, postalAddress));
+				agentName, postalAddressId, postalAddress));
 	}
 
 	@GraphQLField
-	public Product createProduct(@GraphQLName("product") Product product)
+	public Product createProduct(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("product") Product product)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> productResource.postProduct(product));
+			productResource -> productResource.postProduct(agentName, product));
 	}
 
 	@GraphQLField
-	public boolean deleteProduct(@GraphQLName("productKey") String productKey)
+	public boolean deleteProduct(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("productKey") String productKey)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> productResource.deleteProduct(productKey));
+			productResource -> productResource.deleteProduct(
+				agentName, productKey));
 
 		return true;
 	}
 
 	@GraphQLField
 	public Product updateProduct(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productKey") String productKey,
 			@GraphQLName("product") Product product)
 		throws Exception {
@@ -945,11 +1011,13 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> productResource.putProduct(productKey, product));
+			productResource -> productResource.putProduct(
+				agentName, productKey, product));
 	}
 
 	@GraphQLField
 	public boolean deleteProductProductPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productKey") String productKey,
 			@GraphQLName("productPermission") ProductPermission
 				productPermission)
@@ -959,13 +1027,14 @@ public class Mutation {
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			productResource -> productResource.deleteProductProductPermission(
-				productKey, productPermission));
+				agentName, productKey, productPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateProductProductPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productKey") String productKey,
 			@GraphQLName("productPermission") ProductPermission
 				productPermission)
@@ -975,13 +1044,14 @@ public class Mutation {
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			productResource -> productResource.putProductProductPermission(
-				productKey, productPermission));
+				agentName, productKey, productPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public ProductConsumption createAccountAccountKeyProductConsumption(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("productConsumption") ProductConsumption
 				productConsumption)
@@ -993,11 +1063,12 @@ public class Mutation {
 			productConsumptionResource ->
 				productConsumptionResource.
 					postAccountAccountKeyProductConsumption(
-						accountKey, productConsumption));
+						agentName, accountKey, productConsumption));
 	}
 
 	@GraphQLField
 	public boolean deleteProductConsumption(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productConsumptionKey") String productConsumptionKey)
 		throws Exception {
 
@@ -1006,13 +1077,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			productConsumptionResource ->
 				productConsumptionResource.deleteProductConsumption(
-					productConsumptionKey));
+					agentName, productConsumptionKey));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteProductConsumptionProductConsumptionPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productConsumptionKey") String productConsumptionKey,
 			@GraphQLName("productConsumptionPermission")
 				ProductConsumptionPermission productConsumptionPermission)
@@ -1024,13 +1096,15 @@ public class Mutation {
 			productConsumptionResource ->
 				productConsumptionResource.
 					deleteProductConsumptionProductConsumptionPermission(
-						productConsumptionKey, productConsumptionPermission));
+						agentName, productConsumptionKey,
+						productConsumptionPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateProductConsumptionProductConsumptionPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productConsumptionKey") String productConsumptionKey,
 			@GraphQLName("productConsumptionPermission")
 				ProductConsumptionPermission productConsumptionPermission)
@@ -1042,13 +1116,15 @@ public class Mutation {
 			productConsumptionResource ->
 				productConsumptionResource.
 					putProductConsumptionProductConsumptionPermission(
-						productConsumptionKey, productConsumptionPermission));
+						agentName, productConsumptionKey,
+						productConsumptionPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public ProductPurchase createAccountAccountKeyProductPurchase(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("productPurchase") ProductPurchase productPurchase)
 		throws Exception {
@@ -1058,11 +1134,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			productPurchaseResource ->
 				productPurchaseResource.postAccountAccountKeyProductPurchase(
-					accountKey, productPurchase));
+					agentName, accountKey, productPurchase));
 	}
 
 	@GraphQLField
 	public boolean deleteProductPurchase(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productPurchaseKey") String productPurchaseKey)
 		throws Exception {
 
@@ -1071,13 +1148,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			productPurchaseResource ->
 				productPurchaseResource.deleteProductPurchase(
-					productPurchaseKey));
+					agentName, productPurchaseKey));
 
 		return true;
 	}
 
 	@GraphQLField
 	public ProductPurchase updateProductPurchase(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productPurchaseKey") String productPurchaseKey,
 			@GraphQLName("productPurchase") ProductPurchase productPurchase)
 		throws Exception {
@@ -1087,11 +1165,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			productPurchaseResource ->
 				productPurchaseResource.putProductPurchase(
-					productPurchaseKey, productPurchase));
+					agentName, productPurchaseKey, productPurchase));
 	}
 
 	@GraphQLField
 	public boolean deleteProductPurchaseProductPurchasePermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productPurchaseKey") String productPurchaseKey,
 			@GraphQLName("productPurchasePermission") ProductPurchasePermission
 				productPurchasePermission)
@@ -1103,13 +1182,15 @@ public class Mutation {
 			productPurchaseResource ->
 				productPurchaseResource.
 					deleteProductPurchaseProductPurchasePermission(
-						productPurchaseKey, productPurchasePermission));
+						agentName, productPurchaseKey,
+						productPurchasePermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateProductPurchaseProductPurchasePermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("productPurchaseKey") String productPurchaseKey,
 			@GraphQLName("productPurchasePermission") ProductPurchasePermission
 				productPurchasePermission)
@@ -1121,13 +1202,15 @@ public class Mutation {
 			productPurchaseResource ->
 				productPurchaseResource.
 					putProductPurchaseProductPurchasePermission(
-						productPurchaseKey, productPurchasePermission));
+						agentName, productPurchaseKey,
+						productPurchasePermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public Team createAccountAccountKeyTeam(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
 			@GraphQLName("team") Team team)
 		throws Exception {
@@ -1136,23 +1219,26 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.postAccountAccountKeyTeam(
-				accountKey, team));
+				agentName, accountKey, team));
 	}
 
 	@GraphQLField
-	public boolean deleteTeam(@GraphQLName("teamKey") String teamKey)
+	public boolean deleteTeam(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("teamKey") String teamKey)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			teamResource -> teamResource.deleteTeam(teamKey));
+			teamResource -> teamResource.deleteTeam(agentName, teamKey));
 
 		return true;
 	}
 
 	@GraphQLField
 	public Team updateTeam(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("team") Team team)
 		throws Exception {
@@ -1160,11 +1246,12 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			teamResource -> teamResource.putTeam(teamKey, team));
+			teamResource -> teamResource.putTeam(agentName, teamKey, team));
 	}
 
 	@GraphQLField
 	public boolean deleteTeamContactByOkta(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("oktaIds") String[] oktaIds)
 		throws Exception {
@@ -1173,13 +1260,14 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.deleteTeamContactByOkta(
-				teamKey, oktaIds));
+				agentName, teamKey, oktaIds));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateTeamContactByOkta(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("oktaIds") String[] oktaIds)
 		throws Exception {
@@ -1188,13 +1276,14 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.putTeamContactByOkta(
-				teamKey, oktaIds));
+				agentName, teamKey, oktaIds));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteTeamContactByOktaRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -1204,13 +1293,14 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.deleteTeamContactByOktaRole(
-				teamKey, oktaId, contactRoleKeys));
+				agentName, teamKey, oktaId, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateTeamContactByOktaRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("oktaId") String oktaId,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -1220,13 +1310,14 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.putTeamContactByOktaRole(
-				teamKey, oktaId, contactRoleKeys));
+				agentName, teamKey, oktaId, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteTeamContactByUuid(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
@@ -1235,13 +1326,14 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.deleteTeamContactByUuid(
-				teamKey, contactUuids));
+				agentName, teamKey, contactUuids));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateTeamContactByUuid(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("contactUuids") String[] contactUuids)
 		throws Exception {
@@ -1250,13 +1342,14 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.putTeamContactByUuid(
-				teamKey, contactUuids));
+				agentName, teamKey, contactUuids));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteTeamContactByUuidContactUuidRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -1266,13 +1359,14 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.deleteTeamContactByUuidContactUuidRole(
-				teamKey, contactUuid, contactRoleKeys));
+				agentName, teamKey, contactUuid, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateTeamContactByUuidContactUuidRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("contactUuid") String contactUuid,
 			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
@@ -1282,13 +1376,14 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.putTeamContactByUuidContactUuidRole(
-				teamKey, contactUuid, contactRoleKeys));
+				agentName, teamKey, contactUuid, contactRoleKeys));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean deleteTeamTeamPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("teamPermission") TeamPermission teamPermission)
 		throws Exception {
@@ -1297,13 +1392,14 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.deleteTeamTeamPermission(
-				teamKey, teamPermission));
+				agentName, teamKey, teamPermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateTeamTeamPermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamKey") String teamKey,
 			@GraphQLName("teamPermission") TeamPermission teamPermission)
 		throws Exception {
@@ -1312,36 +1408,42 @@ public class Mutation {
 			_teamResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamResource -> teamResource.putTeamTeamPermission(
-				teamKey, teamPermission));
+				agentName, teamKey, teamPermission));
 
 		return true;
 	}
 
 	@GraphQLField
-	public TeamRole createTeamRole(@GraphQLName("teamRole") TeamRole teamRole)
+	public TeamRole createTeamRole(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("teamRole") TeamRole teamRole)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_teamRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			teamRoleResource -> teamRoleResource.postTeamRole(teamRole));
+			teamRoleResource -> teamRoleResource.postTeamRole(
+				agentName, teamRole));
 	}
 
 	@GraphQLField
 	public boolean deleteTeamRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamRoleKey") String teamRoleKey)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_teamRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			teamRoleResource -> teamRoleResource.deleteTeamRole(teamRoleKey));
+			teamRoleResource -> teamRoleResource.deleteTeamRole(
+				agentName, teamRoleKey));
 
 		return true;
 	}
 
 	@GraphQLField
 	public TeamRole updateTeamRole(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamRoleKey") String teamRoleKey,
 			@GraphQLName("teamRole") TeamRole teamRole)
 		throws Exception {
@@ -1350,11 +1452,12 @@ public class Mutation {
 			_teamRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamRoleResource -> teamRoleResource.putTeamRole(
-				teamRoleKey, teamRole));
+				agentName, teamRoleKey, teamRole));
 	}
 
 	@GraphQLField
 	public boolean deleteTeamRoleTeamRolePermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamRoleKey") String teamRoleKey,
 			@GraphQLName("teamRolePermission") TeamRolePermission
 				teamRolePermission)
@@ -1365,13 +1468,14 @@ public class Mutation {
 			this::_populateResourceContext,
 			teamRoleResource ->
 				teamRoleResource.deleteTeamRoleTeamRolePermission(
-					teamRoleKey, teamRolePermission));
+					agentName, teamRoleKey, teamRolePermission));
 
 		return true;
 	}
 
 	@GraphQLField
 	public boolean updateTeamRoleTeamRolePermission(
+			@GraphQLName("agentName") String agentName,
 			@GraphQLName("teamRoleKey") String teamRoleKey,
 			@GraphQLName("teamRolePermission") TeamRolePermission
 				teamRolePermission)
@@ -1381,7 +1485,7 @@ public class Mutation {
 			_teamRoleResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			teamRoleResource -> teamRoleResource.putTeamRoleTeamRolePermission(
-				teamRoleKey, teamRolePermission));
+				agentName, teamRoleKey, teamRolePermission));
 
 		return true;
 	}

@@ -49,12 +49,12 @@ public interface EntitlementDefinitionResource {
 		throws Exception;
 
 	public EntitlementDefinition postAccountEntitlementDefinition(
-			EntitlementDefinition entitlementDefinition)
+			String agentName, EntitlementDefinition entitlementDefinition)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postAccountEntitlementDefinitionHttpResponse(
-				EntitlementDefinition entitlementDefinition)
+				String agentName, EntitlementDefinition entitlementDefinition)
 		throws Exception;
 
 	public Page<EntitlementDefinition> getContactEntitlementDefinitionsPage(
@@ -67,19 +67,20 @@ public interface EntitlementDefinitionResource {
 		throws Exception;
 
 	public EntitlementDefinition postContactEntitlementDefinition(
-			EntitlementDefinition entitlementDefinition)
+			String agentName, EntitlementDefinition entitlementDefinition)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postContactEntitlementDefinitionHttpResponse(
-				EntitlementDefinition entitlementDefinition)
+				String agentName, EntitlementDefinition entitlementDefinition)
 		throws Exception;
 
-	public void deleteEntitlementDefinition(String entitlementDefinitionKey)
+	public void deleteEntitlementDefinition(
+			String agentName, String entitlementDefinitionKey)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteEntitlementDefinitionHttpResponse(
-			String entitlementDefinitionKey)
+			String agentName, String entitlementDefinitionKey)
 		throws Exception;
 
 	public EntitlementDefinition getEntitlementDefinition(
@@ -91,12 +92,12 @@ public interface EntitlementDefinitionResource {
 		throws Exception;
 
 	public void postEntitlementDefinitionSynchronize(
-			String entitlementDefinitionKey)
+			String agentName, String entitlementDefinitionKey)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postEntitlementDefinitionSynchronizeHttpResponse(
-				String entitlementDefinitionKey)
+				String agentName, String entitlementDefinitionKey)
 		throws Exception;
 
 	public static class Builder {
@@ -223,12 +224,12 @@ public interface EntitlementDefinitionResource {
 		}
 
 		public EntitlementDefinition postAccountEntitlementDefinition(
-				EntitlementDefinition entitlementDefinition)
+				String agentName, EntitlementDefinition entitlementDefinition)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postAccountEntitlementDefinitionHttpResponse(
-					entitlementDefinition);
+					agentName, entitlementDefinition);
 
 			String content = httpResponse.getContent();
 
@@ -252,6 +253,7 @@ public interface EntitlementDefinitionResource {
 
 		public HttpInvoker.HttpResponse
 				postAccountEntitlementDefinitionHttpResponse(
+					String agentName,
 					EntitlementDefinition entitlementDefinition)
 			throws Exception {
 
@@ -278,6 +280,10 @@ public interface EntitlementDefinitionResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -358,12 +364,12 @@ public interface EntitlementDefinitionResource {
 		}
 
 		public EntitlementDefinition postContactEntitlementDefinition(
-				EntitlementDefinition entitlementDefinition)
+				String agentName, EntitlementDefinition entitlementDefinition)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postContactEntitlementDefinitionHttpResponse(
-					entitlementDefinition);
+					agentName, entitlementDefinition);
 
 			String content = httpResponse.getContent();
 
@@ -387,6 +393,7 @@ public interface EntitlementDefinitionResource {
 
 		public HttpInvoker.HttpResponse
 				postContactEntitlementDefinitionHttpResponse(
+					String agentName,
 					EntitlementDefinition entitlementDefinition)
 			throws Exception {
 
@@ -414,6 +421,10 @@ public interface EntitlementDefinitionResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
 
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -425,12 +436,13 @@ public interface EntitlementDefinitionResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteEntitlementDefinition(String entitlementDefinitionKey)
+		public void deleteEntitlementDefinition(
+				String agentName, String entitlementDefinitionKey)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteEntitlementDefinitionHttpResponse(
-					entitlementDefinitionKey);
+					agentName, entitlementDefinitionKey);
 
 			String content = httpResponse.getContent();
 
@@ -442,7 +454,7 @@ public interface EntitlementDefinitionResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteEntitlementDefinitionHttpResponse(
-				String entitlementDefinitionKey)
+				String agentName, String entitlementDefinitionKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -465,6 +477,10 @@ public interface EntitlementDefinitionResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
@@ -543,12 +559,12 @@ public interface EntitlementDefinitionResource {
 		}
 
 		public void postEntitlementDefinitionSynchronize(
-				String entitlementDefinitionKey)
+				String agentName, String entitlementDefinitionKey)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postEntitlementDefinitionSynchronizeHttpResponse(
-					entitlementDefinitionKey);
+					agentName, entitlementDefinitionKey);
 
 			String content = httpResponse.getContent();
 
@@ -561,7 +577,7 @@ public interface EntitlementDefinitionResource {
 
 		public HttpInvoker.HttpResponse
 				postEntitlementDefinitionSynchronizeHttpResponse(
-					String entitlementDefinitionKey)
+					String agentName, String entitlementDefinitionKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -587,6 +603,10 @@ public interface EntitlementDefinitionResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

@@ -50,7 +50,8 @@ public interface ProductConsumptionResource {
 		throws Exception;
 
 	public ProductConsumption postAccountAccountKeyProductConsumption(
-			String accountKey, ProductConsumption productConsumption)
+			String agentName, String accountKey,
+			ProductConsumption productConsumption)
 		throws Exception;
 
 	public Page<ProductConsumption> getContactByOktaProductConsumptionsPage(
@@ -72,7 +73,8 @@ public interface ProductConsumptionResource {
 				Pagination pagination)
 		throws Exception;
 
-	public void deleteProductConsumption(String productConsumptionKey)
+	public void deleteProductConsumption(
+			String agentName, String productConsumptionKey)
 		throws Exception;
 
 	public ProductConsumption getProductConsumption(
@@ -80,12 +82,12 @@ public interface ProductConsumptionResource {
 		throws Exception;
 
 	public void deleteProductConsumptionProductConsumptionPermission(
-			String productConsumptionKey,
+			String agentName, String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception;
 
 	public void putProductConsumptionProductConsumptionPermission(
-			String productConsumptionKey,
+			String agentName, String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception;
 

@@ -64,23 +64,27 @@ public interface ContactRoleResource {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public ContactRole postContactRole(ContactRole contactRole)
+	public ContactRole postContactRole(
+			String agentName, ContactRole contactRole)
 		throws Exception;
 
-	public void deleteContactRole(String contactRoleKey) throws Exception;
+	public void deleteContactRole(String agentName, String contactRoleKey)
+		throws Exception;
 
 	public ContactRole getContactRole(String contactRoleKey) throws Exception;
 
 	public ContactRole putContactRole(
-			String contactRoleKey, ContactRole contactRole)
+			String agentName, String contactRoleKey, ContactRole contactRole)
 		throws Exception;
 
 	public void deleteContactRoleContactRolePermission(
-			String contactRoleKey, ContactRolePermission contactRolePermission)
+			String agentName, String contactRoleKey,
+			ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public void putContactRoleContactRolePermission(
-			String contactRoleKey, ContactRolePermission contactRolePermission)
+			String agentName, String contactRoleKey,
+			ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(

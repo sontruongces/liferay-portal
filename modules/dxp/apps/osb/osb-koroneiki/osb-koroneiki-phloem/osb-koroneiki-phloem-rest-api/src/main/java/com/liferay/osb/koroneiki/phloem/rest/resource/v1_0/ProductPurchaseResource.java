@@ -50,7 +50,8 @@ public interface ProductPurchaseResource {
 		throws Exception;
 
 	public ProductPurchase postAccountAccountKeyProductPurchase(
-			String accountKey, ProductPurchase productPurchase)
+			String agentName, String accountKey,
+			ProductPurchase productPurchase)
 		throws Exception;
 
 	public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
@@ -72,23 +73,25 @@ public interface ProductPurchaseResource {
 				Pagination pagination)
 		throws Exception;
 
-	public void deleteProductPurchase(String productPurchaseKey)
+	public void deleteProductPurchase(
+			String agentName, String productPurchaseKey)
 		throws Exception;
 
 	public ProductPurchase getProductPurchase(String productPurchaseKey)
 		throws Exception;
 
 	public ProductPurchase putProductPurchase(
-			String productPurchaseKey, ProductPurchase productPurchase)
+			String agentName, String productPurchaseKey,
+			ProductPurchase productPurchase)
 		throws Exception;
 
 	public void deleteProductPurchaseProductPurchasePermission(
-			String productPurchaseKey,
+			String agentName, String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception;
 
 	public void putProductPurchaseProductPurchasePermission(
-			String productPurchaseKey,
+			String agentName, String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception;
 

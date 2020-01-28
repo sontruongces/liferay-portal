@@ -103,10 +103,17 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+	)
 	@Path("/accounts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
-	public Account postAccount(Account account) throws Exception {
+	public Account postAccount(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			Account account)
+		throws Exception {
+
 		return new Account();
 	}
 
@@ -151,12 +158,16 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Override
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccount(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey)
 		throws Exception {
@@ -193,12 +204,16 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public Account putAccount(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			Account account)
@@ -216,12 +231,16 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}/account-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountAccountPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			AccountPermission accountPermission)
@@ -237,12 +256,16 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}/account-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountAccountPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			AccountPermission accountPermission)
@@ -259,6 +282,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Operation(description = "Unassigns roles from the team for the account.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
@@ -268,6 +292,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountAssignedTeamTeamKeyRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
@@ -287,6 +312,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "teamRoleKeys")
@@ -296,6 +322,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountAssignedTeamTeamKeyRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
@@ -341,12 +368,16 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}/child-accounts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public Account postAccountChildAccount(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			Account account)
@@ -365,6 +396,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Operation(description = "Unassigns contacts from the account.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactEmailAddresses")
 		}
@@ -373,6 +405,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByEmailAddres(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true)
@@ -390,6 +423,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactEmailAddresses")
 		}
@@ -398,6 +432,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByEmailAddres(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true)
@@ -417,6 +452,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	)
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.PATH, name = "contactEmailAddress"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -428,6 +464,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("contactEmailAddress")
@@ -447,6 +484,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.PATH, name = "contactEmailAddress"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -458,6 +496,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByEmailAddresContactEmailAddressRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("contactEmailAddress")
@@ -477,6 +516,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Operation(description = "Unassigns contacts from the account.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
 		}
@@ -485,6 +525,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByOkta(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
@@ -502,6 +543,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
 		}
@@ -510,6 +552,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByOkta(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
@@ -529,6 +572,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	)
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -538,6 +582,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByOktaRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
@@ -557,6 +602,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -566,6 +612,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByOktaRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
@@ -585,6 +632,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Operation(description = "Unassigns contacts from the account.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
 		}
@@ -593,6 +641,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByUuid(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
@@ -610,6 +659,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
 		}
@@ -618,6 +668,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByUuid(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
@@ -637,6 +688,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	)
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -646,6 +698,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByUuidContactUuidRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
@@ -665,6 +718,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -674,6 +728,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByUuidContactUuidRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String

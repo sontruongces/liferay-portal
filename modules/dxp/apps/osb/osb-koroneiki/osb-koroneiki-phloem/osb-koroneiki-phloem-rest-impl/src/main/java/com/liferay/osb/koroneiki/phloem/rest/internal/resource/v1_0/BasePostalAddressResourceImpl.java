@@ -48,6 +48,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -90,12 +91,16 @@ public abstract class BasePostalAddressResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}/postal-addresses")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PostalAddress")})
 	public PostalAddress postAccountAccountKeyPostalAddress(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			PostalAddress postalAddress)
@@ -112,12 +117,16 @@ public abstract class BasePostalAddressResourceImpl
 	@Override
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "postalAddressId")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "postalAddressId")
+		}
 	)
 	@Path("/postal-addresses/{postalAddressId}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "PostalAddress")})
 	public void deletePostalAddress(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("postalAddressId")
 				Long postalAddressId)
 		throws Exception {
@@ -154,12 +163,16 @@ public abstract class BasePostalAddressResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "postalAddressId")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "postalAddressId")
+		}
 	)
 	@Path("/postal-addresses/{postalAddressId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PostalAddress")})
 	public PostalAddress putPostalAddress(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("postalAddressId")
 				Long postalAddressId,
 			PostalAddress postalAddress)

@@ -49,26 +49,31 @@ public interface ProductResource {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public Product postProduct(Product product) throws Exception;
+	public Product postProduct(String agentName, Product product)
+		throws Exception;
 
 	public Page<Product> getProductByExternalLinkDomainEntityNameEntityPage(
 			String domain, String entityName, String entityId,
 			Pagination pagination)
 		throws Exception;
 
-	public void deleteProduct(String productKey) throws Exception;
+	public void deleteProduct(String agentName, String productKey)
+		throws Exception;
 
 	public Product getProduct(String productKey) throws Exception;
 
-	public Product putProduct(String productKey, Product product)
+	public Product putProduct(
+			String agentName, String productKey, Product product)
 		throws Exception;
 
 	public void deleteProductProductPermission(
-			String productKey, ProductPermission productPermission)
+			String agentName, String productKey,
+			ProductPermission productPermission)
 		throws Exception;
 
 	public void putProductProductPermission(
-			String productKey, ProductPermission productPermission)
+			String agentName, String productKey,
+			ProductPermission productPermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

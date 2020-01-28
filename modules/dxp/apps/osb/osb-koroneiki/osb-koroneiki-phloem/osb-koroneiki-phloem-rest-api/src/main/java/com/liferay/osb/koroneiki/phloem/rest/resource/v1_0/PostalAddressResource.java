@@ -46,16 +46,17 @@ public interface PostalAddressResource {
 		throws Exception;
 
 	public PostalAddress postAccountAccountKeyPostalAddress(
-			String accountKey, PostalAddress postalAddress)
+			String agentName, String accountKey, PostalAddress postalAddress)
 		throws Exception;
 
-	public void deletePostalAddress(Long postalAddressId) throws Exception;
+	public void deletePostalAddress(String agentName, Long postalAddressId)
+		throws Exception;
 
 	public PostalAddress getPostalAddress(Long postalAddressId)
 		throws Exception;
 
 	public PostalAddress putPostalAddress(
-			Long postalAddressId, PostalAddress postalAddress)
+			String agentName, Long postalAddressId, PostalAddress postalAddress)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

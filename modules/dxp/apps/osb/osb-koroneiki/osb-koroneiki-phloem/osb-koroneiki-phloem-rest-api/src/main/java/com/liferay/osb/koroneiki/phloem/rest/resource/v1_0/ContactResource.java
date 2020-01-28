@@ -53,49 +53,58 @@ public interface ContactResource {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public Contact postContact(Contact contact) throws Exception;
+	public Contact postContact(String agentName, Contact contact)
+		throws Exception;
 
-	public void deleteContactByEmailAddresEmailAddress(String emailAddress)
+	public void deleteContactByEmailAddresEmailAddress(
+			String agentName, String emailAddress)
 		throws Exception;
 
 	public Contact getContactByEmailAddresEmailAddress(String emailAddress)
 		throws Exception;
 
 	public Contact putContactByEmailAddresEmailAddress(
-			String emailAddress, Contact contact)
+			String agentName, String emailAddress, Contact contact)
 		throws Exception;
 
-	public void deleteContactByOkta(String oktaId) throws Exception;
+	public void deleteContactByOkta(String agentName, String oktaId)
+		throws Exception;
 
 	public Contact getContactByOkta(String oktaId) throws Exception;
 
-	public Contact putContactByOkta(String oktaId, Contact contact)
+	public Contact putContactByOkta(
+			String agentName, String oktaId, Contact contact)
 		throws Exception;
 
 	public void deleteContactByOktaContactPermission(
-			String oktaId, ContactPermission contactPermission)
+			String agentName, String oktaId,
+			ContactPermission contactPermission)
 		throws Exception;
 
 	public void putContactByOktaContactPermission(
-			String oktaId, ContactPermission contactPermission)
+			String agentName, String oktaId,
+			ContactPermission contactPermission)
 		throws Exception;
 
-	public void deleteContactByUuidContactUuid(String contactUuid)
+	public void deleteContactByUuidContactUuid(
+			String agentName, String contactUuid)
 		throws Exception;
 
 	public Contact getContactByUuidContactUuid(String contactUuid)
 		throws Exception;
 
 	public Contact putContactByUuidContactUuid(
-			String contactUuid, Contact contact)
+			String agentName, String contactUuid, Contact contact)
 		throws Exception;
 
 	public void deleteContactByUuidContactUuidContactPermission(
-			String contactUuid, ContactPermission contactPermission)
+			String agentName, String contactUuid,
+			ContactPermission contactPermission)
 		throws Exception;
 
 	public void putContactByUuidContactUuidContactPermission(
-			String contactUuid, ContactPermission contactPermission)
+			String agentName, String contactUuid,
+			ContactPermission contactPermission)
 		throws Exception;
 
 	public Page<Contact> getTeamTeamKeyContactsPage(

@@ -101,12 +101,16 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}/product-consumptions")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public ProductConsumption postAccountAccountKeyProductConsumption(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			ProductConsumption productConsumption)
@@ -248,6 +252,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@DELETE
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
 		}
 	)
@@ -255,6 +260,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public void deleteProductConsumption(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("productConsumptionKey") String productConsumptionKey)
 		throws Exception {
@@ -294,6 +300,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@DELETE
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
 		}
 	)
@@ -303,6 +310,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public void deleteProductConsumptionProductConsumptionPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("productConsumptionKey") String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
@@ -319,6 +327,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
 		}
 	)
@@ -328,6 +337,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public void putProductConsumptionProductConsumptionPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("productConsumptionKey") String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)

@@ -97,10 +97,14 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+	)
 	@Path("/accounts/entitlement-definitions")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public EntitlementDefinition postAccountEntitlementDefinition(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			EntitlementDefinition entitlementDefinition)
 		throws Exception {
 
@@ -141,10 +145,14 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+	)
 	@Path("/contacts/entitlement-definitions")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public EntitlementDefinition postContactEntitlementDefinition(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			EntitlementDefinition entitlementDefinition)
 		throws Exception {
 
@@ -160,6 +168,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@DELETE
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "entitlementDefinitionKey")
 		}
 	)
@@ -167,6 +176,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public void deleteEntitlementDefinition(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("entitlementDefinitionKey") String
 				entitlementDefinitionKey)
@@ -210,6 +220,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@POST
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "entitlementDefinitionKey")
 		}
 	)
@@ -217,6 +228,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public void postEntitlementDefinitionSynchronize(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("entitlementDefinitionKey") String
 				entitlementDefinitionKey)

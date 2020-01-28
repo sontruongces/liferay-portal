@@ -127,12 +127,16 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey")
+		}
 	)
 	@Path("/accounts/{accountKey}/teams")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public Team postAccountAccountKeyTeam(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			Team team)
@@ -212,11 +216,17 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	 */
 	@Override
 	@DELETE
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "teamKey")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey")
+		}
+	)
 	@Path("/teams/{teamKey}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeam(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey)
 		throws Exception {
@@ -250,11 +260,17 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "teamKey")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey")
+		}
+	)
 	@Path("/teams/{teamKey}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public Team putTeam(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			Team team)
@@ -273,6 +289,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Operation(description = "Unassigns contacts from the team.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
 		}
@@ -281,6 +298,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByOkta(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
@@ -298,6 +316,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
 		}
@@ -306,6 +325,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByOkta(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
@@ -323,6 +343,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Operation(description = "Unassigns roles from the contact for the team.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -332,6 +353,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByOktaRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
@@ -351,6 +373,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -360,6 +383,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByOktaRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
@@ -379,6 +403,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Operation(description = "Unassigns contacts from the team.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
 		}
@@ -387,6 +412,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByUuid(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
@@ -404,6 +430,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
 		}
@@ -412,6 +439,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByUuid(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
@@ -429,6 +457,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Operation(description = "Unassigns roles from the contact for the team.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -438,6 +467,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByUuidContactUuidRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
@@ -457,6 +487,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@PUT
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -466,6 +497,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByUuidContactUuidRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
@@ -483,11 +515,17 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "teamKey")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey")
+		}
+	)
 	@Path("/teams/{teamKey}/team-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamTeamPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			TeamPermission teamPermission)
@@ -502,11 +540,17 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "teamKey")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey")
+		}
+	)
 	@Path("/teams/{teamKey}/team-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamTeamPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			TeamPermission teamPermission)

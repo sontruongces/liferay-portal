@@ -130,10 +130,17 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+	)
 	@Path("/contacts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
-	public Contact postContact(Contact contact) throws Exception {
+	public Contact postContact(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			Contact contact)
+		throws Exception {
+
 		return new Contact();
 	}
 
@@ -145,12 +152,16 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Override
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "emailAddress")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "emailAddress")
+		}
 	)
 	@Path("/contacts/by-email-address/{emailAddress}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByEmailAddresEmailAddress(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
 				emailAddress)
 		throws Exception {
@@ -187,12 +198,16 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "emailAddress")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "emailAddress")
+		}
 	)
 	@Path("/contacts/by-email-address/{emailAddress}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public Contact putContactByEmailAddresEmailAddress(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
 				emailAddress,
 			Contact contact)
@@ -208,11 +223,17 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	 */
 	@Override
 	@DELETE
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId")
+		}
+	)
 	@Path("/contacts/by-okta-id/{oktaId}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByOkta(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId)
 		throws Exception {
@@ -246,11 +267,17 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId")
+		}
+	)
 	@Path("/contacts/by-okta-id/{oktaId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public Contact putContactByOkta(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId,
 			Contact contact)
@@ -267,11 +294,17 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId")
+		}
+	)
 	@Path("/contacts/by-okta-id/{oktaId}/contact-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByOktaContactPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId,
 			ContactPermission contactPermission)
@@ -286,11 +319,17 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PUT
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId")
+		}
+	)
 	@Path("/contacts/by-okta-id/{oktaId}/contact-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
 	public void putContactByOktaContactPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId,
 			ContactPermission contactPermission)
@@ -305,12 +344,16 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Override
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
+		}
 	)
 	@Path("/contacts/by-uuid/{contactUuid}")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByUuidContactUuid(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid)
 		throws Exception {
@@ -347,12 +390,16 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
+		}
 	)
 	@Path("/contacts/by-uuid/{contactUuid}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public Contact putContactByUuidContactUuid(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid,
 			Contact contact)
@@ -370,12 +417,16 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Consumes({"application/json", "application/xml"})
 	@DELETE
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
+		}
 	)
 	@Path("/contacts/by-uuid/{contactUuid}/contact-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByUuidContactUuidContactPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid,
 			ContactPermission contactPermission)
@@ -391,12 +442,16 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Consumes({"application/json", "application/xml"})
 	@PUT
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "contactUuid")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
+		}
 	)
 	@Path("/contacts/by-uuid/{contactUuid}/contact-permissions")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Contact")})
 	public void putContactByUuidContactUuidContactPermission(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid,
 			ContactPermission contactPermission)

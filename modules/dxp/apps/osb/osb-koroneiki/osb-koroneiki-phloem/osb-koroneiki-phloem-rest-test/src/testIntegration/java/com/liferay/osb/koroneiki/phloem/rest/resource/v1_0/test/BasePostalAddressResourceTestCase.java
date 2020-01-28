@@ -251,9 +251,9 @@ public abstract class BasePostalAddressResourceTestCase {
 			(List<PostalAddress>)page.getItems());
 		assertValid(page);
 
-		postalAddressResource.deletePostalAddress(postalAddress1.getId());
+		postalAddressResource.deletePostalAddress(null, postalAddress1.getId());
 
-		postalAddressResource.deletePostalAddress(postalAddress2.getId());
+		postalAddressResource.deletePostalAddress(null, postalAddress2.getId());
 	}
 
 	protected PostalAddress
@@ -308,15 +308,15 @@ public abstract class BasePostalAddressResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			postalAddressResource.deletePostalAddressHttpResponse(
-				postalAddress.getId()));
+				null, postalAddress.getId()));
 
 		assertHttpResponseStatusCode(
 			404,
 			postalAddressResource.getPostalAddressHttpResponse(
-				postalAddress.getId()));
+				null, postalAddress.getId()));
 
 		assertHttpResponseStatusCode(
-			404, postalAddressResource.getPostalAddressHttpResponse(0L));
+			404, postalAddressResource.getPostalAddressHttpResponse(null, 0L));
 	}
 
 	protected PostalAddress testDeletePostalAddress_addPostalAddress()
