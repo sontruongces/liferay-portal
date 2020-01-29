@@ -195,7 +195,7 @@ public class FragmentEntryLinkLocalServiceImpl
 		fragmentEntryLink.setJs(js);
 		fragmentEntryLink.setConfiguration(configuration);
 
-		String processedHtml = html;
+		String processedHTML = html;
 
 		HttpServletRequest httpServletRequest = serviceContext.getRequest();
 		HttpServletResponse httpServletResponse = serviceContext.getResponse();
@@ -207,7 +207,7 @@ public class FragmentEntryLinkLocalServiceImpl
 					FragmentEntryLinkConstants.EDIT,
 					LocaleUtil.getMostRelevantLocale());
 
-			processedHtml =
+			processedHTML =
 				_fragmentEntryProcessorRegistry.processFragmentEntryLinkHTML(
 					fragmentEntryLink, fragmentEntryProcessorContext);
 		}
@@ -216,7 +216,7 @@ public class FragmentEntryLinkLocalServiceImpl
 			JSONObject jsonObject =
 				_fragmentEntryProcessorRegistry.
 					getDefaultEditableValuesJSONObject(
-						processedHtml, configuration);
+						processedHTML, configuration);
 
 			editableValues = jsonObject.toString();
 		}
