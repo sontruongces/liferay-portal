@@ -4016,6 +4016,29 @@ paths:
                     description:
                         ""
             tags: ["Product"]
+    "/products/by-name/{productName}":
+        get:
+            description:
+                Retrieves the product with the exact name.
+            operationId: getProductByNameProductName
+            parameters:
+                - in: path
+                  name: productName
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                    description:
+                        ""
+            tags: ["Product"]
     "/products/{productKey}":
         delete:
             operationId: deleteProduct

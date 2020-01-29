@@ -146,6 +146,12 @@ public class ProductEntryLocalServiceImpl
 		return productEntryPersistence.findByProductEntryKey(productEntryKey);
 	}
 
+	public ProductEntry getProductEntryByName(String name)
+		throws PortalException {
+
+		return productEntryPersistence.findByName(name);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductEntry reindex(long productEntryId) throws PortalException {
 		return productEntryPersistence.findByPrimaryKey(productEntryId);

@@ -109,6 +109,14 @@ public class ProductResourceImpl
 	}
 
 	@Override
+	public Product getProductByNameProductName(String productName)
+		throws Exception {
+
+		return ProductUtil.toProduct(
+			_productEntryService.getProductEntryByName(productName));
+	}
+
+	@Override
 	public Page<Product> getProductsPage(
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {

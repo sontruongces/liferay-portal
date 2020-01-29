@@ -149,6 +149,19 @@ public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 		return productEntry;
 	}
 
+	@Override
+	public ProductEntry getProductEntryByName(String name)
+		throws PortalException {
+
+		ProductEntry productEntry =
+			productEntryLocalService.getProductEntryByName(name);
+
+		_productEntryPermission.check(
+			getPermissionChecker(), productEntry, ActionKeys.VIEW);
+
+		return productEntry;
+	}
+
 	public ProductEntry updateProductEntry(long productEntryId, String name)
 		throws PortalException {
 
