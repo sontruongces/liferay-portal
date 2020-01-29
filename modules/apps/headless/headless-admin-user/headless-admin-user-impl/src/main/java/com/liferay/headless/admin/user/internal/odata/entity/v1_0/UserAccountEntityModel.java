@@ -14,7 +14,7 @@
 
 package com.liferay.headless.admin.user.internal.odata.entity.v1_0;
 
-import com.liferay.headless.common.spi.odata.entity.EntityFieldsFactory;
+import com.liferay.headless.common.spi.odata.entity.EntityFieldsMapFactory;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.odata.entity.CollectionEntityField;
 import com.liferay.portal.odata.entity.DateTimeEntityField;
@@ -31,35 +31,30 @@ import java.util.Map;
 public class UserAccountEntityModel implements EntityModel {
 
 	public UserAccountEntityModel() {
-		_entityFieldsMap =
-			EntityFieldsFactory.createEntityFieldsMapWithEntityId(
-				new CollectionEntityField(
-					new StringEntityField(
-						"keywords", locale -> "assetTagNames.raw")),
-				new DateTimeEntityField(
-					"dateModified",
-					locale -> Field.getSortableFieldName(Field.MODIFIED_DATE),
-					locale -> Field.MODIFIED_DATE),
-				new IdEntityField(
-					"organizationIds", locale -> "organizationIds",
-					String::valueOf),
-				new IdEntityField(
-					"roleIds", locale -> "roleIds", String::valueOf),
-				new IdEntityField(
-					"userGroupIds", locale -> "userGroupIds", String::valueOf),
+		_entityFieldsMap = EntityFieldsMapFactory.create(
+			new CollectionEntityField(
 				new StringEntityField(
-					"alternateName",
-					locale -> Field.getSortableFieldName("screenName")),
-				new StringEntityField("emailAddress", locale -> "emailAddress"),
-				new StringEntityField(
-					"familyName",
-					locale -> Field.getSortableFieldName("lastName")),
-				new StringEntityField(
-					"givenName",
-					locale -> Field.getSortableFieldName("firstName")),
-				new StringEntityField(
-					"jobTitle",
-					locale -> Field.getSortableFieldName("jobTitle")));
+					"keywords", locale -> "assetTagNames.raw")),
+			new DateTimeEntityField(
+				"dateModified",
+				locale -> Field.getSortableFieldName(Field.MODIFIED_DATE),
+				locale -> Field.MODIFIED_DATE),
+			new IdEntityField(
+				"organizationIds", locale -> "organizationIds",
+				String::valueOf),
+			new IdEntityField("roleIds", locale -> "roleIds", String::valueOf),
+			new IdEntityField(
+				"userGroupIds", locale -> "userGroupIds", String::valueOf),
+			new StringEntityField(
+				"alternateName",
+				locale -> Field.getSortableFieldName("screenName")),
+			new StringEntityField("emailAddress", locale -> "emailAddress"),
+			new StringEntityField(
+				"familyName", locale -> Field.getSortableFieldName("lastName")),
+			new StringEntityField(
+				"givenName", locale -> Field.getSortableFieldName("firstName")),
+			new StringEntityField(
+				"jobTitle", locale -> Field.getSortableFieldName("jobTitle")));
 	}
 
 	@Override

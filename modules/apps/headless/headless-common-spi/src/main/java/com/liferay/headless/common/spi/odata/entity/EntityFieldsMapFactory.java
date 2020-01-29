@@ -26,11 +26,9 @@ import java.util.stream.Stream;
 /**
  * @author Javier de Arcos
  */
-public class EntityFieldsFactory {
+public class EntityFieldsMapFactory {
 
-	public static Map<String, EntityField> createEntityFieldsMapWithEntityId(
-		EntityField... entityFields) {
-
+	public static Map<String, EntityField> create(EntityField... entityFields) {
 		Stream<EntityField> stream = Arrays.stream(entityFields);
 
 		Map<String, EntityField> entityFieldsMap = stream.collect(

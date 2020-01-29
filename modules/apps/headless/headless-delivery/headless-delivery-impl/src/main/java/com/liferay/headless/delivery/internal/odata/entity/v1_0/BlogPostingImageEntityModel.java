@@ -14,7 +14,7 @@
 
 package com.liferay.headless.delivery.internal.odata.entity.v1_0;
 
-import com.liferay.headless.common.spi.odata.entity.EntityFieldsFactory;
+import com.liferay.headless.common.spi.odata.entity.EntityFieldsMapFactory;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -35,32 +35,30 @@ import java.util.Map;
 public class BlogPostingImageEntityModel implements EntityModel {
 
 	public BlogPostingImageEntityModel() {
-		_entityFieldsMap =
-			EntityFieldsFactory.createEntityFieldsMapWithEntityId(
-				new IdEntityField(
-					"encodingFormat",
-					locale -> Field.getSortableFieldName(
-						StringBundler.concat(
-							"mimeType", StringPool.UNDERLINE, "String")),
-					mimeType -> {
-						String encodingFormat = String.valueOf(mimeType);
+		_entityFieldsMap = EntityFieldsMapFactory.create(
+			new IdEntityField(
+				"encodingFormat",
+				locale -> Field.getSortableFieldName(
+					StringBundler.concat(
+						"mimeType", StringPool.UNDERLINE, "String")),
+				mimeType -> {
+					String encodingFormat = String.valueOf(mimeType);
 
-						return StringUtil.replace(
-							encodingFormat, CharPool.SLASH, CharPool.UNDERLINE);
-					}),
-				new IntegerEntityField(
-					"sizeInBytes",
-					locale -> Field.getSortableFieldName("size")),
-				new StringEntityField(
-					"fileExtension",
-					locale -> Field.getSortableFieldName(
-						StringBundler.concat(
-							"extension", StringPool.UNDERLINE, "String"))),
-				new StringEntityField(
-					"title",
-					locale -> Field.getSortableFieldName(
-						"localized_title_".concat(
-							LocaleUtil.toLanguageId(locale)))));
+					return StringUtil.replace(
+						encodingFormat, CharPool.SLASH, CharPool.UNDERLINE);
+				}),
+			new IntegerEntityField(
+				"sizeInBytes", locale -> Field.getSortableFieldName("size")),
+			new StringEntityField(
+				"fileExtension",
+				locale -> Field.getSortableFieldName(
+					StringBundler.concat(
+						"extension", StringPool.UNDERLINE, "String"))),
+			new StringEntityField(
+				"title",
+				locale -> Field.getSortableFieldName(
+					"localized_title_".concat(
+						LocaleUtil.toLanguageId(locale)))));
 	}
 
 	@Override
