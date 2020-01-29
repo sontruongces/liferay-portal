@@ -122,6 +122,14 @@ public class ProductEntryServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductEntry
+			getProductEntryByName(String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productEntryService.getProductEntryByName(name);
+	}
+
+	@Override
+	public com.liferay.osb.koroneiki.trunk.model.ProductEntry
 			updateProductEntry(long productEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

@@ -984,6 +984,23 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productByNameProductName(productName: ___){dateCreated, dateModified, externalLinks, key, name}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public Product productByNameProductName(
+			@GraphQLName("productName") String productName)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productResource -> productResource.getProductByNameProductName(
+				productName));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(productKey: ___){dateCreated, dateModified, externalLinks, key, name}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField

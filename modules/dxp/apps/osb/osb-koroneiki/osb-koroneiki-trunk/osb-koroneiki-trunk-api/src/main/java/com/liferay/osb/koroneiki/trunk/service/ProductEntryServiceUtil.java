@@ -120,6 +120,13 @@ public class ProductEntryServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
+			getProductEntryByName(String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductEntryByName(name);
+	}
+
+	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
 			updateProductEntry(long productEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

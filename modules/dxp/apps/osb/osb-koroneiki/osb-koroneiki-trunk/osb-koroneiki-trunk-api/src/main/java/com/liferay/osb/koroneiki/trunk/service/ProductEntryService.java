@@ -92,6 +92,10 @@ public interface ProductEntryService extends BaseService {
 	public ProductEntry getProductEntry(String productEntryKey)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ProductEntry getProductEntryByName(String name)
+		throws PortalException;
+
 	public ProductEntry updateProductEntry(long productEntryId, String name)
 		throws PortalException;
 

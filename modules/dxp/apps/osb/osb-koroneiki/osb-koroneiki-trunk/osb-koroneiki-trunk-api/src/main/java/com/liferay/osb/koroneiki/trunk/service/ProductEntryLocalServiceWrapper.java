@@ -326,6 +326,14 @@ public class ProductEntryLocalServiceWrapper
 		return _productEntryLocalService.getProductEntry(productEntryKey);
 	}
 
+	@Override
+	public com.liferay.osb.koroneiki.trunk.model.ProductEntry
+			getProductEntryByName(String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productEntryLocalService.getProductEntryByName(name);
+	}
+
 	/**
 	 * Returns the product entry with the matching UUID and company.
 	 *

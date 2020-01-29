@@ -403,6 +403,44 @@ public class ProductEntryServiceHttp {
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
+			getProductEntryByName(HttpPrincipal httpPrincipal, String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ProductEntryServiceUtil.class, "getProductEntryByName",
+				_getProductEntryByNameParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, name);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.osb.koroneiki.trunk.model.ProductEntry)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
 			updateProductEntry(
 				HttpPrincipal httpPrincipal, long productEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -410,7 +448,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "updateProductEntry",
-				_updateProductEntryParameterTypes9);
+				_updateProductEntryParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productEntryId, name);
@@ -451,7 +489,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "updateProductEntry",
-				_updateProductEntryParameterTypes10);
+				_updateProductEntryParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productEntryKey, name);
@@ -506,9 +544,11 @@ public class ProductEntryServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getProductEntryParameterTypes8 =
 		new Class[] {String.class};
-	private static final Class<?>[] _updateProductEntryParameterTypes9 =
-		new Class[] {long.class, String.class};
+	private static final Class<?>[] _getProductEntryByNameParameterTypes9 =
+		new Class[] {String.class};
 	private static final Class<?>[] _updateProductEntryParameterTypes10 =
+		new Class[] {long.class, String.class};
+	private static final Class<?>[] _updateProductEntryParameterTypes11 =
 		new Class[] {String.class, String.class};
 
 }

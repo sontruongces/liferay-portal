@@ -57,6 +57,9 @@ public interface ProductResource {
 			Pagination pagination)
 		throws Exception;
 
+	public Product getProductByNameProductName(String productName)
+		throws Exception;
+
 	public void deleteProduct(String agentName, String productKey)
 		throws Exception;
 

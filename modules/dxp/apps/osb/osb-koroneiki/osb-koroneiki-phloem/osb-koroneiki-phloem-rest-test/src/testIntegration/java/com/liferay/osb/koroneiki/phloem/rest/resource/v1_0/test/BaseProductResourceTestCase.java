@@ -592,6 +592,16 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
+	public void testGetProductByNameProductName() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGraphQLGetProductByNameProductName() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testDeleteProduct() throws Exception {
 		Assert.assertTrue(false);
 	}

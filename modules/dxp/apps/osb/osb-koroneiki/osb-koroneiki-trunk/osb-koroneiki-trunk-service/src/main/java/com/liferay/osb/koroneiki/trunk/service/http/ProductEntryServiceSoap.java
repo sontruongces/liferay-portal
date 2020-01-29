@@ -222,6 +222,24 @@ public class ProductEntryServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap
+			getProductEntryByName(String name)
+		throws RemoteException {
+
+		try {
+			com.liferay.osb.koroneiki.trunk.model.ProductEntry returnValue =
+				ProductEntryServiceUtil.getProductEntryByName(name);
+
+			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap
 			updateProductEntry(long productEntryId, String name)
 		throws RemoteException {
 

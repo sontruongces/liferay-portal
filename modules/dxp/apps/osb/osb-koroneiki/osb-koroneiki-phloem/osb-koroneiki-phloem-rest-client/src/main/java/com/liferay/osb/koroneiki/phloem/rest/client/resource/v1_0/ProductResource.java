@@ -67,6 +67,13 @@ public interface ProductResource {
 				Pagination pagination)
 		throws Exception;
 
+	public Product getProductByNameProductName(String productName)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getProductByNameProductNameHttpResponse(
+			String productName)
+		throws Exception;
+
 	public void deleteProduct(String agentName, String productKey)
 		throws Exception;
 
@@ -366,6 +373,69 @@ public interface ProductResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/products/by-external-link/{domain}/{entityName}/{entityId}",
 				domain, entityName, entityId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Product getProductByNameProductName(String productName)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getProductByNameProductNameHttpResponse(productName);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ProductSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse getProductByNameProductNameHttpResponse(
+				String productName)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/products/by-name/{productName}",
+				productName);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

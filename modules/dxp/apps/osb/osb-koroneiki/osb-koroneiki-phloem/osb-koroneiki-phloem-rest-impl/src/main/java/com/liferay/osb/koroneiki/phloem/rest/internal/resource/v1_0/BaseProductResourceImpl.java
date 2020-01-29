@@ -153,6 +153,28 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/products/by-name/{productName}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrieves the product with the exact name.")
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "productName")}
+	)
+	@Path("/products/by-name/{productName}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Product")})
+	public Product getProductByNameProductName(
+			@NotNull @Parameter(hidden = true) @PathParam("productName") String
+				productName)
+		throws Exception {
+
+		return new Product();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/products/{productKey}'  -u 'test@liferay.com:test'
 	 */
 	@Override
