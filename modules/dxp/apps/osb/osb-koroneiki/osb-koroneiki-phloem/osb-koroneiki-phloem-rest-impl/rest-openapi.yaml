@@ -1,4 +1,13 @@
 components:
+    parameters:
+        AgentName:
+            in: query
+            description:
+                The name of the user doing the action.
+            name: agentName
+            required: false
+            schema:
+                type: string
     schemas:
         Account:
             description:
@@ -883,6 +892,8 @@ paths:
             tags: ["Account"]
         post:
             operationId: postAccount
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
             requestBody:
                 content:
                     application/json:
@@ -985,6 +996,8 @@ paths:
             tags: ["EntitlementDefinition"]
         post:
             operationId: postAccountEntitlementDefinition
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
             requestBody:
                 content:
                     application/json:
@@ -1010,6 +1023,7 @@ paths:
         delete:
             operationId: deleteAccount
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1047,6 +1061,7 @@ paths:
         put:
             operationId: putAccount
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1077,6 +1092,7 @@ paths:
         delete:
             operationId: deleteAccountAccountPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1102,6 +1118,7 @@ paths:
         put:
             operationId: putAccountAccountPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1165,6 +1182,7 @@ paths:
                 Unassigns roles from the team for the account.
             operationId: deleteAccountAssignedTeamTeamKeyRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1233,6 +1251,7 @@ paths:
                 Assigns roles to the team for the account.
             operationId: putAccountAssignedTeamTeamKeyRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1330,6 +1349,7 @@ paths:
         post:
             operationId: postAccountChildAccount
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1397,6 +1417,7 @@ paths:
                 Unassigns contacts from the account.
             operationId: deleteAccountContactByEmailAddres
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1421,6 +1442,7 @@ paths:
                 Assigns contacts to the account.
             operationId: putAccountContactByEmailAddres
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1446,6 +1468,7 @@ paths:
                 Unassigns roles from the contact for the account.
             operationId: deleteAccountContactByEmailAddresContactEmailAddressRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1514,6 +1537,7 @@ paths:
                 Assigns roles to the contact for the account.
             operationId: putAccountContactByEmailAddresContactEmailAddressRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1544,6 +1568,7 @@ paths:
                 Unassigns contacts from the account.
             operationId: deleteAccountContactByOkta
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1568,6 +1593,7 @@ paths:
                 Assigns contacts to the account.
             operationId: putAccountContactByOkta
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1593,6 +1619,7 @@ paths:
                 Unassigns roles from the contact for the account.
             operationId: deleteAccountContactByOktaRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1661,6 +1688,7 @@ paths:
                 Assigns roles to the contact for the account.
             operationId: putAccountContactByOktaRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1691,6 +1719,7 @@ paths:
                 Unassigns contacts from the account.
             operationId: deleteAccountContactByUuid
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1715,6 +1744,7 @@ paths:
                 Assigns contacts to the account.
             operationId: putAccountContactByUuid
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1740,6 +1770,7 @@ paths:
                 Unassigns roles from the contact for the account.
             operationId: deleteAccountContactByUuidContactUuidRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1808,6 +1839,7 @@ paths:
                 Assigns roles to the contact for the account.
             operationId: putAccountContactByUuidContactUuidRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1872,6 +1904,7 @@ paths:
                 Adds an external link to the account.
             operationId: postAccountAccountKeyExternalLink
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1928,6 +1961,7 @@ paths:
         post:
             operationId: postAccountAccountKeyPostalAddress
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -1992,6 +2026,7 @@ paths:
         post:
             operationId: postAccountAccountKeyProductConsumption
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -2056,6 +2091,7 @@ paths:
         post:
             operationId: postAccountAccountKeyProductPurchase
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -2120,6 +2156,7 @@ paths:
         post:
             operationId: postAccountAccountKeyTeam
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: accountKey
                   required: true
@@ -2213,6 +2250,8 @@ paths:
             tags: ["ContactRole"]
         post:
             operationId: postContactRole
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
             requestBody:
                 content:
                     application/json:
@@ -2238,6 +2277,7 @@ paths:
         delete:
             operationId: deleteContactRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: contactRoleKey
                   required: true
@@ -2275,6 +2315,7 @@ paths:
         put:
             operationId: putContactRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: contactRoleKey
                   required: true
@@ -2340,6 +2381,7 @@ paths:
         delete:
             operationId: deleteContactRoleContactRolePermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: contactRoleKey
                   required: true
@@ -2365,6 +2407,7 @@ paths:
         put:
             operationId: putContactRoleContactRolePermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: contactRoleKey
                   required: true
@@ -2431,6 +2474,8 @@ paths:
             tags: ["Contact"]
         post:
             operationId: postContact
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
             requestBody:
                 content:
                     application/json:
@@ -2456,6 +2501,7 @@ paths:
         delete:
             operationId: deleteContactByEmailAddresEmailAddress
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: emailAddress
                   required: true
@@ -2493,6 +2539,7 @@ paths:
         put:
             operationId: putContactByEmailAddresEmailAddress
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: emailAddress
                   required: true
@@ -2523,6 +2570,7 @@ paths:
         delete:
             operationId: deleteContactByOkta
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: oktaId
                   required: true
@@ -2560,6 +2608,7 @@ paths:
         put:
             operationId: putContactByOkta
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: oktaId
                   required: true
@@ -2625,6 +2674,7 @@ paths:
         delete:
             operationId: deleteContactByOktaContactPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: oktaId
                   required: true
@@ -2650,6 +2700,7 @@ paths:
         put:
             operationId: putContactByOktaContactPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: oktaId
                   required: true
@@ -2712,6 +2763,7 @@ paths:
                 Adds an external link to the contact.
             operationId: postContactByOktaExternalLink
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: oktaId
                   required: true
@@ -2812,6 +2864,7 @@ paths:
         delete:
             operationId: deleteContactByUuidContactUuid
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: contactUuid
                   required: true
@@ -2849,6 +2902,7 @@ paths:
         put:
             operationId: putContactByUuidContactUuid
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: contactUuid
                   required: true
@@ -2914,6 +2968,7 @@ paths:
         delete:
             operationId: deleteContactByUuidContactUuidContactPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: contactUuid
                   required: true
@@ -2939,6 +2994,7 @@ paths:
         put:
             operationId: putContactByUuidContactUuidContactPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: contactUuid
                   required: true
@@ -3001,6 +3057,7 @@ paths:
                 Adds an external link to the contact.
             operationId: postContactByUuidContactUuidExternalLink
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: contactUuid
                   required: true
@@ -3133,6 +3190,8 @@ paths:
             tags: ["EntitlementDefinition"]
         post:
             operationId: postContactEntitlementDefinition
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
             requestBody:
                 content:
                     application/json:
@@ -3158,6 +3217,7 @@ paths:
         delete:
             operationId: deleteEntitlementDefinition
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: entitlementDefinitionKey
                   required: true
@@ -3198,6 +3258,7 @@ paths:
                 Immediately runs a synchronization of the entitlement definition.
             operationId: postEntitlementDefinitionSynchronize
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: entitlementDefinitionKey
                   required: true
@@ -3214,6 +3275,7 @@ paths:
         delete:
             operationId: deleteExternalLink
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: externalLinkKey
                   required: true
@@ -3252,6 +3314,7 @@ paths:
         delete:
             operationId: deletePostalAddress
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: postalAddressId
                   required: true
@@ -3291,6 +3354,7 @@ paths:
         put:
             operationId: putPostalAddress
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: postalAddressId
                   required: true
@@ -3409,6 +3473,7 @@ paths:
         delete:
             operationId: deleteProductConsumption
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productConsumptionKey
                   required: true
@@ -3483,6 +3548,7 @@ paths:
                 Adds an external link to the product consumption.
             operationId: postProductConsumptionProductConsumptionKeyExternalLink
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productConsumptionKey
                   required: true
@@ -3513,6 +3579,7 @@ paths:
         delete:
             operationId: deleteProductConsumptionProductConsumptionPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productConsumptionKey
                   required: true
@@ -3538,6 +3605,7 @@ paths:
         put:
             operationId: putProductConsumptionProductConsumptionPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productConsumptionKey
                   required: true
@@ -3651,6 +3719,7 @@ paths:
         delete:
             operationId: deleteProductPurchase
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productPurchaseKey
                   required: true
@@ -3688,6 +3757,7 @@ paths:
         put:
             operationId: putProductPurchase
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productPurchaseKey
                   required: true
@@ -3754,6 +3824,7 @@ paths:
                 Adds an external link to the product purchase.
             operationId: postProductPurchaseProductPurchaseKeyExternalLink
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productPurchaseKey
                   required: true
@@ -3784,6 +3855,7 @@ paths:
         delete:
             operationId: deleteProductPurchaseProductPurchasePermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productPurchaseKey
                   required: true
@@ -3809,6 +3881,7 @@ paths:
         put:
             operationId: putProductPurchaseProductPurchasePermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productPurchaseKey
                   required: true
@@ -3875,6 +3948,8 @@ paths:
             tags: ["Product"]
         post:
             operationId: postProduct
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
             requestBody:
                 content:
                     application/json:
@@ -3945,6 +4020,7 @@ paths:
         delete:
             operationId: deleteProduct
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productKey
                   required: true
@@ -3982,6 +4058,7 @@ paths:
         put:
             operationId: putProduct
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productKey
                   required: true
@@ -4048,6 +4125,7 @@ paths:
                 Adds an external link to the product.
             operationId: postProductProductKeyExternalLink
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productKey
                   required: true
@@ -4078,6 +4156,7 @@ paths:
         delete:
             operationId: deleteProductProductPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productKey
                   required: true
@@ -4103,6 +4182,7 @@ paths:
         put:
             operationId: putProductProductPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: productKey
                   required: true
@@ -4169,6 +4249,8 @@ paths:
             tags: ["TeamRole"]
         post:
             operationId: postTeamRole
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
             requestBody:
                 content:
                     application/json:
@@ -4194,6 +4276,7 @@ paths:
         delete:
             operationId: deleteTeamRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamRoleKey
                   required: true
@@ -4231,6 +4314,7 @@ paths:
         put:
             operationId: putTeamRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamRoleKey
                   required: true
@@ -4296,6 +4380,7 @@ paths:
         delete:
             operationId: deleteTeamRoleTeamRolePermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamRoleKey
                   required: true
@@ -4321,6 +4406,7 @@ paths:
         put:
             operationId: putTeamRoleTeamRolePermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamRoleKey
                   required: true
@@ -4434,6 +4520,7 @@ paths:
         delete:
             operationId: deleteTeam
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4471,6 +4558,7 @@ paths:
         put:
             operationId: putTeam
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4608,6 +4696,7 @@ paths:
                 Unassigns contacts from the team.
             operationId: deleteTeamContactByOkta
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4632,6 +4721,7 @@ paths:
                 Assigns contacts to the team.
             operationId: putTeamContactByOkta
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4657,6 +4747,7 @@ paths:
                 Unassigns roles from the contact for the team.
             operationId: deleteTeamContactByOktaRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4725,6 +4816,7 @@ paths:
                 Assigns roles to the contact for the team.
             operationId: putTeamContactByOktaRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4755,6 +4847,7 @@ paths:
                 Unassigns contacts from the team.
             operationId: deleteTeamContactByUuid
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4779,6 +4872,7 @@ paths:
                 Assigns contacts to the team.
             operationId: putTeamContactByUuid
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4804,6 +4898,7 @@ paths:
                 Unassigns roles from the contact for the team.
             operationId: deleteTeamContactByUuidContactUuidRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4872,6 +4967,7 @@ paths:
                 Assigns roles to the contact for the team.
             operationId: putTeamContactByUuidContactUuidRole
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4936,6 +5032,7 @@ paths:
                 Adds an external link to the team.
             operationId: postTeamTeamKeyExternalLink
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4966,6 +5063,7 @@ paths:
         delete:
             operationId: deleteTeamTeamPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true
@@ -4991,6 +5089,7 @@ paths:
         put:
             operationId: putTeamTeamPermission
             parameters:
+                - $ref: "#/components/parameters/AgentName"
                 - in: path
                   name: teamKey
                   required: true

@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumptionPermissi
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductConsumptionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductConsumptionEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
@@ -61,8 +62,11 @@ public class ProductConsumptionResourceImpl
 	extends BaseProductConsumptionResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteProductConsumption(String productConsumptionKey)
+	public void deleteProductConsumption(
+			String agentName, String productConsumptionKey)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_productConsumptionService.deleteProductConsumption(
 			productConsumptionKey);
@@ -70,9 +74,11 @@ public class ProductConsumptionResourceImpl
 
 	@Override
 	public void deleteProductConsumptionProductConsumptionPermission(
-			String productConsumptionKey,
+			String agentName, String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateProductConsumptionPermission(
 			productConsumptionKey, "delete", productConsumptionPermission);
@@ -173,8 +179,11 @@ public class ProductConsumptionResourceImpl
 
 	@Override
 	public ProductConsumption postAccountAccountKeyProductConsumption(
-			String accountKey, ProductConsumption productConsumption)
+			String agentName, String accountKey,
+			ProductConsumption productConsumption)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		List<ProductField> productFields = _getProductFields(
 			productConsumption.getProperties());
@@ -186,9 +195,11 @@ public class ProductConsumptionResourceImpl
 
 	@Override
 	public void putProductConsumptionProductConsumptionPermission(
-			String productConsumptionKey,
+			String agentName, String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateProductConsumptionPermission(
 			productConsumptionKey, "add", productConsumptionPermission);

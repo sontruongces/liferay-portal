@@ -24,6 +24,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.AccountUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.AccountEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
@@ -78,22 +79,32 @@ public class AccountResourceImpl
 	extends BaseAccountResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteAccount(String accountKey) throws Exception {
+	public void deleteAccount(String agentName, String accountKey)
+		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
+
 		_accountService.deleteAccount(accountKey);
 	}
 
 	@Override
 	public void deleteAccountAccountPermission(
-			String accountKey, AccountPermission accountPermission)
+			String agentName, String accountKey,
+			AccountPermission accountPermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateAccountPermission(accountKey, "delete", accountPermission);
 	}
 
 	@Override
 	public void deleteAccountAssignedTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
+			String agentName, String accountKey, String teamKey,
+			String[] teamRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		for (String teamRoleKey : teamRoleKeys) {
 			_teamAccountRoleService.deleteTeamAccountRole(
@@ -102,8 +113,10 @@ public class AccountResourceImpl
 	}
 
 	public void deleteAccountContactByEmailAddres(
-			String accountKey, String[] contactEmailAddresses)
+			String agentName, String accountKey, String[] contactEmailAddresses)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		for (String contactEmailAddress : contactEmailAddresses) {
 			_deleteAccountContact(
@@ -114,9 +127,11 @@ public class AccountResourceImpl
 	}
 
 	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
-			String accountKey, String contactEmailAddress,
+			String agentName, String accountKey, String contactEmailAddress,
 			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_deleteAccountContactRole(
 			accountKey,
@@ -126,8 +141,11 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public void deleteAccountContactByOkta(String accountKey, String[] oktaIds)
+	public void deleteAccountContactByOkta(
+			String agentName, String accountKey, String[] oktaIds)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		for (String oktaId : oktaIds) {
 			_deleteAccountContact(
@@ -138,8 +156,11 @@ public class AccountResourceImpl
 
 	@Override
 	public void deleteAccountContactByOktaRole(
-			String accountKey, String oktaId, String[] contactRoleKeys)
+			String agentName, String accountKey, String oktaId,
+			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_deleteAccountContactRole(
 			accountKey,
@@ -149,8 +170,10 @@ public class AccountResourceImpl
 
 	@Override
 	public void deleteAccountContactByUuid(
-			String accountKey, String[] contactUuids)
+			String agentName, String accountKey, String[] contactUuids)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		for (String contactUuid : contactUuids) {
 			_deleteAccountContact(
@@ -162,8 +185,11 @@ public class AccountResourceImpl
 
 	@Override
 	public void deleteAccountContactByUuidContactUuidRole(
-			String accountKey, String contactUuid, String[] contactRoleKeys)
+			String agentName, String accountKey, String contactUuid,
+			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_deleteAccountContactRole(
 			accountKey,
@@ -252,20 +278,30 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public Account postAccount(Account account) throws Exception {
-		return _postAccount(null, account);
+	public Account postAccount(String agentName, Account account)
+		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
+
+		return _postAccount(agentName, null, account);
 	}
 
 	@Override
-	public Account postAccountChildAccount(String accountKey, Account account)
+	public Account postAccountChildAccount(
+			String agentName, String accountKey, Account account)
 		throws Exception {
 
-		return _postAccount(accountKey, account);
+		ServiceContextUtil.setAgentName(agentName);
+
+		return _postAccount(agentName, accountKey, account);
 	}
 
 	@Override
-	public Account putAccount(String accountKey, Account account)
+	public Account putAccount(
+			String agentName, String accountKey, Account account)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		com.liferay.osb.koroneiki.taproot.model.Account curAccount =
 			_accountLocalService.getAccount(accountKey);
@@ -322,16 +358,22 @@ public class AccountResourceImpl
 
 	@Override
 	public void putAccountAccountPermission(
-			String accountKey, AccountPermission accountPermission)
+			String agentName, String accountKey,
+			AccountPermission accountPermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateAccountPermission(accountKey, "add", accountPermission);
 	}
 
 	@Override
 	public void putAccountAssignedTeamTeamKeyRole(
-			String accountKey, String teamKey, String[] teamRoleKeys)
+			String agentName, String accountKey, String teamKey,
+			String[] teamRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		for (String teamRoleKey : teamRoleKeys) {
 			_teamAccountRoleService.addTeamAccountRole(
@@ -341,8 +383,10 @@ public class AccountResourceImpl
 
 	@Override
 	public void putAccountContactByEmailAddres(
-			String accountKey, String[] contactEmailAddresses)
+			String agentName, String accountKey, String[] contactEmailAddresses)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		for (String contactEmailAddress : contactEmailAddresses) {
 			_putAccountContact(
@@ -354,9 +398,11 @@ public class AccountResourceImpl
 
 	@Override
 	public void putAccountContactByEmailAddresContactEmailAddressRole(
-			String accountKey, String contactEmailAddress,
+			String agentName, String accountKey, String contactEmailAddress,
 			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_putAccountContactRole(
 			accountKey,
@@ -366,8 +412,11 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public void putAccountContactByOkta(String accountKey, String[] oktaIds)
+	public void putAccountContactByOkta(
+			String agentName, String accountKey, String[] oktaIds)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		for (String oktaId : oktaIds) {
 			_putAccountContact(
@@ -378,8 +427,11 @@ public class AccountResourceImpl
 
 	@Override
 	public void putAccountContactByOktaRole(
-			String accountKey, String oktaId, String[] contactRoleKeys)
+			String agentName, String accountKey, String oktaId,
+			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_putAccountContactRole(
 			accountKey,
@@ -389,8 +441,10 @@ public class AccountResourceImpl
 
 	@Override
 	public void putAccountContactByUuid(
-			String accountKey, String[] contactUuids)
+			String agentName, String accountKey, String[] contactUuids)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		for (String contactUuid : contactUuids) {
 			_putAccountContact(
@@ -402,8 +456,11 @@ public class AccountResourceImpl
 
 	@Override
 	public void putAccountContactByUuidContactUuidRole(
-			String accountKey, String contactUuid, String[] contactRoleKeys)
+			String agentName, String accountKey, String contactUuid,
+			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_putAccountContactRole(
 			accountKey,
@@ -442,7 +499,7 @@ public class AccountResourceImpl
 		}
 	}
 
-	private String _getContactRoleKey(ContactRole contactRole)
+	private String _getContactRoleKey(String agentName, ContactRole contactRole)
 		throws Exception {
 
 		if (Validator.isNotNull(contactRole.getKey())) {
@@ -457,12 +514,14 @@ public class AccountResourceImpl
 			return curContactRole.getContactRoleKey();
 		}
 
-		contactRole = _contactRoleResource.postContactRole(contactRole);
+		contactRole = _contactRoleResource.postContactRole(
+			agentName, contactRole);
 
 		return contactRole.getKey();
 	}
 
-	private Account _postAccount(String parentAccountKey, Account account)
+	private Account _postAccount(
+			String agentName, String parentAccountKey, Account account)
 		throws Exception {
 
 		long parentAccountId = 0;
@@ -508,37 +567,39 @@ public class AccountResourceImpl
 				if (!ArrayUtil.isEmpty(contact.getContactRoles())) {
 					for (ContactRole contactRole : contact.getContactRoles()) {
 						contactRoleKeys = ArrayUtil.append(
-							contactRoleKeys, _getContactRoleKey(contactRole));
+							contactRoleKeys,
+							_getContactRoleKey(agentName, contactRole));
 					}
 				}
 
 				if (Validator.isNotNull(contact.getOktaId())) {
 					putAccountContactByOkta(
-						curAccount.getKey(),
+						agentName, curAccount.getKey(),
 						new String[] {contact.getOktaId()});
 
 					putAccountContactByOktaRole(
-						curAccount.getKey(), contact.getOktaId(),
+						agentName, curAccount.getKey(), contact.getOktaId(),
 						contactRoleKeys);
 				}
 				else if (Validator.isNotNull(contact.getUuid())) {
 					putAccountContactByUuid(
-						curAccount.getKey(), new String[] {contact.getUuid()});
+						agentName, curAccount.getKey(),
+						new String[] {contact.getUuid()});
 
 					putAccountContactByUuidContactUuidRole(
-						curAccount.getKey(), contact.getUuid(),
+						agentName, curAccount.getKey(), contact.getUuid(),
 						contactRoleKeys);
 				}
 				else {
-					_postContact(contact);
+					_postContact(agentName, contact);
 
 					putAccountContactByEmailAddres(
-						curAccount.getKey(),
+						agentName, curAccount.getKey(),
 						new String[] {contact.getEmailAddress()});
 
 					putAccountContactByEmailAddresContactEmailAddressRole(
-						curAccount.getKey(), contact.getEmailAddress(),
-						contactRoleKeys);
+						agentName, curAccount.getKey(),
+						contact.getEmailAddress(), contactRoleKeys);
 				}
 			}
 		}
@@ -546,14 +607,14 @@ public class AccountResourceImpl
 		if (!ArrayUtil.isEmpty(account.getExternalLinks())) {
 			for (ExternalLink externalLink : account.getExternalLinks()) {
 				_externalLinkResource.postAccountAccountKeyExternalLink(
-					curAccount.getKey(), externalLink);
+					agentName, curAccount.getKey(), externalLink);
 			}
 		}
 
 		if (!ArrayUtil.isEmpty(account.getPostalAddresses())) {
 			for (PostalAddress postalAddress : account.getPostalAddresses()) {
 				_postalAddressResource.postAccountAccountKeyPostalAddress(
-					curAccount.getKey(), postalAddress);
+					agentName, curAccount.getKey(), postalAddress);
 			}
 		}
 
@@ -562,20 +623,22 @@ public class AccountResourceImpl
 					account.getProductPurchases()) {
 
 				_productPurchaseResource.postAccountAccountKeyProductPurchase(
-					curAccount.getKey(), productPurchase);
+					agentName, curAccount.getKey(), productPurchase);
 			}
 		}
 
 		return curAccount;
 	}
 
-	private void _postContact(Contact contact) throws Exception {
+	private void _postContact(String agentName, Contact contact)
+		throws Exception {
+
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
 			_oktaContactIdentityProvider.fetchContactByEmailAddress(
 				contact.getEmailAddress());
 
 		if (curContact == null) {
-			_contactResource.postContact(contact);
+			_contactResource.postContact(agentName, contact);
 		}
 	}
 

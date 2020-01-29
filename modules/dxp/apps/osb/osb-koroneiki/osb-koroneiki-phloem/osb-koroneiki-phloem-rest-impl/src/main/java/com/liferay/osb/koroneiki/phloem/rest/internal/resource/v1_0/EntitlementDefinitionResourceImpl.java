@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.EntitlementDefinitionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.EntitlementDefinitionResource;
 import com.liferay.osb.koroneiki.phytohormone.service.EntitlementDefinitionLocalService;
 import com.liferay.osb.koroneiki.phytohormone.service.EntitlementDefinitionService;
@@ -45,8 +46,11 @@ public class EntitlementDefinitionResourceImpl
 	extends BaseEntitlementDefinitionResourceImpl {
 
 	@Override
-	public void deleteEntitlementDefinition(String entitlementDefinitionKey)
+	public void deleteEntitlementDefinition(
+			String agentName, String entitlementDefinitionKey)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
 			entitlementDefinition =
@@ -115,8 +119,10 @@ public class EntitlementDefinitionResourceImpl
 
 	@Override
 	public EntitlementDefinition postAccountEntitlementDefinition(
-			EntitlementDefinition entitlementDefinition)
+			String agentName, EntitlementDefinition entitlementDefinition)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		int status = WorkflowConstants.STATUS_APPROVED;
 
@@ -138,8 +144,10 @@ public class EntitlementDefinitionResourceImpl
 
 	@Override
 	public EntitlementDefinition postContactEntitlementDefinition(
-			EntitlementDefinition entitlementDefinition)
+			String agentName, EntitlementDefinition entitlementDefinition)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		int status = WorkflowConstants.STATUS_APPROVED;
 
@@ -161,8 +169,10 @@ public class EntitlementDefinitionResourceImpl
 
 	@Override
 	public void postEntitlementDefinitionSynchronize(
-			String entitlementDefinitionKey)
+			String agentName, String entitlementDefinitionKey)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
 			entitlementDefinition =

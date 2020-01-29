@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.PostalAddressUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
@@ -30,7 +31,6 @@ import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.service.CountryService;
 import com.liferay.portal.kernel.service.ListTypeService;
 import com.liferay.portal.kernel.service.RegionService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -53,7 +53,11 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 
 	@Override
-	public void deletePostalAddress(Long postalAddressId) throws Exception {
+	public void deletePostalAddress(String agentName, Long postalAddressId)
+		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
+
 		_addressService.deleteAddress(postalAddressId);
 	}
 
@@ -80,8 +84,10 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 
 	@Override
 	public PostalAddress postAccountAccountKeyPostalAddress(
-			String accountKey, PostalAddress postalAddress)
+			String agentName, String accountKey, PostalAddress postalAddress)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		Account account = _accountService.getAccount(accountKey);
 
@@ -116,13 +122,15 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 				postalAddress.getPostalCode(), regionId, countryId, listTypeId,
 				GetterUtil.getBoolean(postalAddress.getMailing()),
 				GetterUtil.getBoolean(postalAddress.getPrimary()),
-				new ServiceContext()));
+				ServiceContextUtil.getServiceContext()));
 	}
 
 	@Override
 	public PostalAddress putPostalAddress(
-			Long postalAddressId, PostalAddress postalAddress)
+			String agentName, Long postalAddressId, PostalAddress postalAddress)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		long countryId = _getCountryId(postalAddress.getAddressCountry());
 

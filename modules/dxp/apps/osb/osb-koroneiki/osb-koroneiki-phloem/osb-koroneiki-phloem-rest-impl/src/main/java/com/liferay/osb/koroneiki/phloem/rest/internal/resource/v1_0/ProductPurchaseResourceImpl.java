@@ -21,6 +21,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchasePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductPurchaseEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
@@ -74,17 +75,22 @@ public class ProductPurchaseResourceImpl
 	extends BaseProductPurchaseResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteProductPurchase(String productPurchaseKey)
+	public void deleteProductPurchase(
+			String agentName, String productPurchaseKey)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_productPurchaseService.deleteProductPurchase(productPurchaseKey);
 	}
 
 	@Override
 	public void deleteProductPurchaseProductPurchasePermission(
-			String productPurchaseKey,
+			String agentName, String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateProductPurchasePermission(
 			productPurchaseKey, "delete", productPurchasePermission);
@@ -193,10 +199,13 @@ public class ProductPurchaseResourceImpl
 
 	@Override
 	public ProductPurchase postAccountAccountKeyProductPurchase(
-			String accountKey, ProductPurchase productPurchase)
+			String agentName, String accountKey,
+			ProductPurchase productPurchase)
 		throws Exception {
 
-		String productKey = _getProductKey(productPurchase);
+		ServiceContextUtil.setAgentName(agentName);
+
+		String productKey = _getProductKey(agentName, productPurchase);
 
 		Date startDate = productPurchase.getStartDate();
 		Date endDate = productPurchase.getEndDate();
@@ -237,7 +246,7 @@ public class ProductPurchaseResourceImpl
 
 				_externalLinkResource.
 					postProductPurchaseProductPurchaseKeyExternalLink(
-						curProductPurchase.getKey(), externalLink);
+						agentName, curProductPurchase.getKey(), externalLink);
 			}
 		}
 
@@ -246,8 +255,11 @@ public class ProductPurchaseResourceImpl
 
 	@Override
 	public ProductPurchase putProductPurchase(
-			String productPurchaseKey, ProductPurchase productPurchase)
+			String agentName, String productPurchaseKey,
+			ProductPurchase productPurchase)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			curProductPurchase =
@@ -305,9 +317,11 @@ public class ProductPurchaseResourceImpl
 
 	@Override
 	public void putProductPurchaseProductPurchasePermission(
-			String productPurchaseKey,
+			String agentName, String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateProductPurchasePermission(
 			productPurchaseKey, "add", productPurchasePermission);
@@ -351,7 +365,8 @@ public class ProductPurchaseResourceImpl
 				contact.getContactId()));
 	}
 
-	private String _getProductKey(ProductPurchase productPurchase)
+	private String _getProductKey(
+			String agentName, ProductPurchase productPurchase)
 		throws Exception {
 
 		Product product = productPurchase.getProduct();
@@ -369,7 +384,7 @@ public class ProductPurchaseResourceImpl
 				return productEntry.getProductEntryKey();
 			}
 
-			product = _productResource.postProduct(product);
+			product = _productResource.postProduct(agentName, product);
 
 			return product.getKey();
 		}

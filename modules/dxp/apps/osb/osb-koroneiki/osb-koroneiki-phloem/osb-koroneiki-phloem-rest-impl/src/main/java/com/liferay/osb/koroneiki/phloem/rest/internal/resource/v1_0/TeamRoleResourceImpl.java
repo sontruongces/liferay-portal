@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.TeamRoleEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
@@ -62,14 +63,21 @@ public class TeamRoleResourceImpl
 	extends BaseTeamRoleResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteTeamRole(String teamRoleKey) throws Exception {
+	public void deleteTeamRole(String agentName, String teamRoleKey)
+		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
+
 		_teamRoleService.deleteTeamRole(teamRoleKey);
 	}
 
 	@Override
 	public void deleteTeamRoleTeamRolePermission(
-			String teamRoleKey, TeamRolePermission teamRolePermission)
+			String agentName, String teamRoleKey,
+			TeamRolePermission teamRolePermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateTeamRolePermission(teamRoleKey, "delete", teamRolePermission);
 	}
@@ -128,8 +136,12 @@ public class TeamRoleResourceImpl
 	}
 
 	@Override
-	public TeamRole postTeamRole(TeamRole teamRole) throws Exception {
+	public TeamRole postTeamRole(String agentName, TeamRole teamRole)
+		throws Exception {
+
 		TeamRole.Type teamRoleType = teamRole.getType();
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		int type = TeamRoleType.fromLabel(teamRoleType.toString());
 
@@ -139,8 +151,11 @@ public class TeamRoleResourceImpl
 	}
 
 	@Override
-	public TeamRole putTeamRole(String teamRoleKey, TeamRole teamRole)
+	public TeamRole putTeamRole(
+			String agentName, String teamRoleKey, TeamRole teamRole)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		com.liferay.osb.koroneiki.taproot.model.TeamRole curTeamRole =
 			_teamRoleLocalService.getTeamRole(teamRoleKey);
@@ -155,8 +170,11 @@ public class TeamRoleResourceImpl
 
 	@Override
 	public void putTeamRoleTeamRolePermission(
-			String teamRoleKey, TeamRolePermission teamRolePermission)
+			String agentName, String teamRoleKey,
+			TeamRolePermission teamRolePermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateTeamRolePermission(teamRoleKey, "add", teamRolePermission);
 	}

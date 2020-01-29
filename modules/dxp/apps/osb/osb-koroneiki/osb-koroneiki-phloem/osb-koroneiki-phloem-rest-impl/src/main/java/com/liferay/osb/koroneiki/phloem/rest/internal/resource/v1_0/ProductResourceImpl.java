@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductEntryEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
@@ -60,14 +61,21 @@ public class ProductResourceImpl
 	extends BaseProductResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteProduct(String productKey) throws Exception {
+	public void deleteProduct(String agentName, String productKey)
+		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
+
 		_productEntryService.deleteProductEntry(productKey);
 	}
 
 	@Override
 	public void deleteProductProductPermission(
-			String productKey, ProductPermission productPermission)
+			String agentName, String productKey,
+			ProductPermission productPermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateProductPermission(productKey, "delete", productPermission);
 	}
@@ -120,14 +128,18 @@ public class ProductResourceImpl
 	}
 
 	@Override
-	public Product postProduct(Product product) throws Exception {
+	public Product postProduct(String agentName, Product product)
+		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
+
 		Product curProduct = ProductUtil.toProduct(
 			_productEntryService.addProductEntry(product.getName()));
 
 		if (!ArrayUtil.isEmpty(product.getExternalLinks())) {
 			for (ExternalLink externalLink : product.getExternalLinks()) {
 				_externalLinkResource.postProductProductKeyExternalLink(
-					curProduct.getKey(), externalLink);
+					agentName, curProduct.getKey(), externalLink);
 			}
 		}
 
@@ -135,8 +147,11 @@ public class ProductResourceImpl
 	}
 
 	@Override
-	public Product putProduct(String productKey, Product product)
+	public Product putProduct(
+			String agentName, String productKey, Product product)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		return ProductUtil.toProduct(
 			_productEntryService.updateProductEntry(
@@ -145,8 +160,11 @@ public class ProductResourceImpl
 
 	@Override
 	public void putProductProductPermission(
-			String productKey, ProductPermission productPermission)
+			String agentName, String productKey,
+			ProductPermission productPermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateProductPermission(productKey, "add", productPermission);
 	}

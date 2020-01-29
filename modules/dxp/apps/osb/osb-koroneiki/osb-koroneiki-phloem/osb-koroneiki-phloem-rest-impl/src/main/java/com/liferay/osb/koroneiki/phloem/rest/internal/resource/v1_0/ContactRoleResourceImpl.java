@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactRoleUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactRoleEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
@@ -65,14 +66,21 @@ public class ContactRoleResourceImpl
 	extends BaseContactRoleResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteContactRole(String contactRoleKey) throws Exception {
+	public void deleteContactRole(String agentName, String contactRoleKey)
+		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
+
 		_contactRoleService.deleteContactRole(contactRoleKey);
 	}
 
 	@Override
 	public void deleteContactRoleContactRolePermission(
-			String contactRoleKey, ContactRolePermission contactRolePermission)
+			String agentName, String contactRoleKey,
+			ContactRolePermission contactRolePermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateContactRolePermission(
 			contactRoleKey, "delete", contactRolePermission);
@@ -165,8 +173,11 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
-	public ContactRole postContactRole(ContactRole contactRole)
+	public ContactRole postContactRole(
+			String agentName, ContactRole contactRole)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		ContactRole.Type contactRoleType = contactRole.getType();
 
@@ -179,8 +190,10 @@ public class ContactRoleResourceImpl
 
 	@Override
 	public ContactRole putContactRole(
-			String contactRoleKey, ContactRole contactRole)
+			String agentName, String contactRoleKey, ContactRole contactRole)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		com.liferay.osb.koroneiki.taproot.model.ContactRole curContactRole =
 			_contactRoleLocalService.getContactRole(contactRoleKey);
@@ -196,8 +209,11 @@ public class ContactRoleResourceImpl
 
 	@Override
 	public void putContactRoleContactRolePermission(
-			String contactRoleKey, ContactRolePermission contactRolePermission)
+			String agentName, String contactRoleKey,
+			ContactRolePermission contactRolePermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateContactRolePermission(
 			contactRoleKey, "add", contactRolePermission);

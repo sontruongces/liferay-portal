@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.TeamUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.TeamEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
@@ -66,13 +67,18 @@ public class TeamResourceImpl
 	extends BaseTeamResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteTeam(String teamKey) throws Exception {
+	public void deleteTeam(String agentName, String teamKey) throws Exception {
+		ServiceContextUtil.setAgentName(agentName);
+
 		_teamService.deleteTeam(teamKey);
 	}
 
 	@Override
-	public void deleteTeamContactByOkta(String teamKey, String[] oktaIds)
+	public void deleteTeamContactByOkta(
+			String agentName, String teamKey, String[] oktaIds)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		List<Contact> contacts = new ArrayList<>(oktaIds.length);
 
@@ -86,8 +92,11 @@ public class TeamResourceImpl
 
 	@Override
 	public void deleteTeamContactByOktaRole(
-			String teamKey, String oktaId, String[] contactRoleKeys)
+			String agentName, String teamKey, String oktaId,
+			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_deleteTeamContactRole(
 			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
@@ -95,8 +104,11 @@ public class TeamResourceImpl
 	}
 
 	@Override
-	public void deleteTeamContactByUuid(String teamKey, String[] contactUuids)
+	public void deleteTeamContactByUuid(
+			String agentName, String teamKey, String[] contactUuids)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		List<Contact> contacts = new ArrayList<>(contactUuids.length);
 
@@ -111,8 +123,11 @@ public class TeamResourceImpl
 
 	@Override
 	public void deleteTeamContactByUuidContactUuidRole(
-			String teamKey, String contactUuid, String[] contactRoleKeys)
+			String agentName, String teamKey, String contactUuid,
+			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_deleteTeamContactRole(
 			_webContactIdentityProvider.getContactByProviderId(contactUuid),
@@ -121,8 +136,10 @@ public class TeamResourceImpl
 
 	@Override
 	public void deleteTeamTeamPermission(
-			String teamKey, TeamPermission teamPermission)
+			String agentName, String teamKey, TeamPermission teamPermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateTeamPermission(teamKey, "delete", teamPermission);
 	}
@@ -213,22 +230,32 @@ public class TeamResourceImpl
 	}
 
 	@Override
-	public Team postAccountAccountKeyTeam(String accountKey, Team team)
+	public Team postAccountAccountKeyTeam(
+			String agentName, String accountKey, Team team)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		return TeamUtil.toTeam(
 			_teamService.addTeam(accountKey, team.getName()));
 	}
 
 	@Override
-	public Team putTeam(String teamKey, Team team) throws Exception {
+	public Team putTeam(String agentName, String teamKey, Team team)
+		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
+
 		return TeamUtil.toTeam(
 			_teamService.updateTeam(teamKey, team.getName()));
 	}
 
 	@Override
-	public void putTeamContactByOkta(String teamKey, String[] oktaIds)
+	public void putTeamContactByOkta(
+			String agentName, String teamKey, String[] oktaIds)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		List<Contact> contacts = new ArrayList<>(oktaIds.length);
 
@@ -242,8 +269,11 @@ public class TeamResourceImpl
 
 	@Override
 	public void putTeamContactByOktaRole(
-			String teamKey, String oktaId, String[] contactRoleKeys)
+			String agentName, String teamKey, String oktaId,
+			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_putTeamContactRole(
 			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
@@ -251,8 +281,11 @@ public class TeamResourceImpl
 	}
 
 	@Override
-	public void putTeamContactByUuid(String teamKey, String[] contactUuids)
+	public void putTeamContactByUuid(
+			String agentName, String teamKey, String[] contactUuids)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		List<Contact> contacts = new ArrayList<>(contactUuids.length);
 
@@ -267,8 +300,11 @@ public class TeamResourceImpl
 
 	@Override
 	public void putTeamContactByUuidContactUuidRole(
-			String teamKey, String contactUuid, String[] contactRoleKeys)
+			String agentName, String teamKey, String contactUuid,
+			String[] contactRoleKeys)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_putTeamContactRole(
 			_webContactIdentityProvider.getContactByProviderId(contactUuid),
@@ -277,8 +313,10 @@ public class TeamResourceImpl
 
 	@Override
 	public void putTeamTeamPermission(
-			String teamKey, TeamPermission teamPermission)
+			String agentName, String teamKey, TeamPermission teamPermission)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		_updateTeamPermission(teamKey, "add", teamPermission);
 	}

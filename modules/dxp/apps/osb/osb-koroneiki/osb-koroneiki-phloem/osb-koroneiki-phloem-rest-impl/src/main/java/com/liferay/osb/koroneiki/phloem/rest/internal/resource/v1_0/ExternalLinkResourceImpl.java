@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ExternalLinkUtil;
+import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -50,7 +51,11 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
-	public void deleteExternalLink(String externalLinkKey) throws Exception {
+	public void deleteExternalLink(String agentName, String externalLinkKey)
+		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
+
 		_externalLinkService.deleteExternalLink(externalLinkKey);
 	}
 
@@ -148,8 +153,10 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postAccountAccountKeyExternalLink(
-			String accountKey, ExternalLink externalLink)
+			String agentName, String accountKey, ExternalLink externalLink)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		Account account = _accountLocalService.getAccount(accountKey);
 
@@ -159,8 +166,10 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postContactByOktaExternalLink(
-			String oktaId, ExternalLink externalLink)
+			String agentName, String oktaId, ExternalLink externalLink)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		Contact contact = _contactLocalService.getContactByOktaId(oktaId);
 
@@ -170,8 +179,10 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postContactByUuidContactUuidExternalLink(
-			String contactUuid, ExternalLink externalLink)
+			String agentName, String contactUuid, ExternalLink externalLink)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
 
@@ -181,8 +192,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postProductConsumptionProductConsumptionKeyExternalLink(
-			String productConsumptionKey, ExternalLink externalLink)
+			String agentName, String productConsumptionKey,
+			ExternalLink externalLink)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		ProductConsumption productConsumption =
 			_productConsumptionLocalService.getProductConsumption(
@@ -195,8 +209,10 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postProductProductKeyExternalLink(
-			String productKey, ExternalLink externalLink)
+			String agentName, String productKey, ExternalLink externalLink)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
 			productKey);
@@ -207,8 +223,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postProductPurchaseProductPurchaseKeyExternalLink(
-			String productPurchaseKey, ExternalLink externalLink)
+			String agentName, String productPurchaseKey,
+			ExternalLink externalLink)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		ProductPurchase productPurchase =
 			_productPurchaseLocalService.getProductPurchase(productPurchaseKey);
@@ -220,8 +239,10 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postTeamTeamKeyExternalLink(
-			String teamKey, ExternalLink externalLink)
+			String agentName, String teamKey, ExternalLink externalLink)
 		throws Exception {
+
+		ServiceContextUtil.setAgentName(agentName);
 
 		Team team = _teamLocalService.getTeam(teamKey);
 
