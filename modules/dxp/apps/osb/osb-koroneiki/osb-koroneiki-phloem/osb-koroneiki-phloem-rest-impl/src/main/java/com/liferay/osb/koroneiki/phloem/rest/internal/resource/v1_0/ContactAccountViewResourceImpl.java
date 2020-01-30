@@ -15,10 +15,10 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactAccountContactRoles;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactAccountView;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.AccountUtil;
-import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactAccountContactRolesResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactAccountViewResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
@@ -39,40 +39,37 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/contact-account-contact-roles.properties",
-	scope = ServiceScope.PROTOTYPE,
-	service = ContactAccountContactRolesResource.class
+	scope = ServiceScope.PROTOTYPE, service = ContactAccountViewResource.class
 )
-public class ContactAccountContactRolesResourceImpl
-	extends BaseContactAccountContactRolesResourceImpl {
+public class ContactAccountViewResourceImpl
+	extends BaseContactAccountViewResourceImpl {
 
 	@Override
-	public Page<ContactAccountContactRoles>
-			getContactAccountContactRolesByOktaIdPage(
-				String oktaId, Pagination pagination)
+	public Page<ContactAccountView> getContactByOktaContactAccountViewsPage(
+			String oktaId, Pagination pagination)
 		throws Exception {
 
 		Contact contact = _contactLocalService.getContactByOktaId(oktaId);
 
-		return _getContactAccountContactRolesPage(contact, pagination);
+		return _getContactAccountViewPage(contact, pagination);
 	}
 
 	@Override
-	public Page<ContactAccountContactRoles>
-			getContactAccountContactRolesByUuidPage(
+	public Page<ContactAccountView>
+			getContactByUuidContactUuidContactAccountViewsPage(
 				String contactUuid, Pagination pagination)
 		throws Exception {
 
 		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
 
-		return _getContactAccountContactRolesPage(contact, pagination);
+		return _getContactAccountViewPage(contact, pagination);
 	}
 
-	private Page<ContactAccountContactRoles> _getContactAccountContactRolesPage(
+	private Page<ContactAccountView> _getContactAccountViewPage(
 			Contact contact, Pagination pagination)
 		throws Exception {
 
-		List<ContactAccountContactRoles> contactAccountContactRolesList =
-			new ArrayList<>();
+		List<ContactAccountView> contactAccountViewList = new ArrayList<>();
 
 		List<Account> accounts = transform(
 			_accountService.getContactAccounts(
@@ -81,8 +78,7 @@ public class ContactAccountContactRolesResourceImpl
 			account -> AccountUtil.toAccount(account));
 
 		for (Account account : accounts) {
-			ContactAccountContactRoles contactAccountContactRoles =
-				new ContactAccountContactRoles();
+			ContactAccountView contactAccountView = new ContactAccountView();
 
 			Page<ContactRole> contactRolesPage =
 				_contactRoleResource.
@@ -92,15 +88,15 @@ public class ContactAccountContactRolesResourceImpl
 
 			Collection<ContactRole> contactRoles = contactRolesPage.getItems();
 
-			contactAccountContactRoles.setAccount(account);
-			contactAccountContactRoles.setContactRoles(
+			contactAccountView.setAccount(account);
+			contactAccountView.setContactRoles(
 				contactRoles.toArray(new ContactRole[0]));
 
-			contactAccountContactRolesList.add(contactAccountContactRoles);
+			contactAccountViewList.add(contactAccountView);
 		}
 
 		return Page.of(
-			contactAccountContactRolesList, pagination,
+			contactAccountViewList, pagination,
 			_accountService.getContactAccountsCount(contact.getContactId()));
 	}
 
