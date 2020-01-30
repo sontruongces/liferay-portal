@@ -70,6 +70,8 @@ public class OpenAPIResourceImpl {
 
 			add(ContactResourceImpl.class);
 
+			add(ContactAccountViewResourceImpl.class);
+
 			add(ContactRoleResourceImpl.class);
 
 			add(EntitlementDefinitionResourceImpl.class);

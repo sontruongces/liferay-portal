@@ -226,7 +226,7 @@ public abstract class BaseContactRoleResourceImpl
 		}
 	)
 	@Path("/contact-roles/{contactRoleKey}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public void deleteContactRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -299,7 +299,7 @@ public abstract class BaseContactRoleResourceImpl
 		}
 	)
 	@Path("/contact-roles/{contactRoleKey}/contact-role-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public void deleteContactRoleContactRolePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -324,7 +324,7 @@ public abstract class BaseContactRoleResourceImpl
 		}
 	)
 	@Path("/contact-roles/{contactRoleKey}/contact-role-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public void putContactRoleContactRolePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,

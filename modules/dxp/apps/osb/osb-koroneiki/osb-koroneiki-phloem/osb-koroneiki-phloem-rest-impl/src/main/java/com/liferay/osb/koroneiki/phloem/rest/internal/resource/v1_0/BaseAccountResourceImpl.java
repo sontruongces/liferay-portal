@@ -164,7 +164,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccount(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -237,7 +237,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/account-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountAccountPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -262,7 +262,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/account-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountAccountPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -289,7 +289,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/assigned-teams/{teamKey}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountAssignedTeamTeamKeyRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -319,7 +319,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/assigned-teams/{teamKey}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountAssignedTeamTeamKeyRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -402,7 +402,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-email-address")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByEmailAddres(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -429,7 +429,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-email-address")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByEmailAddres(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -461,7 +461,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Path(
 		"/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles"
 	)
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -493,7 +493,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Path(
 		"/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles"
 	)
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByEmailAddresContactEmailAddressRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -522,7 +522,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-okta-id")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByOkta(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -549,7 +549,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-okta-id")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByOkta(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -579,7 +579,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByOktaRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -609,7 +609,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByOktaRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -638,7 +638,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-uuid")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByUuid(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -665,7 +665,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-uuid")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByUuid(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -695,7 +695,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void deleteAccountContactByUuidContactUuidRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -725,7 +725,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		}
 	)
 	@Path("/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public void putAccountContactByUuidContactUuidRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -736,6 +736,60 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
 				String[] contactRoleKeys)
 		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/accounts'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrieves the contact's accounts.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/contacts/by-okta-id/{oktaId}/accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Page<Account> getContactByOktaAccountsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/accounts'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrieves the contact's accounts.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/contacts/by-uuid/{contactUuid}/accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Page<Account> getContactByUuidContactUuidAccountsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
+				contactUuid,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
 	}
 
 	/**

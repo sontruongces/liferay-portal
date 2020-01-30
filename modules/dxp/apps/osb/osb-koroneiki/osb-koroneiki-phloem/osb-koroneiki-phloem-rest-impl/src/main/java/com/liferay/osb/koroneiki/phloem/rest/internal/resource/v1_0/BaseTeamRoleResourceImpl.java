@@ -161,7 +161,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 		}
 	)
 	@Path("/team-roles/{teamRoleKey}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TeamRole")})
 	public void deleteTeamRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -234,7 +234,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 		}
 	)
 	@Path("/team-roles/{teamRoleKey}/team-role-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TeamRole")})
 	public void deleteTeamRoleTeamRolePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -259,7 +259,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 		}
 	)
 	@Path("/team-roles/{teamRoleKey}/team-role-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TeamRole")})
 	public void putTeamRoleTeamRolePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,

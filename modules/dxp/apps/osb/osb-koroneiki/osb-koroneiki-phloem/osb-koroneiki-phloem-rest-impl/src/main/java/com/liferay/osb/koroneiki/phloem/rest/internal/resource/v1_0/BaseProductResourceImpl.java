@@ -186,7 +186,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		}
 	)
 	@Path("/products/{productKey}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
 	public void deleteProduct(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -259,7 +259,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		}
 	)
 	@Path("/products/{productKey}/product-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
 	public void deleteProductProductPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -284,7 +284,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 		}
 	)
 	@Path("/products/{productKey}/product-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
 	public void putProductProductPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,

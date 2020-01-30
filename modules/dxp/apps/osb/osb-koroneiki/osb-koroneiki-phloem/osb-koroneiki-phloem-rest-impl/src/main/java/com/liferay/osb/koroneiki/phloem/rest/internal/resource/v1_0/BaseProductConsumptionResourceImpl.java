@@ -257,7 +257,7 @@ public abstract class BaseProductConsumptionResourceImpl
 		}
 	)
 	@Path("/product-consumptions/{productConsumptionKey}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public void deleteProductConsumption(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -307,7 +307,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Path(
 		"/product-consumptions/{productConsumptionKey}/product-consumption-permissions"
 	)
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public void deleteProductConsumptionProductConsumptionPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -334,7 +334,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Path(
 		"/product-consumptions/{productConsumptionKey}/product-consumption-permissions"
 	)
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public void putProductConsumptionProductConsumptionPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,

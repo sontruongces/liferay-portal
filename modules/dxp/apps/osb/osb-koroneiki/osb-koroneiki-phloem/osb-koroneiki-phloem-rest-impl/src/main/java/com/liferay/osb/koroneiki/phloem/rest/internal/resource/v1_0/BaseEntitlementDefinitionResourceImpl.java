@@ -173,7 +173,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 		}
 	)
 	@Path("/entitlement-definitions/{entitlementDefinitionKey}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public void deleteEntitlementDefinition(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -225,7 +225,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 		}
 	)
 	@Path("/entitlement-definitions/{entitlementDefinitionKey}/synchronize")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public void postEntitlementDefinitionSynchronize(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,

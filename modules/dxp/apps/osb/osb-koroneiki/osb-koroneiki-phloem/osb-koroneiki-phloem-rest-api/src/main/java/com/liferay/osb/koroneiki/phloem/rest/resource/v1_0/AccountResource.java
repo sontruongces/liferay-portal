@@ -148,6 +148,14 @@ public interface AccountResource {
 			String[] contactRoleKeys)
 		throws Exception;
 
+	public Page<Account> getContactByOktaAccountsPage(
+			String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<Account> getContactByUuidContactUuidAccountsPage(
+			String contactUuid, Pagination pagination)
+		throws Exception;
+
 	public Page<Account> getTeamTeamKeyAssignedAccountsPage(
 			String teamKey, Pagination pagination)
 		throws Exception;

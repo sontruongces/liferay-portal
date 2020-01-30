@@ -158,7 +158,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		}
 	)
 	@Path("/contacts/by-email-address/{emailAddress}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByEmailAddresEmailAddress(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -230,7 +230,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		}
 	)
 	@Path("/contacts/by-okta-id/{oktaId}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByOkta(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -301,7 +301,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		}
 	)
 	@Path("/contacts/by-okta-id/{oktaId}/contact-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByOktaContactPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -326,7 +326,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		}
 	)
 	@Path("/contacts/by-okta-id/{oktaId}/contact-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public void putContactByOktaContactPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -350,7 +350,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		}
 	)
 	@Path("/contacts/by-uuid/{contactUuid}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByUuidContactUuid(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -423,7 +423,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		}
 	)
 	@Path("/contacts/by-uuid/{contactUuid}/contact-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByUuidContactUuidContactPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -448,7 +448,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		}
 	)
 	@Path("/contacts/by-uuid/{contactUuid}/contact-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public void putContactByUuidContactUuidContactPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,

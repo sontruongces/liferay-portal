@@ -223,7 +223,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeam(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -295,7 +295,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/contacts/by-okta-id")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByOkta(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -322,7 +322,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/contacts/by-okta-id")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByOkta(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -350,7 +350,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByOktaRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -380,7 +380,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByOktaRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -409,7 +409,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/contacts/by-uuid")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByUuid(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -436,7 +436,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/contacts/by-uuid")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByUuid(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -464,7 +464,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByUuidContactUuidRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -494,7 +494,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/contacts/by-uuid/{contactUuid}/roles")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByUuidContactUuidRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -522,7 +522,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/team-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamTeamPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -547,7 +547,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 		}
 	)
 	@Path("/teams/{teamKey}/team-permissions")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamTeamPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,

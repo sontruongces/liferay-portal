@@ -240,7 +240,7 @@ public abstract class BaseExternalLinkResourceImpl
 		}
 	)
 	@Path("/external-links/{externalLinkKey}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public void deleteExternalLink(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,

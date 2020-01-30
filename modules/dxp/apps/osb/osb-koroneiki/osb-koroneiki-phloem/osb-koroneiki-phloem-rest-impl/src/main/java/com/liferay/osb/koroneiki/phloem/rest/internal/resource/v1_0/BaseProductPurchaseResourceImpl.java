@@ -257,7 +257,7 @@ public abstract class BaseProductPurchaseResourceImpl
 		}
 	)
 	@Path("/product-purchases/{productPurchaseKey}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public void deleteProductPurchase(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -332,7 +332,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Path(
 		"/product-purchases/{productPurchaseKey}/product-purchase-permissions"
 	)
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public void deleteProductPurchaseProductPurchasePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
@@ -359,7 +359,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Path(
 		"/product-purchases/{productPurchaseKey}/product-purchase-permissions"
 	)
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public void putProductPurchaseProductPurchasePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,

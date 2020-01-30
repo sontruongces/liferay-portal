@@ -263,6 +263,23 @@ public interface AccountResource {
 				String[] contactRoleKeys)
 		throws Exception;
 
+	public Page<Account> getContactByOktaAccountsPage(
+			String oktaId, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getContactByOktaAccountsPageHttpResponse(
+			String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<Account> getContactByUuidContactUuidAccountsPage(
+			String contactUuid, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getContactByUuidContactUuidAccountsPageHttpResponse(
+				String contactUuid, Pagination pagination)
+		throws Exception;
+
 	public Page<Account> getTeamTeamKeyAssignedAccountsPage(
 			String teamKey, Pagination pagination)
 		throws Exception;
@@ -1932,6 +1949,133 @@ public interface AccountResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles",
 				accountKey, contactUuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Account> getContactByOktaAccountsPage(
+				String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getContactByOktaAccountsPageHttpResponse(oktaId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, AccountSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getContactByOktaAccountsPageHttpResponse(
+					String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/accounts",
+				oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Account> getContactByUuidContactUuidAccountsPage(
+				String contactUuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getContactByUuidContactUuidAccountsPageHttpResponse(
+					contactUuid, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, AccountSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getContactByUuidContactUuidAccountsPageHttpResponse(
+					String contactUuid, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/accounts",
+				contactUuid);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

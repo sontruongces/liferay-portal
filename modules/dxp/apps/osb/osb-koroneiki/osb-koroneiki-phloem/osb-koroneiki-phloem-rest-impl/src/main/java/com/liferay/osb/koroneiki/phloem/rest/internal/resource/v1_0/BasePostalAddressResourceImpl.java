@@ -123,7 +123,7 @@ public abstract class BasePostalAddressResourceImpl
 		}
 	)
 	@Path("/postal-addresses/{postalAddressId}")
-	@Produces("application/json")
+	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PostalAddress")})
 	public void deletePostalAddress(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
