@@ -14,21 +14,16 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactAccountView;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.AccountUtil;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactAccountViewUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactAccountViewResource;
-import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
-import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactRoleService;
+import com.liferay.osb.koroneiki.taproot.service.ContactService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -38,7 +33,7 @@ import org.osgi.service.component.annotations.ServiceScope;
  * @author Kyle Bischof
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v1_0/contact-account-contact-roles.properties",
+	properties = "OSGI-INF/liferay/rest/v1_0/contact-account-view.properties",
 	scope = ServiceScope.PROTOTYPE, service = ContactAccountViewResource.class
 )
 public class ContactAccountViewResourceImpl
@@ -49,7 +44,7 @@ public class ContactAccountViewResourceImpl
 			String oktaId, Pagination pagination)
 		throws Exception {
 
-		Contact contact = _contactLocalService.getContactByOktaId(oktaId);
+		Contact contact = _contactService.getContactByOktaId(oktaId);
 
 		return _getContactAccountViewPage(contact, pagination);
 	}
@@ -60,7 +55,7 @@ public class ContactAccountViewResourceImpl
 				String contactUuid, Pagination pagination)
 		throws Exception {
 
-		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
+		Contact contact = _contactService.getContactByUuid(contactUuid);
 
 		return _getContactAccountViewPage(contact, pagination);
 	}
@@ -69,34 +64,17 @@ public class ContactAccountViewResourceImpl
 			Contact contact, Pagination pagination)
 		throws Exception {
 
-		List<ContactAccountView> contactAccountViewList = new ArrayList<>();
-
-		List<Account> accounts = transform(
-			_accountService.getContactAccounts(
-				contact.getContactId(), pagination.getStartPosition(),
-				pagination.getEndPosition()),
-			account -> AccountUtil.toAccount(account));
-
-		for (Account account : accounts) {
-			ContactAccountView contactAccountView = new ContactAccountView();
-
-			Page<ContactRole> contactRolesPage =
-				_contactRoleResource.
-					getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
-						account.getKey(), contact.getEmailAddress(),
-						Pagination.of(1, 1000));
-
-			Collection<ContactRole> contactRoles = contactRolesPage.getItems();
-
-			contactAccountView.setAccount(account);
-			contactAccountView.setContactRoles(
-				contactRoles.toArray(new ContactRole[0]));
-
-			contactAccountViewList.add(contactAccountView);
-		}
-
 		return Page.of(
-			contactAccountViewList, pagination,
+			transform(
+				_accountService.getContactAccounts(
+					contact.getContactId(), pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				account -> ContactAccountViewUtil.toContactAccountView(
+					account,
+					_contactRoleService.getContactAccountContactRoles(
+						account.getAccountId(), contact.getContactId(),
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS))),
+			pagination,
 			_accountService.getContactAccountsCount(contact.getContactId()));
 	}
 
@@ -104,9 +82,9 @@ public class ContactAccountViewResourceImpl
 	private AccountService _accountService;
 
 	@Reference
-	private ContactLocalService _contactLocalService;
+	private ContactRoleService _contactRoleService;
 
 	@Reference
-	private ContactRoleResource _contactRoleResource;
+	private ContactService _contactService;
 
 }
