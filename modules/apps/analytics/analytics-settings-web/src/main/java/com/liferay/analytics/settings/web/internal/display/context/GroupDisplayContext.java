@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.GroupServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
@@ -83,7 +84,7 @@ public class GroupDisplayContext {
 				Validator.isBlank(_analyticsConfiguration.token()),
 				SetUtil.fromArray(_analyticsConfiguration.syncedGroupIds())));
 
-		int total = GroupServiceUtil.searchCount(
+		int total = GroupLocalServiceUtil.searchCount(
 			_getCompanyId(), _getClassNameIds(), _getKeywords(),
 			_getGroupParams());
 
