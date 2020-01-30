@@ -288,6 +288,16 @@ components:
                 - firstName
                 - lastName
             type: object
+        ContactAccountContactRoles:
+            properties:
+                account:
+                    $ref: "#/components/schemas/Account"
+                    readOnly: true
+                contactRoles:
+                    items:
+                        $ref: "#/components/schemas/ContactRole"
+                    readOnly: true
+                    type: array
         ContactPermission:
             properties:
                 delete:
@@ -2223,6 +2233,76 @@ paths:
                     description:
                         ""
             tags: ["AuditEntry"]
+    "/contact-account-contact-roles/by-okta-id/{oktaId}":
+        get:
+            description:
+                Retrieves the contact's account contact roles.
+            operationId: getContactAccountContactRolesByOktaIdPage
+            parameters:
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactAccountContactRoles"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactAccountContactRoles"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactAccountContactRoles"]
+    "/contact-account-contact-roles/by-uuid/{contactUuid}":
+        get:
+            description:
+                Retrieves the contact's account contact roles.
+            operationId: getContactAccountContactRolesByUuidPage
+            parameters:
+                - in: path
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactAccountContactRoles"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactAccountContactRoles"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactAccountContactRoles"]
     "/contact-roles":
         get:
             description:
