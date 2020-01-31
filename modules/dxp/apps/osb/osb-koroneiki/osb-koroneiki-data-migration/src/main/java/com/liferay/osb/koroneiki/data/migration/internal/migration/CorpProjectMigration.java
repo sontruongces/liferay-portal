@@ -122,6 +122,11 @@ public class CorpProjectMigration {
 						resultSet.getString("salesforceProjectKey"));
 				}
 
+				_externalLinkLocalService.addExternalLink(
+					userId, Account.class.getName(), account.getAccountId(),
+					"web", "corpProject",
+					String.valueOf(account.getAccountId()));
+
 				if (_log.isInfoEnabled()) {
 					_log.info("Migrated CorpProject " + account.getAccountId());
 				}
