@@ -10,6 +10,7 @@
 	{@param? activePage: number}
 	{@param? displayable: bool}
 	{@param? editable: bool}
+	{@param? editingLanguageId: string}
 	{@param? paginationMode: string}
 	{@param? readOnly: bool}
 	{@param? showSubmitButton: bool}
@@ -34,6 +35,7 @@
 				{call PageRenderer.render}
 					{param activePage: $activePage /}
 					{param editable: $editable /}
+					{param editingLanguageId: $editingLanguageId/}
 					{param events: [
 						'fieldBlurred': $_handleFieldBlurred,
 						'fieldClicked': $_handleFieldClicked,
