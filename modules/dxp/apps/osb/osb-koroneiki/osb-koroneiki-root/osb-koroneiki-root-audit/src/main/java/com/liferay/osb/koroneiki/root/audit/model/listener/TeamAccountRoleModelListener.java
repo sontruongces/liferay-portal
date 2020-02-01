@@ -113,8 +113,8 @@ public class TeamAccountRoleModelListener
 				classNameLocalService.getClassNameId(TeamRole.class),
 				teamAccountRole.getTeamRoleId(),
 				AuditEntry.Action.UNASSIGN.toString(), "Account",
-				StringPool.BLANK, StringPool.BLANK, account.getName(),
-				String.valueOf(account.getAccountId()), teamRole.getName(),
+				account.getName(), String.valueOf(account.getAccountId()),
+				StringPool.BLANK, StringPool.BLANK, teamRole.getName(),
 				serviceContext);
 		}
 		catch (PortalException pe) {

@@ -116,8 +116,8 @@ public class ContactAccountRoleModelListener
 				classNameLocalService.getClassNameId(ContactRole.class),
 				contactAccountRole.getContactRoleId(),
 				AuditEntry.Action.UNASSIGN.toString(), "Account",
-				StringPool.BLANK, StringPool.BLANK, account.getName(),
-				String.valueOf(account.getAccountId()), contactRole.getName(),
+				account.getName(), String.valueOf(account.getAccountId()),
+				StringPool.BLANK, StringPool.BLANK, contactRole.getName(),
 				serviceContext);
 		}
 		catch (PortalException pe) {

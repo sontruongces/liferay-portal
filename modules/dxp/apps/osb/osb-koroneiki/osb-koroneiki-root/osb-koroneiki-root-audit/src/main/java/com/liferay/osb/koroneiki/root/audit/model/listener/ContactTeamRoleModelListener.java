@@ -98,10 +98,9 @@ public class ContactTeamRoleModelListener
 				contactTeamRole.getContactId(),
 				classNameLocalService.getClassNameId(ContactRole.class),
 				contactTeamRole.getContactRoleId(),
-				AuditEntry.Action.UNASSIGN.toString(), "Team", StringPool.BLANK,
-				StringPool.BLANK, team.getName(),
-				String.valueOf(team.getTeamId()), contactRole.getName(),
-				serviceContext);
+				AuditEntry.Action.UNASSIGN.toString(), "Team", team.getName(),
+				String.valueOf(team.getTeamId()), StringPool.BLANK,
+				StringPool.BLANK, contactRole.getName(), serviceContext);
 
 			serviceContext = getServiceContext(
 				classNameLocalService.getClassNameId(Team.class),
@@ -113,9 +112,10 @@ public class ContactTeamRoleModelListener
 				classNameLocalService.getClassNameId(Contact.class),
 				contactTeamRole.getContactId(),
 				AuditEntry.Action.UNASSIGN.toString(), "Contact Role",
-				StringPool.BLANK, StringPool.BLANK, contactRole.getName(),
+				contactRole.getName(),
 				String.valueOf(contactTeamRole.getContactRoleId()),
-				contact.getFullName(), serviceContext);
+				StringPool.BLANK, StringPool.BLANK, contact.getFullName(),
+				serviceContext);
 		}
 		catch (PortalException pe) {
 			throw new ModelListenerException(pe);
