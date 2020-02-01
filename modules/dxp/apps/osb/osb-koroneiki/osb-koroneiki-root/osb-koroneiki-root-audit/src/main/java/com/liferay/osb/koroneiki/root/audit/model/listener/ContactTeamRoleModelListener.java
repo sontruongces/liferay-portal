@@ -74,8 +74,8 @@ public class ContactTeamRoleModelListener
 				String.valueOf(contactTeamRole.getContactRoleId()),
 				contact.getFullName(), serviceContext);
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -117,8 +117,8 @@ public class ContactTeamRoleModelListener
 				StringPool.BLANK, StringPool.BLANK, contact.getFullName(),
 				serviceContext);
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 

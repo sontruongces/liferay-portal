@@ -73,8 +73,8 @@ public class TeamAccountRoleModelListener
 				String.valueOf(account.getAccountId()), teamRole.getName(),
 				serviceContext);
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -117,8 +117,8 @@ public class TeamAccountRoleModelListener
 				StringPool.BLANK, StringPool.BLANK, teamRole.getName(),
 				serviceContext);
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 

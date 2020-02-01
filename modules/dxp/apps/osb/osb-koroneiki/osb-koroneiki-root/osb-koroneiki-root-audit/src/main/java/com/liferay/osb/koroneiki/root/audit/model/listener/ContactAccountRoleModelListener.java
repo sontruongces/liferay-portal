@@ -75,8 +75,8 @@ public class ContactAccountRoleModelListener
 				String.valueOf(account.getAccountId()), contactRole.getName(),
 				serviceContext);
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -120,8 +120,8 @@ public class ContactAccountRoleModelListener
 				StringPool.BLANK, StringPool.BLANK, contactRole.getName(),
 				serviceContext);
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
