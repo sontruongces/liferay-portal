@@ -96,9 +96,9 @@ public class DDMSearchHelper {
 				_ddmPermissionSupport.getStructureModelResourceName(
 					classNameId));
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 		}
 
@@ -179,9 +179,9 @@ public class DDMSearchHelper {
 				_ddmPermissionSupport.getTemplateModelResourceName(
 					resourceClassNameId));
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
