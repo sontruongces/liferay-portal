@@ -84,13 +84,13 @@ public class RegionSegmentsFieldCustomizer extends BaseSegmentsFieldCustomizer {
 			return StringBundler.concat(
 				country.getName(locale), " - ", region.getName());
 		}
-		catch (Exception e) {
-			return ReflectionUtil.throwException(e);
+		catch (Exception exception) {
+			return ReflectionUtil.throwException(exception);
 		}
 	}
 
 	private static final List<String> _fieldNames = ListUtil.fromArray(
-		new String[] {"region"});
+		"region");
 
 	@Reference
 	private CountryService _countryService;
