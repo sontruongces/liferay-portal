@@ -177,7 +177,7 @@ public class GroupFinderImpl
 					sql, "[$ACTIVE$]", "AND (Group_.active_ = ?)");
 			}
 			else {
-				sql = StringUtil.replace(sql, "[$ACTIVE$]", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "[$ACTIVE$]");
 			}
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
@@ -420,9 +420,8 @@ public class GroupFinderImpl
 			String findByCompanyIdSQL = CustomSQLUtil.get(FIND_BY_COMPANY_ID);
 
 			if (params.get("active") == Boolean.TRUE) {
-				findByCompanyIdSQL = StringUtil.replace(
-					findByCompanyIdSQL, "(Group_.liveGroupId = 0) AND",
-					StringPool.BLANK);
+				findByCompanyIdSQL = StringUtil.removeSubstring(
+					findByCompanyIdSQL, "(Group_.liveGroupId = 0) AND");
 			}
 
 			findByCompanyIdSQL = replaceOrderBy(findByCompanyIdSQL, obc);
@@ -522,7 +521,7 @@ public class GroupFinderImpl
 					sql, "[$ACTIVE$]", "AND (Group_.active_ = ?)");
 			}
 			else {
-				sql = StringUtil.replace(sql, "[$ACTIVE$]", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "[$ACTIVE$]");
 			}
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
@@ -689,8 +688,7 @@ public class GroupFinderImpl
 			String sql = CustomSQLUtil.get(FIND_BY_C_P);
 
 			if (previousGroupId <= 0) {
-				sql = StringUtil.replace(
-					sql, "(groupId > ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "(groupId > ?) AND");
 			}
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);

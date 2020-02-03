@@ -167,8 +167,8 @@ public class MBThreadFinderImpl
 			String sql = _customSQL.get(getClass(), COUNT_BY_G_U_C);
 
 			if (ArrayUtil.isEmpty(categoryIds)) {
-				sql = StringUtil.replace(
-					sql, "(MBThread.categoryId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(MBThread.categoryId = ?) AND");
 			}
 			else {
 				String mergedCategoryIds = StringUtil.merge(
@@ -291,8 +291,8 @@ public class MBThreadFinderImpl
 			String sql = _customSQL.get(getClass(), COUNT_BY_G_U_C);
 
 			if (ArrayUtil.isEmpty(categoryIds)) {
-				sql = StringUtil.replace(
-					sql, "(MBThread.categoryId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(MBThread.categoryId = ?) AND");
 			}
 			else {
 				String mergedCategoryIds = StringUtil.merge(
@@ -354,9 +354,8 @@ public class MBThreadFinderImpl
 			if (userId <= 0) {
 				sql = StringUtil.replace(
 					sql, "DISTINCT MBThread.threadId", StringPool.STAR);
-				sql = StringUtil.replace(
-					sql, _INNER_JOIN_SQL, StringPool.BLANK);
-				sql = StringUtil.replace(sql, _USER_ID_SQL, StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, _INNER_JOIN_SQL);
+				sql = StringUtil.removeSubstring(sql, _USER_ID_SQL);
 			}
 
 			sql = updateSQL(sql, queryDefinition);
@@ -632,8 +631,8 @@ public class MBThreadFinderImpl
 			String sql = _customSQL.get(getClass(), FIND_BY_G_U_C);
 
 			if (ArrayUtil.isEmpty(categoryIds)) {
-				sql = StringUtil.replace(
-					sql, "(MBThread.categoryId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(MBThread.categoryId = ?) AND");
 			}
 			else {
 				String mergedCategoryIds = StringUtil.merge(
@@ -772,8 +771,8 @@ public class MBThreadFinderImpl
 			String sql = _customSQL.get(getClass(), FIND_BY_G_U_C_A);
 
 			if (ArrayUtil.isEmpty(categoryIds)) {
-				sql = StringUtil.replace(
-					sql, "(MBThread.categoryId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(MBThread.categoryId = ?) AND");
 			}
 			else {
 				String mergedCategoryIds = StringUtil.merge(
@@ -825,10 +824,9 @@ public class MBThreadFinderImpl
 			String sql = _customSQL.get(getClass(), FIND_BY_G_U_LPD);
 
 			if (userId <= 0) {
-				sql = StringUtil.replace(sql, "DISTINCT ", StringPool.BLANK);
-				sql = StringUtil.replace(
-					sql, _INNER_JOIN_SQL, StringPool.BLANK);
-				sql = StringUtil.replace(sql, _USER_ID_SQL, StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "DISTINCT ");
+				sql = StringUtil.removeSubstring(sql, _INNER_JOIN_SQL);
+				sql = StringUtil.removeSubstring(sql, _USER_ID_SQL);
 			}
 
 			sql = updateSQL(sql, queryDefinition);
@@ -1003,8 +1001,8 @@ public class MBThreadFinderImpl
 			String sql = _customSQL.get(getClass(), COUNT_BY_S_G_U_C);
 
 			if (ArrayUtil.isEmpty(categoryIds)) {
-				sql = StringUtil.replace(
-					sql, "(MBThread.categoryId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(MBThread.categoryId = ?) AND");
 			}
 			else {
 				String mergedCategoryIds = StringUtil.merge(
@@ -1140,8 +1138,8 @@ public class MBThreadFinderImpl
 			String sql = _customSQL.get(getClass(), FIND_BY_S_G_U_C);
 
 			if (ArrayUtil.isEmpty(categoryIds)) {
-				sql = StringUtil.replace(
-					sql, "(MBThread.categoryId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(MBThread.categoryId = ?) AND");
 			}
 			else {
 				String mergedCategoryIds = StringUtil.merge(

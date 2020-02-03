@@ -1039,8 +1039,8 @@ public class JournalArticleFinderImpl
 			sql = replaceStatusJoin(sql, queryDefinition);
 
 			if (groupId <= 0) {
-				sql = StringUtil.replace(
-					sql, "(JournalArticle.groupId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(JournalArticle.groupId = ?) AND");
 			}
 
 			sql = StringUtil.replace(
@@ -1105,8 +1105,7 @@ public class JournalArticleFinderImpl
 			sql = replaceStatusJoin(sql, queryDefinition);
 
 			if (folderIds.isEmpty()) {
-				sql = StringUtil.replace(
-					sql, "([$FOLDER_ID$]) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "([$FOLDER_ID$]) AND");
 			}
 			else {
 				sql = StringUtil.replace(
@@ -1194,13 +1193,12 @@ public class JournalArticleFinderImpl
 			sql = replaceStatusJoin(sql, queryDefinition);
 
 			if (groupId <= 0) {
-				sql = StringUtil.replace(
-					sql, "(JournalArticle.groupId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(JournalArticle.groupId = ?) AND");
 			}
 
 			if (folderIds.isEmpty()) {
-				sql = StringUtil.replace(
-					sql, "([$FOLDER_ID$]) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "([$FOLDER_ID$]) AND");
 			}
 			else {
 				sql = StringUtil.replace(
@@ -1213,9 +1211,8 @@ public class JournalArticleFinderImpl
 				articleIds);
 
 			if ((version == null) || (version <= 0)) {
-				sql = StringUtil.replace(
-					sql, "(JournalArticle.version = ?) [$AND_OR_CONNECTOR$]",
-					StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(JournalArticle.version = ?) [$AND_OR_CONNECTOR$]");
 			}
 
 			sql = _customSQL.replaceKeywords(
@@ -1535,8 +1532,8 @@ public class JournalArticleFinderImpl
 				sql, queryDefinition.getOrderByComparator());
 
 			if (groupId <= 0) {
-				sql = StringUtil.replace(
-					sql, "(JournalArticle.groupId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(JournalArticle.groupId = ?) AND");
 			}
 
 			sql = StringUtil.replace(
@@ -1596,8 +1593,7 @@ public class JournalArticleFinderImpl
 				sql, queryDefinition.getOrderByComparator());
 
 			if (folderIds.isEmpty()) {
-				sql = StringUtil.replace(
-					sql, "([$FOLDER_ID$]) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "([$FOLDER_ID$]) AND");
 			}
 			else {
 				sql = StringUtil.replace(
@@ -1666,8 +1662,8 @@ public class JournalArticleFinderImpl
 				sql, queryDefinition.getOrderByComparator());
 
 			if (groupId <= 0) {
-				sql = StringUtil.replace(
-					sql, "(JournalArticle.groupId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(JournalArticle.groupId = ?) AND");
 			}
 
 			sql = StringUtil.replace(
@@ -1730,8 +1726,7 @@ public class JournalArticleFinderImpl
 				sql, queryDefinition.getOrderByComparator());
 
 			if (folderIds.isEmpty()) {
-				sql = StringUtil.replace(
-					sql, "([$FOLDER_ID$]) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "([$FOLDER_ID$]) AND");
 			}
 			else {
 				sql = StringUtil.replace(
@@ -1813,13 +1808,12 @@ public class JournalArticleFinderImpl
 			sql = replaceStatusJoin(sql, queryDefinition);
 
 			if (groupId <= 0) {
-				sql = StringUtil.replace(
-					sql, "(JournalArticle.groupId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(JournalArticle.groupId = ?) AND");
 			}
 
 			if (folderIds.isEmpty()) {
-				sql = StringUtil.replace(
-					sql, "([$FOLDER_ID$]) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "([$FOLDER_ID$]) AND");
 			}
 			else {
 				sql = StringUtil.replace(
@@ -1832,9 +1826,8 @@ public class JournalArticleFinderImpl
 				articleIds);
 
 			if ((version == null) || (version <= 0)) {
-				sql = StringUtil.replace(
-					sql, "(JournalArticle.version = ?) [$AND_OR_CONNECTOR$]",
-					StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(JournalArticle.version = ?) [$AND_OR_CONNECTOR$]");
 			}
 
 			sql = _customSQL.replaceKeywords(
@@ -2049,8 +2042,7 @@ public class JournalArticleFinderImpl
 		String sql, QueryDefinition<JournalArticle> queryDefinition) {
 
 		if (queryDefinition.getStatus() == WorkflowConstants.STATUS_ANY) {
-			return StringUtil.replace(
-				sql, "[$STATUS_JOIN$] AND", StringPool.BLANK);
+			return StringUtil.removeSubstring(sql, "[$STATUS_JOIN$] AND");
 		}
 
 		if (queryDefinition.isExcludeStatus()) {
@@ -2083,8 +2075,8 @@ public class JournalArticleFinderImpl
 		String sql, String[] ddmStructureKeys, String[] ddmTemplateKeys) {
 
 		if (isNullArray(ddmStructureKeys) && isNullArray(ddmTemplateKeys)) {
-			return StringUtil.replace(
-				sql, "([$STRUCTURE_TEMPLATE$]) AND", StringPool.BLANK);
+			return StringUtil.removeSubstring(
+				sql, "([$STRUCTURE_TEMPLATE$]) AND");
 		}
 
 		StringBundler sb = new StringBundler();

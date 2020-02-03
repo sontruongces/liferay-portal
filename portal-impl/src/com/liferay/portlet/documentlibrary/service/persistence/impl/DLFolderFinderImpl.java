@@ -715,7 +715,7 @@ public class DLFolderFinderImpl
 		}
 
 		if (queryDefinition.getStatus() == WorkflowConstants.STATUS_ANY) {
-			sql = StringUtil.replace(sql, "[$JOIN$]", StringPool.BLANK);
+			sql = StringUtil.removeSubstring(sql, "[$JOIN$]");
 		}
 		else {
 			sql = StringUtil.replace(
@@ -768,7 +768,7 @@ public class DLFolderFinderImpl
 			sql = sb.toString();
 		}
 		else {
-			sql = StringUtil.replace(sql, "[$JOIN$]", StringPool.BLANK);
+			sql = StringUtil.removeSubstring(sql, "[$JOIN$]");
 		}
 
 		return sql;
@@ -877,8 +877,7 @@ public class DLFolderFinderImpl
 
 		if (showHiddenMountFolders) {
 			if (includeMountFolders) {
-				sql = StringUtil.replace(
-					sql, "([$HIDDEN$]) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(sql, "([$HIDDEN$]) AND");
 			}
 			else {
 				sql = StringUtil.replace(

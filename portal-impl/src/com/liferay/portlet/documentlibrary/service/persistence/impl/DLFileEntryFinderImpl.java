@@ -383,8 +383,8 @@ public class DLFileEntryFinderImpl
 			String sql = CustomSQLUtil.get(FIND_BY_DDM_STRUCTURE_IDS);
 
 			if (groupId <= 0) {
-				sql = StringUtil.replace(
-					sql, "(DLFileEntry.groupId = ?) AND", StringPool.BLANK);
+				sql = StringUtil.removeSubstring(
+					sql, "(DLFileEntry.groupId = ?) AND");
 			}
 
 			sql = StringUtil.replace(
@@ -830,7 +830,7 @@ public class DLFileEntryFinderImpl
 		String sql = CustomSQLUtil.get(id, queryDefinition, tableName);
 
 		if (queryDefinition.getStatus() == WorkflowConstants.STATUS_ANY) {
-			sql = StringUtil.replace(sql, "[$JOIN$]", StringPool.BLANK);
+			sql = StringUtil.removeSubstring(sql, "[$JOIN$]");
 
 			tableName = DLFileEntryImpl.TABLE_NAME;
 		}
@@ -883,7 +883,7 @@ public class DLFileEntryFinderImpl
 			return StringUtil.replace(sql, "[$FOLDER_ID$]", sb.toString());
 		}
 
-		return StringUtil.replace(sql, "[$FOLDER_ID$]", StringPool.BLANK);
+		return StringUtil.removeSubstring(sql, "[$FOLDER_ID$]");
 	}
 
 	protected String getFolderIds(List<Long> folderIds, String tableName) {
