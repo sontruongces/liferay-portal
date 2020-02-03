@@ -2304,7 +2304,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 				if (!curPage.equals(page)) {
 					curPage.setHead(false);
 
-					curPage = wikiPagePersistence.update(curPage);
+					wikiPagePersistence.update(curPage);
 				}
 			}
 		}

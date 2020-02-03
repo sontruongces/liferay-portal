@@ -386,7 +386,7 @@ public class BookmarksEntryLocalServiceImpl
 				status = trashVersion.getStatus();
 			}
 
-			entry = updateStatus(userId, entry, status);
+			updateStatus(userId, entry, status);
 
 			// Trash
 
