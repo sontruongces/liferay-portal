@@ -194,7 +194,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			PostalAddress postalAddress, Contact[] contacts,
 			ExternalLink[] externalLinks, ProductPurchase[] productPurchases,
 			JSONObject jsonObject)
-		throws PortalException {
+		throws Exception {
 
 		JSONObject accountJSONObject = jsonObject.getJSONObject("_account");
 
@@ -411,7 +411,9 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		return productPurchases;
 	}
 
-	private String _getCode(String parentAccountName, String accountName) {
+	private String _getCode(String parentAccountName, String accountName)
+		throws Exception {
+
 		String code = StringUtil.extractChars(parentAccountName);
 
 		if (code.length() > 6) {
@@ -424,7 +426,34 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			code = code.substring(0, 12);
 		}
 
-		return StringUtil.toUpperCase(code);
+		code = StringUtil.toUpperCase(code);
+
+		if (!_isDuplicateCode(code)) {
+			return code;
+		}
+
+		int i = 1;
+
+		while (true) {
+			String tempCode = code + i;
+
+			if (!_isDuplicateCode(tempCode)) {
+				return tempCode;
+			}
+
+			i++;
+		}
+	}
+
+	private boolean _isDuplicateCode(String code) throws Exception {
+		List<Account> accounts = _accountWebService.search(
+			"code eq '" + code + "'", 1, 1, null);
+
+		if (!accounts.isEmpty()) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private boolean _isValidOpportunity(

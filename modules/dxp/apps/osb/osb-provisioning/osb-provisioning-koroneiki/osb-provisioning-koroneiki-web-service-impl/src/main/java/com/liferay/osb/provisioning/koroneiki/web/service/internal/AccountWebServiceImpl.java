@@ -15,11 +15,17 @@
 package com.liferay.osb.provisioning.koroneiki.web.service.internal;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
+import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.AccountResource;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Activate;
@@ -36,7 +42,22 @@ import org.osgi.service.component.annotations.Component;
 public class AccountWebServiceImpl implements AccountWebService {
 
 	public Account postAccount(Account account) throws Exception {
-		return _accountResource.postAccount(account);
+		return _accountResource.postAccount(StringPool.BLANK, account);
+	}
+
+	public List<Account> search(
+			String filterString, int page, int pageSize, String sortString)
+		throws Exception {
+
+		Page<Account> accountsPage = _accountResource.getAccountsPage(
+			StringPool.BLANK, filterString, Pagination.of(page, pageSize),
+			sortString);
+
+		if ((accountsPage != null) && (accountsPage.getItems() != null)) {
+			return new ArrayList<>(accountsPage.getItems());
+		}
+
+		return Collections.emptyList();
 	}
 
 	@Activate
