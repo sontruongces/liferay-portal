@@ -141,27 +141,25 @@ public class WorkflowMetricsSLADefinitionLocalServiceImpl
 
 		workflowMetricsSLADefinition.setActive(false);
 
-		workflowMetricsSLADefinitionPersistence.update(
-			workflowMetricsSLADefinition);
+		workflowMetricsSLADefinition =
+			workflowMetricsSLADefinitionPersistence.update(
+				workflowMetricsSLADefinition);
 
 		User user = userLocalService.getUser(serviceContext.getGuestOrUserId());
 
 		addWorkflowMetricsSLADefinitionVersion(
 			user, workflowMetricsSLADefinition);
 
+		long companyId = workflowMetricsSLADefinition.getCompanyId();
+		long processId = workflowMetricsSLADefinition.getProcessId();
+
 		_workflowMetricsPortalExecutor.execute(
 			() -> _slaProcessResultWorkflowMetricsIndexer.deleteDocuments(
-				workflowMetricsSLADefinition.getCompanyId(),
-				workflowMetricsSLADefinition.getProcessId(),
-				workflowMetricsSLADefinition.
-					getWorkflowMetricsSLADefinitionId()));
+				companyId, processId, workflowMetricsSLADefinitionId));
 
 		_workflowMetricsPortalExecutor.execute(
 			() -> _slaTaskResultWorkflowMetricsIndexer.deleteDocuments(
-				workflowMetricsSLADefinition.getCompanyId(),
-				workflowMetricsSLADefinition.getProcessId(),
-				workflowMetricsSLADefinition.
-					getWorkflowMetricsSLADefinitionId()));
+				companyId, processId, workflowMetricsSLADefinitionId));
 	}
 
 	@Override
@@ -265,25 +263,23 @@ public class WorkflowMetricsSLADefinitionLocalServiceImpl
 		workflowMetricsSLADefinition.setStatusDate(
 			serviceContext.getModifiedDate(now));
 
-		workflowMetricsSLADefinitionPersistence.update(
-			workflowMetricsSLADefinition);
+		workflowMetricsSLADefinition =
+			workflowMetricsSLADefinitionPersistence.update(
+				workflowMetricsSLADefinition);
 
 		addWorkflowMetricsSLADefinitionVersion(
 			user, workflowMetricsSLADefinition);
 
+		long companyId = workflowMetricsSLADefinition.getCompanyId();
+		long processId = workflowMetricsSLADefinition.getProcessId();
+
 		_workflowMetricsPortalExecutor.execute(
 			() -> _slaProcessResultWorkflowMetricsIndexer.deleteDocuments(
-				workflowMetricsSLADefinition.getCompanyId(),
-				workflowMetricsSLADefinition.getProcessId(),
-				workflowMetricsSLADefinition.
-					getWorkflowMetricsSLADefinitionId()));
+				companyId, processId, workflowMetricsSLADefinitionId));
 
 		_workflowMetricsPortalExecutor.execute(
 			() -> _slaTaskResultWorkflowMetricsIndexer.deleteDocuments(
-				workflowMetricsSLADefinition.getCompanyId(),
-				workflowMetricsSLADefinition.getProcessId(),
-				workflowMetricsSLADefinition.
-					getWorkflowMetricsSLADefinitionId()));
+				companyId, processId, workflowMetricsSLADefinitionId));
 
 		return workflowMetricsSLADefinition;
 	}

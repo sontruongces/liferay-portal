@@ -7342,7 +7342,7 @@ public class JournalArticleLocalServiceImpl
 
 				article.setStatus(WorkflowConstants.STATUS_EXPIRED);
 
-				journalArticlePersistence.update(article);
+				article = journalArticlePersistence.update(article);
 
 				updatePreviousApprovedArticle(article);
 
