@@ -160,6 +160,9 @@ public class DLURLHelperUtil {
 			officeExtensionRequired);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
 	@Deprecated
 	public static void setDLURLHelper(DLURLHelper dlURLHelper) {
 		if (_dlURLHelper != null) {
