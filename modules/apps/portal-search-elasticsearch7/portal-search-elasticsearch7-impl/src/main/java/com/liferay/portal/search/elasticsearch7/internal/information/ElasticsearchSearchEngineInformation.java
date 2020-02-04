@@ -19,14 +19,27 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.search.configuration.CrossClusterReplicationConfigurationWrapper;
 import com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration;
 import com.liferay.portal.search.elasticsearch7.configuration.OperationMode;
 import com.liferay.portal.search.elasticsearch7.internal.ElasticsearchSearchEngine;
+import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnection;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch7.internal.search.engine.adapter.cluster.ClusterHealthStatusTranslator;
+import com.liferay.portal.search.engine.ConnectionInformation;
+import com.liferay.portal.search.engine.ConnectionInformationBuilder;
+import com.liferay.portal.search.engine.ConnectionInformationBuilderFactory;
+import com.liferay.portal.search.engine.NodeInformation;
+import com.liferay.portal.search.engine.NodeInformationBuilder;
+import com.liferay.portal.search.engine.NodeInformationBuilderFactory;
 import com.liferay.portal.search.engine.SearchEngineInformation;
+import com.liferay.portal.search.engine.adapter.cluster.ClusterHealthStatus;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -34,6 +47,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.elasticsearch.Version;
+import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequestBuilder;
+import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.action.admin.cluster.node.info.NodeInfo;
 import org.elasticsearch.action.admin.cluster.node.info.NodesInfoRequestBuilder;
 import org.elasticsearch.action.admin.cluster.node.info.NodesInfoResponse;
@@ -66,28 +81,66 @@ public class ElasticsearchSearchEngineInformation
 	}
 
 	@Override
-	public String getNodesString() {
-		String clusterNodesString = getClusterNodesString(
-			elasticsearchConnectionManager.getClient());
-
-		if (isCrossClusterReplicationEnabled()) {
-			String localClusterNodesString = getClusterNodesString(
-				elasticsearchConnectionManager.getClient(true));
-
-			if (!Validator.isBlank(localClusterNodesString)) {
-				StringBundler sb = new StringBundler(5);
-
-				sb.append("Remote Cluster = ");
-				sb.append(clusterNodesString);
-				sb.append(StringPool.COMMA_AND_SPACE);
-				sb.append("Local Cluster = ");
-				sb.append(localClusterNodesString);
-
-				clusterNodesString = sb.toString();
-			}
+	public List<ConnectionInformation> getConnectionInformationList() {
+		if (!isCrossClusterReplicationInstalled()) {
+			return null;
 		}
 
-		return clusterNodesString;
+		List<ConnectionInformation> connectionInformationList =
+			new LinkedList<>();
+
+		addMainConnection(
+			elasticsearchConnectionManager.getElasticsearchConnection(),
+			connectionInformationList);
+
+		if (!isOperationModeEmbedded() &&
+			elasticsearchConnectionManager.isCrossClusterReplicationEnabled()) {
+
+			addCCRConnection(
+				elasticsearchConnectionManager.getElasticsearchConnection(true),
+				connectionInformationList);
+		}
+
+		return connectionInformationList;
+	}
+
+	@Override
+	public String getNodesString() {
+		try {
+			String clusterNodesString = getClusterNodesString(
+				elasticsearchConnectionManager.getClient());
+
+			if (!isOperationModeEmbedded() &&
+				elasticsearchConnectionManager.
+					isCrossClusterReplicationEnabled()) {
+
+				String localClusterNodesString = getClusterNodesString(
+					elasticsearchConnectionManager.getClient(true));
+
+				if (!Validator.isBlank(localClusterNodesString)) {
+					StringBundler sb = new StringBundler(11);
+
+					sb.append("Remote Cluster");
+					sb.append(StringPool.SPACE);
+					sb.append(StringPool.EQUAL);
+					sb.append(StringPool.SPACE);
+					sb.append(clusterNodesString);
+					sb.append(StringPool.COMMA_AND_SPACE);
+					sb.append("Local Cluster");
+					sb.append(StringPool.SPACE);
+					sb.append(StringPool.EQUAL);
+					sb.append(StringPool.SPACE);
+					sb.append(localClusterNodesString);
+
+					clusterNodesString = sb.toString();
+				}
+			}
+
+			return clusterNodesString;
+		}
+		catch (Exception exception) {
+			return exception.toString();
+		}
 	}
 
 	/**
@@ -112,15 +165,21 @@ public class ElasticsearchSearchEngineInformation
 
 	@Override
 	public String getVendorString() {
-		OperationMode operationMode =
-			elasticsearchConfiguration.operationMode();
+		String vendor = elasticsearchSearchEngine.getVendor();
 
-		if (Objects.equals(operationMode, OperationMode.EMBEDDED)) {
-			return elasticsearchSearchEngine.getVendor() + StringPool.SPACE +
-				"(Embedded)";
+		if (isOperationModeEmbedded()) {
+			StringBundler sb = new StringBundler(5);
+
+			sb.append(vendor);
+			sb.append(StringPool.SPACE);
+			sb.append(StringPool.OPEN_PARENTHESIS);
+			sb.append("Embedded");
+			sb.append(StringPool.CLOSE_PARENTHESIS);
+
+			return sb.toString();
 		}
 
-		return elasticsearchSearchEngine.getVendor();
+		return vendor;
 	}
 
 	@Activate
@@ -130,30 +189,109 @@ public class ElasticsearchSearchEngineInformation
 			ElasticsearchConfiguration.class, properties);
 	}
 
+	protected void addCCRConnection(
+		ElasticsearchConnection elasticsearchConnection,
+		List<ConnectionInformation> connectionInformationList) {
+
+		addConnectionInformation(
+			elasticsearchConnection, connectionInformationList, "read");
+	}
+
+	protected void addConnectionInformation(
+		ElasticsearchConnection elasticsearchConnection,
+		List<ConnectionInformation> connectionInformationList,
+		String... labels) {
+
+		if (elasticsearchConnection == null) {
+			return;
+		}
+
+		ConnectionInformationBuilder connectionInformationBuilder =
+			connectionInformationBuilderFactory.
+				getConnectionInformationBuilder();
+
+		try {
+			_setClusterAndNodeInformation(
+				connectionInformationBuilder,
+				elasticsearchConnection.getClient());
+		}
+		catch (Exception exception) {
+			connectionInformationBuilder.error(exception.toString());
+
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to get node information", exception);
+			}
+		}
+
+		connectionInformationBuilder.connectionId(
+			elasticsearchConnection.getConnectionId());
+
+		try {
+			_setHealthInformation(
+				connectionInformationBuilder,
+				elasticsearchConnection.getClient());
+		}
+		catch (RuntimeException runtimeException) {
+			connectionInformationBuilder.health("unknown");
+
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to get health information", runtimeException);
+			}
+		}
+
+		if (ArrayUtil.isNotEmpty(labels)) {
+			connectionInformationBuilder.labels(SetUtil.fromArray(labels));
+		}
+
+		connectionInformationList.add(connectionInformationBuilder.build());
+	}
+
+	protected void addMainConnection(
+		ElasticsearchConnection elasticsearchConnection,
+		List<ConnectionInformation> connectionInformationList) {
+
+		String[] labels = {"read", "write"};
+
+		if (!isOperationModeEmbedded() &&
+			elasticsearchConnectionManager.isCrossClusterReplicationEnabled()) {
+
+			labels = new String[] {"write"};
+		}
+
+		addConnectionInformation(
+			elasticsearchConnection, connectionInformationList, labels);
+	}
+
 	protected String getClusterNodesString(Client client) {
 		try {
 			if (client == null) {
 				return StringPool.BLANK;
 			}
 
-			ClusterInfo clusterInfo = _getClusterInfo(client);
+			ConnectionInformationBuilder connectionInformationBuilder =
+				connectionInformationBuilderFactory.
+					getConnectionInformationBuilder();
 
-			String clusterName = clusterInfo.getClusterName();
+			_setClusterAndNodeInformation(connectionInformationBuilder, client);
 
-			List<NodeInfo> nodeInfos = clusterInfo.getNodeInfoList();
+			ConnectionInformation connectionInformation =
+				connectionInformationBuilder.build();
 
-			Stream<NodeInfo> stream = nodeInfos.stream();
+			String clusterName = connectionInformation.getClusterName();
+
+			List<NodeInformation> nodeInformations =
+				connectionInformation.getNodeInformationList();
+
+			Stream<NodeInformation> stream = nodeInformations.stream();
 
 			String nodesString = stream.map(
 				nodeInfo -> {
-					DiscoveryNode node = nodeInfo.getNode();
-
 					StringBundler sb = new StringBundler(5);
 
-					sb.append(node.getName());
+					sb.append(nodeInfo.getName());
 					sb.append(StringPool.SPACE);
 					sb.append(StringPool.OPEN_PARENTHESIS);
-					sb.append(node.getVersion());
+					sb.append(nodeInfo.getVersion());
 					sb.append(StringPool.CLOSE_PARENTHESIS);
 
 					return sb.toString();
@@ -178,10 +316,12 @@ public class ElasticsearchSearchEngineInformation
 				_log.warn("Unable to get node information", exception);
 			}
 
-			StringBundler sb = new StringBundler(4);
+			StringBundler sb = new StringBundler(6);
 
 			sb.append(StringPool.OPEN_PARENTHESIS);
-			sb.append("Error: ");
+			sb.append("Error");
+			sb.append(StringPool.COLON);
+			sb.append(StringPool.SPACE);
 			sb.append(exception.toString());
 			sb.append(StringPool.CLOSE_PARENTHESIS);
 
@@ -189,13 +329,27 @@ public class ElasticsearchSearchEngineInformation
 		}
 	}
 
-	protected boolean isCrossClusterReplicationEnabled() {
+	protected boolean isCrossClusterReplicationInstalled() {
 		if (crossClusterReplicationConfigurationWrapper == null) {
 			return false;
 		}
 
-		return crossClusterReplicationConfigurationWrapper.isCCREnabled();
+		return true;
 	}
+
+	protected boolean isOperationModeEmbedded() {
+		OperationMode operationMode =
+			elasticsearchConfiguration.operationMode();
+
+		return Objects.equals(operationMode, OperationMode.EMBEDDED);
+	}
+
+	@Reference
+	protected ClusterHealthStatusTranslator clusterHealthStatusTranslator;
+
+	@Reference
+	protected ConnectionInformationBuilderFactory
+		connectionInformationBuilderFactory;
 
 	@Reference(cardinality = ReferenceCardinality.OPTIONAL)
 	protected volatile CrossClusterReplicationConfigurationWrapper
@@ -209,8 +363,12 @@ public class ElasticsearchSearchEngineInformation
 	@Reference
 	protected ElasticsearchSearchEngine elasticsearchSearchEngine;
 
-	private ClusterInfo _getClusterInfo(Client client) {
-		ClusterInfo clusterInfo = new ClusterInfo();
+	@Reference
+	protected NodeInformationBuilderFactory nodeInformationBuilderFactory;
+
+	private void _setClusterAndNodeInformation(
+		ConnectionInformationBuilder connectionInformationBuilder,
+		Client client) {
 
 		AdminClient adminClient = client.admin();
 
@@ -226,37 +384,50 @@ public class ElasticsearchSearchEngineInformation
 
 		ClusterName clusterName = nodesInfoResponse.getClusterName();
 
-		clusterInfo.setClusterName(clusterName.value());
+		connectionInformationBuilder.clusterName(clusterName.value());
 
-		clusterInfo.setNodeInfoList(nodesInfoResponse.getNodes());
+		List<NodeInformation> nodeInformationList = new ArrayList<>();
 
-		return clusterInfo;
+		for (NodeInfo nodeInfo : nodesInfoResponse.getNodes()) {
+			NodeInformationBuilder nodeInformationBuilder =
+				nodeInformationBuilderFactory.getNodeInformationBuilder();
+
+			DiscoveryNode node = nodeInfo.getNode();
+
+			nodeInformationBuilder.name(node.getName());
+
+			Version version = node.getVersion();
+
+			nodeInformationBuilder.version(version.toString());
+
+			nodeInformationList.add(nodeInformationBuilder.build());
+		}
+
+		connectionInformationBuilder.nodeInformationList(nodeInformationList);
+	}
+
+	private void _setHealthInformation(
+		ConnectionInformationBuilder connectionInformationBuilder,
+		Client client) {
+
+		AdminClient adminClient = client.admin();
+
+		ClusterAdminClient clusterAdminClient = adminClient.cluster();
+
+		ClusterHealthRequestBuilder clusterHealthRequestBuilder =
+			clusterAdminClient.prepareHealth();
+
+		ClusterHealthResponse clusterHealthResponse =
+			clusterHealthRequestBuilder.get();
+
+		ClusterHealthStatus clusterHealthStatus =
+			clusterHealthStatusTranslator.translate(
+				clusterHealthResponse.getStatus());
+
+		connectionInformationBuilder.health(clusterHealthStatus.toString());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ElasticsearchSearchEngineInformation.class);
-
-	private class ClusterInfo {
-
-		public String getClusterName() {
-			return _clusterName;
-		}
-
-		public List<NodeInfo> getNodeInfoList() {
-			return _nodeInfoList;
-		}
-
-		public void setClusterName(String clusterName) {
-			_clusterName = clusterName;
-		}
-
-		public void setNodeInfoList(List<NodeInfo> nodeInfoList) {
-			_nodeInfoList = nodeInfoList;
-		}
-
-		private String _clusterName;
-		private List<NodeInfo> _nodeInfoList;
-
-	}
 
 }
