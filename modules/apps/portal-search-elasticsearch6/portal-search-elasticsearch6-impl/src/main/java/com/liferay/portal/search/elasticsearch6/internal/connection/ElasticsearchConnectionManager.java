@@ -108,6 +108,14 @@ public class ElasticsearchConnectionManager
 			RemoteElasticsearchConnection.CONNECTION_ID);
 	}
 
+	public boolean isCrossClusterReplicationEnabled() {
+		if (crossClusterReplicationConfigurationWrapper == null) {
+			return false;
+		}
+
+		return crossClusterReplicationConfigurationWrapper.isCCREnabled();
+	}
+
 	public synchronized void registerCompanyId(long companyId) {
 		_companyIds.put(companyId, companyId);
 	}
@@ -170,14 +178,6 @@ public class ElasticsearchConnectionManager
 		activate(translate(_elasticsearchConfiguration.operationMode()));
 
 		setCCRElasticsearchConfiguration();
-	}
-
-	protected boolean isCrossClusterReplicationEnabled() {
-		if (crossClusterReplicationConfigurationWrapper == null) {
-			return false;
-		}
-
-		return crossClusterReplicationConfigurationWrapper.isCCREnabled();
 	}
 
 	@Modified
