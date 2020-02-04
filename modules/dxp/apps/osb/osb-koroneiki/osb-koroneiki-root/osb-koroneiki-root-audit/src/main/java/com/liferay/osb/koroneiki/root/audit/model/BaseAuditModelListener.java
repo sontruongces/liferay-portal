@@ -53,7 +53,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 			for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 				String field = entry.getKey();
 
-				if (_isIgnoredField(field)) {
+				if (isIgnoredField(field)) {
 					continue;
 				}
 
@@ -66,8 +66,8 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 					serviceContext);
 			}
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -81,7 +81,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 			for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 				String field = entry.getKey();
 
-				if (_isIgnoredField(field)) {
+				if (isIgnoredField(field)) {
 					continue;
 				}
 
@@ -94,8 +94,8 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 					serviceContext);
 			}
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -115,7 +115,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 			for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 				String field = entry.getKey();
 
-				if (_isIgnoredField(field)) {
+				if (isIgnoredField(field)) {
 					continue;
 				}
 
@@ -136,8 +136,8 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 					getDescription(model), serviceContext);
 			}
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -173,12 +173,17 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 			serviceContext = new ServiceContext();
 		}
 
+		String auditSetKey = classNameId + StringPool.POUND + classPK;
+
 		long auditSetId = GetterUtil.getLong(
 			serviceContext.getAttribute("auditSetId"));
+		String curAuditSetKey = GetterUtil.getString(
+			serviceContext.getAttribute("auditSetKey"));
 
-		if (auditSetId <= 0) {
+		if ((auditSetId <= 0) || !auditSetKey.equals(curAuditSetKey)) {
 			serviceContext.setAttribute(
 				"auditSetId", _getAuditSetId(classNameId, classPK));
+			serviceContext.setAttribute("auditSetKey", auditSetKey);
 		}
 
 		return serviceContext;
@@ -198,6 +203,16 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 		}
 
 		return userId;
+	}
+
+	protected boolean isIgnoredField(String field) {
+		if (field.equals("entityCacheEnabled") ||
+			field.equals("finderCacheEnabled") || field.equals("mvccVersion")) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	protected boolean isSkipFieldUpdate(
@@ -241,16 +256,6 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 		}
 
 		return auditSetId;
-	}
-
-	private boolean _isIgnoredField(String field) {
-		if (field.equals("entityCacheEnabled") ||
-			field.equals("finderCacheEnabled") || field.equals("mvccVersion")) {
-
-			return true;
-		}
-
-		return false;
 	}
 
 	private final ThreadLocal<Map<String, Long>> _auditSetIdMap =

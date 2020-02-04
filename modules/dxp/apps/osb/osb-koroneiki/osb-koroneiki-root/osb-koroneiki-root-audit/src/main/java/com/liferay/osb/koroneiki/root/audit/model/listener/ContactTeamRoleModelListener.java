@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.root.audit.model.listener;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AuditEntry;
 import com.liferay.osb.koroneiki.root.audit.model.BaseAuditModelListener;
+import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactTeamRole;
@@ -46,6 +47,21 @@ public class ContactTeamRoleModelListener
 			Team team = contactTeamRole.getTeam();
 
 			ServiceContext serviceContext = getServiceContext(
+				classNameLocalService.getClassNameId(ContactRole.class),
+				contactRole.getContactRoleId());
+
+			auditEntryLocalService.addAuditEntry(
+				getUserId(),
+				classNameLocalService.getClassNameId(Account.class),
+				team.getAccountId(),
+				classNameLocalService.getClassNameId(Team.class),
+				team.getTeamId(), AuditEntry.Action.UPDATE.toString(),
+				"Contact", StringPool.BLANK, StringPool.BLANK,
+				contact.getFullName(), String.valueOf(contact.getContactId()),
+				team.getName() + StringPool.SPACE + contactRole.getName(),
+				serviceContext);
+
+			serviceContext = getServiceContext(
 				classNameLocalService.getClassNameId(Contact.class),
 				contactTeamRole.getContactId());
 
@@ -89,6 +105,22 @@ public class ContactTeamRoleModelListener
 			Team team = contactTeamRole.getTeam();
 
 			ServiceContext serviceContext = getServiceContext(
+				classNameLocalService.getClassNameId(ContactRole.class),
+				contactRole.getContactRoleId());
+
+			auditEntryLocalService.addAuditEntry(
+				getUserId(),
+				classNameLocalService.getClassNameId(Account.class),
+				team.getAccountId(),
+				classNameLocalService.getClassNameId(Team.class),
+				team.getTeamId(), AuditEntry.Action.UPDATE.toString(),
+				"Contact", contact.getFullName(),
+				String.valueOf(contact.getContactId()), StringPool.BLANK,
+				StringPool.BLANK,
+				team.getName() + StringPool.SPACE + contactRole.getName(),
+				serviceContext);
+
+			serviceContext = getServiceContext(
 				classNameLocalService.getClassNameId(Contact.class),
 				contactTeamRole.getContactId());
 
