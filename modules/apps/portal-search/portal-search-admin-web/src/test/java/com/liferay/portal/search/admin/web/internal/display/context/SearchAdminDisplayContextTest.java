@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.language.LanguageImpl;
+import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.index.IndexInformation;
 import com.liferay.portal.util.HttpImpl;
 
@@ -54,6 +55,48 @@ public class SearchAdminDisplayContextTest {
 	}
 
 	@Test
+	public void testGetNavigationItemListNoInformation() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal, new MockRenderRequest(),
+				new MockRenderResponse());
+
+		searchAdminDisplayBuilder.setIndexInformation(null);
+		searchAdminDisplayBuilder.setSearchEngineInformation(null);
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		NavigationItemList navigationItemList =
+			searchAdminDisplayContext.getNavigationItemList();
+
+		Assert.assertEquals(
+			navigationItemList.toString(), 1, navigationItemList.size());
+	}
+
+	@Test
+	public void testGetNavigationItemListWithIndexAndSearchEngineInformation() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal, new MockRenderRequest(),
+				new MockRenderResponse());
+
+		searchAdminDisplayBuilder.setIndexInformation(
+			Mockito.mock(IndexInformation.class));
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			Mockito.mock(SearchEngineInformation.class));
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		NavigationItemList navigationItemList =
+			searchAdminDisplayContext.getNavigationItemList();
+
+		Assert.assertEquals(
+			navigationItemList.toString(), 3, navigationItemList.size());
+	}
+
+	@Test
 	public void testGetNavigationItemListWithIndexInformation() {
 		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
 			new SearchAdminDisplayBuilder(
@@ -74,13 +117,55 @@ public class SearchAdminDisplayContextTest {
 	}
 
 	@Test
-	public void testGetNavigationItemListWithoutIndexInformation() {
+	public void testGetNavigationItemListWithIndexInformationAndWithoutConnectionInformation() {
 		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
 			new SearchAdminDisplayBuilder(
 				_language, _portal, new MockRenderRequest(),
 				new MockRenderResponse());
 
-		searchAdminDisplayBuilder.setIndexInformation(null);
+		searchAdminDisplayBuilder.setIndexInformation(
+			Mockito.mock(IndexInformation.class));
+
+		SearchEngineInformation searchEngineInformation = Mockito.mock(
+			SearchEngineInformation.class);
+
+		Mockito.when(
+			searchEngineInformation.getConnectionInformationList()
+		).thenReturn(
+			null
+		);
+
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			searchEngineInformation);
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		NavigationItemList navigationItemList =
+			searchAdminDisplayContext.getNavigationItemList();
+
+		Assert.assertEquals(
+			navigationItemList.toString(), 2, navigationItemList.size());
+	}
+
+	@Test
+	public void testGetNavigationItemListWithoutConnectionInformation() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal, new MockRenderRequest(),
+				new MockRenderResponse());
+
+		SearchEngineInformation searchEngineInformation = Mockito.mock(
+			SearchEngineInformation.class);
+
+		Mockito.when(
+			searchEngineInformation.getConnectionInformationList()
+		).thenReturn(
+			null
+		);
+
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			searchEngineInformation);
 
 		SearchAdminDisplayContext searchAdminDisplayContext =
 			searchAdminDisplayBuilder.build();
@@ -93,6 +178,26 @@ public class SearchAdminDisplayContextTest {
 	}
 
 	@Test
+	public void testGetNavigationItemListWithSearchEngineInformation() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal, new MockRenderRequest(),
+				new MockRenderResponse());
+
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			Mockito.mock(SearchEngineInformation.class));
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		NavigationItemList navigationItemList =
+			searchAdminDisplayContext.getNavigationItemList();
+
+		Assert.assertEquals(
+			navigationItemList.toString(), 2, navigationItemList.size());
+	}
+
+	@Test
 	public void testGetTabDefault() {
 		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
 			new SearchAdminDisplayBuilder(
@@ -101,6 +206,8 @@ public class SearchAdminDisplayContextTest {
 
 		searchAdminDisplayBuilder.setIndexInformation(
 			Mockito.mock(IndexInformation.class));
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			Mockito.mock(SearchEngineInformation.class));
 
 		SearchAdminDisplayContext searchAdminDisplayContext =
 			searchAdminDisplayBuilder.build();
@@ -119,6 +226,8 @@ public class SearchAdminDisplayContextTest {
 
 		searchAdminDisplayBuilder.setIndexInformation(
 			Mockito.mock(IndexInformation.class));
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			Mockito.mock(SearchEngineInformation.class));
 
 		SearchAdminDisplayContext searchAdminDisplayContext =
 			searchAdminDisplayBuilder.build();
@@ -128,7 +237,7 @@ public class SearchAdminDisplayContextTest {
 	}
 
 	@Test
-	public void testGetTabFieldMappingsNoIndexInformation() {
+	public void testGetTabFieldMappingsNoInformation() {
 		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
 			new SearchAdminDisplayBuilder(
 				_language, _portal,
@@ -136,6 +245,7 @@ public class SearchAdminDisplayContextTest {
 				new MockRenderResponse());
 
 		searchAdminDisplayBuilder.setIndexInformation(null);
+		searchAdminDisplayBuilder.setSearchEngineInformation(null);
 
 		SearchAdminDisplayContext searchAdminDisplayContext =
 			searchAdminDisplayBuilder.build();
@@ -154,6 +264,75 @@ public class SearchAdminDisplayContextTest {
 
 		searchAdminDisplayBuilder.setIndexInformation(
 			Mockito.mock(IndexInformation.class));
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			Mockito.mock(SearchEngineInformation.class));
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		Assert.assertEquals(
+			"index-actions", searchAdminDisplayContext.getSelectedTab());
+	}
+
+	@Test
+	public void testGetTabSearchEngine() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal,
+				getRenderRequestWithSelectedTab("search-engine"),
+				new MockRenderResponse());
+
+		searchAdminDisplayBuilder.setIndexInformation(
+			Mockito.mock(IndexInformation.class));
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			Mockito.mock(SearchEngineInformation.class));
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		Assert.assertEquals(
+			"search-engine", searchAdminDisplayContext.getSelectedTab());
+	}
+
+	@Test
+	public void testGetTabSearchEngineNoConnectionInformation() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal,
+				getRenderRequestWithSelectedTab("search-engine"),
+				new MockRenderResponse());
+
+		searchAdminDisplayBuilder.setIndexInformation(null);
+
+		SearchEngineInformation searchEngineInformation = Mockito.mock(
+			SearchEngineInformation.class);
+
+		Mockito.when(
+			searchEngineInformation.getConnectionInformationList()
+		).thenReturn(
+			null
+		);
+
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			searchEngineInformation);
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		Assert.assertEquals(
+			"index-actions", searchAdminDisplayContext.getSelectedTab());
+	}
+
+	@Test
+	public void testGetTabSearchEngineNoInformation() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal,
+				getRenderRequestWithSelectedTab("search-engine"),
+				new MockRenderResponse());
+
+		searchAdminDisplayBuilder.setIndexInformation(null);
+		searchAdminDisplayBuilder.setSearchEngineInformation(null);
 
 		SearchAdminDisplayContext searchAdminDisplayContext =
 			searchAdminDisplayBuilder.build();
