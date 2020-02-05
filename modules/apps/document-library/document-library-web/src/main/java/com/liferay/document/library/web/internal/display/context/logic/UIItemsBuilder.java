@@ -460,7 +460,7 @@ public class UIItemsBuilder {
 			return;
 		}
 
-		String label = TextFormatter.formatStorageSize(
+		String label = LanguageUtil.formatStorageSize(
 			_fileVersion.getSize(), _themeDisplay.getLocale());
 
 		label = StringBundler.concat(
@@ -500,7 +500,7 @@ public class UIItemsBuilder {
 			return;
 		}
 
-		String label = TextFormatter.formatStorageSize(
+		String label = LanguageUtil.formatStorageSize(
 			_fileVersion.getSize(), _themeDisplay.getLocale());
 
 		_addURLUIItem(
