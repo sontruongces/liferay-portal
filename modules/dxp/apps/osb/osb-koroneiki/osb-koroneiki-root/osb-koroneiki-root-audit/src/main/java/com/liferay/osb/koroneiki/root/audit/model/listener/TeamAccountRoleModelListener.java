@@ -24,7 +24,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ModelListener;
-import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -41,12 +40,9 @@ public class TeamAccountRoleModelListener
 
 		try {
 			Account account = teamAccountRole.getAccount();
+
 			Team team = teamAccountRole.getTeam();
 			TeamRole teamRole = teamAccountRole.getTeamRole();
-
-			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Account.class),
-				teamAccountRole.getAccountId());
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -57,11 +53,7 @@ public class TeamAccountRoleModelListener
 				AuditEntry.Action.ASSIGN.toString(), "Team Role",
 				StringPool.BLANK, StringPool.BLANK, teamRole.getName(),
 				String.valueOf(teamAccountRole.getTeamRoleId()), team.getName(),
-				serviceContext);
-
-			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Team.class),
-				teamAccountRole.getTeamId());
+				getServiceContext(teamAccountRole));
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(), classNameLocalService.getClassNameId(Team.class),
@@ -71,7 +63,7 @@ public class TeamAccountRoleModelListener
 				AuditEntry.Action.ASSIGN.toString(), "Account",
 				StringPool.BLANK, StringPool.BLANK, account.getName(),
 				String.valueOf(account.getAccountId()), teamRole.getName(),
-				serviceContext);
+				getServiceContext(teamAccountRole));
 		}
 		catch (PortalException portalException) {
 			throw new ModelListenerException(portalException);
@@ -84,12 +76,9 @@ public class TeamAccountRoleModelListener
 
 		try {
 			Account account = teamAccountRole.getAccount();
+
 			Team team = teamAccountRole.getTeam();
 			TeamRole teamRole = teamAccountRole.getTeamRole();
-
-			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Account.class),
-				teamAccountRole.getAccountId());
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -101,11 +90,7 @@ public class TeamAccountRoleModelListener
 				teamRole.getName(),
 				String.valueOf(teamAccountRole.getTeamRoleId()),
 				StringPool.BLANK, StringPool.BLANK, team.getName(),
-				serviceContext);
-
-			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Team.class),
-				teamAccountRole.getTeamId());
+				getServiceContext(teamAccountRole));
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(), classNameLocalService.getClassNameId(Team.class),
@@ -115,7 +100,7 @@ public class TeamAccountRoleModelListener
 				AuditEntry.Action.UNASSIGN.toString(), "Account",
 				account.getName(), String.valueOf(account.getAccountId()),
 				StringPool.BLANK, StringPool.BLANK, teamRole.getName(),
-				serviceContext);
+				getServiceContext(teamAccountRole));
 		}
 		catch (PortalException portalException) {
 			throw new ModelListenerException(portalException);

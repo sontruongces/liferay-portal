@@ -51,7 +51,7 @@ public class ProductFieldModelListener
 			long accountId = _getAccountId(productField);
 
 			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Account.class), accountId);
+				productField.getClassNameId(), productField.getClassPK());
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -62,8 +62,8 @@ public class ProductFieldModelListener
 				productField.getValue(), getDescription(productField),
 				serviceContext);
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -75,7 +75,7 @@ public class ProductFieldModelListener
 			long accountId = _getAccountId(productField);
 
 			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Account.class), accountId);
+				productField.getClassNameId(), productField.getClassPK());
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -85,8 +85,8 @@ public class ProductFieldModelListener
 				StringPool.BLANK, productField.getValue(), StringPool.BLANK,
 				StringPool.BLANK, getDescription(productField), serviceContext);
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -105,8 +105,7 @@ public class ProductFieldModelListener
 				long accountId = _getAccountId(productField);
 
 				ServiceContext serviceContext = getServiceContext(
-					classNameLocalService.getClassNameId(Account.class),
-					accountId);
+					productField.getClassNameId(), productField.getClassPK());
 
 				auditEntryLocalService.addAuditEntry(
 					getUserId(),
@@ -119,8 +118,8 @@ public class ProductFieldModelListener
 					serviceContext);
 			}
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 

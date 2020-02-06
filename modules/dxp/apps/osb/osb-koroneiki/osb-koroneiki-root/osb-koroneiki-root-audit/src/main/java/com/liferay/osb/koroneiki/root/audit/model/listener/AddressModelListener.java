@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.AddressLocalService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.text.localizer.address.AddressTextLocalizer;
 
 import java.util.Objects;
@@ -46,20 +45,16 @@ public class AddressModelListener extends BaseAuditModelListener<Address> {
 		}
 
 		try {
-			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Account.class),
-				address.getClassPK());
-
 			auditEntryLocalService.addAuditEntry(
 				getUserId(), address.getClassNameId(), address.getClassPK(),
 				classNameLocalService.getClassNameId(Address.class),
 				address.getAddressId(), AuditEntry.Action.ADD.toString(),
 				"Address", StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
 				_addressTextLocalizer.format(address), StringPool.BLANK,
-				serviceContext);
+				getServiceContext(address));
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -72,20 +67,16 @@ public class AddressModelListener extends BaseAuditModelListener<Address> {
 		}
 
 		try {
-			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Account.class),
-				address.getClassPK());
-
 			auditEntryLocalService.addAuditEntry(
 				getUserId(), address.getClassNameId(), address.getClassPK(),
 				classNameLocalService.getClassNameId(Address.class),
 				address.getAddressId(), AuditEntry.Action.DELETE.toString(),
 				"Address", StringPool.BLANK,
 				_addressTextLocalizer.format(address), StringPool.BLANK,
-				StringPool.BLANK, StringPool.BLANK, serviceContext);
+				StringPool.BLANK, StringPool.BLANK, getServiceContext(address));
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 
@@ -106,21 +97,17 @@ public class AddressModelListener extends BaseAuditModelListener<Address> {
 			if (!Objects.equals(
 					oldValue, _addressTextLocalizer.format(address))) {
 
-				ServiceContext serviceContext = getServiceContext(
-					classNameLocalService.getClassNameId(Account.class),
-					address.getClassPK());
-
 				auditEntryLocalService.addAuditEntry(
 					getUserId(), address.getClassNameId(), address.getClassPK(),
 					classNameLocalService.getClassNameId(Address.class),
 					address.getAddressId(), AuditEntry.Action.UPDATE.toString(),
 					"Address", StringPool.BLANK, oldValue, StringPool.BLANK,
 					_addressTextLocalizer.format(address), StringPool.BLANK,
-					serviceContext);
+					getServiceContext(address));
 			}
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 

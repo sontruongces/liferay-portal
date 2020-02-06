@@ -31,6 +31,8 @@ import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 
+import java.io.Serializable;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -166,14 +168,14 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 	}
 
 	protected ServiceContext getServiceContext(long classNameId, long classPK) {
+		String auditSetKey = classNameId + StringPool.POUND + classPK;
+
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
 		if (serviceContext == null) {
 			serviceContext = new ServiceContext();
 		}
-
-		String auditSetKey = classNameId + StringPool.POUND + classPK;
 
 		long auditSetId = GetterUtil.getLong(
 			serviceContext.getAttribute("auditSetId"));
@@ -182,7 +184,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 
 		if ((auditSetId <= 0) || !auditSetKey.equals(curAuditSetKey)) {
 			serviceContext.setAttribute(
-				"auditSetId", _getAuditSetId(classNameId, classPK));
+				"auditSetId", _getAuditSetId(auditSetKey));
 			serviceContext.setAttribute("auditSetKey", auditSetKey);
 		}
 
@@ -190,7 +192,20 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 	}
 
 	protected ServiceContext getServiceContext(T model) {
-		return getServiceContext(getClassNameId(model), getClassPK(model));
+		long classPK = 0;
+
+		Serializable primaryKeyObj = model.getPrimaryKeyObj();
+
+		if (primaryKeyObj instanceof Long) {
+			classPK = (long)primaryKeyObj;
+		}
+		else {
+			classPK = primaryKeyObj.hashCode();
+		}
+
+		return getServiceContext(
+			classNameLocalService.getClassNameId(model.getModelClass()),
+			classPK);
 	}
 
 	protected long getUserId() throws PortalException {
@@ -240,19 +255,17 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 	@Reference
 	protected UserLocalService userLocalService;
 
-	private long _getAuditSetId(long classNameId, long classPK) {
-		String key = classNameId + StringPool.POUND + classPK;
-
+	private long _getAuditSetId(String auditSetKey) {
 		Map<String, Long> auditSetIdMap = _auditSetIdMap.get();
 
-		Long auditSetId = auditSetIdMap.get(key);
+		Long auditSetId = auditSetIdMap.get(auditSetKey);
 
 		if ((auditSetId == null) || (auditSetId <= 0)) {
 			auditSetId = counterLocalService.increment(
 				com.liferay.osb.koroneiki.root.model.AuditEntry.class.
 					getName());
 
-			auditSetIdMap.put(key, auditSetId);
+			auditSetIdMap.put(auditSetKey, auditSetId);
 		}
 
 		return auditSetId;

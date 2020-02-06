@@ -24,7 +24,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ModelListener;
-import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -42,12 +41,9 @@ public class ContactAccountRoleModelListener
 
 		try {
 			Account account = contactAccountRole.getAccount();
+
 			Contact contact = contactAccountRole.getContact();
 			ContactRole contactRole = contactAccountRole.getContactRole();
-
-			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Account.class),
-				contactAccountRole.getAccountId());
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -58,11 +54,7 @@ public class ContactAccountRoleModelListener
 				AuditEntry.Action.ASSIGN.toString(), "Contact Role",
 				StringPool.BLANK, StringPool.BLANK, contactRole.getName(),
 				String.valueOf(contactAccountRole.getContactRoleId()),
-				contact.getFullName(), serviceContext);
-
-			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Contact.class),
-				contactAccountRole.getContactId());
+				contact.getFullName(), getServiceContext(contactAccountRole));
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -73,7 +65,7 @@ public class ContactAccountRoleModelListener
 				AuditEntry.Action.ASSIGN.toString(), "Account",
 				StringPool.BLANK, StringPool.BLANK, account.getName(),
 				String.valueOf(account.getAccountId()), contactRole.getName(),
-				serviceContext);
+				getServiceContext(contactAccountRole));
 		}
 		catch (PortalException portalException) {
 			throw new ModelListenerException(portalException);
@@ -86,12 +78,9 @@ public class ContactAccountRoleModelListener
 
 		try {
 			Account account = contactAccountRole.getAccount();
+
 			Contact contact = contactAccountRole.getContact();
 			ContactRole contactRole = contactAccountRole.getContactRole();
-
-			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Account.class),
-				contactAccountRole.getAccountId());
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -103,11 +92,7 @@ public class ContactAccountRoleModelListener
 				contactRole.getName(),
 				String.valueOf(contactAccountRole.getContactRoleId()),
 				StringPool.BLANK, StringPool.BLANK, contact.getFullName(),
-				serviceContext);
-
-			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Contact.class),
-				contactAccountRole.getContactId());
+				getServiceContext(contactAccountRole));
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -118,7 +103,7 @@ public class ContactAccountRoleModelListener
 				AuditEntry.Action.UNASSIGN.toString(), "Account",
 				account.getName(), String.valueOf(account.getAccountId()),
 				StringPool.BLANK, StringPool.BLANK, contactRole.getName(),
-				serviceContext);
+				getServiceContext(contactAccountRole));
 		}
 		catch (PortalException portalException) {
 			throw new ModelListenerException(portalException);

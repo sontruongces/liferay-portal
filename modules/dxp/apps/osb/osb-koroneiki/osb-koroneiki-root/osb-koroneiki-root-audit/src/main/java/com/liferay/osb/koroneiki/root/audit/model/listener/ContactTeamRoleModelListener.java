@@ -25,7 +25,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ModelListener;
-import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -46,10 +45,6 @@ public class ContactTeamRoleModelListener
 			ContactRole contactRole = contactTeamRole.getContactRole();
 			Team team = contactTeamRole.getTeam();
 
-			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(ContactRole.class),
-				contactRole.getContactRoleId());
-
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
 				classNameLocalService.getClassNameId(Account.class),
@@ -59,11 +54,7 @@ public class ContactTeamRoleModelListener
 				"Contact", StringPool.BLANK, StringPool.BLANK,
 				contact.getFullName(), String.valueOf(contact.getContactId()),
 				team.getName() + StringPool.SPACE + contactRole.getName(),
-				serviceContext);
-
-			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Contact.class),
-				contactTeamRole.getContactId());
+				getServiceContext(contactTeamRole));
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -74,11 +65,7 @@ public class ContactTeamRoleModelListener
 				AuditEntry.Action.ASSIGN.toString(), "Team", StringPool.BLANK,
 				StringPool.BLANK, team.getName(),
 				String.valueOf(team.getTeamId()), contactRole.getName(),
-				serviceContext);
-
-			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Team.class),
-				contactTeamRole.getTeamId());
+				getServiceContext(contactTeamRole));
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(), classNameLocalService.getClassNameId(Team.class),
@@ -88,7 +75,7 @@ public class ContactTeamRoleModelListener
 				AuditEntry.Action.ASSIGN.toString(), "Contact Role",
 				StringPool.BLANK, StringPool.BLANK, contactRole.getName(),
 				String.valueOf(contactTeamRole.getContactRoleId()),
-				contact.getFullName(), serviceContext);
+				contact.getFullName(), getServiceContext(contactTeamRole));
 		}
 		catch (PortalException portalException) {
 			throw new ModelListenerException(portalException);
@@ -104,10 +91,6 @@ public class ContactTeamRoleModelListener
 			ContactRole contactRole = contactTeamRole.getContactRole();
 			Team team = contactTeamRole.getTeam();
 
-			ServiceContext serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(ContactRole.class),
-				contactRole.getContactRoleId());
-
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
 				classNameLocalService.getClassNameId(Account.class),
@@ -118,11 +101,7 @@ public class ContactTeamRoleModelListener
 				String.valueOf(contact.getContactId()), StringPool.BLANK,
 				StringPool.BLANK,
 				team.getName() + StringPool.SPACE + contactRole.getName(),
-				serviceContext);
-
-			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Contact.class),
-				contactTeamRole.getContactId());
+				getServiceContext(contactTeamRole));
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(),
@@ -132,11 +111,8 @@ public class ContactTeamRoleModelListener
 				contactTeamRole.getContactRoleId(),
 				AuditEntry.Action.UNASSIGN.toString(), "Team", team.getName(),
 				String.valueOf(team.getTeamId()), StringPool.BLANK,
-				StringPool.BLANK, contactRole.getName(), serviceContext);
-
-			serviceContext = getServiceContext(
-				classNameLocalService.getClassNameId(Team.class),
-				contactTeamRole.getTeamId());
+				StringPool.BLANK, contactRole.getName(),
+				getServiceContext(contactTeamRole));
 
 			auditEntryLocalService.addAuditEntry(
 				getUserId(), classNameLocalService.getClassNameId(Team.class),
@@ -147,7 +123,7 @@ public class ContactTeamRoleModelListener
 				contactRole.getName(),
 				String.valueOf(contactTeamRole.getContactRoleId()),
 				StringPool.BLANK, StringPool.BLANK, contact.getFullName(),
-				serviceContext);
+				getServiceContext(contactTeamRole));
 		}
 		catch (PortalException portalException) {
 			throw new ModelListenerException(portalException);
