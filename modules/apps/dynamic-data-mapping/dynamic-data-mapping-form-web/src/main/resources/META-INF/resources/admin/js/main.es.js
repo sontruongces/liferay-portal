@@ -161,7 +161,7 @@ class Form extends Component {
 				this._handleAddFieldButtonClicked.bind(this)
 			),
 			dom.on(
-				`#${namespace}ControlMenu *[title="Back"]`,
+				`#${namespace}controlMenu .sites-control-group span.lfr-portal-tooltip`,
 				'click',
 				this._handleBackButtonClicked
 			),
