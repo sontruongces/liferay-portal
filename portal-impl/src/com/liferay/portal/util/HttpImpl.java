@@ -14,6 +14,7 @@
 
 package com.liferay.portal.util;
 
+import com.liferay.petra.lang.CentralizedThreadLocal;
 import com.liferay.petra.memory.FinalizeAction;
 import com.liferay.petra.memory.FinalizeManager;
 import com.liferay.petra.string.CharPool;
@@ -53,6 +54,7 @@ import java.nio.charset.Charset;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -505,7 +507,7 @@ public class HttpImpl implements Http {
 		url = url.trim();
 
 		try {
-			URI uri = new URI(url);
+			URI uri = _getURI(url);
 
 			String host = uri.getHost();
 
@@ -598,7 +600,7 @@ public class HttpImpl implements Http {
 		url = url.trim();
 
 		try {
-			URI uri = new URI(url);
+			URI uri = _getURI(url);
 
 			String path = uri.getPath();
 
@@ -646,7 +648,7 @@ public class HttpImpl implements Http {
 		url = url.trim();
 
 		try {
-			URI uri = new URI(url);
+			URI uri = _getURI(url);
 
 			String scheme = uri.getScheme();
 
@@ -670,7 +672,7 @@ public class HttpImpl implements Http {
 		url = url.trim();
 
 		try {
-			URI uri = new URI(url);
+			URI uri = _getURI(url);
 
 			String query = uri.getQuery();
 
@@ -1746,7 +1748,7 @@ public class HttpImpl implements Http {
 		URI uri = null;
 
 		try {
-			uri = new URI(location);
+			uri = _getURI(location);
 		}
 		catch (URISyntaxException uriSyntaxException) {
 			throw new IOException(
@@ -1768,7 +1770,7 @@ public class HttpImpl implements Http {
 
 				location = Http.HTTP_WITH_SLASH + location;
 
-				uri = new URI(location);
+				uri = _getURI(location);
 			}
 
 			HttpHost targetHttpHost = new HttpHost(
@@ -2026,6 +2028,20 @@ public class HttpImpl implements Http {
 		}
 	}
 
+	private URI _getURI(String url) throws URISyntaxException {
+		Map<String, URI> uriMap = _uriMap.get();
+
+		URI uri = uriMap.get(url);
+
+		if (uri == null) {
+			uri = new URI(url);
+
+			uriMap.put(url, uri);
+		}
+
+		return uri;
+	}
+
 	private String _shortenURL(
 		String encodedURL, int currentLength, String encodedQuestion,
 		String encodedAmpersand, String encodedEqual) {
@@ -2154,6 +2170,8 @@ public class HttpImpl implements Http {
 	private static final Log _log = LogFactoryUtil.getLog(HttpImpl.class);
 
 	private static final ThreadLocal<Cookie[]> _cookies = new ThreadLocal<>();
+	private static final ThreadLocal<Map<String, URI>> _uriMap =
+		new CentralizedThreadLocal<>(HttpImpl.class + "._uriMap", HashMap::new);
 
 	private final CloseableHttpClient _closeableHttpClient;
 	private final Pattern _nonProxyHostsPattern;
