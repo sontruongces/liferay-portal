@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Tier;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.AuditEntryLocalService;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
+import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
@@ -81,7 +82,8 @@ public class CorpProjectMigration {
 				account.setUserId(userId);
 				account.setCreateDate(resultSet.getTimestamp("createDate"));
 				account.setModifiedDate(resultSet.getTimestamp("modifiedDate"));
-				account.setAccountKey(resultSet.getString("uuid_"));
+				account.setAccountKey(
+					ModelKeyGenerator.generate(account.getAccountId()));
 
 				long parentAccountId = _getParentAccountId(
 					resultSet.getString("dossieraAccountKey"));
@@ -124,8 +126,7 @@ public class CorpProjectMigration {
 
 				_externalLinkLocalService.addExternalLink(
 					userId, Account.class.getName(), account.getAccountId(),
-					"web", "corpProject",
-					String.valueOf(account.getAccountId()));
+					"web", "corpProject", resultSet.getString("uuid_"));
 
 				if (_log.isInfoEnabled()) {
 					_log.info("Migrated CorpProject " + account.getAccountId());
