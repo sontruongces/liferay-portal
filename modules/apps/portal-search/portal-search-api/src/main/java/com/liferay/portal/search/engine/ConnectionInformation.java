@@ -15,24 +15,26 @@
 package com.liferay.portal.search.engine;
 
 import java.util.List;
+import java.util.Set;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * @author Adam Brandizzi
+ * @author Bryan Engler
  */
-public interface SearchEngineInformation {
+@ProviderType
+public interface ConnectionInformation {
 
-	public String getClientVersionString();
+	public String getClusterName();
 
-	public List<ConnectionInformation> getConnectionInformationList();
+	public String getConnectionId();
 
-	public String getNodesString();
+	public String getError();
 
-	/**
-	 * @deprecated As of Judson (7.1.x)
-	 */
-	@Deprecated
-	public String getStatusString();
+	public String getHealth();
 
-	public String getVendorString();
+	public Set<String> getLabels();
+
+	public List<NodeInformation> getNodeInformationList();
 
 }
