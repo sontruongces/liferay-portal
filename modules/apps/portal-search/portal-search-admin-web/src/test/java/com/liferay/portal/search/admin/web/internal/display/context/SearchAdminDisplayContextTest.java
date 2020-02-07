@@ -198,6 +198,73 @@ public class SearchAdminDisplayContextTest {
 	}
 
 	@Test
+	public void testGetTabConnections() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal,
+				getRenderRequestWithSelectedTab("connections"),
+				new MockRenderResponse());
+
+		searchAdminDisplayBuilder.setIndexInformation(
+			Mockito.mock(IndexInformation.class));
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			Mockito.mock(SearchEngineInformation.class));
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		Assert.assertEquals(
+			"connections", searchAdminDisplayContext.getSelectedTab());
+	}
+
+	@Test
+	public void testGetTabConnectionsNoConnectionInformation() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal,
+				getRenderRequestWithSelectedTab("connections"),
+				new MockRenderResponse());
+
+		searchAdminDisplayBuilder.setIndexInformation(null);
+
+		SearchEngineInformation searchEngineInformation = Mockito.mock(
+			SearchEngineInformation.class);
+
+		Mockito.when(
+			searchEngineInformation.getConnectionInformationList()
+		).thenReturn(
+			null
+		);
+
+		searchAdminDisplayBuilder.setSearchEngineInformation(
+			searchEngineInformation);
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		Assert.assertEquals(
+			"index-actions", searchAdminDisplayContext.getSelectedTab());
+	}
+
+	@Test
+	public void testGetTabConnectionsNoInformation() {
+		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
+			new SearchAdminDisplayBuilder(
+				_language, _portal,
+				getRenderRequestWithSelectedTab("connections"),
+				new MockRenderResponse());
+
+		searchAdminDisplayBuilder.setIndexInformation(null);
+		searchAdminDisplayBuilder.setSearchEngineInformation(null);
+
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
+		Assert.assertEquals(
+			"index-actions", searchAdminDisplayContext.getSelectedTab());
+	}
+
+	@Test
 	public void testGetTabDefault() {
 		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
 			new SearchAdminDisplayBuilder(
@@ -266,73 +333,6 @@ public class SearchAdminDisplayContextTest {
 			Mockito.mock(IndexInformation.class));
 		searchAdminDisplayBuilder.setSearchEngineInformation(
 			Mockito.mock(SearchEngineInformation.class));
-
-		SearchAdminDisplayContext searchAdminDisplayContext =
-			searchAdminDisplayBuilder.build();
-
-		Assert.assertEquals(
-			"index-actions", searchAdminDisplayContext.getSelectedTab());
-	}
-
-	@Test
-	public void testGetTabSearchEngine() {
-		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
-			new SearchAdminDisplayBuilder(
-				_language, _portal,
-				getRenderRequestWithSelectedTab("search-engine"),
-				new MockRenderResponse());
-
-		searchAdminDisplayBuilder.setIndexInformation(
-			Mockito.mock(IndexInformation.class));
-		searchAdminDisplayBuilder.setSearchEngineInformation(
-			Mockito.mock(SearchEngineInformation.class));
-
-		SearchAdminDisplayContext searchAdminDisplayContext =
-			searchAdminDisplayBuilder.build();
-
-		Assert.assertEquals(
-			"search-engine", searchAdminDisplayContext.getSelectedTab());
-	}
-
-	@Test
-	public void testGetTabSearchEngineNoConnectionInformation() {
-		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
-			new SearchAdminDisplayBuilder(
-				_language, _portal,
-				getRenderRequestWithSelectedTab("search-engine"),
-				new MockRenderResponse());
-
-		searchAdminDisplayBuilder.setIndexInformation(null);
-
-		SearchEngineInformation searchEngineInformation = Mockito.mock(
-			SearchEngineInformation.class);
-
-		Mockito.when(
-			searchEngineInformation.getConnectionInformationList()
-		).thenReturn(
-			null
-		);
-
-		searchAdminDisplayBuilder.setSearchEngineInformation(
-			searchEngineInformation);
-
-		SearchAdminDisplayContext searchAdminDisplayContext =
-			searchAdminDisplayBuilder.build();
-
-		Assert.assertEquals(
-			"index-actions", searchAdminDisplayContext.getSelectedTab());
-	}
-
-	@Test
-	public void testGetTabSearchEngineNoInformation() {
-		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
-			new SearchAdminDisplayBuilder(
-				_language, _portal,
-				getRenderRequestWithSelectedTab("search-engine"),
-				new MockRenderResponse());
-
-		searchAdminDisplayBuilder.setIndexInformation(null);
-		searchAdminDisplayBuilder.setSearchEngineInformation(null);
 
 		SearchAdminDisplayContext searchAdminDisplayContext =
 			searchAdminDisplayBuilder.build();
