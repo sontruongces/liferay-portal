@@ -55,6 +55,11 @@
 			z-index: 1;
 		}
 
+		&:not(.col-md-12):before {
+			left: $fragmentsEditorSpacing * 1.5;
+			width: calc(100% - #{$fragmentsEditorSpacing * 3});
+		}
+
 		&-resizer {
 			border-radius: 50%;
 			height: 16px;
