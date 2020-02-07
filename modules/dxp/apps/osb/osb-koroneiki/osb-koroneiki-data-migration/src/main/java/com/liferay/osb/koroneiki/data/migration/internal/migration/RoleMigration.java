@@ -76,16 +76,16 @@ public class RoleMigration {
 		_portalRoleMap.put(
 			106868290L, _addContactRole(userId, "Analytics Cloud Owner"));
 
-		long supportContactContactRoleId = _addContactRole(
-			userId, "Support Contact");
+		long supportDeveloperContactRoleId = _addContactRole(
+			userId, "Support Developer");
 
-		_accountCustomerRoleMap.put(0, supportContactContactRoleId);
-		_accountCustomerRoleMap.put(2, supportContactContactRoleId);
+		_accountCustomerRoleMap.put(0, supportDeveloperContactRoleId);
+		_accountCustomerRoleMap.put(1, supportDeveloperContactRoleId);
+		_accountCustomerRoleMap.put(2, supportDeveloperContactRoleId);
 
 		long supportWatcherContactRoleId = _addContactRole(
 			userId, "Support Watcher");
 
-		_accountCustomerRoleMap.put(1, supportWatcherContactRoleId);
 		_accountCustomerRoleMap.put(3, supportWatcherContactRoleId);
 		_accountCustomerRoleMap.put(4, supportWatcherContactRoleId);
 
