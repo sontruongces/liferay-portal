@@ -337,6 +337,33 @@ public abstract class BaseContactRoleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contact-roles/{contactRoleType}/{contactRoleName}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrieves the contact role by name.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "contactRoleType"),
+			@Parameter(in = ParameterIn.PATH, name = "contactRoleName")
+		}
+	)
+	@Path("/contact-roles/{contactRoleType}/{contactRoleName}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public ContactRole getContactRoleContactRoleTypeContactRoleName(
+			@NotNull @Parameter(hidden = true) @PathParam("contactRoleType")
+				String contactRoleType,
+			@NotNull @Parameter(hidden = true) @PathParam("contactRoleName")
+				String contactRoleName)
+		throws Exception {
+
+		return new ContactRole();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
 	 */
 	@Override

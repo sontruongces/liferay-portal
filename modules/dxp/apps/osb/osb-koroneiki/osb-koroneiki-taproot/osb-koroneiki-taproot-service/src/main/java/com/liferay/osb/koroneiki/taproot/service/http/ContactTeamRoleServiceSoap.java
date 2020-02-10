@@ -73,10 +73,10 @@ public class ContactTeamRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactTeamRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -93,10 +93,10 @@ public class ContactTeamRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactTeamRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -107,10 +107,10 @@ public class ContactTeamRoleServiceSoap {
 			ContactTeamRoleServiceUtil.deleteContactTeamRoles(
 				contactId, teamId);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 

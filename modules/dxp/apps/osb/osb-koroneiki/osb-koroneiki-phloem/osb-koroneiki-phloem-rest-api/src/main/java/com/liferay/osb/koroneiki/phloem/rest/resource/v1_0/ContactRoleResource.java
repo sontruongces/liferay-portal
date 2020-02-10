@@ -87,6 +87,10 @@ public interface ContactRoleResource {
 			ContactRolePermission contactRolePermission)
 		throws Exception;
 
+	public ContactRole getContactRoleContactRoleTypeContactRoleName(
+			String contactRoleType, String contactRoleName)
+		throws Exception;
+
 	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
 			String teamKey, String oktaId, Pagination pagination)
 		throws Exception;

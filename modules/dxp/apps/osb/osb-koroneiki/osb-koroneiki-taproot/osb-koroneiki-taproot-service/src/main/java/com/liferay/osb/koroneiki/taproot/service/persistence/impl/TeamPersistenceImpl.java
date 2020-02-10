@@ -79,7 +79,7 @@ import org.osgi.service.component.annotations.Reference;
 public class TeamPersistenceImpl
 	extends BasePersistenceImpl<Team> implements TeamPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TeamUtil</code> to access the team persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -258,12 +258,12 @@ public class TeamPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -416,8 +416,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -673,8 +673,8 @@ public class TeamPersistenceImpl
 
 			return (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -720,8 +720,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -953,10 +953,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1019,8 +1019,8 @@ public class TeamPersistenceImpl
 
 			return count.intValue();
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1216,12 +1216,12 @@ public class TeamPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1392,8 +1392,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1662,8 +1662,8 @@ public class TeamPersistenceImpl
 
 			return (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1712,8 +1712,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1957,10 +1957,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2028,8 +2028,8 @@ public class TeamPersistenceImpl
 
 			return count.intValue();
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -2175,13 +2175,13 @@ public class TeamPersistenceImpl
 					cacheResult(team);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(
 						_finderPathFetchByTeamKey, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2260,10 +2260,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2431,12 +2431,12 @@ public class TeamPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2589,8 +2589,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -2824,8 +2824,8 @@ public class TeamPersistenceImpl
 
 			return (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -2871,8 +2871,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -3081,10 +3081,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -3134,8 +3134,8 @@ public class TeamPersistenceImpl
 
 			return count.intValue();
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -3300,13 +3300,13 @@ public class TeamPersistenceImpl
 					cacheResult(team);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(
 						_finderPathFetchByAI_N, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -3393,10 +3393,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -3645,11 +3645,11 @@ public class TeamPersistenceImpl
 
 			return remove(team);
 		}
-		catch (NoSuchTeamException noSuchEntityException) {
-			throw noSuchEntityException;
+		catch (NoSuchTeamException nsee) {
+			throw nsee;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -3672,8 +3672,8 @@ public class TeamPersistenceImpl
 				session.delete(team);
 			}
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -3751,8 +3751,8 @@ public class TeamPersistenceImpl
 				team = (Team)session.merge(team);
 			}
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -4030,12 +4030,12 @@ public class TeamPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -4079,11 +4079,11 @@ public class TeamPersistenceImpl
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -4323,8 +4323,8 @@ public class TeamPersistenceImpl
 		try {
 			Class.forName(KoroneikiPersistenceConstants.class.getName());
 		}
-		catch (ClassNotFoundException classNotFoundException) {
-			throw new ExceptionInInitializerError(classNotFoundException);
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
 		}
 	}
 

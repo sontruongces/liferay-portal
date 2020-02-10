@@ -73,10 +73,10 @@ public class TeamAccountRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamAccountRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -93,10 +93,10 @@ public class TeamAccountRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamAccountRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -112,10 +112,10 @@ public class TeamAccountRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamAccountRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -132,10 +132,10 @@ public class TeamAccountRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamAccountRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -146,10 +146,10 @@ public class TeamAccountRoleServiceSoap {
 			TeamAccountRoleServiceUtil.deleteTeamAccountRoles(
 				teamId, accountId);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 

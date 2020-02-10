@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TeamModel
 	extends BaseModel<Team>, MVCCModel, ShardedModel, StagedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a team model instance should use the {@link Team} interface instead.

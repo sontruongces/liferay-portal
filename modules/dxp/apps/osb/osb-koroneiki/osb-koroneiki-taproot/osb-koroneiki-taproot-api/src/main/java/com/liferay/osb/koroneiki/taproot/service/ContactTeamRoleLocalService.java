@@ -56,7 +56,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ContactTeamRoleLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ContactTeamRoleLocalServiceUtil} to access the contact team role local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactTeamRoleLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

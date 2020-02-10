@@ -135,6 +135,15 @@ public interface ContactRoleResource {
 					ContactRolePermission contactRolePermission)
 		throws Exception;
 
+	public ContactRole getContactRoleContactRoleTypeContactRoleName(
+			String contactRoleType, String contactRoleName)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getContactRoleContactRoleTypeContactRoleNameHttpResponse(
+				String contactRoleType, String contactRoleName)
+		throws Exception;
+
 	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
 			String teamKey, String oktaId, Pagination pagination)
 		throws Exception;
@@ -862,6 +871,72 @@ public interface ContactRoleResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/contact-roles/{contactRoleKey}/contact-role-permissions",
 				contactRoleKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public ContactRole getContactRoleContactRoleTypeContactRoleName(
+				String contactRoleType, String contactRoleName)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getContactRoleContactRoleTypeContactRoleNameHttpResponse(
+					contactRoleType, contactRoleName);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ContactRoleSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse
+				getContactRoleContactRoleTypeContactRoleNameHttpResponse(
+					String contactRoleType, String contactRoleName)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contact-roles/{contactRoleType}/{contactRoleName}",
+				contactRoleType, contactRoleName);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

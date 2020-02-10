@@ -58,7 +58,7 @@ public abstract class AccountServiceBaseImpl
 	extends BaseServiceImpl
 	implements AccountService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AccountService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.AccountServiceUtil</code>.
@@ -112,8 +112,8 @@ public abstract class AccountServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception exception) {
-			throw new SystemException(exception);
+		catch (Exception e) {
+			throw new SystemException(e);
 		}
 	}
 

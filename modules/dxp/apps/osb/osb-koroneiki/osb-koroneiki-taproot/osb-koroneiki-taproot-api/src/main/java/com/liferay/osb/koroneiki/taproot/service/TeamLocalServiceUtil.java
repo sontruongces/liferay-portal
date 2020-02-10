@@ -32,10 +32,16 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class TeamLocalServiceUtil {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
+	 */
+
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TeamLocalServiceUtil} to access the team local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.Team addTeam(
 			long userId, long accountId, String name)

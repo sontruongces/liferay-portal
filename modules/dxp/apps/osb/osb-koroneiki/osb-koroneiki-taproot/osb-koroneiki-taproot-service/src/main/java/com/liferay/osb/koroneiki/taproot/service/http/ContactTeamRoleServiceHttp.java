@@ -70,27 +70,25 @@ public class ContactTeamRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (com.liferay.osb.koroneiki.taproot.model.ContactTeamRole)
 				returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -113,27 +111,25 @@ public class ContactTeamRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (com.liferay.osb.koroneiki.taproot.model.ContactTeamRole)
 				returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -152,24 +148,22 @@ public class ContactTeamRoleServiceHttp {
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 

@@ -927,6 +927,20 @@ public abstract class BaseContactRoleResourceTestCase {
 	}
 
 	@Test
+	public void testGetContactRoleContactRoleTypeContactRoleName()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGraphQLGetContactRoleContactRoleTypeContactRoleName()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testGetTeamTeamKeyContactByOktaRolesPage() throws Exception {
 		Page<ContactRole> page =
 			contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(

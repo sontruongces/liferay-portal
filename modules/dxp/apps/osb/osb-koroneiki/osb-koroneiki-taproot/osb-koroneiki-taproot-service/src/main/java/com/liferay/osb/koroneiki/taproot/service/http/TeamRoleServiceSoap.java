@@ -72,10 +72,10 @@ public class TeamRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -90,10 +90,10 @@ public class TeamRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -108,10 +108,10 @@ public class TeamRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -128,10 +128,10 @@ public class TeamRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
 				toSoapModels(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -144,10 +144,10 @@ public class TeamRoleServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -162,10 +162,10 @@ public class TeamRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -180,10 +180,10 @@ public class TeamRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -199,10 +199,10 @@ public class TeamRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 

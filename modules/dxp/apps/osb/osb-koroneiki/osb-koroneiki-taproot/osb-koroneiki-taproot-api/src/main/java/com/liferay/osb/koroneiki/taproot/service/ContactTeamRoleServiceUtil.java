@@ -32,10 +32,16 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class ContactTeamRoleServiceUtil {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactTeamRoleServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
+	 */
+
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link ContactTeamRoleServiceUtil} to access the contact team role remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactTeamRoleServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.ContactTeamRole
 			addContactTeamRole(long contactId, long teamId, long contactRoleId)

@@ -35,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TeamAccountRoleModel
 	extends BaseModel<TeamAccountRole>, MVCCModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a team account role model instance should use the {@link TeamAccountRole} interface instead.

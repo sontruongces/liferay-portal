@@ -726,6 +726,26 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactRoleContactRoleTypeContactRoleName(contactRoleName: ___, contactRoleType: ___){dateCreated, dateModified, description, key, name, system, type}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ContactRole contactRoleContactRoleTypeContactRoleName(
+			@GraphQLName("contactRoleType") String contactRoleType,
+			@GraphQLName("contactRoleName") String contactRoleName)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactRoleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactRoleResource ->
+				contactRoleResource.
+					getContactRoleContactRoleTypeContactRoleName(
+						contactRoleType, contactRoleName));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyContactByOktaRoles(oktaId: ___, page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField

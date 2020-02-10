@@ -70,27 +70,25 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (com.liferay.osb.koroneiki.taproot.model.ContactRole)
 				returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -111,27 +109,25 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (com.liferay.osb.koroneiki.taproot.model.ContactRole)
 				returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -153,27 +149,25 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (com.liferay.osb.koroneiki.taproot.model.ContactRole)
 				returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -197,27 +191,25 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (java.util.List
 				<com.liferay.osb.koroneiki.taproot.model.ContactRole>)returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -239,26 +231,24 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return ((Integer)returnObj).intValue();
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -282,27 +272,25 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (java.util.List
 				<com.liferay.osb.koroneiki.taproot.model.ContactRole>)returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -323,27 +311,25 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (com.liferay.osb.koroneiki.taproot.model.ContactRole)
 				returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -364,27 +350,64 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (com.liferay.osb.koroneiki.taproot.model.ContactRole)
 				returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
+			throw se;
+		}
+	}
 
-			throw systemException;
+	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
+			getContactRole(HttpPrincipal httpPrincipal, String name, int type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ContactRoleServiceUtil.class, "getContactRole",
+				_getContactRoleParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, name, type);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.osb.koroneiki.taproot.model.ContactRole)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
 		}
 	}
 
@@ -398,7 +421,7 @@ public class ContactRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactRoleServiceUtil.class, "getContactTeamContactRoles",
-				_getContactTeamContactRolesParameterTypes8);
+				_getContactTeamContactRolesParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamId, contactId, start, end);
@@ -408,27 +431,25 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (java.util.List
 				<com.liferay.osb.koroneiki.taproot.model.ContactRole>)returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -439,7 +460,7 @@ public class ContactRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactRoleServiceUtil.class, "getContactTeamContactRolesCount",
-				_getContactTeamContactRolesCountParameterTypes9);
+				_getContactTeamContactRolesCountParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamId, contactId);
@@ -449,26 +470,24 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return ((Integer)returnObj).intValue();
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -481,7 +500,7 @@ public class ContactRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ContactRoleServiceUtil.class, "updateContactRole",
-				_updateContactRoleParameterTypes10);
+				_updateContactRoleParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactRoleId, name, description);
@@ -491,27 +510,25 @@ public class ContactRoleServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception exception) {
-				if (exception instanceof
+			catch (Exception e) {
+				if (e instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+						e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
+					e);
 			}
 
 			return (com.liferay.osb.koroneiki.taproot.model.ContactRole)
 				returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
 
-			_log.error(systemException, systemException);
-
-			throw systemException;
+			throw se;
 		}
 	}
 
@@ -538,13 +555,15 @@ public class ContactRoleServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getContactRoleParameterTypes7 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getContactTeamContactRolesParameterTypes8 =
+	private static final Class<?>[] _getContactRoleParameterTypes8 =
+		new Class[] {String.class, int.class};
+	private static final Class<?>[] _getContactTeamContactRolesParameterTypes9 =
 		new Class[] {long.class, long.class, int.class, int.class};
 	private static final Class<?>[]
-		_getContactTeamContactRolesCountParameterTypes9 = new Class[] {
+		_getContactTeamContactRolesCountParameterTypes10 = new Class[] {
 			long.class, long.class
 		};
-	private static final Class<?>[] _updateContactRoleParameterTypes10 =
+	private static final Class<?>[] _updateContactRoleParameterTypes11 =
 		new Class[] {long.class, String.class, String.class};
 
 }

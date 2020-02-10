@@ -32,6 +32,11 @@ public class ContactTeamRoleServiceWrapper
 		_contactTeamRoleService = contactTeamRoleService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link ContactTeamRoleServiceUtil} to access the contact team role remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactTeamRoleServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.ContactTeamRole
 			addContactTeamRole(long contactId, long teamId, long contactRoleId)

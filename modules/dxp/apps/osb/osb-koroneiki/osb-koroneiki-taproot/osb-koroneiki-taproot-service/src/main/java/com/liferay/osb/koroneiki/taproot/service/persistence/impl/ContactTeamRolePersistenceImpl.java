@@ -69,7 +69,7 @@ public class ContactTeamRolePersistenceImpl
 	extends BasePersistenceImpl<ContactTeamRole>
 	implements ContactTeamRolePersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ContactTeamRoleUtil</code> to access the contact team role persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -242,12 +242,12 @@ public class ContactTeamRolePersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -405,8 +405,8 @@ public class ContactTeamRolePersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -576,10 +576,10 @@ public class ContactTeamRolePersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -743,12 +743,12 @@ public class ContactTeamRolePersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -904,8 +904,8 @@ public class ContactTeamRolePersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1075,10 +1075,10 @@ public class ContactTeamRolePersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1248,12 +1248,12 @@ public class ContactTeamRolePersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1415,8 +1415,8 @@ public class ContactTeamRolePersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1587,10 +1587,10 @@ public class ContactTeamRolePersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1770,12 +1770,12 @@ public class ContactTeamRolePersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1948,8 +1948,8 @@ public class ContactTeamRolePersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -2130,10 +2130,10 @@ public class ContactTeamRolePersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2306,11 +2306,11 @@ public class ContactTeamRolePersistenceImpl
 
 			return remove(contactTeamRole);
 		}
-		catch (NoSuchContactTeamRoleException noSuchEntityException) {
-			throw noSuchEntityException;
+		catch (NoSuchContactTeamRoleException nsee) {
+			throw nsee;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -2334,8 +2334,8 @@ public class ContactTeamRolePersistenceImpl
 				session.delete(contactTeamRole);
 			}
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -2387,8 +2387,8 @@ public class ContactTeamRolePersistenceImpl
 					contactTeamRole);
 			}
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -2703,12 +2703,12 @@ public class ContactTeamRolePersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2752,11 +2752,11 @@ public class ContactTeamRolePersistenceImpl
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2970,8 +2970,8 @@ public class ContactTeamRolePersistenceImpl
 		try {
 			Class.forName(KoroneikiPersistenceConstants.class.getName());
 		}
-		catch (ClassNotFoundException classNotFoundException) {
-			throw new ExceptionInInitializerError(classNotFoundException);
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
 		}
 	}
 

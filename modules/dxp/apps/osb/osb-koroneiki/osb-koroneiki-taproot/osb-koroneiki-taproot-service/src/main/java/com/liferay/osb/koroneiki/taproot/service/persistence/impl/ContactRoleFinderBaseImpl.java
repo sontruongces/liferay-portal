@@ -92,8 +92,8 @@ public abstract class ContactRoleFinderBaseImpl
 		try {
 			Class.forName(KoroneikiPersistenceConstants.class.getName());
 		}
-		catch (ClassNotFoundException classNotFoundException) {
-			throw new ExceptionInInitializerError(classNotFoundException);
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
 		}
 	}
 

@@ -35,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ContactAccountRoleModel
 	extends BaseModel<ContactAccountRole>, MVCCModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a contact account role model instance should use the {@link ContactAccountRole} interface instead.

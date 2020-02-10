@@ -72,10 +72,10 @@ public class ContactRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -90,10 +90,10 @@ public class ContactRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -108,10 +108,10 @@ public class ContactRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -129,10 +129,10 @@ public class ContactRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModels(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -147,10 +147,10 @@ public class ContactRoleServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -166,10 +166,10 @@ public class ContactRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModels(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -184,10 +184,10 @@ public class ContactRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -202,10 +202,28 @@ public class ContactRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap
+			getContactRole(String name, int type)
+		throws RemoteException {
+
+		try {
+			com.liferay.osb.koroneiki.taproot.model.ContactRole returnValue =
+				ContactRoleServiceUtil.getContactRole(name, type);
+
+			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -222,10 +240,10 @@ public class ContactRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModels(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -240,10 +258,10 @@ public class ContactRoleServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -260,10 +278,10 @@ public class ContactRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 

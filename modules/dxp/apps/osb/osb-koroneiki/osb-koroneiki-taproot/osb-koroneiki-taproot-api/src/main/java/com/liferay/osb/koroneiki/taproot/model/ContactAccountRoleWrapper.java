@@ -150,6 +150,11 @@ public class ContactAccountRoleWrapper
 		return model.getPrimaryKey();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a contact account role model instance should use the <code>ContactAccountRole</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ContactRoleModel
 	extends BaseModel<ContactRole>, MVCCModel, ShardedModel, StagedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a contact role model instance should use the {@link ContactRole} interface instead.

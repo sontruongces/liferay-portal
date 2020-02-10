@@ -75,10 +75,10 @@ public class ContactAccountRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.
 				ContactAccountRoleSoap.toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -96,10 +96,10 @@ public class ContactAccountRoleServiceSoap {
 			return com.liferay.osb.koroneiki.taproot.model.
 				ContactAccountRoleSoap.toSoapModel(returnValue);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 
@@ -110,10 +110,10 @@ public class ContactAccountRoleServiceSoap {
 			ContactAccountRoleServiceUtil.deleteContactAccountRoles(
 				contactId, accountId);
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 
-			throw new RemoteException(exception.getMessage());
+			throw new RemoteException(e.getMessage());
 		}
 	}
 

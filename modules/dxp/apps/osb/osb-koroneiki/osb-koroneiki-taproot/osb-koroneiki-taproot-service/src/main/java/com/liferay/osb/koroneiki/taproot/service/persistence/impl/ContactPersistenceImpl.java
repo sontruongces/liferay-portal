@@ -79,7 +79,7 @@ import org.osgi.service.component.annotations.Reference;
 public class ContactPersistenceImpl
 	extends BasePersistenceImpl<Contact> implements ContactPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ContactUtil</code> to access the contact persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -259,12 +259,12 @@ public class ContactPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -419,8 +419,8 @@ public class ContactPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -676,8 +676,8 @@ public class ContactPersistenceImpl
 
 			return (List<Contact>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -724,8 +724,8 @@ public class ContactPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -957,10 +957,10 @@ public class ContactPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1023,8 +1023,8 @@ public class ContactPersistenceImpl
 
 			return count.intValue();
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1221,12 +1221,12 @@ public class ContactPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1399,8 +1399,8 @@ public class ContactPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1669,8 +1669,8 @@ public class ContactPersistenceImpl
 
 			return (List<Contact>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1719,8 +1719,8 @@ public class ContactPersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1964,10 +1964,10 @@ public class ContactPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2035,8 +2035,8 @@ public class ContactPersistenceImpl
 
 			return count.intValue();
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -2186,13 +2186,13 @@ public class ContactPersistenceImpl
 					cacheResult(contact);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(
 						_finderPathFetchByContactKey, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2273,10 +2273,10 @@ public class ContactPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2431,13 +2431,13 @@ public class ContactPersistenceImpl
 					cacheResult(contact);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(
 						_finderPathFetchByOktaId, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2516,10 +2516,10 @@ public class ContactPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2678,13 +2678,13 @@ public class ContactPersistenceImpl
 					cacheResult(contact);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(
 						_finderPathFetchByEmailAddress, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -2765,10 +2765,10 @@ public class ContactPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -3044,11 +3044,11 @@ public class ContactPersistenceImpl
 
 			return remove(contact);
 		}
-		catch (NoSuchContactException noSuchEntityException) {
-			throw noSuchEntityException;
+		catch (NoSuchContactException nsee) {
+			throw nsee;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -3071,8 +3071,8 @@ public class ContactPersistenceImpl
 				session.delete(contact);
 			}
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -3150,8 +3150,8 @@ public class ContactPersistenceImpl
 				contact = (Contact)session.merge(contact);
 			}
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -3409,12 +3409,12 @@ public class ContactPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -3458,11 +3458,11 @@ public class ContactPersistenceImpl
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -3694,8 +3694,8 @@ public class ContactPersistenceImpl
 		try {
 			Class.forName(KoroneikiPersistenceConstants.class.getName());
 		}
-		catch (ClassNotFoundException classNotFoundException) {
-			throw new ExceptionInInitializerError(classNotFoundException);
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
 		}
 	}
 
