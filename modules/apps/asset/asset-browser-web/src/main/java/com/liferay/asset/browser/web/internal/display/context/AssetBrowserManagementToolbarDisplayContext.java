@@ -178,7 +178,7 @@ public class AssetBrowserManagementToolbarDisplayContext
 
 	@Override
 	protected String getOrderByCol() {
-		return _assetBrowserDisplayContext.getOrderByCol(getOrderByColParam());
+		return _assetBrowserDisplayContext.getOrderByCol();
 	}
 
 	@Override
@@ -188,8 +188,7 @@ public class AssetBrowserManagementToolbarDisplayContext
 
 	@Override
 	protected String getOrderByType() {
-		return _assetBrowserDisplayContext.getOrderByType(
-			getOrderByTypeParam());
+		return _assetBrowserDisplayContext.getOrderByType();
 	}
 
 	private String _getAddButtonLabel() {
