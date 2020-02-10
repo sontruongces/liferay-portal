@@ -2460,6 +2460,34 @@ paths:
                     description:
                         ""
             tags: ["ContactRole"]
+    "/contact-roles/{contactRoleType}/{contactRoleName}":
+        get:
+            description:
+                Retrieves the contact role by name.
+            operationId: getContactRoleContactRoleTypeContactRoleName
+            parameters:
+                - in: path
+                  name: contactRoleType
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactRoleName
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ContactRole"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ContactRole"
+                    description:
+                        ""
+            tags: ["ContactRole"]
     "/contacts":
         get:
             description:

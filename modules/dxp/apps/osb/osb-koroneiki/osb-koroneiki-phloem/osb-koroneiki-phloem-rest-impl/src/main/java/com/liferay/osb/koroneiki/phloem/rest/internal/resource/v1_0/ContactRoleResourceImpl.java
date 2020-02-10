@@ -128,6 +128,17 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
+	public ContactRole getContactRoleContactRoleTypeContactRoleName(
+			String contactRoleType, String contactRoleName)
+		throws Exception {
+
+		int type = ContactRoleType.fromLabel(contactRoleType);
+
+		return ContactRoleUtil.toContactRole(
+			_contactRoleService.getContactRole(contactRoleName, type));
+	}
+
+	@Override
 	public Page<ContactRole> getContactRolesPage(
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {

@@ -48,6 +48,14 @@ public class AccountUtil {
 				logoId = account.getLogoId();
 				name = account.getName();
 				notes = account.getNotes();
+
+				com.liferay.osb.koroneiki.taproot.model.Account parentAccount =
+					account.getParentAccount();
+
+				if (parentAccount != null) {
+					parentAccountKey = parentAccount.getAccountKey();
+				}
+
 				phoneNumber = account.getPhoneNumber();
 				postalAddresses = TransformUtil.transformToArray(
 					account.getAddresses(),
