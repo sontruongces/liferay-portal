@@ -403,6 +403,9 @@ public abstract class AssetListEntrySegmentsEntryRelLocalServiceBaseImpl
 				(AssetListEntrySegmentsEntryRel)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

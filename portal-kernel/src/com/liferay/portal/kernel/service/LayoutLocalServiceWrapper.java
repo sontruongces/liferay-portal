@@ -1417,6 +1417,9 @@ public class LayoutLocalServiceWrapper
 		return _layoutLocalService.getParentLayout(layout);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

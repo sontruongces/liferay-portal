@@ -397,6 +397,9 @@ public abstract class MBDiscussionLocalServiceBaseImpl
 			(MBDiscussion)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

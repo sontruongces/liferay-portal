@@ -287,6 +287,9 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 			(MicroblogsEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

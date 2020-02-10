@@ -370,6 +370,9 @@ public class LayoutSEOEntryLocalServiceWrapper
 		return _layoutSEOEntryLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

@@ -379,6 +379,9 @@ public abstract class SegmentsEntryLocalServiceBaseImpl
 			(SegmentsEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

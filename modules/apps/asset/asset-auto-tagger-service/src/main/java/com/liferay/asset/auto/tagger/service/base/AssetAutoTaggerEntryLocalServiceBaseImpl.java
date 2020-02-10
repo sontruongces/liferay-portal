@@ -301,6 +301,9 @@ public abstract class AssetAutoTaggerEntryLocalServiceBaseImpl
 			(AssetAutoTaggerEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

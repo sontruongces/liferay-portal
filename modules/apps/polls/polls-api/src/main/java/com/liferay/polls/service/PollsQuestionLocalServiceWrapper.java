@@ -355,6 +355,9 @@ public class PollsQuestionLocalServiceWrapper
 		return _pollsQuestionLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

@@ -397,6 +397,9 @@ public abstract class EmailAddressLocalServiceBaseImpl
 			(EmailAddress)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

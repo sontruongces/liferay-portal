@@ -257,6 +257,9 @@ public class SegmentsEntryRelLocalServiceWrapper
 		return _segmentsEntryRelLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

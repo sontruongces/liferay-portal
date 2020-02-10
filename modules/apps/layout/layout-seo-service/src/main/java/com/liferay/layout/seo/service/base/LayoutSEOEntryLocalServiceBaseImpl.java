@@ -370,6 +370,9 @@ public abstract class LayoutSEOEntryLocalServiceBaseImpl
 			(LayoutSEOEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

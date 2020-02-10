@@ -302,6 +302,9 @@ public abstract class ChangesetCollectionLocalServiceBaseImpl
 			(ChangesetCollection)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

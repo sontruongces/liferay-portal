@@ -322,6 +322,9 @@ public abstract class DEDataDefinitionFieldLinkLocalServiceBaseImpl
 				(DEDataDefinitionFieldLink)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

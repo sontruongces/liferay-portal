@@ -547,6 +547,9 @@ public class AnnouncementsEntryLocalServiceWrapper
 		return _announcementsEntryLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

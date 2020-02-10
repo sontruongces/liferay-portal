@@ -439,6 +439,9 @@ public abstract class WikiPageLocalServiceBaseImpl
 		return wikiPageLocalService.deleteWikiPage((WikiPage)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

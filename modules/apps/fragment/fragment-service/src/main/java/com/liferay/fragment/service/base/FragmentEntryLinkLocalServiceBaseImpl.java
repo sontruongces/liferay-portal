@@ -410,6 +410,9 @@ public abstract class FragmentEntryLinkLocalServiceBaseImpl
 			(FragmentEntryLink)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

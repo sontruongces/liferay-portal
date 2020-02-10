@@ -409,6 +409,9 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 				(CalendarNotificationTemplate)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

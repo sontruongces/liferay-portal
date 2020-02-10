@@ -405,6 +405,9 @@ public abstract class LayoutPageTemplateCollectionLocalServiceBaseImpl
 				(LayoutPageTemplateCollection)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

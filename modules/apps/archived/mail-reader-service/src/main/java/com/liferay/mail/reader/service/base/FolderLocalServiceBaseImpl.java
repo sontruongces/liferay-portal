@@ -277,6 +277,9 @@ public abstract class FolderLocalServiceBaseImpl
 		return folderLocalService.deleteFolder((Folder)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

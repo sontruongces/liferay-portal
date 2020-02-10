@@ -284,6 +284,9 @@ public abstract class SubscriptionLocalServiceBaseImpl
 			(Subscription)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

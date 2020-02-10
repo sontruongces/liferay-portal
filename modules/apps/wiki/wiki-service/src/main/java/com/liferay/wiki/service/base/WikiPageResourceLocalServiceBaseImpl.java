@@ -302,6 +302,9 @@ public abstract class WikiPageResourceLocalServiceBaseImpl
 			(WikiPageResource)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

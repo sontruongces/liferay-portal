@@ -374,6 +374,9 @@ public abstract class PasswordPolicyLocalServiceBaseImpl
 			(PasswordPolicy)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

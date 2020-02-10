@@ -279,6 +279,9 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 			(BrowserTracker)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

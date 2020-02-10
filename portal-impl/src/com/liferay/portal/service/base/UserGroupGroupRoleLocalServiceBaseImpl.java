@@ -309,6 +309,9 @@ public abstract class UserGroupGroupRoleLocalServiceBaseImpl
 			(UserGroupGroupRole)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

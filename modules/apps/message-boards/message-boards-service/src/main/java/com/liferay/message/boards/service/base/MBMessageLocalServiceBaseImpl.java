@@ -457,6 +457,9 @@ public abstract class MBMessageLocalServiceBaseImpl
 		return mbMessageLocalService.deleteMBMessage((MBMessage)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

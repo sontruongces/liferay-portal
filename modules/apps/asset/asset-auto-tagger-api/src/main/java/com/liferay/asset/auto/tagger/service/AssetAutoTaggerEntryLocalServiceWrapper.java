@@ -317,6 +317,9 @@ public class AssetAutoTaggerEntryLocalServiceWrapper
 		return _assetAutoTaggerEntryLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

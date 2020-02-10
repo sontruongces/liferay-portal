@@ -289,6 +289,9 @@ public abstract class AnnouncementsDeliveryLocalServiceBaseImpl
 			(AnnouncementsDelivery)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

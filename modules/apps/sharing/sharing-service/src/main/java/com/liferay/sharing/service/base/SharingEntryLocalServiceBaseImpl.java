@@ -395,6 +395,9 @@ public abstract class SharingEntryLocalServiceBaseImpl
 			(SharingEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
