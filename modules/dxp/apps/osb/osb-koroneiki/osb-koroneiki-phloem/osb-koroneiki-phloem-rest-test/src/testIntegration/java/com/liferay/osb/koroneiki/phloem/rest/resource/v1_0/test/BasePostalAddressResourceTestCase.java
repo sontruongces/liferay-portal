@@ -313,10 +313,10 @@ public abstract class BasePostalAddressResourceTestCase {
 		assertHttpResponseStatusCode(
 			404,
 			postalAddressResource.getPostalAddressHttpResponse(
-				null, postalAddress.getId()));
+				postalAddress.getId()));
 
 		assertHttpResponseStatusCode(
-			404, postalAddressResource.getPostalAddressHttpResponse(null, 0L));
+			404, postalAddressResource.getPostalAddressHttpResponse(0L));
 	}
 
 	protected PostalAddress testDeletePostalAddress_addPostalAddress()
@@ -428,7 +428,7 @@ public abstract class BasePostalAddressResourceTestCase {
 		PostalAddress randomPostalAddress = randomPostalAddress();
 
 		PostalAddress putPostalAddress = postalAddressResource.putPostalAddress(
-			postPostalAddress.getId(), randomPostalAddress);
+			null, postPostalAddress.getId(), randomPostalAddress);
 
 		assertEquals(randomPostalAddress, putPostalAddress);
 		assertValid(putPostalAddress);
