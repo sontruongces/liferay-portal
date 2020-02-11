@@ -1,7 +1,12 @@
 {
-	"name": "osb-provisioning-theme",
-	"version": "1.0.0",
-	"main": "package.json",
+	"devDependencies": {
+		"compass-mixins": "0.12.10",
+		"gulp": "3.9.1",
+		"liferay-frontend-common-css": "1.0.4",
+		"liferay-frontend-theme-styled": "4.0.21",
+		"liferay-frontend-theme-unstyled": "4.0.17",
+		"liferay-theme-tasks": "^9.5.0"
+	},
 	"keywords": [
 		"liferay-theme"
 	],
@@ -12,22 +17,17 @@
 		"templateLanguage": "ftl",
 		"version": "7.2"
 	},
-	"devDependencies": {
-		"compass-mixins": "0.12.10",
-		"gulp": "3.9.1",
-		"liferay-frontend-common-css": "1.0.4",
-		"liferay-frontend-theme-styled": "4.0.21",
-		"liferay-frontend-theme-unstyled": "4.0.17",
-		"liferay-theme-tasks": "^9.5.0"
-	},
+	"main": "package.json",
+	"name": "osb-provisioning-theme",
 	"scripts": {
-		"init": "gulp init",
 		"build": "gulp build",
 		"deploy": "gulp deploy",
 		"extend": "gulp extend",
+		"init": "gulp init",
 		"kickstart": "gulp kickstart",
 		"status": "gulp status",
 		"upgrade": "gulp upgrade",
 		"watch": "gulp watch"
-	}
+	},
+	"version": "1.0.0"
 }
