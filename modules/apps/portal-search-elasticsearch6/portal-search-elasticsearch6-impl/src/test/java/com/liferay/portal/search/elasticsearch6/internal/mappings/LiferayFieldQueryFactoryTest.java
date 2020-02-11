@@ -15,14 +15,38 @@
 package com.liferay.portal.search.elasticsearch6.internal.mappings;
 
 import com.liferay.portal.search.elasticsearch6.internal.LiferayElasticsearchIndexingFixtureFactory;
+import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
 import com.liferay.portal.search.test.util.mappings.BaseLiferayFieldQueryFactoryTestCase;
+
+import org.junit.Before;
+
+import org.mockito.Mockito;
 
 /**
  * @author André de Oliveira
  */
 public class LiferayFieldQueryFactoryTest
 	extends BaseLiferayFieldQueryFactoryTestCase {
+
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+
+		searchEngineInformation = Mockito.mock(SearchEngineInformation.class);
+
+		Mockito.when(
+			searchEngineInformation.getVendorString()
+		).thenReturn(
+			"Elasticsearch"
+		);
+
+		Mockito.when(
+			searchEngineInformation.getClientVersionString()
+		).thenReturn(
+			"6"
+		);
+	}
 
 	@Override
 	protected IndexingFixture createIndexingFixture() {
