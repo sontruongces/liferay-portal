@@ -43,11 +43,9 @@ public class CompanyIndexFactoryFixture {
 	public void deleteIndices() {
 		CompanyIndexFactory companyIndexFactory = getCompanyIndexFactory();
 
-		RestHighLevelClient restHighLevelClient =
-			_elasticsearchFixture.getRestHighLevelClient();
-
 		companyIndexFactory.deleteIndices(
-			restHighLevelClient.indices(), RandomTestUtil.randomLong());
+			_elasticsearchFixture.getAdminClient(),
+			RandomTestUtil.randomLong());
 	}
 
 	public CompanyIndexFactory getCompanyIndexFactory() {

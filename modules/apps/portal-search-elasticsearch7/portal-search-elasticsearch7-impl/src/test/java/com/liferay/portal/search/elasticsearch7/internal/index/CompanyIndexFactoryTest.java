@@ -28,19 +28,16 @@ import com.liferay.portal.search.elasticsearch7.settings.IndexSettingsHelper;
 import com.liferay.portal.search.elasticsearch7.settings.TypeMappingsHelper;
 import com.liferay.portal.search.spi.model.index.contributor.IndexContributor;
 
-import java.io.IOException;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequestBuilder;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.admin.indices.get.GetIndexResponse;
 import org.elasticsearch.client.AdminClient;
-import org.elasticsearch.client.IndicesClient;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.GetIndexRequest;
+import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.settings.Settings;
@@ -449,13 +446,10 @@ public class CompanyIndexFactoryTest {
 	}
 
 	protected void deleteIndices() {
-		RestHighLevelClient restHighLevelClient =
-			_elasticsearchFixture.getRestHighLevelClient();
-
-		IndicesClient indicesClient = restHighLevelClient.indices();
+		AdminClient adminClient = _elasticsearchFixture.getAdminClient();
 
 		_companyIndexFactory.deleteIndices(
-			indicesClient, RandomTestUtil.randomLong());
+			adminClient, RandomTestUtil.randomLong());
 	}
 
 	protected Settings getIndexSettings() {
@@ -471,20 +465,17 @@ public class CompanyIndexFactoryTest {
 	}
 
 	protected boolean hasIndex(String indexName) {
-		RestHighLevelClient restHighLevelClient =
-			_elasticsearchFixture.getRestHighLevelClient();
+		AdminClient adminClient = _elasticsearchFixture.getAdminClient();
 
-		IndicesClient indicesClient = restHighLevelClient.indices();
+		IndicesAdminClient indicesAdminClient = adminClient.indices();
 
-		GetIndexRequest getIndexRequest = new GetIndexRequest(indexName);
+		IndicesExistsRequestBuilder indicesExistsRequestBuilder =
+			indicesAdminClient.prepareExists(indexName);
 
-		try {
-			return indicesClient.exists(
-				getIndexRequest, RequestOptions.DEFAULT);
-		}
-		catch (IOException ioe) {
-			throw new RuntimeException(ioe);
-		}
+		IndicesExistsResponse indicesExistsResponse =
+			indicesExistsRequestBuilder.get();
+
+		return indicesExistsResponse.isExists();
 	}
 
 	protected void indexOneDocument(String field) {
