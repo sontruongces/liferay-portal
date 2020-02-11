@@ -15,13 +15,21 @@
 package com.liferay.portal.search.test.util.mappings;
 
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.search.analysis.FieldQueryBuilder;
+import com.liferay.portal.search.engine.SearchEngineInformation;
+import com.liferay.portal.search.internal.analysis.DescriptionFieldQueryBuilder;
+import com.liferay.portal.search.internal.analysis.TitleFieldQueryBuilder;
+import com.liferay.portal.search.internal.query.FieldQueryFactoryImpl;
 import com.liferay.portal.search.query.Query;
 import com.liferay.portal.search.query.field.FieldQueryFactory;
 import com.liferay.portal.search.test.util.DocumentsAssert;
 import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
 import com.liferay.portal.search.test.util.indexing.DocumentCreationHelpers;
 
+import org.junit.Assert;
 import org.junit.Test;
+
+import org.mockito.Mock;
 
 /**
  * @author André de Oliveira
@@ -63,6 +71,48 @@ public abstract class BaseLiferayFieldQueryFactoryTestCase
 					wordPrefix2 = false;
 				}
 			});
+	}
+
+	@Test
+	public void testDefaultQueryBuilder() {
+		FieldQueryBuilder fieldQueryBuilder = new FieldQueryFactoryImpl() {
+
+			public FieldQueryBuilder publicGetDefaultQueryBuilder(
+				DescriptionFieldQueryBuilder descriptionFieldQueryBuilder,
+				TitleFieldQueryBuilder titleFieldQueryBuilder,
+				SearchEngineInformation searchEngineInformation) {
+
+				setDescriptionFieldQueryBuilder(descriptionFieldQueryBuilder);
+				setTitleFieldQueryBuilder(titleFieldQueryBuilder);
+				setSearchEngineInformation(searchEngineInformation);
+
+				return getDefaultQueryBuilder();
+			}
+
+		}.publicGetDefaultQueryBuilder(
+			new TestDescriptionFieldQueryBuilder(),
+			new TestTitleFieldQueryBuilder(), searchEngineInformation);
+
+		String vendor = searchEngineInformation.getVendorString();
+		String version = searchEngineInformation.getClientVersionString();
+
+		TestFieldQueryBuilder testFieldQueryBuilder =
+			(TestFieldQueryBuilder)fieldQueryBuilder;
+
+		String fieldQueryBuilderClassName =
+			testFieldQueryBuilder.getClassName();
+
+		if ((vendor.equals("Elasticsearch") && version.equals("6")) ||
+			vendor.equals("Solr")) {
+
+			Assert.assertTrue(
+				fieldQueryBuilderClassName.equals(_titleFieldQueryBuilderName));
+		}
+		else {
+			Assert.assertTrue(
+				fieldQueryBuilderClassName.equals(
+					_descriptionFieldQueryBuilderName));
+		}
 	}
 
 	@Test
@@ -195,6 +245,30 @@ public abstract class BaseLiferayFieldQueryFactoryTestCase
 			getTitleStyleExpectations());
 	}
 
+	public class TestDescriptionFieldQueryBuilder
+		extends DescriptionFieldQueryBuilder implements TestFieldQueryBuilder {
+
+		public String getClassName() {
+			return _descriptionFieldQueryBuilderName;
+		}
+
+	}
+
+	public interface TestFieldQueryBuilder {
+
+		public String getClassName();
+
+	}
+
+	public class TestTitleFieldQueryBuilder
+		extends TitleFieldQueryBuilder implements TestFieldQueryBuilder {
+
+		public String getClassName() {
+			return _titleFieldQueryBuilderName;
+		}
+
+	}
+
 	protected static Expectations getDescriptionStyleExpectations() {
 		return new Expectations() {
 			{
@@ -318,6 +392,9 @@ public abstract class BaseLiferayFieldQueryFactoryTestCase
 		_fieldValue = fieldValue;
 	}
 
+	@Mock
+	protected SearchEngineInformation searchEngineInformation;
+
 	protected static class Blueprint {
 
 		protected String phrase;
@@ -338,6 +415,11 @@ public abstract class BaseLiferayFieldQueryFactoryTestCase
 		protected boolean wordPrefix2;
 
 	}
+
+	private static final String _descriptionFieldQueryBuilderName =
+		"DescriptionFieldQueryBuilder";
+	private static final String _titleFieldQueryBuilderName =
+		"TitleFieldQueryBuilder";
 
 	private String _fieldName;
 	private String _fieldValue;
