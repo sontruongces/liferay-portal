@@ -83,6 +83,18 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 	}
 
 	protected FieldQueryBuilder getDefaultQueryBuilder() {
+		if (_searchEngineInformation != null) {
+			String vendor = _searchEngineInformation.getVendorString();
+			String version = _searchEngineInformation.getClientVersionString();
+
+			if ((vendor.startsWith("Elasticsearch") &&
+				 version.startsWith("6")) ||
+				vendor.startsWith("Solr")) {
+
+				return titleFieldQueryBuilder;
+			}
+		}
+
 		return descriptionFieldQueryBuilder;
 	}
 
