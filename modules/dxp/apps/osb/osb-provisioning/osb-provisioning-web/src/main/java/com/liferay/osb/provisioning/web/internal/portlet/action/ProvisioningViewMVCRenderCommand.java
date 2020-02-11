@@ -15,6 +15,8 @@
 package com.liferay.osb.provisioning.web.internal.portlet.action;
 
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
+import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.web.internal.display.context.AccountsDisplayContext;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 
 import javax.portlet.PortletException;
@@ -22,6 +24,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Kyle Bischof
@@ -40,7 +43,17 @@ public class ProvisioningViewMVCRenderCommand implements MVCRenderCommand {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
+		AccountsDisplayContext accountsDisplayContext =
+			new AccountsDisplayContext(
+				renderRequest, renderResponse, _accountWebService);
+
+		renderRequest.setAttribute(
+			AccountsDisplayContext.class.getName(), accountsDisplayContext);
+
 		return "/accounts/view.jsp";
 	}
+
+	@Reference
+	private AccountWebService _accountWebService;
 
 }
