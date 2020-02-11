@@ -453,12 +453,6 @@ public class WorkflowDefinitionLinkDisplayContext {
 		return false;
 	}
 
-	public boolean isDisabledManagementBar() throws PortalException {
-		SearchContainer searchContainer = getSearchContainer();
-
-		return !searchContainer.hasResults();
-	}
-
 	public boolean isWorkflowDefinitionEquals(
 		WorkflowDefinition definition1, WorkflowDefinition definition2) {
 
