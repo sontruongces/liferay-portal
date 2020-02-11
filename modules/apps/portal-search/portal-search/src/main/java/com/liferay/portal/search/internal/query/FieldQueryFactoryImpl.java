@@ -18,7 +18,9 @@ import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.query.FieldQueryFactory;
 import com.liferay.portal.search.analysis.FieldQueryBuilder;
 import com.liferay.portal.search.analysis.FieldQueryBuilderFactory;
+import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.internal.analysis.DescriptionFieldQueryBuilder;
+import com.liferay.portal.search.internal.analysis.TitleFieldQueryBuilder;
 
 import java.util.HashSet;
 
@@ -26,6 +28,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * @author Michael C. Han
@@ -41,6 +44,32 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 		FieldQueryBuilder fieldQueryBuilder = getQueryBuilder(fieldName);
 
 		return fieldQueryBuilder.build(fieldName, keywords);
+	}
+
+	@Reference(unbind = "-")
+	public void setDescriptionFieldQueryBuilder(
+		DescriptionFieldQueryBuilder descriptionFieldQueryBuilder) {
+
+		this.descriptionFieldQueryBuilder = descriptionFieldQueryBuilder;
+	}
+
+	public void setSearchEngineInformation(
+		SearchEngineInformation searchEngineInformation) {
+
+		_searchEngineInformation = searchEngineInformation;
+	}
+
+	@Reference(unbind = "-")
+	public void setTitleFieldQueryBuilder(
+		TitleFieldQueryBuilder titleFieldQueryBuilder) {
+
+		this.titleFieldQueryBuilder = titleFieldQueryBuilder;
+	}
+
+	public void unsetSearchEngineInformation(
+		SearchEngineInformation searchEngineInformation) {
+
+		_searchEngineInformation = null;
 	}
 
 	@Reference(
@@ -78,10 +107,17 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 		_fieldQueryBuilderFactories.remove(fieldQueryBuilderFactory);
 	}
 
-	@Reference
 	protected DescriptionFieldQueryBuilder descriptionFieldQueryBuilder;
+	protected TitleFieldQueryBuilder titleFieldQueryBuilder;
 
 	private final HashSet<FieldQueryBuilderFactory>
 		_fieldQueryBuilderFactories = new HashSet<>();
+
+	@Reference(
+		cardinality = ReferenceCardinality.OPTIONAL,
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY
+	)
+	private volatile SearchEngineInformation _searchEngineInformation;
 
 }
