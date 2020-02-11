@@ -8265,7 +8265,7 @@ public class JournalArticleLocalServiceImpl
 
 		if (liveGroupId > 0) {
 			subscriptionSender.addPersistedSubscribers(
-				JournalFolder.class.getName(), liveGroupId);
+				JournalFolder.class.getName(), liveGroupId, false);
 		}
 
 		if (folder != null) {
