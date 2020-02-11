@@ -32,12 +32,22 @@ public class CompanyIndexFactoryFixture {
 		_indexName = indexName;
 	}
 
-	public void createIndices() throws Exception {
+	public void createIndices() {
 		CompanyIndexFactory companyIndexFactory = getCompanyIndexFactory();
 
 		companyIndexFactory.createIndices(
 			_elasticsearchFixture.getAdminClient(),
 			RandomTestUtil.randomLong());
+	}
+
+	public void deleteIndices() {
+		CompanyIndexFactory companyIndexFactory = getCompanyIndexFactory();
+
+		RestHighLevelClient restHighLevelClient =
+			_elasticsearchFixture.getRestHighLevelClient();
+
+		companyIndexFactory.deleteIndices(
+			restHighLevelClient.indices(), RandomTestUtil.randomLong());
 	}
 
 	public CompanyIndexFactory getCompanyIndexFactory() {
