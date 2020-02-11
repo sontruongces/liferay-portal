@@ -235,8 +235,8 @@ public class JournalUtil {
 			return HttpUtil.addParameter(
 				articleURL, namespace + "folderId", folderId);
 		}
-		catch (PortalException pe) {
-			_log.error(pe, pe);
+		catch (PortalException portalException) {
+			_log.error(portalException, portalException);
 		}
 
 		return StringPool.BLANK;

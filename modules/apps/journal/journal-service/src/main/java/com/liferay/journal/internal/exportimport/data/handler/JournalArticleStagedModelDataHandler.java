@@ -1614,7 +1614,7 @@ public class JournalArticleStagedModelDataHandler
 						subscriptionSender.sendEmailNotification(
 							userNotificationEvent.getUserId());
 					}
-					catch (Exception e) {
+					catch (Exception exception) {
 						if (_log.isWarnEnabled()) {
 							_log.warn(
 								"Unable to send email notification for " +
@@ -1626,7 +1626,7 @@ public class JournalArticleStagedModelDataHandler
 		try {
 			actionableDynamicQuery.performActions();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Unable to send email notification for article " +
