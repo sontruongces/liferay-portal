@@ -101,9 +101,13 @@ public class AccountUtil {
 			}
 		}
 
-		DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+		if (supportEndDate != null) {
+			DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
 
-		return dateFormat.format(supportEndDate);
+			return dateFormat.format(supportEndDate);
+		}
+
+		return StringPool.BLANK;
 	}
 
 }
