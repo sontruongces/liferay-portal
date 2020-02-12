@@ -21,8 +21,9 @@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.osb.provisioning.util.AccountUtil" %><%@
-page import="com.liferay.osb.provisioning.web.internal.display.context.AccountsDisplayContext" %>
+<%@ page import="com.liferay.osb.provisioning.koroneiki.util.AccountUtil" %><%@
+page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
+page import="com.liferay.osb.provisioning.web.internal.util.ProvisioningWebComponentProvider" %>
 
 <liferay-frontend:defineObjects />
 

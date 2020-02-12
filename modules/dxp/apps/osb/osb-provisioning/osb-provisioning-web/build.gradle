@@ -11,5 +11,6 @@ dependencies {
 	compileOnly group: "javax.servlet", name: "javax.servlet-api", version: "3.0.1"
 	compileOnly project(":private:apps:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-client")
 	compileOnly project(":private:apps:osb-provisioning:osb-provisioning-api")
+	compileOnly project(":private:apps:osb-provisioning:osb-provisioning-koroneiki:osb-provisioning-koroneiki-api")
 	compileOnly project(":private:apps:osb-provisioning:osb-provisioning-koroneiki:osb-provisioning-koroneiki-web-service-api")
 }

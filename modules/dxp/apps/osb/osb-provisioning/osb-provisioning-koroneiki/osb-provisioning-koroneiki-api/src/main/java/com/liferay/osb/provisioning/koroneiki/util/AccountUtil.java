@@ -12,13 +12,15 @@
  *
  */
 
-package com.liferay.osb.provisioning.util;
+package com.liferay.osb.provisioning.koroneiki.util;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
-import com.liferay.osb.provisioning.constants.ProductConstants;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole;
+import com.liferay.osb.provisioning.koroneiki.constants.ProductConstants;
+import com.liferay.osb.provisioning.koroneiki.constants.TeamRoleConstants;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -41,13 +43,11 @@ public class AccountUtil {
 		for (ProductPurchase productPurchase : account.getProductPurchases()) {
 			Product product = productPurchase.getProduct();
 
-			String productName = product.getName();
+			String name = product.getName();
 
-			if (ArrayUtil.contains(
-					ProductConstants.SUBSCRIPTION_NAMES, productName)) {
-
+			if (ArrayUtil.contains(ProductConstants.SUBSCRIPTION_NAMES, name)) {
 				return StringUtil.replace(
-					productName, " Subscription", StringPool.BLANK);
+					name, " Subscription", StringPool.BLANK);
 			}
 		}
 
@@ -57,8 +57,20 @@ public class AccountUtil {
 	public static String getPartner(Account account) {
 		Team[] teams = account.getAssignedTeams();
 
-		if (!ArrayUtil.isEmpty(teams)) {
-			return teams[0].getName();
+		if (teams != null) {
+			for (Team team : teams) {
+				TeamRole[] teamRoles = team.getTeamRoles();
+
+				if (teamRoles != null) {
+					for (TeamRole teamRole : teamRoles) {
+						String name = teamRole.getName();
+
+						if (name.equals(TeamRoleConstants.NAME_PARTNER)) {
+							return team.getName();
+						}
+					}
+				}
+			}
 		}
 
 		return StringPool.BLANK;
@@ -72,14 +84,20 @@ public class AccountUtil {
 		Date supportEndDate = null;
 
 		for (ProductPurchase productPurchase : account.getProductPurchases()) {
-			if (productPurchase.getPerpetual()) {
-				return "Perpetual";
-			}
+			Product product = productPurchase.getProduct();
 
-			if ((supportEndDate == null) ||
-				supportEndDate.before(productPurchase.getEndDate())) {
+			if (ArrayUtil.contains(
+					ProductConstants.SUBSCRIPTION_NAMES, product.getName())) {
 
-				supportEndDate = productPurchase.getEndDate();
+				if (productPurchase.getPerpetual()) {
+					return "Perpetual";
+				}
+
+				if ((supportEndDate == null) ||
+					supportEndDate.before(productPurchase.getEndDate())) {
+
+					supportEndDate = productPurchase.getEndDate();
+				}
 			}
 		}
 

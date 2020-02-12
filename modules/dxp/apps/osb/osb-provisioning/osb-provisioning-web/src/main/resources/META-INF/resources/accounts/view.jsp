@@ -17,12 +17,12 @@
 <%@ include file="/init.jsp" %>
 
 <%
-AccountsDisplayContext accountsDisplayContext = (AccountsDisplayContext)liferayPortletRequest.getAttribute(AccountsDisplayContext.class.getName());
+AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse);
 %>
 
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
-		searchContainer="<%= accountsDisplayContext.getSearchContainer() %>"
+		searchContainer="<%= accountSearchDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
 			className="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account"
@@ -31,9 +31,9 @@ AccountsDisplayContext accountsDisplayContext = (AccountsDisplayContext)liferayP
 			modelVar="koroneikiAccount"
 		>
 			<portlet:renderURL var="rowURL">
-				<portlet:param name="mvcRenderCommandName" value="/accounts/edit_account" />
+				<portlet:param name="mvcRenderCommandName" value="/accounts/view_account" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="key" value="<%= String.valueOf(koroneikiAccount.getKey()) %>" />
+				<portlet:param name="accountKey" value="<%= koroneikiAccount.getKey() %>" />
 			</portlet:renderURL>
 
 			<liferay-ui:search-container-column-text

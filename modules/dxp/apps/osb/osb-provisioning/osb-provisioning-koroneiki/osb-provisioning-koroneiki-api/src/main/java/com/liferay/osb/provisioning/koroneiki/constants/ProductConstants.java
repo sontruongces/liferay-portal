@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.provisioning.constants;
+package com.liferay.osb.provisioning.koroneiki.constants;
 
 /**
  * @author Amos Fong

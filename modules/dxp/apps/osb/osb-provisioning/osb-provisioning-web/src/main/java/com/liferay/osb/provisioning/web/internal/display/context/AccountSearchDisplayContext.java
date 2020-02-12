@@ -28,9 +28,9 @@ import javax.portlet.RenderResponse;
 /**
  * @author Kyle Bischof
  */
-public class AccountsDisplayContext {
+public class AccountSearchDisplayContext {
 
-	public AccountsDisplayContext(
+	public AccountSearchDisplayContext(
 		RenderRequest renderRequest, RenderResponse renderResponse,
 		AccountWebService accountWebService) {
 
