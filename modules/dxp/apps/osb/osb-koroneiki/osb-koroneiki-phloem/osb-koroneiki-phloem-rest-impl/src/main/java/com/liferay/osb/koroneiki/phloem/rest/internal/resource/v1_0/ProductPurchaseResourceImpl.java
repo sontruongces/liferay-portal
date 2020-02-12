@@ -26,7 +26,9 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
+import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
@@ -34,15 +36,17 @@ import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.fields.NestedField;
@@ -145,10 +149,29 @@ public class ProductPurchaseResourceImpl
 			@NestedFieldId("key") String accountKey)
 		throws Exception {
 
-		return transform(
-			_productPurchaseService.getAccountProductPurchases(
-				accountKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
-			ProductPurchaseUtil::toProductPurchase);
+		Account account = _accountLocalService.getAccount(accountKey);
+
+		BooleanFilter booleanFilter = new BooleanFilter();
+
+		booleanFilter.addRequiredTerm(
+			"accountKey", StringUtil.toLowerCase(accountKey));
+		booleanFilter.addRequiredTerm("state", "active");
+
+		Page<ProductPurchase> productPurchasesPage = SearchUtil.search(
+			booleanQuery -> {
+			},
+			booleanFilter,
+			com.liferay.osb.koroneiki.trunk.model.ProductPurchase.class,
+			StringPool.BLANK, null,
+			queryConfig -> queryConfig.setSelectedFieldNames(
+				Field.ENTRY_CLASS_PK),
+			searchContext -> searchContext.setCompanyId(account.getCompanyId()),
+			document -> ProductPurchaseUtil.toProductPurchase(
+				_productPurchaseLocalService.getProductPurchase(
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
+			null);
+
+		return new ArrayList<>(productPurchasesPage.getItems());
 	}
 
 	@Override
@@ -433,6 +456,9 @@ public class ProductPurchaseResourceImpl
 			productPurchase.getProductPurchaseId(),
 			productPurchasePermission.getRoleNames(), actionIds);
 	}
+
+	@Reference
+	private AccountLocalService _accountLocalService;
 
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
