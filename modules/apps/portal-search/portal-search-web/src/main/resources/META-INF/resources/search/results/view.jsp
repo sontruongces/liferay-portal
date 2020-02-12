@@ -199,7 +199,7 @@ com.liferay.portal.kernel.dao.search.SearchContainer<com.liferay.portal.kernel.s
 							<table class="table">
 								<thead>
 									<tr>
-										<th style="text-align:right; ">
+										<th style="text-align: right;">
 											<liferay-ui:message key="key" />
 										</th>
 										<th>
@@ -215,10 +215,10 @@ com.liferay.portal.kernel.dao.search.SearchContainer<com.liferay.portal.kernel.s
 									%>
 
 										<tr>
-											<td style="padding-bottom:0; padding-top:0; text-align:right; word-break:break-all;" width="15%">
+											<td style="padding-bottom: 0; padding-top: 0; text-align: right; word-break: break-all;" width="15%">
 												<strong><%= HtmlUtil.escape(searchResultFieldDisplayContext.getName()) %></strong>
 											</td>
-											<td style="padding-bottom:0; padding-top:0;">
+											<td style="padding-bottom: 0; padding-top: 0;">
 												<code>
 													<%= searchResultFieldDisplayContext.getValuesToString() %>
 												</code>
