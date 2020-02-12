@@ -15,9 +15,11 @@
 package com.liferay.osb.provisioning.koroneiki.web.service.internal;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.AccountResource;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.AccountSerDes;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -27,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -40,6 +44,21 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true, service = AccountWebService.class
 )
 public class AccountWebServiceImpl implements AccountWebService {
+
+	public Account fetchAccount(String accountKey) throws Exception {
+		HttpInvoker.HttpResponse httpResponse =
+			_accountResource.getAccountHttpResponse(accountKey);
+
+		if (httpResponse.getStatusCode() == HttpServletResponse.SC_NOT_FOUND) {
+			return null;
+		}
+
+		return AccountSerDes.toDTO(httpResponse.getContent());
+	}
+
+	public Account getAccount(String accountKey) throws Exception {
+		return _accountResource.getAccount(accountKey);
+	}
 
 	public Account postAccount(Account account) throws Exception {
 		return _accountResource.postAccount(StringPool.BLANK, account);
@@ -74,7 +93,9 @@ public class AccountWebServiceImpl implements AccountWebService {
 		).header(
 			"API_Token", koroneikiConfiguration.apiToken()
 		).parameter(
-			"nestedFields", "assignedTeams,productPurchases"
+			"nestedFields",
+			"assignedTeams,assignedTeams.teamRoles,contacts," +
+				"contacts.contactRoles,productPurchases"
 		).build();
 	}
 

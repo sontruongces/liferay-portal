@@ -12,25 +12,24 @@
  *
  */
 
-package com.liferay.osb.provisioning.koroneiki.web.service;
+package com.liferay.osb.provisioning.koroneiki.reader;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
-
-import java.util.List;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 
 /**
  * @author Kyle Bischof
+ * @author Amos Fong
  */
-public interface AccountWebService {
+public interface AccountReader {
 
-	public Account fetchAccount(String accountKey) throws Exception;
+	public int getDeveloperCount(Account account);
 
-	public Account getAccount(String accountKey) throws Exception;
+	public int getMaxDeveloperCount(Account account);
 
-	public Account postAccount(Account account) throws Exception;
+	public Team getPartnerTeam(Account account);
 
-	public List<Account> search(
-			String filterString, int page, int pageSize, String sortString)
-		throws Exception;
+	public ProductPurchase getSLAProductPurchase(Account account);
 
 }

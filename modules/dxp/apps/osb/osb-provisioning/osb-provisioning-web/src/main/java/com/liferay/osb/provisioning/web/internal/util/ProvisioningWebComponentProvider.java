@@ -14,11 +14,15 @@
 
 package com.liferay.osb.provisioning.web.internal.util;
 
+import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
 
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -30,6 +34,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(immediate = true, service = {})
 public class ProvisioningWebComponentProvider {
+
+	public static AccountReader getAccountReader() {
+		return _provisioningWebComponentProvider._getAccountReader();
+	}
 
 	public static AccountSearchDisplayContext getAccountSearchDisplayContext(
 		RenderRequest renderRequest, RenderResponse renderResponse) {
@@ -44,6 +52,15 @@ public class ProvisioningWebComponentProvider {
 		return _provisioningWebComponentProvider;
 	}
 
+	public static ViewAccountDisplayContext getViewAccountDisplayContext(
+			RenderRequest renderRequest, RenderResponse renderResponse,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
+			renderRequest, renderResponse, httpServletRequest);
+	}
+
 	@Activate
 	protected void activate() {
 		_provisioningWebComponentProvider = this;
@@ -54,6 +71,10 @@ public class ProvisioningWebComponentProvider {
 		_provisioningWebComponentProvider = null;
 	}
 
+	private AccountReader _getAccountReader() {
+		return _accountReader;
+	}
+
 	private AccountSearchDisplayContext _getAccountSearchDisplayContext(
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
@@ -61,8 +82,21 @@ public class ProvisioningWebComponentProvider {
 			renderRequest, renderResponse, _accountWebService);
 	}
 
+	private ViewAccountDisplayContext _getViewAccountDisplayContext(
+			RenderRequest renderRequest, RenderResponse renderResponse,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return new ViewAccountDisplayContext(
+			renderRequest, renderResponse, httpServletRequest,
+			_accountWebService);
+	}
+
 	private static ProvisioningWebComponentProvider
 		_provisioningWebComponentProvider;
+
+	@Reference
+	private AccountReader _accountReader;
 
 	@Reference
 	private AccountWebService _accountWebService;

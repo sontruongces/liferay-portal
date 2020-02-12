@@ -36,6 +36,11 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 				<portlet:param name="accountKey" value="<%= koroneikiAccount.getKey() %>" />
 			</portlet:renderURL>
 
+			<%
+			Team partnerTeam = accountReader.getPartnerTeam(koroneikiAccount);
+			ProductPurchase slaProductPurchase = accountReader.getSLAProductPurchase(koroneikiAccount);
+			%>
+
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="name"
@@ -56,14 +61,27 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="partner"
-				value="<%= AccountUtil.getPartner(koroneikiAccount) %>"
-			/>
+			>
+				<c:if test="<%= partnerTeam != null %>">
+					<%= HtmlUtil.escape(partnerTeam.getName()) %>
+				</c:if>
+			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="support-end-date"
-				value="<%= AccountUtil.getSupportEndDate(koroneikiAccount) %>"
-			/>
+			>
+				<c:if test="<%= slaProductPurchase != null %>">
+					<c:choose>
+						<c:when test="<%= slaProductPurchase.getPerpetual() %>">
+							<liferay-ui:message key="perpetual" />
+						</c:when>
+						<c:otherwise>
+							<%= dateFormat.format(slaProductPurchase.getEndDate()) %>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
@@ -73,9 +91,19 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
-				name="highest-sla"
-				value="<%= AccountUtil.getHighestSLA(koroneikiAccount) %>"
-			/>
+				name="sla"
+			>
+				<c:if test="<%= slaProductPurchase != null %>">
+
+					<%
+					Product product = slaProductPurchase.getProduct();
+
+					String name = StringUtil.replace(product.getName(), " Subscription", StringPool.BLANK);
+					%>
+
+					<%= HtmlUtil.escape(name) %>
+				</c:if>
+			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"

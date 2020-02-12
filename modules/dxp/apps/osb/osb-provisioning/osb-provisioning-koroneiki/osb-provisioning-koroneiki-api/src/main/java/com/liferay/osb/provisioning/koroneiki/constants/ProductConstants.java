@@ -19,6 +19,23 @@ package com.liferay.osb.provisioning.koroneiki.constants;
  */
 public class ProductConstants {
 
+	public static final String NAME_DESIGNATED_CONTACT_ADD_ON =
+		"Designated Contact Add-on";
+
+	public static final String NAME_DXP_CLOUD_INSTANCE_PRODUCTION =
+		"Liferay DXP Cloud Instance - Production";
+
+	public static final String NAME_DXP_CLOUD_SUBSCRIPTION_HA_PRODUCTION =
+		"Liferay DXP Cloud Subscription HA Production";
+
+	public static final String NAME_DXP_CLOUD_SUBSCRIPTION_STD_PRODUCTION =
+		"Liferay DXP Cloud Subscription Std Production";
+
+	public static final String NAME_DXP_EWSA =
+		"DXP Enterprise-Wide Subscription";
+
+	public static final String NAME_DXP_PRODUCTION = "Liferay DXP Production";
+
 	public static final String NAME_FLOATING = "Floating Subscription";
 
 	public static final String NAME_GOLD = "Gold Subscription";
@@ -26,6 +43,9 @@ public class ProductConstants {
 	public static final String NAME_LIMITED = "Limited Subscription";
 
 	public static final String NAME_PLATINUM = "Platinum Subscription";
+
+	public static final String NAME_PORTAL_EWSA =
+		"Portal Enterprise-Wide Subscription";
 
 	public static final String NAME_SILVER = "Silver Subscription";
 

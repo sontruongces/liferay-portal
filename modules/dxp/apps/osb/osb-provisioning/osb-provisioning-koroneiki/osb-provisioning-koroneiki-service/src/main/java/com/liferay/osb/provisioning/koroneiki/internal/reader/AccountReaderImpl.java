@@ -1,0 +1,269 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package com.liferay.osb.provisioning.koroneiki.internal.reader;
+
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole;
+import com.liferay.osb.provisioning.koroneiki.constants.ContactRoleConstants;
+import com.liferay.osb.provisioning.koroneiki.constants.ProductConstants;
+import com.liferay.osb.provisioning.koroneiki.constants.TeamRoleConstants;
+import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
+import com.liferay.portal.kernel.util.ArrayUtil;
+
+import java.util.Date;
+
+import org.osgi.service.component.annotations.Component;
+
+/**
+ * @author Kyle Bischof
+ * @author Amos Fong
+ */
+@Component(immediate = true, service = AccountReader.class)
+public class AccountReaderImpl implements AccountReader {
+
+	public int getDeveloperCount(Account account) {
+		int developerCount = 0;
+
+		Contact[] contacts = account.getContacts();
+
+		if (contacts != null) {
+			for (Contact contact : contacts) {
+				ContactRole[] contactRoles = contact.getContactRoles();
+
+				if (contactRoles != null) {
+					for (ContactRole contactRole : contactRoles) {
+						String name = contactRole.getName();
+
+						if (name.equals(
+								ContactRoleConstants.NAME_SUPPORT_DEVELOPER)) {
+
+							developerCount++;
+
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		return developerCount;
+	}
+
+	public int getMaxDeveloperCount(Account account) {
+		if (ArrayUtil.isEmpty(account.getProductPurchases())) {
+			return 0;
+		}
+
+		ProductPurchase slaProductPurchase = getSLAProductPurchase(account);
+
+		if (slaProductPurchase == null) {
+			return 0;
+		}
+
+		int developerAddons = 0;
+		int productionInstances = 0;
+
+		for (ProductPurchase productPurchase : account.getProductPurchases()) {
+			Product product = productPurchase.getProduct();
+
+			String name = product.getName();
+
+			if (name.equals(ProductConstants.NAME_DESIGNATED_CONTACT_ADD_ON)) {
+				developerAddons += productPurchase.getQuantity();
+			}
+			else if (name.equals(
+						ProductConstants.
+							NAME_DXP_CLOUD_SUBSCRIPTION_HA_PRODUCTION)) {
+
+				productionInstances += 2 * productPurchase.getQuantity();
+			}
+			else if (name.equals(ProductConstants.NAME_DXP_PRODUCTION) ||
+					 name.equals(
+						 ProductConstants.
+							 NAME_DXP_CLOUD_SUBSCRIPTION_STD_PRODUCTION) ||
+					 name.equals(
+						 ProductConstants.NAME_DXP_CLOUD_INSTANCE_PRODUCTION)) {
+
+				productionInstances += productPurchase.getQuantity();
+			}
+		}
+
+		if (productionInstances <= 0) {
+			return 0;
+		}
+
+		int maxDeveloperCount = 0;
+
+		Product product = slaProductPurchase.getProduct();
+
+		String name = product.getName();
+
+		if (name.equals(ProductConstants.NAME_GOLD)) {
+			if (productionInstances <= 4) {
+				maxDeveloperCount = 2;
+			}
+			else if (productionInstances <= 8) {
+				maxDeveloperCount = 4;
+			}
+			else if (productionInstances <= 12) {
+				maxDeveloperCount = 6;
+			}
+			else if (productionInstances <= 16) {
+				maxDeveloperCount = 8;
+			}
+			else if (productionInstances <= 20) {
+				maxDeveloperCount = 10;
+			}
+			else {
+				maxDeveloperCount = 12;
+			}
+		}
+		else if (name.equals(ProductConstants.NAME_PLATINUM)) {
+			if (productionInstances <= 4) {
+				maxDeveloperCount = 3;
+			}
+			else if (productionInstances <= 8) {
+				maxDeveloperCount = 6;
+			}
+			else if (productionInstances <= 12) {
+				maxDeveloperCount = 9;
+			}
+			else if (productionInstances <= 16) {
+				maxDeveloperCount = 12;
+			}
+			else if (productionInstances <= 20) {
+				maxDeveloperCount = 15;
+			}
+			else {
+				maxDeveloperCount = 18;
+			}
+		}
+
+		maxDeveloperCount += developerAddons;
+
+		return maxDeveloperCount;
+	}
+
+	public Team getPartnerTeam(Account account) {
+		Team[] teams = account.getAssignedTeams();
+
+		if (teams != null) {
+			for (Team team : teams) {
+				TeamRole[] teamRoles = team.getTeamRoles();
+
+				if (teamRoles != null) {
+					for (TeamRole teamRole : teamRoles) {
+						String name = teamRole.getName();
+
+						if (name.equals(TeamRoleConstants.NAME_PARTNER)) {
+							return team;
+						}
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	public ProductPurchase getSLAProductPurchase(Account account) {
+		if (ArrayUtil.isEmpty(account.getProductPurchases())) {
+			return null;
+		}
+
+		ProductPurchase slaProductPurchase = null;
+
+		for (ProductPurchase productPurchase : account.getProductPurchases()) {
+			Product product = productPurchase.getProduct();
+
+			if (!ArrayUtil.contains(
+					ProductConstants.SUBSCRIPTION_NAMES, product.getName())) {
+
+				continue;
+			}
+
+			if (_isHigherSLA(slaProductPurchase, productPurchase)) {
+				slaProductPurchase = productPurchase;
+			}
+		}
+
+		return slaProductPurchase;
+	}
+
+	private int _getSLARank(Product product) {
+		String name = product.getName();
+
+		if (name.equals(ProductConstants.NAME_GOLD)) {
+			return 3;
+		}
+		else if (name.equals(ProductConstants.NAME_LIMITED)) {
+			return 1;
+		}
+		else if (name.equals(ProductConstants.NAME_PLATINUM)) {
+			return 4;
+		}
+		else if (name.equals(ProductConstants.NAME_SILVER)) {
+			return 2;
+		}
+
+		return 0;
+	}
+
+	private boolean _isHigherSLA(
+		ProductPurchase curProductPurchase, ProductPurchase productPurchase) {
+
+		if (curProductPurchase == null) {
+			return true;
+		}
+
+		int curSLARank = _getSLARank(curProductPurchase.getProduct());
+		int slaRank = _getSLARank(productPurchase.getProduct());
+
+		if (slaRank > curSLARank) {
+			return true;
+		}
+
+		if (slaRank < curSLARank) {
+			return false;
+		}
+
+		if (productPurchase.getPerpetual() &&
+			!curProductPurchase.getPerpetual()) {
+
+			return true;
+		}
+
+		if (!productPurchase.getPerpetual() &&
+			curProductPurchase.getPerpetual()) {
+
+			return false;
+		}
+
+		Date curEndDate = curProductPurchase.getEndDate();
+		Date endDate = productPurchase.getEndDate();
+
+		if (endDate.after(curEndDate)) {
+			return true;
+		}
+
+		return false;
+	}
+
+}
