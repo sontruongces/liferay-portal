@@ -48,7 +48,7 @@ List<Tuple> assetLinkEntries = (List<Tuple>)request.getAttribute("liferay-asset:
 						<c:choose>
 							<c:when test="<%= assetRenderer.getStatus() == WorkflowConstants.STATUS_SCHEDULED %>">
 								<%= HtmlUtil.escape(assetLinkEntry.getTitle(locale)) %>
-								<span class="label label-<%= WorkflowConstants.getStatusStyle(assetRenderer.getStatus()) %> ml-2 text-uppercase">
+								<span class="label label-<%= LabelItem.getStyleFromWorkflowStatus(assetRenderer.getStatus()) %> ml-2 text-uppercase">
 									<liferay-ui:message key="<%= WorkflowConstants.getStatusLabel(assetRenderer.getStatus()) %>" />
 								</span>
 							</c:when>
