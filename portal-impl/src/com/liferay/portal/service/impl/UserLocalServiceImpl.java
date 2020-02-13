@@ -80,6 +80,7 @@ import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.model.UserGroupRole;
 import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
@@ -116,7 +117,6 @@ import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
@@ -5745,34 +5745,23 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		searchContext.setAndSearch(andSearch);
 
-		Map<String, Serializable> attributes =
-			HashMapBuilder.<String, Serializable>put(
-				"city", city
-			).put(
-				"country", country
-			).put(
-				"emailAddress", emailAddress
-			).put(
-				"firstName", firstName
-			).put(
-				"fullName", fullName
-			).put(
-				"lastName", lastName
-			).put(
-				"middleName", middleName
-			).put(
-				"params", params
-			).put(
-				"region", region
-			).put(
-				"screenName", screenName
-			).put(
-				"status", status
-			).put(
-				"street", street
-			).put(
-				"zip", zip
-			).build();
+		Map<String, Serializable> attributes = new HashMap<>();
+
+		attributes.put(
+			Field.GROUP_ID, (Long)params.getOrDefault("usersGroups", 0));
+		attributes.put("city", city);
+		attributes.put("country", country);
+		attributes.put("emailAddress", emailAddress);
+		attributes.put("firstName", firstName);
+		attributes.put("fullName", fullName);
+		attributes.put("lastName", lastName);
+		attributes.put("middleName", middleName);
+		attributes.put("params", params);
+		attributes.put("region", region);
+		attributes.put("screenName", screenName);
+		attributes.put("status", status);
+		attributes.put("street", street);
+		attributes.put("zip", zip);
 
 		searchContext.setAttributes(attributes);
 
