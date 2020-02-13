@@ -1,7 +1,25 @@
-/* These inject tags are used for dynamically creating imports for themelet styles, you can place them where ever you like in this file. */
+@font-face {
+	font-family: 'Source Sans Pro';
+	font-style: normal;
+	font-weight: 400;
+	src: url(../fonts/SourceSansPro-Regular.ttf) format('truetype');
+}
 
-/* inject:imports */
+@font-face {
+	font-family: 'Source Sans Pro';
+	font-style: normal;
+	font-weight: 600;
+	src: url(../fonts/SourceSansPro-SemiBold.ttf) format('truetype');
+}
 
-/* ---------- endinject ---------- */
+@font-face {
+	font-family: 'Source Sans Pro';
+	font-style: normal;
+	font-weight: 700;
+	src: url(../fonts/SourceSansPro-Bold.ttf) format('truetype');
+}
 
-/* ---------- This file allows you to override default styles in one central location for easier upgrade and maintenance. ---------- */
+.list-group-headersmall-heading {
+	font-size: $small-font-size;
+	letter-spacing: 0.04rem;
+}
