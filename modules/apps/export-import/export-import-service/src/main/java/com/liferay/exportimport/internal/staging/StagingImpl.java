@@ -65,7 +65,6 @@ import com.liferay.exportimport.staged.model.repository.StagedModelRepositoryHel
 import com.liferay.exportimport.staged.model.repository.StagedModelRepositoryRegistryUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTask;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskManager;
 import com.liferay.portal.kernel.exception.LayoutPrototypeException;
@@ -106,7 +105,9 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.WorkflowInstanceLink;
 import com.liferay.portal.kernel.model.WorkflowedModel;
 import com.liferay.portal.kernel.model.adapter.StagedTheme;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelperUtil;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.auth.RemoteAuthException;
@@ -188,9 +189,7 @@ import javax.portlet.PortletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -199,10 +198,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Wesley Gong
  * @author Zsolt Balogh
  */
-@Component(
-	configurationPid = "com.liferay.exportimport.configuration.ExportImportServiceConfiguration",
-	immediate = true, service = Staging.class
-)
+@Component(immediate = true, service = Staging.class)
 public class StagingImpl implements Staging {
 
 	@Override
@@ -2055,9 +2051,7 @@ public class StagingImpl implements Staging {
 		try {
 			URL remoteSiteURL = new URL(groupDisplayURL);
 
-			if (!_exportImportServiceConfiguration.
-					stagingUseVirtualHostForRemoteSite()) {
-
+			if (!isStagingUseVirtualHostForRemoteSite()) {
 				String remoteAddress = typeSettingsProperties.getProperty(
 					"remoteAddress");
 
@@ -3829,13 +3823,6 @@ public class StagingImpl implements Staging {
 		}
 	}
 
-	@Activate
-	@Modified
-	protected void activate(Map<String, Object> properties) {
-		_exportImportServiceConfiguration = ConfigurableUtil.createConfigurable(
-			ExportImportServiceConfiguration.class, properties);
-	}
-
 	protected long doCopyRemoteLayouts(
 			ExportImportConfiguration exportImportConfiguration,
 			String remoteAddress, int remotePort, String remotePathContext,
@@ -4135,6 +4122,22 @@ public class StagingImpl implements Staging {
 		return false;
 	}
 
+	protected boolean isStagingUseVirtualHostForRemoteSite() {
+		try {
+			ExportImportServiceConfiguration configuration =
+				_configurationProvider.getCompanyConfiguration(
+					ExportImportServiceConfiguration.class,
+					CompanyThreadLocal.getCompanyId());
+
+			return configuration.stagingUseVirtualHostForRemoteSite();
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+		}
+
+		return false;
+	}
+
 	protected long publishPortlet(
 			long userId, long scopeGroupId, long plid, String portletId,
 			Map<String, String[]> parameterMap, boolean copyFromLive)
@@ -4221,6 +4224,13 @@ public class StagingImpl implements Staging {
 		return publishPortlet(
 			userId, stagingGroup.getGroupId(), targetGroupId,
 			sourceLayout.getPlid(), targetLayoutPlid, portletId, parameterMap);
+	}
+
+	@Reference(unbind = "-")
+	protected void setConfigurationProvider(
+		ConfigurationProvider configurationProvider) {
+
+		_configurationProvider = configurationProvider;
 	}
 
 	protected void setRecentLayoutBranchId(
@@ -4397,6 +4407,8 @@ public class StagingImpl implements Staging {
 	@Reference
 	private CompanyLocalService _companyLocalService;
 
+	private ConfigurationProvider _configurationProvider;
+
 	@Reference
 	private DLValidator _dlValidator;
 
@@ -4414,8 +4426,6 @@ public class StagingImpl implements Staging {
 
 	@Reference
 	private ExportImportHelper _exportImportHelper;
-
-	private ExportImportServiceConfiguration _exportImportServiceConfiguration;
 
 	@Reference
 	private GroupLocalService _groupLocalService;
