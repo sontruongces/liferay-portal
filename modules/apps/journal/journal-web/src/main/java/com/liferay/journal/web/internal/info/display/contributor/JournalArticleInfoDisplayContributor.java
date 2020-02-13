@@ -328,14 +328,11 @@ public class JournalArticleInfoDisplayContributor
 
 		List<DDMTemplate> ddmTemplates = ddmStructure.getTemplates();
 
-		ThemeDisplay themeDisplay = _getThemeDisplay();
-
 		ddmTemplates.forEach(
 			ddmTemplate -> ddmTemplateInfoDisplayFieldsValues.put(
 				_getTemplateKey(ddmTemplate),
 				new DDMTemplateContentAccessor(
-					article, ddmTemplate, LocaleUtil.toLanguageId(locale),
-					themeDisplay)));
+					article, ddmTemplate, LocaleUtil.toLanguageId(locale))));
 
 		return ddmTemplateInfoDisplayFieldsValues;
 	}
@@ -371,26 +368,24 @@ public class JournalArticleInfoDisplayContributor
 	private class DDMTemplateContentAccessor implements ContentAccessor {
 
 		public DDMTemplateContentAccessor(
-			JournalArticle article, DDMTemplate ddmTemplate, String languageId,
-			ThemeDisplay themeDisplay) {
+			JournalArticle article, DDMTemplate ddmTemplate,
+			String languageId) {
 
 			_article = article;
 			_ddmTemplate = ddmTemplate;
 			_languageId = languageId;
-			_themeDisplay = themeDisplay;
 		}
 
 		public String getContent() {
 			return journalContent.getContent(
 				_article.getGroupId(), _article.getArticleId(),
 				_ddmTemplate.getTemplateKey(), Constants.VIEW, _languageId,
-				_themeDisplay);
+				_getThemeDisplay());
 		}
 
 		private final JournalArticle _article;
 		private final DDMTemplate _ddmTemplate;
 		private final String _languageId;
-		private final ThemeDisplay _themeDisplay;
 
 	}
 
