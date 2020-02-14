@@ -25,6 +25,8 @@ public class TaprootWebKeys {
 
 	public static final String CONTACT_ROLE = "CONTACT_ROLE";
 
+	public static final String CONTACT_ROLE_TYPE = "CONTACT_ROLE_TYPE";
+
 	public static final String TEAM = "TEAM";
 
 	public static final String TEAM_ROLE = "TEAM_ROLE";

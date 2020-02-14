@@ -23,7 +23,6 @@ import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemP
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
@@ -374,7 +373,8 @@ public class TeamResourceImpl
 			_teamLocalService.getTeam(teamKey);
 
 		ContactRole contactRole = _contactRoleLocalService.getMemberContactRole(
-			ContactRoleType.TEAM);
+			com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+				TEAM.toString());
 
 		for (Contact contact : contacts) {
 			_contactTeamRoleService.addContactTeamRole(

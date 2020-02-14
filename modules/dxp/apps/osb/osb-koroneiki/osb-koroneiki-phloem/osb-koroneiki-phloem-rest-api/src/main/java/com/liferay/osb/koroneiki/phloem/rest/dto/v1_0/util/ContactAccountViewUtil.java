@@ -29,14 +29,19 @@ public class ContactAccountViewUtil {
 	public static ContactAccountView toContactAccountView(
 			com.liferay.osb.koroneiki.taproot.model.Account taprootAccount,
 			List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
-				taprootContactRoles)
+				taprootCustomerContactRoles,
+			List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
+				taprootWorkerContactRoles)
 		throws Exception {
 
 		return new ContactAccountView() {
 			{
 				account = AccountUtil.toAccount(taprootAccount);
-				contactRoles = TransformUtil.transformToArray(
-					taprootContactRoles, ContactRoleUtil::toContactRole,
+				customerContactRoles = TransformUtil.transformToArray(
+					taprootCustomerContactRoles, ContactRoleUtil::toContactRole,
+					ContactRole.class);
+				workerContactRoles = TransformUtil.transformToArray(
+					taprootWorkerContactRoles, ContactRoleUtil::toContactRole,
 					ContactRole.class);
 			}
 		};

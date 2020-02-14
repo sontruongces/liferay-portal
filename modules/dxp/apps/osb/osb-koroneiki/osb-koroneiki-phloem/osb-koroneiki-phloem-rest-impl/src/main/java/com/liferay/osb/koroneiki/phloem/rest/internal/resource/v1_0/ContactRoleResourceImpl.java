@@ -21,7 +21,6 @@ import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactR
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
@@ -37,7 +36,11 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
@@ -95,9 +98,36 @@ public class ContactRoleResourceImpl
 				Pagination pagination)
 		throws Exception {
 
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		String[] nestedFields = StringUtil.split(
+			(String)serviceContext.getAttribute("nestedFields"));
+
+		String[] contactRoleTypes = null;
+
+		if (ArrayUtil.contains(nestedFields, "customerContacts.contactRoles")) {
+			contactRoleTypes = new String[] {
+				ContactRole.Type.ACCOUNT_CUSTOMER.toString()
+			};
+		}
+		else if (ArrayUtil.contains(
+					nestedFields, "workerContacts.contactRoles")) {
+
+			contactRoleTypes = new String[] {
+				ContactRole.Type.ACCOUNT_WORKER.toString()
+			};
+		}
+		else {
+			contactRoleTypes = new String[] {
+				ContactRole.Type.ACCOUNT_CUSTOMER.toString(),
+				ContactRole.Type.ACCOUNT_WORKER.toString()
+			};
+		}
+
 		return _getAccountContactRolesPage(
 			_contactLocalService.getContactByEmailAddress(contactEmailAddress),
-			accountKey, pagination);
+			accountKey, contactRoleTypes, pagination);
 	}
 
 	@Override
@@ -105,9 +135,14 @@ public class ContactRoleResourceImpl
 			String accountKey, String oktaId, Pagination pagination)
 		throws Exception {
 
+		String[] contactRoleTypes = {
+			ContactRole.Type.ACCOUNT_CUSTOMER.toString(),
+			ContactRole.Type.ACCOUNT_WORKER.toString()
+		};
+
 		return _getAccountContactRolesPage(
 			_contactLocalService.getContactByOktaId(oktaId), accountKey,
-			pagination);
+			contactRoleTypes, pagination);
 	}
 
 	@Override
@@ -116,8 +151,89 @@ public class ContactRoleResourceImpl
 				String accountKey, String contactUuid, Pagination pagination)
 		throws Exception {
 
+		String[] contactRoleTypes = {
+			ContactRole.Type.ACCOUNT_CUSTOMER.toString(),
+			ContactRole.Type.ACCOUNT_WORKER.toString()
+		};
+
 		return _getAccountContactRolesPage(
 			_contactLocalService.getContactByUuid(contactUuid), accountKey,
+			contactRoleTypes, pagination);
+	}
+
+	@Override
+	public Page<ContactRole>
+			getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPage(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception {
+
+		return _getAccountContactRolesPage(
+			_contactLocalService.getContactByEmailAddress(contactEmailAddress),
+			accountKey,
+			new String[] {ContactRole.Type.ACCOUNT_CUSTOMER.toString()},
+			pagination);
+	}
+
+	@Override
+	public Page<ContactRole> getAccountAccountKeyCustomerContactByOktaRolesPage(
+			String accountKey, String oktaId, Pagination pagination)
+		throws Exception {
+
+		return _getAccountContactRolesPage(
+			_contactLocalService.getContactByOktaId(oktaId), accountKey,
+			new String[] {ContactRole.Type.ACCOUNT_CUSTOMER.toString()},
+			pagination);
+	}
+
+	@Override
+	public Page<ContactRole>
+			getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception {
+
+		return _getAccountContactRolesPage(
+			_contactLocalService.getContactByUuid(contactUuid), accountKey,
+			new String[] {ContactRole.Type.ACCOUNT_CUSTOMER.toString()},
+			pagination);
+	}
+
+	@NestedField("workerContactRoles")
+	@Override
+	public Page<ContactRole>
+			getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage(
+				String accountKey,
+				@NestedFieldId("emailAddress") String contactEmailAddress,
+				Pagination pagination)
+		throws Exception {
+
+		return _getAccountContactRolesPage(
+			_contactLocalService.getContactByEmailAddress(contactEmailAddress),
+			accountKey,
+			new String[] {ContactRole.Type.ACCOUNT_WORKER.toString()},
+			pagination);
+	}
+
+	@Override
+	public Page<ContactRole> getAccountAccountKeyWorkerContactByOktaRolesPage(
+			String accountKey, String oktaId, Pagination pagination)
+		throws Exception {
+
+		return _getAccountContactRolesPage(
+			_contactLocalService.getContactByOktaId(oktaId), accountKey,
+			new String[] {ContactRole.Type.ACCOUNT_WORKER.toString()},
+			pagination);
+	}
+
+	@Override
+	public Page<ContactRole>
+			getAccountAccountKeyWorkerContactByUuidContactUuidRolesPage(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception {
+
+		return _getAccountContactRolesPage(
+			_contactLocalService.getContactByUuid(contactUuid), accountKey,
+			new String[] {ContactRole.Type.ACCOUNT_WORKER.toString()},
 			pagination);
 	}
 
@@ -132,10 +248,9 @@ public class ContactRoleResourceImpl
 			String contactRoleType, String contactRoleName)
 		throws Exception {
 
-		int type = ContactRoleType.fromLabel(contactRoleType);
-
 		return ContactRoleUtil.toContactRole(
-			_contactRoleService.getContactRole(contactRoleName, type));
+			_contactRoleService.getContactRole(
+				contactRoleName, contactRoleType));
 	}
 
 	@Override
@@ -192,11 +307,10 @@ public class ContactRoleResourceImpl
 
 		ContactRole.Type contactRoleType = contactRole.getType();
 
-		int type = ContactRoleType.fromLabel(contactRoleType.toString());
-
 		return ContactRoleUtil.toContactRole(
 			_contactRoleService.addContactRole(
-				contactRole.getName(), contactRole.getDescription(), type));
+				contactRole.getName(), contactRole.getDescription(),
+				contactRoleType.toString()));
 	}
 
 	@Override
@@ -231,7 +345,8 @@ public class ContactRoleResourceImpl
 	}
 
 	private Page<ContactRole> _getAccountContactRolesPage(
-			Contact contact, String accountKey, Pagination pagination)
+			Contact contact, String accountKey, String[] contactRoleTypes,
+			Pagination pagination)
 		throws PortalException {
 
 		Account account = _accountLocalService.getAccount(accountKey);
@@ -240,11 +355,13 @@ public class ContactRoleResourceImpl
 			transform(
 				_contactRoleService.getContactAccountContactRoles(
 					account.getAccountId(), contact.getContactId(),
-					pagination.getStartPosition(), pagination.getEndPosition()),
+					contactRoleTypes, pagination.getStartPosition(),
+					pagination.getEndPosition()),
 				contactRole -> ContactRoleUtil.toContactRole(contactRole)),
 			pagination,
 			_contactRoleService.getContactAccountContactRolesCount(
-				account.getAccountId(), contact.getContactId()));
+				account.getAccountId(), contact.getContactId(),
+				contactRoleTypes));
 	}
 
 	private Page<ContactRole> _getTeamContactRolesPage(
@@ -257,11 +374,13 @@ public class ContactRoleResourceImpl
 			transform(
 				_contactRoleService.getContactTeamContactRoles(
 					team.getTeamId(), contact.getContactId(),
+					new String[] {ContactRole.Type.TEAM.toString()},
 					pagination.getStartPosition(), pagination.getEndPosition()),
 				contactRole -> ContactRoleUtil.toContactRole(contactRole)),
 			pagination,
 			_contactRoleService.getContactTeamContactRolesCount(
-				team.getTeamId(), contact.getContactId()));
+				team.getTeamId(), contact.getContactId(),
+				new String[] {ContactRole.Type.TEAM.toString()}));
 	}
 
 	private void _updateContactRolePermission(

@@ -65,17 +65,19 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 		return contactLocalService.deleteContact(contactId);
 	}
 
-	public List<Contact> getAccountContacts(long accountId, int start, int end)
+	public List<Contact> getAccountContacts(
+			long accountId, String contactRoleType, int start, int end)
 		throws PortalException {
 
 		_accountPermission.check(
 			getPermissionChecker(), accountId, ActionKeys.VIEW);
 
-		return contactLocalService.getAccountContacts(accountId, start, end);
+		return contactLocalService.getAccountContacts(
+			accountId, contactRoleType, start, end);
 	}
 
 	public List<Contact> getAccountContacts(
-			String accountKey, int start, int end)
+			String accountKey, String contactRoleType, int start, int end)
 		throws PortalException {
 
 		Account account = _accountLocalService.getAccount(accountKey);
@@ -84,17 +86,21 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 			getPermissionChecker(), account, ActionKeys.VIEW);
 
 		return contactLocalService.getAccountContacts(
-			account.getAccountId(), start, end);
+			account.getAccountId(), contactRoleType, start, end);
 	}
 
-	public int getAccountContactsCount(long accountId) throws PortalException {
+	public int getAccountContactsCount(long accountId, String contactRoleType)
+		throws PortalException {
+
 		_accountPermission.check(
 			getPermissionChecker(), accountId, ActionKeys.VIEW);
 
-		return contactLocalService.getAccountContactsCount(accountId);
+		return contactLocalService.getAccountContactsCount(
+			accountId, contactRoleType);
 	}
 
-	public int getAccountContactsCount(String accountKey)
+	public int getAccountContactsCount(
+			String accountKey, String contactRoleType)
 		throws PortalException {
 
 		Account account = _accountLocalService.getAccount(accountKey);
@@ -103,7 +109,7 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 			getPermissionChecker(), account, ActionKeys.VIEW);
 
 		return contactLocalService.getAccountContactsCount(
-			account.getAccountId());
+			account.getAccountId(), contactRoleType);
 	}
 
 	public Contact getContact(long contactId) throws PortalException {

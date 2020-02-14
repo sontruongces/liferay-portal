@@ -14,7 +14,9 @@
 
 package com.liferay.osb.koroneiki.taproot.service.impl;
 
+import com.liferay.osb.koroneiki.taproot.exception.ContactRoleTypeException;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactAccountRoleLocalServiceBaseImpl;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactAccountRolePK;
@@ -40,7 +42,7 @@ public class ContactAccountRoleLocalServiceImpl
 			long contactId, long accountId, long contactRoleId)
 		throws PortalException {
 
-		validate(contactId, accountId);
+		validate(contactId, accountId, contactRoleId);
 
 		ContactAccountRolePK contactAccountRolePK = new ContactAccountRolePK(
 			contactId, accountId, contactRoleId);
@@ -101,12 +103,27 @@ public class ContactAccountRoleLocalServiceImpl
 		return contactAccountRolePersistence.findByAccountId(accountId);
 	}
 
-	protected void validate(long contactId, long accountId)
+	protected void validate(long contactId, long accountId, long contactRoleId)
 		throws PortalException {
 
 		contactPersistence.findByPrimaryKey(contactId);
 
 		accountPersistence.findByPrimaryKey(accountId);
+
+		ContactRole contactRole = contactRolePersistence.findByPrimaryKey(
+			contactRoleId);
+
+		String type = contactRole.getType();
+
+		if (!type.equals(
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+					ACCOUNT_CUSTOMER.toString()) &&
+			!type.equals(
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+					ACCOUNT_WORKER.toString())) {
+
+			throw new ContactRoleTypeException();
+		}
 	}
 
 	@Reference

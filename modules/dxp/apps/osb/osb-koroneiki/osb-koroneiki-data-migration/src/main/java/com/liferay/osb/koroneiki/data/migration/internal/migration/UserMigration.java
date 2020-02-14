@@ -15,7 +15,6 @@
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
@@ -47,8 +46,14 @@ public class UserMigration {
 
 	@Activate
 	public void activate() {
-		_memberContactRole = _contactRoleLocalService.getMemberContactRole(
-			ContactRoleType.ACCOUNT);
+		_customerMemberContactRole =
+			_contactRoleLocalService.getMemberContactRole(
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+					ACCOUNT_CUSTOMER.toString());
+		_workerMemberContactRole =
+			_contactRoleLocalService.getMemberContactRole(
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+					ACCOUNT_WORKER.toString());
 	}
 
 	public void migrate(long userId) throws Exception {
@@ -113,10 +118,6 @@ public class UserMigration {
 					continue;
 				}
 
-				_contactAccountRoleLocalService.addContactAccountRole(
-					contact.getContactId(), account.getAccountId(),
-					_memberContactRole.getContactRoleId());
-
 				int role = resultSet.getInt(8);
 
 				Long contactRoleId =
@@ -124,6 +125,10 @@ public class UserMigration {
 
 				if (contactRoleId == null) {
 					_log.error("Unable to find contact role from role " + role);
+
+					_contactAccountRoleLocalService.addContactAccountRole(
+						contact.getContactId(), account.getAccountId(),
+						_customerMemberContactRole.getContactRoleId());
 
 					continue;
 				}
@@ -184,10 +189,6 @@ public class UserMigration {
 					continue;
 				}
 
-				_contactAccountRoleLocalService.addContactAccountRole(
-					contact.getContactId(), account.getAccountId(),
-					_memberContactRole.getContactRoleId());
-
 				int role = resultSet.getInt(8);
 
 				Long contactRoleId =
@@ -195,6 +196,10 @@ public class UserMigration {
 
 				if (contactRoleId == null) {
 					_log.error("Unable to find contact role from role " + role);
+
+					_contactAccountRoleLocalService.addContactAccountRole(
+						contact.getContactId(), account.getAccountId(),
+						_workerMemberContactRole.getContactRoleId());
 
 					continue;
 				}
@@ -211,8 +216,7 @@ public class UserMigration {
 			long contactId, long accountId)
 		throws Exception {
 
-		_contactAccountRoleLocalService.addContactAccountRole(
-			contactId, accountId, _memberContactRole.getContactRoleId());
+		boolean assignedContactRole = false;
 
 		StringBundler sb = new StringBundler(6);
 
@@ -250,7 +254,15 @@ public class UserMigration {
 
 				_contactAccountRoleLocalService.addContactAccountRole(
 					contactId, accountId, contactRole.getContactRoleId());
+
+				assignedContactRole = true;
 			}
+		}
+
+		if (!assignedContactRole) {
+			_contactAccountRoleLocalService.addContactAccountRole(
+				contactId, accountId,
+				_customerMemberContactRole.getContactRoleId());
 		}
 	}
 
@@ -367,15 +379,17 @@ public class UserMigration {
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
 
+	private ContactRole _customerMemberContactRole;
+
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
-
-	private ContactRole _memberContactRole;
 
 	@Reference
 	private RoleMigration _roleMigration;
 
 	@Reference
 	private UserLocalService _userLocalService;
+
+	private ContactRole _workerMemberContactRole;
 
 }

@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactAccountView;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactAccountViewUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactAccountViewResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
@@ -73,6 +74,15 @@ public class ContactAccountViewResourceImpl
 					account,
 					_contactRoleService.getContactAccountContactRoles(
 						account.getAccountId(), contact.getContactId(),
+						new String[] {
+							ContactRole.Type.ACCOUNT_CUSTOMER.toString()
+						},
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+					_contactRoleService.getContactAccountContactRoles(
+						account.getAccountId(), contact.getContactId(),
+						new String[] {
+							ContactRole.Type.ACCOUNT_WORKER.toString()
+						},
 						QueryUtil.ALL_POS, QueryUtil.ALL_POS))),
 			pagination,
 			_accountService.getContactAccountsCount(contact.getContactId()));

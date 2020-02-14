@@ -18,6 +18,7 @@
 
 <%
 Account koroneikiAccount = (Account)request.getAttribute(TaprootWebKeys.ACCOUNT);
+String contactRoleType = (String)request.getAttribute(TaprootWebKeys.CONTACT_ROLE_TYPE);
 
 renderResponse.setTitle(koroneikiAccount.getName());
 %>
@@ -31,6 +32,7 @@ renderResponse.setTitle(koroneikiAccount.getName());
 			{
 				addDropdownItem(
 					dropdownItem -> {
+						dropdownItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/assign_account_contact", "redirect", PortalUtil.getCurrentURL(request), "accountId", koroneikiAccount.getAccountId(), "contactRoleType", contactRoleType);
 						dropdownItem.setLabel(LanguageUtil.get(request, "assign-contact"));
 					});
 			}
@@ -45,10 +47,10 @@ renderResponse.setTitle(koroneikiAccount.getName());
 	<liferay-ui:search-container
 		emptyResultsMessage="no-contacts-were-found"
 		headerNames="first-name,last-name,email-address"
-		total="<%= ContactLocalServiceUtil.getAccountContactsCount(koroneikiAccount.getAccountId()) %>"
+		total="<%= ContactLocalServiceUtil.getAccountContactsCount(koroneikiAccount.getAccountId(), contactRoleType) %>"
 	>
 		<liferay-ui:search-container-results
-			results="<%= ContactLocalServiceUtil.getAccountContacts(koroneikiAccount.getAccountId(), searchContainer.getStart(), searchContainer.getEnd()) %>"
+			results="<%= ContactLocalServiceUtil.getAccountContacts(koroneikiAccount.getAccountId(), contactRoleType, searchContainer.getStart(), searchContainer.getEnd()) %>"
 		/>
 
 		<liferay-ui:search-container-row
@@ -83,7 +85,7 @@ renderResponse.setTitle(koroneikiAccount.getName());
 				href="<%= rowURL %>"
 				name="roles"
 			>
-				<%= ListUtil.toString(koroneikiContact.getContactRoles(koroneikiAccount.getAccountId()), ContactRole.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE) %>
+				<%= ListUtil.toString(koroneikiContact.getContactRoles(koroneikiAccount.getAccountId(), contactRoleType), ContactRole.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE) %>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-jsp

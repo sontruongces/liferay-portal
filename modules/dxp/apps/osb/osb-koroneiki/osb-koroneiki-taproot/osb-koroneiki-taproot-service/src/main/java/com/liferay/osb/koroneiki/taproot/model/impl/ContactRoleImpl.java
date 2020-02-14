@@ -15,7 +15,6 @@
 package com.liferay.osb.koroneiki.taproot.model.impl;
 
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleSystem;
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 
 /**
  * @author Kyle Bischof
@@ -23,10 +22,6 @@ import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 public class ContactRoleImpl extends ContactRoleBaseImpl {
 
 	public ContactRoleImpl() {
-	}
-
-	public String getTypeLabel() {
-		return ContactRoleType.getLabel(getType());
 	}
 
 	public boolean isMember() {

@@ -131,7 +131,7 @@
 		<column name="contactRoleKey" type="String" />
 		<column accessor="true" name="name" type="String" />
 		<column name="description" type="String" />
-		<column name="type" type="int" />
+		<column name="type" type="String" />
 		<column name="system" type="boolean" />
 
 		<!-- Order -->

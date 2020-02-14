@@ -38,17 +38,17 @@ renderResponse.setTitle(team.getName());
 		<h2><liferay-ui:message arguments="<%= koroneikiContact.getFullName() %>" key="assign-contact-roles-for-x" /></h2>
 
 		<%
-		List<ContactRole> contactRoles = ContactRoleLocalServiceUtil.getContactTeamContactRoles(team.getTeamId(), koroneikiContact.getContactId());
+		List<ContactRole> contactRoles = ContactRoleLocalServiceUtil.getContactTeamContactRoles(team.getTeamId(), koroneikiContact.getContactId(), new String[] {com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.TEAM.toString()}, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 		%>
 
 		<liferay-ui:search-container
 			emptyResultsMessage="no-contact-roles-were-found"
 			headerNames="name,description"
 			iteratorURL="<%= renderResponse.createRenderURL() %>"
-			total="<%= ContactRoleLocalServiceUtil.getContactRolesCount(ContactRoleType.TEAM) %>"
+			total="<%= ContactRoleLocalServiceUtil.getContactRolesCount(com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.TEAM.toString()) %>"
 		>
 			<liferay-ui:search-container-results
-				results="<%= ContactRoleLocalServiceUtil.getContactRoles(ContactRoleType.TEAM, searchContainer.getStart(), searchContainer.getEnd()) %>"
+				results="<%= ContactRoleLocalServiceUtil.getContactRoles(com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.TEAM.toString(), searchContainer.getStart(), searchContainer.getEnd()) %>"
 			/>
 
 			<liferay-ui:search-container-row
@@ -58,7 +58,7 @@ renderResponse.setTitle(team.getName());
 				modelVar="contactRole"
 			>
 				<liferay-ui:search-container-column-text>
-					<aui:input checked="<%= contactRoles.contains(contactRole) %>" disabled="<%= contactRole.isSystem() %>" label="" name="contactRoleIds" type="checkbox" value="<%= contactRole.getContactRoleId() %>" />
+					<aui:input checked="<%= contactRoles.contains(contactRole) %>" label="" name="contactRoleIds" type="checkbox" value="<%= contactRole.getContactRoleId() %>" />
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text

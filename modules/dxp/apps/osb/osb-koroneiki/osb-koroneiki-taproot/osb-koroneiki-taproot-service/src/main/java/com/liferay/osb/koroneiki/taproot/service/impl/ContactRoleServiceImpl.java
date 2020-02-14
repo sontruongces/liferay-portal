@@ -43,7 +43,8 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 
-	public ContactRole addContactRole(String name, String description, int type)
+	public ContactRole addContactRole(
+			String name, String description, String type)
 		throws PortalException {
 
 		_contactRolePermission.check(
@@ -75,7 +76,7 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 	}
 
 	public List<ContactRole> getContactAccountContactRoles(
-			long accountId, long contactId, int start, int end)
+			long accountId, long contactId, String[] types, int start, int end)
 		throws PortalException {
 
 		_contactPermission.check(
@@ -85,11 +86,11 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 			getPermissionChecker(), accountId, ActionKeys.VIEW);
 
 		return contactRoleLocalService.getContactAccountContactRoles(
-			accountId, contactId, start, end);
+			accountId, contactId, types, start, end);
 	}
 
 	public int getContactAccountContactRolesCount(
-			long accountId, long contactId)
+			long accountId, long contactId, String[] types)
 		throws PortalException {
 
 		_contactPermission.check(
@@ -99,7 +100,7 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 			getPermissionChecker(), accountId, ActionKeys.VIEW);
 
 		return contactRoleLocalService.getContactAccountContactRolesCount(
-			accountId, contactId);
+			accountId, contactId, types);
 	}
 
 	public List<ContactRole> getContactContactRoles(
@@ -134,7 +135,7 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 		return contactRole;
 	}
 
-	public ContactRole getContactRole(String name, int type)
+	public ContactRole getContactRole(String name, String type)
 		throws PortalException {
 
 		ContactRole contactRole = contactRoleLocalService.getContactRole(
@@ -147,7 +148,7 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 	}
 
 	public List<ContactRole> getContactTeamContactRoles(
-			long teamId, long contactId, int start, int end)
+			long teamId, long contactId, String[] types, int start, int end)
 		throws PortalException {
 
 		_contactPermission.check(
@@ -156,10 +157,11 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 		_teamPermission.check(getPermissionChecker(), teamId, ActionKeys.VIEW);
 
 		return contactRoleLocalService.getContactTeamContactRoles(
-			teamId, contactId);
+			teamId, contactId, types, start, end);
 	}
 
-	public int getContactTeamContactRolesCount(long teamId, long contactId)
+	public int getContactTeamContactRolesCount(
+			long teamId, long contactId, String[] types)
 		throws PortalException {
 
 		_contactPermission.check(
@@ -168,7 +170,7 @@ public class ContactRoleServiceImpl extends ContactRoleServiceBaseImpl {
 		_teamPermission.check(getPermissionChecker(), teamId, ActionKeys.VIEW);
 
 		return contactRoleLocalService.getContactTeamContactRolesCount(
-			teamId, contactId);
+			teamId, contactId, types);
 	}
 
 	public ContactRole updateContactRole(

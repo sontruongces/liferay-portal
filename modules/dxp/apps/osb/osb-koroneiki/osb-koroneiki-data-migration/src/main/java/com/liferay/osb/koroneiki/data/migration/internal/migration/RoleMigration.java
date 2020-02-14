@@ -14,7 +14,6 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.portal.kernel.util.StringPool;
@@ -48,59 +47,79 @@ public class RoleMigration {
 	}
 
 	public void migrate(long userId) throws Exception {
-		long partnerManagerContactRoleId = _addContactRole(
+		long partnerManagerContactRoleId = _addCustomerContactRole(
 			userId, "Partner Manager");
 
 		_portalRoleMap.put(112936638L, partnerManagerContactRoleId);
 		_partnerWorkerRoleMap.put(1, partnerManagerContactRoleId);
 
-		long partnerMemberContactRoleId = _addContactRole(
+		long partnerMemberContactRoleId = _addCustomerContactRole(
 			userId, "Partner Member");
 
 		_portalRoleMap.put(112936646L, partnerMemberContactRoleId);
 		_partnerWorkerRoleMap.put(2, partnerMemberContactRoleId);
 
-		long partnerWatcherContactRoleId = _addContactRole(
+		long partnerWatcherContactRoleId = _addCustomerContactRole(
 			userId, "Partner Watcher");
 
 		_portalRoleMap.put(112936656L, partnerWatcherContactRoleId);
 		_partnerWorkerRoleMap.put(3, partnerWatcherContactRoleId);
 
-		_portalRoleMap.put(12324522L, _addContactRole(userId, "Admin"));
-		_portalRoleMap.put(33118240L, _addContactRole(userId, "Buyer"));
-		_portalRoleMap.put(33118252L, _addContactRole(userId, "Developer"));
-		_portalRoleMap.put(33118264L, _addContactRole(userId, "LCS User"));
-		_portalRoleMap.put(90852750L, _addContactRole(userId, "Sales Manager"));
+		_portalRoleMap.put(12324522L, _addCustomerContactRole(userId, "Admin"));
+		_portalRoleMap.put(33118240L, _addCustomerContactRole(userId, "Buyer"));
 		_portalRoleMap.put(
-			90852751L, _addContactRole(userId, "Sales Representative"));
+			33118252L, _addCustomerContactRole(userId, "Developer"));
 		_portalRoleMap.put(
-			106868290L, _addContactRole(userId, "Analytics Cloud Owner"));
+			33118264L, _addCustomerContactRole(userId, "LCS User"));
+		_portalRoleMap.put(
+			90852750L, _addCustomerContactRole(userId, "Sales Manager"));
+		_portalRoleMap.put(
+			90852751L, _addCustomerContactRole(userId, "Sales Representative"));
+		_portalRoleMap.put(
+			106868290L,
+			_addCustomerContactRole(userId, "Analytics Cloud Owner"));
 
-		long supportDeveloperContactRoleId = _addContactRole(
+		long supportDeveloperContactRoleId = _addCustomerContactRole(
 			userId, "Support Developer");
 
 		_accountCustomerRoleMap.put(0, supportDeveloperContactRoleId);
 		_accountCustomerRoleMap.put(1, supportDeveloperContactRoleId);
 		_accountCustomerRoleMap.put(2, supportDeveloperContactRoleId);
 
-		long supportWatcherContactRoleId = _addContactRole(
+		long supportWatcherContactRoleId = _addCustomerContactRole(
 			userId, "Support Watcher");
 
 		_accountCustomerRoleMap.put(3, supportWatcherContactRoleId);
 		_accountCustomerRoleMap.put(4, supportWatcherContactRoleId);
 
-		_accountWorkerRoleMap.put(2, _addContactRole(userId, "Liferay Sales"));
 		_accountWorkerRoleMap.put(
-			4, _addContactRole(userId, "Liferay Advocacy Specialist"));
+			2, _addWorkerContactRole(userId, "Liferay Sales"));
 		_accountWorkerRoleMap.put(
-			5, _addContactRole(userId, "Liferay Managed Services"));
+			4, _addWorkerContactRole(userId, "Liferay Advocacy Specialist"));
 		_accountWorkerRoleMap.put(
-			6, _addContactRole(userId, "Liferay Customer Success"));
+			5, _addWorkerContactRole(userId, "Liferay Managed Services"));
+		_accountWorkerRoleMap.put(
+			6, _addWorkerContactRole(userId, "Liferay Customer Success"));
 	}
 
-	private long _addContactRole(long userId, String name) throws Exception {
+	private long _addCustomerContactRole(long userId, String name)
+		throws Exception {
+
 		ContactRole contactRole = _contactRoleLocalService.addContactRole(
-			userId, name, StringPool.BLANK, ContactRoleType.ACCOUNT);
+			userId, name, StringPool.BLANK,
+			com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+				ACCOUNT_CUSTOMER.toString());
+
+		return contactRole.getContactRoleId();
+	}
+
+	private long _addWorkerContactRole(long userId, String name)
+		throws Exception {
+
+		ContactRole contactRole = _contactRoleLocalService.addContactRole(
+			userId, name, StringPool.BLANK,
+			com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+				ACCOUNT_WORKER.toString());
 
 		return contactRole.getContactRoleId();
 	}

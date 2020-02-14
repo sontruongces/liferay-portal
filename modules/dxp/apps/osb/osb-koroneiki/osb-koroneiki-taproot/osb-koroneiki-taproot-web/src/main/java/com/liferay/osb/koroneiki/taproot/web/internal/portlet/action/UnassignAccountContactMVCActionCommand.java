@@ -49,9 +49,11 @@ public class UnassignAccountContactMVCActionCommand
 		try {
 			long accountId = ParamUtil.getLong(actionRequest, "accountId");
 			long contactId = ParamUtil.getLong(actionRequest, "contactId");
+			String contactRoleType = ParamUtil.getString(
+				actionRequest, "contactRoleType");
 
 			_contactAccountRoleService.deleteContactAccountRoles(
-				contactId, accountId);
+				contactId, accountId, contactRoleType);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

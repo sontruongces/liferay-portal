@@ -33,7 +33,7 @@ public class ContactRoleUtil {
 				key = contactRole.getContactRoleKey();
 				name = contactRole.getName();
 				system = contactRole.getSystem();
-				type = Type.create(contactRole.getTypeLabel());
+				type = Type.create(contactRole.getType());
 			}
 		};
 	}

@@ -16,7 +16,6 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.constants.ContactRoleSystem;
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.exception.ContactRoleNameException;
 import com.liferay.osb.koroneiki.taproot.exception.ContactRoleSystemException;
 import com.liferay.osb.koroneiki.taproot.exception.ContactRoleTypeException;
@@ -24,7 +23,6 @@ import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactRoleLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.instances.service.PortalInstancesLocalService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
@@ -41,7 +39,7 @@ import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
-import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -66,7 +64,7 @@ public class ContactRoleLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	public ContactRole addContactRole(
-			long userId, String name, String description, int type)
+			long userId, String name, String description, String type)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -101,18 +99,18 @@ public class ContactRoleLocalServiceImpl
 
 		User user = userLocalService.getDefaultUser(companyId);
 
-		for (int type : ContactRoleType.VALUES) {
+		for (com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type
+				type :
+					com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.
+						Type.values()) {
+
 			ContactRole contactRole = contactRolePersistence.fetchByN_T(
-				ContactRoleSystem.NAME_MEMBER, type);
+				ContactRoleSystem.NAME_MEMBER, type.toString());
 
 			if (contactRole == null) {
-				String description =
-					"All users assigned to a " +
-						ContactRoleType.getLabel(type) + " have this role.";
-
 				contactRole = addContactRole(
 					user.getUserId(), ContactRoleSystem.NAME_MEMBER,
-					description, type);
+					StringPool.BLANK, type.toString());
 
 				contactRole.setSystem(true);
 
@@ -121,7 +119,7 @@ public class ContactRoleLocalServiceImpl
 				contactRoleLocalService.reindex(contactRole.getContactRoleId());
 			}
 
-			_memberContactRoles.put(type, contactRole);
+			_memberContactRoles.put(type.toString(), contactRole);
 		}
 	}
 
@@ -160,28 +158,28 @@ public class ContactRoleLocalServiceImpl
 			contactRoleLocalService.getContactRole(contactRoleId));
 	}
 
-	public ContactRole fetchContactRole(String name, int type) {
+	public ContactRole fetchContactRole(String name, String type) {
 		return contactRolePersistence.fetchByN_T(name, type);
 	}
 
 	public List<ContactRole> getContactAccountContactRoles(
-		long accountId, long contactId, int start, int end) {
+		long accountId, long contactId, String[] types, int start, int end) {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("accountContact", new Long[] {accountId, contactId});
 
-		return contactRoleFinder.findByName(null, params, start, end);
+		return contactRoleFinder.findByN_T(null, types, params, start, end);
 	}
 
 	public int getContactAccountContactRolesCount(
-		long accountId, long contactId) {
+		long accountId, long contactId, String[] types) {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("accountContact", new Long[] {accountId, contactId});
 
-		return contactRoleFinder.countByName(null, params);
+		return contactRoleFinder.countByN_T(null, types, params);
 	}
 
 	public List<ContactRole> getContactContactRoles(
@@ -191,7 +189,8 @@ public class ContactRoleLocalServiceImpl
 
 		params.put("contact", new Long[] {contactId, contactId});
 
-		return contactRoleFinder.findByName(null, params, start, end);
+		return contactRoleFinder.findByN_T(
+			null, new String[0], params, start, end);
 	}
 
 	public ContactRole getContactRole(String contactRoleKey)
@@ -200,40 +199,41 @@ public class ContactRoleLocalServiceImpl
 		return contactRolePersistence.findByContactRoleKey(contactRoleKey);
 	}
 
-	public ContactRole getContactRole(String name, int type)
+	public ContactRole getContactRole(String name, String type)
 		throws PortalException {
 
 		return contactRolePersistence.findByN_T(name, type);
 	}
 
-	public List<ContactRole> getContactRoles(int type, int start, int end) {
+	public List<ContactRole> getContactRoles(String type, int start, int end) {
 		return contactRolePersistence.findByType(type, start, end);
 	}
 
-	public int getContactRolesCount(int type) {
+	public int getContactRolesCount(String type) {
 		return contactRolePersistence.countByType(type);
 	}
 
 	public List<ContactRole> getContactTeamContactRoles(
-		long teamId, long contactId) {
+		long teamId, long contactId, String[] types, int start, int end) {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("teamContact", new Long[] {teamId, contactId});
 
-		return contactRoleFinder.findByName(
-			null, params, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		return contactRoleFinder.findByN_T(null, types, params, start, end);
 	}
 
-	public int getContactTeamContactRolesCount(long teamId, long contactId) {
+	public int getContactTeamContactRolesCount(
+		long teamId, long contactId, String[] types) {
+
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("teamContact", new Long[] {teamId, contactId});
 
-		return contactRoleFinder.countByName(null, params);
+		return contactRoleFinder.countByN_T(null, types, params);
 	}
 
-	public ContactRole getMemberContactRole(int type) {
+	public ContactRole getMemberContactRole(String type) {
 		return _memberContactRoles.get(type);
 	}
 
@@ -243,7 +243,7 @@ public class ContactRoleLocalServiceImpl
 	}
 
 	public Hits search(
-			long companyId, int type, String keywords, int start, int end,
+			long companyId, String type, String keywords, int start, int end,
 			Sort sort)
 		throws PortalException {
 
@@ -264,7 +264,7 @@ public class ContactRoleLocalServiceImpl
 
 			BooleanQuery booleanQuery = new BooleanQueryImpl();
 
-			booleanQuery.addExactTerm("type", ContactRoleType.getLabel(type));
+			booleanQuery.addExactTerm("type", type);
 
 			BooleanClause booleanClause = BooleanClauseFactoryUtil.create(
 				booleanQuery, BooleanClauseOccur.MUST.getName());
@@ -309,14 +309,19 @@ public class ContactRoleLocalServiceImpl
 		return contactRolePersistence.update(contactRole);
 	}
 
-	protected void validate(long contactRoleId, String name, int type)
+	protected void validate(long contactRoleId, String name, String type)
 		throws PortalException {
 
 		if (Validator.isNull(name)) {
 			throw new ContactRoleNameException();
 		}
 
-		if (!ArrayUtil.contains(ContactRoleType.VALUES, type)) {
+		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type
+			contactRoleType =
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+					create(type);
+
+		if (contactRoleType == null) {
 			throw new ContactRoleTypeException();
 		}
 
@@ -329,7 +334,7 @@ public class ContactRoleLocalServiceImpl
 		}
 	}
 
-	private final Map<Integer, ContactRole> _memberContactRoles =
+	private final Map<String, ContactRole> _memberContactRoles =
 		new HashMap<>();
 
 	@Reference

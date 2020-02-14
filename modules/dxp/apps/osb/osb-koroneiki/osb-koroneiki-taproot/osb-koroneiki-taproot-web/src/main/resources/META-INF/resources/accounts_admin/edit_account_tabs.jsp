@@ -49,13 +49,24 @@ long accountId = BeanParamUtil.getLong(koroneikiAccount, request, "accountId");
 
 				add(
 					navigationItem -> {
-						navigationItem.setActive(tabs1.equals("contact-roles"));
+						navigationItem.setActive(tabs1.equals("customer-contacts"));
 
 						if (koroneikiAccount != null) {
-							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "contact-roles", "accountId", accountId);
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "customer-contacts", "accountId", accountId);
 						}
 
-						navigationItem.setLabel(LanguageUtil.get(request, "contact-roles"));
+						navigationItem.setLabel(LanguageUtil.get(request, "customer-contacts"));
+					});
+
+				add(
+					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("worker-contacts"));
+
+						if (koroneikiAccount != null) {
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "worker-contacts", "accountId", accountId);
+						}
+
+						navigationItem.setLabel(LanguageUtil.get(request, "worker-contacts"));
 					});
 
 				add(

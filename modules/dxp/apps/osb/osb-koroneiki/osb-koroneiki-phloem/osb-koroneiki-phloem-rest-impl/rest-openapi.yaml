@@ -34,6 +34,13 @@ components:
                     items:
                         $ref: "#/components/schemas/Contact"
                     type: array
+                customerContacts:
+                    description:
+                        The account's customer contacts.
+                    items:
+                        $ref: "#/components/schemas/Contact"
+                    readOnly: true
+                    type: array
                 dateCreated:
                     description:
                         The account's creation date.
@@ -133,6 +140,13 @@ components:
                     description:
                         The account's website.
                     type: string
+                workerContacts:
+                    description:
+                        The account's worker contacts.
+                    items:
+                        $ref: "#/components/schemas/Contact"
+                    readOnly: true
+                    type: array
             required:
                 - name
             type: object
@@ -293,7 +307,12 @@ components:
                 account:
                     $ref: "#/components/schemas/Account"
                     readOnly: true
-                contactRoles:
+                customerContactRoles:
+                    items:
+                        $ref: "#/components/schemas/ContactRole"
+                    readOnly: true
+                    type: array
+                workerContactRoles:
                     items:
                         $ref: "#/components/schemas/ContactRole"
                     readOnly: true
@@ -351,7 +370,7 @@ components:
                 type:
                     description:
                         The contact role's type.
-                    enum: ["Account", "Team"]
+                    enum: ["Account Customer", "Account Worker", "Team"]
                     type: string
             required:
                 - name
@@ -1394,7 +1413,7 @@ paths:
     "/accounts/{accountKey}/contacts":
         get:
             description:
-                Retrieves the account's contacts.
+                Retrieves the account's customer and worker contacts.
             operationId: getAccountAccountKeyContactsPage
             parameters:
                 - in: path
@@ -1426,59 +1445,6 @@ paths:
                     description:
                         ""
             tags: ["Contact"]
-    "/accounts/{accountKey}/contacts/by-email-address":
-        delete:
-            description:
-                Unassigns contacts from the account.
-            operationId: deleteAccountContactByEmailAddres
-            parameters:
-                - $ref: "#/components/parameters/AgentName"
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: contactEmailAddresses
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                        application/xml: {}
-                    description:
-                        ""
-            tags: ["Account"]
-        put:
-            description:
-                Assigns contacts to the account.
-            operationId: putAccountContactByEmailAddres
-            parameters:
-                - $ref: "#/components/parameters/AgentName"
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: contactEmailAddresses
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                        application/xml: {}
-                    description:
-                        ""
-            tags: ["Account"]
     "/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles":
         delete:
             description:
@@ -1513,7 +1479,7 @@ paths:
             tags: ["Account"]
         get:
             description:
-                Retrieves the account's contact's contact roles.
+                Retrieves the account's contact's customer and worker contact roles.
             operationId: getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage
             parameters:
                 - in: path
@@ -1581,59 +1547,6 @@ paths:
                     description:
                         ""
             tags: ["Account"]
-    "/accounts/{accountKey}/contacts/by-okta-id":
-        delete:
-            description:
-                Unassigns contacts from the account.
-            operationId: deleteAccountContactByOkta
-            parameters:
-                - $ref: "#/components/parameters/AgentName"
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: oktaIds
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                        application/xml: {}
-                    description:
-                        ""
-            tags: ["Account"]
-        put:
-            description:
-                Assigns contacts to the account.
-            operationId: putAccountContactByOkta
-            parameters:
-                - $ref: "#/components/parameters/AgentName"
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: oktaIds
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                        application/xml: {}
-                    description:
-                        ""
-            tags: ["Account"]
     "/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles":
         delete:
             description:
@@ -1668,7 +1581,7 @@ paths:
             tags: ["Account"]
         get:
             description:
-                Retrieves the account's contact's contact roles.
+                Retrieves the account's contact's customer and worker contact roles.
             operationId: getAccountAccountKeyContactByOktaRolesPage
             parameters:
                 - in: path
@@ -1736,59 +1649,6 @@ paths:
                     description:
                         ""
             tags: ["Account"]
-    "/accounts/{accountKey}/contacts/by-uuid":
-        delete:
-            description:
-                Unassigns contacts from the account.
-            operationId: deleteAccountContactByUuid
-            parameters:
-                - $ref: "#/components/parameters/AgentName"
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: contactUuids
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                        application/xml: {}
-                    description:
-                        ""
-            tags: ["Account"]
-        put:
-            description:
-                Assigns contacts to the account.
-            operationId: putAccountContactByUuid
-            parameters:
-                - $ref: "#/components/parameters/AgentName"
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: contactUuids
-                  required: true
-                  schema:
-                      items:
-                          type: string
-                      type: array
-            responses:
-                204:
-                    content:
-                        application/json: {}
-                        application/xml: {}
-                    description:
-                        ""
-            tags: ["Account"]
     "/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles":
         delete:
             description:
@@ -1823,7 +1683,7 @@ paths:
             tags: ["Account"]
         get:
             description:
-                Retrieves the account's contact's contact roles.
+                Retrieves the account's contact's customer and worker contact roles.
             operationId: getAccountAccountKeyContactByUuidContactUuidRolesPage
             parameters:
                 - in: path
@@ -1891,6 +1751,242 @@ paths:
                     description:
                         ""
             tags: ["Account"]
+    "/accounts/{accountKey}/customer-contacts":
+        get:
+            description:
+                Retrieves the account's customer contacts.
+            operationId: getAccountAccountKeyCustomerContactsPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Contact"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Contact"
+                                type: array
+                    description:
+                        ""
+            tags: ["Contact"]
+    "/accounts/{accountKey}/customer-contacts/by-email-address":
+        delete:
+            description:
+                Unassigns customer contacts from the account.
+            operationId: deleteAccountCustomerContactByEmailAddres
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactEmailAddresses
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/customer-contacts/by-email-address/{contactEmailAddress}/roles":
+        get:
+            description:
+                Retrieves the account's contact's customer contact roles.
+            operationId: getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactEmailAddress
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactRole"]
+    "/accounts/{accountKey}/customer-contacts/by-okta-id":
+        delete:
+            description:
+                Unassigns customer contacts from the account.
+            operationId: deleteAccountCustomerContactByOkta
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/customer-contacts/by-okta-id/{oktaId}/roles":
+        get:
+            description:
+                Retrieves the account's contact's customer contact roles.
+            operationId: getAccountAccountKeyCustomerContactByOktaRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactRole"]
+    "/accounts/{accountKey}/customer-contacts/by-uuid":
+        delete:
+            description:
+                Unassigns contacts from the account.
+            operationId: deleteAccountCustomerContactByUuid
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactUuids
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/customer-contacts/by-uuid/{contactUuid}/roles":
+        get:
+            description:
+                Retrieves the account's contact's customer contact roles.
+            operationId: getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactRole"]
     "/accounts/{accountKey}/external-links":
         get:
             description:
@@ -2210,6 +2306,242 @@ paths:
                     description:
                         ""
             tags: ["Team"]
+    "/accounts/{accountKey}/worker-contacts":
+        get:
+            description:
+                Retrieves the account's worker contacts.
+            operationId: getAccountAccountKeyWorkerContactsPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Contact"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Contact"
+                                type: array
+                    description:
+                        ""
+            tags: ["Contact"]
+    "/accounts/{accountKey}/worker-contacts/by-email-address":
+        delete:
+            description:
+                Unassigns worker contacts from the account.
+            operationId: deleteAccountWorkerContactByEmailAddres
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactEmailAddresses
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/worker-contacts/by-email-address/{contactEmailAddress}/roles":
+        get:
+            description:
+                Retrieves the account's contact's customer contact roles.
+            operationId: getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactEmailAddress
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactRole"]
+    "/accounts/{accountKey}/worker-contacts/by-okta-id":
+        delete:
+            description:
+                Unassigns customer contacts from the account.
+            operationId: deleteAccountWorkerContactByOkta
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: oktaIds
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/worker-contacts/by-okta-id/{oktaId}/roles":
+        get:
+            description:
+                Retrieves the account's contact's customer contact roles.
+            operationId: getAccountAccountKeyWorkerContactByOktaRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: oktaId
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactRole"]
+    "/accounts/{accountKey}/worker-contacts/by-uuid":
+        delete:
+            description:
+                Unassigns contacts from the account.
+            operationId: deleteAccountWorkerContactByUuid
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactUuids
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Account"]
+    "/accounts/{accountKey}/worker-contacts/by-uuid/{contactUuid}/roles":
+        get:
+            description:
+                Retrieves the account's contact's customer contact roles.
+            operationId: getAccountAccountKeyWorkerContactByUuidContactUuidRolesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: contactUuid
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactRole"]
     "/audit-entries/{auditEntryKey}":
         get:
             description:

@@ -22,6 +22,8 @@ String redirect = ParamUtil.getString(request, "redirect");
 Account koroneikiAccount = (Account)request.getAttribute(TaprootWebKeys.ACCOUNT);
 Contact koroneikiContact = (Contact)request.getAttribute(TaprootWebKeys.CONTACT);
 
+String contactRoleType = ParamUtil.getString(request, "contactRoleType");
+
 renderResponse.setTitle(koroneikiAccount.getName());
 %>
 
@@ -38,17 +40,17 @@ renderResponse.setTitle(koroneikiAccount.getName());
 		<h2><liferay-ui:message arguments="<%= koroneikiContact.getFullName() %>" key="assign-contact-roles-for-x" /></h2>
 
 		<%
-		List<ContactRole> contactRoles = koroneikiContact.getContactRoles(koroneikiAccount.getAccountId());
+		List<ContactRole> contactRoles = koroneikiContact.getContactRoles(koroneikiAccount.getAccountId(), contactRoleType);
 		%>
 
 		<liferay-ui:search-container
 			emptyResultsMessage="no-contact-roles-were-found"
 			headerNames="name,description"
 			iteratorURL="<%= renderResponse.createRenderURL() %>"
-			total="<%= ContactRoleLocalServiceUtil.getContactRolesCount(ContactRoleType.ACCOUNT) %>"
+			total="<%= ContactRoleLocalServiceUtil.getContactRolesCount(contactRoleType) %>"
 		>
 			<liferay-ui:search-container-results
-				results="<%= ContactRoleLocalServiceUtil.getContactRoles(ContactRoleType.ACCOUNT, searchContainer.getStart(), searchContainer.getEnd()) %>"
+				results="<%= ContactRoleLocalServiceUtil.getContactRoles(contactRoleType, searchContainer.getStart(), searchContainer.getEnd()) %>"
 			/>
 
 			<liferay-ui:search-container-row
@@ -58,7 +60,7 @@ renderResponse.setTitle(koroneikiAccount.getName());
 				modelVar="contactRole"
 			>
 				<liferay-ui:search-container-column-text>
-					<aui:input checked="<%= contactRoles.contains(contactRole) %>" disabled="<%= contactRole.isSystem() %>" label="" name="contactRoleIds" type="checkbox" value="<%= contactRole.getContactRoleId() %>" />
+					<aui:input checked="<%= contactRoles.contains(contactRole) %>" label="" name="contactRoleIds" type="checkbox" value="<%= contactRole.getContactRoleId() %>" />
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text

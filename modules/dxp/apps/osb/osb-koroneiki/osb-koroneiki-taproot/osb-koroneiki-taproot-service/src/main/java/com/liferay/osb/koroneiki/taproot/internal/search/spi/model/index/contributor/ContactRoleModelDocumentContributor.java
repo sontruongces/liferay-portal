@@ -39,7 +39,7 @@ public class ContactRoleModelDocumentContributor
 		document.addText(Field.DESCRIPTION, contactRole.getDescription());
 		document.addDate(Field.MODIFIED_DATE, contactRole.getModifiedDate());
 		document.addText(Field.NAME, contactRole.getName());
-		document.addKeyword(Field.TYPE, contactRole.getTypeLabel());
+		document.addKeyword(Field.TYPE, contactRole.getType());
 		document.addKeyword(Field.USER_ID, contactRole.getUserId());
 
 		document.addKeyword("contactRoleKey", contactRole.getContactRoleKey());

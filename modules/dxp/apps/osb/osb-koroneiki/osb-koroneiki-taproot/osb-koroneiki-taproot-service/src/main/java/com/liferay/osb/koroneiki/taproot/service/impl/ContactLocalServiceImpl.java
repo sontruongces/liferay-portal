@@ -141,20 +141,28 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 	}
 
 	public List<Contact> getAccountContacts(
-		long accountId, int start, int end) {
+		long accountId, String contactRoleType, int start, int end) {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("account", accountId);
+
+		if (Validator.isNotNull(contactRoleType)) {
+			params.put("accountContactRole", contactRoleType);
+		}
 
 		return contactFinder.findByFN_MN_LN_E(
 			null, null, null, null, params, start, end);
 	}
 
-	public int getAccountContactsCount(long accountId) {
+	public int getAccountContactsCount(long accountId, String contactRoleType) {
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("account", accountId);
+
+		if (Validator.isNotNull(contactRoleType)) {
+			params.put("accountContactRole", contactRoleType);
+		}
 
 		return contactFinder.countByFN_MN_LN_E(null, null, null, null, params);
 	}

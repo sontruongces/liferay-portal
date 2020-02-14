@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactPermission;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ContactUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactEntityModel;
@@ -134,20 +135,66 @@ public class ContactResourceImpl
 		return Page.of(
 			transform(
 				_contactService.getAccountContacts(
-					accountKey, pagination.getStartPosition(),
+					accountKey, null, pagination.getStartPosition(),
 					pagination.getEndPosition()),
 				contact -> ContactUtil.toContact(contact)),
-			pagination, _contactService.getAccountContactsCount(accountKey));
+			pagination,
+			_contactService.getAccountContactsCount(accountKey, null));
 	}
 
-	@NestedField(parentClass = Account.class, value = "contacts")
-	public List<Contact> getAccountNestedFieldContacts(
+	@Override
+	public Page<Contact> getAccountAccountKeyCustomerContactsPage(
+			String accountKey, Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_contactService.getAccountContacts(
+					accountKey, ContactRole.Type.ACCOUNT_CUSTOMER.toString(),
+					pagination.getStartPosition(), pagination.getEndPosition()),
+				contact -> ContactUtil.toContact(contact)),
+			pagination,
+			_contactService.getAccountContactsCount(
+				accountKey, ContactRole.Type.ACCOUNT_CUSTOMER.toString()));
+	}
+
+	@Override
+	public Page<Contact> getAccountAccountKeyWorkerContactsPage(
+			String accountKey, Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_contactService.getAccountContacts(
+					accountKey, ContactRole.Type.ACCOUNT_WORKER.toString(),
+					pagination.getStartPosition(), pagination.getEndPosition()),
+				contact -> ContactUtil.toContact(contact)),
+			pagination,
+			_contactService.getAccountContactsCount(
+				accountKey, ContactRole.Type.ACCOUNT_WORKER.toString()));
+	}
+
+	@NestedField(parentClass = Account.class, value = "customerContacts")
+	public List<Contact> getAccountCustomerContacts(
 			@NestedFieldId("key") String accountKey)
 		throws Exception {
 
 		return transform(
 			_contactService.getAccountContacts(
-				accountKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+				accountKey, ContactRole.Type.ACCOUNT_CUSTOMER.toString(),
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+			contact -> ContactUtil.toContact(contact));
+	}
+
+	@NestedField(parentClass = Account.class, value = "workerContacts")
+	public List<Contact> getAccountWorkerContacts(
+			@NestedFieldId("key") String accountKey)
+		throws Exception {
+
+		return transform(
+			_contactService.getAccountContacts(
+				accountKey, ContactRole.Type.ACCOUNT_WORKER.toString(),
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS),
 			contact -> ContactUtil.toContact(contact));
 	}
 

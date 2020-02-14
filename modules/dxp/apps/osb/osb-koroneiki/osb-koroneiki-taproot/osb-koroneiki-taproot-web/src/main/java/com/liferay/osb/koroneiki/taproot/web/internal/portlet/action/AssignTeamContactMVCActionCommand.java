@@ -14,28 +14,15 @@
 
 package com.liferay.osb.koroneiki.taproot.web.internal.portlet.action;
 
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootPortletKeys;
-import com.liferay.osb.koroneiki.taproot.exception.NoSuchContactException;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
-import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleService;
-import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.json.JSONUtil;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
-import com.liferay.portal.kernel.util.WebKeys;
-
-import java.util.ResourceBundle;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -60,9 +47,6 @@ public class AssignTeamContactMVCActionCommand extends BaseMVCActionCommand {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
 		try {
 			long teamId = ParamUtil.getLong(actionRequest, "teamId");
 
@@ -72,39 +56,18 @@ public class AssignTeamContactMVCActionCommand extends BaseMVCActionCommand {
 			Contact contact = _contactLocalService.getContactByEmailAddress(
 				emailAddress);
 
-			ContactRole contactRole =
-				_contactRoleLocalService.getMemberContactRole(
-					ContactRoleType.TEAM);
+			long contactRoleId = ParamUtil.getLong(
+				actionRequest, "contactRoleId");
 
 			_contactTeamRoleService.addContactTeamRole(
-				contact.getContactId(), teamId, contactRole.getContactRoleId());
+				contact.getContactId(), teamId, contactRoleId);
 
-			String redirect = ParamUtil.getString(actionRequest, "redirect");
-
-			JSONObject jsonObject = JSONUtil.put("redirectURL", redirect);
-
-			JSONPortletResponseUtil.writeJSON(
-				actionRequest, actionResponse, jsonObject);
+			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (Exception e) {
-			if (e instanceof NoSuchContactException) {
-				ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-					themeDisplay.getLocale(),
-					AssignTeamContactMVCActionCommand.class);
+			_log.error(e, e);
 
-				JSONObject jsonObject = JSONUtil.put(
-					"error",
-					LanguageUtil.get(
-						resourceBundle, "the-contact-could-not-be-found"));
-
-				JSONPortletResponseUtil.writeJSON(
-					actionRequest, actionResponse, jsonObject);
-			}
-			else {
-				_log.error(e, e);
-
-				throw e;
-			}
+			throw e;
 		}
 	}
 
@@ -113,9 +76,6 @@ public class AssignTeamContactMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private ContactLocalService _contactLocalService;
-
-	@Reference
-	private ContactRoleLocalService _contactRoleLocalService;
 
 	@Reference
 	private ContactTeamRoleService _contactTeamRoleService;

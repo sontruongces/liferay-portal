@@ -15,27 +15,15 @@
 package com.liferay.osb.koroneiki.taproot.web.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootPortletKeys;
 import com.liferay.osb.koroneiki.taproot.exception.NoSuchContactException;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
-import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleService;
-import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
-import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.json.JSONUtil;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
-import com.liferay.portal.kernel.util.WebKeys;
-
-import java.util.ResourceBundle;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -60,9 +48,6 @@ public class AssignAccountContactMVCActionCommand extends BaseMVCActionCommand {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
 		try {
 			long accountId = ParamUtil.getLong(actionRequest, "accountId");
 
@@ -83,40 +68,18 @@ public class AssignAccountContactMVCActionCommand extends BaseMVCActionCommand {
 				throw new NoSuchContactException();
 			}
 
-			ContactRole contactRole =
-				_contactRoleLocalService.getMemberContactRole(
-					ContactRoleType.ACCOUNT);
+			long contactRoleId = ParamUtil.getLong(
+				actionRequest, "contactRoleId");
 
 			_contactAccountRoleService.addContactAccountRole(
-				contact.getContactId(), accountId,
-				contactRole.getContactRoleId());
+				contact.getContactId(), accountId, contactRoleId);
 
-			String redirect = ParamUtil.getString(actionRequest, "redirect");
-
-			JSONObject jsonObject = JSONUtil.put("redirectURL", redirect);
-
-			JSONPortletResponseUtil.writeJSON(
-				actionRequest, actionResponse, jsonObject);
+			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (Exception e) {
-			if (e instanceof NoSuchContactException) {
-				ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-					themeDisplay.getLocale(),
-					AssignAccountContactMVCActionCommand.class);
+			_log.error(e, e);
 
-				JSONObject jsonObject = JSONUtil.put(
-					"error",
-					LanguageUtil.get(
-						resourceBundle, "the-contact-could-not-be-found"));
-
-				JSONPortletResponseUtil.writeJSON(
-					actionRequest, actionResponse, jsonObject);
-			}
-			else {
-				_log.error(e, e);
-
-				throw e;
-			}
+			throw e;
 		}
 	}
 
@@ -125,9 +88,6 @@ public class AssignAccountContactMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private ContactAccountRoleService _contactAccountRoleService;
-
-	@Reference
-	private ContactRoleLocalService _contactRoleLocalService;
 
 	@Reference(target = "(provider=okta)")
 	private ContactIdentityProvider _oktaContactIdentityProvider;

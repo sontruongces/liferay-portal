@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.taproot.service.impl;
 
+import com.liferay.osb.koroneiki.taproot.exception.ContactRoleTypeException;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactTeamRole;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactTeamRoleLocalServiceBaseImpl;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactTeamRolePK;
@@ -38,7 +40,7 @@ public class ContactTeamRoleLocalServiceImpl
 			long contactId, long teamId, long contactRoleId)
 		throws PortalException {
 
-		validate(contactId, teamId);
+		validate(contactId, teamId, contactRoleId);
 
 		ContactTeamRolePK contactTeamRolePK = new ContactTeamRolePK(
 			contactId, teamId, contactRoleId);
@@ -80,12 +82,24 @@ public class ContactTeamRoleLocalServiceImpl
 		return contactTeamRolePersistence.findByContactId(contactId);
 	}
 
-	protected void validate(long contactId, long teamId)
+	protected void validate(long contactId, long teamId, long contactRoleId)
 		throws PortalException {
 
 		contactPersistence.findByPrimaryKey(contactId);
 
 		teamPersistence.findByPrimaryKey(teamId);
+
+		ContactRole contactRole = contactRolePersistence.findByPrimaryKey(
+			contactRoleId);
+
+		String type = contactRole.getType();
+
+		if (!type.equals(
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+					TEAM.toString())) {
+
+			throw new ContactRoleTypeException();
+		}
 	}
 
 }

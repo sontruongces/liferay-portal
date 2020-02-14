@@ -89,6 +89,15 @@
 				Koroneiki_ContactAccountRole.accountId = ?
 		]]>
 	</sql>
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactFinder.joinByAccountContactRole">
+		<![CDATA[
+			INNER JOIN
+				Koroneiki_ContactRole ON
+					Koroneiki_ContactRole.contactRoleId = Koroneiki_ContactAccountRole.contactRoleId
+			WHERE
+				Koroneiki_ContactRole.type_ = ?
+		]]>
+	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactFinder.joinByTeam">
 		<![CDATA[
 			INNER JOIN
@@ -98,7 +107,7 @@
 				Koroneiki_ContactTeamRole.teamId = ?
 		]]>
 	</sql>
-	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactRoleFinder.countByName">
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactRoleFinder.countByN_T">
 		<![CDATA[
 			SELECT
 				COUNT(DISTINCT Koroneiki_ContactRole.contactRoleId) AS COUNT_VALUE
@@ -108,12 +117,12 @@
 			WHERE
 				[$WHERE$]
 				(
-					(Koroneiki_ContactRole.name LIKE ?) OR
-					(? IS NULL)
+					(Koroneiki_ContactRole.name LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(Koroneiki_ContactRole.type_ = ? [$AND_OR_NULL_CHECK$])
 				)
 		]]>
 	</sql>
-	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactRoleFinder.findByName">
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.ContactRoleFinder.findByN_T">
 		<![CDATA[
 			SELECT
 				{Koroneiki_ContactRole.*}
@@ -123,8 +132,8 @@
 			WHERE
 				[$WHERE$]
 				(
-					(Koroneiki_ContactRole.name LIKE ?) OR
-					(? IS NULL)
+					(Koroneiki_ContactRole.name LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(Koroneiki_ContactRole.type_ = ? [$AND_OR_NULL_CHECK$])
 				)
 			ORDER BY
 				Koroneiki_ContactRole.name

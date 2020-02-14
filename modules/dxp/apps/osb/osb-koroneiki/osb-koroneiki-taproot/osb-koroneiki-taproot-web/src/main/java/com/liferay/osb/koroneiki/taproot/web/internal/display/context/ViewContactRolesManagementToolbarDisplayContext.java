@@ -21,7 +21,7 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItemList;
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -68,7 +68,7 @@ public class ViewContactRolesManagementToolbarDisplayContext
 
 		return new CreationMenu() {
 			{
-				if (tabs1.equals("team-contact-roles")) {
+				if (tabs1.equals("account-worker")) {
 					addDropdownItem(
 						dropdownItem -> {
 							dropdownItem.setHref(
@@ -76,7 +76,20 @@ public class ViewContactRolesManagementToolbarDisplayContext
 								"mvcRenderCommandName",
 								"/contact_roles_admin/edit_contact_role",
 								"redirect", currentURLObj.toString(), "type",
-								ContactRoleType.TEAM);
+								ContactRole.Type.ACCOUNT_WORKER.toString());
+							dropdownItem.setLabel(
+								LanguageUtil.get(request, "add"));
+						});
+				}
+				else if (tabs1.equals("team")) {
+					addDropdownItem(
+						dropdownItem -> {
+							dropdownItem.setHref(
+								liferayPortletResponse.createRenderURL(),
+								"mvcRenderCommandName",
+								"/contact_roles_admin/edit_contact_role",
+								"redirect", currentURLObj.toString(), "type",
+								ContactRole.Type.TEAM.toString());
 							dropdownItem.setLabel(
 								LanguageUtil.get(request, "add"));
 						});
@@ -89,7 +102,7 @@ public class ViewContactRolesManagementToolbarDisplayContext
 								"mvcRenderCommandName",
 								"/contact_roles_admin/edit_contact_role",
 								"redirect", currentURLObj.toString(), "type",
-								ContactRoleType.ACCOUNT);
+								ContactRole.Type.ACCOUNT_CUSTOMER.toString());
 							dropdownItem.setLabel(
 								LanguageUtil.get(request, "add"));
 						});
@@ -114,30 +127,40 @@ public class ViewContactRolesManagementToolbarDisplayContext
 
 	public List<NavigationItem> getNavigationItems() {
 		String tabs1 = ParamUtil.getString(
-			liferayPortletRequest, "tabs1", "account-contact-roles");
+			liferayPortletRequest, "tabs1", "account-customer");
 
 		return NavigationItemList.of(
 			() -> {
 				NavigationItem navigationItem = new NavigationItem();
 
-				navigationItem.setActive(tabs1.equals("account-contact-roles"));
+				navigationItem.setActive(tabs1.equals("account-customer"));
 				navigationItem.setHref(
 					liferayPortletResponse.createRenderURL(), "tabs1",
-					"account-contact-roles");
+					"account-customer");
 				navigationItem.setLabel(
-					LanguageUtil.get(request, "account-contact-roles"));
+					LanguageUtil.get(request, "account-customer"));
 
 				return navigationItem;
 			},
 			() -> {
 				NavigationItem navigationItem = new NavigationItem();
 
-				navigationItem.setActive(tabs1.equals("team-contact-roles"));
+				navigationItem.setActive(tabs1.equals("account-worker"));
 				navigationItem.setHref(
 					liferayPortletResponse.createRenderURL(), "tabs1",
-					"team-contact-roles");
+					"account-worker");
 				navigationItem.setLabel(
-					LanguageUtil.get(request, "team-contact-roles"));
+					LanguageUtil.get(request, "account-worker"));
+
+				return navigationItem;
+			},
+			() -> {
+				NavigationItem navigationItem = new NavigationItem();
+
+				navigationItem.setActive(tabs1.equals("team"));
+				navigationItem.setHref(
+					liferayPortletResponse.createRenderURL(), "tabs1", "team");
+				navigationItem.setLabel(LanguageUtil.get(request, "team"));
 
 				return navigationItem;
 			});

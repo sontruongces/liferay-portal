@@ -14,7 +14,6 @@
 
 package com.liferay.osb.koroneiki.taproot.web.internal.display.context;
 
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalServiceUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -53,23 +52,12 @@ public class ContactRolesDisplayContext extends BaseSearchDisplayContext {
 			renderRequest, getPortletURL(), Collections.emptyList(),
 			"no-contact-roles-were-found");
 
-		int type = 0;
-
-		String tabs1 = ParamUtil.getString(renderRequest, "tabs1");
-
-		if (tabs1.equals("team-contact-roles")) {
-			type = ContactRoleType.TEAM;
-		}
-		else {
-			type = ContactRoleType.ACCOUNT;
-		}
-
 		Sort sort = SortFactoryUtil.getSort(
 			ContactRole.class, Sort.STRING_TYPE, getOrderByCol(),
 			getOrderByType());
 
 		Hits hits = ContactRoleLocalServiceUtil.search(
-			themeDisplay.getCompanyId(), type, getKeywords(),
+			themeDisplay.getCompanyId(), _getType(renderRequest), getKeywords(),
 			searchContainer.getStart(), searchContainer.getEnd(), sort);
 
 		List<ContactRole> results = new ArrayList<>();
@@ -86,6 +74,23 @@ public class ContactRolesDisplayContext extends BaseSearchDisplayContext {
 		searchContainer.setTotal(hits.getLength());
 
 		return searchContainer;
+	}
+
+	private String _getType(RenderRequest renderRequest) {
+		String tabs1 = ParamUtil.getString(renderRequest, "tabs1");
+
+		if (tabs1.equals("account-worker")) {
+			return com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.
+				Type.ACCOUNT_WORKER.toString();
+		}
+		else if (tabs1.equals("team")) {
+			return com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.
+				Type.TEAM.toString();
+		}
+		else {
+			return com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.
+				Type.ACCOUNT_CUSTOMER.toString();
+		}
 	}
 
 }

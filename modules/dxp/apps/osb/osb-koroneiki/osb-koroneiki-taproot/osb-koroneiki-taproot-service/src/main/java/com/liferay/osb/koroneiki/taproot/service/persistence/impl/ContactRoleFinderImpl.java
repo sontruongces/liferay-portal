@@ -44,11 +44,11 @@ import org.osgi.service.component.annotations.Reference;
 public class ContactRoleFinderImpl
 	extends ContactRoleFinderBaseImpl implements ContactRoleFinder {
 
-	public static final String COUNT_BY_NAME =
-		ContactRoleFinder.class.getName() + ".countByName";
+	public static final String COUNT_BY_N_T =
+		ContactRoleFinder.class.getName() + ".countByN_T";
 
-	public static final String FIND_BY_NAME =
-		ContactRoleFinder.class.getName() + ".findByName";
+	public static final String FIND_BY_N_T =
+		ContactRoleFinder.class.getName() + ".findByN_T";
 
 	public static final String JOIN_BY_ACCOUNT_CONTACT =
 		ContactRoleFinder.class.getName() + ".joinByAccountContact";
@@ -60,16 +60,22 @@ public class ContactRoleFinderImpl
 		ContactRoleFinder.class.getName() + ".joinByTeamContact";
 
 	@Override
-	public int countByName(String name, LinkedHashMap<String, Object> params) {
+	public int countByN_T(
+		String name, String[] types, LinkedHashMap<String, Object> params) {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			String sql = _customSQL.get(getClass(), COUNT_BY_NAME);
+			String sql = _customSQL.get(getClass(), COUNT_BY_N_T);
 
+			sql = _customSQL.replaceKeywords(
+				sql, "Koroneiki_ContactRole.type_", StringPool.EQUAL, true,
+				types);
 			sql = StringUtil.replace(sql, "[$JOIN$]", getJoin(params));
 			sql = StringUtil.replace(sql, "[$WHERE$]", getWhere(params));
+			sql = _customSQL.replaceAndOperator(sql, true);
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -81,6 +87,7 @@ public class ContactRoleFinderImpl
 
 			qPos.add(name);
 			qPos.add(name);
+			qPos.add(types, 2);
 
 			Iterator<Long> itr = q.iterate();
 
@@ -103,18 +110,23 @@ public class ContactRoleFinderImpl
 	}
 
 	@Override
-	public List<ContactRole> findByName(
-		String name, LinkedHashMap<String, Object> params, int start, int end) {
+	public List<ContactRole> findByN_T(
+		String name, String[] types, LinkedHashMap<String, Object> params,
+		int start, int end) {
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			String sql = _customSQL.get(getClass(), FIND_BY_NAME);
+			String sql = _customSQL.get(getClass(), FIND_BY_N_T);
 
+			sql = _customSQL.replaceKeywords(
+				sql, "Koroneiki_ContactRole.type_", StringPool.EQUAL, true,
+				types);
 			sql = StringUtil.replace(sql, "[$JOIN$]", getJoin(params));
 			sql = StringUtil.replace(sql, "[$WHERE$]", getWhere(params));
+			sql = _customSQL.replaceAndOperator(sql, true);
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -126,6 +138,7 @@ public class ContactRoleFinderImpl
 
 			qPos.add(name);
 			qPos.add(name);
+			qPos.add(types, 2);
 
 			return (List<ContactRole>)QueryUtil.list(
 				q, getDialect(), start, end);

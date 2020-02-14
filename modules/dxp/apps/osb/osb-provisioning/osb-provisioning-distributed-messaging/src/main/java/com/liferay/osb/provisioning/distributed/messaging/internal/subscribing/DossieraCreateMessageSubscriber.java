@@ -284,7 +284,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			ContactRole contactRole = new ContactRole();
 
 			contactRole.setName(role);
-			contactRole.setType(ContactRole.Type.create("Account"));
+			contactRole.setType(ContactRole.Type.create("Account Customer"));
 
 			contact.setContactRoles(new ContactRole[] {contactRole});
 

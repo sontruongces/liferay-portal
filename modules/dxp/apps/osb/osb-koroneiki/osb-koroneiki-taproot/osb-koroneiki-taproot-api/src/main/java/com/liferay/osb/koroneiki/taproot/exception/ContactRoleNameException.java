@@ -14,7 +14,6 @@
 
 package com.liferay.osb.koroneiki.taproot.exception;
 
-import com.liferay.osb.koroneiki.taproot.constants.ContactRoleType;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
@@ -39,11 +38,11 @@ public class ContactRoleNameException extends PortalException {
 
 	public static class MustNotBeDuplicate extends ContactRoleNameException {
 
-		public MustNotBeDuplicate(String name, int type) {
+		public MustNotBeDuplicate(String name, String type) {
 			super(
 				String.format(
 					"A contact role with name %s and type %s is already in use",
-					name, ContactRoleType.getLabel(type)));
+					name, type));
 		}
 
 	}

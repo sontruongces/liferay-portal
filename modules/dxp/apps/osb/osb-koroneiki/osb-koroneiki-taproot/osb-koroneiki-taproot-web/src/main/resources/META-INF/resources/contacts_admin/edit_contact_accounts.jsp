@@ -72,9 +72,16 @@ renderResponse.setTitle(koroneikiContact.getFullName());
 
 				<liferay-ui:search-container-column-text
 					href="<%= rowURL %>"
-					name="roles"
+					name="customer-roles"
 				>
-					<%= ListUtil.toString(koroneikiContact.getContactRoles(curAccount.getAccountId()), ContactRole.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE) %>
+					<%= ListUtil.toString(koroneikiContact.getContactRoles(curAccount.getAccountId(), com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.ACCOUNT_CUSTOMER.toString()), ContactRole.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE) %>
+				</liferay-ui:search-container-column-text>
+
+				<liferay-ui:search-container-column-text
+					href="<%= rowURL %>"
+					name="worker-roles"
+				>
+					<%= ListUtil.toString(koroneikiContact.getContactRoles(curAccount.getAccountId(), com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.ACCOUNT_WORKER.toString()), ContactRole.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE) %>
 				</liferay-ui:search-container-column-text>
 			</liferay-ui:search-container-row>
 

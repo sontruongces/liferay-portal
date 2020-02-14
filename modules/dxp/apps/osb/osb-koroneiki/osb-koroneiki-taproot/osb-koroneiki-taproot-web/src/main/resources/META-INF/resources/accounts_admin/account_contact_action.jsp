@@ -19,6 +19,7 @@
 <%
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 Account koroneikiAccount = (Account)request.getAttribute(TaprootWebKeys.ACCOUNT);
+String contactRoleType = (String)request.getAttribute(TaprootWebKeys.CONTACT_ROLE_TYPE);
 
 Contact koroneikiContact = (Contact)row.getObject();
 %>
@@ -35,6 +36,7 @@ Contact koroneikiContact = (Contact)row.getObject();
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="accountId" value="<%= String.valueOf(koroneikiAccount.getAccountId()) %>" />
 		<portlet:param name="contactId" value="<%= String.valueOf(koroneikiContact.getContactId()) %>" />
+		<portlet:param name="contactRoleType" value="<%= contactRoleType %>" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon
@@ -47,6 +49,7 @@ Contact koroneikiContact = (Contact)row.getObject();
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="accountId" value="<%= String.valueOf(koroneikiAccount.getAccountId()) %>" />
 		<portlet:param name="contactId" value="<%= String.valueOf(koroneikiContact.getContactId()) %>" />
+		<portlet:param name="contactRoleType" value="<%= contactRoleType %>" />
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete

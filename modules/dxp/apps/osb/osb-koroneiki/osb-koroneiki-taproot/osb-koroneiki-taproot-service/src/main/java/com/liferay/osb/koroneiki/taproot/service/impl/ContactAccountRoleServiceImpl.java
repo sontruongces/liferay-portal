@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactPermission;
 import com.liferay.osb.koroneiki.taproot.permission.ContactRolePermission;
@@ -84,7 +85,8 @@ public class ContactAccountRoleServiceImpl
 			contactId, accountId, contactRoleId);
 	}
 
-	public void deleteContactAccountRoles(long contactId, long accountId)
+	public void deleteContactAccountRoles(
+			long contactId, long accountId, String contactRoleType)
 		throws PortalException {
 
 		_contactPermission.check(
@@ -98,13 +100,19 @@ public class ContactAccountRoleServiceImpl
 			contactAccountRolePersistence.findByCI_AI(contactId, accountId);
 
 		for (ContactAccountRole contactAccountRole : contactAccountRoles) {
-			_contactRolePermission.check(
-				getPermissionChecker(), contactAccountRole.getContactRole(),
-				TaprootActionKeys.ASSIGN_CONTACT);
-		}
+			ContactRole contactRole = contactAccountRole.getContactRole();
 
-		contactAccountRoleLocalService.deleteContactAccountRoles(
-			contactId, accountId);
+			if (!contactRoleType.equals(contactRole.getType())) {
+				continue;
+			}
+
+			_contactRolePermission.check(
+				getPermissionChecker(), contactRole,
+				TaprootActionKeys.ASSIGN_CONTACT);
+
+			contactAccountRoleLocalService.deleteContactAccountRole(
+				contactId, accountId, contactRole.getContactRoleId());
+		}
 	}
 
 	@Reference

@@ -31,6 +31,7 @@ renderResponse.setTitle(team.getName());
 			{
 				addDropdownItem(
 					dropdownItem -> {
+						dropdownItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/teams_admin/assign_team_contact", "redirect", PortalUtil.getCurrentURL(request), "teamId", team.getTeamId());
 						dropdownItem.setLabel(LanguageUtil.get(request, "assign-contact"));
 					});
 			}
@@ -85,7 +86,7 @@ renderResponse.setTitle(team.getName());
 			>
 
 				<%
-				List<ContactRole> contactRoles = ContactRoleLocalServiceUtil.getContactTeamContactRoles(team.getTeamId(), koroneikiContact.getContactId());
+				List<ContactRole> contactRoles = ContactRoleLocalServiceUtil.getContactTeamContactRoles(team.getTeamId(), koroneikiContact.getContactId(), new String[] {com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.TEAM.toString()}, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 				%>
 
 				<%= ListUtil.toString(contactRoles, ContactRole.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE) %>
@@ -102,32 +103,3 @@ renderResponse.setTitle(team.getName());
 		/>
 	</liferay-ui:search-container>
 </div>
-
-<aui:script require="metal-dom/src/all/dom as dom,frontend-js-web/liferay/modal/commands/OpenSimpleInputModal.es as modalCommands">
-	function handleAddClick(event) {
-		event.preventDefault();
-
-		<portlet:actionURL name="/teams_admin/assign_team_contact" var="assignTeamContactURL">
-			<portlet:param name="teamId" value="<%= String.valueOf(team.getTeamId()) %>" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-		</portlet:actionURL>
-
-		modalCommands.openSimpleInputModal(
-			{
-				dialogTitle: '<liferay-ui:message key="assign-contact-to-this-team" />',
-				formSubmitURL: '<%= assignTeamContactURL %>',
-				mainFieldLabel: '<liferay-ui:message key="email-address" />',
-				mainFieldName: 'emailAddress',
-				mainFieldPlaceholder: '<liferay-ui:message key="email-address" />',
-				namespace: '<portlet:namespace />',
-				spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg'
-			}
-		);
-	}
-
-	Liferay.componentReady('contactsManagementToolbar').then(
-		function(managementToolbar) {
-			managementToolbar.on('creationButtonClicked', handleAddClick);
-		}
-	);
-</aui:script>

@@ -22,7 +22,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 ContactRole contactRole = (ContactRole)request.getAttribute(TaprootWebKeys.CONTACT_ROLE);
 
 long contactRoleId = BeanParamUtil.getLong(contactRole, request, "contactRoleId");
-int type = BeanParamUtil.getInteger(contactRole, request, "type");
+String type = BeanParamUtil.getString(contactRole, request, "type");
 %>
 
 <portlet:actionURL name="/contact_roles_admin/edit_contact_role" var="editContactRoleURL" />
@@ -46,7 +46,7 @@ int type = BeanParamUtil.getInteger(contactRole, request, "type");
 			<h5><liferay-ui:message key="type" /></h5>
 
 			<p>
-				<%= ContactRoleType.getLabel(type) %>
+				<%= HtmlUtil.escape(type) %>
 			</p>
 
 			<aui:input name="name" />
