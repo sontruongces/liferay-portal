@@ -290,6 +290,11 @@ public class DDMFormInstanceLocalServiceImpl
 	}
 
 	@Override
+	public int getFormInstancesCount(String uuid) throws PortalException {
+		return ddmFormInstancePersistence.countByUuid(uuid);
+	}
+
+	@Override
 	public DDMFormValues getFormInstanceSettingsFormValues(
 			DDMFormInstance formInstance)
 		throws PortalException {
