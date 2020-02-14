@@ -5,6 +5,7 @@
 		"liferay-frontend-common-css": "1.0.4",
 		"liferay-frontend-theme-styled": "4.0.21",
 		"liferay-frontend-theme-unstyled": "4.0.17",
+		"liferay-npm-scripts": "^25.1.1",
 		"liferay-theme-tasks": "^9.5.0"
 	},
 	"keywords": [
@@ -20,14 +21,9 @@
 	"main": "package.json",
 	"name": "osb-provisioning-theme",
 	"scripts": {
-		"build": "gulp build",
-		"deploy": "gulp deploy",
-		"extend": "gulp extend",
-		"init": "gulp init",
-		"kickstart": "gulp kickstart",
-		"status": "gulp status",
-		"upgrade": "gulp upgrade",
-		"watch": "gulp watch"
+		"build": "liferay-npm-scripts theme build",
+		"checkFormat": "liferay-npm-scripts check",
+		"format": "liferay-npm-scripts fix"
 	},
 	"version": "1.0.0"
 }
