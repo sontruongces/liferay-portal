@@ -28,7 +28,7 @@ Import-Package:\
 	org.tukaani.*;resolution:=optional,\
 	\
 	*
-Liferay-Require-SchemaVersion: 3.2.3
+Liferay-Require-SchemaVersion: 3.2.4
 Liferay-Service: true
 Provide-Capability:\
 	liferay.resource.bundle;\
