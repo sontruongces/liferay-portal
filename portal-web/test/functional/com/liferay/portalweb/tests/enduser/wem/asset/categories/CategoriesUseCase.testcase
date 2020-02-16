@@ -1189,6 +1189,106 @@ definition {
 		Vocabulary.viewSearchResultsCP(nullResult = "true");
 	}
 
+	@Description ="This is for LPS-101409. Validate if select a required category when entering the content page name."
+	@priority ="5"
+	test SelectRequiredCategoryWhenEnterContentPageName {
+		property testray.component.names = "Categories";
+
+		task ("Add a vocabulary with required for page") {
+			Category.openCategoriesAdmin(siteURLKey = "test-site-name");
+
+			Vocabulary.addWithAssociatedAssetTypeCP(
+				assetType = "Page",
+				required = "true",
+				vocabularyName = "Vocabulary Name");
+		}
+
+		task ("Add a category") {
+			JSONCategory.addCategory(
+				groupName = "Test Site Name",
+				title = "Category Name",
+				vocabularyName = "Vocabulary Name");
+		}
+
+		task ("Add a content page and select a required category") {
+			SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+			ContentPages.addPage(
+				categoryName = "Category Name",
+				pageName = "Test Content Page Name",
+				vocabularyName = "Vocabulary Name");
+		}
+
+		task ("Assert there is a success message") {
+			Alert.viewSuccessMessage();
+		}
+
+		task ("Navigate to the Pages Administration") {
+			ProductMenu.gotoPortlet(
+				category = "Site Builder",
+				panel = "Site Administration",
+				portlet = "Pages");
+		}
+
+		task ("Assert the page exist") {
+			SitePages.togglePrivacy(privacy = "Public Pages");
+
+			AssertVisible(
+				key_itemName = "Test Content Page Name",
+				locator1 = "SitePages#LIST_GROUP_ITEM");
+		}
+	}
+
+	@Description ="This is for LPS-101409. Validate if select a required category when entering the widget page name."
+	@priority ="5"
+	test SelectRequiredCategoryWhenEnterWidgetPageName {
+		property testray.component.names = "Categories";
+
+		task ("Add a vocabulary with required for page") {
+			Category.openCategoriesAdmin(siteURLKey = "test-site-name");
+
+			Vocabulary.addWithAssociatedAssetTypeCP(
+				assetType = "Page",
+				required = "true",
+				vocabularyName = "Vocabulary Name");
+		}
+
+		task ("Add a category") {
+			JSONCategory.addCategory(
+				groupName = "Test Site Name",
+				title = "Category Name",
+				vocabularyName = "Vocabulary Name");
+		}
+
+		task ("Add a widget page and select a required category") {
+			SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+			SitePages.addPublicPage(
+				categoryName = "Category Name",
+				pageName = "Test Widget Page Name",
+				vocabularyName = "Vocabulary Name");
+		}
+
+		task ("Assert there is a success message") {
+			Alert.viewSuccessMessage();
+		}
+
+		task ("Navigate to the Pages Administration") {
+			ProductMenu.gotoPortlet(
+				category = "Site Builder",
+				panel = "Site Administration",
+				portlet = "Pages");
+		}
+
+		task ("Assert the page exist") {
+			SitePages.togglePrivacy(privacy = "Public Pages");
+
+			AssertVisible(
+				key_itemName = "Test Widget Page Name",
+				locator1 = "SitePages#LIST_GROUP_ITEM");
+		}
+	}
+
 	@priority = "4"
 	test UseCategoryFromParentSiteViaSiteHierarchy {
 		property testray.component.names = "Categories,Site Administration,Web Content Administration";
