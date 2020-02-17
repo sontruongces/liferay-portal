@@ -5894,7 +5894,10 @@ public class JournalArticleLocalServiceImpl
 
 		String urlTitle = urlTitleMap.get(LocaleUtil.toLanguageId(locale));
 
-		if (Validator.isNull(urlTitle)) {
+		if (Validator.isNull(urlTitle) &&
+			(classNameLocalService.getClassNameId(DDMStructure.class) !=
+				article.getClassNameId())) {
+
 			throw new ArticleFriendlyURLException();
 		}
 
