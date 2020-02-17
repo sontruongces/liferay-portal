@@ -614,6 +614,7 @@ public class JournalArticleAssetRenderer
 
 		String viewMode = ParamUtil.getString(
 			httpServletRequest, "viewMode", Constants.VIEW);
+
 		String languageId = LanguageUtil.getLanguageId(httpServletRequest);
 
 		ThemeDisplay themeDisplay =
