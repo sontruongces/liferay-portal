@@ -22,7 +22,6 @@ import com.liferay.exportimport.kernel.lar.ExportImportHelper;
 import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
 import com.liferay.exportimport.kernel.lar.ExportImportProcessCallbackRegistry;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
-import com.liferay.exportimport.kernel.lar.ManifestSummary;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.exportimport.kernel.lar.PortletDataContextFactory;
 import com.liferay.exportimport.kernel.lar.PortletDataException;
@@ -1531,17 +1530,11 @@ public class LayoutStagedModelDataHandler
 
 			Element portletDataElement = portletElement.element("portlet-data");
 
-			ManifestSummary manifestSummary =
-				portletDataContext.getManifestSummary();
-
-			if (layout.isTypeAssetDisplay()) {
-				manifestSummary = null;
-			}
-
 			Map<String, Boolean> importPortletControlsMap =
 				_exportImportHelper.getImportPortletControlsMap(
 					portletDataContext.getCompanyId(), portletId, parameterMap,
-					portletDataElement, manifestSummary);
+					portletDataElement,
+					portletDataContext.getManifestSummary());
 
 			if (layout != null) {
 				portletPreferencesGroupId = layout.getGroupId();
