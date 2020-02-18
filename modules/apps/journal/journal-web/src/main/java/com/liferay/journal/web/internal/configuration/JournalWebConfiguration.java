@@ -112,7 +112,6 @@ public interface JournalWebConfiguration {
 	@Meta.AD(deflt = "false", name = "show-feeds", required = false)
 	public boolean showFeeds();
 
-	@Deprecated
 	@Meta.AD(
 		deflt = "false",
 		description = "reverse-chronological-order-by-default-description",
