@@ -194,6 +194,36 @@ public class Product {
 	@NotEmpty
 	protected String name;
 
+	@Schema
+	@Valid
+	public Map<String, String> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Map<String, String> properties) {
+		this.properties = properties;
+	}
+
+	@JsonIgnore
+	public void setProperties(
+		UnsafeSupplier<Map<String, String>, Exception>
+			propertiesUnsafeSupplier) {
+
+		try {
+			properties = propertiesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Map<String, String> properties;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -298,6 +328,16 @@ public class Product {
 			sb.append(_escape(name));
 
 			sb.append("\"");
+		}
+
+		if (properties != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"properties\": ");
+
+			sb.append(_toJSON(properties));
 		}
 
 		sb.append("}");

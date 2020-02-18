@@ -741,6 +741,14 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("properties", additionalAssertFieldName)) {
+				if (product.getProperties() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -837,6 +845,16 @@ public abstract class BaseProductResourceTestCase {
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getName(), product2.getName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("properties", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getProperties(), product2.getProperties())) {
 
 					return false;
 				}
@@ -1012,6 +1030,11 @@ public abstract class BaseProductResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("properties")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		throw new IllegalArgumentException(

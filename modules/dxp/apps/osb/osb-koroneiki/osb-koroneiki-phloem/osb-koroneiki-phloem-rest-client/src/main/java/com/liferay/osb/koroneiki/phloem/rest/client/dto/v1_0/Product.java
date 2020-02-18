@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.function.UnsafeSupplier;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductSerDes;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -129,6 +130,28 @@ public class Product {
 	}
 
 	protected String name;
+
+	public Map<String, String> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Map<String, String> properties) {
+		this.properties = properties;
+	}
+
+	public void setProperties(
+		UnsafeSupplier<Map<String, String>, Exception>
+			propertiesUnsafeSupplier) {
+
+		try {
+			properties = propertiesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, String> properties;
 
 	@Override
 	public boolean equals(Object object) {
