@@ -46,10 +46,10 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 				getCreateKey(model), getCreateTopic(model),
 				() -> createMessage(model));
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new ModelListenerException(e);
+			throw new ModelListenerException(exception);
 		}
 	}
 
@@ -60,10 +60,10 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 				getRemoveKey(model), getRemoveTopic(model),
 				() -> createMessage(model));
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new ModelListenerException(e);
+			throw new ModelListenerException(exception);
 		}
 	}
 
@@ -74,10 +74,10 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 				getUpdateKey(model), getUpdateTopic(model),
 				() -> createMessage(model));
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new ModelListenerException(e);
+			throw new ModelListenerException(exception);
 		}
 	}
 

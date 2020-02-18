@@ -56,10 +56,10 @@ public class UserUpdateMessageSubscriber implements MessageSubscriber {
 				jsonObject.getString("emailAddress"),
 				jsonObject.getString("languageId"));
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(message);
 
-			_log.error(e, e);
+			_log.error(exception, exception);
 		}
 	}
 

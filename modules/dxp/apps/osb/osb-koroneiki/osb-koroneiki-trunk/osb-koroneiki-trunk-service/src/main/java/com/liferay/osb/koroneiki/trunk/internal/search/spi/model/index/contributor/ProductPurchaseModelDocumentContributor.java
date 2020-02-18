@@ -51,8 +51,8 @@ public class ProductPurchaseModelDocumentContributor
 		try {
 			_contribute(document, productPurchase);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 

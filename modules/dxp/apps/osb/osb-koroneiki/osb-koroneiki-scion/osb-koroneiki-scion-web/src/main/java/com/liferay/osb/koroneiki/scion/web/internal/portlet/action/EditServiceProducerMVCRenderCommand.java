@@ -58,8 +58,8 @@ public class EditServiceProducerMVCRenderCommand implements MVCRenderCommand {
 
 			return "/service_producers_admin/edit_service_producer.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
 			return "/service_producers_admin/error.jsp";
 		}

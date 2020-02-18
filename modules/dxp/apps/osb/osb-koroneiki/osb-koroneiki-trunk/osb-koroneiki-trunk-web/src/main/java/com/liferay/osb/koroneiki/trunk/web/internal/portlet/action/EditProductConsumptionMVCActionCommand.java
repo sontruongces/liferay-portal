@@ -117,20 +117,20 @@ public class EditProductConsumptionMVCActionCommand
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof NoSuchAccountException ||
-				e instanceof NoSuchProductEntryException) {
+		catch (Exception exception) {
+			if (exception instanceof NoSuchAccountException ||
+				exception instanceof NoSuchProductEntryException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName",
 					"/products_admin/edit_product_consumption");
 			}
 			else {
-				_log.error(e, e);
+				_log.error(exception, exception);
 
-				throw e;
+				throw exception;
 			}
 		}
 	}

@@ -62,8 +62,8 @@ public abstract class BaseEntitlementsMessageListener
 			_addEntitlements(
 				companyId, entitlementDefinitionId, classNameId, definition);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		if (_log.isDebugEnabled()) {
@@ -81,8 +81,8 @@ public abstract class BaseEntitlementsMessageListener
 
 			_removeEntitlements(entitlementDefinitionId, definition);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		if (_log.isDebugEnabled()) {

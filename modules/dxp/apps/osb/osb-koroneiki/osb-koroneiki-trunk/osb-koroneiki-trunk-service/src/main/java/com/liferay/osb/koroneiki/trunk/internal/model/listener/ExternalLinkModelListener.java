@@ -45,10 +45,10 @@ public class ExternalLinkModelListener extends BaseModelListener<ExternalLink> {
 		try {
 			_reindex(externalLink);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new ModelListenerException(e);
+			throw new ModelListenerException(exception);
 		}
 	}
 
@@ -59,10 +59,10 @@ public class ExternalLinkModelListener extends BaseModelListener<ExternalLink> {
 		try {
 			_reindex(externalLink);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new ModelListenerException(e);
+			throw new ModelListenerException(exception);
 		}
 	}
 
@@ -73,10 +73,10 @@ public class ExternalLinkModelListener extends BaseModelListener<ExternalLink> {
 		try {
 			_reindex(externalLink);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new ModelListenerException(e);
+			throw new ModelListenerException(exception);
 		}
 	}
 

@@ -73,9 +73,9 @@ public class ServiceProducerAuthVerifier implements AuthVerifier {
 				authVerifierResult.setUserId(Long.valueOf(credentials[0]));
 			}
 		}
-		catch (AuthException ae) {
+		catch (AuthException authException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(ae, ae);
+				_log.debug(authException, authException);
 			}
 
 			HttpServletResponse httpServletResponse =
@@ -84,15 +84,15 @@ public class ServiceProducerAuthVerifier implements AuthVerifier {
 			try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
 					httpServletResponse.getOutputStream())) {
 
-				objectOutputStream.writeObject(ae);
+				objectOutputStream.writeObject(authException);
 
 				authVerifierResult.setState(
 					AuthVerifierResult.State.INVALID_CREDENTIALS);
 			}
-			catch (IOException ioe) {
-				_log.error(ioe, ioe);
+			catch (IOException ioException) {
+				_log.error(ioException, ioException);
 
-				throw ae;
+				throw authException;
 			}
 		}
 

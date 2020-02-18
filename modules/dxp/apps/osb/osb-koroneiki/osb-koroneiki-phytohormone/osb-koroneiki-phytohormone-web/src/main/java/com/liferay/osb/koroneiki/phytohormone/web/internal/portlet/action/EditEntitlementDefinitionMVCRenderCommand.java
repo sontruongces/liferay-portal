@@ -67,8 +67,8 @@ public class EditEntitlementDefinitionMVCRenderCommand
 			return "/entitlement_definitions_admin/edit_entitlement_" +
 				"definition.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
 			return "/entitlement_definitions_admin/error.jsp";
 		}

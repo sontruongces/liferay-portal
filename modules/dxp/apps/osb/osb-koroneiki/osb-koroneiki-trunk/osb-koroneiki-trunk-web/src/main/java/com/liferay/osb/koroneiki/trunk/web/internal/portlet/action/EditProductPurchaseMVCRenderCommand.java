@@ -65,8 +65,8 @@ public class EditProductPurchaseMVCRenderCommand implements MVCRenderCommand {
 
 			return "/products_admin/edit_product_purchase.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
 			return "/products_admin/error.jsp";
 		}

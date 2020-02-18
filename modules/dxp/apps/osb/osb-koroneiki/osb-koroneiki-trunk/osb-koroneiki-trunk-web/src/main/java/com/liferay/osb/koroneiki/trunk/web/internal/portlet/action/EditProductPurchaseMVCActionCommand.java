@@ -84,22 +84,22 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof NoSuchAccountException ||
-				e instanceof NoSuchProductEntryException ||
-				e instanceof ProductPurchaseEndDateException ||
-				e instanceof ProductPurchaseQuantityException) {
+		catch (Exception exception) {
+			if (exception instanceof NoSuchAccountException ||
+				exception instanceof NoSuchProductEntryException ||
+				exception instanceof ProductPurchaseEndDateException ||
+				exception instanceof ProductPurchaseQuantityException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName",
 					"/products_admin/edit_product_purchase");
 			}
 			else {
-				_log.error(e, e);
+				_log.error(exception, exception);
 
-				throw e;
+				throw exception;
 			}
 		}
 	}

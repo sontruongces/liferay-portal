@@ -64,8 +64,8 @@ public class AccountModelListener extends BaseModelListener<Account> {
 					productPurchase.getProductPurchaseId());
 			}
 		}
-		catch (PortalException pe) {
-			throw new ModelListenerException(pe);
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
 		}
 	}
 

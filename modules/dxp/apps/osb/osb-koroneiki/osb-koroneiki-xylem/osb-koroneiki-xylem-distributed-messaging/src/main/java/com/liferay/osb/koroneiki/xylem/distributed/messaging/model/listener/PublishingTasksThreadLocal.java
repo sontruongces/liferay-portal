@@ -98,8 +98,8 @@ public class PublishingTasksThreadLocal {
 
 				return;
 			}
-			catch (Exception e) {
-				throw new RuntimeException(e);
+			catch (Exception exception) {
+				throw new RuntimeException(exception);
 			}
 		}
 
@@ -152,8 +152,8 @@ public class PublishingTasksThreadLocal {
 						publishingTask.createMessage());
 				}
 			}
-			catch (Exception e) {
-				_log.error("Unable to publish message", e);
+			catch (Exception exception) {
+				_log.error("Unable to publish message", exception);
 			}
 		}
 	}

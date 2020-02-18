@@ -140,11 +140,11 @@ public class ServiceProducerLocalServiceImpl
 
 			_roleLocalService.deleteRole(role);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(
 				"Unable to remove associated role " +
 					getIdentifier(serviceProducer.getServiceProducerId()),
-				e);
+				exception);
 		}
 
 		// User
@@ -154,11 +154,11 @@ public class ServiceProducerLocalServiceImpl
 				serviceProducer.getAuthorizationUserId(),
 				WorkflowConstants.STATUS_INACTIVE, new ServiceContext());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(
 				"Unable to deactivate user " +
 					serviceProducer.getAuthorizationUserId(),
-				e);
+				exception);
 		}
 
 		return serviceProducerPersistence.remove(serviceProducer);

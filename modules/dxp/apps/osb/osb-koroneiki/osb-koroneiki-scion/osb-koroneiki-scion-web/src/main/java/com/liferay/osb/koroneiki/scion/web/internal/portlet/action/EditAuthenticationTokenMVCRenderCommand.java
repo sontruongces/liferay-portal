@@ -50,8 +50,8 @@ public class EditAuthenticationTokenMVCRenderCommand
 		try {
 			return doRender(renderRequest);
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
 			return "/authentication_token_manager/error.jsp";
 		}

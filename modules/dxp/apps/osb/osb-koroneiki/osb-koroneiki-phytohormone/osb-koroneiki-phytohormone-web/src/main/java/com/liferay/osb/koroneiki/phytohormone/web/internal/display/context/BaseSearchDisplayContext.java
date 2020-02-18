@@ -83,9 +83,9 @@ public abstract class BaseSearchDisplayContext {
 		try {
 			portletURL = PortletURLUtil.clone(currentURLObj, renderResponse);
 		}
-		catch (PortletException pe) {
+		catch (PortletException portletException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(pe, pe);
+				_log.warn(portletException, portletException);
 			}
 
 			portletURL = renderResponse.createRenderURL();

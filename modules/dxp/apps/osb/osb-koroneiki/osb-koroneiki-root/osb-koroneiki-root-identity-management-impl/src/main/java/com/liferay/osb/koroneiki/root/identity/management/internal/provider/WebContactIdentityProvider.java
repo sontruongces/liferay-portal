@@ -169,19 +169,23 @@ public class WebContactIdentityProvider implements ContactIdentityProvider {
 
 			return _jsonFactory.createJSONObject(response);
 		}
-		catch (JSONWebServiceInvocationException jsonwsie) {
-			if (jsonwsie.getStatus() == HttpServletResponse.SC_NOT_FOUND) {
+		catch (JSONWebServiceInvocationException
+					jsonWebServiceInvocationException) {
+
+			if (jsonWebServiceInvocationException.getStatus() ==
+					HttpServletResponse.SC_NOT_FOUND) {
+
 				return null;
 			}
 
-			_sendEmail(jsonwsie, parameters);
+			_sendEmail(jsonWebServiceInvocationException, parameters);
 
-			throw jsonwsie;
+			throw jsonWebServiceInvocationException;
 		}
-		catch (Exception e) {
-			_sendEmail(e, parameters);
+		catch (Exception exception) {
+			_sendEmail(exception, parameters);
 
-			throw e;
+			throw exception;
 		}
 	}
 
@@ -224,7 +228,9 @@ public class WebContactIdentityProvider implements ContactIdentityProvider {
 			jsonObject.getString("languageId"));
 	}
 
-	private void _sendEmail(Exception e, Map<String, String> parameters) {
+	private void _sendEmail(
+		Exception exception, Map<String, String> parameters) {
+
 		if (Validator.isNull(_errorEmailAddress)) {
 			return;
 		}
@@ -241,7 +247,8 @@ public class WebContactIdentityProvider implements ContactIdentityProvider {
 
 		sb.append(
 			StringUtil.replace(
-				StackTraceUtil.getStackTrace(e), CharPool.NEW_LINE, "<br />"));
+				StackTraceUtil.getStackTrace(exception), CharPool.NEW_LINE,
+				"<br />"));
 
 		try {
 			InternetAddress from = new InternetAddress("noreply@liferay.com");
@@ -253,8 +260,8 @@ public class WebContactIdentityProvider implements ContactIdentityProvider {
 
 			_mailService.sendEmail(mailMessage);
 		}
-		catch (AddressException ae) {
-			_log.error(ae, ae);
+		catch (AddressException addressException) {
+			_log.error(addressException, addressException);
 		}
 	}
 
