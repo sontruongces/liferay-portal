@@ -13,8 +13,8 @@ create index IX_309F9F1F on Koroneiki_ContactAccountRole (accountId);
 create index IX_7C3346A8 on Koroneiki_ContactAccountRole (contactRoleId);
 
 create unique index IX_6860DBE9 on Koroneiki_ContactRole (contactRoleKey[$COLUMN_LENGTH:75$]);
-create index IX_650EEDCA on Koroneiki_ContactRole (name[$COLUMN_LENGTH:75$], type_);
-create index IX_3DBAA169 on Koroneiki_ContactRole (type_);
+create index IX_650EEDCA on Koroneiki_ContactRole (name[$COLUMN_LENGTH:75$], type_[$COLUMN_LENGTH:75$]);
+create index IX_3DBAA169 on Koroneiki_ContactRole (type_[$COLUMN_LENGTH:75$]);
 create index IX_856F85E0 on Koroneiki_ContactRole (uuid_[$COLUMN_LENGTH:75$], companyId);
 
 create index IX_CCCB218 on Koroneiki_ContactTeamRole (contactRoleId);

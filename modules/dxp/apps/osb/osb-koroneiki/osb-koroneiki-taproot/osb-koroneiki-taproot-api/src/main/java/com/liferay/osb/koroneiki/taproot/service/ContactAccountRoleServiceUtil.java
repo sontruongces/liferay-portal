@@ -61,10 +61,12 @@ public class ContactAccountRoleServiceUtil {
 			contactId, accountId, contactRoleId);
 	}
 
-	public static void deleteContactAccountRoles(long contactId, long accountId)
+	public static void deleteContactAccountRoles(
+			long contactId, long accountId, String contactRoleType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		getService().deleteContactAccountRoles(contactId, accountId);
+		getService().deleteContactAccountRoles(
+			contactId, accountId, contactRoleType);
 	}
 
 	/**

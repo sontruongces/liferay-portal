@@ -102,13 +102,14 @@ public class ContactServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap[]
-			getAccountContacts(long accountId, int start, int end)
+			getAccountContacts(
+				long accountId, String contactRoleType, int start, int end)
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.osb.koroneiki.taproot.model.Contact>
 				returnValue = ContactServiceUtil.getAccountContacts(
-					accountId, start, end);
+					accountId, contactRoleType, start, end);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
 				toSoapModels(returnValue);
@@ -121,13 +122,14 @@ public class ContactServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap[]
-			getAccountContacts(String accountKey, int start, int end)
+			getAccountContacts(
+				String accountKey, String contactRoleType, int start, int end)
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.osb.koroneiki.taproot.model.Contact>
 				returnValue = ContactServiceUtil.getAccountContacts(
-					accountKey, start, end);
+					accountKey, contactRoleType, start, end);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
 				toSoapModels(returnValue);
@@ -139,12 +141,13 @@ public class ContactServiceSoap {
 		}
 	}
 
-	public static int getAccountContactsCount(long accountId)
+	public static int getAccountContactsCount(
+			long accountId, String contactRoleType)
 		throws RemoteException {
 
 		try {
 			int returnValue = ContactServiceUtil.getAccountContactsCount(
-				accountId);
+				accountId, contactRoleType);
 
 			return returnValue;
 		}
@@ -155,12 +158,13 @@ public class ContactServiceSoap {
 		}
 	}
 
-	public static int getAccountContactsCount(String accountKey)
+	public static int getAccountContactsCount(
+			String accountKey, String contactRoleType)
 		throws RemoteException {
 
 		try {
 			int returnValue = ContactServiceUtil.getAccountContactsCount(
-				accountKey);
+				accountKey, contactRoleType);
 
 			return returnValue;
 		}

@@ -315,6 +315,241 @@ public abstract class BaseContactResourceTestCase {
 	}
 
 	@Test
+	public void testGetAccountAccountKeyCustomerContactsPage()
+		throws Exception {
+
+		Page<Contact> page =
+			contactResource.getAccountAccountKeyCustomerContactsPage(
+				testGetAccountAccountKeyCustomerContactsPage_getAccountKey(),
+				Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String accountKey =
+			testGetAccountAccountKeyCustomerContactsPage_getAccountKey();
+		String irrelevantAccountKey =
+			testGetAccountAccountKeyCustomerContactsPage_getIrrelevantAccountKey();
+
+		if ((irrelevantAccountKey != null)) {
+			Contact irrelevantContact =
+				testGetAccountAccountKeyCustomerContactsPage_addContact(
+					irrelevantAccountKey, randomIrrelevantContact());
+
+			page = contactResource.getAccountAccountKeyCustomerContactsPage(
+				irrelevantAccountKey, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantContact),
+				(List<Contact>)page.getItems());
+			assertValid(page);
+		}
+
+		Contact contact1 =
+			testGetAccountAccountKeyCustomerContactsPage_addContact(
+				accountKey, randomContact());
+
+		Contact contact2 =
+			testGetAccountAccountKeyCustomerContactsPage_addContact(
+				accountKey, randomContact());
+
+		page = contactResource.getAccountAccountKeyCustomerContactsPage(
+			accountKey, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contact1, contact2), (List<Contact>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetAccountAccountKeyCustomerContactsPageWithPagination()
+		throws Exception {
+
+		String accountKey =
+			testGetAccountAccountKeyCustomerContactsPage_getAccountKey();
+
+		Contact contact1 =
+			testGetAccountAccountKeyCustomerContactsPage_addContact(
+				accountKey, randomContact());
+
+		Contact contact2 =
+			testGetAccountAccountKeyCustomerContactsPage_addContact(
+				accountKey, randomContact());
+
+		Contact contact3 =
+			testGetAccountAccountKeyCustomerContactsPage_addContact(
+				accountKey, randomContact());
+
+		Page<Contact> page1 =
+			contactResource.getAccountAccountKeyCustomerContactsPage(
+				accountKey, Pagination.of(1, 2));
+
+		List<Contact> contacts1 = (List<Contact>)page1.getItems();
+
+		Assert.assertEquals(contacts1.toString(), 2, contacts1.size());
+
+		Page<Contact> page2 =
+			contactResource.getAccountAccountKeyCustomerContactsPage(
+				accountKey, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Contact> contacts2 = (List<Contact>)page2.getItems();
+
+		Assert.assertEquals(contacts2.toString(), 1, contacts2.size());
+
+		Page<Contact> page3 =
+			contactResource.getAccountAccountKeyCustomerContactsPage(
+				accountKey, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contact1, contact2, contact3),
+			(List<Contact>)page3.getItems());
+	}
+
+	protected Contact testGetAccountAccountKeyCustomerContactsPage_addContact(
+			String accountKey, Contact contact)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyCustomerContactsPage_getAccountKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyCustomerContactsPage_getIrrelevantAccountKey()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testGetAccountAccountKeyWorkerContactsPage() throws Exception {
+		Page<Contact> page =
+			contactResource.getAccountAccountKeyWorkerContactsPage(
+				testGetAccountAccountKeyWorkerContactsPage_getAccountKey(),
+				Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		String accountKey =
+			testGetAccountAccountKeyWorkerContactsPage_getAccountKey();
+		String irrelevantAccountKey =
+			testGetAccountAccountKeyWorkerContactsPage_getIrrelevantAccountKey();
+
+		if ((irrelevantAccountKey != null)) {
+			Contact irrelevantContact =
+				testGetAccountAccountKeyWorkerContactsPage_addContact(
+					irrelevantAccountKey, randomIrrelevantContact());
+
+			page = contactResource.getAccountAccountKeyWorkerContactsPage(
+				irrelevantAccountKey, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantContact),
+				(List<Contact>)page.getItems());
+			assertValid(page);
+		}
+
+		Contact contact1 =
+			testGetAccountAccountKeyWorkerContactsPage_addContact(
+				accountKey, randomContact());
+
+		Contact contact2 =
+			testGetAccountAccountKeyWorkerContactsPage_addContact(
+				accountKey, randomContact());
+
+		page = contactResource.getAccountAccountKeyWorkerContactsPage(
+			accountKey, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contact1, contact2), (List<Contact>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetAccountAccountKeyWorkerContactsPageWithPagination()
+		throws Exception {
+
+		String accountKey =
+			testGetAccountAccountKeyWorkerContactsPage_getAccountKey();
+
+		Contact contact1 =
+			testGetAccountAccountKeyWorkerContactsPage_addContact(
+				accountKey, randomContact());
+
+		Contact contact2 =
+			testGetAccountAccountKeyWorkerContactsPage_addContact(
+				accountKey, randomContact());
+
+		Contact contact3 =
+			testGetAccountAccountKeyWorkerContactsPage_addContact(
+				accountKey, randomContact());
+
+		Page<Contact> page1 =
+			contactResource.getAccountAccountKeyWorkerContactsPage(
+				accountKey, Pagination.of(1, 2));
+
+		List<Contact> contacts1 = (List<Contact>)page1.getItems();
+
+		Assert.assertEquals(contacts1.toString(), 2, contacts1.size());
+
+		Page<Contact> page2 =
+			contactResource.getAccountAccountKeyWorkerContactsPage(
+				accountKey, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Contact> contacts2 = (List<Contact>)page2.getItems();
+
+		Assert.assertEquals(contacts2.toString(), 1, contacts2.size());
+
+		Page<Contact> page3 =
+			contactResource.getAccountAccountKeyWorkerContactsPage(
+				accountKey, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(contact1, contact2, contact3),
+			(List<Contact>)page3.getItems());
+	}
+
+	protected Contact testGetAccountAccountKeyWorkerContactsPage_addContact(
+			String accountKey, Contact contact)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetAccountAccountKeyWorkerContactsPage_getAccountKey()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetAccountAccountKeyWorkerContactsPage_getIrrelevantAccountKey()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
 	public void testGetContactsPage() throws Exception {
 		Page<Contact> page = contactResource.getContactsPage(
 			RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);

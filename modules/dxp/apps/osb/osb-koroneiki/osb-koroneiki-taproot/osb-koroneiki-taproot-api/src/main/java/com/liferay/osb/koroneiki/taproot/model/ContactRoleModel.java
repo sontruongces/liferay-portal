@@ -232,14 +232,15 @@ public interface ContactRoleModel
 	 *
 	 * @return the type of this contact role
 	 */
-	public int getType();
+	@AutoEscape
+	public String getType();
 
 	/**
 	 * Sets the type of this contact role.
 	 *
 	 * @param type the type of this contact role
 	 */
-	public void setType(int type);
+	public void setType(String type);
 
 	/**
 	 * Returns the system of this contact role.

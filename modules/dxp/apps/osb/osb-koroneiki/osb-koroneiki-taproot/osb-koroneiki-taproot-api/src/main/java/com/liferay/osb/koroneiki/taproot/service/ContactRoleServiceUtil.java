@@ -44,7 +44,7 @@ public class ContactRoleServiceUtil {
 	 * Never modify or reference this interface directly. Always use {@link ContactRoleServiceUtil} to access the contact role remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactRoleServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
-			addContactRole(String name, String description, int type)
+			addContactRole(String name, String description, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addContactRole(name, description, type);
@@ -67,19 +67,20 @@ public class ContactRoleServiceUtil {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
 				getContactAccountContactRoles(
-					long accountId, long contactId, int start, int end)
+					long accountId, long contactId, String[] types, int start,
+					int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getContactAccountContactRoles(
-			accountId, contactId, start, end);
+			accountId, contactId, types, start, end);
 	}
 
 	public static int getContactAccountContactRolesCount(
-			long accountId, long contactId)
+			long accountId, long contactId, String[] types)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getContactAccountContactRolesCount(
-			accountId, contactId);
+			accountId, contactId, types);
 	}
 
 	public static java.util.List
@@ -105,7 +106,7 @@ public class ContactRoleServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
-			getContactRole(String name, int type)
+			getContactRole(String name, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getContactRole(name, type);
@@ -114,18 +115,20 @@ public class ContactRoleServiceUtil {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
 				getContactTeamContactRoles(
-					long teamId, long contactId, int start, int end)
+					long teamId, long contactId, String[] types, int start,
+					int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getContactTeamContactRoles(
-			teamId, contactId, start, end);
+			teamId, contactId, types, start, end);
 	}
 
 	public static int getContactTeamContactRolesCount(
-			long teamId, long contactId)
+			long teamId, long contactId, String[] types)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getContactTeamContactRolesCount(teamId, contactId);
+		return getService().getContactTeamContactRolesCount(
+			teamId, contactId, types);
 	}
 
 	/**

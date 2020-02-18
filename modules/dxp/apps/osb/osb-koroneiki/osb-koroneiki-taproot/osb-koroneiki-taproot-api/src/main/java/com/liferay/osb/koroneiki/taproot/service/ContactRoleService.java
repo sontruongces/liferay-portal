@@ -51,7 +51,8 @@ public interface ContactRoleService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ContactRoleServiceUtil} to access the contact role remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactRoleServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public ContactRole addContactRole(String name, String description, int type)
+	public ContactRole addContactRole(
+			String name, String description, String type)
 		throws PortalException;
 
 	public ContactRole deleteContactRole(long contactRoleId)
@@ -62,12 +63,12 @@ public interface ContactRoleService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ContactRole> getContactAccountContactRoles(
-			long accountId, long contactId, int start, int end)
+			long accountId, long contactId, String[] types, int start, int end)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getContactAccountContactRolesCount(
-			long accountId, long contactId)
+			long accountId, long contactId, String[] types)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -84,16 +85,17 @@ public interface ContactRoleService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ContactRole getContactRole(String name, int type)
+	public ContactRole getContactRole(String name, String type)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ContactRole> getContactTeamContactRoles(
-			long teamId, long contactId, int start, int end)
+			long teamId, long contactId, String[] types, int start, int end)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getContactTeamContactRolesCount(long teamId, long contactId)
+	public int getContactTeamContactRolesCount(
+			long teamId, long contactId, String[] types)
 		throws PortalException;
 
 	/**

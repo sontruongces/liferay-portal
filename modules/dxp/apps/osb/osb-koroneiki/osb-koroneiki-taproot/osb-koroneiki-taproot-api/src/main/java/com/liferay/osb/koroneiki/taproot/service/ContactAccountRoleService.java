@@ -56,7 +56,8 @@ public interface ContactAccountRoleService extends BaseService {
 			long contactId, long accountId, long contactRoleId)
 		throws PortalException;
 
-	public void deleteContactAccountRoles(long contactId, long accountId)
+	public void deleteContactAccountRoles(
+			long contactId, long accountId, String contactRoleType)
 		throws PortalException;
 
 	/**

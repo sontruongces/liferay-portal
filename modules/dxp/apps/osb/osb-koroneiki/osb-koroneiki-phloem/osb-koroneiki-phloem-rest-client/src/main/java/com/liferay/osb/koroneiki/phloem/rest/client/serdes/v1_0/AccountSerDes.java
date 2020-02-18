@@ -134,6 +134,26 @@ public class AccountSerDes {
 			sb.append("]");
 		}
 
+		if (account.getCustomerContacts() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"customerContacts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < account.getCustomerContacts().length; i++) {
+				sb.append(String.valueOf(account.getCustomerContacts()[i]));
+
+				if ((i + 1) < account.getCustomerContacts().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (account.getDateCreated() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -431,6 +451,26 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getWorkerContacts() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workerContacts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < account.getWorkerContacts().length; i++) {
+				sb.append(String.valueOf(account.getWorkerContacts()[i]));
+
+				if ((i + 1) < account.getWorkerContacts().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -481,6 +521,15 @@ public class AccountSerDes {
 		}
 		else {
 			map.put("contacts", String.valueOf(account.getContacts()));
+		}
+
+		if (account.getCustomerContacts() == null) {
+			map.put("customerContacts", null);
+		}
+		else {
+			map.put(
+				"customerContacts",
+				String.valueOf(account.getCustomerContacts()));
 		}
 
 		map.put(
@@ -626,6 +675,14 @@ public class AccountSerDes {
 			map.put("website", String.valueOf(account.getWebsite()));
 		}
 
+		if (account.getWorkerContacts() == null) {
+			map.put("workerContacts", null);
+		}
+		else {
+			map.put(
+				"workerContacts", String.valueOf(account.getWorkerContacts()));
+		}
+
 		return map;
 	}
 
@@ -674,6 +731,18 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "contacts")) {
 				if (jsonParserFieldValue != null) {
 					account.setContacts(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> ContactSerDes.toDTO((String)object)
+						).toArray(
+							size -> new Contact[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "customerContacts")) {
+				if (jsonParserFieldValue != null) {
+					account.setCustomerContacts(
 						Stream.of(
 							toStrings((Object[])jsonParserFieldValue)
 						).map(
@@ -818,6 +887,18 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "website")) {
 				if (jsonParserFieldValue != null) {
 					account.setWebsite((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "workerContacts")) {
+				if (jsonParserFieldValue != null) {
+					account.setWorkerContacts(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> ContactSerDes.toDTO((String)object)
+						).toArray(
+							size -> new Contact[size]
+						));
 				}
 			}
 			else {

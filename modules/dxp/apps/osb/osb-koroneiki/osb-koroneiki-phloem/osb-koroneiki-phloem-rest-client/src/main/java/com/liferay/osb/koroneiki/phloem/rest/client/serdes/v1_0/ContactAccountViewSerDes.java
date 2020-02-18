@@ -67,22 +67,51 @@ public class ContactAccountViewSerDes {
 			sb.append(String.valueOf(contactAccountView.getAccount()));
 		}
 
-		if (contactAccountView.getContactRoles() != null) {
+		if (contactAccountView.getCustomerContactRoles() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"contactRoles\": ");
+			sb.append("\"customerContactRoles\": ");
 
 			sb.append("[");
 
-			for (int i = 0; i < contactAccountView.getContactRoles().length;
-				 i++) {
+			for (int i = 0;
+				 i < contactAccountView.getCustomerContactRoles().length; i++) {
 
 				sb.append(
-					String.valueOf(contactAccountView.getContactRoles()[i]));
+					String.valueOf(
+						contactAccountView.getCustomerContactRoles()[i]));
 
-				if ((i + 1) < contactAccountView.getContactRoles().length) {
+				if ((i + 1) <
+						contactAccountView.getCustomerContactRoles().length) {
+
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (contactAccountView.getWorkerContactRoles() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workerContactRoles\": ");
+
+			sb.append("[");
+
+			for (int i = 0;
+				 i < contactAccountView.getWorkerContactRoles().length; i++) {
+
+				sb.append(
+					String.valueOf(
+						contactAccountView.getWorkerContactRoles()[i]));
+
+				if ((i + 1) <
+						contactAccountView.getWorkerContactRoles().length) {
+
 					sb.append(", ");
 				}
 			}
@@ -118,13 +147,22 @@ public class ContactAccountViewSerDes {
 			map.put("account", String.valueOf(contactAccountView.getAccount()));
 		}
 
-		if (contactAccountView.getContactRoles() == null) {
-			map.put("contactRoles", null);
+		if (contactAccountView.getCustomerContactRoles() == null) {
+			map.put("customerContactRoles", null);
 		}
 		else {
 			map.put(
-				"contactRoles",
-				String.valueOf(contactAccountView.getContactRoles()));
+				"customerContactRoles",
+				String.valueOf(contactAccountView.getCustomerContactRoles()));
+		}
+
+		if (contactAccountView.getWorkerContactRoles() == null) {
+			map.put("workerContactRoles", null);
+		}
+		else {
+			map.put(
+				"workerContactRoles",
+				String.valueOf(contactAccountView.getWorkerContactRoles()));
 		}
 
 		return map;
@@ -154,9 +192,25 @@ public class ContactAccountViewSerDes {
 						AccountSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "contactRoles")) {
+			else if (Objects.equals(
+						jsonParserFieldName, "customerContactRoles")) {
+
 				if (jsonParserFieldValue != null) {
-					contactAccountView.setContactRoles(
+					contactAccountView.setCustomerContactRoles(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> ContactRoleSerDes.toDTO((String)object)
+						).toArray(
+							size -> new ContactRole[size]
+						));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "workerContactRoles")) {
+
+				if (jsonParserFieldValue != null) {
+					contactAccountView.setWorkerContactRoles(
 						Stream.of(
 							toStrings((Object[])jsonParserFieldValue)
 						).map(

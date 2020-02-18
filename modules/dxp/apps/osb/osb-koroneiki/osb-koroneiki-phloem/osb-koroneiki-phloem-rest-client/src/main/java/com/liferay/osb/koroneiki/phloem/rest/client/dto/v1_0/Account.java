@@ -176,6 +176,27 @@ public class Account {
 
 	protected Contact[] contacts;
 
+	public Contact[] getCustomerContacts() {
+		return customerContacts;
+	}
+
+	public void setCustomerContacts(Contact[] customerContacts) {
+		this.customerContacts = customerContacts;
+	}
+
+	public void setCustomerContacts(
+		UnsafeSupplier<Contact[], Exception> customerContactsUnsafeSupplier) {
+
+		try {
+			customerContacts = customerContactsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Contact[] customerContacts;
+
 	public Date getDateCreated() {
 		return dateCreated;
 	}
@@ -607,6 +628,27 @@ public class Account {
 	}
 
 	protected String website;
+
+	public Contact[] getWorkerContacts() {
+		return workerContacts;
+	}
+
+	public void setWorkerContacts(Contact[] workerContacts) {
+		this.workerContacts = workerContacts;
+	}
+
+	public void setWorkerContacts(
+		UnsafeSupplier<Contact[], Exception> workerContactsUnsafeSupplier) {
+
+		try {
+			workerContacts = workerContactsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Contact[] workerContacts;
 
 	@Override
 	public boolean equals(Object object) {

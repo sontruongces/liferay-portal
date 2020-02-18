@@ -48,6 +48,24 @@ public interface ContactResource {
 				String accountKey, Pagination pagination)
 		throws Exception;
 
+	public Page<Contact> getAccountAccountKeyCustomerContactsPage(
+			String accountKey, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyCustomerContactsPageHttpResponse(
+				String accountKey, Pagination pagination)
+		throws Exception;
+
+	public Page<Contact> getAccountAccountKeyWorkerContactsPage(
+			String accountKey, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyWorkerContactsPageHttpResponse(
+				String accountKey, Pagination pagination)
+		throws Exception;
+
 	public Page<Contact> getContactsPage(
 			String search, String filterString, Pagination pagination,
 			String sortString)
@@ -304,6 +322,134 @@ public interface ContactResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Contact> getAccountAccountKeyCustomerContactsPage(
+				String accountKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyCustomerContactsPageHttpResponse(
+					accountKey, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyCustomerContactsPageHttpResponse(
+					String accountKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Contact> getAccountAccountKeyWorkerContactsPage(
+				String accountKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyWorkerContactsPageHttpResponse(
+					accountKey, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyWorkerContactsPageHttpResponse(
+					String accountKey, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts",
 				accountKey);
 
 			httpInvoker.userNameAndPassword(

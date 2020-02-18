@@ -60,6 +60,36 @@ public interface ContactRoleResource {
 				String accountKey, String contactUuid, Pagination pagination)
 		throws Exception;
 
+	public Page<ContactRole>
+			getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPage(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole> getAccountAccountKeyCustomerContactByOktaRolesPage(
+			String accountKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole>
+			getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole>
+			getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole> getAccountAccountKeyWorkerContactByOktaRolesPage(
+			String accountKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole>
+			getAccountAccountKeyWorkerContactByUuidContactUuidRolesPage(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
 	public Page<ContactRole> getContactRolesPage(
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;

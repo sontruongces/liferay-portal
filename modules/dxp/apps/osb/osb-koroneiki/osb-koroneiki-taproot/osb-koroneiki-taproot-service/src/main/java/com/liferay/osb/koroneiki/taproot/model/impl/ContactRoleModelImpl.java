@@ -79,7 +79,7 @@ public class ContactRoleModelImpl
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"contactRoleKey", Types.VARCHAR},
 		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
-		{"type_", Types.INTEGER}, {"system_", Types.BOOLEAN}
+		{"type_", Types.VARCHAR}, {"system_", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -96,12 +96,12 @@ public class ContactRoleModelImpl
 		TABLE_COLUMNS_MAP.put("contactRoleKey", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("system_", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ContactRole (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,contactRoleId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactRoleKey VARCHAR(75) null,name VARCHAR(75) null,description STRING null,type_ INTEGER,system_ BOOLEAN)";
+		"create table Koroneiki_ContactRole (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,contactRoleId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactRoleKey VARCHAR(75) null,name VARCHAR(75) null,description STRING null,type_ VARCHAR(75) null,system_ BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ContactRole";
@@ -354,7 +354,7 @@ public class ContactRoleModelImpl
 			(BiConsumer<ContactRole, String>)ContactRole::setDescription);
 		attributeGetterFunctions.put("type", ContactRole::getType);
 		attributeSetterBiConsumers.put(
-			"type", (BiConsumer<ContactRole, Integer>)ContactRole::setType);
+			"type", (BiConsumer<ContactRole, String>)ContactRole::setType);
 		attributeGetterFunctions.put("system", ContactRole::getSystem);
 		attributeSetterBiConsumers.put(
 			"system", (BiConsumer<ContactRole, Boolean>)ContactRole::setSystem);
@@ -561,25 +561,28 @@ public class ContactRoleModelImpl
 
 	@JSON
 	@Override
-	public int getType() {
-		return _type;
+	public String getType() {
+		if (_type == null) {
+			return "";
+		}
+		else {
+			return _type;
+		}
 	}
 
 	@Override
-	public void setType(int type) {
+	public void setType(String type) {
 		_columnBitmask |= TYPE_COLUMN_BITMASK;
 
-		if (!_setOriginalType) {
-			_setOriginalType = true;
-
+		if (_originalType == null) {
 			_originalType = _type;
 		}
 
 		_type = type;
 	}
 
-	public int getOriginalType() {
-		return _originalType;
+	public String getOriginalType() {
+		return GetterUtil.getString(_originalType);
 	}
 
 	@JSON
@@ -729,8 +732,6 @@ public class ContactRoleModelImpl
 
 		contactRoleModelImpl._originalType = contactRoleModelImpl._type;
 
-		contactRoleModelImpl._setOriginalType = false;
-
 		contactRoleModelImpl._columnBitmask = 0;
 	}
 
@@ -798,6 +799,12 @@ public class ContactRoleModelImpl
 		}
 
 		contactRoleCacheModel.type = getType();
+
+		String type = contactRoleCacheModel.type;
+
+		if ((type != null) && (type.length() == 0)) {
+			contactRoleCacheModel.type = null;
+		}
 
 		contactRoleCacheModel.system = isSystem();
 
@@ -893,9 +900,8 @@ public class ContactRoleModelImpl
 	private String _name;
 	private String _originalName;
 	private String _description;
-	private int _type;
-	private int _originalType;
-	private boolean _setOriginalType;
+	private String _type;
+	private String _originalType;
 	private boolean _system;
 	private long _columnBitmask;
 	private ContactRole _escapedModel;

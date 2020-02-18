@@ -70,6 +70,68 @@ public interface ContactRoleResource {
 				String accountKey, String contactUuid, Pagination pagination)
 		throws Exception;
 
+	public Page<ContactRole>
+			getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPage(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole> getAccountAccountKeyCustomerContactByOktaRolesPage(
+			String accountKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyCustomerContactByOktaRolesPageHttpResponse(
+				String accountKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole>
+			getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyCustomerContactByUuidContactUuidRolesPageHttpResponse(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole>
+			getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
+				String accountKey, String contactEmailAddress,
+				Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole> getAccountAccountKeyWorkerContactByOktaRolesPage(
+			String accountKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyWorkerContactByOktaRolesPageHttpResponse(
+				String accountKey, String oktaId, Pagination pagination)
+		throws Exception;
+
+	public Page<ContactRole>
+			getAccountAccountKeyWorkerContactByUuidContactUuidRolesPage(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getAccountAccountKeyWorkerContactByUuidContactUuidRolesPageHttpResponse(
+				String accountKey, String contactUuid, Pagination pagination)
+		throws Exception;
+
 	public Page<ContactRole> getContactRolesPage(
 			String search, String filterString, Pagination pagination,
 			String sortString)
@@ -407,6 +469,404 @@ public interface ContactRoleResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles",
+				accountKey, contactUuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ContactRole>
+				getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPage(
+					String accountKey, String contactEmailAddress,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
+					accountKey, contactEmailAddress, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
+					String accountKey, String contactEmailAddress,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-email-address/{contactEmailAddress}/roles",
+				accountKey, contactEmailAddress);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ContactRole>
+				getAccountAccountKeyCustomerContactByOktaRolesPage(
+					String accountKey, String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyCustomerContactByOktaRolesPageHttpResponse(
+					accountKey, oktaId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyCustomerContactByOktaRolesPageHttpResponse(
+					String accountKey, String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-okta-id/{oktaId}/roles",
+				accountKey, oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ContactRole>
+				getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage(
+					String accountKey, String contactUuid,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyCustomerContactByUuidContactUuidRolesPageHttpResponse(
+					accountKey, contactUuid, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyCustomerContactByUuidContactUuidRolesPageHttpResponse(
+					String accountKey, String contactUuid,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-uuid/{contactUuid}/roles",
+				accountKey, contactUuid);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ContactRole>
+				getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage(
+					String accountKey, String contactEmailAddress,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
+					accountKey, contactEmailAddress, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
+					String accountKey, String contactEmailAddress,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-email-address/{contactEmailAddress}/roles",
+				accountKey, contactEmailAddress);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ContactRole>
+				getAccountAccountKeyWorkerContactByOktaRolesPage(
+					String accountKey, String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyWorkerContactByOktaRolesPageHttpResponse(
+					accountKey, oktaId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyWorkerContactByOktaRolesPageHttpResponse(
+					String accountKey, String oktaId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-okta-id/{oktaId}/roles",
+				accountKey, oktaId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ContactRole>
+				getAccountAccountKeyWorkerContactByUuidContactUuidRolesPage(
+					String accountKey, String contactUuid,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyWorkerContactByUuidContactUuidRolesPageHttpResponse(
+					accountKey, contactUuid, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyWorkerContactByUuidContactUuidRolesPageHttpResponse(
+					String accountKey, String contactUuid,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-uuid/{contactUuid}/roles",
 				accountKey, contactUuid);
 
 			httpInvoker.userNameAndPassword(

@@ -71,7 +71,9 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	 */
 	@Override
 	@GET
-	@Operation(description = "Retrieves the account's contacts.")
+	@Operation(
+		description = "Retrieves the account's customer and worker contacts."
+	)
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
@@ -83,6 +85,60 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public Page<Contact> getAccountAccountKeyContactsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrieves the account's customer contacts.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/customer-contacts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Contact")})
+	public Page<Contact> getAccountAccountKeyCustomerContactsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrieves the account's worker contacts.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/worker-contacts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Contact")})
+	public Page<Contact> getAccountAccountKeyWorkerContactsPage(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			@Context Pagination pagination)

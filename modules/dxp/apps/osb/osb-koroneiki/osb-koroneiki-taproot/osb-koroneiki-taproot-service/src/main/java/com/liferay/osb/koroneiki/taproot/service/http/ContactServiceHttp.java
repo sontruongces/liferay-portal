@@ -132,7 +132,8 @@ public class ContactServiceHttp {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.Contact> getAccountContacts(
-				HttpPrincipal httpPrincipal, long accountId, int start, int end)
+				HttpPrincipal httpPrincipal, long accountId,
+				String contactRoleType, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -141,7 +142,7 @@ public class ContactServiceHttp {
 				_getAccountContactsParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, start, end);
+				methodKey, accountId, contactRoleType, start, end);
 
 			Object returnObj = null;
 
@@ -172,8 +173,8 @@ public class ContactServiceHttp {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.Contact> getAccountContacts(
-				HttpPrincipal httpPrincipal, String accountKey, int start,
-				int end)
+				HttpPrincipal httpPrincipal, String accountKey,
+				String contactRoleType, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -182,7 +183,7 @@ public class ContactServiceHttp {
 				_getAccountContactsParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountKey, start, end);
+				methodKey, accountKey, contactRoleType, start, end);
 
 			Object returnObj = null;
 
@@ -212,7 +213,7 @@ public class ContactServiceHttp {
 	}
 
 	public static int getAccountContactsCount(
-			HttpPrincipal httpPrincipal, long accountId)
+			HttpPrincipal httpPrincipal, long accountId, String contactRoleType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -221,7 +222,7 @@ public class ContactServiceHttp {
 				_getAccountContactsCountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId);
+				methodKey, accountId, contactRoleType);
 
 			Object returnObj = null;
 
@@ -250,7 +251,8 @@ public class ContactServiceHttp {
 	}
 
 	public static int getAccountContactsCount(
-			HttpPrincipal httpPrincipal, String accountKey)
+			HttpPrincipal httpPrincipal, String accountKey,
+			String contactRoleType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -259,7 +261,7 @@ public class ContactServiceHttp {
 				_getAccountContactsCountParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountKey);
+				methodKey, accountKey, contactRoleType);
 
 			Object returnObj = null;
 
@@ -565,13 +567,13 @@ public class ContactServiceHttp {
 	private static final Class<?>[] _deleteContactParameterTypes1 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getAccountContactsParameterTypes2 =
-		new Class[] {long.class, int.class, int.class};
+		new Class[] {long.class, String.class, int.class, int.class};
 	private static final Class<?>[] _getAccountContactsParameterTypes3 =
-		new Class[] {String.class, int.class, int.class};
+		new Class[] {String.class, String.class, int.class, int.class};
 	private static final Class<?>[] _getAccountContactsCountParameterTypes4 =
-		new Class[] {long.class};
+		new Class[] {long.class, String.class};
 	private static final Class<?>[] _getAccountContactsCountParameterTypes5 =
-		new Class[] {String.class};
+		new Class[] {String.class, String.class};
 	private static final Class<?>[] _getContactParameterTypes6 = new Class[] {
 		long.class
 	};

@@ -537,8 +537,20 @@ public abstract class BaseContactAccountViewResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("contactRoles", additionalAssertFieldName)) {
-				if (contactAccountView.getContactRoles() == null) {
+			if (Objects.equals(
+					"customerContactRoles", additionalAssertFieldName)) {
+
+				if (contactAccountView.getCustomerContactRoles() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"workerContactRoles", additionalAssertFieldName)) {
+
+				if (contactAccountView.getWorkerContactRoles() == null) {
 					valid = false;
 				}
 
@@ -613,10 +625,25 @@ public abstract class BaseContactAccountViewResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("contactRoles", additionalAssertFieldName)) {
+			if (Objects.equals(
+					"customerContactRoles", additionalAssertFieldName)) {
+
 				if (!Objects.deepEquals(
-						contactAccountView1.getContactRoles(),
-						contactAccountView2.getContactRoles())) {
+						contactAccountView1.getCustomerContactRoles(),
+						contactAccountView2.getCustomerContactRoles())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"workerContactRoles", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						contactAccountView1.getWorkerContactRoles(),
+						contactAccountView2.getWorkerContactRoles())) {
 
 					return false;
 				}
@@ -699,7 +726,12 @@ public abstract class BaseContactAccountViewResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("contactRoles")) {
+		if (entityFieldName.equals("customerContactRoles")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("workerContactRoles")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

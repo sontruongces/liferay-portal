@@ -134,7 +134,8 @@ public class ContactAccountRoleServiceHttp {
 	}
 
 	public static void deleteContactAccountRoles(
-			HttpPrincipal httpPrincipal, long contactId, long accountId)
+			HttpPrincipal httpPrincipal, long contactId, long accountId,
+			String contactRoleType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -144,7 +145,7 @@ public class ContactAccountRoleServiceHttp {
 				_deleteContactAccountRolesParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, contactId, accountId);
+				methodKey, contactId, accountId, contactRoleType);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -176,6 +177,6 @@ public class ContactAccountRoleServiceHttp {
 	private static final Class<?>[] _deleteContactAccountRoleParameterTypes1 =
 		new Class[] {long.class, long.class, long.class};
 	private static final Class<?>[] _deleteContactAccountRolesParameterTypes2 =
-		new Class[] {long.class, long.class};
+		new Class[] {long.class, long.class, String.class};
 
 }

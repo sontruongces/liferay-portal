@@ -23,12 +23,13 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ContactRoleFinder {
 
-	public int countByName(
-		String name, java.util.LinkedHashMap<String, Object> params);
+	public int countByN_T(
+		String name, String[] types,
+		java.util.LinkedHashMap<String, Object> params);
 
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
-		findByName(
-			String name, java.util.LinkedHashMap<String, Object> params,
-			int start, int end);
+		findByN_T(
+			String name, String[] types,
+			java.util.LinkedHashMap<String, Object> params, int start, int end);
 
 }

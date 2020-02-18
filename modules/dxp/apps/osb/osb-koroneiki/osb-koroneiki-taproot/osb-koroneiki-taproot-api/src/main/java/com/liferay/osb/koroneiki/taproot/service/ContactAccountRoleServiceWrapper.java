@@ -59,11 +59,12 @@ public class ContactAccountRoleServiceWrapper
 	}
 
 	@Override
-	public void deleteContactAccountRoles(long contactId, long accountId)
+	public void deleteContactAccountRoles(
+			long contactId, long accountId, String contactRoleType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_contactAccountRoleService.deleteContactAccountRoles(
-			contactId, accountId);
+			contactId, accountId, contactRoleType);
 	}
 
 	/**

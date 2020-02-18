@@ -58,7 +58,8 @@ public class ContactRole {
 	@GraphQLName("Type")
 	public static enum Type {
 
-		ACCOUNT("Account"), TEAM("Team");
+		ACCOUNT_CUSTOMER("Account Customer"), ACCOUNT_WORKER("Account Worker"),
+		TEAM("Team");
 
 		@JsonCreator
 		public static Type create(String value) {

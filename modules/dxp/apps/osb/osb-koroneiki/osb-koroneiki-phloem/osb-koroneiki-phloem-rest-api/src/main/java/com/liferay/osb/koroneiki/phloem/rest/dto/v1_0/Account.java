@@ -237,6 +237,35 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Contact[] contacts;
 
+	@Schema(description = "The account's customer contacts.")
+	@Valid
+	public Contact[] getCustomerContacts() {
+		return customerContacts;
+	}
+
+	public void setCustomerContacts(Contact[] customerContacts) {
+		this.customerContacts = customerContacts;
+	}
+
+	@JsonIgnore
+	public void setCustomerContacts(
+		UnsafeSupplier<Contact[], Exception> customerContactsUnsafeSupplier) {
+
+		try {
+			customerContacts = customerContactsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Contact[] customerContacts;
+
 	@Schema(description = "The account's creation date.")
 	public Date getDateCreated() {
 		return dateCreated;
@@ -825,6 +854,35 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String website;
 
+	@Schema(description = "The account's worker contacts.")
+	@Valid
+	public Contact[] getWorkerContacts() {
+		return workerContacts;
+	}
+
+	public void setWorkerContacts(Contact[] workerContacts) {
+		this.workerContacts = workerContacts;
+	}
+
+	@JsonIgnore
+	public void setWorkerContacts(
+		UnsafeSupplier<Contact[], Exception> workerContactsUnsafeSupplier) {
+
+		try {
+			workerContacts = workerContactsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Contact[] workerContacts;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -916,6 +974,26 @@ public class Account {
 				sb.append(String.valueOf(contacts[i]));
 
 				if ((i + 1) < contacts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (customerContacts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"customerContacts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < customerContacts.length; i++) {
+				sb.append(String.valueOf(customerContacts[i]));
+
+				if ((i + 1) < customerContacts.length) {
 					sb.append(", ");
 				}
 			}
@@ -1217,6 +1295,26 @@ public class Account {
 			sb.append(_escape(website));
 
 			sb.append("\"");
+		}
+
+		if (workerContacts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workerContacts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < workerContacts.length; i++) {
+				sb.append(String.valueOf(workerContacts[i]));
+
+				if ((i + 1) < workerContacts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		sb.append("}");

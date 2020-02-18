@@ -49,26 +49,49 @@ public class ContactAccountView {
 
 	protected Account account;
 
-	public ContactRole[] getContactRoles() {
-		return contactRoles;
+	public ContactRole[] getCustomerContactRoles() {
+		return customerContactRoles;
 	}
 
-	public void setContactRoles(ContactRole[] contactRoles) {
-		this.contactRoles = contactRoles;
+	public void setCustomerContactRoles(ContactRole[] customerContactRoles) {
+		this.customerContactRoles = customerContactRoles;
 	}
 
-	public void setContactRoles(
-		UnsafeSupplier<ContactRole[], Exception> contactRolesUnsafeSupplier) {
+	public void setCustomerContactRoles(
+		UnsafeSupplier<ContactRole[], Exception>
+			customerContactRolesUnsafeSupplier) {
 
 		try {
-			contactRoles = contactRolesUnsafeSupplier.get();
+			customerContactRoles = customerContactRolesUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected ContactRole[] contactRoles;
+	protected ContactRole[] customerContactRoles;
+
+	public ContactRole[] getWorkerContactRoles() {
+		return workerContactRoles;
+	}
+
+	public void setWorkerContactRoles(ContactRole[] workerContactRoles) {
+		this.workerContactRoles = workerContactRoles;
+	}
+
+	public void setWorkerContactRoles(
+		UnsafeSupplier<ContactRole[], Exception>
+			workerContactRolesUnsafeSupplier) {
+
+		try {
+			workerContactRoles = workerContactRolesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected ContactRole[] workerContactRoles;
 
 	@Override
 	public boolean equals(Object object) {

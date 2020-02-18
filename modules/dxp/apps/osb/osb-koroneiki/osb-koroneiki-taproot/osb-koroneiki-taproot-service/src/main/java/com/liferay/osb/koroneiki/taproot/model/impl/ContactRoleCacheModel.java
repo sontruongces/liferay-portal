@@ -160,7 +160,13 @@ public class ContactRoleCacheModel
 			contactRoleImpl.setDescription(description);
 		}
 
-		contactRoleImpl.setType(type);
+		if (type == null) {
+			contactRoleImpl.setType("");
+		}
+		else {
+			contactRoleImpl.setType(type);
+		}
+
 		contactRoleImpl.setSystem(system);
 
 		contactRoleImpl.resetOriginalValues();
@@ -183,8 +189,7 @@ public class ContactRoleCacheModel
 		contactRoleKey = objectInput.readUTF();
 		name = objectInput.readUTF();
 		description = objectInput.readUTF();
-
-		type = objectInput.readInt();
+		type = objectInput.readUTF();
 
 		system = objectInput.readBoolean();
 	}
@@ -229,7 +234,12 @@ public class ContactRoleCacheModel
 			objectOutput.writeUTF(description);
 		}
 
-		objectOutput.writeInt(type);
+		if (type == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(type);
+		}
 
 		objectOutput.writeBoolean(system);
 	}
@@ -244,7 +254,7 @@ public class ContactRoleCacheModel
 	public String contactRoleKey;
 	public String name;
 	public String description;
-	public int type;
+	public String type;
 	public boolean system;
 
 }

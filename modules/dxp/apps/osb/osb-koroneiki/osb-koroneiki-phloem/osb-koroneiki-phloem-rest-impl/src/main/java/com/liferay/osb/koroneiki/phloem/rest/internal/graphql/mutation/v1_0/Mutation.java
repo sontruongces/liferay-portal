@@ -282,41 +282,6 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean deleteAccountContactByEmailAddres(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("contactEmailAddresses") String[]
-				contactEmailAddresses)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource ->
-				accountResource.deleteAccountContactByEmailAddres(
-					agentName, accountKey, contactEmailAddresses));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean updateAccountContactByEmailAddres(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("contactEmailAddresses") String[]
-				contactEmailAddresses)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.putAccountContactByEmailAddres(
-				agentName, accountKey, contactEmailAddresses));
-
-		return true;
-	}
-
-	@GraphQLField
 	public boolean deleteAccountContactByEmailAddresContactEmailAddressRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
@@ -357,38 +322,6 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public boolean deleteAccountContactByOkta(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("oktaIds") String[] oktaIds)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.deleteAccountContactByOkta(
-				agentName, accountKey, oktaIds));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean updateAccountContactByOkta(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("oktaIds") String[] oktaIds)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.putAccountContactByOkta(
-				agentName, accountKey, oktaIds));
-
-		return true;
-	}
-
-	@GraphQLField
 	public boolean deleteAccountContactByOktaRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
@@ -418,38 +351,6 @@ public class Mutation {
 			this::_populateResourceContext,
 			accountResource -> accountResource.putAccountContactByOktaRole(
 				agentName, accountKey, oktaId, contactRoleKeys));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean deleteAccountContactByUuid(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("contactUuids") String[] contactUuids)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.deleteAccountContactByUuid(
-				agentName, accountKey, contactUuids));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean updateAccountContactByUuid(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("contactUuids") String[] contactUuids)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.putAccountContactByUuid(
-				agentName, accountKey, contactUuids));
 
 		return true;
 	}
@@ -486,6 +387,108 @@ public class Mutation {
 			accountResource ->
 				accountResource.putAccountContactByUuidContactUuidRole(
 					agentName, accountKey, contactUuid, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteAccountCustomerContactByEmailAddres(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactEmailAddresses") String[]
+				contactEmailAddresses)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource ->
+				accountResource.deleteAccountCustomerContactByEmailAddres(
+					agentName, accountKey, contactEmailAddresses));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteAccountCustomerContactByOkta(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("oktaIds") String[] oktaIds)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource ->
+				accountResource.deleteAccountCustomerContactByOkta(
+					agentName, accountKey, oktaIds));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteAccountCustomerContactByUuid(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactUuids") String[] contactUuids)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource ->
+				accountResource.deleteAccountCustomerContactByUuid(
+					agentName, accountKey, contactUuids));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteAccountWorkerContactByEmailAddres(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactEmailAddresses") String[]
+				contactEmailAddresses)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource ->
+				accountResource.deleteAccountWorkerContactByEmailAddres(
+					agentName, accountKey, contactEmailAddresses));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteAccountWorkerContactByOkta(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("oktaIds") String[] oktaIds)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.deleteAccountWorkerContactByOkta(
+				agentName, accountKey, oktaIds));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteAccountWorkerContactByUuid(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("contactUuids") String[] contactUuids)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.deleteAccountWorkerContactByUuid(
+				agentName, accountKey, contactUuids));
 
 		return true;
 	}

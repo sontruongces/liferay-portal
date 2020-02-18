@@ -236,13 +236,16 @@ public class ContactLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.Contact> getAccountContacts(
-			long accountId, int start, int end) {
+			long accountId, String contactRoleType, int start, int end) {
 
-		return getService().getAccountContacts(accountId, start, end);
+		return getService().getAccountContacts(
+			accountId, contactRoleType, start, end);
 	}
 
-	public static int getAccountContactsCount(long accountId) {
-		return getService().getAccountContactsCount(accountId);
+	public static int getAccountContactsCount(
+		long accountId, String contactRoleType) {
+
+		return getService().getAccountContactsCount(accountId, contactRoleType);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

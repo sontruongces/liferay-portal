@@ -389,60 +389,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@DELETE
-	@Operation(description = "Unassigns contacts from the account.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "contactEmailAddresses")
-		}
-	)
-	@Path("/accounts/{accountKey}/contacts/by-email-address")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void deleteAccountContactByEmailAddres(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true)
-			@QueryParam("contactEmailAddresses") String[] contactEmailAddresses)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Operation(description = "Assigns contacts to the account.")
-	@PUT
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "contactEmailAddresses")
-		}
-	)
-	@Path("/accounts/{accountKey}/contacts/by-email-address")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void putAccountContactByEmailAddres(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true)
-			@QueryParam("contactEmailAddresses") String[] contactEmailAddresses)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -503,60 +449,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 				String contactEmailAddress,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
 				String[] contactRoleKeys)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@DELETE
-	@Operation(description = "Unassigns contacts from the account.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
-		}
-	)
-	@Path("/accounts/{accountKey}/contacts/by-okta-id")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void deleteAccountContactByOkta(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
-				oktaIds)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Operation(description = "Assigns contacts to the account.")
-	@PUT
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
-		}
-	)
-	@Path("/accounts/{accountKey}/contacts/by-okta-id")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void putAccountContactByOkta(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
-				oktaIds)
 		throws Exception {
 	}
 
@@ -625,60 +517,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@DELETE
-	@Operation(description = "Unassigns contacts from the account.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
-		}
-	)
-	@Path("/accounts/{accountKey}/contacts/by-uuid")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void deleteAccountContactByUuid(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
-				String[] contactUuids)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Operation(description = "Assigns contacts to the account.")
-	@PUT
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
-		}
-	)
-	@Path("/accounts/{accountKey}/contacts/by-uuid")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void putAccountContactByUuid(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
-				String[] contactUuids)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -735,6 +573,168 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 				contactUuid,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
 				String[] contactRoleKeys)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-email-address'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns customer contacts from the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactEmailAddresses")
+		}
+	)
+	@Path("/accounts/{accountKey}/customer-contacts/by-email-address")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountCustomerContactByEmailAddres(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true)
+			@QueryParam("contactEmailAddresses") String[] contactEmailAddresses)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-okta-id'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns customer contacts from the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
+		}
+	)
+	@Path("/accounts/{accountKey}/customer-contacts/by-okta-id")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountCustomerContactByOkta(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
+				oktaIds)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-uuid'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns contacts from the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
+		}
+	)
+	@Path("/accounts/{accountKey}/customer-contacts/by-uuid")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountCustomerContactByUuid(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
+				String[] contactUuids)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-email-address'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns worker contacts from the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactEmailAddresses")
+		}
+	)
+	@Path("/accounts/{accountKey}/worker-contacts/by-email-address")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountWorkerContactByEmailAddres(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true)
+			@QueryParam("contactEmailAddresses") String[] contactEmailAddresses)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-okta-id'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns customer contacts from the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
+		}
+	)
+	@Path("/accounts/{accountKey}/worker-contacts/by-okta-id")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountWorkerContactByOkta(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
+				oktaIds)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-uuid'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns contacts from the account.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
+		}
+	)
+	@Path("/accounts/{accountKey}/worker-contacts/by-uuid")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public void deleteAccountWorkerContactByUuid(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
+				String[] contactUuids)
 		throws Exception {
 	}
 

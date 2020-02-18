@@ -103,12 +103,13 @@ public class ContactAccountRoleServiceSoap {
 		}
 	}
 
-	public static void deleteContactAccountRoles(long contactId, long accountId)
+	public static void deleteContactAccountRoles(
+			long contactId, long accountId, String contactRoleType)
 		throws RemoteException {
 
 		try {
 			ContactAccountRoleServiceUtil.deleteContactAccountRoles(
-				contactId, accountId);
+				contactId, accountId, contactRoleType);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

@@ -77,20 +77,21 @@ public class ContactAccountView {
 
 	@Schema
 	@Valid
-	public ContactRole[] getContactRoles() {
-		return contactRoles;
+	public ContactRole[] getCustomerContactRoles() {
+		return customerContactRoles;
 	}
 
-	public void setContactRoles(ContactRole[] contactRoles) {
-		this.contactRoles = contactRoles;
+	public void setCustomerContactRoles(ContactRole[] customerContactRoles) {
+		this.customerContactRoles = customerContactRoles;
 	}
 
 	@JsonIgnore
-	public void setContactRoles(
-		UnsafeSupplier<ContactRole[], Exception> contactRolesUnsafeSupplier) {
+	public void setCustomerContactRoles(
+		UnsafeSupplier<ContactRole[], Exception>
+			customerContactRolesUnsafeSupplier) {
 
 		try {
-			contactRoles = contactRolesUnsafeSupplier.get();
+			customerContactRoles = customerContactRolesUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -102,7 +103,37 @@ public class ContactAccountView {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected ContactRole[] contactRoles;
+	protected ContactRole[] customerContactRoles;
+
+	@Schema
+	@Valid
+	public ContactRole[] getWorkerContactRoles() {
+		return workerContactRoles;
+	}
+
+	public void setWorkerContactRoles(ContactRole[] workerContactRoles) {
+		this.workerContactRoles = workerContactRoles;
+	}
+
+	@JsonIgnore
+	public void setWorkerContactRoles(
+		UnsafeSupplier<ContactRole[], Exception>
+			workerContactRolesUnsafeSupplier) {
+
+		try {
+			workerContactRoles = workerContactRolesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected ContactRole[] workerContactRoles;
 
 	@Override
 	public boolean equals(Object object) {
@@ -141,19 +172,39 @@ public class ContactAccountView {
 			sb.append(String.valueOf(account));
 		}
 
-		if (contactRoles != null) {
+		if (customerContactRoles != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"contactRoles\": ");
+			sb.append("\"customerContactRoles\": ");
 
 			sb.append("[");
 
-			for (int i = 0; i < contactRoles.length; i++) {
-				sb.append(String.valueOf(contactRoles[i]));
+			for (int i = 0; i < customerContactRoles.length; i++) {
+				sb.append(String.valueOf(customerContactRoles[i]));
 
-				if ((i + 1) < contactRoles.length) {
+				if ((i + 1) < customerContactRoles.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (workerContactRoles != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workerContactRoles\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < workerContactRoles.length; i++) {
+				sb.append(String.valueOf(workerContactRoles[i]));
+
+				if ((i + 1) < workerContactRoles.length) {
 					sb.append(", ");
 				}
 			}

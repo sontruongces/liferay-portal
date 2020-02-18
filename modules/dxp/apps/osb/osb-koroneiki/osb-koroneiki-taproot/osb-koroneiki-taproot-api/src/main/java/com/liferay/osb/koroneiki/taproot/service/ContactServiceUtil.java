@@ -62,30 +62,35 @@ public class ContactServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.Contact> getAccountContacts(
-				long accountId, int start, int end)
+				long accountId, String contactRoleType, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getAccountContacts(accountId, start, end);
+		return getService().getAccountContacts(
+			accountId, contactRoleType, start, end);
 	}
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.Contact> getAccountContacts(
-				String accountKey, int start, int end)
+				String accountKey, String contactRoleType, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getAccountContacts(accountKey, start, end);
+		return getService().getAccountContacts(
+			accountKey, contactRoleType, start, end);
 	}
 
-	public static int getAccountContactsCount(long accountId)
+	public static int getAccountContactsCount(
+			long accountId, String contactRoleType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getAccountContactsCount(accountId);
+		return getService().getAccountContactsCount(accountId, contactRoleType);
 	}
 
-	public static int getAccountContactsCount(String accountKey)
+	public static int getAccountContactsCount(
+			String accountKey, String contactRoleType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getAccountContactsCount(accountKey);
+		return getService().getAccountContactsCount(
+			accountKey, contactRoleType);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact getContact(

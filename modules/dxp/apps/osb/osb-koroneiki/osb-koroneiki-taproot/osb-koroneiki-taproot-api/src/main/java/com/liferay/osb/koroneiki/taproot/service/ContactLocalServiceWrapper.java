@@ -243,14 +243,17 @@ public class ContactLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Contact>
-		getAccountContacts(long accountId, int start, int end) {
+		getAccountContacts(
+			long accountId, String contactRoleType, int start, int end) {
 
-		return _contactLocalService.getAccountContacts(accountId, start, end);
+		return _contactLocalService.getAccountContacts(
+			accountId, contactRoleType, start, end);
 	}
 
 	@Override
-	public int getAccountContactsCount(long accountId) {
-		return _contactLocalService.getAccountContactsCount(accountId);
+	public int getAccountContactsCount(long accountId, String contactRoleType) {
+		return _contactLocalService.getAccountContactsCount(
+			accountId, contactRoleType);
 	}
 
 	@Override

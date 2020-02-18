@@ -72,7 +72,9 @@ public abstract class BaseContactRoleResourceImpl
 	 */
 	@Override
 	@GET
-	@Operation(description = "Retrieves the account's contact's contact roles.")
+	@Operation(
+		description = "Retrieves the account's contact's customer and worker contact roles."
+	)
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
@@ -105,7 +107,9 @@ public abstract class BaseContactRoleResourceImpl
 	 */
 	@Override
 	@GET
-	@Operation(description = "Retrieves the account's contact's contact roles.")
+	@Operation(
+		description = "Retrieves the account's contact's customer and worker contact roles."
+	)
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
@@ -135,7 +139,9 @@ public abstract class BaseContactRoleResourceImpl
 	 */
 	@Override
 	@GET
-	@Operation(description = "Retrieves the account's contact's contact roles.")
+	@Operation(
+		description = "Retrieves the account's contact's customer and worker contact roles."
+	)
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
@@ -149,6 +155,208 @@ public abstract class BaseContactRoleResourceImpl
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public Page<ContactRole>
 			getAccountAccountKeyContactByUuidContactUuidRolesPage(
+				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
+					String accountKey,
+				@NotNull @Parameter(hidden = true) @PathParam("contactUuid")
+					String contactUuid,
+				@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-email-address/{contactEmailAddress}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(
+		description = "Retrieves the account's contact's customer contact roles."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactEmailAddress"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path(
+		"/accounts/{accountKey}/customer-contacts/by-email-address/{contactEmailAddress}/roles"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public Page<ContactRole>
+			getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPage(
+				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
+					String accountKey,
+				@NotNull @Parameter(hidden = true)
+				@PathParam("contactEmailAddress") String contactEmailAddress,
+				@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(
+		description = "Retrieves the account's contact's customer contact roles."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/customer-contacts/by-okta-id/{oktaId}/roles")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public Page<ContactRole> getAccountAccountKeyCustomerContactByOktaRolesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-uuid/{contactUuid}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(
+		description = "Retrieves the account's contact's customer contact roles."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path(
+		"/accounts/{accountKey}/customer-contacts/by-uuid/{contactUuid}/roles"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public Page<ContactRole>
+			getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage(
+				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
+					String accountKey,
+				@NotNull @Parameter(hidden = true) @PathParam("contactUuid")
+					String contactUuid,
+				@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-email-address/{contactEmailAddress}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(
+		description = "Retrieves the account's contact's customer contact roles."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactEmailAddress"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path(
+		"/accounts/{accountKey}/worker-contacts/by-email-address/{contactEmailAddress}/roles"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public Page<ContactRole>
+			getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage(
+				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
+					String accountKey,
+				@NotNull @Parameter(hidden = true)
+				@PathParam("contactEmailAddress") String contactEmailAddress,
+				@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(
+		description = "Retrieves the account's contact's customer contact roles."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/worker-contacts/by-okta-id/{oktaId}/roles")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public Page<ContactRole> getAccountAccountKeyWorkerContactByOktaRolesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
+				oktaId,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-uuid/{contactUuid}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(
+		description = "Retrieves the account's contact's customer contact roles."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/worker-contacts/by-uuid/{contactUuid}/roles")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ContactRole")})
+	public Page<ContactRole>
+			getAccountAccountKeyWorkerContactByUuidContactUuidRolesPage(
 				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
 					String accountKey,
 				@NotNull @Parameter(hidden = true) @PathParam("contactUuid")

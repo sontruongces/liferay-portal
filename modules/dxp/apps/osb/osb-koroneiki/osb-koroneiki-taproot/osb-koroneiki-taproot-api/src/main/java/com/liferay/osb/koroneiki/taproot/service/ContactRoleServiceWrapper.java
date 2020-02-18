@@ -37,7 +37,7 @@ public class ContactRoleServiceWrapper
 	 */
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.ContactRole addContactRole(
-			String name, String description, int type)
+			String name, String description, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactRoleService.addContactRole(name, description, type);
@@ -62,20 +62,21 @@ public class ContactRoleServiceWrapper
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
 			getContactAccountContactRoles(
-				long accountId, long contactId, int start, int end)
+				long accountId, long contactId, String[] types, int start,
+				int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactRoleService.getContactAccountContactRoles(
-			accountId, contactId, start, end);
+			accountId, contactId, types, start, end);
 	}
 
 	@Override
 	public int getContactAccountContactRolesCount(
-			long accountId, long contactId)
+			long accountId, long contactId, String[] types)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactRoleService.getContactAccountContactRolesCount(
-			accountId, contactId);
+			accountId, contactId, types);
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class ContactRoleServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.ContactRole getContactRole(
-			String name, int type)
+			String name, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactRoleService.getContactRole(name, type);
@@ -114,19 +115,20 @@ public class ContactRoleServiceWrapper
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
 			getContactTeamContactRoles(
-				long teamId, long contactId, int start, int end)
+				long teamId, long contactId, String[] types, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactRoleService.getContactTeamContactRoles(
-			teamId, contactId, start, end);
+			teamId, contactId, types, start, end);
 	}
 
 	@Override
-	public int getContactTeamContactRolesCount(long teamId, long contactId)
+	public int getContactTeamContactRolesCount(
+			long teamId, long contactId, String[] types)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactRoleService.getContactTeamContactRolesCount(
-			teamId, contactId);
+			teamId, contactId, types);
 	}
 
 	/**

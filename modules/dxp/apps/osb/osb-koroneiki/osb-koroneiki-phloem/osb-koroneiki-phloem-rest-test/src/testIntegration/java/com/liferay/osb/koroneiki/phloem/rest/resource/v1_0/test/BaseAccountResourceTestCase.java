@@ -779,16 +779,6 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteAccountContactByEmailAddres() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testPutAccountContactByEmailAddres() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testDeleteAccountContactByEmailAddresContactEmailAddressRole()
 		throws Exception {
 
@@ -803,32 +793,12 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteAccountContactByOkta() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testPutAccountContactByOkta() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testDeleteAccountContactByOktaRole() throws Exception {
 		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testPutAccountContactByOktaRole() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testDeleteAccountContactByUuid() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testPutAccountContactByUuid() throws Exception {
 		Assert.assertTrue(false);
 	}
 
@@ -841,6 +811,38 @@ public abstract class BaseAccountResourceTestCase {
 
 	@Test
 	public void testPutAccountContactByUuidContactUuidRole() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteAccountCustomerContactByEmailAddres()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteAccountCustomerContactByOkta() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteAccountCustomerContactByUuid() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteAccountWorkerContactByEmailAddres() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteAccountWorkerContactByOkta() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteAccountWorkerContactByUuid() throws Exception {
 		Assert.assertTrue(false);
 	}
 
@@ -1287,6 +1289,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("customerContacts", additionalAssertFieldName)) {
+				if (account.getCustomerContacts() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("description", additionalAssertFieldName)) {
 				if (account.getDescription() == null) {
 					valid = false;
@@ -1433,6 +1443,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("workerContacts", additionalAssertFieldName)) {
+				if (account.getWorkerContacts() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1523,6 +1541,17 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("contacts", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getContacts(), account2.getContacts())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("customerContacts", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getCustomerContacts(),
+						account2.getCustomerContacts())) {
 
 					return false;
 				}
@@ -1730,6 +1759,17 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("website", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getWebsite(), account2.getWebsite())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("workerContacts", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getWorkerContacts(),
+						account2.getWorkerContacts())) {
 
 					return false;
 				}
@@ -1978,6 +2018,11 @@ public abstract class BaseAccountResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("customerContacts")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("dateCreated")) {
 			if (operator.equals("between")) {
 				sb = new StringBundler();
@@ -2158,6 +2203,11 @@ public abstract class BaseAccountResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("workerContacts")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		throw new IllegalArgumentException(

@@ -49,6 +49,14 @@ public interface ContactResource {
 			String accountKey, Pagination pagination)
 		throws Exception;
 
+	public Page<Contact> getAccountAccountKeyCustomerContactsPage(
+			String accountKey, Pagination pagination)
+		throws Exception;
+
+	public Page<Contact> getAccountAccountKeyWorkerContactsPage(
+			String accountKey, Pagination pagination)
+		throws Exception;
+
 	public Page<Contact> getContactsPage(
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;

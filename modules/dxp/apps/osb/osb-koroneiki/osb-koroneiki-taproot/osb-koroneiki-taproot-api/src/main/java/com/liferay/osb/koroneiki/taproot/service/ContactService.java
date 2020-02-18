@@ -59,19 +59,22 @@ public interface ContactService extends BaseService {
 	public Contact deleteContact(long contactId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Contact> getAccountContacts(long accountId, int start, int end)
+	public List<Contact> getAccountContacts(
+			long accountId, String contactRoleType, int start, int end)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Contact> getAccountContacts(
-			String accountKey, int start, int end)
+			String accountKey, String contactRoleType, int start, int end)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getAccountContactsCount(long accountId) throws PortalException;
+	public int getAccountContactsCount(long accountId, String contactRoleType)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getAccountContactsCount(String accountKey)
+	public int getAccountContactsCount(
+			String accountKey, String contactRoleType)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

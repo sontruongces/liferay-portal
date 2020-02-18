@@ -206,10 +206,11 @@ public interface ContactLocalService
 	public Contact fetchContactByUuidAndCompanyId(String uuid, long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Contact> getAccountContacts(long accountId, int start, int end);
+	public List<Contact> getAccountContacts(
+		long accountId, String contactRoleType, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getAccountContactsCount(long accountId);
+	public int getAccountContactsCount(long accountId, String contactRoleType);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

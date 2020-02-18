@@ -62,7 +62,7 @@ import java.rmi.RemoteException;
 public class ContactRoleServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap
-			addContactRole(String name, String description, int type)
+			addContactRole(String name, String description, String type)
 		throws RemoteException {
 
 		try {
@@ -117,14 +117,15 @@ public class ContactRoleServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap[]
 			getContactAccountContactRoles(
-				long accountId, long contactId, int start, int end)
+				long accountId, long contactId, String[] types, int start,
+				int end)
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
 				returnValue =
 					ContactRoleServiceUtil.getContactAccountContactRoles(
-						accountId, contactId, start, end);
+						accountId, contactId, types, start, end);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModels(returnValue);
@@ -137,13 +138,13 @@ public class ContactRoleServiceSoap {
 	}
 
 	public static int getContactAccountContactRolesCount(
-			long accountId, long contactId)
+			long accountId, long contactId, String[] types)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				ContactRoleServiceUtil.getContactAccountContactRolesCount(
-					accountId, contactId);
+					accountId, contactId, types);
 
 			return returnValue;
 		}
@@ -210,7 +211,7 @@ public class ContactRoleServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap
-			getContactRole(String name, int type)
+			getContactRole(String name, String type)
 		throws RemoteException {
 
 		try {
@@ -229,13 +230,13 @@ public class ContactRoleServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap[]
 			getContactTeamContactRoles(
-				long teamId, long contactId, int start, int end)
+				long teamId, long contactId, String[] types, int start, int end)
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.osb.koroneiki.taproot.model.ContactRole>
 				returnValue = ContactRoleServiceUtil.getContactTeamContactRoles(
-					teamId, contactId, start, end);
+					teamId, contactId, types, start, end);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactRoleSoap.
 				toSoapModels(returnValue);
@@ -248,13 +249,13 @@ public class ContactRoleServiceSoap {
 	}
 
 	public static int getContactTeamContactRolesCount(
-			long teamId, long contactId)
+			long teamId, long contactId, String[] types)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				ContactRoleServiceUtil.getContactTeamContactRolesCount(
-					teamId, contactId);
+					teamId, contactId, types);
 
 			return returnValue;
 		}

@@ -707,7 +707,7 @@ public class ContactRoleUtil {
 	 * @param type the type
 	 * @return the matching contact roles
 	 */
-	public static List<ContactRole> findByType(int type) {
+	public static List<ContactRole> findByType(String type) {
 		return getPersistence().findByType(type);
 	}
 
@@ -723,7 +723,9 @@ public class ContactRoleUtil {
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @return the range of matching contact roles
 	 */
-	public static List<ContactRole> findByType(int type, int start, int end) {
+	public static List<ContactRole> findByType(
+		String type, int start, int end) {
+
 		return getPersistence().findByType(type, start, end);
 	}
 
@@ -741,7 +743,7 @@ public class ContactRoleUtil {
 	 * @return the ordered range of matching contact roles
 	 */
 	public static List<ContactRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<ContactRole> orderByComparator) {
 
 		return getPersistence().findByType(type, start, end, orderByComparator);
@@ -762,7 +764,7 @@ public class ContactRoleUtil {
 	 * @return the ordered range of matching contact roles
 	 */
 	public static List<ContactRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<ContactRole> orderByComparator,
 		boolean useFinderCache) {
 
@@ -779,7 +781,7 @@ public class ContactRoleUtil {
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
 	public static ContactRole findByType_First(
-			int type, OrderByComparator<ContactRole> orderByComparator)
+			String type, OrderByComparator<ContactRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactRoleException {
 
@@ -794,7 +796,7 @@ public class ContactRoleUtil {
 	 * @return the first matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public static ContactRole fetchByType_First(
-		int type, OrderByComparator<ContactRole> orderByComparator) {
+		String type, OrderByComparator<ContactRole> orderByComparator) {
 
 		return getPersistence().fetchByType_First(type, orderByComparator);
 	}
@@ -808,7 +810,7 @@ public class ContactRoleUtil {
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
 	public static ContactRole findByType_Last(
-			int type, OrderByComparator<ContactRole> orderByComparator)
+			String type, OrderByComparator<ContactRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactRoleException {
 
@@ -823,7 +825,7 @@ public class ContactRoleUtil {
 	 * @return the last matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public static ContactRole fetchByType_Last(
-		int type, OrderByComparator<ContactRole> orderByComparator) {
+		String type, OrderByComparator<ContactRole> orderByComparator) {
 
 		return getPersistence().fetchByType_Last(type, orderByComparator);
 	}
@@ -838,7 +840,7 @@ public class ContactRoleUtil {
 	 * @throws NoSuchContactRoleException if a contact role with the primary key could not be found
 	 */
 	public static ContactRole[] findByType_PrevAndNext(
-			long contactRoleId, int type,
+			long contactRoleId, String type,
 			OrderByComparator<ContactRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactRoleException {
@@ -853,7 +855,7 @@ public class ContactRoleUtil {
 	 * @param type the type
 	 * @return the matching contact roles that the user has permission to view
 	 */
-	public static List<ContactRole> filterFindByType(int type) {
+	public static List<ContactRole> filterFindByType(String type) {
 		return getPersistence().filterFindByType(type);
 	}
 
@@ -870,7 +872,7 @@ public class ContactRoleUtil {
 	 * @return the range of matching contact roles that the user has permission to view
 	 */
 	public static List<ContactRole> filterFindByType(
-		int type, int start, int end) {
+		String type, int start, int end) {
 
 		return getPersistence().filterFindByType(type, start, end);
 	}
@@ -889,7 +891,7 @@ public class ContactRoleUtil {
 	 * @return the ordered range of matching contact roles that the user has permission to view
 	 */
 	public static List<ContactRole> filterFindByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<ContactRole> orderByComparator) {
 
 		return getPersistence().filterFindByType(
@@ -906,7 +908,7 @@ public class ContactRoleUtil {
 	 * @throws NoSuchContactRoleException if a contact role with the primary key could not be found
 	 */
 	public static ContactRole[] filterFindByType_PrevAndNext(
-			long contactRoleId, int type,
+			long contactRoleId, String type,
 			OrderByComparator<ContactRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactRoleException {
@@ -920,7 +922,7 @@ public class ContactRoleUtil {
 	 *
 	 * @param type the type
 	 */
-	public static void removeByType(int type) {
+	public static void removeByType(String type) {
 		getPersistence().removeByType(type);
 	}
 
@@ -930,7 +932,7 @@ public class ContactRoleUtil {
 	 * @param type the type
 	 * @return the number of matching contact roles
 	 */
-	public static int countByType(int type) {
+	public static int countByType(String type) {
 		return getPersistence().countByType(type);
 	}
 
@@ -940,7 +942,7 @@ public class ContactRoleUtil {
 	 * @param type the type
 	 * @return the number of matching contact roles that the user has permission to view
 	 */
-	public static int filterCountByType(int type) {
+	public static int filterCountByType(String type) {
 		return getPersistence().filterCountByType(type);
 	}
 
@@ -952,7 +954,7 @@ public class ContactRoleUtil {
 	 * @return the matching contact role
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
-	public static ContactRole findByN_T(String name, int type)
+	public static ContactRole findByN_T(String name, String type)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactRoleException {
 
@@ -966,7 +968,7 @@ public class ContactRoleUtil {
 	 * @param type the type
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
-	public static ContactRole fetchByN_T(String name, int type) {
+	public static ContactRole fetchByN_T(String name, String type) {
 		return getPersistence().fetchByN_T(name, type);
 	}
 
@@ -979,7 +981,7 @@ public class ContactRoleUtil {
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public static ContactRole fetchByN_T(
-		String name, int type, boolean useFinderCache) {
+		String name, String type, boolean useFinderCache) {
 
 		return getPersistence().fetchByN_T(name, type, useFinderCache);
 	}
@@ -991,7 +993,7 @@ public class ContactRoleUtil {
 	 * @param type the type
 	 * @return the contact role that was removed
 	 */
-	public static ContactRole removeByN_T(String name, int type)
+	public static ContactRole removeByN_T(String name, String type)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchContactRoleException {
 
@@ -1005,7 +1007,7 @@ public class ContactRoleUtil {
 	 * @param type the type
 	 * @return the number of matching contact roles
 	 */
-	public static int countByN_T(String name, int type) {
+	public static int countByN_T(String name, String type) {
 		return getPersistence().countByN_T(name, type);
 	}
 

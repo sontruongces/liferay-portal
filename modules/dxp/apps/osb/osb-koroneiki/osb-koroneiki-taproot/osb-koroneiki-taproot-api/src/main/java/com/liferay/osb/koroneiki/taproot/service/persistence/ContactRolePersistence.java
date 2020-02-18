@@ -523,7 +523,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param type the type
 	 * @return the matching contact roles
 	 */
-	public java.util.List<ContactRole> findByType(int type);
+	public java.util.List<ContactRole> findByType(String type);
 
 	/**
 	 * Returns a range of all the contact roles where type = &#63;.
@@ -537,7 +537,8 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param end the upper bound of the range of contact roles (not inclusive)
 	 * @return the range of matching contact roles
 	 */
-	public java.util.List<ContactRole> findByType(int type, int start, int end);
+	public java.util.List<ContactRole> findByType(
+		String type, int start, int end);
 
 	/**
 	 * Returns an ordered range of all the contact roles where type = &#63;.
@@ -553,7 +554,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the ordered range of matching contact roles
 	 */
 	public java.util.List<ContactRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 			orderByComparator);
 
@@ -572,7 +573,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the ordered range of matching contact roles
 	 */
 	public java.util.List<ContactRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 			orderByComparator,
 		boolean useFinderCache);
@@ -586,7 +587,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
 	public ContactRole findByType_First(
-			int type,
+			String type,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 				orderByComparator)
 		throws NoSuchContactRoleException;
@@ -599,7 +600,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the first matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public ContactRole fetchByType_First(
-		int type,
+		String type,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 			orderByComparator);
 
@@ -612,7 +613,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
 	public ContactRole findByType_Last(
-			int type,
+			String type,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 				orderByComparator)
 		throws NoSuchContactRoleException;
@@ -625,7 +626,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the last matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public ContactRole fetchByType_Last(
-		int type,
+		String type,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 			orderByComparator);
 
@@ -639,7 +640,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @throws NoSuchContactRoleException if a contact role with the primary key could not be found
 	 */
 	public ContactRole[] findByType_PrevAndNext(
-			long contactRoleId, int type,
+			long contactRoleId, String type,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 				orderByComparator)
 		throws NoSuchContactRoleException;
@@ -650,7 +651,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param type the type
 	 * @return the matching contact roles that the user has permission to view
 	 */
-	public java.util.List<ContactRole> filterFindByType(int type);
+	public java.util.List<ContactRole> filterFindByType(String type);
 
 	/**
 	 * Returns a range of all the contact roles that the user has permission to view where type = &#63;.
@@ -665,7 +666,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the range of matching contact roles that the user has permission to view
 	 */
 	public java.util.List<ContactRole> filterFindByType(
-		int type, int start, int end);
+		String type, int start, int end);
 
 	/**
 	 * Returns an ordered range of all the contact roles that the user has permissions to view where type = &#63;.
@@ -681,7 +682,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the ordered range of matching contact roles that the user has permission to view
 	 */
 	public java.util.List<ContactRole> filterFindByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 			orderByComparator);
 
@@ -695,7 +696,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @throws NoSuchContactRoleException if a contact role with the primary key could not be found
 	 */
 	public ContactRole[] filterFindByType_PrevAndNext(
-			long contactRoleId, int type,
+			long contactRoleId, String type,
 			com.liferay.portal.kernel.util.OrderByComparator<ContactRole>
 				orderByComparator)
 		throws NoSuchContactRoleException;
@@ -705,7 +706,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 *
 	 * @param type the type
 	 */
-	public void removeByType(int type);
+	public void removeByType(String type);
 
 	/**
 	 * Returns the number of contact roles where type = &#63;.
@@ -713,7 +714,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param type the type
 	 * @return the number of matching contact roles
 	 */
-	public int countByType(int type);
+	public int countByType(String type);
 
 	/**
 	 * Returns the number of contact roles that the user has permission to view where type = &#63;.
@@ -721,7 +722,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param type the type
 	 * @return the number of matching contact roles that the user has permission to view
 	 */
-	public int filterCountByType(int type);
+	public int filterCountByType(String type);
 
 	/**
 	 * Returns the contact role where name = &#63; and type = &#63; or throws a <code>NoSuchContactRoleException</code> if it could not be found.
@@ -731,7 +732,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the matching contact role
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
-	public ContactRole findByN_T(String name, int type)
+	public ContactRole findByN_T(String name, String type)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -741,7 +742,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param type the type
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
-	public ContactRole fetchByN_T(String name, int type);
+	public ContactRole fetchByN_T(String name, String type);
 
 	/**
 	 * Returns the contact role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -752,7 +753,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	public ContactRole fetchByN_T(
-		String name, int type, boolean useFinderCache);
+		String name, String type, boolean useFinderCache);
 
 	/**
 	 * Removes the contact role where name = &#63; and type = &#63; from the database.
@@ -761,7 +762,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param type the type
 	 * @return the contact role that was removed
 	 */
-	public ContactRole removeByN_T(String name, int type)
+	public ContactRole removeByN_T(String name, String type)
 		throws NoSuchContactRoleException;
 
 	/**
@@ -771,7 +772,7 @@ public interface ContactRolePersistence extends BasePersistence<ContactRole> {
 	 * @param type the type
 	 * @return the number of matching contact roles
 	 */
-	public int countByN_T(String name, int type);
+	public int countByN_T(String name, String type);
 
 	/**
 	 * Caches the contact role in the entity cache if it is enabled.

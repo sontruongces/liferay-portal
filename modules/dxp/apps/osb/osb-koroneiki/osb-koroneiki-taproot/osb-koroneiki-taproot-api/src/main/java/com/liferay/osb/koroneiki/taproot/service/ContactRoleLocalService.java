@@ -76,7 +76,7 @@ public interface ContactRoleLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public ContactRole addContactRole(
-			long userId, String name, String description, int type)
+			long userId, String name, String description, String type)
 		throws PortalException;
 
 	public void checkMemberRoles() throws PortalException;
@@ -189,7 +189,7 @@ public interface ContactRoleLocalService
 	public ContactRole fetchContactRole(long contactRoleId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ContactRole fetchContactRole(String name, int type);
+	public ContactRole fetchContactRole(String name, String type);
 
 	/**
 	 * Returns the contact role with the matching UUID and company.
@@ -207,11 +207,11 @@ public interface ContactRoleLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ContactRole> getContactAccountContactRoles(
-		long accountId, long contactId, int start, int end);
+		long accountId, long contactId, String[] types, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getContactAccountContactRolesCount(
-		long accountId, long contactId);
+		long accountId, long contactId, String[] types);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ContactRole> getContactContactRoles(
@@ -233,7 +233,7 @@ public interface ContactRoleLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ContactRole getContactRole(String name, int type)
+	public ContactRole getContactRole(String name, String type)
 		throws PortalException;
 
 	/**
@@ -264,7 +264,7 @@ public interface ContactRoleLocalService
 	public List<ContactRole> getContactRoles(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ContactRole> getContactRoles(int type, int start, int end);
+	public List<ContactRole> getContactRoles(String type, int start, int end);
 
 	/**
 	 * Returns the number of contact roles.
@@ -275,14 +275,15 @@ public interface ContactRoleLocalService
 	public int getContactRolesCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getContactRolesCount(int type);
+	public int getContactRolesCount(String type);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ContactRole> getContactTeamContactRoles(
-		long teamId, long contactId);
+		long teamId, long contactId, String[] types, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getContactTeamContactRolesCount(long teamId, long contactId);
+	public int getContactTeamContactRolesCount(
+		long teamId, long contactId, String[] types);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
@@ -292,7 +293,7 @@ public interface ContactRoleLocalService
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ContactRole getMemberContactRole(int type);
+	public ContactRole getMemberContactRole(String type);
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -312,7 +313,7 @@ public interface ContactRoleLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Hits search(
-			long companyId, int type, String keywords, int start, int end,
+			long companyId, String type, String keywords, int start, int end,
 			Sort sort)
 		throws PortalException;
 

@@ -121,7 +121,7 @@ public class ContactRoleWrapper
 			setDescription(description);
 		}
 
-		Integer type = (Integer)attributes.get("type");
+		String type = (String)attributes.get("type");
 
 		if (type != null) {
 			setType(type);
@@ -240,13 +240,8 @@ public class ContactRoleWrapper
 	 * @return the type of this contact role
 	 */
 	@Override
-	public int getType() {
+	public String getType() {
 		return model.getType();
-	}
-
-	@Override
-	public String getTypeLabel() {
-		return model.getTypeLabel();
 	}
 
 	/**
@@ -410,7 +405,7 @@ public class ContactRoleWrapper
 	 * @param type the type of this contact role
 	 */
 	@Override
-	public void setType(int type) {
+	public void setType(String type) {
 		model.setType(type);
 	}
 

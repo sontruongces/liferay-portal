@@ -94,14 +94,6 @@ public interface AccountResource {
 			String agentName, String accountKey, Account account)
 		throws Exception;
 
-	public void deleteAccountContactByEmailAddres(
-			String agentName, String accountKey, String[] contactEmailAddresses)
-		throws Exception;
-
-	public void putAccountContactByEmailAddres(
-			String agentName, String accountKey, String[] contactEmailAddresses)
-		throws Exception;
-
 	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
 			String agentName, String accountKey, String contactEmailAddress,
 			String[] contactRoleKeys)
@@ -110,14 +102,6 @@ public interface AccountResource {
 	public void putAccountContactByEmailAddresContactEmailAddressRole(
 			String agentName, String accountKey, String contactEmailAddress,
 			String[] contactRoleKeys)
-		throws Exception;
-
-	public void deleteAccountContactByOkta(
-			String agentName, String accountKey, String[] oktaIds)
-		throws Exception;
-
-	public void putAccountContactByOkta(
-			String agentName, String accountKey, String[] oktaIds)
 		throws Exception;
 
 	public void deleteAccountContactByOktaRole(
@@ -130,14 +114,6 @@ public interface AccountResource {
 			String[] contactRoleKeys)
 		throws Exception;
 
-	public void deleteAccountContactByUuid(
-			String agentName, String accountKey, String[] contactUuids)
-		throws Exception;
-
-	public void putAccountContactByUuid(
-			String agentName, String accountKey, String[] contactUuids)
-		throws Exception;
-
 	public void deleteAccountContactByUuidContactUuidRole(
 			String agentName, String accountKey, String contactUuid,
 			String[] contactRoleKeys)
@@ -146,6 +122,30 @@ public interface AccountResource {
 	public void putAccountContactByUuidContactUuidRole(
 			String agentName, String accountKey, String contactUuid,
 			String[] contactRoleKeys)
+		throws Exception;
+
+	public void deleteAccountCustomerContactByEmailAddres(
+			String agentName, String accountKey, String[] contactEmailAddresses)
+		throws Exception;
+
+	public void deleteAccountCustomerContactByOkta(
+			String agentName, String accountKey, String[] oktaIds)
+		throws Exception;
+
+	public void deleteAccountCustomerContactByUuid(
+			String agentName, String accountKey, String[] contactUuids)
+		throws Exception;
+
+	public void deleteAccountWorkerContactByEmailAddres(
+			String agentName, String accountKey, String[] contactEmailAddresses)
+		throws Exception;
+
+	public void deleteAccountWorkerContactByOkta(
+			String agentName, String accountKey, String[] oktaIds)
+		throws Exception;
+
+	public void deleteAccountWorkerContactByUuid(
+			String agentName, String accountKey, String[] contactUuids)
 		throws Exception;
 
 	public Page<Account> getContactByOktaAccountsPage(

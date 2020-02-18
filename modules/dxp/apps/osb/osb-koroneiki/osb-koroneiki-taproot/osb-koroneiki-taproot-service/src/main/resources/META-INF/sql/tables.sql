@@ -64,7 +64,7 @@ create table Koroneiki_ContactRole (
 	contactRoleKey VARCHAR(75) null,
 	name VARCHAR(75) null,
 	description STRING null,
-	type_ INTEGER,
+	type_ VARCHAR(75) null,
 	system_ BOOLEAN
 );
 

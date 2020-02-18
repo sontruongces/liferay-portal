@@ -2321,7 +2321,7 @@ public class ContactRolePersistenceImpl
 	 * @return the matching contact roles
 	 */
 	@Override
-	public List<ContactRole> findByType(int type) {
+	public List<ContactRole> findByType(String type) {
 		return findByType(type, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -2338,7 +2338,7 @@ public class ContactRolePersistenceImpl
 	 * @return the range of matching contact roles
 	 */
 	@Override
-	public List<ContactRole> findByType(int type, int start, int end) {
+	public List<ContactRole> findByType(String type, int start, int end) {
 		return findByType(type, start, end, null);
 	}
 
@@ -2357,7 +2357,7 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public List<ContactRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<ContactRole> orderByComparator) {
 
 		return findByType(type, start, end, orderByComparator, true);
@@ -2379,9 +2379,11 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public List<ContactRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<ContactRole> orderByComparator,
 		boolean useFinderCache) {
+
+		type = Objects.toString(type, "");
 
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -2407,7 +2409,7 @@ public class ContactRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (ContactRole contactRole : list) {
-					if (type != contactRole.getType()) {
+					if (!type.equals(contactRole.getType())) {
 						list = null;
 
 						break;
@@ -2429,7 +2431,16 @@ public class ContactRolePersistenceImpl
 
 			query.append(_SQL_SELECT_CONTACTROLE_WHERE);
 
-			query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			boolean bindType = false;
+
+			if (type.isEmpty()) {
+				query.append(_FINDER_COLUMN_TYPE_TYPE_3);
+			}
+			else {
+				bindType = true;
+
+				query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -2450,7 +2461,9 @@ public class ContactRolePersistenceImpl
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(type);
+				if (bindType) {
+					qPos.add(type);
+				}
 
 				list = (List<ContactRole>)QueryUtil.list(
 					q, getDialect(), start, end);
@@ -2486,7 +2499,7 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public ContactRole findByType_First(
-			int type, OrderByComparator<ContactRole> orderByComparator)
+			String type, OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException {
 
 		ContactRole contactRole = fetchByType_First(type, orderByComparator);
@@ -2516,7 +2529,7 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public ContactRole fetchByType_First(
-		int type, OrderByComparator<ContactRole> orderByComparator) {
+		String type, OrderByComparator<ContactRole> orderByComparator) {
 
 		List<ContactRole> list = findByType(type, 0, 1, orderByComparator);
 
@@ -2537,7 +2550,7 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public ContactRole findByType_Last(
-			int type, OrderByComparator<ContactRole> orderByComparator)
+			String type, OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException {
 
 		ContactRole contactRole = fetchByType_Last(type, orderByComparator);
@@ -2567,7 +2580,7 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public ContactRole fetchByType_Last(
-		int type, OrderByComparator<ContactRole> orderByComparator) {
+		String type, OrderByComparator<ContactRole> orderByComparator) {
 
 		int count = countByType(type);
 
@@ -2596,9 +2609,11 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public ContactRole[] findByType_PrevAndNext(
-			long contactRoleId, int type,
+			long contactRoleId, String type,
 			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException {
+
+		type = Objects.toString(type, "");
 
 		ContactRole contactRole = findByPrimaryKey(contactRoleId);
 
@@ -2628,7 +2643,7 @@ public class ContactRolePersistenceImpl
 	}
 
 	protected ContactRole getByType_PrevAndNext(
-		Session session, ContactRole contactRole, int type,
+		Session session, ContactRole contactRole, String type,
 		OrderByComparator<ContactRole> orderByComparator, boolean previous) {
 
 		StringBundler query = null;
@@ -2644,7 +2659,16 @@ public class ContactRolePersistenceImpl
 
 		query.append(_SQL_SELECT_CONTACTROLE_WHERE);
 
-		query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+		boolean bindType = false;
+
+		if (type.isEmpty()) {
+			query.append(_FINDER_COLUMN_TYPE_TYPE_3);
+		}
+		else {
+			bindType = true;
+
+			query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+		}
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -2715,7 +2739,9 @@ public class ContactRolePersistenceImpl
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		qPos.add(type);
+		if (bindType) {
+			qPos.add(type);
+		}
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
@@ -2742,7 +2768,7 @@ public class ContactRolePersistenceImpl
 	 * @return the matching contact roles that the user has permission to view
 	 */
 	@Override
-	public List<ContactRole> filterFindByType(int type) {
+	public List<ContactRole> filterFindByType(String type) {
 		return filterFindByType(
 			type, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -2760,7 +2786,7 @@ public class ContactRolePersistenceImpl
 	 * @return the range of matching contact roles that the user has permission to view
 	 */
 	@Override
-	public List<ContactRole> filterFindByType(int type, int start, int end) {
+	public List<ContactRole> filterFindByType(String type, int start, int end) {
 		return filterFindByType(type, start, end, null);
 	}
 
@@ -2779,12 +2805,14 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public List<ContactRole> filterFindByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<ContactRole> orderByComparator) {
 
 		if (!InlineSQLHelperUtil.isEnabled()) {
 			return findByType(type, start, end, orderByComparator);
 		}
+
+		type = Objects.toString(type, "");
 
 		StringBundler query = null;
 
@@ -2804,7 +2832,16 @@ public class ContactRolePersistenceImpl
 				_FILTER_SQL_SELECT_CONTACTROLE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		query.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		boolean bindType = false;
+
+		if (type.isEmpty()) {
+			query.append(_FINDER_COLUMN_TYPE_TYPE_3_SQL);
+		}
+		else {
+			bindType = true;
+
+			query.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		}
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			query.append(
@@ -2850,7 +2887,9 @@ public class ContactRolePersistenceImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			qPos.add(type);
+			if (bindType) {
+				qPos.add(type);
+			}
 
 			return (List<ContactRole>)QueryUtil.list(
 				q, getDialect(), start, end);
@@ -2874,7 +2913,7 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public ContactRole[] filterFindByType_PrevAndNext(
-			long contactRoleId, int type,
+			long contactRoleId, String type,
 			OrderByComparator<ContactRole> orderByComparator)
 		throws NoSuchContactRoleException {
 
@@ -2882,6 +2921,8 @@ public class ContactRolePersistenceImpl
 			return findByType_PrevAndNext(
 				contactRoleId, type, orderByComparator);
 		}
+
+		type = Objects.toString(type, "");
 
 		ContactRole contactRole = findByPrimaryKey(contactRoleId);
 
@@ -2911,7 +2952,7 @@ public class ContactRolePersistenceImpl
 	}
 
 	protected ContactRole filterGetByType_PrevAndNext(
-		Session session, ContactRole contactRole, int type,
+		Session session, ContactRole contactRole, String type,
 		OrderByComparator<ContactRole> orderByComparator, boolean previous) {
 
 		StringBundler query = null;
@@ -2933,7 +2974,16 @@ public class ContactRolePersistenceImpl
 				_FILTER_SQL_SELECT_CONTACTROLE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		query.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		boolean bindType = false;
+
+		if (type.isEmpty()) {
+			query.append(_FINDER_COLUMN_TYPE_TYPE_3_SQL);
+		}
+		else {
+			bindType = true;
+
+			query.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		}
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			query.append(
@@ -3041,7 +3091,9 @@ public class ContactRolePersistenceImpl
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		qPos.add(type);
+		if (bindType) {
+			qPos.add(type);
+		}
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
@@ -3067,7 +3119,7 @@ public class ContactRolePersistenceImpl
 	 * @param type the type
 	 */
 	@Override
-	public void removeByType(int type) {
+	public void removeByType(String type) {
 		for (ContactRole contactRole :
 				findByType(type, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
@@ -3082,7 +3134,9 @@ public class ContactRolePersistenceImpl
 	 * @return the number of matching contact roles
 	 */
 	@Override
-	public int countByType(int type) {
+	public int countByType(String type) {
+		type = Objects.toString(type, "");
+
 		FinderPath finderPath = _finderPathCountByType;
 
 		Object[] finderArgs = new Object[] {type};
@@ -3094,7 +3148,16 @@ public class ContactRolePersistenceImpl
 
 			query.append(_SQL_COUNT_CONTACTROLE_WHERE);
 
-			query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			boolean bindType = false;
+
+			if (type.isEmpty()) {
+				query.append(_FINDER_COLUMN_TYPE_TYPE_3);
+			}
+			else {
+				bindType = true;
+
+				query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			}
 
 			String sql = query.toString();
 
@@ -3107,7 +3170,9 @@ public class ContactRolePersistenceImpl
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(type);
+				if (bindType) {
+					qPos.add(type);
+				}
 
 				count = (Long)q.uniqueResult();
 
@@ -3133,16 +3198,27 @@ public class ContactRolePersistenceImpl
 	 * @return the number of matching contact roles that the user has permission to view
 	 */
 	@Override
-	public int filterCountByType(int type) {
+	public int filterCountByType(String type) {
 		if (!InlineSQLHelperUtil.isEnabled()) {
 			return countByType(type);
 		}
+
+		type = Objects.toString(type, "");
 
 		StringBundler query = new StringBundler(2);
 
 		query.append(_FILTER_SQL_COUNT_CONTACTROLE_WHERE);
 
-		query.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		boolean bindType = false;
+
+		if (type.isEmpty()) {
+			query.append(_FINDER_COLUMN_TYPE_TYPE_3_SQL);
+		}
+		else {
+			bindType = true;
+
+			query.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
 			query.toString(), ContactRole.class.getName(),
@@ -3160,7 +3236,9 @@ public class ContactRolePersistenceImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			qPos.add(type);
+			if (bindType) {
+				qPos.add(type);
+			}
 
 			Long count = (Long)q.uniqueResult();
 
@@ -3177,8 +3255,14 @@ public class ContactRolePersistenceImpl
 	private static final String _FINDER_COLUMN_TYPE_TYPE_2 =
 		"contactRole.type = ?";
 
+	private static final String _FINDER_COLUMN_TYPE_TYPE_3 =
+		"(contactRole.type IS NULL OR contactRole.type = '')";
+
 	private static final String _FINDER_COLUMN_TYPE_TYPE_2_SQL =
 		"contactRole.type_ = ?";
+
+	private static final String _FINDER_COLUMN_TYPE_TYPE_3_SQL =
+		"(contactRole.type_ IS NULL OR contactRole.type_ = '')";
 
 	private FinderPath _finderPathFetchByN_T;
 	private FinderPath _finderPathCountByN_T;
@@ -3192,7 +3276,7 @@ public class ContactRolePersistenceImpl
 	 * @throws NoSuchContactRoleException if a matching contact role could not be found
 	 */
 	@Override
-	public ContactRole findByN_T(String name, int type)
+	public ContactRole findByN_T(String name, String type)
 		throws NoSuchContactRoleException {
 
 		ContactRole contactRole = fetchByN_T(name, type);
@@ -3228,7 +3312,7 @@ public class ContactRolePersistenceImpl
 	 * @return the matching contact role, or <code>null</code> if a matching contact role could not be found
 	 */
 	@Override
-	public ContactRole fetchByN_T(String name, int type) {
+	public ContactRole fetchByN_T(String name, String type) {
 		return fetchByN_T(name, type, true);
 	}
 
@@ -3242,9 +3326,10 @@ public class ContactRolePersistenceImpl
 	 */
 	@Override
 	public ContactRole fetchByN_T(
-		String name, int type, boolean useFinderCache) {
+		String name, String type, boolean useFinderCache) {
 
 		name = Objects.toString(name, "");
+		type = Objects.toString(type, "");
 
 		Object[] finderArgs = null;
 
@@ -3263,7 +3348,7 @@ public class ContactRolePersistenceImpl
 			ContactRole contactRole = (ContactRole)result;
 
 			if (!Objects.equals(name, contactRole.getName()) ||
-				(type != contactRole.getType())) {
+				!Objects.equals(type, contactRole.getType())) {
 
 				result = null;
 			}
@@ -3285,7 +3370,16 @@ public class ContactRolePersistenceImpl
 				query.append(_FINDER_COLUMN_N_T_NAME_2);
 			}
 
-			query.append(_FINDER_COLUMN_N_T_TYPE_2);
+			boolean bindType = false;
+
+			if (type.isEmpty()) {
+				query.append(_FINDER_COLUMN_N_T_TYPE_3);
+			}
+			else {
+				bindType = true;
+
+				query.append(_FINDER_COLUMN_N_T_TYPE_2);
+			}
 
 			String sql = query.toString();
 
@@ -3302,7 +3396,9 @@ public class ContactRolePersistenceImpl
 					qPos.add(name);
 				}
 
-				qPos.add(type);
+				if (bindType) {
+					qPos.add(type);
+				}
 
 				List<ContactRole> list = q.list();
 
@@ -3322,7 +3418,7 @@ public class ContactRolePersistenceImpl
 							}
 
 							_log.warn(
-								"ContactRolePersistenceImpl.fetchByN_T(String, int, boolean) with parameters (" +
+								"ContactRolePersistenceImpl.fetchByN_T(String, String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
 										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
@@ -3363,7 +3459,7 @@ public class ContactRolePersistenceImpl
 	 * @return the contact role that was removed
 	 */
 	@Override
-	public ContactRole removeByN_T(String name, int type)
+	public ContactRole removeByN_T(String name, String type)
 		throws NoSuchContactRoleException {
 
 		ContactRole contactRole = findByN_T(name, type);
@@ -3379,8 +3475,9 @@ public class ContactRolePersistenceImpl
 	 * @return the number of matching contact roles
 	 */
 	@Override
-	public int countByN_T(String name, int type) {
+	public int countByN_T(String name, String type) {
 		name = Objects.toString(name, "");
+		type = Objects.toString(type, "");
 
 		FinderPath finderPath = _finderPathCountByN_T;
 
@@ -3404,7 +3501,16 @@ public class ContactRolePersistenceImpl
 				query.append(_FINDER_COLUMN_N_T_NAME_2);
 			}
 
-			query.append(_FINDER_COLUMN_N_T_TYPE_2);
+			boolean bindType = false;
+
+			if (type.isEmpty()) {
+				query.append(_FINDER_COLUMN_N_T_TYPE_3);
+			}
+			else {
+				bindType = true;
+
+				query.append(_FINDER_COLUMN_N_T_TYPE_2);
+			}
 
 			String sql = query.toString();
 
@@ -3421,7 +3527,9 @@ public class ContactRolePersistenceImpl
 					qPos.add(name);
 				}
 
-				qPos.add(type);
+				if (bindType) {
+					qPos.add(type);
+				}
 
 				count = (Long)q.uniqueResult();
 
@@ -3448,6 +3556,9 @@ public class ContactRolePersistenceImpl
 
 	private static final String _FINDER_COLUMN_N_T_TYPE_2 =
 		"contactRole.type = ?";
+
+	private static final String _FINDER_COLUMN_N_T_TYPE_3 =
+		"(contactRole.type IS NULL OR contactRole.type = '')";
 
 	public ContactRolePersistenceImpl() {
 		setModelClass(ContactRole.class);
@@ -4260,33 +4371,33 @@ public class ContactRolePersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, ContactRoleImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByType",
 			new String[] {
-				Integer.class.getName(), Integer.class.getName(),
+				String.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), OrderByComparator.class.getName()
 			});
 
 		_finderPathWithoutPaginationFindByType = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, ContactRoleImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByType",
-			new String[] {Integer.class.getName()},
+			new String[] {String.class.getName()},
 			ContactRoleModelImpl.TYPE_COLUMN_BITMASK |
 			ContactRoleModelImpl.NAME_COLUMN_BITMASK);
 
 		_finderPathCountByType = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByType",
-			new String[] {Integer.class.getName()});
+			new String[] {String.class.getName()});
 
 		_finderPathFetchByN_T = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, ContactRoleImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchByN_T",
-			new String[] {String.class.getName(), Integer.class.getName()},
+			new String[] {String.class.getName(), String.class.getName()},
 			ContactRoleModelImpl.NAME_COLUMN_BITMASK |
 			ContactRoleModelImpl.TYPE_COLUMN_BITMASK);
 
 		_finderPathCountByN_T = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByN_T",
-			new String[] {String.class.getName(), Integer.class.getName()});
+			new String[] {String.class.getName(), String.class.getName()});
 	}
 
 	@Deactivate

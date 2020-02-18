@@ -176,11 +176,11 @@ public class ContactRoleSoap implements Serializable {
 		_description = description;
 	}
 
-	public int getType() {
+	public String getType() {
 		return _type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		_type = type;
 	}
 
@@ -206,7 +206,7 @@ public class ContactRoleSoap implements Serializable {
 	private String _contactRoleKey;
 	private String _name;
 	private String _description;
-	private int _type;
+	private String _type;
 	private boolean _system;
 
 }

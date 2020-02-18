@@ -53,7 +53,7 @@ public class ContactRoleLocalServiceUtil {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
 			addContactRole(
-				long userId, String name, String description, int type)
+				long userId, String name, String description, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addContactRole(userId, name, description, type);
@@ -209,7 +209,7 @@ public class ContactRoleLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
-		fetchContactRole(String name, int type) {
+		fetchContactRole(String name, String type) {
 
 		return getService().fetchContactRole(name, type);
 	}
@@ -236,17 +236,18 @@ public class ContactRoleLocalServiceUtil {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
 			getContactAccountContactRoles(
-				long accountId, long contactId, int start, int end) {
+				long accountId, long contactId, String[] types, int start,
+				int end) {
 
 		return getService().getContactAccountContactRoles(
-			accountId, contactId, start, end);
+			accountId, contactId, types, start, end);
 	}
 
 	public static int getContactAccountContactRolesCount(
-		long accountId, long contactId) {
+		long accountId, long contactId, String[] types) {
 
 		return getService().getContactAccountContactRolesCount(
-			accountId, contactId);
+			accountId, contactId, types);
 	}
 
 	public static java.util.List
@@ -278,7 +279,7 @@ public class ContactRoleLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
-			getContactRole(String name, int type)
+			getContactRole(String name, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getContactRole(name, type);
@@ -319,7 +320,7 @@ public class ContactRoleLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.ContactRole> getContactRoles(
-			int type, int start, int end) {
+			String type, int start, int end) {
 
 		return getService().getContactRoles(type, start, end);
 	}
@@ -333,21 +334,25 @@ public class ContactRoleLocalServiceUtil {
 		return getService().getContactRolesCount();
 	}
 
-	public static int getContactRolesCount(int type) {
+	public static int getContactRolesCount(String type) {
 		return getService().getContactRolesCount(type);
 	}
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.ContactRole>
-			getContactTeamContactRoles(long teamId, long contactId) {
+			getContactTeamContactRoles(
+				long teamId, long contactId, String[] types, int start,
+				int end) {
 
-		return getService().getContactTeamContactRoles(teamId, contactId);
+		return getService().getContactTeamContactRoles(
+			teamId, contactId, types, start, end);
 	}
 
 	public static int getContactTeamContactRolesCount(
-		long teamId, long contactId) {
+		long teamId, long contactId, String[] types) {
 
-		return getService().getContactTeamContactRolesCount(teamId, contactId);
+		return getService().getContactTeamContactRolesCount(
+			teamId, contactId, types);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
@@ -366,7 +371,7 @@ public class ContactRoleLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactRole
-		getMemberContactRole(int type) {
+		getMemberContactRole(String type) {
 
 		return getService().getMemberContactRole(type);
 	}
@@ -395,7 +400,7 @@ public class ContactRoleLocalServiceUtil {
 	}
 
 	public static com.liferay.portal.kernel.search.Hits search(
-			long companyId, int type, String keywords, int start, int end,
+			long companyId, String type, String keywords, int start, int end,
 			com.liferay.portal.kernel.search.Sort sort)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
