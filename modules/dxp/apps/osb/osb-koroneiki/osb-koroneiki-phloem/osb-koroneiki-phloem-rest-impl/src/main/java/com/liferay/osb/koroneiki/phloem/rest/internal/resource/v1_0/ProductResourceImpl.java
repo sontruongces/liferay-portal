@@ -25,14 +25,17 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.permission.ProductEntryPermission;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
+import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
@@ -42,7 +45,9 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.SearchUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -82,7 +87,11 @@ public class ProductResourceImpl
 
 	@Override
 	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
-		return _entityModel;
+		long classNameId = _classNameLocalService.getClassNameId(
+			ProductEntry.class);
+
+		return new ProductEntryEntityModel(
+			_productFieldLocalService.getProductFieldNames(classNameId));
 	}
 
 	@Override
@@ -141,8 +150,12 @@ public class ProductResourceImpl
 
 		ServiceContextUtil.setAgentName(agentName);
 
+		List<ProductField> productFields = getProductFields(
+			product.getProperties(), Collections.emptyList());
+
 		Product curProduct = ProductUtil.toProduct(
-			_productEntryService.addProductEntry(product.getName()));
+			_productEntryService.addProductEntry(
+				product.getName(), productFields));
 
 		if (!ArrayUtil.isEmpty(product.getExternalLinks())) {
 			for (ExternalLink externalLink : product.getExternalLinks()) {
@@ -161,9 +174,15 @@ public class ProductResourceImpl
 
 		ServiceContextUtil.setAgentName(agentName);
 
+		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
+			productKey);
+
+		List<ProductField> productFields = getProductFields(
+			product.getProperties(), productEntry.getProductFields());
+
 		return ProductUtil.toProduct(
 			_productEntryService.updateProductEntry(
-				productKey, product.getName()));
+				productKey, product.getName(), productFields));
 	}
 
 	@Override
@@ -175,6 +194,29 @@ public class ProductResourceImpl
 		ServiceContextUtil.setAgentName(agentName);
 
 		_updateProductPermission(productKey, "add", productPermission);
+	}
+
+	protected List<ProductField> getProductFields(
+		Map<String, String> properties,
+		List<ProductField> defaultProductFields) {
+
+		if (properties == null) {
+			return defaultProductFields;
+		}
+
+		List<ProductField> productFields = new ArrayList<>();
+
+		for (Map.Entry<String, String> entry : properties.entrySet()) {
+			ProductField productField =
+				_productFieldLocalService.createProductField(0);
+
+			productField.setName(entry.getKey());
+			productField.setValue(entry.getValue());
+
+			productFields.add(productField);
+		}
+
+		return productFields;
 	}
 
 	private void _updateProductPermission(
@@ -221,8 +263,8 @@ public class ProductResourceImpl
 			productPermission.getRoleNames(), actionIds);
 	}
 
-	private static final EntityModel _entityModel =
-		new ProductEntryEntityModel();
+	@Reference
+	private ClassNameLocalService _classNameLocalService;
 
 	@Reference
 	private ExternalLinkResource _externalLinkResource;
@@ -238,5 +280,8 @@ public class ProductResourceImpl
 
 	@Reference
 	private ProductEntryService _productEntryService;
+
+	@Reference
+	private ProductFieldLocalService _productFieldLocalService;
 
 }
