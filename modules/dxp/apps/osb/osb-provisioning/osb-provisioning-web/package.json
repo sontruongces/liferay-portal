@@ -1,0 +1,14 @@
+{
+	"jest": {
+		"testPathIgnorePatterns": [
+			"<rootDir>/test/js/[^/]+\\.js"
+		]
+	},
+	"license": "UNLICENSED",
+	"name": "osb-provisioning-web",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/liferay/liferay-portal-ee.git"
+	},
+	"version": "1.0.0"
+}
