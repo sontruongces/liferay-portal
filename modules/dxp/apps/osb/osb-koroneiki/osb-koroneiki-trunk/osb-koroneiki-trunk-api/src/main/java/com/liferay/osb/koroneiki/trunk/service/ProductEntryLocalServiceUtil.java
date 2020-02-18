@@ -32,22 +32,20 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class ProductEntryLocalServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link ProductEntryLocalServiceUtil} to access the product entry local service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
-			addProductEntry(long userId, String name)
+			addProductEntry(
+				long userId, String name,
+				java.util.List
+					<com.liferay.osb.koroneiki.trunk.model.ProductField>
+						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().addProductEntry(userId, name);
+		return getService().addProductEntry(userId, name, productFields);
 	}
 
 	/**
@@ -349,10 +347,15 @@ public class ProductEntryLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
-			updateProductEntry(long productEntryId, String name)
+			updateProductEntry(
+				long userId, long productEntryId, String name,
+				java.util.List
+					<com.liferay.osb.koroneiki.trunk.model.ProductField>
+						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().updateProductEntry(productEntryId, name);
+		return getService().updateProductEntry(
+			userId, productEntryId, name, productFields);
 	}
 
 	/**

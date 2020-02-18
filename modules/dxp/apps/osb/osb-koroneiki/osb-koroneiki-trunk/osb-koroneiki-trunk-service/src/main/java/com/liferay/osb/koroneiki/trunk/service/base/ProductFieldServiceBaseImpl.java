@@ -52,7 +52,7 @@ public abstract class ProductFieldServiceBaseImpl
 	extends BaseServiceImpl
 	implements AopService, IdentifiableOSGiService, ProductFieldService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ProductFieldService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.trunk.service.ProductFieldServiceUtil</code>.
@@ -106,8 +106,8 @@ public abstract class ProductFieldServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

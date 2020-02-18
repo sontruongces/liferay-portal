@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ProductEntryModel
 	extends BaseModel<ProductEntry>, MVCCModel, ShardedModel, StagedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a product entry model instance should use the {@link ProductEntry} interface instead.

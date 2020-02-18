@@ -33,17 +33,15 @@ public class ProductEntryLocalServiceWrapper
 		_productEntryLocalService = productEntryLocalService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link ProductEntryLocalServiceUtil} to access the product entry local service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductEntry addProductEntry(
-			long userId, String name)
+			long userId, String name,
+			java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductField>
+				productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _productEntryLocalService.addProductEntry(userId, name);
+		return _productEntryLocalService.addProductEntry(
+			userId, name, productFields);
 	}
 
 	/**
@@ -371,11 +369,15 @@ public class ProductEntryLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductEntry
-			updateProductEntry(long productEntryId, String name)
+			updateProductEntry(
+				long userId, long productEntryId, String name,
+				java.util.List
+					<com.liferay.osb.koroneiki.trunk.model.ProductField>
+						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productEntryLocalService.updateProductEntry(
-			productEntryId, name);
+			userId, productEntryId, name, productFields);
 	}
 
 	/**

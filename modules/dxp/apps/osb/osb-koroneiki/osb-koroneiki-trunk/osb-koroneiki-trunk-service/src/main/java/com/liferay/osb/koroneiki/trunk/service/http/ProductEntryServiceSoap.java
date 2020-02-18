@@ -62,20 +62,26 @@ import java.rmi.RemoteException;
 public class ProductEntryServiceSoap {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap
-			addProductEntry(String name)
+			addProductEntry(
+				String name,
+				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
+					productFields)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.trunk.model.ProductEntry returnValue =
-				ProductEntryServiceUtil.addProductEntry(name);
+				ProductEntryServiceUtil.addProductEntry(
+					name,
+					com.liferay.osb.koroneiki.trunk.model.impl.
+						ProductFieldModelImpl.toModels(productFields));
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -90,10 +96,10 @@ public class ProductEntryServiceSoap {
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -108,10 +114,10 @@ public class ProductEntryServiceSoap {
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -127,10 +133,10 @@ public class ProductEntryServiceSoap {
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -148,10 +154,10 @@ public class ProductEntryServiceSoap {
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -161,10 +167,10 @@ public class ProductEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -178,10 +184,10 @@ public class ProductEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -196,10 +202,10 @@ public class ProductEntryServiceSoap {
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -214,10 +220,10 @@ public class ProductEntryServiceSoap {
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -232,48 +238,58 @@ public class ProductEntryServiceSoap {
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap
-			updateProductEntry(long productEntryId, String name)
+			updateProductEntry(
+				long productEntryId, String name,
+				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
+					productFields)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.trunk.model.ProductEntry returnValue =
 				ProductEntryServiceUtil.updateProductEntry(
-					productEntryId, name);
+					productEntryId, name,
+					com.liferay.osb.koroneiki.trunk.model.impl.
+						ProductFieldModelImpl.toModels(productFields));
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap
-			updateProductEntry(String productEntryKey, String name)
+			updateProductEntry(
+				String productEntryKey, String name,
+				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
+					productFields)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.trunk.model.ProductEntry returnValue =
 				ProductEntryServiceUtil.updateProductEntry(
-					productEntryKey, name);
+					productEntryKey, name,
+					com.liferay.osb.koroneiki.trunk.model.impl.
+						ProductFieldModelImpl.toModels(productFields));
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 

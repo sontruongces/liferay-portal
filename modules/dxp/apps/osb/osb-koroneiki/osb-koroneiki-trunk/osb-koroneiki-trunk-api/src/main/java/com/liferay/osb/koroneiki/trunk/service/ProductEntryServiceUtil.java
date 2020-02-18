@@ -32,22 +32,20 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class ProductEntryServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductEntryServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link ProductEntryServiceUtil} to access the product entry remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
-			addProductEntry(String name)
+			addProductEntry(
+				String name,
+				java.util.List
+					<com.liferay.osb.koroneiki.trunk.model.ProductField>
+						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().addProductEntry(name);
+		return getService().addProductEntry(name, productFields);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
@@ -127,17 +125,27 @@ public class ProductEntryServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
-			updateProductEntry(long productEntryId, String name)
+			updateProductEntry(
+				long productEntryId, String name,
+				java.util.List
+					<com.liferay.osb.koroneiki.trunk.model.ProductField>
+						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().updateProductEntry(productEntryId, name);
+		return getService().updateProductEntry(
+			productEntryId, name, productFields);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntry
-			updateProductEntry(String productEntryKey, String name)
+			updateProductEntry(
+				String productEntryKey, String name,
+				java.util.List
+					<com.liferay.osb.koroneiki.trunk.model.ProductField>
+						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().updateProductEntry(productEntryKey, name);
+		return getService().updateProductEntry(
+			productEntryKey, name, productFields);
 	}
 
 	public static ProductEntryService getService() {

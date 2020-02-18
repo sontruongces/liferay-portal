@@ -33,11 +33,6 @@ public class ProductFieldLocalServiceWrapper
 		_productFieldLocalService = productFieldLocalService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link ProductFieldLocalServiceUtil} to access the product field local service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductFieldLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductField addProductField(
 			long userId, long classNameId, long classPK, String name,

@@ -30,17 +30,14 @@ public class ProductEntryServiceWrapper
 		_productEntryService = productEntryService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link ProductEntryServiceUtil} to access the product entry remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductEntry addProductEntry(
-			String name)
+			String name,
+			java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductField>
+				productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _productEntryService.addProductEntry(name);
+		return _productEntryService.addProductEntry(name, productFields);
 	}
 
 	@Override
@@ -130,18 +127,28 @@ public class ProductEntryServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductEntry
-			updateProductEntry(long productEntryId, String name)
+			updateProductEntry(
+				long productEntryId, String name,
+				java.util.List
+					<com.liferay.osb.koroneiki.trunk.model.ProductField>
+						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _productEntryService.updateProductEntry(productEntryId, name);
+		return _productEntryService.updateProductEntry(
+			productEntryId, name, productFields);
 	}
 
 	@Override
 	public com.liferay.osb.koroneiki.trunk.model.ProductEntry
-			updateProductEntry(String productEntryKey, String name)
+			updateProductEntry(
+				String productEntryKey, String name,
+				java.util.List
+					<com.liferay.osb.koroneiki.trunk.model.ProductField>
+						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _productEntryService.updateProductEntry(productEntryKey, name);
+		return _productEntryService.updateProductEntry(
+			productEntryKey, name, productFields);
 	}
 
 	@Override

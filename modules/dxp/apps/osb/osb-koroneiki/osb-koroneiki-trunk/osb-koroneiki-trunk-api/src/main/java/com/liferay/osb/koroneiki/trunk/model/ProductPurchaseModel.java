@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ProductPurchaseModel
 	extends BaseModel<ProductPurchase>, MVCCModel, ShardedModel, StagedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a product purchase model instance should use the {@link ProductPurchase} interface instead.

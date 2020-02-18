@@ -33,7 +33,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ProductEntry extends PersistedModel, ProductEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.osb.koroneiki.trunk.model.impl.ProductEntryImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
@@ -60,5 +60,9 @@ public interface ProductEntry extends PersistedModel, ProductEntryModel {
 
 	public java.util.List<com.liferay.osb.koroneiki.root.model.ExternalLink>
 		getExternalLinks();
+
+	public java.util.List<ProductField> getProductFields();
+
+	public java.util.Map<String, String> getProductFieldsMap();
 
 }

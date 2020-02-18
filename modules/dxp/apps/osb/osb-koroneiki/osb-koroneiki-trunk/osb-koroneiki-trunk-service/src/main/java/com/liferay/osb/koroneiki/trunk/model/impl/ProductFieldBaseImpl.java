@@ -32,7 +32,7 @@ import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalServiceUtil;
 public abstract class ProductFieldBaseImpl
 	extends ProductFieldModelImpl implements ProductField {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a product field model instance should use the <code>ProductField</code> interface instead.

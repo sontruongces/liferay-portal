@@ -32,7 +32,7 @@ import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalServiceUti
 public abstract class ProductConsumptionBaseImpl
 	extends ProductConsumptionModelImpl implements ProductConsumption {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a product consumption model instance should use the <code>ProductConsumption</code> interface instead.

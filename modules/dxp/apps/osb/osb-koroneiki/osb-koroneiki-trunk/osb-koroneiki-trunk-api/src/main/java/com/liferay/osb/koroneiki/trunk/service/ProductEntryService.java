@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.trunk.service;
 
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -46,12 +47,14 @@ import org.osgi.annotation.versioning.ProviderType;
 )
 public interface ProductEntryService extends BaseService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ProductEntryServiceUtil} to access the product entry remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public ProductEntry addProductEntry(String name) throws PortalException;
+	public ProductEntry addProductEntry(
+			String name, List<ProductField> productFields)
+		throws PortalException;
 
 	public ProductEntry deleteProductEntry(long productEntryId)
 		throws PortalException;
@@ -96,10 +99,13 @@ public interface ProductEntryService extends BaseService {
 	public ProductEntry getProductEntryByName(String name)
 		throws PortalException;
 
-	public ProductEntry updateProductEntry(long productEntryId, String name)
+	public ProductEntry updateProductEntry(
+			long productEntryId, String name, List<ProductField> productFields)
 		throws PortalException;
 
-	public ProductEntry updateProductEntry(String productEntryKey, String name)
+	public ProductEntry updateProductEntry(
+			String productEntryKey, String name,
+			List<ProductField> productFields)
 		throws PortalException;
 
 }

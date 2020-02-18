@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.trunk.service;
 
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery;
@@ -59,13 +60,14 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ProductEntryLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ProductEntryLocalServiceUtil} to access the product entry local service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	@Indexable(type = IndexableType.REINDEX)
-	public ProductEntry addProductEntry(long userId, String name)
+	public ProductEntry addProductEntry(
+			long userId, String name, List<ProductField> productFields)
 		throws PortalException;
 
 	/**
@@ -284,7 +286,9 @@ public interface ProductEntryLocalService
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
-	public ProductEntry updateProductEntry(long productEntryId, String name)
+	public ProductEntry updateProductEntry(
+			long userId, long productEntryId, String name,
+			List<ProductField> productFields)
 		throws PortalException;
 
 	/**
