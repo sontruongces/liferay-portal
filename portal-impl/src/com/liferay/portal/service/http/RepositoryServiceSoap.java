@@ -105,6 +105,24 @@ public class RepositoryServiceSoap {
 		}
 	}
 
+	public static com.liferay.portal.kernel.model.RepositorySoap getRepository(
+			long groupId, String portletId)
+		throws RemoteException {
+
+		try {
+			com.liferay.portal.kernel.model.Repository returnValue =
+				RepositoryServiceUtil.getRepository(groupId, portletId);
+
+			return com.liferay.portal.kernel.model.RepositorySoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.portal.kernel.util.UnicodeProperties
 			getTypeSettingsProperties(long repositoryId)
 		throws RemoteException {
