@@ -16,7 +16,9 @@ package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
+import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -25,6 +27,9 @@ import com.liferay.portal.kernel.util.StringBundler;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -43,9 +48,29 @@ public class ProductEntryMigration {
 
 			while (resultSet.next()) {
 				String name = resultSet.getString("name");
+				int type = resultSet.getInt("type_");
+
+				List<ProductField> productFields = new ArrayList<>();
+
+				if ((type == 1) || (type == 2)) {
+					ProductField productField =
+						_productFieldLocalService.createProductField(0);
+
+					productField.setName("type");
+
+					if (type == 1) {
+						productField.setValue("add-on");
+					}
+					else if (type == 2) {
+						productField.setValue("primary");
+					}
+
+					productFields.add(productField);
+				}
 
 				ProductEntry productEntry =
-					_productEntryLocalService.addProductEntry(userId, name);
+					_productEntryLocalService.addProductEntry(
+						userId, name, productFields);
 
 				long productEntryId = resultSet.getLong("productEntryId");
 
@@ -92,5 +117,8 @@ public class ProductEntryMigration {
 
 	@Reference
 	private ProductEntryLocalService _productEntryLocalService;
+
+	@Reference
+	private ProductFieldLocalService _productFieldLocalService;
 
 }
