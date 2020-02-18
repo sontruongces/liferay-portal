@@ -69,19 +69,19 @@ public class EditContactRoleMVCActionCommand extends BaseMVCActionCommand {
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof ContactRoleNameException ||
-				e instanceof ContactRoleTypeException ||
-				e instanceof NoSuchContactRoleException) {
+		catch (Exception exception) {
+			if (exception instanceof ContactRoleNameException ||
+				exception instanceof ContactRoleTypeException ||
+				exception instanceof NoSuchContactRoleException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName",
 					"/contact_roles_admin/edit_contact_role");
 			}
 			else {
-				throw e;
+				throw exception;
 			}
 		}
 	}

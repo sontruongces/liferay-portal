@@ -68,8 +68,8 @@ public class EditContactMVCRenderCommand implements MVCRenderCommand {
 
 			return "/contacts_admin/edit_contact.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
 			return "/contacts_admin/error.jsp";
 		}

@@ -55,7 +55,8 @@ public class ContactAccountRoleLocalServiceImpl
 			contactAccountRole = contactAccountRolePersistence.create(
 				contactAccountRolePK);
 
-			contactAccountRolePersistence.update(contactAccountRole);
+			contactAccountRole = contactAccountRolePersistence.update(
+				contactAccountRole);
 
 			_accountLocalService.reindex(accountId);
 		}

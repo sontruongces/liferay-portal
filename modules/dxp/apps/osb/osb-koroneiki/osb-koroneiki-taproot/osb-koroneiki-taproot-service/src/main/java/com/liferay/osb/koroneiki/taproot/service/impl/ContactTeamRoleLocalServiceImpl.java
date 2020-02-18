@@ -52,7 +52,8 @@ public class ContactTeamRoleLocalServiceImpl
 			contactTeamRole = contactTeamRolePersistence.create(
 				contactTeamRolePK);
 
-			contactTeamRolePersistence.update(contactTeamRole);
+			contactTeamRole = contactTeamRolePersistence.update(
+				contactTeamRole);
 		}
 
 		return contactTeamRole;

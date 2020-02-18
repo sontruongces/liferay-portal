@@ -43,10 +43,10 @@ public class EntitlementModelListener extends BaseModelListener<Entitlement> {
 		try {
 			_reindex(entitlement);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new ModelListenerException(e);
+			throw new ModelListenerException(exception);
 		}
 	}
 
@@ -57,10 +57,10 @@ public class EntitlementModelListener extends BaseModelListener<Entitlement> {
 		try {
 			_reindex(entitlement);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new ModelListenerException(e);
+			throw new ModelListenerException(exception);
 		}
 	}
 
@@ -71,10 +71,10 @@ public class EntitlementModelListener extends BaseModelListener<Entitlement> {
 		try {
 			_reindex(entitlement);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new ModelListenerException(e);
+			throw new ModelListenerException(exception);
 		}
 	}
 

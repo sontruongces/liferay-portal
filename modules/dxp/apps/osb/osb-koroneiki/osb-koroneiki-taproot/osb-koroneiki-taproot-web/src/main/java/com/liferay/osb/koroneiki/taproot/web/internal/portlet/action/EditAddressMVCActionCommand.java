@@ -77,23 +77,23 @@ public class EditAddressMVCActionCommand extends BaseMVCActionCommand {
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof AddressCityException ||
-				e instanceof AddressStreetException ||
-				e instanceof AddressZipException ||
-				e instanceof NoSuchCountryException ||
-				e instanceof NoSuchListTypeException ||
-				e instanceof NoSuchRegionException) {
+		catch (Exception exception) {
+			if (exception instanceof AddressCityException ||
+				exception instanceof AddressStreetException ||
+				exception instanceof AddressZipException ||
+				exception instanceof NoSuchCountryException ||
+				exception instanceof NoSuchListTypeException ||
+				exception instanceof NoSuchRegionException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName", "/accounts_admin/edit_address");
 			}
 			else {
-				_log.error(e, e);
+				_log.error(exception, exception);
 
-				throw e;
+				throw exception;
 			}
 		}
 	}

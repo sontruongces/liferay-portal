@@ -73,7 +73,7 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 		teamRole.setDescription(description);
 		teamRole.setType(type);
 
-		teamRolePersistence.update(teamRole);
+		teamRole = teamRolePersistence.update(teamRole);
 
 		// Resources
 
@@ -175,8 +175,8 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 
 			return indexer.search(searchContext);
 		}
-		catch (Exception e) {
-			throw new PortalException(e);
+		catch (Exception exception) {
+			throw new PortalException(exception);
 		}
 	}
 

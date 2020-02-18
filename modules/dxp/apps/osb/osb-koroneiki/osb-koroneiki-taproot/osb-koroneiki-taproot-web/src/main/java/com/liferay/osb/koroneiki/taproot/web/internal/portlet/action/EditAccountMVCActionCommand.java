@@ -74,17 +74,17 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof AccountNameException) {
-				SessionErrors.add(actionRequest, e.getClass());
+		catch (Exception exception) {
+			if (exception instanceof AccountNameException) {
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName", "/accounts_admin/edit_account");
 			}
 			else {
-				_log.error(e, e);
+				_log.error(exception, exception);
 
-				throw e;
+				throw exception;
 			}
 		}
 	}

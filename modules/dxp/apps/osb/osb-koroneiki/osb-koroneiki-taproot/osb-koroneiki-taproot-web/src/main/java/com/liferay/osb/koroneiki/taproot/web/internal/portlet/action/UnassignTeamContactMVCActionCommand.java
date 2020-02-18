@@ -51,10 +51,10 @@ public class UnassignTeamContactMVCActionCommand extends BaseMVCActionCommand {
 
 			_contactTeamRoleService.deleteContactTeamRoles(contactId, teamId);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw e;
+			throw exception;
 		}
 	}
 

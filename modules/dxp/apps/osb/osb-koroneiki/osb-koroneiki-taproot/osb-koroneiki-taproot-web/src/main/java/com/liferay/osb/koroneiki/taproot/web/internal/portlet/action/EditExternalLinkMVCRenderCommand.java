@@ -59,10 +59,10 @@ public class EditExternalLinkMVCRenderCommand implements MVCRenderCommand {
 
 			return "/edit_external_link.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
-			throw new PortletException(e);
+			throw new PortletException(exception);
 		}
 	}
 

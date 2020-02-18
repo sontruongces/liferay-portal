@@ -65,10 +65,10 @@ public class EditAddressMVCRenderCommand implements MVCRenderCommand {
 
 			return "/accounts_admin/edit_address.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
-			throw new PortletException(e);
+			throw new PortletException(exception);
 		}
 	}
 

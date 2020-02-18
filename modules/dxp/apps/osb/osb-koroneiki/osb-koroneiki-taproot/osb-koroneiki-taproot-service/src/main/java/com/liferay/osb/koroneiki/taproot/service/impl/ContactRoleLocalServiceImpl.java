@@ -83,7 +83,7 @@ public class ContactRoleLocalServiceImpl
 		contactRole.setDescription(description);
 		contactRole.setType(type);
 
-		contactRolePersistence.update(contactRole);
+		contactRole = contactRolePersistence.update(contactRole);
 
 		// Resources
 
@@ -288,8 +288,8 @@ public class ContactRoleLocalServiceImpl
 
 			return indexer.search(searchContext);
 		}
-		catch (Exception e) {
-			throw new PortalException(e);
+		catch (Exception exception) {
+			throw new PortalException(exception);
 		}
 	}
 

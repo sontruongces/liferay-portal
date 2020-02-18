@@ -71,8 +71,8 @@ public class AssignAccountTeamMVCActionCommand extends BaseMVCActionCommand {
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof NoSuchTeamException) {
+		catch (Exception exception) {
+			if (exception instanceof NoSuchTeamException) {
 				ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 					themeDisplay.getLocale(),
 					AssignAccountTeamMVCActionCommand.class);
@@ -86,9 +86,9 @@ public class AssignAccountTeamMVCActionCommand extends BaseMVCActionCommand {
 					actionRequest, actionResponse, jsonObject);
 			}
 			else {
-				_log.error(e, e);
+				_log.error(exception, exception);
 
-				throw e;
+				throw exception;
 			}
 		}
 	}

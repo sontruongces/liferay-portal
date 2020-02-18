@@ -71,7 +71,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 		team.setAccountId(accountId);
 		team.setName(name);
 
-		teamPersistence.update(team);
+		team = teamPersistence.update(team);
 
 		// Resources
 
@@ -181,8 +181,8 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 			return indexer.search(searchContext);
 		}
-		catch (Exception e) {
-			throw new PortalException(e);
+		catch (Exception exception) {
+			throw new PortalException(exception);
 		}
 	}
 

@@ -53,8 +53,8 @@ public class AssignTeamContactMVCRenderCommand implements MVCRenderCommand {
 
 			return "/teams_admin/assign_team_contact.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
 			return "/teams_admin/error.jsp";
 		}

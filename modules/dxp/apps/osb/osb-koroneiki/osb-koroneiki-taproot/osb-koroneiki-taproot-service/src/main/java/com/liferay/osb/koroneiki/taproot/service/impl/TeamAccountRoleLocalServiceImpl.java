@@ -51,7 +51,8 @@ public class TeamAccountRoleLocalServiceImpl
 			teamAccountRole = teamAccountRolePersistence.create(
 				teamAccountRolePK);
 
-			teamAccountRolePersistence.update(teamAccountRole);
+			teamAccountRole = teamAccountRolePersistence.update(
+				teamAccountRole);
 		}
 
 		return teamAccountRole;

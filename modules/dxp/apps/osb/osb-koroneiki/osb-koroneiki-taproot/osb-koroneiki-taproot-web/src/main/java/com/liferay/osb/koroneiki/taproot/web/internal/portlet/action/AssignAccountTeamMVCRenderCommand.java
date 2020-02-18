@@ -54,8 +54,8 @@ public class AssignAccountTeamMVCRenderCommand implements MVCRenderCommand {
 
 			return "/accounts_admin/assign_account_team.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
 			return "/accounts_admin/error.jsp";
 		}

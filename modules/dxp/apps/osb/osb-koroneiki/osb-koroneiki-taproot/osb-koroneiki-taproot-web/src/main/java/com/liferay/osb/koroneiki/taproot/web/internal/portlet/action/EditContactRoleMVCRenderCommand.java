@@ -57,8 +57,8 @@ public class EditContactRoleMVCRenderCommand implements MVCRenderCommand {
 
 			return "/contact_roles_admin/edit_contact_role.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
 			return "/contact_roles_admin/error.jsp";
 		}

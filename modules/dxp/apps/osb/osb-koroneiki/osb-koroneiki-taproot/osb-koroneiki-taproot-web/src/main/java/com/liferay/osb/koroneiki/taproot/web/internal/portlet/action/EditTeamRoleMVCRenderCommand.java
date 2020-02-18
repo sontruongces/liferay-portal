@@ -56,8 +56,8 @@ public class EditTeamRoleMVCRenderCommand implements MVCRenderCommand {
 
 			return "/team_roles_admin/edit_team_role.jsp";
 		}
-		catch (Exception e) {
-			SessionErrors.add(renderRequest, e.getClass());
+		catch (Exception exception) {
+			SessionErrors.add(renderRequest, exception.getClass());
 
 			return "/team_roles_admin/error.jsp";
 		}

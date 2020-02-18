@@ -70,8 +70,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 				account.getCompanyId(), account.getUserId(),
 				account.getAccountId());
 		}
-		catch (PortalException pe) {
-			throw new SystemException(pe);
+		catch (PortalException portalException) {
+			throw new SystemException(portalException);
 		}
 
 		return account;
@@ -119,7 +119,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setStatusDate(new Date());
 		account.setStatusMessage(StringPool.BLANK);
 
-		accountPersistence.update(account);
+		account = accountPersistence.update(account);
 
 		addResources(account.getCompanyId(), userId, account.getAccountId());
 
@@ -255,8 +255,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 			return indexer.search(searchContext);
 		}
-		catch (Exception e) {
-			throw new PortalException(e);
+		catch (Exception exception) {
+			throw new PortalException(exception);
 		}
 	}
 

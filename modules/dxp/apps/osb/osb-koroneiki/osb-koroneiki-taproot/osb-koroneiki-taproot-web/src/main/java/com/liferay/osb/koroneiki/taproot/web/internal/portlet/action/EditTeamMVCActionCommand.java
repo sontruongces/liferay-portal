@@ -68,17 +68,17 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof NoSuchTeamException ||
-				e instanceof TeamNameException) {
+		catch (Exception exception) {
+			if (exception instanceof NoSuchTeamException ||
+				exception instanceof TeamNameException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName", "/teams_admin/edit_team");
 			}
 			else {
-				throw e;
+				throw exception;
 			}
 		}
 	}

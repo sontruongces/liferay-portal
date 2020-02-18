@@ -68,17 +68,17 @@ public class EditContactMVCActionCommand extends BaseMVCActionCommand {
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof ContactEmailAddressException ||
-				e instanceof NoSuchContactException) {
+		catch (Exception exception) {
+			if (exception instanceof ContactEmailAddressException ||
+				exception instanceof NoSuchContactException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName", "/contacts_admin/edit_contact");
 			}
 			else {
-				throw e;
+				throw exception;
 			}
 		}
 	}

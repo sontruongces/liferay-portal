@@ -80,7 +80,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		contact.setEmailAddress(emailAddress);
 		contact.setLanguageId(languageId);
 
-		contactPersistence.update(contact);
+		contact = contactPersistence.update(contact);
 
 		// Resources
 
@@ -250,8 +250,8 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 			return indexer.search(searchContext);
 		}
-		catch (Exception e) {
-			throw new PortalException(e);
+		catch (Exception exception) {
+			throw new PortalException(exception);
 		}
 	}
 

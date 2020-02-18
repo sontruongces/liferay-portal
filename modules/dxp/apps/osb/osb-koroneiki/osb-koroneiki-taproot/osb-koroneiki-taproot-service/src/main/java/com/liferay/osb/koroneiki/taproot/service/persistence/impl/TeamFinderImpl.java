@@ -88,8 +88,8 @@ public class TeamFinderImpl extends TeamFinderBaseImpl implements TeamFinder {
 
 			return 0;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -124,8 +124,8 @@ public class TeamFinderImpl extends TeamFinderBaseImpl implements TeamFinder {
 
 			return (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);

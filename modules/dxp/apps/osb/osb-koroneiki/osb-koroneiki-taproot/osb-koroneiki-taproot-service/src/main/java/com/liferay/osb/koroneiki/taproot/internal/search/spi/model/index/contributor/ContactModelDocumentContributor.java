@@ -53,8 +53,8 @@ public class ContactModelDocumentContributor
 		try {
 			_contribute(document, contact);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 

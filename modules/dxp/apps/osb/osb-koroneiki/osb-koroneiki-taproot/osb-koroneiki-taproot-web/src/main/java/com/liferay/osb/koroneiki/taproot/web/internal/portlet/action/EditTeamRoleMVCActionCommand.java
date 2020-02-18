@@ -69,18 +69,18 @@ public class EditTeamRoleMVCActionCommand extends BaseMVCActionCommand {
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof NoSuchTeamRoleException ||
-				e instanceof TeamRoleNameException ||
-				e instanceof TeamRoleTypeException) {
+		catch (Exception exception) {
+			if (exception instanceof NoSuchTeamRoleException ||
+				exception instanceof TeamRoleNameException ||
+				exception instanceof TeamRoleTypeException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName", "/team_roles_admin/edit_team_role");
 			}
 			else {
-				throw e;
+				throw exception;
 			}
 		}
 	}

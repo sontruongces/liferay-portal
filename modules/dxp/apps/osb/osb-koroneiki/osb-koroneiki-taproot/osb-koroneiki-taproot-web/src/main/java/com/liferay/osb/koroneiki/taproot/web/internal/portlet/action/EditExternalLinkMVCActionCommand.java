@@ -74,20 +74,20 @@ public class EditExternalLinkMVCActionCommand extends BaseMVCActionCommand {
 
 			sendRedirect(actionRequest, actionResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof ExternalLinkDomainException ||
-				e instanceof ExternalLinkEntityIdException ||
-				e instanceof ExternalLinkEntityNameException) {
+		catch (Exception exception) {
+			if (exception instanceof ExternalLinkDomainException ||
+				exception instanceof ExternalLinkEntityIdException ||
+				exception instanceof ExternalLinkEntityNameException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, exception.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName", "/edit_external_link");
 			}
 			else {
-				_log.error(e, e);
+				_log.error(exception, exception);
 
-				throw e;
+				throw exception;
 			}
 		}
 	}
