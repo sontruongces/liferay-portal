@@ -19,7 +19,9 @@ import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.trunk.exception.ProductEntryNameException;
 import com.liferay.osb.koroneiki.trunk.exception.RequiredProductEntryException;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalService;
+import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.osb.koroneiki.trunk.service.base.ProductEntryLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -39,6 +41,7 @@ import com.liferay.portal.kernel.util.Validator;
 import java.io.Serializable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
@@ -55,7 +58,8 @@ public class ProductEntryLocalServiceImpl
 	extends ProductEntryLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.REINDEX)
-	public ProductEntry addProductEntry(long userId, String name)
+	public ProductEntry addProductEntry(
+			long userId, String name, List<ProductField> productFields)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -81,6 +85,14 @@ public class ProductEntryLocalServiceImpl
 			productEntry.getCompanyId(), 0, userId,
 			ProductEntry.class.getName(), productEntry.getProductEntryId(),
 			false, false, false);
+
+		// Product fields
+
+		for (ProductField productField : productFields) {
+			_productFieldLocalService.addProductField(
+				userId, ProductEntry.class.getName(), productEntryId,
+				productField.getName(), productField.getValue());
+		}
 
 		return productEntry;
 	}
@@ -198,7 +210,9 @@ public class ProductEntryLocalServiceImpl
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
-	public ProductEntry updateProductEntry(long productEntryId, String name)
+	public ProductEntry updateProductEntry(
+			long userId, long productEntryId, String name,
+			List<ProductField> productFields)
 		throws PortalException {
 
 		validate(productEntryId, name);
@@ -208,7 +222,55 @@ public class ProductEntryLocalServiceImpl
 
 		productEntry.setName(name);
 
+		// Product Fields
+
+		long classNameId = classNameLocalService.getClassNameId(
+			ProductEntry.class);
+
+		Map<String, ProductField> productFieldsMap = getProductFieldsMap(
+			productEntryId);
+
+		for (ProductField productField : productFields) {
+			ProductField curProductField = productFieldsMap.remove(
+				productField.getName());
+
+			if (curProductField == null) {
+				_productFieldLocalService.addProductField(
+					userId, classNameId, productEntryId, productField.getName(),
+					productField.getValue());
+			}
+			else {
+				_productFieldLocalService.updateProductField(
+					curProductField.getProductFieldId(),
+					productField.getValue());
+			}
+		}
+
+		for (ProductField productField : productFieldsMap.values()) {
+			_productFieldLocalService.deleteProductField(
+				productField.getProductFieldId());
+		}
+
 		return productEntryPersistence.update(productEntry);
+	}
+
+	protected Map<String, ProductField> getProductFieldsMap(
+		long productEntryId) {
+
+		Map<String, ProductField> productFieldsMap = new HashMap<>();
+
+		long classNameId = classNameLocalService.getClassNameId(
+			ProductEntry.class);
+
+		List<ProductField> productFields =
+			_productFieldLocalService.getProductFields(
+				classNameId, productEntryId);
+
+		for (ProductField productField : productFields) {
+			productFieldsMap.put(productField.getName(), productField);
+		}
+
+		return productFieldsMap;
 	}
 
 	protected void validate(long productEntryId, String name)
@@ -232,6 +294,9 @@ public class ProductEntryLocalServiceImpl
 
 	@Reference
 	private ProductConsumptionLocalService _productConsumptionLocalService;
+
+	@Reference
+	private ProductFieldLocalService _productFieldLocalService;
 
 	@Reference
 	private ProductPurchaseLocalService _productPurchaseLocalService;

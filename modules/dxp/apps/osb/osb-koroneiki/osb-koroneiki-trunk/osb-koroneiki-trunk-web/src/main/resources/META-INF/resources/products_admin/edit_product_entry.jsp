@@ -46,6 +46,52 @@ renderResponse.setTitle((productEntry == null) ? LanguageUtil.get(request, "new-
 
 			<aui:input name="name" />
 		</aui:fieldset>
+
+		<div class="form-group">
+			<h3 class="sheet-subtitle"><liferay-ui:message key="product-fields" /></h3>
+
+			<aui:fieldset id='<%= renderResponse.getNamespace() + "productFields" %>'>
+
+				<%
+				List<ProductField> productFields = new ArrayList<>();
+
+				if (productEntry != null) {
+					productFields.addAll(productEntry.getProductFields());
+				}
+
+				if (productFields.isEmpty()) {
+					productFields.add(ProductFieldLocalServiceUtil.createProductField(0));
+				}
+
+				int[] productFieldIndexes = new int[productFields.size()];
+
+				for (int i = 0; i < productFields.size(); i++) {
+					ProductField productField = productFields.get(i);
+
+					productFieldIndexes[i] = i;
+				%>
+
+					<div class="lfr-form-row lfr-form-row-inline">
+						<div class="row-fields">
+							<aui:row>
+								<aui:col md="5">
+									<aui:input label="name" name='<%= "productFieldName_" + i %>' type="text" value="<%= productField.getName() %>" />
+								</aui:col>
+
+								<aui:col md="5">
+									<aui:input label="value" name='<%= "productFieldValue_" + i %>' type="text" value="<%= productField.getValue() %>" />
+								</aui:col>
+							</aui:row>
+						</div>
+					</div>
+
+				<%
+				}
+				%>
+
+				<aui:input name="productFieldIndexes" type="hidden" value="<%= StringUtil.merge(productFieldIndexes) %>" />
+			</aui:fieldset>
+		</div>
 	</aui:fieldset-group>
 
 	<aui:button-row>
@@ -54,3 +100,13 @@ renderResponse.setTitle((productEntry == null) ? LanguageUtil.get(request, "new-
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
+
+<aui:script use="aui-base,liferay-auto-fields">
+	var autoFields = new Liferay.AutoFields(
+		{
+			contentBox: 'fieldset#<portlet:namespace />productFields',
+			fieldIndexes: '<portlet:namespace />productFieldIndexes',
+			namespace: '<portlet:namespace />'
+		}
+	).render();
+</aui:script>

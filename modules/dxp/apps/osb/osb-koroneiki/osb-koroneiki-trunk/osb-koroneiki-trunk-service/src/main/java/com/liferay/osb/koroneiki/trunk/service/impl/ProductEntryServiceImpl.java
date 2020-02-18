@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.permission.ProductEntryPermission;
 import com.liferay.osb.koroneiki.trunk.service.base.ProductEntryServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -44,11 +45,15 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 
-	public ProductEntry addProductEntry(String name) throws PortalException {
+	public ProductEntry addProductEntry(
+			String name, List<ProductField> productFields)
+		throws PortalException {
+
 		_productEntryPermission.check(
 			getPermissionChecker(), TrunkActionKeys.ADD_PRODUCT_ENTRY);
 
-		return productEntryLocalService.addProductEntry(getUserId(), name);
+		return productEntryLocalService.addProductEntry(
+			getUserId(), name, productFields);
 	}
 
 	@Override
@@ -162,17 +167,20 @@ public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 		return productEntry;
 	}
 
-	public ProductEntry updateProductEntry(long productEntryId, String name)
+	public ProductEntry updateProductEntry(
+			long productEntryId, String name, List<ProductField> productFields)
 		throws PortalException {
 
 		_productEntryPermission.check(
 			getPermissionChecker(), productEntryId, ActionKeys.UPDATE);
 
 		return productEntryLocalService.updateProductEntry(
-			productEntryId, name);
+			getUserId(), productEntryId, name, productFields);
 	}
 
-	public ProductEntry updateProductEntry(String productEntryKey, String name)
+	public ProductEntry updateProductEntry(
+			String productEntryKey, String name,
+			List<ProductField> productFields)
 		throws PortalException {
 
 		ProductEntry productEntry = productEntryLocalService.getProductEntry(
@@ -182,7 +190,7 @@ public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 			getPermissionChecker(), productEntry, ActionKeys.UPDATE);
 
 		return productEntryLocalService.updateProductEntry(
-			productEntry.getProductEntryId(), name);
+			getUserId(), productEntry.getProductEntryId(), name, productFields);
 	}
 
 	@Reference

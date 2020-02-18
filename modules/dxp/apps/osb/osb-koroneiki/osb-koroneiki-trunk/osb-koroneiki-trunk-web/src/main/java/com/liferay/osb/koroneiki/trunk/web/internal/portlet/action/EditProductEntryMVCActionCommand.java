@@ -17,7 +17,9 @@ package com.liferay.osb.koroneiki.trunk.web.internal.portlet.action;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkPortletKeys;
 import com.liferay.osb.koroneiki.trunk.exception.ProductEntryNameException;
 import com.liferay.osb.koroneiki.trunk.exception.RequiredProductEntryException;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
+import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -26,6 +28,11 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -101,11 +108,38 @@ public class EditProductEntryMVCActionCommand extends BaseMVCActionCommand {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
+		List<ProductField> productFields = new ArrayList<>();
+
+		int[] productFieldIndexes = StringUtil.split(
+			ParamUtil.getString(actionRequest, "productFieldIndexes"), 0);
+
+		for (int productFieldIndex : productFieldIndexes) {
+			String productFieldName = ParamUtil.getString(
+				actionRequest, "productFieldName_" + productFieldIndex);
+			String productFieldValue = ParamUtil.getString(
+				actionRequest, "productFieldValue_" + productFieldIndex);
+
+			if (Validator.isNull(productFieldName) ||
+				Validator.isNull(productFieldValue)) {
+
+				continue;
+			}
+
+			ProductField productField =
+				_productFieldLocalService.createProductField(0);
+
+			productField.setName(productFieldName);
+			productField.setValue(productFieldValue);
+
+			productFields.add(productField);
+		}
+
 		if (productEntryId <= 0) {
-			_productEntryService.addProductEntry(name);
+			_productEntryService.addProductEntry(name, productFields);
 		}
 		else {
-			_productEntryService.updateProductEntry(productEntryId, name);
+			_productEntryService.updateProductEntry(
+				productEntryId, name, productFields);
 		}
 	}
 
@@ -114,5 +148,8 @@ public class EditProductEntryMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private ProductEntryService _productEntryService;
+
+	@Reference
+	private ProductFieldLocalService _productFieldLocalService;
 
 }

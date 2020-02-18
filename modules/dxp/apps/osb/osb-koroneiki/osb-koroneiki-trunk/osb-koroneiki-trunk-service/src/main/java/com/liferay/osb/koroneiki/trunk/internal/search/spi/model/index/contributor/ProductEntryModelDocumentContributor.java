@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.trunk.internal.search.spi.model.index.contribu
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -65,6 +66,7 @@ public class ProductEntryModelDocumentContributor
 		document.addTextSortable(Field.NAME, productEntry.getName());
 
 		_contributeExternalLinks(document, productEntry.getProductEntryId());
+		_contributeProductFields(document, productEntry);
 	}
 
 	private void _contributeExternalLinks(
@@ -95,6 +97,18 @@ public class ProductEntryModelDocumentContributor
 		document.addKeyword(
 			"externalLinkEntityNames",
 			ArrayUtil.toStringArray(externalLinkEntityNames.toArray()));
+	}
+
+	private void _contributeProductFields(
+			Document document, ProductEntry productEntry)
+		throws PortalException {
+
+		List<ProductField> productFields = productEntry.getProductFields();
+
+		for (ProductField productField : productFields) {
+			document.addKeyword(
+				"property_" + productField.getName(), productField.getValue());
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
