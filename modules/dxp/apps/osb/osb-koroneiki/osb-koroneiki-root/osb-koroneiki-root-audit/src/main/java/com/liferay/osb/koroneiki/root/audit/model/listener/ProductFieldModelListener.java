@@ -22,6 +22,7 @@ import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalService;
+import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.petra.string.StringPool;
@@ -48,19 +49,16 @@ public class ProductFieldModelListener
 		throws ModelListenerException {
 
 		try {
-			long accountId = _getAccountId(productField);
-
 			ServiceContext serviceContext = getServiceContext(
 				productField.getClassNameId(), productField.getClassPK());
 
 			auditEntryLocalService.addAuditEntry(
-				getUserId(),
-				classNameLocalService.getClassNameId(Account.class), accountId,
-				productField.getClassNameId(), productField.getClassPK(),
-				AuditEntry.Action.ADD.toString(), productField.getName(),
-				StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
-				productField.getValue(), getDescription(productField),
-				serviceContext);
+				getUserId(), getClassNameId(productField),
+				getClassPK(productField), productField.getClassNameId(),
+				productField.getClassPK(), AuditEntry.Action.ADD.toString(),
+				productField.getName(), StringPool.BLANK, StringPool.BLANK,
+				StringPool.BLANK, productField.getValue(),
+				getDescription(productField), serviceContext);
 		}
 		catch (PortalException portalException) {
 			throw new ModelListenerException(portalException);
@@ -72,18 +70,16 @@ public class ProductFieldModelListener
 		throws ModelListenerException {
 
 		try {
-			long accountId = _getAccountId(productField);
-
 			ServiceContext serviceContext = getServiceContext(
 				productField.getClassNameId(), productField.getClassPK());
 
 			auditEntryLocalService.addAuditEntry(
-				getUserId(),
-				classNameLocalService.getClassNameId(Account.class), accountId,
-				productField.getClassNameId(), productField.getClassPK(),
-				AuditEntry.Action.DELETE.toString(), productField.getName(),
-				StringPool.BLANK, productField.getValue(), StringPool.BLANK,
-				StringPool.BLANK, getDescription(productField), serviceContext);
+				getUserId(), getClassNameId(productField),
+				getClassPK(productField), productField.getClassNameId(),
+				productField.getClassPK(), AuditEntry.Action.DELETE.toString(),
+				productField.getName(), StringPool.BLANK,
+				productField.getValue(), StringPool.BLANK, StringPool.BLANK,
+				getDescription(productField), serviceContext);
 		}
 		catch (PortalException portalException) {
 			throw new ModelListenerException(portalException);
@@ -102,15 +98,12 @@ public class ProductFieldModelListener
 			String oldValue = oldProductField.getValue();
 
 			if (!Objects.equals(oldValue, productField.getValue())) {
-				long accountId = _getAccountId(productField);
-
 				ServiceContext serviceContext = getServiceContext(
 					productField.getClassNameId(), productField.getClassPK());
 
 				auditEntryLocalService.addAuditEntry(
-					getUserId(),
-					classNameLocalService.getClassNameId(Account.class),
-					accountId, productField.getClassNameId(),
+					getUserId(), getClassNameId(productField),
+					getClassPK(productField), productField.getClassNameId(),
 					productField.getClassPK(),
 					AuditEntry.Action.UPDATE.toString(), productField.getName(),
 					StringPool.BLANK, oldValue, StringPool.BLANK,
@@ -121,6 +114,49 @@ public class ProductFieldModelListener
 		catch (PortalException portalException) {
 			throw new ModelListenerException(portalException);
 		}
+	}
+
+	@Override
+	protected long getClassNameId(ProductField productField) {
+		if ((productField.getClassNameId() ==
+				classNameLocalService.getClassNameId(
+					ProductConsumption.class)) ||
+			(productField.getClassNameId() ==
+				classNameLocalService.getClassNameId(
+					ProductConsumption.class))) {
+
+			return classNameLocalService.getClassNameId(Account.class);
+		}
+
+		return productField.getClassNameId();
+	}
+
+	@Override
+	protected long getClassPK(ProductField productField)
+		throws PortalException {
+
+		if (productField.getClassNameId() ==
+				classNameLocalService.getClassNameId(
+					ProductConsumption.class)) {
+
+			ProductConsumption productConsumption =
+				_productConsumptionLocalService.getProductConsumption(
+					productField.getClassPK());
+
+			return productConsumption.getAccountId();
+		}
+		else if (productField.getClassNameId() ==
+					classNameLocalService.getClassNameId(
+						ProductPurchase.class)) {
+
+			ProductPurchase productPurchase =
+				_productPurchaseLocalService.getProductPurchase(
+					productField.getClassPK());
+
+			return productPurchase.getAccountId();
+		}
+
+		return productField.getClassNameId();
 	}
 
 	@Override
@@ -139,40 +175,29 @@ public class ProductFieldModelListener
 
 			productEntry = productConsumption.getProductEntry();
 		}
-		else {
+		else if (productField.getClassNameId() ==
+					classNameLocalService.getClassNameId(
+						ProductPurchase.class)) {
+
 			ProductPurchase productPurchase =
 				_productPurchaseLocalService.getProductPurchase(
 					productField.getClassPK());
 
 			productEntry = productPurchase.getProductEntry();
 		}
+		else {
+			productEntry = _productEntryLocalService.getProductEntry(
+				productField.getClassPK());
+		}
 
 		return productEntry.getName();
 	}
 
-	private long _getAccountId(ProductField productField)
-		throws PortalException {
-
-		if (productField.getClassNameId() ==
-				classNameLocalService.getClassNameId(
-					ProductConsumption.class)) {
-
-			ProductConsumption productConsumption =
-				_productConsumptionLocalService.getProductConsumption(
-					productField.getClassPK());
-
-			return productConsumption.getAccountId();
-		}
-
-		ProductPurchase productPurchase =
-			_productPurchaseLocalService.getProductPurchase(
-				productField.getClassPK());
-
-		return productPurchase.getAccountId();
-	}
-
 	@Reference
 	private ProductConsumptionLocalService _productConsumptionLocalService;
+
+	@Reference
+	private ProductEntryLocalService _productEntryLocalService;
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;

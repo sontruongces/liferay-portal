@@ -147,7 +147,7 @@ public abstract class BaseAuditModelListener<T extends BaseModel<T>>
 		return classNameLocalService.getClassNameId(model.getModelClass());
 	}
 
-	protected long getClassPK(T model) {
+	protected long getClassPK(T model) throws PortalException {
 		return (Long)model.getPrimaryKeyObj();
 	}
 
