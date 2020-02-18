@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class DataDefinitionRule {
+public class DataDefinitionRule implements Cloneable {
 
 	public String[] getDataDefinitionFieldNames() {
 		return dataDefinitionFieldNames;
@@ -116,6 +116,11 @@ public class DataDefinitionRule {
 	}
 
 	protected String ruleType;
+
+	@Override
+	public DataDefinitionRule clone() throws CloneNotSupportedException {
+		return (DataDefinitionRule)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

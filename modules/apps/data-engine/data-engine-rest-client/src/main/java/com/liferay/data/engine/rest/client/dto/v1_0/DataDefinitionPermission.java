@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class DataDefinitionPermission {
+public class DataDefinitionPermission implements Cloneable {
 
 	public Boolean getAddDataDefinition() {
 		return addDataDefinition;
@@ -151,6 +151,11 @@ public class DataDefinitionPermission {
 	}
 
 	protected Boolean view;
+
+	@Override
+	public DataDefinitionPermission clone() throws CloneNotSupportedException {
+		return (DataDefinitionPermission)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

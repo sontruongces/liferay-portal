@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class DataLayoutPermission {
+public class DataLayoutPermission implements Cloneable {
 
 	public Boolean getAddDataLayout() {
 		return addDataLayout;
@@ -151,6 +151,11 @@ public class DataLayoutPermission {
 	}
 
 	protected Boolean view;
+
+	@Override
+	public DataLayoutPermission clone() throws CloneNotSupportedException {
+		return (DataLayoutPermission)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

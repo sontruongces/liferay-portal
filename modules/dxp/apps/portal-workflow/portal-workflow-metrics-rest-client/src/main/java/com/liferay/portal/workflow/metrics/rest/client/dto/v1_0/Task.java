@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Task {
+public class Task implements Cloneable {
 
 	public Long getBreachedInstanceCount() {
 		return breachedInstanceCount;
@@ -170,6 +170,11 @@ public class Task {
 	}
 
 	protected Long overdueInstanceCount;
+
+	@Override
+	public Task clone() throws CloneNotSupportedException {
+		return (Task)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

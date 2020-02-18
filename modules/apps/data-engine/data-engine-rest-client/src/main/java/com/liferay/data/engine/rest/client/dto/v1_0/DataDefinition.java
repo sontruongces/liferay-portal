@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class DataDefinition {
+public class DataDefinition implements Cloneable {
 
 	public String[] getAvailableLanguageIds() {
 		return availableLanguageIds;
@@ -308,6 +308,11 @@ public class DataDefinition {
 	}
 
 	protected Long userId;
+
+	@Override
+	public DataDefinition clone() throws CloneNotSupportedException {
+		return (DataDefinition)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

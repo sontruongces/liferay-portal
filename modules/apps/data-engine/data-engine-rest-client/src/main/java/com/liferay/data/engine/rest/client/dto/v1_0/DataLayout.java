@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class DataLayout {
+public class DataLayout implements Cloneable {
 
 	public Long getDataDefinitionId() {
 		return dataDefinitionId;
@@ -260,6 +260,11 @@ public class DataLayout {
 	}
 
 	protected Long userId;
+
+	@Override
+	public DataLayout clone() throws CloneNotSupportedException {
+		return (DataLayout)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

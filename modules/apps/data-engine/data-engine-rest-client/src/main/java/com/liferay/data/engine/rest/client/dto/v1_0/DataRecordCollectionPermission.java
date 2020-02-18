@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class DataRecordCollectionPermission {
+public class DataRecordCollectionPermission implements Cloneable {
 
 	public Boolean getAddDataRecord() {
 		return addDataRecord;
@@ -258,6 +258,13 @@ public class DataRecordCollectionPermission {
 	}
 
 	protected Boolean viewDataRecord;
+
+	@Override
+	public DataRecordCollectionPermission clone()
+		throws CloneNotSupportedException {
+
+		return (DataRecordCollectionPermission)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {
