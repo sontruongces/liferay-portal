@@ -31,9 +31,9 @@ import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.GroupServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
+import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.util.comparator.GroupNameComparator;
@@ -44,6 +44,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -101,20 +102,18 @@ public class GroupDisplayContext {
 			_log.error(portalException, portalException);
 		}
 
+		_fetchChannelNames(groups);
+
 		groupSearch.setResults(groups);
 
 		groupSearch.setRowChecker(
-			new GroupChecker(
-				_renderResponse,
-				SetUtil.fromArray(_analyticsConfiguration.syncedGroupIds())));
+			new GroupChecker(_renderResponse, _getDisabledGroupIds()));
 
 		int total = GroupLocalServiceUtil.searchCount(
 			_getCompanyId(), _getClassNameIds(), _getKeywords(),
 			_getGroupParams());
 
 		groupSearch.setTotal(total);
-
-		_fetchChannelNames(groups);
 
 		return groupSearch;
 	}
@@ -215,6 +214,14 @@ public class GroupDisplayContext {
 			WebKeys.THEME_DISPLAY);
 
 		return themeDisplay.getCompanyId();
+	}
+
+	private Set<String> _getDisabledGroupIds() {
+		if (!MapUtil.isEmpty(_channelNames)) {
+			Collections.emptySet();
+		}
+
+		return _channelNames.keySet();
 	}
 
 	private LinkedHashMap<String, Object> _getGroupParams() {
