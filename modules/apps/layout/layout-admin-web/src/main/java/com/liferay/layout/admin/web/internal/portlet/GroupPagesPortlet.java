@@ -67,6 +67,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
@@ -108,6 +110,14 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class GroupPagesPortlet extends MVCPortlet {
 
+	@Override
+	public void processAction(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws IOException, PortletException {
+
+		super.processAction(actionRequest, actionResponse);
+	}
+
 	@Activate
 	@Modified
 	protected void activate(Map<String, Object> properties) {
@@ -121,11 +131,6 @@ public class GroupPagesPortlet extends MVCPortlet {
 	protected void doDispatch(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
-
-		Group group = _groupProvider.getGroup(
-			_portal.getHttpServletRequest(renderRequest));
-
-		renderRequest.setAttribute(WebKeys.GROUP, group);
 
 		if (SessionErrors.contains(
 				renderRequest, NoSuchGroupException.class.getName()) ||
@@ -204,6 +209,11 @@ public class GroupPagesPortlet extends MVCPortlet {
 
 	protected void setRequestAttributes(
 		PortletRequest portletRequest, PortletResponse portletResponse) {
+
+		Group group = _groupProvider.getGroup(
+			_portal.getHttpServletRequest(portletRequest));
+
+		portletRequest.setAttribute(WebKeys.GROUP, group);
 
 		portletRequest.setAttribute(
 			LayoutAdminWebConfiguration.class.getName(),
