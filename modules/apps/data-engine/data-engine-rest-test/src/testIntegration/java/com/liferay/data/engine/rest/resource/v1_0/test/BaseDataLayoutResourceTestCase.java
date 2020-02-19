@@ -348,9 +348,11 @@ public abstract class BaseDataLayoutResourceTestCase {
 				}
 				else {
 					BeanUtils.setProperty(
-						dataLayout1, entityField.getName(), "Aaa");
+						dataLayout1, entityField.getName(),
+						"Aaa" + RandomTestUtil.randomString());
 					BeanUtils.setProperty(
-						dataLayout2, entityField.getName(), "Bbb");
+						dataLayout2, entityField.getName(),
+						"Bbb" + RandomTestUtil.randomString());
 				}
 			});
 	}
@@ -759,9 +761,11 @@ public abstract class BaseDataLayoutResourceTestCase {
 				}
 				else {
 					BeanUtils.setProperty(
-						dataLayout1, entityField.getName(), "Aaa");
+						dataLayout1, entityField.getName(),
+						"Aaa" + RandomTestUtil.randomString());
 					BeanUtils.setProperty(
-						dataLayout2, entityField.getName(), "Bbb");
+						dataLayout2, entityField.getName(),
+						"Bbb" + RandomTestUtil.randomString());
 				}
 			});
 	}
