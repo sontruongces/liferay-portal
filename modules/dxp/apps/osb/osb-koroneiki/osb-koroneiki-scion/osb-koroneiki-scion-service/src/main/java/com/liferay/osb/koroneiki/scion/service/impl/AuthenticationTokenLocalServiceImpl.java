@@ -60,7 +60,8 @@ public class AuthenticationTokenLocalServiceImpl
 
 		authenticationToken.setStatus(WorkflowConstants.STATUS_APPROVED);
 
-		authenticationTokenPersistence.update(authenticationToken);
+		authenticationToken = authenticationTokenPersistence.update(
+			authenticationToken);
 
 		// Resources
 

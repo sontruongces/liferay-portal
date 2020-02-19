@@ -76,7 +76,8 @@ public class ProductConsumptionLocalServiceImpl
 		productConsumption.setAccountId(accountId);
 		productConsumption.setProductEntryId(productEntryId);
 
-		productConsumptionPersistence.update(productConsumption);
+		productConsumption = productConsumptionPersistence.update(
+			productConsumption);
 
 		// Resources
 

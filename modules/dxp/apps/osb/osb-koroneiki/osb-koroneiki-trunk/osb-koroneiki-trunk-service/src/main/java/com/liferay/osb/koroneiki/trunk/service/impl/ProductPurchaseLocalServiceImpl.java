@@ -88,7 +88,7 @@ public class ProductPurchaseLocalServiceImpl
 		productPurchase.setQuantity(quantity);
 		productPurchase.setStatus(status);
 
-		productPurchasePersistence.update(productPurchase);
+		productPurchase = productPurchasePersistence.update(productPurchase);
 
 		// Resources
 
@@ -246,7 +246,7 @@ public class ProductPurchaseLocalServiceImpl
 		productPurchase.setQuantity(quantity);
 		productPurchase.setStatus(status);
 
-		productPurchasePersistence.update(productPurchase);
+		productPurchase = productPurchasePersistence.update(productPurchase);
 
 		// Product fields
 

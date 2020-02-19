@@ -77,7 +77,7 @@ public class ProductEntryLocalServiceImpl
 			ModelKeyGenerator.generate(productEntryId));
 		productEntry.setName(name);
 
-		productEntryPersistence.update(productEntry);
+		productEntry = productEntryPersistence.update(productEntry);
 
 		// Resources
 

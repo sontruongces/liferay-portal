@@ -191,7 +191,7 @@ public class ServiceProducerLocalServiceImpl
 		serviceProducer.setName(name);
 		serviceProducer.setDescription(description);
 
-		serviceProducerPersistence.update(serviceProducer);
+		serviceProducer = serviceProducerPersistence.update(serviceProducer);
 
 		// User
 
