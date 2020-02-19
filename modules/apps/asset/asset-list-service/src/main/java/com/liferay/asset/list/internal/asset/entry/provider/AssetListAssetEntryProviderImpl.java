@@ -592,8 +592,9 @@ public class AssetListAssetEntryProviderImpl
 
 					dynamicAssetEntries.addAll(assetEntriesSublist);
 
-					subtotal += count;
 					remaining -= assetEntriesSublist.size();
+
+					subtotal += count;
 
 					if (remaining <= 0) {
 						break;
