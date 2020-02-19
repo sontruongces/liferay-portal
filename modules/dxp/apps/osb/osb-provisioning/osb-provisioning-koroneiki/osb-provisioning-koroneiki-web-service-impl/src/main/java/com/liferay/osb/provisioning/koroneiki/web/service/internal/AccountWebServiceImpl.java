@@ -47,7 +47,7 @@ public class AccountWebServiceImpl implements AccountWebService {
 
 	public Account fetchAccount(String accountKey) throws Exception {
 		HttpInvoker.HttpResponse httpResponse =
-			_accountResource.getAccountHttpResponse(accountKey);
+			_accountDetailsResource.getAccountHttpResponse(accountKey);
 
 		if (httpResponse.getStatusCode() == HttpServletResponse.SC_NOT_FOUND) {
 			return null;
@@ -57,7 +57,7 @@ public class AccountWebServiceImpl implements AccountWebService {
 	}
 
 	public Account getAccount(String accountKey) throws Exception {
-		return _accountResource.getAccount(accountKey);
+		return _accountDetailsResource.getAccount(accountKey);
 	}
 
 	public Account postAccount(Account account) throws Exception {
@@ -93,12 +93,22 @@ public class AccountWebServiceImpl implements AccountWebService {
 		).header(
 			"API_Token", koroneikiConfiguration.apiToken()
 		).parameter(
+			"nestedFields", "assignedTeams,productPurchases"
+		).build();
+
+		_accountDetailsResource = builder.endpoint(
+			koroneikiConfiguration.host(), koroneikiConfiguration.port(),
+			koroneikiConfiguration.scheme()
+		).header(
+			"API_Token", koroneikiConfiguration.apiToken()
+		).parameter(
 			"nestedFields",
 			"assignedTeams,assignedTeams.teamRoles,contacts," +
 				"contacts.contactRoles,productPurchases"
 		).build();
 	}
 
+	private AccountResource _accountDetailsResource;
 	private AccountResource _accountResource;
 
 }
