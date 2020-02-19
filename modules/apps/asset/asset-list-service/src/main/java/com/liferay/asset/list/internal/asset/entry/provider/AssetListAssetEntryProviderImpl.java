@@ -530,10 +530,10 @@ public class AssetListAssetEntryProviderImpl
 	}
 
 	private long[] _getCombinedSegmentsEntryIds(long[] segmentEntryIds) {
-		boolean hasIdDefault = ArrayUtil.contains(
-			segmentEntryIds, SegmentsEntryConstants.ID_DEFAULT);
+		if ((segmentEntryIds.length > 1) &&
+			ArrayUtil.contains(
+				segmentEntryIds, SegmentsEntryConstants.ID_DEFAULT)) {
 
-		if ((segmentEntryIds.length > 1) && hasIdDefault) {
 			return ArrayUtil.remove(
 				segmentEntryIds, SegmentsEntryConstants.ID_DEFAULT);
 		}
