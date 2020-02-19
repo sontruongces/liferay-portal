@@ -20,6 +20,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 
 /**
  * @author Ricardo Couso
+ * @review
  */
 @ExtendedObjectClassDefinition(category = "assets")
 @Meta.OCD(
