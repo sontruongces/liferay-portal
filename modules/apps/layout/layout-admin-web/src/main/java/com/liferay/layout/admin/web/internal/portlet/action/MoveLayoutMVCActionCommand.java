@@ -20,16 +20,21 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.LayoutService;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.util.Map;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Eudaldo Alonso
  */
 @Component(
+	configurationPid = "com.liferay.layout.admin.web.internal.configuration.LayoutConverterConfiguration",
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + LayoutAdminPortletKeys.GROUP_PAGES,
@@ -37,7 +42,14 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = MVCActionCommand.class
 )
-public class MoveLayoutMVCActionCommand extends BaseAddLayoutMVCActionCommand {
+public class MoveLayoutMVCActionCommand
+	extends GetLayoutChildrenMVCActionCommand {
+
+	@Activate
+	@Modified
+	protected void activate(Map<String, Object> properties) {
+		super.activate(properties);
+	}
 
 	@Override
 	protected void doProcessAction(
@@ -60,6 +72,10 @@ public class MoveLayoutMVCActionCommand extends BaseAddLayoutMVCActionCommand {
 			_layoutService.updateParentLayoutIdAndPriority(
 				plid, parentPlid, priority);
 		}
+
+		long checkPlid = ParamUtil.getLong(actionRequest, "checkPlid");
+
+		writeChildLayoutsAsJSON(actionRequest, actionResponse, checkPlid);
 	}
 
 	@Reference
