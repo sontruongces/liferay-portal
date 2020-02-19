@@ -303,7 +303,7 @@ definition {
 
 		Form.selectTranslation(localizedLanguage = "English (United States)");
 
-		Form.gotoAddField(fieldType = "Text");
+		Form.gotoAddField(fieldType = "Text Field");
 
 		Form.editFieldLabelMetal(fieldValue = "Text Field New");
 
