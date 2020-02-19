@@ -5,7 +5,7 @@
 		"liferay-frontend-common-css": "1.0.4",
 		"liferay-frontend-theme-styled": "4.0.21",
 		"liferay-frontend-theme-unstyled": "4.0.17",
-		"liferay-npm-scripts": "^25.1.1",
+		"liferay-npm-scripts": "14.0.0",
 		"liferay-theme-tasks": "^9.5.0"
 	},
 	"keywords": [
