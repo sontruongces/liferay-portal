@@ -150,6 +150,8 @@ renderResponse.setTitle(role.getTitle(locale));
 
 				if (selectedItem.type === 'users') {
 					data.addUserIds = selectedItem.value;
+				} else if (selectedItem.type == 'segments') {
+					data.addSegmentsEntryIds = selectedItem.value;
 				} else {
 					data.addGroupIds = selectedItem.value;
 				}
