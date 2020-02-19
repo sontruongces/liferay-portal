@@ -69,6 +69,8 @@ import java.util.Map;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -133,6 +135,8 @@ public class GroupPagesPortlet extends MVCPortlet {
 			include("/error.jsp", renderRequest, renderResponse);
 		}
 		else {
+			setRequestAttributes(renderRequest, renderResponse);
+
 			try {
 				List<LayoutPrototype> layoutPrototypes =
 					_layoutPrototypeLocalService.getLayoutPrototypes(
@@ -160,25 +164,6 @@ public class GroupPagesPortlet extends MVCPortlet {
 					_log.warn(exception, exception);
 				}
 			}
-
-			renderRequest.setAttribute(
-				LayoutAdminWebConfiguration.class.getName(),
-				_layoutAdminWebConfiguration);
-			renderRequest.setAttribute(
-				LayoutConverterConfiguration.class.getName(),
-				_layoutConverterConfiguration);
-			renderRequest.setAttribute(
-				ApplicationListWebKeys.GROUP_PROVIDER, _groupProvider);
-			renderRequest.setAttribute(
-				InfoDisplayWebKeys.INFO_DISPLAY_CONTRIBUTOR_TRACKER,
-				_infoDisplayContributorTracker);
-			renderRequest.setAttribute(
-				LayoutAdminWebKeys.ITEM_SELECTOR, _itemSelector);
-			renderRequest.setAttribute(
-				LayoutAdminWebKeys.LAYOUT_COPY_HELPER, _layoutCopyHelper);
-			renderRequest.setAttribute(
-				LayoutAdminWebKeys.LAYOUT_TEMPLATE_CONVERTER_REGISTRY,
-				_layoutConverterRegistry);
 
 			super.doDispatch(renderRequest, renderResponse);
 		}
@@ -215,6 +200,29 @@ public class GroupPagesPortlet extends MVCPortlet {
 		}
 
 		return false;
+	}
+
+	protected void setRequestAttributes(
+		PortletRequest portletRequest, PortletResponse portletResponse) {
+
+		portletRequest.setAttribute(
+			LayoutAdminWebConfiguration.class.getName(),
+			_layoutAdminWebConfiguration);
+		portletRequest.setAttribute(
+			LayoutConverterConfiguration.class.getName(),
+			_layoutConverterConfiguration);
+		portletRequest.setAttribute(
+			ApplicationListWebKeys.GROUP_PROVIDER, _groupProvider);
+		portletRequest.setAttribute(
+			InfoDisplayWebKeys.INFO_DISPLAY_CONTRIBUTOR_TRACKER,
+			_infoDisplayContributorTracker);
+		portletRequest.setAttribute(
+			LayoutAdminWebKeys.ITEM_SELECTOR, _itemSelector);
+		portletRequest.setAttribute(
+			LayoutAdminWebKeys.LAYOUT_COPY_HELPER, _layoutCopyHelper);
+		portletRequest.setAttribute(
+			LayoutAdminWebKeys.LAYOUT_TEMPLATE_CONVERTER_REGISTRY,
+			_layoutConverterRegistry);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
