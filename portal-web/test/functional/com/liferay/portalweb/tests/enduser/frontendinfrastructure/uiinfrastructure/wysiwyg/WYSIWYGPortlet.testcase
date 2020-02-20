@@ -61,6 +61,10 @@ definition {
 
 		takeScreenshot();
 
+		SelectFrameTop();
+
+		SelectFrame(locator1 = "IFrame#DIALOG");
+
 		Click(locator1 = "Button#SAVE");
 
 		Alert.viewSuccessMessage();
