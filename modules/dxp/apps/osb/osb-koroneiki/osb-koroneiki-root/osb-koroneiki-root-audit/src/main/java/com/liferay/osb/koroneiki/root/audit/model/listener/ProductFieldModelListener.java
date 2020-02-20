@@ -122,8 +122,7 @@ public class ProductFieldModelListener
 				classNameLocalService.getClassNameId(
 					ProductConsumption.class)) ||
 			(productField.getClassNameId() ==
-				classNameLocalService.getClassNameId(
-					ProductConsumption.class))) {
+				classNameLocalService.getClassNameId(ProductPurchase.class))) {
 
 			return classNameLocalService.getClassNameId(Account.class);
 		}
