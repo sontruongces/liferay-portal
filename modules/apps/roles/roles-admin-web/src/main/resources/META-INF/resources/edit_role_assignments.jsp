@@ -148,10 +148,10 @@ renderResponse.setTitle(role.getTitle(locale));
 					redirect: assignmentsRedirect.toString()
 				};
 
-				if (selectedItem.type === 'users') {
-					data.addUserIds = selectedItem.value;
-				} else if (selectedItem.type == 'segments') {
+				if (selectedItem.type == 'segments') {
 					data.addSegmentsEntryIds = selectedItem.value;
+				} else if (selectedItem.type === 'users') {
+					data.addUserIds = selectedItem.value;
 				} else {
 					data.addGroupIds = selectedItem.value;
 				}
@@ -177,10 +177,10 @@ renderResponse.setTitle(role.getTitle(locale));
 			assignmentsRedirect: '<%= portletURL.toString() %>'
 		};
 
-		if (assigneeType === 'users') {
-			data.removeUserIds = ids;
-		} else if (assigneeType == 'segments') {
+		if (assigneeType == 'segments') {
 			data.removeSegmentsEntryIds = ids;
+		} else if (assigneeType === 'users') {
+			data.removeUserIds = ids;
 		} else {
 			data.removeGroupIds = ids;
 		}
