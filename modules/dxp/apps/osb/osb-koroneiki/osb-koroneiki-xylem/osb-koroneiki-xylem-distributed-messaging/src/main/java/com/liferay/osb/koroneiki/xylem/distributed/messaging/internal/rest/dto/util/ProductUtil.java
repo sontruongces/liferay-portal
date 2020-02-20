@@ -36,6 +36,7 @@ public class ProductUtil {
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);
 				key = productEntry.getProductEntryKey();
 				name = productEntry.getName();
+				properties = productEntry.getProductFieldsMap();
 			}
 		};
 	}
