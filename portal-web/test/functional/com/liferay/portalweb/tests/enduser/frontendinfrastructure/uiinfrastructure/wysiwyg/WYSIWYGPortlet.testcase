@@ -33,12 +33,14 @@ definition {
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
-		Type.typeEditor(
-			locator1 = "CKEditor#BODY_FIELD",
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+
+		KeyPress(
+			locator1 = "CKEditor#BODY",
 			value1 = "WYSIWYG Test Content");
 
 		AssertTextEquals.assertTextCaseSensitive(
-			locator1 = "CKEditor#BODY_FIELD",
+			locator1 = "CKEditor#BODY",
 			value1 = "WYSIWYG Test Content");
 
 		takeScreenshot();
