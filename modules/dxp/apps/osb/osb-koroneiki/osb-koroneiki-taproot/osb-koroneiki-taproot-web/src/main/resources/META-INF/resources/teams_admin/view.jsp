@@ -68,6 +68,12 @@ ViewTeamsManagementToolbarDisplayContext viewTeamsManagementToolbarDisplayContex
 				value="<%= HtmlUtil.escape(koroneikiAccount.getName()) %>"
 			/>
 
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="system"
+				value="<%= String.valueOf(team.isSystem()) %>"
+			/>
+
 			<liferay-ui:search-container-column-jsp
 				align="right"
 				path="/teams_admin/team_action.jsp"

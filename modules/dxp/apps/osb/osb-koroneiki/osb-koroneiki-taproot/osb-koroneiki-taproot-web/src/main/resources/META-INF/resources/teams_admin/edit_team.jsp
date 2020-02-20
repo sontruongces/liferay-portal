@@ -86,7 +86,9 @@ long accountId = ParamUtil.getLong(request, "accountId");
 	</aui:fieldset-group>
 
 	<aui:button-row>
-		<aui:button type="submit" />
+		<c:if test="<%= (team != null) && !team.isSystem() %>">
+			<aui:button type="submit" />
+		</c:if>
 
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>

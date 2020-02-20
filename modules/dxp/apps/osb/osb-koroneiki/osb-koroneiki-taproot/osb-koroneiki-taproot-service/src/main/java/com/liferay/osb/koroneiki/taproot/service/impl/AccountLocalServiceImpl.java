@@ -123,6 +123,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		addResources(account.getCompanyId(), userId, account.getAccountId());
 
+		_teamLocalService.syncDefaultTeam(account.getAccountId());
+
 		return account;
 	}
 
@@ -300,7 +302,11 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			account.setStatusMessage(StringPool.BLANK);
 		}
 
-		return accountPersistence.update(account);
+		account = accountPersistence.update(account);
+
+		_teamLocalService.syncDefaultTeam(accountId);
+
+		return account;
 	}
 
 	protected void addResources(long companyId, long userId, long accountId)

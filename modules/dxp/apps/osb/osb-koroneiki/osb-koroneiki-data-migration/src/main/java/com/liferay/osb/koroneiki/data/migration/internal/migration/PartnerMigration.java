@@ -163,7 +163,7 @@ public class PartnerMigration {
 				String code = resultSet.getString(2);
 
 				Team team = _teamLocalService.addTeam(
-					userId, account.getAccountId(), code);
+					userId, account.getAccountId(), code, false);
 
 				long partnerEntryId = resultSet.getLong(4);
 

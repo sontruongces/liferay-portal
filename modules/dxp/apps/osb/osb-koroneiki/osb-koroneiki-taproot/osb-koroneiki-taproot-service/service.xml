@@ -195,6 +195,7 @@
 		<column name="teamKey" type="String" />
 		<column name="accountId" type="long" />
 		<column name="name" type="String" />
+		<column name="system" type="boolean" />
 
 		<!-- Finder methods -->
 
@@ -207,6 +208,10 @@
 		<finder name="AI_N" return-type="Team">
 			<finder-column name="accountId" />
 			<finder-column name="name" />
+		</finder>
+		<finder name="AI_S" return-type="Team">
+			<finder-column name="accountId" />
+			<finder-column name="system" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="TeamAccountRole" remote-service="true">

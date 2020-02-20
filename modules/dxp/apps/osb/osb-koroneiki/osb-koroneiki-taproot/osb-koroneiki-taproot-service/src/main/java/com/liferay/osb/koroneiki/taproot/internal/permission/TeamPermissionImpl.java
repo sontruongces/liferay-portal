@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.taproot.permission.TeamPermission;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.ArrayUtil;
 
@@ -117,6 +118,10 @@ public class TeamPermissionImpl implements ModelPermission, TeamPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, Team team, String actionId)
 		throws PortalException {
+
+		if (!actionId.equals(ActionKeys.VIEW) && team.isSystem()) {
+			return false;
+		}
 
 		if (permissionChecker.hasOwnerPermission(
 				team.getCompanyId(), Team.class.getName(), team.getTeamId(),

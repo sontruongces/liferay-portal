@@ -787,6 +787,11 @@ components:
                     description:
                         The name of the team.
                     type: string
+                system:
+                    description:
+                        A flag that identifies whether this is a system team.
+                    readOnly: true
+                    type: boolean
                 teamRoles:
                     description:
                         The team's account team roles.

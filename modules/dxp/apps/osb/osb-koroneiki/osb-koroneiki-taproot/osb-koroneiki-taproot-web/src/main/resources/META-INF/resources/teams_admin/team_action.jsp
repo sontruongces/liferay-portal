@@ -40,29 +40,31 @@ Team team = (Team)row.getObject();
 		url="<%= editURL %>"
 	/>
 
-	<liferay-security:permissionsURL
-		modelResource="<%= Team.class.getName() %>"
-		modelResourceDescription="<%= team.getName() %>"
-		resourcePrimKey="<%= String.valueOf(team.getTeamId()) %>"
-		var="permissionsURL"
-		windowState="<%= LiferayWindowState.POP_UP.toString() %>"
-	/>
+	<c:if test="<%= !team.isSystem() %>">
+		<liferay-security:permissionsURL
+			modelResource="<%= Team.class.getName() %>"
+			modelResourceDescription="<%= team.getName() %>"
+			resourcePrimKey="<%= String.valueOf(team.getTeamId()) %>"
+			var="permissionsURL"
+			windowState="<%= LiferayWindowState.POP_UP.toString() %>"
+		/>
 
-	<liferay-ui:icon
-		message="permissions"
-		method="get"
-		url="<%= permissionsURL %>"
-		useDialog="<%= true %>"
-	/>
+		<liferay-ui:icon
+			message="permissions"
+			method="get"
+			url="<%= permissionsURL %>"
+			useDialog="<%= true %>"
+		/>
 
-	<portlet:actionURL name="/teams_admin/edit_team" var="deleteURL">
-		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="teamId" value="<%= String.valueOf(team.getTeamId()) %>" />
-	</portlet:actionURL>
+		<portlet:actionURL name="/teams_admin/edit_team" var="deleteURL">
+			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="teamId" value="<%= String.valueOf(team.getTeamId()) %>" />
+		</portlet:actionURL>
 
-	<liferay-ui:icon-delete
-		confirmation="are-you-sure-you-want-to-delete-this-team"
-		url="<%= deleteURL %>"
-	/>
+		<liferay-ui:icon-delete
+			confirmation="are-you-sure-you-want-to-delete-this-team"
+			url="<%= deleteURL %>"
+		/>
+	</c:if>
 </liferay-ui:icon-menu>

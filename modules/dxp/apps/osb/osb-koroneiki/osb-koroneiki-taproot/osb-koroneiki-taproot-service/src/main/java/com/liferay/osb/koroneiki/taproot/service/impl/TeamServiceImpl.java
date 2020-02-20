@@ -49,7 +49,7 @@ public class TeamServiceImpl extends TeamServiceBaseImpl {
 		_teamPermission.check(
 			getPermissionChecker(), TaprootActionKeys.ADD_TEAM);
 
-		return teamLocalService.addTeam(getUserId(), accountId, name);
+		return teamLocalService.addTeam(getUserId(), accountId, name, false);
 	}
 
 	public Team addTeam(String accountKey, String name) throws PortalException {

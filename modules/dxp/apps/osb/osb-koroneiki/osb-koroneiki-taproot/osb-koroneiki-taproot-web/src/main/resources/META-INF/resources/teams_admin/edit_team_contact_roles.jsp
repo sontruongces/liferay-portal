@@ -38,7 +38,7 @@ renderResponse.setTitle(team.getName());
 		}
 	%>'
 	selectable="<%= false %>"
-	showCreationMenu="<%= true %>"
+	showCreationMenu="<%= !team.isSystem() %>"
 	showSearch="<%= false %>"
 />
 
