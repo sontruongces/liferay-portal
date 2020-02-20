@@ -202,7 +202,7 @@ public abstract class BaseAssetDisplayPageFriendlyURLResolver
 					AssetDisplayPageConfiguration.class);
 
 			if ((assetEntry != null) &&
-				assetDisplayPageConfiguration.enableIncrementViewCounter()) {
+				assetDisplayPageConfiguration.enableViewCountIncrement()) {
 
 				assetEntryLocalService.incrementViewCounter(assetEntry);
 			}
