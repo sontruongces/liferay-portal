@@ -31,6 +31,8 @@ definition {
 			portletName = "WYSIWYG",
 			portletOption = "Configuration");
 
+		Pause(locator1 = "15000");
+
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
 		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
