@@ -139,7 +139,7 @@ public class AnalyticsConfigurationTrackerImpl
 		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to get configuration for company ID " + companyId);
+					"Unable to get configuration for company " + companyId);
 			}
 
 			return null;

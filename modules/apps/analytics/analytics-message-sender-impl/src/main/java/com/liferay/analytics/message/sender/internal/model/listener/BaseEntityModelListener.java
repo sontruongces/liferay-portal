@@ -273,7 +273,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
-						"Unable to update preferences for company ID " +
+						"Unable to update preferences for company " +
 							companyId);
 				}
 			}
@@ -289,7 +289,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to update configuration for company ID " +
+					"Unable to update configuration for company " +
 						companyId);
 			}
 		}
