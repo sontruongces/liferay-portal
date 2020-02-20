@@ -197,7 +197,7 @@ public class AnalyticsMessageSenderClientImpl
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						StringBundler.concat(
-							"Disconnecting data source for company ID ",
+							"Disconnecting data source for company ",
 							companyId, ". Cause: ", message));
 				}
 
@@ -208,7 +208,7 @@ public class AnalyticsMessageSenderClientImpl
 
 				if (_log.isInfoEnabled()) {
 					_log.info(
-						"Deleted all analytics messages for company ID " +
+						"Deleted all analytics messages for company " +
 							companyId);
 				}
 			}
