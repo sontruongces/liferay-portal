@@ -37,6 +37,20 @@ definition {
 
 		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
 
+		if (IsElementNotPresent(locator1 = "CKEditor#BODY")) {
+			SelectFrameTop();
+
+			SelectFrame(locator1 = "IFrame#DIALOG");
+
+			Navigator.gotoNavItem(navItem = "Sharing");
+
+			Navigator.gotoNavItem(navItem = "Setup");
+
+			SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+		}
+
+		AssertElementPresent(locator1 = "CKEditor#BODY");
+
 		KeyPress(
 			locator1 = "CKEditor#BODY",
 			value1 = "WYSIWYG Test Content");
