@@ -66,11 +66,10 @@ public class LiferayFieldQueryFactoryFixture {
 
 		_fieldQueryFactory = new FieldQueryFactoryImpl() {
 			{
-				descriptionFieldQueryBuilder = _descriptionFieldQueryBuilder;
-
 				addFieldQueryBuilderFactory(
 					assetTagNamesFieldQueryBuilderFactory);
 				addFieldQueryBuilderFactory(fieldQueryBuilderFactoryImpl);
+				setDescriptionFieldQueryBuilder(_descriptionFieldQueryBuilder);
 			}
 		};
 	}

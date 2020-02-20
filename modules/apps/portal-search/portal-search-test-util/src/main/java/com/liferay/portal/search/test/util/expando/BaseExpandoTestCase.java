@@ -128,10 +128,9 @@ public abstract class BaseExpandoTestCase extends BaseIndexingTestCase {
 
 		return new FieldQueryFactoryImpl() {
 			{
-				descriptionFieldQueryBuilder =
-					createDescriptionFieldQueryBuilder();
-
 				addFieldQueryBuilderFactory(fieldQueryBuilderFactory);
+				setDescriptionFieldQueryBuilder(
+					createDescriptionFieldQueryBuilder());
 			}
 		};
 	}

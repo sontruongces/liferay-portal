@@ -15,7 +15,6 @@
 package com.liferay.portal.search.test.util.mappings;
 
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.search.analysis.FieldQueryBuilder;
 import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.internal.analysis.DescriptionFieldQueryBuilder;
 import com.liferay.portal.search.internal.analysis.TitleFieldQueryBuilder;
@@ -75,29 +74,16 @@ public abstract class BaseLiferayFieldQueryFactoryTestCase
 
 	@Test
 	public void testDefaultQueryBuilder() {
-		FieldQueryBuilder fieldQueryBuilder = new FieldQueryFactoryImpl() {
+		TestFieldQueryBuilderFactory testFieldQueryBuilderFactory =
+			new TestFieldQueryBuilderFactoryImpl();
 
-			public FieldQueryBuilder publicGetDefaultQueryBuilder(
-				DescriptionFieldQueryBuilder descriptionFieldQueryBuilder,
-				TitleFieldQueryBuilder titleFieldQueryBuilder,
-				SearchEngineInformation searchEngineInformation) {
-
-				setDescriptionFieldQueryBuilder(descriptionFieldQueryBuilder);
-				setTitleFieldQueryBuilder(titleFieldQueryBuilder);
-				setSearchEngineInformation(searchEngineInformation);
-
-				return getDefaultQueryBuilder();
-			}
-
-		}.publicGetDefaultQueryBuilder(
-			new TestDescriptionFieldQueryBuilder(),
-			new TestTitleFieldQueryBuilder(), searchEngineInformation);
+		TestFieldQueryBuilder testFieldQueryBuilder =
+			testFieldQueryBuilderFactory.getTestFieldQueryBuilder(
+				new TestDescriptionFieldQueryBuilder(),
+				new TestTitleFieldQueryBuilder(), searchEngineInformation);
 
 		String vendor = searchEngineInformation.getVendorString();
 		String version = searchEngineInformation.getClientVersionString();
-
-		TestFieldQueryBuilder testFieldQueryBuilder =
-			(TestFieldQueryBuilder)fieldQueryBuilder;
 
 		String fieldQueryBuilderClassName =
 			testFieldQueryBuilder.getClassName();
@@ -106,12 +92,13 @@ public abstract class BaseLiferayFieldQueryFactoryTestCase
 			vendor.equals("Solr")) {
 
 			Assert.assertTrue(
-				fieldQueryBuilderClassName.equals(_titleFieldQueryBuilderName));
+				fieldQueryBuilderClassName.equals(
+					_TITLE_FIELD_QUERY_BUILDER_NAME));
 		}
 		else {
 			Assert.assertTrue(
 				fieldQueryBuilderClassName.equals(
-					_descriptionFieldQueryBuilderName));
+					_DESCRIPTION_FIELD_QUERY_BUILDER_NAME));
 		}
 	}
 
@@ -249,7 +236,7 @@ public abstract class BaseLiferayFieldQueryFactoryTestCase
 		extends DescriptionFieldQueryBuilder implements TestFieldQueryBuilder {
 
 		public String getClassName() {
-			return _descriptionFieldQueryBuilderName;
+			return _DESCRIPTION_FIELD_QUERY_BUILDER_NAME;
 		}
 
 	}
@@ -260,11 +247,38 @@ public abstract class BaseLiferayFieldQueryFactoryTestCase
 
 	}
 
+	public interface TestFieldQueryBuilderFactory {
+
+		public TestFieldQueryBuilder getTestFieldQueryBuilder(
+			DescriptionFieldQueryBuilder descriptionFieldQueryBuilder,
+			TitleFieldQueryBuilder titleFieldQueryBuilder,
+			SearchEngineInformation searchEngineInformation);
+
+	}
+
+	public class TestFieldQueryBuilderFactoryImpl
+		extends FieldQueryFactoryImpl implements TestFieldQueryBuilderFactory {
+
+		@Override
+		public TestFieldQueryBuilder getTestFieldQueryBuilder(
+			DescriptionFieldQueryBuilder descriptionFieldQueryBuilder,
+			TitleFieldQueryBuilder titleFieldQueryBuilder,
+			SearchEngineInformation searchEngineInformation) {
+
+			setDescriptionFieldQueryBuilder(descriptionFieldQueryBuilder);
+			setTitleFieldQueryBuilder(titleFieldQueryBuilder);
+			setSearchEngineInformation(searchEngineInformation);
+
+			return (TestFieldQueryBuilder)getDefaultQueryBuilder();
+		}
+
+	}
+
 	public class TestTitleFieldQueryBuilder
 		extends TitleFieldQueryBuilder implements TestFieldQueryBuilder {
 
 		public String getClassName() {
-			return _titleFieldQueryBuilderName;
+			return _TITLE_FIELD_QUERY_BUILDER_NAME;
 		}
 
 	}
@@ -416,9 +430,10 @@ public abstract class BaseLiferayFieldQueryFactoryTestCase
 
 	}
 
-	private static final String _descriptionFieldQueryBuilderName =
+	private static final String _DESCRIPTION_FIELD_QUERY_BUILDER_NAME =
 		"DescriptionFieldQueryBuilder";
-	private static final String _titleFieldQueryBuilderName =
+
+	private static final String _TITLE_FIELD_QUERY_BUILDER_NAME =
 		"TitleFieldQueryBuilder";
 
 	private String _fieldName;
