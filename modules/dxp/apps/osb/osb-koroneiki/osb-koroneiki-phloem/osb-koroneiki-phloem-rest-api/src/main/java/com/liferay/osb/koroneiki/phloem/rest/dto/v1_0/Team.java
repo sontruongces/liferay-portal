@@ -249,6 +249,36 @@ public class Team {
 	@NotEmpty
 	protected String name;
 
+	@Schema(
+		description = "A flag that identifies whether this is a system team."
+	)
+	public Boolean getSystem() {
+		return system;
+	}
+
+	public void setSystem(Boolean system) {
+		this.system = system;
+	}
+
+	@JsonIgnore
+	public void setSystem(
+		UnsafeSupplier<Boolean, Exception> systemUnsafeSupplier) {
+
+		try {
+			system = systemUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Boolean system;
+
 	@Schema(description = "The team's account team roles.")
 	@Valid
 	public TeamRole[] getTeamRoles() {
@@ -416,6 +446,16 @@ public class Team {
 			sb.append(_escape(name));
 
 			sb.append("\"");
+		}
+
+		if (system != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"system\": ");
+
+			sb.append(system);
 		}
 
 		if (teamRoles != null) {

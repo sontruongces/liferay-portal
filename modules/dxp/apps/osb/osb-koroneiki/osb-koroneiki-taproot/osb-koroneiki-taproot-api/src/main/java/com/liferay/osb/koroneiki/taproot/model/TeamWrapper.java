@@ -52,6 +52,7 @@ public class TeamWrapper
 		attributes.put("teamKey", getTeamKey());
 		attributes.put("accountId", getAccountId());
 		attributes.put("name", getName());
+		attributes.put("system", isSystem());
 
 		return attributes;
 	}
@@ -116,6 +117,12 @@ public class TeamWrapper
 
 		if (name != null) {
 			setName(name);
+		}
+
+		Boolean system = (Boolean)attributes.get("system");
+
+		if (system != null) {
+			setSystem(system);
 		}
 	}
 
@@ -204,6 +211,16 @@ public class TeamWrapper
 	}
 
 	/**
+	 * Returns the system of this team.
+	 *
+	 * @return the system of this team
+	 */
+	@Override
+	public boolean getSystem() {
+		return model.getSystem();
+	}
+
+	/**
 	 * Returns the team ID of this team.
 	 *
 	 * @return the team ID of this team
@@ -254,10 +271,15 @@ public class TeamWrapper
 	}
 
 	/**
-	 * NOTE FOR DEVELOPERS:
+	 * Returns <code>true</code> if this team is system.
 	 *
-	 * Never modify or reference this class directly. All methods that expect a team model instance should use the <code>Team</code> interface instead.
+	 * @return <code>true</code> if this team is system; <code>false</code> otherwise
 	 */
+	@Override
+	public boolean isSystem() {
+		return model.isSystem();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
@@ -331,6 +353,16 @@ public class TeamWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	 * Sets whether this team is system.
+	 *
+	 * @param system the system of this team
+	 */
+	@Override
+	public void setSystem(boolean system) {
+		model.setSystem(system);
 	}
 
 	/**

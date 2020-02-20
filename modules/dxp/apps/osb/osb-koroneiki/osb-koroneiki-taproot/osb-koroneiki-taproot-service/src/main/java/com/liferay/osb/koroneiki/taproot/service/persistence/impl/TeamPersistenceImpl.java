@@ -79,7 +79,7 @@ import org.osgi.service.component.annotations.Reference;
 public class TeamPersistenceImpl
 	extends BasePersistenceImpl<Team> implements TeamPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TeamUtil</code> to access the team persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -258,12 +258,12 @@ public class TeamPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -416,8 +416,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -673,8 +673,8 @@ public class TeamPersistenceImpl
 
 			return (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -720,8 +720,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -953,10 +953,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -1019,8 +1019,8 @@ public class TeamPersistenceImpl
 
 			return count.intValue();
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1216,12 +1216,12 @@ public class TeamPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -1392,8 +1392,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1662,8 +1662,8 @@ public class TeamPersistenceImpl
 
 			return (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1712,8 +1712,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1957,10 +1957,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -2028,8 +2028,8 @@ public class TeamPersistenceImpl
 
 			return count.intValue();
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -2175,13 +2175,13 @@ public class TeamPersistenceImpl
 					cacheResult(team);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(
 						_finderPathFetchByTeamKey, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -2260,10 +2260,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -2431,12 +2431,12 @@ public class TeamPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -2589,8 +2589,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -2824,8 +2824,8 @@ public class TeamPersistenceImpl
 
 			return (List<Team>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -2871,8 +2871,8 @@ public class TeamPersistenceImpl
 
 			return array;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -3081,10 +3081,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -3134,8 +3134,8 @@ public class TeamPersistenceImpl
 
 			return count.intValue();
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -3300,13 +3300,13 @@ public class TeamPersistenceImpl
 					cacheResult(team);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(
 						_finderPathFetchByAI_N, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -3393,10 +3393,10 @@ public class TeamPersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -3414,6 +3414,247 @@ public class TeamPersistenceImpl
 	private static final String _FINDER_COLUMN_AI_N_NAME_3 =
 		"(team.name IS NULL OR team.name = '')";
 
+	private FinderPath _finderPathFetchByAI_S;
+	private FinderPath _finderPathCountByAI_S;
+
+	/**
+	 * Returns the team where accountId = &#63; and system = &#63; or throws a <code>NoSuchTeamException</code> if it could not be found.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the matching team
+	 * @throws NoSuchTeamException if a matching team could not be found
+	 */
+	@Override
+	public Team findByAI_S(long accountId, boolean system)
+		throws NoSuchTeamException {
+
+		Team team = fetchByAI_S(accountId, system);
+
+		if (team == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("accountId=");
+			msg.append(accountId);
+
+			msg.append(", system=");
+			msg.append(system);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchTeamException(msg.toString());
+		}
+
+		return team;
+	}
+
+	/**
+	 * Returns the team where accountId = &#63; and system = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the matching team, or <code>null</code> if a matching team could not be found
+	 */
+	@Override
+	public Team fetchByAI_S(long accountId, boolean system) {
+		return fetchByAI_S(accountId, system, true);
+	}
+
+	/**
+	 * Returns the team where accountId = &#63; and system = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching team, or <code>null</code> if a matching team could not be found
+	 */
+	@Override
+	public Team fetchByAI_S(
+		long accountId, boolean system, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {accountId, system};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByAI_S, finderArgs, this);
+		}
+
+		if (result instanceof Team) {
+			Team team = (Team)result;
+
+			if ((accountId != team.getAccountId()) ||
+				(system != team.isSystem())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_TEAM_WHERE);
+
+			query.append(_FINDER_COLUMN_AI_S_ACCOUNTID_2);
+
+			query.append(_FINDER_COLUMN_AI_S_SYSTEM_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(accountId);
+
+				qPos.add(system);
+
+				List<Team> list = q.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByAI_S, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {accountId, system};
+							}
+
+							_log.warn(
+								"TeamPersistenceImpl.fetchByAI_S(long, boolean, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					Team team = list.get(0);
+
+					result = team;
+
+					cacheResult(team);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByAI_S, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Team)result;
+		}
+	}
+
+	/**
+	 * Removes the team where accountId = &#63; and system = &#63; from the database.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the team that was removed
+	 */
+	@Override
+	public Team removeByAI_S(long accountId, boolean system)
+		throws NoSuchTeamException {
+
+		Team team = findByAI_S(accountId, system);
+
+		return remove(team);
+	}
+
+	/**
+	 * Returns the number of teams where accountId = &#63; and system = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the number of matching teams
+	 */
+	@Override
+	public int countByAI_S(long accountId, boolean system) {
+		FinderPath finderPath = _finderPathCountByAI_S;
+
+		Object[] finderArgs = new Object[] {accountId, system};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TEAM_WHERE);
+
+			query.append(_FINDER_COLUMN_AI_S_ACCOUNTID_2);
+
+			query.append(_FINDER_COLUMN_AI_S_SYSTEM_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(accountId);
+
+				qPos.add(system);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_AI_S_ACCOUNTID_2 =
+		"team.accountId = ? AND ";
+
+	private static final String _FINDER_COLUMN_AI_S_SYSTEM_2 =
+		"team.system = ?";
+
 	public TeamPersistenceImpl() {
 		setModelClass(Team.class);
 
@@ -3423,6 +3664,7 @@ public class TeamPersistenceImpl
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
+		dbColumnNames.put("system", "system_");
 
 		setDBColumnNames(dbColumnNames);
 	}
@@ -3443,6 +3685,10 @@ public class TeamPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByAI_N,
 			new Object[] {team.getAccountId(), team.getName()}, team);
+
+		finderCache.putResult(
+			_finderPathFetchByAI_S,
+			new Object[] {team.getAccountId(), team.isSystem()}, team);
 
 		team.resetOriginalValues();
 	}
@@ -3541,6 +3787,15 @@ public class TeamPersistenceImpl
 			_finderPathCountByAI_N, args, Long.valueOf(1), false);
 		finderCache.putResult(
 			_finderPathFetchByAI_N, args, teamModelImpl, false);
+
+		args = new Object[] {
+			teamModelImpl.getAccountId(), teamModelImpl.isSystem()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByAI_S, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByAI_S, args, teamModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
@@ -3581,6 +3836,27 @@ public class TeamPersistenceImpl
 
 			finderCache.removeResult(_finderPathCountByAI_N, args);
 			finderCache.removeResult(_finderPathFetchByAI_N, args);
+		}
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+				teamModelImpl.getAccountId(), teamModelImpl.isSystem()
+			};
+
+			finderCache.removeResult(_finderPathCountByAI_S, args);
+			finderCache.removeResult(_finderPathFetchByAI_S, args);
+		}
+
+		if ((teamModelImpl.getColumnBitmask() &
+			 _finderPathFetchByAI_S.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {
+				teamModelImpl.getOriginalAccountId(),
+				teamModelImpl.getOriginalSystem()
+			};
+
+			finderCache.removeResult(_finderPathCountByAI_S, args);
+			finderCache.removeResult(_finderPathFetchByAI_S, args);
 		}
 	}
 
@@ -3645,11 +3921,11 @@ public class TeamPersistenceImpl
 
 			return remove(team);
 		}
-		catch (NoSuchTeamException nsee) {
-			throw nsee;
+		catch (NoSuchTeamException noSuchEntityException) {
+			throw noSuchEntityException;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -3672,8 +3948,8 @@ public class TeamPersistenceImpl
 				session.delete(team);
 			}
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -3751,8 +4027,8 @@ public class TeamPersistenceImpl
 				team = (Team)session.merge(team);
 			}
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -4030,12 +4306,12 @@ public class TeamPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -4079,11 +4355,11 @@ public class TeamPersistenceImpl
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -4221,6 +4497,18 @@ public class TeamPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAI_N",
 			new String[] {Long.class.getName(), String.class.getName()});
+
+		_finderPathFetchByAI_S = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, TeamImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByAI_S",
+			new String[] {Long.class.getName(), Boolean.class.getName()},
+			TeamModelImpl.ACCOUNTID_COLUMN_BITMASK |
+			TeamModelImpl.SYSTEM_COLUMN_BITMASK);
+
+		_finderPathCountByAI_S = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAI_S",
+			new String[] {Long.class.getName(), Boolean.class.getName()});
 	}
 
 	@Deactivate
@@ -4317,14 +4605,14 @@ public class TeamPersistenceImpl
 		TeamPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid"});
+		new String[] {"uuid", "system"});
 
 	static {
 		try {
 			Class.forName(KoroneikiPersistenceConstants.class.getName());
 		}
-		catch (ClassNotFoundException cnfe) {
-			throw new ExceptionInInitializerError(cnfe);
+		catch (ClassNotFoundException classNotFoundException) {
+			throw new ExceptionInInitializerError(classNotFoundException);
 		}
 	}
 

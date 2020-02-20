@@ -32,22 +32,16 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class TeamLocalServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link TeamLocalServiceUtil} to access the team local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	public static com.liferay.osb.koroneiki.taproot.model.Team addTeam(
-			long userId, long accountId, String name)
+			long userId, long accountId, String name, boolean system)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().addTeam(userId, accountId, name);
+		return getService().addTeam(userId, accountId, name, system);
 	}
 
 	/**
@@ -267,6 +261,9 @@ public class TeamLocalServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	public static com.liferay.portal.kernel.model.PersistedModel
 			getPersistedModel(java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -349,6 +346,12 @@ public class TeamLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().search(companyId, keywords, start, end, sort);
+	}
+
+	public static void syncDefaultTeam(long accountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().syncDefaultTeam(accountId);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Team updateTeam(

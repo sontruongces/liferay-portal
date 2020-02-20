@@ -974,6 +974,14 @@ public abstract class BaseTeamResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("system", additionalAssertFieldName)) {
+				if (team.getSystem() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("teamRoles", additionalAssertFieldName)) {
 				if (team.getTeamRoles() == null) {
 					valid = false;
@@ -1101,6 +1109,14 @@ public abstract class BaseTeamResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("system", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(team1.getSystem(), team2.getSystem())) {
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("teamRoles", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						team1.getTeamRoles(), team2.getTeamRoles())) {
@@ -1145,6 +1161,16 @@ public abstract class BaseTeamResourceTestCase {
 			if (Objects.equals("name", fieldName)) {
 				if (!Objects.deepEquals(
 						team.getName(), jsonObject.getString("name"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("system", fieldName)) {
+				if (!Objects.deepEquals(
+						team.getSystem(), jsonObject.getBoolean("system"))) {
 
 					return false;
 				}
@@ -1305,6 +1331,11 @@ public abstract class BaseTeamResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("system")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("teamRoles")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1339,6 +1370,7 @@ public abstract class BaseTeamResourceTestCase {
 				dateModified = RandomTestUtil.nextDate();
 				key = RandomTestUtil.randomString();
 				name = RandomTestUtil.randomString();
+				system = RandomTestUtil.randomBoolean();
 			}
 		};
 	}

@@ -77,7 +77,7 @@ public abstract class TeamAccountRoleLocalServiceBaseImpl
 	implements AopService, IdentifiableOSGiService,
 			   TeamAccountRoleLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TeamAccountRoleLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalServiceUtil</code>.
@@ -303,6 +303,9 @@ public abstract class TeamAccountRoleLocalServiceBaseImpl
 			(TeamAccountRole)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
@@ -400,8 +403,8 @@ public abstract class TeamAccountRoleLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

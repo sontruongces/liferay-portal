@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TeamPersistence extends BasePersistence<Team> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TeamUtil} to access the team persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
@@ -767,6 +767,56 @@ public interface TeamPersistence extends BasePersistence<Team> {
 	 * @return the number of matching teams
 	 */
 	public int countByAI_N(long accountId, String name);
+
+	/**
+	 * Returns the team where accountId = &#63; and system = &#63; or throws a <code>NoSuchTeamException</code> if it could not be found.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the matching team
+	 * @throws NoSuchTeamException if a matching team could not be found
+	 */
+	public Team findByAI_S(long accountId, boolean system)
+		throws NoSuchTeamException;
+
+	/**
+	 * Returns the team where accountId = &#63; and system = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the matching team, or <code>null</code> if a matching team could not be found
+	 */
+	public Team fetchByAI_S(long accountId, boolean system);
+
+	/**
+	 * Returns the team where accountId = &#63; and system = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching team, or <code>null</code> if a matching team could not be found
+	 */
+	public Team fetchByAI_S(
+		long accountId, boolean system, boolean useFinderCache);
+
+	/**
+	 * Removes the team where accountId = &#63; and system = &#63; from the database.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the team that was removed
+	 */
+	public Team removeByAI_S(long accountId, boolean system)
+		throws NoSuchTeamException;
+
+	/**
+	 * Returns the number of teams where accountId = &#63; and system = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the number of matching teams
+	 */
+	public int countByAI_S(long accountId, boolean system);
 
 	/**
 	 * Caches the team in the entity cache if it is enabled.

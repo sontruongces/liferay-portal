@@ -33,7 +33,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TeamAccountRole extends PersistedModel, TeamAccountRoleModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.osb.koroneiki.taproot.model.impl.TeamAccountRoleImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

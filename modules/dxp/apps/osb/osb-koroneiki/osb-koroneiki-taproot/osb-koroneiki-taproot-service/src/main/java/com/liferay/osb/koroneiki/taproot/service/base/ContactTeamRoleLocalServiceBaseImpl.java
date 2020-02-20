@@ -77,7 +77,7 @@ public abstract class ContactTeamRoleLocalServiceBaseImpl
 	implements AopService, ContactTeamRoleLocalService,
 			   IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ContactTeamRoleLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleLocalServiceUtil</code>.
@@ -305,6 +305,9 @@ public abstract class ContactTeamRoleLocalServiceBaseImpl
 			(ContactTeamRole)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
@@ -402,8 +405,8 @@ public abstract class ContactTeamRoleLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

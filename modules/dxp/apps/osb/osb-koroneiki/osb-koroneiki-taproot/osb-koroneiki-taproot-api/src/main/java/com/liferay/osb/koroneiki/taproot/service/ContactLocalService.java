@@ -59,7 +59,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ContactLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ContactLocalServiceUtil} to access the contact local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
@@ -287,6 +287,9 @@ public interface ContactLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

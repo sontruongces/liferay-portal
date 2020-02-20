@@ -173,6 +173,16 @@ public class TeamSerDes {
 			sb.append("\"");
 		}
 
+		if (team.getSystem() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"system\": ");
+
+			sb.append(team.getSystem());
+		}
+
 		if (team.getTeamRoles() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -257,6 +267,13 @@ public class TeamSerDes {
 			map.put("name", String.valueOf(team.getName()));
 		}
 
+		if (team.getSystem() == null) {
+			map.put("system", null);
+		}
+		else {
+			map.put("system", String.valueOf(team.getSystem()));
+		}
+
 		if (team.getTeamRoles() == null) {
 			map.put("teamRoles", null);
 		}
@@ -331,6 +348,11 @@ public class TeamSerDes {
 			else if (Objects.equals(jsonParserFieldName, "name")) {
 				if (jsonParserFieldValue != null) {
 					team.setName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "system")) {
+				if (jsonParserFieldValue != null) {
+					team.setSystem((Boolean)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "teamRoles")) {

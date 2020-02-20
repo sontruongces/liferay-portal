@@ -81,7 +81,7 @@ public abstract class ContactLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements AopService, ContactLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ContactLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.ContactLocalServiceUtil</code>.
@@ -372,6 +372,9 @@ public abstract class ContactLocalServiceBaseImpl
 		return contactLocalService.deleteContact((Contact)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
@@ -482,8 +485,8 @@ public abstract class ContactLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

@@ -76,7 +76,7 @@ public class TeamCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -98,6 +98,8 @@ public class TeamCacheModel
 		sb.append(accountId);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", system=");
+		sb.append(system);
 		sb.append("}");
 
 		return sb.toString();
@@ -150,6 +152,8 @@ public class TeamCacheModel
 			teamImpl.setName(name);
 		}
 
+		teamImpl.setSystem(system);
+
 		teamImpl.resetOriginalValues();
 
 		return teamImpl;
@@ -171,6 +175,8 @@ public class TeamCacheModel
 
 		accountId = objectInput.readLong();
 		name = objectInput.readUTF();
+
+		system = objectInput.readBoolean();
 	}
 
 	@Override
@@ -207,6 +213,8 @@ public class TeamCacheModel
 		else {
 			objectOutput.writeUTF(name);
 		}
+
+		objectOutput.writeBoolean(system);
 	}
 
 	public long mvccVersion;
@@ -219,5 +227,6 @@ public class TeamCacheModel
 	public String teamKey;
 	public long accountId;
 	public String name;
+	public boolean system;
 
 }

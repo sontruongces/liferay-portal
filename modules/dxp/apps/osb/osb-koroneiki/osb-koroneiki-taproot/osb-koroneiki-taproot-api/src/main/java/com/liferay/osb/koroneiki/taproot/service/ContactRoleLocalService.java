@@ -59,7 +59,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ContactRoleLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ContactRoleLocalServiceUtil} to access the contact role local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactRoleLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
@@ -302,6 +302,9 @@ public interface ContactRoleLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

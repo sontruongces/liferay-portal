@@ -42,7 +42,7 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class TeamUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -980,6 +980,69 @@ public class TeamUtil {
 	 */
 	public static int countByAI_N(long accountId, String name) {
 		return getPersistence().countByAI_N(accountId, name);
+	}
+
+	/**
+	 * Returns the team where accountId = &#63; and system = &#63; or throws a <code>NoSuchTeamException</code> if it could not be found.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the matching team
+	 * @throws NoSuchTeamException if a matching team could not be found
+	 */
+	public static Team findByAI_S(long accountId, boolean system)
+		throws com.liferay.osb.koroneiki.taproot.exception.NoSuchTeamException {
+
+		return getPersistence().findByAI_S(accountId, system);
+	}
+
+	/**
+	 * Returns the team where accountId = &#63; and system = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the matching team, or <code>null</code> if a matching team could not be found
+	 */
+	public static Team fetchByAI_S(long accountId, boolean system) {
+		return getPersistence().fetchByAI_S(accountId, system);
+	}
+
+	/**
+	 * Returns the team where accountId = &#63; and system = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching team, or <code>null</code> if a matching team could not be found
+	 */
+	public static Team fetchByAI_S(
+		long accountId, boolean system, boolean useFinderCache) {
+
+		return getPersistence().fetchByAI_S(accountId, system, useFinderCache);
+	}
+
+	/**
+	 * Removes the team where accountId = &#63; and system = &#63; from the database.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the team that was removed
+	 */
+	public static Team removeByAI_S(long accountId, boolean system)
+		throws com.liferay.osb.koroneiki.taproot.exception.NoSuchTeamException {
+
+		return getPersistence().removeByAI_S(accountId, system);
+	}
+
+	/**
+	 * Returns the number of teams where accountId = &#63; and system = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param system the system
+	 * @return the number of matching teams
+	 */
+	public static int countByAI_S(long accountId, boolean system) {
+		return getPersistence().countByAI_S(accountId, system);
 	}
 
 	/**

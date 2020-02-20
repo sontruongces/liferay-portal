@@ -104,6 +104,7 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="teamKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="accountId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="system_" name="system" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 	<class dynamic-update="true" name="com.liferay.osb.koroneiki.taproot.model.impl.TeamAccountRoleImpl" table="Koroneiki_TeamAccountRole">
 		<composite-id class="com.liferay.osb.koroneiki.taproot.service.persistence.TeamAccountRolePK" name="primaryKey">

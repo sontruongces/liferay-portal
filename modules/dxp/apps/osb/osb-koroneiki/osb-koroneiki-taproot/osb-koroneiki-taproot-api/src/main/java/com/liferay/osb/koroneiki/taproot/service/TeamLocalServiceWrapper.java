@@ -30,17 +30,12 @@ public class TeamLocalServiceWrapper
 		_teamLocalService = teamLocalService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link TeamLocalServiceUtil} to access the team local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Team addTeam(
-			long userId, long accountId, String name)
+			long userId, long accountId, String name, boolean system)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _teamLocalService.addTeam(userId, accountId, name);
+		return _teamLocalService.addTeam(userId, accountId, name, system);
 	}
 
 	/**
@@ -275,6 +270,9 @@ public class TeamLocalServiceWrapper
 		return _teamLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)
@@ -362,6 +360,13 @@ public class TeamLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _teamLocalService.search(companyId, keywords, start, end, sort);
+	}
+
+	@Override
+	public void syncDefaultTeam(long accountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_teamLocalService.syncDefaultTeam(accountId);
 	}
 
 	@Override

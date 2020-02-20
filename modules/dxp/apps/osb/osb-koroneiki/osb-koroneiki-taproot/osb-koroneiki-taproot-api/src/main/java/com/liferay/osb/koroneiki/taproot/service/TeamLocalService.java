@@ -59,13 +59,14 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TeamLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TeamLocalServiceUtil} to access the team local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	@Indexable(type = IndexableType.REINDEX)
-	public Team addTeam(long userId, long accountId, String name)
+	public Team addTeam(
+			long userId, long accountId, String name, boolean system)
 		throws PortalException;
 
 	/**
@@ -222,6 +223,9 @@ public interface TeamLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
@@ -282,6 +286,8 @@ public interface TeamLocalService
 	public Hits search(
 			long companyId, String keywords, int start, int end, Sort sort)
 		throws PortalException;
+
+	public void syncDefaultTeam(long accountId) throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Team updateTeam(long teamId, String name) throws PortalException;

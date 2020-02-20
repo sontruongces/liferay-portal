@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TeamModel
 	extends BaseModel<Team>, MVCCModel, ShardedModel, StagedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a team model instance should use the {@link Team} interface instead.
@@ -225,5 +225,26 @@ public interface TeamModel
 	 * @param name the name of this team
 	 */
 	public void setName(String name);
+
+	/**
+	 * Returns the system of this team.
+	 *
+	 * @return the system of this team
+	 */
+	public boolean getSystem();
+
+	/**
+	 * Returns <code>true</code> if this team is system.
+	 *
+	 * @return <code>true</code> if this team is system; <code>false</code> otherwise
+	 */
+	public boolean isSystem();
+
+	/**
+	 * Sets whether this team is system.
+	 *
+	 * @param system the system of this team
+	 */
+	public void setSystem(boolean system);
 
 }

@@ -81,7 +81,7 @@ public abstract class TeamLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements AopService, IdentifiableOSGiService, TeamLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TeamLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.taproot.service.TeamLocalServiceUtil</code>.
@@ -367,6 +367,9 @@ public abstract class TeamLocalServiceBaseImpl
 		return teamLocalService.deleteTeam((Team)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
@@ -477,8 +480,8 @@ public abstract class TeamLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 
