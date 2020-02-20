@@ -50,7 +50,7 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 	public void setDescriptionFieldQueryBuilder(
 		DescriptionFieldQueryBuilder descriptionFieldQueryBuilder) {
 
-		this.descriptionFieldQueryBuilder = descriptionFieldQueryBuilder;
+		_descriptionFieldQueryBuilder = descriptionFieldQueryBuilder;
 	}
 
 	public void setSearchEngineInformation(
@@ -63,7 +63,7 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 	public void setTitleFieldQueryBuilder(
 		TitleFieldQueryBuilder titleFieldQueryBuilder) {
 
-		this.titleFieldQueryBuilder = titleFieldQueryBuilder;
+		_titleFieldQueryBuilder = titleFieldQueryBuilder;
 	}
 
 	public void unsetSearchEngineInformation(
@@ -91,11 +91,11 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 				 version.startsWith("6")) ||
 				vendor.startsWith("Solr")) {
 
-				return titleFieldQueryBuilder;
+				return _titleFieldQueryBuilder;
 			}
 		}
 
-		return descriptionFieldQueryBuilder;
+		return _descriptionFieldQueryBuilder;
 	}
 
 	protected FieldQueryBuilder getQueryBuilder(String fieldName) {
@@ -119,9 +119,7 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 		_fieldQueryBuilderFactories.remove(fieldQueryBuilderFactory);
 	}
 
-	protected DescriptionFieldQueryBuilder descriptionFieldQueryBuilder;
-	protected TitleFieldQueryBuilder titleFieldQueryBuilder;
-
+	private DescriptionFieldQueryBuilder _descriptionFieldQueryBuilder;
 	private final HashSet<FieldQueryBuilderFactory>
 		_fieldQueryBuilderFactories = new HashSet<>();
 
@@ -131,5 +129,7 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 		policyOption = ReferencePolicyOption.GREEDY
 	)
 	private volatile SearchEngineInformation _searchEngineInformation;
+
+	private TitleFieldQueryBuilder _titleFieldQueryBuilder;
 
 }

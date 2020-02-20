@@ -44,6 +44,32 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 		return fieldQueryBuilder.build(fieldName, keywords);
 	}
 
+	@Reference(unbind = "-")
+	public void setDescriptionFieldQueryBuilder(
+		DescriptionFieldQueryBuilder descriptionFieldQueryBuilder) {
+
+		_descriptionFieldQueryBuilder = descriptionFieldQueryBuilder;
+	}
+
+	public void setSearchEngineInformation(
+		SearchEngineInformation searchEngineInformation) {
+
+		_searchEngineInformation = searchEngineInformation;
+	}
+
+	@Reference(unbind = "-")
+	public void setTitleFieldQueryBuilder(
+		TitleFieldQueryBuilder titleFieldQueryBuilder) {
+
+		_titleFieldQueryBuilder = titleFieldQueryBuilder;
+	}
+
+	public void unsetSearchEngineInformation(
+		SearchEngineInformation searchEngineInformation) {
+
+		_searchEngineInformation = null;
+	}
+
 	@Reference(
 		cardinality = ReferenceCardinality.MULTIPLE,
 		policy = ReferencePolicy.DYNAMIC
@@ -63,11 +89,11 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 				 version.startsWith("6")) ||
 				vendor.startsWith("Solr")) {
 
-				return titleFieldQueryBuilder;
+				return _titleFieldQueryBuilder;
 			}
 		}
 
-		return descriptionFieldQueryBuilder;
+		return _descriptionFieldQueryBuilder;
 	}
 
 	protected FieldQueryBuilder getQueryBuilder(String fieldName) {
@@ -91,12 +117,7 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 		_fieldQueryBuilderFactories.remove(fieldQueryBuilderFactory);
 	}
 
-	@Reference
-	protected DescriptionFieldQueryBuilder descriptionFieldQueryBuilder;
-
-	@Reference
-	protected TitleFieldQueryBuilder titleFieldQueryBuilder;
-
+	private DescriptionFieldQueryBuilder _descriptionFieldQueryBuilder;
 	private final HashSet<FieldQueryBuilderFactory>
 		_fieldQueryBuilderFactories = new HashSet<>();
 
@@ -106,5 +127,7 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 		policyOption = ReferencePolicyOption.GREEDY
 	)
 	private volatile SearchEngineInformation _searchEngineInformation;
+
+	private TitleFieldQueryBuilder _titleFieldQueryBuilder;
 
 }
