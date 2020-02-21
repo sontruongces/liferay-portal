@@ -2,7 +2,7 @@
 
 <suppressions>
 	<source-check>
-		<suppress checks="JavaDeprecatedKernelClassesCheck" files="modules/dxp/.*" />
+		<suppress checks="JavaDeprecatedKernelClassesCheck" files=".*" />
 
 		<!-- Temporary suppressions for deprecated apps (LPS-100170) -->
 

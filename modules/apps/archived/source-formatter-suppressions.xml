@@ -2,8 +2,8 @@
 
 <suppressions>
 	<source-check>
-		<suppress checks="BNDDirectoryNameCheck" files="modules/apps/archived/.*" />
-		<suppress checks="JavaInternalPackageCheck" files="modules/apps/archived/.*" />
-		<suppress checks="JavaPackagePathCheck" files="modules/apps/archived/.*" />
+		<suppress checks="BNDDirectoryNameCheck" files=".*" />
+		<suppress checks="JavaInternalPackageCheck" files=".*" />
+		<suppress checks="JavaPackagePathCheck" files=".*" />
 	</source-check>
 </suppressions>
