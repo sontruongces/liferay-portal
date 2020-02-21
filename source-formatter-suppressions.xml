@@ -29,7 +29,6 @@
 		<suppress checks="MemberNameCheck" files="portal-impl/src/com/liferay/portlet/trash/util/TrashImpl\.java" />
 		<suppress checks="MemberNameCheck" files="portal-impl/test/unit/com/liferay/portal/bean/ConstantsBeanFactoryImplTest\.java" />
 		<suppress checks="MemberNameCheck" files="portal-impl/test/unit/com/liferay/portal/nio/intraband/proxy/IntrabandProxyUtilTest\.java" />
-		<suppress checks="MemberNameCheck" files="portal-test-integration/src/com/liferay/portal/search/test/BaseSearchTestCase\.java" />
 		<suppress checks="MethodNameCheck" files="portal-impl/src/com/liferay/portal/events/EventsProcessorUtil\.java" />
 		<suppress checks="MethodNameCheck" files="portal-impl/src/com/liferay/portal/spring/transaction/TransactionStatusAdapter\.java" />
 		<suppress checks="MethodNameCheck" files="portal-impl/src/com/liferay/portal/util/HttpImpl\.java" />
@@ -129,7 +128,6 @@
 		<suppress checks="BNDSuiteCheck" files="modules/apps/asset-tags-validator/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/bookmarks/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/calevent/app\.bnd" />
-		<suppress checks="BNDSuiteCheck" files="modules/apps/chat/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/currency-converter/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/dictionary/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/directory/app\.bnd" />
@@ -137,7 +135,6 @@
 		<suppress checks="BNDSuiteCheck" files="modules/apps/google-maps/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/journal-properties-transformer-listener/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/loan-calculator/app\.bnd" />
-		<suppress checks="BNDSuiteCheck" files="modules/apps/mail-reader/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/microblogs/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/network-utilities/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/opensocial/app\.bnd" />
@@ -160,14 +157,6 @@
 		<suppress checks="GradleDependencyVersionCheck" files="modules/sdk/.*" />
 		<suppress checks="GradleDependencyVersionCheck" files="modules/util/.*" />
 		<suppress checks="JavaProviderTypeAnnotationCheck" files="modules/private/.*" />
-
-		<!-- Temporary suppressions for project-templates (Chema) -->
-
-		<suppress checks="JSONDeprecatedPackagesCheck" files="modules/sdk/project-templates/project-templates-form-field/src/main/resources/archetype-resources/package\.json" />
-
-		<!-- Temporary suppressions for frontend build setup (Chema) -->
-
-		<suppress checks="JSONPackageJSONCheck" files="modules/apps/analytics/analytics-client-js/package\.json" />
 
 		<!-- Temporary suppressions for frontend React setup (LPS-99901, wincent) -->
 
