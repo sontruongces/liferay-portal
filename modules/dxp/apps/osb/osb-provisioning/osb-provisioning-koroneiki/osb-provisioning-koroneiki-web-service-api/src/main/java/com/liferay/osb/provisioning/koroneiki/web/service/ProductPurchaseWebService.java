@@ -24,12 +24,11 @@ import java.util.List;
 public interface ProductPurchaseWebService {
 
 	public List<ProductPurchase> getProductPurchases(
-			String filterString, int page, int pageSize,
-			String sortString)
+			String filterString, int page, int pageSize, String sortString)
 		throws Exception;
 
 	public ProductPurchase putProductPurchase(
-			String agentName, String productPurchaseKey, 
+			String agentName, String productPurchaseKey,
 			ProductPurchase productPurchase)
 		throws Exception;
 

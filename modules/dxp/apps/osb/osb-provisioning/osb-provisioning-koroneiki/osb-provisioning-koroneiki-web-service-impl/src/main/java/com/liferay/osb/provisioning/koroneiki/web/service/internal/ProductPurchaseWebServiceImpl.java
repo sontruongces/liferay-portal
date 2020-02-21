@@ -60,7 +60,7 @@ public class ProductPurchaseWebServiceImpl
 	}
 
 	public ProductPurchase putProductPurchase(
-			String agentName, String productPurchaseKey, 
+			String agentName, String productPurchaseKey,
 			ProductPurchase productPurchase)
 		throws Exception {
 
