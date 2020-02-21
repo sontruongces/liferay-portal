@@ -378,16 +378,6 @@ public class SelectDDMFormFieldTemplateContextContributorTest
 		);
 	}
 
-	protected JSONArray toJSONArray(String... strings) {
-		JSONArray jsonArray = _jsonFactory.createJSONArray();
-
-		for (String string : strings) {
-			jsonArray.put(string);
-		}
-
-		return jsonArray;
-	}
-
 	@Mock
 	private DDMFormFieldOptionsFactory _ddmFormFieldOptionsFactory;
 
@@ -395,9 +385,6 @@ public class SelectDDMFormFieldTemplateContextContributorTest
 
 	@Mock
 	private ResourceBundle _resourceBundle;
-
-	@Mock
-	private ResourceBundleLoader _resourceBundleLoader;
 
 	private final SelectDDMFormFieldTemplateContextContributor
 		_selectDDMFormFieldTemplateContextContributor =
