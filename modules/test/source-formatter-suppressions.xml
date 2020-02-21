@@ -7,6 +7,6 @@
 		<suppress checks="ParsePrimitiveTypeCheck" files="modules/test/arquillian-extension-junit-bridge/src/main/java/com/liferay/arquillian/extension/junit/bridge/server/TestBundleActivator\.java" />
 	</checkstyle>
 	<source-check>
-		<suppress checks="BNDIncludeResourceCheck" files="modules/test/external-data-source-test/bnd.bnd" />
+		<suppress checks="BNDIncludeResourceCheck" files="external-data-source-test/bnd.bnd" />
 	</source-check>
 </suppressions>
