@@ -3,7 +3,6 @@
 <suppressions>
 	<source-check>
 		<suppress checks="JavaDeprecatedJavadocCheck" files=".*" />
-		<suppress checks="JavaXMLSecurityCheck" files="modules/util/portal-tools-db-support/.*" />
 		<suppress checks="StringMethodsCheck" files="portal-tools-data-partitioning-sql-builder-postgresql/.*" />
 	</source-check>
 </suppressions>
