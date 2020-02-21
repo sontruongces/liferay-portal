@@ -250,7 +250,7 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 
 			var form =
 				document[
-					'<%= namespace + HtmlUtil.escapeJS(discussionTaglibHelper.getFormName()) %>'
+					'<%= namespace + randomNamespace + HtmlUtil.escapeJS(discussionTaglibHelper.getFormName()) %>'
 				];
 
 			Liferay.provide(window, '<%= randomNamespace %>afterLogin', function(
@@ -261,7 +261,7 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 					emailAddress: emailAddress
 				});
 
-				<%= namespace %>sendMessage(form, !anonymousAccount);
+				<%= namespace + randomNamespace %>sendMessage(form, !anonymousAccount);
 			});
 
 			Liferay.provide(window, '<%= randomNamespace %>deleteMessage', function(i) {
@@ -273,7 +273,7 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 						<%= randomNamespace + Constants.CMD %>: '<%= Constants.DELETE %>'
 					});
 
-					<%= namespace %>sendMessage(form);
+					<%= namespace + randomNamespace %>sendMessage(form);
 				}
 			});
 
@@ -329,7 +329,7 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 						uri: '<%= loginURL.toString() %>'
 					});
 				} else {
-					<%= namespace %>sendMessage(form);
+					<%= namespace + randomNamespace %>sendMessage(form);
 
 					editorInstance.dispose();
 				}
@@ -343,7 +343,7 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 					.scrollIntoView();
 			});
 
-			Liferay.provide(window, '<%= namespace %>sendMessage', function(
+			Liferay.provide(window, '<%= namespace + randomNamespace %>sendMessage', function(
 				form,
 				refreshPage
 			) {
@@ -560,7 +560,7 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 						: '<%= Constants.UNSUBSCRIBE_FROM_COMMENTS %>'
 				});
 
-				<%= namespace %>sendMessage(form);
+				<%= namespace + randomNamespace %>sendMessage(form);
 			});
 
 			Liferay.provide(window, '<%= randomNamespace %>updateMessage', function(
@@ -585,7 +585,7 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 						<%= randomNamespace + Constants.CMD %>: '<%= Constants.UPDATE %>'
 					});
 
-					<%= namespace %>sendMessage(form);
+					<%= namespace + randomNamespace %>sendMessage(form);
 				}
 
 				editorInstance.dispose();
