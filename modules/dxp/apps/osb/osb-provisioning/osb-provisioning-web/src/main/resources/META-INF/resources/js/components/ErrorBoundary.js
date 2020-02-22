@@ -1,5 +1,9 @@
-import React from 'react';
+/* eslint-disable no-console */
+
 import PropTypes from 'prop-types';
+import React from 'react';
+
+import config from './utilities/config';
 
 export default class ErrorBoundary extends React.Component {
 	state = {
@@ -19,7 +23,7 @@ export default class ErrorBoundary extends React.Component {
 			info
 		});
 
-		if (process.env.NODE_ENV === 'development') {
+		if (config.env === 'development') {
 			console.log(`Error: ${error}`);
 			console.log(`Error Info: ${JSON.stringify(info)}`);
 		}
