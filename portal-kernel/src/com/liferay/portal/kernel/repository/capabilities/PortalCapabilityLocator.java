@@ -37,6 +37,16 @@ public interface PortalCapabilityLocator {
 	public DynamicCapability getDynamicCapability(
 		DocumentRepository documentRepository, String repositoryClassName);
 
+	/**
+	 * @deprecated As of Wilberforce (7.0.x), with no direct replacement
+	 */
+	@Deprecated
+	public default ProcessorCapability getProcessorCapability(
+		DocumentRepository documentRepository) {
+
+		throw new UnsupportedOperationException();
+	}
+
 	public ProcessorCapability getProcessorCapability(
 		DocumentRepository documentRepository,
 		ProcessorCapability.ResourceGenerationStrategy
