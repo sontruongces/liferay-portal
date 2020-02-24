@@ -48,7 +48,7 @@ public class ItemSelectorKeyUtil {
 			key = StringBundler.concat(
 				StringUtil.lowerCase(
 					StringUtil.removeSubstring(clazz.getSimpleName(), suffix)),
-				StringPool.UNDERLINE, _ATOMIC_INTEGER.incrementAndGet());
+				StringPool.UNDERLINE, _atomicInteger.incrementAndGet());
 
 			String oldKey = _itemSelectorKeysMap.putIfAbsent(
 				clazz.getName(), key);
@@ -61,7 +61,7 @@ public class ItemSelectorKeyUtil {
 		return key;
 	}
 
-	private static final AtomicInteger _ATOMIC_INTEGER = new AtomicInteger();
+	private static final AtomicInteger _atomicInteger = new AtomicInteger();
 
 	private static final Map<String, String> _itemSelectorKeysMap =
 		new ConcurrentHashMap<>();
