@@ -62,7 +62,6 @@ public class ItemSelectorKeyUtil {
 	}
 
 	private static final AtomicInteger _atomicInteger = new AtomicInteger();
-
 	private static final Map<String, String> _itemSelectorKeysMap =
 		new ConcurrentHashMap<>();
 
