@@ -116,6 +116,10 @@ public class ClassLoaderAggregateProperties extends CompositeConfiguration {
 			value = System.getProperty(key);
 		}
 
+		if ((value == null) && key.equals("easyconf:companyId")) {
+			value = _companyId;
+		}
+
 		return value;
 	}
 
@@ -222,6 +226,8 @@ public class ClassLoaderAggregateProperties extends CompositeConfiguration {
 			_prefixedSystemConfiguration);
 		tempCompositeConfiguration.addConfiguration(newConfiguration);
 		tempCompositeConfiguration.addConfiguration(_systemConfiguration);
+		tempCompositeConfiguration.addProperty(
+			"easyconf:companyId", _companyId);
 
 		String[] fileNames = tempCompositeConfiguration.getStringArray(
 			"include-and-override");
