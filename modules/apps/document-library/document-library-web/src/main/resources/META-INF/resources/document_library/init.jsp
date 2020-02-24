@@ -15,7 +15,6 @@
 --%>
 
 <%@ include file="/init.jsp" %>
-
 <%@ taglib uri="http://liferay.com/tld/soy" prefix="soy" %>
 
 <%@ page import="com.liferay.bulk.selection.BulkSelectionRunner" %><%@
@@ -31,7 +30,9 @@ page import="com.liferay.portal.kernel.module.configuration.ConfigurationProvide
 page import="com.liferay.portal.kernel.util.LocaleUtil" %><%@
 page import="com.liferay.portal.util.RepositoryUtil" %>
 
-<%@ page import="java.util.Objects" %>
+<%@ page import="java.util.Locale" %><%@
+page import="java.util.Objects" %><%@
+page import="java.util.Set" %>
 
 <%
 DLRequestHelper dlRequestHelper = new DLRequestHelper(request);
