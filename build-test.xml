@@ -2733,20 +2733,17 @@ ${tomcat-gc-log}
 						select="\1"
 					/>
 
-					<get-testcase-property property.name="osgi.app.includes" />
+					<exec executable="curl" outputproperty="curl.output.elasticsearch.indices">
+						<arg line="&apos;localhost:9200/liferay-${companyId}/_search?pretty&apos; -H &apos;Content-Type: application/json&apos; -d&apos;{&quot;query&quot;: {&quot;bool&quot;: {&quot;must&quot;: [{ &quot;match&quot;: { &quot;userName&quot;: &quot;test test&quot; } }],&quot;must_not&quot;: [{ &quot;match&quot;: { &quot;hidden&quot;: &quot;true&quot; } }]}}}&apos;" />
+					</exec>
 
-					<if>
-						<or>
-							<equals arg1="${suite.search.engine}" arg2="elasticsearch7" />
-							<contains string="${osgi.app.includes}" substring="portal-search-elasticsearch7" />
-						</or>
-						<then>
-							<ant antfile="build-test-elasticsearch7.xml" target="print-elasticsearch-indices" />
-						</then>
-						<else>
-							<ant antfile="build-test-elasticsearch6.xml" target="print-elasticsearch-indices" />
-						</else>
-					</if>
+					<echo></echo>
+					<echo>##</echo>
+					<echo>## Elasticsearch Indices</echo>
+					<echo>##</echo>
+					<echo></echo>
+					<echo>${curl.output.elasticsearch.indices}</echo>
+					<echo></echo>
 				</else>
 			</if>
 		</sequential>
