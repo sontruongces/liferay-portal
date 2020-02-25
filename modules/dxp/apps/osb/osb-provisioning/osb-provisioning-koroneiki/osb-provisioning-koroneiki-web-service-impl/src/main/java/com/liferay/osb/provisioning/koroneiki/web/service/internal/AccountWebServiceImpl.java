@@ -96,7 +96,10 @@ public class AccountWebServiceImpl implements AccountWebService {
 			"nestedFields", "assignedTeams,productPurchases"
 		).build();
 
-		_accountDetailsResource = builder.endpoint(
+		AccountResource.Builder accountDetailsBuilder =
+			AccountResource.builder();
+
+		_accountDetailsResource = accountDetailsBuilder.endpoint(
 			koroneikiConfiguration.host(), koroneikiConfiguration.port(),
 			koroneikiConfiguration.scheme()
 		).header(
