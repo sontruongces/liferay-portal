@@ -190,7 +190,7 @@ public class ContactRoleLocalServiceImpl
 		params.put("contact", new Long[] {contactId, contactId});
 
 		return contactRoleFinder.findByN_T(
-			null, new String[0], params, start, end);
+			null, new String[] {null}, params, start, end);
 	}
 
 	public ContactRole getContactRole(String contactRoleKey)
