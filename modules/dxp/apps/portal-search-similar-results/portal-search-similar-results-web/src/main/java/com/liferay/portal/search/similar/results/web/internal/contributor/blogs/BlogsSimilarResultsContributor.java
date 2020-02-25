@@ -110,7 +110,13 @@ public class BlogsSimilarResultsContributor
 
 		AssetRenderer<?> assetRenderer = destinationHelper.getAssetRenderer();
 
-		destinationBuilder.replace(urlTitle, assetRenderer.getUrlTitle());
+		destinationBuilder.replace(
+			_getBlogsURLParameterPattern(urlTitle),
+			_getBlogsURLParameterPattern(assetRenderer.getUrlTitle()));
+	}
+
+	private String _getBlogsURLParameterPattern(String parameterValue) {
+		return "-/blogs/" + parameterValue + "?";
 	}
 
 	private AssetEntryLocalService _assetEntryLocalService;
