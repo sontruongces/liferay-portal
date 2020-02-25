@@ -55,10 +55,10 @@ import org.apache.commons.configuration.SystemConfiguration;
 public class ClassLoaderAggregateProperties extends CompositeConfiguration {
 
 	public ClassLoaderAggregateProperties(
-		ClassLoader classLoader, String companyId, String componentName) {
+		ClassLoader classLoader, String companyWebId, String componentName) {
 
 		_classLoader = classLoader;
-		_companyId = companyId;
+		_companyWebId = companyWebId;
 		_componentName = componentName;
 
 		_prefixedSystemConfiguration = new SubsetConfiguration(
@@ -116,8 +116,8 @@ public class ClassLoaderAggregateProperties extends CompositeConfiguration {
 			value = System.getProperty(key);
 		}
 
-		if ((value == null) && key.equals("easyconf:companyId")) {
-			value = _companyId;
+		if ((value == null) && key.equals("company:webId")) {
+			value = _companyWebId;
 		}
 
 		return value;
@@ -226,8 +226,7 @@ public class ClassLoaderAggregateProperties extends CompositeConfiguration {
 			_prefixedSystemConfiguration);
 		tempCompositeConfiguration.addConfiguration(newConfiguration);
 		tempCompositeConfiguration.addConfiguration(_systemConfiguration);
-		tempCompositeConfiguration.addProperty(
-			"easyconf:companyId", _companyId);
+		tempCompositeConfiguration.addProperty("company:webId", _companyWebId);
 
 		String[] fileNames = tempCompositeConfiguration.getStringArray(
 			"include-and-override");
@@ -410,7 +409,7 @@ public class ClassLoaderAggregateProperties extends CompositeConfiguration {
 	private final CompositeConfiguration _baseCompositeConfiguration =
 		new CompositeConfiguration();
 	private final ClassLoader _classLoader;
-	private final String _companyId;
+	private final String _companyWebId;
 	private final String _componentName;
 	private final CompositeConfiguration _globalCompositeConfiguration =
 		new CompositeConfiguration();

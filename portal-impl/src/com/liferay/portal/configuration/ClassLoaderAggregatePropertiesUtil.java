@@ -36,13 +36,13 @@ import org.apache.commons.configuration.Configuration;
 public class ClassLoaderAggregatePropertiesUtil {
 
 	public static ClassLoaderAggregateProperties create(
-		ClassLoader classLoader, String companyId, String componentName) {
+		ClassLoader classLoader, String companyWebId, String componentName) {
 
 		SystemProperties.set("base.path", ".");
 
 		ClassLoaderAggregateProperties classLoaderAggregateProperties =
 			new ClassLoaderAggregateProperties(
-				classLoader, companyId, componentName);
+				classLoader, companyWebId, componentName);
 
 		if (_log.isInfoEnabled()) {
 			_log.info(
