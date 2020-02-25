@@ -60,7 +60,7 @@ ProductPurchase slaProductPurchase = accountReader.getSLAProductPurchase(koronei
 		<%
 		Product product = slaProductPurchase.getProduct();
 
-		String name = StringUtil.replace(product.getName(), " Subscription", StringPool.BLANK);
+		String name = StringUtil.removeSubstring(product.getName(), " Subscription");
 		%>
 
 		<%= HtmlUtil.escape(name) %>
