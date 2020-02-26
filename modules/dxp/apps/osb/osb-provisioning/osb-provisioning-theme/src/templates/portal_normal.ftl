@@ -21,6 +21,8 @@
 <@liferay.control_menu />
 
 <div class="container-fluid" id="wrapper">
+	<#include "${full_templates_path}/icons.ftl" parse=false />
+
 	<header id="banner">
 		<div class="navbar navbar-classic navbar-top py-3">
 			<div class="container flex-row-reverse user-personal-bar">

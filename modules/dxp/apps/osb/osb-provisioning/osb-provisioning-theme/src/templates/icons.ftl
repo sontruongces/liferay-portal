@@ -1,4 +1,17 @@
 <svg display="none" height="0" version="1.1" width="0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<symbol id="account-icon" viewBox="0 0 56 56">
+		<circle cx="28" cy="28" r="28" fill="#272833" fill-opacity=".06"/>
+		<g clip-path="url(#clip0)" fill="#393A4A">
+			<path d="M21.25 22h6a.75.75 0 100-1.5h-6a.75.75 0 100 1.5zM29.5 37v1.5h3v-5.25h-3V37z"/><path d="M37.75 23.5H31v-5.25a.75.75 0 00-.75-.75h-12a.75.75 0 00-.75.75v19.5a.75.75 0 00.75.75H28v-6a.75.75 0 01.75-.75h4.5a.75.75 0 01.75.75v6h3.75a.75.75 0 00.75-.75v-13.5a.75.75 0 00-.75-.75zM19 37V19h10.5v4.5h-8.25a.75.75 0 100 1.5h2.25v1.5h-2.25a.75.75 0 100 1.5h2.25v1.5h-2.25a.75.75 0 100 1.5h2.25v1.5h-2.25a.75.75 0 100 1.5h2.25v3H19zm10.5-6h-2.25a.75.75 0 110-1.5h2.25a.75.75 0 110 1.5zm0-3h-2.25a.75.75 0 110-1.5h2.25a.75.75 0 110 1.5zm5.25 3H32.5a.75.75 0 110-1.5h2.25a.75.75 0 110 1.5zm0-3H32.5a.75.75 0 110-1.5h2.25a.75.75 0 110 1.5z"/>
+		</g>
+
+		<defs>
+			<clipPath id="clip0">
+				<path fill="#fff" d="M17.5 17.5h21v21h-21z"/>
+			</clipPath>
+		</defs>
+	</symbol>
+
 	<symbol id="bars" viewBox="0 0 32 32">
 		<path d="M23 10H9a1 1 0 010-2h14a1 1 0 010 2zM23 17H9a1 1 0 010-2h14a1 1 0 010 2zM9 24h14a1 1 0 000-2H9a1 1 0 000 2z" fill="#FFF"/>
 	</symbol>
