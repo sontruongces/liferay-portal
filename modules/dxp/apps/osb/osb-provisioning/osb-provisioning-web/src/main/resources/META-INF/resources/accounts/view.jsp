@@ -18,6 +18,8 @@
 
 <%
 AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse);
+
+Map<String, Object> data = new HashMap<>();
 %>
 
 <div class="container-fluid-1280">
@@ -128,4 +130,11 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 			markupView="lexicon"
 		/>
 	</liferay-ui:search-container>
+</div>
+
+<div class="test-component">
+	<react:component
+		data="<%= data %>"
+		module="js/index"
+	/>
 </div>
