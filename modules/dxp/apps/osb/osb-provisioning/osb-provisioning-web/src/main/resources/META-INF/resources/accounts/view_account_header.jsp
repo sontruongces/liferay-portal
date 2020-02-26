@@ -25,79 +25,104 @@ Team partnerTeam = accountReader.getPartnerTeam(koroneikiAccount);
 ProductPurchase slaProductPurchase = accountReader.getSLAProductPurchase(koroneikiAccount);
 %>
 
-<liferay-ui:breadcrumb
-	showCurrentGroup="<%= false %>"
-	showGuestGroup="<%= false %>"
-	showLayout="<%= true %>"
-	showParentGroups="<%= false %>"
-/>
-
-<div>
-	<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
-</div>
-
-<div>
-	<liferay-ui:message key="status" />:
-
-	<%= koroneikiAccount.getStatus() %>
-</div>
-
-<div>
-	<liferay-ui:message key="sup-region" />:
-</div>
-
-<div>
-	<liferay-ui:message key="country" />:
-
-	<%= viewAccountDisplayContext.getPrimaryCountry() %>
-</div>
-
-<div>
-	<liferay-ui:message key="sla" />:
-
-	<c:if test="<%= slaProductPurchase != null %>">
-
-		<%
-		Product product = slaProductPurchase.getProduct();
-
-		String name = StringUtil.removeSubstring(product.getName(), " Subscription");
-		%>
-
-		<%= HtmlUtil.escape(name) %>
-	</c:if>
-</div>
-
-<div>
-	<liferay-ui:message key="tier" />:
-
-	<%= koroneikiAccount.getTier() %>
-</div>
-
-<div>
-	<liferay-ui:message key="ewsa" />:
-
-	<c:if test="<%= viewAccountDisplayContext.isEWSA() %>">
-		<liferay-ui:message key="yes" />
-	</c:if>
-</div>
-
-<div>
-	<liferay-ui:message key="developers" />:
-
-	<%
-	int developerCount = accountReader.getDeveloperCount(koroneikiAccount);
-	int maxDeveloperCount = accountReader.getMaxDeveloperCount(koroneikiAccount);
-	%>
-
-	<%= developerCount %> / <%= maxDeveloperCount %>
-
-	<liferay-ui:message key="filled" />
-</div>
-
-<div>
-	<liferay-ui:message key="partner" />:
-
-	<c:if test="<%= partnerTeam != null %>">
-		<%= HtmlUtil.escape(partnerTeam.getName()) %>
-	</c:if>
+<div class="account-header">
+	<svg class="header-icon">
+		<use xlink:href="#account-icon" />
+	</svg>
+	
+	<div>
+		<liferay-ui:breadcrumb
+			showCurrentGroup="<%= false %>"
+			showGuestGroup="<%= false %>"
+			showLayout="<%= true %>"
+			showParentGroups="<%= false %>"
+		/>
+	
+		<h3>
+			<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
+		</h3>
+	
+		<ul>
+			<div>
+				<div class="list-group-headersmall-heading">
+					<liferay-ui:message key="status" />
+				</div>
+				<%= koroneikiAccount.getStatus() %>
+			</div>
+	
+			<div>
+				<div class="list-group-headersmall-heading">
+					<liferay-ui:message key="sup-region" />
+				</div>
+			</div>
+	
+			<div>
+				<div class="list-group-headersmall-heading">
+					<liferay-ui:message key="country" />
+				</div>
+	
+				<%= viewAccountDisplayContext.getPrimaryCountry() %>
+			</div>
+	
+			<div>
+				<div class="list-group-headersmall-heading">
+					<liferay-ui:message key="sla" />
+				</div>
+	
+				<c:if test="<%= slaProductPurchase != null %>">
+	
+					<%
+					Product product = slaProductPurchase.getProduct();
+	
+					String name = StringUtil.removeSubstring(product.getName(), " Subscription");
+					%>
+	
+					<%= HtmlUtil.escape(name) %>
+				</c:if>
+			</div>
+	
+			<div>
+				<div class="list-group-headersmall-heading">
+					<liferay-ui:message key="tier" />
+				</div>
+	
+				<%= koroneikiAccount.getTier() %>
+			</div>
+	
+			<div>
+				<div class="list-group-headersmall-heading">
+					<liferay-ui:message key="ewsa" />
+				</div>
+	
+				<c:if test="<%= viewAccountDisplayContext.isEWSA() %>">
+					<liferay-ui:message key="yes" />
+				</c:if>
+			</div>
+	
+			<div>
+				<div class="list-group-headersmall-heading">
+					<liferay-ui:message key="developers" />
+				</div>
+	
+				<%
+				int developerCount = accountReader.getDeveloperCount(koroneikiAccount);
+				int maxDeveloperCount = accountReader.getMaxDeveloperCount(koroneikiAccount);
+				%>
+	
+				<%= developerCount %> / <%= maxDeveloperCount %>
+	
+				<liferay-ui:message key="filled" />
+			</div>
+	
+			<div>
+				<div class="list-group-headersmall-heading">
+					<liferay-ui:message key="partner" />
+				</div>
+	
+				<c:if test="<%= partnerTeam != null %>">
+					<%= HtmlUtil.escape(partnerTeam.getName()) %>
+				</c:if>
+			</div>
+		</ul>
+	</div>
 </div>
