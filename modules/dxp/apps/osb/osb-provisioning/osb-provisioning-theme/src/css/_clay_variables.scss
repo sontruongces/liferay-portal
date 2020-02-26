@@ -1,4 +1,6 @@
 $body-bg: #fff;
+$primary: #0b5fff;
+$secondary: #6B6c7e;
 
 $font-family-sans-serif: 'Source Sans Pro', system-ui, -apple-system,
 	blinkmacsystemfont, 'Segoe UI', roboto, oxygen-sans, ubuntu, cantarell,
@@ -6,3 +8,6 @@ $font-family-sans-serif: 'Source Sans Pro', system-ui, -apple-system,
 	'Segoe UI Symbol';
 
 $small-font-size: 0.75rem;
+
+$breadcrumb-active-color: $secondary;
+$breadcrumb-link-color: $primary;
