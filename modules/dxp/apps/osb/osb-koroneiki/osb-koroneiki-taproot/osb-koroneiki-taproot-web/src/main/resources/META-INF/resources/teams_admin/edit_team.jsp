@@ -86,7 +86,7 @@ long accountId = ParamUtil.getLong(request, "accountId");
 	</aui:fieldset-group>
 
 	<aui:button-row>
-		<c:if test="<%= (team != null) && !team.isSystem() %>">
+		<c:if test="<%= (team == null) || !team.isSystem() %>">
 			<aui:button type="submit" />
 		</c:if>
 
