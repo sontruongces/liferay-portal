@@ -24,6 +24,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>PRODUCT_MENU_CLOSED_PNG</td>
+	<td>portal/screenshots/controlmenu/product_menu_closed.png</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PRODUCT_MENU_OPENED_PNG</td>
+	<td>portal/screenshots/controlmenu/product_menu_opened.png</td>
+	<td></td>
+</tr>
+<tr>
 	<td>RELOAD_TOOLTIP</td>
 	<td>//div[contains(.,'The portal is currently reindexing.')]</td>
 	<td></td>
@@ -46,13 +56,8 @@
 </tr>
 <!--HOME-->
 <tr>
-	<td>HOME_HEADING_AND_PRODUCT_MENU_CLOSED_PNG</td>
-	<td>portal/screenshots/controlmenu/home/heading_and_product_menu_closed.png</td>
-	<td></td>
-</tr>
-<tr>
-	<td>HOME_HEADING_AND_PRODUCT_MENU_OPENED_PNG</td>
-	<td>portal/screenshots/controlmenu/home/heading_and_product_menu_opened.png</td>
+	<td>HOME_HEADING_PNG</td>
+	<td>portal/screenshots/controlmenu/home/heading.png</td>
 	<td></td>
 </tr>
 <tr>
@@ -62,8 +67,8 @@
 </tr>
 <!--WEB CONTENT-->
 <tr>
-	<td>WC_HEADING_AND_PRODUCT_MENU_OPENED_PNG</td>
-	<td>portal/screenshots/controlmenu/webcontent/heading_and_product_menu_opened.png</td>
+	<td>WC_HEADING_PNG</td>
+	<td>portal/screenshots/controlmenu/webcontent/heading.png</td>
 	<td></td>
 </tr>
 <tr>
