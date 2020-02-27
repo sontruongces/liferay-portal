@@ -45,7 +45,7 @@ public class ChannelManagementToolbarDisplayContext
 		ChannelSearch channelSearch) {
 
 		super(
-			httpServletRequest, liferayPortletRequest, liferayPortletResponse,
+			liferayPortletRequest, liferayPortletResponse, httpServletRequest,
 			channelSearch);
 
 		_channelDisplayContext = channelDisplayContext;
