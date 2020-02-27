@@ -99,6 +99,10 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	@Override
 	public Team deleteTeam(Team team) throws PortalException {
 
+		// Contact team roles
+
+		contactTeamRolePersistence.removeByTeamId(team.getTeamId());
+
 		// External links
 
 		long classNameId = classNameLocalService.getClassNameId(Team.class);
