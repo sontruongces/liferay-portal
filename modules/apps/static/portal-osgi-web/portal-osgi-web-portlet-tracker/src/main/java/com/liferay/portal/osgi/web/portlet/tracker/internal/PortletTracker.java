@@ -19,6 +19,7 @@ import com.liferay.osgi.util.StringPlus;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.asm.ASMWrapperUtil;
 import com.liferay.portal.kernel.application.type.ApplicationType;
 import com.liferay.portal.kernel.bean.BeanPropertiesUtil;
 import com.liferay.portal.kernel.configuration.Configuration;
@@ -208,10 +209,9 @@ public class PortletTracker
 			return;
 		}
 
-		BundlePortletApp bundlePortletApp =
-			serviceRegistrations.getBundlePortletApp();
+		PortletApp portletApp = serviceRegistrations.getPortletApp();
 
-		bundlePortletApp.removePortlet(portletModel);
+		portletApp.removePortlet(portletModel);
 
 		try {
 			_bundleContext.ungetService(serviceReference);
@@ -276,10 +276,10 @@ public class PortletTracker
 			bundle);
 
 		try {
-			BundlePortletApp bundlePortletApp = createBundlePortletApp(
+			PortletApp portletApp = createBundlePortletApp(
 				bundle, bundleClassLoader, serviceRegistrations);
 
-			bundlePortletApp.setDefaultNamespace(
+			portletApp.setDefaultNamespace(
 				(String)serviceReference.getProperty(
 					"javax.portlet.default-namespace"));
 
@@ -287,26 +287,26 @@ public class PortletTracker
 				"javax.portlet.version");
 
 			if (jxPortletVersion == null) {
-				bundlePortletApp.setSpecMajorVersion(2);
-				bundlePortletApp.setSpecMinorVersion(0);
+				portletApp.setSpecMajorVersion(2);
+				portletApp.setSpecMinorVersion(0);
 			}
 			else {
 				String[] jxPortletVersionParts = StringUtil.split(
 					jxPortletVersion, CharPool.PERIOD);
 
 				if (jxPortletVersionParts.length > 0) {
-					bundlePortletApp.setSpecMajorVersion(
+					portletApp.setSpecMajorVersion(
 						GetterUtil.getInteger(jxPortletVersionParts[0], 2));
 
 					if (jxPortletVersionParts.length > 1) {
-						bundlePortletApp.setSpecMinorVersion(
+						portletApp.setSpecMinorVersion(
 							GetterUtil.getInteger(jxPortletVersionParts[1]));
 					}
 				}
 			}
 
 			com.liferay.portal.kernel.model.Portlet portletModel =
-				buildPortletModel(bundlePortletApp, portletId);
+				buildPortletModel(portletApp, portletId, bundle);
 
 			portletModel.setPortletName(portletName);
 
@@ -324,16 +324,15 @@ public class PortletTracker
 			collectLiferayFeatures(serviceReference, portletModel);
 
 			PortletContextBag portletContextBag = new PortletContextBag(
-				bundlePortletApp.getServletContextName());
+				portletApp.getServletContextName());
 
 			PortletContextBagPool.put(
-				bundlePortletApp.getServletContextName(), portletContextBag);
+				portletApp.getServletContextName(), portletContextBag);
 
 			PortletBagFactory portletBagFactory = new PortletBagFactory();
 
 			portletBagFactory.setClassLoader(bundleClassLoader);
-			portletBagFactory.setServletContext(
-				bundlePortletApp.getServletContext());
+			portletBagFactory.setServletContext(portletApp.getServletContext());
 			portletBagFactory.setWARFile(true);
 
 			portletBagFactory.create(portletModel, portlet, true);
@@ -367,17 +366,22 @@ public class PortletTracker
 	}
 
 	protected com.liferay.portal.kernel.model.Portlet buildPortletModel(
-		BundlePortletApp bundlePortletApp, String portletId) {
+		PortletApp portletApp, String portletId, Bundle bundle) {
 
 		com.liferay.portal.kernel.model.Portlet portletModel =
 			_portletLocalService.createPortlet(0);
 
+		com.liferay.portal.kernel.model.Portlet portalPortletModel =
+			_portletLocalService.getPortletById(
+				CompanyConstants.SYSTEM, PortletKeys.PORTAL);
+
 		portletModel.setPortletId(portletId);
 
 		portletModel.setCompanyId(CompanyConstants.SYSTEM);
-		portletModel.setPluginPackage(bundlePortletApp.getPluginPackage());
-		portletModel.setPortletApp(bundlePortletApp);
-		portletModel.setRoleMappers(bundlePortletApp.getRoleMappers());
+		portletModel.setPluginPackage(
+			new BundlePluginPackage(bundle, portletApp));
+		portletModel.setPortletApp(portletApp);
+		portletModel.setRoleMappers(portalPortletModel.getRoleMappers());
 		portletModel.setStrutsPath(portletId);
 
 		return portletModel;
@@ -1173,15 +1177,14 @@ public class PortletTracker
 		portletModel.setWindowStates(windowStates);
 	}
 
-	protected BundlePortletApp createBundlePortletApp(
+	protected PortletApp createBundlePortletApp(
 		Bundle bundle, ClassLoader classLoader,
 		ServiceRegistrations serviceRegistrations) {
 
-		BundlePortletApp bundlePortletApp =
-			serviceRegistrations.getBundlePortletApp();
+		PortletApp portletApp = serviceRegistrations.getPortletApp();
 
-		if (bundlePortletApp != null) {
-			return bundlePortletApp;
+		if (portletApp != null) {
+			return portletApp;
 		}
 
 		com.liferay.portal.kernel.model.Portlet portalPortletModel =
@@ -1198,15 +1201,22 @@ public class PortletTracker
 			bundleContext.getService(
 				_servletContextHelperRegistrationServiceReference);
 
-		bundlePortletApp = new BundlePortletApp(
-			bundle, portalPortletModel,
-			servletContextHelperRegistration.getServletContext());
+		BundlePortletAppDelegate bundlePortletAppDelegate =
+			new BundlePortletAppDelegate(
+				portalPortletModel,
+				servletContextHelperRegistration.getServletContext());
 
-		serviceRegistrations.setBundlePortletApp(bundlePortletApp);
+		PortletApp portletAppDefault = portalPortletModel.getPortletApp();
+
+		portletApp = ASMWrapperUtil.createASMWrapper(
+			PortletTracker.class.getClassLoader(), PortletApp.class,
+			bundlePortletAppDelegate, portletAppDefault);
+
+		serviceRegistrations.setPortletApp(portletApp);
 
 		serviceRegistrations.doConfiguration(classLoader);
 
-		return bundlePortletApp;
+		return portletApp;
 	}
 
 	@Deactivate
@@ -1424,7 +1434,7 @@ public class PortletTracker
 
 			_serviceReferences.clear();
 
-			_bundlePortletApp = null;
+			_portletApp = null;
 
 			_serviceRegistrations.remove(_bundle.getBundleId());
 
@@ -1434,10 +1444,8 @@ public class PortletTracker
 				_servletContextHelperRegistrationServiceReference);
 		}
 
-		public synchronized void setBundlePortletApp(
-			BundlePortletApp bundlePortletApp) {
-
-			_bundlePortletApp = bundlePortletApp;
+		public synchronized void setPortletApp(PortletApp portletApp) {
+			_portletApp = portletApp;
 		}
 
 		protected synchronized void doConfiguration(ClassLoader classLoader) {
@@ -1450,8 +1458,8 @@ public class PortletTracker
 			}
 		}
 
-		protected synchronized BundlePortletApp getBundlePortletApp() {
-			return _bundlePortletApp;
+		protected synchronized PortletApp getPortletApp() {
+			return _portletApp;
 		}
 
 		private ServiceRegistrations(Bundle bundle) {
@@ -1459,7 +1467,7 @@ public class PortletTracker
 		}
 
 		private final Bundle _bundle;
-		private BundlePortletApp _bundlePortletApp;
+		private PortletApp _portletApp;
 		private final List<ServiceReference<Portlet>> _serviceReferences =
 			new ArrayList<>();
 
