@@ -1,13 +1,19 @@
 $body-bg: #fff;
+$dark: #272833;
 $primary: #0b5fff;
-$secondary: #6B6c7e;
+$secondary: #6b6c7e;
 
 $font-family-sans-serif: 'Source Sans Pro', system-ui, -apple-system,
 	blinkmacsystemfont, 'Segoe UI', roboto, oxygen-sans, ubuntu, cantarell,
 	'Helvetica Neue', arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
 	'Segoe UI Symbol';
 
+$font-weight-normal: 400;
+$font-weight-semi-bold: 600;
+
 $small-font-size: 0.75rem;
 
-$breadcrumb-active-color: $secondary;
+$breadcrumb-divider-color: $secondary;
+$breadcrumb-divider-font-weight: $font-weight-normal;
+$breadcrumb-font-weight: $font-weight-semi-bold;
 $breadcrumb-link-color: $primary;

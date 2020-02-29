@@ -21,7 +21,13 @@
 	src: url(../fonts/SourceSansPro-Bold.ttf) format('truetype');
 }
 
-.list-group-headersmall-heading {
-	font-size: $small-font-size;
+.breadcrumb {
+	.active {
+		color: $secondary;
+		font-weight: $font-weight-normal;
+	}
+}
+
+.label {
 	letter-spacing: 0.04rem;
 }

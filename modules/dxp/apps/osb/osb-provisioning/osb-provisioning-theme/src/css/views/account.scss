@@ -1,6 +1,39 @@
 .account-header {
+	.account-code {
+		&:after {
+			content: "\00B7";
+		}
+	}
+
+	.account-name {
+		margin-bottom: 0;
+	}
+
+	.header-details {
+		color: $dark;
+		display: flex;
+		font-size: $h5-font-size;
+		font-weight: $font-weight-semi-bold;
+		line-height: 150%;
+		list-style: none;
+		margin-top: $spacing-md;
+		padding-inline-start: 0;
+
+		li {
+			margin-right: $spacing-lg;
+		}
+	}
+
 	.header-icon {
 		height: 56px;
+		margin-right: $spacing-md;
 		width: 56px;
+	}
+
+	.header-label {
+		color: $secondary;
+		font-size: $small-font-size;
+		letter-spacing: 0.04rem;
+		text-transform: uppercase;
 	}
 }
