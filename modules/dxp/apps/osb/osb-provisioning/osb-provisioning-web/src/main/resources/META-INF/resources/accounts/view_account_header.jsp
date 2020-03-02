@@ -113,9 +113,14 @@ else {
 					<liferay-ui:message key="ewsa" />
 				</div>
 
-				<c:if test="<%= viewAccountDisplayContext.isEWSA() %>">
-					<liferay-ui:message key="yes" />
-				</c:if>
+				<c:choose>
+					<c:when test="<%= viewAccountDisplayContext.isEWSA() %>">
+						<liferay-ui:message key="yes" />
+					</c:when>
+					<c:otherwise>
+						<liferay-ui:message key="no" />
+					</c:otherwise>
+				</c:choose>
 			</li>
 			<li>
 				<div class="header-label">
