@@ -141,9 +141,14 @@ else {
 					<liferay-ui:message key="partner" />
 				</div>
 
-				<c:if test="<%= partnerTeam != null %>">
-					<%= HtmlUtil.escape(partnerTeam.getName()) %>
-				</c:if>
+				<c:choose>
+					<c:when test="<%= partnerTeam != null %>">
+						<%= HtmlUtil.escape(partnerTeam.getName()) %>
+					</c:when>
+					<c:otherwise>
+						-
+					</c:otherwise>
+				</c:choose>
 			</li>
 		</ul>
 	</div>
