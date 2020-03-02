@@ -23,6 +23,26 @@ Account koroneikiAccount = viewAccountDisplayContext.getAccount();
 
 Team partnerTeam = accountReader.getPartnerTeam(koroneikiAccount);
 ProductPurchase slaProductPurchase = accountReader.getSLAProductPurchase(koroneikiAccount);
+
+String accountStatus = koroneikiAccount.getStatus().toString();
+
+String statusCssClass;
+
+if (accountStatus.equals("Approved")) {
+	statusCssClass = "label-success";
+}
+else if (accountStatus.equals("Closed")) {
+	statusCssClass = "label-secondary";
+}
+else if (accountStatus.equals("Inactive")) {
+		statusCssClass = "label-warning";
+}
+else if (accountStatus.startsWith("Pending")) {
+	statusCssClass = "label-primary";
+}
+else {
+	statusCssClass = "label-danger";
+}
 %>
 
 <div class="account-header autofit-row">
@@ -50,7 +70,8 @@ ProductPurchase slaProductPurchase = accountReader.getSLAProductPurchase(koronei
 				<div class="header-label">
 					<liferay-ui:message key="status" />
 				</div>
-				<%= koroneikiAccount.getStatus() %>
+
+				<span class="label <%= statusCssClass %>"><%= accountStatus %></span>
 			</li>
 			<li>
 				<div class="header-label">
