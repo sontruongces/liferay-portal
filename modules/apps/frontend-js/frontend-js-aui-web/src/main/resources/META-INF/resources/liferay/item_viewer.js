@@ -326,6 +326,7 @@ AUI.add(
 						.item(instance.get('currentIndex'));
 
 					var itemTitle = item.getAttribute('data-title');
+					var itemDescription = item.getAttribute('data-description');
 					var itemURL = item.getAttribute('data-url');
 
 					var editDialogTitle = Lang.sub(TPL_EDIT_DIALOG_TITLE, {
@@ -358,6 +359,7 @@ AUI.add(
 							uri: instance.get('editItemURL'),
 							urlParams: {
 								entityURL: itemURL,
+								saveFileDescription: itemDescription,
 								saveFileName: itemTitle,
 								saveParamName: 'imageSelectorFileName',
 								saveURL: instance.get('uploadItemURL')
