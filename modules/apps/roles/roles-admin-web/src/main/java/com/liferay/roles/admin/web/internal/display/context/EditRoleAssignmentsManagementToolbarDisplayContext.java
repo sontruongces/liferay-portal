@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
+import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
@@ -420,6 +421,11 @@ public class EditRoleAssignmentsManagementToolbarDisplayContext {
 
 	public String getSearchActionURL() {
 		PortletURL searchActionURL = getPortletURL();
+
+		PortletURL currentURL = PortletURLUtil.getCurrent(
+			_renderRequest, _renderResponse);
+
+		searchActionURL.setParameter("redirect", currentURL.toString());
 
 		return searchActionURL.toString();
 	}
