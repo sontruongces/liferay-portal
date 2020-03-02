@@ -359,7 +359,14 @@ public class StagedLayoutSetStagedModelDataHandler
 
 		// Last merge time
 
-		updateLastMergeTime(portletDataContext, modifiedLayouts);
+		LayoutSet importedLayoutSet =
+			importedStagedLayoutSet.toUnescapedModel();
+
+		Group group = importedLayoutSet.getGroup();
+
+		if (!group.isLayoutSetPrototype()) {
+			updateLastMergeTime(portletDataContext, modifiedLayouts);
+		}
 
 		// Page priorities
 
