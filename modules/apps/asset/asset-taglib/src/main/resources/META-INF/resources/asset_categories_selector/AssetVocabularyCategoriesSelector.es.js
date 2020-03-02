@@ -63,7 +63,9 @@ class AssetVocabularyCategoriesSelector extends Component {
 			if (selectedItems) {
 				this.selectedItems = Object.keys(selectedItems).map(itemKey => {
 					return {
-						label: selectedItems[itemKey].value,
+						label: Liferay.Util.escape(
+							selectedItems[itemKey].value
+						),
 						value: selectedItems[itemKey].categoryId
 					};
 				});
@@ -131,7 +133,7 @@ class AssetVocabularyCategoriesSelector extends Component {
 
 				if (!existingCategory) {
 					const item = {
-						label: filteredItems[0].data.label,
+						label: Liferay.Util.escape(filteredItems[0].data.label),
 						value: filteredItems[0].data.value
 					};
 

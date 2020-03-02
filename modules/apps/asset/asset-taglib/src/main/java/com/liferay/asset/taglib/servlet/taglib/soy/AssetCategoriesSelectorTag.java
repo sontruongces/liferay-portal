@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -371,7 +372,7 @@ public class AssetCategoriesSelectorTag extends ComponentRendererTag {
 
 					selectedItems.add(category);
 
-					category.put("label", categoryTitles[j]);
+					category.put("label", HtmlUtil.escape(categoryTitles[j]));
 					category.put("value", categoryIds[j]);
 				}
 
