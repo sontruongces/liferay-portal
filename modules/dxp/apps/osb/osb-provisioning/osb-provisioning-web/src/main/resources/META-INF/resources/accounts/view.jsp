@@ -18,8 +18,6 @@
 
 <%
 AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse);
-
-Map<String, Object> data = new HashMap<>();
 %>
 
 <div class="container-fluid-1280">
@@ -40,8 +38,7 @@ Map<String, Object> data = new HashMap<>();
 			</portlet:renderURL>
 
 			<%
-			Team partnerTeam = accountReader.getPartnerTeam(koroneikiAccount);
-			ProductPurchase slaProductPurchase = accountReader.getSLAProductPurchase(koroneikiAccount);
+			AccountDisplay accountDisplay = new AccountDisplay(request, accountReader, koroneikiAccount);
 			%>
 
 			<liferay-ui:search-container-column-text
@@ -49,38 +46,23 @@ Map<String, Object> data = new HashMap<>();
 				name="name-code"
 			>
 				<%= koroneikiAccount.getName() %>
-				<div class="secondary-information"><%= koroneikiAccount.getCode() %></div>
+
+				<div class="secondary-information">
+					<%= koroneikiAccount.getCode() %>
+				</div>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="support-end-date"
-			>
-				<c:if test="<%= slaProductPurchase != null %>">
-					<c:choose>
-						<c:when test="<%= slaProductPurchase.getPerpetual() %>">
-							<liferay-ui:message key="perpetual" />
-						</c:when>
-						<c:otherwise>
-							<%= dateFormat.format(slaProductPurchase.getEndDate()) %>
-						</c:otherwise>
-					</c:choose>
-				</c:if>
-			</liferay-ui:search-container-column-text>
+				value="<%= accountDisplay.getSupportEndDate() %>"
+			/>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="partner"
-			>
-				<c:choose>
-					<c:when test="<%= partnerTeam != null %>">
-						<%= HtmlUtil.escape(partnerTeam.getName()) %>
-					</c:when>
-					<c:otherwise>
-						-
-					</c:otherwise>
-				</c:choose>
-			</liferay-ui:search-container-column-text>
+				value="<%= HtmlUtil.escape(accountDisplay.getPartnerTeamName()) %>"
+			/>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
@@ -92,53 +74,18 @@ Map<String, Object> data = new HashMap<>();
 				href="<%= rowURL %>"
 				name="sla-tier"
 			>
-				<c:choose>
-					<c:when test="<%= slaProductPurchase != null %>">
+				<%= HtmlUtil.escape(accountDisplay.getSLAName()) %>
 
-						<%
-						Product product = slaProductPurchase.getProduct();
-
-						String name = StringUtil.removeSubstring(product.getName(), " Subscription");
-						%>
-
-						<%= HtmlUtil.escape(name) %>
-					</c:when>
-					<c:otherwise>
-						-
-					</c:otherwise>
-				</c:choose>
-
-				<div class="secondary-information"><%= koroneikiAccount.getTierAsString() %></div>
+				<div class="secondary-information">
+					<%= koroneikiAccount.getTierAsString() %>
+				</div>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="status"
 			>
-
-				<%
-				String accountStatus = koroneikiAccount.getStatusAsString();
-
-				String statusCssClass;
-
-				if (accountStatus.equals("Approved")) {
-					statusCssClass = "label-success";
-				}
-				else if (accountStatus.equals("Closed")) {
-					statusCssClass = "label-secondary";
-				}
-				else if (accountStatus.equals("Inactive")) {
-					statusCssClass = "label-warning";
-				}
-				else if (accountStatus.startsWith("Pending")) {
-					statusCssClass = "label-primary";
-				}
-				else {
-					statusCssClass = "label-danger";
-				}
-				%>
-
-				<span class="label <%= statusCssClass %>"><%= accountStatus %></span>
+				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= koroneikiAccount.getStatusAsString() %></span>
 			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 
@@ -150,7 +97,7 @@ Map<String, Object> data = new HashMap<>();
 
 <div class="test-component">
 	<react:component
-		data="<%= data %>"
+		data="<%= Collections.emptyMap() %>"
 		module="js/index"
 	/>
 </div>

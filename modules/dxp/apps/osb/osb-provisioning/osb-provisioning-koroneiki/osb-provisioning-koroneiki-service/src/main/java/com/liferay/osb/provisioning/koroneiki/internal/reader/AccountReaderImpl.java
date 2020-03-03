@@ -25,11 +25,16 @@ import com.liferay.osb.provisioning.koroneiki.constants.ContactRoleConstants;
 import com.liferay.osb.provisioning.koroneiki.constants.ProductConstants;
 import com.liferay.osb.provisioning.koroneiki.constants.TeamRoleConstants;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
+import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.Validator;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Kyle Bischof
@@ -38,27 +43,46 @@ import org.osgi.service.component.annotations.Component;
 @Component(immediate = true, service = AccountReader.class)
 public class AccountReaderImpl implements AccountReader {
 
-	public int getDeveloperCount(Account account) {
-		int developerCount = 0;
+	public List<Account> getAccountHeirarchy(Account account) throws Exception {
+		List<Account> accountHeirarchy = new ArrayList<>();
 
+		if (Validator.isNotNull(account.getParentAccountKey())) {
+			Account parentAccount = _accountWebService.fetchAccount(
+				account.getParentAccountKey());
+
+			if (parentAccount != null) {
+				accountHeirarchy.add(parentAccount);
+
+				accountHeirarchy.addAll(getAccountHeirarchy(parentAccount));
+			}
+		}
+
+		return accountHeirarchy;
+	}
+
+	public int getDeveloperCount(Account account) {
 		Contact[] contacts = account.getContacts();
 
-		if (contacts != null) {
-			for (Contact contact : contacts) {
-				ContactRole[] contactRoles = contact.getContactRoles();
+		if (contacts == null) {
+			return 0;
+		}
 
-				if (contactRoles != null) {
-					for (ContactRole contactRole : contactRoles) {
-						String name = contactRole.getName();
+		int developerCount = 0;
 
-						if (name.equals(
-								ContactRoleConstants.NAME_SUPPORT_DEVELOPER)) {
+		for (Contact contact : contacts) {
+			ContactRole[] contactRoles = contact.getContactRoles();
 
-							developerCount++;
+			if (contactRoles == null) {
+				continue;
+			}
 
-							break;
-						}
-					}
+			for (ContactRole contactRole : contactRoles) {
+				String name = contactRole.getName();
+
+				if (name.equals(ContactRoleConstants.NAME_SUPPORT_DEVELOPER)) {
+					developerCount++;
+
+					break;
 				}
 			}
 		}
@@ -265,5 +289,8 @@ public class AccountReaderImpl implements AccountReader {
 
 		return false;
 	}
+
+	@Reference
+	private AccountWebService _accountWebService;
 
 }

@@ -88,8 +88,7 @@ public class ProvisioningWebComponentProvider {
 		throws Exception {
 
 		return new ViewAccountDisplayContext(
-			renderRequest, renderResponse, httpServletRequest,
-			_accountWebService);
+			renderRequest, renderResponse, httpServletRequest, _accountReader);
 	}
 
 	private static ProvisioningWebComponentProvider

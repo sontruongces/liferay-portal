@@ -18,11 +18,15 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 
+import java.util.List;
+
 /**
  * @author Kyle Bischof
  * @author Amos Fong
  */
 public interface AccountReader {
+
+	public List<Account> getAccountHeirarchy(Account account) throws Exception;
 
 	public int getDeveloperCount(Account account);
 

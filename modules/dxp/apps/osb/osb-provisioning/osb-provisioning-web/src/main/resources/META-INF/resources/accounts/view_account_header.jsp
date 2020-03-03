@@ -17,32 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-ViewAccountDisplayContext viewAccountDisplayContext = (ViewAccountDisplayContext)request.getAttribute("view_account.jsp-viewAccountDisplayContext");
+AccountDisplay accountDisplay = (AccountDisplay)request.getAttribute("view_account.jsp-accountDisplay");
 
-Account koroneikiAccount = viewAccountDisplayContext.getAccount();
-
-Team partnerTeam = accountReader.getPartnerTeam(koroneikiAccount);
-ProductPurchase slaProductPurchase = accountReader.getSLAProductPurchase(koroneikiAccount);
-
-String accountStatus = koroneikiAccount.getStatusAsString();
-
-String statusCssClass;
-
-if (accountStatus.equals("Approved")) {
-	statusCssClass = "label-success";
-}
-else if (accountStatus.equals("Closed")) {
-	statusCssClass = "label-secondary";
-}
-else if (accountStatus.equals("Inactive")) {
-		statusCssClass = "label-warning";
-}
-else if (accountStatus.startsWith("Pending")) {
-	statusCssClass = "label-primary";
-}
-else {
-	statusCssClass = "label-danger";
-}
+Account koroneikiAccount = accountDisplay.getAccount();
 %>
 
 <div class="account-header autofit-row">
@@ -62,6 +39,7 @@ else {
 			<span class="account-code">
 				<%= HtmlUtil.escape(koroneikiAccount.getCode()) %>
 			</span>
+
 			<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
 		</h3>
 
@@ -71,7 +49,7 @@ else {
 					<liferay-ui:message key="status" />
 				</div>
 
-				<span class="label <%= statusCssClass %>"><%= accountStatus %></span>
+				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= koroneikiAccount.getStatusAsString() %></span>
 			</li>
 			<li>
 				<div class="header-label">
@@ -83,77 +61,42 @@ else {
 					<liferay-ui:message key="country" />
 				</div>
 
-				<%= viewAccountDisplayContext.getPrimaryCountry() %>
+				<%= accountDisplay.getPrimaryCountry() %>
 			</li>
 			<li>
 				<div class="header-label">
 					<liferay-ui:message key="sla" />
 				</div>
 
-				<c:choose>
-					<c:when test="<%= slaProductPurchase != null %>">
-
-						<%
-						Product product = slaProductPurchase.getProduct();
-
-						String name = StringUtil.removeSubstring(product.getName(), " Subscription");
-						%>
-
-						<%= HtmlUtil.escape(name) %>
-					</c:when>
-					<c:otherwise>
-						-
-					</c:otherwise>
-				</c:choose>
+				<%= HtmlUtil.escape(accountDisplay.getSLAName()) %>
 			</li>
 			<li>
 				<div class="header-label">
 					<liferay-ui:message key="tier" />
 				</div>
 
-				<%= koroneikiAccount.getTier() %>
+				<%= koroneikiAccount.getTierAsString() %>
 			</li>
 			<li>
 				<div class="header-label">
 					<liferay-ui:message key="ewsa" />
 				</div>
 
-				<c:choose>
-					<c:when test="<%= viewAccountDisplayContext.isEWSA() %>">
-						<liferay-ui:message key="yes" />
-					</c:when>
-					<c:otherwise>
-						<liferay-ui:message key="no" />
-					</c:otherwise>
-				</c:choose>
+				<%= accountDisplay.getEWSA() %>
 			</li>
 			<li>
 				<div class="header-label">
 					<liferay-ui:message key="developers" />
 				</div>
 
-				<%
-				int developerCount = accountReader.getDeveloperCount(koroneikiAccount);
-				int maxDeveloperCount = accountReader.getMaxDeveloperCount(koroneikiAccount);
-				%>
-
-				<%= developerCount %> / <%= maxDeveloperCount %>
-
-				<liferay-ui:message key="filled" />
+				<%= accountDisplay.getDeveloperContactUsage() %>
 			</li>
 			<li>
 				<div class="header-label">
 					<liferay-ui:message key="partner" />
 				</div>
 
-				<c:choose>
-					<c:when test="<%= partnerTeam != null %>">
-						<%= HtmlUtil.escape(partnerTeam.getName()) %>
-					</c:when>
-					<c:otherwise>
-						-
-					</c:otherwise>
-				</c:choose>
+				<%= HtmlUtil.escape(accountDisplay.getPartnerTeamName()) %>
 			</li>
 		</ul>
 	</div>
