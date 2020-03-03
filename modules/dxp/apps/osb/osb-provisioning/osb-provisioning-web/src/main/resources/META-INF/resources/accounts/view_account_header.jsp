@@ -90,16 +90,21 @@ else {
 					<liferay-ui:message key="sla" />
 				</div>
 
-				<c:if test="<%= slaProductPurchase != null %>">
+				<c:choose>
+					<c:when test="<%= slaProductPurchase != null %>">
 
-					<%
-					Product product = slaProductPurchase.getProduct();
+						<%
+						Product product = slaProductPurchase.getProduct();
 
-					String name = StringUtil.removeSubstring(product.getName(), " Subscription");
-					%>
+						String name = StringUtil.removeSubstring(product.getName(), " Subscription");
+						%>
 
-					<%= HtmlUtil.escape(name) %>
-				</c:if>
+						<%= HtmlUtil.escape(name) %>
+					</c:when>
+					<c:otherwise>
+						-
+					</c:otherwise>
+				</c:choose>
 			</li>
 			<li>
 				<div class="header-label">
