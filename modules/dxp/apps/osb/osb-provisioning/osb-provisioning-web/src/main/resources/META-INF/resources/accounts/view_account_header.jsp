@@ -24,7 +24,7 @@ Account koroneikiAccount = viewAccountDisplayContext.getAccount();
 Team partnerTeam = accountReader.getPartnerTeam(koroneikiAccount);
 ProductPurchase slaProductPurchase = accountReader.getSLAProductPurchase(koroneikiAccount);
 
-String accountStatus = koroneikiAccount.getStatus().toString();
+String accountStatus = koroneikiAccount.getStatusAsString();
 
 String statusCssClass;
 
