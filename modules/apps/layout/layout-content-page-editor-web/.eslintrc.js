@@ -15,8 +15,7 @@
 module.exports = {
 	extends: ['liferay/react'],
 	globals: {
-		AlloyEditor: true,
-		process: true
+		AlloyEditor: true
 	},
 	rules: {
 		'react/no-string-refs': 'off'
