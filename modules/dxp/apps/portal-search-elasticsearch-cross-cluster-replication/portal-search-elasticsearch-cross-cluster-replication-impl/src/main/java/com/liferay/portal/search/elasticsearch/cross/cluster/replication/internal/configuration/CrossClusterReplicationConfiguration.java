@@ -56,6 +56,12 @@ public interface CrossClusterReplicationConfiguration {
 	public String[] transportAddresses();
 
 	@Meta.AD(
+		deflt = "leader", description = "remote-cluster-alias-help",
+		name = "remote-cluster-alias", required = false
+	)
+	public String remoteClusterAlias();
+
+	@Meta.AD(
 		deflt = "false", description = "authentication-enabled-help",
 		name = "authentication-enabled", required = false
 	)

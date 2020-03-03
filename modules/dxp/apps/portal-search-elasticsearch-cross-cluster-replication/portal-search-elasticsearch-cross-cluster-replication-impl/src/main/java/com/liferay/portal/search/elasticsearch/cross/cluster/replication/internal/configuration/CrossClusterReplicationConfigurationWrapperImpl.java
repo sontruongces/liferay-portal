@@ -50,6 +50,11 @@ public class CrossClusterReplicationConfigurationWrapperImpl
 	}
 
 	@Override
+	public String getRemoteClusterAlias() {
+		return crossClusterReplicationConfiguration.remoteClusterAlias();
+	}
+
+	@Override
 	public String[] getSslCertificateAuthoritiesPaths() {
 		return crossClusterReplicationConfiguration.
 			sslCertificateAuthoritiesPaths();
