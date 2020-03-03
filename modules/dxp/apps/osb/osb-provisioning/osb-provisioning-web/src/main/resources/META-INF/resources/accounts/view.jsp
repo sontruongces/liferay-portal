@@ -24,7 +24,7 @@ Map<String, Object> data = new HashMap<>();
 
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
-		cssClass="table-striped"
+		cssClass=""
 		searchContainer="<%= accountSearchDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
@@ -49,7 +49,7 @@ Map<String, Object> data = new HashMap<>();
 				name="name-code"
 			>
 				<div><%= koroneikiAccount.getName() %></div>
-				<div class="secondary-information"><%= koroneikiAccount.getCode() %></div>
+				<div><%= koroneikiAccount.getCode() %></div>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
@@ -108,7 +108,7 @@ Map<String, Object> data = new HashMap<>();
 					</c:otherwise>
 				</c:choose>
 
-				<div class="secondary-information">
+				<div>
 					<%= koroneikiAccount.getTierAsString() %>
 				</div>
 			</liferay-ui:search-container-column-text>
@@ -116,8 +116,31 @@ Map<String, Object> data = new HashMap<>();
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="status"
-				value="<%= koroneikiAccount.getStatusAsString() %>"
-			/>
+			>
+				<%
+				String accountStatus = koroneikiAccount.getStatusAsString();
+
+				String statusCssClass;
+
+				if (accountStatus.equals("Approved")) {
+					statusCssClass = "label-success";
+				}
+				else if (accountStatus.equals("Closed")) {
+					statusCssClass = "label-secondary";
+				}
+				else if (accountStatus.equals("Inactive")) {
+					statusCssClass = "label-warning";
+				}
+				else if (accountStatus.startsWith("Pending")) {
+					statusCssClass = "label-primary";
+				}
+				else {
+					statusCssClass = "label-danger";
+				}
+				%>
+
+				<span class="label <%= statusCssClass %>"><%= accountStatus %></span>
+			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 
 		<liferay-ui:search-iterator
