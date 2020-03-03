@@ -28,6 +28,8 @@ public interface CrossClusterReplicationConfigurationWrapper {
 
 	public String getPassword();
 
+	public String getRemoteClusterAlias();
+
 	public String[] getSslCertificateAuthoritiesPaths();
 
 	public String getSslCertificatePath();
