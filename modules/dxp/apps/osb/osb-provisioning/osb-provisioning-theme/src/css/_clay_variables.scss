@@ -11,9 +11,13 @@ $font-family-sans-serif: 'Source Sans Pro', system-ui, -apple-system,
 $font-weight-normal: 400;
 $font-weight-semi-bold: 600;
 
+$font-size-base: 1rem;
 $small-font-size: 0.75rem;
 
 $breadcrumb-divider-color: $secondary;
 $breadcrumb-divider-font-weight: $font-weight-normal;
 $breadcrumb-font-weight: $font-weight-semi-bold;
 $breadcrumb-link-color: $primary;
+
+$table-font-size: $font-size-base;
+$table-head-color: $dark;

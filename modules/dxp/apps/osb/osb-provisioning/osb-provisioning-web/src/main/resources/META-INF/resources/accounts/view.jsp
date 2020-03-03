@@ -24,6 +24,7 @@ Map<String, Object> data = new HashMap<>();
 
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
+		cssClass="table-striped"
 		searchContainer="<%= accountSearchDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
@@ -45,28 +46,10 @@ Map<String, Object> data = new HashMap<>();
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
-				name="name"
+				name="name-code"
 			>
-				<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="account" />">
-					<aui:icon cssClass="icon-monospaced" image="users" markupView="lexicon" />
-				</span>
-
-				<%= koroneikiAccount.getName() %>
-			</liferay-ui:search-container-column-text>
-
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="code"
-				value="<%= koroneikiAccount.getCode() %>"
-			/>
-
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="partner"
-			>
-				<c:if test="<%= partnerTeam != null %>">
-					<%= HtmlUtil.escape(partnerTeam.getName()) %>
-				</c:if>
+				<div><%= koroneikiAccount.getName() %></div>
+				<div class="secondary-information"><%= koroneikiAccount.getCode() %></div>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
@@ -87,37 +70,48 @@ Map<String, Object> data = new HashMap<>();
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
-				name="licenses"
-				value=""
-			/>
-
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="sla"
+				name="partner"
 			>
-				<c:if test="<%= slaProductPurchase != null %>">
-
-					<%
-					Product product = slaProductPurchase.getProduct();
-
-					String name = StringUtil.removeSubstring(product.getName(), " Subscription");
-					%>
-
-					<%= HtmlUtil.escape(name) %>
-				</c:if>
+				<c:choose>
+					<c:when test="<%= partnerTeam != null %>">
+						<%= HtmlUtil.escape(partnerTeam.getName()) %>
+					</c:when>
+					<c:otherwise>
+						-
+					</c:otherwise>
+				</c:choose>
 			</liferay-ui:search-container-column-text>
-
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="tier"
-				value="<%= koroneikiAccount.getTierAsString() %>"
-			/>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="region"
 				value=""
 			/>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="sla-tier"
+			>
+				<c:choose>
+					<c:when test="<%= slaProductPurchase != null %>">
+
+						<%
+						Product product = slaProductPurchase.getProduct();
+
+						String name = StringUtil.removeSubstring(product.getName(), " Subscription");
+						%>
+
+						<%= HtmlUtil.escape(name) %>
+					</c:when>
+					<c:otherwise>
+						-
+					</c:otherwise>
+				</c:choose>
+
+				<div class="secondary-information">
+					<%= koroneikiAccount.getTierAsString() %>
+				</div>
+			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
