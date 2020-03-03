@@ -117,6 +117,7 @@ Map<String, Object> data = new HashMap<>();
 				href="<%= rowURL %>"
 				name="status"
 			>
+
 				<%
 				String accountStatus = koroneikiAccount.getStatusAsString();
 
