@@ -48,8 +48,8 @@ Map<String, Object> data = new HashMap<>();
 				href="<%= rowURL %>"
 				name="name-code"
 			>
-				<div><%= koroneikiAccount.getName() %></div>
-				<div><%= koroneikiAccount.getCode() %></div>
+				<%= koroneikiAccount.getName() %>
+				<div class="secondary-information"><%= koroneikiAccount.getCode() %></div>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
@@ -108,9 +108,7 @@ Map<String, Object> data = new HashMap<>();
 					</c:otherwise>
 				</c:choose>
 
-				<div>
-					<%= koroneikiAccount.getTierAsString() %>
-				</div>
+				<div class="secondary-information"><%= koroneikiAccount.getTierAsString() %></div>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
