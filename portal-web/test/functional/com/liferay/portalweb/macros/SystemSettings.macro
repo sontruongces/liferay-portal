@@ -4,8 +4,12 @@ definition {
 		FormFields.enableCheckbox(fieldName = "ccrEnabled");
 
 		FormFields.editTextMultiline(
-			fieldName = "ccrLocalClusterConnectionId",
-			fieldValue = "${ccrLocalClusterConnectionID}");
+			fieldName = "clusterName",
+			fieldValue = "${localClusterName}");
+
+		FormFields.editTextMultiline(
+			fieldName = "transportAddresses",
+			fieldValue = "localhost:9500");
 
 		SystemSettings.saveConfiguration();
 	}
