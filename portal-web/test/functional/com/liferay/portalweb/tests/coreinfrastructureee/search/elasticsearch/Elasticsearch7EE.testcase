@@ -712,9 +712,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Search");
 
-		AssertTextEquals(
-			locator1 = "Portlet#HEADER",
-			value1 = "Search");
+		Navigator.gotoNavItem(navItem = "Connections");
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "SearchAdmin#REMOTE_CLUSTER_NAME",
@@ -741,9 +739,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Search");
 
-		AssertTextEquals(
-			locator1 = "Portlet#HEADER",
-			value1 = "Search");
+		Navigator.gotoNavItem(navItem = "Connections");
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "SearchAdmin#LOCAL_CLUSTER_NAME",
@@ -778,9 +774,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Search");
 
-		AssertTextEquals(
-			locator1 = "Portlet#HEADER",
-			value1 = "Search");
+		Navigator.gotoNavItem(navItem = "Connections");
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "SearchAdmin#REMOTE_CLUSTER_NAME",
