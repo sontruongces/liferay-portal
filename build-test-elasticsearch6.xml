@@ -958,15 +958,6 @@ xpack.monitoring.collection.enabled: true</echo>
 
 			<get-java-jdk-home />
 
-			<get-testcase-property property.name="remote.elasticsearch.ccr.enabled" />
-
-			<if>
-				<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
-				<then>
-					<configure-elasticsearch7-test-properties />
-				</then>
-			</if>
-
 			<antelope:repeat count="${remote.elasticsearch.cluster.size}">
 				<math
 					datatype="int"
@@ -1145,8 +1136,6 @@ xpack.monitoring.collection.enabled: true</echo>
 	</target>
 
 	<target name="stop-elasticsearch-local-cluster">
-		<configure-elasticsearch7-test-properties />
-
 		<if>
 			<os family="unix" />
 			<then>
