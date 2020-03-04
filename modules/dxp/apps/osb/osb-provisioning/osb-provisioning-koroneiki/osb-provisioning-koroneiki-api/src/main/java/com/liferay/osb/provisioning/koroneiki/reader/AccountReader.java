@@ -26,7 +26,7 @@ import java.util.List;
  */
 public interface AccountReader {
 
-	public List<Account> getAccountHeirarchy(Account account) throws Exception;
+	public List<Account> getAncestorAccounts(Account account) throws Exception;
 
 	public int getDeveloperCount(Account account);
 

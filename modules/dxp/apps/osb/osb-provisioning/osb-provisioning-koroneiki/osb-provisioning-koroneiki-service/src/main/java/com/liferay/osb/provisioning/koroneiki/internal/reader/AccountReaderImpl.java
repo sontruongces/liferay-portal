@@ -43,21 +43,21 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = AccountReader.class)
 public class AccountReaderImpl implements AccountReader {
 
-	public List<Account> getAccountHeirarchy(Account account) throws Exception {
-		List<Account> accountHeirarchy = new ArrayList<>();
+	public List<Account> getAncestorAccounts(Account account) throws Exception {
+		List<Account> ancestorAccounts = new ArrayList<>();
 
 		if (Validator.isNotNull(account.getParentAccountKey())) {
 			Account parentAccount = _accountWebService.fetchAccount(
 				account.getParentAccountKey());
 
 			if (parentAccount != null) {
-				accountHeirarchy.add(parentAccount);
+				ancestorAccounts.add(parentAccount);
 
-				accountHeirarchy.addAll(getAccountHeirarchy(parentAccount));
+				ancestorAccounts.addAll(getAncestorAccounts(parentAccount));
 			}
 		}
 
-		return accountHeirarchy;
+		return ancestorAccounts;
 	}
 
 	public int getDeveloperCount(Account account) {

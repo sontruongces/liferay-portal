@@ -151,11 +151,11 @@ public class AccountDisplay {
 	}
 
 	public boolean isEWSA() throws Exception {
-		if (_accountHeirarchy == null) {
-			_accountHeirarchy = _accountReader.getAccountHeirarchy(_account);
+		if (_ancestorAccounts == null) {
+			_ancestorAccounts = _accountReader.getAncestorAccounts(_account);
 		}
 
-		for (Account account : _accountHeirarchy) {
+		for (Account account : _ancestorAccounts) {
 			if (_isEWSA(account)) {
 				return true;
 			}
@@ -193,8 +193,8 @@ public class AccountDisplay {
 	}
 
 	private final Account _account;
-	private List<Account> _accountHeirarchy;
 	private final AccountReader _accountReader;
+	private List<Account> _ancestorAccounts;
 	private final Format _dateFormat;
 	private final HttpServletRequest _httpServletRequest;
 	private Team _partnerTeam;

@@ -61,10 +61,10 @@ public class ViewAccountDisplayContext {
 			LanguageUtil.get(_httpServletRequest, "accounts"),
 			accountsPortletURL.toString());
 
-		List<Account> accountHeirarchy = _accountReader.getAccountHeirarchy(
+		List<Account> ancestorAccounts = _accountReader.getAncestorAccounts(
 			_account);
 
-		for (Account account : accountHeirarchy) {
+		for (Account account : ancestorAccounts) {
 			PortletURL portletURL = _renderResponse.createRenderURL();
 
 			portletURL.setParameter(
