@@ -116,7 +116,7 @@ public class ClassLoaderAggregateProperties extends CompositeConfiguration {
 			value = System.getProperty(key);
 		}
 
-		if ((value == null) && key.equals("company:webId")) {
+		if ((value == null) && key.equals("liferay:companyWebId")) {
 			value = _companyWebId;
 		}
 
@@ -226,7 +226,8 @@ public class ClassLoaderAggregateProperties extends CompositeConfiguration {
 			_prefixedSystemConfiguration);
 		tempCompositeConfiguration.addConfiguration(newConfiguration);
 		tempCompositeConfiguration.addConfiguration(_systemConfiguration);
-		tempCompositeConfiguration.addProperty("company:webId", _companyWebId);
+		tempCompositeConfiguration.addProperty(
+			"liferay:companyWebId", _companyWebId);
 
 		String[] fileNames = tempCompositeConfiguration.getStringArray(
 			"include-and-override");
