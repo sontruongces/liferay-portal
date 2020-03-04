@@ -55,7 +55,7 @@ String channelId = liveGroup.getTypeSettingsProperty("analyticsChannelId");
 		if (themeDisplay.isSignedIn()) {
 			Analytics.setIdentity({
 				email: themeDisplay.getUserEmailAddress(),
-				name: themeDisplay.getUserName()
+				name: themeDisplay.getUserName(),
 			});
 		}
 
@@ -81,7 +81,7 @@ String channelId = liveGroup.getTypeSettingsProperty("analyticsChannelId");
 					if (themeDisplay.isSignedIn()) {
 						Analytics.setIdentity({
 							email: themeDisplay.getUserEmailAddress(),
-							name: themeDisplay.getUserName()
+							name: themeDisplay.getUserName(),
 						});
 					}
 
