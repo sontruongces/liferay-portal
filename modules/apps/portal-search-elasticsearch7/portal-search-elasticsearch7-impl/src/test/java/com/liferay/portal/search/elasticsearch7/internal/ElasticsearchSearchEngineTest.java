@@ -17,6 +17,7 @@ package com.liferay.portal.search.elasticsearch7.internal;
 import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.search.elasticsearch7.internal.ccr.CrossClusterReplicationHelper;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnection;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchFixture;
@@ -44,6 +45,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import org.mockito.Mockito;
 
 /**
  * @author André de Oliveira
@@ -209,6 +212,8 @@ public class ElasticsearchSearchEngineTest {
 
 		return new ElasticsearchSearchEngine() {
 			{
+				setCrossClusterReplicationHelper(
+					Mockito.mock(CrossClusterReplicationHelper.class));
 				setIndexFactory(createCompanyIndexFactory());
 				setIndexNameBuilder(String::valueOf);
 				setElasticsearchConnectionManager(
