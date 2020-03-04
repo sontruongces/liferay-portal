@@ -97,6 +97,13 @@ xpack.ml.enabled: false</echo>
 		</sequential>
 	</macrodef>
 
+	<macrodef name="configure-portal-remote-elasticsearch-ccr-osgi-properties">
+		<sequential>
+			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config">${line.separator}additionalIndexConfigurations="index.soft_deletes.enabled: true"
+logExceptionsOnly="true"</echo>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="configure-portal-remote-elasticsearch-osgi-properties">
 		<sequential>
 			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config">${line.separator}operationMode="REMOTE"</echo>
