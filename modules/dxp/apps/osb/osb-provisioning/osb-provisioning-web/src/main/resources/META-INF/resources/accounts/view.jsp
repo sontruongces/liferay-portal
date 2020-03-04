@@ -94,10 +94,3 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 		/>
 	</liferay-ui:search-container>
 </div>
-
-<div class="test-component">
-	<react:component
-		data="<%= Collections.emptyMap() %>"
-		module="js/index"
-	/>
-</div>
