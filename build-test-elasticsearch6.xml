@@ -925,11 +925,11 @@ xpack.monitoring.collection.enabled: true</echo>
 		</property>
 
 		<exec executable="curl" outputproperty="curl.output">
+			<arg value="-H" />
+			<arg value="Content-Type: application/json" />
 			<arg value="-X" />
 			<arg value="PUT" />
 			<arg value="localhost:${elasticsearch.port}/_snapshot/my_backup" />
-			<arg value="-H" />
-			<arg value="Content-Type: application/json" />
 			<arg value="-d" />
 			<arg value="${register.repository}" />
 		</exec>
@@ -939,8 +939,8 @@ xpack.monitoring.collection.enabled: true</echo>
 		<property name="restore.repository">
 			<![CDATA[
 				{
-					"indices": "${backup.index}",
 					"ignore_unavailable": true,
+					"indices": "${backup.index}",
 					"include_global_state": true,
 					"rename_pattern": "index_(.+)",
 					"rename_replacement": "restored_index_$1"
@@ -949,11 +949,11 @@ xpack.monitoring.collection.enabled: true</echo>
 		</property>
 
 		<exec executable="curl" outputproperty="curl.output">
+			<arg value="-H" />
+			<arg value="Content-Type: application/json" />
 			<arg value="-X" />
 			<arg value="POST" />
 			<arg value="localhost:${elasticsearch.port}/_snapshot/my_backup/snapshot_2/_restore" />
-			<arg value="-H" />
-			<arg value="Content-Type: application/json" />
 			<arg value="-d" />
 			<arg value="${restore.repository}" />
 		</exec>
