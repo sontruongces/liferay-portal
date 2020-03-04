@@ -747,7 +747,7 @@ definition {
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "Message#ERROR",
-			value1 = "Connection refused");
+			value1 = "None of the configured nodes are available");
 
 		AssertElementNotPresent(locator1 = "SearchAdmin#REMOTE_CLUSTER_NAME");
 
@@ -782,7 +782,7 @@ definition {
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "Message#ERROR",
-			value1 = "Connection refused");
+			value1 = "None of the configured nodes are available");
 
 		AssertElementNotPresent(locator1 = "SearchAdmin#LOCAL_CLUSTER_NAME");
 
