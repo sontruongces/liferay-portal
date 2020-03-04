@@ -1,4 +1,6 @@
 .account-header {
+	border-bottom: 1px solid $secondary-l3;
+
 	.account-code {
 		&:after {
 			content: '\00B7';
@@ -16,11 +18,17 @@
 		font-weight: $font-weight-semi-bold;
 		line-height: 150%;
 		list-style: none;
+		margin-bottom: 0;
 		margin-top: $spacing-md;
+		padding-bottom: $spacing-default;
 		padding-inline-start: 0;
 
 		li {
 			margin-right: $spacing-lg;
+			max-width: 11rem;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 	}
 
