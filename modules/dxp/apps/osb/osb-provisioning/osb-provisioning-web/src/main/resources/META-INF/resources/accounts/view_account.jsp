@@ -26,9 +26,15 @@ request.setAttribute("view_account.jsp-accountDisplay", accountDisplay);
 
 <liferay-util:include page="/accounts/view_account_header.jsp" servletContext="<%= application %>" />
 
-<div class="side-panel" id="sidePanel">
-	<react:component
-		data="<%= Collections.emptyMap() %>"
-		module="js/components/SidePanel"
-	/>
+<div class="subscriptions">
+	<div class="subscription-details">
+		Subscription Table
+	</div>
+
+	<div class="side-panel" id="sidePanel">
+		<react:component 
+			data="<%= Collections.emptyMap() %>"
+			module="js/components/SidePanel"
+		/>
+	</div>
 </div>
