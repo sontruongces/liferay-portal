@@ -450,6 +450,7 @@ public abstract class BaseDataLayoutResourceTestCase {
 
 	@Test
 	public void testDeleteDataLayout() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		DataLayout dataLayout = testDeleteDataLayout_addDataLayout();
 
 		assertHttpResponseStatusCode(

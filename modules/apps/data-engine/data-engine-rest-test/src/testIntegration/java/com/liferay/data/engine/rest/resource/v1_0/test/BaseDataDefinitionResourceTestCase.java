@@ -212,6 +212,7 @@ public abstract class BaseDataDefinitionResourceTestCase {
 
 	@Test
 	public void testDeleteDataDefinition() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		DataDefinition dataDefinition =
 			testDeleteDataDefinition_addDataDefinition();
 

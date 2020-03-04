@@ -197,6 +197,7 @@ public abstract class BaseExperimentResourceTestCase {
 
 	@Test
 	public void testDeleteExperiment() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Experiment experiment = testDeleteExperiment_addExperiment();
 
 		assertHttpResponseStatusCode(

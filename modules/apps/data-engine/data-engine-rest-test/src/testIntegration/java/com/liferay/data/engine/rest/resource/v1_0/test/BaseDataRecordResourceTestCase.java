@@ -479,6 +479,7 @@ public abstract class BaseDataRecordResourceTestCase {
 
 	@Test
 	public void testDeleteDataRecord() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		DataRecord dataRecord = testDeleteDataRecord_addDataRecord();
 
 		assertHttpResponseStatusCode(
