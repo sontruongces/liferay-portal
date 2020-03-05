@@ -16,7 +16,9 @@ package com.liferay.osb.provisioning.web.internal.util;
 
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.ProductPurchaseViewSearchDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
 
 import javax.portlet.RenderRequest;
@@ -44,6 +46,15 @@ public class ProvisioningWebComponentProvider {
 
 		return _provisioningWebComponentProvider.
 			_getAccountSearchDisplayContext(renderRequest, renderResponse);
+	}
+
+	public static ProductPurchaseViewSearchDisplayContext
+		getProductPurchaseViewSearchDisplayContext(
+			RenderRequest renderRequest, RenderResponse renderResponse) {
+
+		return _provisioningWebComponentProvider.
+			_getProductPurchaseViewSearchDisplayContext(
+				renderRequest, renderResponse);
 	}
 
 	public static ProvisioningWebComponentProvider
@@ -82,6 +93,14 @@ public class ProvisioningWebComponentProvider {
 			renderRequest, renderResponse, _accountWebService);
 	}
 
+	private ProductPurchaseViewSearchDisplayContext
+		_getProductPurchaseViewSearchDisplayContext(
+			RenderRequest renderRequest, RenderResponse renderResponse) {
+
+		return new ProductPurchaseViewSearchDisplayContext(
+			renderRequest, renderResponse, _productPurchaseViewWebService);
+	}
+
 	private ViewAccountDisplayContext _getViewAccountDisplayContext(
 			RenderRequest renderRequest, RenderResponse renderResponse,
 			HttpServletRequest httpServletRequest)
@@ -99,5 +118,8 @@ public class ProvisioningWebComponentProvider {
 
 	@Reference
 	private AccountWebService _accountWebService;
+
+	@Reference
+	private ProductPurchaseViewWebService _productPurchaseViewWebService;
 
 }

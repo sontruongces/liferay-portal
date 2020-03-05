@@ -28,7 +28,7 @@ request.setAttribute("view_account.jsp-accountDisplay", accountDisplay);
 
 <div class="subscriptions">
 	<div class="subscription-details">
-		Subscription Table
+		<liferay-util:include page="/accounts/view_subscriptions.jsp" servletContext="<%= application %>" />
 	</div>
 
 	<div class="side-panel" id="sidePanel">
