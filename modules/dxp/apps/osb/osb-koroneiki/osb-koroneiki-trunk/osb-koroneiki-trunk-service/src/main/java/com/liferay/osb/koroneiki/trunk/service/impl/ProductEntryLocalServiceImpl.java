@@ -152,6 +152,16 @@ public class ProductEntryLocalServiceImpl
 		return productEntryPersistence.fetchByName(name);
 	}
 
+	public List<ProductEntry> getAccountProductEntries(
+		long accountId, int start, int end) {
+
+		return productEntryFinder.findByAccount(accountId, start, end);
+	}
+
+	public int getAccountProductEntriesCount(long accountId) {
+		return productEntryFinder.countByAccount(accountId);
+	}
+
 	public ProductEntry getProductEntry(String productEntryKey)
 		throws PortalException {
 

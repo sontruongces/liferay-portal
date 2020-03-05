@@ -176,6 +176,18 @@ public class ProductConsumptionServiceImpl
 			getAccountProductConsumptionsCount(account.getAccountId());
 	}
 
+	public List<ProductConsumption> getAccountProductEntryProductConsumptions(
+			long accountId, long productEntryId)
+		throws PortalException {
+
+		_accountPermission.check(
+			getPermissionChecker(), accountId, ActionKeys.VIEW);
+
+		return productConsumptionLocalService.
+			getAccountProductEntryProductConsumptions(
+				accountId, productEntryId);
+	}
+
 	public List<ProductConsumption> getContactProductConsumptions(
 			long contactId, int start, int end)
 		throws PortalException {

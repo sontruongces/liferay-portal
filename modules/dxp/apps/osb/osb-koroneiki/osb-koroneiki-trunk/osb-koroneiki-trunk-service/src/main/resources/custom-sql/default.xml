@@ -33,6 +33,38 @@
 				Koroneiki_ContactAccountRole.contactId = ?
 		]]>
 	</sql>
+	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.countByAccount">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT Koroneiki_ProductEntry.productEntryId) AS COUNT_VALUE
+			FROM
+				Koroneiki_ProductEntry
+			INNER JOIN
+				Koroneiki_ProductPurchase ON
+					Koroneiki_ProductEntry.productEntryId = Koroneiki_ProductPurchase.productEntryId
+			INNER JOIN
+				Koroneiki_Account ON
+					Koroneiki_ProductPurchase.accountId = Koroneiki_Account.accountId
+			WHERE
+				Koroneiki_Account.accountId = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.findByAccount">
+		<![CDATA[
+			SELECT
+				DISTINCT {Koroneiki_ProductEntry.*}
+			FROM
+				Koroneiki_ProductEntry
+			INNER JOIN
+				Koroneiki_ProductPurchase ON
+					Koroneiki_ProductEntry.productEntryId = Koroneiki_ProductPurchase.productEntryId
+			INNER JOIN
+				Koroneiki_Account ON
+					Koroneiki_ProductPurchase.accountId = Koroneiki_Account.accountId
+			WHERE
+				Koroneiki_Account.accountId = ?
+		]]>
+	</sql>
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductFieldFinder.findNameByClassNameId">
 		<![CDATA[
 			SELECT

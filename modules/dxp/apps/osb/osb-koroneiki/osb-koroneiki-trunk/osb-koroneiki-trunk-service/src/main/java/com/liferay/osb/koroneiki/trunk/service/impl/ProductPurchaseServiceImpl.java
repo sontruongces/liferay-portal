@@ -103,6 +103,17 @@ public class ProductPurchaseServiceImpl extends ProductPurchaseServiceBaseImpl {
 			productPurchase.getProductPurchaseId());
 	}
 
+	public List<ProductPurchase> getAccountProductEntryProductPurchases(
+			long accountId, long productEntryId)
+		throws PortalException {
+
+		_accountPermission.check(
+			getPermissionChecker(), accountId, ActionKeys.VIEW);
+
+		return productPurchaseLocalService.
+			getAccountProductEntryProductPurchases(accountId, productEntryId);
+	}
+
 	public List<ProductPurchase> getAccountProductPurchases(
 			long accountId, int start, int end)
 		throws PortalException {

@@ -141,6 +141,13 @@ public class ProductPurchaseLocalServiceImpl
 		return productPurchasePersistence.remove(productPurchaseId);
 	}
 
+	public List<ProductPurchase> getAccountProductEntryProductPurchases(
+		long accountId, long productEntryId) {
+
+		return productPurchasePersistence.findByAI_PEI(
+			accountId, productEntryId);
+	}
+
 	public List<ProductPurchase> getAccountProductPurchases(
 		long accountId, int start, int end) {
 

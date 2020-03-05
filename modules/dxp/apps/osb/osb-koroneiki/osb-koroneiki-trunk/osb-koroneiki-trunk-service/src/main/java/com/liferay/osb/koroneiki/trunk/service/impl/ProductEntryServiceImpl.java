@@ -16,6 +16,7 @@ package com.liferay.osb.koroneiki.trunk.service.impl;
 
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
+import com.liferay.osb.koroneiki.taproot.permission.AccountPermission;
 import com.liferay.osb.koroneiki.trunk.constants.TrunkActionKeys;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
@@ -77,6 +78,27 @@ public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 			getPermissionChecker(), productEntry, ActionKeys.DELETE);
 
 		return productEntryLocalService.deleteProductEntry(productEntry);
+	}
+
+	public List<ProductEntry> getAccountProductEntries(
+			long accountId, int start, int end)
+		throws PortalException {
+
+		_accountPermission.check(
+			getPermissionChecker(), accountId, ActionKeys.VIEW);
+
+		return productEntryLocalService.getAccountProductEntries(
+			accountId, start, end);
+	}
+
+	public int getAccountProductEntriesCount(long accountId)
+		throws PortalException {
+
+		_accountPermission.check(
+			getPermissionChecker(), accountId, ActionKeys.VIEW);
+
+		return productEntryLocalService.getAccountProductEntriesCount(
+			accountId);
 	}
 
 	public List<ProductEntry> getProductEntries(int start, int end)
@@ -192,6 +214,9 @@ public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 		return productEntryLocalService.updateProductEntry(
 			getUserId(), productEntry.getProductEntryId(), name, productFields);
 	}
+
+	@Reference
+	private AccountPermission _accountPermission;
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
