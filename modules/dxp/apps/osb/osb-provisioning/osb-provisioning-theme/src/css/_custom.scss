@@ -37,3 +37,12 @@ table {
 .label {
 	letter-spacing: 0.04rem;
 }
+
+.nav-underline {
+	border-bottom: 1px solid $secondary-l3;
+
+	.nav-link {
+		padding-bottom: $spacing-md;
+		padding-top: $spacing-md;
+	}
+}

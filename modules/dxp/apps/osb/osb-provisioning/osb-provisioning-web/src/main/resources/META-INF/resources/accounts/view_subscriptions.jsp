@@ -20,7 +20,6 @@
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 %>
 
-<div class="container-fluid-1280">
 	<liferay-ui:search-container
 		searchContainer="<%= viewAccountDisplayContext.getProductPurchaseViewSearchContainer() %>"
 	>
@@ -77,4 +76,3 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 			markupView="lexicon"
 		/>
 	</liferay-ui:search-container>
-</div>
