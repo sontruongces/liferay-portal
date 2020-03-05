@@ -90,14 +90,14 @@ public class UpdateLayoutAction extends JSONAction {
 		boolean updateLayout = true;
 
 		if (cmd.equals(Constants.ADD)) {
-			if (portletId == null) {
-				throw new IllegalArgumentException("Portlet id cannot be null");
-			}
-
 			String columnId = ParamUtil.getString(
 				httpServletRequest, "p_p_col_id", null);
 			int columnPos = ParamUtil.getInteger(
 				httpServletRequest, "p_p_col_pos", -1);
+
+			if (portletId == null) {
+				throw new IllegalArgumentException("Portlet ID is null");
+			}
 
 			String originalPortletId = portletId;
 
