@@ -26,6 +26,8 @@ import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRe
 
 import java.io.IOException;
 
+import java.util.Optional;
+
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -85,7 +87,7 @@ public class CustomFilterPortlet extends MVCPortlet {
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, customFilterDisplayContext);
 
-		if (customFilterPortletPreferences.isDisabled() ||
+		if (customFilterDisplayContext.isRenderNothing() ||
 			customFilterPortletPreferences.isImmutable() ||
 			customFilterPortletPreferences.isInvisible()) {
 
@@ -124,6 +126,8 @@ public class CustomFilterPortlet extends MVCPortlet {
 				parameterName, renderRequest)
 		).queryNameOptional(
 			customFilterPortletPreferences.getQueryNameOptional()
+		).renderNothing(
+			isRenderNothing(portletSharedSearchResponse)
 		).themeDisplay(
 			portletSharedSearchResponse.getThemeDisplay(renderRequest)
 		).build();
@@ -131,6 +135,15 @@ public class CustomFilterPortlet extends MVCPortlet {
 
 	protected String getPortletId(RenderRequest renderRequest) {
 		return portal.getPortletId(renderRequest);
+	}
+
+	protected boolean isRenderNothing(
+		PortletSharedSearchResponse portletSharedSearchResponse) {
+
+		Optional<String> keywordsOptional =
+			portletSharedSearchResponse.getKeywordsOptional();
+
+		return !keywordsOptional.isPresent();
 	}
 
 	@Reference

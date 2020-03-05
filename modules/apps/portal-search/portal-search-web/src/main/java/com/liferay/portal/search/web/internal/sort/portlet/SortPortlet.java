@@ -77,6 +77,11 @@ public class SortPortlet extends MVCPortlet {
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, sortDisplayContext);
 
+		if (sortDisplayContext.isRenderNothing()) {
+			renderRequest.setAttribute(
+				WebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
+		}
+
 		super.render(renderRequest, renderResponse);
 	}
 
@@ -101,7 +106,18 @@ public class SortPortlet extends MVCPortlet {
 			parameterName
 		).parameterValues(
 			parameterValues.orElse(null)
+		).renderNothing(
+			isRenderNothing(portletSharedSearchResponse)
 		).build();
+	}
+
+	protected boolean isRenderNothing(
+		PortletSharedSearchResponse portletSharedSearchResponse) {
+
+		Optional<String> keywordsOptional =
+			portletSharedSearchResponse.getKeywordsOptional();
+
+		return !keywordsOptional.isPresent();
 	}
 
 	@Reference
