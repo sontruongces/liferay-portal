@@ -127,6 +127,18 @@ public class ProductConsumptionServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+				getAccountProductEntryProductConsumptions(
+					long accountId, long productEntryId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productConsumptionService.
+			getAccountProductEntryProductConsumptions(
+				accountId, productEntryId);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
 				getContactProductConsumptions(
 					long contactId, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {

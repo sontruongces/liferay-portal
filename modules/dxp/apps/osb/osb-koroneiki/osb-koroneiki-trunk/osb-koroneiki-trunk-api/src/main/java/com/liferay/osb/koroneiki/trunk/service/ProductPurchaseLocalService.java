@@ -200,6 +200,10 @@ public interface ProductPurchaseLocalService
 		String uuid, long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProductPurchase> getAccountProductEntryProductPurchases(
+		long accountId, long productEntryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProductPurchase> getAccountProductPurchases(
 		long accountId, int start, int end);
 

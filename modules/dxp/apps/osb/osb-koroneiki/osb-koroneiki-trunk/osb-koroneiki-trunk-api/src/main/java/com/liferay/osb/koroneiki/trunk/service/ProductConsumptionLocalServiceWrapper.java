@@ -266,6 +266,17 @@ public class ProductConsumptionLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+			getAccountProductEntryProductConsumptions(
+				long accountId, long productEntryId) {
+
+		return _productConsumptionLocalService.
+			getAccountProductEntryProductConsumptions(
+				accountId, productEntryId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

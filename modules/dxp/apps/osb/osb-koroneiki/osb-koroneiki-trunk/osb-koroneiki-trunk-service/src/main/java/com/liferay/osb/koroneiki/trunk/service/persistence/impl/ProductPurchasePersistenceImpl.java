@@ -4116,6 +4116,960 @@ public class ProductPurchasePersistenceImpl
 	private static final String _FINDER_COLUMN_PRODUCTENTRYID_PRODUCTENTRYID_2 =
 		"productPurchase.productEntryId = ?";
 
+	private FinderPath _finderPathWithPaginationFindByAI_PEI;
+	private FinderPath _finderPathWithoutPaginationFindByAI_PEI;
+	private FinderPath _finderPathCountByAI_PEI;
+
+	/**
+	 * Returns all the product purchases where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @return the matching product purchases
+	 */
+	@Override
+	public List<ProductPurchase> findByAI_PEI(
+		long accountId, long productEntryId) {
+
+		return findByAI_PEI(
+			accountId, productEntryId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the product purchases where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @return the range of matching product purchases
+	 */
+	@Override
+	public List<ProductPurchase> findByAI_PEI(
+		long accountId, long productEntryId, int start, int end) {
+
+		return findByAI_PEI(accountId, productEntryId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the product purchases where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product purchases
+	 */
+	@Override
+	public List<ProductPurchase> findByAI_PEI(
+		long accountId, long productEntryId, int start, int end,
+		OrderByComparator<ProductPurchase> orderByComparator) {
+
+		return findByAI_PEI(
+			accountId, productEntryId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the product purchases where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching product purchases
+	 */
+	@Override
+	public List<ProductPurchase> findByAI_PEI(
+		long accountId, long productEntryId, int start, int end,
+		OrderByComparator<ProductPurchase> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByAI_PEI;
+				finderArgs = new Object[] {accountId, productEntryId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByAI_PEI;
+			finderArgs = new Object[] {
+				accountId, productEntryId, start, end, orderByComparator
+			};
+		}
+
+		List<ProductPurchase> list = null;
+
+		if (useFinderCache) {
+			list = (List<ProductPurchase>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (ProductPurchase productPurchase : list) {
+					if ((accountId != productPurchase.getAccountId()) ||
+						(productEntryId !=
+							productPurchase.getProductEntryId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(4);
+			}
+
+			query.append(_SQL_SELECT_PRODUCTPURCHASE_WHERE);
+
+			query.append(_FINDER_COLUMN_AI_PEI_ACCOUNTID_2);
+
+			query.append(_FINDER_COLUMN_AI_PEI_PRODUCTENTRYID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				query.append(ProductPurchaseModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(accountId);
+
+				qPos.add(productEntryId);
+
+				list = (List<ProductPurchase>)QueryUtil.list(
+					q, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first product purchase in the ordered set where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product purchase
+	 * @throws NoSuchProductPurchaseException if a matching product purchase could not be found
+	 */
+	@Override
+	public ProductPurchase findByAI_PEI_First(
+			long accountId, long productEntryId,
+			OrderByComparator<ProductPurchase> orderByComparator)
+		throws NoSuchProductPurchaseException {
+
+		ProductPurchase productPurchase = fetchByAI_PEI_First(
+			accountId, productEntryId, orderByComparator);
+
+		if (productPurchase != null) {
+			return productPurchase;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("accountId=");
+		msg.append(accountId);
+
+		msg.append(", productEntryId=");
+		msg.append(productEntryId);
+
+		msg.append("}");
+
+		throw new NoSuchProductPurchaseException(msg.toString());
+	}
+
+	/**
+	 * Returns the first product purchase in the ordered set where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product purchase, or <code>null</code> if a matching product purchase could not be found
+	 */
+	@Override
+	public ProductPurchase fetchByAI_PEI_First(
+		long accountId, long productEntryId,
+		OrderByComparator<ProductPurchase> orderByComparator) {
+
+		List<ProductPurchase> list = findByAI_PEI(
+			accountId, productEntryId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last product purchase in the ordered set where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product purchase
+	 * @throws NoSuchProductPurchaseException if a matching product purchase could not be found
+	 */
+	@Override
+	public ProductPurchase findByAI_PEI_Last(
+			long accountId, long productEntryId,
+			OrderByComparator<ProductPurchase> orderByComparator)
+		throws NoSuchProductPurchaseException {
+
+		ProductPurchase productPurchase = fetchByAI_PEI_Last(
+			accountId, productEntryId, orderByComparator);
+
+		if (productPurchase != null) {
+			return productPurchase;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("accountId=");
+		msg.append(accountId);
+
+		msg.append(", productEntryId=");
+		msg.append(productEntryId);
+
+		msg.append("}");
+
+		throw new NoSuchProductPurchaseException(msg.toString());
+	}
+
+	/**
+	 * Returns the last product purchase in the ordered set where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product purchase, or <code>null</code> if a matching product purchase could not be found
+	 */
+	@Override
+	public ProductPurchase fetchByAI_PEI_Last(
+		long accountId, long productEntryId,
+		OrderByComparator<ProductPurchase> orderByComparator) {
+
+		int count = countByAI_PEI(accountId, productEntryId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<ProductPurchase> list = findByAI_PEI(
+			accountId, productEntryId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the product purchases before and after the current product purchase in the ordered set where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param productPurchaseId the primary key of the current product purchase
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product purchase
+	 * @throws NoSuchProductPurchaseException if a product purchase with the primary key could not be found
+	 */
+	@Override
+	public ProductPurchase[] findByAI_PEI_PrevAndNext(
+			long productPurchaseId, long accountId, long productEntryId,
+			OrderByComparator<ProductPurchase> orderByComparator)
+		throws NoSuchProductPurchaseException {
+
+		ProductPurchase productPurchase = findByPrimaryKey(productPurchaseId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			ProductPurchase[] array = new ProductPurchaseImpl[3];
+
+			array[0] = getByAI_PEI_PrevAndNext(
+				session, productPurchase, accountId, productEntryId,
+				orderByComparator, true);
+
+			array[1] = productPurchase;
+
+			array[2] = getByAI_PEI_PrevAndNext(
+				session, productPurchase, accountId, productEntryId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected ProductPurchase getByAI_PEI_PrevAndNext(
+		Session session, ProductPurchase productPurchase, long accountId,
+		long productEntryId,
+		OrderByComparator<ProductPurchase> orderByComparator,
+		boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		query.append(_SQL_SELECT_PRODUCTPURCHASE_WHERE);
+
+		query.append(_FINDER_COLUMN_AI_PEI_ACCOUNTID_2);
+
+		query.append(_FINDER_COLUMN_AI_PEI_PRODUCTENTRYID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(ProductPurchaseModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(accountId);
+
+		qPos.add(productEntryId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						productPurchase)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<ProductPurchase> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns all the product purchases that the user has permission to view where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @return the matching product purchases that the user has permission to view
+	 */
+	@Override
+	public List<ProductPurchase> filterFindByAI_PEI(
+		long accountId, long productEntryId) {
+
+		return filterFindByAI_PEI(
+			accountId, productEntryId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the product purchases that the user has permission to view where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @return the range of matching product purchases that the user has permission to view
+	 */
+	@Override
+	public List<ProductPurchase> filterFindByAI_PEI(
+		long accountId, long productEntryId, int start, int end) {
+
+		return filterFindByAI_PEI(accountId, productEntryId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the product purchases that the user has permissions to view where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductPurchaseModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param start the lower bound of the range of product purchases
+	 * @param end the upper bound of the range of product purchases (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product purchases that the user has permission to view
+	 */
+	@Override
+	public List<ProductPurchase> filterFindByAI_PEI(
+		long accountId, long productEntryId, int start, int end,
+		OrderByComparator<ProductPurchase> orderByComparator) {
+
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByAI_PEI(
+				accountId, productEntryId, start, end, orderByComparator);
+		}
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByFields().length * 2));
+		}
+		else {
+			query = new StringBundler(5);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_PRODUCTPURCHASE_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_PRODUCTPURCHASE_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_AI_PEI_ACCOUNTID_2);
+
+		query.append(_FINDER_COLUMN_AI_PEI_PRODUCTENTRYID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_PRODUCTPURCHASE_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+			}
+			else {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(ProductPurchaseModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(ProductPurchaseModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), ProductPurchase.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(_FILTER_ENTITY_ALIAS, ProductPurchaseImpl.class);
+			}
+			else {
+				q.addEntity(_FILTER_ENTITY_TABLE, ProductPurchaseImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(accountId);
+
+			qPos.add(productEntryId);
+
+			return (List<ProductPurchase>)QueryUtil.list(
+				q, getDialect(), start, end);
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the product purchases before and after the current product purchase in the ordered set of product purchases that the user has permission to view where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param productPurchaseId the primary key of the current product purchase
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product purchase
+	 * @throws NoSuchProductPurchaseException if a product purchase with the primary key could not be found
+	 */
+	@Override
+	public ProductPurchase[] filterFindByAI_PEI_PrevAndNext(
+			long productPurchaseId, long accountId, long productEntryId,
+			OrderByComparator<ProductPurchase> orderByComparator)
+		throws NoSuchProductPurchaseException {
+
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByAI_PEI_PrevAndNext(
+				productPurchaseId, accountId, productEntryId,
+				orderByComparator);
+		}
+
+		ProductPurchase productPurchase = findByPrimaryKey(productPurchaseId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			ProductPurchase[] array = new ProductPurchaseImpl[3];
+
+			array[0] = filterGetByAI_PEI_PrevAndNext(
+				session, productPurchase, accountId, productEntryId,
+				orderByComparator, true);
+
+			array[1] = productPurchase;
+
+			array[2] = filterGetByAI_PEI_PrevAndNext(
+				session, productPurchase, accountId, productEntryId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected ProductPurchase filterGetByAI_PEI_PrevAndNext(
+		Session session, ProductPurchase productPurchase, long accountId,
+		long productEntryId,
+		OrderByComparator<ProductPurchase> orderByComparator,
+		boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(5);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_PRODUCTPURCHASE_WHERE);
+		}
+		else {
+			query.append(
+				_FILTER_SQL_SELECT_PRODUCTPURCHASE_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_AI_PEI_ACCOUNTID_2);
+
+		query.append(_FINDER_COLUMN_AI_PEI_PRODUCTENTRYID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(
+				_FILTER_SQL_SELECT_PRODUCTPURCHASE_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
+							true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
+							true));
+				}
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
+				}
+				else {
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
+				}
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(ProductPurchaseModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(ProductPurchaseModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), ProductPurchase.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		if (getDB().isSupportsInlineDistinct()) {
+			q.addEntity(_FILTER_ENTITY_ALIAS, ProductPurchaseImpl.class);
+		}
+		else {
+			q.addEntity(_FILTER_ENTITY_TABLE, ProductPurchaseImpl.class);
+		}
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(accountId);
+
+		qPos.add(productEntryId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						productPurchase)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<ProductPurchase> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the product purchases where accountId = &#63; and productEntryId = &#63; from the database.
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 */
+	@Override
+	public void removeByAI_PEI(long accountId, long productEntryId) {
+		for (ProductPurchase productPurchase :
+				findByAI_PEI(
+					accountId, productEntryId, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null)) {
+
+			remove(productPurchase);
+		}
+	}
+
+	/**
+	 * Returns the number of product purchases where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @return the number of matching product purchases
+	 */
+	@Override
+	public int countByAI_PEI(long accountId, long productEntryId) {
+		FinderPath finderPath = _finderPathCountByAI_PEI;
+
+		Object[] finderArgs = new Object[] {accountId, productEntryId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_PRODUCTPURCHASE_WHERE);
+
+			query.append(_FINDER_COLUMN_AI_PEI_ACCOUNTID_2);
+
+			query.append(_FINDER_COLUMN_AI_PEI_PRODUCTENTRYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(accountId);
+
+				qPos.add(productEntryId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of product purchases that the user has permission to view where accountId = &#63; and productEntryId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param productEntryId the product entry ID
+	 * @return the number of matching product purchases that the user has permission to view
+	 */
+	@Override
+	public int filterCountByAI_PEI(long accountId, long productEntryId) {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return countByAI_PEI(accountId, productEntryId);
+		}
+
+		StringBundler query = new StringBundler(3);
+
+		query.append(_FILTER_SQL_COUNT_PRODUCTPURCHASE_WHERE);
+
+		query.append(_FINDER_COLUMN_AI_PEI_ACCOUNTID_2);
+
+		query.append(_FINDER_COLUMN_AI_PEI_PRODUCTENTRYID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), ProductPurchase.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(
+				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(accountId);
+
+			qPos.add(productEntryId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	private static final String _FINDER_COLUMN_AI_PEI_ACCOUNTID_2 =
+		"productPurchase.accountId = ? AND ";
+
+	private static final String _FINDER_COLUMN_AI_PEI_PRODUCTENTRYID_2 =
+		"productPurchase.productEntryId = ?";
+
 	public ProductPurchasePersistenceImpl() {
 		setModelClass(ProductPurchase.class);
 
@@ -4491,6 +5445,15 @@ public class ProductPurchasePersistenceImpl
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindByProductEntryId, args);
 
+			args = new Object[] {
+				productPurchaseModelImpl.getAccountId(),
+				productPurchaseModelImpl.getProductEntryId()
+			};
+
+			finderCache.removeResult(_finderPathCountByAI_PEI, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByAI_PEI, args);
+
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
@@ -4578,6 +5541,29 @@ public class ProductPurchasePersistenceImpl
 					_finderPathCountByProductEntryId, args);
 				finderCache.removeResult(
 					_finderPathWithoutPaginationFindByProductEntryId, args);
+			}
+
+			if ((productPurchaseModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByAI_PEI.getColumnBitmask()) !=
+					 0) {
+
+				Object[] args = new Object[] {
+					productPurchaseModelImpl.getOriginalAccountId(),
+					productPurchaseModelImpl.getOriginalProductEntryId()
+				};
+
+				finderCache.removeResult(_finderPathCountByAI_PEI, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByAI_PEI, args);
+
+				args = new Object[] {
+					productPurchaseModelImpl.getAccountId(),
+					productPurchaseModelImpl.getProductEntryId()
+				};
+
+				finderCache.removeResult(_finderPathCountByAI_PEI, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByAI_PEI, args);
 			}
 		}
 
@@ -4966,6 +5952,27 @@ public class ProductPurchasePersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByProductEntryId",
 			new String[] {Long.class.getName()});
+
+		_finderPathWithPaginationFindByAI_PEI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, ProductPurchaseImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByAI_PEI",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByAI_PEI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, ProductPurchaseImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByAI_PEI",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			ProductPurchaseModelImpl.ACCOUNTID_COLUMN_BITMASK |
+			ProductPurchaseModelImpl.PRODUCTENTRYID_COLUMN_BITMASK);
+
+		_finderPathCountByAI_PEI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAI_PEI",
+			new String[] {Long.class.getName(), Long.class.getName()});
 	}
 
 	@Deactivate

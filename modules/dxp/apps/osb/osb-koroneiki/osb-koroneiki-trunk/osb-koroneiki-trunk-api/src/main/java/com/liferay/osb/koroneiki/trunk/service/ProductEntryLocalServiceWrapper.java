@@ -232,6 +232,20 @@ public class ProductEntryLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
+		getAccountProductEntries(long accountId, int start, int end) {
+
+		return _productEntryLocalService.getAccountProductEntries(
+			accountId, start, end);
+	}
+
+	@Override
+	public int getAccountProductEntriesCount(long accountId) {
+		return _productEntryLocalService.getAccountProductEntriesCount(
+			accountId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

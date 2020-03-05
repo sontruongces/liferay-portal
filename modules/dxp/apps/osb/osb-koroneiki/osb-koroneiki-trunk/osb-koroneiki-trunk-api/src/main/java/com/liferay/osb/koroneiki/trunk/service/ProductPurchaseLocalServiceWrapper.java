@@ -238,6 +238,15 @@ public class ProductPurchaseLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+		getAccountProductEntryProductPurchases(
+			long accountId, long productEntryId) {
+
+		return _productPurchaseLocalService.
+			getAccountProductEntryProductPurchases(accountId, productEntryId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
 		getAccountProductPurchases(long accountId, int start, int end) {
 
 		return _productPurchaseLocalService.getAccountProductPurchases(

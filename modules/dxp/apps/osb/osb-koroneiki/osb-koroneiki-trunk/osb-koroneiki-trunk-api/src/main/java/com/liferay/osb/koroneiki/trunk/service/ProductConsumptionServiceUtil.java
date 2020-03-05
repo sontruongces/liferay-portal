@@ -116,6 +116,16 @@ public class ProductConsumptionServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+				getAccountProductEntryProductConsumptions(
+					long accountId, long productEntryId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAccountProductEntryProductConsumptions(
+			accountId, productEntryId);
+	}
+
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
 				getContactProductConsumptions(
 					long contactId, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {

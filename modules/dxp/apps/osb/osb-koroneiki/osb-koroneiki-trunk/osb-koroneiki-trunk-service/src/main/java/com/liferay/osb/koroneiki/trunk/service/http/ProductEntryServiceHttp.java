@@ -180,6 +180,90 @@ public class ProductEntryServiceHttp {
 	}
 
 	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
+				getAccountProductEntries(
+					HttpPrincipal httpPrincipal, long accountId, int start,
+					int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ProductEntryServiceUtil.class, "getAccountProductEntries",
+				_getAccountProductEntriesParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.trunk.model.ProductEntry>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static int getAccountProductEntriesCount(
+			HttpPrincipal httpPrincipal, long accountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ProductEntryServiceUtil.class, "getAccountProductEntriesCount",
+				_getAccountProductEntriesCountParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductEntry> getProductEntries(
 				HttpPrincipal httpPrincipal, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
@@ -187,7 +271,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "getProductEntries",
-				_getProductEntriesParameterTypes3);
+				_getProductEntriesParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, start, end);
@@ -230,7 +314,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "getProductEntries",
-				_getProductEntriesParameterTypes4);
+				_getProductEntriesParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId, start, end);
@@ -270,7 +354,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "getProductEntriesCount",
-				_getProductEntriesCountParameterTypes5);
+				_getProductEntriesCountParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -310,7 +394,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "getProductEntriesCount",
-				_getProductEntriesCountParameterTypes6);
+				_getProductEntriesCountParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId);
@@ -350,7 +434,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "getProductEntry",
-				_getProductEntryParameterTypes7);
+				_getProductEntryParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productEntryId);
@@ -391,7 +475,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "getProductEntry",
-				_getProductEntryParameterTypes8);
+				_getProductEntryParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productEntryKey);
@@ -432,7 +516,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "getProductEntryByName",
-				_getProductEntryByNameParameterTypes9);
+				_getProductEntryByNameParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, name);
 
@@ -476,7 +560,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "updateProductEntry",
-				_updateProductEntryParameterTypes10);
+				_updateProductEntryParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productEntryId, name, productFields);
@@ -522,7 +606,7 @@ public class ProductEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductEntryServiceUtil.class, "updateProductEntry",
-				_updateProductEntryParameterTypes11);
+				_updateProductEntryParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productEntryKey, name, productFields);
@@ -565,25 +649,31 @@ public class ProductEntryServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteProductEntryParameterTypes2 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getProductEntriesParameterTypes3 =
+	private static final Class<?>[] _getAccountProductEntriesParameterTypes3 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[]
+		_getAccountProductEntriesCountParameterTypes4 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getProductEntriesParameterTypes5 =
 		new Class[] {int.class, int.class};
-	private static final Class<?>[] _getProductEntriesParameterTypes4 =
+	private static final Class<?>[] _getProductEntriesParameterTypes6 =
 		new Class[] {
 			String.class, String.class, String.class, int.class, int.class
 		};
-	private static final Class<?>[] _getProductEntriesCountParameterTypes5 =
+	private static final Class<?>[] _getProductEntriesCountParameterTypes7 =
 		new Class[] {};
-	private static final Class<?>[] _getProductEntriesCountParameterTypes6 =
+	private static final Class<?>[] _getProductEntriesCountParameterTypes8 =
 		new Class[] {String.class, String.class, String.class};
-	private static final Class<?>[] _getProductEntryParameterTypes7 =
+	private static final Class<?>[] _getProductEntryParameterTypes9 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getProductEntryParameterTypes8 =
+	private static final Class<?>[] _getProductEntryParameterTypes10 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getProductEntryByNameParameterTypes9 =
+	private static final Class<?>[] _getProductEntryByNameParameterTypes11 =
 		new Class[] {String.class};
-	private static final Class<?>[] _updateProductEntryParameterTypes10 =
+	private static final Class<?>[] _updateProductEntryParameterTypes12 =
 		new Class[] {long.class, String.class, java.util.List.class};
-	private static final Class<?>[] _updateProductEntryParameterTypes11 =
+	private static final Class<?>[] _updateProductEntryParameterTypes13 =
 		new Class[] {String.class, String.class, java.util.List.class};
 
 }

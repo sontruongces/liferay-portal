@@ -62,6 +62,20 @@ public class ProductEntryServiceUtil {
 		return getService().deleteProductEntry(productEntryKey);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
+				getAccountProductEntries(long accountId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAccountProductEntries(accountId, start, end);
+	}
+
+	public static int getAccountProductEntriesCount(long accountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAccountProductEntriesCount(accountId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

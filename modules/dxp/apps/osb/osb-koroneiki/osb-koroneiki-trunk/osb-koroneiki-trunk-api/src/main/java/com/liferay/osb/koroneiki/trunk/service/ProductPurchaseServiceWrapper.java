@@ -83,6 +83,16 @@ public class ProductPurchaseServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+			getAccountProductEntryProductPurchases(
+				long accountId, long productEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productPurchaseService.getAccountProductEntryProductPurchases(
+			accountId, productEntryId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
 			getAccountProductPurchases(long accountId, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

@@ -1,4 +1,4 @@
-create index IX_D1166696 on Koroneiki_ProductConsumption (accountId);
+create index IX_958051C8 on Koroneiki_ProductConsumption (accountId, productEntryId);
 create unique index IX_25801541 on Koroneiki_ProductConsumption (productConsumptionKey[$COLUMN_LENGTH:75$]);
 create index IX_891BB134 on Koroneiki_ProductConsumption (productEntryId);
 create index IX_E22074E on Koroneiki_ProductConsumption (userId, accountId, productEntryId);
@@ -10,7 +10,7 @@ create index IX_EBC2538D on Koroneiki_ProductEntry (uuid_[$COLUMN_LENGTH:75$], c
 
 create index IX_2BD84FF6 on Koroneiki_ProductField (classNameId, classPK);
 
-create index IX_E3929352 on Koroneiki_ProductPurchase (accountId);
+create index IX_9EE38684 on Koroneiki_ProductPurchase (accountId, productEntryId);
 create index IX_FA2A19F8 on Koroneiki_ProductPurchase (productEntryId);
 create unique index IX_A40465A9 on Koroneiki_ProductPurchase (productPurchaseKey[$COLUMN_LENGTH:75$]);
 create index IX_3E312B3A on Koroneiki_ProductPurchase (uuid_[$COLUMN_LENGTH:75$], companyId);

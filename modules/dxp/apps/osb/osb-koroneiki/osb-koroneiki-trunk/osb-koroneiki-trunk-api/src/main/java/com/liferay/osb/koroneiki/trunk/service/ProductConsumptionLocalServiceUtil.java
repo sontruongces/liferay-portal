@@ -246,6 +246,15 @@ public class ProductConsumptionLocalServiceUtil {
 		return getService().getAccountProductConsumptionsCount(accountId);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+			getAccountProductEntryProductConsumptions(
+				long accountId, long productEntryId) {
+
+		return getService().getAccountProductEntryProductConsumptions(
+			accountId, productEntryId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

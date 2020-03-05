@@ -56,6 +56,22 @@ public class ProductEntryServiceWrapper
 		return _productEntryService.deleteProductEntry(productEntryKey);
 	}
 
+	@Override
+	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
+			getAccountProductEntries(long accountId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productEntryService.getAccountProductEntries(
+			accountId, start, end);
+	}
+
+	@Override
+	public int getAccountProductEntriesCount(long accountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productEntryService.getAccountProductEntriesCount(accountId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

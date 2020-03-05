@@ -224,6 +224,15 @@ public class ProductPurchaseLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+			getAccountProductEntryProductPurchases(
+				long accountId, long productEntryId) {
+
+		return getService().getAccountProductEntryProductPurchases(
+			accountId, productEntryId);
+	}
+
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
 			getAccountProductPurchases(long accountId, int start, int end) {
 
 		return getService().getAccountProductPurchases(accountId, start, end);

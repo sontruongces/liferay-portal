@@ -446,6 +446,52 @@ public class ProductConsumptionServiceHttp {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
+				getAccountProductEntryProductConsumptions(
+					HttpPrincipal httpPrincipal, long accountId,
+					long productEntryId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ProductConsumptionServiceUtil.class,
+				"getAccountProductEntryProductConsumptions",
+				_getAccountProductEntryProductConsumptionsParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId, productEntryId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>)
+					returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductConsumption>
 				getContactProductConsumptions(
 					HttpPrincipal httpPrincipal, long contactId, int start,
 					int end)
@@ -455,7 +501,7 @@ public class ProductConsumptionServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class,
 				"getContactProductConsumptions",
-				_getContactProductConsumptionsParameterTypes9);
+				_getContactProductConsumptionsParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactId, start, end);
@@ -498,7 +544,7 @@ public class ProductConsumptionServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class,
 				"getContactProductConsumptionsCount",
-				_getContactProductConsumptionsCountParameterTypes10);
+				_getContactProductConsumptionsCountParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactId);
@@ -539,7 +585,7 @@ public class ProductConsumptionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class, "getProductConsumption",
-				_getProductConsumptionParameterTypes11);
+				_getProductConsumptionParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productConsumptionId);
@@ -581,7 +627,7 @@ public class ProductConsumptionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class, "getProductConsumption",
-				_getProductConsumptionParameterTypes12);
+				_getProductConsumptionParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productConsumptionKey);
@@ -625,7 +671,7 @@ public class ProductConsumptionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class, "getProductConsumptions",
-				_getProductConsumptionsParameterTypes13);
+				_getProductConsumptionsParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId, start, end);
@@ -669,7 +715,7 @@ public class ProductConsumptionServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				ProductConsumptionServiceUtil.class,
 				"getProductConsumptionsCount",
-				_getProductConsumptionsCountParameterTypes14);
+				_getProductConsumptionsCountParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId);
@@ -732,23 +778,26 @@ public class ProductConsumptionServiceHttp {
 			String.class
 		};
 	private static final Class<?>[]
-		_getContactProductConsumptionsParameterTypes9 = new Class[] {
+		_getAccountProductEntryProductConsumptionsParameterTypes9 =
+			new Class[] {long.class, long.class};
+	private static final Class<?>[]
+		_getContactProductConsumptionsParameterTypes10 = new Class[] {
 			long.class, int.class, int.class
 		};
 	private static final Class<?>[]
-		_getContactProductConsumptionsCountParameterTypes10 = new Class[] {
+		_getContactProductConsumptionsCountParameterTypes11 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getProductConsumptionParameterTypes11 =
-		new Class[] {long.class};
 	private static final Class<?>[] _getProductConsumptionParameterTypes12 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getProductConsumptionParameterTypes13 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getProductConsumptionsParameterTypes13 =
+	private static final Class<?>[] _getProductConsumptionsParameterTypes14 =
 		new Class[] {
 			String.class, String.class, String.class, int.class, int.class
 		};
 	private static final Class<?>[]
-		_getProductConsumptionsCountParameterTypes14 = new Class[] {
+		_getProductConsumptionsCountParameterTypes15 = new Class[] {
 			String.class, String.class, String.class
 		};
 

@@ -235,6 +235,52 @@ public class ProductPurchaseServiceHttp {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+				getAccountProductEntryProductPurchases(
+					HttpPrincipal httpPrincipal, long accountId,
+					long productEntryId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ProductPurchaseServiceUtil.class,
+				"getAccountProductEntryProductPurchases",
+				_getAccountProductEntryProductPurchasesParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId, productEntryId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>)
+					returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
 				getAccountProductPurchases(
 					HttpPrincipal httpPrincipal, long accountId, int start,
 					int end)
@@ -243,7 +289,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getAccountProductPurchases",
-				_getAccountProductPurchasesParameterTypes4);
+				_getAccountProductPurchasesParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId, start, end);
@@ -288,7 +334,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getAccountProductPurchases",
-				_getAccountProductPurchasesParameterTypes5);
+				_getAccountProductPurchasesParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey, start, end);
@@ -331,7 +377,7 @@ public class ProductPurchaseServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class,
 				"getAccountProductPurchasesCount",
-				_getAccountProductPurchasesCountParameterTypes6);
+				_getAccountProductPurchasesCountParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId);
@@ -372,7 +418,7 @@ public class ProductPurchaseServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class,
 				"getAccountProductPurchasesCount",
-				_getAccountProductPurchasesCountParameterTypes7);
+				_getAccountProductPurchasesCountParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey);
@@ -415,7 +461,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getContactProductPurchases",
-				_getContactProductPurchasesParameterTypes8);
+				_getContactProductPurchasesParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactId, start, end);
@@ -458,7 +504,7 @@ public class ProductPurchaseServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class,
 				"getContactProductPurchasesCount",
-				_getContactProductPurchasesCountParameterTypes9);
+				_getContactProductPurchasesCountParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactId);
@@ -499,7 +545,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getProductPurchase",
-				_getProductPurchaseParameterTypes10);
+				_getProductPurchaseParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productPurchaseId);
@@ -541,7 +587,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getProductPurchase",
-				_getProductPurchaseParameterTypes11);
+				_getProductPurchaseParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productPurchaseKey);
@@ -585,7 +631,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getProductPurchases",
-				_getProductPurchasesParameterTypes12);
+				_getProductPurchasesParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId, start, end);
@@ -628,7 +674,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "getProductPurchasesCount",
-				_getProductPurchasesCountParameterTypes13);
+				_getProductPurchasesCountParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, domain, entityName, entityId);
@@ -674,7 +720,7 @@ public class ProductPurchaseServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ProductPurchaseServiceUtil.class, "updateProductPurchase",
-				_updateProductPurchaseParameterTypes14);
+				_updateProductPurchaseParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productPurchaseId, startDate, endDate,
@@ -727,35 +773,39 @@ public class ProductPurchaseServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteProductPurchaseParameterTypes3 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getAccountProductPurchasesParameterTypes4 =
-		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[]
+		_getAccountProductEntryProductPurchasesParameterTypes4 = new Class[] {
+			long.class, long.class
+		};
 	private static final Class<?>[] _getAccountProductPurchasesParameterTypes5 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[] _getAccountProductPurchasesParameterTypes6 =
 		new Class[] {String.class, int.class, int.class};
 	private static final Class<?>[]
-		_getAccountProductPurchasesCountParameterTypes6 = new Class[] {
+		_getAccountProductPurchasesCountParameterTypes7 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getAccountProductPurchasesCountParameterTypes7 = new Class[] {
+		_getAccountProductPurchasesCountParameterTypes8 = new Class[] {
 			String.class
 		};
-	private static final Class<?>[] _getContactProductPurchasesParameterTypes8 =
+	private static final Class<?>[] _getContactProductPurchasesParameterTypes9 =
 		new Class[] {long.class, int.class, int.class};
 	private static final Class<?>[]
-		_getContactProductPurchasesCountParameterTypes9 = new Class[] {
+		_getContactProductPurchasesCountParameterTypes10 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getProductPurchaseParameterTypes10 =
-		new Class[] {long.class};
 	private static final Class<?>[] _getProductPurchaseParameterTypes11 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getProductPurchaseParameterTypes12 =
 		new Class[] {String.class};
-	private static final Class<?>[] _getProductPurchasesParameterTypes12 =
+	private static final Class<?>[] _getProductPurchasesParameterTypes13 =
 		new Class[] {
 			String.class, String.class, String.class, int.class, int.class
 		};
-	private static final Class<?>[] _getProductPurchasesCountParameterTypes13 =
+	private static final Class<?>[] _getProductPurchasesCountParameterTypes14 =
 		new Class[] {String.class, String.class, String.class};
-	private static final Class<?>[] _updateProductPurchaseParameterTypes14 =
+	private static final Class<?>[] _updateProductPurchaseParameterTypes15 =
 		new Class[] {
 			long.class, java.util.Date.class, java.util.Date.class,
 			java.util.Date.class, int.class, int.class, java.util.List.class

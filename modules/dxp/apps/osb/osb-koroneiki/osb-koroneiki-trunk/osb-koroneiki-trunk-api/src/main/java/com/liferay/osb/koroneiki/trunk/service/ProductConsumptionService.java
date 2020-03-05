@@ -93,6 +93,11 @@ public interface ProductConsumptionService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProductConsumption> getAccountProductEntryProductConsumptions(
+			long accountId, long productEntryId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProductConsumption> getContactProductConsumptions(
 			long contactId, int start, int end)
 		throws PortalException;
