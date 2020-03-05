@@ -916,6 +916,8 @@ xpack.monitoring.collection.enabled: true</echo>
 		<if>
 			<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
 			<then>
+				<configure-portal-remote-elasticsearch-ccr-osgi-properties />
+
 				<antcall target="prepare-additional-elasticsearch-dirs">
 					<param name="remote.elasticsearch.cluster.size" value="2" />
 				</antcall>
