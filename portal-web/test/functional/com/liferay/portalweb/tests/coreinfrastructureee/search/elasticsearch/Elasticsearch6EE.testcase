@@ -731,6 +731,13 @@ definition {
 			dmDocumentTitle = "DM Title 1",
 			groupName = "Guest");
 
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
 		OSGiConfig.deployOSGiConfigs(
 			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config",
 			OSGiConfigs = "operationMode=&quot;REMOTE&quot;,remoteClusterConnectionId=&quot;remote&quot;,logExceptionsOnly=&quot;true&quot;");
