@@ -86,6 +86,8 @@ public class OpenAPIResourceImpl {
 
 			add(ProductPurchaseResourceImpl.class);
 
+			add(ProductPurchaseViewResourceImpl.class);
+
 			add(TeamResourceImpl.class);
 
 			add(TeamRoleResourceImpl.class);

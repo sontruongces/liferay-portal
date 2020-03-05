@@ -26,6 +26,7 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseViewResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
@@ -95,6 +96,8 @@ public class ServletDataImpl implements ServletData {
 			_productConsumptionResourceComponentServiceObjects);
 		Query.setProductPurchaseResourceComponentServiceObjects(
 			_productPurchaseResourceComponentServiceObjects);
+		Query.setProductPurchaseViewResourceComponentServiceObjects(
+			_productPurchaseViewResourceComponentServiceObjects);
 		Query.setTeamResourceComponentServiceObjects(
 			_teamResourceComponentServiceObjects);
 		Query.setTeamRoleResourceComponentServiceObjects(
@@ -171,5 +174,9 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ContactAccountViewResource>
 		_contactAccountViewResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ProductPurchaseViewResource>
+		_productPurchaseViewResourceComponentServiceObjects;
 
 }

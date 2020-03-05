@@ -25,6 +25,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.AccountResource;
@@ -37,6 +38,7 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseViewResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
@@ -157,6 +159,14 @@ public class Query {
 
 		_productPurchaseResourceComponentServiceObjects =
 			productPurchaseResourceComponentServiceObjects;
+	}
+
+	public static void setProductPurchaseViewResourceComponentServiceObjects(
+		ComponentServiceObjects<ProductPurchaseViewResource>
+			productPurchaseViewResourceComponentServiceObjects) {
+
+		_productPurchaseViewResourceComponentServiceObjects =
+			productPurchaseViewResourceComponentServiceObjects;
 	}
 
 	public static void setTeamResourceComponentServiceObjects(
@@ -1571,6 +1581,48 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyProductPurchaseViews(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductPurchaseViewPage accountAccountKeyProductPurchaseViews(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productPurchaseViewResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productPurchaseViewResource -> new ProductPurchaseViewPage(
+				productPurchaseViewResource.
+					getAccountAccountKeyProductPurchaseViewsPage(
+						accountKey, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyProductProductKeyProductPurchaseView(accountKey: ___, productKey: ___){product, productConsumptions, productPurchases}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductPurchaseView
+			accountAccountKeyProductProductKeyProductPurchaseView(
+				@GraphQLName("accountKey") String accountKey,
+				@GraphQLName("productKey") String productKey)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productPurchaseViewResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productPurchaseViewResource ->
+				productPurchaseViewResource.
+					getAccountAccountKeyProductProductKeyProductPurchaseView(
+						accountKey, productKey));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyAssignedTeams(accountKey: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -2481,6 +2533,35 @@ public class Query {
 
 	}
 
+	@GraphQLTypeExtension(Account.class)
+	public class
+		GetAccountAccountKeyProductProductKeyProductPurchaseViewTypeExtension {
+
+		public GetAccountAccountKeyProductProductKeyProductPurchaseViewTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public ProductPurchaseView
+				accountKeyProductProductKeyProductPurchaseView(
+					@GraphQLName("productKey") String productKey)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productPurchaseViewResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productPurchaseViewResource ->
+					productPurchaseViewResource.
+						getAccountAccountKeyProductProductKeyProductPurchaseView(
+							_account.getKey(), productKey));
+		}
+
+		private Account _account;
+
+	}
+
 	@GraphQLTypeExtension(Contact.class)
 	public class GetContactByOktaExternalLinksPageTypeExtension {
 
@@ -2814,6 +2895,34 @@ public class Query {
 		}
 
 		private Contact _contact;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyProductPurchaseViewsPageTypeExtension {
+
+		public GetAccountAccountKeyProductPurchaseViewsPageTypeExtension(
+			Account account) {
+
+			_account = account;
+		}
+
+		@GraphQLField
+		public ProductPurchaseViewPage accountKeyProductPurchaseViews(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productPurchaseViewResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productPurchaseViewResource -> new ProductPurchaseViewPage(
+					productPurchaseViewResource.
+						getAccountAccountKeyProductPurchaseViewsPage(
+							_account.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
 
 	}
 
@@ -3233,6 +3342,30 @@ public class Query {
 
 	}
 
+	@GraphQLName("ProductPurchaseViewPage")
+	public class ProductPurchaseViewPage {
+
+		public ProductPurchaseViewPage(Page productPurchaseViewPage) {
+			items = productPurchaseViewPage.getItems();
+			page = productPurchaseViewPage.getPage();
+			pageSize = productPurchaseViewPage.getPageSize();
+			totalCount = productPurchaseViewPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected java.util.Collection<ProductPurchaseView> items;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("TeamPage")
 	public class TeamPage {
 
@@ -3438,6 +3571,20 @@ public class Query {
 		productPurchaseResource.setContextUser(_user);
 	}
 
+	private void _populateResourceContext(
+			ProductPurchaseViewResource productPurchaseViewResource)
+		throws Exception {
+
+		productPurchaseViewResource.setContextAcceptLanguage(_acceptLanguage);
+		productPurchaseViewResource.setContextCompany(_company);
+		productPurchaseViewResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		productPurchaseViewResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productPurchaseViewResource.setContextUriInfo(_uriInfo);
+		productPurchaseViewResource.setContextUser(_user);
+	}
+
 	private void _populateResourceContext(TeamResource teamResource)
 		throws Exception {
 
@@ -3482,6 +3629,8 @@ public class Query {
 		_productConsumptionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductPurchaseResource>
 		_productPurchaseResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ProductPurchaseViewResource>
+		_productPurchaseViewResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TeamResource>
 		_teamResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TeamRoleResource>
