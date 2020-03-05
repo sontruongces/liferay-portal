@@ -1374,8 +1374,8 @@ public class LayoutTypePortletImpl
 				_log.info(
 					StringBundler.concat(
 						"Portlet ", portletId, " cannot be added to layout ",
-						layout.getPlid(), " because it already has other ",
-						"portlet with same id"));
+						layout.getPlid(), " because it already has another ",
+						"portlet with the same portlet ID"));
 			}
 
 			return null;
@@ -1396,7 +1396,7 @@ public class LayoutTypePortletImpl
 				_log.info(
 					StringBundler.concat(
 						"Portlet ", portletId, " cannot be added to layout ",
-						layout.getPlid(), " because columnId is null"));
+						layout.getPlid(), " because column ID is null"));
 			}
 
 			return null;
