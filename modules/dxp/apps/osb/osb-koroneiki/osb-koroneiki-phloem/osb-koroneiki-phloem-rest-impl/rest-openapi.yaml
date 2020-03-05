@@ -303,6 +303,8 @@ components:
                 - lastName
             type: object
         ContactAccountView:
+            description:
+                A contact's perspective of his/her relationship to an account.
             properties:
                 account:
                     $ref: "#/components/schemas/Account"
@@ -744,6 +746,8 @@ components:
                     type: boolean
             type: object
         ProductPurchaseView:
+            description:
+                An aggregated view of Product Purchases grouped by Product.
             properties:
                 product:
                     $ref: "#/components/schemas/Product"
@@ -2204,7 +2208,7 @@ paths:
         get:
             description:
                 Retrieves the account's products and related product consumptions and product purchases.
-            operationId: getAccountByAccountKeyProductPurchaseViewsPage
+            operationId: getAccountAccountKeyProductPurchaseViewsPage
             parameters:
                 - in: path
                   name: accountKey
@@ -2300,11 +2304,11 @@ paths:
                     description:
                         ""
             tags: ["ProductPurchase"]
-    "/accounts/{accountKey}/product/{productKey}/product-purchase-views":
+    "/accounts/{accountKey}/product/{productKey}/product-purchase-view":
         get:
             description:
                 Retrieves the account's product consumptions and product purchases based on product.
-            operationId: getAccountByAccountKeyProductPurchaseViewsPage
+            operationId: getAccountAccountKeyProductProductKeyProductPurchaseView
             parameters:
                 - in: path
                   name: accountKey
@@ -2321,12 +2325,10 @@ paths:
                     content:
                         application/json:
                             schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductPurchaseView"
+                                $ref: "#/components/schemas/ProductPurchaseView"
                         application/xml:
                             schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductPurchaseView"
+                                $ref: "#/components/schemas/ProductPurchaseView"
                     description:
                         ""
             tags: ["ProductPurchaseView"]

@@ -18,7 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductPurchaseViewUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseViewResource;
 import com.liferay.osb.koroneiki.taproot.model.Account;
-import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.AccountService;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionService;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
@@ -26,8 +26,6 @@ import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
-
-import java.util.Arrays;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -44,29 +42,31 @@ public class ProductPurchaseViewResourceImpl
 	extends BaseProductPurchaseViewResourceImpl {
 
 	@Override
-	public Page<ProductPurchaseView>
-			getAccountByAccountKeyProductPurchaseViewsPage(
-				String accountKey, Pagination pagination)
+	public ProductPurchaseView
+			getAccountAccountKeyProductProductKeyProductPurchaseView(
+				String accountKey, String productKey)
 		throws Exception {
 
-		return _getProductPurchaseViewPage(
-			_accountLocalService.getAccount(accountKey), pagination);
+		Account account = _accountService.getAccount(accountKey);
+		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
+			productKey);
+
+		return ProductPurchaseViewUtil.toProductPurchaseView(
+			productEntry,
+			_productConsumptionService.
+				getAccountProductEntryProductConsumptions(
+					account.getAccountId(), productEntry.getProductEntryId()),
+			_productPurchaseService.getAccountProductEntryProductPurchases(
+				account.getAccountId(), productEntry.getProductEntryId()));
 	}
 
 	@Override
 	public Page<ProductPurchaseView>
-			getAccountByAccountKeyProductPurchaseViewsPage(
-				String accountKey, String productKey)
+			getAccountAccountKeyProductPurchaseViewsPage(
+				String accountKey, Pagination pagination)
 		throws Exception {
 
-		return _getProductPurchaseViewPage(
-			_accountLocalService.getAccount(accountKey),
-			_productEntryLocalService.getProductEntry(productKey));
-	}
-
-	private Page<ProductPurchaseView> _getProductPurchaseViewPage(
-			Account account, Pagination pagination)
-		throws Exception {
+		Account account = _accountService.getAccount(accountKey);
 
 		return Page.of(
 			transform(
@@ -88,26 +88,8 @@ public class ProductPurchaseViewResourceImpl
 				account.getAccountId()));
 	}
 
-	private Page<ProductPurchaseView> _getProductPurchaseViewPage(
-			Account account, ProductEntry productEntry)
-		throws Exception {
-
-		return Page.of(
-			Arrays.asList(
-				ProductPurchaseViewUtil.toProductPurchaseView(
-					productEntry,
-					_productConsumptionService.
-						getAccountProductEntryProductConsumptions(
-							account.getAccountId(),
-							productEntry.getProductEntryId()),
-					_productPurchaseService.
-						getAccountProductEntryProductPurchases(
-							account.getAccountId(),
-							productEntry.getProductEntryId()))));
-	}
-
 	@Reference
-	private AccountLocalService _accountLocalService;
+	private AccountService _accountService;
 
 	@Reference
 	private ProductConsumptionService _productConsumptionService;

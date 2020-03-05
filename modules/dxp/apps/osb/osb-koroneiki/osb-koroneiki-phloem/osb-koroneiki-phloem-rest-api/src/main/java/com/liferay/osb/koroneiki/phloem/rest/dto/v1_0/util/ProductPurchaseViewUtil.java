@@ -14,10 +14,10 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util;
 
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchaseView;
-import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductPurchaseView;
+import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.List;
@@ -39,10 +39,12 @@ public class ProductPurchaseViewUtil {
 			{
 				product = ProductUtil.toProduct(productEntry);
 				productConsumptions = TransformUtil.transformToArray(
-					trunkProductConsumptions, ProductConsumptionUtil::toProductConsumption,
+					trunkProductConsumptions,
+					ProductConsumptionUtil::toProductConsumption,
 					ProductConsumption.class);
 				productPurchases = TransformUtil.transformToArray(
-					trunkProductPurchases, ProductPurchaseUtil::toProductPurchase,
+					trunkProductPurchases,
+					ProductPurchaseUtil::toProductPurchase,
 					ProductPurchase.class);
 			}
 		};
