@@ -943,7 +943,7 @@ public class PortalImpl implements Portal {
 				return null;
 			}
 
-			// Specs allows URL of protocol followed by path, but we do not.
+			// Specs allow URL of protocol followed by path, but we do not
 
 			if (!Validator.isBlank(protocol)) {
 				return null;
@@ -954,7 +954,7 @@ public class PortalImpl implements Portal {
 			return url;
 		}
 
-		// Specs regards URL staring with double slashes valid, but we do not.
+		// Specs regard URL starting with double slashes as valid, but we do not
 
 		if (Validator.isBlank(protocol)) {
 			return null;
