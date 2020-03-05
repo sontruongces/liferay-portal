@@ -32,7 +32,7 @@ request.setAttribute("view_account.jsp-accountDisplay", accountDisplay);
 	</div>
 
 	<div class="side-panel" id="sidePanel">
-		<react:component 
+		<react:component
 			data="<%= Collections.emptyMap() %>"
 			module="js/components/SidePanel"
 		/>
