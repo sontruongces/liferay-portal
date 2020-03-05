@@ -9,8 +9,6 @@
  * distribution rights of the Software.
  */
 
-/* eslint-env node */
-
 'use strict';
 
 var gulp = require('gulp');
