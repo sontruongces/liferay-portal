@@ -1411,7 +1411,7 @@ public class LayoutTypePortletImpl
 						StringBundler.concat(
 							"Portlet ", portletId,
 							" cannot be added to layout ", layout.getPlid(),
-							" because column ", columnId, " is disabled "));
+							" because column ", columnId, " is disabled"));
 				}
 
 				return null;
