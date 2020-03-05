@@ -743,6 +743,21 @@ components:
                 view:
                     type: boolean
             type: object
+        ProductPurchaseView:
+            properties:
+                product:
+                    $ref: "#/components/schemas/Product"
+                    readOnly: true
+                productConsumptions:
+                    items:
+                        $ref: "#/components/schemas/ProductConsumption"
+                    readOnly: true
+                    type: array
+                productPurchases:
+                    items:
+                        $ref: "#/components/schemas/ProductPurchase"
+                    readOnly: true
+                    type: array
         Team:
             description:
                 Represents a team.
@@ -2185,6 +2200,41 @@ paths:
                     description:
                         ""
             tags: ["ProductConsumption"]
+    "/accounts/{accountKey}/product-purchase-views":
+        get:
+            description:
+                Retrieves the account's products and related product consumptions and product purchases.
+            operationId: getAccountByAccountKeyProductPurchaseViewsPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchaseView"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchaseView"
+                                type: array
+                    description:
+                        ""
+            tags: ["ProductPurchaseView"]
     "/accounts/{accountKey}/product-purchases":
         get:
             description:
@@ -2250,6 +2300,36 @@ paths:
                     description:
                         ""
             tags: ["ProductPurchase"]
+    "/accounts/{accountKey}/product/{productKey}/product-purchase-views":
+        get:
+            description:
+                Retrieves the account's product consumptions and product purchases based on product.
+            operationId: getAccountByAccountKeyProductPurchaseViewsPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: productKey
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchaseView"
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchaseView"
+                    description:
+                        ""
+            tags: ["ProductPurchaseView"]
     "/accounts/{accountKey}/teams":
         get:
             description:
