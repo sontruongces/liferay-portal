@@ -21,9 +21,17 @@ import com.liferay.item.selector.BaseItemSelectorCriterion;
  */
 public class SiteItemSelectorCriterion extends BaseItemSelectorCriterion {
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), with no direct replacement
+	 */
+	@Deprecated
 	public SiteItemSelectorCriterion() {
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), with no direct replacement
+	 */
+	@Deprecated
 	public SiteItemSelectorCriterion(boolean privateLayout) {
 		_privateLayout = privateLayout;
 	}
