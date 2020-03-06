@@ -37,7 +37,7 @@ import org.osgi.service.component.annotations.Reference;
 public class AccountModelListener extends BaseModelListener<Account> {
 
 	@Override
-	public void onAfterRemove(Account account) throws ModelListenerException {
+	public void onBeforeRemove(Account account) throws ModelListenerException {
 		try {
 
 			// Product consumptions
