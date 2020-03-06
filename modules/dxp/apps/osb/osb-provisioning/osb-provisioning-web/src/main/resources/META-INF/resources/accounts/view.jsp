@@ -67,7 +67,7 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="region"
-				value=""
+				value="<%= koroneikiAccount.getRegionAsString() %>"
 			/>
 
 			<liferay-ui:search-container-column-text

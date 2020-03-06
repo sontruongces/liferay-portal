@@ -55,6 +55,8 @@ Account koroneikiAccount = accountDisplay.getAccount();
 				<div class="header-label">
 					<liferay-ui:message key="sup-region" />
 				</div>
+
+				<%= koroneikiAccount.getRegionAsString() %>
 			</li>
 			<li>
 				<div class="header-label">
