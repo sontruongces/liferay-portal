@@ -20,4 +20,22 @@ import com.liferay.item.selector.BaseItemSelectorCriterion;
  * @author Julio Camarero
  */
 public class SiteItemSelectorCriterion extends BaseItemSelectorCriterion {
+
+	public SiteItemSelectorCriterion() {
+	}
+
+	public SiteItemSelectorCriterion(boolean privateLayout) {
+		_privateLayout = privateLayout;
+	}
+
+	public boolean isPrivateLayout() {
+		return _privateLayout;
+	}
+
+	public void setPrivateLayout(boolean privateLayout) {
+		_privateLayout = privateLayout;
+	}
+
+	private boolean _privateLayout;
+
 }

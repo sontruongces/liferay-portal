@@ -123,7 +123,7 @@ List<Group> selectedGroups = GroupLocalServiceUtil.getGroups(assetPublisherDispl
 <%
 ItemSelector itemSelector = (ItemSelector)request.getAttribute(AssetPublisherWebKeys.ITEM_SELECTOR);
 
-ItemSelectorCriterion itemSelectorCriterion = new SiteItemSelectorCriterion();
+ItemSelectorCriterion itemSelectorCriterion = new SiteItemSelectorCriterion(layout.isPrivateLayout());
 
 itemSelectorCriterion.setDesiredItemSelectorReturnTypes(new SiteItemSelectorReturnType());
 
@@ -131,7 +131,6 @@ PortletURL itemSelectorURL = itemSelector.getItemSelectorURL(RequestBackedPortle
 
 itemSelectorURL.setParameter("plid", String.valueOf(layout.getPlid()));
 itemSelectorURL.setParameter("groupId", String.valueOf(layout.getGroupId()));
-itemSelectorURL.setParameter("privateLayout", String.valueOf(layout.isPrivateLayout()));
 itemSelectorURL.setParameter("portletResource", assetPublisherDisplayContext.getPortletResource());
 %>
 

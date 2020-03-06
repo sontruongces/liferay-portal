@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portlet.usersadmin.search.GroupSearch;
 import com.liferay.site.item.selector.criterion.SiteItemSelectorCriterion;
@@ -115,7 +114,10 @@ public class LayoutScopesItemSelectorViewDisplayContext
 			return _privateLayout;
 		}
 
-		_privateLayout = ParamUtil.getBoolean(request, "privateLayout");
+		SiteItemSelectorCriterion siteItemSelectorCriterion =
+			getSiteItemSelectorCriterion();
+
+		_privateLayout = siteItemSelectorCriterion.isPrivateLayout();
 
 		return _privateLayout;
 	}
