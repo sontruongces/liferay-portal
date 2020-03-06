@@ -28,7 +28,7 @@
 		<field name="faxNumber" type="String" />
 		<field name="website" type="String" />
 		<field name="tier" type="String" />
-		<field name="soldBy" type="String" />
+		<field name="region" type="String" />
 		<field name="internal" type="boolean" />
 		<field name="status" type="int" />
 		<field name="statusByUserId" type="long" />

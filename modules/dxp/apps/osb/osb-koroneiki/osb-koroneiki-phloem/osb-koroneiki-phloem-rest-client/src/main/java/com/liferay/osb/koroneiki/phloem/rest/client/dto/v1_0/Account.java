@@ -29,6 +29,39 @@ import javax.annotation.Generated;
 @Generated("")
 public class Account {
 
+	public static enum Region {
+
+		AUSTRALIA("Australia"), BRAZIL("Brazil"), CHINA("China"),
+		GLOBAL("Global"), HUNGARY("Hungary"), INDIA("India"), JAPAN("Japan"),
+		SPAIN("Spain"), UNITED_STATES("United States");
+
+		public static Region create(String value) {
+			for (Region region : values()) {
+				if (Objects.equals(region.getValue(), value)) {
+					return region;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Region(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	public static enum Status {
 
 		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
@@ -531,26 +564,34 @@ public class Account {
 
 	protected String profileEmailAddress;
 
-	public String getSoldBy() {
-		return soldBy;
+	public Region getRegion() {
+		return region;
 	}
 
-	public void setSoldBy(String soldBy) {
-		this.soldBy = soldBy;
+	public String getRegionAsString() {
+		if (region == null) {
+			return null;
+		}
+
+		return region.toString();
 	}
 
-	public void setSoldBy(
-		UnsafeSupplier<String, Exception> soldByUnsafeSupplier) {
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public void setRegion(
+		UnsafeSupplier<Region, Exception> regionUnsafeSupplier) {
 
 		try {
-			soldBy = soldByUnsafeSupplier.get();
+			region = regionUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String soldBy;
+	protected Region region;
 
 	public Status getStatus() {
 		return status;

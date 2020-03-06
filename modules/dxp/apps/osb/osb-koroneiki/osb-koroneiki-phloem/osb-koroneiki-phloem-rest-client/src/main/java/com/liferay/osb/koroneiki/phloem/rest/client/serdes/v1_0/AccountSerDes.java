@@ -395,16 +395,16 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
-		if (account.getSoldBy() != null) {
+		if (account.getRegion() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"soldBy\": ");
+			sb.append("\"region\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(account.getSoldBy()));
+			sb.append(account.getRegion());
 
 			sb.append("\"");
 		}
@@ -647,11 +647,11 @@ public class AccountSerDes {
 				String.valueOf(account.getProfileEmailAddress()));
 		}
 
-		if (account.getSoldBy() == null) {
-			map.put("soldBy", null);
+		if (account.getRegion() == null) {
+			map.put("region", null);
 		}
 		else {
-			map.put("soldBy", String.valueOf(account.getSoldBy()));
+			map.put("region", String.valueOf(account.getRegion()));
 		}
 
 		if (account.getStatus() == null) {
@@ -867,9 +867,10 @@ public class AccountSerDes {
 						(String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "soldBy")) {
+			else if (Objects.equals(jsonParserFieldName, "region")) {
 				if (jsonParserFieldValue != null) {
-					account.setSoldBy((String)jsonParserFieldValue);
+					account.setRegion(
+						Account.Region.create((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "status")) {

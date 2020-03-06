@@ -51,7 +51,7 @@ public class AccountSoap implements Serializable {
 		soapModel.setFaxNumber(model.getFaxNumber());
 		soapModel.setWebsite(model.getWebsite());
 		soapModel.setTier(model.getTier());
-		soapModel.setSoldBy(model.getSoldBy());
+		soapModel.setRegion(model.getRegion());
 		soapModel.setInternal(model.isInternal());
 		soapModel.setStatus(model.getStatus());
 		soapModel.setStatusByUserId(model.getStatusByUserId());
@@ -271,12 +271,12 @@ public class AccountSoap implements Serializable {
 		_tier = tier;
 	}
 
-	public String getSoldBy() {
-		return _soldBy;
+	public String getRegion() {
+		return _region;
 	}
 
-	public void setSoldBy(String soldBy) {
-		_soldBy = soldBy;
+	public void setRegion(String region) {
+		_region = region;
 	}
 
 	public boolean getInternal() {
@@ -351,7 +351,7 @@ public class AccountSoap implements Serializable {
 	private String _faxNumber;
 	private String _website;
 	private String _tier;
-	private String _soldBy;
+	private String _region;
 	private boolean _internal;
 	private int _status;
 	private long _statusByUserId;

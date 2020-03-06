@@ -67,7 +67,7 @@ public class AccountServiceSoap {
 				String description, String notes, long logoId,
 				String contactEmailAddress, String profileEmailAddress,
 				String phoneNumber, String faxNumber, String website,
-				String tier, String soldBy, boolean internal, int status)
+				String tier, String region, boolean internal, int status)
 		throws RemoteException {
 
 		try {
@@ -75,7 +75,7 @@ public class AccountServiceSoap {
 				AccountServiceUtil.addAccount(
 					parentAccountId, name, code, description, notes, logoId,
 					contactEmailAddress, profileEmailAddress, phoneNumber,
-					faxNumber, website, tier, soldBy, internal, status);
+					faxNumber, website, tier, region, internal, status);
 
 			return com.liferay.osb.koroneiki.taproot.model.AccountSoap.
 				toSoapModel(returnValue);
@@ -305,7 +305,7 @@ public class AccountServiceSoap {
 				String description, String notes, long logoId,
 				String contactEmailAddress, String profileEmailAddress,
 				String phoneNumber, String faxNumber, String website,
-				String tier, String soldBy, boolean internal, int status)
+				String tier, String region, boolean internal, int status)
 		throws RemoteException {
 
 		try {
@@ -313,7 +313,7 @@ public class AccountServiceSoap {
 				AccountServiceUtil.updateAccount(
 					accountId, parentAccountId, name, code, description, notes,
 					logoId, contactEmailAddress, profileEmailAddress,
-					phoneNumber, faxNumber, website, tier, soldBy, internal,
+					phoneNumber, faxNumber, website, tier, region, internal,
 					status);
 
 			return com.liferay.osb.koroneiki.taproot.model.AccountSoap.
@@ -332,7 +332,7 @@ public class AccountServiceSoap {
 				String code, String description, String notes, long logoId,
 				String contactEmailAddress, String profileEmailAddress,
 				String phoneNumber, String faxNumber, String website,
-				String tier, String soldBy, boolean internal, int status)
+				String tier, String region, boolean internal, int status)
 		throws RemoteException {
 
 		try {
@@ -340,7 +340,7 @@ public class AccountServiceSoap {
 				AccountServiceUtil.updateAccount(
 					accountKey, parentAccountId, name, code, description, notes,
 					logoId, contactEmailAddress, profileEmailAddress,
-					phoneNumber, faxNumber, website, tier, soldBy, internal,
+					phoneNumber, faxNumber, website, tier, region, internal,
 					status);
 
 			return com.liferay.osb.koroneiki.taproot.model.AccountSoap.

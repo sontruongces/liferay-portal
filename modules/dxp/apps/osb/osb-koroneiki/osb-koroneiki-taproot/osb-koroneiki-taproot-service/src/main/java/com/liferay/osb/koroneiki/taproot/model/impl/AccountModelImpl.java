@@ -85,7 +85,7 @@ public class AccountModelImpl
 		{"contactEmailAddress", Types.VARCHAR},
 		{"profileEmailAddress", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
 		{"faxNumber", Types.VARCHAR}, {"website", Types.VARCHAR},
-		{"tier", Types.VARCHAR}, {"soldBy", Types.VARCHAR},
+		{"tier", Types.VARCHAR}, {"region", Types.VARCHAR},
 		{"internal_", Types.BOOLEAN}, {"status", Types.INTEGER},
 		{"statusByUserId", Types.BIGINT}, {"statusByUserName", Types.VARCHAR},
 		{"statusDate", Types.TIMESTAMP}, {"statusMessage", Types.VARCHAR}
@@ -115,7 +115,7 @@ public class AccountModelImpl
 		TABLE_COLUMNS_MAP.put("faxNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("website", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("tier", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("soldBy", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("region", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("internal_", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("statusByUserId", Types.BIGINT);
@@ -125,7 +125,7 @@ public class AccountModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Account (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,notes STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,tier VARCHAR(75) null,soldBy VARCHAR(75) null,internal_ BOOLEAN,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
+		"create table Koroneiki_Account (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,notes STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,tier VARCHAR(75) null,region VARCHAR(75) null,internal_ BOOLEAN,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Account";
 
@@ -196,7 +196,7 @@ public class AccountModelImpl
 		model.setFaxNumber(soapModel.getFaxNumber());
 		model.setWebsite(soapModel.getWebsite());
 		model.setTier(soapModel.getTier());
-		model.setSoldBy(soapModel.getSoldBy());
+		model.setRegion(soapModel.getRegion());
 		model.setInternal(soapModel.isInternal());
 		model.setStatus(soapModel.getStatus());
 		model.setStatusByUserId(soapModel.getStatusByUserId());
@@ -421,9 +421,9 @@ public class AccountModelImpl
 		attributeGetterFunctions.put("tier", Account::getTier);
 		attributeSetterBiConsumers.put(
 			"tier", (BiConsumer<Account, String>)Account::setTier);
-		attributeGetterFunctions.put("soldBy", Account::getSoldBy);
+		attributeGetterFunctions.put("region", Account::getRegion);
 		attributeSetterBiConsumers.put(
-			"soldBy", (BiConsumer<Account, String>)Account::setSoldBy);
+			"region", (BiConsumer<Account, String>)Account::setRegion);
 		attributeGetterFunctions.put("internal", Account::getInternal);
 		attributeSetterBiConsumers.put(
 			"internal", (BiConsumer<Account, Boolean>)Account::setInternal);
@@ -823,18 +823,18 @@ public class AccountModelImpl
 
 	@JSON
 	@Override
-	public String getSoldBy() {
-		if (_soldBy == null) {
+	public String getRegion() {
+		if (_region == null) {
 			return "";
 		}
 		else {
-			return _soldBy;
+			return _region;
 		}
 	}
 
 	@Override
-	public void setSoldBy(String soldBy) {
-		_soldBy = soldBy;
+	public void setRegion(String region) {
+		_region = region;
 	}
 
 	@JSON
@@ -1077,7 +1077,7 @@ public class AccountModelImpl
 		accountImpl.setFaxNumber(getFaxNumber());
 		accountImpl.setWebsite(getWebsite());
 		accountImpl.setTier(getTier());
-		accountImpl.setSoldBy(getSoldBy());
+		accountImpl.setRegion(getRegion());
 		accountImpl.setInternal(isInternal());
 		accountImpl.setStatus(getStatus());
 		accountImpl.setStatusByUserId(getStatusByUserId());
@@ -1302,12 +1302,12 @@ public class AccountModelImpl
 			accountCacheModel.tier = null;
 		}
 
-		accountCacheModel.soldBy = getSoldBy();
+		accountCacheModel.region = getRegion();
 
-		String soldBy = accountCacheModel.soldBy;
+		String region = accountCacheModel.region;
 
-		if ((soldBy != null) && (soldBy.length() == 0)) {
-			accountCacheModel.soldBy = null;
+		if ((region != null) && (region.length() == 0)) {
+			accountCacheModel.region = null;
 		}
 
 		accountCacheModel.internal = isInternal();
@@ -1446,7 +1446,7 @@ public class AccountModelImpl
 	private String _faxNumber;
 	private String _website;
 	private String _tier;
-	private String _soldBy;
+	private String _region;
 	private boolean _internal;
 	private int _status;
 	private long _statusByUserId;

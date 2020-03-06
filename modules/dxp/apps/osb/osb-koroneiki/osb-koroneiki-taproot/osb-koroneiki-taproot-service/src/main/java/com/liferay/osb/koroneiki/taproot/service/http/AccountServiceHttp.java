@@ -56,7 +56,7 @@ public class AccountServiceHttp {
 			String code, String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website, String tier,
-			String soldBy, boolean internal, int status)
+			String region, boolean internal, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -67,7 +67,7 @@ public class AccountServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, parentAccountId, name, code, description, notes,
 				logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
-				faxNumber, website, tier, soldBy, internal, status);
+				faxNumber, website, tier, region, internal, status);
 
 			Object returnObj = null;
 
@@ -592,7 +592,7 @@ public class AccountServiceHttp {
 			String name, String code, String description, String notes,
 			long logoId, String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website, String tier,
-			String soldBy, boolean internal, int status)
+			String region, boolean internal, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -603,7 +603,7 @@ public class AccountServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId, parentAccountId, name, code, description,
 				notes, logoId, contactEmailAddress, profileEmailAddress,
-				phoneNumber, faxNumber, website, tier, soldBy, internal,
+				phoneNumber, faxNumber, website, tier, region, internal,
 				status);
 
 			Object returnObj = null;
@@ -639,7 +639,7 @@ public class AccountServiceHttp {
 			long parentAccountId, String name, String code, String description,
 			String notes, long logoId, String contactEmailAddress,
 			String profileEmailAddress, String phoneNumber, String faxNumber,
-			String website, String tier, String soldBy, boolean internal,
+			String website, String tier, String region, boolean internal,
 			int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -651,7 +651,7 @@ public class AccountServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey, parentAccountId, name, code, description,
 				notes, logoId, contactEmailAddress, profileEmailAddress,
-				phoneNumber, faxNumber, website, tier, soldBy, internal,
+				phoneNumber, faxNumber, website, tier, region, internal,
 				status);
 
 			Object returnObj = null;

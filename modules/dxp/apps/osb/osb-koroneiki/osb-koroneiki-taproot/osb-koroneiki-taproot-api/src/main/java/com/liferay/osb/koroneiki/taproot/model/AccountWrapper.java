@@ -63,7 +63,7 @@ public class AccountWrapper
 		attributes.put("faxNumber", getFaxNumber());
 		attributes.put("website", getWebsite());
 		attributes.put("tier", getTier());
-		attributes.put("soldBy", getSoldBy());
+		attributes.put("region", getRegion());
 		attributes.put("internal", isInternal());
 		attributes.put("status", getStatus());
 		attributes.put("statusByUserId", getStatusByUserId());
@@ -198,10 +198,10 @@ public class AccountWrapper
 			setTier(tier);
 		}
 
-		String soldBy = (String)attributes.get("soldBy");
+		String region = (String)attributes.get("region");
 
-		if (soldBy != null) {
-			setSoldBy(soldBy);
+		if (region != null) {
+			setRegion(region);
 		}
 
 		Boolean internal = (Boolean)attributes.get("internal");
@@ -463,13 +463,13 @@ public class AccountWrapper
 	}
 
 	/**
-	 * Returns the sold by of this account.
+	 * Returns the region of this account.
 	 *
-	 * @return the sold by of this account
+	 * @return the region of this account
 	 */
 	@Override
-	public String getSoldBy() {
-		return model.getSoldBy();
+	public String getRegion() {
+		return model.getRegion();
 	}
 
 	/**
@@ -863,13 +863,13 @@ public class AccountWrapper
 	}
 
 	/**
-	 * Sets the sold by of this account.
+	 * Sets the region of this account.
 	 *
-	 * @param soldBy the sold by of this account
+	 * @param region the region of this account
 	 */
 	@Override
-	public void setSoldBy(String soldBy) {
-		model.setSoldBy(soldBy);
+	public void setRegion(String region) {
+		model.setRegion(region);
 	}
 
 	/**

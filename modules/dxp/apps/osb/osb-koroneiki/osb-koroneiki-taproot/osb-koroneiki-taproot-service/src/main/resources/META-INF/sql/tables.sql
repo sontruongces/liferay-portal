@@ -19,7 +19,7 @@ create table Koroneiki_Account (
 	faxNumber VARCHAR(75) null,
 	website VARCHAR(75) null,
 	tier VARCHAR(75) null,
-	soldBy VARCHAR(75) null,
+	region VARCHAR(75) null,
 	internal_ BOOLEAN,
 	status INTEGER,
 	statusByUserId LONG,

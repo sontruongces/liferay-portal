@@ -378,19 +378,19 @@ public interface AccountModel
 	public void setTier(String tier);
 
 	/**
-	 * Returns the sold by of this account.
+	 * Returns the region of this account.
 	 *
-	 * @return the sold by of this account
+	 * @return the region of this account
 	 */
 	@AutoEscape
-	public String getSoldBy();
+	public String getRegion();
 
 	/**
-	 * Sets the sold by of this account.
+	 * Sets the region of this account.
 	 *
-	 * @param soldBy the sold by of this account
+	 * @param region the region of this account
 	 */
-	public void setSoldBy(String soldBy);
+	public void setRegion(String region);
 
 	/**
 	 * Returns the internal of this account.

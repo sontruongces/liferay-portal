@@ -192,7 +192,6 @@ public abstract class BaseAccountResourceTestCase {
 		account.setParentAccountKey(regex);
 		account.setPhoneNumber(regex);
 		account.setProfileEmailAddress(regex);
-		account.setSoldBy(regex);
 		account.setWebsite(regex);
 
 		String json = AccountSerDes.toJSON(account);
@@ -211,7 +210,6 @@ public abstract class BaseAccountResourceTestCase {
 		Assert.assertEquals(regex, account.getParentAccountKey());
 		Assert.assertEquals(regex, account.getPhoneNumber());
 		Assert.assertEquals(regex, account.getProfileEmailAddress());
-		Assert.assertEquals(regex, account.getSoldBy());
 		Assert.assertEquals(regex, account.getWebsite());
 	}
 
@@ -1411,8 +1409,8 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("soldBy", additionalAssertFieldName)) {
-				if (account.getSoldBy() == null) {
+			if (Objects.equals("region", additionalAssertFieldName)) {
+				if (account.getRegion() == null) {
 					valid = false;
 				}
 
@@ -1726,9 +1724,9 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("soldBy", additionalAssertFieldName)) {
+			if (Objects.equals("region", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						account1.getSoldBy(), account2.getSoldBy())) {
+						account1.getRegion(), account2.getRegion())) {
 
 					return false;
 				}
@@ -1907,16 +1905,6 @@ public abstract class BaseAccountResourceTestCase {
 				if (!Objects.deepEquals(
 						account.getProfileEmailAddress(),
 						jsonObject.getString("profileEmailAddress"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("soldBy", fieldName)) {
-				if (!Objects.deepEquals(
-						account.getSoldBy(), jsonObject.getString("soldBy"))) {
 
 					return false;
 				}
@@ -2179,12 +2167,9 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("soldBy")) {
-			sb.append("'");
-			sb.append(String.valueOf(account.getSoldBy()));
-			sb.append("'");
-
-			return sb.toString();
+		if (entityFieldName.equals("region")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("status")) {
@@ -2248,7 +2233,6 @@ public abstract class BaseAccountResourceTestCase {
 				parentAccountKey = RandomTestUtil.randomString();
 				phoneNumber = RandomTestUtil.randomString();
 				profileEmailAddress = RandomTestUtil.randomString();
-				soldBy = RandomTestUtil.randomString();
 				website = RandomTestUtil.randomString();
 			}
 		};

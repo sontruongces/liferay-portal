@@ -54,6 +54,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Account")
 public class Account {
 
+	@GraphQLName("Region")
+	public static enum Region {
+
+		AUSTRALIA("Australia"), BRAZIL("Brazil"), CHINA("China"),
+		GLOBAL("Global"), HUNGARY("Hungary"), INDIA("India"), JAPAN("Japan"),
+		SPAIN("Spain"), UNITED_STATES("United States");
+
+		@JsonCreator
+		public static Region create(String value) {
+			for (Region region : values()) {
+				if (Objects.equals(region.getValue(), value)) {
+					return region;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Region(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	@GraphQLName("Status")
 	public static enum Status {
 
@@ -724,21 +760,31 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String profileEmailAddress;
 
-	@Schema(description = "The region which sold the salesforce opportunity.")
-	public String getSoldBy() {
-		return soldBy;
-	}
-
-	public void setSoldBy(String soldBy) {
-		this.soldBy = soldBy;
+	@Schema(description = "The region responsible for the account.")
+	@Valid
+	public Region getRegion() {
+		return region;
 	}
 
 	@JsonIgnore
-	public void setSoldBy(
-		UnsafeSupplier<String, Exception> soldByUnsafeSupplier) {
+	public String getRegionAsString() {
+		if (region == null) {
+			return null;
+		}
+
+		return region.toString();
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	@JsonIgnore
+	public void setRegion(
+		UnsafeSupplier<Region, Exception> regionUnsafeSupplier) {
 
 		try {
-			soldBy = soldByUnsafeSupplier.get();
+			region = regionUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -750,7 +796,7 @@ public class Account {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String soldBy;
+	protected Region region;
 
 	@Schema(description = "The status of the account.")
 	@Valid
@@ -1241,16 +1287,16 @@ public class Account {
 			sb.append("\"");
 		}
 
-		if (soldBy != null) {
+		if (region != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"soldBy\": ");
+			sb.append("\"region\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(soldBy));
+			sb.append(region);
 
 			sb.append("\"");
 		}

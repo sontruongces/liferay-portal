@@ -118,8 +118,8 @@ public class AccountCacheModel
 		sb.append(website);
 		sb.append(", tier=");
 		sb.append(tier);
-		sb.append(", soldBy=");
-		sb.append(soldBy);
+		sb.append(", region=");
+		sb.append(region);
 		sb.append(", internal=");
 		sb.append(internal);
 		sb.append(", status=");
@@ -249,11 +249,11 @@ public class AccountCacheModel
 			accountImpl.setTier(tier);
 		}
 
-		if (soldBy == null) {
-			accountImpl.setSoldBy("");
+		if (region == null) {
+			accountImpl.setRegion("");
 		}
 		else {
-			accountImpl.setSoldBy(soldBy);
+			accountImpl.setRegion(region);
 		}
 
 		accountImpl.setInternal(internal);
@@ -313,7 +313,7 @@ public class AccountCacheModel
 		faxNumber = objectInput.readUTF();
 		website = objectInput.readUTF();
 		tier = objectInput.readUTF();
-		soldBy = objectInput.readUTF();
+		region = objectInput.readUTF();
 
 		internal = objectInput.readBoolean();
 
@@ -425,11 +425,11 @@ public class AccountCacheModel
 			objectOutput.writeUTF(tier);
 		}
 
-		if (soldBy == null) {
+		if (region == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(soldBy);
+			objectOutput.writeUTF(region);
 		}
 
 		objectOutput.writeBoolean(internal);
@@ -475,7 +475,7 @@ public class AccountCacheModel
 	public String faxNumber;
 	public String website;
 	public String tier;
-	public String soldBy;
+	public String region;
 	public boolean internal;
 	public int status;
 	public long statusByUserId;
