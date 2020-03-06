@@ -83,7 +83,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website, String tier,
-			String soldBy, boolean internal, int status)
+			String region, boolean internal, int status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -111,7 +111,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setFaxNumber(faxNumber);
 		account.setWebsite(website);
 		account.setTier(tier);
-		account.setSoldBy(soldBy);
+		account.setRegion(region);
 		account.setInternal(internal);
 		account.setStatus(status);
 		account.setStatusByUserId(userId);
@@ -268,7 +268,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			String code, String description, String notes, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website, String tier,
-			String soldBy, boolean internal, int status)
+			String region, boolean internal, int status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -291,7 +291,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setFaxNumber(faxNumber);
 		account.setWebsite(website);
 		account.setTier(tier);
-		account.setSoldBy(soldBy);
+		account.setRegion(region);
 		account.setInternal(internal);
 
 		if (status != account.getStatus()) {

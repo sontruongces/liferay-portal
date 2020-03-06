@@ -418,8 +418,14 @@ public class AccountResourceImpl
 			tier = accountTier.toString();
 		}
 
-		String soldBy = GetterUtil.getString(
-			account.getSoldBy(), curAccount.getSoldBy());
+		String region = curAccount.getRegion();
+
+		Account.Region accountRegion = account.getRegion();
+
+		if (accountRegion != null) {
+			region = accountRegion.toString();
+		}
+
 		boolean internal = GetterUtil.getBoolean(
 			account.getInternal(), curAccount.getInternal());
 
@@ -436,7 +442,7 @@ public class AccountResourceImpl
 				accountKey, curAccount.getParentAccountId(), account.getName(),
 				code, description, notes, logoId, contactEmailAddress,
 				profileEmailAddress, phoneNumber, faxNumber, website, tier,
-				soldBy, internal, status));
+				region, internal, status));
 	}
 
 	@Override
@@ -583,6 +589,14 @@ public class AccountResourceImpl
 			tier = accountTier.toString();
 		}
 
+		String region = StringPool.BLANK;
+
+		Account.Region accountRegion = account.getRegion();
+
+		if (accountRegion != null) {
+			region = accountRegion.toString();
+		}
+
 		int status = WorkflowConstants.STATUS_APPROVED;
 
 		Account.Status accountStatus = account.getStatus();
@@ -598,8 +612,7 @@ public class AccountResourceImpl
 				GetterUtil.getLong(account.getLogoId()),
 				account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(), tier,
-				account.getSoldBy(),
+				account.getFaxNumber(), account.getWebsite(), tier, region,
 				GetterUtil.getBoolean(account.getInternal()), status));
 
 		if (!ArrayUtil.isEmpty(account.getContacts())) {

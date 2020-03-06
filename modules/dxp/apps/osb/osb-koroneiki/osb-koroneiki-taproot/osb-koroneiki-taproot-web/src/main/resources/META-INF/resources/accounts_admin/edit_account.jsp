@@ -107,7 +107,20 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 
 			</aui:select>
 
-			<aui:input name="soldBy" />
+			<aui:select name="region">
+				<aui:option value="" />
+
+				<%
+				for (com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Region region : com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Region.values()) {
+				%>
+
+					<aui:option label="<%= region %>" value="<%= region %>" />
+
+				<%
+				}
+				%>
+
+			</aui:select>
 
 			<aui:input checked="<%= (koroneikiAccount != null) && koroneikiAccount.isInternal() %>" name="internal" type="checkbox" />
 

@@ -39,7 +39,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -53,22 +55,36 @@ public class CorpProjectMigration {
 	public void migrate(long userId) throws Exception {
 		User user = _userLocalService.getUser(userId);
 
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("select OSB_CorpProject.*, ");
 		sb.append("OSB_AccountEntry.dossieraAccountKey, ");
 		sb.append("OSB_AccountEntry.code_, OSB_AccountEntry.type_, ");
 		sb.append("OSB_AccountEntry.tier, OSB_AccountEntry.notes, ");
-		sb.append("OSB_AccountEntry.status from OSB_CorpProject inner join ");
-		sb.append("OSB_AccountEntry on OSB_AccountEntry.corpProjectUuid = ");
-		sb.append("OSB_CorpProject.uuid_");
+		sb.append("OSB_AccountEntry.status, ");
+		sb.append("OSB_AccountEntries_SupportRegions.supportRegionId from ");
+		sb.append("OSB_CorpProject left join OSB_AccountEntry on ");
+		sb.append("OSB_AccountEntry.corpProjectUuid = OSB_CorpProject.uuid_ ");
+		sb.append("inner join OSB_AccountEntries_SupportRegions on ");
+		sb.append("OSB_AccountEntries_SupportRegions.accountEntryId = ");
+		sb.append("OSB_AccountEntry.accountEntryId");
 
 		try (Connection connection = DataAccess.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(
 				sb.toString());
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
+			Set<Long> corpProjectIds = new HashSet<>();
+
 			while (resultSet.next()) {
+				long corpProjectId = resultSet.getLong("corpProjectId");
+
+				if (corpProjectIds.contains(corpProjectId)) {
+					continue;
+				}
+
+				corpProjectIds.add(corpProjectId);
+
 				int status = resultSet.getInt("status");
 
 				if (status == 500) {
@@ -76,7 +92,7 @@ public class CorpProjectMigration {
 				}
 
 				Account account = _accountLocalService.createAccount(
-					resultSet.getLong("corpProjectId"));
+					corpProjectId);
 
 				account.setCompanyId(user.getCompanyId());
 				account.setUserId(userId);
@@ -94,6 +110,8 @@ public class CorpProjectMigration {
 				account.setCode(resultSet.getString("code_"));
 				account.setNotes(resultSet.getString("notes"));
 				account.setTier(_getTier(resultSet.getInt("tier")));
+				account.setRegion(
+					_getRegion(resultSet.getLong("supportRegionId")));
 				account.setInternal(_getInternal(resultSet.getInt("type_")));
 				account.setStatus(WorkflowConstants.STATUS_APPROVED);
 				account.setStatusByUserId(userId);
@@ -274,6 +292,38 @@ public class CorpProjectMigration {
 		}
 
 		return 0;
+	}
+
+	private String _getRegion(long supportRegionId) {
+		if (supportRegionId == 42442481) {
+			return "Australia";
+		}
+		else if (supportRegionId == 42356516) {
+			return "Brazil";
+		}
+		else if (supportRegionId == 42356502) {
+			return "China";
+		}
+		else if (supportRegionId == 70917309) {
+			return "Global";
+		}
+		else if (supportRegionId == 42356493) {
+			return "Hungary";
+		}
+		else if (supportRegionId == 42356498) {
+			return "India";
+		}
+		else if (supportRegionId == 45637701) {
+			return "Japan";
+		}
+		else if (supportRegionId == 42356507) {
+			return "Spain";
+		}
+		else if (supportRegionId == 42356488) {
+			return "United States";
+		}
+
+		return StringPool.BLANK;
 	}
 
 	private String _getTier(int tier) {

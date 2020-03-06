@@ -122,9 +122,10 @@ components:
                     description:
                         The account's profile email address.
                     type: string
-                soldBy:
+                region:
                     description:
-                        The region which sold the salesforce opportunity.
+                        The region responsible for the account.
+                    enum: ["Australia", "Brazil", "China", "Global", "Hungary", "India", "Japan", "Spain", "United States"]
                     type: string
                 status:
                     description:

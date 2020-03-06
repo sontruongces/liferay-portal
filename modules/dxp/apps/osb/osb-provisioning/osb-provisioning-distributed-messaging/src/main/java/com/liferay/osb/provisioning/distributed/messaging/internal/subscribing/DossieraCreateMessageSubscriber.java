@@ -171,6 +171,67 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		}
 	}
 
+	protected Account.Region getSupportRegion(
+		String soldBy, String countryName) {
+
+		if (Validator.isNull(soldBy)) {
+			_log.error(
+				"Sold by field is empty. Defaulting support region to global.");
+
+			return Account.Region.GLOBAL;
+		}
+
+		if (soldBy.equals("Liferay Africa") ||
+			soldBy.equals("Liferay France") ||
+			soldBy.equals("Liferay Germany") ||
+			soldBy.equals("Liferay Hungary") ||
+			soldBy.equals("Liferay International") ||
+			soldBy.equals("Liferay Middle East") ||
+			soldBy.equals("Liferay Netherlands") ||
+			soldBy.equals("Liferay Nordic") || soldBy.equals("Liferay UK")) {
+
+			return Account.Region.HUNGARY;
+		}
+		else if (soldBy.equals("Liferay Australia")) {
+			return Account.Region.AUSTRALIA;
+		}
+		else if (soldBy.equals("Liferay Brazil")) {
+			return Account.Region.BRAZIL;
+		}
+		else if (soldBy.equals("Liferay Canada") ||
+				 soldBy.equals("Liferay US")) {
+
+			return Account.Region.UNITED_STATES;
+		}
+		else if (soldBy.equals("Liferay China") ||
+				 soldBy.equals("Liferay Singapore")) {
+
+			return Account.Region.CHINA;
+		}
+		else if (soldBy.equals("Liferay India")) {
+			return Account.Region.INDIA;
+		}
+		else if (soldBy.equals("Liferay Japan")) {
+			return Account.Region.JAPAN;
+		}
+		else if (soldBy.equals("Liferay Spain")) {
+			if (Validator.isNotNull(countryName) &&
+				(countryName.equals("Cypress") ||
+				 countryName.equals("Greece") || countryName.equals("Italy"))) {
+
+				return Account.Region.HUNGARY;
+			}
+
+			return Account.Region.SPAIN;
+		}
+
+		_log.error(
+			"Unable to find matching support region for " + soldBy + " and " +
+				countryName + ". Defaulting support region to global.");
+
+		return Account.Region.GLOBAL;
+	}
+
 	protected boolean hasOpportunityProductFamily(JSONObject jsonObject) {
 		String salesforceOpportunityProductFamily = jsonObject.getString(
 			"_salesforceOpportunityProductFamily");
@@ -219,7 +280,13 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		account.setExternalLinks(externalLinks);
 		account.setPostalAddresses(new PostalAddress[] {postalAddress});
 		account.setProductPurchases(productPurchases);
-		account.setSoldBy(jsonObject.getString("_salesforceOpportunitySoldBy"));
+
+		String soldBy = jsonObject.getString("_salesforceOpportunitySoldBy");
+
+		Account.Region region = getSupportRegion(
+			soldBy, postalAddress.getAddressCountry());
+
+		account.setRegion(region);
 
 		return account;
 	}

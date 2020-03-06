@@ -86,7 +86,7 @@ public class AccountModelDocumentContributor
 		document.addKeyword("phoneNumber", account.getPhoneNumber());
 		document.addKeyword(
 			"profileEmailAddress", account.getProfileEmailAddress());
-		document.addKeyword("soldBy", account.getSoldBy());
+		document.addKeyword("region", account.getRegion());
 		document.addKeyword("tier", account.getTier());
 		document.addKeyword("website", account.getWebsite());
 

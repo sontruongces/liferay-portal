@@ -57,7 +57,7 @@ public class AccountUtil {
 					address -> PostalAddressUtil.toPostalAddress(address),
 					PostalAddress.class);
 				profileEmailAddress = account.getProfileEmailAddress();
-				soldBy = account.getSoldBy();
+				region = Region.create(account.getRegion());
 				status = Status.create(account.getStatusLabel());
 				tier = Tier.create(account.getTier());
 				website = account.getWebsite();
