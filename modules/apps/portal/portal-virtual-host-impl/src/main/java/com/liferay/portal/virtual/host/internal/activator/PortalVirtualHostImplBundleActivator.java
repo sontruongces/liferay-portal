@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.virtualhost.internal.activator;
+package com.liferay.portal.virtual.host.internal.activator;
 
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 
