@@ -19,7 +19,7 @@ definition {
 		JSONUserAPI._disablePasswordChangeRequired();
 	}
 
-	macro addUserByJSONWSUI{
+	macro addUserByJSONWSUI {
 		var companyId = JSONCompany.getCompanyId();
 
 		Type(
@@ -87,8 +87,8 @@ definition {
 			value1 = "1993");
 
 		AssertClick(
-  			locator1 = "Button#INVOKE",
- 			value1 = "Invoke");
+			locator1 = "Button#INVOKE",
+			value1 = "Invoke");
 	}
 
 	macro addUserToSite {
