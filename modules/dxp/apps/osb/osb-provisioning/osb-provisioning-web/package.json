@@ -12,7 +12,7 @@
 	},
 	"scripts": {
 		"build": "liferay-npm-scripts build",
-		"build-dev": "NODE_ENV=development liferay-npm-scripts build",
+		"build:dev": "NODE_ENV=development liferay-npm-scripts build",
 		"checkFormat": "liferay-npm-scripts check",
 		"format": "liferay-npm-scripts fix"
 	},
