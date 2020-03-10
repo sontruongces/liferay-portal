@@ -18,8 +18,10 @@ import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductConsumptionException;
+import com.liferay.osb.koroneiki.trunk.exception.ProductEntryMatchException;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
+import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.base.ProductConsumptionLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -37,6 +39,7 @@ import com.liferay.portal.kernel.search.Sort;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,12 +60,13 @@ public class ProductConsumptionLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductConsumption addProductConsumption(
 			long userId, long accountId, long productEntryId,
+			long productPurchaseId, Date startDate, Date endDate,
 			List<ProductField> productFields)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
 
-		validate(accountId, productEntryId);
+		validate(accountId, productEntryId, productPurchaseId);
 
 		long productConsumptionId = counterLocalService.increment();
 
@@ -75,6 +79,9 @@ public class ProductConsumptionLocalServiceImpl
 			ModelKeyGenerator.generate(productConsumptionId));
 		productConsumption.setAccountId(accountId);
 		productConsumption.setProductEntryId(productEntryId);
+		productConsumption.setProductPurchaseId(productPurchaseId);
+		productConsumption.setStartDate(startDate);
+		productConsumption.setEndDate(endDate);
 
 		productConsumption = productConsumptionPersistence.update(
 			productConsumption);
@@ -263,12 +270,22 @@ public class ProductConsumptionLocalServiceImpl
 		}
 	}
 
-	protected void validate(long accountId, long productEntryId)
+	protected void validate(
+			long accountId, long productEntryId, long productPurchaseId)
 		throws PortalException {
 
 		_accountLocalService.getAccount(accountId);
 
 		productEntryPersistence.findByPrimaryKey(productEntryId);
+
+		if (productPurchaseId > 0) {
+			ProductPurchase productPurchase =
+				productPurchasePersistence.findByPrimaryKey(productPurchaseId);
+
+			if (productEntryId != productPurchase.getProductEntryId()) {
+				throw new ProductEntryMatchException();
+			}
+		}
 	}
 
 	@Reference

@@ -20,18 +20,23 @@ import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductEntryException;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionService;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
+import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -56,9 +61,32 @@ public class EditProductConsumptionMVCActionCommand
 	protected void addProductConsumption(ActionRequest actionRequest)
 		throws PortalException {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		long accountId = ParamUtil.getLong(actionRequest, "accountId");
 		long productEntryId = ParamUtil.getLong(
 			actionRequest, "productEntryId");
+		long productPurchaseId = ParamUtil.getLong(
+			actionRequest, "productPurchaseId");
+
+		int startDateMonth = ParamUtil.getInteger(
+			actionRequest, "startDateMonth");
+		int startDateDay = ParamUtil.getInteger(actionRequest, "startDateDay");
+		int startDateYear = ParamUtil.getInteger(
+			actionRequest, "startDateYear");
+
+		Date startDate = _portal.getDate(
+			startDateMonth, startDateDay, startDateYear,
+			themeDisplay.getTimeZone(), null);
+
+		int endDateMonth = ParamUtil.getInteger(actionRequest, "endDateMonth");
+		int endDateDay = ParamUtil.getInteger(actionRequest, "endDateDay");
+		int endDateYear = ParamUtil.getInteger(actionRequest, "endDateYear");
+
+		Date endDate = _portal.getDate(
+			endDateMonth, endDateDay, endDateYear, themeDisplay.getTimeZone(),
+			null);
 
 		List<ProductField> productFields = new ArrayList<>();
 
@@ -87,7 +115,8 @@ public class EditProductConsumptionMVCActionCommand
 		}
 
 		_productConsumptionService.addProductConsumption(
-			accountId, productEntryId, productFields);
+			accountId, productEntryId, productPurchaseId, startDate, endDate,
+			productFields);
 	}
 
 	protected void deleteProductConsumption(ActionRequest actionRequest)
@@ -139,9 +168,15 @@ public class EditProductConsumptionMVCActionCommand
 		EditProductConsumptionMVCActionCommand.class);
 
 	@Reference
+	private Portal _portal;
+
+	@Reference
 	private ProductConsumptionService _productConsumptionService;
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;
+
+	@Reference
+	private ProductPurchaseLocalService _productPurchaseLocalService;
 
 }

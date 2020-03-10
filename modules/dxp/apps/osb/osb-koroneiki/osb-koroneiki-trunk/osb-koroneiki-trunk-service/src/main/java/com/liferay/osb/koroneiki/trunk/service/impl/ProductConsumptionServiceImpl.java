@@ -26,15 +26,19 @@ import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductConsumptionExcepti
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
+import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.osb.koroneiki.trunk.permission.ProductConsumptionPermission;
 import com.liferay.osb.koroneiki.trunk.permission.ProductEntryPermission;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
+import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.osb.koroneiki.trunk.service.base.ProductConsumptionServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -54,19 +58,21 @@ public class ProductConsumptionServiceImpl
 	extends ProductConsumptionServiceBaseImpl {
 
 	public ProductConsumption addProductConsumption(
-			long accountId, long productEntryId,
-			List<ProductField> productFields)
+			long accountId, long productEntryId, long productPurchaseId,
+			Date startDate, Date endDate, List<ProductField> productFields)
 		throws PortalException {
 
 		_productEntryPermission.check(
 			getPermissionChecker(), productEntryId, TrunkActionKeys.CONSUME);
 
 		return productConsumptionLocalService.addProductConsumption(
-			getUserId(), accountId, productEntryId, productFields);
+			getUserId(), accountId, productEntryId, productPurchaseId,
+			startDate, endDate, productFields);
 	}
 
 	public ProductConsumption addProductConsumption(
 			String accountKey, String productEntryKey,
+			String productPurchaseKey, Date startDate, Date endDate,
 			List<ProductField> productFields)
 		throws PortalException {
 
@@ -78,9 +84,20 @@ public class ProductConsumptionServiceImpl
 
 		Account account = _accountLocalService.getAccount(accountKey);
 
+		long productPurchaseId = 0;
+
+		if (Validator.isNotNull(productPurchaseKey)) {
+			ProductPurchase productPurchase =
+				_productPurchaseLocalService.getProductPurchase(
+					productPurchaseKey);
+
+			productPurchaseId = productPurchase.getProductPurchaseId();
+		}
+
 		return productConsumptionLocalService.addProductConsumption(
 			getUserId(), account.getAccountId(),
-			productEntry.getProductEntryId(), productFields);
+			productEntry.getProductEntryId(), productPurchaseId, startDate,
+			endDate, productFields);
 	}
 
 	public ProductConsumption deleteProductConsumption(
@@ -285,5 +302,8 @@ public class ProductConsumptionServiceImpl
 
 	@Reference
 	private ProductEntryPermission _productEntryPermission;
+
+	@Reference
+	private ProductPurchaseLocalService _productPurchaseLocalService;
 
 }

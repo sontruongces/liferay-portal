@@ -21,8 +21,10 @@ import com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
+import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalServiceUtil;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalServiceUtil;
+import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 
@@ -81,6 +83,25 @@ public class ProductConsumptionImpl extends ProductConsumptionBaseImpl {
 		}
 
 		return productFieldsMap;
+	}
+
+	public ProductPurchase getProductPurchase() throws PortalException {
+		return ProductPurchaseLocalServiceUtil.getProductPurchase(
+			getProductPurchaseId());
+	}
+
+	public String getProductPurchaseKey() throws PortalException {
+		ProductPurchase productPurchase = getProductPurchase();
+
+		return productPurchase.getProductPurchaseKey();
+	}
+
+	public boolean isPerpetual() {
+		if (getStartDate() != null) {
+			return false;
+		}
+
+		return true;
 	}
 
 }

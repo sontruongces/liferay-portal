@@ -31,6 +31,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.util.Collections;
+import java.util.Date;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -42,10 +43,11 @@ import org.osgi.service.component.annotations.Reference;
 public class LicenseKeyMigration {
 
 	public void migrate(long userId) throws Exception {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(8);
 
-		sb.append("select corpProjectId, OSB_ProductEntry.name, licenseKeyId ");
-		sb.append("from OSB_LicenseKey inner join OSB_AccountEntry on ");
+		sb.append("select corpProjectId, OSB_ProductEntry.name, ");
+		sb.append("licenseKeyId, startDate, expirationDate from ");
+		sb.append("OSB_LicenseKey inner join OSB_AccountEntry on ");
 		sb.append("OSB_LicenseKey.accountEntryId = ");
 		sb.append("OSB_AccountEntry.accountEntryId inner join ");
 		sb.append("OSB_ProductEntry on OSB_LicenseKey.productEntryId = ");
@@ -84,10 +86,13 @@ public class LicenseKeyMigration {
 					continue;
 				}
 
+				Date startDate = resultSet.getDate("startDate");
+				Date endDate = resultSet.getDate("expirationDate");
+
 				ProductConsumption productConsumption =
 					_productConsumptionLocalService.addProductConsumption(
 						userId, corpProjectId, productEntry.getProductEntryId(),
-						Collections.emptyList());
+						0, startDate, endDate, Collections.emptyList());
 
 				long licenseKeyId = resultSet.getLong(3);
 

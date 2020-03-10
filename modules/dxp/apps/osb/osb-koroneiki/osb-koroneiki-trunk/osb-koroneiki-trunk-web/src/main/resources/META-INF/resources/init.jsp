@@ -51,6 +51,7 @@ page import="com.liferay.osb.koroneiki.trunk.model.ProductField" %><%@
 page import="com.liferay.osb.koroneiki.trunk.model.ProductPurchase" %><%@
 page import="com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalServiceUtil" %><%@
 page import="com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalServiceUtil" %><%@
+page import="com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalServiceUtil" %><%@
 page import="com.liferay.osb.koroneiki.trunk.web.internal.display.context.ProductConsumptionsDisplayContext" %><%@
 page import="com.liferay.osb.koroneiki.trunk.web.internal.display.context.ProductEntriesDisplayContext" %><%@
 page import="com.liferay.osb.koroneiki.trunk.web.internal.display.context.ProductPurchasesDisplayContext" %><%@
@@ -67,6 +68,7 @@ page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
+page import="com.liferay.portal.kernel.util.ListUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.StringUtil" %><%@
@@ -77,7 +79,9 @@ page import="com.liferay.taglib.search.ResultRow" %>
 page import="java.text.Format" %>
 
 <%@ page import="java.util.ArrayList" %><%@
-page import="java.util.List" %>
+page import="java.util.HashMap" %><%@
+page import="java.util.List" %><%@
+page import="java.util.Map" %>
 
 <liferay-frontend:defineObjects />
 
