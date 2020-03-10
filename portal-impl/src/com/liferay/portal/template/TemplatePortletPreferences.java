@@ -49,7 +49,16 @@ public class TemplatePortletPreferences {
 
 			Object valueObject = entry.getValue();
 
-			if (valueObject instanceof String) {
+			if (valueObject instanceof Collection) {
+				for (Object value : (Collection)valueObject) {
+					if (value instanceof String) {
+						sb.append("<value>");
+						sb.append(XMLUtil.toCompactSafe((String)value));
+						sb.append("</value>");
+					}
+				}
+			}
+			else if (valueObject instanceof String) {
 				sb.append("<value>");
 				sb.append(XMLUtil.toCompactSafe((String)valueObject));
 				sb.append("</value>");
@@ -59,15 +68,6 @@ public class TemplatePortletPreferences {
 					sb.append("<value>");
 					sb.append(XMLUtil.toCompactSafe(value));
 					sb.append("</value>");
-				}
-			}
-			else if (valueObject instanceof Collection) {
-				for (Object value : (Collection)valueObject) {
-					if (value instanceof String) {
-						sb.append("<value>");
-						sb.append(XMLUtil.toCompactSafe((String)value));
-						sb.append("</value>");
-					}
 				}
 			}
 			else {
