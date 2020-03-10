@@ -1,12 +1,4 @@
 {
-	"devDependencies": {
-		"compass-mixins": "0.12.10",
-		"gulp": "3.9.1",
-		"liferay-frontend-common-css": "1.0.4",
-		"liferay-frontend-theme-styled": "4.0.21",
-		"liferay-frontend-theme-unstyled": "4.0.17",
-		"liferay-theme-tasks": "^9.5.0"
-	},
 	"keywords": [
 		"liferay-theme"
 	],
@@ -20,7 +12,9 @@
 	"main": "package.json",
 	"name": "osb-provisioning-theme",
 	"scripts": {
-		"build": "gulp build"
+		"build": "liferay-npm-scripts theme build",
+		"checkFormat": "liferay-npm-scripts check",
+		"format": "liferay-npm-scripts fix"
 	},
 	"version": "1.0.0"
 }
