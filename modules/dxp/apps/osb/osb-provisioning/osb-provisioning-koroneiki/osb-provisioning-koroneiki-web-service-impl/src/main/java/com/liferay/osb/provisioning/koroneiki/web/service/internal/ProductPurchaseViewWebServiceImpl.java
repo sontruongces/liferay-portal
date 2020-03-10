@@ -19,7 +19,6 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductPurchaseViewResource;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
@@ -46,8 +45,9 @@ public class ProductPurchaseViewWebServiceImpl
 		throws Exception {
 
 		Page<ProductPurchaseView> productPurchaseViewsPage =
-			_productPurchaseViewResource.getAccountAccountKeyProductPurchaseViewsPage(
-				accountKey, Pagination.of(page, pageSize));
+			_productPurchaseViewResource.
+				getAccountAccountKeyProductPurchaseViewsPage(
+					accountKey, Pagination.of(page, pageSize));
 
 		if ((productPurchaseViewsPage != null) &&
 			(productPurchaseViewsPage.getItems() != null)) {
@@ -56,6 +56,21 @@ public class ProductPurchaseViewWebServiceImpl
 		}
 
 		return Collections.emptyList();
+	}
+
+	public long getProductPurchaseViewsCount(String accountKey)
+		throws Exception {
+
+		Page<ProductPurchaseView> productPurchaseViewsPage =
+			_productPurchaseViewResource.
+				getAccountAccountKeyProductPurchaseViewsPage(
+					accountKey, Pagination.of(1, 1));
+
+		if (productPurchaseViewsPage != null) {
+			return productPurchaseViewsPage.getTotalCount();
+		}
+
+		return 0;
 	}
 
 	@Activate

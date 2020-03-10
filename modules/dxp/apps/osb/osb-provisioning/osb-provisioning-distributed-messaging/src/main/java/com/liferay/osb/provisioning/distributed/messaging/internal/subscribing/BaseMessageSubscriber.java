@@ -35,10 +35,10 @@ public abstract class BaseMessageSubscriber implements MessageSubscriber {
 
 			doParse(jsonObject);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(message);
 
-			_log.error(e, e);
+			_log.error(exception, exception);
 		}
 	}
 

@@ -15,11 +15,15 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.portlet.PortletURL;
@@ -35,13 +39,15 @@ public class ViewAccountDisplayContext {
 
 	public ViewAccountDisplayContext(
 			RenderRequest renderRequest, RenderResponse renderResponse,
-			HttpServletRequest httpServletRequest, AccountReader accountReader)
+			HttpServletRequest httpServletRequest, AccountReader accountReader,
+			ProductPurchaseViewWebService productPurchaseViewWebService)
 		throws Exception {
 
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
 		_httpServletRequest = httpServletRequest;
 		_accountReader = accountReader;
+		_productPurchaseViewWebService = productPurchaseViewWebService;
 
 		_account = (Account)renderRequest.getAttribute(
 			ProvisioningWebKeys.ACCOUNT);
@@ -51,6 +57,29 @@ public class ViewAccountDisplayContext {
 
 	public Account getAccount() {
 		return _account;
+	}
+
+	public SearchContainer getProductPurchaseViewSearchContainer()
+		throws Exception {
+
+		SearchContainer searchContainer = new SearchContainer(
+			_renderRequest, _renderResponse.createRenderURL(),
+			Collections.emptyList(), "no-subscriptions-were-found");
+
+		List<ProductPurchaseView> productPurchaseViews =
+			_productPurchaseViewWebService.getProductPurchaseViews(
+				_account.getKey(), searchContainer.getCur(),
+				searchContainer.getEnd() - searchContainer.getStart());
+
+		searchContainer.setResults(productPurchaseViews);
+
+		int count =
+			(int)_productPurchaseViewWebService.getProductPurchaseViewsCount(
+				_account.getKey());
+
+		searchContainer.setTotal(count);
+
+		return searchContainer;
 	}
 
 	private void _addPortletBreadcrumbEntries() throws Exception {
@@ -79,6 +108,7 @@ public class ViewAccountDisplayContext {
 	private final Account _account;
 	private final AccountReader _accountReader;
 	private final HttpServletRequest _httpServletRequest;
+	private final ProductPurchaseViewWebService _productPurchaseViewWebService;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
 

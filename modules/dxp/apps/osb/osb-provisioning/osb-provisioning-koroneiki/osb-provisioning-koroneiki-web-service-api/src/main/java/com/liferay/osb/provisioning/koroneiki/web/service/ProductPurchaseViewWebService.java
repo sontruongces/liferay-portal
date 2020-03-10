@@ -27,4 +27,7 @@ public interface ProductPurchaseViewWebService {
 			String accountKey, int page, int pageSize)
 		throws Exception;
 
+	public long getProductPurchaseViewsCount(String accountKey)
+		throws Exception;
+
 }
