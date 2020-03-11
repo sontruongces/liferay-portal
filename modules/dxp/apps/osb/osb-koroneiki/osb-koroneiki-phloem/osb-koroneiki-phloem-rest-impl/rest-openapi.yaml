@@ -603,6 +603,11 @@ components:
                     format: date-time
                     readOnly: true
                     type: string
+                endDate:
+                    description:
+                        The product consumption's end date if applicable.
+                    format: date-time
+                    type: string
                 externalLinks:
                     description:
                         The product consumption's links to entities in external domains.
@@ -619,10 +624,19 @@ components:
                     description:
                         The key of the product being consumed.
                     type: string
+                productPurchaseKey:
+                    description:
+                        The key of the product consumption's product purchase if applicable.
+                    type: string
                 properties:
                     additionalProperties:
                         type: string
                     type: object
+                startDate:
+                    description:
+                        The product consumption's start date if applicable.
+                    format: date-time
+                    type: string
             required:
                 - productKey
             type: object

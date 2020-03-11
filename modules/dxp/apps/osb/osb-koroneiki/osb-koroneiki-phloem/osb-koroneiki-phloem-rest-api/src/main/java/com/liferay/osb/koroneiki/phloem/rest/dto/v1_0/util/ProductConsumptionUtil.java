@@ -37,6 +37,9 @@ public class ProductConsumptionUtil {
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);
 				key = productConsumption.getProductConsumptionKey();
 				productKey = productConsumption.getProductEntryKey();
+				productPurchaseKey = productConsumption.getProductPurchaseKey();
+				startDate = productConsumption.getStartDate();
+				endDate = productConsumption.getEndDate();
 				properties = productConsumption.getProductFieldsMap();
 			}
 		};

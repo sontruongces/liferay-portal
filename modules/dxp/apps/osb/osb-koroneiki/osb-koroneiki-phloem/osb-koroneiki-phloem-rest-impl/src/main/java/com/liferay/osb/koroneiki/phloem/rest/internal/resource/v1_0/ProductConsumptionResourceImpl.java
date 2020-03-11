@@ -190,7 +190,10 @@ public class ProductConsumptionResourceImpl
 
 		return ProductConsumptionUtil.toProductConsumption(
 			_productConsumptionService.addProductConsumption(
-				accountKey, productConsumption.getProductKey(), productFields));
+				accountKey, productConsumption.getProductKey(),
+				productConsumption.getProductPurchaseKey(),
+				productConsumption.getStartDate(),
+				productConsumption.getEndDate(), productFields));
 	}
 
 	@Override
