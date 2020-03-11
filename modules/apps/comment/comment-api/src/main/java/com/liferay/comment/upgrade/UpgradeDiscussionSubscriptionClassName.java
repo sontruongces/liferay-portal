@@ -105,6 +105,7 @@ public class UpgradeDiscussionSubscriptionClassName extends UpgradeProcess {
 			(Subscription subscription) ->
 				_subscriptionLocalService.deleteSubscription(
 					subscription.getSubscriptionId()));
+
 		actionableDynamicQuery.performActions();
 	}
 
