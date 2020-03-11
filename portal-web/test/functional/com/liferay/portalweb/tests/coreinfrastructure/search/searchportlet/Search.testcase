@@ -2561,6 +2561,8 @@ definition {
 
 		Portlet.addPG(portletName = "Sort");
 
+		Refresh();
+
 		SearchPortlets.chooseSortOption(sortOption = "Title");
 
 		SearchResultPortlet.viewSearchResultsSpecificOrder(resultsList = "Apple,Banana,Cantaloupe");
