@@ -14,6 +14,8 @@
 
 package com.liferay.layout.type.controller.display.page.internal.controller;
 
+import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
+import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.fragment.constants.FragmentActionKeys;
 import com.liferay.fragment.contributor.FragmentCollectionContributorTracker;
 import com.liferay.fragment.renderer.FragmentRendererController;
@@ -28,6 +30,7 @@ import com.liferay.layout.content.page.editor.constants.ContentPageEditorWebKeys
 import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalService;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
@@ -65,6 +68,33 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class DisplayPageLayoutTypeController
 	extends BaseLayoutTypeControllerImpl {
+
+	@Override
+	public String getFriendlyURL(
+			HttpServletRequest httpServletRequest, Layout layout)
+		throws PortalException {
+
+		if (layout.getClassNameId() == _portal.getClassNameId(Layout.class)) {
+			return null;
+		}
+
+		Object object = httpServletRequest.getAttribute(
+			WebKeys.LAYOUT_ASSET_ENTRY);
+
+		if ((object != null) && (object instanceof AssetEntry)) {
+			AssetEntry assetEntry = (AssetEntry)object;
+
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)httpServletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
+
+			return _assetDisplayPageFriendlyURLProvider.getFriendlyURL(
+				assetEntry.getClassName(), assetEntry.getClassPK(),
+				themeDisplay);
+		}
+
+		return null;
+	}
 
 	@Override
 	public String getType() {
@@ -290,6 +320,10 @@ public class DisplayPageLayoutTypeController
 			"&p_v_l_s_g_id=${liferay:pvlsgid}";
 
 	private static final String _VIEW_PAGE = "/layout/view/display_page.jsp";
+
+	@Reference
+	private AssetDisplayPageFriendlyURLProvider
+		_assetDisplayPageFriendlyURLProvider;
 
 	@Reference
 	private FragmentCollectionContributorTracker
