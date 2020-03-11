@@ -187,6 +187,7 @@ public abstract class BaseProductConsumptionResourceTestCase {
 		productConsumption.setAccountKey(regex);
 		productConsumption.setKey(regex);
 		productConsumption.setProductKey(regex);
+		productConsumption.setProductPurchaseKey(regex);
 
 		String json = ProductConsumptionSerDes.toJSON(productConsumption);
 
@@ -197,6 +198,7 @@ public abstract class BaseProductConsumptionResourceTestCase {
 		Assert.assertEquals(regex, productConsumption.getAccountKey());
 		Assert.assertEquals(regex, productConsumption.getKey());
 		Assert.assertEquals(regex, productConsumption.getProductKey());
+		Assert.assertEquals(regex, productConsumption.getProductPurchaseKey());
 	}
 
 	@Test
@@ -1192,6 +1194,14 @@ public abstract class BaseProductConsumptionResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("endDate", additionalAssertFieldName)) {
+				if (productConsumption.getEndDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("externalLinks", additionalAssertFieldName)) {
 				if (productConsumption.getExternalLinks() == null) {
 					valid = false;
@@ -1216,8 +1226,26 @@ public abstract class BaseProductConsumptionResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"productPurchaseKey", additionalAssertFieldName)) {
+
+				if (productConsumption.getProductPurchaseKey() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("properties", additionalAssertFieldName)) {
 				if (productConsumption.getProperties() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("startDate", additionalAssertFieldName)) {
+				if (productConsumption.getStartDate() == null) {
 					valid = false;
 				}
 
@@ -1303,6 +1331,17 @@ public abstract class BaseProductConsumptionResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("endDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						productConsumption1.getEndDate(),
+						productConsumption2.getEndDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("externalLinks", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						productConsumption1.getExternalLinks(),
@@ -1336,10 +1375,34 @@ public abstract class BaseProductConsumptionResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"productPurchaseKey", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						productConsumption1.getProductPurchaseKey(),
+						productConsumption2.getProductPurchaseKey())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("properties", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						productConsumption1.getProperties(),
 						productConsumption2.getProperties())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("startDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						productConsumption1.getStartDate(),
+						productConsumption2.getStartDate())) {
 
 					return false;
 				}
@@ -1385,6 +1448,17 @@ public abstract class BaseProductConsumptionResourceTestCase {
 				if (!Objects.deepEquals(
 						productConsumption.getProductKey(),
 						jsonObject.getString("productKey"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("productPurchaseKey", fieldName)) {
+				if (!Objects.deepEquals(
+						productConsumption.getProductPurchaseKey(),
+						jsonObject.getString("productPurchaseKey"))) {
 
 					return false;
 				}
@@ -1492,6 +1566,39 @@ public abstract class BaseProductConsumptionResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("endDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							productConsumption.getEndDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							productConsumption.getEndDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(productConsumption.getEndDate()));
+			}
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("externalLinks")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1513,9 +1620,52 @@ public abstract class BaseProductConsumptionResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("productPurchaseKey")) {
+			sb.append("'");
+			sb.append(
+				String.valueOf(productConsumption.getProductPurchaseKey()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("properties")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("startDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							productConsumption.getStartDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(
+							productConsumption.getStartDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(
+					_dateFormat.format(productConsumption.getStartDate()));
+			}
+
+			return sb.toString();
 		}
 
 		throw new IllegalArgumentException(
@@ -1544,8 +1694,11 @@ public abstract class BaseProductConsumptionResourceTestCase {
 			{
 				accountKey = RandomTestUtil.randomString();
 				dateCreated = RandomTestUtil.nextDate();
+				endDate = RandomTestUtil.nextDate();
 				key = RandomTestUtil.randomString();
 				productKey = RandomTestUtil.randomString();
+				productPurchaseKey = RandomTestUtil.randomString();
+				startDate = RandomTestUtil.nextDate();
 			}
 		};
 	}

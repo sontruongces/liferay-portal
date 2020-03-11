@@ -108,6 +108,34 @@ public class ProductConsumption {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
+	@Schema(description = "The product consumption's end date if applicable.")
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	@JsonIgnore
+	public void setEndDate(
+		UnsafeSupplier<Date, Exception> endDateUnsafeSupplier) {
+
+		try {
+			endDate = endDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date endDate;
+
 	@Schema(
 		description = "The product consumption's links to entities in external domains."
 	)
@@ -194,6 +222,36 @@ public class ProductConsumption {
 	@NotEmpty
 	protected String productKey;
 
+	@Schema(
+		description = "The key of the product consumption's product purchase if applicable."
+	)
+	public String getProductPurchaseKey() {
+		return productPurchaseKey;
+	}
+
+	public void setProductPurchaseKey(String productPurchaseKey) {
+		this.productPurchaseKey = productPurchaseKey;
+	}
+
+	@JsonIgnore
+	public void setProductPurchaseKey(
+		UnsafeSupplier<String, Exception> productPurchaseKeyUnsafeSupplier) {
+
+		try {
+			productPurchaseKey = productPurchaseKeyUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String productPurchaseKey;
+
 	@Schema
 	@Valid
 	public Map<String, String> getProperties() {
@@ -223,6 +281,34 @@ public class ProductConsumption {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Map<String, String> properties;
+
+	@Schema(description = "The product consumption's start date if applicable.")
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	@JsonIgnore
+	public void setStartDate(
+		UnsafeSupplier<Date, Exception> startDateUnsafeSupplier) {
+
+		try {
+			startDate = startDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date startDate;
 
 	@Override
 	public boolean equals(Object object) {
@@ -282,6 +368,20 @@ public class ProductConsumption {
 			sb.append("\"");
 		}
 
+		if (endDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"endDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(endDate));
+
+			sb.append("\"");
+		}
+
 		if (externalLinks != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -330,6 +430,20 @@ public class ProductConsumption {
 			sb.append("\"");
 		}
 
+		if (productPurchaseKey != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productPurchaseKey\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(productPurchaseKey));
+
+			sb.append("\"");
+		}
+
 		if (properties != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -338,6 +452,20 @@ public class ProductConsumption {
 			sb.append("\"properties\": ");
 
 			sb.append(_toJSON(properties));
+		}
+
+		if (startDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"startDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(startDate));
+
+			sb.append("\"");
 		}
 
 		sb.append("}");

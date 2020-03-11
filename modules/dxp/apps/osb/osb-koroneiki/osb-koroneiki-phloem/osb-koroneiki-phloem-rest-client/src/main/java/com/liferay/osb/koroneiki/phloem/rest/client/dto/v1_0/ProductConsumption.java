@@ -72,6 +72,27 @@ public class ProductConsumption {
 
 	protected Date dateCreated;
 
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setEndDate(
+		UnsafeSupplier<Date, Exception> endDateUnsafeSupplier) {
+
+		try {
+			endDate = endDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date endDate;
+
 	public ExternalLink[] getExternalLinks() {
 		return externalLinks;
 	}
@@ -133,6 +154,27 @@ public class ProductConsumption {
 
 	protected String productKey;
 
+	public String getProductPurchaseKey() {
+		return productPurchaseKey;
+	}
+
+	public void setProductPurchaseKey(String productPurchaseKey) {
+		this.productPurchaseKey = productPurchaseKey;
+	}
+
+	public void setProductPurchaseKey(
+		UnsafeSupplier<String, Exception> productPurchaseKeyUnsafeSupplier) {
+
+		try {
+			productPurchaseKey = productPurchaseKeyUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String productPurchaseKey;
+
 	public Map<String, String> getProperties() {
 		return properties;
 	}
@@ -154,6 +196,27 @@ public class ProductConsumption {
 	}
 
 	protected Map<String, String> properties;
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setStartDate(
+		UnsafeSupplier<Date, Exception> startDateUnsafeSupplier) {
+
+		try {
+			startDate = startDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date startDate;
 
 	@Override
 	public boolean equals(Object object) {

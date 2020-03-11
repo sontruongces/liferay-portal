@@ -93,6 +93,22 @@ public class ProductConsumptionSerDes {
 			sb.append("\"");
 		}
 
+		if (productConsumption.getEndDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"endDate\": ");
+
+			sb.append("\"");
+
+			sb.append(
+				liferayToJSONDateFormat.format(
+					productConsumption.getEndDate()));
+
+			sb.append("\"");
+		}
+
 		if (productConsumption.getExternalLinks() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -144,6 +160,20 @@ public class ProductConsumptionSerDes {
 			sb.append("\"");
 		}
 
+		if (productConsumption.getProductPurchaseKey() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productPurchaseKey\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(productConsumption.getProductPurchaseKey()));
+
+			sb.append("\"");
+		}
+
 		if (productConsumption.getProperties() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -152,6 +182,22 @@ public class ProductConsumptionSerDes {
 			sb.append("\"properties\": ");
 
 			sb.append(_toJSON(productConsumption.getProperties()));
+		}
+
+		if (productConsumption.getStartDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"startDate\": ");
+
+			sb.append("\"");
+
+			sb.append(
+				liferayToJSONDateFormat.format(
+					productConsumption.getStartDate()));
+
+			sb.append("\"");
 		}
 
 		sb.append("}");
@@ -192,6 +238,10 @@ public class ProductConsumptionSerDes {
 			liferayToJSONDateFormat.format(
 				productConsumption.getDateCreated()));
 
+		map.put(
+			"endDate",
+			liferayToJSONDateFormat.format(productConsumption.getEndDate()));
+
 		if (productConsumption.getExternalLinks() == null) {
 			map.put("externalLinks", null);
 		}
@@ -217,6 +267,15 @@ public class ProductConsumptionSerDes {
 				String.valueOf(productConsumption.getProductKey()));
 		}
 
+		if (productConsumption.getProductPurchaseKey() == null) {
+			map.put("productPurchaseKey", null);
+		}
+		else {
+			map.put(
+				"productPurchaseKey",
+				String.valueOf(productConsumption.getProductPurchaseKey()));
+		}
+
 		if (productConsumption.getProperties() == null) {
 			map.put("properties", null);
 		}
@@ -225,6 +284,10 @@ public class ProductConsumptionSerDes {
 				"properties",
 				String.valueOf(productConsumption.getProperties()));
 		}
+
+		map.put(
+			"startDate",
+			liferayToJSONDateFormat.format(productConsumption.getStartDate()));
 
 		return map;
 	}
@@ -259,6 +322,12 @@ public class ProductConsumptionSerDes {
 						toDate((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "endDate")) {
+				if (jsonParserFieldValue != null) {
+					productConsumption.setEndDate(
+						toDate((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "externalLinks")) {
 				if (jsonParserFieldValue != null) {
 					productConsumption.setExternalLinks(
@@ -282,11 +351,25 @@ public class ProductConsumptionSerDes {
 						(String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(
+						jsonParserFieldName, "productPurchaseKey")) {
+
+				if (jsonParserFieldValue != null) {
+					productConsumption.setProductPurchaseKey(
+						(String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "properties")) {
 				if (jsonParserFieldValue != null) {
 					productConsumption.setProperties(
 						(Map)ProductConsumptionSerDes.toMap(
 							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "startDate")) {
+				if (jsonParserFieldValue != null) {
+					productConsumption.setStartDate(
+						toDate((String)jsonParserFieldValue));
 				}
 			}
 			else {
