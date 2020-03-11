@@ -142,9 +142,16 @@ public class ProductPurchaseLocalServiceImpl
 	}
 
 	public List<ProductPurchase> getAccountProductEntryProductPurchases(
-		long accountId, long productEntryId) {
+		long accountId, long productEntryId, int start, int end) {
 
 		return productPurchasePersistence.findByAI_PEI(
+			accountId, productEntryId, start, end);
+	}
+
+	public int getAccountProductEntryProductPurchasesCount(
+		long accountId, long productEntryId) {
+
+		return productPurchasePersistence.countByAI_PEI(
 			accountId, productEntryId);
 	}
 

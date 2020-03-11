@@ -20,18 +20,16 @@
 long accountId = ParamUtil.getLong(request, "accountId");
 long productEntryId = ParamUtil.getLong(request, "productEntryId");
 long productPurchaseId = ParamUtil.getLong(request, "productPurchaseId");
-
-List<ProductPurchase> productPurchases = ProductPurchaseLocalServiceUtil.getAccountProductEntryProductPurchases(accountId, productEntryId);
 %>
 
 <div class="container-fluid-1280">
 	<aui:form cssClass="container-fluid-1280" name="selectProductPurchaseFm">
 		<liferay-ui:search-container
 			emptyResultsMessage="no-product-purchases-were-found"
-			total="<%= productPurchases.size() %>"
+			total="<%= ProductPurchaseLocalServiceUtil.getAccountProductEntryProductPurchasesCount(accountId, productEntryId) %>"
 		>
 			<liferay-ui:search-container-results
-				results="<%= ListUtil.subList(productPurchases, searchContainer.getStart(), searchContainer.getEnd()) %>"
+				results="<%= ProductPurchaseLocalServiceUtil.getAccountProductEntryProductPurchases(accountId, productEntryId, searchContainer.getStart(), searchContainer.getEnd()) %>"
 			/>
 
 			<liferay-ui:search-container-row
@@ -42,7 +40,7 @@ List<ProductPurchase> productPurchases = ProductPurchaseLocalServiceUtil.getAcco
 			>
 
 				<%
-				Account productPurchaseAccount = productPurchase.getAccount();
+				Account koroneikiAccount = productPurchase.getAccount();
 				ProductEntry productEntry = productPurchase.getProductEntry();
 				%>
 
@@ -60,7 +58,7 @@ List<ProductPurchase> productPurchases = ProductPurchaseLocalServiceUtil.getAcco
 						<aui:icon cssClass="icon-monospaced" image="users" markupView="lexicon" />
 					</span>
 
-					<%= HtmlUtil.escape(productPurchaseAccount.getName()) %>
+					<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text

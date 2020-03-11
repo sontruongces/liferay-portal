@@ -24,6 +24,7 @@ import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionService;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -57,7 +58,8 @@ public class ProductPurchaseViewResourceImpl
 				getAccountProductEntryProductConsumptions(
 					account.getAccountId(), productEntry.getProductEntryId()),
 			_productPurchaseService.getAccountProductEntryProductPurchases(
-				account.getAccountId(), productEntry.getProductEntryId()));
+				account.getAccountId(), productEntry.getProductEntryId(),
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS));
 	}
 
 	@Override

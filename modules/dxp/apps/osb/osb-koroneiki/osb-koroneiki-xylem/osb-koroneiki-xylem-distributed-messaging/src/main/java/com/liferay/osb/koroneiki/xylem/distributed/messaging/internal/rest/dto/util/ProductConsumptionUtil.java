@@ -32,12 +32,15 @@ public class ProductConsumptionUtil {
 			{
 				accountKey = productConsumption.getAccountKey();
 				dateCreated = productConsumption.getCreateDate();
+				endDate = productConsumption.getEndDate();
 				externalLinks = TransformUtil.transformToArray(
 					productConsumption.getExternalLinks(),
 					ExternalLinkUtil::toExternalLink, ExternalLink.class);
 				key = productConsumption.getProductConsumptionKey();
 				productKey = productConsumption.getProductEntryKey();
+				productPurchaseKey = productConsumption.getProductPurchaseKey();
 				properties = productConsumption.getProductFieldsMap();
+				startDate = productConsumption.getStartDate();
 			}
 		};
 	}

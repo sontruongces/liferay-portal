@@ -142,7 +142,7 @@
 		</finder>
 	</entity>
 	<exceptions>
-		<exception>ProductEntryMatch</exception>
+		<exception>ProductConsumptionProductEntry</exception>
 		<exception>ProductEntryName</exception>
 		<exception>ProductPurchaseEndDate</exception>
 		<exception>ProductPurchaseQuantity</exception>

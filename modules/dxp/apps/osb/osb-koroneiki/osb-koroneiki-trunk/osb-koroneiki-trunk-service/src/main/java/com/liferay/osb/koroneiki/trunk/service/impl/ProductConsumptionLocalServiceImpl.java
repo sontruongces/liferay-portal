@@ -18,7 +18,7 @@ import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.trunk.exception.NoSuchProductConsumptionException;
-import com.liferay.osb.koroneiki.trunk.exception.ProductEntryMatchException;
+import com.liferay.osb.koroneiki.trunk.exception.ProductConsumptionProductEntryException;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
@@ -283,7 +283,7 @@ public class ProductConsumptionLocalServiceImpl
 				productPurchasePersistence.findByPrimaryKey(productPurchaseId);
 
 			if (productEntryId != productPurchase.getProductEntryId()) {
-				throw new ProductEntryMatchException();
+				throw new ProductConsumptionProductEntryException();
 			}
 		}
 	}
