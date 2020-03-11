@@ -1343,8 +1343,8 @@ public class ContentPageEditorDisplayContext {
 				).put(
 					"path",
 					StringUtil.replace(
-						category.getPath(), new String[] {"/", "."},
-						new String[] {"-", "-"})
+						category.getPath(), new String[] {"/", ".", " "},
+						new String[] {"-", "-", "-"})
 				).put(
 					"portlets", _getPortletsSoyContexts(category)
 				).put(
