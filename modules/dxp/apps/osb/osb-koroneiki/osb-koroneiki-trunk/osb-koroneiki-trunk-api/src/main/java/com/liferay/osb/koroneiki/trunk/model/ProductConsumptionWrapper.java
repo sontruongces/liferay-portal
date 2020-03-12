@@ -53,6 +53,9 @@ public class ProductConsumptionWrapper
 		attributes.put("productConsumptionKey", getProductConsumptionKey());
 		attributes.put("accountId", getAccountId());
 		attributes.put("productEntryId", getProductEntryId());
+		attributes.put("productPurchaseId", getProductPurchaseId());
+		attributes.put("startDate", getStartDate());
+		attributes.put("endDate", getEndDate());
 
 		return attributes;
 	}
@@ -120,6 +123,24 @@ public class ProductConsumptionWrapper
 		if (productEntryId != null) {
 			setProductEntryId(productEntryId);
 		}
+
+		Long productPurchaseId = (Long)attributes.get("productPurchaseId");
+
+		if (productPurchaseId != null) {
+			setProductPurchaseId(productPurchaseId);
+		}
+
+		Date startDate = (Date)attributes.get("startDate");
+
+		if (startDate != null) {
+			setStartDate(startDate);
+		}
+
+		Date endDate = (Date)attributes.get("endDate");
+
+		if (endDate != null) {
+			setEndDate(endDate);
+		}
 	}
 
 	@Override
@@ -164,6 +185,16 @@ public class ProductConsumptionWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
+	}
+
+	/**
+	 * Returns the end date of this product consumption.
+	 *
+	 * @return the end date of this product consumption
+	 */
+	@Override
+	public Date getEndDate() {
+		return model.getEndDate();
 	}
 
 	@Override
@@ -257,6 +288,40 @@ public class ProductConsumptionWrapper
 		return model.getProductFieldsMap();
 	}
 
+	@Override
+	public ProductPurchase getProductPurchase()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getProductPurchase();
+	}
+
+	/**
+	 * Returns the product purchase ID of this product consumption.
+	 *
+	 * @return the product purchase ID of this product consumption
+	 */
+	@Override
+	public long getProductPurchaseId() {
+		return model.getProductPurchaseId();
+	}
+
+	@Override
+	public String getProductPurchaseKey()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getProductPurchaseKey();
+	}
+
+	/**
+	 * Returns the start date of this product consumption.
+	 *
+	 * @return the start date of this product consumption
+	 */
+	@Override
+	public Date getStartDate() {
+		return model.getStartDate();
+	}
+
 	/**
 	 * Returns the user ID of this product consumption.
 	 *
@@ -285,6 +350,11 @@ public class ProductConsumptionWrapper
 	@Override
 	public String getUuid() {
 		return model.getUuid();
+	}
+
+	@Override
+	public boolean isPerpetual() {
+		return model.isPerpetual();
 	}
 
 	@Override
@@ -320,6 +390,16 @@ public class ProductConsumptionWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets the end date of this product consumption.
+	 *
+	 * @param endDate the end date of this product consumption
+	 */
+	@Override
+	public void setEndDate(Date endDate) {
+		model.setEndDate(endDate);
 	}
 
 	/**
@@ -380,6 +460,26 @@ public class ProductConsumptionWrapper
 	@Override
 	public void setProductEntryId(long productEntryId) {
 		model.setProductEntryId(productEntryId);
+	}
+
+	/**
+	 * Sets the product purchase ID of this product consumption.
+	 *
+	 * @param productPurchaseId the product purchase ID of this product consumption
+	 */
+	@Override
+	public void setProductPurchaseId(long productPurchaseId) {
+		model.setProductPurchaseId(productPurchaseId);
+	}
+
+	/**
+	 * Sets the start date of this product consumption.
+	 *
+	 * @param startDate the start date of this product consumption
+	 */
+	@Override
+	public void setStartDate(Date startDate) {
+		model.setStartDate(startDate);
 	}
 
 	/**

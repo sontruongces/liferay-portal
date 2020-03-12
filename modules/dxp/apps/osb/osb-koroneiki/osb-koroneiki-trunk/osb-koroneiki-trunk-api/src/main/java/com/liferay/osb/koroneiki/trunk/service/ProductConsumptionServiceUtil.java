@@ -39,26 +39,31 @@ public class ProductConsumptionServiceUtil {
 	 */
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
-				long accountId, long productEntryId,
+				long accountId, long productEntryId, long productPurchaseId,
+				java.util.Date startDate, java.util.Date endDate,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addProductConsumption(
-			accountId, productEntryId, productFields);
+			accountId, productEntryId, productPurchaseId, startDate, endDate,
+			productFields);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
 				String accountKey, String productEntryKey,
+				String productPurchaseKey, java.util.Date startDate,
+				java.util.Date endDate,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addProductConsumption(
-			accountKey, productEntryKey, productFields);
+			accountKey, productEntryKey, productPurchaseKey, startDate, endDate,
+			productFields);
 	}
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption

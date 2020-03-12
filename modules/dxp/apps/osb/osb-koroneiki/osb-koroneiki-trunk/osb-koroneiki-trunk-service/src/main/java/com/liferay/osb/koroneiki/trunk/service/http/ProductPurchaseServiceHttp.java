@@ -237,7 +237,7 @@ public class ProductPurchaseServiceHttp {
 		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
 				getAccountProductEntryProductPurchases(
 					HttpPrincipal httpPrincipal, long accountId,
-					long productEntryId)
+					long productEntryId, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -247,7 +247,7 @@ public class ProductPurchaseServiceHttp {
 				_getAccountProductEntryProductPurchasesParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, productEntryId);
+				methodKey, accountId, productEntryId, start, end);
 
 			Object returnObj = null;
 
@@ -775,7 +775,7 @@ public class ProductPurchaseServiceHttp {
 		new Class[] {String.class};
 	private static final Class<?>[]
 		_getAccountProductEntryProductPurchasesParameterTypes4 = new Class[] {
-			long.class, long.class
+			long.class, long.class, int.class, int.class
 		};
 	private static final Class<?>[] _getAccountProductPurchasesParameterTypes5 =
 		new Class[] {long.class, int.class, int.class};

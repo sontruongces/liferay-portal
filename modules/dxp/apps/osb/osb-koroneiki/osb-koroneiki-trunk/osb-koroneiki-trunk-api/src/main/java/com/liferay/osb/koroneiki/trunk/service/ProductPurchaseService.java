@@ -73,7 +73,7 @@ public interface ProductPurchaseService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProductPurchase> getAccountProductEntryProductPurchases(
-			long accountId, long productEntryId)
+			long accountId, long productEntryId, int start, int end)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

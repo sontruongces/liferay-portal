@@ -8,7 +8,10 @@ create table Koroneiki_ProductConsumption (
 	modifiedDate DATE null,
 	productConsumptionKey VARCHAR(75) null,
 	accountId LONG,
-	productEntryId LONG
+	productEntryId LONG,
+	productPurchaseId LONG,
+	startDate DATE null,
+	endDate DATE null
 );
 
 create table Koroneiki_ProductEntry (

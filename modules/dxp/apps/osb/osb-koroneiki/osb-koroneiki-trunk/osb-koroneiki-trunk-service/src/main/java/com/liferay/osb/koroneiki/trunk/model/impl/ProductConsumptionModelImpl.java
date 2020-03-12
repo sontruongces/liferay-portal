@@ -80,7 +80,8 @@ public class ProductConsumptionModelImpl
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP},
 		{"productConsumptionKey", Types.VARCHAR}, {"accountId", Types.BIGINT},
-		{"productEntryId", Types.BIGINT}
+		{"productEntryId", Types.BIGINT}, {"productPurchaseId", Types.BIGINT},
+		{"startDate", Types.TIMESTAMP}, {"endDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,10 +98,13 @@ public class ProductConsumptionModelImpl
 		TABLE_COLUMNS_MAP.put("productConsumptionKey", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("accountId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("productEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("productPurchaseId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("startDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("endDate", Types.TIMESTAMP);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_ProductConsumption (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,productConsumptionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productConsumptionKey VARCHAR(75) null,accountId LONG,productEntryId LONG)";
+		"create table Koroneiki_ProductConsumption (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,productConsumptionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,productConsumptionKey VARCHAR(75) null,accountId LONG,productEntryId LONG,productPurchaseId LONG,startDate DATE null,endDate DATE null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_ProductConsumption";
@@ -162,6 +166,9 @@ public class ProductConsumptionModelImpl
 		model.setProductConsumptionKey(soapModel.getProductConsumptionKey());
 		model.setAccountId(soapModel.getAccountId());
 		model.setProductEntryId(soapModel.getProductEntryId());
+		model.setProductPurchaseId(soapModel.getProductPurchaseId());
+		model.setStartDate(soapModel.getStartDate());
+		model.setEndDate(soapModel.getEndDate());
 
 		return model;
 	}
@@ -379,6 +386,23 @@ public class ProductConsumptionModelImpl
 			"productEntryId",
 			(BiConsumer<ProductConsumption, Long>)
 				ProductConsumption::setProductEntryId);
+		attributeGetterFunctions.put(
+			"productPurchaseId", ProductConsumption::getProductPurchaseId);
+		attributeSetterBiConsumers.put(
+			"productPurchaseId",
+			(BiConsumer<ProductConsumption, Long>)
+				ProductConsumption::setProductPurchaseId);
+		attributeGetterFunctions.put(
+			"startDate", ProductConsumption::getStartDate);
+		attributeSetterBiConsumers.put(
+			"startDate",
+			(BiConsumer<ProductConsumption, Date>)
+				ProductConsumption::setStartDate);
+		attributeGetterFunctions.put("endDate", ProductConsumption::getEndDate);
+		attributeSetterBiConsumers.put(
+			"endDate",
+			(BiConsumer<ProductConsumption, Date>)
+				ProductConsumption::setEndDate);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -596,6 +620,39 @@ public class ProductConsumptionModelImpl
 		return _originalProductEntryId;
 	}
 
+	@JSON
+	@Override
+	public long getProductPurchaseId() {
+		return _productPurchaseId;
+	}
+
+	@Override
+	public void setProductPurchaseId(long productPurchaseId) {
+		_productPurchaseId = productPurchaseId;
+	}
+
+	@JSON
+	@Override
+	public Date getStartDate() {
+		return _startDate;
+	}
+
+	@Override
+	public void setStartDate(Date startDate) {
+		_startDate = startDate;
+	}
+
+	@JSON
+	@Override
+	public Date getEndDate() {
+		return _endDate;
+	}
+
+	@Override
+	public void setEndDate(Date endDate) {
+		_endDate = endDate;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -652,6 +709,9 @@ public class ProductConsumptionModelImpl
 			getProductConsumptionKey());
 		productConsumptionImpl.setAccountId(getAccountId());
 		productConsumptionImpl.setProductEntryId(getProductEntryId());
+		productConsumptionImpl.setProductPurchaseId(getProductPurchaseId());
+		productConsumptionImpl.setStartDate(getStartDate());
+		productConsumptionImpl.setEndDate(getEndDate());
 
 		productConsumptionImpl.resetOriginalValues();
 
@@ -801,6 +861,26 @@ public class ProductConsumptionModelImpl
 
 		productConsumptionCacheModel.productEntryId = getProductEntryId();
 
+		productConsumptionCacheModel.productPurchaseId = getProductPurchaseId();
+
+		Date startDate = getStartDate();
+
+		if (startDate != null) {
+			productConsumptionCacheModel.startDate = startDate.getTime();
+		}
+		else {
+			productConsumptionCacheModel.startDate = Long.MIN_VALUE;
+		}
+
+		Date endDate = getEndDate();
+
+		if (endDate != null) {
+			productConsumptionCacheModel.endDate = endDate.getTime();
+		}
+		else {
+			productConsumptionCacheModel.endDate = Long.MIN_VALUE;
+		}
+
 		return productConsumptionCacheModel;
 	}
 
@@ -898,6 +978,9 @@ public class ProductConsumptionModelImpl
 	private long _productEntryId;
 	private long _originalProductEntryId;
 	private boolean _setOriginalProductEntryId;
+	private long _productPurchaseId;
+	private Date _startDate;
+	private Date _endDate;
 	private long _columnBitmask;
 	private ProductConsumption _escapedModel;
 

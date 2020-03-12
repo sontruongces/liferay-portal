@@ -19,6 +19,9 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productConsumptionKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="accountId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productPurchaseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="startDate" type="org.hibernate.type.TimestampType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="endDate" type="org.hibernate.type.TimestampType" />
 	</class>
 	<class dynamic-update="true" name="com.liferay.osb.koroneiki.trunk.model.impl.ProductEntryImpl" table="Koroneiki_ProductEntry">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productEntryId" type="long">

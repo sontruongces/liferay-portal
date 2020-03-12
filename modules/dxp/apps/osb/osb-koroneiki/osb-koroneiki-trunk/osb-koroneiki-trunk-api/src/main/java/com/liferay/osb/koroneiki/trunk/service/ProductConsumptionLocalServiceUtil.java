@@ -40,13 +40,16 @@ public class ProductConsumptionLocalServiceUtil {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
 				long userId, long accountId, long productEntryId,
+				long productPurchaseId, java.util.Date startDate,
+				java.util.Date endDate,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addProductConsumption(
-			userId, accountId, productEntryId, productFields);
+			userId, accountId, productEntryId, productPurchaseId, startDate,
+			endDate, productFields);
 	}
 
 	/**
@@ -297,6 +300,9 @@ public class ProductConsumptionLocalServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	public static com.liferay.portal.kernel.model.PersistedModel
 			getPersistedModel(java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {

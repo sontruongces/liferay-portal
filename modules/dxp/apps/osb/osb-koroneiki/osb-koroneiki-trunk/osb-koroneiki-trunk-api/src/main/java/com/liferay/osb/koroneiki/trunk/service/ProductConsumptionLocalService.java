@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -68,6 +69,7 @@ public interface ProductConsumptionLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public ProductConsumption addProductConsumption(
 			long userId, long accountId, long productEntryId,
+			long productPurchaseId, Date startDate, Date endDate,
 			List<ProductField> productFields)
 		throws PortalException;
 
@@ -244,6 +246,9 @@ public interface ProductConsumptionLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

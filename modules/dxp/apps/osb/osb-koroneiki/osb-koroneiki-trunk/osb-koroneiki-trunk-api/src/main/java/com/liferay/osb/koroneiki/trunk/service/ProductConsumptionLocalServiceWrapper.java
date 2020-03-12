@@ -37,13 +37,16 @@ public class ProductConsumptionLocalServiceWrapper
 	public com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
 				long userId, long accountId, long productEntryId,
+				long productPurchaseId, java.util.Date startDate,
+				java.util.Date endDate,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productConsumptionLocalService.addProductConsumption(
-			userId, accountId, productEntryId, productFields);
+			userId, accountId, productEntryId, productPurchaseId, startDate,
+			endDate, productFields);
 	}
 
 	/**
@@ -326,6 +329,9 @@ public class ProductConsumptionLocalServiceWrapper
 		return _productConsumptionLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

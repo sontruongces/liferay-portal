@@ -201,6 +201,10 @@ public interface ProductPurchaseLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProductPurchase> getAccountProductEntryProductPurchases(
+		long accountId, long productEntryId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAccountProductEntryProductPurchasesCount(
 		long accountId, long productEntryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -234,6 +238,9 @@ public interface ProductPurchaseLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -53,12 +54,13 @@ public interface ProductConsumptionService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link ProductConsumptionServiceUtil} to access the product consumption remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.trunk.service.impl.ProductConsumptionServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public ProductConsumption addProductConsumption(
-			long accountId, long productEntryId,
-			List<ProductField> productFields)
+			long accountId, long productEntryId, long productPurchaseId,
+			Date startDate, Date endDate, List<ProductField> productFields)
 		throws PortalException;
 
 	public ProductConsumption addProductConsumption(
 			String accountKey, String productEntryKey,
+			String productPurchaseKey, Date startDate, Date endDate,
 			List<ProductField> productFields)
 		throws PortalException;
 

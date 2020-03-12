@@ -54,7 +54,8 @@ public class ProductConsumptionServiceHttp {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
 				HttpPrincipal httpPrincipal, long accountId,
-				long productEntryId,
+				long productEntryId, long productPurchaseId,
+				java.util.Date startDate, java.util.Date endDate,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
@@ -66,7 +67,8 @@ public class ProductConsumptionServiceHttp {
 				_addProductConsumptionParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, productEntryId, productFields);
+				methodKey, accountId, productEntryId, productPurchaseId,
+				startDate, endDate, productFields);
 
 			Object returnObj = null;
 
@@ -100,7 +102,8 @@ public class ProductConsumptionServiceHttp {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 			addProductConsumption(
 				HttpPrincipal httpPrincipal, String accountKey,
-				String productEntryKey,
+				String productEntryKey, String productPurchaseKey,
+				java.util.Date startDate, java.util.Date endDate,
 				java.util.List
 					<com.liferay.osb.koroneiki.trunk.model.ProductField>
 						productFields)
@@ -112,7 +115,8 @@ public class ProductConsumptionServiceHttp {
 				_addProductConsumptionParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountKey, productEntryKey, productFields);
+				methodKey, accountKey, productEntryKey, productPurchaseKey,
+				startDate, endDate, productFields);
 
 			Object returnObj = null;
 
@@ -752,9 +756,15 @@ public class ProductConsumptionServiceHttp {
 		ProductConsumptionServiceHttp.class);
 
 	private static final Class<?>[] _addProductConsumptionParameterTypes0 =
-		new Class[] {long.class, long.class, java.util.List.class};
+		new Class[] {
+			long.class, long.class, long.class, java.util.Date.class,
+			java.util.Date.class, java.util.List.class
+		};
 	private static final Class<?>[] _addProductConsumptionParameterTypes1 =
-		new Class[] {String.class, String.class, java.util.List.class};
+		new Class[] {
+			String.class, String.class, String.class, java.util.Date.class,
+			java.util.Date.class, java.util.List.class
+		};
 	private static final Class<?>[] _deleteProductConsumptionParameterTypes2 =
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteProductConsumptionParameterTypes3 =

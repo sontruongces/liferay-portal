@@ -78,7 +78,7 @@ public class ProductConsumptionCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -100,6 +100,12 @@ public class ProductConsumptionCacheModel
 		sb.append(accountId);
 		sb.append(", productEntryId=");
 		sb.append(productEntryId);
+		sb.append(", productPurchaseId=");
+		sb.append(productPurchaseId);
+		sb.append(", startDate=");
+		sb.append(startDate);
+		sb.append(", endDate=");
+		sb.append(endDate);
 		sb.append("}");
 
 		return sb.toString();
@@ -147,6 +153,21 @@ public class ProductConsumptionCacheModel
 
 		productConsumptionImpl.setAccountId(accountId);
 		productConsumptionImpl.setProductEntryId(productEntryId);
+		productConsumptionImpl.setProductPurchaseId(productPurchaseId);
+
+		if (startDate == Long.MIN_VALUE) {
+			productConsumptionImpl.setStartDate(null);
+		}
+		else {
+			productConsumptionImpl.setStartDate(new Date(startDate));
+		}
+
+		if (endDate == Long.MIN_VALUE) {
+			productConsumptionImpl.setEndDate(null);
+		}
+		else {
+			productConsumptionImpl.setEndDate(new Date(endDate));
+		}
 
 		productConsumptionImpl.resetOriginalValues();
 
@@ -170,6 +191,10 @@ public class ProductConsumptionCacheModel
 		accountId = objectInput.readLong();
 
 		productEntryId = objectInput.readLong();
+
+		productPurchaseId = objectInput.readLong();
+		startDate = objectInput.readLong();
+		endDate = objectInput.readLong();
 	}
 
 	@Override
@@ -201,6 +226,10 @@ public class ProductConsumptionCacheModel
 		objectOutput.writeLong(accountId);
 
 		objectOutput.writeLong(productEntryId);
+
+		objectOutput.writeLong(productPurchaseId);
+		objectOutput.writeLong(startDate);
+		objectOutput.writeLong(endDate);
 	}
 
 	public long mvccVersion;
@@ -213,5 +242,8 @@ public class ProductConsumptionCacheModel
 	public String productConsumptionKey;
 	public long accountId;
 	public long productEntryId;
+	public long productPurchaseId;
+	public long startDate;
+	public long endDate;
 
 }

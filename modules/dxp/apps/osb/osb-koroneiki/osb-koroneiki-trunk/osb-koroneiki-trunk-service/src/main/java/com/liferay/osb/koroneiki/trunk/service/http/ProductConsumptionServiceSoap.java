@@ -63,7 +63,8 @@ public class ProductConsumptionServiceSoap {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap
 			addProductConsumption(
-				long accountId, long productEntryId,
+				long accountId, long productEntryId, long productPurchaseId,
+				java.util.Date startDate, java.util.Date endDate,
 				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
 					productFields)
 		throws RemoteException {
@@ -72,7 +73,8 @@ public class ProductConsumptionServiceSoap {
 			com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 				returnValue =
 					ProductConsumptionServiceUtil.addProductConsumption(
-						accountId, productEntryId,
+						accountId, productEntryId, productPurchaseId, startDate,
+						endDate,
 						com.liferay.osb.koroneiki.trunk.model.impl.
 							ProductFieldModelImpl.toModels(productFields));
 
@@ -89,6 +91,8 @@ public class ProductConsumptionServiceSoap {
 	public static com.liferay.osb.koroneiki.trunk.model.ProductConsumptionSoap
 			addProductConsumption(
 				String accountKey, String productEntryKey,
+				String productPurchaseKey, java.util.Date startDate,
+				java.util.Date endDate,
 				com.liferay.osb.koroneiki.trunk.model.ProductFieldSoap[]
 					productFields)
 		throws RemoteException {
@@ -97,7 +101,8 @@ public class ProductConsumptionServiceSoap {
 			com.liferay.osb.koroneiki.trunk.model.ProductConsumption
 				returnValue =
 					ProductConsumptionServiceUtil.addProductConsumption(
-						accountKey, productEntryKey,
+						accountKey, productEntryKey, productPurchaseKey,
+						startDate, endDate,
 						com.liferay.osb.koroneiki.trunk.model.impl.
 							ProductFieldModelImpl.toModels(productFields));
 

@@ -239,10 +239,20 @@ public class ProductPurchaseLocalServiceWrapper
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
 		getAccountProductEntryProductPurchases(
-			long accountId, long productEntryId) {
+			long accountId, long productEntryId, int start, int end) {
 
 		return _productPurchaseLocalService.
-			getAccountProductEntryProductPurchases(accountId, productEntryId);
+			getAccountProductEntryProductPurchases(
+				accountId, productEntryId, start, end);
+	}
+
+	@Override
+	public int getAccountProductEntryProductPurchasesCount(
+		long accountId, long productEntryId) {
+
+		return _productPurchaseLocalService.
+			getAccountProductEntryProductPurchasesCount(
+				accountId, productEntryId);
 	}
 
 	@Override
@@ -308,6 +318,9 @@ public class ProductPurchaseLocalServiceWrapper
 		return _productPurchaseLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

@@ -395,6 +395,9 @@ public abstract class ProductConsumptionLocalServiceBaseImpl
 			(ProductConsumption)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {

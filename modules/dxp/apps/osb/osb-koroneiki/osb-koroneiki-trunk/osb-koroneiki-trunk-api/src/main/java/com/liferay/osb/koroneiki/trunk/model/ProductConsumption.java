@@ -79,4 +79,12 @@ public interface ProductConsumption
 
 	public java.util.Map<String, String> getProductFieldsMap();
 
+	public ProductPurchase getProductPurchase()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public String getProductPurchaseKey()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public boolean isPerpetual();
+
 }

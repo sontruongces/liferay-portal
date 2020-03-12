@@ -41,6 +41,9 @@ public class ProductConsumptionSoap implements Serializable {
 		soapModel.setProductConsumptionKey(model.getProductConsumptionKey());
 		soapModel.setAccountId(model.getAccountId());
 		soapModel.setProductEntryId(model.getProductEntryId());
+		soapModel.setProductPurchaseId(model.getProductPurchaseId());
+		soapModel.setStartDate(model.getStartDate());
+		soapModel.setEndDate(model.getEndDate());
 
 		return soapModel;
 	}
@@ -183,6 +186,30 @@ public class ProductConsumptionSoap implements Serializable {
 		_productEntryId = productEntryId;
 	}
 
+	public long getProductPurchaseId() {
+		return _productPurchaseId;
+	}
+
+	public void setProductPurchaseId(long productPurchaseId) {
+		_productPurchaseId = productPurchaseId;
+	}
+
+	public Date getStartDate() {
+		return _startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		_startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return _endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		_endDate = endDate;
+	}
+
 	private long _mvccVersion;
 	private String _uuid;
 	private long _productConsumptionId;
@@ -193,5 +220,8 @@ public class ProductConsumptionSoap implements Serializable {
 	private String _productConsumptionKey;
 	private long _accountId;
 	private long _productEntryId;
+	private long _productPurchaseId;
+	private Date _startDate;
+	private Date _endDate;
 
 }

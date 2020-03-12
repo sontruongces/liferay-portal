@@ -155,7 +155,7 @@ public class ProductPurchaseServiceSoap {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap[]
 			getAccountProductEntryProductPurchases(
-				long accountId, long productEntryId)
+				long accountId, long productEntryId, int start, int end)
 		throws RemoteException {
 
 		try {
@@ -164,7 +164,7 @@ public class ProductPurchaseServiceSoap {
 					returnValue =
 						ProductPurchaseServiceUtil.
 							getAccountProductEntryProductPurchases(
-								accountId, productEntryId);
+								accountId, productEntryId, start, end);
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductPurchaseSoap.
 				toSoapModels(returnValue);

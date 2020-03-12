@@ -226,4 +226,46 @@ public interface ProductConsumptionModel
 	 */
 	public void setProductEntryId(long productEntryId);
 
+	/**
+	 * Returns the product purchase ID of this product consumption.
+	 *
+	 * @return the product purchase ID of this product consumption
+	 */
+	public long getProductPurchaseId();
+
+	/**
+	 * Sets the product purchase ID of this product consumption.
+	 *
+	 * @param productPurchaseId the product purchase ID of this product consumption
+	 */
+	public void setProductPurchaseId(long productPurchaseId);
+
+	/**
+	 * Returns the start date of this product consumption.
+	 *
+	 * @return the start date of this product consumption
+	 */
+	public Date getStartDate();
+
+	/**
+	 * Sets the start date of this product consumption.
+	 *
+	 * @param startDate the start date of this product consumption
+	 */
+	public void setStartDate(Date startDate);
+
+	/**
+	 * Returns the end date of this product consumption.
+	 *
+	 * @return the end date of this product consumption
+	 */
+	public Date getEndDate();
+
+	/**
+	 * Sets the end date of this product consumption.
+	 *
+	 * @param endDate the end date of this product consumption
+	 */
+	public void setEndDate(Date endDate);
+
 }

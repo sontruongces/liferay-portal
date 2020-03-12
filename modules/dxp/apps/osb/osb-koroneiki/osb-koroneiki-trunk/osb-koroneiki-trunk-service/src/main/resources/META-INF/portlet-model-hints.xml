@@ -12,6 +12,9 @@
 		<field name="productConsumptionKey" type="String" />
 		<field name="accountId" type="long" />
 		<field name="productEntryId" type="long" />
+		<field name="productPurchaseId" type="long" />
+		<field name="startDate" type="Date" />
+		<field name="endDate" type="Date" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.trunk.model.ProductEntry">
 		<field name="mvccVersion" type="long" />

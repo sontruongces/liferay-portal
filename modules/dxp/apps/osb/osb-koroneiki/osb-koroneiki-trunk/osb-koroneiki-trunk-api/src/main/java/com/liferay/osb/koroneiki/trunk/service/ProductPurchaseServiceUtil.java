@@ -84,11 +84,11 @@ public class ProductPurchaseServiceUtil {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
 				getAccountProductEntryProductPurchases(
-					long accountId, long productEntryId)
+					long accountId, long productEntryId, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getAccountProductEntryProductPurchases(
-			accountId, productEntryId);
+			accountId, productEntryId, start, end);
 	}
 
 	public static java.util.List

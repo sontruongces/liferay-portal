@@ -378,6 +378,9 @@ public abstract class ProductEntryLocalServiceBaseImpl
 			(ProductEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
