@@ -59,21 +59,32 @@
 		padding: 0 $spacing-md;
 	}
 
-	.panel-collapse {
-		&.nav-item {
-			position: absolute;
-			right: 0;
-		}
-
-		.nav-link {
-			padding-bottom: $spacing-xs;
-			padding-top: $spacing-xs;
-		}
-
+	.panel-collapse,
+	.panel-expand {
 		svg {
 			height: 2rem;
 			width: 2rem;
 		}
+	}
+
+	.panel-collapse.nav-item,
+	.panel-expand {
+		position: absolute;
+		right: 0;
+	}
+
+	.panel-collapse {
+		.nav-link {
+			padding-bottom: $spacing-xs;
+			padding-top: $spacing-xs;
+		}
+	}
+
+	.panel-expand {
+		background-color: $body-bg;
+		border: 1px solid $secondary-l3;
+		border-radius: 100px 0 0 100px;
+		box-shadow: 0 2px 4px rgba(39, 40, 51, 0.12);
 	}
 }
 
@@ -87,13 +98,12 @@
 
 	&.full-view {
 		.side-panel {
-			.panel-collapse {
-				transform: rotate(180deg);
-			}
+			flex-basis: 0%;
+			max-width: 0%;
 		}
 
 		.subscription-details {
-			flex-basis: 0;
+			flex-basis: 100%;
 			flex-grow: 1;
 			max-width: 100%;
 		}

@@ -1,11 +1,11 @@
 import ClayTabs from '@clayui/tabs';
-import React, {useState} from 'react';
+import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
 
 import ErrorBoundary from './ErrorBoundary';
 
-const CollapsiblePanel = () => {
+function CollapsiblePanel({handleCollapse}) {
 	const [activeIndex, setActiveIndex] = useState(0);
-	const [collapse, setCollapse] = useState(false);
 
 	return (
 		<>
@@ -39,7 +39,7 @@ const CollapsiblePanel = () => {
 				</ClayTabs.Item>
 				<ClayTabs.Item
 					className="panel-collapse"
-					onClick={() => setCollapse(!collapse)}
+					onClick={handleCollapse}
 				>
 					<svg>
 						<use xlinkHref="#collapse" />
@@ -60,12 +60,57 @@ const CollapsiblePanel = () => {
 			</ClayTabs.Content>
 		</>
 	);
+}
+
+CollapsiblePanel.propTypes = {
+	handleCollapse: PropTypes.func.isRequired
 };
 
-export default function SidePanel() {
+function ExpandPanelButton({handleCollapse}) {
+	return (
+		<button
+			className="btn btn-unstyled panel-expand"
+			onClick={handleCollapse}
+			role="button"
+			type="button"
+		>
+			<svg>
+				<use xlinkHref="#expand" />
+			</svg>
+		</button>
+	);
+}
+
+ExpandPanelButton.propTypes = {
+	handleCollapse: PropTypes.func.isRequired
+};
+
+function SidePanel() {
+	const [collapse, setCollapse] = useState(false);
+
+	const handleCollapse = () => {
+		setCollapse(!collapse);
+	};
+
+	useEffect(() => {
+		const subscriptions = document.getElementById('subscriptions');
+
+		if (subscriptions && subscriptions.classList.contains('full-view')) {
+			subscriptions.classList.remove('full-view');
+		} else {
+			subscriptions.classList.add('full-view');
+		}
+	});
+
 	return (
 		<ErrorBoundary>
-			<CollapsiblePanel />
+			{collapse ? (
+				<ExpandPanelButton handleCollapse={handleCollapse} />
+			) : (
+				<CollapsiblePanel handleCollapse={handleCollapse} />
+			)}
 		</ErrorBoundary>
 	);
 }
+
+export default () => <SidePanel />;
