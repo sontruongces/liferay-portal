@@ -70,6 +70,8 @@ public class FragmentEntryLinkEditorConfigContributor
 		).put(
 			"disallowedContent", "br"
 		).put(
+			"documentBrowseLinkUrl", itemSelectorURL.toString()	
+		).put(
 			"enterMode", 2
 		).put(
 			"extraPlugins", getExtraPluginsLists()
