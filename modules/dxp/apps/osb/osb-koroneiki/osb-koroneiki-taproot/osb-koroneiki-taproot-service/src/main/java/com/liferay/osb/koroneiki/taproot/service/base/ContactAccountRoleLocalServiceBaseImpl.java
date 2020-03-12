@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.taproot.service.base;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
 import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.persistence.AccountFinder;
+import com.liferay.osb.koroneiki.taproot.service.persistence.AccountNotePersistence;
 import com.liferay.osb.koroneiki.taproot.service.persistence.AccountPersistence;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactAccountRolePK;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactAccountRolePersistence;
@@ -424,6 +425,9 @@ public abstract class ContactAccountRoleLocalServiceBaseImpl
 
 	@Reference
 	protected AccountFinder accountFinder;
+
+	@Reference
+	protected AccountNotePersistence accountNotePersistence;
 
 	@Reference
 	protected ContactPersistence contactPersistence;

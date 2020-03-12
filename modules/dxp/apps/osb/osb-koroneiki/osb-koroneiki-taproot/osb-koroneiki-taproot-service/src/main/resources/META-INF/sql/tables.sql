@@ -28,6 +28,27 @@ create table Koroneiki_Account (
 	statusMessage VARCHAR(75) null
 );
 
+create table Koroneiki_AccountNote (
+	mvccVersion LONG default 0 not null,
+	uuid_ VARCHAR(75) null,
+	accountNoteId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	creatorOktaId VARCHAR(75) null,
+	creatorName VARCHAR(75) null,
+	modifiedDate DATE null,
+	modifierOktaId VARCHAR(75) null,
+	modifierName VARCHAR(75) null,
+	accountNoteKey VARCHAR(75) null,
+	accountId LONG,
+	type_ VARCHAR(75) null,
+	priority INTEGER,
+	content STRING null,
+	format VARCHAR(75) null,
+	status VARCHAR(75) null
+);
+
 create table Koroneiki_Contact (
 	mvccVersion LONG default 0 not null,
 	uuid_ VARCHAR(75) null,

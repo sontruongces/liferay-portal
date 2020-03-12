@@ -21,6 +21,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactAccountView;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
@@ -35,6 +36,7 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.EntitlementDefinitionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.NoteResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
@@ -127,6 +129,14 @@ public class Query {
 
 		_externalLinkResourceComponentServiceObjects =
 			externalLinkResourceComponentServiceObjects;
+	}
+
+	public static void setNoteResourceComponentServiceObjects(
+		ComponentServiceObjects<NoteResource>
+			noteResourceComponentServiceObjects) {
+
+		_noteResourceComponentServiceObjects =
+			noteResourceComponentServiceObjects;
 	}
 
 	public static void setPostalAddressResourceComponentServiceObjects(
@@ -1201,6 +1211,41 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyNotes(accountKey: ___, page: ___, pageSize: ___, status: ___, type: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public NotePage accountAccountKeyNotes(
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("type") String type,
+			@GraphQLName("status") String status,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteResource -> new NotePage(
+				noteResource.getAccountAccountKeyNotesPage(
+					accountKey, type, status, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {note(noteKey: ___){content, creatorName, creatorUID, dateCreated, dateModified, format, key, modifierName, modifierUID, priority, status, type}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public Note note(@GraphQLName("noteKey") String noteKey) throws Exception {
+		return _applyComponentServiceObjects(
+			_noteResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteResource -> noteResource.getNote(noteKey));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyPostalAddresses(accountKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -1970,6 +2015,34 @@ public class Query {
 				teamResource -> new TeamPage(
 					teamResource.getAccountAccountKeyAssignedTeamsPage(
 						_account.getKey(), Pagination.of(page, pageSize))));
+		}
+
+		private Account _account;
+
+	}
+
+	@GraphQLTypeExtension(Account.class)
+	public class GetAccountAccountKeyNotesPageTypeExtension {
+
+		public GetAccountAccountKeyNotesPageTypeExtension(Account account) {
+			_account = account;
+		}
+
+		@GraphQLField
+		public NotePage accountKeyNotes(
+				@GraphQLName("type") String type,
+				@GraphQLName("status") String status,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_noteResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				noteResource -> new NotePage(
+					noteResource.getAccountAccountKeyNotesPage(
+						_account.getKey(), type, status,
+						Pagination.of(page, pageSize))));
 		}
 
 		private Account _account;
@@ -3246,6 +3319,30 @@ public class Query {
 
 	}
 
+	@GraphQLName("NotePage")
+	public class NotePage {
+
+		public NotePage(Page notePage) {
+			items = notePage.getItems();
+			page = notePage.getPage();
+			pageSize = notePage.getPageSize();
+			totalCount = notePage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected java.util.Collection<Note> items;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("PostalAddressPage")
 	public class PostalAddressPage {
 
@@ -3519,6 +3616,17 @@ public class Query {
 		externalLinkResource.setContextUser(_user);
 	}
 
+	private void _populateResourceContext(NoteResource noteResource)
+		throws Exception {
+
+		noteResource.setContextAcceptLanguage(_acceptLanguage);
+		noteResource.setContextCompany(_company);
+		noteResource.setContextHttpServletRequest(_httpServletRequest);
+		noteResource.setContextHttpServletResponse(_httpServletResponse);
+		noteResource.setContextUriInfo(_uriInfo);
+		noteResource.setContextUser(_user);
+	}
+
 	private void _populateResourceContext(
 			PostalAddressResource postalAddressResource)
 		throws Exception {
@@ -3621,6 +3729,8 @@ public class Query {
 		_entitlementDefinitionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ExternalLinkResource>
 		_externalLinkResourceComponentServiceObjects;
+	private static ComponentServiceObjects<NoteResource>
+		_noteResourceComponentServiceObjects;
 	private static ComponentServiceObjects<PostalAddressResource>
 		_postalAddressResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductResource>

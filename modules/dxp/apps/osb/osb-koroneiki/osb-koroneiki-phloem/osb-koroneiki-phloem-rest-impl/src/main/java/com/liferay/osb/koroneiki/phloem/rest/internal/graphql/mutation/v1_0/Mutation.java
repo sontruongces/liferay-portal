@@ -22,6 +22,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
@@ -38,6 +39,7 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.EntitlementDefinitionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.NoteResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
@@ -106,6 +108,14 @@ public class Mutation {
 
 		_externalLinkResourceComponentServiceObjects =
 			externalLinkResourceComponentServiceObjects;
+	}
+
+	public static void setNoteResourceComponentServiceObjects(
+		ComponentServiceObjects<NoteResource>
+			noteResourceComponentServiceObjects) {
+
+		_noteResourceComponentServiceObjects =
+			noteResourceComponentServiceObjects;
 	}
 
 	public static void setPostalAddressResourceComponentServiceObjects(
@@ -934,6 +944,50 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Note createAccountAccountKeyNote(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("agentUID") String agentUID,
+			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("note") Note note)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteResource -> noteResource.postAccountAccountKeyNote(
+				agentName, agentUID, accountKey, note));
+	}
+
+	@GraphQLField
+	public boolean deleteNote(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("noteKey") String noteKey)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_noteResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteResource -> noteResource.deleteNote(agentName, noteKey));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Note updateNote(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("agentUID") String agentUID,
+			@GraphQLName("noteKey") String noteKey,
+			@GraphQLName("note") Note note)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteResource -> noteResource.putNote(
+				agentName, agentUID, noteKey, note));
+	}
+
+	@GraphQLField
 	public PostalAddress createAccountAccountKeyPostalAddress(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("accountKey") String accountKey,
@@ -1592,6 +1646,17 @@ public class Mutation {
 		externalLinkResource.setContextUser(_user);
 	}
 
+	private void _populateResourceContext(NoteResource noteResource)
+		throws Exception {
+
+		noteResource.setContextAcceptLanguage(_acceptLanguage);
+		noteResource.setContextCompany(_company);
+		noteResource.setContextHttpServletRequest(_httpServletRequest);
+		noteResource.setContextHttpServletResponse(_httpServletResponse);
+		noteResource.setContextUriInfo(_uriInfo);
+		noteResource.setContextUser(_user);
+	}
+
 	private void _populateResourceContext(
 			PostalAddressResource postalAddressResource)
 		throws Exception {
@@ -1676,6 +1741,8 @@ public class Mutation {
 		_entitlementDefinitionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ExternalLinkResource>
 		_externalLinkResourceComponentServiceObjects;
+	private static ComponentServiceObjects<NoteResource>
+		_noteResourceComponentServiceObjects;
 	private static ComponentServiceObjects<PostalAddressResource>
 		_postalAddressResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductResource>

@@ -78,6 +78,8 @@ public class OpenAPIResourceImpl {
 
 			add(ExternalLinkResourceImpl.class);
 
+			add(NoteResourceImpl.class);
+
 			add(PostalAddressResourceImpl.class);
 
 			add(ProductResourceImpl.class);

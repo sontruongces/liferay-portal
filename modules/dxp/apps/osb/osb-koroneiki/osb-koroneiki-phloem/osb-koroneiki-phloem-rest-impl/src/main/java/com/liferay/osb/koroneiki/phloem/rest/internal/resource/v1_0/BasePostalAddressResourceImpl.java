@@ -67,7 +67,7 @@ public abstract class BasePostalAddressResourceImpl
 	 */
 	@Override
 	@GET
-	@Operation(description = "Retrieves the accounts's postal addresses.")
+	@Operation(description = "Retrieves the account's postal addresses.")
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "accountKey")}
 	)

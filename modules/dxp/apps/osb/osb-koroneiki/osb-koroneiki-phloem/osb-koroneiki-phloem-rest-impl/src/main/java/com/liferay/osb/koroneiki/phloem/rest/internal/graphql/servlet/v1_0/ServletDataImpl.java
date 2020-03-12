@@ -23,6 +23,7 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactRoleResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.EntitlementDefinitionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.NoteResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
@@ -61,6 +62,8 @@ public class ServletDataImpl implements ServletData {
 			_entitlementDefinitionResourceComponentServiceObjects);
 		Mutation.setExternalLinkResourceComponentServiceObjects(
 			_externalLinkResourceComponentServiceObjects);
+		Mutation.setNoteResourceComponentServiceObjects(
+			_noteResourceComponentServiceObjects);
 		Mutation.setPostalAddressResourceComponentServiceObjects(
 			_postalAddressResourceComponentServiceObjects);
 		Mutation.setProductResourceComponentServiceObjects(
@@ -88,6 +91,8 @@ public class ServletDataImpl implements ServletData {
 			_entitlementDefinitionResourceComponentServiceObjects);
 		Query.setExternalLinkResourceComponentServiceObjects(
 			_externalLinkResourceComponentServiceObjects);
+		Query.setNoteResourceComponentServiceObjects(
+			_noteResourceComponentServiceObjects);
 		Query.setPostalAddressResourceComponentServiceObjects(
 			_postalAddressResourceComponentServiceObjects);
 		Query.setProductResourceComponentServiceObjects(
@@ -142,6 +147,10 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ExternalLinkResource>
 		_externalLinkResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<NoteResource>
+		_noteResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<PostalAddressResource>
