@@ -310,7 +310,9 @@ public class LayoutVersionCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput) throws IOException {
+	public void readExternal(ObjectInput objectInput)
+		throws ClassNotFoundException, IOException {
+
 		layoutVersionId = objectInput.readLong();
 
 		version = objectInput.readInt();
@@ -344,7 +346,7 @@ public class LayoutVersionCacheModel
 		keywords = objectInput.readUTF();
 		robots = objectInput.readUTF();
 		type = objectInput.readUTF();
-		typeSettings = objectInput.readUTF();
+		typeSettings = (String)objectInput.readObject();
 
 		hidden = objectInput.readBoolean();
 
@@ -354,7 +356,7 @@ public class LayoutVersionCacheModel
 		iconImageId = objectInput.readLong();
 		themeId = objectInput.readUTF();
 		colorSchemeId = objectInput.readUTF();
-		css = objectInput.readUTF();
+		css = (String)objectInput.readObject();
 
 		priority = objectInput.readInt();
 		layoutPrototypeUuid = objectInput.readUTF();
@@ -451,10 +453,10 @@ public class LayoutVersionCacheModel
 		}
 
 		if (typeSettings == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(typeSettings);
+			objectOutput.writeObject(typeSettings);
 		}
 
 		objectOutput.writeBoolean(hidden);
@@ -485,10 +487,10 @@ public class LayoutVersionCacheModel
 		}
 
 		if (css == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(css);
+			objectOutput.writeObject(css);
 		}
 
 		objectOutput.writeInt(priority);
