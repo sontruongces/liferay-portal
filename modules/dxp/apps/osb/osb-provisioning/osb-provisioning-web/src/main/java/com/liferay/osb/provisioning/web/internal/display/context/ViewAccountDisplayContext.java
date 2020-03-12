@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
+import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -42,6 +43,7 @@ public class ViewAccountDisplayContext {
 	public ViewAccountDisplayContext(
 			RenderRequest renderRequest, RenderResponse renderResponse,
 			HttpServletRequest httpServletRequest, AccountReader accountReader,
+			ExternalLinkWebService externalLinkWebService,
 			NoteWebService noteWebService,
 			ProductPurchaseViewWebService productPurchaseViewWebService)
 		throws Exception {
@@ -50,6 +52,7 @@ public class ViewAccountDisplayContext {
 		_renderResponse = renderResponse;
 		_httpServletRequest = httpServletRequest;
 		_accountReader = accountReader;
+		_externalLinkWebService = externalLinkWebService;
 		_noteWebService = noteWebService;
 		_productPurchaseViewWebService = productPurchaseViewWebService;
 
@@ -61,6 +64,16 @@ public class ViewAccountDisplayContext {
 
 	public Account getAccount() {
 		return _account;
+	}
+
+	public List<ExternalLinkDisplay> getExternalLinkDisplays()
+		throws Exception {
+
+		return TransformUtil.transform(
+			_externalLinkWebService.getExternalLinks(
+				_account.getKey(), 1, 1000),
+			externalLink -> new ExternalLinkDisplay(
+				_httpServletRequest, externalLink));
 	}
 
 	public List<NoteDisplay> getNoteDisplays(String type, String status)
@@ -123,6 +136,7 @@ public class ViewAccountDisplayContext {
 
 	private final Account _account;
 	private final AccountReader _accountReader;
+	private final ExternalLinkWebService _externalLinkWebService;
 	private final HttpServletRequest _httpServletRequest;
 	private final NoteWebService _noteWebService;
 	private final ProductPurchaseViewWebService _productPurchaseViewWebService;

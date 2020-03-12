@@ -16,6 +16,7 @@ package com.liferay.osb.provisioning.web.internal.util;
 
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext;
@@ -95,7 +96,8 @@ public class ProvisioningWebComponentProvider {
 
 		return new ViewAccountDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
-			_noteWebService, _productPurchaseViewWebService);
+			_externalLinkWebService, _noteWebService,
+			_productPurchaseViewWebService);
 	}
 
 	private static ProvisioningWebComponentProvider
@@ -106,6 +108,9 @@ public class ProvisioningWebComponentProvider {
 
 	@Reference
 	private AccountWebService _accountWebService;
+
+	@Reference
+	private ExternalLinkWebService _externalLinkWebService;
 
 	@Reference
 	private NoteWebService _noteWebService;

@@ -30,6 +30,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 page import="com.liferay.osb.provisioning.koroneiki.reader.AccountReader" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
+page import="com.liferay.osb.provisioning.web.internal.display.context.ExternalLinkDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.NoteDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.util.ProvisioningWebComponentProvider" %><%@
