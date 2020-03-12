@@ -14,10 +14,12 @@
 
 package com.liferay.osb.koroneiki.taproot.web.internal.portlet.action;
 
-import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootPortletKeys;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootWebKeys;
+import com.liferay.osb.koroneiki.taproot.model.AccountNote;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.AccountNoteLocalService;
+import com.liferay.portal.kernel.bean.BeanParamUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -35,11 +37,11 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + TaprootPortletKeys.ACCOUNTS_ADMIN,
-		"mvc.command.name=/accounts_admin/edit_account"
+		"mvc.command.name=/accounts_admin/edit_account_note"
 	},
 	service = MVCRenderCommand.class
 )
-public class EditAccountMVCRenderCommand implements MVCRenderCommand {
+public class EditAccountNoteMVCRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(
@@ -47,7 +49,21 @@ public class EditAccountMVCRenderCommand implements MVCRenderCommand {
 		throws PortletException {
 
 		try {
-			long accountId = ParamUtil.getLong(renderRequest, "accountId");
+			long accountNoteId = ParamUtil.getLong(
+				renderRequest, "accountNoteId");
+
+			AccountNote accountNote = null;
+
+			if (accountNoteId > 0) {
+				accountNote = _accountNoteLocalService.getAccountNote(
+					accountNoteId);
+
+				renderRequest.setAttribute(
+					TaprootWebKeys.ACCOUNT_NOTE, accountNote);
+			}
+
+			long accountId = BeanParamUtil.getLong(
+				accountNote, renderRequest, "accountId");
 
 			if (accountId > 0) {
 				renderRequest.setAttribute(
@@ -55,55 +71,19 @@ public class EditAccountMVCRenderCommand implements MVCRenderCommand {
 					_accountLocalService.getAccount(accountId));
 			}
 
-			String tabs1 = ParamUtil.getString(renderRequest, "tabs1");
-
-			if (tabs1.equals("addresses")) {
-				return "/accounts_admin/edit_account_addresses.jsp";
-			}
-			else if (tabs1.equals("assigned-teams")) {
-				return "/accounts_admin/edit_account_assigned_teams.jsp";
-			}
-			else if (tabs1.equals("child-accounts")) {
-				return "/accounts_admin/edit_account_child_accounts.jsp";
-			}
-			else if (tabs1.equals("customer-contacts")) {
-				renderRequest.setAttribute(
-					TaprootWebKeys.CONTACT_ROLE_TYPE,
-					ContactRole.Type.ACCOUNT_CUSTOMER.toString());
-
-				return "/accounts_admin/edit_account_contact_roles.jsp";
-			}
-			else if (tabs1.equals("entitlements")) {
-				return "/accounts_admin/edit_account_entitlements.jsp";
-			}
-			else if (tabs1.equals("external-links")) {
-				return "/accounts_admin/edit_account_external_links.jsp";
-			}
-			else if (tabs1.equals("notes")) {
-				return "/accounts_admin/edit_account_notes.jsp";
-			}
-			else if (tabs1.equals("teams")) {
-				return "/accounts_admin/edit_account_teams.jsp";
-			}
-			else if (tabs1.equals("worker-contacts")) {
-				renderRequest.setAttribute(
-					TaprootWebKeys.CONTACT_ROLE_TYPE,
-					ContactRole.Type.ACCOUNT_WORKER.toString());
-
-				return "/accounts_admin/edit_account_contact_roles.jsp";
-			}
-			else {
-				return "/accounts_admin/edit_account.jsp";
-			}
+			return "/accounts_admin/edit_account_note.jsp";
 		}
 		catch (Exception exception) {
 			SessionErrors.add(renderRequest, exception.getClass());
 
-			return "/accounts_admin/error.jsp";
+			throw new PortletException(exception);
 		}
 	}
 
 	@Reference
 	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private AccountNoteLocalService _accountNoteLocalService;
 
 }

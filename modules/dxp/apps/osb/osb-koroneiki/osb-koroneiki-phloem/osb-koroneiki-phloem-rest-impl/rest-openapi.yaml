@@ -8,6 +8,14 @@ components:
             required: false
             schema:
                 type: string
+        AgentUID:
+            in: query
+            description:
+                The Okta ID of the user doing the action.
+            name: agentUID
+            required: false
+            schema:
+                type: string
     schemas:
         Account:
             description:
@@ -496,6 +504,71 @@ components:
                 - domain
                 - entityId
                 - entityName
+            type: object
+        Note:
+            description:
+                Additional notes for miscellaneous information.
+            properties:
+                content:
+                    description:
+                        The content of the note.
+                    type: string
+                creatorName:
+                    description:
+                        The full name of the user who created the note.
+                    readOnly: true
+                    type: string
+                creatorUID:
+                    description:
+                        The Okta ID of the user who created the note.
+                    readOnly: true
+                    type: string
+                dateCreated:
+                    description:
+                        The note's creation date.
+                    format: date-time
+                    readOnly: true
+                    type: string
+                dateModified:
+                    description:
+                        The most recent time that any of the note's fields changed.
+                    format: date-time
+                    readOnly: true
+                    type: string
+                format:
+                    description:
+                        The style structure of the content.
+                    enum: ["HTML", "Plain"]
+                    type: string
+                key:
+                    description:
+                        The note's key.
+                    readOnly: true
+                    type: string
+                modifierName:
+                    description:
+                        The full name of the user who last modified the note.
+                    readOnly: true
+                    type: string
+                modifierUID:
+                    description:
+                        The Okta ID of the user who last modified the note.
+                    readOnly: true
+                    type: string
+                priority:
+                    description:
+                        The importance of this note. A lower number indicates a higher importance.
+                    type: integer
+                status:
+                    description:
+                        The workflow status of the note.
+                    enum: ["Approved", "Archived"]
+                    type: string
+                type:
+                    description:
+                        The type of information the note contains.
+                    enum: ["General", "Sales"]
+                    type: string
             type: object
         PostalAddress:
             description:
@@ -2097,10 +2170,87 @@ paths:
                     description:
                         ""
             tags: ["ExternalLink"]
+    "/accounts/{accountKey}/notes":
+        post:
+            operationId: postAccountAccountKeyNote
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - $ref: "#/components/parameters/AgentUID"
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Note"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Note"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                    description:
+                        ""
+            tags: ["Note"]
+    "/accounts/{accountKey}/notes/{type}/{status}":
+        get:
+            description:
+                Retrieves the account's notes.
+            operationId: getAccountAccountKeyNotesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: type
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: status
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Note"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Note"
+                                type: array
+                    description:
+                        ""
+            tags: ["Note"]
     "/accounts/{accountKey}/postal-addresses":
         get:
             description:
-                Retrieves the accounts's postal addresses.
+                Retrieves the account's postal addresses.
             operationId: getAccountAccountKeyPostalAddressesPage
             parameters:
                 - in: path
@@ -3956,6 +4106,77 @@ paths:
                     description:
                         ""
             tags: ["ExternalLink"]
+    "/notes/{noteKey}":
+        delete:
+            operationId: deleteNote
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - in: path
+                  name: noteKey
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Note"]
+        get:
+            description:
+                Retrieves the note.
+            operationId: getNote
+            parameters:
+                - in: path
+                  name: noteKey
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                    description:
+                        ""
+            tags: ["Note"]
+        put:
+            operationId: putNote
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - $ref: "#/components/parameters/AgentUID"
+                - in: path
+                  name: noteKey
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Note"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Note"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                    description:
+                        ""
+            tags: ["Note"]
     "/postal-addresses/{postalAddressId}":
         delete:
             operationId: deletePostalAddress

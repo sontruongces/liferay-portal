@@ -30,6 +30,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPCreationMenu" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPNavigationItemList" %><%@
+page import="com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Note" %><%@
 page import="com.liferay.osb.koroneiki.phytohormone.model.Entitlement" %><%@
 page import="com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition" %><%@
 page import="com.liferay.osb.koroneiki.root.constants.RootWebKeys" %><%@
@@ -54,11 +55,13 @@ page import="com.liferay.osb.koroneiki.taproot.exception.TeamNameException" %><%
 page import="com.liferay.osb.koroneiki.taproot.exception.TeamRoleNameException" %><%@
 page import="com.liferay.osb.koroneiki.taproot.exception.TeamRoleTypeException" %><%@
 page import="com.liferay.osb.koroneiki.taproot.model.Account" %><%@
+page import="com.liferay.osb.koroneiki.taproot.model.AccountNote" %><%@
 page import="com.liferay.osb.koroneiki.taproot.model.Contact" %><%@
 page import="com.liferay.osb.koroneiki.taproot.model.ContactRole" %><%@
 page import="com.liferay.osb.koroneiki.taproot.model.Team" %><%@
 page import="com.liferay.osb.koroneiki.taproot.model.TeamRole" %><%@
 page import="com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil" %><%@
+page import="com.liferay.osb.koroneiki.taproot.service.AccountNoteLocalServiceUtil" %><%@
 page import="com.liferay.osb.koroneiki.taproot.service.ContactLocalServiceUtil" %><%@
 page import="com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalServiceUtil" %><%@
 page import="com.liferay.osb.koroneiki.taproot.service.TeamLocalServiceUtil" %><%@

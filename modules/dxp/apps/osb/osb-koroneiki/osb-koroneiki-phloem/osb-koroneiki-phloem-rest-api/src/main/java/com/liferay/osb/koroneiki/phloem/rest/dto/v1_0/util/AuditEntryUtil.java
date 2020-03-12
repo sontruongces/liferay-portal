@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.AuditEntry;
 import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.AccountNote;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.Team;
@@ -65,6 +66,9 @@ public class AuditEntryUtil {
 	private static String _getDisplayName(long classNameId) {
 		if (classNameId == PortalUtil.getClassNameId(Account.class)) {
 			return "Account";
+		}
+		else if (classNameId == PortalUtil.getClassNameId(AccountNote.class)) {
+			return "Note";
 		}
 		else if (classNameId == PortalUtil.getClassNameId(Address.class)) {
 			return "Address";

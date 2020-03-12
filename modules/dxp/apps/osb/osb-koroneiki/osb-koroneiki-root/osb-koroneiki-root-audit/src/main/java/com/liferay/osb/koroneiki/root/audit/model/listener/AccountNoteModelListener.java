@@ -15,8 +15,9 @@
 package com.liferay.osb.koroneiki.root.audit.model.listener;
 
 import com.liferay.osb.koroneiki.root.audit.model.BaseAuditModelListener;
-import com.liferay.osb.koroneiki.root.model.ExternalLink;
-import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
+import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.AccountNote;
+import com.liferay.osb.koroneiki.taproot.service.AccountNoteLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ModelListener;
 
@@ -27,31 +28,29 @@ import org.osgi.service.component.annotations.Reference;
  * @author Amos Fong
  */
 @Component(immediate = true, service = ModelListener.class)
-public class ExternalLinkModelListener
-	extends BaseAuditModelListener<ExternalLink> {
+public class AccountNoteModelListener
+	extends BaseAuditModelListener<AccountNote> {
 
 	@Override
-	protected long getClassNameId(ExternalLink externalLink) {
-		return externalLink.getClassNameId();
+	protected long getClassNameId(AccountNote accountNote) {
+		return classNameLocalService.getClassNameId(Account.class);
 	}
 
 	@Override
-	protected long getClassPK(ExternalLink externalLink) {
-		return externalLink.getClassPK();
+	protected long getClassPK(AccountNote accountNote) {
+		return accountNote.getAccountId();
 	}
 
 	@Override
-	protected ExternalLink getModel(long classPK) throws PortalException {
-		return _externalLinkLocalService.getExternalLink(classPK);
+	protected AccountNote getModel(long classPK) throws PortalException {
+		return _accountNoteLocalService.getAccountNote(classPK);
 	}
 
 	@Override
 	protected boolean isSkipFieldUpdate(
 		String field, Object oldValue, Object newValue) {
 
-		if (field.equals("domain") || field.equals("entityId") ||
-			field.equals("entityName")) {
-
+		if (field.equals("content")) {
 			return false;
 		}
 
@@ -59,6 +58,6 @@ public class ExternalLinkModelListener
 	}
 
 	@Reference
-	private ExternalLinkLocalService _externalLinkLocalService;
+	private AccountNoteLocalService _accountNoteLocalService;
 
 }

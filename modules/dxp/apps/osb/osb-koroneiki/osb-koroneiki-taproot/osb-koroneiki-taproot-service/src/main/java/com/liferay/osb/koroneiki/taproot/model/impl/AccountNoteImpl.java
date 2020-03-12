@@ -12,25 +12,14 @@
  *
  */
 
-package com.liferay.osb.koroneiki.taproot.constants;
+package com.liferay.osb.koroneiki.taproot.model.impl;
 
 /**
- * @author Amos Fong
+ * @author Brian Wing Shun Chan
  */
-public class TaprootWebKeys {
+public class AccountNoteImpl extends AccountNoteBaseImpl {
 
-	public static final String ACCOUNT = "ACCOUNT";
-
-	public static final String ACCOUNT_NOTE = "ACCOUNT_NOTE";
-
-	public static final String CONTACT = "CONTACT";
-
-	public static final String CONTACT_ROLE = "CONTACT_ROLE";
-
-	public static final String CONTACT_ROLE_TYPE = "CONTACT_ROLE_TYPE";
-
-	public static final String TEAM = "TEAM";
-
-	public static final String TEAM_ROLE = "TEAM_ROLE";
+	public AccountNoteImpl() {
+	}
 
 }

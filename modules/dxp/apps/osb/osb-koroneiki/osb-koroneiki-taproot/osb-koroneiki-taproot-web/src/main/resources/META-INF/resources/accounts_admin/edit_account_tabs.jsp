@@ -115,6 +115,17 @@ long accountId = BeanParamUtil.getLong(koroneikiAccount, request, "accountId");
 
 				add(
 					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("notes"));
+
+						if (koroneikiAccount != null) {
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "notes", "accountId", accountId);
+						}
+
+						navigationItem.setLabel(LanguageUtil.get(request, "notes"));
+					});
+
+				add(
+					navigationItem -> {
 						navigationItem.setActive(tabs1.equals("external-links"));
 
 						if (koroneikiAccount != null) {

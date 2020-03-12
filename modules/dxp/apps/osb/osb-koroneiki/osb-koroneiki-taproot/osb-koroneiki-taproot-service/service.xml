@@ -54,6 +54,54 @@
 			<finder-column name="code" />
 		</finder>
 	</entity>
+	<entity local-service="true" name="AccountNote" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="accountNoteId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="creatorOktaId" type="String" />
+		<column name="creatorName" type="String" />
+		<column name="modifiedDate" type="Date" />
+		<column name="modifierOktaId" type="String" />
+		<column name="modifierName" type="String" />
+
+		<!-- Other fields -->
+
+		<column name="accountNoteKey" type="String" />
+		<column name="accountId" type="long" />
+		<column name="type" type="String" />
+		<column name="priority" type="int" />
+		<column name="content" type="String" />
+		<column name="format" type="String" />
+		<column name="status" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="priority" />
+			<order-column name="modifiedDate" order-by="desc" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="AccountNoteKey" return-type="AccountNote">
+			<finder-column name="accountNoteKey" />
+		</finder>
+		<finder name="AccountId" return-type="Collection">
+			<finder-column name="accountId" />
+		</finder>
+		<finder name="AI_T_S" return-type="Collection">
+			<finder-column name="accountId" />
+			<finder-column name="type" />
+			<finder-column name="status" />
+		</finder>
+	</entity>
 	<entity local-service="true" name="Contact" remote-service="true" uuid="true">
 
 		<!-- PK fields -->
