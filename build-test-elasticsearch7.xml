@@ -910,26 +910,26 @@ xpack.monitoring.collection.enabled: true</echo>
 
 		<echo>${curl.output.follower.workflow.metrics.processes.index}</echo>
 
-		<property name="follower.workflow.metrics.sla.instance.results.index">
+		<property name="follower.workflow.metrics.sla.process.results.index">
 			<![CDATA[
 				{
-					"leader_index": "workflow-metrics-sla-instance-results",
+					"leader_index": "workflow-metrics-sla-process-results",
 					"remote_cluster": "leader"
 				}
 			]]>
 		</property>
 
-		<exec executable="curl" outputproperty="curl.output.follower.workflow.metrics.sla.instance.results.index">
+		<exec executable="curl" outputproperty="curl.output.follower.workflow.metrics.sla.process.results.index">
 			<arg value="-H" />
 			<arg value="Content-Type: application/json" />
 			<arg value="-X" />
 			<arg value="PUT" />
-			<arg value="localhost:9202/workflow-metrics-sla-instance-results/_ccr/follow?wait_for_active_shards=1" />
+			<arg value="localhost:9202/workflow-metrics-sla-process-results/_ccr/follow?wait_for_active_shards=1" />
 			<arg value="-d" />
-			<arg value="${follower.workflow.metrics.sla.instance.results.index}" />
+			<arg value="${follower.workflow.metrics.sla.process.results.index}" />
 		</exec>
 
-		<echo>${curl.output.follower.workflow.metrics.sla.instance.results.index}</echo>
+		<echo>${curl.output.follower.workflow.metrics.sla.process.results.index}</echo>
 
 		<property name="follower.workflow.metrics.sla.task.results.index">
 			<![CDATA[
@@ -987,7 +987,7 @@ xpack.monitoring.collection.enabled: true</echo>
 				<contains string="${curl.output.follower.indices}" substring="workflow-metrics-instances" />
 				<contains string="${curl.output.follower.indices}" substring="workflow-metrics-nodes" />
 				<contains string="${curl.output.follower.indices}" substring="workflow-metrics-processes" />
-				<contains string="${curl.output.follower.indices}" substring="workflow-metrics-sla-instance-results" />
+				<contains string="${curl.output.follower.indices}" substring="workflow-metrics-sla-process-results" />
 				<contains string="${curl.output.follower.indices}" substring="workflow-metrics-sla-task-results" />
 				<contains string="${curl.output.follower.indices}" substring="workflow-metrics-tokens" />
 			</and>
