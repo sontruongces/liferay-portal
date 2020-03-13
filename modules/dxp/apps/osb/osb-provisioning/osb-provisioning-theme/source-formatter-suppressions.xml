@@ -3,5 +3,6 @@
 <suppressions>
 	<source-check>
 		<suppress checks="FTLTagAttributesCheck" files="src/templates/icons.ftl" />
+		<suppress checks="JSONPackageJSONCheck" files="package\.json" />
 	</source-check>
 </suppressions>
