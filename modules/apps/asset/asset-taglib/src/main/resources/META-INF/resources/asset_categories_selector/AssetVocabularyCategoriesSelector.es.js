@@ -61,14 +61,20 @@ class AssetVocabularyCategoriesSelector extends Component {
 			const selectedItems = event.selectedItem;
 
 			if (selectedItems) {
-				this.selectedItems = Object.keys(selectedItems).map(itemKey => {
-					return {
-						label: Liferay.Util.escape(
-							selectedItems[itemKey].value
-						),
-						value: selectedItems[itemKey].categoryId
-					};
-				});
+				this.selectedItems = Object.keys(selectedItems).reduce(
+					(acc, itemKey) => {
+						const item = selectedItems[itemKey];
+						if (!item.unchecked) {
+							acc.push({
+								label: Liferay.Util.escape(item.value),
+								value: item.categoryId
+							});
+						}
+
+						return acc;
+					},
+					[]
+				);
 			}
 		});
 	}
