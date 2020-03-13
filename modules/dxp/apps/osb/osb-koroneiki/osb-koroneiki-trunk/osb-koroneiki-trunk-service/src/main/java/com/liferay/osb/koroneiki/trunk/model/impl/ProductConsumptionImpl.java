@@ -27,6 +27,7 @@ import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalServiceUtil;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.util.HashMap;
 import java.util.List;
@@ -86,14 +87,18 @@ public class ProductConsumptionImpl extends ProductConsumptionBaseImpl {
 	}
 
 	public ProductPurchase getProductPurchase() throws PortalException {
-		return ProductPurchaseLocalServiceUtil.getProductPurchase(
+		return ProductPurchaseLocalServiceUtil.fetchProductPurchase(
 			getProductPurchaseId());
 	}
 
 	public String getProductPurchaseKey() throws PortalException {
 		ProductPurchase productPurchase = getProductPurchase();
 
-		return productPurchase.getProductPurchaseKey();
+		if (productPurchase != null) {
+			return productPurchase.getProductPurchaseKey();
+		}
+
+		return StringPool.BLANK;
 	}
 
 	public boolean isPerpetual() {
