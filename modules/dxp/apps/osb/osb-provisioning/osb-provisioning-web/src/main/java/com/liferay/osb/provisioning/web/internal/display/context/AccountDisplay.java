@@ -92,7 +92,7 @@ public class AccountDisplay {
 		return _account.getName();
 	}
 
-	public String getPartnerTeamName() {
+	public String getPartnerTeamName() throws Exception {
 		if (_partnerTeam == null) {
 			_partnerTeam = _accountReader.getPartnerTeam(_account);
 		}

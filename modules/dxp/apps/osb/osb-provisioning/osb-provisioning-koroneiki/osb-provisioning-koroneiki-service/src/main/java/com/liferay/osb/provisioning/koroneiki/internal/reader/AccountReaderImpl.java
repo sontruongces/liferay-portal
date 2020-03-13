@@ -26,6 +26,7 @@ import com.liferay.osb.provisioning.koroneiki.constants.ProductConstants;
 import com.liferay.osb.provisioning.koroneiki.constants.TeamRoleConstants;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.TeamRoleWebService;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -185,20 +186,26 @@ public class AccountReaderImpl implements AccountReader {
 		return maxDeveloperCount;
 	}
 
-	public Team getPartnerTeam(Account account) {
+	public Team getPartnerTeam(Account account) throws Exception {
 		Team[] teams = account.getAssignedTeams();
 
 		if (teams != null) {
 			for (Team team : teams) {
 				TeamRole[] teamRoles = team.getTeamRoles();
 
-				if (teamRoles != null) {
-					for (TeamRole teamRole : teamRoles) {
-						String name = teamRole.getName();
+				if (teamRoles == null) {
+					List<TeamRole> teamRolesList =
+						_teamRoleWebService.getTeamRoles(
+							account.getKey(), team.getKey(), 1, 1000);
 
-						if (name.equals(TeamRoleConstants.NAME_PARTNER)) {
-							return team;
-						}
+					teamRoles = teamRolesList.toArray(new TeamRole[0]);
+				}
+
+				for (TeamRole teamRole : teamRoles) {
+					String name = teamRole.getName();
+
+					if (name.equals(TeamRoleConstants.NAME_PARTNER)) {
+						return team;
 					}
 				}
 			}
@@ -292,5 +299,8 @@ public class AccountReaderImpl implements AccountReader {
 
 	@Reference
 	private AccountWebService _accountWebService;
+
+	@Reference
+	private TeamRoleWebService _teamRoleWebService;
 
 }

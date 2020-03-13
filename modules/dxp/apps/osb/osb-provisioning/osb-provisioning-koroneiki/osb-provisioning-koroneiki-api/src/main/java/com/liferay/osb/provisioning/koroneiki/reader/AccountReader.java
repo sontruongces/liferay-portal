@@ -32,7 +32,7 @@ public interface AccountReader {
 
 	public int getMaxDeveloperCount(Account account);
 
-	public Team getPartnerTeam(Account account);
+	public Team getPartnerTeam(Account account) throws Exception;
 
 	public ProductPurchase getSLAProductPurchase(Account account);
 
