@@ -84,7 +84,8 @@ public class ProductPurchaseViewResourceImpl
 					_productPurchaseService.
 						getAccountProductEntryProductPurchases(
 							account.getAccountId(),
-							productEntry.getProductEntryId()))),
+							productEntry.getProductEntryId(), QueryUtil.ALL_POS,
+							QueryUtil.ALL_POS))),
 			pagination,
 			_productEntryService.getAccountProductEntriesCount(
 				account.getAccountId()));
