@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.upload.UploadServletRequestConfigurationHelperUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.FileUtil;
@@ -264,7 +265,10 @@ public class BlogsEntryAttachmentFileEntryHelperTest {
 
 		int suffix = 1;
 
-		for (int i = 0; i < _UNIQUE_FILE_NAME_TRIES; i++) {
+		for (int i = 0;
+			 i < UploadServletRequestConfigurationHelperUtil.getMaxTries();
+			 i++) {
+
 			String curFileName = FileUtil.appendParentheticalSuffix(
 				fileName, String.valueOf(suffix));
 
@@ -345,8 +349,6 @@ public class BlogsEntryAttachmentFileEntryHelperTest {
 	}
 
 	private static final String _TEMP_FOLDER_NAME = BlogsEntry.class.getName();
-
-	private static final int _UNIQUE_FILE_NAME_TRIES = 50;
 
 	@DeleteAfterTestRun
 	private Group _group;
