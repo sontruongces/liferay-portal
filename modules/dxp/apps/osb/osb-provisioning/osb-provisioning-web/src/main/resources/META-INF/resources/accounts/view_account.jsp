@@ -28,6 +28,26 @@ request.setAttribute("view_account.jsp-accountDisplay", accountDisplay);
 
 <liferay-util:include page="/accounts/view_account_header.jsp" servletContext="<%= application %>" />
 
+<div>
+
+	<%
+	List<NoteDisplay> noteDisplays = viewAccountDisplayContext.getNoteDisplays(Note.Type.GENERAL.toString(), Note.Status.APPROVED.toString());
+
+	for (NoteDisplay noteDisplay : noteDisplays) {
+	%>
+
+		<div>
+			<%= noteDisplay.getCreatorName() %><br />
+			<%= noteDisplay.getCreateDate() %><br />
+			<%= noteDisplay.getHtmlContent() %>
+		</div>
+
+	<%
+	}
+	%>
+
+</div>
+
 <div class="subscriptions">
 	<div class="subscription-details">
 		<liferay-util:include page="/accounts/view_subscriptions.jsp" servletContext="<%= application %>" />
