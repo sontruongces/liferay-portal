@@ -26,13 +26,11 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
 taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account" %><%@
-page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note" %><%@
+<%@ page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note" %><%@
 page import="com.liferay.osb.provisioning.koroneiki.reader.AccountReader" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.NoteDisplay" %><%@
-page import="com.liferay.osb.provisioning.web.internal.display.context.ProductSubscriptionDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.util.ProvisioningWebComponentProvider" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@

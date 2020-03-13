@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.text.Format;
 
@@ -55,6 +56,18 @@ public class AccountDisplay {
 		return _account;
 	}
 
+	public String getAccountKey() {
+		return _account.getKey();
+	}
+
+	public String getCode() {
+		if (Validator.isNotNull(_account.getCode())) {
+			return _account.getCode();
+		}
+
+		return StringPool.DASH;
+	}
+
 	public String getDeveloperContactUsage() {
 		StringBundler sb = new StringBundler(5);
 
@@ -73,6 +86,10 @@ public class AccountDisplay {
 		}
 
 		return LanguageUtil.get(_httpServletRequest, "no");
+	}
+
+	public String getName() {
+		return _account.getName();
 	}
 
 	public String getPartnerTeamName() {
@@ -103,6 +120,16 @@ public class AccountDisplay {
 		return StringPool.BLANK;
 	}
 
+	public String getRegion() {
+		Account.Region region = _account.getRegion();
+
+		if (region != null) {
+			return region.toString();
+		}
+
+		return StringPool.DASH;
+	}
+
 	public String getSLAName() {
 		ProductPurchase slaProductPurchase = _getSLAProductPurchase();
 
@@ -111,6 +138,16 @@ public class AccountDisplay {
 
 			return StringUtil.removeSubstring(
 				product.getName(), " Subscription");
+		}
+
+		return StringPool.DASH;
+	}
+
+	public String getStatus() {
+		Account.Status status = _account.getStatus();
+
+		if (status != null) {
+			return status.toString();
 		}
 
 		return StringPool.DASH;
@@ -148,6 +185,16 @@ public class AccountDisplay {
 		}
 
 		return StringPool.BLANK;
+	}
+
+	public String getTier() {
+		Account.Tier tier = _account.getTier();
+
+		if (tier != null) {
+			return tier.toString();
+		}
+
+		return StringPool.DASH;
 	}
 
 	public boolean isEWSA() throws Exception {

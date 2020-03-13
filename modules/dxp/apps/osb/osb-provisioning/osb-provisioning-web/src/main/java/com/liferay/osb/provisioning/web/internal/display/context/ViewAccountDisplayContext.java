@@ -83,7 +83,11 @@ public class ViewAccountDisplayContext {
 				_account.getKey(), searchContainer.getCur(),
 				searchContainer.getEnd() - searchContainer.getStart());
 
-		searchContainer.setResults(productPurchaseViews);
+		searchContainer.setResults(
+			TransformUtil.transform(
+				productPurchaseViews,
+				productPurchaseView -> new ProductSubscriptionDisplay(
+					_httpServletRequest, _account, productPurchaseView)));
 
 		int count =
 			(int)_productPurchaseViewWebService.getProductPurchaseViewsCount(

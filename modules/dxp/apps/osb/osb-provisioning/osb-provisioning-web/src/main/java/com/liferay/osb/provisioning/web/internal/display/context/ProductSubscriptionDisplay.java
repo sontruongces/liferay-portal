@@ -14,6 +14,7 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
@@ -38,11 +39,12 @@ import javax.servlet.http.HttpServletRequest;
 public class ProductSubscriptionDisplay {
 
 	public ProductSubscriptionDisplay(
-			HttpServletRequest httpServletRequest,
+			HttpServletRequest httpServletRequest, Account account,
 			ProductPurchaseView productPurchaseView)
 		throws Exception {
 
 		_httpServletRequest = httpServletRequest;
+		_account = account;
 
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy");
@@ -73,6 +75,10 @@ public class ProductSubscriptionDisplay {
 		else {
 			_status = "inactive";
 		}
+	}
+
+	public String getAccountKey() {
+		return _account.getKey();
 	}
 
 	public String getName() {
@@ -180,6 +186,7 @@ public class ProductSubscriptionDisplay {
 		}
 	}
 
+	private final Account _account;
 	private final Format _dateFormat;
 	private Date _endDate;
 	private boolean _endDateInitialized;

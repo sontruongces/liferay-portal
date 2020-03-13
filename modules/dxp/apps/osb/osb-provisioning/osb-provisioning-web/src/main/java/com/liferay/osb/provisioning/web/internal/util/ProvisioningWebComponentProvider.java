@@ -42,10 +42,12 @@ public class ProvisioningWebComponentProvider {
 	}
 
 	public static AccountSearchDisplayContext getAccountSearchDisplayContext(
-		RenderRequest renderRequest, RenderResponse renderResponse) {
+		RenderRequest renderRequest, RenderResponse renderResponse,
+		HttpServletRequest httpServletRequest) {
 
 		return _provisioningWebComponentProvider.
-			_getAccountSearchDisplayContext(renderRequest, renderResponse);
+			_getAccountSearchDisplayContext(
+				renderRequest, renderResponse, httpServletRequest);
 	}
 
 	public static ProvisioningWebComponentProvider
@@ -78,10 +80,12 @@ public class ProvisioningWebComponentProvider {
 	}
 
 	private AccountSearchDisplayContext _getAccountSearchDisplayContext(
-		RenderRequest renderRequest, RenderResponse renderResponse) {
+		RenderRequest renderRequest, RenderResponse renderResponse,
+		HttpServletRequest httpServletRequest) {
 
 		return new AccountSearchDisplayContext(
-			renderRequest, renderResponse, _accountWebService);
+			renderRequest, renderResponse, httpServletRequest, _accountReader,
+			_accountWebService);
 	}
 
 	private ViewAccountDisplayContext _getViewAccountDisplayContext(

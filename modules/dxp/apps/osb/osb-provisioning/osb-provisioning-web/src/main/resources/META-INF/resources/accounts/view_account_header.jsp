@@ -18,8 +18,6 @@
 
 <%
 AccountDisplay accountDisplay = (AccountDisplay)request.getAttribute("view_account.jsp-accountDisplay");
-
-Account koroneikiAccount = accountDisplay.getAccount();
 %>
 
 <div class="account-header autofit-row">
@@ -37,10 +35,10 @@ Account koroneikiAccount = accountDisplay.getAccount();
 
 		<h3 class="account-name">
 			<span class="account-code">
-				<%= HtmlUtil.escape(koroneikiAccount.getCode()) %>
+				<%= HtmlUtil.escape(accountDisplay.getCode()) %>
 			</span>
 
-			<%= HtmlUtil.escape(koroneikiAccount.getName()) %>
+			<%= HtmlUtil.escape(accountDisplay.getName()) %>
 		</h3>
 
 		<ul class="header-details">
@@ -49,14 +47,14 @@ Account koroneikiAccount = accountDisplay.getAccount();
 					<liferay-ui:message key="status" />
 				</div>
 
-				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= koroneikiAccount.getStatusAsString() %></span>
+				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= accountDisplay.getStatus() %></span>
 			</li>
 			<li>
 				<div class="header-label">
 					<liferay-ui:message key="sup-region" />
 				</div>
 
-				<%= koroneikiAccount.getRegionAsString() %>
+				<%= accountDisplay.getRegion() %>
 			</li>
 			<li>
 				<div class="header-label">
@@ -77,7 +75,7 @@ Account koroneikiAccount = accountDisplay.getAccount();
 					<liferay-ui:message key="tier" />
 				</div>
 
-				<%= koroneikiAccount.getTierAsString() %>
+				<%= accountDisplay.getTier() %>
 			</li>
 			<li>
 				<div class="header-label">

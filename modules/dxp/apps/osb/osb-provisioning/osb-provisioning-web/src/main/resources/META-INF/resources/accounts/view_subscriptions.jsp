@@ -18,8 +18,6 @@
 
 <%
 ViewAccountDisplayContext viewAccountDisplayContext = (ViewAccountDisplayContext)request.getAttribute("view_account.jsp-viewAccountDisplayContext");
-
-Account koroneikiAccount = viewAccountDisplayContext.getAccount();
 %>
 
 <div class="container-fluid-1280">
@@ -27,20 +25,14 @@ Account koroneikiAccount = viewAccountDisplayContext.getAccount();
 		searchContainer="<%= viewAccountDisplayContext.getProductPurchaseViewSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
-			className="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView"
+			className="com.liferay.osb.provisioning.web.internal.display.context.ProductSubscriptionDisplay"
 			escapedModel="<%= true %>"
-			keyProperty="key"
-			modelVar="productPurchaseView"
+			modelVar="productSubscriptionDisplay"
 		>
-
-			<%
-			ProductSubscriptionDisplay productSubscriptionDisplay = new ProductSubscriptionDisplay(request, productPurchaseView);
-			%>
-
 			<portlet:renderURL var="rowURL">
 				<portlet:param name="mvcRenderCommandName" value="/accounts/view_product_subscription" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="accountKey" value="<%= koroneikiAccount.getKey() %>" />
+				<portlet:param name="accountKey" value="<%= productSubscriptionDisplay.getAccountKey() %>" />
 				<portlet:param name="productKey" value="<%= productSubscriptionDisplay.getProductKey() %>" />
 			</portlet:renderURL>
 

@@ -15,17 +15,21 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
 import java.util.List;
 
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Kyle Bischof
@@ -34,20 +38,22 @@ public class AccountSearchDisplayContext {
 
 	public AccountSearchDisplayContext(
 		RenderRequest renderRequest, RenderResponse renderResponse,
+		HttpServletRequest httpServletRequest, AccountReader accountReader,
 		AccountWebService accountWebService) {
 
-		this.renderRequest = renderRequest;
-		this.renderResponse = renderResponse;
-
+		_renderRequest = renderRequest;
+		_renderResponse = renderResponse;
+		_httpServletRequest = httpServletRequest;
+		_accountReader = accountReader;
 		_accountWebService = accountWebService;
 	}
 
 	public SearchContainer getSearchContainer() throws Exception {
 		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, renderResponse.createRenderURL(),
+			_renderRequest, _renderResponse.createRenderURL(),
 			Collections.emptyList(), "no-accounts-were-found");
 
-		String keywords = ParamUtil.getString(renderRequest, "keywords");
+		String keywords = ParamUtil.getString(_renderRequest, "keywords");
 
 		String filterString = StringPool.BLANK;
 
@@ -59,7 +65,11 @@ public class AccountSearchDisplayContext {
 			filterString, searchContainer.getCur(),
 			searchContainer.getEnd() - searchContainer.getStart(), null);
 
-		searchContainer.setResults(accounts);
+		searchContainer.setResults(
+			TransformUtil.transform(
+				accounts,
+				account -> new AccountDisplay(
+					_httpServletRequest, _accountReader, account)));
 
 		int count = (int)_accountWebService.searchCount(filterString);
 
@@ -68,9 +78,10 @@ public class AccountSearchDisplayContext {
 		return searchContainer;
 	}
 
-	protected final RenderRequest renderRequest;
-	protected final RenderResponse renderResponse;
-
+	private final AccountReader _accountReader;
 	private final AccountWebService _accountWebService;
+	private final HttpServletRequest _httpServletRequest;
+	private final RenderRequest _renderRequest;
+	private final RenderResponse _renderResponse;
 
 }

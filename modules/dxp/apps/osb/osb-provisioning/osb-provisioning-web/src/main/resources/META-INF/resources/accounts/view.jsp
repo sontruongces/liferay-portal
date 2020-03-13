@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse);
+AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse, request);
 %>
 
 <div class="container-fluid-1280">
@@ -34,29 +34,25 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 		searchContainer="<%= accountSearchDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
-			className="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account"
+			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
 			escapedModel="<%= true %>"
-			keyProperty="key"
-			modelVar="koroneikiAccount"
+			keyProperty="accountKey"
+			modelVar="accountDisplay"
 		>
 			<portlet:renderURL var="rowURL">
 				<portlet:param name="mvcRenderCommandName" value="/accounts/view_account" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="accountKey" value="<%= koroneikiAccount.getKey() %>" />
+				<portlet:param name="accountKey" value="<%= accountDisplay.getAccountKey() %>" />
 			</portlet:renderURL>
-
-			<%
-			AccountDisplay accountDisplay = new AccountDisplay(request, accountReader, koroneikiAccount);
-			%>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="name-code"
 			>
-				<%= koroneikiAccount.getName() %>
+				<%= accountDisplay.getName() %>
 
 				<div class="secondary-information">
-					<%= koroneikiAccount.getCode() %>
+					<%= accountDisplay.getCode() %>
 				</div>
 			</liferay-ui:search-container-column-text>
 
@@ -75,7 +71,7 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="region"
-				value="<%= koroneikiAccount.getRegionAsString() %>"
+				value="<%= accountDisplay.getRegion() %>"
 			/>
 
 			<liferay-ui:search-container-column-text
@@ -85,7 +81,7 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 				<%= HtmlUtil.escape(accountDisplay.getSLAName()) %>
 
 				<div class="secondary-information">
-					<%= koroneikiAccount.getTierAsString() %>
+					<%= accountDisplay.getTier() %>
 				</div>
 			</liferay-ui:search-container-column-text>
 
@@ -93,7 +89,7 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 				href="<%= rowURL %>"
 				name="status"
 			>
-				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= koroneikiAccount.getStatusAsString() %></span>
+				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= accountDisplay.getStatus() %></span>
 			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 
