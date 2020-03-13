@@ -33,4 +33,6 @@ public interface AccountWebService {
 			String filterString, int page, int pageSize, String sortString)
 		throws Exception;
 
+	public long searchCount(String filterString) throws Exception;
+
 }

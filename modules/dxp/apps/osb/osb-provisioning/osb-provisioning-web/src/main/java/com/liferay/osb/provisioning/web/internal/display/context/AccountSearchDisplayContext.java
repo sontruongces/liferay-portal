@@ -18,6 +18,8 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,12 +49,21 @@ public class AccountSearchDisplayContext {
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
+		String filterString = StringPool.BLANK;
+
+		if (Validator.isNotNull(keywords)) {
+			filterString = "name eq '" + keywords + "'";
+		}
+
 		List<Account> accounts = _accountWebService.search(
-			keywords, searchContainer.getCur(),
+			filterString, searchContainer.getCur(),
 			searchContainer.getEnd() - searchContainer.getStart(), null);
 
 		searchContainer.setResults(accounts);
-		searchContainer.setTotal(accounts.size());
+
+		int count = (int)_accountWebService.searchCount(filterString);
+
+		searchContainer.setTotal(count);
 
 		return searchContainer;
 	}

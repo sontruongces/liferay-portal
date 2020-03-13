@@ -79,6 +79,18 @@ public class AccountWebServiceImpl implements AccountWebService {
 		return Collections.emptyList();
 	}
 
+	public long searchCount(String filterString) throws Exception {
+		Page<Account> accountsPage = _accountResource.getAccountsPage(
+			StringPool.BLANK, filterString, Pagination.of(1, 1),
+			StringPool.BLANK);
+
+		if (accountsPage != null) {
+			return accountsPage.getTotalCount();
+		}
+
+		return 0;
+	}
+
 	@Activate
 	protected void activate(Map<String, Object> properties) throws Exception {
 		KoroneikiConfiguration koroneikiConfiguration =
