@@ -15,6 +15,7 @@
 --%>
 
 <%@ include file="/init.jsp" %>
+
 <%@ taglib uri="http://liferay.com/tld/soy" prefix="soy" %>
 
 <%@ page import="com.liferay.bulk.selection.BulkSelectionRunner" %><%@

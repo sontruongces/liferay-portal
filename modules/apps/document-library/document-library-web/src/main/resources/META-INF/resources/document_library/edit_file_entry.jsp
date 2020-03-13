@@ -404,6 +404,7 @@ if (portletTitleBasedNavigation) {
 											classNameId="<%= PortalUtil.getClassNameId(com.liferay.dynamic.data.mapping.model.DDMStructure.class) %>"
 											classPK="<%= ddmStructure.getPrimaryKey() %>"
 											ddmFormValues="<%= ddmFormValues %>"
+											defaultEditLocale="<%= LocaleUtil.fromLanguageId(defaultLanguageId) %>"
 											fieldsNamespace="<%= String.valueOf(ddmStructure.getPrimaryKey()) %>"
 											groupId="<%= (fileEntry != null) ? fileEntry.getGroupId() : 0 %>"
 											localizable="<%= localizable %>"
