@@ -2877,6 +2877,18 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		layout.setModifiedDate(now);
 		layout.setParentLayoutId(parentLayoutId);
 
+		// Draft layout
+
+		Layout draftLayout = fetchLayout(
+			classNameLocalService.getClassNameId(Layout.class),
+			layout.getPlid());
+
+		if (draftLayout != null) {
+			layoutLocalService.updateParentLayoutId(
+				groupId, privateLayout, draftLayout.getLayoutId(),
+				parentLayoutId);
+		}
+
 		return layoutLocalService.updateLayout(layout);
 	}
 
@@ -2932,6 +2944,17 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		layout.setModifiedDate(now);
 		layout.setParentPlid(parentPlid);
 		layout.setParentLayoutId(parentLayoutId);
+
+		// Draft layout
+
+		Layout draftLayout = fetchLayout(
+			classNameLocalService.getClassNameId(Layout.class),
+			layout.getPlid());
+
+		if (draftLayout != null) {
+			layoutLocalService.updateParentLayoutId(
+				draftLayout.getPlid(), parentPlid);
+		}
 
 		return layoutLocalService.updateLayout(layout);
 	}
