@@ -4902,7 +4902,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				null, ServiceContextThreadLocal.getServiceContext());
 		}
 
-		_invalidateTicket(user.getCompanyId(), User.class.getName(), userId);
+		_invalidateTicket(user);
 
 		return user;
 	}
@@ -4937,7 +4937,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		user = userPersistence.update(user);
 
-		_invalidateTicket(user.getCompanyId(), User.class.getName(), userId);
+		_invalidateTicket(user);
 
 		return user;
 	}
@@ -7002,19 +7002,17 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		return localizedValueMap.get(fallbackLocale);
 	}
 
-	private void _invalidateTicket(
-			long companyId, String className, long classPK)
-		throws PortalException {
-
+	private void _invalidateTicket(User user) throws PortalException {
 		List<Ticket> tickets = ticketLocalService.getTickets(
-			companyId, className, classPK, TicketConstants.TYPE_PASSWORD);
+			user.getCompanyId(), User.class.getName(), user.getUserId(),
+			TicketConstants.TYPE_PASSWORD);
 
 		for (Ticket ticket : tickets) {
 			if (!ticket.isExpired()) {
 				ticketLocalService.updateTicket(
-					ticket.getTicketId(), className, classPK,
-					TicketConstants.TYPE_PASSWORD, ticket.getExtraInfo(),
-					new Date());
+					ticket.getTicketId(), User.class.getName(),
+					user.getUserId(), TicketConstants.TYPE_PASSWORD,
+					ticket.getExtraInfo(), new Date());
 			}
 		}
 	}
