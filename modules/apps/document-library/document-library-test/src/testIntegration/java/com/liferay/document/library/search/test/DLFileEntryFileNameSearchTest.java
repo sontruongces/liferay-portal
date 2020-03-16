@@ -28,14 +28,13 @@ import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistry;
 import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.kernel.search.SearchEngine;
-import com.liferay.portal.kernel.search.SearchEngineHelper;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.rule.Sync;
 import com.liferay.portal.kernel.test.rule.SynchronousDestinationTestRule;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.workflow.WorkflowThreadLocal;
+import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.test.util.DocumentsAssert;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
@@ -104,11 +103,15 @@ public class DLFileEntryFileNameSearchTest {
 
 		addFileEntriesWithTitleSameAsFileName("One.jpg", "Two.JPG");
 
-		if (isSearchEngine("Elasticsearch")) {
+		if (isSearchEngine("Elasticsearch", "6")) {
+			assertSearch("jp", Arrays.asList("One.jpg", "Two.JPG"));
+		}
+
+		if (isSearchEngine("Elasticsearch", "7")) {
 			assertSearch("jp", Arrays.asList("One.jpg"));
 		}
 
-		if (isSearchEngine("Solr")) {
+		if (isSearchEngine("Solr", null)) {
 			assertSearch("jp", Arrays.asList("One.jpg", "Two.JPG"));
 		}
 	}
@@ -264,13 +267,20 @@ public class DLFileEntryFileNameSearchTest {
 		return searchContext;
 	}
 
-	protected boolean isSearchEngine(String engine) {
-		SearchEngine searchEngine = searchEngineHelper.getSearchEngine(
-			searchEngineHelper.getDefaultSearchEngineId());
+	protected boolean isSearchEngine(String engine, String version) {
+		String vendor = searchEngineInformation.getVendorString();
 
-		String vendor = searchEngine.getVendor();
+		if (version == null) {
+			return vendor.startsWith(engine);
+		}
 
-		return vendor.equals(engine);
+		String clientVersion = searchEngineInformation.getClientVersionString();
+
+		if (vendor.startsWith(engine) && clientVersion.startsWith(version)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	@Inject
@@ -280,7 +290,7 @@ public class DLFileEntryFileNameSearchTest {
 	protected static IndexerRegistry indexerRegistry;
 
 	@Inject
-	protected static SearchEngineHelper searchEngineHelper;
+	protected static SearchEngineInformation searchEngineInformation;
 
 	@DeleteAfterTestRun
 	private List<AssetTag> _assetTags;
