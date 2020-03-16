@@ -17,7 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-AccountDisplay accountDisplay = (AccountDisplay)request.getAttribute("view_account.jsp-accountDisplay");
+ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
+
+AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 %>
 
 <div class="account-header autofit-row">

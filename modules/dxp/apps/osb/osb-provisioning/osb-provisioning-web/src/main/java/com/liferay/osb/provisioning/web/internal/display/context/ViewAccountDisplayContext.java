@@ -59,11 +59,35 @@ public class ViewAccountDisplayContext {
 		_account = (Account)renderRequest.getAttribute(
 			ProvisioningWebKeys.ACCOUNT);
 
-		_addPortletBreadcrumbEntries();
+		_accountDisplay = new AccountDisplay(
+			httpServletRequest, _accountReader, _account);
 	}
 
-	public Account getAccount() {
-		return _account;
+	public void addPortletBreadcrumbEntries() throws Exception {
+		PortletURL accountsPortletURL = _renderResponse.createRenderURL();
+
+		PortalUtil.addPortletBreadcrumbEntry(
+			_httpServletRequest,
+			LanguageUtil.get(_httpServletRequest, "accounts"),
+			accountsPortletURL.toString());
+
+		List<Account> ancestorAccounts = _accountReader.getAncestorAccounts(
+			_account);
+
+		for (Account account : ancestorAccounts) {
+			PortletURL portletURL = _renderResponse.createRenderURL();
+
+			portletURL.setParameter(
+				"mvcRenderCommandName", "/accounts/view_account");
+			portletURL.setParameter("accountKey", account.getKey());
+
+			PortalUtil.addPortletBreadcrumbEntry(
+				_httpServletRequest, account.getName(), portletURL.toString());
+		}
+	}
+
+	public AccountDisplay getAccountDisplay() {
+		return _accountDisplay;
 	}
 
 	public List<ExternalLinkDisplay> getExternalLinkDisplays()
@@ -111,30 +135,8 @@ public class ViewAccountDisplayContext {
 		return searchContainer;
 	}
 
-	private void _addPortletBreadcrumbEntries() throws Exception {
-		PortletURL accountsPortletURL = _renderResponse.createRenderURL();
-
-		PortalUtil.addPortletBreadcrumbEntry(
-			_httpServletRequest,
-			LanguageUtil.get(_httpServletRequest, "accounts"),
-			accountsPortletURL.toString());
-
-		List<Account> ancestorAccounts = _accountReader.getAncestorAccounts(
-			_account);
-
-		for (Account account : ancestorAccounts) {
-			PortletURL portletURL = _renderResponse.createRenderURL();
-
-			portletURL.setParameter(
-				"mvcRenderCommandName", "/accounts/view_account");
-			portletURL.setParameter("accountKey", account.getKey());
-
-			PortalUtil.addPortletBreadcrumbEntry(
-				_httpServletRequest, account.getName(), portletURL.toString());
-		}
-	}
-
 	private final Account _account;
+	private final AccountDisplay _accountDisplay;
 	private final AccountReader _accountReader;
 	private final ExternalLinkWebService _externalLinkWebService;
 	private final HttpServletRequest _httpServletRequest;

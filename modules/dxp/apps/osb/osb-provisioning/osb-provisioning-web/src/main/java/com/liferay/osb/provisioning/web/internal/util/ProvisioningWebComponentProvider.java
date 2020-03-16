@@ -38,10 +38,6 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = {})
 public class ProvisioningWebComponentProvider {
 
-	public static AccountReader getAccountReader() {
-		return _provisioningWebComponentProvider._getAccountReader();
-	}
-
 	public static AccountSearchDisplayContext getAccountSearchDisplayContext(
 		RenderRequest renderRequest, RenderResponse renderResponse,
 		HttpServletRequest httpServletRequest) {
@@ -76,10 +72,6 @@ public class ProvisioningWebComponentProvider {
 		_provisioningWebComponentProvider = null;
 	}
 
-	private AccountReader _getAccountReader() {
-		return _accountReader;
-	}
-
 	private AccountSearchDisplayContext _getAccountSearchDisplayContext(
 		RenderRequest renderRequest, RenderResponse renderResponse,
 		HttpServletRequest httpServletRequest) {
@@ -94,10 +86,24 @@ public class ProvisioningWebComponentProvider {
 			HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		return new ViewAccountDisplayContext(
+		ViewAccountDisplayContext viewAccountDisplayContext =
+			(ViewAccountDisplayContext)httpServletRequest.getAttribute(
+				ViewAccountDisplayContext.class.getName());
+
+		if (viewAccountDisplayContext != null) {
+			return viewAccountDisplayContext;
+		}
+
+		viewAccountDisplayContext = new ViewAccountDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
 			_externalLinkWebService, _noteWebService,
 			_productPurchaseViewWebService);
+
+		httpServletRequest.setAttribute(
+			ViewAccountDisplayContext.class.getName(),
+			viewAccountDisplayContext);
+
+		return viewAccountDisplayContext;
 	}
 
 	private static ProvisioningWebComponentProvider

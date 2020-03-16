@@ -19,11 +19,7 @@
 <%
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 
-request.setAttribute("view_account.jsp-viewAccountDisplayContext", viewAccountDisplayContext);
-
-AccountDisplay accountDisplay = new AccountDisplay(request, accountReader, viewAccountDisplayContext.getAccount());
-
-request.setAttribute("view_account.jsp-accountDisplay", accountDisplay);
+viewAccountDisplayContext.addPortletBreadcrumbEntries();
 %>
 
 <liferay-util:include page="/accounts/view_account_header.jsp" servletContext="<%= application %>" />
