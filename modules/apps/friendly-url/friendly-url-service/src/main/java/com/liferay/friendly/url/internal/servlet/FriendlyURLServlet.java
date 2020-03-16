@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.servlet.InactiveRequestHandler;
 import com.liferay.portal.kernel.servlet.PortalMessages;
 import com.liferay.portal.kernel.servlet.ServletContextPool;
 import com.liferay.portal.kernel.servlet.SessionMessages;
@@ -122,7 +123,10 @@ public class FriendlyURLServlet extends HttpServlet {
 			}
 		}
 
-		if (group == null) {
+		if ((group == null) ||
+			(!group.isActive() &&
+			 !inactiveRequestHandler.isShowInactiveRequestMessageEnabled())) {
+
 			StringBundler sb = new StringBundler(5);
 
 			sb.append("{companyId=");
@@ -594,6 +598,9 @@ public class FriendlyURLServlet extends HttpServlet {
 
 	@Reference
 	protected GroupLocalService groupLocalService;
+
+	@Reference
+	protected InactiveRequestHandler inactiveRequestHandler;
 
 	@Reference
 	protected LayoutFriendlyURLLocalService layoutFriendlyURLLocalService;
