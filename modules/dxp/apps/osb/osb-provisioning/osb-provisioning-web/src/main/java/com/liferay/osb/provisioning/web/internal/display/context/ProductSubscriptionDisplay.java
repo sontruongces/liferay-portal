@@ -111,10 +111,10 @@ public class ProductSubscriptionDisplay {
 	}
 
 	public String getStatusStyle() {
-		if (_status == "active") {
+		if (_status.equals("active")) {
 			return "label-success";
 		}
-		else if (_status == "inactive") {
+		else if (_status.equals("inactive")) {
 			return "label-warning";
 		}
 		else {
@@ -154,6 +154,14 @@ public class ProductSubscriptionDisplay {
 		}
 
 		return StringPool.BLANK;
+	}
+
+	public boolean isInactive() {
+		if (_status.equals("inactive")) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private void _initProductPurchases(
