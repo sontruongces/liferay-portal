@@ -43,19 +43,30 @@ renderResponse.setTitle(koroneikiAccount.getName());
 
 	<aui:fieldset-group>
 		<aui:fieldset>
-			<aui:select name="type">
+			<c:choose>
+				<c:when test="<%= accountNote != null %>">
+					<h5><liferay-ui:message key="type" /></h5>
 
-				<%
-				for (Note.Type curType : Note.Type.values()) {
-				%>
+					<p>
+						<%= accountNote.getType() %>
+					</p>
+				</c:when>
+				<c:otherwise>
+					<aui:select name="type">
 
-					<aui:option label="<%= curType %>" value="<%= curType %>" />
+						<%
+						for (Note.Type curType : Note.Type.values()) {
+						%>
 
-				<%
-				}
-				%>
+							<aui:option label="<%= curType %>" value="<%= curType %>" />
 
-			</aui:select>
+						<%
+						}
+						%>
+
+					</aui:select>
+				</c:otherwise>
+			</c:choose>
 
 			<aui:select name="priority">
 
