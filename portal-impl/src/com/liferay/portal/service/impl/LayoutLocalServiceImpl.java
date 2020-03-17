@@ -2877,8 +2877,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		layout.setModifiedDate(now);
 		layout.setParentLayoutId(parentLayoutId);
 
-		// Draft layout
-
 		Layout draftLayout = fetchLayout(
 			classNameLocalService.getClassNameId(Layout.class),
 			layout.getPlid());
@@ -2945,8 +2943,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		layout.setParentPlid(parentPlid);
 		layout.setParentLayoutId(parentLayoutId);
 
-		// Draft layout
-
 		Layout draftLayout = fetchLayout(
 			classNameLocalService.getClassNameId(Layout.class),
 			layout.getPlid());
@@ -2973,8 +2969,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		throws PortalException {
 
 		Layout layout = updateParentLayoutId(plid, parentPlid);
-
-		// Draft layout
 
 		Layout draftLayout = fetchLayout(
 			classNameLocalService.getClassNameId(Layout.class),
