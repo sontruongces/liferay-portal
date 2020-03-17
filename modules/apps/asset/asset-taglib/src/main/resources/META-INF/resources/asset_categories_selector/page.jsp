@@ -70,29 +70,27 @@ int maxEntries = GetterUtil.getInteger(PropsUtil.get(PropsKeys.ASSET_CATEGORIES_
 			%>
 
 			<aui:script use="liferay-asset-taglib-categories-selector">
-				new Liferay.AssetTaglibCategoriesSelector({
-					categoryIds: '<%= categoryIdsTitle[0] %>',
-					categoryTitles: '<%= HtmlUtil.escapeJS(categoryIdsTitle[1]) %>',
-					contentBox:
-						'#<%= randomNamespace %>assetCategoriesSelector_<%= vocabulary.getVocabularyId() %>',
-					eventName: '<%= eventName %>',
-					hiddenInput:
-						'#<portlet:namespace /><%= hiddenInput + StringPool.UNDERLINE + vocabulary.getVocabularyId() %>',
-					instanceVar: '<portlet:namespace />',
-					labelNode:
-						'#<%= randomNamespace %>assetCategoriesLabel_<%= vocabulary.getVocabularyId() %>',
-					maxEntries: <%= maxEntries %>,
-					moreResultsLabel: '<liferay-ui:message key="load-more-results" />',
+				new Liferay.AssetTaglibCategoriesSelector(
+					{
+						categoryIds: '<%= categoryIdsTitle[0] %>',
+						categoryTitles: '<%= HtmlUtil.escapeJS(categoryIdsTitle[1]) %>',
+						contentBox: '#<%= randomNamespace %>assetCategoriesSelector_<%= vocabulary.getVocabularyId() %>',
+						eventName: '<%= eventName %>',
+						hiddenInput: '#<portlet:namespace /><%= hiddenInput + StringPool.UNDERLINE + vocabulary.getVocabularyId() %>',
+						instanceVar: '<portlet:namespace />',
+						labelNode: '#<%= randomNamespace %>assetCategoriesLabel_<%= vocabulary.getVocabularyId() %>',
+						maxEntries: <%= maxEntries %>,
+						moreResultsLabel: '<liferay-ui:message key="load-more-results" />',
 
-					<c:if test="<%= portletURL != null %>">
-						portletURL: '<%= portletURL.toString() %>',
-					</c:if>
+						<c:if test="<%= portletURL != null %>">
+							portletURL: '<%= portletURL.toString() %>',
+						</c:if>
 
-					singleSelect: <%= !vocabulary.isMultiValued() %>,
-					title:
-						'<liferay-ui:message arguments="<%= vocabulary.getTitle(locale) %>" key="select-x" translateArguments="<%= false %>" />',
-					vocabularyIds: '<%= String.valueOf(vocabulary.getVocabularyId()) %>'
-				}).render();
+						singleSelect: <%= !vocabulary.isMultiValued() %>,
+						title: '<liferay-ui:message arguments="<%= vocabulary.getTitle(locale) %>" key="select-x" translateArguments="<%= false %>" />',
+						vocabularyIds: '<%= String.valueOf(vocabulary.getVocabularyId()) %>'
+					}
+				).render();
 			</aui:script>
 
 		<%
@@ -111,23 +109,25 @@ int maxEntries = GetterUtil.getInteger(PropsUtil.get(PropsKeys.ASSET_CATEGORIES_
 		</div>
 
 		<aui:script use="liferay-asset-taglib-categories-selector">
-			new Liferay.AssetTaglibCategoriesSelector({
-				categoryIds: '<%= categoryIdsTitle[0] %>',
-				categoryTitles: '<%= HtmlUtil.escapeJS(categoryIdsTitle[1]) %>',
-				contentBox: '#<%= randomNamespace %>assetCategoriesSelector',
-				eventName: '<%= eventName %>',
-				hiddenInput: '#<portlet:namespace /><%= hiddenInput %>',
-				instanceVar: '<portlet:namespace />',
-				maxEntries: <%= maxEntries %>,
-				moreResultsLabel: '<liferay-ui:message key="load-more-results" />',
+			new Liferay.AssetTaglibCategoriesSelector(
+				{
+					categoryIds: '<%= categoryIdsTitle[0] %>',
+					categoryTitles: '<%= HtmlUtil.escapeJS(categoryIdsTitle[1]) %>',
+					contentBox: '#<%= randomNamespace %>assetCategoriesSelector',
+					eventName: '<%= eventName %>',
+					hiddenInput: '#<portlet:namespace /><%= hiddenInput %>',
+					instanceVar: '<portlet:namespace />',
+					maxEntries: <%= maxEntries %>,
+					moreResultsLabel: '<liferay-ui:message key="load-more-results" />',
 
-				<c:if test="<%= portletURL != null %>">
-					portletURL: '<%= portletURL.toString() %>',
-				</c:if>
+					<c:if test="<%= portletURL != null %>">
+						portletURL: '<%= portletURL.toString() %>',
+					</c:if>
 
-				singleSelect: <%= singleSelect %>,
-				vocabularyIds: '<%= ListUtil.toString(vocabularies, "vocabularyId") %>'
-			}).render();
+					singleSelect: <%= singleSelect %>,
+					vocabularyIds: '<%= ListUtil.toString(vocabularies, "vocabularyId") %>'
+				}
+			).render();
 		</aui:script>
 	</c:otherwise>
 </c:choose>
