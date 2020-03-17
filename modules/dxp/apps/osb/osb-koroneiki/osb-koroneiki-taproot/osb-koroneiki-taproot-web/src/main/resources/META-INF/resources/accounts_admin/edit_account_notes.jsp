@@ -58,8 +58,8 @@ renderResponse.setTitle(koroneikiAccount.getName());
 		>
 			<liferay-portlet:renderURL var="rowURL">
 				<portlet:param name="mvcRenderCommandName" value="/accounts_admin/edit_account_note" />
-				<portlet:param name="accountNoteId" value="<%= String.valueOf(accountNote.getAccountNoteId()) %>" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="accountNoteId" value="<%= String.valueOf(accountNote.getAccountNoteId()) %>" />
 			</liferay-portlet:renderURL>
 
 			<liferay-ui:search-container-column-text
