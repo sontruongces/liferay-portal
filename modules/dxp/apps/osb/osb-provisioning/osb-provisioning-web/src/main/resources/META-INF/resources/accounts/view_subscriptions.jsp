@@ -41,16 +41,25 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 		>
 			<%= productSubscriptionDisplay.getName() %>
 
-			<br />
+			<div class="secondary-information">
+				<%= productSubscriptionDisplay.getSizing() %>
+			</div>
 
-			<%= productSubscriptionDisplay.getSizing() %>
 		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
 			name="support-life"
-			value="<%= productSubscriptionDisplay.getSupportLife() %>"
-		/>
+		>
+			<%= productSubscriptionDisplay.getSupportLife() %>
+
+			<c:if test="<%= productSubscriptionDisplay.getStatus() == 'inactive' %>">
+				<div class="secondary-information">
+					<liferay-ui:message key="next-term-starts" />: 
+				</div>
+			</c:if>
+			
+		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
@@ -68,7 +77,7 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 			href="<%= rowURL %>"
 			name="status"
 		>
-			<span class="label label-sm <%= productSubscriptionDisplay.getStatusStyle() %>"><%= productSubscriptionDisplay.getStatus() %></span>
+			<span class="label <%= productSubscriptionDisplay.getStatusStyle() %>"><%= productSubscriptionDisplay.getStatus() %></span>
 		</liferay-ui:search-container-column-text>
 	</liferay-ui:search-container-row>
 

@@ -111,7 +111,15 @@ public class ProductSubscriptionDisplay {
 	}
 
 	public String getStatusStyle() {
-		return "label-" + _status;
+		if (_status == "active") {
+			return "label-success";
+		}
+		else if (_status == "inactive") {
+			return "label-warning";
+		}
+		else {
+			return "label-danger";
+		}
 	}
 
 	public String getSupportLife() {
