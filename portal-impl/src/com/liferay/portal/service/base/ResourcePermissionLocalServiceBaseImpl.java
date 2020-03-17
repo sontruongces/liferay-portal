@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.ResourceActionPersistence;
 import com.liferay.portal.kernel.service.persistence.ResourcePermissionFinder;
 import com.liferay.portal.kernel.service.persistence.ResourcePermissionPersistence;
@@ -297,6 +298,10 @@ public abstract class ResourcePermissionLocalServiceBaseImpl
 
 		return resourcePermissionLocalService.deleteResourcePermission(
 			(ResourcePermission)persistedModel);
+	}
+
+	public BasePersistence<ResourcePermission> getBasePersistence() {
+		return resourcePermissionPersistence;
 	}
 
 	/**
