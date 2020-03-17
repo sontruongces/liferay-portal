@@ -94,8 +94,7 @@ public class Account {
 	public static enum Status {
 
 		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
-		INACTIVE("Inactive"), PENDING("Pending"),
-		PENDING_VALIDATION("Pending Validation"), REJECTED("Rejected");
+		INACTIVE("Inactive");
 
 		@JsonCreator
 		public static Status create(String value) {
