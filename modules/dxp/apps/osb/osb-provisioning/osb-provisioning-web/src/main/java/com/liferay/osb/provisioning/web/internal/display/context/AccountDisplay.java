@@ -165,9 +165,6 @@ public class AccountDisplay {
 		else if (status == Account.Status.INACTIVE) {
 			return "label-warning";
 		}
-		else if (status == Account.Status.PENDING) {
-			return "label-primary";
-		}
 		else {
 			return "label-danger";
 		}
