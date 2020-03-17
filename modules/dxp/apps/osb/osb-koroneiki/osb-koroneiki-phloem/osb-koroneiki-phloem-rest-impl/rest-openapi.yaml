@@ -138,7 +138,7 @@ components:
                 status:
                     description:
                         The status of the account.
-                    enum: ["Approved", "Closed", "Expired", "Inactive", "Pending", "Pending Validation", "Rejected"]
+                    enum: ["Approved", "Closed", "Expired", "Inactive"]
                     type: string
                 tier:
                     description:
