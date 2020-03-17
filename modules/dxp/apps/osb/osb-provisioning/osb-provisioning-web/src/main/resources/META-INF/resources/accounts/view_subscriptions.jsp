@@ -44,7 +44,6 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 			<div class="secondary-information">
 				<%= productSubscriptionDisplay.getSizing() %>
 			</div>
-
 		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-text
@@ -53,12 +52,11 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 		>
 			<%= productSubscriptionDisplay.getSupportLife() %>
 
-			<c:if test="<%= productSubscriptionDisplay.getStatus() == 'inactive' %>">
+			<c:if test='<%= productSubscriptionDisplay.getStatus().equals("inactive") %>'>
 				<div class="secondary-information">
-					<liferay-ui:message key="next-term-starts" />: 
+					<liferay-ui:message key="next-term-starts" />:
 				</div>
 			</c:if>
-			
 		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-text

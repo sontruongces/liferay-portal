@@ -93,12 +93,12 @@ function SidePanel() {
 	};
 
 	useEffect(() => {
-		const subscriptions = document.getElementById('subscriptions');
+		const account = document.getElementById('account');
 
-		if (subscriptions && subscriptions.classList.contains('full-view')) {
-			subscriptions.classList.remove('full-view');
+		if (account && account.classList.contains('full-view')) {
+			account.classList.remove('full-view');
 		} else {
-			subscriptions.classList.add('full-view');
+			account.classList.add('full-view');
 		}
 	});
 

@@ -44,9 +44,11 @@ viewAccountDisplayContext.addPortletBreadcrumbEntries();
 
 </div>
 
-<div class="full-view subscriptions" id="subscriptions">
-	<div class="subscription-details" id="subscriptionDetails">
-		<liferay-util:include page="/accounts/view_subscriptions.jsp" servletContext="<%= application %>" />
+<div class="account full-view" id="account">
+	<div class="account-details">
+		<div class="subscription-details" id="subscriptionDetails">
+			<liferay-util:include page="/accounts/view_subscriptions.jsp" servletContext="<%= application %>" />
+		</div>
 	</div>
 
 	<div class="side-panel" id="sidePanel">
