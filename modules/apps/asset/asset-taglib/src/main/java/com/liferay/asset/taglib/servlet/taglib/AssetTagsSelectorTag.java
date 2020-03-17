@@ -18,28 +18,20 @@ import com.liferay.asset.kernel.model.AssetTag;
 import com.liferay.asset.kernel.service.AssetTagServiceUtil;
 import com.liferay.asset.taglib.internal.servlet.ServletContextUtil;
 import com.liferay.petra.string.StringPool;
-import com.liferay.petra.string.StringUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.taglib.aui.AUIUtil;
 import com.liferay.taglib.util.IncludeTag;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
@@ -116,7 +108,6 @@ public class AssetTagsSelectorTag extends IncludeTag {
 		_hiddenInput = "assetTagNames";
 		_id = null;
 		_ignoreRequestValue = false;
-		_namespace = null;
 		_removeCallback = null;
 		_tagNames = null;
 	}
@@ -188,7 +179,7 @@ public class AssetTagsSelectorTag extends IncludeTag {
 
 			return portletURL;
 		}
-		catch (Exception exception) {
+		catch (Exception e) {
 		}
 
 		return null;
@@ -216,73 +207,30 @@ public class AssetTagsSelectorTag extends IncludeTag {
 	}
 
 	@Override
-	protected void setAttributes(HttpServletRequest httpServletRequest) {
-		httpServletRequest.setAttribute(
-			"liferay-asset:asset-tags-selector:context", _getContext());
-		httpServletRequest.setAttribute(
-			"liferay-asset:asset-tags-selector:inputName", _getInputName());
-		httpServletRequest.setAttribute(
+	protected void setAttributes(HttpServletRequest request) {
+		request.setAttribute(
+			"liferay-asset:asset-tags-selector:addCallback",
+			String.valueOf(_addCallback));
+		request.setAttribute(
+			"liferay-asset:asset-tags-selector:allowAddEntry",
+			String.valueOf(_allowAddEntry));
+		request.setAttribute(
+			"liferay-asset:asset-tags-selector:autoFocus",
+			String.valueOf(_autoFocus));
+		request.setAttribute(
+			"liferay-asset:asset-tags-selector:eventName", getEventName());
+		request.setAttribute(
+			"liferay-asset:asset-tags-selector:groupIds", getGroupIds());
+		request.setAttribute(
+			"liferay-asset:asset-tags-selector:hiddenInput", _hiddenInput);
+		request.setAttribute("liferay-asset:asset-tags-selector:id", getId());
+		request.setAttribute(
+			"liferay-asset:asset-tags-selector:portletURL", getPortletURL());
+		request.setAttribute(
+			"liferay-asset:asset-tags-selector:removeCallback",
+			String.valueOf(_removeCallback));
+		request.setAttribute(
 			"liferay-asset:asset-tags-selector:tagNames", getTagNames());
-	}
-
-	private Map<String, Object> _getContext() {
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		Map<String, Object> context = new HashMap<>();
-
-		context.put("addCallback", _getNamespace() + _addCallback);
-		context.put("eventName", getEventName());
-		context.put("groupIds", getGroupIds());
-		context.put("inputName", _getInputName());
-		context.put("portletURL", getPortletURL());
-		context.put("removeCallback", _getNamespace() + _removeCallback);
-
-		List<String> tagNames = StringUtil.split(getTagNames());
-
-		List<Map<String, String>> selectedItems = new ArrayList<>();
-
-		for (String tagName : tagNames) {
-			Map<String, String> item = new HashMap<>();
-
-			item.put("label", tagName);
-			item.put("value", tagName);
-
-			selectedItems.add(item);
-		}
-
-		context.put("selectedItems", selectedItems);
-
-		context.put(
-			"spritemap",
-			themeDisplay.getPathThemeImages() + "/lexicon/icons.svg");
-
-		return context;
-	}
-
-	private String _getInputName() {
-		return _getNamespace() + _hiddenInput;
-	}
-
-	private String _getNamespace() {
-		if (_namespace != null) {
-			return _namespace;
-		}
-
-		PortletRequest portletRequest = (PortletRequest)request.getAttribute(
-			JavaConstants.JAVAX_PORTLET_REQUEST);
-		PortletResponse portletResponse = (PortletResponse)request.getAttribute(
-			JavaConstants.JAVAX_PORTLET_RESPONSE);
-
-		if ((portletRequest == null) || (portletResponse == null)) {
-			_namespace = AUIUtil.getNamespace(request);
-
-			return _namespace;
-		}
-
-		_namespace = AUIUtil.getNamespace(portletRequest, portletResponse);
-
-		return _namespace;
 	}
 
 	private static final String _PAGE = "/asset_tags_selector/page.jsp";
@@ -296,7 +244,6 @@ public class AssetTagsSelectorTag extends IncludeTag {
 	private String _hiddenInput = "assetTagNames";
 	private String _id;
 	private boolean _ignoreRequestValue;
-	private String _namespace;
 	private String _removeCallback;
 	private String _tagNames;
 
