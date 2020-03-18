@@ -104,7 +104,8 @@ class LayoutFinder extends Component {
 			this.layouts = [];
 			this.totalCount = 0;
 			this._keywords = '';
-		} else if (keywords !== this._keywords) {
+		}
+		else if (keywords !== this._keywords) {
 			this._keywords = keywords;
 
 			this._updatePageResults(this._keywords);

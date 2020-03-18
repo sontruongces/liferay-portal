@@ -24,8 +24,8 @@ import InstanceListFilters from './InstanceListFilters.es';
 import InstanceListTable from './InstanceListTable.es';
 import {InstanceFiltersProvider} from './store/InstanceFiltersStore.es';
 import {
-	InstanceListProvider,
-	InstanceListContext
+	InstanceListContext,
+	InstanceListProvider
 } from './store/InstanceListStore.es';
 
 export function InstanceListCard({page, pageSize, processId, query}) {
@@ -42,6 +42,7 @@ export function InstanceListCard({page, pageSize, processId, query}) {
 	useEffect(() => {
 		client.get(`/processes/${processId}/title`).then(({data}) => {
 			setTitle(`${data}: ${Liferay.Language.get('all-items')}`);
+
 			return data;
 		});
 

@@ -36,8 +36,12 @@ export function getInitialState(firstState) {
 		experimentHistory: initialExperimentHistory || [],
 		selectedExperienceId: initialSelectedSegmentsExperienceId,
 		variants: initialSegmentsVariants.map(initialVariant => {
-			if (winnerSegmentsVariantId === initialVariant.segmentsExperienceId)
+			if (
+				winnerSegmentsVariantId === initialVariant.segmentsExperienceId
+			) {
 				return {...initialVariant, winner: true};
+			}
+
 			return initialVariant;
 		}),
 		viewExperimentURL: viewSegmentsExperimentDetailsURL

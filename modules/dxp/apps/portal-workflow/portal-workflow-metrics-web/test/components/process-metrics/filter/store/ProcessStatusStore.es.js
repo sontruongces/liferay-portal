@@ -14,10 +14,10 @@ import React, {useContext} from 'react';
 import {act, create} from 'react-test-renderer';
 
 import {
-	processStatusConstants,
-	useProcessStatus,
+	ProcessStatusContext,
 	ProcessStatusProvider,
-	ProcessStatusContext
+	processStatusConstants,
+	useProcessStatus
 } from '../../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/ProcessStatusStore.es';
 
 describe('The selected process statuses should', () => {

@@ -15,7 +15,9 @@ import Icon from '../../shared/components/Icon.es';
 import PortalComponent from '../../shared/components/header-controller/PortalComponent.es';
 
 const MenuItem = ({children}) => {
-	if (!children) return null;
+	if (!children) {
+		return null;
+	}
 
 	return <li>{children}</li>;
 };

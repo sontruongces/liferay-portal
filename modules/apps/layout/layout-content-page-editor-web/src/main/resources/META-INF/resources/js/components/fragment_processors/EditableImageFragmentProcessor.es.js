@@ -154,7 +154,8 @@ function render(content, value, editableValues) {
 		link.appendChild(image);
 
 		return link.outerHTML;
-	} else {
+	}
+	else {
 		return wrapper.innerHTML;
 	}
 }

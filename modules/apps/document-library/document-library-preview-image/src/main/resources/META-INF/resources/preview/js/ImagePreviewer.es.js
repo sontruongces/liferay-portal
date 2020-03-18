@@ -141,13 +141,16 @@ class ImagePreviewer extends Component {
 
 		if (value === 'in') {
 			zoomValue = ZOOM_LEVELS.find(zoom => zoom > this.currentZoom);
-		} else if (value === 'out') {
+		}
+		else if (value === 'out') {
 			zoomValue = ZOOM_LEVELS_REVERSED.find(
 				zoom => zoom < this.currentZoom
 			);
-		} else if (value === 'real') {
+		}
+		else if (value === 'real') {
 			zoomValue = 1;
-		} else if (value === 'fit') {
+		}
+		else if (value === 'fit') {
 			this._clearZoom();
 		}
 
@@ -173,7 +176,8 @@ class ImagePreviewer extends Component {
 			scrollTop =
 				(imageContainer.clientHeight * (this._zoomRatio - 1)) / 2 +
 				imageContainer.scrollTop * this._zoomRatio;
-		} else {
+		}
+		else {
 			scrollTop = (this.imageHeight - imageContainer.clientHeight) / 2;
 			scrollLeft = (this.imageWidth - imageContainer.clientWidth) / 2;
 		}

@@ -185,7 +185,8 @@ sb.append("/js/SiteNavigationMenuItemDOMHandler.es as siteNavigationMenuItemDOMH
 			if (sidebarForm) {
 				sidebarForm.submit();
 			}
-		} else {
+		}
+		else {
 			if (sidebarHeaderButtonClickEventListener) {
 				sidebarHeaderButtonClickEventListener.removeListener();
 				sidebarHeaderButtonClickEventListener = null;

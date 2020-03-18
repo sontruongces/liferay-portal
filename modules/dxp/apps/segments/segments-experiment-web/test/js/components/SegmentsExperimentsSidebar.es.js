@@ -13,26 +13,26 @@ import '@testing-library/jest-dom/extend-expect';
 import {
 	cleanup,
 	fireEvent,
+	wait,
 	waitForDomChange,
 	waitForElement,
-	wait,
 	waitForElementToBeRemoved
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {INITIAL_CONFIDENCE_LEVEL} from '../../../src/main/resources/META-INF/resources/js/util/percentages.es';
 import {
-	STATUS_FINISHED_WINNER,
 	STATUS_COMPLETED,
+	STATUS_FINISHED_NO_WINNER,
+	STATUS_FINISHED_WINNER,
 	STATUS_RUNNING,
-	STATUS_TERMINATED,
-	STATUS_FINISHED_NO_WINNER
+	STATUS_TERMINATED
 } from '../../../src/main/resources/META-INF/resources/js/util/statuses.es';
 import {
-	segmentsExperiment,
+	DEFAULT_ESTIMATED_DAYS,
 	segmentsExperiences,
-	segmentsVariants,
-	DEFAULT_ESTIMATED_DAYS
+	segmentsExperiment,
+	segmentsVariants
 } from '../fixtures.es';
 import renderApp from '../renderApp.es';
 

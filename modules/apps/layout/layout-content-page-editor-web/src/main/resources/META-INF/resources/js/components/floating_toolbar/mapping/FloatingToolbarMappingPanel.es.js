@@ -283,7 +283,8 @@ class FloatingToolbarMappingPanel extends PortletBase {
 					}
 				)
 			);
-		} else {
+		}
+		else {
 			this.store.dispatch(
 				updateEditableValueMappedFieldAction(
 					this.item.fragmentEntryLinkId,
@@ -310,7 +311,8 @@ class FloatingToolbarMappingPanel extends PortletBase {
 			)
 		) {
 			this._loadFields();
-		} else {
+		}
+		else {
 			this._clearEditableValues();
 		}
 	}
@@ -335,7 +337,8 @@ class FloatingToolbarMappingPanel extends PortletBase {
 			}
 
 			promise = this.fetch(this.mappingFieldsURL, data);
-		} else if (
+		}
+		else if (
 			this._selectedSourceTypeId === MAPPING_SOURCE_TYPE_IDS.content &&
 			this._selectedAssetEntry.classNameId &&
 			this._selectedAssetEntry.classPK
@@ -357,7 +360,8 @@ class FloatingToolbarMappingPanel extends PortletBase {
 							) !== -1
 					);
 				});
-		} else if (this._fields.length) {
+		}
+		else if (this._fields.length) {
 			this._clearFields();
 		}
 	}

@@ -22,7 +22,7 @@ import SegmentsExperimentsContext from '../context.es';
 import {StateContext} from '../state/context.es';
 import {SegmentsExperienceType} from '../types.es';
 import {NO_EXPERIMENT_ILLUSTRATION_FILE_NAME} from '../util/contants.es';
-import {statusToLabelDisplayType, STATUS_DRAFT} from '../util/statuses.es';
+import {STATUS_DRAFT, statusToLabelDisplayType} from '../util/statuses.es';
 import ClickGoalPicker from './ClickGoalPicker/ClickGoalPicker.es';
 import ExperimentsHistory from './ExperimentsHistory.es';
 import SegmentsExperimentsActions from './SegmentsExperimentsActions.es';
@@ -235,8 +235,9 @@ function SegmentsExperiments({
 			Liferay.Language.get('are-you-sure-you-want-to-delete-this')
 		);
 
-		if (confirmed)
+		if (confirmed) {
 			return onDeleteSegmentsExperiment(experiment.segmentsExperimentId);
+		}
 	}
 
 	function _handleExperienceSelection(event) {

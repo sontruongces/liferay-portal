@@ -55,13 +55,14 @@ const useVelocityData = processId => {
 			velocityTimeRange.dateEnd &&
 			velocityTimeRange.dateStart &&
 			velocityUnit
-		)
+		) {
 			fetchData(
 				processId,
 				velocityTimeRange.dateEnd,
 				velocityTimeRange.dateStart,
 				velocityUnit.key
 			);
+		}
 	}, [processId, velocityUnit]);
 
 	return {

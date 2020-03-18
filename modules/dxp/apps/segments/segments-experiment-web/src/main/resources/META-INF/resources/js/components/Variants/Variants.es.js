@@ -17,9 +17,9 @@ import React, {useContext, useState} from 'react';
 import SegmentsExperimentsContext from '../../context.es';
 import {
 	addVariant,
+	archiveExperiment,
 	updateVariant,
-	updateVariants,
-	archiveExperiment
+	updateVariants
 } from '../../state/actions.es';
 import {DispatchContext, StateContext} from '../../state/context.es';
 import {navigateToExperience} from '../../util/navigation.es';
@@ -55,6 +55,7 @@ function Variants({selectedSegmentsExperienceId}) {
 	const publishable =
 		experiment.status.value === STATUS_FINISHED_WINNER ||
 		experiment.status.value === STATUS_FINISHED_NO_WINNER;
+
 	return (
 		<>
 			<h4 className="mb-3 mt-4 sheet-subtitle">
@@ -142,16 +143,19 @@ function Variants({selectedSegmentsExperienceId}) {
 				let variantExperienceId = null;
 
 				const newVariants = variants.filter(variant => {
-					if (variant.segmentsExperimentRelId !== variantId)
+					if (variant.segmentsExperimentRelId !== variantId) {
 						return true;
+					}
 
 					variantExperienceId = variant.segmentsExperienceId;
+
 					return false;
 				});
 
 				if (variantExperienceId === selectedSegmentsExperienceId) {
 					navigateToExperience(experiment.segmentsExperienceId);
-				} else {
+				}
+				else {
 					dispatch(updateVariants(newVariants));
 				}
 			})

@@ -68,8 +68,10 @@ function restoreExperiencesState() {
 	const state = window.sessionStorage.getItem(MODAL_EXPERIENCE_STATE_KEY);
 	if (state !== null) {
 		window.sessionStorage.removeItem(MODAL_EXPERIENCE_STATE_KEY);
+
 		return JSON.parse(state);
 	}
+
 	return state;
 }
 
@@ -104,7 +106,9 @@ function restoreExperiencesState() {
  * @returns {modalState|null}
  */
 function getExperiencesState(classPK, incomingSegmentId) {
-	if (!classPK) return null;
+	if (!classPK) {
+		return null;
+	}
 	const prevState = restoreExperiencesState();
 
 	if (
@@ -113,6 +117,7 @@ function getExperiencesState(classPK, incomingSegmentId) {
 		prevState.modalStates.classPK === classPK
 	) {
 		const {modalStates, selectedSegmentsExperienceId} = prevState;
+
 		return {
 			modalStates: {
 				[prevState.modalStates.type]: {
@@ -124,6 +129,7 @@ function getExperiencesState(classPK, incomingSegmentId) {
 			selectedSegmentsExperienceId
 		};
 	}
+
 	return null;
 }
 

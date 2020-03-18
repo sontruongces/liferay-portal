@@ -62,7 +62,8 @@ function openAssetBrowser({
 					classPK: event.assetclasspk,
 					title: event.assettitle
 				});
-			} else if (destroyedCallback) {
+			}
+			else if (destroyedCallback) {
 				destroyedCallback();
 			}
 		}

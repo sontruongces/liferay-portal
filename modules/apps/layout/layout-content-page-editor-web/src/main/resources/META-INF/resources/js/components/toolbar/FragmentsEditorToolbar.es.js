@@ -127,7 +127,8 @@ class FragmentsEditorToolbar extends Component {
 				.then(response => {
 					if (response.status < 400) {
 						this._online = true;
-					} else {
+					}
+					else {
 						queryPing();
 					}
 				})

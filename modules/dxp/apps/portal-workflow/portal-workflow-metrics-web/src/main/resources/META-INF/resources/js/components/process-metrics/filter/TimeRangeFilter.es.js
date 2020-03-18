@@ -14,8 +14,8 @@ import React, {useContext} from 'react';
 import Filter from '../../../shared/components/filter/Filter.es';
 import {CustomTimeRangeForm} from './CustomTimeRangeForm.es';
 import {
-	getCustomTimeRangeName,
-	TimeRangeContext
+	TimeRangeContext,
+	getCustomTimeRangeName
 } from './store/TimeRangeStore.es';
 
 const TimeRangeFilter = ({
@@ -47,7 +47,8 @@ const TimeRangeFilter = ({
 			if (clickedFilter.active) {
 				document.dispatchEvent(new Event('mousedown'));
 			}
-		} else {
+		}
+		else {
 			setShowCustomForm(false);
 		}
 

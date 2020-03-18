@@ -13,7 +13,7 @@ import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
 import ClayLink from '@clayui/link';
 import PropTypes from 'prop-types';
-import React, {useState, useContext} from 'react';
+import React, {useContext, useState} from 'react';
 
 import SegmentsExperimentsContext from '../context.es';
 import {updateSegmentsExperiment, updateVariants} from '../state/actions.es';
@@ -26,13 +26,17 @@ import {
 	STATUS_RUNNING,
 	STATUS_TERMINATED
 } from '../util/statuses.es';
-import {StateContext, DispatchContext} from './../state/context.es';
+import {DispatchContext, StateContext} from './../state/context.es';
 import {ReviewExperimentModal} from './ReviewExperimentModal.es';
 
 function _experimentReady(experiment, variants) {
-	if (variants.length <= 1) return false;
-	if (experiment.goal.value === 'click' && !experiment.goal.target)
+	if (variants.length <= 1) {
 		return false;
+	}
+	if (experiment.goal.value === 'click' && !experiment.goal.target) {
+		return false;
+	}
+
 	return true;
 }
 
@@ -68,11 +72,12 @@ function SegmentsExperimentsActions({onEditSegmentsExperimentStatus}) {
 							)
 						);
 
-						if (confirmed)
+						if (confirmed) {
 							onEditSegmentsExperimentStatus(
 								experiment,
 								STATUS_TERMINATED
 							);
+						}
 					}}
 				>
 					{Liferay.Language.get('terminate-test')}

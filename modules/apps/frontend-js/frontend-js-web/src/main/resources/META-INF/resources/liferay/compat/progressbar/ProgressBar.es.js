@@ -39,6 +39,7 @@ class ProgressBar extends Component {
 		if (value > this.max) {
 			value = this.max;
 		}
+
 		return value;
 	}
 

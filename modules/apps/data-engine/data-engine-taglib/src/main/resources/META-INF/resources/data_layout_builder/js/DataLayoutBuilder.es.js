@@ -67,7 +67,8 @@ class DataLayoutBuilder extends Component {
 			({fieldName, localizable, localizedValue, value}) => {
 				if (fieldName === 'predefinedValue') {
 					fieldName = 'defaultValue';
-				} else if (fieldName === 'type') {
+				}
+				else if (fieldName === 'type') {
 					fieldName = 'fieldType';
 				}
 
@@ -76,13 +77,16 @@ class DataLayoutBuilder extends Component {
 						fieldConfig.customProperties[
 							fieldName
 						] = localizedValue;
-					} else {
+					}
+					else {
 						fieldConfig[fieldName] = localizedValue;
 					}
-				} else {
+				}
+				else {
 					if (this._isCustomProperty(fieldName)) {
 						fieldConfig.customProperties[fieldName] = value;
-					} else {
+					}
+					else {
 						fieldConfig[fieldName] = value;
 					}
 				}
@@ -226,8 +230,8 @@ class DataLayoutBuilder extends Component {
 						defaultLanguageId={defaultLanguageId}
 						editingLanguageId={editingLanguageId}
 						fieldTypes={fieldTypes}
-						portletNamespace={portletNamespace}
 						paginationMode={'wizard'}
+						portletNamespace={portletNamespace}
 						ref="builder"
 						spritemap={spritemap}
 					/>
@@ -252,7 +256,8 @@ class DataLayoutBuilder extends Component {
 
 		if (translationManager) {
 			promise = Promise.resolve(translationManager);
-		} else {
+		}
+		else {
 			promise = Liferay.componentReady('translationManager');
 		}
 

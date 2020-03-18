@@ -16,7 +16,7 @@ import '../FieldBase/FieldBase.es';
 
 import '../KeyValue/KeyValue.es';
 
-import './OptionsRegister.soy.js';
+import './OptionsRegister.soy';
 
 import {normalizeFieldName} from 'dynamic-data-mapping-form-renderer/js/util/fields.es';
 import Component from 'metal-component';
@@ -25,7 +25,7 @@ import {Drag, DragDrop} from 'metal-drag-drop';
 import Soy from 'metal-soy';
 import {Config} from 'metal-state';
 
-import templates from './Options.soy.js';
+import templates from './Options.soy';
 
 /**
  * Options.
@@ -92,7 +92,8 @@ class Options extends Component {
 
 		if (this.value && this.value[editingLanguageId]) {
 			value = this.value[editingLanguageId];
-		} else if (this.value && this.value[defaultLanguageId]) {
+		}
+		else if (this.value && this.value[defaultLanguageId]) {
 			value = this.value[defaultLanguageId];
 		}
 
@@ -247,9 +248,11 @@ class Options extends Component {
 
 			if (!prevVal) {
 				changed = true;
-			} else if (newVal.length !== prevVal.length) {
+			}
+			else if (newVal.length !== prevVal.length) {
 				changed = true;
-			} else {
+			}
+			else {
 				for (let i = 0; i < newVal.length; i++) {
 					const {label, value} = newVal[i];
 
@@ -355,7 +358,8 @@ class Options extends Component {
 					  }
 					: option;
 			});
-		} else {
+		}
+		else {
 			options = [
 				...options,
 				{

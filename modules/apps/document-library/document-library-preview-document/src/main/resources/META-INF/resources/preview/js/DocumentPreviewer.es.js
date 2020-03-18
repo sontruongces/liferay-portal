@@ -104,7 +104,8 @@ class DocumentPreviewer extends Component {
 		) {
 			this.currentPageLoading = true;
 			this._goToPageDebounced(currentPage);
-		} else {
+		}
+		else {
 			this.currentPageLoading = false;
 		}
 	}
@@ -194,11 +195,14 @@ class DocumentPreviewer extends Component {
 
 		if (action === 'expandToggle') {
 			this.expanded = !this.expanded;
-		} else if (action === 'go') {
+		}
+		else if (action === 'go') {
 			this.showPageInput = true;
-		} else if (action === 'next') {
+		}
+		else if (action === 'next') {
 			this.currentPage++;
-		} else if (action === 'previous') {
+		}
+		else if (action === 'previous') {
 			this.currentPage--;
 		}
 	}
@@ -216,9 +220,11 @@ class DocumentPreviewer extends Component {
 		if (code === KEY_CODE_ENTER) {
 			this.currentPage = event.delegateTarget.value;
 			this._hidePageInput();
-		} else if (code === KEY_CODE_ESC) {
+		}
+		else if (code === KEY_CODE_ESC) {
 			this._hidePageInput();
-		} else if (VALID_KEY_CODES.indexOf(code) === -1) {
+		}
+		else if (VALID_KEY_CODES.indexOf(code) === -1) {
 			event.preventDefault();
 		}
 	}

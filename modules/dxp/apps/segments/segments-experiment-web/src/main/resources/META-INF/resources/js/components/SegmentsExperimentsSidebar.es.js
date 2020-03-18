@@ -26,9 +26,9 @@ import {
 	updateSegmentsExperiment
 } from '../state/actions.es';
 import {
-	getInitialState,
 	DispatchContext,
-	StateContext
+	StateContext,
+	getInitialState
 } from '../state/context.es';
 import {reducer} from '../state/reducer.es';
 import {
@@ -165,7 +165,8 @@ function SegmentsExperimentsSidebar({
 					experiment.segmentsExperimentId === experimentId
 				) {
 					navigateToExperience(experiment.segmentsExperienceId);
-				} else {
+				}
+				else {
 					dispatch(deleteArchivedExperiment(experimentId));
 				}
 			})
@@ -263,7 +264,8 @@ function SegmentsExperimentsSidebar({
 							status
 						})
 					);
-				} else {
+				}
+				else {
 					dispatch(
 						updateSegmentsExperiment({
 							editable,

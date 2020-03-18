@@ -91,7 +91,8 @@ class CreateContentDialog extends Component {
 	_handleSubmitButtonClick() {
 		if (this._step === 1) {
 			this._step = 2;
-		} else {
+		}
+		else {
 			this.store.dispatch(enableSavingChangesStatusAction());
 
 			addStructuredContent(
@@ -143,7 +144,9 @@ class CreateContentDialog extends Component {
 						});
 
 					Promise.all(
-						Object.entries(updatedFragmentEntryLinks).map(
+						Object.entries(
+							updatedFragmentEntryLinks
+						).map(
 							([fragmentEntryLinkId, fragmentEntryLink], index) =>
 								updateEditableValues(
 									fragmentEntryLinkId,

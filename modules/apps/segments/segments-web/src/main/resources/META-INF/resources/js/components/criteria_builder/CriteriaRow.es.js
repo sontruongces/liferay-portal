@@ -123,7 +123,8 @@ function drop(props, monitor) {
 
 	if (itemType === DragTypes.PROPERTY) {
 		onChange(newGroup);
-	} else if (itemType === DragTypes.CRITERIA_ROW) {
+	}
+	else if (itemType === DragTypes.CRITERIA_ROW) {
 		onMove(
 			startGroupId,
 			startIndex,
@@ -304,7 +305,8 @@ class CriteriaRow extends Component {
 			}));
 
 			onChange(createNewGroup(items));
-		} else {
+		}
+		else {
 			onChange({
 				...criterion,
 				...value

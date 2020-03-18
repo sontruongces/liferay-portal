@@ -14,14 +14,14 @@
 
 import '../FieldBase/FieldBase.es';
 
-import './DocumentLibraryRegister.soy.js';
+import './DocumentLibraryRegister.soy';
 
 import {createActionURL, createPortletURL} from 'frontend-js-web';
 import Component from 'metal-component';
 import Soy from 'metal-soy';
 import {Config} from 'metal-state';
 
-import templates from './DocumentLibrary.soy.js';
+import templates from './DocumentLibrary.soy';
 
 class DocumentLibrary extends Component {
 	created() {
@@ -39,7 +39,8 @@ class DocumentLibrary extends Component {
 				fileEntryURL = value.url;
 
 				value = JSON.stringify(value);
-			} else if (typeof value === 'string') {
+			}
+			else if (typeof value === 'string') {
 				const object = JSON.parse(value);
 
 				fileEntryTitle = object.title;
@@ -157,7 +158,8 @@ class DocumentLibrary extends Component {
 				fieldInstance: this,
 				originalEvent: event
 			});
-		} else {
+		}
+		else {
 			this.emit('fieldBlurred', {
 				fieldInstance: this,
 				originalEvent: event

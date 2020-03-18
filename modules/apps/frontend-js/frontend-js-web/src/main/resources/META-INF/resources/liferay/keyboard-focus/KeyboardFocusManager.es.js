@@ -80,6 +80,7 @@ class KeyboardFocusManager extends EventEmitter {
 			ref = this.buildRef_(prefix, position);
 			element = this.component_.refs[ref];
 		} while (this.isFocusable_(element) && position !== initialPosition);
+
 		return element ? ref : null;
 	}
 
@@ -154,10 +155,12 @@ class KeyboardFocusManager extends EventEmitter {
 		if (core.isNumber(size)) {
 			if (position < 0) {
 				position = size - 1;
-			} else if (position >= size) {
+			}
+			else if (position >= size) {
 				position = 0;
 			}
 		}
+
 		return position;
 	}
 
@@ -180,6 +183,7 @@ class KeyboardFocusManager extends EventEmitter {
 	 */
 	setCircularLength(circularLength) {
 		this.circularLength_ = circularLength;
+
 		return this;
 	}
 
@@ -198,6 +202,7 @@ class KeyboardFocusManager extends EventEmitter {
 	 */
 	setFocusHandler(focusHandler) {
 		this.focusHandler_ = focusHandler;
+
 		return this;
 	}
 
@@ -213,6 +218,7 @@ class KeyboardFocusManager extends EventEmitter {
 				this.handleKey_
 			);
 		}
+
 		return this;
 	}
 
@@ -225,6 +231,7 @@ class KeyboardFocusManager extends EventEmitter {
 			this.handle_.removeListener();
 			this.handle_ = null;
 		}
+
 		return this;
 	}
 }

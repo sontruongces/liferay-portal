@@ -232,7 +232,8 @@ AUI.add(
 							instance,
 							arguments
 						);
-					} else {
+					}
+					else {
 						colorPicker.show();
 					}
 				},
@@ -470,7 +471,8 @@ AUI.add(
 
 					if (button) {
 						button.focus();
-					} else {
+					}
+					else {
 						DLFileEntryCellEditor.superclass._syncElementsFocus.apply(
 							instance,
 							arguments
@@ -506,7 +508,8 @@ AUI.add(
 
 							instance._syncFileLabel(fileEntry.title, url);
 						});
-					} else {
+					}
+					else {
 						instance._syncFileLabel(STR_BLANK, STR_BLANK);
 
 						val = STR_BLANK;
@@ -673,7 +676,8 @@ AUI.add(
 							val.classPK;
 
 						instance._syncJournalArticleLabel(title);
-					} else {
+					}
+					else {
 						instance._syncJournalArticleLabel(STR_BLANK);
 					}
 				},
@@ -690,7 +694,8 @@ AUI.add(
 					if (Lang.isString(value)) {
 						if (value !== '') {
 							value = JSON.parse(value);
-						} else {
+						}
+						else {
 							value = {};
 						}
 					}
@@ -705,7 +710,8 @@ AUI.add(
 
 					if (!parsedValue.className && !parsedValue.classPK) {
 						value = '';
-					} else {
+					}
+					else {
 						value = JSON.stringify(parsedValue);
 					}
 
@@ -1012,7 +1018,8 @@ AUI.add(
 
 			if (attributeName === 'options') {
 				instance._updateLocalizationMapOptions(locale);
-			} else {
+			}
+			else {
 				var localizationMap = instance.get('localizationMap');
 
 				var localeMap = localizationMap[locale] || {};
@@ -1063,7 +1070,8 @@ AUI.add(
 					) {
 						instance._addDefinitionFieldOptions(fieldJSON);
 					}
-				} else {
+				}
+				else {
 					fieldJSON[attr] = instance._getLocalizedValue(attr);
 				}
 			});
@@ -1568,7 +1576,8 @@ AUI.add(
 
 								return label;
 							};
-						} else if (attributeName === 'type') {
+						}
+						else if (attributeName === 'type') {
 							item.formatter = instance._defaultFormatter;
 						}
 					});

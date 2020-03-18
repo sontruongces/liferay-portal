@@ -43,11 +43,11 @@ import {
 } from '../../utils/FragmentsEditorGetUtils.es';
 import {setIn} from '../../utils/FragmentsEditorUpdateUtils.es';
 import {
+	CREATE_PROCESSOR_EVENT_TYPES,
 	EDITABLE_FIELD_CONFIG_KEYS,
 	EDITABLE_FRAGMENT_ENTRY_PROCESSOR,
 	FLOATING_TOOLBAR_BUTTONS,
-	FRAGMENTS_EDITOR_ITEM_TYPES,
-	CREATE_PROCESSOR_EVENT_TYPES
+	FRAGMENTS_EDITOR_ITEM_TYPES
 } from '../../utils/constants';
 import debouncedAlert from '../../utils/debouncedAlert.es';
 import {prefixSegmentsExperienceId} from '../../utils/prefixSegmentsExperienceId.es';
@@ -204,7 +204,8 @@ class FragmentEditableField extends PortletBase {
 			this._createFloatingToolbar();
 
 			this.element.addEventListener(eventName, this._createProcessor);
-		} else {
+		}
+		else {
 			this._disposeFloatingToolbar();
 			this._destroyProcessors();
 
@@ -250,7 +251,8 @@ class FragmentEditableField extends PortletBase {
 			this._mappedItemHovered =
 				this.editableValues.classNameId === classNameId &&
 				this.editableValues.classPK === classPK;
-		} else {
+		}
+		else {
 			this._mappedItemHovered = false;
 		}
 	}
@@ -311,7 +313,8 @@ class FragmentEditableField extends PortletBase {
 
 		if (this._floatingToolbar) {
 			this._floatingToolbar.setState(config);
-		} else {
+		}
+		else {
 			this._floatingToolbar = new FloatingToolbar(config);
 		}
 	}
@@ -490,7 +493,8 @@ class FragmentEditableField extends PortletBase {
 
 			mappedFieldId = this.editableValues.mappedField;
 			promise = this.fetch(this.mappingFieldsURL, data);
-		} else if (
+		}
+		else if (
 			this.editableValues.classNameId &&
 			this.editableValues.classPK &&
 			this.editableValues.fieldId &&
@@ -543,7 +547,8 @@ class FragmentEditableField extends PortletBase {
 							typeof fieldValue.url === 'string'
 						) {
 							this._mappedFieldValue = fieldValue.url;
-						} else {
+						}
+						else {
 							this._mappedFieldValue = fieldValue;
 						}
 					}

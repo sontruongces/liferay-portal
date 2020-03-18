@@ -72,10 +72,7 @@ const createStore = function(initialState, reducer, componentIds = []) {
 		Liferay.componentReady(componentId).then(component => {
 			component.store = store;
 
-			connect(
-				component,
-				store
-			);
+			connect(component, store);
 		});
 	});
 
@@ -152,7 +149,8 @@ class Store extends State {
 			this._dispatchPromise = this._dispatchPromise.then(() =>
 				Promise.resolve(action(this.dispatch, this.getState))
 			);
-		} else {
+		}
+		else {
 			this._dispatchPromise = this._dispatchPromise
 				.then(() => this._reducer(this._state, action))
 				.then(nextState => {

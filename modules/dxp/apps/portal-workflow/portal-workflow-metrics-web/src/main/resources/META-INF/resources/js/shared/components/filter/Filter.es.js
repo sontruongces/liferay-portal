@@ -18,8 +18,8 @@ import FilterItem from './FilterItem.es';
 import FilterSearch from './FilterSearch.es';
 import {
 	addClickOutsideListener,
-	removeClickOutsideListener,
-	handleClickOutside
+	handleClickOutside,
+	removeClickOutsideListener
 } from './util/filterEvents.es';
 import {getSelectedItemsQuery, pushToHistory} from './util/filterUtil.es';
 

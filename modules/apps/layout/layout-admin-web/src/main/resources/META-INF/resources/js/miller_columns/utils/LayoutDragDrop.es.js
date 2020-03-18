@@ -98,7 +98,8 @@ class LayoutDragDrop extends State {
 				targetId = targetItem.dataset.layoutColumnIndex;
 				targetId = targetId === '0' ? null : targetId;
 				targetType = DROP_TARGET_ITEM_TYPES.column;
-			} else if (targetItem.dataset.layoutColumnItemPlid) {
+			}
+			else if (targetItem.dataset.layoutColumnItemPlid) {
 				targetId = targetItem.dataset.layoutColumnItemPlid;
 				targetType = DROP_TARGET_ITEM_TYPES.item;
 
@@ -110,12 +111,14 @@ class LayoutDragDrop extends State {
 					)
 				) {
 					this._draggingItemPosition = DROP_TARGET_BORDERS.inside;
-				} else if (
+				}
+				else if (
 					Math.abs(mouseY - targetItemRegion.top) <=
 					Math.abs(mouseY - targetItemRegion.bottom)
 				) {
 					this._draggingItemPosition = DROP_TARGET_BORDERS.top;
-				} else {
+				}
+				else {
 					this._draggingItemPosition = DROP_TARGET_BORDERS.bottom;
 				}
 			}
@@ -175,7 +178,8 @@ class LayoutDragDrop extends State {
 				targetId = data.target.dataset.layoutColumnIndex;
 				targetId = targetId === '0' ? null : targetId;
 				targetType = DROP_TARGET_ITEM_TYPES.column;
-			} else if (data.target.dataset.layoutColumnItemPlid) {
+			}
+			else if (data.target.dataset.layoutColumnItemPlid) {
 				targetId = data.target.dataset.layoutColumnItemPlid;
 				targetType = DROP_TARGET_ITEM_TYPES.item;
 			}

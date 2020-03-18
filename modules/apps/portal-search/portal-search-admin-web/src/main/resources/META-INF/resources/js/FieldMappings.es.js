@@ -90,7 +90,8 @@ class FieldMappings extends PortletBase {
 			event.currentTarget.dataset.title = Liferay.Language.get(
 				'light-theme'
 			);
-		} else {
+		}
+		else {
 			event.currentTarget.dataset.title = Liferay.Language.get(
 				'dark-theme'
 			);

@@ -226,7 +226,8 @@ export default Component => {
 					Liferay.fire('ddmFormSubmit', {
 						formId: this.getFormId()
 					});
-				} else {
+				}
+				else {
 					this.dispatch('pageValidationFailed', this.activePage);
 				}
 			});

@@ -80,7 +80,8 @@ class Sharing extends PortletBase {
 				score: 0,
 				value: element
 			}));
-		} else {
+		}
+		else {
 			e.target.filteredItems = [];
 		}
 
@@ -141,7 +142,8 @@ class Sharing extends PortletBase {
 			);
 			this._inputValue = itemAdded;
 			this._userEmailAddresses.pop();
-		} else {
+		}
+		else {
 			this.fetch(this.sharingVerifyEmailAddressURL, {
 				emailAddress: itemAdded
 			})

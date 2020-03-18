@@ -14,16 +14,16 @@
 
 import '../FieldBase/FieldBase.es';
 
-import './TextRegister.soy.js';
+import './TextRegister.soy';
 
 import 'clay-autocomplete';
-import {debounce, cancelDebounce} from 'frontend-js-web';
+import {cancelDebounce, debounce} from 'frontend-js-web';
 import Component from 'metal-component';
 import dom from 'metal-dom';
 import Soy from 'metal-soy';
 import {Config} from 'metal-state';
 
-import templates from './Text.soy.js';
+import templates from './Text.soy';
 
 class Text extends Component {
 	created() {

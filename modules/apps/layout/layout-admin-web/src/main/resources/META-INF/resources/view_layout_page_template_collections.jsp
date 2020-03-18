@@ -211,7 +211,8 @@ List<LayoutPageTemplateCollection> layoutPageTemplateCollections = layoutPageTem
 
 				if (event.data && event.data.item) {
 					itemData = event.data.item.data;
-				} else if (!event.data && facade && facade.target) {
+				}
+				else if (!event.data && facade && facade.target) {
 					itemData = facade.target.data;
 				}
 

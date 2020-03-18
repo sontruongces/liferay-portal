@@ -56,7 +56,8 @@ class SegmentsExperienceSelectorModal extends Component {
 				nameInput.value,
 				segmentIdInput.value
 			);
-		} else if (!validName) {
+		}
+		else if (!validName) {
 			this.setState({
 				_requiredNameError: true
 			});

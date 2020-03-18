@@ -32,7 +32,8 @@ function createSetValueReducer(keyPath) {
 
 		if ('value' in action) {
 			nextState = setIn(nextState, path, action.value);
-		} else {
+		}
+		else {
 			nextState = deleteIn(nextState, path);
 		}
 

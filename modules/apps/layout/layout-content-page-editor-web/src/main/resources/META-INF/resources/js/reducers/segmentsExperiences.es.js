@@ -49,6 +49,7 @@ function _storeNewLayoutData(state, segmentsExperienceId, layoutData) {
 		layoutData,
 		segmentsExperienceId
 	});
+
 	return nextState;
 }
 
@@ -79,7 +80,8 @@ function _switchLayoutDataList(state, segmentsExperienceId) {
 
 					if (segmentsExperienceId === prevSegmentsExperienceId) {
 						layoutData = nextState.layoutData;
-					} else {
+					}
+					else {
 						const layoutDataItem = nextState.layoutDataList.find(
 							segmentedLayout => {
 								return (
@@ -116,7 +118,8 @@ function _switchLayoutDataList(state, segmentsExperienceId) {
 				.catch(error => {
 					reject(error);
 				});
-		} catch (e) {
+		}
+		catch (e) {
 			reject(e);
 		}
 	});
@@ -241,7 +244,10 @@ function createSegmentsExperienceReducer(state, action) {
 			segmentsEntryId
 		})
 			.then(objectResponse => {
-				if (objectResponse.error) throw objectResponse.error;
+				if (objectResponse.error) {
+					throw objectResponse.error;
+				}
+
 				return objectResponse;
 			})
 			.then(function _success({
@@ -428,7 +434,8 @@ function deleteSegmentsExperienceReducer(state, action) {
 				.catch(error => {
 					reject(error);
 				});
-		} catch (e) {
+		}
+		catch (e) {
 			reject(e);
 		}
 	});

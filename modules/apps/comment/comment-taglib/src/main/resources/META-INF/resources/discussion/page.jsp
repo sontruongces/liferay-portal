@@ -328,7 +328,8 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 						title: '<%= UnicodeLanguageUtil.get(resourceBundle, "sign-in") %>',
 						uri: '<%= loginURL.toString() %>'
 					});
-				} else {
+				}
+				else {
 					<%= namespace + randomNamespace %>sendMessage(form);
 
 					editorInstance.dispose();
@@ -369,7 +370,8 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 								contentType.indexOf('application/json') !== -1
 							) {
 								promise = response.json();
-							} else {
+							}
+							else {
 								promise = response.text();
 							}
 
@@ -393,7 +395,8 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 									'<%= portletDisplay.getId() %>:messagePosted',
 									response
 								);
-							} else {
+							}
+							else {
 								var errorKey =
 									'<%= UnicodeLanguageUtil.get(resourceBundle, "your-request-failed-to-complete") %>';
 
@@ -402,18 +405,22 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 								) {
 									errorKey =
 										'<%= UnicodeLanguageUtil.get(resourceBundle, "maximum-number-of-comments-has-been-reached") %>';
-								} else if (exception.indexOf('MessageBodyException') > -1) {
+								}
+								else if (exception.indexOf('MessageBodyException') > -1) {
 									errorKey =
 										'<%= UnicodeLanguageUtil.get(resourceBundle, "please-enter-a-valid-message") %>';
-								} else if (
+								}
+								else if (
 									exception.indexOf('NoSuchMessageException') > -1
 								) {
 									errorKey =
 										'<%= UnicodeLanguageUtil.get(resourceBundle, "the-message-could-not-be-found") %>';
-								} else if (exception.indexOf('PrincipalException') > -1) {
+								}
+								else if (exception.indexOf('PrincipalException') > -1) {
 									errorKey =
 										'<%= UnicodeLanguageUtil.get(resourceBundle, "you-do-not-have-the-required-permissions") %>';
-								} else if (
+								}
+								else if (
 									exception.indexOf('RequiredMessageException') > -1
 								) {
 									errorKey =
@@ -736,7 +743,8 @@ StagingGroupHelper stagingGroupHelper = StagingGroupHelperUtil.getStagingGroupHe
 
 				if (refreshPage) {
 					window.location.reload();
-				} else {
+				}
+				else {
 					var portletNodeId = '#p_p_id_<%= portletDisplay.getId() %>_';
 
 					var portletNode = A.one(portletNodeId);

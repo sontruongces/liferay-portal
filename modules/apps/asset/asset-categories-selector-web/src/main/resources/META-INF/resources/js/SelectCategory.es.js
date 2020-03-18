@@ -90,7 +90,8 @@ class SelectCategory extends PortletBase {
 	_searchNodes(event) {
 		if (!this.originalNodes) {
 			this.originalNodes = this.nodes;
-		} else {
+		}
+		else {
 			this.nodes = this.originalNodes;
 		}
 
@@ -99,7 +100,8 @@ class SelectCategory extends PortletBase {
 		if (filterValue !== '') {
 			this.viewType = 'flat';
 			this.nodes = this.filterSiblingNodes_(this.nodes, filterValue);
-		} else {
+		}
+		else {
 			this.viewType = 'tree';
 		}
 	}

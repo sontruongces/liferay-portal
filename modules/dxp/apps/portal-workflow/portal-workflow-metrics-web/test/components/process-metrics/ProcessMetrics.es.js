@@ -73,7 +73,10 @@ test('Should render component with failure state', () => {
 test('Should render dashboard route children', () => {
 	const component = mount(
 		<Router client={fetch({data: {}})}>
-			{withParams(PendingItemsCard, WorkloadByStepCard)({
+			{withParams(
+				PendingItemsCard,
+				WorkloadByStepCard
+			)({
 				location: {
 					search: ''
 				},

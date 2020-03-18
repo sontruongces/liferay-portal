@@ -71,7 +71,8 @@ class ItemSelectorField extends Component {
 			);
 
 			this.availableTemplates = itemType.availableTemplates;
-		} else {
+		}
+		else {
 			this.availableTemplates = [];
 		}
 	}

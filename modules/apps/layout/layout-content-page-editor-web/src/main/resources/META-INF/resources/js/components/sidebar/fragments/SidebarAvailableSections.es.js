@@ -105,7 +105,8 @@ class SidebarAvailableSections extends Component {
 			if (targetIsFragment) {
 				dropTargetItemId = data.fragmentEntryLinkId;
 				dropTargetItemType = FRAGMENTS_EDITOR_ITEM_TYPES.fragment;
-			} else if (targetIsRow) {
+			}
+			else if (targetIsRow) {
 				dropTargetItemId = data.layoutRowId;
 				dropTargetItemType = FRAGMENTS_EDITOR_ITEM_TYPES.row;
 			}

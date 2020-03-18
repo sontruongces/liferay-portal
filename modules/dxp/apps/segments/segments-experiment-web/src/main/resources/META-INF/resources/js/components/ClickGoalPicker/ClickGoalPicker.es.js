@@ -19,13 +19,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {getInitialState, reducer, StateContext} from './reducer.es';
+import {StateContext, getInitialState, reducer} from './reducer.es';
 import {
 	GeometryType,
-	getTargetableElements,
-	stopImmediatePropagation,
+	getElementGeometry,
 	getRootElementGeometry,
-	getElementGeometry
+	getTargetableElements,
+	stopImmediatePropagation
 } from './utils.es';
 
 const {
@@ -89,6 +89,7 @@ function ClickGoalPicker({allowEdit = true, onSelectClickGoalTarget, target}) {
 			'Cannot render <SegmentsExperimentsClickGoal /> without #content element',
 			document.querySelectorAll('section').length
 		);
+
 		return null;
 	}
 
@@ -305,8 +306,13 @@ function Overlay({allowEdit, root, targetableElements}) {
 		<div className="lfr-segments-experiment-click-goal-root">
 			{targetableElements
 				.filter(element => {
-					if (allowEdit === true) return true;
-					if ('#' + element.id === selectedTarget) return true;
+					if (allowEdit === true) {
+						return true;
+					}
+					if ('#' + element.id === selectedTarget) {
+						return true;
+					}
+
 					return false;
 				})
 				.map(element => {

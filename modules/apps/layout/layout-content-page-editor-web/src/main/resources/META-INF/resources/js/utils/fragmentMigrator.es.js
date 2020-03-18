@@ -32,6 +32,7 @@ function _editableFragmentMigrator(object, defaultSegmentsExperienceKey) {
 			defaultValue: object.defaultValue
 		};
 	}
+
 	return alternativeObject || object;
 }
 
@@ -45,7 +46,8 @@ function editableValuesMigrator(editableValue, defaultSegmentsExperienceKey) {
 
 	if (!defaultSegmentsExperienceKey) {
 		result = jsonEditableValues;
-	} else {
+	}
+	else {
 		result = {
 			[EDITABLE_FRAGMENT_ENTRY_PROCESSOR]: {}
 		};
@@ -62,6 +64,7 @@ function editableValuesMigrator(editableValue, defaultSegmentsExperienceKey) {
 			);
 		});
 	}
+
 	return result;
 }
 

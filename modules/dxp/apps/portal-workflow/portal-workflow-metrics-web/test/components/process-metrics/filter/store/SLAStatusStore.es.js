@@ -14,10 +14,10 @@ import React, {useContext} from 'react';
 import {act, create} from 'react-test-renderer';
 
 import {
-	slaStatusConstants,
-	useSLAStatus,
+	SLAStatusContext,
 	SLAStatusProvider,
-	SLAStatusContext
+	slaStatusConstants,
+	useSLAStatus
 } from '../../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/SLAStatusStore.es';
 
 describe('The selected SLA statuses should', () => {

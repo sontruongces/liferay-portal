@@ -17,7 +17,7 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import StoreContext from './StoreContext.es';
 import INITIAL_STATE from './state.es';
-import {connect, disconnect, Store} from './store.es';
+import {Store, connect, disconnect} from './store.es';
 
 /**
  * HOC that returns a component that connects automatically
@@ -47,10 +47,7 @@ const getConnectedComponent = (Component, properties) => {
 					disconnect(this);
 
 					if (newStore instanceof Store) {
-						connect(
-							this,
-							newStore
-						);
+						connect(this, newStore);
 					}
 				}
 			});
@@ -60,10 +57,7 @@ const getConnectedComponent = (Component, properties) => {
 			});
 
 			if (props.store instanceof Store) {
-				connect(
-					this,
-					props.store
-				);
+				connect(this, props.store);
 			}
 		}
 	}
@@ -80,7 +74,8 @@ const getConnectedComponent = (Component, properties) => {
 			ConnectedComponent.STATE[property] = INITIAL_STATE[
 				property
 			].internal();
-		} catch (e) {
+		}
+		catch (e) {
 			throw new Error(
 				`${property} is not available from ${Component.name}`
 			);

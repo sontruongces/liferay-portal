@@ -115,7 +115,8 @@ function openSimpleInputModal({
 			navigate(serverResponseContent.redirectURL, {
 				beforeScreenFlip: handleSimpleInputModalDisposal.bind(this)
 			});
-		} else {
+		}
+		else {
 			handleSimpleInputModalDisposal();
 		}
 	}

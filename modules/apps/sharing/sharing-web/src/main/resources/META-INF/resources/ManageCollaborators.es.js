@@ -55,6 +55,7 @@ class ManageCollaborators extends PortletBase {
 	 */
 	_checkExpirationDate(expirationDate) {
 		const date = new Date(expirationDate);
+
 		return date >= new Date(this._tomorrowDate);
 	}
 

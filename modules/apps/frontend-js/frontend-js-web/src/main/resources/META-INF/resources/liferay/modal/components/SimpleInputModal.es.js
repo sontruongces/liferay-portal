@@ -62,7 +62,8 @@ class SimpleInputModal extends PortletBase {
 				if (responseContent.error) {
 					this._loadingResponse = false;
 					this._handleFormError(responseContent);
-				} else {
+				}
+				else {
 					this._handleFormSuccess(responseContent);
 				}
 			})

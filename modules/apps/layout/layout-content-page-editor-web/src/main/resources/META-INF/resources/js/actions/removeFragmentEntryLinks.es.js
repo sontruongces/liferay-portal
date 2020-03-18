@@ -13,8 +13,8 @@
  */
 
 import {
-	removeFragmentEntryLinks,
-	removeExperience
+	removeExperience,
+	removeFragmentEntryLinks
 } from '../utils/FragmentsEditorFetchUtils.es';
 import {containsFragmentEntryLinkId} from '../utils/LayoutDataList.es';
 import {REMOVE_FRAGMENT_ENTRY_LINK} from './actions.es';
@@ -63,7 +63,8 @@ function removeFragmentEntryLinkAction(fragmentEntryLinkId) {
 
 		if (!fragmentEntryLinkIsUsedInOtherExperience) {
 			dispatch(removeFragmentEntryLinksAction([fragmentEntryLinkId]));
-		} else {
+		}
+		else {
 			removeExperience(
 				state.segmentsExperienceId,
 				[fragmentEntryLinkId],

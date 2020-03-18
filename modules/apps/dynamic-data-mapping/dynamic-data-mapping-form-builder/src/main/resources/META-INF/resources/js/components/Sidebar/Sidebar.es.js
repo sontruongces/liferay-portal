@@ -33,7 +33,7 @@ import {
 	getFieldProperties,
 	normalizeSettingsContextPages
 } from '../../util/fieldSupport.es';
-import FieldTypeBox from '../FieldTypeBox/FieldTypeBox.es.js';
+import FieldTypeBox from '../FieldTypeBox/FieldTypeBox.es';
 
 /**
  * Sidebar is a tooling to mount forms.
@@ -472,6 +472,7 @@ class Sidebar extends Component {
 		Object.keys(transitionEndEvents).some(name => {
 			if (el.style[name] !== undefined) {
 				eventName = transitionEndEvents[name];
+
 				return true;
 			}
 		});
@@ -514,8 +515,8 @@ class Sidebar extends Component {
 		if (
 			this._isCloseButton(target) ||
 			(open &&
-				(!this._isSidebarElement(target) &&
-					!this._isTranslationItem(target)))
+				!this._isSidebarElement(target) &&
+					!this._isTranslationItem(target))
 		) {
 			this.close();
 
@@ -551,7 +552,8 @@ class Sidebar extends Component {
 					indexes
 				});
 			});
-		} else {
+		}
+		else {
 			const fieldType = fieldTypes.find(({name}) => {
 				return name === data.source.dataset.fieldTypeName;
 			});
@@ -603,9 +605,11 @@ class Sidebar extends Component {
 		if (!item.disabled) {
 			if (settingsItem === 'duplicate-field') {
 				this._duplicateField(indexes);
-			} else if (settingsItem === 'delete-field') {
+			}
+			else if (settingsItem === 'delete-field') {
 				this._deleteField(indexes);
-			} else if (settingsItem === 'cancel-field-changes') {
+			}
+			else if (settingsItem === 'cancel-field-changes') {
 				this._cancelFieldChanges(indexes);
 			}
 		}
@@ -796,7 +800,8 @@ class Sidebar extends Component {
 
 		if (groups.length > 0) {
 			elementSetsArea = this._renderElementSetsGroups(groups);
-		} else {
+		}
+		else {
 			elementSetsArea = this._renderEmptyElementSets();
 		}
 
@@ -805,6 +810,7 @@ class Sidebar extends Component {
 
 	_renderElementSetsGroups(groups) {
 		const {fieldSets, spritemap} = this.props;
+
 		return (
 			<div
 				aria-orientation="vertical"

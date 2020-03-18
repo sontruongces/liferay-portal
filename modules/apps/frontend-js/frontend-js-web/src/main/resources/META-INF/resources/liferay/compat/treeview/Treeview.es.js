@@ -61,6 +61,7 @@ class Treeview extends Component {
 		for (var i = 1; i < path.length; i++) {
 			obj = obj.children[path[i]];
 		}
+
 		return obj;
 	}
 
@@ -101,8 +102,10 @@ class Treeview extends Component {
 		if (obj.expanded) {
 			obj.expanded = false;
 			this.nodes = this.nodes;
-		} else if (path.length > 1) {
+		}
+		else if (path.length > 1) {
 			path.pop();
+
 			return Treeview.NODE_REF_PREFIX + path.join('-');
 		}
 	}
@@ -168,8 +171,10 @@ class Treeview extends Component {
 	handleRightArrow_(path, obj) {
 		if (obj.expanded) {
 			path.push(0);
+
 			return Treeview.NODE_REF_PREFIX + path.join('-');
-		} else if (obj.children) {
+		}
+		else if (obj.children) {
 			obj.expanded = true;
 			this.nodes = this.nodes;
 		}

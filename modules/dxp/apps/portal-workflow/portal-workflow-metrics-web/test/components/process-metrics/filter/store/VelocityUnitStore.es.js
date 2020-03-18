@@ -15,10 +15,10 @@ import {create} from 'react-test-renderer';
 
 import {TimeRangeContext} from '../../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/TimeRangeStore.es';
 import {
-	velocityUnitConstants,
-	useVelocityUnit,
+	VelocityUnitContext,
 	VelocityUnitProvider,
-	VelocityUnitContext
+	useVelocityUnit,
+	velocityUnitConstants
 } from '../../../../../src/main/resources/META-INF/resources/js/components/process-metrics/filter/store/VelocityUnitStore.es';
 
 describe.skip('The default Velocity Unit should', () => {

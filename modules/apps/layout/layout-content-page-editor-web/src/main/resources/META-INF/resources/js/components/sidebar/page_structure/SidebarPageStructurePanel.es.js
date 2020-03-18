@@ -26,10 +26,10 @@ import {
 } from '../../../utils/FragmentsEditorGetUtils.es';
 import {removeItem, setIn} from '../../../utils/FragmentsEditorUpdateUtils.es';
 import {
+	BACKGROUND_IMAGE_FRAGMENT_ENTRY_PROCESSOR,
 	EDITABLE_FRAGMENT_ENTRY_PROCESSOR,
 	FRAGMENTS_EDITOR_ITEM_TYPES,
-	FRAGMENTS_EDITOR_ROW_TYPES,
-	BACKGROUND_IMAGE_FRAGMENT_ENTRY_PROCESSOR
+	FRAGMENTS_EDITOR_ROW_TYPES
 } from '../../../utils/constants';
 import templates from './SidebarPageStructurePanel.soy';
 
@@ -264,7 +264,8 @@ class SidebarPageStructurePanel extends Component {
 
 			if (nodeKeyIndex === -1) {
 				this._expandedNodes.push(nodeKey);
-			} else {
+			}
+			else {
 				this._expandedNodes.splice(nodeKeyIndex, 1);
 			}
 
@@ -296,7 +297,8 @@ class SidebarPageStructurePanel extends Component {
 
 		if (itemType === FRAGMENTS_EDITOR_ITEM_TYPES.row) {
 			removeItemAction = removeRowAction(itemId);
-		} else if (itemType === FRAGMENTS_EDITOR_ITEM_TYPES.fragment) {
+		}
+		else if (itemType === FRAGMENTS_EDITOR_ITEM_TYPES.fragment) {
 			removeItemAction = removeFragmentEntryLinkAction(itemId);
 		}
 

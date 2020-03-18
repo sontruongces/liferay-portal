@@ -31,7 +31,8 @@ const ResolveButton = props => {
 
 	if (props.loading) {
 		icon = <Loader />;
-	} else if (props.resolved) {
+	}
+	else if (props.resolved) {
 		icon = (
 			<span
 				className="lfr-portal-tooltip text-lowercase text-success"

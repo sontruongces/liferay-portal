@@ -202,7 +202,8 @@ class SoyPortletRouter extends State {
 			if (config.path(utils.getCurrentBrowserPath())) {
 				config.data = this.context;
 			}
-		} catch (e) {}
+		}
+		catch (e) {}
 
 		return new Router(config, this.portletWrapper);
 	}
@@ -293,9 +294,7 @@ class SoyPortletRouter extends State {
 		let pathFunctionForOverriddenParameters_;
 
 		if (overriddenParameters['pattern-metal-router']) {
-			const url = `(.*)/${this.friendlyURLMapping}${
-				overriddenParameters['pattern-metal-router']
-			}`;
+			const url = `(.*)/${this.friendlyURLMapping}${overriddenParameters['pattern-metal-router']}`;
 
 			const regex = toRegex(url);
 
@@ -525,7 +524,8 @@ class SoyPortletRouter extends State {
 			(event.error.requestError || event.error.invalidStatus)
 		) {
 			window.location.href = event.path;
-		} else {
+		}
+		else {
 			const activeState = Router.getActiveState();
 
 			if (activeState) {

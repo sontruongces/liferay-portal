@@ -9,7 +9,7 @@
  * distribution rights of the Software.
  */
 
-import React, {createContext, useState, useContext} from 'react';
+import React, {createContext, useContext, useState} from 'react';
 
 import ReloadButton from '../list/ReloadButton.es';
 

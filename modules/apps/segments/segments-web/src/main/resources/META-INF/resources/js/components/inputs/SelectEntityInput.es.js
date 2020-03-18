@@ -71,7 +71,8 @@ class SelectEntityInput extends React.Component {
 
 				itemSelectorDialog.open();
 			});
-		} else {
+		}
+		else {
 			Liferay.Util.selectEntity(
 				{
 					dialog: {

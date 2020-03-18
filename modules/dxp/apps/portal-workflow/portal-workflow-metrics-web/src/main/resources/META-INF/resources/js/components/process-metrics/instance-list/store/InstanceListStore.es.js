@@ -115,6 +115,7 @@ const useInstanceListData = (page, pageSize, processId, query) => {
 		return client.get(getInstancesRequestURL()).then(({data}) => {
 			setItems(data.items);
 			setTotalCount(data.totalCount);
+
 			return data;
 		});
 	};

@@ -9,7 +9,7 @@
  * distribution rights of the Software.
  */
 
-import React, {useState, createContext, useContext} from 'react';
+import React, {createContext, useContext, useState} from 'react';
 
 import LoadingState from '../loading/LoadingState.es';
 

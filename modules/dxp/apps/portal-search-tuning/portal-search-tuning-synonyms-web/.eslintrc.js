@@ -9,6 +9,4 @@
  * distribution rights of the Software.
  */
 
-module.exports = {
-	extends: ['liferay/react']
-};
+module.exports = {};

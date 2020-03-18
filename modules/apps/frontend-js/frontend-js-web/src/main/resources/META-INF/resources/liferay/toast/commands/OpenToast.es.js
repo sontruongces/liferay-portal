@@ -44,7 +44,8 @@ function openToast({
 			'alert-notifications alert-notifications-fixed'
 		);
 		dom.enterDocument(alertContainer);
-	} else {
+	}
+	else {
 		dom.removeChildren(alertContainer);
 	}
 

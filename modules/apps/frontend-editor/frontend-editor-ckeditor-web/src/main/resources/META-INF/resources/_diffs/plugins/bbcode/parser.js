@@ -108,7 +108,8 @@
 			if (token) {
 				if (isString(token)) {
 					tagName = token;
-				} else {
+				}
+				else {
 					tagName = token[3];
 				}
 
@@ -231,17 +232,19 @@
 						while (
 							(token = lexer.getNextToken()) &&
 							token[3] != STR_TAG_CODE
-						);
+						) {}
 
 						instance._handleData(token, data);
 
 						if (token) {
 							instance._handleTagEnd(token);
-						} else {
+						}
+						else {
 							break;
 						}
 					}
-				} else {
+				}
+				else {
 					instance._handleTagEnd(token);
 				}
 			}

@@ -39,7 +39,8 @@ export default (props, state, {addedToPlaceholder, source, target}) => {
 			target.pageIndex,
 			newRow
 		);
-	} else {
+	}
+	else {
 		pages = FormSupport.addFieldToColumn(
 			pages,
 			target.pageIndex,

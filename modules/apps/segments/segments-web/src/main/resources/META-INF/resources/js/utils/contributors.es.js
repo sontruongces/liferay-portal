@@ -136,5 +136,6 @@ export function applyConjunctionChangeToContributor(contributors) {
 		...contributor,
 		conjunctionId: conjunctionSelected
 	}));
+
 	return nextContributors;
 }
