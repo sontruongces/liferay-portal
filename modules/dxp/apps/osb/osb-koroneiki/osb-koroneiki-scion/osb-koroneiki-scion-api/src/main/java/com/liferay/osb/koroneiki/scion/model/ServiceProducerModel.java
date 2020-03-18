@@ -36,7 +36,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ServiceProducerModel
 	extends BaseModel<ServiceProducer>, MVCCModel, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a service producer model instance should use the {@link ServiceProducer} interface instead.

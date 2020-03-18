@@ -65,7 +65,7 @@ public abstract class ServiceProducerLocalServiceBaseImpl
 	implements AopService, IdentifiableOSGiService,
 			   ServiceProducerLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ServiceProducerLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.scion.service.ServiceProducerLocalServiceUtil</code>.
@@ -117,11 +117,13 @@ public abstract class ServiceProducerLocalServiceBaseImpl
 	 *
 	 * @param serviceProducer the service producer
 	 * @return the service producer that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public ServiceProducer deleteServiceProducer(
-		ServiceProducer serviceProducer) {
+			ServiceProducer serviceProducer)
+		throws PortalException {
 
 		return serviceProducerPersistence.remove(serviceProducer);
 	}
@@ -300,6 +302,9 @@ public abstract class ServiceProducerLocalServiceBaseImpl
 			(ServiceProducer)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
@@ -414,8 +419,8 @@ public abstract class ServiceProducerLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

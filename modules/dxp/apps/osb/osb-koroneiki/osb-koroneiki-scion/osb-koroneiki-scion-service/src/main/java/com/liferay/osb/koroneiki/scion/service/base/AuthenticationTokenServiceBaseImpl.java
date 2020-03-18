@@ -47,7 +47,7 @@ public abstract class AuthenticationTokenServiceBaseImpl
 	extends BaseServiceImpl
 	implements AopService, AuthenticationTokenService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AuthenticationTokenService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.scion.service.AuthenticationTokenServiceUtil</code>.
@@ -102,8 +102,8 @@ public abstract class AuthenticationTokenServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

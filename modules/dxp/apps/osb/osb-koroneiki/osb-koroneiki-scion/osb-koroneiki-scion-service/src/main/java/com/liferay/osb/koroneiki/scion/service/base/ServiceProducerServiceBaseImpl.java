@@ -47,7 +47,7 @@ public abstract class ServiceProducerServiceBaseImpl
 	extends BaseServiceImpl
 	implements AopService, IdentifiableOSGiService, ServiceProducerService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ServiceProducerService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.scion.service.ServiceProducerServiceUtil</code>.
@@ -101,8 +101,8 @@ public abstract class ServiceProducerServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

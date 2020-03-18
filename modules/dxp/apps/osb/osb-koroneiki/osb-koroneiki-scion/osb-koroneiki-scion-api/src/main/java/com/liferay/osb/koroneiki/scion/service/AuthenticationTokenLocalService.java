@@ -55,7 +55,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface AuthenticationTokenLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link AuthenticationTokenLocalServiceUtil} to access the authentication token local service. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.AuthenticationTokenLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
@@ -90,10 +90,12 @@ public interface AuthenticationTokenLocalService
 	 *
 	 * @param authenticationToken the authentication token
 	 * @return the authentication token that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public AuthenticationToken deleteAuthenticationToken(
-		AuthenticationToken authenticationToken);
+			AuthenticationToken authenticationToken)
+		throws PortalException;
 
 	/**
 	 * Deletes the authentication token with the primary key from the database. Also notifies the appropriate model listeners.
@@ -243,6 +245,9 @@ public interface AuthenticationTokenLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

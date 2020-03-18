@@ -78,12 +78,14 @@ public class AuthenticationTokenLocalServiceWrapper
 	 *
 	 * @param authenticationToken the authentication token
 	 * @return the authentication token that was removed
+	 * @throws PortalException
 	 */
 	@Override
 	public com.liferay.osb.koroneiki.scion.model.AuthenticationToken
-		deleteAuthenticationToken(
-			com.liferay.osb.koroneiki.scion.model.AuthenticationToken
-				authenticationToken) {
+			deleteAuthenticationToken(
+				com.liferay.osb.koroneiki.scion.model.AuthenticationToken
+					authenticationToken)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _authenticationTokenLocalService.deleteAuthenticationToken(
 			authenticationToken);
@@ -311,6 +313,9 @@ public class AuthenticationTokenLocalServiceWrapper
 		return _authenticationTokenLocalService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

@@ -65,7 +65,7 @@ public abstract class AuthenticationTokenLocalServiceBaseImpl
 	implements AopService, AuthenticationTokenLocalService,
 			   IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AuthenticationTokenLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.scion.service.AuthenticationTokenLocalServiceUtil</code>.
@@ -122,11 +122,13 @@ public abstract class AuthenticationTokenLocalServiceBaseImpl
 	 *
 	 * @param authenticationToken the authentication token
 	 * @return the authentication token that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public AuthenticationToken deleteAuthenticationToken(
-		AuthenticationToken authenticationToken) {
+			AuthenticationToken authenticationToken)
+		throws PortalException {
 
 		return authenticationTokenPersistence.remove(authenticationToken);
 	}
@@ -302,6 +304,9 @@ public abstract class AuthenticationTokenLocalServiceBaseImpl
 			(AuthenticationToken)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
@@ -403,8 +408,8 @@ public abstract class AuthenticationTokenLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

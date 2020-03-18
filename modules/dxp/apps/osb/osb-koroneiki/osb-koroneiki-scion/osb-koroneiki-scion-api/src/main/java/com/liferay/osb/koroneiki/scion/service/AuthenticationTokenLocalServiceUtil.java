@@ -32,7 +32,7 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class AuthenticationTokenLocalServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.AuthenticationTokenLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
@@ -78,11 +78,13 @@ public class AuthenticationTokenLocalServiceUtil {
 	 *
 	 * @param authenticationToken the authentication token
 	 * @return the authentication token that was removed
+	 * @throws PortalException
 	 */
 	public static com.liferay.osb.koroneiki.scion.model.AuthenticationToken
-		deleteAuthenticationToken(
-			com.liferay.osb.koroneiki.scion.model.AuthenticationToken
-				authenticationToken) {
+			deleteAuthenticationToken(
+				com.liferay.osb.koroneiki.scion.model.AuthenticationToken
+					authenticationToken)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteAuthenticationToken(authenticationToken);
 	}
@@ -285,6 +287,9 @@ public class AuthenticationTokenLocalServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	public static com.liferay.portal.kernel.model.PersistedModel
 			getPersistedModel(java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {

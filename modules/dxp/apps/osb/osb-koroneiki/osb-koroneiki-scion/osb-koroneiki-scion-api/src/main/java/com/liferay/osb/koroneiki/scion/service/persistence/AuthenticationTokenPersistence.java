@@ -35,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface AuthenticationTokenPersistence
 	extends BasePersistence<AuthenticationToken> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link AuthenticationTokenUtil} to access the authentication token persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

@@ -32,7 +32,7 @@ import com.liferay.osb.koroneiki.scion.service.ServiceProducerLocalServiceUtil;
 public abstract class ServiceProducerBaseImpl
 	extends ServiceProducerModelImpl implements ServiceProducer {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a service producer model instance should use the <code>ServiceProducer</code> interface instead.

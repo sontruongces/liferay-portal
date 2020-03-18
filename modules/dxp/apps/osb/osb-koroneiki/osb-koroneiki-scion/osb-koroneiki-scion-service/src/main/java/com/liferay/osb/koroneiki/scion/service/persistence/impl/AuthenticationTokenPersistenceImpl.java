@@ -76,7 +76,7 @@ public class AuthenticationTokenPersistenceImpl
 	extends BasePersistenceImpl<AuthenticationToken>
 	implements AuthenticationTokenPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>AuthenticationTokenUtil</code> to access the authentication token persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -211,43 +211,43 @@ public class AuthenticationTokenPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				sb = new StringBundler(3);
 			}
 
-			query.append(_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
+			sb.append(_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
 
-			query.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
+			sb.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
 			else {
-				query.append(AuthenticationTokenModelImpl.ORDER_BY_JPQL);
+				sb.append(AuthenticationTokenModelImpl.ORDER_BY_JPQL);
 			}
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(serviceProducerId);
+				queryPos.add(serviceProducerId);
 
 				list = (List<AuthenticationToken>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -255,12 +255,12 @@ public class AuthenticationTokenPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -292,16 +292,16 @@ public class AuthenticationTokenPersistenceImpl
 			return authenticationToken;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("serviceProducerId=");
-		msg.append(serviceProducerId);
+		sb.append("serviceProducerId=");
+		sb.append(serviceProducerId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchAuthenticationTokenException(msg.toString());
+		throw new NoSuchAuthenticationTokenException(sb.toString());
 	}
 
 	/**
@@ -347,16 +347,16 @@ public class AuthenticationTokenPersistenceImpl
 			return authenticationToken;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler sb = new StringBundler(4);
 
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("serviceProducerId=");
-		msg.append(serviceProducerId);
+		sb.append("serviceProducerId=");
+		sb.append(serviceProducerId);
 
-		msg.append("}");
+		sb.append("}");
 
-		throw new NoSuchAuthenticationTokenException(msg.toString());
+		throw new NoSuchAuthenticationTokenException(sb.toString());
 	}
 
 	/**
@@ -424,8 +424,8 @@ public class AuthenticationTokenPersistenceImpl
 
 			return array;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -438,102 +438,102 @@ public class AuthenticationTokenPersistenceImpl
 		OrderByComparator<AuthenticationToken> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			sb = new StringBundler(3);
 		}
 
-		query.append(_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
+		sb.append(_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
 
-		query.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
+		sb.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
-			query.append(AuthenticationTokenModelImpl.ORDER_BY_JPQL);
+			sb.append(AuthenticationTokenModelImpl.ORDER_BY_JPQL);
 		}
 
-		String sql = query.toString();
+		String sql = sb.toString();
 
-		Query q = session.createQuery(sql);
+		Query query = session.createQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(query);
 
-		qPos.add(serviceProducerId);
+		queryPos.add(serviceProducerId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						authenticationToken)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<AuthenticationToken> list = q.list();
+		List<AuthenticationToken> list = query.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -600,52 +600,52 @@ public class AuthenticationTokenPersistenceImpl
 				serviceProducerId, start, end, orderByComparator);
 		}
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				3 + (orderByComparator.getOrderByFields().length * 2));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
+			sb.append(_FILTER_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
 		}
 		else {
-			query.append(
+			sb.append(
 				_FILTER_SQL_SELECT_AUTHENTICATIONTOKEN_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		query.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
+		sb.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(
+			sb.append(
 				_FILTER_SQL_SELECT_AUTHENTICATIONTOKEN_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
 			}
 			else {
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
+					sb, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				query.append(AuthenticationTokenModelImpl.ORDER_BY_JPQL);
+				sb.append(AuthenticationTokenModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				query.append(AuthenticationTokenModelImpl.ORDER_BY_SQL);
+				sb.append(AuthenticationTokenModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			query.toString(), AuthenticationToken.class.getName(),
+			sb.toString(), AuthenticationToken.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -653,26 +653,26 @@ public class AuthenticationTokenPersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
 
 			if (getDB().isSupportsInlineDistinct()) {
-				q.addEntity(
+				sqlQuery.addEntity(
 					_FILTER_ENTITY_ALIAS, AuthenticationTokenImpl.class);
 			}
 			else {
-				q.addEntity(
+				sqlQuery.addEntity(
 					_FILTER_ENTITY_TABLE, AuthenticationTokenImpl.class);
 			}
 
-			QueryPos qPos = QueryPos.getInstance(q);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 
-			qPos.add(serviceProducerId);
+			queryPos.add(serviceProducerId);
 
 			return (List<AuthenticationToken>)QueryUtil.list(
-				q, getDialect(), start, end);
+				sqlQuery, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -721,8 +721,8 @@ public class AuthenticationTokenPersistenceImpl
 
 			return array;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -735,29 +735,29 @@ public class AuthenticationTokenPersistenceImpl
 		OrderByComparator<AuthenticationToken> orderByComparator,
 		boolean previous) {
 
-		StringBundler query = null;
+		StringBundler sb = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(
+			sb = new StringBundler(
 				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(4);
+			sb = new StringBundler(4);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
+			sb.append(_FILTER_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
 		}
 		else {
-			query.append(
+			sb.append(
 				_FILTER_SQL_SELECT_AUTHENTICATIONTOKEN_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		query.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
+		sb.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(
+			sb.append(
 				_FILTER_SQL_SELECT_AUTHENTICATIONTOKEN_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
@@ -766,18 +766,18 @@ public class AuthenticationTokenPersistenceImpl
 				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
+				sb.append(WHERE_AND);
 			}
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					query.append(
+					sb.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
 							true));
 				}
 				else {
-					query.append(
+					sb.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
 							true));
@@ -785,95 +785,97 @@ public class AuthenticationTokenPersistenceImpl
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
+						sb.append(WHERE_GREATER_THAN);
 					}
 					else {
-						query.append(WHERE_LESSER_THAN);
+						sb.append(WHERE_LESSER_THAN);
 					}
 				}
 			}
 
-			query.append(ORDER_BY_CLAUSE);
+			sb.append(ORDER_BY_CLAUSE);
 
 			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					query.append(
+					sb.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
 				}
 				else {
-					query.append(
+					sb.append(
 						getColumnName(
 							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
 				}
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
 					}
 					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
 					}
 				}
 				else {
 					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
+						sb.append(ORDER_BY_ASC);
 					}
 					else {
-						query.append(ORDER_BY_DESC);
+						sb.append(ORDER_BY_DESC);
 					}
 				}
 			}
 		}
 		else {
 			if (getDB().isSupportsInlineDistinct()) {
-				query.append(AuthenticationTokenModelImpl.ORDER_BY_JPQL);
+				sb.append(AuthenticationTokenModelImpl.ORDER_BY_JPQL);
 			}
 			else {
-				query.append(AuthenticationTokenModelImpl.ORDER_BY_SQL);
+				sb.append(AuthenticationTokenModelImpl.ORDER_BY_SQL);
 			}
 		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			query.toString(), AuthenticationToken.class.getName(),
+			sb.toString(), AuthenticationToken.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
-		SQLQuery q = session.createSynchronizedSQLQuery(sql);
+		SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
 
-		q.setFirstResult(0);
-		q.setMaxResults(2);
+		sqlQuery.setFirstResult(0);
+		sqlQuery.setMaxResults(2);
 
 		if (getDB().isSupportsInlineDistinct()) {
-			q.addEntity(_FILTER_ENTITY_ALIAS, AuthenticationTokenImpl.class);
+			sqlQuery.addEntity(
+				_FILTER_ENTITY_ALIAS, AuthenticationTokenImpl.class);
 		}
 		else {
-			q.addEntity(_FILTER_ENTITY_TABLE, AuthenticationTokenImpl.class);
+			sqlQuery.addEntity(
+				_FILTER_ENTITY_TABLE, AuthenticationTokenImpl.class);
 		}
 
-		QueryPos qPos = QueryPos.getInstance(q);
+		QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 
-		qPos.add(serviceProducerId);
+		queryPos.add(serviceProducerId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
 						authenticationToken)) {
 
-				qPos.add(orderByConditionValue);
+				queryPos.add(orderByConditionValue);
 			}
 		}
 
-		List<AuthenticationToken> list = q.list();
+		List<AuthenticationToken> list = sqlQuery.list();
 
 		if (list.size() == 2) {
 			return list.get(1);
@@ -914,33 +916,33 @@ public class AuthenticationTokenPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler sb = new StringBundler(2);
 
-			query.append(_SQL_COUNT_AUTHENTICATIONTOKEN_WHERE);
+			sb.append(_SQL_COUNT_AUTHENTICATIONTOKEN_WHERE);
 
-			query.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
+			sb.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
-				qPos.add(serviceProducerId);
+				queryPos.add(serviceProducerId);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -962,14 +964,14 @@ public class AuthenticationTokenPersistenceImpl
 			return countByServiceProducerId(serviceProducerId);
 		}
 
-		StringBundler query = new StringBundler(2);
+		StringBundler sb = new StringBundler(2);
 
-		query.append(_FILTER_SQL_COUNT_AUTHENTICATIONTOKEN_WHERE);
+		sb.append(_FILTER_SQL_COUNT_AUTHENTICATIONTOKEN_WHERE);
 
-		query.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
+		sb.append(_FINDER_COLUMN_SERVICEPRODUCERID_SERVICEPRODUCERID_2);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
-			query.toString(), AuthenticationToken.class.getName(),
+			sb.toString(), AuthenticationToken.class.getName(),
 			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
@@ -977,21 +979,21 @@ public class AuthenticationTokenPersistenceImpl
 		try {
 			session = openSession();
 
-			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+			SQLQuery sqlQuery = session.createSynchronizedSQLQuery(sql);
 
-			q.addScalar(
+			sqlQuery.addScalar(
 				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
 
-			QueryPos qPos = QueryPos.getInstance(q);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 
-			qPos.add(serviceProducerId);
+			queryPos.add(serviceProducerId);
 
-			Long count = (Long)q.uniqueResult();
+			Long count = (Long)sqlQuery.uniqueResult();
 
 			return count.intValue();
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1020,23 +1022,23 @@ public class AuthenticationTokenPersistenceImpl
 		AuthenticationToken authenticationToken = fetchByD_S(digest, status);
 
 		if (authenticationToken == null) {
-			StringBundler msg = new StringBundler(6);
+			StringBundler sb = new StringBundler(6);
 
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("digest=");
-			msg.append(digest);
+			sb.append("digest=");
+			sb.append(digest);
 
-			msg.append(", status=");
-			msg.append(status);
+			sb.append(", status=");
+			sb.append(status);
 
-			msg.append("}");
+			sb.append("}");
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+				_log.debug(sb.toString());
 			}
 
-			throw new NoSuchAuthenticationTokenException(msg.toString());
+			throw new NoSuchAuthenticationTokenException(sb.toString());
 		}
 
 		return authenticationToken;
@@ -1093,41 +1095,41 @@ public class AuthenticationTokenPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler sb = new StringBundler(4);
 
-			query.append(_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
+			sb.append(_SQL_SELECT_AUTHENTICATIONTOKEN_WHERE);
 
 			boolean bindDigest = false;
 
 			if (digest.isEmpty()) {
-				query.append(_FINDER_COLUMN_D_S_DIGEST_3);
+				sb.append(_FINDER_COLUMN_D_S_DIGEST_3);
 			}
 			else {
 				bindDigest = true;
 
-				query.append(_FINDER_COLUMN_D_S_DIGEST_2);
+				sb.append(_FINDER_COLUMN_D_S_DIGEST_2);
 			}
 
-			query.append(_FINDER_COLUMN_D_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_D_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindDigest) {
-					qPos.add(digest);
+					queryPos.add(digest);
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				List<AuthenticationToken> list = q.list();
+				List<AuthenticationToken> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
@@ -1158,12 +1160,12 @@ public class AuthenticationTokenPersistenceImpl
 					cacheResult(authenticationToken);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(_finderPathFetchByD_S, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -1212,48 +1214,48 @@ public class AuthenticationTokenPersistenceImpl
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler sb = new StringBundler(3);
 
-			query.append(_SQL_COUNT_AUTHENTICATIONTOKEN_WHERE);
+			sb.append(_SQL_COUNT_AUTHENTICATIONTOKEN_WHERE);
 
 			boolean bindDigest = false;
 
 			if (digest.isEmpty()) {
-				query.append(_FINDER_COLUMN_D_S_DIGEST_3);
+				sb.append(_FINDER_COLUMN_D_S_DIGEST_3);
 			}
 			else {
 				bindDigest = true;
 
-				query.append(_FINDER_COLUMN_D_S_DIGEST_2);
+				sb.append(_FINDER_COLUMN_D_S_DIGEST_2);
 			}
 
-			query.append(_FINDER_COLUMN_D_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_D_S_STATUS_2);
 
-			String sql = query.toString();
+			String sql = sb.toString();
 
 			Session session = null;
 
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
-				QueryPos qPos = QueryPos.getInstance(q);
+				QueryPos queryPos = QueryPos.getInstance(query);
 
 				if (bindDigest) {
-					qPos.add(digest);
+					queryPos.add(digest);
 				}
 
-				qPos.add(status);
+				queryPos.add(status);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -1486,11 +1488,11 @@ public class AuthenticationTokenPersistenceImpl
 
 			return remove(authenticationToken);
 		}
-		catch (NoSuchAuthenticationTokenException nsee) {
-			throw nsee;
+		catch (NoSuchAuthenticationTokenException noSuchEntityException) {
+			throw noSuchEntityException;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1516,8 +1518,8 @@ public class AuthenticationTokenPersistenceImpl
 				session.delete(authenticationToken);
 			}
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1596,8 +1598,8 @@ public class AuthenticationTokenPersistenceImpl
 					authenticationToken);
 			}
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -1797,19 +1799,19 @@ public class AuthenticationTokenPersistenceImpl
 		}
 
 		if (list == null) {
-			StringBundler query = null;
+			StringBundler sb = null;
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(
+				sb = new StringBundler(
 					2 + (orderByComparator.getOrderByFields().length * 2));
 
-				query.append(_SQL_SELECT_AUTHENTICATIONTOKEN);
+				sb.append(_SQL_SELECT_AUTHENTICATIONTOKEN);
 
 				appendOrderByComparator(
-					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
-				sql = query.toString();
+				sql = sb.toString();
 			}
 			else {
 				sql = _SQL_SELECT_AUTHENTICATIONTOKEN;
@@ -1822,10 +1824,10 @@ public class AuthenticationTokenPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(sql);
+				Query query = session.createQuery(sql);
 
 				list = (List<AuthenticationToken>)QueryUtil.list(
-					q, getDialect(), start, end);
+					query, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1833,12 +1835,12 @@ public class AuthenticationTokenPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -1875,18 +1877,19 @@ public class AuthenticationTokenPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(_SQL_COUNT_AUTHENTICATIONTOKEN);
+				Query query = session.createQuery(
+					_SQL_COUNT_AUTHENTICATIONTOKEN);
 
-				count = (Long)q.uniqueResult();
+				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -2076,8 +2079,8 @@ public class AuthenticationTokenPersistenceImpl
 		try {
 			Class.forName(KoroneikiPersistenceConstants.class.getName());
 		}
-		catch (ClassNotFoundException cnfe) {
-			throw new ExceptionInInitializerError(cnfe);
+		catch (ClassNotFoundException classNotFoundException) {
+			throw new ExceptionInInitializerError(classNotFoundException);
 		}
 	}
 
