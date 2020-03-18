@@ -41,7 +41,7 @@ function CollapsiblePanel({handleCollapse}) {
 					className="panel-collapse"
 					onClick={handleCollapse}
 				>
-					<svg>
+					<svg aria-label="collapse panel button" role="img">
 						<use xlinkHref="#collapse" />
 					</svg>
 				</ClayTabs.Item>
@@ -74,7 +74,7 @@ function ExpandPanelButton({handleCollapse}) {
 			role="button"
 			type="button"
 		>
-			<svg>
+			<svg aria-label="expand panel button" role="img">
 				<use xlinkHref="#expand" />
 			</svg>
 		</button>
