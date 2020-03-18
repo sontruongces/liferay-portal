@@ -65,7 +65,7 @@ public abstract class AuditEntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements AopService, AuditEntryLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AuditEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.root.service.AuditEntryLocalServiceUtil</code>.
@@ -281,6 +281,9 @@ public abstract class AuditEntryLocalServiceBaseImpl
 			(AuditEntry)persistedModel);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
@@ -376,8 +379,8 @@ public abstract class AuditEntryLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

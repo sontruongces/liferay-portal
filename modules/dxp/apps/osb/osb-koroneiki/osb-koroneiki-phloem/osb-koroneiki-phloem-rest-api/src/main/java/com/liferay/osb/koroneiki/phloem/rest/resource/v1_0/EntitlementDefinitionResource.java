@@ -47,7 +47,8 @@ public interface EntitlementDefinitionResource {
 		throws Exception;
 
 	public EntitlementDefinition postAccountEntitlementDefinition(
-			String agentName, EntitlementDefinition entitlementDefinition)
+			String agentName, String agentUID,
+			EntitlementDefinition entitlementDefinition)
 		throws Exception;
 
 	public Page<EntitlementDefinition> getContactEntitlementDefinitionsPage(
@@ -55,11 +56,12 @@ public interface EntitlementDefinitionResource {
 		throws Exception;
 
 	public EntitlementDefinition postContactEntitlementDefinition(
-			String agentName, EntitlementDefinition entitlementDefinition)
+			String agentName, String agentUID,
+			EntitlementDefinition entitlementDefinition)
 		throws Exception;
 
 	public void deleteEntitlementDefinition(
-			String agentName, String entitlementDefinitionKey)
+			String agentName, String agentUID, String entitlementDefinitionKey)
 		throws Exception;
 
 	public EntitlementDefinition getEntitlementDefinition(
@@ -67,7 +69,7 @@ public interface EntitlementDefinitionResource {
 		throws Exception;
 
 	public void postEntitlementDefinitionSynchronize(
-			String agentName, String entitlementDefinitionKey)
+			String agentName, String agentUID, String entitlementDefinitionKey)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

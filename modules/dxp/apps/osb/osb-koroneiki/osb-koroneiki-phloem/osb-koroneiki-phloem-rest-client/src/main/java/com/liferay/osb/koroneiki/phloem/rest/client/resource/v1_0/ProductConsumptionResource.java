@@ -49,13 +49,13 @@ public interface ProductConsumptionResource {
 		throws Exception;
 
 	public ProductConsumption postAccountAccountKeyProductConsumption(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			ProductConsumption productConsumption)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postAccountAccountKeyProductConsumptionHttpResponse(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				ProductConsumption productConsumption)
 		throws Exception;
 
@@ -101,11 +101,11 @@ public interface ProductConsumptionResource {
 		throws Exception;
 
 	public void deleteProductConsumption(
-			String agentName, String productConsumptionKey)
+			String agentName, String agentUID, String productConsumptionKey)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteProductConsumptionHttpResponse(
-			String agentName, String productConsumptionKey)
+			String agentName, String agentUID, String productConsumptionKey)
 		throws Exception;
 
 	public ProductConsumption getProductConsumption(
@@ -117,27 +117,27 @@ public interface ProductConsumptionResource {
 		throws Exception;
 
 	public void deleteProductConsumptionProductConsumptionPermission(
-			String agentName, String productConsumptionKey,
+			String agentName, String agentUID, String productConsumptionKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductConsumptionPermission productConsumptionPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteProductConsumptionProductConsumptionPermissionHttpResponse(
-				String agentName, String productConsumptionKey,
+				String agentName, String agentUID, String productConsumptionKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductConsumptionPermission productConsumptionPermission)
 		throws Exception;
 
 	public void putProductConsumptionProductConsumptionPermission(
-			String agentName, String productConsumptionKey,
+			String agentName, String agentUID, String productConsumptionKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductConsumptionPermission productConsumptionPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putProductConsumptionProductConsumptionPermissionHttpResponse(
-				String agentName, String productConsumptionKey,
+				String agentName, String agentUID, String productConsumptionKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductConsumptionPermission productConsumptionPermission)
 		throws Exception;
@@ -264,13 +264,13 @@ public interface ProductConsumptionResource {
 		}
 
 		public ProductConsumption postAccountAccountKeyProductConsumption(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				ProductConsumption productConsumption)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postAccountAccountKeyProductConsumptionHttpResponse(
-					agentName, accountKey, productConsumption);
+					agentName, agentUID, accountKey, productConsumption);
 
 			String content = httpResponse.getContent();
 
@@ -294,7 +294,7 @@ public interface ProductConsumptionResource {
 
 		public HttpInvoker.HttpResponse
 				postAccountAccountKeyProductConsumptionHttpResponse(
-					String agentName, String accountKey,
+					String agentName, String agentUID, String accountKey,
 					ProductConsumption productConsumption)
 			throws Exception {
 
@@ -323,6 +323,10 @@ public interface ProductConsumptionResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -610,12 +614,12 @@ public interface ProductConsumptionResource {
 		}
 
 		public void deleteProductConsumption(
-				String agentName, String productConsumptionKey)
+				String agentName, String agentUID, String productConsumptionKey)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteProductConsumptionHttpResponse(
-					agentName, productConsumptionKey);
+					agentName, agentUID, productConsumptionKey);
 
 			String content = httpResponse.getContent();
 
@@ -627,7 +631,7 @@ public interface ProductConsumptionResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteProductConsumptionHttpResponse(
-				String agentName, String productConsumptionKey)
+				String agentName, String agentUID, String productConsumptionKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -653,6 +657,10 @@ public interface ProductConsumptionResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -732,14 +740,14 @@ public interface ProductConsumptionResource {
 		}
 
 		public void deleteProductConsumptionProductConsumptionPermission(
-				String agentName, String productConsumptionKey,
+				String agentName, String agentUID, String productConsumptionKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductConsumptionPermission productConsumptionPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteProductConsumptionProductConsumptionPermissionHttpResponse(
-					agentName, productConsumptionKey,
+					agentName, agentUID, productConsumptionKey,
 					productConsumptionPermission);
 
 			String content = httpResponse.getContent();
@@ -753,7 +761,8 @@ public interface ProductConsumptionResource {
 
 		public HttpInvoker.HttpResponse
 				deleteProductConsumptionProductConsumptionPermissionHttpResponse(
-					String agentName, String productConsumptionKey,
+					String agentName, String agentUID,
+					String productConsumptionKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ProductConsumptionPermission
 							productConsumptionPermission)
@@ -784,6 +793,10 @@ public interface ProductConsumptionResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -797,14 +810,14 @@ public interface ProductConsumptionResource {
 		}
 
 		public void putProductConsumptionProductConsumptionPermission(
-				String agentName, String productConsumptionKey,
+				String agentName, String agentUID, String productConsumptionKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductConsumptionPermission productConsumptionPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putProductConsumptionProductConsumptionPermissionHttpResponse(
-					agentName, productConsumptionKey,
+					agentName, agentUID, productConsumptionKey,
 					productConsumptionPermission);
 
 			String content = httpResponse.getContent();
@@ -818,7 +831,8 @@ public interface ProductConsumptionResource {
 
 		public HttpInvoker.HttpResponse
 				putProductConsumptionProductConsumptionPermissionHttpResponse(
-					String agentName, String productConsumptionKey,
+					String agentName, String agentUID,
+					String productConsumptionKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ProductConsumptionPermission
 							productConsumptionPermission)
@@ -850,6 +864,10 @@ public interface ProductConsumptionResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(

@@ -132,6 +132,7 @@ public abstract class BaseNoteResourceImpl implements NoteResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "noteKey")
 		}
 	)
@@ -140,6 +141,7 @@ public abstract class BaseNoteResourceImpl implements NoteResource {
 	@Tags(value = {@Tag(name = "Note")})
 	public void deleteNote(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("noteKey") String
 				noteKey)
 		throws Exception {

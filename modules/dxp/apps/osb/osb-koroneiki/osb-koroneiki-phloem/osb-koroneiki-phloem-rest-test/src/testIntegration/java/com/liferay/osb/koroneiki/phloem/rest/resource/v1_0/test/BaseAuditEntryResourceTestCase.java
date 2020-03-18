@@ -177,6 +177,7 @@ public abstract class BaseAuditEntryResourceTestCase {
 		AuditEntry auditEntry = randomAuditEntry();
 
 		auditEntry.setAgentName(regex);
+		auditEntry.setAgentUID(regex);
 		auditEntry.setDescription(regex);
 		auditEntry.setField(regex);
 		auditEntry.setKey(regex);
@@ -191,6 +192,7 @@ public abstract class BaseAuditEntryResourceTestCase {
 		auditEntry = AuditEntrySerDes.toDTO(json);
 
 		Assert.assertEquals(regex, auditEntry.getAgentName());
+		Assert.assertEquals(regex, auditEntry.getAgentUID());
 		Assert.assertEquals(regex, auditEntry.getDescription());
 		Assert.assertEquals(regex, auditEntry.getField());
 		Assert.assertEquals(regex, auditEntry.getKey());
@@ -1011,6 +1013,14 @@ public abstract class BaseAuditEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("agentUID", additionalAssertFieldName)) {
+				if (auditEntry.getAgentUID() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("auditSetId", additionalAssertFieldName)) {
 				if (auditEntry.getAuditSetId() == null) {
 					valid = false;
@@ -1141,6 +1151,16 @@ public abstract class BaseAuditEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("agentUID", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry1.getAgentUID(), auditEntry2.getAgentUID())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("auditSetId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						auditEntry1.getAuditSetId(),
@@ -1240,6 +1260,17 @@ public abstract class BaseAuditEntryResourceTestCase {
 				if (!Objects.deepEquals(
 						auditEntry.getAgentName(),
 						jsonObject.getString("agentName"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("agentUID", fieldName)) {
+				if (!Objects.deepEquals(
+						auditEntry.getAgentUID(),
+						jsonObject.getString("agentUID"))) {
 
 					return false;
 				}
@@ -1392,6 +1423,14 @@ public abstract class BaseAuditEntryResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("agentUID")) {
+			sb.append("'");
+			sb.append(String.valueOf(auditEntry.getAgentUID()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("auditSetId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1501,6 +1540,7 @@ public abstract class BaseAuditEntryResourceTestCase {
 		return new AuditEntry() {
 			{
 				agentName = RandomTestUtil.randomString();
+				agentUID = RandomTestUtil.randomString();
 				auditSetId = RandomTestUtil.randomLong();
 				dateCreated = RandomTestUtil.nextDate();
 				description = RandomTestUtil.randomString();

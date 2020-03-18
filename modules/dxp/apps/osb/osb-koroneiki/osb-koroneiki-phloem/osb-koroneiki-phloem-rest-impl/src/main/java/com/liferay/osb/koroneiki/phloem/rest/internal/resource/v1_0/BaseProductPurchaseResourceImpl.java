@@ -103,6 +103,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey")
 		}
 	)
@@ -111,6 +112,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public ProductPurchase postAccountAccountKeyProductPurchase(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			ProductPurchase productPurchase)
@@ -253,6 +255,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
 		}
 	)
@@ -261,6 +264,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public void deleteProductPurchase(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey)
 		throws Exception {
@@ -299,6 +303,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
 		}
 	)
@@ -307,6 +312,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public ProductPurchase putProductPurchase(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey,
 			ProductPurchase productPurchase)
@@ -326,6 +332,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
 		}
 	)
@@ -336,6 +343,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public void deleteProductPurchaseProductPurchasePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
@@ -353,6 +361,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
 		}
 	)
@@ -363,6 +372,7 @@ public abstract class BaseProductPurchaseResourceImpl
 	@Tags(value = {@Tag(name = "ProductPurchase")})
 	public void putProductPurchaseProductPurchasePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)

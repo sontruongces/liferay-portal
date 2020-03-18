@@ -61,57 +61,61 @@ public interface ContactResource {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public Contact postContact(String agentName, Contact contact)
+	public Contact postContact(
+			String agentName, String agentUID, Contact contact)
 		throws Exception;
 
 	public void deleteContactByEmailAddresEmailAddress(
-			String agentName, String emailAddress)
+			String agentName, String agentUID, String emailAddress)
 		throws Exception;
 
 	public Contact getContactByEmailAddresEmailAddress(String emailAddress)
 		throws Exception;
 
 	public Contact putContactByEmailAddresEmailAddress(
-			String agentName, String emailAddress, Contact contact)
+			String agentName, String agentUID, String emailAddress,
+			Contact contact)
 		throws Exception;
 
-	public void deleteContactByOkta(String agentName, String oktaId)
+	public void deleteContactByOkta(
+			String agentName, String agentUID, String oktaId)
 		throws Exception;
 
 	public Contact getContactByOkta(String oktaId) throws Exception;
 
 	public Contact putContactByOkta(
-			String agentName, String oktaId, Contact contact)
+			String agentName, String agentUID, String oktaId, Contact contact)
 		throws Exception;
 
 	public void deleteContactByOktaContactPermission(
-			String agentName, String oktaId,
+			String agentName, String agentUID, String oktaId,
 			ContactPermission contactPermission)
 		throws Exception;
 
 	public void putContactByOktaContactPermission(
-			String agentName, String oktaId,
+			String agentName, String agentUID, String oktaId,
 			ContactPermission contactPermission)
 		throws Exception;
 
 	public void deleteContactByUuidContactUuid(
-			String agentName, String contactUuid)
+			String agentName, String agentUID, String contactUuid)
 		throws Exception;
 
 	public Contact getContactByUuidContactUuid(String contactUuid)
 		throws Exception;
 
 	public Contact putContactByUuidContactUuid(
-			String agentName, String contactUuid, Contact contact)
+			String agentName, String agentUID, String contactUuid,
+			Contact contact)
 		throws Exception;
 
 	public void deleteContactByUuidContactUuidContactPermission(
-			String agentName, String contactUuid,
+			String agentName, String agentUID, String contactUuid,
 			ContactPermission contactPermission)
 		throws Exception;
 
 	public void putContactByUuidContactUuidContactPermission(
-			String agentName, String contactUuid,
+			String agentName, String agentUID, String contactUuid,
 			ContactPermission contactPermission)
 		throws Exception;
 

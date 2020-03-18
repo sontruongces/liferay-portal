@@ -49,7 +49,8 @@ public interface AccountResource {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public Account postAccount(String agentName, Account account)
+	public Account postAccount(
+			String agentName, String agentUID, Account account)
 		throws Exception;
 
 	public Page<Account> getAccountByExternalLinkDomainEntityNameEntityPage(
@@ -57,33 +58,35 @@ public interface AccountResource {
 			Pagination pagination)
 		throws Exception;
 
-	public void deleteAccount(String agentName, String accountKey)
+	public void deleteAccount(
+			String agentName, String agentUID, String accountKey)
 		throws Exception;
 
 	public Account getAccount(String accountKey) throws Exception;
 
 	public Account putAccount(
-			String agentName, String accountKey, Account account)
+			String agentName, String agentUID, String accountKey,
+			Account account)
 		throws Exception;
 
 	public void deleteAccountAccountPermission(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			AccountPermission accountPermission)
 		throws Exception;
 
 	public void putAccountAccountPermission(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			AccountPermission accountPermission)
 		throws Exception;
 
 	public void deleteAccountAssignedTeamTeamKeyRole(
-			String agentName, String accountKey, String teamKey,
-			String[] teamRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public void putAccountAssignedTeamTeamKeyRole(
-			String agentName, String accountKey, String teamKey,
-			String[] teamRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public Page<Account> getAccountChildAccountsPage(
@@ -91,61 +94,68 @@ public interface AccountResource {
 		throws Exception;
 
 	public Account postAccountChildAccount(
-			String agentName, String accountKey, Account account)
+			String agentName, String agentUID, String accountKey,
+			Account account)
 		throws Exception;
 
 	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
-			String agentName, String accountKey, String contactEmailAddress,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress, String[] contactRoleKeys)
 		throws Exception;
 
 	public void putAccountContactByEmailAddresContactEmailAddressRole(
-			String agentName, String accountKey, String contactEmailAddress,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress, String[] contactRoleKeys)
 		throws Exception;
 
 	public void deleteAccountContactByOktaRole(
-			String agentName, String accountKey, String oktaId,
+			String agentName, String agentUID, String accountKey, String oktaId,
 			String[] contactRoleKeys)
 		throws Exception;
 
 	public void putAccountContactByOktaRole(
-			String agentName, String accountKey, String oktaId,
+			String agentName, String agentUID, String accountKey, String oktaId,
 			String[] contactRoleKeys)
 		throws Exception;
 
 	public void deleteAccountContactByUuidContactUuidRole(
-			String agentName, String accountKey, String contactUuid,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public void putAccountContactByUuidContactUuidRole(
-			String agentName, String accountKey, String contactUuid,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public void deleteAccountCustomerContactByEmailAddres(
-			String agentName, String accountKey, String[] contactEmailAddresses)
+			String agentName, String agentUID, String accountKey,
+			String[] contactEmailAddresses)
 		throws Exception;
 
 	public void deleteAccountCustomerContactByOkta(
-			String agentName, String accountKey, String[] oktaIds)
+			String agentName, String agentUID, String accountKey,
+			String[] oktaIds)
 		throws Exception;
 
 	public void deleteAccountCustomerContactByUuid(
-			String agentName, String accountKey, String[] contactUuids)
+			String agentName, String agentUID, String accountKey,
+			String[] contactUuids)
 		throws Exception;
 
 	public void deleteAccountWorkerContactByEmailAddres(
-			String agentName, String accountKey, String[] contactEmailAddresses)
+			String agentName, String agentUID, String accountKey,
+			String[] contactEmailAddresses)
 		throws Exception;
 
 	public void deleteAccountWorkerContactByOkta(
-			String agentName, String accountKey, String[] oktaIds)
+			String agentName, String agentUID, String accountKey,
+			String[] oktaIds)
 		throws Exception;
 
 	public void deleteAccountWorkerContactByUuid(
-			String agentName, String accountKey, String[] contactUuids)
+			String agentName, String agentUID, String accountKey,
+			String[] contactUuids)
 		throws Exception;
 
 	public Page<Account> getContactByOktaAccountsPage(

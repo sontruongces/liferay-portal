@@ -187,13 +187,17 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID")
+		}
 	)
 	@Path("/contacts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Contact")})
 	public Contact postContact(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			Contact contact)
 		throws Exception {
 
@@ -210,6 +214,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "emailAddress")
 		}
 	)
@@ -218,6 +223,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByEmailAddresEmailAddress(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
 				emailAddress)
 		throws Exception {
@@ -256,6 +262,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "emailAddress")
 		}
 	)
@@ -264,6 +271,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public Contact putContactByEmailAddresEmailAddress(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
 				emailAddress,
 			Contact contact)
@@ -282,6 +290,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId")
 		}
 	)
@@ -290,6 +299,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByOkta(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId)
 		throws Exception {
@@ -326,6 +336,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId")
 		}
 	)
@@ -334,6 +345,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public Contact putContactByOkta(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId,
 			Contact contact)
@@ -353,6 +365,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId")
 		}
 	)
@@ -361,6 +374,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByOktaContactPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId,
 			ContactPermission contactPermission)
@@ -378,6 +392,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId")
 		}
 	)
@@ -386,6 +401,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public void putContactByOktaContactPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId,
 			ContactPermission contactPermission)
@@ -402,6 +418,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
 		}
 	)
@@ -410,6 +427,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByUuidContactUuid(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid)
 		throws Exception {
@@ -448,6 +466,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
 		}
 	)
@@ -456,6 +475,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public Contact putContactByUuidContactUuid(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid,
 			Contact contact)
@@ -475,6 +495,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
 		}
 	)
@@ -483,6 +504,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public void deleteContactByUuidContactUuidContactPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid,
 			ContactPermission contactPermission)
@@ -500,6 +522,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
 		}
 	)
@@ -508,6 +531,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	@Tags(value = {@Tag(name = "Contact")})
 	public void putContactByUuidContactUuidContactPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid,
 			ContactPermission contactPermission)

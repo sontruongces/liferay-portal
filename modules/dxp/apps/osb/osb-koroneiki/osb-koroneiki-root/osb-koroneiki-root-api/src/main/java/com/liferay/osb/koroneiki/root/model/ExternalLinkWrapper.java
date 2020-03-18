@@ -261,11 +261,6 @@ public class ExternalLinkWrapper
 		return model.getUrl();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a external link model instance should use the <code>ExternalLink</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

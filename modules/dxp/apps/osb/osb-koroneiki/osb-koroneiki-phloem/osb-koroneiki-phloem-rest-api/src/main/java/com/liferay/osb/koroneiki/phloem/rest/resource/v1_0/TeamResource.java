@@ -54,7 +54,7 @@ public interface TeamResource {
 		throws Exception;
 
 	public Team postAccountAccountKeyTeam(
-			String agentName, String accountKey, Team team)
+			String agentName, String agentUID, String accountKey, Team team)
 		throws Exception;
 
 	public Page<Team> getTeamsPage(
@@ -66,55 +66,61 @@ public interface TeamResource {
 			Pagination pagination)
 		throws Exception;
 
-	public void deleteTeam(String agentName, String teamKey) throws Exception;
+	public void deleteTeam(String agentName, String agentUID, String teamKey)
+		throws Exception;
 
 	public Team getTeam(String teamKey) throws Exception;
 
-	public Team putTeam(String agentName, String teamKey, Team team)
+	public Team putTeam(
+			String agentName, String agentUID, String teamKey, Team team)
 		throws Exception;
 
 	public void deleteTeamContactByOkta(
-			String agentName, String teamKey, String[] oktaIds)
+			String agentName, String agentUID, String teamKey, String[] oktaIds)
 		throws Exception;
 
 	public void putTeamContactByOkta(
-			String agentName, String teamKey, String[] oktaIds)
+			String agentName, String agentUID, String teamKey, String[] oktaIds)
 		throws Exception;
 
 	public void deleteTeamContactByOktaRole(
-			String agentName, String teamKey, String oktaId,
+			String agentName, String agentUID, String teamKey, String oktaId,
 			String[] contactRoleKeys)
 		throws Exception;
 
 	public void putTeamContactByOktaRole(
-			String agentName, String teamKey, String oktaId,
+			String agentName, String agentUID, String teamKey, String oktaId,
 			String[] contactRoleKeys)
 		throws Exception;
 
 	public void deleteTeamContactByUuid(
-			String agentName, String teamKey, String[] contactUuids)
+			String agentName, String agentUID, String teamKey,
+			String[] contactUuids)
 		throws Exception;
 
 	public void putTeamContactByUuid(
-			String agentName, String teamKey, String[] contactUuids)
+			String agentName, String agentUID, String teamKey,
+			String[] contactUuids)
 		throws Exception;
 
 	public void deleteTeamContactByUuidContactUuidRole(
-			String agentName, String teamKey, String contactUuid,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String teamKey,
+			String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public void putTeamContactByUuidContactUuidRole(
-			String agentName, String teamKey, String contactUuid,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String teamKey,
+			String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public void deleteTeamTeamPermission(
-			String agentName, String teamKey, TeamPermission teamPermission)
+			String agentName, String agentUID, String teamKey,
+			TeamPermission teamPermission)
 		throws Exception;
 
 	public void putTeamTeamPermission(
-			String agentName, String teamKey, TeamPermission teamPermission)
+			String agentName, String agentUID, String teamKey,
+			TeamPermission teamPermission)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

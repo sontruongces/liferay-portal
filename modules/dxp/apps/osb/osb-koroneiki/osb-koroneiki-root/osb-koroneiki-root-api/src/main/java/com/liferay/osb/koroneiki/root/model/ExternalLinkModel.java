@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ExternalLinkModel
 	extends AttachedModel, BaseModel<ExternalLink>, MVCCModel, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a external link model instance should use the {@link ExternalLink} interface instead.

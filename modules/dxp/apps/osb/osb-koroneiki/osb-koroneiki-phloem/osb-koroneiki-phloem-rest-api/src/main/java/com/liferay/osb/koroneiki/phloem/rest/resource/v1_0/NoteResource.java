@@ -51,7 +51,8 @@ public interface NoteResource {
 			Pagination pagination)
 		throws Exception;
 
-	public void deleteNote(String agentName, String noteKey) throws Exception;
+	public void deleteNote(String agentName, String agentUID, String noteKey)
+		throws Exception;
 
 	public Note getNote(String noteKey) throws Exception;
 

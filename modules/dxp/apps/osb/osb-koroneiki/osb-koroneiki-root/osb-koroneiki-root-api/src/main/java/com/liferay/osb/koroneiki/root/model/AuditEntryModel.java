@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface AuditEntryModel
 	extends AttachedModel, BaseModel<AuditEntry>, MVCCModel, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a audit entry model instance should use the {@link AuditEntry} interface instead.
@@ -190,6 +190,21 @@ public interface AuditEntryModel
 	 * @param agentName the agent name of this audit entry
 	 */
 	public void setAgentName(String agentName);
+
+	/**
+	 * Returns the agent okta ID of this audit entry.
+	 *
+	 * @return the agent okta ID of this audit entry
+	 */
+	@AutoEscape
+	public String getAgentOktaId();
+
+	/**
+	 * Sets the agent okta ID of this audit entry.
+	 *
+	 * @param agentOktaId the agent okta ID of this audit entry
+	 */
+	public void setAgentOktaId(String agentOktaId);
 
 	/**
 	 * Returns the fully qualified class name of this audit entry.

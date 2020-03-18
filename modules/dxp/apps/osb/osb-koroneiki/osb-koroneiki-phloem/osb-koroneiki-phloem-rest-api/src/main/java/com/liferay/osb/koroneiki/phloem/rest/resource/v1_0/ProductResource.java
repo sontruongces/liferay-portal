@@ -49,7 +49,8 @@ public interface ProductResource {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public Product postProduct(String agentName, Product product)
+	public Product postProduct(
+			String agentName, String agentUID, Product product)
 		throws Exception;
 
 	public Page<Product> getProductByExternalLinkDomainEntityNameEntityPage(
@@ -60,22 +61,24 @@ public interface ProductResource {
 	public Product getProductByNameProductName(String productName)
 		throws Exception;
 
-	public void deleteProduct(String agentName, String productKey)
+	public void deleteProduct(
+			String agentName, String agentUID, String productKey)
 		throws Exception;
 
 	public Product getProduct(String productKey) throws Exception;
 
 	public Product putProduct(
-			String agentName, String productKey, Product product)
+			String agentName, String agentUID, String productKey,
+			Product product)
 		throws Exception;
 
 	public void deleteProductProductPermission(
-			String agentName, String productKey,
+			String agentName, String agentUID, String productKey,
 			ProductPermission productPermission)
 		throws Exception;
 
 	public void putProductProductPermission(
-			String agentName, String productKey,
+			String agentName, String agentUID, String productKey,
 			ProductPermission productPermission)
 		throws Exception;
 

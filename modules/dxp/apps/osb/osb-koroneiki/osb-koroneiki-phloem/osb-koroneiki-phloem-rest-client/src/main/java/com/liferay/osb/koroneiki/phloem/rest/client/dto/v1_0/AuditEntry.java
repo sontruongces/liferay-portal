@@ -111,6 +111,27 @@ public class AuditEntry {
 
 	protected String agentName;
 
+	public String getAgentUID() {
+		return agentUID;
+	}
+
+	public void setAgentUID(String agentUID) {
+		this.agentUID = agentUID;
+	}
+
+	public void setAgentUID(
+		UnsafeSupplier<String, Exception> agentUIDUnsafeSupplier) {
+
+		try {
+			agentUID = agentUIDUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String agentUID;
+
 	public Long getAuditSetId() {
 		return auditSetId;
 	}

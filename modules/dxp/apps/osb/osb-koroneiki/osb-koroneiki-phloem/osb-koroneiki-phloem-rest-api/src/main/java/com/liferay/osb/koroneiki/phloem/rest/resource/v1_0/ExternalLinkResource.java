@@ -47,7 +47,8 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postAccountAccountKeyExternalLink(
-			String agentName, String accountKey, ExternalLink externalLink)
+			String agentName, String agentUID, String accountKey,
+			ExternalLink externalLink)
 		throws Exception;
 
 	public Page<ExternalLink> getContactByOktaExternalLinksPage(
@@ -55,7 +56,8 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postContactByOktaExternalLink(
-			String agentName, String oktaId, ExternalLink externalLink)
+			String agentName, String agentUID, String oktaId,
+			ExternalLink externalLink)
 		throws Exception;
 
 	public Page<ExternalLink> getContactByUuidContactUuidExternalLinksPage(
@@ -63,10 +65,12 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postContactByUuidContactUuidExternalLink(
-			String agentName, String contactUuid, ExternalLink externalLink)
+			String agentName, String agentUID, String contactUuid,
+			ExternalLink externalLink)
 		throws Exception;
 
-	public void deleteExternalLink(String agentName, String externalLinkKey)
+	public void deleteExternalLink(
+			String agentName, String agentUID, String externalLinkKey)
 		throws Exception;
 
 	public ExternalLink getExternalLink(String externalLinkKey)
@@ -78,7 +82,7 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postProductConsumptionProductConsumptionKeyExternalLink(
-			String agentName, String productConsumptionKey,
+			String agentName, String agentUID, String productConsumptionKey,
 			ExternalLink externalLink)
 		throws Exception;
 
@@ -88,7 +92,7 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postProductPurchaseProductPurchaseKeyExternalLink(
-			String agentName, String productPurchaseKey,
+			String agentName, String agentUID, String productPurchaseKey,
 			ExternalLink externalLink)
 		throws Exception;
 
@@ -97,7 +101,8 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postProductProductKeyExternalLink(
-			String agentName, String productKey, ExternalLink externalLink)
+			String agentName, String agentUID, String productKey,
+			ExternalLink externalLink)
 		throws Exception;
 
 	public Page<ExternalLink> getTeamTeamKeyExternalLinksPage(
@@ -105,7 +110,8 @@ public interface ExternalLinkResource {
 		throws Exception;
 
 	public ExternalLink postTeamTeamKeyExternalLink(
-			String agentName, String teamKey, ExternalLink externalLink)
+			String agentName, String agentUID, String teamKey,
+			ExternalLink externalLink)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

@@ -58,18 +58,20 @@ public interface TeamRoleResource {
 			String sortString)
 		throws Exception;
 
-	public TeamRole postTeamRole(String agentName, TeamRole teamRole)
+	public TeamRole postTeamRole(
+			String agentName, String agentUID, TeamRole teamRole)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postTeamRoleHttpResponse(
-			String agentName, TeamRole teamRole)
+			String agentName, String agentUID, TeamRole teamRole)
 		throws Exception;
 
-	public void deleteTeamRole(String agentName, String teamRoleKey)
+	public void deleteTeamRole(
+			String agentName, String agentUID, String teamRoleKey)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteTeamRoleHttpResponse(
-			String agentName, String teamRoleKey)
+			String agentName, String agentUID, String teamRoleKey)
 		throws Exception;
 
 	public TeamRole getTeamRole(String teamRoleKey) throws Exception;
@@ -78,34 +80,36 @@ public interface TeamRoleResource {
 		throws Exception;
 
 	public TeamRole putTeamRole(
-			String agentName, String teamRoleKey, TeamRole teamRole)
+			String agentName, String agentUID, String teamRoleKey,
+			TeamRole teamRole)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putTeamRoleHttpResponse(
-			String agentName, String teamRoleKey, TeamRole teamRole)
+			String agentName, String agentUID, String teamRoleKey,
+			TeamRole teamRole)
 		throws Exception;
 
 	public void deleteTeamRoleTeamRolePermission(
-			String agentName, String teamRoleKey,
+			String agentName, String agentUID, String teamRoleKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteTeamRoleTeamRolePermissionHttpResponse(
-				String agentName, String teamRoleKey,
+				String agentName, String agentUID, String teamRoleKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public void putTeamRoleTeamRolePermission(
-			String agentName, String teamRoleKey,
+			String agentName, String agentUID, String teamRoleKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putTeamRoleTeamRolePermissionHttpResponse(
-			String agentName, String teamRoleKey,
+			String agentName, String agentUID, String teamRoleKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				TeamRolePermission teamRolePermission)
 		throws Exception;
@@ -304,11 +308,12 @@ public interface TeamRoleResource {
 			return httpInvoker.invoke();
 		}
 
-		public TeamRole postTeamRole(String agentName, TeamRole teamRole)
+		public TeamRole postTeamRole(
+				String agentName, String agentUID, TeamRole teamRole)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = postTeamRoleHttpResponse(
-				agentName, teamRole);
+				agentName, agentUID, teamRole);
 
 			String content = httpResponse.getContent();
 
@@ -331,7 +336,7 @@ public interface TeamRoleResource {
 		}
 
 		public HttpInvoker.HttpResponse postTeamRoleHttpResponse(
-				String agentName, TeamRole teamRole)
+				String agentName, String agentUID, TeamRole teamRole)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -361,6 +366,10 @@ public interface TeamRoleResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/koroneiki-rest/v1.0/team-roles");
@@ -371,11 +380,12 @@ public interface TeamRoleResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteTeamRole(String agentName, String teamRoleKey)
+		public void deleteTeamRole(
+				String agentName, String agentUID, String teamRoleKey)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = deleteTeamRoleHttpResponse(
-				agentName, teamRoleKey);
+				agentName, agentUID, teamRoleKey);
 
 			String content = httpResponse.getContent();
 
@@ -387,7 +397,7 @@ public interface TeamRoleResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamRoleHttpResponse(
-				String agentName, String teamRoleKey)
+				String agentName, String agentUID, String teamRoleKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -413,6 +423,10 @@ public interface TeamRoleResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -489,11 +503,12 @@ public interface TeamRoleResource {
 		}
 
 		public TeamRole putTeamRole(
-				String agentName, String teamRoleKey, TeamRole teamRole)
+				String agentName, String agentUID, String teamRoleKey,
+				TeamRole teamRole)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = putTeamRoleHttpResponse(
-				agentName, teamRoleKey, teamRole);
+				agentName, agentUID, teamRoleKey, teamRole);
 
 			String content = httpResponse.getContent();
 
@@ -516,7 +531,8 @@ public interface TeamRoleResource {
 		}
 
 		public HttpInvoker.HttpResponse putTeamRoleHttpResponse(
-				String agentName, String teamRoleKey, TeamRole teamRole)
+				String agentName, String agentUID, String teamRoleKey,
+				TeamRole teamRole)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -546,6 +562,10 @@ public interface TeamRoleResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -559,14 +579,14 @@ public interface TeamRoleResource {
 		}
 
 		public void deleteTeamRoleTeamRolePermission(
-				String agentName, String teamRoleKey,
+				String agentName, String agentUID, String teamRoleKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					TeamRolePermission teamRolePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteTeamRoleTeamRolePermissionHttpResponse(
-					agentName, teamRoleKey, teamRolePermission);
+					agentName, agentUID, teamRoleKey, teamRolePermission);
 
 			String content = httpResponse.getContent();
 
@@ -579,7 +599,7 @@ public interface TeamRoleResource {
 
 		public HttpInvoker.HttpResponse
 				deleteTeamRoleTeamRolePermissionHttpResponse(
-					String agentName, String teamRoleKey,
+					String agentName, String agentUID, String teamRoleKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						TeamRolePermission teamRolePermission)
 			throws Exception {
@@ -609,6 +629,10 @@ public interface TeamRoleResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -622,14 +646,14 @@ public interface TeamRoleResource {
 		}
 
 		public void putTeamRoleTeamRolePermission(
-				String agentName, String teamRoleKey,
+				String agentName, String agentUID, String teamRoleKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					TeamRolePermission teamRolePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putTeamRoleTeamRolePermissionHttpResponse(
-					agentName, teamRoleKey, teamRolePermission);
+					agentName, agentUID, teamRoleKey, teamRolePermission);
 
 			String content = httpResponse.getContent();
 
@@ -642,7 +666,7 @@ public interface TeamRoleResource {
 
 		public HttpInvoker.HttpResponse
 				putTeamRoleTeamRolePermissionHttpResponse(
-					String agentName, String teamRoleKey,
+					String agentName, String agentUID, String teamRoleKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						TeamRolePermission teamRolePermission)
 			throws Exception {
@@ -672,6 +696,10 @@ public interface TeamRoleResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(

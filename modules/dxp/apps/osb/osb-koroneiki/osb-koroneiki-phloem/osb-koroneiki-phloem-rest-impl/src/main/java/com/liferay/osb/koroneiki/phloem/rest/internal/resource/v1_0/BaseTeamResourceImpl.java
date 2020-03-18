@@ -129,6 +129,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey")
 		}
 	)
@@ -137,6 +138,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public Team postAccountAccountKeyTeam(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			Team team)
@@ -219,6 +221,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey")
 		}
 	)
@@ -227,6 +230,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeam(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey)
 		throws Exception {
@@ -263,6 +267,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey")
 		}
 	)
@@ -271,6 +276,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public Team putTeam(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			Team team)
@@ -290,6 +296,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
 		}
@@ -299,6 +306,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByOkta(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
@@ -317,6 +325,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
 		}
@@ -326,6 +335,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByOkta(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
@@ -344,6 +354,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -354,6 +365,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByOktaRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
@@ -374,6 +386,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -384,6 +397,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByOktaRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
@@ -404,6 +418,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
 		}
@@ -413,6 +428,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByUuid(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
@@ -431,6 +447,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactUuids")
 		}
@@ -440,6 +457,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByUuid(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
@@ -458,6 +476,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -468,6 +487,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamContactByUuidContactUuidRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
@@ -488,6 +508,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid"),
 			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
@@ -498,6 +519,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamContactByUuidContactUuidRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
@@ -518,6 +540,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey")
 		}
 	)
@@ -526,6 +549,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void deleteTeamTeamPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			TeamPermission teamPermission)
@@ -543,6 +567,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey")
 		}
 	)
@@ -551,6 +576,7 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	@Tags(value = {@Tag(name = "Team")})
 	public void putTeamTeamPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			TeamPermission teamPermission)

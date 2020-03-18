@@ -57,10 +57,11 @@ public interface NoteResource {
 			Pagination pagination)
 		throws Exception;
 
-	public void deleteNote(String agentName, String noteKey) throws Exception;
+	public void deleteNote(String agentName, String agentUID, String noteKey)
+		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteNoteHttpResponse(
-			String agentName, String noteKey)
+			String agentName, String agentUID, String noteKey)
 		throws Exception;
 
 	public Note getNote(String noteKey) throws Exception;
@@ -272,11 +273,12 @@ public interface NoteResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteNote(String agentName, String noteKey)
+		public void deleteNote(
+				String agentName, String agentUID, String noteKey)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = deleteNoteHttpResponse(
-				agentName, noteKey);
+				agentName, agentUID, noteKey);
 
 			String content = httpResponse.getContent();
 
@@ -288,7 +290,7 @@ public interface NoteResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteNoteHttpResponse(
-				String agentName, String noteKey)
+				String agentName, String agentUID, String noteKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -314,6 +316,10 @@ public interface NoteResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(

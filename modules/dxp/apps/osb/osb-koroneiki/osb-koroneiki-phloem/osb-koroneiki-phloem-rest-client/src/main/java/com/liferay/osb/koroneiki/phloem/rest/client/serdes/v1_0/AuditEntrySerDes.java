@@ -87,6 +87,20 @@ public class AuditEntrySerDes {
 			sb.append("\"");
 		}
 
+		if (auditEntry.getAgentUID() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"agentUID\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(auditEntry.getAgentUID()));
+
+			sb.append("\"");
+		}
+
 		if (auditEntry.getAuditSetId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -231,6 +245,13 @@ public class AuditEntrySerDes {
 			map.put("agentName", String.valueOf(auditEntry.getAgentName()));
 		}
 
+		if (auditEntry.getAgentUID() == null) {
+			map.put("agentUID", null);
+		}
+		else {
+			map.put("agentUID", String.valueOf(auditEntry.getAgentUID()));
+		}
+
 		if (auditEntry.getAuditSetId() == null) {
 			map.put("auditSetId", null);
 		}
@@ -314,6 +335,11 @@ public class AuditEntrySerDes {
 			else if (Objects.equals(jsonParserFieldName, "agentName")) {
 				if (jsonParserFieldValue != null) {
 					auditEntry.setAgentName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "agentUID")) {
+				if (jsonParserFieldValue != null) {
+					auditEntry.setAgentUID((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "auditSetId")) {

@@ -407,13 +407,17 @@ public abstract class BaseContactRoleResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID")
+		}
 	)
 	@Path("/contact-roles")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public ContactRole postContactRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			ContactRole contactRole)
 		throws Exception {
 
@@ -430,6 +434,7 @@ public abstract class BaseContactRoleResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")
 		}
 	)
@@ -438,6 +443,7 @@ public abstract class BaseContactRoleResourceImpl
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public void deleteContactRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("contactRoleKey")
 				String contactRoleKey)
 		throws Exception {
@@ -476,6 +482,7 @@ public abstract class BaseContactRoleResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")
 		}
 	)
@@ -484,6 +491,7 @@ public abstract class BaseContactRoleResourceImpl
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public ContactRole putContactRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("contactRoleKey")
 				String contactRoleKey,
 			ContactRole contactRole)
@@ -503,6 +511,7 @@ public abstract class BaseContactRoleResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")
 		}
 	)
@@ -511,6 +520,7 @@ public abstract class BaseContactRoleResourceImpl
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public void deleteContactRoleContactRolePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("contactRoleKey")
 				String contactRoleKey,
 			ContactRolePermission contactRolePermission)
@@ -528,6 +538,7 @@ public abstract class BaseContactRoleResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "contactRoleKey")
 		}
 	)
@@ -536,6 +547,7 @@ public abstract class BaseContactRoleResourceImpl
 	@Tags(value = {@Tag(name = "ContactRole")})
 	public void putContactRoleContactRolePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("contactRoleKey")
 				String contactRoleKey,
 			ContactRolePermission contactRolePermission)

@@ -50,7 +50,7 @@ public interface ProductPurchaseResource {
 		throws Exception;
 
 	public ProductPurchase postAccountAccountKeyProductPurchase(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			ProductPurchase productPurchase)
 		throws Exception;
 
@@ -74,24 +74,24 @@ public interface ProductPurchaseResource {
 		throws Exception;
 
 	public void deleteProductPurchase(
-			String agentName, String productPurchaseKey)
+			String agentName, String agentUID, String productPurchaseKey)
 		throws Exception;
 
 	public ProductPurchase getProductPurchase(String productPurchaseKey)
 		throws Exception;
 
 	public ProductPurchase putProductPurchase(
-			String agentName, String productPurchaseKey,
+			String agentName, String agentUID, String productPurchaseKey,
 			ProductPurchase productPurchase)
 		throws Exception;
 
 	public void deleteProductPurchaseProductPurchasePermission(
-			String agentName, String productPurchaseKey,
+			String agentName, String agentUID, String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception;
 
 	public void putProductPurchaseProductPurchasePermission(
-			String agentName, String productPurchaseKey,
+			String agentName, String agentUID, String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception;
 

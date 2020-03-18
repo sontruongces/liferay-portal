@@ -76,20 +76,21 @@ public interface ContactResource {
 			String sortString)
 		throws Exception;
 
-	public Contact postContact(String agentName, Contact contact)
+	public Contact postContact(
+			String agentName, String agentUID, Contact contact)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postContactHttpResponse(
-			String agentName, Contact contact)
+			String agentName, String agentUID, Contact contact)
 		throws Exception;
 
 	public void deleteContactByEmailAddresEmailAddress(
-			String agentName, String emailAddress)
+			String agentName, String agentUID, String emailAddress)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteContactByEmailAddresEmailAddressHttpResponse(
-				String agentName, String emailAddress)
+				String agentName, String agentUID, String emailAddress)
 		throws Exception;
 
 	public Contact getContactByEmailAddresEmailAddress(String emailAddress)
@@ -100,19 +101,22 @@ public interface ContactResource {
 		throws Exception;
 
 	public Contact putContactByEmailAddresEmailAddress(
-			String agentName, String emailAddress, Contact contact)
+			String agentName, String agentUID, String emailAddress,
+			Contact contact)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putContactByEmailAddresEmailAddressHttpResponse(
-				String agentName, String emailAddress, Contact contact)
+				String agentName, String agentUID, String emailAddress,
+				Contact contact)
 		throws Exception;
 
-	public void deleteContactByOkta(String agentName, String oktaId)
+	public void deleteContactByOkta(
+			String agentName, String agentUID, String oktaId)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteContactByOktaHttpResponse(
-			String agentName, String oktaId)
+			String agentName, String agentUID, String oktaId)
 		throws Exception;
 
 	public Contact getContactByOkta(String oktaId) throws Exception;
@@ -121,45 +125,45 @@ public interface ContactResource {
 		throws Exception;
 
 	public Contact putContactByOkta(
-			String agentName, String oktaId, Contact contact)
+			String agentName, String agentUID, String oktaId, Contact contact)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putContactByOktaHttpResponse(
-			String agentName, String oktaId, Contact contact)
+			String agentName, String agentUID, String oktaId, Contact contact)
 		throws Exception;
 
 	public void deleteContactByOktaContactPermission(
-			String agentName, String oktaId,
+			String agentName, String agentUID, String oktaId,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ContactPermission contactPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteContactByOktaContactPermissionHttpResponse(
-				String agentName, String oktaId,
+				String agentName, String agentUID, String oktaId,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 		throws Exception;
 
 	public void putContactByOktaContactPermission(
-			String agentName, String oktaId,
+			String agentName, String agentUID, String oktaId,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ContactPermission contactPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putContactByOktaContactPermissionHttpResponse(
-				String agentName, String oktaId,
+				String agentName, String agentUID, String oktaId,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 		throws Exception;
 
 	public void deleteContactByUuidContactUuid(
-			String agentName, String contactUuid)
+			String agentName, String agentUID, String contactUuid)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteContactByUuidContactUuidHttpResponse(
-			String agentName, String contactUuid)
+			String agentName, String agentUID, String contactUuid)
 		throws Exception;
 
 	public Contact getContactByUuidContactUuid(String contactUuid)
@@ -170,35 +174,37 @@ public interface ContactResource {
 		throws Exception;
 
 	public Contact putContactByUuidContactUuid(
-			String agentName, String contactUuid, Contact contact)
+			String agentName, String agentUID, String contactUuid,
+			Contact contact)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putContactByUuidContactUuidHttpResponse(
-			String agentName, String contactUuid, Contact contact)
+			String agentName, String agentUID, String contactUuid,
+			Contact contact)
 		throws Exception;
 
 	public void deleteContactByUuidContactUuidContactPermission(
-			String agentName, String contactUuid,
+			String agentName, String agentUID, String contactUuid,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ContactPermission contactPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteContactByUuidContactUuidContactPermissionHttpResponse(
-				String agentName, String contactUuid,
+				String agentName, String agentUID, String contactUuid,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 		throws Exception;
 
 	public void putContactByUuidContactUuidContactPermission(
-			String agentName, String contactUuid,
+			String agentName, String agentUID, String contactUuid,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ContactPermission contactPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putContactByUuidContactUuidContactPermissionHttpResponse(
-				String agentName, String contactUuid,
+				String agentName, String agentUID, String contactUuid,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 		throws Exception;
@@ -532,11 +538,12 @@ public interface ContactResource {
 			return httpInvoker.invoke();
 		}
 
-		public Contact postContact(String agentName, Contact contact)
+		public Contact postContact(
+				String agentName, String agentUID, Contact contact)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = postContactHttpResponse(
-				agentName, contact);
+				agentName, agentUID, contact);
 
 			String content = httpResponse.getContent();
 
@@ -559,7 +566,7 @@ public interface ContactResource {
 		}
 
 		public HttpInvoker.HttpResponse postContactHttpResponse(
-				String agentName, Contact contact)
+				String agentName, String agentUID, Contact contact)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -589,6 +596,10 @@ public interface ContactResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/koroneiki-rest/v1.0/contacts");
@@ -600,12 +611,12 @@ public interface ContactResource {
 		}
 
 		public void deleteContactByEmailAddresEmailAddress(
-				String agentName, String emailAddress)
+				String agentName, String agentUID, String emailAddress)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteContactByEmailAddresEmailAddressHttpResponse(
-					agentName, emailAddress);
+					agentName, agentUID, emailAddress);
 
 			String content = httpResponse.getContent();
 
@@ -618,7 +629,7 @@ public interface ContactResource {
 
 		public HttpInvoker.HttpResponse
 				deleteContactByEmailAddresEmailAddressHttpResponse(
-					String agentName, String emailAddress)
+					String agentName, String agentUID, String emailAddress)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -644,6 +655,10 @@ public interface ContactResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -723,12 +738,13 @@ public interface ContactResource {
 		}
 
 		public Contact putContactByEmailAddresEmailAddress(
-				String agentName, String emailAddress, Contact contact)
+				String agentName, String agentUID, String emailAddress,
+				Contact contact)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putContactByEmailAddresEmailAddressHttpResponse(
-					agentName, emailAddress, contact);
+					agentName, agentUID, emailAddress, contact);
 
 			String content = httpResponse.getContent();
 
@@ -752,7 +768,8 @@ public interface ContactResource {
 
 		public HttpInvoker.HttpResponse
 				putContactByEmailAddresEmailAddressHttpResponse(
-					String agentName, String emailAddress, Contact contact)
+					String agentName, String agentUID, String emailAddress,
+					Contact contact)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -782,6 +799,10 @@ public interface ContactResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -794,11 +815,12 @@ public interface ContactResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteContactByOkta(String agentName, String oktaId)
+		public void deleteContactByOkta(
+				String agentName, String agentUID, String oktaId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteContactByOktaHttpResponse(agentName, oktaId);
+				deleteContactByOktaHttpResponse(agentName, agentUID, oktaId);
 
 			String content = httpResponse.getContent();
 
@@ -810,7 +832,7 @@ public interface ContactResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteContactByOktaHttpResponse(
-				String agentName, String oktaId)
+				String agentName, String agentUID, String oktaId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -836,6 +858,10 @@ public interface ContactResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -912,11 +938,13 @@ public interface ContactResource {
 		}
 
 		public Contact putContactByOkta(
-				String agentName, String oktaId, Contact contact)
+				String agentName, String agentUID, String oktaId,
+				Contact contact)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putContactByOktaHttpResponse(agentName, oktaId, contact);
+				putContactByOktaHttpResponse(
+					agentName, agentUID, oktaId, contact);
 
 			String content = httpResponse.getContent();
 
@@ -939,7 +967,8 @@ public interface ContactResource {
 		}
 
 		public HttpInvoker.HttpResponse putContactByOktaHttpResponse(
-				String agentName, String oktaId, Contact contact)
+				String agentName, String agentUID, String oktaId,
+				Contact contact)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -969,6 +998,10 @@ public interface ContactResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -982,14 +1015,14 @@ public interface ContactResource {
 		}
 
 		public void deleteContactByOktaContactPermission(
-				String agentName, String oktaId,
+				String agentName, String agentUID, String oktaId,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteContactByOktaContactPermissionHttpResponse(
-					agentName, oktaId, contactPermission);
+					agentName, agentUID, oktaId, contactPermission);
 
 			String content = httpResponse.getContent();
 
@@ -1002,7 +1035,7 @@ public interface ContactResource {
 
 		public HttpInvoker.HttpResponse
 				deleteContactByOktaContactPermissionHttpResponse(
-					String agentName, String oktaId,
+					String agentName, String agentUID, String oktaId,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ContactPermission contactPermission)
 			throws Exception {
@@ -1032,6 +1065,10 @@ public interface ContactResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -1045,14 +1082,14 @@ public interface ContactResource {
 		}
 
 		public void putContactByOktaContactPermission(
-				String agentName, String oktaId,
+				String agentName, String agentUID, String oktaId,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putContactByOktaContactPermissionHttpResponse(
-					agentName, oktaId, contactPermission);
+					agentName, agentUID, oktaId, contactPermission);
 
 			String content = httpResponse.getContent();
 
@@ -1065,7 +1102,7 @@ public interface ContactResource {
 
 		public HttpInvoker.HttpResponse
 				putContactByOktaContactPermissionHttpResponse(
-					String agentName, String oktaId,
+					String agentName, String agentUID, String oktaId,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ContactPermission contactPermission)
 			throws Exception {
@@ -1097,6 +1134,10 @@ public interface ContactResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -1110,12 +1151,12 @@ public interface ContactResource {
 		}
 
 		public void deleteContactByUuidContactUuid(
-				String agentName, String contactUuid)
+				String agentName, String agentUID, String contactUuid)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteContactByUuidContactUuidHttpResponse(
-					agentName, contactUuid);
+					agentName, agentUID, contactUuid);
 
 			String content = httpResponse.getContent();
 
@@ -1128,7 +1169,7 @@ public interface ContactResource {
 
 		public HttpInvoker.HttpResponse
 				deleteContactByUuidContactUuidHttpResponse(
-					String agentName, String contactUuid)
+					String agentName, String agentUID, String contactUuid)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1154,6 +1195,10 @@ public interface ContactResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -1232,12 +1277,13 @@ public interface ContactResource {
 		}
 
 		public Contact putContactByUuidContactUuid(
-				String agentName, String contactUuid, Contact contact)
+				String agentName, String agentUID, String contactUuid,
+				Contact contact)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putContactByUuidContactUuidHttpResponse(
-					agentName, contactUuid, contact);
+					agentName, agentUID, contactUuid, contact);
 
 			String content = httpResponse.getContent();
 
@@ -1260,7 +1306,8 @@ public interface ContactResource {
 		}
 
 		public HttpInvoker.HttpResponse putContactByUuidContactUuidHttpResponse(
-				String agentName, String contactUuid, Contact contact)
+				String agentName, String agentUID, String contactUuid,
+				Contact contact)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1290,6 +1337,10 @@ public interface ContactResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -1303,14 +1354,14 @@ public interface ContactResource {
 		}
 
 		public void deleteContactByUuidContactUuidContactPermission(
-				String agentName, String contactUuid,
+				String agentName, String agentUID, String contactUuid,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteContactByUuidContactUuidContactPermissionHttpResponse(
-					agentName, contactUuid, contactPermission);
+					agentName, agentUID, contactUuid, contactPermission);
 
 			String content = httpResponse.getContent();
 
@@ -1323,7 +1374,7 @@ public interface ContactResource {
 
 		public HttpInvoker.HttpResponse
 				deleteContactByUuidContactUuidContactPermissionHttpResponse(
-					String agentName, String contactUuid,
+					String agentName, String agentUID, String contactUuid,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ContactPermission contactPermission)
 			throws Exception {
@@ -1353,6 +1404,10 @@ public interface ContactResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -1366,14 +1421,14 @@ public interface ContactResource {
 		}
 
 		public void putContactByUuidContactUuidContactPermission(
-				String agentName, String contactUuid,
+				String agentName, String agentUID, String contactUuid,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putContactByUuidContactUuidContactPermissionHttpResponse(
-					agentName, contactUuid, contactPermission);
+					agentName, agentUID, contactUuid, contactPermission);
 
 			String content = httpResponse.getContent();
 
@@ -1386,7 +1441,7 @@ public interface ContactResource {
 
 		public HttpInvoker.HttpResponse
 				putContactByUuidContactUuidContactPermissionHttpResponse(
-					String agentName, String contactUuid,
+					String agentName, String agentUID, String contactUuid,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ContactPermission contactPermission)
 			throws Exception {
@@ -1416,6 +1471,10 @@ public interface ContactResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(

@@ -39,6 +39,7 @@ public class AuditEntrySoap implements Serializable {
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setAuditEntryKey(model.getAuditEntryKey());
 		soapModel.setAgentName(model.getAgentName());
+		soapModel.setAgentOktaId(model.getAgentOktaId());
 		soapModel.setClassNameId(model.getClassNameId());
 		soapModel.setClassPK(model.getClassPK());
 		soapModel.setAuditSetId(model.getAuditSetId());
@@ -168,6 +169,14 @@ public class AuditEntrySoap implements Serializable {
 		_agentName = agentName;
 	}
 
+	public String getAgentOktaId() {
+		return _agentOktaId;
+	}
+
+	public void setAgentOktaId(String agentOktaId) {
+		_agentOktaId = agentOktaId;
+	}
+
 	public long getClassNameId() {
 		return _classNameId;
 	}
@@ -272,6 +281,7 @@ public class AuditEntrySoap implements Serializable {
 	private Date _modifiedDate;
 	private String _auditEntryKey;
 	private String _agentName;
+	private String _agentOktaId;
 	private long _classNameId;
 	private long _classPK;
 	private long _auditSetId;

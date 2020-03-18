@@ -53,25 +53,28 @@ public interface TeamRoleResource {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public TeamRole postTeamRole(String agentName, TeamRole teamRole)
+	public TeamRole postTeamRole(
+			String agentName, String agentUID, TeamRole teamRole)
 		throws Exception;
 
-	public void deleteTeamRole(String agentName, String teamRoleKey)
+	public void deleteTeamRole(
+			String agentName, String agentUID, String teamRoleKey)
 		throws Exception;
 
 	public TeamRole getTeamRole(String teamRoleKey) throws Exception;
 
 	public TeamRole putTeamRole(
-			String agentName, String teamRoleKey, TeamRole teamRole)
+			String agentName, String agentUID, String teamRoleKey,
+			TeamRole teamRole)
 		throws Exception;
 
 	public void deleteTeamRoleTeamRolePermission(
-			String agentName, String teamRoleKey,
+			String agentName, String agentUID, String teamRoleKey,
 			TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public void putTeamRoleTeamRolePermission(
-			String agentName, String teamRoleKey,
+			String agentName, String agentUID, String teamRoleKey,
 			TeamRolePermission teamRolePermission)
 		throws Exception;
 

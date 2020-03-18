@@ -155,6 +155,36 @@ public class AuditEntry {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String agentName;
 
+	@Schema(
+		description = "The Okta ID of the user performing the audited action."
+	)
+	public String getAgentUID() {
+		return agentUID;
+	}
+
+	public void setAgentUID(String agentUID) {
+		this.agentUID = agentUID;
+	}
+
+	@JsonIgnore
+	public void setAgentUID(
+		UnsafeSupplier<String, Exception> agentUIDUnsafeSupplier) {
+
+		try {
+			agentUID = agentUIDUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String agentUID;
+
 	@Schema(description = "The id of related audit entries.")
 	public Long getAuditSetId() {
 		return auditSetId;
@@ -431,6 +461,20 @@ public class AuditEntry {
 			sb.append("\"");
 
 			sb.append(_escape(agentName));
+
+			sb.append("\"");
+		}
+
+		if (agentUID != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"agentUID\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(agentUID));
 
 			sb.append("\"");
 		}

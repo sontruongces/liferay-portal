@@ -49,11 +49,12 @@ public interface AccountResource {
 			String sortString)
 		throws Exception;
 
-	public Account postAccount(String agentName, Account account)
+	public Account postAccount(
+			String agentName, String agentUID, Account account)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postAccountHttpResponse(
-			String agentName, Account account)
+			String agentName, String agentUID, Account account)
 		throws Exception;
 
 	public Page<Account> getAccountByExternalLinkDomainEntityNameEntityPage(
@@ -67,11 +68,12 @@ public interface AccountResource {
 				Pagination pagination)
 		throws Exception;
 
-	public void deleteAccount(String agentName, String accountKey)
+	public void deleteAccount(
+			String agentName, String agentUID, String accountKey)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteAccountHttpResponse(
-			String agentName, String accountKey)
+			String agentName, String agentUID, String accountKey)
 		throws Exception;
 
 	public Account getAccount(String accountKey) throws Exception;
@@ -80,57 +82,59 @@ public interface AccountResource {
 		throws Exception;
 
 	public Account putAccount(
-			String agentName, String accountKey, Account account)
+			String agentName, String agentUID, String accountKey,
+			Account account)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putAccountHttpResponse(
-			String agentName, String accountKey, Account account)
+			String agentName, String agentUID, String accountKey,
+			Account account)
 		throws Exception;
 
 	public void deleteAccountAccountPermission(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				AccountPermission accountPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteAccountAccountPermissionHttpResponse(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				AccountPermission accountPermission)
 		throws Exception;
 
 	public void putAccountAccountPermission(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				AccountPermission accountPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putAccountAccountPermissionHttpResponse(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				AccountPermission accountPermission)
 		throws Exception;
 
 	public void deleteAccountAssignedTeamTeamKeyRole(
-			String agentName, String accountKey, String teamKey,
-			String[] teamRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
-				String agentName, String accountKey, String teamKey,
-				String[] teamRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public void putAccountAssignedTeamTeamKeyRole(
-			String agentName, String accountKey, String teamKey,
-			String[] teamRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putAccountAssignedTeamTeamKeyRoleHttpResponse(
-				String agentName, String accountKey, String teamKey,
-				String[] teamRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
 	public Page<Account> getAccountChildAccountsPage(
@@ -142,131 +146,143 @@ public interface AccountResource {
 		throws Exception;
 
 	public Account postAccountChildAccount(
-			String agentName, String accountKey, Account account)
+			String agentName, String agentUID, String accountKey,
+			Account account)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postAccountChildAccountHttpResponse(
-			String agentName, String accountKey, Account account)
+			String agentName, String agentUID, String accountKey,
+			Account account)
 		throws Exception;
 
 	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
-			String agentName, String accountKey, String contactEmailAddress,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress, String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
-				String agentName, String accountKey, String contactEmailAddress,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String contactEmailAddress, String[] contactRoleKeys)
 		throws Exception;
 
 	public void putAccountContactByEmailAddresContactEmailAddressRole(
-			String agentName, String accountKey, String contactEmailAddress,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress, String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
-				String agentName, String accountKey, String contactEmailAddress,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String contactEmailAddress, String[] contactRoleKeys)
 		throws Exception;
 
 	public void deleteAccountContactByOktaRole(
-			String agentName, String accountKey, String oktaId,
+			String agentName, String agentUID, String accountKey, String oktaId,
 			String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteAccountContactByOktaRoleHttpResponse(
-			String agentName, String accountKey, String oktaId,
+			String agentName, String agentUID, String accountKey, String oktaId,
 			String[] contactRoleKeys)
 		throws Exception;
 
 	public void putAccountContactByOktaRole(
-			String agentName, String accountKey, String oktaId,
+			String agentName, String agentUID, String accountKey, String oktaId,
 			String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putAccountContactByOktaRoleHttpResponse(
-			String agentName, String accountKey, String oktaId,
+			String agentName, String agentUID, String accountKey, String oktaId,
 			String[] contactRoleKeys)
 		throws Exception;
 
 	public void deleteAccountContactByUuidContactUuidRole(
-			String agentName, String accountKey, String contactUuid,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteAccountContactByUuidContactUuidRoleHttpResponse(
-				String agentName, String accountKey, String contactUuid,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public void putAccountContactByUuidContactUuidRole(
-			String agentName, String accountKey, String contactUuid,
-			String[] contactRoleKeys)
+			String agentName, String agentUID, String accountKey,
+			String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putAccountContactByUuidContactUuidRoleHttpResponse(
-				String agentName, String accountKey, String contactUuid,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String contactUuid, String[] contactRoleKeys)
 		throws Exception;
 
 	public void deleteAccountCustomerContactByEmailAddres(
-			String agentName, String accountKey, String[] contactEmailAddresses)
+			String agentName, String agentUID, String accountKey,
+			String[] contactEmailAddresses)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteAccountCustomerContactByEmailAddresHttpResponse(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				String[] contactEmailAddresses)
 		throws Exception;
 
 	public void deleteAccountCustomerContactByOkta(
-			String agentName, String accountKey, String[] oktaIds)
+			String agentName, String agentUID, String accountKey,
+			String[] oktaIds)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteAccountCustomerContactByOktaHttpResponse(
-				String agentName, String accountKey, String[] oktaIds)
+				String agentName, String agentUID, String accountKey,
+				String[] oktaIds)
 		throws Exception;
 
 	public void deleteAccountCustomerContactByUuid(
-			String agentName, String accountKey, String[] contactUuids)
+			String agentName, String agentUID, String accountKey,
+			String[] contactUuids)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteAccountCustomerContactByUuidHttpResponse(
-				String agentName, String accountKey, String[] contactUuids)
+				String agentName, String agentUID, String accountKey,
+				String[] contactUuids)
 		throws Exception;
 
 	public void deleteAccountWorkerContactByEmailAddres(
-			String agentName, String accountKey, String[] contactEmailAddresses)
+			String agentName, String agentUID, String accountKey,
+			String[] contactEmailAddresses)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteAccountWorkerContactByEmailAddresHttpResponse(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				String[] contactEmailAddresses)
 		throws Exception;
 
 	public void deleteAccountWorkerContactByOkta(
-			String agentName, String accountKey, String[] oktaIds)
+			String agentName, String agentUID, String accountKey,
+			String[] oktaIds)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteAccountWorkerContactByOktaHttpResponse(
-				String agentName, String accountKey, String[] oktaIds)
+				String agentName, String agentUID, String accountKey,
+				String[] oktaIds)
 		throws Exception;
 
 	public void deleteAccountWorkerContactByUuid(
-			String agentName, String accountKey, String[] contactUuids)
+			String agentName, String agentUID, String accountKey,
+			String[] contactUuids)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteAccountWorkerContactByUuidHttpResponse(
-				String agentName, String accountKey, String[] contactUuids)
+				String agentName, String agentUID, String accountKey,
+				String[] contactUuids)
 		throws Exception;
 
 	public Page<Account> getContactByOktaAccountsPage(
@@ -424,11 +440,12 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public Account postAccount(String agentName, Account account)
+		public Account postAccount(
+				String agentName, String agentUID, Account account)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = postAccountHttpResponse(
-				agentName, account);
+				agentName, agentUID, account);
 
 			String content = httpResponse.getContent();
 
@@ -451,7 +468,7 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse postAccountHttpResponse(
-				String agentName, Account account)
+				String agentName, String agentUID, Account account)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -479,6 +496,10 @@ public interface AccountResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -557,11 +578,12 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteAccount(String agentName, String accountKey)
+		public void deleteAccount(
+				String agentName, String agentUID, String accountKey)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = deleteAccountHttpResponse(
-				agentName, accountKey);
+				agentName, agentUID, accountKey);
 
 			String content = httpResponse.getContent();
 
@@ -573,7 +595,7 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteAccountHttpResponse(
-				String agentName, String accountKey)
+				String agentName, String agentUID, String accountKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -599,6 +621,10 @@ public interface AccountResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -675,11 +701,12 @@ public interface AccountResource {
 		}
 
 		public Account putAccount(
-				String agentName, String accountKey, Account account)
+				String agentName, String agentUID, String accountKey,
+				Account account)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = putAccountHttpResponse(
-				agentName, accountKey, account);
+				agentName, agentUID, accountKey, account);
 
 			String content = httpResponse.getContent();
 
@@ -702,7 +729,8 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse putAccountHttpResponse(
-				String agentName, String accountKey, Account account)
+				String agentName, String agentUID, String accountKey,
+				Account account)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -732,6 +760,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -745,14 +777,14 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountAccountPermission(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					AccountPermission accountPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountAccountPermissionHttpResponse(
-					agentName, accountKey, accountPermission);
+					agentName, agentUID, accountKey, accountPermission);
 
 			String content = httpResponse.getContent();
 
@@ -765,7 +797,7 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountAccountPermissionHttpResponse(
-					String agentName, String accountKey,
+					String agentName, String agentUID, String accountKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						AccountPermission accountPermission)
 			throws Exception {
@@ -795,6 +827,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -808,14 +844,14 @@ public interface AccountResource {
 		}
 
 		public void putAccountAccountPermission(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					AccountPermission accountPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putAccountAccountPermissionHttpResponse(
-					agentName, accountKey, accountPermission);
+					agentName, agentUID, accountKey, accountPermission);
 
 			String content = httpResponse.getContent();
 
@@ -827,7 +863,7 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse putAccountAccountPermissionHttpResponse(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					AccountPermission accountPermission)
 			throws Exception {
@@ -859,6 +895,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -872,13 +912,13 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountAssignedTeamTeamKeyRole(
-				String agentName, String accountKey, String teamKey,
-				String[] teamRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String teamKey, String[] teamRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
-					agentName, accountKey, teamKey, teamRoleKeys);
+					agentName, agentUID, accountKey, teamKey, teamRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -891,8 +931,8 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
-					String agentName, String accountKey, String teamKey,
-					String[] teamRoleKeys)
+					String agentName, String agentUID, String accountKey,
+					String teamKey, String[] teamRoleKeys)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -920,6 +960,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			if (teamRoleKeys != null) {
 				for (int i = 0; i < teamRoleKeys.length; i++) {
 					httpInvoker.parameter(
@@ -940,13 +984,13 @@ public interface AccountResource {
 		}
 
 		public void putAccountAssignedTeamTeamKeyRole(
-				String agentName, String accountKey, String teamKey,
-				String[] teamRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String teamKey, String[] teamRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putAccountAssignedTeamTeamKeyRoleHttpResponse(
-					agentName, accountKey, teamKey, teamRoleKeys);
+					agentName, agentUID, accountKey, teamKey, teamRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -959,8 +1003,8 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				putAccountAssignedTeamTeamKeyRoleHttpResponse(
-					String agentName, String accountKey, String teamKey,
-					String[] teamRoleKeys)
+					String agentName, String agentUID, String accountKey,
+					String teamKey, String[] teamRoleKeys)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -988,6 +1032,10 @@ public interface AccountResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			if (teamRoleKeys != null) {
@@ -1072,12 +1120,13 @@ public interface AccountResource {
 		}
 
 		public Account postAccountChildAccount(
-				String agentName, String accountKey, Account account)
+				String agentName, String agentUID, String accountKey,
+				Account account)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postAccountChildAccountHttpResponse(
-					agentName, accountKey, account);
+					agentName, agentUID, accountKey, account);
 
 			String content = httpResponse.getContent();
 
@@ -1100,7 +1149,8 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse postAccountChildAccountHttpResponse(
-				String agentName, String accountKey, Account account)
+				String agentName, String agentUID, String accountKey,
+				Account account)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1130,6 +1180,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -1143,13 +1197,13 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountContactByEmailAddresContactEmailAddressRole(
-				String agentName, String accountKey, String contactEmailAddress,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String contactEmailAddress, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
-					agentName, accountKey, contactEmailAddress,
+					agentName, agentUID, accountKey, contactEmailAddress,
 					contactRoleKeys);
 
 			String content = httpResponse.getContent();
@@ -1163,7 +1217,7 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
-					String agentName, String accountKey,
+					String agentName, String agentUID, String accountKey,
 					String contactEmailAddress, String[] contactRoleKeys)
 			throws Exception {
 
@@ -1190,6 +1244,10 @@ public interface AccountResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			if (contactRoleKeys != null) {
@@ -1212,13 +1270,13 @@ public interface AccountResource {
 		}
 
 		public void putAccountContactByEmailAddresContactEmailAddressRole(
-				String agentName, String accountKey, String contactEmailAddress,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String contactEmailAddress, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
-					agentName, accountKey, contactEmailAddress,
+					agentName, agentUID, accountKey, contactEmailAddress,
 					contactRoleKeys);
 
 			String content = httpResponse.getContent();
@@ -1232,7 +1290,7 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				putAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
-					String agentName, String accountKey,
+					String agentName, String agentUID, String accountKey,
 					String contactEmailAddress, String[] contactRoleKeys)
 			throws Exception {
 
@@ -1263,6 +1321,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			if (contactRoleKeys != null) {
 				for (int i = 0; i < contactRoleKeys.length; i++) {
 					httpInvoker.parameter(
@@ -1283,13 +1345,13 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountContactByOktaRole(
-				String agentName, String accountKey, String oktaId,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String oktaId, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountContactByOktaRoleHttpResponse(
-					agentName, accountKey, oktaId, contactRoleKeys);
+					agentName, agentUID, accountKey, oktaId, contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -1302,8 +1364,8 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountContactByOktaRoleHttpResponse(
-					String agentName, String accountKey, String oktaId,
-					String[] contactRoleKeys)
+					String agentName, String agentUID, String accountKey,
+					String oktaId, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1329,6 +1391,10 @@ public interface AccountResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			if (contactRoleKeys != null) {
@@ -1351,13 +1417,13 @@ public interface AccountResource {
 		}
 
 		public void putAccountContactByOktaRole(
-				String agentName, String accountKey, String oktaId,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String oktaId, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putAccountContactByOktaRoleHttpResponse(
-					agentName, accountKey, oktaId, contactRoleKeys);
+					agentName, agentUID, accountKey, oktaId, contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -1369,8 +1435,8 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse putAccountContactByOktaRoleHttpResponse(
-				String agentName, String accountKey, String oktaId,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String oktaId, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1400,6 +1466,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			if (contactRoleKeys != null) {
 				for (int i = 0; i < contactRoleKeys.length; i++) {
 					httpInvoker.parameter(
@@ -1420,13 +1490,14 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountContactByUuidContactUuidRole(
-				String agentName, String accountKey, String contactUuid,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String contactUuid, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountContactByUuidContactUuidRoleHttpResponse(
-					agentName, accountKey, contactUuid, contactRoleKeys);
+					agentName, agentUID, accountKey, contactUuid,
+					contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -1439,8 +1510,8 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountContactByUuidContactUuidRoleHttpResponse(
-					String agentName, String accountKey, String contactUuid,
-					String[] contactRoleKeys)
+					String agentName, String agentUID, String accountKey,
+					String contactUuid, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1468,6 +1539,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			if (contactRoleKeys != null) {
 				for (int i = 0; i < contactRoleKeys.length; i++) {
 					httpInvoker.parameter(
@@ -1488,13 +1563,14 @@ public interface AccountResource {
 		}
 
 		public void putAccountContactByUuidContactUuidRole(
-				String agentName, String accountKey, String contactUuid,
-				String[] contactRoleKeys)
+				String agentName, String agentUID, String accountKey,
+				String contactUuid, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putAccountContactByUuidContactUuidRoleHttpResponse(
-					agentName, accountKey, contactUuid, contactRoleKeys);
+					agentName, agentUID, accountKey, contactUuid,
+					contactRoleKeys);
 
 			String content = httpResponse.getContent();
 
@@ -1507,8 +1583,8 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				putAccountContactByUuidContactUuidRoleHttpResponse(
-					String agentName, String accountKey, String contactUuid,
-					String[] contactRoleKeys)
+					String agentName, String agentUID, String accountKey,
+					String contactUuid, String[] contactRoleKeys)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1538,6 +1614,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			if (contactRoleKeys != null) {
 				for (int i = 0; i < contactRoleKeys.length; i++) {
 					httpInvoker.parameter(
@@ -1558,13 +1638,13 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountCustomerContactByEmailAddres(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				String[] contactEmailAddresses)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountCustomerContactByEmailAddresHttpResponse(
-					agentName, accountKey, contactEmailAddresses);
+					agentName, agentUID, accountKey, contactEmailAddresses);
 
 			String content = httpResponse.getContent();
 
@@ -1577,7 +1657,7 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountCustomerContactByEmailAddresHttpResponse(
-					String agentName, String accountKey,
+					String agentName, String agentUID, String accountKey,
 					String[] contactEmailAddresses)
 			throws Exception {
 
@@ -1604,6 +1684,10 @@ public interface AccountResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			if (contactEmailAddresses != null) {
@@ -1627,12 +1711,13 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountCustomerContactByOkta(
-				String agentName, String accountKey, String[] oktaIds)
+				String agentName, String agentUID, String accountKey,
+				String[] oktaIds)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountCustomerContactByOktaHttpResponse(
-					agentName, accountKey, oktaIds);
+					agentName, agentUID, accountKey, oktaIds);
 
 			String content = httpResponse.getContent();
 
@@ -1645,7 +1730,8 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountCustomerContactByOktaHttpResponse(
-					String agentName, String accountKey, String[] oktaIds)
+					String agentName, String agentUID, String accountKey,
+					String[] oktaIds)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1671,6 +1757,10 @@ public interface AccountResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			if (oktaIds != null) {
@@ -1693,12 +1783,13 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountCustomerContactByUuid(
-				String agentName, String accountKey, String[] contactUuids)
+				String agentName, String agentUID, String accountKey,
+				String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountCustomerContactByUuidHttpResponse(
-					agentName, accountKey, contactUuids);
+					agentName, agentUID, accountKey, contactUuids);
 
 			String content = httpResponse.getContent();
 
@@ -1711,7 +1802,8 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountCustomerContactByUuidHttpResponse(
-					String agentName, String accountKey, String[] contactUuids)
+					String agentName, String agentUID, String accountKey,
+					String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1739,6 +1831,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			if (contactUuids != null) {
 				for (int i = 0; i < contactUuids.length; i++) {
 					httpInvoker.parameter(
@@ -1759,13 +1855,13 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountWorkerContactByEmailAddres(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				String[] contactEmailAddresses)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountWorkerContactByEmailAddresHttpResponse(
-					agentName, accountKey, contactEmailAddresses);
+					agentName, agentUID, accountKey, contactEmailAddresses);
 
 			String content = httpResponse.getContent();
 
@@ -1778,7 +1874,7 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountWorkerContactByEmailAddresHttpResponse(
-					String agentName, String accountKey,
+					String agentName, String agentUID, String accountKey,
 					String[] contactEmailAddresses)
 			throws Exception {
 
@@ -1807,6 +1903,10 @@ public interface AccountResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			if (contactEmailAddresses != null) {
 				for (int i = 0; i < contactEmailAddresses.length; i++) {
 					httpInvoker.parameter(
@@ -1828,12 +1928,13 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountWorkerContactByOkta(
-				String agentName, String accountKey, String[] oktaIds)
+				String agentName, String agentUID, String accountKey,
+				String[] oktaIds)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountWorkerContactByOktaHttpResponse(
-					agentName, accountKey, oktaIds);
+					agentName, agentUID, accountKey, oktaIds);
 
 			String content = httpResponse.getContent();
 
@@ -1846,7 +1947,8 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountWorkerContactByOktaHttpResponse(
-					String agentName, String accountKey, String[] oktaIds)
+					String agentName, String agentUID, String accountKey,
+					String[] oktaIds)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1872,6 +1974,10 @@ public interface AccountResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			if (oktaIds != null) {
@@ -1894,12 +2000,13 @@ public interface AccountResource {
 		}
 
 		public void deleteAccountWorkerContactByUuid(
-				String agentName, String accountKey, String[] contactUuids)
+				String agentName, String agentUID, String accountKey,
+				String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteAccountWorkerContactByUuidHttpResponse(
-					agentName, accountKey, contactUuids);
+					agentName, agentUID, accountKey, contactUuids);
 
 			String content = httpResponse.getContent();
 
@@ -1912,7 +2019,8 @@ public interface AccountResource {
 
 		public HttpInvoker.HttpResponse
 				deleteAccountWorkerContactByUuidHttpResponse(
-					String agentName, String accountKey, String[] contactUuids)
+					String agentName, String agentUID, String accountKey,
+					String[] contactUuids)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1938,6 +2046,10 @@ public interface AccountResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			if (contactUuids != null) {

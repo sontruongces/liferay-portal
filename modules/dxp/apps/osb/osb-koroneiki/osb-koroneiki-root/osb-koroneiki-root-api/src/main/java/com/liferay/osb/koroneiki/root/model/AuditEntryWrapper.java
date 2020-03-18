@@ -50,6 +50,7 @@ public class AuditEntryWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("auditEntryKey", getAuditEntryKey());
 		attributes.put("agentName", getAgentName());
+		attributes.put("agentOktaId", getAgentOktaId());
 		attributes.put("classNameId", getClassNameId());
 		attributes.put("classPK", getClassPK());
 		attributes.put("auditSetId", getAuditSetId());
@@ -114,6 +115,12 @@ public class AuditEntryWrapper
 
 		if (agentName != null) {
 			setAgentName(agentName);
+		}
+
+		String agentOktaId = (String)attributes.get("agentOktaId");
+
+		if (agentOktaId != null) {
+			setAgentOktaId(agentOktaId);
 		}
 
 		Long classNameId = (Long)attributes.get("classNameId");
@@ -207,6 +214,16 @@ public class AuditEntryWrapper
 	@Override
 	public String getAgentName() {
 		return model.getAgentName();
+	}
+
+	/**
+	 * Returns the agent okta ID of this audit entry.
+	 *
+	 * @return the agent okta ID of this audit entry
+	 */
+	@Override
+	public String getAgentOktaId() {
+		return model.getAgentOktaId();
 	}
 
 	/**
@@ -419,11 +436,6 @@ public class AuditEntryWrapper
 		return model.getUserUuid();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a audit entry model instance should use the <code>AuditEntry</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();
@@ -447,6 +459,16 @@ public class AuditEntryWrapper
 	@Override
 	public void setAgentName(String agentName) {
 		model.setAgentName(agentName);
+	}
+
+	/**
+	 * Sets the agent okta ID of this audit entry.
+	 *
+	 * @param agentOktaId the agent okta ID of this audit entry
+	 */
+	@Override
+	public void setAgentOktaId(String agentOktaId) {
+		model.setAgentOktaId(agentOktaId);
 	}
 
 	/**

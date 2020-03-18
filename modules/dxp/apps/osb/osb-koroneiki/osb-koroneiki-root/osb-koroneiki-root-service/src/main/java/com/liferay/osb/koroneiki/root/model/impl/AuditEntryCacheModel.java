@@ -76,7 +76,7 @@ public class AuditEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -94,6 +94,8 @@ public class AuditEntryCacheModel
 		sb.append(auditEntryKey);
 		sb.append(", agentName=");
 		sb.append(agentName);
+		sb.append(", agentOktaId=");
+		sb.append(agentOktaId);
 		sb.append(", classNameId=");
 		sb.append(classNameId);
 		sb.append(", classPK=");
@@ -158,6 +160,13 @@ public class AuditEntryCacheModel
 		}
 		else {
 			auditEntryImpl.setAgentName(agentName);
+		}
+
+		if (agentOktaId == null) {
+			auditEntryImpl.setAgentOktaId("");
+		}
+		else {
+			auditEntryImpl.setAgentOktaId(agentOktaId);
 		}
 
 		auditEntryImpl.setClassNameId(classNameId);
@@ -233,6 +242,7 @@ public class AuditEntryCacheModel
 		modifiedDate = objectInput.readLong();
 		auditEntryKey = objectInput.readUTF();
 		agentName = objectInput.readUTF();
+		agentOktaId = objectInput.readUTF();
 
 		classNameId = objectInput.readLong();
 
@@ -276,6 +286,13 @@ public class AuditEntryCacheModel
 		}
 		else {
 			objectOutput.writeUTF(agentName);
+		}
+
+		if (agentOktaId == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(agentOktaId);
 		}
 
 		objectOutput.writeLong(classNameId);
@@ -346,6 +363,7 @@ public class AuditEntryCacheModel
 	public long modifiedDate;
 	public String auditEntryKey;
 	public String agentName;
+	public String agentOktaId;
 	public long classNameId;
 	public long classPK;
 	public long auditSetId;

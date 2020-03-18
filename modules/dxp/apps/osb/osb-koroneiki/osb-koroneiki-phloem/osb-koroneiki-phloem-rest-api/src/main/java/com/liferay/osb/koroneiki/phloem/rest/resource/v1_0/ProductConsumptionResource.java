@@ -50,7 +50,7 @@ public interface ProductConsumptionResource {
 		throws Exception;
 
 	public ProductConsumption postAccountAccountKeyProductConsumption(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			ProductConsumption productConsumption)
 		throws Exception;
 
@@ -74,7 +74,7 @@ public interface ProductConsumptionResource {
 		throws Exception;
 
 	public void deleteProductConsumption(
-			String agentName, String productConsumptionKey)
+			String agentName, String agentUID, String productConsumptionKey)
 		throws Exception;
 
 	public ProductConsumption getProductConsumption(
@@ -82,12 +82,12 @@ public interface ProductConsumptionResource {
 		throws Exception;
 
 	public void deleteProductConsumptionProductConsumptionPermission(
-			String agentName, String productConsumptionKey,
+			String agentName, String agentUID, String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception;
 
 	public void putProductConsumptionProductConsumptionPermission(
-			String agentName, String productConsumptionKey,
+			String agentName, String agentUID, String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception;
 

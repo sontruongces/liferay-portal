@@ -49,11 +49,12 @@ public interface ProductResource {
 			String sortString)
 		throws Exception;
 
-	public Product postProduct(String agentName, Product product)
+	public Product postProduct(
+			String agentName, String agentUID, Product product)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postProductHttpResponse(
-			String agentName, Product product)
+			String agentName, String agentUID, Product product)
 		throws Exception;
 
 	public Page<Product> getProductByExternalLinkDomainEntityNameEntityPage(
@@ -74,11 +75,12 @@ public interface ProductResource {
 			String productName)
 		throws Exception;
 
-	public void deleteProduct(String agentName, String productKey)
+	public void deleteProduct(
+			String agentName, String agentUID, String productKey)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteProductHttpResponse(
-			String agentName, String productKey)
+			String agentName, String agentUID, String productKey)
 		throws Exception;
 
 	public Product getProduct(String productKey) throws Exception;
@@ -87,33 +89,35 @@ public interface ProductResource {
 		throws Exception;
 
 	public Product putProduct(
-			String agentName, String productKey, Product product)
+			String agentName, String agentUID, String productKey,
+			Product product)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putProductHttpResponse(
-			String agentName, String productKey, Product product)
+			String agentName, String agentUID, String productKey,
+			Product product)
 		throws Exception;
 
 	public void deleteProductProductPermission(
-			String agentName, String productKey,
+			String agentName, String agentUID, String productKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductPermission productPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteProductProductPermissionHttpResponse(
-			String agentName, String productKey,
+			String agentName, String agentUID, String productKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductPermission productPermission)
 		throws Exception;
 
 	public void putProductProductPermission(
-			String agentName, String productKey,
+			String agentName, String agentUID, String productKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductPermission productPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putProductProductPermissionHttpResponse(
-			String agentName, String productKey,
+			String agentName, String agentUID, String productKey,
 			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 				ProductPermission productPermission)
 		throws Exception;
@@ -247,11 +251,12 @@ public interface ProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public Product postProduct(String agentName, Product product)
+		public Product postProduct(
+				String agentName, String agentUID, Product product)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = postProductHttpResponse(
-				agentName, product);
+				agentName, agentUID, product);
 
 			String content = httpResponse.getContent();
 
@@ -274,7 +279,7 @@ public interface ProductResource {
 		}
 
 		public HttpInvoker.HttpResponse postProductHttpResponse(
-				String agentName, Product product)
+				String agentName, String agentUID, Product product)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -302,6 +307,10 @@ public interface ProductResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -443,11 +452,12 @@ public interface ProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteProduct(String agentName, String productKey)
+		public void deleteProduct(
+				String agentName, String agentUID, String productKey)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = deleteProductHttpResponse(
-				agentName, productKey);
+				agentName, agentUID, productKey);
 
 			String content = httpResponse.getContent();
 
@@ -459,7 +469,7 @@ public interface ProductResource {
 		}
 
 		public HttpInvoker.HttpResponse deleteProductHttpResponse(
-				String agentName, String productKey)
+				String agentName, String agentUID, String productKey)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -485,6 +495,10 @@ public interface ProductResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -561,11 +575,12 @@ public interface ProductResource {
 		}
 
 		public Product putProduct(
-				String agentName, String productKey, Product product)
+				String agentName, String agentUID, String productKey,
+				Product product)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = putProductHttpResponse(
-				agentName, productKey, product);
+				agentName, agentUID, productKey, product);
 
 			String content = httpResponse.getContent();
 
@@ -588,7 +603,8 @@ public interface ProductResource {
 		}
 
 		public HttpInvoker.HttpResponse putProductHttpResponse(
-				String agentName, String productKey, Product product)
+				String agentName, String agentUID, String productKey,
+				Product product)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -618,6 +634,10 @@ public interface ProductResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -631,14 +651,14 @@ public interface ProductResource {
 		}
 
 		public void deleteProductProductPermission(
-				String agentName, String productKey,
+				String agentName, String agentUID, String productKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductPermission productPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				deleteProductProductPermissionHttpResponse(
-					agentName, productKey, productPermission);
+					agentName, agentUID, productKey, productPermission);
 
 			String content = httpResponse.getContent();
 
@@ -651,7 +671,7 @@ public interface ProductResource {
 
 		public HttpInvoker.HttpResponse
 				deleteProductProductPermissionHttpResponse(
-					String agentName, String productKey,
+					String agentName, String agentUID, String productKey,
 					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 						ProductPermission productPermission)
 			throws Exception {
@@ -681,6 +701,10 @@ public interface ProductResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -694,14 +718,14 @@ public interface ProductResource {
 		}
 
 		public void putProductProductPermission(
-				String agentName, String productKey,
+				String agentName, String agentUID, String productKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductPermission productPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putProductProductPermissionHttpResponse(
-					agentName, productKey, productPermission);
+					agentName, agentUID, productKey, productPermission);
 
 			String content = httpResponse.getContent();
 
@@ -713,7 +737,7 @@ public interface ProductResource {
 		}
 
 		public HttpInvoker.HttpResponse putProductProductPermissionHttpResponse(
-				String agentName, String productKey,
+				String agentName, String agentUID, String productKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
 					ProductPermission productPermission)
 			throws Exception {
@@ -743,6 +767,10 @@ public interface ProductResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(

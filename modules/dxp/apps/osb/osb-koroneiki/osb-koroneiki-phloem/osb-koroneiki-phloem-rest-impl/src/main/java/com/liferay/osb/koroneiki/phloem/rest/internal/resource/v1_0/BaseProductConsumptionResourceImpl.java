@@ -103,6 +103,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey")
 		}
 	)
@@ -111,6 +112,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public ProductConsumption postAccountAccountKeyProductConsumption(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			ProductConsumption productConsumption)
@@ -253,6 +255,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
 		}
 	)
@@ -261,6 +264,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public void deleteProductConsumption(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("productConsumptionKey") String productConsumptionKey)
 		throws Exception {
@@ -301,6 +305,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
 		}
 	)
@@ -311,6 +316,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public void deleteProductConsumptionProductConsumptionPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("productConsumptionKey") String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
@@ -328,6 +334,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
 		}
 	)
@@ -338,6 +345,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	@Tags(value = {@Tag(name = "ProductConsumption")})
 	public void putProductConsumptionProductConsumptionPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("productConsumptionKey") String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)

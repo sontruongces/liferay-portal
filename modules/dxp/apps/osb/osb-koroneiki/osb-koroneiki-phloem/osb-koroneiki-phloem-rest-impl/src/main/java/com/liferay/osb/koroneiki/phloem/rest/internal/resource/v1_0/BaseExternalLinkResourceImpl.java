@@ -100,6 +100,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey")
 		}
 	)
@@ -108,6 +109,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postAccountAccountKeyExternalLink(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			ExternalLink externalLink)
@@ -155,6 +157,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "oktaId")
 		}
 	)
@@ -163,6 +166,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postContactByOktaExternalLink(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
 				oktaId,
 			ExternalLink externalLink)
@@ -210,6 +214,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "contactUuid")
 		}
 	)
@@ -218,6 +223,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postContactByUuidContactUuidExternalLink(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("contactUuid") String
 				contactUuid,
 			ExternalLink externalLink)
@@ -236,6 +242,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "externalLinkKey")
 		}
 	)
@@ -244,6 +251,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public void deleteExternalLink(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("externalLinkKey")
 				String externalLinkKey)
 		throws Exception {
@@ -316,6 +324,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productConsumptionKey")
 		}
 	)
@@ -324,6 +333,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postProductConsumptionProductConsumptionKeyExternalLink(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("productConsumptionKey") String productConsumptionKey,
 			ExternalLink externalLink)
@@ -372,6 +382,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productPurchaseKey")
 		}
 	)
@@ -380,6 +391,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postProductPurchaseProductPurchaseKeyExternalLink(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productPurchaseKey")
 				String productPurchaseKey,
 			ExternalLink externalLink)
@@ -427,6 +439,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productKey")
 		}
 	)
@@ -435,6 +448,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postProductProductKeyExternalLink(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey,
 			ExternalLink externalLink)
@@ -482,6 +496,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamKey")
 		}
 	)
@@ -490,6 +505,7 @@ public abstract class BaseExternalLinkResourceImpl
 	@Tags(value = {@Tag(name = "ExternalLink")})
 	public ExternalLink postTeamTeamKeyExternalLink(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
 				teamKey,
 			ExternalLink externalLink)

@@ -95,25 +95,27 @@ public interface ContactRoleResource {
 		throws Exception;
 
 	public ContactRole postContactRole(
-			String agentName, ContactRole contactRole)
+			String agentName, String agentUID, ContactRole contactRole)
 		throws Exception;
 
-	public void deleteContactRole(String agentName, String contactRoleKey)
+	public void deleteContactRole(
+			String agentName, String agentUID, String contactRoleKey)
 		throws Exception;
 
 	public ContactRole getContactRole(String contactRoleKey) throws Exception;
 
 	public ContactRole putContactRole(
-			String agentName, String contactRoleKey, ContactRole contactRole)
+			String agentName, String agentUID, String contactRoleKey,
+			ContactRole contactRole)
 		throws Exception;
 
 	public void deleteContactRoleContactRolePermission(
-			String agentName, String contactRoleKey,
+			String agentName, String agentUID, String contactRoleKey,
 			ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public void putContactRoleContactRolePermission(
-			String agentName, String contactRoleKey,
+			String agentName, String agentUID, String contactRoleKey,
 			ContactRolePermission contactRolePermission)
 		throws Exception;
 

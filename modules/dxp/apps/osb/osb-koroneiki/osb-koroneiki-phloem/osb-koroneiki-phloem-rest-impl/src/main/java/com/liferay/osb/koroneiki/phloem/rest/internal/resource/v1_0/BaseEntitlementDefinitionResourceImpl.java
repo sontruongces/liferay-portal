@@ -98,13 +98,17 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID")
+		}
 	)
 	@Path("/accounts/entitlement-definitions")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public EntitlementDefinition postAccountEntitlementDefinition(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			EntitlementDefinition entitlementDefinition)
 		throws Exception {
 
@@ -146,13 +150,17 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID")
+		}
 	)
 	@Path("/contacts/entitlement-definitions")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public EntitlementDefinition postContactEntitlementDefinition(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			EntitlementDefinition entitlementDefinition)
 		throws Exception {
 
@@ -169,6 +177,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "entitlementDefinitionKey")
 		}
 	)
@@ -177,6 +186,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public void deleteEntitlementDefinition(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("entitlementDefinitionKey") String
 				entitlementDefinitionKey)
@@ -221,6 +231,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "entitlementDefinitionKey")
 		}
 	)
@@ -229,6 +240,7 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	@Tags(value = {@Tag(name = "EntitlementDefinition")})
 	public void postEntitlementDefinitionSynchronize(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("entitlementDefinitionKey") String
 				entitlementDefinitionKey)

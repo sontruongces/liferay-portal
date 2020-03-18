@@ -104,13 +104,17 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID")
+		}
 	)
 	@Path("/products")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
 	public Product postProduct(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			Product product)
 		throws Exception {
 
@@ -182,6 +186,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productKey")
 		}
 	)
@@ -190,6 +195,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Tags(value = {@Tag(name = "Product")})
 	public void deleteProduct(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey)
 		throws Exception {
@@ -228,6 +234,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productKey")
 		}
 	)
@@ -236,6 +243,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Tags(value = {@Tag(name = "Product")})
 	public Product putProduct(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey,
 			Product product)
@@ -255,6 +263,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productKey")
 		}
 	)
@@ -263,6 +272,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Tags(value = {@Tag(name = "Product")})
 	public void deleteProductProductPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey,
 			ProductPermission productPermission)
@@ -280,6 +290,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "productKey")
 		}
 	)
@@ -288,6 +299,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	@Tags(value = {@Tag(name = "Product")})
 	public void putProductProductPermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("productKey") String
 				productKey,
 			ProductPermission productPermission)

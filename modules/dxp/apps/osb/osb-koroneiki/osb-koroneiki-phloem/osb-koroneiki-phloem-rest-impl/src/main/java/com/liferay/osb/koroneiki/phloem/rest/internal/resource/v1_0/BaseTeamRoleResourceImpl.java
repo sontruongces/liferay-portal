@@ -134,13 +134,17 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(
-		value = {@Parameter(in = ParameterIn.QUERY, name = "agentName")}
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID")
+		}
 	)
 	@Path("/team-roles")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TeamRole")})
 	public TeamRole postTeamRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			TeamRole teamRole)
 		throws Exception {
 
@@ -157,6 +161,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamRoleKey")
 		}
 	)
@@ -165,6 +170,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 	@Tags(value = {@Tag(name = "TeamRole")})
 	public void deleteTeamRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamRoleKey") String
 				teamRoleKey)
 		throws Exception {
@@ -203,6 +209,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamRoleKey")
 		}
 	)
@@ -211,6 +218,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 	@Tags(value = {@Tag(name = "TeamRole")})
 	public TeamRole putTeamRole(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamRoleKey") String
 				teamRoleKey,
 			TeamRole teamRole)
@@ -230,6 +238,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamRoleKey")
 		}
 	)
@@ -238,6 +247,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 	@Tags(value = {@Tag(name = "TeamRole")})
 	public void deleteTeamRoleTeamRolePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamRoleKey") String
 				teamRoleKey,
 			TeamRolePermission teamRolePermission)
@@ -255,6 +265,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "teamRoleKey")
 		}
 	)
@@ -263,6 +274,7 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 	@Tags(value = {@Tag(name = "TeamRole")})
 	public void putTeamRoleTeamRolePermission(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("teamRoleKey") String
 				teamRoleKey,
 			TeamRolePermission teamRolePermission)

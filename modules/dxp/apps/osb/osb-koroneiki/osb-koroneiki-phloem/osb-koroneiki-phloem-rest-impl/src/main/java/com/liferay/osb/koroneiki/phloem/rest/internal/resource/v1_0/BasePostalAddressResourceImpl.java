@@ -93,6 +93,7 @@ public abstract class BasePostalAddressResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "accountKey")
 		}
 	)
@@ -101,6 +102,7 @@ public abstract class BasePostalAddressResourceImpl
 	@Tags(value = {@Tag(name = "PostalAddress")})
 	public PostalAddress postAccountAccountKeyPostalAddress(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
 			PostalAddress postalAddress)
@@ -119,6 +121,7 @@ public abstract class BasePostalAddressResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "postalAddressId")
 		}
 	)
@@ -127,6 +130,7 @@ public abstract class BasePostalAddressResourceImpl
 	@Tags(value = {@Tag(name = "PostalAddress")})
 	public void deletePostalAddress(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("postalAddressId")
 				Long postalAddressId)
 		throws Exception {
@@ -165,6 +169,7 @@ public abstract class BasePostalAddressResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
 			@Parameter(in = ParameterIn.PATH, name = "postalAddressId")
 		}
 	)
@@ -173,6 +178,7 @@ public abstract class BasePostalAddressResourceImpl
 	@Tags(value = {@Tag(name = "PostalAddress")})
 	public PostalAddress putPostalAddress(
 			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
 			@NotNull @Parameter(hidden = true) @PathParam("postalAddressId")
 				Long postalAddressId,
 			PostalAddress postalAddress)

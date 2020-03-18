@@ -48,20 +48,22 @@ public interface PostalAddressResource {
 		throws Exception;
 
 	public PostalAddress postAccountAccountKeyPostalAddress(
-			String agentName, String accountKey, PostalAddress postalAddress)
+			String agentName, String agentUID, String accountKey,
+			PostalAddress postalAddress)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postAccountAccountKeyPostalAddressHttpResponse(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				PostalAddress postalAddress)
 		throws Exception;
 
-	public void deletePostalAddress(String agentName, Long postalAddressId)
+	public void deletePostalAddress(
+			String agentName, String agentUID, Long postalAddressId)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deletePostalAddressHttpResponse(
-			String agentName, Long postalAddressId)
+			String agentName, String agentUID, Long postalAddressId)
 		throws Exception;
 
 	public PostalAddress getPostalAddress(Long postalAddressId)
@@ -72,11 +74,13 @@ public interface PostalAddressResource {
 		throws Exception;
 
 	public PostalAddress putPostalAddress(
-			String agentName, Long postalAddressId, PostalAddress postalAddress)
+			String agentName, String agentUID, Long postalAddressId,
+			PostalAddress postalAddress)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putPostalAddressHttpResponse(
-			String agentName, Long postalAddressId, PostalAddress postalAddress)
+			String agentName, String agentUID, Long postalAddressId,
+			PostalAddress postalAddress)
 		throws Exception;
 
 	public static class Builder {
@@ -192,13 +196,13 @@ public interface PostalAddressResource {
 		}
 
 		public PostalAddress postAccountAccountKeyPostalAddress(
-				String agentName, String accountKey,
+				String agentName, String agentUID, String accountKey,
 				PostalAddress postalAddress)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				postAccountAccountKeyPostalAddressHttpResponse(
-					agentName, accountKey, postalAddress);
+					agentName, agentUID, accountKey, postalAddress);
 
 			String content = httpResponse.getContent();
 
@@ -222,7 +226,7 @@ public interface PostalAddressResource {
 
 		public HttpInvoker.HttpResponse
 				postAccountAccountKeyPostalAddressHttpResponse(
-					String agentName, String accountKey,
+					String agentName, String agentUID, String accountKey,
 					PostalAddress postalAddress)
 			throws Exception {
 
@@ -253,6 +257,10 @@ public interface PostalAddressResource {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
 			}
 
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -265,11 +273,13 @@ public interface PostalAddressResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deletePostalAddress(String agentName, Long postalAddressId)
+		public void deletePostalAddress(
+				String agentName, String agentUID, Long postalAddressId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deletePostalAddressHttpResponse(agentName, postalAddressId);
+				deletePostalAddressHttpResponse(
+					agentName, agentUID, postalAddressId);
 
 			String content = httpResponse.getContent();
 
@@ -281,7 +291,7 @@ public interface PostalAddressResource {
 		}
 
 		public HttpInvoker.HttpResponse deletePostalAddressHttpResponse(
-				String agentName, Long postalAddressId)
+				String agentName, String agentUID, Long postalAddressId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -307,6 +317,10 @@ public interface PostalAddressResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
@@ -385,13 +399,13 @@ public interface PostalAddressResource {
 		}
 
 		public PostalAddress putPostalAddress(
-				String agentName, Long postalAddressId,
+				String agentName, String agentUID, Long postalAddressId,
 				PostalAddress postalAddress)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				putPostalAddressHttpResponse(
-					agentName, postalAddressId, postalAddress);
+					agentName, agentUID, postalAddressId, postalAddress);
 
 			String content = httpResponse.getContent();
 
@@ -414,7 +428,7 @@ public interface PostalAddressResource {
 		}
 
 		public HttpInvoker.HttpResponse putPostalAddressHttpResponse(
-				String agentName, Long postalAddressId,
+				String agentName, String agentUID, Long postalAddressId,
 				PostalAddress postalAddress)
 			throws Exception {
 
@@ -443,6 +457,10 @@ public interface PostalAddressResource {
 
 			if (agentName != null) {
 				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
 			}
 
 			httpInvoker.path(
