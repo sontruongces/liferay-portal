@@ -44,9 +44,11 @@ definition {
 			dmDocumentTitle = "Apple1",
 			groupName = "Guest");
 
+		// Workaround for LPS-110500
+
 		OSGiConfig.deployOSGiConfigs(
 			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config",
-			OSGiConfigs = "operationMode=&quot;REMOTE&quot;,remoteClusterConnectionId=&quot;remote&quot;,logExceptionsOnly=&quot;true&quot;");
+			OSGiConfigs = "networkHost=&quot;http://localhost:9202&quot;,operationMode=&quot;REMOTE&quot;,remoteClusterConnectionId=&quot;remote&quot;,logExceptionsOnly=&quot;true&quot;");
 
 		AntCommand(
 			locator1 = "build-test-elasticsearch7.xml",
