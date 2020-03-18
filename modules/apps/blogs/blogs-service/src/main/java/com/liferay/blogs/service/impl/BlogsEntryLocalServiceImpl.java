@@ -2345,19 +2345,6 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		}
 	}
 
-	private boolean _hasFileEntry(
-		long groupId, long folderId, String fileName) {
-
-		FileEntry fileEntry = _portletFileRepository.fetchPortletFileEntry(
-			groupId, folderId, fileName);
-
-		if (fileEntry == null) {
-			return false;
-		}
-
-		return true;
-	}
-
 	private String _getGroupDescriptiveName(Group group, Locale locale) {
 		try {
 			return group.getDescriptiveName(locale);
@@ -2426,6 +2413,19 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		}
 
 		return StringPool.BLANK;
+	}
+
+	private boolean _hasFileEntry(
+		long groupId, long folderId, String fileName) {
+
+		FileEntry fileEntry = _portletFileRepository.fetchPortletFileEntry(
+			groupId, folderId, fileName);
+
+		if (fileEntry == null) {
+			return false;
+		}
+
+		return true;
 	}
 
 	private static final String _COVER_IMAGE_FOLDER_NAME = "Cover Image";
