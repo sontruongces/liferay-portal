@@ -21,6 +21,8 @@ import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 
+import java.util.concurrent.Callable;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -31,14 +33,14 @@ import org.osgi.service.component.annotations.Reference;
 public class AddressModelListener extends BaseXylemModelListener<Address> {
 
 	@Override
-	public Message createMessage(Address address) throws Exception {
+	protected Callable<Message> getCallable(Address address) throws Exception {
 		if (address.getClassNameId() == _classNameLocalService.getClassNameId(
 				Account.class)) {
 
 			Account account = _accountLocalService.getAccount(
 				address.getClassPK());
 
-			return messageFactory.create(account);
+			return () -> messageFactory.create(account);
 		}
 
 		return null;
@@ -47,6 +49,11 @@ public class AddressModelListener extends BaseXylemModelListener<Address> {
 	@Override
 	protected String getCreateTopic(Address address) {
 		return _getTopic(address);
+	}
+
+	@Override
+	protected String getPrimaryKey(Address address) {
+		return String.valueOf(address.getClassPK());
 	}
 
 	@Override

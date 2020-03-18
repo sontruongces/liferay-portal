@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.util.StringPool;
 
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Modified;
@@ -37,14 +38,11 @@ import org.osgi.service.component.annotations.Reference;
 public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	extends BaseModelListener<T> {
 
-	public abstract Message createMessage(T model) throws Exception;
-
 	@Override
 	public void onAfterCreate(final T model) throws ModelListenerException {
 		try {
 			PublishingTasksThreadLocal.addPublishingTask(
-				getCreateKey(model), getCreateTopic(model),
-				() -> createMessage(model));
+				getCreateKey(model), getCreateTopic(model), getCallable(model));
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -57,8 +55,7 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	public void onAfterRemove(final T model) throws ModelListenerException {
 		try {
 			PublishingTasksThreadLocal.addPublishingTask(
-				getRemoveKey(model), getRemoveTopic(model),
-				() -> createMessage(model));
+				getRemoveKey(model), getRemoveTopic(model), getCallable(model));
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -71,8 +68,7 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	public void onAfterUpdate(final T model) throws ModelListenerException {
 		try {
 			PublishingTasksThreadLocal.addPublishingTask(
-				getUpdateKey(model), getUpdateTopic(model),
-				() -> createMessage(model));
+				getUpdateKey(model), getUpdateTopic(model), getCallable(model));
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -89,16 +85,22 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 		_updateTopic = (String)properties.get("update.topic");
 	}
 
+	protected abstract Callable<Message> getCallable(T model) throws Exception;
+
 	protected String getCreateKey(T model) throws PortalException {
-		return _updateTopic + StringPool.POUND + model.getPrimaryKeyObj();
+		return getCreateTopic(model) + StringPool.POUND + getPrimaryKey(model);
 	}
 
 	protected String getCreateTopic(T model) throws PortalException {
 		return _createTopic;
 	}
 
+	protected String getPrimaryKey(T model) {
+		return String.valueOf(model.getPrimaryKeyObj());
+	}
+
 	protected String getRemoveKey(T model) throws PortalException {
-		return _removeTopic + StringPool.POUND + model.getPrimaryKeyObj();
+		return getRemoveTopic(model) + StringPool.POUND + getPrimaryKey(model);
 	}
 
 	protected String getRemoveTopic(T model) throws PortalException {
@@ -106,7 +108,7 @@ public abstract class BaseXylemModelListener<T extends BaseModel<T>>
 	}
 
 	protected String getUpdateKey(T model) throws PortalException {
-		return _updateTopic + StringPool.POUND + model.getPrimaryKeyObj();
+		return getUpdateTopic(model) + StringPool.POUND + getPrimaryKey(model);
 	}
 
 	protected String getUpdateTopic(T model) throws PortalException {

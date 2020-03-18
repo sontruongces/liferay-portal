@@ -31,6 +31,8 @@ import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 
+import java.util.concurrent.Callable;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -42,14 +44,16 @@ public class ExternalLinkModelListener
 	extends BaseXylemModelListener<ExternalLink> {
 
 	@Override
-	public Message createMessage(ExternalLink externalLink) throws Exception {
+	protected Callable<Message> getCallable(ExternalLink externalLink)
+		throws Exception {
+
 		if (externalLink.getClassNameId() ==
 				_classNameLocalService.getClassNameId(Account.class)) {
 
 			Account account = _accountLocalService.getAccount(
 				externalLink.getClassPK());
 
-			return messageFactory.create(account);
+			return () -> messageFactory.create(account);
 		}
 		else if (externalLink.getClassNameId() ==
 					_classNameLocalService.getClassNameId(Contact.class)) {
@@ -57,7 +61,7 @@ public class ExternalLinkModelListener
 			Contact contact = _contactLocalService.getContact(
 				externalLink.getClassPK());
 
-			return messageFactory.create(contact);
+			return () -> messageFactory.create(contact);
 		}
 		else if (externalLink.getClassNameId() ==
 					_classNameLocalService.getClassNameId(
@@ -67,7 +71,7 @@ public class ExternalLinkModelListener
 				_productConsumptionLocalService.getProductConsumption(
 					externalLink.getClassPK());
 
-			return messageFactory.create(productConsumption);
+			return () -> messageFactory.create(productConsumption);
 		}
 		else if (externalLink.getClassNameId() ==
 					_classNameLocalService.getClassNameId(ProductEntry.class)) {
@@ -76,7 +80,7 @@ public class ExternalLinkModelListener
 				_productEntryLocalService.getProductEntry(
 					externalLink.getClassPK());
 
-			return messageFactory.create(productEntry);
+			return () -> messageFactory.create(productEntry);
 		}
 		else if (externalLink.getClassNameId() ==
 					_classNameLocalService.getClassNameId(
@@ -86,14 +90,14 @@ public class ExternalLinkModelListener
 				_productPurchaseLocalService.getProductPurchase(
 					externalLink.getClassPK());
 
-			return messageFactory.create(productPurchase);
+			return () -> messageFactory.create(productPurchase);
 		}
 		else if (externalLink.getClassNameId() ==
 					_classNameLocalService.getClassNameId(Team.class)) {
 
 			Team team = _teamLocalService.getTeam(externalLink.getClassPK());
 
-			return messageFactory.create(team);
+			return () -> messageFactory.create(team);
 		}
 
 		return null;
@@ -102,6 +106,11 @@ public class ExternalLinkModelListener
 	@Override
 	protected String getCreateTopic(ExternalLink externalLink) {
 		return _getTopic(externalLink);
+	}
+
+	@Override
+	protected String getPrimaryKey(ExternalLink externalLink) {
+		return String.valueOf(externalLink.getClassPK());
 	}
 
 	@Override

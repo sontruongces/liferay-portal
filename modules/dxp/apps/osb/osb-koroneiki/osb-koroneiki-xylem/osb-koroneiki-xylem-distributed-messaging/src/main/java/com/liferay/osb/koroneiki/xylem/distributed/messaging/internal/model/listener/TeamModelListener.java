@@ -18,6 +18,8 @@ import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.portal.kernel.model.ModelListener;
 
+import java.util.concurrent.Callable;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -35,8 +37,8 @@ import org.osgi.service.component.annotations.Component;
 public class TeamModelListener extends BaseXylemModelListener<Team> {
 
 	@Override
-	public Message createMessage(Team team) throws Exception {
-		return messageFactory.create(team);
+	protected Callable<Message> getCallable(Team team) throws Exception {
+		return () -> messageFactory.create(team);
 	}
 
 }

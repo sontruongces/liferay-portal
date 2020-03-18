@@ -22,10 +22,13 @@ import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.xylem.distributed.messaging.model.listener.PublishingTasksThreadLocal;
 import com.liferay.portal.kernel.exception.ModelListenerException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+
+import java.util.concurrent.Callable;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -46,19 +49,19 @@ public class EntitlementModelListener
 	extends BaseXylemModelListener<Entitlement> {
 
 	@Override
-	public Message createMessage(Entitlement entitlement) throws Exception {
-		return messageFactory.create(entitlement);
-	}
-
-	@Override
 	public void onAfterCreate(Entitlement entitlement)
 		throws ModelListenerException {
 
 		super.onAfterCreate(entitlement);
 
-		PublishingTasksThreadLocal.addPublishingTask(
-			_getKey(entitlement), _getParentTopic(entitlement),
-			() -> createParentMessage(entitlement));
+		try {
+			PublishingTasksThreadLocal.addPublishingTask(
+				_getKey(entitlement), _getParentTopic(entitlement),
+				_getParentCallable(entitlement));
+		}
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
+		}
 	}
 
 	@Override
@@ -67,13 +70,19 @@ public class EntitlementModelListener
 
 		super.onAfterRemove(entitlement);
 
-		PublishingTasksThreadLocal.addPublishingTask(
-			_getKey(entitlement), _getParentTopic(entitlement),
-			() -> createParentMessage(entitlement));
+		try {
+			PublishingTasksThreadLocal.addPublishingTask(
+				_getKey(entitlement), _getParentTopic(entitlement),
+				_getParentCallable(entitlement));
+		}
+		catch (PortalException portalException) {
+			throw new ModelListenerException(portalException);
+		}
 	}
 
-	protected Message createParentMessage(Entitlement entitlement)
-		throws Exception {
+	@Override
+	protected Callable<Message> getCallable(Entitlement entitlement)
+		throws PortalException {
 
 		if (entitlement.getClassNameId() ==
 				_classNameLocalService.getClassNameId(Account.class)) {
@@ -81,7 +90,7 @@ public class EntitlementModelListener
 			Account account = _accountLocalService.getAccount(
 				entitlement.getClassPK());
 
-			return messageFactory.create(account);
+			return () -> messageFactory.create(entitlement, account);
 		}
 		else if (entitlement.getClassNameId() ==
 					_classNameLocalService.getClassNameId(Contact.class)) {
@@ -89,7 +98,7 @@ public class EntitlementModelListener
 			Contact contact = _contactLocalService.getContact(
 				entitlement.getClassPK());
 
-			return messageFactory.create(contact);
+			return () -> messageFactory.create(entitlement, contact);
 		}
 
 		return null;
@@ -103,6 +112,29 @@ public class EntitlementModelListener
 		sb.append(entitlement.getClassPK());
 
 		return sb.toString();
+	}
+
+	private Callable<Message> _getParentCallable(Entitlement entitlement)
+		throws PortalException {
+
+		if (entitlement.getClassNameId() ==
+				_classNameLocalService.getClassNameId(Account.class)) {
+
+			Account account = _accountLocalService.getAccount(
+				entitlement.getClassPK());
+
+			return () -> messageFactory.create(account);
+		}
+		else if (entitlement.getClassNameId() ==
+					_classNameLocalService.getClassNameId(Contact.class)) {
+
+			Contact contact = _contactLocalService.getContact(
+				entitlement.getClassPK());
+
+			return () -> messageFactory.create(contact);
+		}
+
+		return null;
 	}
 
 	private String _getParentTopic(Entitlement entitlement) {

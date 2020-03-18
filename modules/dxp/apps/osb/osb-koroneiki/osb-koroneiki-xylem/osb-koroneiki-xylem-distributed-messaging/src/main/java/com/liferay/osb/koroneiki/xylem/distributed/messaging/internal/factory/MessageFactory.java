@@ -17,15 +17,17 @@ package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.factory;
 import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
+import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
-import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.Team;
-import com.liferay.osb.koroneiki.taproot.model.TeamAccountRole;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
@@ -59,25 +61,40 @@ public class MessageFactory {
 		return new Message(dtoAccount.toString());
 	}
 
+	public Message create(
+			Account account, Contact contact, ContactRole contactRole)
+		throws Exception {
+
+		JSONObject jsonObject = JSONUtil.put(
+			"account", toJSONObject(account)
+		).put(
+			"contact", toJSONObject(contact)
+		).put(
+			"contactRole", toJSONObject(contactRole)
+		);
+
+		return new Message(jsonObject.toString());
+	}
+
+	public Message create(Account account, Team team, TeamRole teamRole)
+		throws Exception {
+
+		JSONObject jsonObject = JSONUtil.put(
+			"account", toJSONObject(account)
+		).put(
+			"team", toJSONObject(team)
+		).put(
+			"teamRole", toJSONObject(teamRole)
+		);
+
+		return new Message(jsonObject.toString());
+	}
+
 	public Message create(Contact contact) throws Exception {
 		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact
 			dtoContact = ContactUtil.toContact(contact);
 
 		return new Message(dtoContact.toString());
-	}
-
-	public Message create(ContactAccountRole contactAccountRole)
-		throws Exception {
-
-		JSONObject jsonObject = JSONUtil.put(
-			"account", toJSONObject(contactAccountRole.getAccount())
-		).put(
-			"contact", toJSONObject(contactAccountRole.getContact())
-		).put(
-			"contactRole", toJSONObject(contactAccountRole.getContactRole())
-		);
-
-		return new Message(jsonObject.toString());
 	}
 
 	public Message create(ContactRole contactRole) throws Exception {
@@ -87,26 +104,26 @@ public class MessageFactory {
 		return new Message(dtoContactRole.toString());
 	}
 
-	public Message create(Entitlement entitlement) throws Exception {
+	public Message create(Entitlement entitlement, Account account)
+		throws Exception {
+
 		JSONObject jsonObject = JSONUtil.put(
-			"entitlement", toJSONObject(entitlement));
+			"account", toJSONObject(account)
+		).put(
+			"entitlement", toJSONObject(entitlement)
+		);
 
-		if (entitlement.getClassNameId() ==
-				_classNameLocalService.getClassNameId(Account.class)) {
+		return new Message(jsonObject.toString());
+	}
 
-			Account account = _accountLocalService.getAccount(
-				entitlement.getClassPK());
+	public Message create(Entitlement entitlement, Contact contact)
+		throws Exception {
 
-			jsonObject.put("account", toJSONObject(account));
-		}
-		else if (entitlement.getClassNameId() ==
-					_classNameLocalService.getClassNameId(Contact.class)) {
-
-			Contact contact = _contactLocalService.getContact(
-				entitlement.getClassPK());
-
-			jsonObject.put("contact", toJSONObject(contact));
-		}
+		JSONObject jsonObject = JSONUtil.put(
+			"contact", toJSONObject(contact)
+		).put(
+			"entitlement", toJSONObject(entitlement)
+		);
 
 		return new Message(jsonObject.toString());
 	}
@@ -142,13 +159,15 @@ public class MessageFactory {
 		return new Message(dtoTeam.toString());
 	}
 
-	public Message create(TeamAccountRole teamAccountRole) throws Exception {
+	public Message create(Team team, Contact contact, ContactRole contactRole)
+		throws Exception {
+
 		JSONObject jsonObject = JSONUtil.put(
-			"account", toJSONObject(teamAccountRole.getAccount())
+			"contact", toJSONObject(contact)
 		).put(
-			"team", toJSONObject(teamAccountRole.getTeam())
+			"contactRole", toJSONObject(contactRole)
 		).put(
-			"teamRole", toJSONObject(teamAccountRole.getTeamRole())
+			"team", toJSONObject(team)
 		);
 
 		return new Message(jsonObject.toString());
@@ -162,6 +181,13 @@ public class MessageFactory {
 	}
 
 	protected JSONObject toJSONObject(Account account) throws Exception {
+		Account currentAccount = _accountLocalService.fetchAccount(
+			account.getAccountId());
+
+		if (currentAccount != null) {
+			account = currentAccount;
+		}
+
 		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account
 			dtoAccount = AccountUtil.toAccount(account);
 
@@ -169,6 +195,13 @@ public class MessageFactory {
 	}
 
 	protected JSONObject toJSONObject(Contact contact) throws Exception {
+		Contact currentContact = _contactLocalService.fetchContact(
+			contact.getContactId());
+
+		if (currentContact != null) {
+			contact = currentContact;
+		}
+
 		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact
 			dtoContact = ContactUtil.toContact(contact);
 
@@ -177,6 +210,14 @@ public class MessageFactory {
 
 	protected JSONObject toJSONObject(ContactRole contactRole)
 		throws Exception {
+
+		ContactRole currentContactRole =
+			_contactRoleLocalService.fetchContactRole(
+				contactRole.getContactRoleId());
+
+		if (currentContactRole != null) {
+			contactRole = currentContactRole;
+		}
 
 		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole
 			dtoContactRole = ContactRoleUtil.toContactRole(contactRole);
@@ -187,6 +228,14 @@ public class MessageFactory {
 	protected JSONObject toJSONObject(Entitlement entitlement)
 		throws Exception {
 
+		Entitlement currentEntitlement =
+			_entitlementLocalService.fetchEntitlement(
+				entitlement.getEntitlementId());
+
+		if (currentEntitlement != null) {
+			entitlement = currentEntitlement;
+		}
+
 		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement
 			dtoEntitlement = EntitlementUtil.toEntitlement(entitlement);
 
@@ -194,6 +243,12 @@ public class MessageFactory {
 	}
 
 	protected JSONObject toJSONObject(Team team) throws Exception {
+		Team currentTeam = _teamLocalService.fetchTeam(team.getTeamId());
+
+		if (currentTeam != null) {
+			team = currentTeam;
+		}
+
 		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team dtoTeam =
 			TeamUtil.toTeam(team);
 
@@ -217,6 +272,18 @@ public class MessageFactory {
 	private ContactLocalService _contactLocalService;
 
 	@Reference
+	private ContactRoleLocalService _contactRoleLocalService;
+
+	@Reference
+	private EntitlementLocalService _entitlementLocalService;
+
+	@Reference
 	private JSONFactory _jsonFactory;
+
+	@Reference
+	private TeamLocalService _teamLocalService;
+
+	@Reference
+	private TeamRoleLocalService _teamRoleLocalService;
 
 }

@@ -18,6 +18,8 @@ import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.portal.kernel.model.ModelListener;
 
+import java.util.concurrent.Callable;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -36,10 +38,10 @@ public class ProductPurchaseModelListener
 	extends BaseXylemModelListener<ProductPurchase> {
 
 	@Override
-	public Message createMessage(ProductPurchase productPurchase)
+	protected Callable<Message> getCallable(ProductPurchase productPurchase)
 		throws Exception {
 
-		return messageFactory.create(productPurchase);
+		return () -> messageFactory.create(productPurchase);
 	}
 
 }

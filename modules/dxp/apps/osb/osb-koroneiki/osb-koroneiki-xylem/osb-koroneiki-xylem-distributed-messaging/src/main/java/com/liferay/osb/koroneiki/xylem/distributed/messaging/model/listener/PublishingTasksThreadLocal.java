@@ -148,8 +148,7 @@ public class PublishingTasksThreadLocal {
 
 				if (message != null) {
 					_messagePublisher.publish(
-						publishingTask.getTopic(),
-						publishingTask.createMessage());
+						publishingTask.getTopic(), message);
 				}
 			}
 			catch (Exception exception) {
@@ -216,6 +215,10 @@ public class PublishingTasksThreadLocal {
 		}
 
 		public Message createMessage() throws Exception {
+			if (_callable == null) {
+				return null;
+			}
+
 			return _callable.call();
 		}
 

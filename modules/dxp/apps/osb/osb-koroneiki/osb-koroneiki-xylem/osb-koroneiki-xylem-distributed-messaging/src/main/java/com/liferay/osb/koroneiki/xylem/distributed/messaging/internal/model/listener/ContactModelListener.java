@@ -18,6 +18,8 @@ import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.portal.kernel.model.ModelListener;
 
+import java.util.concurrent.Callable;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -35,8 +37,8 @@ import org.osgi.service.component.annotations.Component;
 public class ContactModelListener extends BaseXylemModelListener<Contact> {
 
 	@Override
-	public Message createMessage(Contact contact) throws Exception {
-		return messageFactory.create(contact);
+	protected Callable<Message> getCallable(Contact contact) throws Exception {
+		return () -> messageFactory.create(contact);
 	}
 
 }

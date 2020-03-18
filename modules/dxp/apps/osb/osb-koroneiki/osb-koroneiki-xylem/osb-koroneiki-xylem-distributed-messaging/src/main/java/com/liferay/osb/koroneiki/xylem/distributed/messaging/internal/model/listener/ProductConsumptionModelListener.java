@@ -18,6 +18,8 @@ import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.portal.kernel.model.ModelListener;
 
+import java.util.concurrent.Callable;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -36,10 +38,11 @@ public class ProductConsumptionModelListener
 	extends BaseXylemModelListener<ProductConsumption> {
 
 	@Override
-	public Message createMessage(ProductConsumption productConsumption)
+	protected Callable<Message> getCallable(
+			ProductConsumption productConsumption)
 		throws Exception {
 
-		return messageFactory.create(productConsumption);
+		return () -> messageFactory.create(productConsumption);
 	}
 
 }

@@ -15,8 +15,13 @@
 package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.model.listener;
 
 import com.liferay.osb.distributed.messaging.Message;
+import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.model.TeamAccountRole;
+import com.liferay.osb.koroneiki.taproot.model.TeamRole;
 import com.liferay.portal.kernel.model.ModelListener;
+
+import java.util.concurrent.Callable;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -35,10 +40,14 @@ public class TeamAccountRoleModelListener
 	extends BaseXylemModelListener<TeamAccountRole> {
 
 	@Override
-	public Message createMessage(TeamAccountRole teamAccountRole)
+	protected Callable<Message> getCallable(TeamAccountRole teamAccountRole)
 		throws Exception {
 
-		return messageFactory.create(teamAccountRole);
+		Account account = teamAccountRole.getAccount();
+		Team team = teamAccountRole.getTeam();
+		TeamRole teamRole = teamAccountRole.getTeamRole();
+
+		return () -> messageFactory.create(account, team, teamRole);
 	}
 
 }

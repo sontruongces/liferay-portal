@@ -15,51 +15,40 @@
 package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.model.listener;
 
 import com.liferay.osb.distributed.messaging.Message;
+import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ModelListener;
+
+import java.util.concurrent.Callable;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Amos Fong
  */
-@Component(immediate = true, service = ModelListener.class)
+@Component(
+	immediate = true,
+	property = {
+		"create.topic=koroneiki.account.contactrole.assigned",
+		"remove.topic=koroneiki.account.contactrole.unassigned"
+	},
+	service = ModelListener.class
+)
 public class ContactAccountRoleModelListener
 	extends BaseXylemModelListener<ContactAccountRole> {
 
 	@Override
-	public Message createMessage(ContactAccountRole contactAccountRole)
+	protected Callable<Message> getCallable(
+			ContactAccountRole contactAccountRole)
 		throws Exception {
 
-		return messageFactory.create(contactAccountRole);
-	}
-
-	@Override
-	protected String getCreateTopic(ContactAccountRole contactAccountRole)
-		throws PortalException {
-
+		Account account = contactAccountRole.getAccount();
+		Contact contact = contactAccountRole.getContact();
 		ContactRole contactRole = contactAccountRole.getContactRole();
 
-		if (contactRole.isMember()) {
-			return "koroneiki.account.contact.assigned";
-		}
-
-		return "koroneiki.account.contactrole.assigned";
-	}
-
-	@Override
-	protected String getRemoveTopic(ContactAccountRole contactAccountRole)
-		throws PortalException {
-
-		ContactRole contactRole = contactAccountRole.getContactRole();
-
-		if (contactRole.isMember()) {
-			return "koroneiki.account.contact.unassigned";
-		}
-
-		return "koroneiki.account.contactrole.unassigned";
+		return () -> messageFactory.create(account, contact, contactRole);
 	}
 
 }

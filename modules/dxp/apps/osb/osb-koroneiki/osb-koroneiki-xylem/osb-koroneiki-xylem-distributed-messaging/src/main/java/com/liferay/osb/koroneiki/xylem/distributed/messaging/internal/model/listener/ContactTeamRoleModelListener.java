@@ -15,7 +15,10 @@
 package com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.model.listener;
 
 import com.liferay.osb.distributed.messaging.Message;
-import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.model.ContactTeamRole;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.portal.kernel.model.ModelListener;
 
 import java.util.concurrent.Callable;
@@ -28,17 +31,23 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"create.topic=koroneiki.account.create",
-		"remove.topic=koroneiki.account.delete",
-		"update.topic=koroneiki.account.update"
+		"create.topic=koroneiki.team.contactrole.assigned",
+		"remove.topic=koroneiki.team.contactrole.unassigned"
 	},
 	service = ModelListener.class
 )
-public class AccountModelListener extends BaseXylemModelListener<Account> {
+public class ContactTeamRoleModelListener
+	extends BaseXylemModelListener<ContactTeamRole> {
 
 	@Override
-	protected Callable<Message> getCallable(Account account) throws Exception {
-		return () -> messageFactory.create(account);
+	protected Callable<Message> getCallable(ContactTeamRole contactTeamRole)
+		throws Exception {
+
+		Team team = contactTeamRole.getTeam();
+		Contact contact = contactTeamRole.getContact();
+		ContactRole contactRole = contactTeamRole.getContactRole();
+
+		return () -> messageFactory.create(team, contact, contactRole);
 	}
 
 }
