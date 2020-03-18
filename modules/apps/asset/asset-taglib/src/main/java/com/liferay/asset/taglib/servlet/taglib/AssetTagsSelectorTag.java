@@ -207,29 +207,30 @@ public class AssetTagsSelectorTag extends IncludeTag {
 	}
 
 	@Override
-	protected void setAttributes(HttpServletRequest request) {
-		request.setAttribute(
+	protected void setAttributes(HttpServletRequest httpServletRequest) {
+		httpServletRequest.setAttribute(
 			"liferay-asset:asset-tags-selector:addCallback",
 			String.valueOf(_addCallback));
-		request.setAttribute(
+		httpServletRequest.setAttribute(
 			"liferay-asset:asset-tags-selector:allowAddEntry",
 			String.valueOf(_allowAddEntry));
-		request.setAttribute(
+		httpServletRequest.setAttribute(
 			"liferay-asset:asset-tags-selector:autoFocus",
 			String.valueOf(_autoFocus));
-		request.setAttribute(
+		httpServletRequest.setAttribute(
 			"liferay-asset:asset-tags-selector:eventName", getEventName());
-		request.setAttribute(
+		httpServletRequest.setAttribute(
 			"liferay-asset:asset-tags-selector:groupIds", getGroupIds());
-		request.setAttribute(
+		httpServletRequest.setAttribute(
 			"liferay-asset:asset-tags-selector:hiddenInput", _hiddenInput);
-		request.setAttribute("liferay-asset:asset-tags-selector:id", getId());
-		request.setAttribute(
+		httpServletRequest.setAttribute(
+			"liferay-asset:asset-tags-selector:id", getId());
+		httpServletRequest.setAttribute(
 			"liferay-asset:asset-tags-selector:portletURL", getPortletURL());
-		request.setAttribute(
+		httpServletRequest.setAttribute(
 			"liferay-asset:asset-tags-selector:removeCallback",
 			String.valueOf(_removeCallback));
-		request.setAttribute(
+		httpServletRequest.setAttribute(
 			"liferay-asset:asset-tags-selector:tagNames", getTagNames());
 	}
 
