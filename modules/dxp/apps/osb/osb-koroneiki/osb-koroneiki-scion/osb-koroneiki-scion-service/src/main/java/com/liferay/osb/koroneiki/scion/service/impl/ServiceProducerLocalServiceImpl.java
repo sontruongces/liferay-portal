@@ -15,7 +15,9 @@
 package com.liferay.osb.koroneiki.scion.service.impl;
 
 import com.liferay.osb.koroneiki.scion.exception.ServiceProducerNameException;
+import com.liferay.osb.koroneiki.scion.model.AuthenticationToken;
 import com.liferay.osb.koroneiki.scion.model.ServiceProducer;
+import com.liferay.osb.koroneiki.scion.service.AuthenticationTokenLocalService;
 import com.liferay.osb.koroneiki.scion.service.base.ServiceProducerLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -33,6 +35,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -121,12 +124,19 @@ public class ServiceProducerLocalServiceImpl
 	}
 
 	public ServiceProducer deleteServiceProducer(
-		ServiceProducer serviceProducer) {
+			ServiceProducer serviceProducer)
+		throws PortalException {
 
 		// Authentication tokens
 
-		authenticationTokenPersistence.removeByServiceProducerId(
-			serviceProducer.getServiceProducerId());
+		List<AuthenticationToken> authenticationTokens =
+			authenticationTokenPersistence.findByServiceProducerId(
+				serviceProducer.getServiceProducerId());
+
+		for (AuthenticationToken authenticationToken : authenticationTokens) {
+			_authenticationTokenLocalService.deleteAuthenticationToken(
+				authenticationToken);
+		}
 
 		// Role
 
@@ -231,6 +241,9 @@ public class ServiceProducerLocalServiceImpl
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ServiceProducerLocalServiceImpl.class);
+
+	@Reference
+	private AuthenticationTokenLocalService _authenticationTokenLocalService;
 
 	@Reference
 	private RoleLocalService _roleLocalService;

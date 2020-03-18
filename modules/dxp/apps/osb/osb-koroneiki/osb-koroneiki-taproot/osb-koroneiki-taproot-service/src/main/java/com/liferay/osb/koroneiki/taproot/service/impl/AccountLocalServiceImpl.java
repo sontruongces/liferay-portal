@@ -136,6 +136,10 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			throw new RequiredAccountException();
 		}
 
+		// Account notes
+
+		accountNotePersistence.removeByAccountId(account.getAccountId());
+
 		// Contact account roles
 
 		contactAccountRolePersistence.removeByAccountId(account.getAccountId());

@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.scion.model.AuthenticationToken;
 import com.liferay.osb.koroneiki.scion.service.base.AuthenticationTokenLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
@@ -72,6 +73,34 @@ public class AuthenticationTokenLocalServiceImpl
 			false);
 
 		return authenticationToken;
+	}
+
+	@Override
+	public AuthenticationToken deleteAuthenticationToken(
+			AuthenticationToken authenticationToken)
+		throws PortalException {
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+			authenticationToken.getCompanyId(),
+			AuthenticationToken.class.getName(),
+			ResourceConstants.SCOPE_INDIVIDUAL,
+			authenticationToken.getAuthenticationTokenId());
+
+		return authenticationTokenPersistence.remove(authenticationToken);
+	}
+
+	@Override
+	public AuthenticationToken deleteAuthenticationToken(
+			long authenticationTokenId)
+		throws PortalException {
+
+		AuthenticationToken authenticationToken =
+			authenticationTokenPersistence.findByPrimaryKey(
+				authenticationTokenId);
+
+		return deleteAuthenticationToken(authenticationToken);
 	}
 
 	public AuthenticationToken fetchAuthenticationToken(
