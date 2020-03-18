@@ -6,8 +6,11 @@
 		"react-dom": "16.9.0"
 	},
 	"jest": {
+		"setupFilesAfterEnv": [
+			"<rootDir>/test/utils/setup.js"
+		],
 		"testPathIgnorePatterns": [
-			"<rootDir>/test/js/[^/]+\\.js"
+			"<rootDir>/test/utils/[^/]+\\.js"
 		]
 	},
 	"license": "UNLICENSED",
