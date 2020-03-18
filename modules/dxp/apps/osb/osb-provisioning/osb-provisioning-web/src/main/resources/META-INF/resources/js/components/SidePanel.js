@@ -2,8 +2,6 @@ import ClayTabs from '@clayui/tabs';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import ErrorBoundary from './ErrorBoundary';
-
 function CollapsiblePanel({handleCollapse}) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
@@ -13,7 +11,7 @@ function CollapsiblePanel({handleCollapse}) {
 				<ClayTabs.Item
 					active={activeIndex === 0}
 					innerProps={{
-						'aria-controls': 'tabpanel-notes'
+						'aria-controls': 'tabPaneNotes'
 					}}
 					onClick={() => setActiveIndex(0)}
 				>
@@ -22,7 +20,7 @@ function CollapsiblePanel({handleCollapse}) {
 				<ClayTabs.Item
 					active={activeIndex === 1}
 					innerProps={{
-						'aria-controls': 'tabpanel-sales-info'
+						'aria-controls': 'tabPaneSalesInfo'
 					}}
 					onClick={() => setActiveIndex(1)}
 				>
@@ -31,7 +29,7 @@ function CollapsiblePanel({handleCollapse}) {
 				<ClayTabs.Item
 					active={activeIndex === 2}
 					innerProps={{
-						'aria-controls': 'tabpanel-external-links'
+						'aria-controls': 'tabPaneExternalLinks'
 					}}
 					onClick={() => setActiveIndex(2)}
 				>
@@ -41,20 +39,31 @@ function CollapsiblePanel({handleCollapse}) {
 					className="panel-collapse"
 					onClick={handleCollapse}
 				>
-					<svg aria-label="collapse panel button" role="img">
+					<svg
+						aria-label={Liferay.Language.get(
+							'collapse-panel-button'
+						)}
+						role="img"
+					>
 						<use xlinkHref="#collapse" />
 					</svg>
 				</ClayTabs.Item>
 			</ClayTabs>
 
 			<ClayTabs.Content activeIndex={activeIndex}>
-				<ClayTabs.TabPane aria-labelledby="tab-notes">
+				<ClayTabs.TabPane
+					id="tabPaneNotes"
+				>
 					{'Notes Tab Placeholder Text'}
 				</ClayTabs.TabPane>
-				<ClayTabs.TabPane aria-labelledby="tab-sales-info">
+				<ClayTabs.TabPane
+					id="tabPaneSalesInfo"
+				>
 					{'Sales Info Tab Placeholder Text'}
 				</ClayTabs.TabPane>
-				<ClayTabs.TabPane aria-labelledby="tab-external-links">
+				<ClayTabs.TabPane
+					id="tabPaneExternalLinks"
+				>
 					{'External Links Placeholder Text'}
 				</ClayTabs.TabPane>
 			</ClayTabs.Content>
@@ -74,7 +83,10 @@ function ExpandPanelButton({handleCollapse}) {
 			role="button"
 			type="button"
 		>
-			<svg aria-label="expand panel button" role="img">
+			<svg
+				aria-label={Liferay.Language.get('expand-panel-button')}
+				role="img"
+			>
 				<use xlinkHref="#expand" />
 			</svg>
 		</button>
@@ -103,14 +115,14 @@ function SidePanel() {
 	});
 
 	return (
-		<ErrorBoundary>
+		<>
 			{collapse ? (
 				<ExpandPanelButton handleCollapse={handleCollapse} />
 			) : (
 				<CollapsiblePanel handleCollapse={handleCollapse} />
 			)}
-		</ErrorBoundary>
+		</>
 	);
 }
 
-export default () => <SidePanel />;
+export default SidePanel;

@@ -94,7 +94,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 	<div class="side-panel" id="sidePanel">
 		<react:component
 			data="<%= Collections.emptyMap() %>"
-			module="js/components/SidePanel"
+			module="js/SidePanelApp"
 		/>
 	</div>
 </div>

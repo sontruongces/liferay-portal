@@ -3,7 +3,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import config from '../utilities/config';
+import config from './utilities/config';
 
 export default class ErrorBoundary extends React.Component {
 	state = {
