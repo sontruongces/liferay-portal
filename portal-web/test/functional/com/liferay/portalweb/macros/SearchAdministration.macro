@@ -42,10 +42,10 @@ definition {
 			var curl = "http://localhost:9200/_tasks";
 			var elasticsearchTasks = JSONCurlUtil.get("${curl}");
 
-			while ((!(contains("${elasticsearchTasks}", "indices:data/write/bulk"))) && ("${reindexStartTime}" != "10")) {
-				Pause.pauseNoSPARefresh(locator1 = "1000");
+			while ((!(contains("${elasticsearchTasks}", "indices:data/write/bulk"))) && ("${reindexStartTime}" != "60")) {
+				Pause.pauseNoSPARefresh(locator1 = "5000");
 
-				var reindexStartTime = ${reindexStartTime} + 1;
+				var reindexStartTime = ${reindexStartTime} + 5;
 
 				echo("Current Elasticsearch Tasks:");
 
