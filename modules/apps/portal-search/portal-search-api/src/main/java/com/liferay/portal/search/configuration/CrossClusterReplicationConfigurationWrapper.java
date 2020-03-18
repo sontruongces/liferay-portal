@@ -26,6 +26,8 @@ public interface CrossClusterReplicationConfigurationWrapper {
 
 	public String getClusterName();
 
+	public String getNetworkHostAddress();
+
 	public String getPassword();
 
 	public String getRemoteClusterAlias();
