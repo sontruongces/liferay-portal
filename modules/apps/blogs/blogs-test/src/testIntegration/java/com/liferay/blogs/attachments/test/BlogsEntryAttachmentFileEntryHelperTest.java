@@ -277,7 +277,7 @@ public class BlogsEntryAttachmentFileEntryHelperTest {
 			true);
 	}
 
-	private boolean _fileEntryExists(
+	private boolean _hasFileEntry(
 		long groupId, long folderId, String fileName) {
 
 		FileEntry fileEntry = _portletFileRepository.fetchPortletFileEntry(
@@ -319,7 +319,7 @@ public class BlogsEntryAttachmentFileEntryHelperTest {
 
 		return _uniqueFileNameProvider.provide(
 			fileName,
-			curFileName -> _fileEntryExists(groupId, folderId, curFileName));
+			curFileName -> _hasFileEntry(groupId, folderId, curFileName));
 	}
 
 	private static final String _TEMP_FOLDER_NAME = BlogsEntry.class.getName();

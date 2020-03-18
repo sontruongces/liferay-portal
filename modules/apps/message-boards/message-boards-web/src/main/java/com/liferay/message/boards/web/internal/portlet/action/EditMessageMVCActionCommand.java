@@ -557,7 +557,7 @@ public class EditMessageMVCActionCommand extends BaseMVCActionCommand {
 				tempMBAttachmentFileEntries,
 				fileName -> _uniqueFileNameProvider.provide(
 					fileName,
-					curFileName -> _fileEntryExists(
+					curFileName -> _hasFileEntry(
 						message.getGroupId(), folder.getFolderId(),
 						curFileName)));
 
@@ -570,7 +570,7 @@ public class EditMessageMVCActionCommand extends BaseMVCActionCommand {
 			body, mbAttachmentFileEntryReferences);
 	}
 
-	private boolean _fileEntryExists(
+	private boolean _hasFileEntry(
 		long groupId, long folderId, String fileName) {
 
 		FileEntry fileEntry = _portletFileRepository.fetchPortletFileEntry(
