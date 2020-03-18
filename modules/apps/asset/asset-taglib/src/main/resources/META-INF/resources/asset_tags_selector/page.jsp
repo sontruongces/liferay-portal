@@ -42,53 +42,45 @@ String tagNames = GetterUtil.getString((String)request.getAttribute("liferay-ass
 </div>
 
 <aui:script use="liferay-asset-taglib-tags-selector">
-	var assetTaglibTagsSelector = new Liferay.AssetTaglibTagsSelector(
-		{
-			allowAddEntry: <%= allowAddEntry %>,
-			contentBox: '#<portlet:namespace /><%= id %>assetTagsSelector',
+	var assetTaglibTagsSelector = new Liferay.AssetTaglibTagsSelector({
+		allowAddEntry: <%= allowAddEntry %>,
+		contentBox: '#<portlet:namespace /><%= id %>assetTagsSelector',
 
-			<c:if test="<%= groupIds != null %>">
-				groupIds: '<%= StringUtil.merge(groupIds) %>',
-			</c:if>
+		<c:if test="<%= groupIds != null %>">
+			groupIds: '<%= StringUtil.merge(groupIds) %>',
+		</c:if>
 
-			hiddenInput: '#<portlet:namespace /><%= hiddenInput %>',
+		hiddenInput: '#<portlet:namespace /><%= hiddenInput %>',
 
-			<c:if test="<%= allowAddEntry %>">
-				input: '#<%= id %>assetTagNames',
-			</c:if>
+		<c:if test="<%= allowAddEntry %>">
+			input: '#<%= id %>assetTagNames',
+		</c:if>
 
-			<c:if test="<%= Validator.isNotNull(eventName) %>">
-				eventName: '<%= eventName %>',
-			</c:if>
+		<c:if test="<%= Validator.isNotNull(eventName) %>">
+			eventName: '<%= eventName %>',
+		</c:if>
 
-			maxLength: <%= ModelHintsConstants.TEXT_MAX_LENGTH %>,
+		maxLength: <%= ModelHintsConstants.TEXT_MAX_LENGTH %>,
 
-			<c:if test="<%= portletURL != null %>">
-				portletURL: '<%= portletURL.toString() %>',
-			</c:if>
+		<c:if test="<%= portletURL != null %>">
+			portletURL: '<%= portletURL.toString() %>',
+		</c:if>
 
-			tagNames: '<%= HtmlUtil.escapeJS(tagNames) %>'
-		}
-	).render();
+		tagNames: '<%= HtmlUtil.escapeJS(tagNames) %>'
+	}).render();
 
 	Liferay.component('<portlet:namespace />tagsSelector', assetTaglibTagsSelector);
 
 	<c:if test="<%= Validator.isNotNull(addCallback) %>">
-		assetTaglibTagsSelector.entries.on(
-			'add',
-			function(event) {
-				window['<portlet:namespace /><%= addCallback %>'](event.item);
-			}
-		);
+		assetTaglibTagsSelector.entries.on('add', function(event) {
+			window['<portlet:namespace /><%= addCallback %>'](event.item);
+		});
 	</c:if>
 
 	<c:if test="<%= Validator.isNotNull(removeCallback) %>">
-		assetTaglibTagsSelector.entries.on(
-			'remove',
-			function(event) {
-				window['<portlet:namespace /><%= removeCallback %>'](event.item);
-			}
-		);
+		assetTaglibTagsSelector.entries.on('remove', function(event) {
+			window['<portlet:namespace /><%= removeCallback %>'](event.item);
+		});
 	</c:if>
 
 	<c:if test="<%= autoFocus %>">
