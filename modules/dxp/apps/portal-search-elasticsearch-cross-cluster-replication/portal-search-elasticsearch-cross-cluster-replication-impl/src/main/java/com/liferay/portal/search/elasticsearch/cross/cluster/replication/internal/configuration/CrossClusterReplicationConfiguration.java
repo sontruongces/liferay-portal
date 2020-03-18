@@ -56,6 +56,13 @@ public interface CrossClusterReplicationConfiguration {
 	public String[] transportAddresses();
 
 	@Meta.AD(
+		deflt = "http://localhost:9201",
+		description = "network-host-address-help",
+		name = "network-host-address", required = false
+	)
+	public String networkHostAddress();
+
+	@Meta.AD(
 		deflt = "leader", description = "remote-cluster-alias-help",
 		name = "remote-cluster-alias", required = false
 	)

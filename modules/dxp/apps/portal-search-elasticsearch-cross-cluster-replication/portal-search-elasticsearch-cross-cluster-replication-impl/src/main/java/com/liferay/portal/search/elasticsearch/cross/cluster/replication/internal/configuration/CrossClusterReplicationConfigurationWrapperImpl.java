@@ -45,6 +45,11 @@ public class CrossClusterReplicationConfigurationWrapperImpl
 	}
 
 	@Override
+	public String getNetworkHostAddress() {
+		return crossClusterReplicationConfiguration.networkHostAddress();
+	}
+
+	@Override
 	public String getPassword() {
 		return crossClusterReplicationConfiguration.password();
 	}
