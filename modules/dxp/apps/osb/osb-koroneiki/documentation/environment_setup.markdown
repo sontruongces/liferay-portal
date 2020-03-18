@@ -2,50 +2,17 @@
 
 ## Downloads
 
-1. Download [tomcat bundle](https://files.liferay.com/private/ee/portal/7.2.10.1/liferay-dxp-tomcat-7.2.10.1-sp1-20191009103614075.tar.gz).
-2. Download [fixpack dxp-2-7210](https://files.liferay.com/private/ee/fix-packs/7.2.10/dxp/liferay-fix-pack-dxp-2-7210.zip).
+1. Download tomcat bundle with the same Liferay version as on the [lrkoroneiki repo](https://github.com/dxpcloud/lrkoroneiki/blob/master/gradle.properties).
 
 ## Fixpacks
 
-1. Install fixpack dxp-2-7210.
-
-If unsure how to install fixpacks, see [patching-liferay](https://portal.liferay.dev/docs/6-2/deploy/-/knowledge_base/d/patching-liferay).
-
-## License
-
-A license is needed to activate Liferay DXP. One will need to be generated from the license portlet.
-
-1. Navigate to the [License Portlet](https://customer.liferay.com/group/license/).
-2. Click on *Generate New License*.
-3. Select *Liferay.com* as the project.
-4. Select *Digital Enterprise Development* as the product.
-5. Select the *Liferay Version* from the bundle that was downloaded.
-6. Select *Digital Enterprise Development* as the type.
-7. Choose the license with maximum *Lifetime*.
-8. Click *Generate*.
-9. Click *Download License File*.
-10. Copy and paste the *XML* file into your bundle *deploy* folder.
-
-Save this file some place on your computer so you can use it on any other Liferay DXP projects as well.
+1. Install the same fixpack as on the lrkoroneiki repo if one exists.
 
 ## Portal Properties
 
 In your base `{liferay-home}/` bundle directory, create a file called portal-ext.properties.
 
 It should look similar to the one in the [lrkoroneiki repo](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/portal-all.properties).
-
-For the *JDBC* properties:
-
-1. Replace `jdbc.default.url` property `database` with `localhost`. 
-2. Replace `jdbc.default.url` property `lportal` with your own database name.
-3. Replace `jdbc.default.username` property with your local database username.
-4. Replace `jdbc.default.password` property with your local database pasword.
-
-### GoGo Shell
-
-If you would like to access the *GoGo Shell* from the terminal instead of just the UI, include the following property.
-
-`module.framework.properties.osgi.console=localhost:11311`
 
 ## Configs
 
@@ -79,7 +46,7 @@ First we need the properties to create a connection to the RabbitMQ server.
 
 Create a file called `com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.LegacyConnection.config`.
 
-Add the properties listed [here](https://github.com/liferay/lfrsite-team-able/blob/master/customer/sandbox-2/portal/modules/private/apps/osb-customer/osb-customer-rabbitmq-connector/osb-customer-rabbitmq-connector-service/src/main/resources/portlet-ext.properties).
+Add the properties listed [here](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/dev/com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.LegacyConnection.config). Replace `host` property with value `rabbitmq-dev.liferay.com`.
 
 Next we need properties for the Legacy *Message Broker*.
 
@@ -116,13 +83,6 @@ See `/documentation/rabbitmq.markdown` for additional RabbitMQ information and s
 To connect to web.liferay for the WebContactIdentityProvider, create a file called `com.liferay.osb.koroneiki.root.identity.management.internal.provider.WebContactIdentityProvider.config`.
 
 Add the necessary [properties](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/dev/com.liferay.osb.koroneiki.root.identity.management.internal.provider.WebContactIdentityProvider.config).
-
-If using a local instance of web.liferay, replace the necessary properties.
-
-1. Replace `host` value with `localhost`.
-2. If using `http` instead of `https`, replace property `protocol` with `http`.
-3. Replace `port` with your local port running web.liferay.
-4. Repace `api.token` with your local api token value.
 
 ## Modules
 
