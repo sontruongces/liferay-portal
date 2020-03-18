@@ -53,10 +53,11 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 
 	@Override
-	public void deletePostalAddress(String agentName, Long postalAddressId)
+	public void deletePostalAddress(
+			String agentName, String agentUID, Long postalAddressId)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_addressService.deleteAddress(postalAddressId);
 	}
@@ -84,10 +85,11 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 
 	@Override
 	public PostalAddress postAccountAccountKeyPostalAddress(
-			String agentName, String accountKey, PostalAddress postalAddress)
+			String agentName, String agentUID, String accountKey,
+			PostalAddress postalAddress)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		Account account = _accountService.getAccount(accountKey);
 
@@ -127,10 +129,11 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 
 	@Override
 	public PostalAddress putPostalAddress(
-			String agentName, Long postalAddressId, PostalAddress postalAddress)
+			String agentName, String agentUID, Long postalAddressId,
+			PostalAddress postalAddress)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		long countryId = _getCountryId(postalAddress.getAddressCountry());
 

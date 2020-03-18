@@ -43,8 +43,10 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class NoteResourceImpl extends BaseNoteResourceImpl {
 
 	@Override
-	public void deleteNote(String agentName, String noteKey) throws Exception {
-		ServiceContextUtil.setAgentName(agentName);
+	public void deleteNote(String agentName, String agentUID, String noteKey)
+		throws Exception {
+
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_accountNoteService.deleteAccountNote(noteKey);
 	}

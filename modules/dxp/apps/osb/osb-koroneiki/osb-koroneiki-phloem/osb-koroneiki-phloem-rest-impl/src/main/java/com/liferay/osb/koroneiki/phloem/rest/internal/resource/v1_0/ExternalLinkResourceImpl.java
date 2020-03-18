@@ -51,10 +51,11 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
-	public void deleteExternalLink(String agentName, String externalLinkKey)
+	public void deleteExternalLink(
+			String agentName, String agentUID, String externalLinkKey)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_externalLinkService.deleteExternalLink(externalLinkKey);
 	}
@@ -153,10 +154,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postAccountAccountKeyExternalLink(
-			String agentName, String accountKey, ExternalLink externalLink)
+			String agentName, String agentUID, String accountKey,
+			ExternalLink externalLink)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		Account account = _accountLocalService.getAccount(accountKey);
 
@@ -166,10 +168,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postContactByOktaExternalLink(
-			String agentName, String oktaId, ExternalLink externalLink)
+			String agentName, String agentUID, String oktaId,
+			ExternalLink externalLink)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		Contact contact = _contactLocalService.getContactByOktaId(oktaId);
 
@@ -179,10 +182,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postContactByUuidContactUuidExternalLink(
-			String agentName, String contactUuid, ExternalLink externalLink)
+			String agentName, String agentUID, String contactUuid,
+			ExternalLink externalLink)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
 
@@ -192,11 +196,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postProductConsumptionProductConsumptionKeyExternalLink(
-			String agentName, String productConsumptionKey,
+			String agentName, String agentUID, String productConsumptionKey,
 			ExternalLink externalLink)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		ProductConsumption productConsumption =
 			_productConsumptionLocalService.getProductConsumption(
@@ -209,10 +213,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postProductProductKeyExternalLink(
-			String agentName, String productKey, ExternalLink externalLink)
+			String agentName, String agentUID, String productKey,
+			ExternalLink externalLink)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
 			productKey);
@@ -223,11 +228,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postProductPurchaseProductPurchaseKeyExternalLink(
-			String agentName, String productPurchaseKey,
+			String agentName, String agentUID, String productPurchaseKey,
 			ExternalLink externalLink)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		ProductPurchase productPurchase =
 			_productPurchaseLocalService.getProductPurchase(productPurchaseKey);
@@ -239,10 +244,11 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 	@Override
 	public ExternalLink postTeamTeamKeyExternalLink(
-			String agentName, String teamKey, ExternalLink externalLink)
+			String agentName, String agentUID, String teamKey,
+			ExternalLink externalLink)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		Team team = _teamLocalService.getTeam(teamKey);
 

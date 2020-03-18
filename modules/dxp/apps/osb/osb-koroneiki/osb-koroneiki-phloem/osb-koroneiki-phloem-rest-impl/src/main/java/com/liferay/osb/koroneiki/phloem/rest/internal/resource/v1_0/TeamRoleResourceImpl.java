@@ -63,21 +63,22 @@ public class TeamRoleResourceImpl
 	extends BaseTeamRoleResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteTeamRole(String agentName, String teamRoleKey)
+	public void deleteTeamRole(
+			String agentName, String agentUID, String teamRoleKey)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_teamRoleService.deleteTeamRole(teamRoleKey);
 	}
 
 	@Override
 	public void deleteTeamRoleTeamRolePermission(
-			String agentName, String teamRoleKey,
+			String agentName, String agentUID, String teamRoleKey,
 			TeamRolePermission teamRolePermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateTeamRolePermission(teamRoleKey, "delete", teamRolePermission);
 	}
@@ -136,12 +137,13 @@ public class TeamRoleResourceImpl
 	}
 
 	@Override
-	public TeamRole postTeamRole(String agentName, TeamRole teamRole)
+	public TeamRole postTeamRole(
+			String agentName, String agentUID, TeamRole teamRole)
 		throws Exception {
 
 		TeamRole.Type teamRoleType = teamRole.getType();
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		int type = TeamRoleType.fromLabel(teamRoleType.toString());
 
@@ -152,10 +154,11 @@ public class TeamRoleResourceImpl
 
 	@Override
 	public TeamRole putTeamRole(
-			String agentName, String teamRoleKey, TeamRole teamRole)
+			String agentName, String agentUID, String teamRoleKey,
+			TeamRole teamRole)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.TeamRole curTeamRole =
 			_teamRoleLocalService.getTeamRole(teamRoleKey);
@@ -170,11 +173,11 @@ public class TeamRoleResourceImpl
 
 	@Override
 	public void putTeamRoleTeamRolePermission(
-			String agentName, String teamRoleKey,
+			String agentName, String agentUID, String teamRoleKey,
 			TeamRolePermission teamRolePermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateTeamRolePermission(teamRoleKey, "add", teamRolePermission);
 	}

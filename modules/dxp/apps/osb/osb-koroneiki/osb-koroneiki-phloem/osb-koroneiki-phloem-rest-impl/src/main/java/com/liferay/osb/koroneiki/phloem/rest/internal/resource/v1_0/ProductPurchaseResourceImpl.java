@@ -80,21 +80,21 @@ public class ProductPurchaseResourceImpl
 
 	@Override
 	public void deleteProductPurchase(
-			String agentName, String productPurchaseKey)
+			String agentName, String agentUID, String productPurchaseKey)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_productPurchaseService.deleteProductPurchase(productPurchaseKey);
 	}
 
 	@Override
 	public void deleteProductPurchaseProductPurchasePermission(
-			String agentName, String productPurchaseKey,
+			String agentName, String agentUID, String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateProductPurchasePermission(
 			productPurchaseKey, "delete", productPurchasePermission);
@@ -222,13 +222,14 @@ public class ProductPurchaseResourceImpl
 
 	@Override
 	public ProductPurchase postAccountAccountKeyProductPurchase(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			ProductPurchase productPurchase)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
-		String productKey = _getProductKey(agentName, productPurchase);
+		String productKey = _getProductKey(
+			agentName, agentUID, productPurchase);
 
 		Date startDate = productPurchase.getStartDate();
 		Date endDate = productPurchase.getEndDate();
@@ -269,7 +270,8 @@ public class ProductPurchaseResourceImpl
 
 				_externalLinkResource.
 					postProductPurchaseProductPurchaseKeyExternalLink(
-						agentName, curProductPurchase.getKey(), externalLink);
+						agentName, agentUID, curProductPurchase.getKey(),
+						externalLink);
 			}
 		}
 
@@ -278,11 +280,11 @@ public class ProductPurchaseResourceImpl
 
 	@Override
 	public ProductPurchase putProductPurchase(
-			String agentName, String productPurchaseKey,
+			String agentName, String agentUID, String productPurchaseKey,
 			ProductPurchase productPurchase)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.trunk.model.ProductPurchase
 			curProductPurchase =
@@ -340,11 +342,11 @@ public class ProductPurchaseResourceImpl
 
 	@Override
 	public void putProductPurchaseProductPurchasePermission(
-			String agentName, String productPurchaseKey,
+			String agentName, String agentUID, String productPurchaseKey,
 			ProductPurchasePermission productPurchasePermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateProductPurchasePermission(
 			productPurchaseKey, "add", productPurchasePermission);
@@ -389,7 +391,7 @@ public class ProductPurchaseResourceImpl
 	}
 
 	private String _getProductKey(
-			String agentName, ProductPurchase productPurchase)
+			String agentName, String agentUID, ProductPurchase productPurchase)
 		throws Exception {
 
 		Product product = productPurchase.getProduct();
@@ -407,7 +409,8 @@ public class ProductPurchaseResourceImpl
 				return productEntry.getProductEntryKey();
 			}
 
-			product = _productResource.postProduct(agentName, product);
+			product = _productResource.postProduct(
+				agentName, agentUID, product);
 
 			return product.getKey();
 		}

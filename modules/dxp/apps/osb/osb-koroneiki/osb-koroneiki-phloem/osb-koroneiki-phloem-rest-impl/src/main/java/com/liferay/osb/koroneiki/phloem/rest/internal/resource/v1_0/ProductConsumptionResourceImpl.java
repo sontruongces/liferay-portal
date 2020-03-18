@@ -63,10 +63,10 @@ public class ProductConsumptionResourceImpl
 
 	@Override
 	public void deleteProductConsumption(
-			String agentName, String productConsumptionKey)
+			String agentName, String agentUID, String productConsumptionKey)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_productConsumptionService.deleteProductConsumption(
 			productConsumptionKey);
@@ -74,11 +74,11 @@ public class ProductConsumptionResourceImpl
 
 	@Override
 	public void deleteProductConsumptionProductConsumptionPermission(
-			String agentName, String productConsumptionKey,
+			String agentName, String agentUID, String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateProductConsumptionPermission(
 			productConsumptionKey, "delete", productConsumptionPermission);
@@ -179,11 +179,11 @@ public class ProductConsumptionResourceImpl
 
 	@Override
 	public ProductConsumption postAccountAccountKeyProductConsumption(
-			String agentName, String accountKey,
+			String agentName, String agentUID, String accountKey,
 			ProductConsumption productConsumption)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		List<ProductField> productFields = _getProductFields(
 			productConsumption.getProperties());
@@ -198,11 +198,11 @@ public class ProductConsumptionResourceImpl
 
 	@Override
 	public void putProductConsumptionProductConsumptionPermission(
-			String agentName, String productConsumptionKey,
+			String agentName, String agentUID, String productConsumptionKey,
 			ProductConsumptionPermission productConsumptionPermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateProductConsumptionPermission(
 			productConsumptionKey, "add", productConsumptionPermission);

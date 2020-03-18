@@ -63,10 +63,10 @@ public class ContactResourceImpl
 
 	@Override
 	public void deleteContactByEmailAddresEmailAddress(
-			String agentName, String emailAddress)
+			String agentName, String agentUID, String emailAddress)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
 			_contactLocalService.getContactByEmailAddress(emailAddress);
@@ -75,10 +75,11 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public void deleteContactByOkta(String agentName, String oktaId)
+	public void deleteContactByOkta(
+			String agentName, String agentUID, String oktaId)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
 			_contactLocalService.getContactByOktaId(oktaId);
@@ -88,11 +89,11 @@ public class ContactResourceImpl
 
 	@Override
 	public void deleteContactByOktaContactPermission(
-			String agentName, String oktaId,
+			String agentName, String agentUID, String oktaId,
 			ContactPermission contactPermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
 			_contactLocalService.fetchContactByOktaId(oktaId);
@@ -102,10 +103,10 @@ public class ContactResourceImpl
 
 	@Override
 	public void deleteContactByUuidContactUuid(
-			String agentName, String contactUuid)
+			String agentName, String agentUID, String contactUuid)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
 			_contactLocalService.getContactByUuid(contactUuid);
@@ -115,11 +116,11 @@ public class ContactResourceImpl
 
 	@Override
 	public void deleteContactByUuidContactUuidContactPermission(
-			String agentName, String contactUuid,
+			String agentName, String agentUID, String contactUuid,
 			ContactPermission contactPermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
 			_contactLocalService.fetchContactByUuid(contactUuid);
@@ -271,10 +272,11 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public Contact postContact(String agentName, Contact contact)
+	public Contact postContact(
+			String agentName, String agentUID, Contact contact)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		return ContactUtil.toContact(
 			_contactService.addContact(
@@ -285,10 +287,11 @@ public class ContactResourceImpl
 
 	@Override
 	public Contact putContactByEmailAddresEmailAddress(
-			String agentName, String emailAddress, Contact contact)
+			String agentName, String agentUID, String emailAddress,
+			Contact contact)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
 			_contactLocalService.getContactByEmailAddress(emailAddress);
@@ -311,10 +314,10 @@ public class ContactResourceImpl
 
 	@Override
 	public Contact putContactByOkta(
-			String agentName, String oktaId, Contact contact)
+			String agentName, String agentUID, String oktaId, Contact contact)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
 			_contactLocalService.getContactByOktaId(oktaId);
@@ -335,11 +338,11 @@ public class ContactResourceImpl
 
 	@Override
 	public void putContactByOktaContactPermission(
-			String agentName, String oktaId,
+			String agentName, String agentUID, String oktaId,
 			ContactPermission contactPermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
 			_contactLocalService.fetchContactByOktaId(oktaId);
@@ -349,10 +352,11 @@ public class ContactResourceImpl
 
 	@Override
 	public Contact putContactByUuidContactUuid(
-			String agentName, String contactUuid, Contact contact)
+			String agentName, String agentUID, String contactUuid,
+			Contact contact)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
 			_contactLocalService.getContactByUuid(contactUuid);
@@ -373,11 +377,11 @@ public class ContactResourceImpl
 
 	@Override
 	public void putContactByUuidContactUuidContactPermission(
-			String agentName, String contactUuid,
+			String agentName, String agentUID, String contactUuid,
 			ContactPermission contactPermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.Contact contact =
 			_contactLocalService.fetchContactByUuid(contactUuid);

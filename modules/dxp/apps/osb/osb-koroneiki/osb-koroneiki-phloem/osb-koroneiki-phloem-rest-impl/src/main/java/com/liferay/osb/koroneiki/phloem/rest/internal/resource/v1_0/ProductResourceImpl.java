@@ -66,21 +66,22 @@ public class ProductResourceImpl
 	extends BaseProductResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteProduct(String agentName, String productKey)
+	public void deleteProduct(
+			String agentName, String agentUID, String productKey)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_productEntryService.deleteProductEntry(productKey);
 	}
 
 	@Override
 	public void deleteProductProductPermission(
-			String agentName, String productKey,
+			String agentName, String agentUID, String productKey,
 			ProductPermission productPermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateProductPermission(productKey, "delete", productPermission);
 	}
@@ -145,10 +146,11 @@ public class ProductResourceImpl
 	}
 
 	@Override
-	public Product postProduct(String agentName, Product product)
+	public Product postProduct(
+			String agentName, String agentUID, Product product)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		List<ProductField> productFields = getProductFields(
 			product.getProperties(), Collections.emptyList());
@@ -160,7 +162,7 @@ public class ProductResourceImpl
 		if (!ArrayUtil.isEmpty(product.getExternalLinks())) {
 			for (ExternalLink externalLink : product.getExternalLinks()) {
 				_externalLinkResource.postProductProductKeyExternalLink(
-					agentName, curProduct.getKey(), externalLink);
+					agentName, agentUID, curProduct.getKey(), externalLink);
 			}
 		}
 
@@ -169,10 +171,11 @@ public class ProductResourceImpl
 
 	@Override
 	public Product putProduct(
-			String agentName, String productKey, Product product)
+			String agentName, String agentUID, String productKey,
+			Product product)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
 			productKey);
@@ -187,11 +190,11 @@ public class ProductResourceImpl
 
 	@Override
 	public void putProductProductPermission(
-			String agentName, String productKey,
+			String agentName, String agentUID, String productKey,
 			ProductPermission productPermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateProductPermission(productKey, "add", productPermission);
 	}

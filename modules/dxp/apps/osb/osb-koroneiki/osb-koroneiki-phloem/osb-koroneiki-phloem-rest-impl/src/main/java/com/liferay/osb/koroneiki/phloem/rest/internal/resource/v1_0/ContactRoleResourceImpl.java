@@ -69,21 +69,22 @@ public class ContactRoleResourceImpl
 	extends BaseContactRoleResourceImpl implements EntityModelResource {
 
 	@Override
-	public void deleteContactRole(String agentName, String contactRoleKey)
+	public void deleteContactRole(
+			String agentName, String agentUID, String contactRoleKey)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_contactRoleService.deleteContactRole(contactRoleKey);
 	}
 
 	@Override
 	public void deleteContactRoleContactRolePermission(
-			String agentName, String contactRoleKey,
+			String agentName, String agentUID, String contactRoleKey,
 			ContactRolePermission contactRolePermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateContactRolePermission(
 			contactRoleKey, "delete", contactRolePermission);
@@ -300,10 +301,10 @@ public class ContactRoleResourceImpl
 
 	@Override
 	public ContactRole postContactRole(
-			String agentName, ContactRole contactRole)
+			String agentName, String agentUID, ContactRole contactRole)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		ContactRole.Type contactRoleType = contactRole.getType();
 
@@ -315,10 +316,11 @@ public class ContactRoleResourceImpl
 
 	@Override
 	public ContactRole putContactRole(
-			String agentName, String contactRoleKey, ContactRole contactRole)
+			String agentName, String agentUID, String contactRoleKey,
+			ContactRole contactRole)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.taproot.model.ContactRole curContactRole =
 			_contactRoleLocalService.getContactRole(contactRoleKey);
@@ -334,11 +336,11 @@ public class ContactRoleResourceImpl
 
 	@Override
 	public void putContactRoleContactRolePermission(
-			String agentName, String contactRoleKey,
+			String agentName, String agentUID, String contactRoleKey,
 			ContactRolePermission contactRolePermission)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_updateContactRolePermission(
 			contactRoleKey, "add", contactRolePermission);

@@ -51,6 +51,7 @@ public class AuditEntryUtil {
 					agentName = "Auto";
 				}
 
+				agentUID = auditEntry.getAgentOktaId();
 				auditSetId = auditEntry.getAuditSetId();
 				dateCreated = auditEntry.getCreateDate();
 				description = auditEntry.getDescription();

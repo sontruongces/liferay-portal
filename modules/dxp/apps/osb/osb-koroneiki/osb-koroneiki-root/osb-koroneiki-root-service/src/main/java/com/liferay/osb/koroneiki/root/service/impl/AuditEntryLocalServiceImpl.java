@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.util.List;
 
@@ -52,6 +53,13 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 				serviceContext.getAttribute("agentName"), agentName);
 		}
 
+		String agentOktaId = StringPool.BLANK;
+
+		if (serviceContext != null) {
+			agentOktaId = GetterUtil.getString(
+				serviceContext.getAttribute("agentUID"), agentOktaId);
+		}
+
 		long auditSetId = 0;
 
 		if (serviceContext != null) {
@@ -72,6 +80,7 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 		auditEntry.setUserId(userId);
 		auditEntry.setAuditEntryKey(ModelKeyGenerator.generate(auditEntryId));
 		auditEntry.setAgentName(agentName);
+		auditEntry.setAgentOktaId(agentOktaId);
 		auditEntry.setClassNameId(classNameId);
 		auditEntry.setClassPK(classPK);
 		auditEntry.setAuditSetId(auditSetId);

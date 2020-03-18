@@ -53,6 +53,7 @@ public class EntitlementModelListener
 			classNameId, classPK);
 
 		serviceContext.setAttribute("agentName", StringPool.BLANK);
+		serviceContext.setAttribute("agentUID", StringPool.BLANK);
 
 		return serviceContext;
 	}

@@ -47,10 +47,10 @@ public class EntitlementDefinitionResourceImpl
 
 	@Override
 	public void deleteEntitlementDefinition(
-			String agentName, String entitlementDefinitionKey)
+			String agentName, String agentUID, String entitlementDefinitionKey)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
 			entitlementDefinition =
@@ -119,10 +119,11 @@ public class EntitlementDefinitionResourceImpl
 
 	@Override
 	public EntitlementDefinition postAccountEntitlementDefinition(
-			String agentName, EntitlementDefinition entitlementDefinition)
+			String agentName, String agentUID,
+			EntitlementDefinition entitlementDefinition)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		int status = WorkflowConstants.STATUS_APPROVED;
 
@@ -144,10 +145,11 @@ public class EntitlementDefinitionResourceImpl
 
 	@Override
 	public EntitlementDefinition postContactEntitlementDefinition(
-			String agentName, EntitlementDefinition entitlementDefinition)
+			String agentName, String agentUID,
+			EntitlementDefinition entitlementDefinition)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		int status = WorkflowConstants.STATUS_APPROVED;
 
@@ -169,10 +171,10 @@ public class EntitlementDefinitionResourceImpl
 
 	@Override
 	public void postEntitlementDefinitionSynchronize(
-			String agentName, String entitlementDefinitionKey)
+			String agentName, String agentUID, String entitlementDefinitionKey)
 		throws Exception {
 
-		ServiceContextUtil.setAgentName(agentName);
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
 			entitlementDefinition =

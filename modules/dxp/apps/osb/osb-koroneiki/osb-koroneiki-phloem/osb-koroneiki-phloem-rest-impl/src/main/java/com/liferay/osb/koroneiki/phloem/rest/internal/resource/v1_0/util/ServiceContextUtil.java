@@ -46,30 +46,13 @@ public class ServiceContextUtil {
 			serviceContext = new ServiceContext();
 		}
 
-		if (Validator.isNull(agentName)) {
+		if (Validator.isNotNull(agentName)) {
 			serviceContext.setAttribute("agentName", agentName);
 		}
 
-		if (Validator.isNull(agentUID)) {
+		if (Validator.isNotNull(agentUID)) {
 			serviceContext.setAttribute("agentUID", agentUID);
 		}
-
-		ServiceContextThreadLocal.pushServiceContext(serviceContext);
-	}
-
-	public static void setAgentName(String agentName) {
-		if (Validator.isNull(agentName)) {
-			return;
-		}
-
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.popServiceContext();
-
-		if (serviceContext == null) {
-			serviceContext = new ServiceContext();
-		}
-
-		serviceContext.setAttribute("agentName", agentName);
 
 		ServiceContextThreadLocal.pushServiceContext(serviceContext);
 	}
