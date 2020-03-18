@@ -111,8 +111,6 @@ AUI.add(
 
 				tagNames: {
 					setter(value) {
-						var instance = this;
-
 						if (Lang.isString(value)) {
 							value = value.split(',');
 						}
@@ -128,73 +126,6 @@ AUI.add(
 			NAME: 'tagselector',
 
 			prototype: {
-				renderUI() {
-					var instance = this;
-
-					AssetTaglibTagsSelector.superclass.renderUI.apply(
-						instance,
-						arguments
-					);
-
-					instance._renderIcons();
-
-					instance.inputNode.addClass('lfr-tag-selector-input');
-
-					instance._overlayAlign.node = instance.entryHolder;
-				},
-
-				bindUI() {
-					var instance = this;
-
-					AssetTaglibTagsSelector.superclass.bindUI.apply(
-						instance,
-						arguments
-					);
-
-					instance._bindTagsSelector();
-
-					var entries = instance.entries;
-
-					entries.after('add', instance._updateHiddenInput, instance);
-					entries.after(
-						'remove',
-						instance._updateHiddenInput,
-						instance
-					);
-
-					A.Do.before(
-						instance._checkDuplicateTag,
-						instance.entries,
-						'add',
-						instance
-					);
-					A.Do.before(
-						instance._checkMaxLengthTag,
-						instance.entries,
-						'add',
-						instance
-					);
-				},
-
-				syncUI() {
-					var instance = this;
-
-					AssetTaglibTagsSelector.superclass.syncUI.apply(
-						instance,
-						arguments
-					);
-
-					var tagNames = instance.get('tagNames');
-
-					tagNames.forEach(instance.add, instance);
-				},
-
-				addEntries() {
-					var instance = this;
-
-					instance._addEntries();
-				},
-
 				_addEntries() {
 					var instance = this;
 
@@ -206,7 +137,7 @@ AUI.add(
 						if (text.indexOf(',') > -1) {
 							var items = text.split(',');
 
-							items.forEach((item, index) => {
+							items.forEach(item => {
 								instance.entries.add(item, {});
 							});
 						}
@@ -476,12 +407,79 @@ AUI.add(
 					itemSelectorDialog.open();
 				},
 
-				_updateHiddenInput(event) {
+				_updateHiddenInput() {
 					var instance = this;
 
 					var hiddenInput = instance.get('hiddenInput');
 
 					hiddenInput.val(instance.entries.keys.join());
+				},
+
+				addEntries() {
+					var instance = this;
+
+					instance._addEntries();
+				},
+
+				bindUI() {
+					var instance = this;
+
+					AssetTaglibTagsSelector.superclass.bindUI.apply(
+						instance,
+						arguments
+					);
+
+					instance._bindTagsSelector();
+
+					var entries = instance.entries;
+
+					entries.after('add', instance._updateHiddenInput, instance);
+					entries.after(
+						'remove',
+						instance._updateHiddenInput,
+						instance
+					);
+
+					A.Do.before(
+						instance._checkDuplicateTag,
+						instance.entries,
+						'add',
+						instance
+					);
+					A.Do.before(
+						instance._checkMaxLengthTag,
+						instance.entries,
+						'add',
+						instance
+					);
+				},
+
+				renderUI() {
+					var instance = this;
+
+					AssetTaglibTagsSelector.superclass.renderUI.apply(
+						instance,
+						arguments
+					);
+
+					instance._renderIcons();
+
+					instance.inputNode.addClass('lfr-tag-selector-input');
+
+					instance._overlayAlign.node = instance.entryHolder;
+				},
+
+				syncUI() {
+					var instance = this;
+
+					AssetTaglibTagsSelector.superclass.syncUI.apply(
+						instance,
+						arguments
+					);
+
+					var tagNames = instance.get('tagNames');
+
+					tagNames.forEach(instance.add, instance);
 				}
 			}
 		});
