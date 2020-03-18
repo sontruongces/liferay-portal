@@ -15,11 +15,9 @@
 package com.liferay.portal.search.elasticsearch7.internal.ccr;
 
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.search.configuration.CrossClusterReplicationConfigurationWrapper;
-import com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnectionManager;
 
 import java.io.InputStream;
@@ -29,8 +27,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.security.KeyStore;
-
-import java.util.Map;
 
 import javax.net.ssl.SSLContext;
 
@@ -55,9 +51,7 @@ import org.elasticsearch.client.ccr.PauseFollowRequest;
 import org.elasticsearch.client.ccr.PutFollowRequest;
 import org.elasticsearch.client.ccr.UnfollowRequest;
 
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 
@@ -117,13 +111,6 @@ public class CrossClusterReplicationHelper {
 		}
 	}
 
-	@Activate
-	@Modified
-	protected void activate(Map<String, Object> properties) {
-		_elasticsearchConfiguration = ConfigurableUtil.createConfigurable(
-			ElasticsearchConfiguration.class, properties);
-	}
-
 	@Reference(cardinality = ReferenceCardinality.OPTIONAL)
 	protected volatile CrossClusterReplicationConfigurationWrapper
 		crossClusterReplicationConfigurationWrapper;
@@ -172,7 +159,9 @@ public class CrossClusterReplicationHelper {
 
 	private RestHighLevelClient _createRestHighLevelClient() {
 		RestClientBuilder restClientBuilder = RestClient.builder(
-			HttpHost.create(_elasticsearchConfiguration.networkHost()));
+			HttpHost.create(
+				crossClusterReplicationConfigurationWrapper.
+					getNetworkHostAddress()));
 
 		if (crossClusterReplicationConfigurationWrapper.
 				isAuthenticationEnabled()) {
@@ -259,7 +248,5 @@ public class CrossClusterReplicationHelper {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CrossClusterReplicationHelper.class);
-
-	private volatile ElasticsearchConfiguration _elasticsearchConfiguration;
 
 }
