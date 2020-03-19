@@ -13,8 +13,14 @@
  */
 
 module.exports = {
+	extends: ['liferay/metal'],
 	globals: {
 		__CONFIG__: true,
+		IncrementalDOM: true,
 		global: true
+	},
+	rules: {
+		'no-self-assign': 'off',
+		'react/require-render-return': 'off'
 	}
 };

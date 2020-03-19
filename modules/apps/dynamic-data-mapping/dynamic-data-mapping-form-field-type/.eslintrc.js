@@ -13,6 +13,7 @@
  */
 
 module.exports = {
+	extends: ['liferay/metal'],
 	globals: {
 		AlloyEditor: true
 	}

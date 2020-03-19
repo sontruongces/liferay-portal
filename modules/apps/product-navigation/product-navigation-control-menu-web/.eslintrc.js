@@ -13,11 +13,5 @@
  */
 
 module.exports = {
-	extends: ['liferay/metal'],
-	globals: {
-		AlloyEditor: true
-	},
-	rules: {
-		'no-self-assign': 'off'
-	}
+	extends: ['liferay/metal']
 };

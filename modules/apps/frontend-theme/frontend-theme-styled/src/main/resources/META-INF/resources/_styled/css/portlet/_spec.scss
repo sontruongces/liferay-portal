@@ -1,6 +1,8 @@
-/* ---------- Standard styles defined in the JSR 168 specification ---------- */
+// ---------- Standard styles defined in the JSR 168 specification ----------
 
-/* ---------- Fonts ---------- */
+// stylelint-disable block-no-empty
+
+// ---------- Fonts ----------
 
 .portlet-font {
 }
@@ -8,7 +10,7 @@
 .portlet-font-dim {
 }
 
-/* ---------- Sections ---------- */
+// ---------- Sections ----------
 
 .portlet-section-selected {
 	&,
@@ -34,7 +36,7 @@
 .portlet-section-text {
 }
 
-/* ---------- Forms ---------- */
+// ---------- Forms ----------
 
 .portlet-form-label {
 }
@@ -51,7 +53,7 @@
 .portlet-form-field {
 }
 
-/* ---------- Icons ---------- */
+// ---------- Icons ----------
 
 .portlet-icon-label {
 }
@@ -59,7 +61,7 @@
 .portlet-dlg-icon-label {
 }
 
-/* ---------- Menus ---------- */
+// ---------- Menus ----------
 
 .portlet-menu {
 }
