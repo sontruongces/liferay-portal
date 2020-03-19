@@ -833,7 +833,7 @@ AUI.add(
 						data.status &&
 						data.status >=
 							STATUS_CODE.SC_DUPLICATE_FILE_EXCEPTION &&
-							data.status < STATUS_CODE.INTERNAL_SERVER_ERROR
+						data.status < STATUS_CODE.INTERNAL_SERVER_ERROR
 					) {
 						file.error =
 							data.message || strings.unexpectedErrorOnUploadText;

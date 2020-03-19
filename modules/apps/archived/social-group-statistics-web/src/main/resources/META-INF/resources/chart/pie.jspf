@@ -161,7 +161,7 @@ DecimalFormat decimalFormat = new DecimalFormat("##.00%");
 		if (
 			(width &&
 				event.type == 'portletMoved' &&
-					event.portletId == '<%= portletDisplay.getId() %>') ||
+				event.portletId == '<%= portletDisplay.getId() %>') ||
 			(event.type == 'liferaypanel:collapse' &&
 				event.panelId ==
 					'groupStatisticsPanel<%= displayActivityCounterNameIndex %>')
