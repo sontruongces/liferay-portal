@@ -34,6 +34,12 @@ table {
 	}
 }
 
+.empty-state {
+	color: $secondary;
+	margin: $spacing-default;
+	text-align: center;
+}
+
 .label {
 	letter-spacing: 0.04rem;
 }

@@ -1,8 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function NotesTabPane() {
-	return <>{Liferay.Language.get('no-notes-were-found')}</>;
+function NotesTabPane({notes}) {
+	return (
+		<>
+			{notes ? (
+				<div>Notes</div>
+			) : (
+				<div className="empty-state">
+					{Liferay.Language.get('no-notes-were-found')}
+				</div>
+			)}
+		</>
+	);
 }
 
 NotesTabPane.propTypes = {

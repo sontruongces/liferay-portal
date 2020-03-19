@@ -4,7 +4,7 @@ import React from 'react';
 import SalesInfoTabPane from '../../src/main/resources/META-INF/resources/js/components/SalesInfoTabPane';
 
 function renderSalesInfoTabPane() {
-	return render(<SalesInfoTabPane />);
+	return render(<SalesInfoTabPane info={{}} />);
 }
 
 describe('SalesInfoTabPane', () => {
@@ -14,5 +14,11 @@ describe('SalesInfoTabPane', () => {
 		const {container} = renderSalesInfoTabPane();
 
 		expect(container).toBeTruthy();
+	});
+
+	it('displays a message when there is no data', () => {
+		const {container} = render(<SalesInfoTabPane />);
+
+		expect(container.textContent).toEqual('no-sales-info-were-found');
 	});
 });
