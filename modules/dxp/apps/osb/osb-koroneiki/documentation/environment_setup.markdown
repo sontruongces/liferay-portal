@@ -2,17 +2,15 @@
 
 ## Downloads
 
-1. Download tomcat bundle with the same Liferay version as on the [lrkoroneiki repo](https://github.com/dxpcloud/lrkoroneiki/blob/master/gradle.properties).
+Download the tomcat bundle with the Liferay version in [lrkoroneiki repo](https://github.com/dxpcloud/lrkoroneiki/blob/master/gradle.properties).
 
 ## Fixpacks
 
-1. Install the same fixpack as on the lrkoroneiki repo if one exists.
+Install the same fixpack as on the lrkoroneiki repo if one exists.
 
 ## Portal Properties
 
-In your base `{liferay-home}/` bundle directory, create a file called portal-ext.properties.
-
-It should look similar to the one in the [lrkoroneiki repo](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/portal-all.properties).
+See the [lrkoroneiki repo](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/portal-all.properties) for portal-ext.properties.
 
 ## Configs
 
@@ -20,21 +18,17 @@ Create the following config files and place them in `{liferay-home}/osgi/configs
 
 ### Elasticsearch
 
-Create a file called `com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config`.
-
-Add [additionalTypeMappings](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config#L1) to the config file.
+Add [additionalTypeMappings](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config#L1) to your Elasticsearch config file.
 
 ### REST API
 
-Create a file called `com.liferay.osb.koroneiki.phloem.rest.internal.jaxrs.application.KoroneikiRESTApplication.config`.
-
-Add [REST Configuration](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/com.liferay.osb.koroneiki.phloem.rest.internal.jaxrs.application.KoroneikiRESTApplication.config) to the confic file.
+Add the [REST Configuration](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/com.liferay.osb.koroneiki.phloem.rest.internal.jaxrs.application.KoroneikiRESTApplication.config).
 
 ### RabbitMQ
 
-We will be using the RabbitMQ Dev server for development purposes.
+Use the RabbitMQ Dev server for development purposes.
 
-Each developer has different exchanges and queues based on a color of their choosing. For example: `dev_blue_queue`. You will use this color in some of your config files. This is so multiple users testing at the same time does not conflict with each other.
+Each developer has different exchanges and queues based on a color of their choosing. For example: `dev_blue_queue`. You will use this color in some of your config files. This is so multiple developers testing at the same time do not conflict with each other.
 
 All [RabbitMQ config files](https://github.com/dxpcloud/lrkoroneiki/tree/master/lcp/liferay/config/dev).
 
@@ -42,21 +36,21 @@ All [RabbitMQ config files](https://github.com/dxpcloud/lrkoroneiki/tree/master/
 
 The Legacy RabbitMQ configs are for connecting to web.liferay.com.
 
-First we need the properties to create a connection to the RabbitMQ server.
+First setup the configuration to create a connection to the RabbitMQ server.
 
 Create a file called `com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.LegacyConnection.config`.
 
 Add the properties listed [here](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/dev/com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.LegacyConnection.config). Replace `host` property with value `rabbitmq-dev.liferay.com`.
 
-Next we need properties for the Legacy *Message Broker*.
+Next configure the Legacy *Message Broker*.
 
 Create a file called `com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.broker.LegacyMessageBroker.config`.
 
-Add the properties listed [here](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/dev/com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.broker.LegacyMessageBroker.config). 
+Add the properties listed [here](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/dev/com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.broker.LegacyMessageBroker.config).
 
-Replace `sandbox` value with `dev`, and also add your specific color to the name as well. Example `dev_blue_entity_exchange`.
+Replace `sandbox` with `dev`, and also add your specific color to the name. Example: `dev_blue_entity_exchange`.
 
-Lastly, we need properties for the Legacy *Consumer*.
+Lastly configure the Legacy *Consumer*.
 
 Create a file called `com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.consumer.LegacyConsumer.config`.
 
@@ -72,7 +66,7 @@ Create a file called `com.liferay.osb.koroneiki.xylem.distributed.messaging.inte
 
 Add the properties listed [here](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/dev/com.liferay.osb.koroneiki.xylem.distributed.messaging.internal.rabbitmq.broker.XylemMessageBroker.config).
 
-Update the properties to include your specific color as well. Example: `dev_blue_koroneiki_exchange`.
+Update the properties to include your specific color. Example: `dev_blue_koroneiki_exchange`.
 
 We do not need a consumer like the *Legacy Consumer* listed above, because Koroneiki is not consuming messages from itself.
 
@@ -92,8 +86,8 @@ If using RabbitMQ, also deploy modules in `osb-distributed-messaging`.
 
 ## Setting up API
 
-To set up the API to be able to use it, a *Service Producer* will have to be created along with an API token.
+To set up authentication for the REST API, a *Service Producer* needs to be created along with an API token.
 
-1. Create a *Service Producer*. (See Service Producer documentation)
+1. Create a `Service Producer`. (See Service Producer documentation)
 2. Go to Roles &rarr; Service Producer Role, and select all the necessary Koroneiki permissions that you need to use.
 3. Create an API token. (See Authentication documentation)

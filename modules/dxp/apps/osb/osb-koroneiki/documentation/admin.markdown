@@ -1,24 +1,16 @@
 # Admin
 
-Koroniki Admin is accessed via *Control Panel* &rarr; *Koroneiki*.
+Koroneiki Admin is accessed via *Control Panel* &rarr; *Koroneiki*.
 
 ## Entitlement Definition
 
-An *Entitlement Definition* is the query that defines an *Entitlement*.
+Navigate to the `Entitlement Definition` section of the Koroneiki Admin.
 
-For an *Entitlement Definition* to work property, there needs to be existing *Accounts* or *Contacts*.
-
-To create an *Entitlement Definition* navigate to the *Entitlement Definition* section of the Koroneiki Admin.
-
-1. Select either the *Account* or *Contact* tab.
-2. Click the *Add* button.
-3. Fill out the required fields, for examples of a *definition* see below, and click *Save*.
-
-There are many possibilies of what an *Entitlement Definition* could consist of. Below are a few examples.
+The definition field is an SQL query that returns `Account` or `Contact` IDs of the `Account` or `Contact` which is granted that `Entitlement`. Below are a few definition examples.
 
 #### Partner Account
 
-The following gives an example where an *Account* owns an active Partnership product therefore making them a Partner.
+The following is an example where an `Account` owns an active Partnership `Product Entry`.
 
 ```
 SELECT
@@ -41,7 +33,7 @@ WHERE
 
 #### Partner Contact
 
-The following gives an example where a *Contact* is part of an *Account* which is a Partner.
+The following is an example where a `Contact` is assigned to a Partner `Account`.
 
 ```
 SELECT
@@ -64,7 +56,7 @@ WHERE
 
 #### Analytics Cloud Admin
 
-The following gives an example where a *Contact* is part of an *Account* which owns Analytics Cloud, and they also have the Analytics Cloud Admin *Contact Role*.
+The following is an example where a `Contact` is assigned the Analytics Cloud Admin `Contact Role` to an `Account` which owns the Analytics Cloud `Product Entry`.
 
 ```
 SELECT
@@ -91,13 +83,13 @@ WHERE
 
 ## External Link Mappings
 
-While an *External Link* includes the domain, entity name, and entity ID of a link, you can also create a mapping to a specific URL for specific domains and entities.
+An `External Link Mapping` is a URL for specific `External Link` domains and entity names.
 
 Navigate to Koroneiki Admin &rarr; *External Links*.
 
-1. Enter the *Domain* of the *External Link* you would like to create a URL for. Example: `salesforce`
-2. Enter the *Entity Name* of the *External Link* you would like the URL to be fore. Example: `account`
-3. Enter the URL you would like to map to the *External Links* containing that *Domain* and *Entity Name* listed. The URL must include `https://`. Use the `[$ENTITY_ID$]` where you want the *External Id* to be replaced. 
-Example: `https://salesforce.com/[$ENTITY_ID$]`
+1. Enter the *Domain* of the `External Link` the URL is for. Example: `salesforce`
+2. Enter the *Entity Name* of the `External Link` the URL is for. Example: `account`
+3. Enter the *URL* the *External Links* containing the above *Domain* and *Entity Name* will use. The URL must include `https://`. Use `[$ENTITY_ID$]` where you want the `External Link's` entity ID to be inserted.
+Example: `https://salesforce.com/account/[$ENTITY_ID$]`
 
-In the above example, it would take all *External Links* where *Domain* is `salesforce`, *Entity Name* is `account`, and make the URL `https://salesforce.com/12345` if the *Entity ID* was `12345`.
+In the above example, an `External Link` with the *Domain* `salesforce`, *Entity Name* `account`, and *Entity ID* `12345` will have the URL `https://salesforce.com/account/12345`.
