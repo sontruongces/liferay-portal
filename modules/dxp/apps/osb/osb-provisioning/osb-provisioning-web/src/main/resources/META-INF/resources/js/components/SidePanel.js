@@ -2,6 +2,10 @@ import ClayTabs from '@clayui/tabs';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
+import ExternalLinksTabPane from './ExternalLinksTabPane';
+import NotesTabPane from './NotesTabPane';
+import SalesInfoTabPane from './SalesInfoTabPane';
+
 function CollapsiblePanel({handleCollapse}) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
@@ -51,20 +55,14 @@ function CollapsiblePanel({handleCollapse}) {
 			</ClayTabs>
 
 			<ClayTabs.Content activeIndex={activeIndex}>
-				<ClayTabs.TabPane
-					id="tabPaneNotes"
-				>
-					{'Notes Tab Placeholder Text'}
+				<ClayTabs.TabPane id="tabPaneNotes">
+					<NotesTabPane />
 				</ClayTabs.TabPane>
-				<ClayTabs.TabPane
-					id="tabPaneSalesInfo"
-				>
-					{'Sales Info Tab Placeholder Text'}
+				<ClayTabs.TabPane id="tabPaneSalesInfo">
+					<SalesInfoTabPane />
 				</ClayTabs.TabPane>
-				<ClayTabs.TabPane
-					id="tabPaneExternalLinks"
-				>
-					{'External Links Placeholder Text'}
+				<ClayTabs.TabPane id="tabPaneExternalLinks">
+					<ExternalLinksTabPane />
 				</ClayTabs.TabPane>
 			</ClayTabs.Content>
 		</>
