@@ -39,8 +39,10 @@ import org.osgi.service.component.annotations.Component;
 )
 public class NoteWebServiceImpl implements NoteWebService {
 
-	public void deleteNote(String agentName, String noteKey) throws Exception {
-		_noteResource.deleteNote(agentName, noteKey);
+	public void deleteNote(String agentName, String agentUID, String noteKey)
+		throws Exception {
+
+		_noteResource.deleteNote(agentName, agentUID, noteKey);
 	}
 
 	public List<Note> getNotes(

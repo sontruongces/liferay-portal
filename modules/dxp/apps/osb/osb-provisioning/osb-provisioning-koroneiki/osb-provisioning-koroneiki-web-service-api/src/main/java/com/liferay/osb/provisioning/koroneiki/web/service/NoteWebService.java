@@ -23,7 +23,8 @@ import java.util.List;
  */
 public interface NoteWebService {
 
-	public void deleteNote(String agentName, String noteKey) throws Exception;
+	public void deleteNote(String agentName, String agentUID, String noteKey)
+		throws Exception;
 
 	public List<Note> getNotes(
 			String accountKey, String type, String status, int page,

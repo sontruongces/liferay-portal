@@ -60,12 +60,12 @@ public class ProductPurchaseWebServiceImpl
 	}
 
 	public ProductPurchase putProductPurchase(
-			String agentName, String productPurchaseKey,
+			String agentName, String agentUID, String productPurchaseKey,
 			ProductPurchase productPurchase)
 		throws Exception {
 
 		return _productPurchaseResource.putProductPurchase(
-			agentName, productPurchaseKey, productPurchase);
+			agentName, agentUID, productPurchaseKey, productPurchase);
 	}
 
 	@Activate

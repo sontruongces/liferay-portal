@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Date;
@@ -122,7 +123,8 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 		productPurchase.setProperties(properties);
 
 		_productPurchaseWebService.putProductPurchase(
-			user.getFullName(), productPurchaseKey, productPurchase);
+			user.getFullName(), StringPool.BLANK, productPurchaseKey,
+			productPurchase);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

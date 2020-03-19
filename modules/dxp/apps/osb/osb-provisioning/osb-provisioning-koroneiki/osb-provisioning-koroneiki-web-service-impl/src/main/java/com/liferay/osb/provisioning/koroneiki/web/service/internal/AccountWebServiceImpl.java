@@ -61,7 +61,8 @@ public class AccountWebServiceImpl implements AccountWebService {
 	}
 
 	public Account postAccount(Account account) throws Exception {
-		return _accountResource.postAccount(StringPool.BLANK, account);
+		return _accountResource.postAccount(
+			StringPool.BLANK, StringPool.BLANK, account);
 	}
 
 	public List<Account> search(
