@@ -9,7 +9,3 @@ dependencies {
 	testIntegrationCompile project(":core:petra:petra-reflect")
 	testIntegrationCompile project(":core:petra:petra-string")
 }
-
-test {
-	systemProperty "liferay.home", System.getProperty("liferay.home")
-}
