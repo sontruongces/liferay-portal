@@ -62,7 +62,7 @@ public class AccountReaderImpl implements AccountReader {
 	}
 
 	public int getDeveloperCount(Account account) {
-		Contact[] contacts = account.getContacts();
+		Contact[] contacts = account.getCustomerContacts();
 
 		if (contacts == null) {
 			return 0;

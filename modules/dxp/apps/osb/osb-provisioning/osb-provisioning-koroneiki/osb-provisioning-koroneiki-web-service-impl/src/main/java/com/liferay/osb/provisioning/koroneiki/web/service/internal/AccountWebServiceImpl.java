@@ -119,8 +119,8 @@ public class AccountWebServiceImpl implements AccountWebService {
 			"API_Token", koroneikiConfiguration.apiToken()
 		).parameter(
 			"nestedFields",
-			"assignedTeams,assignedTeams.teamRoles,contacts," +
-				"contacts.contactRoles,productPurchases"
+			"assignedTeams,assignedTeams.teamRoles,customerContacts," +
+				"customerContacts.contactRoles,productPurchases"
 		).build();
 	}
 
