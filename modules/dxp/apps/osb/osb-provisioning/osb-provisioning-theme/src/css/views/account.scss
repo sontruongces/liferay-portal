@@ -1,3 +1,10 @@
+#tabPaneNotes {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 .account {
 	display: flex;
 
@@ -69,6 +76,57 @@
 	}
 }
 
+.archive-btn {
+	margin: $spacing-default;
+
+	svg {
+		height: 0.75rem;
+		width: 1rem;
+	}
+}
+
+.notes {
+	width: 100%;
+
+	.note,
+	.notes-header {
+		border-bottom: 1px solid $secondary-l3;
+	}
+
+	.note {
+		padding: $spacing-md;
+	}
+
+	.note-create-date {
+		color: $secondary;
+		font-size: $h5-font-size;
+	}
+
+	.note-metadata {
+		display: flex;
+		margin-bottom: $spacing-sm;
+
+		.metadata {
+			margin-left: $spacing-xs;
+		}
+	}
+
+	.notes-header {
+		background-color: $light-l1;
+		color: $secondary;
+		font-size: $small-font-size;
+		font-weight: $font-weight-semi-bold;
+		padding: $spacing-xs $spacing-md;
+		text-transform: uppercase;
+
+		svg {
+			height: 1rem;
+			margin-right: $spacing-xs;
+			width: 1rem;
+		}
+	}
+}
+
 .secondary-information {
 	color: $secondary;
 	font-size: $h5-font-size;
@@ -76,6 +134,7 @@
 
 .side-panel {
 	border-left: 1px solid $secondary-l3;
+	border-right: 1px solid $secondary-l3;
 	flex: 0 0 33.333333%;
 	max-width: 33.333333%;
 
@@ -109,10 +168,6 @@
 		border: 1px solid $secondary-l3;
 		border-radius: 100px 0 0 100px;
 		box-shadow: 0 2px 4px rgba(39, 40, 51, 0.12);
-	}
-
-	.tab-content {
-		padding: $spacing-md;
 	}
 }
 
