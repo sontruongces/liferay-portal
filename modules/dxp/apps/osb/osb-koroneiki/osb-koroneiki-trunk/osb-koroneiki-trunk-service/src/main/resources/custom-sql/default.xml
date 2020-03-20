@@ -72,6 +72,7 @@
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.joinByActive">
 		<![CDATA[
 			WHERE
+				(Koroneiki_ProductPurchase.status != 600) AND
 				(Koroneiki_ProductPurchase.startDate IS NULL) OR
 				(
 					(NOW() > Koroneiki_ProductPurchase.startDate) AND
