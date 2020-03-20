@@ -56,9 +56,6 @@ public class ProductEntryFinderImpl
 	public static final String JOIN_BY_INACTIVE =
 		ProductEntryFinder.class.getName() + ".joinByInactive";
 
-	public static final String JOIN_BY_PRODUCT_PURCHASE_ID_IS_NULL =
-		ProductEntryFinder.class.getName() + ".joinByProductPurchaseIdIsNull";
-
 	@Override
 	public int countByAccount(
 		long accountId, LinkedHashMap<String, Object> params) {
@@ -158,9 +155,14 @@ public class ProductEntryFinderImpl
 			StringUtil.equalsIgnoreCase((String)value, "inactive")) {
 
 			join = _customSQL.get(getClass(), JOIN_BY_INACTIVE);
+		}
 
-			join = StringUtil.replace(
-				join, "[$WHERE$]", _customSQL.get(getClass(), JOIN_BY_ACTIVE));
+		if (Validator.isNotNull(join)) {
+			int pos = join.indexOf("WHERE");
+
+			if (pos != -1) {
+				join = join.substring(0, pos);
+			}
 		}
 
 		return join;
@@ -187,29 +189,24 @@ public class ProductEntryFinderImpl
 
 		if (key.equals("state")) {
 			if (StringUtil.equalsIgnoreCase((String)value, "active")) {
-				join = _replaceWhere(
-					_customSQL.get(getClass(), JOIN_BY_ACTIVE));
+				join = _customSQL.get(getClass(), JOIN_BY_ACTIVE);
 			}
 			else {
-				join = _replaceWhere(
-					_customSQL.get(
-						getClass(), JOIN_BY_PRODUCT_PURCHASE_ID_IS_NULL));
+				join = _customSQL.get(getClass(), JOIN_BY_INACTIVE);
 			}
 		}
 
-		return join;
-	}
+		if (Validator.isNotNull(join)) {
+			int pos = join.indexOf("WHERE");
 
-	private String _replaceWhere(String join) {
-		int pos = join.indexOf("WHERE");
+			if (pos != -1) {
+				join = join.substring(pos + 5);
 
-		if (pos != -1) {
-			join = join.substring(pos + 5);
-
-			join = join.concat(" AND ");
-		}
-		else {
-			join = StringPool.BLANK;
+				join = join.concat(" AND ");
+			}
+			else {
+				join = StringPool.BLANK;
+			}
 		}
 
 		return join;

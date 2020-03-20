@@ -158,7 +158,9 @@ public class ProductEntryLocalServiceImpl
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
-		params.put("state", state);
+		if (Validator.isNotNull(state)) {
+			params.put("state", state);
+		}
 
 		return productEntryFinder.findByAccount(accountId, params, start, end);
 	}
@@ -166,7 +168,9 @@ public class ProductEntryLocalServiceImpl
 	public int getAccountProductEntriesCount(long accountId, String state) {
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
-		params.put("state", state);
+		if (Validator.isNotNull(state)) {
+			params.put("state", state);
+		}
 
 		return productEntryFinder.countByAccount(accountId, params);
 	}

@@ -72,12 +72,15 @@
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.joinByActive">
 		<![CDATA[
 			WHERE
-				(Koroneiki_ProductPurchase.status != 600) AND
-				(Koroneiki_ProductPurchase.startDate IS NULL) OR
 				(
-					(NOW() > Koroneiki_ProductPurchase.startDate) AND
-					(NOW() < Koroneiki_ProductPurchase.endDate)
-				)
+					(Koroneiki_ProductPurchase.startDate IS NULL) OR
+					(
+						(NOW() > Koroneiki_ProductPurchase.startDate) AND
+						(NOW() < Koroneiki_ProductPurchase.endDate)
+					)
+				) AND
+				(Koroneiki_ProductPurchase.status != 600)
+
 		]]>
 	</sql>
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.joinByInactive">
@@ -85,16 +88,21 @@
 			LEFT JOIN
 				(
 					SELECT
-						*
+						Koroneiki_ProductPurchase.productPurchaseId, Koroneiki_ProductPurchase.accountId, Koroneiki_ProductPurchase.productEntryId
 					FROM
 						Koroneiki_ProductPurchase
-					[$WHERE$]
+					WHERE
+						(
+							(Koroneiki_ProductPurchase.startDate IS NULL) OR
+							(
+								(NOW() > Koroneiki_ProductPurchase.startDate) AND
+								(NOW() < Koroneiki_ProductPurchase.endDate)
+							)
+						) AND
+						(Koroneiki_ProductPurchase.status != 600)
 				) ProductPurchase ON
-					Koroneiki_ProductEntry.productEntryId = ProductPurchase.productEntryId
-		]]>
-	</sql>
-	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.joinByProductPurchaseIdIsNull">
-		<![CDATA[
+					(Koroneiki_ProductEntry.productEntryId = ProductPurchase.productEntryId) AND
+					(Koroneiki_Account.accountId = ProductPurchase.accountId)
 			WHERE
 				ProductPurchase.productPurchaseId IS NULL
 		]]>

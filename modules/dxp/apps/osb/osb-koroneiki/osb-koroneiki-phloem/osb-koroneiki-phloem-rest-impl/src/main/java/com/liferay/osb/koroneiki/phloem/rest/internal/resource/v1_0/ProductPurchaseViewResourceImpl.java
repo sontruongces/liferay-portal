@@ -73,8 +73,8 @@ public class ProductPurchaseViewResourceImpl
 		return Page.of(
 			transform(
 				_productEntryService.getAccountProductEntries(
-					account.getAccountId(), state, pagination.getStartPosition(),
-					pagination.getEndPosition()),
+					account.getAccountId(), state,
+					pagination.getStartPosition(), pagination.getEndPosition()),
 				productEntry -> ProductPurchaseViewUtil.toProductPurchaseView(
 					productEntry,
 					_productConsumptionService.
