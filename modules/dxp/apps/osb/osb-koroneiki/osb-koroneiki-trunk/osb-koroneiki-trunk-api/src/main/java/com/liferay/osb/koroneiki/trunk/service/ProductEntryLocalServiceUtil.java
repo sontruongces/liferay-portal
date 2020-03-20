@@ -226,13 +226,17 @@ public class ProductEntryLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
-			getAccountProductEntries(long accountId, int start, int end) {
+			getAccountProductEntries(
+				long accountId, String state, int start, int end) {
 
-		return getService().getAccountProductEntries(accountId, start, end);
+		return getService().getAccountProductEntries(
+			accountId, state, start, end);
 	}
 
-	public static int getAccountProductEntriesCount(long accountId) {
-		return getService().getAccountProductEntriesCount(accountId);
+	public static int getAccountProductEntriesCount(
+		long accountId, String state) {
+
+		return getService().getAccountProductEntriesCount(accountId, state);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
@@ -265,9 +269,6 @@ public class ProductEntryLocalServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	/**
-	 * @throws PortalException
-	 */
 	public static com.liferay.portal.kernel.model.PersistedModel
 			getPersistedModel(java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {

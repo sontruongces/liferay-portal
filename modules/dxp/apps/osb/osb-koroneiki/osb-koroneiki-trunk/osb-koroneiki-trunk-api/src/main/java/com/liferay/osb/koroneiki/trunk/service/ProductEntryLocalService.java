@@ -202,10 +202,10 @@ public interface ProductEntryLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProductEntry> getAccountProductEntries(
-		long accountId, int start, int end);
+		long accountId, String state, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getAccountProductEntriesCount(long accountId);
+	public int getAccountProductEntriesCount(long accountId, String state);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -224,9 +224,6 @@ public interface ProductEntryLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
-	/**
-	 * @throws PortalException
-	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

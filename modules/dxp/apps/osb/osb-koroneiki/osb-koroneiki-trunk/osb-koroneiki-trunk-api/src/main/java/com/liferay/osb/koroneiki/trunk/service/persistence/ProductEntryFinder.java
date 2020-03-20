@@ -23,9 +23,12 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ProductEntryFinder {
 
-	public int countByAccount(long accountId);
+	public int countByAccount(
+		long accountId, java.util.LinkedHashMap<String, Object> params);
 
 	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
-		findByAccount(long accountId, int start, int end);
+		findByAccount(
+			long accountId, java.util.LinkedHashMap<String, Object> params,
+			int start, int end);
 
 }

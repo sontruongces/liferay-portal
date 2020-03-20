@@ -233,16 +233,17 @@ public class ProductEntryLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
-		getAccountProductEntries(long accountId, int start, int end) {
+		getAccountProductEntries(
+			long accountId, String state, int start, int end) {
 
 		return _productEntryLocalService.getAccountProductEntries(
-			accountId, start, end);
+			accountId, state, start, end);
 	}
 
 	@Override
-	public int getAccountProductEntriesCount(long accountId) {
+	public int getAccountProductEntriesCount(long accountId, String state) {
 		return _productEntryLocalService.getAccountProductEntriesCount(
-			accountId);
+			accountId, state);
 	}
 
 	@Override
@@ -279,9 +280,6 @@ public class ProductEntryLocalServiceWrapper
 		return _productEntryLocalService.getOSGiServiceIdentifier();
 	}
 
-	/**
-	 * @throws PortalException
-	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)
