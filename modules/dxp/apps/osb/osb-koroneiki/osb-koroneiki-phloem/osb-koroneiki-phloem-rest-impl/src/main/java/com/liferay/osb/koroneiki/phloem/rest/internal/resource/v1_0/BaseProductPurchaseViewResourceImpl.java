@@ -45,6 +45,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -70,6 +71,7 @@ public abstract class BaseProductPurchaseViewResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "state"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
@@ -81,6 +83,7 @@ public abstract class BaseProductPurchaseViewResourceImpl
 			getAccountAccountKeyProductPurchaseViewsPage(
 				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
 					String accountKey,
+				@Parameter(hidden = true) @QueryParam("state") String state,
 				@Context Pagination pagination)
 		throws Exception {
 
