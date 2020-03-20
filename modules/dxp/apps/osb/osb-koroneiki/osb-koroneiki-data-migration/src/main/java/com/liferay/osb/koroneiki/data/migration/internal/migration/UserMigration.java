@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
@@ -23,6 +24,7 @@ import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
@@ -33,6 +35,8 @@ import com.liferay.portal.kernel.util.StringPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import java.util.List;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -66,6 +70,21 @@ public class UserMigration {
 
 			_migrateCorpProjects(connection, userId);
 		}
+	}
+
+	private Account _getAccount(String corpProjectUuid) throws PortalException {
+		List<ExternalLink> externalLinks =
+			_externalLinkLocalService.getExternalLinks(
+				_classNameLocalService.getClassNameId(Account.class), "web",
+				"corpProject", corpProjectUuid, 0, 1);
+
+		if (externalLinks.isEmpty()) {
+			return null;
+		}
+
+		ExternalLink externalLink = externalLinks.get(0);
+
+		return _accountLocalService.getAccount(externalLink.getClassPK());
 	}
 
 	private void _migrateAccountCustomers(Connection connection, long userId)
@@ -106,14 +125,14 @@ public class UserMigration {
 						contactLanguageId);
 				}
 
-				String accountKey = resultSet.getString(7);
+				String corpProjectUuid = resultSet.getString(7);
 
-				Account account = _accountLocalService.fetchAccount(accountKey);
+				Account account = _getAccount(corpProjectUuid);
 
 				if (account == null) {
 					_log.error(
-						"Unable to find account with account key " +
-							accountKey);
+						"Unable to find account with corpProjectUuid " +
+							corpProjectUuid);
 
 					continue;
 				}
@@ -177,14 +196,14 @@ public class UserMigration {
 						contactLanguageId);
 				}
 
-				String accountKey = resultSet.getString(7);
+				String corpProjectUuid = resultSet.getString(7);
 
-				Account account = _accountLocalService.fetchAccount(accountKey);
+				Account account = _getAccount(corpProjectUuid);
 
 				if (account == null) {
 					_log.error(
-						"Unable to find account with account key " +
-							accountKey);
+						"Unable to find account with corpProjectUuid " +
+							corpProjectUuid);
 
 					continue;
 				}
@@ -333,15 +352,13 @@ public class UserMigration {
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
 			while (resultSet.next()) {
-				long webUserId = resultSet.getLong(1);
-				long webOrganizationId = resultSet.getLong(2);
 				String contactUuid = resultSet.getString(3);
 				String contactFirstName = resultSet.getString(4);
 				String contactMiddleName = resultSet.getString(5);
 				String contactLastName = resultSet.getString(6);
 				String contactEmailAddress = resultSet.getString(7);
 				String contactLanguageId = resultSet.getString(8);
-				String accountKey = resultSet.getString(9);
+				String corpProjectUuid = resultSet.getString(9);
 
 				Contact contact = _contactLocalService.fetchContactByUuid(
 					contactUuid);
@@ -353,7 +370,18 @@ public class UserMigration {
 						contactLanguageId);
 				}
 
-				Account account = _accountLocalService.getAccount(accountKey);
+				Account account = _getAccount(corpProjectUuid);
+
+				if (account == null) {
+					_log.error(
+						"Unable to find account with corpProjectUuid " +
+							corpProjectUuid);
+
+					continue;
+				}
+
+				long webUserId = resultSet.getLong(1);
+				long webOrganizationId = resultSet.getLong(2);
 
 				_migrateContactAccountRoles(
 					connection, webUserId, webOrganizationId,

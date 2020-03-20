@@ -112,7 +112,9 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="teamKey" type="String" />
 		<field name="accountId" type="long" />
-		<field name="name" type="String" />
+		<field name="name" type="String">
+			<hint name="max-length">150</hint>
+		</field>
 		<field name="system" type="boolean" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.TeamAccountRole">

@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
@@ -53,6 +54,12 @@ import org.osgi.service.component.annotations.Reference;
 public class PartnerMigration {
 
 	public void migrate(long userId) throws Exception {
+		ContactRole contactRole = _contactRoleLocalService.getMemberContactRole(
+			com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+				ACCOUNT_CUSTOMER.toString());
+
+		_customerMemberContactRoleId = contactRole.getContactRoleId();
+
 		TeamRole flsTeamRole = _teamRoleLocalService.addTeamRole(
 			userId, "First Line Support", StringPool.BLANK,
 			TeamRoleType.ACCOUNT);
@@ -160,7 +167,7 @@ public class PartnerMigration {
 
 				_accountLocalService.updateAccount(account);
 
-				String code = resultSet.getString(2);
+				String code = resultSet.getString(2) + " FLS";
 
 				Team team = _teamLocalService.addTeam(
 					userId, account.getAccountId(), code, false);
@@ -259,6 +266,8 @@ public class PartnerMigration {
 
 	@Reference
 	private ContactTeamRoleLocalService _contactTeamRoleLocalService;
+
+	private long _customerMemberContactRoleId;
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
