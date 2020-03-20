@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.fileinstall.deploy.test;
+package com.liferay.portal.file.install.deploy.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.petra.function.UnsafeRunnable;
@@ -63,7 +63,7 @@ import org.osgi.service.cm.ManagedService;
  * @author Matthew Tambara
  */
 @RunWith(Arquillian.class)
-public class FileinstallDeployTest {
+public class FileInstallDeployTest {
 
 	@ClassRule
 	@Rule
@@ -72,7 +72,7 @@ public class FileinstallDeployTest {
 
 	@Before
 	public void setUp() {
-		Bundle bundle = FrameworkUtil.getBundle(FileinstallDeployTest.class);
+		Bundle bundle = FrameworkUtil.getBundle(FileInstallDeployTest.class);
 
 		_bundleContext = bundle.getBundleContext();
 	}
@@ -265,7 +265,7 @@ public class FileinstallDeployTest {
 	}
 
 	private static final String _CONFIGURATION_PID =
-		FileinstallDeployTest.class.getName() + "Configuration";
+		FileInstallDeployTest.class.getName() + "Configuration";
 
 	private static final String _TEST_JAR_NAME;
 
@@ -281,7 +281,7 @@ public class FileinstallDeployTest {
 	private static ConfigurationAdmin _configurationAdmin;
 
 	static {
-		Package pkg = FileinstallDeployTest.class.getPackage();
+		Package pkg = FileInstallDeployTest.class.getPackage();
 
 		_TEST_JAR_SYMBOLIC_NAME = pkg.getName();
 
