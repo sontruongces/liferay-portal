@@ -229,7 +229,6 @@ public class FileInstallDeployTest {
 			attributes.putValue(Constants.BUNDLE_MANIFESTVERSION, "2");
 			attributes.putValue(Constants.BUNDLE_SYMBOLICNAME, symbolicName);
 			attributes.putValue(Constants.BUNDLE_VERSION, version.toString());
-
 			attributes.putValue("Manifest-Version", "2");
 
 			jarOutputStream.putNextEntry(new ZipEntry(JarFile.MANIFEST_NAME));
