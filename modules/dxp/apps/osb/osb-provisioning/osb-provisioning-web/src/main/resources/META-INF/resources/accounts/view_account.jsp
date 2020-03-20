@@ -24,6 +24,8 @@ viewAccountDisplayContext.addPortletBreadcrumbEntries();
 
 <liferay-util:include page="/accounts/view_account_header.jsp" servletContext="<%= application %>" />
 
+<%= viewAccountDisplayContext.getAddNoteURL() %><br />
+
 <div>
 
 	<%
@@ -32,7 +34,31 @@ viewAccountDisplayContext.addPortletBreadcrumbEntries();
 	for (NoteDisplay noteDisplay : noteDisplays) {
 	%>
 
-		<div>
+		<div class="separator">
+			<%= viewAccountDisplayContext.getDeleteNoteURL(noteDisplay.getKey()) %><br />
+			<%= viewAccountDisplayContext.getUpdateNoteURL(noteDisplay.getKey()) %><br />
+			<%= noteDisplay.getCreatorName() %><br />
+			<%= noteDisplay.getCreateDate() %><br />
+			<%= noteDisplay.getHtmlContent() %>
+		</div>
+
+	<%
+	}
+	%>
+
+</div>
+
+<div>
+
+	<%
+	List<NoteDisplay> salesNoteDisplays = viewAccountDisplayContext.getNoteDisplays(Note.Type.SALES.toString(), Note.Status.APPROVED.toString());
+
+	for (NoteDisplay noteDisplay : salesNoteDisplays) {
+	%>
+
+		<div class="separator">
+			<%= viewAccountDisplayContext.getDeleteNoteURL(noteDisplay.getKey()) %><br />
+			<%= viewAccountDisplayContext.getUpdateNoteURL(noteDisplay.getKey()) %><br />
 			<%= noteDisplay.getCreatorName() %><br />
 			<%= noteDisplay.getCreateDate() %><br />
 			<%= noteDisplay.getHtmlContent() %>

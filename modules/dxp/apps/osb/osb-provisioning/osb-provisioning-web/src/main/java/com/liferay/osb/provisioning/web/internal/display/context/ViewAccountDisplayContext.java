@@ -23,12 +23,14 @@ import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -90,6 +92,25 @@ public class ViewAccountDisplayContext {
 		return _accountDisplay;
 	}
 
+	public String getAddNoteURL() {
+		PortletURL addNoteURL = _renderResponse.createActionURL();
+
+		addNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
+		addNoteURL.setParameter("accountKey", _account.getKey());
+
+		return addNoteURL.toString();
+	}
+
+	public String getDeleteNoteURL(String noteKey) {
+		PortletURL deleteNoteURL = _renderResponse.createActionURL();
+
+		deleteNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
+		deleteNoteURL.setParameter(Constants.CMD, Constants.DELETE);
+		deleteNoteURL.setParameter("noteKey", noteKey);
+
+		return deleteNoteURL.toString();
+	}
+
 	public List<ExternalLinkDisplay> getExternalLinkDisplays()
 		throws Exception {
 
@@ -133,6 +154,15 @@ public class ViewAccountDisplayContext {
 		searchContainer.setTotal(count);
 
 		return searchContainer;
+	}
+
+	public String getUpdateNoteURL(String noteKey) {
+		PortletURL updateNoteURL = _renderResponse.createActionURL();
+
+		updateNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
+		updateNoteURL.setParameter("noteKey", noteKey);
+
+		return updateNoteURL.toString();
 	}
 
 	private final Account _account;

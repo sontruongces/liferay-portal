@@ -71,6 +71,10 @@ public class NoteDisplay {
 		return StringPool.BLANK;
 	}
 
+	public String getKey() {
+		return _note.getKey();
+	}
+
 	public Note getNote() {
 		return _note;
 	}
