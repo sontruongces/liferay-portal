@@ -107,7 +107,7 @@ create table Koroneiki_Team (
 	modifiedDate DATE null,
 	teamKey VARCHAR(75) null,
 	accountId LONG,
-	name VARCHAR(75) null,
+	name VARCHAR(150) null,
 	system_ BOOLEAN
 );
 
