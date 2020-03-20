@@ -1121,11 +1121,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 		DynamicQuery dynamicQuery = layoutLocalService.dynamicQuery();
 
-		Property classNameIdProperty = PropertyFactoryUtil.forName(
-			"classNameId");
-
-		dynamicQuery.add(classNameIdProperty.eq(Long.valueOf(0)));
-
 		Property groupIdProperty = PropertyFactoryUtil.forName("groupId");
 
 		dynamicQuery.add(groupIdProperty.eq(groupId));
@@ -1134,6 +1129,11 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			"privateLayout");
 
 		dynamicQuery.add(privateLayoutProperty.eq(privateLayout));
+
+		Property classNameIdProperty = PropertyFactoryUtil.forName(
+			"classNameId");
+
+		dynamicQuery.add(classNameIdProperty.eq(Long.valueOf(0)));
 
 		Property typeProperty = PropertyFactoryUtil.forName("type");
 
