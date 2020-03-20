@@ -45,7 +45,9 @@
 			INNER JOIN
 				Koroneiki_Account ON
 					Koroneiki_ProductPurchase.accountId = Koroneiki_Account.accountId
+				[$JOIN$]
 			WHERE
+				[$WHERE$]
 				Koroneiki_Account.accountId = ?
 		]]>
 	</sql>
@@ -61,8 +63,39 @@
 			INNER JOIN
 				Koroneiki_Account ON
 					Koroneiki_ProductPurchase.accountId = Koroneiki_Account.accountId
+			[$JOIN$]
 			WHERE
+				[$WHERE$]
 				Koroneiki_Account.accountId = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.joinByActive">
+		<![CDATA[
+			WHERE
+				(Koroneiki_ProductPurchase.startDate IS NULL) OR
+				(
+					(NOW() > Koroneiki_ProductPurchase.startDate) AND
+					(NOW() < Koroneiki_ProductPurchase.endDate)
+				)
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.joinByInactive">
+		<![CDATA[
+			LEFT JOIN
+				(
+					SELECT
+						*
+					FROM
+						Koroneiki_ProductPurchase
+					[$WHERE$]
+				) ProductPurchase ON
+					Koroneiki_ProductEntry.productEntryId = ProductPurchase.productEntryId
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.joinByProductPurchaseIdIsNull">
+		<![CDATA[
+			WHERE
+				ProductPurchase.productPurchaseId IS NULL
 		]]>
 	</sql>
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductFieldFinder.findNameByClassNameId">
