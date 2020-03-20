@@ -26,52 +26,6 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 
 <liferay-util:include page="/accounts/view_account_header.jsp" servletContext="<%= application %>" />
 
-<%= viewAccountDisplayContext.getAddNoteURL() %><br />
-
-<div>
-
-	<%
-	List<NoteDisplay> noteDisplays = viewAccountDisplayContext.getNoteDisplays(Note.Type.GENERAL.toString(), Note.Status.APPROVED.toString());
-
-	for (NoteDisplay noteDisplay : noteDisplays) {
-	%>
-
-		<div class="separator">
-			<%= viewAccountDisplayContext.getDeleteNoteURL(noteDisplay.getKey()) %><br />
-			<%= viewAccountDisplayContext.getUpdateNoteURL(noteDisplay.getKey()) %><br />
-			<%= noteDisplay.getCreatorName() %><br />
-			<%= noteDisplay.getCreateDate() %><br />
-			<%= noteDisplay.getHtmlContent() %>
-		</div>
-
-	<%
-	}
-	%>
-
-</div>
-
-<div>
-
-	<%
-	List<NoteDisplay> salesNoteDisplays = viewAccountDisplayContext.getNoteDisplays(Note.Type.SALES.toString(), Note.Status.APPROVED.toString());
-
-	for (NoteDisplay noteDisplay : salesNoteDisplays) {
-	%>
-
-		<div class="separator">
-			<%= viewAccountDisplayContext.getDeleteNoteURL(noteDisplay.getKey()) %><br />
-			<%= viewAccountDisplayContext.getUpdateNoteURL(noteDisplay.getKey()) %><br />
-			<%= noteDisplay.getCreatorName() %><br />
-			<%= noteDisplay.getCreateDate() %><br />
-			<%= noteDisplay.getHtmlContent() %>
-		</div>
-
-	<%
-	}
-	%>
-
-</div>
-
 <div class="account full-view" id="account">
 	<div class="account-details">
 		<liferay-ui:tabs
