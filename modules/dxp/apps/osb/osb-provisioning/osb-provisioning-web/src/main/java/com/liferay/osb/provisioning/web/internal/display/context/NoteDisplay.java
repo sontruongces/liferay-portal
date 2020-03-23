@@ -75,10 +75,6 @@ public class NoteDisplay {
 		return _note.getKey();
 	}
 
-	public Note getNote() {
-		return _note;
-	}
-
 	public boolean isPinned() {
 		if (_note.getPriority() == 1) {
 			return true;
