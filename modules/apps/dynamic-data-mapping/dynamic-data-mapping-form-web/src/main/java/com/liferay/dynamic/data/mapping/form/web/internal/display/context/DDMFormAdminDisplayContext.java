@@ -99,6 +99,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.taglib.servlet.PipingServletResponse;
 
 import java.util.List;
 import java.util.Locale;
@@ -115,6 +116,7 @@ import javax.portlet.RenderResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 
 /**
  * @author Bruno Basto
@@ -968,7 +970,9 @@ public class DDMFormAdminDisplayContext {
 		return ParamUtil.getBoolean(renderRequest, "showPublishAlert");
 	}
 
-	public String serializeSettingsForm() throws PortalException {
+	public String serializeSettingsForm(PageContext pageContext)
+		throws PortalException {
+
 		long formInstanceId = ParamUtil.getLong(
 			renderRequest, "formInstanceId");
 
@@ -976,7 +980,7 @@ public class DDMFormAdminDisplayContext {
 			WebKeys.THEME_DISPLAY);
 
 		DDMFormRenderingContext ddmFormRenderingContext =
-			createDDMFormRenderingContext(renderRequest, renderResponse);
+			createDDMFormRenderingContext(pageContext, renderRequest);
 
 		setDDMFormRenderingContextDDMFormValues(
 			ddmFormRenderingContext, formInstanceId);
@@ -993,7 +997,7 @@ public class DDMFormAdminDisplayContext {
 	}
 
 	protected DDMFormRenderingContext createDDMFormRenderingContext(
-		RenderRequest renderRequest, RenderResponse renderResponse) {
+		PageContext pageContext, RenderRequest renderRequest) {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -1004,7 +1008,7 @@ public class DDMFormAdminDisplayContext {
 		ddmFormRenderingContext.setHttpServletRequest(
 			_portal.getHttpServletRequest(renderRequest));
 		ddmFormRenderingContext.setHttpServletResponse(
-			_portal.getHttpServletResponse(renderResponse));
+			PipingServletResponse.createPipingServletResponse(pageContext));
 		ddmFormRenderingContext.setContainerId("settingsDDMForm");
 		ddmFormRenderingContext.setLocale(themeDisplay.getLocale());
 		ddmFormRenderingContext.setPortletNamespace(
