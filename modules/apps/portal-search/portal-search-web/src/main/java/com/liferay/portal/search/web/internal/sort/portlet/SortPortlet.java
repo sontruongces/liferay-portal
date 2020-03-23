@@ -16,6 +16,8 @@ package com.liferay.portal.search.web.internal.sort.portlet;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.search.searcher.SearchRequest;
+import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.web.internal.sort.constants.SortPortletKeys;
 import com.liferay.portal.search.web.internal.sort.display.context.SortDisplayBuilder;
 import com.liferay.portal.search.web.internal.sort.display.context.SortDisplayContext;
@@ -117,7 +119,20 @@ public class SortPortlet extends MVCPortlet {
 		Optional<String> keywordsOptional =
 			portletSharedSearchResponse.getKeywordsOptional();
 
-		return !keywordsOptional.isPresent();
+		if (keywordsOptional.isPresent()) {
+			return false;
+		}
+
+		SearchResponse searchResponse =
+			portletSharedSearchResponse.getSearchResponse();
+
+		SearchRequest searchRequest = searchResponse.getRequest();
+
+		if (searchRequest.isEmptySearchEnabled()) {
+			return false;
+		}
+
+		return true;
 	}
 
 	@Reference
