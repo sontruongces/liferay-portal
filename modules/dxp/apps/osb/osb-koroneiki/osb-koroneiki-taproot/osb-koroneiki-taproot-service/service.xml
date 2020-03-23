@@ -23,7 +23,6 @@
 		<column name="name" type="String" />
 		<column name="code" type="String" />
 		<column name="description" type="String" />
-		<column name="notes" type="String" />
 		<column name="logoId" type="long" />
 		<column name="contactEmailAddress" type="String" />
 		<column name="profileEmailAddress" type="String" />

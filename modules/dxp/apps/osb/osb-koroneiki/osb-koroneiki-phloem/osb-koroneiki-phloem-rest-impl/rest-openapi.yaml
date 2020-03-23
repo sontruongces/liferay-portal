@@ -101,10 +101,6 @@ components:
                     description:
                         The name of the account.
                     type: string
-                notes:
-                    description:
-                        The notes of the account.
-                    type: string
                 parentAccountKey:
                     description:
                         The account's parent account key.

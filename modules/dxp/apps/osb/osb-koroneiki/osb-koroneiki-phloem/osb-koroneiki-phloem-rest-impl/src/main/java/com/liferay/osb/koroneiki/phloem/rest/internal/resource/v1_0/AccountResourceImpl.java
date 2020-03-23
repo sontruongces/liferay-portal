@@ -403,8 +403,6 @@ public class AccountResourceImpl
 			account.getCode(), curAccount.getCode());
 		String description = GetterUtil.getString(
 			account.getDescription(), curAccount.getDescription());
-		String notes = GetterUtil.getString(
-			account.getNotes(), curAccount.getNotes());
 		long logoId = GetterUtil.getLong(
 			account.getLogoId(), curAccount.getLogoId());
 		String contactEmailAddress = GetterUtil.getString(
@@ -450,7 +448,7 @@ public class AccountResourceImpl
 		return AccountUtil.toAccount(
 			_accountService.updateAccount(
 				accountKey, curAccount.getParentAccountId(), account.getName(),
-				code, description, notes, logoId, contactEmailAddress,
+				code, description, logoId, contactEmailAddress,
 				profileEmailAddress, phoneNumber, faxNumber, website, tier,
 				region, internal, status));
 	}
@@ -620,7 +618,7 @@ public class AccountResourceImpl
 		Account curAccount = AccountUtil.toAccount(
 			_accountService.addAccount(
 				parentAccountId, account.getName(), account.getCode(),
-				account.getDescription(), account.getNotes(),
+				account.getDescription(),
 				GetterUtil.getLong(account.getLogoId()),
 				account.getContactEmailAddress(),
 				account.getProfileEmailAddress(), account.getPhoneNumber(),

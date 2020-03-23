@@ -15,12 +15,14 @@
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Tier;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.AuditEntryLocalService;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.AccountNoteLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.log.Log;
@@ -108,7 +110,6 @@ public class CorpProjectMigration {
 
 				account.setName(resultSet.getString("name"));
 				account.setCode(resultSet.getString("code_"));
-				account.setNotes(resultSet.getString("notes"));
 				account.setTier(_getTier(resultSet.getInt("tier")));
 				account.setRegion(
 					_getRegion(resultSet.getLong("supportRegionId")));
@@ -120,6 +121,12 @@ public class CorpProjectMigration {
 				account.setStatusMessage(StringPool.BLANK);
 
 				_accountLocalService.addAccount(account);
+
+				_accountNoteLocalService.addAccountNote(
+					userId, StringPool.BLANK, StringPool.BLANK,
+					account.getAccountId(), Note.Type.GENERAL.toString(), 2,
+					resultSet.getString("notes"), Note.Format.PLAIN.toString(),
+					Note.Status.APPROVED.toString());
 
 				_migrateAuditEntries(
 					connection, userId, account.getAccountId());
@@ -393,6 +400,9 @@ public class CorpProjectMigration {
 
 	@Reference
 	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private AccountNoteLocalService _accountNoteLocalService;
 
 	@Reference
 	private AuditEntryLocalService _auditEntryLocalService;

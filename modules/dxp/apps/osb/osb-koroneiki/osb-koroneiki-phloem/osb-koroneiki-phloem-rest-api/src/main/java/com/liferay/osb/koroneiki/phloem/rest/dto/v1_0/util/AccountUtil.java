@@ -47,7 +47,6 @@ public class AccountUtil {
 				key = account.getAccountKey();
 				logoId = account.getLogoId();
 				name = account.getName();
-				notes = account.getNotes();
 
 				com.liferay.osb.koroneiki.taproot.model.Account parentAccount =
 					account.getParentAccount();

@@ -50,7 +50,6 @@ public class AccountUtil {
 				key = account.getAccountKey();
 				logoId = account.getLogoId();
 				name = account.getName();
-				notes = account.getNotes();
 				phoneNumber = account.getPhoneNumber();
 				postalAddresses = TransformUtil.transformToArray(
 					account.getAddresses(),

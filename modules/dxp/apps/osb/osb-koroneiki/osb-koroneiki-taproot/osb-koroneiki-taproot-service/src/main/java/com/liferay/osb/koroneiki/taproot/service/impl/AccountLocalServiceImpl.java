@@ -80,10 +80,10 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 	@Indexable(type = IndexableType.REINDEX)
 	public Account addAccount(
 			long userId, long parentAccountId, String name, String code,
-			String description, String notes, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, String tier,
-			String region, boolean internal, int status)
+			String description, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String tier, String region, boolean internal,
+			int status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -103,7 +103,6 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setName(name);
 		account.setCode(code);
 		account.setDescription(description);
-		account.setNotes(notes);
 		account.setLogoId(logoId);
 		account.setContactEmailAddress(contactEmailAddress);
 		account.setProfileEmailAddress(profileEmailAddress);
@@ -240,7 +239,6 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			attributes.put("externalLinkEntityIds", keywords);
 			attributes.put("externalLinkEntityNames", keywords);
 			attributes.put("name", keywords);
-			attributes.put("notes", keywords);
 			attributes.put("productEntryKeys", keywords);
 
 			searchContext.setAttributes(attributes);
@@ -269,7 +267,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 	@Indexable(type = IndexableType.REINDEX)
 	public Account updateAccount(
 			long userId, long accountId, long parentAccountId, String name,
-			String code, String description, String notes, long logoId,
+			String code, String description, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website, String tier,
 			String region, boolean internal, int status)
@@ -287,7 +285,6 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setName(name);
 		account.setCode(code);
 		account.setDescription(description);
-		account.setNotes(notes);
 		account.setLogoId(logoId);
 		account.setContactEmailAddress(contactEmailAddress);
 		account.setProfileEmailAddress(profileEmailAddress);

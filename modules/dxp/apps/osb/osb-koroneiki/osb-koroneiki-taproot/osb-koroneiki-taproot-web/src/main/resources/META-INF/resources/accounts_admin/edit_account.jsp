@@ -80,8 +80,6 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 
 			<aui:input name="description" type="textarea" />
 
-			<aui:input name="notes" type="textarea" />
-
 			<aui:input name="contactEmailAddress" />
 
 			<aui:input name="profileEmailAddress" />

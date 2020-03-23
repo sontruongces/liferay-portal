@@ -100,7 +100,6 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 		String name = ParamUtil.getString(actionRequest, "name");
 		String code = ParamUtil.getString(actionRequest, "code");
 		String description = ParamUtil.getString(actionRequest, "description");
-		String notes = ParamUtil.getString(actionRequest, "notes");
 		String contactEmailAddress = ParamUtil.getString(
 			actionRequest, "contactEmailAddress");
 		String profileEmailAddress = ParamUtil.getString(
@@ -117,13 +116,13 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
 		if (accountId <= 0) {
 			account = _accountService.addAccount(
-				parentAccountId, name, code, description, notes, 0,
+				parentAccountId, name, code, description, 0,
 				contactEmailAddress, profileEmailAddress, phoneNumber,
 				faxNumber, website, tier, region, internal, status);
 		}
 		else {
 			account = _accountService.updateAccount(
-				accountId, parentAccountId, name, code, description, notes, 0,
+				accountId, parentAccountId, name, code, description, 0,
 				contactEmailAddress, profileEmailAddress, phoneNumber,
 				faxNumber, website, tier, region, internal, status);
 		}

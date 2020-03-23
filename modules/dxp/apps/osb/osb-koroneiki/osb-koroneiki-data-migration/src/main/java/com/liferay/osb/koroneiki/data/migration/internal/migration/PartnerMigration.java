@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
@@ -23,6 +24,7 @@ import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.AccountNoteLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
@@ -161,11 +163,13 @@ public class PartnerMigration {
 					continue;
 				}
 
-				String notes = resultSet.getString(3);
-
-				account.setNotes(notes);
-
 				_accountLocalService.updateAccount(account);
+
+				_accountNoteLocalService.addAccountNote(
+					userId, StringPool.BLANK, StringPool.BLANK,
+					account.getAccountId(), Note.Type.GENERAL.toString(), 2,
+					resultSet.getString(3), Note.Format.PLAIN.toString(),
+					Note.Status.APPROVED.toString());
 
 				String code = resultSet.getString(2) + " FLS";
 
@@ -251,6 +255,9 @@ public class PartnerMigration {
 
 	@Reference
 	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private AccountNoteLocalService _accountNoteLocalService;
 
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
