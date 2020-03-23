@@ -76,7 +76,7 @@ public class AccountCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(55);
+		StringBundler sb = new StringBundler(53);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -102,8 +102,6 @@ public class AccountCacheModel
 		sb.append(code);
 		sb.append(", description=");
 		sb.append(description);
-		sb.append(", notes=");
-		sb.append(notes);
 		sb.append(", logoId=");
 		sb.append(logoId);
 		sb.append(", contactEmailAddress=");
@@ -196,13 +194,6 @@ public class AccountCacheModel
 		}
 		else {
 			accountImpl.setDescription(description);
-		}
-
-		if (notes == null) {
-			accountImpl.setNotes("");
-		}
-		else {
-			accountImpl.setNotes(notes);
 		}
 
 		accountImpl.setLogoId(logoId);
@@ -304,7 +295,6 @@ public class AccountCacheModel
 		name = objectInput.readUTF();
 		code = objectInput.readUTF();
 		description = objectInput.readUTF();
-		notes = objectInput.readUTF();
 
 		logoId = objectInput.readLong();
 		contactEmailAddress = objectInput.readUTF();
@@ -372,13 +362,6 @@ public class AccountCacheModel
 		}
 		else {
 			objectOutput.writeUTF(description);
-		}
-
-		if (notes == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(notes);
 		}
 
 		objectOutput.writeLong(logoId);
@@ -467,7 +450,6 @@ public class AccountCacheModel
 	public String name;
 	public String code;
 	public String description;
-	public String notes;
 	public long logoId;
 	public String contactEmailAddress;
 	public String profileEmailAddress;

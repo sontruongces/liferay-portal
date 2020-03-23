@@ -81,8 +81,7 @@ public class AccountModelImpl
 		{"modifiedDate", Types.TIMESTAMP}, {"accountKey", Types.VARCHAR},
 		{"parentAccountId", Types.BIGINT}, {"name", Types.VARCHAR},
 		{"code_", Types.VARCHAR}, {"description", Types.VARCHAR},
-		{"notes", Types.VARCHAR}, {"logoId", Types.BIGINT},
-		{"contactEmailAddress", Types.VARCHAR},
+		{"logoId", Types.BIGINT}, {"contactEmailAddress", Types.VARCHAR},
 		{"profileEmailAddress", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
 		{"faxNumber", Types.VARCHAR}, {"website", Types.VARCHAR},
 		{"tier", Types.VARCHAR}, {"region", Types.VARCHAR},
@@ -107,7 +106,6 @@ public class AccountModelImpl
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("code_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("notes", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("logoId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("contactEmailAddress", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("profileEmailAddress", Types.VARCHAR);
@@ -125,7 +123,7 @@ public class AccountModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Account (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,notes STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,tier VARCHAR(75) null,region VARCHAR(75) null,internal_ BOOLEAN,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
+		"create table Koroneiki_Account (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,tier VARCHAR(75) null,region VARCHAR(75) null,internal_ BOOLEAN,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Account";
 
@@ -188,7 +186,6 @@ public class AccountModelImpl
 		model.setName(soapModel.getName());
 		model.setCode(soapModel.getCode());
 		model.setDescription(soapModel.getDescription());
-		model.setNotes(soapModel.getNotes());
 		model.setLogoId(soapModel.getLogoId());
 		model.setContactEmailAddress(soapModel.getContactEmailAddress());
 		model.setProfileEmailAddress(soapModel.getProfileEmailAddress());
@@ -392,9 +389,6 @@ public class AccountModelImpl
 		attributeSetterBiConsumers.put(
 			"description",
 			(BiConsumer<Account, String>)Account::setDescription);
-		attributeGetterFunctions.put("notes", Account::getNotes);
-		attributeSetterBiConsumers.put(
-			"notes", (BiConsumer<Account, String>)Account::setNotes);
 		attributeGetterFunctions.put("logoId", Account::getLogoId);
 		attributeSetterBiConsumers.put(
 			"logoId", (BiConsumer<Account, Long>)Account::setLogoId);
@@ -696,22 +690,6 @@ public class AccountModelImpl
 	@Override
 	public void setDescription(String description) {
 		_description = description;
-	}
-
-	@JSON
-	@Override
-	public String getNotes() {
-		if (_notes == null) {
-			return "";
-		}
-		else {
-			return _notes;
-		}
-	}
-
-	@Override
-	public void setNotes(String notes) {
-		_notes = notes;
 	}
 
 	@JSON
@@ -1069,7 +1047,6 @@ public class AccountModelImpl
 		accountImpl.setName(getName());
 		accountImpl.setCode(getCode());
 		accountImpl.setDescription(getDescription());
-		accountImpl.setNotes(getNotes());
 		accountImpl.setLogoId(getLogoId());
 		accountImpl.setContactEmailAddress(getContactEmailAddress());
 		accountImpl.setProfileEmailAddress(getProfileEmailAddress());
@@ -1238,14 +1215,6 @@ public class AccountModelImpl
 
 		if ((description != null) && (description.length() == 0)) {
 			accountCacheModel.description = null;
-		}
-
-		accountCacheModel.notes = getNotes();
-
-		String notes = accountCacheModel.notes;
-
-		if ((notes != null) && (notes.length() == 0)) {
-			accountCacheModel.notes = null;
 		}
 
 		accountCacheModel.logoId = getLogoId();
@@ -1438,7 +1407,6 @@ public class AccountModelImpl
 	private String _code;
 	private String _originalCode;
 	private String _description;
-	private String _notes;
 	private long _logoId;
 	private String _contactEmailAddress;
 	private String _profileEmailAddress;

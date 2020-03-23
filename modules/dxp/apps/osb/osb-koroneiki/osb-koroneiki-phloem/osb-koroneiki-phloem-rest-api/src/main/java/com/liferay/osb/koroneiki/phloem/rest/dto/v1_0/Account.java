@@ -587,34 +587,6 @@ public class Account {
 	@NotEmpty
 	protected String name;
 
-	@Schema(description = "The notes of the account.")
-	public String getNotes() {
-		return notes;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	@JsonIgnore
-	public void setNotes(
-		UnsafeSupplier<String, Exception> notesUnsafeSupplier) {
-
-		try {
-			notes = notesUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String notes;
-
 	@Schema(description = "The account's parent account key.")
 	public String getParentAccountKey() {
 		return parentAccountKey;
@@ -1186,20 +1158,6 @@ public class Account {
 			sb.append("\"");
 
 			sb.append(_escape(name));
-
-			sb.append("\"");
-		}
-
-		if (notes != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"notes\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(notes));
 
 			sb.append("\"");
 		}

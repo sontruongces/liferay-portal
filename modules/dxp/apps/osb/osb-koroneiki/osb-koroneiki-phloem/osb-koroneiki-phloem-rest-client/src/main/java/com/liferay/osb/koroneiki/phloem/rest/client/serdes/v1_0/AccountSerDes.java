@@ -299,20 +299,6 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
-		if (account.getNotes() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"notes\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(account.getNotes()));
-
-			sb.append("\"");
-		}
-
 		if (account.getParentAccountKey() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -597,13 +583,6 @@ public class AccountSerDes {
 			map.put("name", String.valueOf(account.getName()));
 		}
 
-		if (account.getNotes() == null) {
-			map.put("notes", null);
-		}
-		else {
-			map.put("notes", String.valueOf(account.getNotes()));
-		}
-
 		if (account.getParentAccountKey() == null) {
 			map.put("parentAccountKey", null);
 		}
@@ -817,11 +796,6 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "name")) {
 				if (jsonParserFieldValue != null) {
 					account.setName((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "notes")) {
-				if (jsonParserFieldValue != null) {
-					account.setNotes((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "parentAccountKey")) {

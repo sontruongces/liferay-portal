@@ -43,7 +43,6 @@ public class AccountSoap implements Serializable {
 		soapModel.setName(model.getName());
 		soapModel.setCode(model.getCode());
 		soapModel.setDescription(model.getDescription());
-		soapModel.setNotes(model.getNotes());
 		soapModel.setLogoId(model.getLogoId());
 		soapModel.setContactEmailAddress(model.getContactEmailAddress());
 		soapModel.setProfileEmailAddress(model.getProfileEmailAddress());
@@ -207,14 +206,6 @@ public class AccountSoap implements Serializable {
 		_description = description;
 	}
 
-	public String getNotes() {
-		return _notes;
-	}
-
-	public void setNotes(String notes) {
-		_notes = notes;
-	}
-
 	public long getLogoId() {
 		return _logoId;
 	}
@@ -343,7 +334,6 @@ public class AccountSoap implements Serializable {
 	private String _name;
 	private String _code;
 	private String _description;
-	private String _notes;
 	private long _logoId;
 	private String _contactEmailAddress;
 	private String _profileEmailAddress;

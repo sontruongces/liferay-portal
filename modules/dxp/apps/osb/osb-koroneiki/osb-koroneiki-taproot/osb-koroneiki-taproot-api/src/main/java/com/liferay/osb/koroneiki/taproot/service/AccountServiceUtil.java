@@ -39,14 +39,13 @@ public class AccountServiceUtil {
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.Account addAccount(
 			long parentAccountId, String name, String code, String description,
-			String notes, long logoId, String contactEmailAddress,
-			String profileEmailAddress, String phoneNumber, String faxNumber,
-			String website, String tier, String region, boolean internal,
-			int status)
+			long logoId, String contactEmailAddress, String profileEmailAddress,
+			String phoneNumber, String faxNumber, String website, String tier,
+			String region, boolean internal, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addAccount(
-			parentAccountId, name, code, description, notes, logoId,
+			parentAccountId, name, code, description, logoId,
 			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
 			website, tier, region, internal, status);
 	}
@@ -149,28 +148,28 @@ public class AccountServiceUtil {
 
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
 			long accountId, long parentAccountId, String name, String code,
-			String description, String notes, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, String tier,
-			String region, boolean internal, int status)
+			String description, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String tier, String region, boolean internal,
+			int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateAccount(
-			accountId, parentAccountId, name, code, description, notes, logoId,
+			accountId, parentAccountId, name, code, description, logoId,
 			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
 			website, tier, region, internal, status);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
 			String accountKey, long parentAccountId, String name, String code,
-			String description, String notes, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, String tier,
-			String region, boolean internal, int status)
+			String description, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String tier, String region, boolean internal,
+			int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateAccount(
-			accountKey, parentAccountId, name, code, description, notes, logoId,
+			accountKey, parentAccountId, name, code, description, logoId,
 			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
 			website, tier, region, internal, status);
 	}

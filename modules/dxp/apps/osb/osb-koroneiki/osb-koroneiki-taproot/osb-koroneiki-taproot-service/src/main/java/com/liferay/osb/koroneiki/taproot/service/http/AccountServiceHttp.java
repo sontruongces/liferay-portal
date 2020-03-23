@@ -53,7 +53,7 @@ public class AccountServiceHttp {
 
 	public static com.liferay.osb.koroneiki.taproot.model.Account addAccount(
 			HttpPrincipal httpPrincipal, long parentAccountId, String name,
-			String code, String description, String notes, long logoId,
+			String code, String description, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website, String tier,
 			String region, boolean internal, int status)
@@ -65,8 +65,8 @@ public class AccountServiceHttp {
 				_addAccountParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, parentAccountId, name, code, description, notes,
-				logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
+				methodKey, parentAccountId, name, code, description, logoId,
+				contactEmailAddress, profileEmailAddress, phoneNumber,
 				faxNumber, website, tier, region, internal, status);
 
 			Object returnObj = null;
@@ -589,8 +589,8 @@ public class AccountServiceHttp {
 
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
 			HttpPrincipal httpPrincipal, long accountId, long parentAccountId,
-			String name, String code, String description, String notes,
-			long logoId, String contactEmailAddress, String profileEmailAddress,
+			String name, String code, String description, long logoId,
+			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website, String tier,
 			String region, boolean internal, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -602,9 +602,8 @@ public class AccountServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountId, parentAccountId, name, code, description,
-				notes, logoId, contactEmailAddress, profileEmailAddress,
-				phoneNumber, faxNumber, website, tier, region, internal,
-				status);
+				logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
+				faxNumber, website, tier, region, internal, status);
 
 			Object returnObj = null;
 
@@ -637,10 +636,9 @@ public class AccountServiceHttp {
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
 			HttpPrincipal httpPrincipal, String accountKey,
 			long parentAccountId, String name, String code, String description,
-			String notes, long logoId, String contactEmailAddress,
-			String profileEmailAddress, String phoneNumber, String faxNumber,
-			String website, String tier, String region, boolean internal,
-			int status)
+			long logoId, String contactEmailAddress, String profileEmailAddress,
+			String phoneNumber, String faxNumber, String website, String tier,
+			String region, boolean internal, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -650,9 +648,8 @@ public class AccountServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, accountKey, parentAccountId, name, code, description,
-				notes, logoId, contactEmailAddress, profileEmailAddress,
-				phoneNumber, faxNumber, website, tier, region, internal,
-				status);
+				logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
+				faxNumber, website, tier, region, internal, status);
 
 			Object returnObj = null;
 
@@ -685,9 +682,9 @@ public class AccountServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(AccountServiceHttp.class);
 
 	private static final Class<?>[] _addAccountParameterTypes0 = new Class[] {
-		long.class, String.class, String.class, String.class, String.class,
-		long.class, String.class, String.class, String.class, String.class,
-		String.class, String.class, String.class, boolean.class, int.class
+		long.class, String.class, String.class, String.class, long.class,
+		String.class, String.class, String.class, String.class, String.class,
+		String.class, String.class, boolean.class, int.class
 	};
 	private static final Class<?>[] _deleteAccountParameterTypes1 =
 		new Class[] {long.class};
@@ -720,16 +717,14 @@ public class AccountServiceHttp {
 	private static final Class<?>[] _updateAccountParameterTypes13 =
 		new Class[] {
 			long.class, long.class, String.class, String.class, String.class,
-			String.class, long.class, String.class, String.class, String.class,
-			String.class, String.class, String.class, String.class,
-			boolean.class, int.class
+			long.class, String.class, String.class, String.class, String.class,
+			String.class, String.class, String.class, boolean.class, int.class
 		};
 	private static final Class<?>[] _updateAccountParameterTypes14 =
 		new Class[] {
 			String.class, long.class, String.class, String.class, String.class,
-			String.class, long.class, String.class, String.class, String.class,
-			String.class, String.class, String.class, String.class,
-			boolean.class, int.class
+			long.class, String.class, String.class, String.class, String.class,
+			String.class, String.class, String.class, boolean.class, int.class
 		};
 
 }

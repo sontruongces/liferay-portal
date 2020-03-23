@@ -188,7 +188,6 @@ public abstract class BaseAccountResourceTestCase {
 		account.setFaxNumber(regex);
 		account.setKey(regex);
 		account.setName(regex);
-		account.setNotes(regex);
 		account.setParentAccountKey(regex);
 		account.setPhoneNumber(regex);
 		account.setProfileEmailAddress(regex);
@@ -206,7 +205,6 @@ public abstract class BaseAccountResourceTestCase {
 		Assert.assertEquals(regex, account.getFaxNumber());
 		Assert.assertEquals(regex, account.getKey());
 		Assert.assertEquals(regex, account.getName());
-		Assert.assertEquals(regex, account.getNotes());
 		Assert.assertEquals(regex, account.getParentAccountKey());
 		Assert.assertEquals(regex, account.getPhoneNumber());
 		Assert.assertEquals(regex, account.getProfileEmailAddress());
@@ -1359,14 +1357,6 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("notes", additionalAssertFieldName)) {
-				if (account.getNotes() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("parentAccountKey", additionalAssertFieldName)) {
 				if (account.getParentAccountKey() == null) {
 					valid = false;
@@ -1658,16 +1648,6 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("notes", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						account1.getNotes(), account2.getNotes())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("parentAccountKey", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getParentAccountKey(),
@@ -1862,16 +1842,6 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("name", fieldName)) {
 				if (!Objects.deepEquals(
 						account.getName(), jsonObject.getString("name"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("notes", fieldName)) {
-				if (!Objects.deepEquals(
-						account.getNotes(), jsonObject.getString("notes"))) {
 
 					return false;
 				}
@@ -2125,14 +2095,6 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("notes")) {
-			sb.append("'");
-			sb.append(String.valueOf(account.getNotes()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
 		if (entityFieldName.equals("parentAccountKey")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getParentAccountKey()));
@@ -2229,7 +2191,6 @@ public abstract class BaseAccountResourceTestCase {
 				key = RandomTestUtil.randomString();
 				logoId = RandomTestUtil.randomLong();
 				name = RandomTestUtil.randomString();
-				notes = RandomTestUtil.randomString();
 				parentAccountKey = RandomTestUtil.randomString();
 				phoneNumber = RandomTestUtil.randomString();
 				profileEmailAddress = RandomTestUtil.randomString();

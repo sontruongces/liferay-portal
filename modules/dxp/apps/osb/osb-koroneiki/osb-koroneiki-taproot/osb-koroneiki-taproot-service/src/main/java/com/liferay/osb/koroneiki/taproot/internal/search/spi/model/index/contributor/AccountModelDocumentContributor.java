@@ -82,7 +82,6 @@ public class AccountModelDocumentContributor
 			"contactEmailAddress", account.getContactEmailAddress());
 		document.addKeyword("faxNumber", account.getFaxNumber());
 		document.addKeyword("internal", account.isInternal());
-		document.addText("notes", account.getNotes());
 		document.addKeyword("phoneNumber", account.getPhoneNumber());
 		document.addKeyword(
 			"profileEmailAddress", account.getProfileEmailAddress());

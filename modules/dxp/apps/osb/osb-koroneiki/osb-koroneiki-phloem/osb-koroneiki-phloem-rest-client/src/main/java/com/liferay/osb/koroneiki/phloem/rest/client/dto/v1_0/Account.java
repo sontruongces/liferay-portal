@@ -435,27 +435,6 @@ public class Account {
 
 	protected String name;
 
-	public String getNotes() {
-		return notes;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	public void setNotes(
-		UnsafeSupplier<String, Exception> notesUnsafeSupplier) {
-
-		try {
-			notes = notesUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String notes;
-
 	public String getParentAccountKey() {
 		return parentAccountKey;
 	}

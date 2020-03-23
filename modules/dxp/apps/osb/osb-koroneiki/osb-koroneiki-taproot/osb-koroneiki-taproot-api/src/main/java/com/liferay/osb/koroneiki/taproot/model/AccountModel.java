@@ -259,21 +259,6 @@ public interface AccountModel
 	public void setDescription(String description);
 
 	/**
-	 * Returns the notes of this account.
-	 *
-	 * @return the notes of this account
-	 */
-	@AutoEscape
-	public String getNotes();
-
-	/**
-	 * Sets the notes of this account.
-	 *
-	 * @param notes the notes of this account
-	 */
-	public void setNotes(String notes);
-
-	/**
 	 * Returns the logo ID of this account.
 	 *
 	 * @return the logo ID of this account

@@ -77,10 +77,10 @@ public interface AccountLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Account addAccount(
 			long userId, long parentAccountId, String name, String code,
-			String description, String notes, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, String tier,
-			String region, boolean internal, int status)
+			String description, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String tier, String region, boolean internal,
+			int status)
 		throws PortalException;
 
 	/**
@@ -312,7 +312,7 @@ public interface AccountLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Account updateAccount(
 			long userId, long accountId, long parentAccountId, String name,
-			String code, String description, String notes, long logoId,
+			String code, String description, long logoId,
 			String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website, String tier,
 			String region, boolean internal, int status)

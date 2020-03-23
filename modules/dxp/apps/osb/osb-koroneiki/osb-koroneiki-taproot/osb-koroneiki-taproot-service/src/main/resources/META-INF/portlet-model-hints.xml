@@ -18,9 +18,6 @@
 		<field name="description" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
-		<field name="notes" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
 		<field name="logoId" type="long" />
 		<field name="contactEmailAddress" type="String" />
 		<field name="profileEmailAddress" type="String" />

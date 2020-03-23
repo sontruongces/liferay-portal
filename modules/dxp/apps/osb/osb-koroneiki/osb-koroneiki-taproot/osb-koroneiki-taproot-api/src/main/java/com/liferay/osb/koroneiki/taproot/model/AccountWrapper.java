@@ -55,7 +55,6 @@ public class AccountWrapper
 		attributes.put("name", getName());
 		attributes.put("code", getCode());
 		attributes.put("description", getDescription());
-		attributes.put("notes", getNotes());
 		attributes.put("logoId", getLogoId());
 		attributes.put("contactEmailAddress", getContactEmailAddress());
 		attributes.put("profileEmailAddress", getProfileEmailAddress());
@@ -146,12 +145,6 @@ public class AccountWrapper
 
 		if (description != null) {
 			setDescription(description);
-		}
-
-		String notes = (String)attributes.get("notes");
-
-		if (notes != null) {
-			setNotes(notes);
 		}
 
 		Long logoId = (Long)attributes.get("logoId");
@@ -403,16 +396,6 @@ public class AccountWrapper
 	@Override
 	public String getName() {
 		return model.getName();
-	}
-
-	/**
-	 * Returns the notes of this account.
-	 *
-	 * @return the notes of this account
-	 */
-	@Override
-	public String getNotes() {
-		return model.getNotes();
 	}
 
 	@Override
@@ -810,16 +793,6 @@ public class AccountWrapper
 	@Override
 	public void setName(String name) {
 		model.setName(name);
-	}
-
-	/**
-	 * Sets the notes of this account.
-	 *
-	 * @param notes the notes of this account
-	 */
-	@Override
-	public void setNotes(String notes) {
-		model.setNotes(notes);
 	}
 
 	/**

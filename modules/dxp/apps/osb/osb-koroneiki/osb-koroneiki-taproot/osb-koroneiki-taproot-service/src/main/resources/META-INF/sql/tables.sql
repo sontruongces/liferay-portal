@@ -11,7 +11,6 @@ create table Koroneiki_Account (
 	name VARCHAR(150) null,
 	code_ VARCHAR(75) null,
 	description STRING null,
-	notes STRING null,
 	logoId LONG,
 	contactEmailAddress VARCHAR(75) null,
 	profileEmailAddress VARCHAR(75) null,

@@ -53,10 +53,9 @@ public interface AccountService extends BaseService {
 	 */
 	public Account addAccount(
 			long parentAccountId, String name, String code, String description,
-			String notes, long logoId, String contactEmailAddress,
-			String profileEmailAddress, String phoneNumber, String faxNumber,
-			String website, String tier, String region, boolean internal,
-			int status)
+			long logoId, String contactEmailAddress, String profileEmailAddress,
+			String phoneNumber, String faxNumber, String website, String tier,
+			String region, boolean internal, int status)
 		throws PortalException;
 
 	public Account deleteAccount(long accountId) throws PortalException;
@@ -110,18 +109,18 @@ public interface AccountService extends BaseService {
 
 	public Account updateAccount(
 			long accountId, long parentAccountId, String name, String code,
-			String description, String notes, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, String tier,
-			String region, boolean internal, int status)
+			String description, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String tier, String region, boolean internal,
+			int status)
 		throws PortalException;
 
 	public Account updateAccount(
 			String accountKey, long parentAccountId, String name, String code,
-			String description, String notes, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, String tier,
-			String region, boolean internal, int status)
+			String description, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String tier, String region, boolean internal,
+			int status)
 		throws PortalException;
 
 }
