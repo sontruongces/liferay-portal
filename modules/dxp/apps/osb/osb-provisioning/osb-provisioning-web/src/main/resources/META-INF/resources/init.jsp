@@ -26,8 +26,7 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
 taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note" %><%@
-page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
+<%@ page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ExternalLinkDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.NoteDisplay" %><%@
@@ -39,8 +38,7 @@ page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %>
 
-<%@ page import="java.util.Collections" %><%@
-page import="java.util.List" %>
+<%@ page import="java.util.List" %>
 
 <liferay-frontend:defineObjects />
 

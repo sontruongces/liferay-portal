@@ -30,8 +30,8 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionRequest;
@@ -133,19 +133,26 @@ public class ViewAccountDisplayContext {
 			note -> new NoteDisplay(_httpServletRequest, note));
 	}
 
-	public Map<String, Object> getPanelData() 
-		throws Exception {
+	public Map<String, Object> getPanelData() throws Exception {
 		Map<String, Object> data = new HashMap<>();
 
 		data.put("addNoteURL", getAddNoteURL());
-		data.put("generalApprovedNotes", getNoteDisplays(
-			Note.Type.GENERAL.toString(), Note.Status.APPROVED.toString()));
-		data.put("generalArchivedNotes", getNoteDisplays(
-			Note.Type.GENERAL.toString(), Note.Status.ARCHIVED.toString()));
-		data.put("salesApprovedNotes", getNoteDisplays(
-			Note.Type.SALES.toString(), Note.Status.APPROVED.toString()));
-		data.put("salesArchivedNotes", getNoteDisplays(
-			Note.Type.SALES.toString(), Note.Status.ARCHIVED.toString()));
+		data.put(
+			"generalApprovedNotes",
+			getNoteDisplays(
+				Note.Type.GENERAL.toString(), Note.Status.APPROVED.toString()));
+		data.put(
+			"generalArchivedNotes",
+			getNoteDisplays(
+				Note.Type.GENERAL.toString(), Note.Status.ARCHIVED.toString()));
+		data.put(
+			"salesApprovedNotes",
+			getNoteDisplays(
+				Note.Type.SALES.toString(), Note.Status.APPROVED.toString()));
+		data.put(
+			"salesArchivedNotes",
+			getNoteDisplays(
+				Note.Type.SALES.toString(), Note.Status.ARCHIVED.toString()));
 
 		return data;
 	}

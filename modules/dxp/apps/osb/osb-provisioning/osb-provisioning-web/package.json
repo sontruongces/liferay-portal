@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"@clayui/sticker": "^3.1.0",
+		"@clayui/sticker": "3.0.0",
 		"@clayui/tabs": "3.0.0",
 		"prop-types": "15.7.2"
 	},

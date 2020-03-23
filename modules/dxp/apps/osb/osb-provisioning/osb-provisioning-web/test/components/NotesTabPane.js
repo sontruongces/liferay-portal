@@ -6,7 +6,7 @@ import NotesTabPane from '../../src/main/resources/META-INF/resources/js/compone
 function renderNotesTabPane() {
 	return render(
 		<NotesTabPane
-			addURL='/'
+			addURL="/"
 			archivedNotes={[
 				{
 					createDate: new Date().toLocaleString('en-US'),
