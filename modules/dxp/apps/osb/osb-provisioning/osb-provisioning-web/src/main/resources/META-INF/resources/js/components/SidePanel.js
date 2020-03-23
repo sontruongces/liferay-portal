@@ -6,7 +6,12 @@ import ExternalLinksTabPane from './ExternalLinksTabPane';
 import NotesTabPane from './NotesTabPane';
 import SalesInfoTabPane from './SalesInfoTabPane';
 
-function CollapsiblePanel({handleCollapse}) {
+function CollapsiblePanel({
+	addNoteURL,
+	generalApprovedNotes,
+	generalArchivedNotes,
+	handleCollapse
+}) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (
@@ -56,7 +61,11 @@ function CollapsiblePanel({handleCollapse}) {
 
 			<ClayTabs.Content activeIndex={activeIndex}>
 				<ClayTabs.TabPane id="tabPaneNotes">
-					<NotesTabPane />
+					<NotesTabPane
+						addURL={addNoteURL}
+						archivedNotes={generalArchivedNotes}
+						generalNotes={generalApprovedNotes}
+					/>
 				</ClayTabs.TabPane>
 				<ClayTabs.TabPane id="tabPaneSalesInfo">
 					<SalesInfoTabPane />
@@ -95,7 +104,7 @@ ExpandPanelButton.propTypes = {
 	handleCollapse: PropTypes.func.isRequired
 };
 
-function SidePanel() {
+function SidePanel(props) {
 	const [collapse, setCollapse] = useState(false);
 
 	const handleCollapse = () => {
@@ -117,7 +126,7 @@ function SidePanel() {
 			{collapse ? (
 				<ExpandPanelButton handleCollapse={handleCollapse} />
 			) : (
-				<CollapsiblePanel handleCollapse={handleCollapse} />
+				<CollapsiblePanel handleCollapse={handleCollapse} {...props} />
 			)}
 		</>
 	);

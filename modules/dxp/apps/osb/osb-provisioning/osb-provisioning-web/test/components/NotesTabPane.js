@@ -6,44 +6,43 @@ import NotesTabPane from '../../src/main/resources/META-INF/resources/js/compone
 function renderNotesTabPane() {
 	return render(
 		<NotesTabPane
-			notes={{
-				archived: [
-					{
-						authorName: 'Jane Doe',
-						content: '<div>note 1</div>',
-						createDate: new Date().toLocaleString('en-US'),
-						key: '123',
-						pinned: true,
-						portraitURL: '/'
-					},
-					{
-						authorName: 'Jane Doe',
-						content: '<div>note 2</div>',
-						createDate: new Date().toLocaleString('en-US'),
-						key: '456',
-						pinned: false,
-						portraitURL: '/'
-					}
-				],
-				general: [
-					{
-						authorName: 'John Doe',
-						content: '<div>note 3</div>',
-						createDate: new Date().toLocaleString('en-US'),
-						key: '789',
-						pinned: true,
-						portraitURL: '/'
-					},
-					{
-						authorName: 'Joe Bloggs',
-						content: '<div>note 4</div>',
-						createDate: new Date().toLocaleString('en-US'),
-						key: '321',
-						pinned: false,
-						portraitURL: '/'
-					}
-				]
-			}}
+			addURL='/'
+			archivedNotes={[
+				{
+					createDate: new Date().toLocaleString('en-US'),
+					creatorName: 'Jane Doe',
+					creatorPortraitURL: '/',
+					htmlContent: '<div>note 1</div>',
+					key: '123',
+					pinned: true
+				},
+				{
+					createDate: new Date().toLocaleString('en-US'),
+					creatorName: 'Jane Doe',
+					creatorPortraitURL: '/',
+					htmlContent: '<div>note 2</div>',
+					key: '456',
+					pinned: false
+				}
+			]}
+			generalNotes={[
+				{
+					createDate: new Date().toLocaleString('en-US'),
+					creatorName: 'John Doe',
+					creatorPortraitURL: '/',
+					htmlContent: '<div>note 3</div>',
+					key: '789',
+					pinned: true
+				},
+				{
+					createDate: new Date().toLocaleString('en-US'),
+					creatorName: 'Joe Bloggs',
+					creatorPortraitURL: '/',
+					htmlContent: '<div>note 4</div>',
+					key: '321',
+					pinned: false
+				}
+			]}
 		/>
 	);
 }
@@ -79,19 +78,16 @@ describe('NotesTabPane', () => {
 		it('displays a pinned note', () => {
 			const {getByText} = render(
 				<NotesTabPane
-					notes={{
-						archived: [],
-						general: [
-							{
-								authorName: 'John Doe',
-								content: '<div>note 1</div>',
-								createDate: new Date().toLocaleString('en-US'),
-								key: '123',
-								pinned: true,
-								portraitURL: '/'
-							}
-						]
-					}}
+					generalNotes={[
+						{
+							createDate: new Date().toLocaleString('en-US'),
+							creatorName: 'John Doe',
+							creatorPortraitURL: '/',
+							htmlContent: '<div>note 3</div>',
+							key: '789',
+							pinned: true
+						}
+					]}
 				/>
 			);
 
@@ -101,19 +97,16 @@ describe('NotesTabPane', () => {
 		it('displays a general note', () => {
 			const {getByText} = render(
 				<NotesTabPane
-					notes={{
-						archived: [],
-						general: [
-							{
-								authorName: 'John Doe',
-								content: '<div>note 1</div>',
-								createDate: new Date().toLocaleString('en-US'),
-								key: '123',
-								pinned: false,
-								portraitURL: '/'
-							}
-						]
-					}}
+					generalNotes={[
+						{
+							createDate: new Date().toLocaleString('en-US'),
+							creatorName: 'John Doe',
+							creatorPortraitURL: '/',
+							htmlContent: '<div>note 3</div>',
+							key: '789',
+							pinned: false
+						}
+					]}
 				/>
 			);
 
@@ -129,19 +122,16 @@ describe('NotesTabPane', () => {
 		it('does not display a button to view archived notes when none are available', () => {
 			const {queryByText} = render(
 				<NotesTabPane
-					notes={{
-						archived: [],
-						general: [
-							{
-								authorName: 'John Doe',
-								content: '<div>note 3</div>',
-								createDate: new Date().toLocaleString('en-US'),
-								key: '789',
-								pinned: true,
-								portraitURL: '/'
-							}
-						]
-					}}
+					generalNotes={[
+						{
+							createDate: new Date().toLocaleString('en-US'),
+							creatorName: 'John Doe',
+							creatorPortraitURL: '/',
+							htmlContent: '<div>note 3</div>',
+							key: '789',
+							pinned: false
+						}
+					]}
 				/>
 			);
 
@@ -149,14 +139,7 @@ describe('NotesTabPane', () => {
 		});
 
 		it('displays a message when there is no data', () => {
-			const {container} = render(
-				<NotesTabPane
-					notes={{
-						archived: [],
-						general: []
-					}}
-				/>
-			);
+			const {container} = render(<NotesTabPane />);
 
 			expect(container.textContent).toEqual('no-notes-were-found');
 		});

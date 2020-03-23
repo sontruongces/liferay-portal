@@ -10,19 +10,19 @@ function Note({data}) {
 					<img
 						alt={Liferay.Language.get('note-author-avatar')}
 						className="sticker-img"
-						src={data.portraitURL}
+						src={data.creatorPortraitURL}
 					/>
 				</ClaySticker>
 
 				<div className="metadata">
-					<h4 className="note-author">{data.authorName}</h4>
+					<h4 className="note-author">{data.creatorName}</h4>
 					<div className="note-create-date">{data.createDate}</div>
 				</div>
 			</div>
 
 			<section
 				className="note-content"
-				dangerouslySetInnerHTML={{__html: data.content}}
+				dangerouslySetInnerHTML={{__html: data.htmlContent}}
 			/>
 		</div>
 	);
@@ -30,21 +30,21 @@ function Note({data}) {
 
 Note.propTypes = {
 	data: PropTypes.shape({
-		authorName: PropTypes.string.isRequired,
-		content: PropTypes.string.isRequired,
 		createDate: PropTypes.string.isRequired,
+		creatorName: PropTypes.string.isRequired,
+		creatorPortraitURL: PropTypes.string,
+		htmlContent: PropTypes.string.isRequired,
 		key: PropTypes.string.isRequired,
-		pinned: PropTypes.bool.isRequired,
-		portraitURL: PropTypes.string
+		pinned: PropTypes.bool.isRequired
 	})
 };
 
-function NotesTabPane({notes}) {
-	const pinnedGeneralNotes = notes.general.filter(note => note.pinned);
-	const unpinnedGeneralNotes = notes.general.filter(note => !note.pinned);
+function NotesTabPane({archivedNotes = [], generalNotes = []}) {
+	const pinnedGeneralNotes = generalNotes.filter(note => note.pinned);
+	const unpinnedGeneralNotes = generalNotes.filter(note => !note.pinned);
 
 	return (
-		<>
+		<div className="notes-container">
 			<div className="notes">
 				{pinnedGeneralNotes.length ? (
 					<div className="pinned-notes">
@@ -90,7 +90,7 @@ function NotesTabPane({notes}) {
 				)}
 			</div>
 
-			{notes.archived.length ? (
+			{archivedNotes.length ? (
 				<button className="archive-btn btn btn-link">
 					{Liferay.Language.get('view-archived-notes')}{' '}
 					<svg
@@ -105,33 +105,32 @@ function NotesTabPane({notes}) {
 			) : (
 				''
 			)}
-		</>
+		</div>
 	);
 }
 
 NotesTabPane.propTypes = {
-	notes: PropTypes.shape({
-		archived: PropTypes.arrayOf(
-			PropTypes.shape({
-				authorName: PropTypes.string.isRequired,
-				content: PropTypes.string.isRequired,
-				createDate: PropTypes.string.isRequired,
-				key: PropTypes.string.isRequired,
-				pinned: PropTypes.bool.isRequired,
-				portraitURL: PropTypes.string
-			})
-		),
-		general: PropTypes.arrayOf(
-			PropTypes.shape({
-				authorName: PropTypes.string.isRequired,
-				content: PropTypes.string.isRequired,
-				createDate: PropTypes.string.isRequired,
-				key: PropTypes.string.isRequired,
-				pinned: PropTypes.bool.isRequired,
-				portraitURL: PropTypes.string
-			})
-		)
-	})
+	addURL: PropTypes.string,
+	archivedNotes: PropTypes.arrayOf(
+		PropTypes.shape({
+			createDate: PropTypes.string.isRequired,
+			creatorName: PropTypes.string.isRequired,
+			creatorPortraitURL: PropTypes.string,
+			htmlContent: PropTypes.string.isRequired,
+			key: PropTypes.string.isRequired,
+			pinned: PropTypes.bool.isRequired
+		})
+	),
+	generalNotes: PropTypes.arrayOf(
+		PropTypes.shape({
+			createDate: PropTypes.string.isRequired,
+			creatorName: PropTypes.string.isRequired,
+			creatorPortraitURL: PropTypes.string,
+			htmlContent: PropTypes.string.isRequired,
+			key: PropTypes.string.isRequired,
+			pinned: PropTypes.bool.isRequired
+		})
+	)
 };
 
 export default NotesTabPane;

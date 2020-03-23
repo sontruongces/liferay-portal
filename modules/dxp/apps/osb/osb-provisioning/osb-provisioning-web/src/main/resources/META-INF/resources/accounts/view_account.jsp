@@ -47,7 +47,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 
 	<div class="side-panel" id="sidePanel">
 		<react:component
-			data="<%= Collections.emptyMap() %>"
+			data="<%= viewAccountDisplayContext.getPanelData() %>"
 			module="js/SidePanelApp"
 		/>
 	</div>

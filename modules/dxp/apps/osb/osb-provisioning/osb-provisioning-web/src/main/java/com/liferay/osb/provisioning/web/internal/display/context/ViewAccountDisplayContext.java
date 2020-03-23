@@ -15,6 +15,7 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
@@ -30,6 +31,8 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
@@ -128,6 +131,23 @@ public class ViewAccountDisplayContext {
 		return TransformUtil.transform(
 			_noteWebService.getNotes(_account.getKey(), type, status, 1, 1000),
 			note -> new NoteDisplay(_httpServletRequest, note));
+	}
+
+	public Map<String, Object> getPanelData() 
+		throws Exception {
+		Map<String, Object> data = new HashMap<>();
+
+		data.put("addNoteURL", getAddNoteURL());
+		data.put("generalApprovedNotes", getNoteDisplays(
+			Note.Type.GENERAL.toString(), Note.Status.APPROVED.toString()));
+		data.put("generalArchivedNotes", getNoteDisplays(
+			Note.Type.GENERAL.toString(), Note.Status.ARCHIVED.toString()));
+		data.put("salesApprovedNotes", getNoteDisplays(
+			Note.Type.SALES.toString(), Note.Status.APPROVED.toString()));
+		data.put("salesArchivedNotes", getNoteDisplays(
+			Note.Type.SALES.toString(), Note.Status.ARCHIVED.toString()));
+
+		return data;
 	}
 
 	public PortletURL getPortletURL() {

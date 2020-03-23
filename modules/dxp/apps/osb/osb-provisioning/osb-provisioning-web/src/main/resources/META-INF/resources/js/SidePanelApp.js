@@ -3,8 +3,8 @@ import React from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import SidePanel from './components/SidePanel';
 
-export default () => (
+export default props => (
 	<ErrorBoundary>
-		<SidePanel />
+		<SidePanel {...props} />
 	</ErrorBoundary>
 );
