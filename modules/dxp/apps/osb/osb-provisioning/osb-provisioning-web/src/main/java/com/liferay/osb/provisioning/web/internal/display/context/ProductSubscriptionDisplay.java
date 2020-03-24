@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.text.Format;
@@ -64,13 +65,18 @@ public class ProductSubscriptionDisplay {
 
 		_initProductPurchases(productPurchaseView.getProductPurchases(), now);
 
-		if (!_inSupportGap && (_perpetual || _startDate.before(now)) &&
-			(_perpetual || _endDate.after(now))) {
+		if (StringUtil.equalsIgnoreCase(_status, "approved")) {
+			if (!_inSupportGap && (_perpetual || _startDate.before(now)) &&
+				(_perpetual || _endDate.after(now))) {
 
-			_status = "active";
-		}
-		else if ((_startDate != null) && _startDate.after(now)) {
-			_status = "unactivated";
+				_status = "active";
+			}
+			else if ((_startDate != null) && _startDate.after(now)) {
+				_status = "unactivated";
+			}
+			else {
+				_status = "inactive";
+			}
 		}
 		else {
 			_status = "inactive";
@@ -226,6 +232,10 @@ public class ProductSubscriptionDisplay {
 			}
 
 			_purchasedCount += productPurchase.getQuantity();
+
+			if (!StringUtil.equalsIgnoreCase(_status, "approved")) {
+				_status = productPurchase.getStatusAsString();
+			}
 		}
 	}
 
@@ -241,6 +251,6 @@ public class ProductSubscriptionDisplay {
 	private int _purchasedCount;
 	private int _sizing;
 	private Date _startDate;
-	private final String _status;
+	private String _status;
 
 }

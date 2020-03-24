@@ -34,7 +34,8 @@ page import="com.liferay.osb.provisioning.web.internal.display.context.NoteDispl
 page import="com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.util.ProvisioningWebComponentProvider" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@
-page import="com.liferay.portal.kernel.util.HtmlUtil" %>
+page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
+page import="com.liferay.portal.kernel.util.Validator" %>
 
 <%@ page import="java.util.Collections" %><%@
 page import="java.util.List" %>
