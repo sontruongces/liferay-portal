@@ -224,8 +224,8 @@ public class ProductSubscriptionDisplay {
 				int sizing = GetterUtil.getInteger(properties.get("sizing"));
 
 				if ((sizing > _sizing) &&
-					(_perpetual || startDate.before(now)) &&
-					(_perpetual || endDate.after(now))) {
+					((startDate == null) || startDate.before(now)) &&
+					((endDate == null) || endDate.after(now))) {
 
 					_sizing = sizing;
 				}
