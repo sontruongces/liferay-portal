@@ -16,70 +16,23 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
-%>
-
-<liferay-ui:search-container
-	searchContainer="<%= viewAccountDisplayContext.getProductPurchaseViewSearchContainer() %>"
+<liferay-ui:tabs
+	names="active,inactive,all"
+	refresh="<%= false %>"
 >
-	<liferay-ui:search-container-row
-		className="com.liferay.osb.provisioning.web.internal.display.context.ProductSubscriptionDisplay"
-		escapedModel="<%= true %>"
-		modelVar="productSubscriptionDisplay"
-	>
-		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcRenderCommandName" value="/accounts/view_product_subscription" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="accountKey" value="<%= productSubscriptionDisplay.getAccountKey() %>" />
-			<portlet:param name="productKey" value="<%= productSubscriptionDisplay.getProductKey() %>" />
-		</portlet:renderURL>
+	<liferay-ui:section>
+		<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
+			<liferay-util:param name="state" value="active" />
+		</liferay-util:include>
+	</liferay-ui:section>
 
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="product"
-		>
-			<%= productSubscriptionDisplay.getName() %>
+	<liferay-ui:section>
+		<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
+			<liferay-util:param name="state" value="inactive" />
+		</liferay-util:include>
+	</liferay-ui:section>
 
-			<div class="secondary-information">
-				<%= productSubscriptionDisplay.getSizing() %>
-			</div>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="support-life"
-		>
-			<%= productSubscriptionDisplay.getSupportLife() %>
-
-			<c:if test="<%= productSubscriptionDisplay.isInactive() && Validator.isNotNull(productSubscriptionDisplay.getNextTermStartDate()) %>">
-				<div class="secondary-information">
-					<liferay-ui:message key="next-term-starts" />: <%= productSubscriptionDisplay.getNextTermStartDate() %>
-				</div>
-			</c:if>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="provisioned"
-			value="<%= productSubscriptionDisplay.getProvisionedCount() %>"
-		/>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="purchased"
-			value="<%= productSubscriptionDisplay.getPurchasedCount() %>"
-		/>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="status"
-		>
-			<span class="label <%= productSubscriptionDisplay.getStatusStyle() %>"><%= productSubscriptionDisplay.getStatus() %></span>
-		</liferay-ui:search-container-column-text>
-	</liferay-ui:search-container-row>
-
-	<liferay-ui:search-iterator
-		markupView="lexicon"
-	/>
-</liferay-ui:search-container>
+	<liferay-ui:section>
+		<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>" />
+	</liferay-ui:section>
+</liferay-ui:tabs>

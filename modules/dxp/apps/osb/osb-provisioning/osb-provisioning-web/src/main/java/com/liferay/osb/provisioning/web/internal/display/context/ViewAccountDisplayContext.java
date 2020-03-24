@@ -129,7 +129,7 @@ public class ViewAccountDisplayContext {
 			note -> new NoteDisplay(_httpServletRequest, note));
 	}
 
-	public SearchContainer getProductPurchaseViewSearchContainer()
+	public SearchContainer getProductPurchaseViewSearchContainer(String state)
 		throws Exception {
 
 		SearchContainer searchContainer = new SearchContainer(
@@ -138,7 +138,7 @@ public class ViewAccountDisplayContext {
 
 		List<ProductPurchaseView> productPurchaseViews =
 			_productPurchaseViewWebService.getProductPurchaseViews(
-				_account.getKey(), searchContainer.getCur(),
+				_account.getKey(), state, searchContainer.getCur(),
 				searchContainer.getEnd() - searchContainer.getStart());
 
 		searchContainer.setResults(
@@ -149,7 +149,7 @@ public class ViewAccountDisplayContext {
 
 		int count =
 			(int)_productPurchaseViewWebService.getProductPurchaseViewsCount(
-				_account.getKey());
+				_account.getKey(), state);
 
 		searchContainer.setTotal(count);
 
