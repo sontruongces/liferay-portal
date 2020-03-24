@@ -64,8 +64,8 @@ public class ProductSubscriptionDisplay {
 
 		_initProductPurchases(productPurchaseView.getProductPurchases(), now);
 
-		if (((_startDate == null) || _startDate.before(now)) &&
-			((_endDate == null) || _endDate.after(now))) {
+		if (!_inSupportGap && (_perpetual || _startDate.before(now)) &&
+			(_perpetual || _endDate.after(now))) {
 
 			_status = "active";
 		}
@@ -83,6 +83,14 @@ public class ProductSubscriptionDisplay {
 
 	public String getName() {
 		return _product.getName();
+	}
+
+	public String getNextTermStartDate() {
+		if (_nextTermStartDate != null) {
+			return _dateFormat.format(_nextTermStartDate);
+		}
+
+		return StringPool.BLANK;
 	}
 
 	public String getProductKey() {
@@ -123,7 +131,7 @@ public class ProductSubscriptionDisplay {
 	}
 
 	public String getSupportLife() {
-		if (_startDate == null) {
+		if (_perpetual) {
 			return LanguageUtil.get(_httpServletRequest, "perpetual");
 		}
 
@@ -167,22 +175,41 @@ public class ProductSubscriptionDisplay {
 	private void _initProductPurchases(
 		ProductPurchase[] productPurchases, Date now) {
 
+		_inSupportGap = true;
+
 		for (ProductPurchase productPurchase : productPurchases) {
 			Date startDate = productPurchase.getStartDate();
 			Date endDate = productPurchase.getEndDate();
 
-			if (_startDateInitialized || (startDate == null) ||
-				((_startDate != null) && _startDate.after(startDate))) {
-
-				_startDate = startDate;
-				_startDateInitialized = true;
+			if (startDate == null) {
+				_inSupportGap = false;
+				_perpetual = true;
 			}
 
-			if (_endDateInitialized || (endDate == null) ||
-				((_endDate != null) && _endDate.before(endDate))) {
+			if (!_perpetual &&
+				((_startDate == null) || startDate.before(_startDate))) {
+
+				_startDate = startDate;
+			}
+
+			if (!_perpetual &&
+				((_endDate == null) || endDate.after(_endDate))) {
 
 				_endDate = endDate;
-				_endDateInitialized = true;
+			}
+
+			if ((startDate != null) && startDate.before(now) &&
+				(endDate != null) && endDate.after(now)) {
+
+				_inSupportGap = false;
+			}
+
+			if (!_perpetual && _inSupportGap &&
+				(((_nextTermStartDate == null) && startDate.after(now)) ||
+				 ((_nextTermStartDate != null) &&
+				  startDate.before(_nextTermStartDate)))) {
+
+				_nextTermStartDate = startDate;
 			}
 
 			Map<String, String> properties = productPurchase.getProperties();
@@ -191,8 +218,8 @@ public class ProductSubscriptionDisplay {
 				int sizing = GetterUtil.getInteger(properties.get("sizing"));
 
 				if ((sizing > _sizing) &&
-					((startDate == null) || startDate.before(now)) &&
-					((endDate == null) || endDate.after(now))) {
+					(_perpetual || startDate.before(now)) &&
+					(_perpetual || endDate.after(now))) {
 
 					_sizing = sizing;
 				}
@@ -205,14 +232,15 @@ public class ProductSubscriptionDisplay {
 	private final Account _account;
 	private final Format _dateFormat;
 	private Date _endDate;
-	private boolean _endDateInitialized;
 	private final HttpServletRequest _httpServletRequest;
+	private boolean _inSupportGap;
+	private Date _nextTermStartDate;
+	private boolean _perpetual;
 	private final Product _product;
 	private final int _provisionedCount;
 	private int _purchasedCount;
 	private int _sizing;
 	private Date _startDate;
-	private boolean _startDateInitialized;
 	private final String _status;
 
 }

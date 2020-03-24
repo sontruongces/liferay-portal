@@ -54,7 +54,7 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 
 			<c:if test="<%= productSubscriptionDisplay.isInactive() %>">
 				<div class="secondary-information">
-					<liferay-ui:message key="next-term-starts" />:
+					<liferay-ui:message key="next-term-starts" />: <%= productSubscriptionDisplay.getNextTermStartDate() %>
 				</div>
 			</c:if>
 		</liferay-ui:search-container-column-text>
