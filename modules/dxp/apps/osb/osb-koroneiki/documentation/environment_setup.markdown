@@ -2,15 +2,17 @@
 
 ## Downloads
 
-Download the tomcat bundle with the Liferay version in [lrkoroneiki repo](https://github.com/dxpcloud/lrkoroneiki/blob/master/gradle.properties).
+Download a tomcat bundle that matches the Liferay version used in [lrkoroneiki repo](https://github.com/dxpcloud/lrkoroneiki/blob/master/gradle.properties).
 
 ## Fixpacks
 
-Install the same fixpack as on the lrkoroneiki repo if one exists.
+Install any fixpack that exists on the lrkoroneiki repo.
 
 ## Portal Properties
 
 See the [lrkoroneiki repo](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/portal-all.properties) for portal-ext.properties.
+
+Modify `JDBC` properties as necessary.
 
 ## Configs
 
@@ -18,7 +20,7 @@ Create the following config files and place them in `{liferay-home}/osgi/configs
 
 ### Elasticsearch
 
-Add [additionalTypeMappings](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config#L1) to your Elasticsearch config file.
+Add only the [additionalTypeMappings](https://github.com/dxpcloud/lrkoroneiki/blob/master/lcp/liferay/config/common/com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config#L1) to your Elasticsearch config file.
 
 ### REST API
 
@@ -88,6 +90,6 @@ If using RabbitMQ, also deploy modules in `osb-distributed-messaging`.
 
 To set up authentication for the REST API, a *Service Producer* needs to be created along with an API token.
 
-1. Create a `Service Producer`. (See Service Producer documentation)
+1. Create a `Service Producer`. (See [Service Producer Setup documentation](./service_producer_setup.markdown))
 2. Go to Roles &rarr; Service Producer Role, and select all the necessary Koroneiki permissions that you need to use.
-3. Create an API token. (See Authentication documentation)
+3. Create an API token. (See [Authentication documentation](./authentication.markdown))
