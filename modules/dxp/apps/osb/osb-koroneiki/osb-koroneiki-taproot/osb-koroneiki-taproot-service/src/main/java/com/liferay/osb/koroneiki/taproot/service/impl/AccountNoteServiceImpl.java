@@ -80,24 +80,26 @@ public class AccountNoteServiceImpl extends AccountNoteServiceBaseImpl {
 	}
 
 	public List<AccountNote> getAccountNotes(
-			long accountId, String type, String status, int start, int end)
+			long accountId, String[] types, String[] statuses, int start,
+			int end)
 		throws PortalException {
 
 		_accountPermission.check(
 			getPermissionChecker(), accountId, ActionKeys.VIEW);
 
 		return accountNoteLocalService.getAccountNotes(
-			accountId, type, status, start, end);
+			accountId, types, statuses, start, end);
 	}
 
-	public int getAccountNotesCount(long accountId, String type, String status)
+	public int getAccountNotesCount(
+			long accountId, String[] types, String[] statuses)
 		throws PortalException {
 
 		_accountPermission.check(
 			getPermissionChecker(), accountId, ActionKeys.VIEW);
 
 		return accountNoteLocalService.getAccountNotesCount(
-			accountId, type, status);
+			accountId, types, statuses);
 	}
 
 	public AccountNote updateAccountNote(

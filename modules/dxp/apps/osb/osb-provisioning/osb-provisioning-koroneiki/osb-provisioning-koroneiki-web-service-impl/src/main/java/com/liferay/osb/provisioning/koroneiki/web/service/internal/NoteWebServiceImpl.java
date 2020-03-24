@@ -51,7 +51,7 @@ public class NoteWebServiceImpl implements NoteWebService {
 		throws Exception {
 
 		Page<Note> notesPage = _noteResource.getAccountAccountKeyNotesPage(
-			accountKey, type, status, Pagination.of(page, pageSize));
+			accountKey, status, type, Pagination.of(page, pageSize));
 
 		if ((notesPage != null) && (notesPage.getItems() != null)) {
 			return new ArrayList<>(notesPage.getItems());

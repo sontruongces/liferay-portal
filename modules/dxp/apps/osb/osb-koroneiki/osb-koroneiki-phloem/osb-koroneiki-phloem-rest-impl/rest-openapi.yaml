@@ -2191,6 +2191,48 @@ paths:
                         ""
             tags: ["ExternalLink"]
     "/accounts/{accountKey}/notes":
+        get:
+            description:
+                Retrieves the account's notes.
+            operationId: getAccountAccountKeyNotesPage
+            parameters:
+                - in: path
+                  name: accountKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: status
+                  schema:
+                      type: string
+                - in: query
+                  name: type
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Note"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Note"
+                                type: array
+                    description:
+                        ""
+            tags: ["Note"]
         post:
             operationId: postAccountAccountKeyNote
             parameters:
@@ -2219,51 +2261,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Note"
-                    description:
-                        ""
-            tags: ["Note"]
-    "/accounts/{accountKey}/notes/{type}/{status}":
-        get:
-            description:
-                Retrieves the account's notes.
-            operationId: getAccountAccountKeyNotesPage
-            parameters:
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-                - in: path
-                  name: type
-                  required: true
-                  schema:
-                      type: string
-                - in: path
-                  name: status
-                  required: true
-                  schema:
-                      type: string
-                - in: query
-                  name: page
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Note"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Note"
-                                type: array
                     description:
                         ""
             tags: ["Note"]

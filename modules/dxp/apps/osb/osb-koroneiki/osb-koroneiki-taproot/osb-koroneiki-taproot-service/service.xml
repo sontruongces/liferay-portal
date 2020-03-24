@@ -84,7 +84,7 @@
 
 		<order by="asc">
 			<order-column name="priority" />
-			<order-column name="modifiedDate" order-by="desc" />
+			<order-column name="createDate" order-by="desc" />
 		</order>
 
 		<!-- Finder methods -->
@@ -97,8 +97,8 @@
 		</finder>
 		<finder name="AI_T_S" return-type="Collection">
 			<finder-column name="accountId" />
-			<finder-column name="type" />
-			<finder-column name="status" />
+			<finder-column arrayable-operator="OR" name="type" />
+			<finder-column arrayable-operator="OR" name="status" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="Contact" remote-service="true" uuid="true">

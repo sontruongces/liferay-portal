@@ -75,6 +75,14 @@ public class NoteDisplay {
 		return _note.getKey();
 	}
 
+	public boolean isEdited() {
+		if (_note.getDateModified() != null) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public boolean isPinned() {
 		if (_note.getPriority() == 1) {
 			return true;

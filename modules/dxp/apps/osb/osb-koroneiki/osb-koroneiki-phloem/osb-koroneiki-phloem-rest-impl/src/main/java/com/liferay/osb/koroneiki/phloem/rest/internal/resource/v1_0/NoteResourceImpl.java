@@ -26,6 +26,7 @@ import com.liferay.osb.koroneiki.taproot.service.AccountNoteService;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -53,21 +54,33 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 
 	@Override
 	public Page<Note> getAccountAccountKeyNotesPage(
-			String accountKey, String type, String status,
+			String accountKey, String status, String type,
 			Pagination pagination)
 		throws Exception {
 
 		Account account = _accountLocalService.getAccount(accountKey);
 
+		String[] types = new String[0];
+
+		if (Validator.isNotNull(type)) {
+			types = new String[] {type};
+		}
+
+		String[] statuses = new String[0];
+
+		if (Validator.isNotNull(status)) {
+			statuses = new String[] {status};
+		}
+
 		return Page.of(
 			transform(
 				_accountNoteService.getAccountNotes(
-					account.getAccountId(), type, status,
+					account.getAccountId(), types, statuses,
 					pagination.getStartPosition(), pagination.getEndPosition()),
 				acountNote -> NoteUtil.toNote(acountNote)),
 			pagination,
 			_accountNoteService.getAccountNotesCount(
-				account.getAccountId(), type, status));
+				account.getAccountId(), types, statuses));
 	}
 
 	@Override
