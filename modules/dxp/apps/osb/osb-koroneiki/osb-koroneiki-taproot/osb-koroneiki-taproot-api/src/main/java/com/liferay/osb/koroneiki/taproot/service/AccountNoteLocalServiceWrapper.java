@@ -291,10 +291,11 @@ public class AccountNoteLocalServiceWrapper
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.AccountNote>
 		getAccountNotes(
-			long accountId, String type, String status, int start, int end) {
+			long accountId, String[] types, String[] statuses, int start,
+			int end) {
 
 		return _accountNoteLocalService.getAccountNotes(
-			accountId, type, status, start, end);
+			accountId, types, statuses, start, end);
 	}
 
 	/**
@@ -314,10 +315,10 @@ public class AccountNoteLocalServiceWrapper
 
 	@Override
 	public int getAccountNotesCount(
-		long accountId, String type, String status) {
+		long accountId, String[] types, String[] statuses) {
 
 		return _accountNoteLocalService.getAccountNotesCount(
-			accountId, type, status);
+			accountId, types, statuses);
 	}
 
 	@Override

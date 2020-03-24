@@ -198,51 +198,24 @@ public abstract class BaseNoteResourceTestCase {
 	}
 
 	@Test
-	public void testPostAccountAccountKeyNote() throws Exception {
-		Note randomNote = randomNote();
-
-		Note postNote = testPostAccountAccountKeyNote_addNote(randomNote);
-
-		assertEquals(randomNote, postNote);
-		assertValid(postNote);
-	}
-
-	protected Note testPostAccountAccountKeyNote_addNote(Note note)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
 	public void testGetAccountAccountKeyNotesPage() throws Exception {
 		Page<Note> page = noteResource.getAccountAccountKeyNotesPage(
 			testGetAccountAccountKeyNotesPage_getAccountKey(),
-			testGetAccountAccountKeyNotesPage_getType(),
-			testGetAccountAccountKeyNotesPage_getStatus(), Pagination.of(1, 2));
+			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
+			Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		String accountKey = testGetAccountAccountKeyNotesPage_getAccountKey();
 		String irrelevantAccountKey =
 			testGetAccountAccountKeyNotesPage_getIrrelevantAccountKey();
-		String type = testGetAccountAccountKeyNotesPage_getType();
-		String irrelevantType =
-			testGetAccountAccountKeyNotesPage_getIrrelevantType();
-		String status = testGetAccountAccountKeyNotesPage_getStatus();
-		String irrelevantStatus =
-			testGetAccountAccountKeyNotesPage_getIrrelevantStatus();
 
-		if ((irrelevantAccountKey != null) && (irrelevantType != null) &&
-			(irrelevantStatus != null)) {
-
+		if ((irrelevantAccountKey != null)) {
 			Note irrelevantNote = testGetAccountAccountKeyNotesPage_addNote(
-				irrelevantAccountKey, irrelevantType, irrelevantStatus,
-				randomIrrelevantNote());
+				irrelevantAccountKey, randomIrrelevantNote());
 
 			page = noteResource.getAccountAccountKeyNotesPage(
-				irrelevantAccountKey, irrelevantType, irrelevantStatus,
-				Pagination.of(1, 2));
+				irrelevantAccountKey, null, null, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -252,13 +225,13 @@ public abstract class BaseNoteResourceTestCase {
 		}
 
 		Note note1 = testGetAccountAccountKeyNotesPage_addNote(
-			accountKey, type, status, randomNote());
+			accountKey, randomNote());
 
 		Note note2 = testGetAccountAccountKeyNotesPage_addNote(
-			accountKey, type, status, randomNote());
+			accountKey, randomNote());
 
 		page = noteResource.getAccountAccountKeyNotesPage(
-			accountKey, type, status, Pagination.of(1, 2));
+			accountKey, null, null, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -272,27 +245,25 @@ public abstract class BaseNoteResourceTestCase {
 		throws Exception {
 
 		String accountKey = testGetAccountAccountKeyNotesPage_getAccountKey();
-		String type = testGetAccountAccountKeyNotesPage_getType();
-		String status = testGetAccountAccountKeyNotesPage_getStatus();
 
 		Note note1 = testGetAccountAccountKeyNotesPage_addNote(
-			accountKey, type, status, randomNote());
+			accountKey, randomNote());
 
 		Note note2 = testGetAccountAccountKeyNotesPage_addNote(
-			accountKey, type, status, randomNote());
+			accountKey, randomNote());
 
 		Note note3 = testGetAccountAccountKeyNotesPage_addNote(
-			accountKey, type, status, randomNote());
+			accountKey, randomNote());
 
 		Page<Note> page1 = noteResource.getAccountAccountKeyNotesPage(
-			accountKey, type, status, Pagination.of(1, 2));
+			accountKey, null, null, Pagination.of(1, 2));
 
 		List<Note> notes1 = (List<Note>)page1.getItems();
 
 		Assert.assertEquals(notes1.toString(), 2, notes1.size());
 
 		Page<Note> page2 = noteResource.getAccountAccountKeyNotesPage(
-			accountKey, type, status, Pagination.of(2, 2));
+			accountKey, null, null, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -301,14 +272,14 @@ public abstract class BaseNoteResourceTestCase {
 		Assert.assertEquals(notes2.toString(), 1, notes2.size());
 
 		Page<Note> page3 = noteResource.getAccountAccountKeyNotesPage(
-			accountKey, type, status, Pagination.of(1, 3));
+			accountKey, null, null, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(note1, note2, note3), (List<Note>)page3.getItems());
 	}
 
 	protected Note testGetAccountAccountKeyNotesPage_addNote(
-			String accountKey, String type, String status, Note note)
+			String accountKey, Note note)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -328,30 +299,21 @@ public abstract class BaseNoteResourceTestCase {
 		return null;
 	}
 
-	protected String testGetAccountAccountKeyNotesPage_getType()
+	@Test
+	public void testPostAccountAccountKeyNote() throws Exception {
+		Note randomNote = randomNote();
+
+		Note postNote = testPostAccountAccountKeyNote_addNote(randomNote);
+
+		assertEquals(randomNote, postNote);
+		assertValid(postNote);
+	}
+
+	protected Note testPostAccountAccountKeyNote_addNote(Note note)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
-	}
-
-	protected String testGetAccountAccountKeyNotesPage_getIrrelevantType()
-		throws Exception {
-
-		return null;
-	}
-
-	protected String testGetAccountAccountKeyNotesPage_getStatus()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String testGetAccountAccountKeyNotesPage_getIrrelevantStatus()
-		throws Exception {
-
-		return null;
 	}
 
 	@Test

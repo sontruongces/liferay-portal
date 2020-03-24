@@ -42,13 +42,13 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface NoteResource {
 
-	public Note postAccountAccountKeyNote(
-			String agentName, String agentUID, String accountKey, Note note)
+	public Page<Note> getAccountAccountKeyNotesPage(
+			String accountKey, String status, String type,
+			Pagination pagination)
 		throws Exception;
 
-	public Page<Note> getAccountAccountKeyNotesPage(
-			String accountKey, String type, String status,
-			Pagination pagination)
+	public Note postAccountAccountKeyNote(
+			String agentName, String agentUID, String accountKey, Note note)
 		throws Exception;
 
 	public void deleteNote(String agentName, String agentUID, String noteKey)

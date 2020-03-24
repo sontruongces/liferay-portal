@@ -66,11 +66,13 @@ public interface AccountNoteService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<AccountNote> getAccountNotes(
-			long accountId, String type, String status, int start, int end)
+			long accountId, String[] types, String[] statuses, int start,
+			int end)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getAccountNotesCount(long accountId, String type, String status)
+	public int getAccountNotesCount(
+			long accountId, String[] types, String[] statuses)
 		throws PortalException;
 
 	/**

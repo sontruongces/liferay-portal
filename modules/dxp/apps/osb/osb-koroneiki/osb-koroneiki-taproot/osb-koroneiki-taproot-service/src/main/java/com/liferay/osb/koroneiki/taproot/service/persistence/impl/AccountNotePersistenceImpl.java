@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -1970,6 +1971,7 @@ public class AccountNotePersistenceImpl
 	private FinderPath _finderPathWithPaginationFindByAI_T_S;
 	private FinderPath _finderPathWithoutPaginationFindByAI_T_S;
 	private FinderPath _finderPathCountByAI_T_S;
+	private FinderPath _finderPathWithPaginationCountByAI_T_S;
 
 	/**
 	 * Returns all the account notes where accountId = &#63; and type = &#63; and status = &#63;.
@@ -2511,6 +2513,276 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
+	 * Returns all the account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param types the types
+	 * @param statuses the statuses
+	 * @return the matching account notes
+	 */
+	@Override
+	public List<AccountNote> findByAI_T_S(
+		long accountId, String[] types, String[] statuses) {
+
+		return findByAI_T_S(
+			accountId, types, statuses, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param types the types
+	 * @param statuses the statuses
+	 * @param start the lower bound of the range of account notes
+	 * @param end the upper bound of the range of account notes (not inclusive)
+	 * @return the range of matching account notes
+	 */
+	@Override
+	public List<AccountNote> findByAI_T_S(
+		long accountId, String[] types, String[] statuses, int start, int end) {
+
+		return findByAI_T_S(accountId, types, statuses, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param types the types
+	 * @param statuses the statuses
+	 * @param start the lower bound of the range of account notes
+	 * @param end the upper bound of the range of account notes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching account notes
+	 */
+	@Override
+	public List<AccountNote> findByAI_T_S(
+		long accountId, String[] types, String[] statuses, int start, int end,
+		OrderByComparator<AccountNote> orderByComparator) {
+
+		return findByAI_T_S(
+			accountId, types, statuses, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the account notes where accountId = &#63; and type = &#63; and status = &#63;, optionally using the finder cache.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param type the type
+	 * @param status the status
+	 * @param start the lower bound of the range of account notes
+	 * @param end the upper bound of the range of account notes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching account notes
+	 */
+	@Override
+	public List<AccountNote> findByAI_T_S(
+		long accountId, String[] types, String[] statuses, int start, int end,
+		OrderByComparator<AccountNote> orderByComparator,
+		boolean useFinderCache) {
+
+		if (types == null) {
+			types = new String[0];
+		}
+		else if (types.length > 1) {
+			for (int i = 0; i < types.length; i++) {
+				types[i] = Objects.toString(types[i], "");
+			}
+
+			types = ArrayUtil.sortedUnique(types);
+		}
+
+		if (statuses == null) {
+			statuses = new String[0];
+		}
+		else if (statuses.length > 1) {
+			for (int i = 0; i < statuses.length; i++) {
+				statuses[i] = Objects.toString(statuses[i], "");
+			}
+
+			statuses = ArrayUtil.sortedUnique(statuses);
+		}
+
+		if ((types.length == 1) && (statuses.length == 1)) {
+			return findByAI_T_S(
+				accountId, types[0], statuses[0], start, end,
+				orderByComparator);
+		}
+
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderArgs = new Object[] {
+					accountId, StringUtil.merge(types),
+					StringUtil.merge(statuses)
+				};
+			}
+		}
+		else if (useFinderCache) {
+			finderArgs = new Object[] {
+				accountId, StringUtil.merge(types), StringUtil.merge(statuses),
+				start, end, orderByComparator
+			};
+		}
+
+		List<AccountNote> list = null;
+
+		if (useFinderCache) {
+			list = (List<AccountNote>)finderCache.getResult(
+				_finderPathWithPaginationFindByAI_T_S, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (AccountNote accountNote : list) {
+					if ((accountId != accountNote.getAccountId()) ||
+						!ArrayUtil.contains(types, accountNote.getType()) ||
+						!ArrayUtil.contains(
+							statuses, accountNote.getStatus())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = new StringBundler();
+
+			sb.append(_SQL_SELECT_ACCOUNTNOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_AI_T_S_ACCOUNTID_2);
+
+			if (types.length > 0) {
+				sb.append("(");
+
+				for (int i = 0; i < types.length; i++) {
+					String type = types[i];
+
+					if (type.isEmpty()) {
+						sb.append(_FINDER_COLUMN_AI_T_S_TYPE_6);
+					}
+					else {
+						sb.append(_FINDER_COLUMN_AI_T_S_TYPE_5);
+					}
+
+					if ((i + 1) < types.length) {
+						sb.append(WHERE_OR);
+					}
+				}
+
+				sb.append(")");
+
+				sb.append(WHERE_AND);
+			}
+
+			if (statuses.length > 0) {
+				sb.append("(");
+
+				for (int i = 0; i < statuses.length; i++) {
+					String status = statuses[i];
+
+					if (status.isEmpty()) {
+						sb.append(_FINDER_COLUMN_AI_T_S_STATUS_3);
+					}
+					else {
+						sb.append(_FINDER_COLUMN_AI_T_S_STATUS_2);
+					}
+
+					if ((i + 1) < statuses.length) {
+						sb.append(WHERE_OR);
+					}
+				}
+
+				sb.append(")");
+			}
+
+			sb.setStringAt(
+				removeConjunction(sb.stringAt(sb.index() - 1)), sb.index() - 1);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(AccountNoteModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(accountId);
+
+				for (String type : types) {
+					if ((type != null) && !type.isEmpty()) {
+						queryPos.add(type);
+					}
+				}
+
+				for (String status : statuses) {
+					if ((status != null) && !status.isEmpty()) {
+						queryPos.add(status);
+					}
+				}
+
+				list = (List<AccountNote>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(
+						_finderPathWithPaginationFindByAI_T_S, finderArgs,
+						list);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathWithPaginationFindByAI_T_S, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
 	 * Removes all the account notes where accountId = &#63; and type = &#63; and status = &#63; from the database.
 	 *
 	 * @param accountId the account ID
@@ -2614,6 +2886,145 @@ public class AccountNotePersistenceImpl
 		return count.intValue();
 	}
 
+	/**
+	 * Returns the number of account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param types the types
+	 * @param statuses the statuses
+	 * @return the number of matching account notes
+	 */
+	@Override
+	public int countByAI_T_S(
+		long accountId, String[] types, String[] statuses) {
+
+		if (types == null) {
+			types = new String[0];
+		}
+		else if (types.length > 1) {
+			for (int i = 0; i < types.length; i++) {
+				types[i] = Objects.toString(types[i], "");
+			}
+
+			types = ArrayUtil.sortedUnique(types);
+		}
+
+		if (statuses == null) {
+			statuses = new String[0];
+		}
+		else if (statuses.length > 1) {
+			for (int i = 0; i < statuses.length; i++) {
+				statuses[i] = Objects.toString(statuses[i], "");
+			}
+
+			statuses = ArrayUtil.sortedUnique(statuses);
+		}
+
+		Object[] finderArgs = new Object[] {
+			accountId, StringUtil.merge(types), StringUtil.merge(statuses)
+		};
+
+		Long count = (Long)finderCache.getResult(
+			_finderPathWithPaginationCountByAI_T_S, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler();
+
+			sb.append(_SQL_COUNT_ACCOUNTNOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_AI_T_S_ACCOUNTID_2);
+
+			if (types.length > 0) {
+				sb.append("(");
+
+				for (int i = 0; i < types.length; i++) {
+					String type = types[i];
+
+					if (type.isEmpty()) {
+						sb.append(_FINDER_COLUMN_AI_T_S_TYPE_6);
+					}
+					else {
+						sb.append(_FINDER_COLUMN_AI_T_S_TYPE_5);
+					}
+
+					if ((i + 1) < types.length) {
+						sb.append(WHERE_OR);
+					}
+				}
+
+				sb.append(")");
+
+				sb.append(WHERE_AND);
+			}
+
+			if (statuses.length > 0) {
+				sb.append("(");
+
+				for (int i = 0; i < statuses.length; i++) {
+					String status = statuses[i];
+
+					if (status.isEmpty()) {
+						sb.append(_FINDER_COLUMN_AI_T_S_STATUS_3);
+					}
+					else {
+						sb.append(_FINDER_COLUMN_AI_T_S_STATUS_2);
+					}
+
+					if ((i + 1) < statuses.length) {
+						sb.append(WHERE_OR);
+					}
+				}
+
+				sb.append(")");
+			}
+
+			sb.setStringAt(
+				removeConjunction(sb.stringAt(sb.index() - 1)), sb.index() - 1);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(accountId);
+
+				for (String type : types) {
+					if ((type != null) && !type.isEmpty()) {
+						queryPos.add(type);
+					}
+				}
+
+				for (String status : statuses) {
+					if ((status != null) && !status.isEmpty()) {
+						queryPos.add(status);
+					}
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(
+					_finderPathWithPaginationCountByAI_T_S, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(
+					_finderPathWithPaginationCountByAI_T_S, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
 	private static final String _FINDER_COLUMN_AI_T_S_ACCOUNTID_2 =
 		"accountNote.accountId = ? AND ";
 
@@ -2622,6 +3033,12 @@ public class AccountNotePersistenceImpl
 
 	private static final String _FINDER_COLUMN_AI_T_S_TYPE_3 =
 		"(accountNote.type IS NULL OR accountNote.type = '') AND ";
+
+	private static final String _FINDER_COLUMN_AI_T_S_TYPE_5 =
+		"(" + removeConjunction(_FINDER_COLUMN_AI_T_S_TYPE_2) + ")";
+
+	private static final String _FINDER_COLUMN_AI_T_S_TYPE_6 =
+		"(" + removeConjunction(_FINDER_COLUMN_AI_T_S_TYPE_3) + ")";
 
 	private static final String _FINDER_COLUMN_AI_T_S_STATUS_2 =
 		"accountNote.status = ?";
@@ -3395,7 +3812,7 @@ public class AccountNotePersistenceImpl
 			new String[] {String.class.getName()},
 			AccountNoteModelImpl.UUID_COLUMN_BITMASK |
 			AccountNoteModelImpl.PRIORITY_COLUMN_BITMASK |
-			AccountNoteModelImpl.MODIFIEDDATE_COLUMN_BITMASK);
+			AccountNoteModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountByUuid = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
@@ -3418,7 +3835,7 @@ public class AccountNotePersistenceImpl
 			AccountNoteModelImpl.UUID_COLUMN_BITMASK |
 			AccountNoteModelImpl.COMPANYID_COLUMN_BITMASK |
 			AccountNoteModelImpl.PRIORITY_COLUMN_BITMASK |
-			AccountNoteModelImpl.MODIFIEDDATE_COLUMN_BITMASK);
+			AccountNoteModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountByUuid_C = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
@@ -3450,7 +3867,7 @@ public class AccountNotePersistenceImpl
 			new String[] {Long.class.getName()},
 			AccountNoteModelImpl.ACCOUNTID_COLUMN_BITMASK |
 			AccountNoteModelImpl.PRIORITY_COLUMN_BITMASK |
-			AccountNoteModelImpl.MODIFIEDDATE_COLUMN_BITMASK);
+			AccountNoteModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountByAccountId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
@@ -3477,11 +3894,19 @@ public class AccountNotePersistenceImpl
 			AccountNoteModelImpl.TYPE_COLUMN_BITMASK |
 			AccountNoteModelImpl.STATUS_COLUMN_BITMASK |
 			AccountNoteModelImpl.PRIORITY_COLUMN_BITMASK |
-			AccountNoteModelImpl.MODIFIEDDATE_COLUMN_BITMASK);
+			AccountNoteModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountByAI_T_S = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAI_T_S",
+			new String[] {
+				Long.class.getName(), String.class.getName(),
+				String.class.getName()
+			});
+
+		_finderPathWithPaginationCountByAI_T_S = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByAI_T_S",
 			new String[] {
 				Long.class.getName(), String.class.getName(),
 				String.class.getName()

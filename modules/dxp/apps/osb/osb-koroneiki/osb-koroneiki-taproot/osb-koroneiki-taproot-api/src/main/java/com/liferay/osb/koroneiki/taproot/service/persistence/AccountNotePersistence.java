@@ -674,6 +674,80 @@ public interface AccountNotePersistence extends BasePersistence<AccountNote> {
 		throws NoSuchAccountNoteException;
 
 	/**
+	 * Returns all the account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param types the types
+	 * @param statuses the statuses
+	 * @return the matching account notes
+	 */
+	public java.util.List<AccountNote> findByAI_T_S(
+		long accountId, String[] types, String[] statuses);
+
+	/**
+	 * Returns a range of all the account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param types the types
+	 * @param statuses the statuses
+	 * @param start the lower bound of the range of account notes
+	 * @param end the upper bound of the range of account notes (not inclusive)
+	 * @return the range of matching account notes
+	 */
+	public java.util.List<AccountNote> findByAI_T_S(
+		long accountId, String[] types, String[] statuses, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param types the types
+	 * @param statuses the statuses
+	 * @param start the lower bound of the range of account notes
+	 * @param end the upper bound of the range of account notes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching account notes
+	 */
+	public java.util.List<AccountNote> findByAI_T_S(
+		long accountId, String[] types, String[] statuses, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<AccountNote>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the account notes where accountId = &#63; and type = &#63; and status = &#63;, optionally using the finder cache.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param type the type
+	 * @param status the status
+	 * @param start the lower bound of the range of account notes
+	 * @param end the upper bound of the range of account notes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching account notes
+	 */
+	public java.util.List<AccountNote> findByAI_T_S(
+		long accountId, String[] types, String[] statuses, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<AccountNote>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
 	 * Removes all the account notes where accountId = &#63; and type = &#63; and status = &#63; from the database.
 	 *
 	 * @param accountId the account ID
@@ -691,6 +765,16 @@ public interface AccountNotePersistence extends BasePersistence<AccountNote> {
 	 * @return the number of matching account notes
 	 */
 	public int countByAI_T_S(long accountId, String type, String status);
+
+	/**
+	 * Returns the number of account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param types the types
+	 * @param statuses the statuses
+	 * @return the number of matching account notes
+	 */
+	public int countByAI_T_S(long accountId, String[] types, String[] statuses);
 
 	/**
 	 * Caches the account note in the entity cache if it is enabled.

@@ -65,18 +65,19 @@ public class AccountNoteServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.AccountNote> getAccountNotes(
-				long accountId, String type, String status, int start, int end)
+				long accountId, String[] types, String[] statuses, int start,
+				int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getAccountNotes(
-			accountId, type, status, start, end);
+			accountId, types, statuses, start, end);
 	}
 
 	public static int getAccountNotesCount(
-			long accountId, String type, String status)
+			long accountId, String[] types, String[] statuses)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getAccountNotesCount(accountId, type, status);
+		return getService().getAccountNotesCount(accountId, types, statuses);
 	}
 
 	/**

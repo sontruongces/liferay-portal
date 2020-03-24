@@ -1216,8 +1216,8 @@ public class Query {
 	@GraphQLField
 	public NotePage accountAccountKeyNotes(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("type") String type,
 			@GraphQLName("status") String status,
+			@GraphQLName("type") String type,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -1227,7 +1227,7 @@ public class Query {
 			this::_populateResourceContext,
 			noteResource -> new NotePage(
 				noteResource.getAccountAccountKeyNotesPage(
-					accountKey, type, status, Pagination.of(page, pageSize))));
+					accountKey, status, type, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -2031,8 +2031,8 @@ public class Query {
 
 		@GraphQLField
 		public NotePage accountKeyNotes(
-				@GraphQLName("type") String type,
 				@GraphQLName("status") String status,
+				@GraphQLName("type") String type,
 				@GraphQLName("pageSize") int pageSize,
 				@GraphQLName("page") int page)
 			throws Exception {
@@ -2042,7 +2042,7 @@ public class Query {
 				Query.this::_populateResourceContext,
 				noteResource -> new NotePage(
 					noteResource.getAccountAccountKeyNotesPage(
-						_account.getKey(), type, status,
+						_account.getKey(), status, type,
 						Pagination.of(page, pageSize))));
 		}
 

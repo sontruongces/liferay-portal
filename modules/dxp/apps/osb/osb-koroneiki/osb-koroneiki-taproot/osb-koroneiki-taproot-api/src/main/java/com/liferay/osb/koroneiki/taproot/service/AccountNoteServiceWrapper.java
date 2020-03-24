@@ -61,19 +61,21 @@ public class AccountNoteServiceWrapper
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.AccountNote>
 			getAccountNotes(
-				long accountId, String type, String status, int start, int end)
+				long accountId, String[] types, String[] statuses, int start,
+				int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountNoteService.getAccountNotes(
-			accountId, type, status, start, end);
+			accountId, types, statuses, start, end);
 	}
 
 	@Override
-	public int getAccountNotesCount(long accountId, String type, String status)
+	public int getAccountNotesCount(
+			long accountId, String[] types, String[] statuses)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountNoteService.getAccountNotesCount(
-			accountId, type, status);
+			accountId, types, statuses);
 	}
 
 	/**

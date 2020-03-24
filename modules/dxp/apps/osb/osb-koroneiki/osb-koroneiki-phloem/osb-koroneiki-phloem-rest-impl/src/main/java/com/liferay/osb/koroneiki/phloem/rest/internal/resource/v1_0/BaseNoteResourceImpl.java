@@ -64,6 +64,37 @@ public abstract class BaseNoteResourceImpl implements NoteResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/notes'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrieves the account's notes.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "status"),
+			@Parameter(in = ParameterIn.QUERY, name = "type"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/accounts/{accountKey}/notes")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Note")})
+	public Page<Note> getAccountAccountKeyNotesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
+				accountKey,
+			@Parameter(hidden = true) @QueryParam("status") String status,
+			@Parameter(hidden = true) @QueryParam("type") String type,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/notes' -d $'{"content": ___, "format": ___, "priority": ___, "status": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -88,38 +119,6 @@ public abstract class BaseNoteResourceImpl implements NoteResource {
 		throws Exception {
 
 		return new Note();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/notes/{type}/{status}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(description = "Retrieves the account's notes.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "type"),
-			@Parameter(in = ParameterIn.PATH, name = "status"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/accounts/{accountKey}/notes/{type}/{status}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Note")})
-	public Page<Note> getAccountAccountKeyNotesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("type") String type,
-			@NotNull @Parameter(hidden = true) @PathParam("status") String
-				status,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
 	}
 
 	/**

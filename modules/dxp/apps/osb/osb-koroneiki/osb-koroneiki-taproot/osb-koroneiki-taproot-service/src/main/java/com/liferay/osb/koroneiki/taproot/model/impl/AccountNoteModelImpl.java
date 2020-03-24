@@ -117,10 +117,10 @@ public class AccountNoteModelImpl
 		"drop table Koroneiki_AccountNote";
 
 	public static final String ORDER_BY_JPQL =
-		" ORDER BY accountNote.priority ASC, accountNote.modifiedDate DESC";
+		" ORDER BY accountNote.priority ASC, accountNote.createDate DESC";
 
 	public static final String ORDER_BY_SQL =
-		" ORDER BY Koroneiki_AccountNote.priority ASC, Koroneiki_AccountNote.modifiedDate DESC";
+		" ORDER BY Koroneiki_AccountNote.priority ASC, Koroneiki_AccountNote.createDate DESC";
 
 	public static final String DATA_SOURCE = "liferayDataSource";
 
@@ -142,7 +142,7 @@ public class AccountNoteModelImpl
 
 	public static final long PRIORITY_COLUMN_BITMASK = 64L;
 
-	public static final long MODIFIEDDATE_COLUMN_BITMASK = 128L;
+	public static final long CREATEDATE_COLUMN_BITMASK = 128L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -523,6 +523,8 @@ public class AccountNoteModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		_columnBitmask = -1L;
+
 		_createDate = createDate;
 	}
 
@@ -571,8 +573,6 @@ public class AccountNoteModelImpl
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
-
-		_columnBitmask = -1L;
 
 		_modifiedDate = modifiedDate;
 	}
@@ -840,7 +840,7 @@ public class AccountNoteModelImpl
 		}
 
 		value = DateUtil.compareTo(
-			getModifiedDate(), accountNote.getModifiedDate());
+			getCreateDate(), accountNote.getCreateDate());
 
 		value = value * -1;
 

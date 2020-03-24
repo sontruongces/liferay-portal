@@ -39,22 +39,22 @@ public interface NoteResource {
 		return new Builder();
 	}
 
+	public Page<Note> getAccountAccountKeyNotesPage(
+			String accountKey, String status, String type,
+			Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getAccountAccountKeyNotesPageHttpResponse(
+			String accountKey, String status, String type,
+			Pagination pagination)
+		throws Exception;
+
 	public Note postAccountAccountKeyNote(
 			String agentName, String agentUID, String accountKey, Note note)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postAccountAccountKeyNoteHttpResponse(
 			String agentName, String agentUID, String accountKey, Note note)
-		throws Exception;
-
-	public Page<Note> getAccountAccountKeyNotesPage(
-			String accountKey, String type, String status,
-			Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse getAccountAccountKeyNotesPageHttpResponse(
-			String accountKey, String type, String status,
-			Pagination pagination)
 		throws Exception;
 
 	public void deleteNote(String agentName, String agentUID, String noteKey)
@@ -132,6 +132,80 @@ public interface NoteResource {
 
 	public static class NoteResourceImpl implements NoteResource {
 
+		public Page<Note> getAccountAccountKeyNotesPage(
+				String accountKey, String status, String type,
+				Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyNotesPageHttpResponse(
+					accountKey, status, type, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, NoteSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyNotesPageHttpResponse(
+					String accountKey, String status, String type,
+					Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (status != null) {
+				httpInvoker.parameter("status", String.valueOf(status));
+			}
+
+			if (type != null) {
+				httpInvoker.parameter("type", String.valueOf(type));
+			}
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/notes",
+				accountKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public Note postAccountAccountKeyNote(
 				String agentName, String agentUID, String accountKey, Note note)
 			throws Exception {
@@ -200,72 +274,6 @@ public interface NoteResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/notes",
 				accountKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<Note> getAccountAccountKeyNotesPage(
-				String accountKey, String type, String status,
-				Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getAccountAccountKeyNotesPageHttpResponse(
-					accountKey, type, status, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			return Page.of(content, NoteSerDes::toDTO);
-		}
-
-		public HttpInvoker.HttpResponse
-				getAccountAccountKeyNotesPageHttpResponse(
-					String accountKey, String type, String status,
-					Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/notes/{type}/{status}",
-				accountKey, type, status);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
