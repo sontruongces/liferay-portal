@@ -67,24 +67,6 @@ describe('NotesTabPane', () => {
 	});
 
 	describe('display', () => {
-		it('displays a note with author avatar', () => {
-			const {getAllByAltText} = renderNotesTabPane();
-
-			getAllByAltText('note-author-avatar');
-		});
-
-		it('displays a note with author name', () => {
-			const {getAllByText} = renderNotesTabPane();
-
-			getAllByText('Jane Doe');
-		});
-
-		it('displays a note with the create date', () => {
-			const {getAllByText} = renderNotesTabPane();
-
-			getAllByText(new Date().toLocaleString('en-US'));
-		});
-
 		it('displays a pinned note', () => {
 			const {getByText} = renderNotesTabPane();
 
@@ -103,7 +85,7 @@ describe('NotesTabPane', () => {
 			getByText('view-archived-notes');
 		});
 
-		it('does not display a button to view archived notes when none are available', () => {
+		it('does not display a button to view archived notes when none is available', () => {
 			const {queryByText} = render(
 				<NotesTabPane
 					notes={[
