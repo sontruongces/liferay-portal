@@ -705,7 +705,7 @@ definition {
 			configurationName = "Cross-Cluster Replication",
 			configurationScope = "System Scope");
 
-		SystemSettings.configureCrossClusterReplication(localClusterName = "LiferayElasticsearchClusterTwo");
+		SystemSettings.configureCrossClusterReplication(ccrLocalClusterConnectionID = "ccr");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

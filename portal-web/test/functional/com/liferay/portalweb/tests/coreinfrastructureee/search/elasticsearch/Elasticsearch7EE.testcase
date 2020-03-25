@@ -44,11 +44,13 @@ definition {
 			dmDocumentTitle = "Apple1",
 			groupName = "Guest");
 
-		// Workaround for LPS-110500
-
 		OSGiConfig.deployOSGiConfigs(
 			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config",
-			OSGiConfigs = "networkHost=&quot;http://localhost:9202&quot;,operationMode=&quot;REMOTE&quot;,remoteClusterConnectionId=&quot;remote&quot;,logExceptionsOnly=&quot;true&quot;");
+			OSGiConfigs = "operationMode=&quot;REMOTE&quot;,logExceptionsOnly=&quot;true&quot;");
+
+		OSGiConfig.deployOSGiConfigs(
+			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch.cross.cluster.replication.internal.configuration.ElasticsearchConnectionConfiguration-ccr.config",
+			OSGiConfigs = "connectionId=&quot;ccr&quot;,networkHostAddress=&quot;http://localhost:9202&quot;");
 
 		AntCommand(
 			locator1 = "build-test-elasticsearch7.xml",
@@ -64,7 +66,7 @@ definition {
 			configurationName = "Cross-Cluster Replication",
 			configurationScope = "System Scope");
 
-		SystemSettings.configureCrossClusterReplication(localClusterName = "LiferayElasticsearchClusterTwo");
+		SystemSettings.configureCrossClusterReplication(ccrLocalClusterConnectionID = "ccr");
 
 		Navigator.openURL();
 
@@ -753,7 +755,11 @@ definition {
 
 		OSGiConfig.deployOSGiConfigs(
 			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config",
-			OSGiConfigs = "operationMode=&quot;REMOTE&quot;,remoteClusterConnectionId=&quot;remote&quot;,logExceptionsOnly=&quot;true&quot;");
+			OSGiConfigs = "operationMode=&quot;REMOTE&quot;,logExceptionsOnly=&quot;true&quot;");
+
+		OSGiConfig.deployOSGiConfigs(
+			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch.cross.cluster.replication.internal.configuration.ElasticsearchConnectionConfiguration-ccr.config",
+			OSGiConfigs = "connectionId=&quot;ccr&quot;,networkHostAddress=&quot;http://localhost:9202&quot;");
 
 		AntCommand(
 			locator1 = "build-test-elasticsearch7.xml",
@@ -769,7 +775,7 @@ definition {
 			configurationName = "Cross-Cluster Replication",
 			configurationScope = "System Scope");
 
-		SystemSettings.configureCrossClusterReplication(localClusterName = "LiferayElasticsearchClusterTwo");
+		SystemSettings.configureCrossClusterReplication(ccrLocalClusterConnectionID = "ccr");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
