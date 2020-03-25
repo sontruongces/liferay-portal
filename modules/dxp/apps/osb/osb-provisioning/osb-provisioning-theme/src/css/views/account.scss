@@ -91,6 +91,10 @@
 
 	.note {
 		padding: $spacing-md;
+
+		&:hover {
+			background-color: $primary-l3;
+		}
 	}
 
 	.note-create-date {
@@ -99,6 +103,7 @@
 	}
 
 	.note-metadata {
+		align-items: center;
 		display: flex;
 		margin-bottom: $spacing-sm;
 
