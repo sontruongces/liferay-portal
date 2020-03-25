@@ -63,11 +63,17 @@ public class UserMigration {
 	public void migrate(long userId) throws Exception {
 		try (Connection connection = DataAccess.getConnection()) {
 			_migrateAccountCustomers(connection, userId);
+		}
 
+		try (Connection connection = DataAccess.getConnection()) {
 			_migrateAccountWorkers(connection, userId);
+		}
 
+		try (Connection connection = DataAccess.getConnection()) {
 			_migrateCorpEntries(connection, userId);
+		}
 
+		try (Connection connection = DataAccess.getConnection()) {
 			_migrateCorpProjects(connection, userId);
 		}
 	}
