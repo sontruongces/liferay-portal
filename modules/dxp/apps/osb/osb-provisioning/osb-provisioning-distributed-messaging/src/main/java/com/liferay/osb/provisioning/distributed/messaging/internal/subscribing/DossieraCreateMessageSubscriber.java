@@ -86,7 +86,8 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			postalAddress, contacts.toArray(new Contact[0]), externalLinks,
 			productPurchases.toArray(new ProductPurchase[0]), jsonObject);
 
-		_accountWebService.postAccount(account);
+		_accountWebService.postAccount(
+			StringPool.BLANK, StringPool.BLANK, account);
 	}
 
 	protected PostalAddress getPostalAddress(JSONObject jsonObject) {

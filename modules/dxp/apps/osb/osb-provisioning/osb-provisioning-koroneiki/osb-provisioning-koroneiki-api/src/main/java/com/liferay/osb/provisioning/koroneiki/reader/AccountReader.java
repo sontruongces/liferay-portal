@@ -30,6 +30,8 @@ public interface AccountReader {
 
 	public int getDeveloperCount(Account account);
 
+	public Team getFirstLineSupportTeam(Account account) throws Exception;
+
 	public int getMaxDeveloperCount(Account account);
 
 	public Team getPartnerTeam(Account account) throws Exception;

@@ -60,9 +60,20 @@ public class AccountWebServiceImpl implements AccountWebService {
 		return _accountDetailsResource.getAccount(accountKey);
 	}
 
-	public Account postAccount(Account account) throws Exception {
-		return _accountResource.postAccount(
-			StringPool.BLANK, StringPool.BLANK, account);
+	public Account postAccount(
+			String agentName, String agentUID, Account account)
+		throws Exception {
+
+		return _accountResource.postAccount(agentName, agentUID, account);
+	}
+
+	public Account putAccount(
+			String agentName, String agentUID, String accountKey,
+			Account account)
+		throws Exception {
+
+		return _accountResource.putAccount(
+			agentName, agentUID, accountKey, account);
 	}
 
 	public List<Account> search(

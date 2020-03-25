@@ -31,6 +31,7 @@ page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDi
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ExternalLinkDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.NoteDisplay" %><%@
+page import="com.liferay.osb.provisioning.web.internal.display.context.PostalAddressDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.util.ProvisioningWebComponentProvider" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@

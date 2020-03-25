@@ -15,6 +15,7 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
@@ -27,9 +28,11 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.text.Format;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,11 +48,19 @@ public class AccountDisplay {
 		throws Exception {
 
 		_httpServletRequest = httpServletRequest;
+
 		_accountReader = accountReader;
 		_account = account;
 
+		_firstLineSupportTeam = _accountReader.getFirstLineSupportTeam(
+			_account);
+
+		_partnerTeam = _accountReader.getPartnerTeam(_account);
+
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy");
+		_dateTimeFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
+			"MMM dd, yyyy hh:mm a z");
 	}
 
 	public Account getAccount() {
@@ -68,6 +79,14 @@ public class AccountDisplay {
 		return StringPool.DASH;
 	}
 
+	public String getDateCreated() {
+		return _dateTimeFormat.format(_account.getDateCreated());
+	}
+
+	public String getDateModified() {
+		return _dateTimeFormat.format(_account.getDateModified());
+	}
+
 	public String getDeveloperContactUsage() {
 		StringBundler sb = new StringBundler(5);
 
@@ -80,6 +99,14 @@ public class AccountDisplay {
 		return sb.toString();
 	}
 
+	public String getDossieraAccountKey() {
+		return _getExternalLinkEntityId("dossiera", "account");
+	}
+
+	public String getDossieraProjectKey() {
+		return _getExternalLinkEntityId("dossiera", "project");
+	}
+
 	public String getEWSA() throws Exception {
 		if (isEWSA()) {
 			return LanguageUtil.get(_httpServletRequest, "yes");
@@ -88,20 +115,35 @@ public class AccountDisplay {
 		return LanguageUtil.get(_httpServletRequest, "no");
 	}
 
+	public String getFirstLineSupportTeamName() throws Exception {
+		if (_firstLineSupportTeam != null) {
+			return _firstLineSupportTeam.getName();
+		}
+
+		return StringPool.DASH;
+	}
+
 	public String getName() {
 		return _account.getName();
 	}
 
 	public String getPartnerTeamName() throws Exception {
-		if (_partnerTeam == null) {
-			_partnerTeam = _accountReader.getPartnerTeam(_account);
-		}
-
 		if (_partnerTeam != null) {
 			return _partnerTeam.getName();
 		}
 
 		return StringPool.DASH;
+	}
+
+	public List<PostalAddressDisplay> getPostalAddressDisplays() {
+		if (_account.getPostalAddresses() == null) {
+			return Collections.emptyList();
+		}
+
+		return TransformUtil.transformToList(
+			_account.getPostalAddresses(),
+			postalAddress -> new PostalAddressDisplay(
+				_httpServletRequest, postalAddress));
 	}
 
 	public String getPrimaryCountry() {
@@ -128,6 +170,10 @@ public class AccountDisplay {
 		}
 
 		return StringPool.DASH;
+	}
+
+	public String getSalesforceProjectKey() {
+		return _getExternalLinkEntityId("salesforce", "project");
 	}
 
 	public String getSLAName() {
@@ -208,6 +254,22 @@ public class AccountDisplay {
 		return false;
 	}
 
+	private String _getExternalLinkEntityId(String domain, String entityName) {
+		ExternalLink[] externalLinks = _account.getExternalLinks();
+
+		if (externalLinks != null) {
+			for (ExternalLink externalLink : externalLinks) {
+				if (domain.equals(externalLink.getDomain()) &&
+					entityName.equals(externalLink.getEntityName())) {
+
+					return externalLink.getEntityId();
+				}
+			}
+		}
+
+		return StringPool.BLANK;
+	}
+
 	private ProductPurchase _getSLAProductPurchase() {
 		if (_slaProductPurchase != null) {
 			return _slaProductPurchase;
@@ -240,8 +302,10 @@ public class AccountDisplay {
 	private final AccountReader _accountReader;
 	private List<Account> _ancestorAccounts;
 	private final Format _dateFormat;
+	private final Format _dateTimeFormat;
+	private final Team _firstLineSupportTeam;
 	private final HttpServletRequest _httpServletRequest;
-	private Team _partnerTeam;
+	private final Team _partnerTeam;
 	private ProductPurchase _slaProductPurchase;
 
 }

@@ -20,6 +20,8 @@
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 
 viewAccountDisplayContext.addPortletBreadcrumbEntries();
+
+String tabs1 = ParamUtil.getString(request, "tabs1");
 %>
 
 <liferay-util:include page="/accounts/view_account_header.jsp" servletContext="<%= application %>" />
@@ -72,9 +74,21 @@ viewAccountDisplayContext.addPortletBreadcrumbEntries();
 
 <div class="account full-view" id="account">
 	<div class="account-details">
-		<div class="subscription-details" id="subscriptionDetails">
-			<liferay-util:include page="/accounts/view_subscriptions.jsp" servletContext="<%= application %>" />
-		</div>
+		<liferay-ui:tabs
+			names="subscriptions,details,contacts,liferay-workers,related-accounts,support,history,opportunities"
+			portletURL="<%= viewAccountDisplayContext.getPortletURL() %>"
+		/>
+
+		<c:choose>
+			<c:when test='<%= tabs1.equals("details") %>'>
+				<liferay-util:include page="/accounts/view_account_details.jsp" servletContext="<%= application %>" />
+			</c:when>
+			<c:otherwise>
+				<div class="subscription-details" id="subscriptionDetails">
+					<liferay-util:include page="/accounts/view_account_subscriptions.jsp" servletContext="<%= application %>" />
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
 
 	<div class="side-panel" id="sidePanel">

@@ -24,6 +24,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWeb
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
@@ -127,6 +128,18 @@ public class ViewAccountDisplayContext {
 		return TransformUtil.transform(
 			_noteWebService.getNotes(_account.getKey(), type, status, 1, 1000),
 			note -> new NoteDisplay(_httpServletRequest, note));
+	}
+
+	public PortletURL getPortletURL() {
+		PortletURL portletURL = _renderResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/accounts/view_account");
+		portletURL.setParameter(
+			"tabs1", ParamUtil.getString(_renderRequest, "tabs1"));
+		portletURL.setParameter("accountKey", _account.getKey());
+
+		return portletURL;
 	}
 
 	public SearchContainer getProductPurchaseViewSearchContainer(String state)

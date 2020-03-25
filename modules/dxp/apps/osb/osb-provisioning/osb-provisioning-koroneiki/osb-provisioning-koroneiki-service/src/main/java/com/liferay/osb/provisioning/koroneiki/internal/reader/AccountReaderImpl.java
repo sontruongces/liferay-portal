@@ -91,6 +91,10 @@ public class AccountReaderImpl implements AccountReader {
 		return developerCount;
 	}
 
+	public Team getFirstLineSupportTeam(Account account) throws Exception {
+		return _getTeam(account, TeamRoleConstants.NAME_FIRST_LINE_SUPPORT);
+	}
+
 	public int getMaxDeveloperCount(Account account) {
 		if (ArrayUtil.isEmpty(account.getProductPurchases())) {
 			return 0;
@@ -187,31 +191,7 @@ public class AccountReaderImpl implements AccountReader {
 	}
 
 	public Team getPartnerTeam(Account account) throws Exception {
-		Team[] teams = account.getAssignedTeams();
-
-		if (teams != null) {
-			for (Team team : teams) {
-				TeamRole[] teamRoles = team.getTeamRoles();
-
-				if (teamRoles == null) {
-					List<TeamRole> teamRolesList =
-						_teamRoleWebService.getTeamRoles(
-							account.getKey(), team.getKey(), 1, 1000);
-
-					teamRoles = teamRolesList.toArray(new TeamRole[0]);
-				}
-
-				for (TeamRole teamRole : teamRoles) {
-					String name = teamRole.getName();
-
-					if (name.equals(TeamRoleConstants.NAME_PARTNER)) {
-						return team;
-					}
-				}
-			}
-		}
-
-		return null;
+		return _getTeam(account, TeamRoleConstants.NAME_PARTNER);
 	}
 
 	public ProductPurchase getSLAProductPurchase(Account account) {
@@ -255,6 +235,34 @@ public class AccountReaderImpl implements AccountReader {
 		}
 
 		return 0;
+	}
+
+	private Team _getTeam(Account account, String teamRoleName)
+		throws Exception {
+
+		Team[] teams = account.getAssignedTeams();
+
+		if (teams != null) {
+			for (Team team : teams) {
+				TeamRole[] teamRoles = team.getTeamRoles();
+
+				if (teamRoles == null) {
+					List<TeamRole> teamRolesList =
+						_teamRoleWebService.getTeamRoles(
+							account.getKey(), team.getKey(), 1, 1000);
+
+					teamRoles = teamRolesList.toArray(new TeamRole[0]);
+				}
+
+				for (TeamRole teamRole : teamRoles) {
+					if (teamRoleName.equals(teamRole.getName())) {
+						return team;
+					}
+				}
+			}
+		}
+
+		return null;
 	}
 
 	private boolean _isHigherSLA(

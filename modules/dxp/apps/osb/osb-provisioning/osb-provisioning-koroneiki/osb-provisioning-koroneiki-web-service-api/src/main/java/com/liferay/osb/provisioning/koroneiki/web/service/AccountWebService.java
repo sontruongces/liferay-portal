@@ -27,7 +27,14 @@ public interface AccountWebService {
 
 	public Account getAccount(String accountKey) throws Exception;
 
-	public Account postAccount(Account account) throws Exception;
+	public Account postAccount(
+			String agentName, String agentUID, Account account)
+		throws Exception;
+
+	public Account putAccount(
+			String agentName, String agentUID, String accountKey,
+			Account account)
+		throws Exception;
 
 	public List<Account> search(
 			String filterString, int page, int pageSize, String sortString)
