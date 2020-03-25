@@ -56,7 +56,7 @@ describe('CriteriaRow', () => {
 		expect(asFragment()).toMatchSnapshot();
 	});
 
-	it('renders and inform there is an unknown property', () => {
+	it.skip('renders and inform there is an unknown property', () => {
 		const OriginalCriteriaRow = CriteriaRow.DecoratedComponent;
 
 		const {asFragment} = render(
