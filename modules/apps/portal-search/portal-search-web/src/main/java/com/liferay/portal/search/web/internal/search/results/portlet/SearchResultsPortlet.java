@@ -407,11 +407,7 @@ public class SearchResultsPortlet extends MVCPortlet {
 
 		SearchRequest searchRequest = searchResponse.getRequest();
 
-		if (searchRequest.isEmptySearchEnabled()) {
-			return false;
-		}
-
-		return true;
+		return !searchRequest.isEmptySearchEnabled();
 	}
 
 	protected void removeSearchResultImageContributor(
