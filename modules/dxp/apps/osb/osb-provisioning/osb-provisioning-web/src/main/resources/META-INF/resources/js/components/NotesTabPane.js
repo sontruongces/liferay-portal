@@ -33,20 +33,26 @@ Note.propTypes = {
 		createDate: PropTypes.string.isRequired,
 		creatorName: PropTypes.string.isRequired,
 		creatorPortraitURL: PropTypes.string,
+		edited: PropTypes.bool.isRequired,
 		htmlContent: PropTypes.string.isRequired,
 		key: PropTypes.string.isRequired,
-		pinned: PropTypes.bool.isRequired
+		pinned: PropTypes.bool.isRequired,
+		status: PropTypes.string.isRequired,
+		type: PropTypes.string.isRequired
 	})
 };
 
-function NotesTabPane({archivedNotes = [], generalNotes = []}) {
-	const pinnedGeneralNotes = generalNotes.filter(note => note.pinned);
-	const unpinnedGeneralNotes = generalNotes.filter(note => !note.pinned);
+function NotesTabPane({notes = []}) {
+	const approvedNotes = notes.filter(note => note.status === 'Approved');
+	const archivedNotes = notes.filter(note => note.status === 'Archived');
+
+	const pinned = approvedNotes.filter(note => note.pinned);
+	const unpinned = approvedNotes.filter(note => !note.pinned);
 
 	return (
 		<div className="notes-container">
 			<div className="notes">
-				{pinnedGeneralNotes.length ? (
+				{pinned.length ? (
 					<div className="pinned-notes">
 						<div className="notes-header">
 							<svg
@@ -59,7 +65,7 @@ function NotesTabPane({archivedNotes = [], generalNotes = []}) {
 							{Liferay.Language.get('pinned')}
 						</div>
 
-						{pinnedGeneralNotes.map(pinned => (
+						{pinned.map(pinned => (
 							<Note data={pinned} key={pinned.key} />
 						))}
 					</div>
@@ -67,13 +73,13 @@ function NotesTabPane({archivedNotes = [], generalNotes = []}) {
 					''
 				)}
 
-				{unpinnedGeneralNotes.length ? (
+				{unpinned.length ? (
 					<div className="general-notes">
 						<div className="notes-header">
 							{Liferay.Language.get('general')}
 						</div>
 
-						{unpinnedGeneralNotes.map(unpinned => (
+						{unpinned.map(unpinned => (
 							<Note data={unpinned} key={unpinned.key} />
 						))}
 					</div>
@@ -81,7 +87,7 @@ function NotesTabPane({archivedNotes = [], generalNotes = []}) {
 					''
 				)}
 
-				{!pinnedGeneralNotes.length && !unpinnedGeneralNotes.length ? (
+				{!pinned.length && !unpinned.length ? (
 					<div className="empty-state">
 						{Liferay.Language.get('no-notes-were-found')}
 					</div>
@@ -111,24 +117,17 @@ function NotesTabPane({archivedNotes = [], generalNotes = []}) {
 
 NotesTabPane.propTypes = {
 	addURL: PropTypes.string,
-	archivedNotes: PropTypes.arrayOf(
+	notes: PropTypes.arrayOf(
 		PropTypes.shape({
 			createDate: PropTypes.string.isRequired,
 			creatorName: PropTypes.string.isRequired,
 			creatorPortraitURL: PropTypes.string,
+			edited: PropTypes.bool.isRequired,
 			htmlContent: PropTypes.string.isRequired,
 			key: PropTypes.string.isRequired,
-			pinned: PropTypes.bool.isRequired
-		})
-	),
-	generalNotes: PropTypes.arrayOf(
-		PropTypes.shape({
-			createDate: PropTypes.string.isRequired,
-			creatorName: PropTypes.string.isRequired,
-			creatorPortraitURL: PropTypes.string,
-			htmlContent: PropTypes.string.isRequired,
-			key: PropTypes.string.isRequired,
-			pinned: PropTypes.bool.isRequired
+			pinned: PropTypes.bool.isRequired,
+			status: PropTypes.string.isRequired,
+			type: PropTypes.string.isRequired
 		})
 	)
 };

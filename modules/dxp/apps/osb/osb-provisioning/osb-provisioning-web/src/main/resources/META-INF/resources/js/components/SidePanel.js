@@ -6,13 +6,11 @@ import ExternalLinksTabPane from './ExternalLinksTabPane';
 import NotesTabPane from './NotesTabPane';
 import SalesInfoTabPane from './SalesInfoTabPane';
 
-function CollapsiblePanel({
-	addNoteURL,
-	generalApprovedNotes,
-	generalArchivedNotes,
-	handleCollapse
-}) {
+function CollapsiblePanel({addNoteURL, handleCollapse, notes = []}) {
 	const [activeIndex, setActiveIndex] = useState(0);
+
+	const generalNotes = notes.filter(note => note.type === 'General');
+	const salesNotes = notes.filter(note => note.type === 'Sales');
 
 	return (
 		<>
@@ -61,14 +59,10 @@ function CollapsiblePanel({
 
 			<ClayTabs.Content activeIndex={activeIndex}>
 				<ClayTabs.TabPane id="tabPaneNotes">
-					<NotesTabPane
-						addURL={addNoteURL}
-						archivedNotes={generalArchivedNotes}
-						generalNotes={generalApprovedNotes}
-					/>
+					<NotesTabPane addURL={addNoteURL} notes={generalNotes} />
 				</ClayTabs.TabPane>
 				<ClayTabs.TabPane id="tabPaneSalesInfo">
-					<SalesInfoTabPane />
+					<SalesInfoTabPane addURL={addNoteURL} notes={salesNotes} />
 				</ClayTabs.TabPane>
 				<ClayTabs.TabPane id="tabPaneExternalLinks">
 					<ExternalLinksTabPane />
@@ -79,7 +73,21 @@ function CollapsiblePanel({
 }
 
 CollapsiblePanel.propTypes = {
-	handleCollapse: PropTypes.func.isRequired
+	addNoteURL: PropTypes.string,
+	handleCollapse: PropTypes.func.isRequired,
+	notes: PropTypes.arrayOf(
+		PropTypes.shape({
+			createDate: PropTypes.string.isRequired,
+			creatorName: PropTypes.string.isRequired,
+			creatorPortraitURL: PropTypes.string,
+			edited: PropTypes.bool.isRequired,
+			htmlContent: PropTypes.string.isRequired,
+			key: PropTypes.string.isRequired,
+			pinned: PropTypes.bool.isRequired,
+			status: PropTypes.string.isRequired,
+			type: PropTypes.string.isRequired
+		})
+	)
 };
 
 function ExpandPanelButton({handleCollapse}) {

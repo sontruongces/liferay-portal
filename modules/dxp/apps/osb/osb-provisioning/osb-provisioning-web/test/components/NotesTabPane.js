@@ -7,40 +7,39 @@ function renderNotesTabPane() {
 	return render(
 		<NotesTabPane
 			addURL="/"
-			archivedNotes={[
+			notes={[
 				{
 					createDate: new Date().toLocaleString('en-US'),
 					creatorName: 'Jane Doe',
 					creatorPortraitURL: '/',
+					edited: false,
 					htmlContent: '<div>note 1</div>',
 					key: '123',
-					pinned: true
+					pinned: true,
+					status: 'Approved',
+					type: 'General'
 				},
 				{
 					createDate: new Date().toLocaleString('en-US'),
 					creatorName: 'Jane Doe',
 					creatorPortraitURL: '/',
+					edited: false,
 					htmlContent: '<div>note 2</div>',
 					key: '456',
-					pinned: false
-				}
-			]}
-			generalNotes={[
-				{
-					createDate: new Date().toLocaleString('en-US'),
-					creatorName: 'John Doe',
-					creatorPortraitURL: '/',
-					htmlContent: '<div>note 3</div>',
-					key: '789',
-					pinned: true
+					pinned: false,
+					status: 'Approved',
+					type: 'General'
 				},
 				{
 					createDate: new Date().toLocaleString('en-US'),
-					creatorName: 'Joe Bloggs',
+					creatorName: 'Jane Doe',
 					creatorPortraitURL: '/',
-					htmlContent: '<div>note 4</div>',
-					key: '321',
-					pinned: false
+					edited: false,
+					htmlContent: '<div>note 3</div>',
+					key: '789',
+					pinned: false,
+					status: 'Archived',
+					type: 'General'
 				}
 			]}
 		/>
@@ -64,9 +63,9 @@ describe('NotesTabPane', () => {
 		});
 
 		it('displays a note with author name', () => {
-			const {getByText} = renderNotesTabPane();
+			const {getAllByText} = renderNotesTabPane();
 
-			getByText('Joe Bloggs');
+			getAllByText('Jane Doe');
 		});
 
 		it('displays a note with the create date', () => {
@@ -76,39 +75,13 @@ describe('NotesTabPane', () => {
 		});
 
 		it('displays a pinned note', () => {
-			const {getByText} = render(
-				<NotesTabPane
-					generalNotes={[
-						{
-							createDate: new Date().toLocaleString('en-US'),
-							creatorName: 'John Doe',
-							creatorPortraitURL: '/',
-							htmlContent: '<div>note 3</div>',
-							key: '789',
-							pinned: true
-						}
-					]}
-				/>
-			);
+			const {getByText} = renderNotesTabPane();
 
 			getByText('pinned');
 		});
 
-		it('displays a general note', () => {
-			const {getByText} = render(
-				<NotesTabPane
-					generalNotes={[
-						{
-							createDate: new Date().toLocaleString('en-US'),
-							creatorName: 'John Doe',
-							creatorPortraitURL: '/',
-							htmlContent: '<div>note 3</div>',
-							key: '789',
-							pinned: false
-						}
-					]}
-				/>
-			);
+		it('displays an approved general note', () => {
+			const {getByText} = renderNotesTabPane();
 
 			getByText('general');
 		});
@@ -122,14 +95,17 @@ describe('NotesTabPane', () => {
 		it('does not display a button to view archived notes when none are available', () => {
 			const {queryByText} = render(
 				<NotesTabPane
-					generalNotes={[
+					notes={[
 						{
 							createDate: new Date().toLocaleString('en-US'),
-							creatorName: 'John Doe',
+							creatorName: 'Jane Doe',
 							creatorPortraitURL: '/',
-							htmlContent: '<div>note 3</div>',
-							key: '789',
-							pinned: false
+							edited: false,
+							htmlContent: '<div>note 1</div>',
+							key: '123',
+							pinned: true,
+							status: 'Approved',
+							type: 'General'
 						}
 					]}
 				/>

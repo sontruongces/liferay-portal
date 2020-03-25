@@ -75,6 +75,14 @@ public class NoteDisplay {
 		return _note.getKey();
 	}
 
+	public String getStatus() {
+		return _note.getStatusAsString();
+	}
+
+	public String getType() {
+		return _note.getTypeAsString();
+	}
+
 	public boolean isEdited() {
 		if (_note.getDateModified() != null) {
 			return true;
