@@ -1,7 +1,7 @@
 {
 	"dependencies": {
-		"@clayui/sticker": "3.0.0",
-		"@clayui/tabs": "3.0.0",
+		"@clayui/sticker": "3.0.5",
+		"@clayui/tabs": "3.0.6",
 		"prop-types": "15.7.2"
 	},
 	"jest": {
