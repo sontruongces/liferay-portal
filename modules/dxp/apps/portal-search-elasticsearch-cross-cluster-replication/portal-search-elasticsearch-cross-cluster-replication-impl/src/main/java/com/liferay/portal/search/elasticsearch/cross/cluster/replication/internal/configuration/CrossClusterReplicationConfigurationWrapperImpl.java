@@ -36,22 +36,22 @@ public class CrossClusterReplicationConfigurationWrapperImpl
 
 	@Override
 	public String getCertificateFormat() {
-		return crossClusterReplicationConfiguration.certificateFormat();
+		return null;
 	}
 
 	@Override
 	public String getClusterName() {
-		return crossClusterReplicationConfiguration.clusterName();
+		return null;
 	}
 
 	@Override
 	public String getNetworkHostAddress() {
-		return crossClusterReplicationConfiguration.networkHostAddress();
+		return null;
 	}
 
 	@Override
 	public String getPassword() {
-		return crossClusterReplicationConfiguration.password();
+		return null;
 	}
 
 	@Override
@@ -61,59 +61,57 @@ public class CrossClusterReplicationConfigurationWrapperImpl
 
 	@Override
 	public String[] getSslCertificateAuthoritiesPaths() {
-		return crossClusterReplicationConfiguration.
-			sslCertificateAuthoritiesPaths();
+		return null;
 	}
 
 	@Override
 	public String getSslCertificatePath() {
-		return crossClusterReplicationConfiguration.sslCertificatePath();
+		return null;
 	}
 
 	@Override
 	public String getSslKeyPath() {
-		return crossClusterReplicationConfiguration.sslKeyPath();
+		return null;
 	}
 
 	@Override
 	public String getSslKeystorePassword() {
-		return crossClusterReplicationConfiguration.sslKeystorePassword();
+		return null;
 	}
 
 	@Override
 	public String getSslKeystorePath() {
-		return crossClusterReplicationConfiguration.sslKeystorePath();
+		return null;
 	}
 
 	@Override
 	public String getSslTruststorePassword() {
-		return crossClusterReplicationConfiguration.sslTruststorePassword();
+		return null;
 	}
 
 	@Override
 	public String getSslTruststorePath() {
-		return crossClusterReplicationConfiguration.sslTruststorePath();
+		return null;
 	}
 
 	@Override
 	public String[] getTransportAddresses() {
-		return crossClusterReplicationConfiguration.transportAddresses();
+		return null;
 	}
 
 	@Override
 	public String getTransportSSLVerificationMode() {
-		return crossClusterReplicationConfiguration.
-			transportSSLVerificationMode();
+		return null;
 	}
 
 	@Override
 	public String getUsername() {
-		return crossClusterReplicationConfiguration.username();
+		return null;
 	}
 
 	@Override
 	public boolean isAuthenticationEnabled() {
-		return crossClusterReplicationConfiguration.authenticationEnabled();
+		return false;
 	}
 
 	@Override
@@ -123,13 +121,12 @@ public class CrossClusterReplicationConfigurationWrapperImpl
 
 	@Override
 	public boolean isClientTransportIgnoreClusterName() {
-		return crossClusterReplicationConfiguration.
-			clientTransportIgnoreClusterName();
+		return false;
 	}
 
 	@Override
 	public boolean isTransportSSLEnabled() {
-		return crossClusterReplicationConfiguration.transportSSLEnabled();
+		return false;
 	}
 
 	@Activate
