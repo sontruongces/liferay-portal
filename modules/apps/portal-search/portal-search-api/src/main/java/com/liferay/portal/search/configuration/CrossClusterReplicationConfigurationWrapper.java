@@ -22,6 +22,8 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CrossClusterReplicationConfigurationWrapper {
 
+	public String[] getCCRLocalClusterConnectionConfigurations();
+
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
 	 * ElasticsearchConnectionConfigurationWrapper#getCertificateFormat(String)}
