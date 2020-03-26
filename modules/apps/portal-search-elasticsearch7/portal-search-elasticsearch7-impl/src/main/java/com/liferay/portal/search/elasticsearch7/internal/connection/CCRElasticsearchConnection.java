@@ -22,8 +22,8 @@ import com.liferay.portal.kernel.util.InetAddressUtil;
 import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.search.configuration.CrossClusterReplicationConfigurationWrapper;
-import com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.search.configuration.ElasticsearchConnectionConfigurationWrapper;
 import com.liferay.portal.search.elasticsearch7.internal.settings.SettingsBuilder;
 
 import java.net.InetAddress;
@@ -50,9 +50,9 @@ import org.osgi.service.component.annotations.ReferenceCardinality;
  * @author Bryan Engler
  */
 @Component(
-	configurationPid = "com.liferay.portal.search.elasticsearch.cross.cluster.replication.internal.configuration.CrossClusterReplicationConfiguration",
+	configurationPid = "com.liferay.portal.search.elasticsearch.cross.cluster.replication.internal.configuration.ElasticsearchConnectionConfiguration",
 	immediate = true, property = "operation.mode=CCR",
-	service = ElasticsearchConnection.class
+	service = CCRElasticsearchConnection.class
 )
 public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 
@@ -68,18 +68,16 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 		return OperationMode.REMOTE;
 	}
 
-	public void setElasticsearchConfiguration(
-		ElasticsearchConfiguration elasticsearchConfiguration) {
-
-		this.elasticsearchConfiguration = elasticsearchConfiguration;
-
-		reconnect();
-	}
-
 	@Activate
 	@Modified
 	protected void activate(Map<String, Object> properties) {
-		reconnect();
+		_connectionId = (String)properties.get("connectionId");
+
+		if (!Validator.isBlank(_connectionId)) {
+			reconnect();
+
+			elasticsearchConnectionManager.addCCRElasticsearchConnection(this);
+		}
 	}
 
 	protected void addTransportAddress(
@@ -100,9 +98,15 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 	}
 
 	protected void configureAuthentication(SettingsBuilder settingsBuilder) {
-		String user =
-			crossClusterReplicationConfigurationWrapper.getUsername() + ":" +
-				crossClusterReplicationConfigurationWrapper.getPassword();
+		String username =
+			elasticsearchConnectionConfigurationWrapper.getUsername(
+				_connectionId);
+
+		String password =
+			elasticsearchConnectionConfigurationWrapper.getPassword(
+				_connectionId);
+
+		String user = username + StringPool.COLON + password;
 
 		settingsBuilder.put("xpack.security.user", user);
 	}
@@ -110,32 +114,35 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 	protected void configurePEMPaths(SettingsBuilder settingsBuilder) {
 		settingsBuilder.put(
 			"xpack.security.transport.ssl.certificate",
-			crossClusterReplicationConfigurationWrapper.
-				getSslCertificatePath());
+			elasticsearchConnectionConfigurationWrapper.getSslCertificatePath(
+				_connectionId));
 		settingsBuilder.putList(
 			"xpack.security.transport.ssl.certificate_authorities",
-			crossClusterReplicationConfigurationWrapper.
-				getSslCertificateAuthoritiesPaths());
+			elasticsearchConnectionConfigurationWrapper.
+				getSslCertificateAuthoritiesPaths(_connectionId));
 		settingsBuilder.put(
 			"xpack.security.transport.ssl.key",
-			crossClusterReplicationConfigurationWrapper.getSslKeyPath());
+			elasticsearchConnectionConfigurationWrapper.getSslKeyPath(
+				_connectionId));
 	}
 
 	protected void configurePKCSPaths(SettingsBuilder settingsBuilder) {
 		settingsBuilder.put(
 			"xpack.security.transport.ssl.keystore.password",
-			crossClusterReplicationConfigurationWrapper.
-				getSslKeystorePassword());
+			elasticsearchConnectionConfigurationWrapper.getSslKeystorePassword(
+				_connectionId));
 		settingsBuilder.put(
 			"xpack.security.transport.ssl.keystore.path",
-			crossClusterReplicationConfigurationWrapper.getSslKeystorePath());
+			elasticsearchConnectionConfigurationWrapper.getSslKeystorePath(
+				_connectionId));
 		settingsBuilder.put(
 			"xpack.security.transport.ssl.truststore.password",
-			crossClusterReplicationConfigurationWrapper.
-				getSslTruststorePassword());
+			elasticsearchConnectionConfigurationWrapper.
+				getSslTruststorePassword(_connectionId));
 		settingsBuilder.put(
 			"xpack.security.transport.ssl.truststore.path",
-			crossClusterReplicationConfigurationWrapper.getSslTruststorePath());
+			elasticsearchConnectionConfigurationWrapper.getSslTruststorePath(
+				_connectionId));
 	}
 
 	protected void configureSSL(SettingsBuilder settingsBuilder) {
@@ -143,11 +150,12 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 		settingsBuilder.put(
 			"xpack.security.transport.ssl.verification_mode",
 			StringUtil.toLowerCase(
-				crossClusterReplicationConfigurationWrapper.
-					getTransportSSLVerificationMode()));
+				elasticsearchConnectionConfigurationWrapper.
+					getTransportSSLVerificationMode(_connectionId)));
 
 		String certificateFormat =
-			crossClusterReplicationConfigurationWrapper.getCertificateFormat();
+			elasticsearchConnectionConfigurationWrapper.getCertificateFormat(
+				_connectionId);
 
 		if (certificateFormat.equals("PKCS#12")) {
 			configurePKCSPaths(settingsBuilder);
@@ -160,8 +168,8 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 	@Override
 	protected Client createClient() {
 		Set<String> transportAddresses = SetUtil.fromArray(
-			crossClusterReplicationConfigurationWrapper.
-				getTransportAddresses());
+			elasticsearchConnectionConfigurationWrapper.getTransportAddresses(
+				_connectionId));
 
 		if (transportAddresses.isEmpty()) {
 			throw new IllegalStateException(
@@ -201,13 +209,13 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 	}
 
 	protected TransportClient createTransportClient() {
-		if (crossClusterReplicationConfigurationWrapper.
-				isAuthenticationEnabled()) {
+		if (elasticsearchConnectionConfigurationWrapper.isAuthenticationEnabled(
+				_connectionId)) {
 
 			configureAuthentication(settingsBuilder);
 
-			if (crossClusterReplicationConfigurationWrapper.
-					isTransportSSLEnabled()) {
+			if (elasticsearchConnectionConfigurationWrapper.
+					isTransportSSLEnabled(_connectionId)) {
 
 				configureSSL(settingsBuilder);
 			}
@@ -219,8 +227,8 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 			_log.debug("Settings: " + settings.toString());
 		}
 
-		if (crossClusterReplicationConfigurationWrapper.
-				isAuthenticationEnabled()) {
+		if (elasticsearchConnectionConfigurationWrapper.isAuthenticationEnabled(
+				_connectionId)) {
 
 			return new PreBuiltXPackTransportClient(settings);
 		}
@@ -231,37 +239,36 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 	@Deactivate
 	protected void deactivate(Map<String, Object> properties) {
 		close();
-	}
 
-	protected boolean isCrossClusterReplicationEnabled() {
-		if (crossClusterReplicationConfigurationWrapper == null) {
-			return false;
-		}
-
-		return crossClusterReplicationConfigurationWrapper.isCCREnabled();
+		elasticsearchConnectionManager.removeCCRElasticsearchConnection(this);
 	}
 
 	@Override
 	protected void loadRequiredDefaultConfigurations() {
 		settingsBuilder.put(
 			"client.transport.ignore_cluster_name",
-			crossClusterReplicationConfigurationWrapper.
-				isClientTransportIgnoreClusterName());
+			elasticsearchConnectionConfigurationWrapper.
+				isClientTransportIgnoreClusterName(_connectionId));
 		settingsBuilder.put(
 			"client.transport.nodes_sampler_interval",
-			elasticsearchConfiguration.clientTransportNodesSamplerInterval());
+			elasticsearchConnectionConfigurationWrapper.
+				getClientTransportNodesSamplerInterval(_connectionId));
 		settingsBuilder.put(
 			"client.transport.ping_timeout",
-			elasticsearchConfiguration.clientTransportPingTimeout());
+			elasticsearchConnectionConfigurationWrapper.
+				getClientTransportPingTimeout(_connectionId));
 		settingsBuilder.put(
 			"client.transport.sniff",
-			elasticsearchConfiguration.clientTransportSniff());
+			elasticsearchConnectionConfigurationWrapper.isClientTransportSniff(
+				_connectionId));
 		settingsBuilder.put(
 			"cluster.name",
-			crossClusterReplicationConfigurationWrapper.getClusterName());
+			elasticsearchConnectionConfigurationWrapper.getClusterName(
+				_connectionId));
 		settingsBuilder.put(
 			"request.headers.X-Found-Cluster",
-			crossClusterReplicationConfigurationWrapper.getClusterName());
+			elasticsearchConnectionConfigurationWrapper.getClusterName(
+				_connectionId));
 	}
 
 	protected void reconnect() {
@@ -269,28 +276,25 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 			close();
 		}
 
-		if (elasticsearchConfiguration == null) {
-			return;
-		}
-
-		if (!isConnected() &&
-			(elasticsearchConfiguration.operationMode() ==
-				com.liferay.portal.search.elasticsearch7.configuration.
-					OperationMode.REMOTE) &&
-			isCrossClusterReplicationEnabled()) {
-
+		if (!isConnected()) {
 			connect();
 		}
 	}
 
 	@Reference(cardinality = ReferenceCardinality.OPTIONAL)
-	protected volatile CrossClusterReplicationConfigurationWrapper
-		crossClusterReplicationConfigurationWrapper;
+	protected volatile ElasticsearchConnectionConfigurationWrapper
+		elasticsearchConnectionConfigurationWrapper;
+
+	@Reference
+	protected volatile ElasticsearchConnectionManager
+		elasticsearchConnectionManager;
 
 	@Reference
 	protected Props props;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CCRElasticsearchConnection.class);
+
+	private String _connectionId;
 
 }

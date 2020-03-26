@@ -17,6 +17,7 @@ package com.liferay.portal.search.elasticsearch7.internal.connection;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.search.configuration.CrossClusterReplicationConfigurationWrapper;
 import com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration;
 import com.liferay.portal.search.elasticsearch7.internal.index.IndexFactory;
@@ -64,6 +65,16 @@ public class ElasticsearchConnectionManager
 		Client client = getClient();
 
 		return client.admin();
+	}
+
+	public ElasticsearchConnection getCCRElasticsearchConnection(
+		String connectionId) {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Getting connection with ID: " + connectionId);
+		}
+
+		return _ccrElasticsearchConnections.get(connectionId);
 	}
 
 	@Override
@@ -121,17 +132,6 @@ public class ElasticsearchConnectionManager
 	}
 
 	@Reference(
-		cardinality = ReferenceCardinality.OPTIONAL,
-		target = "(operation.mode=CCR)", unbind = "unsetElasticsearchConnection"
-	)
-	public void setCCRElasticsearchConnection(
-		ElasticsearchConnection elasticsearchConnection) {
-
-		_elasticsearchConnections.put(
-			CCRElasticsearchConnection.CONNECTION_ID, elasticsearchConnection);
-	}
-
-	@Reference(
 		cardinality = ReferenceCardinality.MANDATORY,
 		target = "(operation.mode=EMBEDDED)",
 		unbind = "unsetElasticsearchConnection"
@@ -176,8 +176,16 @@ public class ElasticsearchConnectionManager
 			ElasticsearchConfiguration.class, properties);
 
 		activate(translate(_elasticsearchConfiguration.operationMode()));
+	}
 
-		setCCRElasticsearchConfiguration();
+	protected void addCCRElasticsearchConnection(
+		CCRElasticsearchConnection ccrElasticsearchConnection) {
+
+		if (!Validator.isBlank(ccrElasticsearchConnection.getConnectionId())) {
+			_ccrElasticsearchConnections.put(
+				ccrElasticsearchConnection.getConnectionId(),
+				ccrElasticsearchConnection);
+		}
 	}
 
 	@Modified
@@ -186,8 +194,6 @@ public class ElasticsearchConnectionManager
 			ElasticsearchConfiguration.class, properties);
 
 		modify(translate(_elasticsearchConfiguration.operationMode()));
-
-		setCCRElasticsearchConfiguration();
 	}
 
 	protected synchronized void modify(OperationMode operationMode) {
@@ -231,15 +237,11 @@ public class ElasticsearchConnectionManager
 		}
 	}
 
-	protected void setCCRElasticsearchConfiguration() {
-		CCRElasticsearchConnection ccrElasticsearchConnection =
-			(CCRElasticsearchConnection)_elasticsearchConnections.get(
-				CCRElasticsearchConnection.CONNECTION_ID);
+	protected void removeCCRElasticsearchConnection(
+		CCRElasticsearchConnection ccrElasticsearchConnection) {
 
-		if (ccrElasticsearchConnection != null) {
-			ccrElasticsearchConnection.setElasticsearchConfiguration(
-				_elasticsearchConfiguration);
-		}
+		_ccrElasticsearchConnections.remove(
+			ccrElasticsearchConnection.getConnectionId());
 	}
 
 	protected OperationMode translate(
@@ -265,6 +267,8 @@ public class ElasticsearchConnectionManager
 	private static final Log _log = LogFactoryUtil.getLog(
 		ElasticsearchConnectionManager.class);
 
+	private final Map<String, CCRElasticsearchConnection>
+		_ccrElasticsearchConnections = new HashMap<>();
 	private final Map<Long, Long> _companyIds = new HashMap<>();
 	private volatile ElasticsearchConfiguration _elasticsearchConfiguration;
 	private final Map<String, ElasticsearchConnection>

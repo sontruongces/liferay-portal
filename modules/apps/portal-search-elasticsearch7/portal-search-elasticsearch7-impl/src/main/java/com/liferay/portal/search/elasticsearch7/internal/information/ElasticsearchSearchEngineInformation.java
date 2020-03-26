@@ -39,6 +39,7 @@ import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.engine.adapter.cluster.ClusterHealthStatus;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,8 @@ import org.elasticsearch.cluster.ClusterName;
 import org.elasticsearch.cluster.node.DiscoveryNode;
 import org.elasticsearch.common.unit.TimeValue;
 
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -93,12 +96,35 @@ public class ElasticsearchSearchEngineInformation
 			elasticsearchConnectionManager.getElasticsearchConnection(),
 			connectionInformationList);
 
+		String filterString = String.format(
+			"(&(service.factoryPid=%s)",
+			_ELASTICSEARCH_CONNECTION_CONFIGURATION_CLASS_NAME);
+
 		if (!isOperationModeEmbedded() &&
 			elasticsearchConnectionManager.isCrossClusterReplicationEnabled()) {
 
 			addCCRConnection(
 				elasticsearchConnectionManager.getElasticsearchConnection(true),
 				connectionInformationList);
+
+			String connectionId =
+				elasticsearchConnectionManager.getLocalClusterConnectionId();
+
+			if (!Validator.isBlank(connectionId)) {
+				filterString = filterString.concat(
+					String.format("(!(connectionId=%s))", connectionId));
+			}
+		}
+
+		filterString = filterString.concat(")");
+
+		try {
+			addActiveConnections(filterString, connectionInformationList);
+		}
+		catch (Exception exception) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to get active connections", exception);
+			}
 		}
 
 		return connectionInformationList;
@@ -187,6 +213,27 @@ public class ElasticsearchSearchEngineInformation
 	protected void activate(Map<String, Object> properties) {
 		elasticsearchConfiguration = ConfigurableUtil.createConfigurable(
 			ElasticsearchConfiguration.class, properties);
+	}
+
+	protected void addActiveConnections(
+			String filterString,
+			List<ConnectionInformation> connectionInformationList)
+		throws Exception {
+
+		Configuration[] configurations = configurationAdmin.listConfigurations(
+			filterString);
+
+		for (Configuration configuration : configurations) {
+			Dictionary<String, Object> properties =
+				configuration.getProperties();
+
+			String connectionId = (String)properties.get("connectionId");
+
+			addConnectionInformation(
+				elasticsearchConnectionManager.getCCRElasticsearchConnection(
+					connectionId),
+				connectionInformationList, null);
+		}
 	}
 
 	protected void addCCRConnection(
@@ -348,6 +395,9 @@ public class ElasticsearchSearchEngineInformation
 	protected ClusterHealthStatusTranslator clusterHealthStatusTranslator;
 
 	@Reference
+	protected ConfigurationAdmin configurationAdmin;
+
+	@Reference
 	protected ConnectionInformationBuilderFactory
 		connectionInformationBuilderFactory;
 
@@ -426,6 +476,12 @@ public class ElasticsearchSearchEngineInformation
 
 		connectionInformationBuilder.health(clusterHealthStatus.toString());
 	}
+
+	private static final String
+		_ELASTICSEARCH_CONNECTION_CONFIGURATION_CLASS_NAME =
+			"com.liferay.portal.search.elasticsearch.cross.cluster." +
+				"replication.internal.configuration." +
+					"ElasticsearchConnectionConfiguration";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ElasticsearchSearchEngineInformation.class);

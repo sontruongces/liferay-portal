@@ -122,8 +122,10 @@ public abstract class BaseElasticsearchConnection
 	}
 
 	protected void loadAdditionalConfigurations() {
-		settingsBuilder.loadFromSource(
-			elasticsearchConfiguration.additionalConfigurations());
+		if (elasticsearchConfiguration != null) {
+			settingsBuilder.loadFromSource(
+				elasticsearchConfiguration.additionalConfigurations());
+		}
 	}
 
 	protected void loadOptionalDefaultConfigurations() {
