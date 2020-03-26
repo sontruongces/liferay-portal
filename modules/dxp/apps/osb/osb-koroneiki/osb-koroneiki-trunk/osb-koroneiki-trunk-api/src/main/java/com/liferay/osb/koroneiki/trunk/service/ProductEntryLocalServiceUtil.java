@@ -227,16 +227,18 @@ public class ProductEntryLocalServiceUtil {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
 			getAccountProductEntries(
-				long accountId, String state, int start, int end) {
+				long accountId, String search, String state, int start,
+				int end) {
 
 		return getService().getAccountProductEntries(
-			accountId, state, start, end);
+			accountId, search, state, start, end);
 	}
 
 	public static int getAccountProductEntriesCount(
-		long accountId, String state) {
+		long accountId, String search, String state) {
 
-		return getService().getAccountProductEntriesCount(accountId, state);
+		return getService().getAccountProductEntriesCount(
+			accountId, search, state);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

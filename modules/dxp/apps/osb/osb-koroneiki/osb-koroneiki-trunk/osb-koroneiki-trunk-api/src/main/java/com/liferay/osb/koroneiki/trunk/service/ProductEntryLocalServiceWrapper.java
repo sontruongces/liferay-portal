@@ -234,16 +234,18 @@ public class ProductEntryLocalServiceWrapper
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
 		getAccountProductEntries(
-			long accountId, String state, int start, int end) {
+			long accountId, String search, String state, int start, int end) {
 
 		return _productEntryLocalService.getAccountProductEntries(
-			accountId, state, start, end);
+			accountId, search, state, start, end);
 	}
 
 	@Override
-	public int getAccountProductEntriesCount(long accountId, String state) {
+	public int getAccountProductEntriesCount(
+		long accountId, String search, String state) {
+
 		return _productEntryLocalService.getAccountProductEntriesCount(
-			accountId, state);
+			accountId, search, state);
 	}
 
 	@Override

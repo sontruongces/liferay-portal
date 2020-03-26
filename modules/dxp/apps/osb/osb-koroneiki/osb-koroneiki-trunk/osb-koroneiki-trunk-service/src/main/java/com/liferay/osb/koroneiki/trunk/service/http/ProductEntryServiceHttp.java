@@ -182,8 +182,8 @@ public class ProductEntryServiceHttp {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
 				getAccountProductEntries(
-					HttpPrincipal httpPrincipal, long accountId, String state,
-					int start, int end)
+					HttpPrincipal httpPrincipal, long accountId, String search,
+					String state, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -192,7 +192,7 @@ public class ProductEntryServiceHttp {
 				_getAccountProductEntriesParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, state, start, end);
+				methodKey, accountId, search, state, start, end);
 
 			Object returnObj = null;
 
@@ -224,7 +224,8 @@ public class ProductEntryServiceHttp {
 	}
 
 	public static int getAccountProductEntriesCount(
-			HttpPrincipal httpPrincipal, long accountId, String state)
+			HttpPrincipal httpPrincipal, long accountId, String search,
+			String state)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -233,7 +234,7 @@ public class ProductEntryServiceHttp {
 				_getAccountProductEntriesCountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, state);
+				methodKey, accountId, search, state);
 
 			Object returnObj = null;
 
@@ -650,10 +651,12 @@ public class ProductEntryServiceHttp {
 	private static final Class<?>[] _deleteProductEntryParameterTypes2 =
 		new Class[] {String.class};
 	private static final Class<?>[] _getAccountProductEntriesParameterTypes3 =
-		new Class[] {long.class, String.class, int.class, int.class};
+		new Class[] {
+			long.class, String.class, String.class, int.class, int.class
+		};
 	private static final Class<?>[]
 		_getAccountProductEntriesCountParameterTypes4 = new Class[] {
-			long.class, String.class
+			long.class, String.class, String.class
 		};
 	private static final Class<?>[] _getProductEntriesParameterTypes5 =
 		new Class[] {int.class, int.class};

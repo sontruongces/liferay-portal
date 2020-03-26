@@ -59,19 +59,20 @@ public class ProductEntryServiceWrapper
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
 			getAccountProductEntries(
-				long accountId, String state, int start, int end)
+				long accountId, String search, String state, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productEntryService.getAccountProductEntries(
-			accountId, state, start, end);
+			accountId, search, state, start, end);
 	}
 
 	@Override
-	public int getAccountProductEntriesCount(long accountId, String state)
+	public int getAccountProductEntriesCount(
+			long accountId, String search, String state)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productEntryService.getAccountProductEntriesCount(
-			accountId, state);
+			accountId, search, state);
 	}
 
 	/**

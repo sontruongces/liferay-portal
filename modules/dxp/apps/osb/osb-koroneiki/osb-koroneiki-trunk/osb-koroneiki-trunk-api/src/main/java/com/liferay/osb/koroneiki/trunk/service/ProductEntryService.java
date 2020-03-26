@@ -64,11 +64,12 @@ public interface ProductEntryService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProductEntry> getAccountProductEntries(
-			long accountId, String state, int start, int end)
+			long accountId, String search, String state, int start, int end)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getAccountProductEntriesCount(long accountId, String state)
+	public int getAccountProductEntriesCount(
+			long accountId, String search, String state)
 		throws PortalException;
 
 	/**
