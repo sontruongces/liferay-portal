@@ -78,6 +78,10 @@
 	}
 }
 
+.details-table {
+	background-color: $body-bg;
+}
+
 .notes-container {
 	align-items: center;
 	display: flex;
@@ -178,4 +182,27 @@
 
 .subscription-details {
 	margin: $spacing-default;
+
+	.subscription-tabs {
+		margin-bottom: $spacing-sm !important;
+	}
+
+	.nav-underline {
+		border: 1px solid $secondary-l3;
+		border-top-left-radius: $border-radius;
+		border-top-right-radius: $border-radius;
+
+		.nav-link {
+			margin: $spacing-sm;
+			padding: $spacing-xs;
+
+			&.active {
+				background: rgba(39, 40, 51, 0.06);
+
+				&:after {
+					background-color: transparent;
+				}
+			}
+		}
+	}
 }

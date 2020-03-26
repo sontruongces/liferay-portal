@@ -45,6 +45,7 @@ table {
 }
 
 .nav-underline {
+	background-color: $body-bg;
 	border-bottom: 1px solid $secondary-l3;
 
 	.nav-link {

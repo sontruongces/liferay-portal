@@ -16,23 +16,26 @@
 
 <%@ include file="/init.jsp" %>
 
-<liferay-ui:tabs
-	names="active,inactive,all"
-	refresh="<%= false %>"
->
-	<liferay-ui:section>
-		<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
-			<liferay-util:param name="state" value="active" />
-		</liferay-util:include>
-	</liferay-ui:section>
+<div class="details-table">
+	<liferay-ui:tabs
+		cssClass="subscription-tabs"
+		names="active,inactive,all"
+		refresh="<%= false %>"
+	>
+		<liferay-ui:section>
+			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
+				<liferay-util:param name="state" value="active" />
+			</liferay-util:include>
+		</liferay-ui:section>
 
-	<liferay-ui:section>
-		<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
-			<liferay-util:param name="state" value="inactive" />
-		</liferay-util:include>
-	</liferay-ui:section>
+		<liferay-ui:section>
+			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
+				<liferay-util:param name="state" value="inactive" />
+			</liferay-util:include>
+		</liferay-ui:section>
 
-	<liferay-ui:section>
-		<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>" />
-	</liferay-ui:section>
-</liferay-ui:tabs>
+		<liferay-ui:section>
+			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>" />
+		</liferay-ui:section>
+	</liferay-ui:tabs>
+</div>
