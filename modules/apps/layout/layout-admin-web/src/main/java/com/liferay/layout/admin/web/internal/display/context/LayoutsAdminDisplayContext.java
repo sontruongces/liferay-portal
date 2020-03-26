@@ -1008,6 +1008,24 @@ public class LayoutsAdminDisplayContext {
 		return breadcrumbEntries;
 	}
 
+	public String getRobots() {
+		String robots = StringPool.BLANK;
+
+		try {
+			robots = ParamUtil.getString(
+				httpServletRequest, "robots",
+				RobotsUtil.getStrictRobots(
+					getSelLayoutSet(), httpServletRequest.isSecure()));
+		}
+		catch (PortalException portalException) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(portalException, portalException);
+			}
+		}
+
+		return robots;
+	}
+
 	public String getRootNodeName() {
 		if (_rootNodeName != null) {
 			return _rootNodeName;
