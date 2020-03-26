@@ -65,7 +65,8 @@ public class ProductPurchaseViewResourceImpl
 	@Override
 	public Page<ProductPurchaseView>
 			getAccountAccountKeyProductPurchaseViewsPage(
-				String accountKey, String state, Pagination pagination)
+				String accountKey, String search, String state, 
+				Pagination pagination)
 		throws Exception {
 
 		Account account = _accountService.getAccount(accountKey);
@@ -73,7 +74,7 @@ public class ProductPurchaseViewResourceImpl
 		return Page.of(
 			transform(
 				_productEntryService.getAccountProductEntries(
-					account.getAccountId(), state,
+					account.getAccountId(), search, state,
 					pagination.getStartPosition(), pagination.getEndPosition()),
 				productEntry -> ProductPurchaseViewUtil.toProductPurchaseView(
 					productEntry,
@@ -88,7 +89,7 @@ public class ProductPurchaseViewResourceImpl
 							QueryUtil.ALL_POS))),
 			pagination,
 			_productEntryService.getAccountProductEntriesCount(
-				account.getAccountId(), state));
+				account.getAccountId(), search, state));
 	}
 
 	@Reference

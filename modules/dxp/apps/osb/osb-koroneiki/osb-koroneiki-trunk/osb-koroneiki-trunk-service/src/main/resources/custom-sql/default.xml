@@ -48,7 +48,8 @@
 				[$JOIN$]
 			WHERE
 				[$WHERE$]
-				Koroneiki_Account.accountId = ?
+				(Koroneiki_Account.accountId = ?) AND
+				((Koroneiki_ProductEntry.name LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$])
 		]]>
 	</sql>
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.findByAccount">
@@ -66,7 +67,8 @@
 			[$JOIN$]
 			WHERE
 				[$WHERE$]
-				Koroneiki_Account.accountId = ?
+				(Koroneiki_Account.accountId = ?) AND
+				((Koroneiki_ProductEntry.name LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$])
 		]]>
 	</sql>
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.joinByActive">

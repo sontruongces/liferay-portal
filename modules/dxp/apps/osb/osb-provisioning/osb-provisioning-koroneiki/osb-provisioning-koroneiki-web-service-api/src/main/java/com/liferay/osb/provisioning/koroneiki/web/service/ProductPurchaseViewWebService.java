@@ -24,10 +24,12 @@ import java.util.List;
 public interface ProductPurchaseViewWebService {
 
 	public List<ProductPurchaseView> getProductPurchaseViews(
-			String accountKey, String state, int page, int pageSize)
+			String accountKey, String search, String state, int page, 
+			int pageSize)
 		throws Exception;
 
-	public long getProductPurchaseViewsCount(String accountKey, String state)
+	public long getProductPurchaseViewsCount(
+			String accountKey, String search, String state)
 		throws Exception;
 
 }

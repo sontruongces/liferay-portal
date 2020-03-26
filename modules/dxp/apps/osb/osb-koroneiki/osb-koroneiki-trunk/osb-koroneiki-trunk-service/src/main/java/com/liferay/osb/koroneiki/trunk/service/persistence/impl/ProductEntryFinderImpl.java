@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
+import com.liferay.portal.kernel.dao.orm.WildcardMode;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -33,6 +34,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -67,6 +70,23 @@ public class ProductEntryFinderImpl
 
 			String sql = _customSQL.get(getClass(), COUNT_BY_ACCOUNT);
 
+			String[] keywords = _customSQL.keywords(
+				(String)params.get("search"), true, WildcardMode.SURROUND);
+
+			boolean keywordsEmpty = _isKeywordsEmpty(keywords);
+
+			if (keywordsEmpty) {
+				sql = _replaceKeywordConditionsWithBlank(sql);
+			}
+			else {
+				sql = _customSQL.replaceKeywords(
+					sql, "Koroneiki_ProductEntry.name", StringPool.LIKE, false,
+					keywords);
+				sql = StringUtil.replaceLast(
+					_customSQL.replaceAndOperator(sql, false), "OR",
+					StringPool.BLANK);
+			}
+
 			sql = StringUtil.replace(sql, "[$JOIN$]", getJoin(params));
 			sql = StringUtil.replace(sql, "[$WHERE$]", getWhere(params));
 
@@ -77,6 +97,10 @@ public class ProductEntryFinderImpl
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(accountId);
+
+			if (!keywordsEmpty) {
+				qPos.add(keywords, 2);
+			}
 
 			Iterator<Long> itr = q.iterate();
 
@@ -110,6 +134,23 @@ public class ProductEntryFinderImpl
 
 			String sql = _customSQL.get(getClass(), FIND_BY_ACCOUNT);
 
+			String[] keywords = _customSQL.keywords(
+				(String)params.get("search"), true, WildcardMode.SURROUND);
+
+			boolean keywordsEmpty = _isKeywordsEmpty(keywords);
+
+			if (keywordsEmpty) {
+				sql = _replaceKeywordConditionsWithBlank(sql);
+			}
+			else {
+				sql = _customSQL.replaceKeywords(
+					sql, "Koroneiki_ProductEntry.name", StringPool.LIKE, false,
+					keywords);
+				sql = StringUtil.replaceLast(
+					_customSQL.replaceAndOperator(sql, false), "OR",
+					StringPool.BLANK);
+			}
+
 			sql = StringUtil.replace(sql, "[$JOIN$]", getJoin(params));
 			sql = StringUtil.replace(sql, "[$WHERE$]", getWhere(params));
 
@@ -120,6 +161,10 @@ public class ProductEntryFinderImpl
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(accountId);
+
+			if (!keywordsEmpty) {
+				qPos.add(keywords, 2);
+			}
 
 			return (List<ProductEntry>)QueryUtil.list(
 				q, getDialect(), start, end);
@@ -211,6 +256,32 @@ public class ProductEntryFinderImpl
 
 		return join;
 	}
+
+	private boolean _isKeywordsEmpty(String[] keywords) {
+		boolean emptyKeywords = false;
+		boolean nonEmptyKeywords = false;
+
+		for (String keyword : keywords) {
+			emptyKeywords = Validator.isNull(keyword);
+			nonEmptyKeywords = Validator.isNotNull(keyword);
+		}
+
+		if (emptyKeywords && !nonEmptyKeywords) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private String _replaceKeywordConditionsWithBlank(String sql) {
+		Matcher matcher = _pattern.matcher(sql);
+
+		return matcher.replaceAll(StringPool.BLANK);
+	}
+
+	private static final Pattern _pattern = Pattern.compile(
+		"AND\\s*\\(*[A-Za-z\\.\\s\\?\\[\\]$_]*\\s*\\)*\\s*[A-Z\\[\\]$_]*\\s*" +
+			"\\)*");
 
 	@Reference
 	private CustomSQL _customSQL;
