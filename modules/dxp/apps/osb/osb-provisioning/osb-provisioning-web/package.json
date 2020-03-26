@@ -6,10 +6,10 @@
 	},
 	"jest": {
 		"setupFilesAfterEnv": [
-			"<rootDir>/test/utils/setup.js"
+			"<rootDir>/test/setup/setup.js"
 		],
 		"testPathIgnorePatterns": [
-			"<rootDir>/test/utils/[^/]+\\.js"
+			"<rootDir>/test/setup/[^/]+\\.js"
 		]
 	},
 	"license": "UNLICENSED",

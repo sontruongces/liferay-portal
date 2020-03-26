@@ -36,7 +36,7 @@ Note.propTypes = {
 		edited: PropTypes.bool.isRequired,
 		htmlContent: PropTypes.string.isRequired,
 		key: PropTypes.string.isRequired
-	})
+	}).isRequired
 };
 
 export default Note;
