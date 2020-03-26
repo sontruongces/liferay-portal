@@ -35,6 +35,12 @@ public class CrossClusterReplicationConfigurationWrapperImpl
 	implements CrossClusterReplicationConfigurationWrapper {
 
 	@Override
+	public String[] getCCRLocalClusterConnectionConfigurations() {
+		return crossClusterReplicationConfiguration.
+			ccrLocalClusterConnectionConfigurations();
+	}
+
+	@Override
 	public String getCertificateFormat() {
 		return null;
 	}
