@@ -28,7 +28,7 @@ import com.liferay.portal.kernel.util.PortalRunMode;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.search.elasticsearch6.internal.ccr.CrossClusterReplicationHelper;
+import com.liferay.portal.search.elasticsearch6.internal.ccr.CrossClusterReplicationHelperImpl;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch6.internal.index.IndexFactory;
 import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
@@ -246,7 +246,7 @@ public class ElasticsearchSearchEngine extends BaseSearchEngine {
 
 	@Reference(unbind = "-")
 	protected void setCrossClusterReplicationHelper(
-		CrossClusterReplicationHelper crossClusterReplicationHelper) {
+		CrossClusterReplicationHelperImpl crossClusterReplicationHelper) {
 
 		_crossClusterReplicationHelper = crossClusterReplicationHelper;
 	}
@@ -343,7 +343,7 @@ public class ElasticsearchSearchEngine extends BaseSearchEngine {
 	private static final Log _log = LogFactoryUtil.getLog(
 		ElasticsearchSearchEngine.class);
 
-	private CrossClusterReplicationHelper _crossClusterReplicationHelper;
+	private CrossClusterReplicationHelperImpl _crossClusterReplicationHelper;
 	private ElasticsearchConnectionManager _elasticsearchConnectionManager;
 	private IndexFactory _indexFactory;
 	private IndexNameBuilder _indexNameBuilder;

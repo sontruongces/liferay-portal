@@ -17,7 +17,10 @@ package com.liferay.portal.search.elasticsearch6.internal.ccr;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.search.ccr.CrossClusterReplicationHelper;
 import com.liferay.portal.search.configuration.CrossClusterReplicationConfigurationWrapper;
+import com.liferay.portal.search.configuration.ElasticsearchConnectionConfigurationWrapper;
+import com.liferay.portal.search.elasticsearch6.internal.connection.CCRElasticsearchConnection;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
 
 import java.io.InputStream;
@@ -58,12 +61,11 @@ import org.osgi.service.component.annotations.ReferenceCardinality;
 /**
  * @author Bryan Engler
  */
-@Component(
-	configurationPid = "com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration",
-	immediate = true, service = CrossClusterReplicationHelper.class
-)
-public class CrossClusterReplicationHelper {
+@Component(immediate = true, service = CrossClusterReplicationHelper.class)
+public class CrossClusterReplicationHelperImpl
+	implements CrossClusterReplicationHelper {
 
+	@Override
 	public void follow(String indexName) {
 		if (!elasticsearchConnectionManager.
 				isCrossClusterReplicationEnabled()) {
@@ -87,6 +89,7 @@ public class CrossClusterReplicationHelper {
 		}
 	}
 
+	@Override
 	public void unfollow(String indexName) {
 		if (!elasticsearchConnectionManager.
 				isCrossClusterReplicationEnabled()) {
@@ -115,6 +118,10 @@ public class CrossClusterReplicationHelper {
 	protected volatile CrossClusterReplicationConfigurationWrapper
 		crossClusterReplicationConfigurationWrapper;
 
+	@Reference(cardinality = ReferenceCardinality.OPTIONAL)
+	protected volatile ElasticsearchConnectionConfigurationWrapper
+		elasticsearchConnectionConfigurationWrapper;
+
 	@Reference
 	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
 
@@ -134,8 +141,9 @@ public class CrossClusterReplicationHelper {
 				httpClientBuilder.setDefaultCredentialsProvider(
 					_createCredentialsProvider());
 
-				if (crossClusterReplicationConfigurationWrapper.
-						isTransportSSLEnabled()) {
+				if (elasticsearchConnectionConfigurationWrapper.
+						isTransportSSLEnabled(
+							CCRElasticsearchConnection.CONNECTION_ID)) {
 
 					httpClientBuilder.setSSLContext(_createSSLContext());
 				}
@@ -151,8 +159,10 @@ public class CrossClusterReplicationHelper {
 		credentialsProvider.setCredentials(
 			AuthScope.ANY,
 			new UsernamePasswordCredentials(
-				crossClusterReplicationConfigurationWrapper.getUsername(),
-				crossClusterReplicationConfigurationWrapper.getPassword()));
+				elasticsearchConnectionConfigurationWrapper.getUsername(
+					CCRElasticsearchConnection.CONNECTION_ID),
+				elasticsearchConnectionConfigurationWrapper.getPassword(
+					CCRElasticsearchConnection.CONNECTION_ID)));
 
 		return credentialsProvider;
 	}
@@ -160,11 +170,12 @@ public class CrossClusterReplicationHelper {
 	private RestHighLevelClient _createRestHighLevelClient() {
 		RestClientBuilder restClientBuilder = RestClient.builder(
 			HttpHost.create(
-				crossClusterReplicationConfigurationWrapper.
-					getNetworkHostAddress()));
+				elasticsearchConnectionConfigurationWrapper.
+					getNetworkHostAddress(
+						CCRElasticsearchConnection.CONNECTION_ID)));
 
-		if (crossClusterReplicationConfigurationWrapper.
-				isAuthenticationEnabled()) {
+		if (elasticsearchConnectionConfigurationWrapper.isAuthenticationEnabled(
+				CCRElasticsearchConnection.CONNECTION_ID)) {
 
 			_configureSecurity(restClientBuilder);
 		}
@@ -175,17 +186,20 @@ public class CrossClusterReplicationHelper {
 	private SSLContext _createSSLContext() {
 		try {
 			Path path = Paths.get(
-				crossClusterReplicationConfigurationWrapper.
-					getSslTruststorePath());
+				elasticsearchConnectionConfigurationWrapper.
+					getSslTruststorePath(
+						CCRElasticsearchConnection.CONNECTION_ID));
 
 			InputStream is = Files.newInputStream(path);
 
 			KeyStore keyStore = KeyStore.getInstance(
-				crossClusterReplicationConfigurationWrapper.
-					getCertificateFormat());
+				elasticsearchConnectionConfigurationWrapper.
+					getCertificateFormat(
+						CCRElasticsearchConnection.CONNECTION_ID));
 			String truststorePassword =
-				crossClusterReplicationConfigurationWrapper.
-					getSslTruststorePassword();
+				elasticsearchConnectionConfigurationWrapper.
+					getSslTruststorePassword(
+						CCRElasticsearchConnection.CONNECTION_ID);
 
 			keyStore.load(is, truststorePassword.toCharArray());
 
@@ -247,6 +261,6 @@ public class CrossClusterReplicationHelper {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CrossClusterReplicationHelper.class);
+		CrossClusterReplicationHelperImpl.class);
 
 }

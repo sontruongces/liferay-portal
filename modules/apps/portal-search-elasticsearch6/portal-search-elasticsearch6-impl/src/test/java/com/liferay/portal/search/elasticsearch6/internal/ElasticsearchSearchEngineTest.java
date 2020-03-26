@@ -17,7 +17,7 @@ package com.liferay.portal.search.elasticsearch6.internal;
 import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.search.elasticsearch6.internal.ccr.CrossClusterReplicationHelper;
+import com.liferay.portal.search.elasticsearch6.internal.ccr.CrossClusterReplicationHelperImpl;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnection;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
@@ -206,7 +206,7 @@ public class ElasticsearchSearchEngineTest {
 		return new ElasticsearchSearchEngine() {
 			{
 				setCrossClusterReplicationHelper(
-					Mockito.mock(CrossClusterReplicationHelper.class));
+					Mockito.mock(CrossClusterReplicationHelperImpl.class));
 				setIndexFactory(createCompanyIndexFactory());
 				setIndexNameBuilder(String::valueOf);
 				setElasticsearchConnectionManager(
