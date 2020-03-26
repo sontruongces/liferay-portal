@@ -41,12 +41,14 @@ public interface ProductPurchaseViewResource {
 
 	public Page<ProductPurchaseView>
 			getAccountAccountKeyProductPurchaseViewsPage(
-				String accountKey, String state, Pagination pagination)
+				String accountKey, String search, String state,
+				Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			getAccountAccountKeyProductPurchaseViewsPageHttpResponse(
-				String accountKey, String state, Pagination pagination)
+				String accountKey, String search, String state,
+				Pagination pagination)
 		throws Exception;
 
 	public ProductPurchaseView
@@ -117,12 +119,13 @@ public interface ProductPurchaseViewResource {
 
 		public Page<ProductPurchaseView>
 				getAccountAccountKeyProductPurchaseViewsPage(
-					String accountKey, String state, Pagination pagination)
+					String accountKey, String search, String state,
+					Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getAccountAccountKeyProductPurchaseViewsPageHttpResponse(
-					accountKey, state, pagination);
+					accountKey, search, state, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -137,7 +140,8 @@ public interface ProductPurchaseViewResource {
 
 		public HttpInvoker.HttpResponse
 				getAccountAccountKeyProductPurchaseViewsPageHttpResponse(
-					String accountKey, String state, Pagination pagination)
+					String accountKey, String search, String state,
+					Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -160,6 +164,10 @@ public interface ProductPurchaseViewResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
 
 			if (state != null) {
 				httpInvoker.parameter("state", String.valueOf(state));

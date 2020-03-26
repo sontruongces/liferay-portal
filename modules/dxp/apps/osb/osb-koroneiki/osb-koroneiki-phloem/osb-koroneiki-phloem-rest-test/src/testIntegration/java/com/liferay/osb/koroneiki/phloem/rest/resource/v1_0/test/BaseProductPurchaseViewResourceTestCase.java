@@ -192,6 +192,7 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 			productPurchaseViewResource.
 				getAccountAccountKeyProductPurchaseViewsPage(
 					testGetAccountAccountKeyProductPurchaseViewsPage_getAccountKey(),
+					RandomTestUtil.randomString(),
 					RandomTestUtil.randomString(), Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
@@ -210,7 +211,7 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 			page =
 				productPurchaseViewResource.
 					getAccountAccountKeyProductPurchaseViewsPage(
-						irrelevantAccountKey, null, Pagination.of(1, 2));
+						irrelevantAccountKey, null, null, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -231,7 +232,7 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 		page =
 			productPurchaseViewResource.
 				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, null, Pagination.of(1, 2));
+					accountKey, null, null, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -263,7 +264,7 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 		Page<ProductPurchaseView> page1 =
 			productPurchaseViewResource.
 				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, null, Pagination.of(1, 2));
+					accountKey, null, null, Pagination.of(1, 2));
 
 		List<ProductPurchaseView> productPurchaseViews1 =
 			(List<ProductPurchaseView>)page1.getItems();
@@ -274,7 +275,7 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 		Page<ProductPurchaseView> page2 =
 			productPurchaseViewResource.
 				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, null, Pagination.of(2, 2));
+					accountKey, null, null, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -287,7 +288,7 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 		Page<ProductPurchaseView> page3 =
 			productPurchaseViewResource.
 				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, null, Pagination.of(1, 3));
+					accountKey, null, null, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(
