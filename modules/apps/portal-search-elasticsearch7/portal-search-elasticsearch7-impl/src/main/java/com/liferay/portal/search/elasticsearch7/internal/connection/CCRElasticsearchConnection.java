@@ -56,11 +56,9 @@ import org.osgi.service.component.annotations.ReferenceCardinality;
 )
 public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 
-	public static final String CONNECTION_ID = "CCR";
-
 	@Override
 	public String getConnectionId() {
-		return CONNECTION_ID;
+		return _connectionId;
 	}
 
 	@Override

@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.search.ccr.CrossClusterReplicationHelper;
 import com.liferay.portal.search.configuration.CrossClusterReplicationConfigurationWrapper;
 import com.liferay.portal.search.configuration.ElasticsearchConnectionConfigurationWrapper;
-import com.liferay.portal.search.elasticsearch7.internal.connection.CCRElasticsearchConnection;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnectionManager;
 
 import java.io.InputStream;
@@ -73,18 +72,23 @@ public class CrossClusterReplicationHelperImpl
 			return;
 		}
 
-		try {
-			_putFollow(indexName);
-		}
-		catch (Exception exception) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					StringBundler.concat(
-						"Unable to follow the index ", indexName, " in the ",
-						crossClusterReplicationConfigurationWrapper.
-							getRemoteClusterAlias(),
-						" cluster"),
-					exception);
+		for (String localClusterConnectionId :
+				elasticsearchConnectionManager.getLocalClusterConnectionIds()) {
+
+			try {
+				_putFollow(indexName, localClusterConnectionId);
+			}
+			catch (Exception exception) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						StringBundler.concat(
+							"Unable to follow the index ", indexName,
+							" in the ",
+							crossClusterReplicationConfigurationWrapper.
+								getRemoteClusterAlias(),
+							" cluster"),
+						exception);
+				}
 			}
 		}
 	}
@@ -97,19 +101,23 @@ public class CrossClusterReplicationHelperImpl
 			return;
 		}
 
-		try {
-			_pauseFollow(indexName);
+		for (String localClusterConnectionId :
+				elasticsearchConnectionManager.getLocalClusterConnectionIds()) {
 
-			_closeIndex(indexName);
+			try {
+				_pauseFollow(indexName, localClusterConnectionId);
 
-			_unfollow(indexName);
+				_closeIndex(indexName, localClusterConnectionId);
 
-			_deleteIndex(indexName);
-		}
-		catch (Exception exception) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					"Unable to unfollow the index " + indexName, exception);
+				_unfollow(indexName, localClusterConnectionId);
+
+				_deleteIndex(indexName, localClusterConnectionId);
+			}
+			catch (Exception exception) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Unable to unfollow the index " + indexName, exception);
+				}
 			}
 		}
 	}
@@ -125,8 +133,11 @@ public class CrossClusterReplicationHelperImpl
 	@Reference
 	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
 
-	private void _closeIndex(String indexName) throws Exception {
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient();
+	private void _closeIndex(String indexName, String connectionId)
+		throws Exception {
+
+		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
+			connectionId);
 
 		IndicesClient indices = restHighLevelClient.indices();
 
@@ -135,24 +146,28 @@ public class CrossClusterReplicationHelperImpl
 		indices.close(closeIndexRequest, RequestOptions.DEFAULT);
 	}
 
-	private void _configureSecurity(RestClientBuilder restClientBuilder) {
+	private void _configureSecurity(
+		RestClientBuilder restClientBuilder, String connectionId) {
+
 		restClientBuilder.setHttpClientConfigCallback(
 			httpClientBuilder -> {
 				httpClientBuilder.setDefaultCredentialsProvider(
-					_createCredentialsProvider());
+					_createCredentialsProvider(connectionId));
 
 				if (elasticsearchConnectionConfigurationWrapper.
-						isTransportSSLEnabled(
-							CCRElasticsearchConnection.CONNECTION_ID)) {
+						isTransportSSLEnabled(connectionId)) {
 
-					httpClientBuilder.setSSLContext(_createSSLContext());
+					httpClientBuilder.setSSLContext(
+						_createSSLContext(connectionId));
 				}
 
 				return httpClientBuilder;
 			});
 	}
 
-	private CredentialsProvider _createCredentialsProvider() {
+	private CredentialsProvider _createCredentialsProvider(
+		String connectionId) {
+
 		CredentialsProvider credentialsProvider =
 			new BasicCredentialsProvider();
 
@@ -160,46 +175,44 @@ public class CrossClusterReplicationHelperImpl
 			AuthScope.ANY,
 			new UsernamePasswordCredentials(
 				elasticsearchConnectionConfigurationWrapper.getUsername(
-					CCRElasticsearchConnection.CONNECTION_ID),
+					connectionId),
 				elasticsearchConnectionConfigurationWrapper.getPassword(
-					CCRElasticsearchConnection.CONNECTION_ID)));
+					connectionId)));
 
 		return credentialsProvider;
 	}
 
-	private RestHighLevelClient _createRestHighLevelClient() {
+	private RestHighLevelClient _createRestHighLevelClient(
+		String connectionId) {
+
 		RestClientBuilder restClientBuilder = RestClient.builder(
 			HttpHost.create(
 				elasticsearchConnectionConfigurationWrapper.
-					getNetworkHostAddress(
-						CCRElasticsearchConnection.CONNECTION_ID)));
+					getNetworkHostAddress(connectionId)));
 
 		if (elasticsearchConnectionConfigurationWrapper.isAuthenticationEnabled(
-				CCRElasticsearchConnection.CONNECTION_ID)) {
+				connectionId)) {
 
-			_configureSecurity(restClientBuilder);
+			_configureSecurity(restClientBuilder, connectionId);
 		}
 
 		return new RestHighLevelClient(restClientBuilder);
 	}
 
-	private SSLContext _createSSLContext() {
+	private SSLContext _createSSLContext(String connectionId) {
 		try {
 			Path path = Paths.get(
 				elasticsearchConnectionConfigurationWrapper.
-					getSslTruststorePath(
-						CCRElasticsearchConnection.CONNECTION_ID));
+					getSslTruststorePath(connectionId));
 
 			InputStream is = Files.newInputStream(path);
 
 			KeyStore keyStore = KeyStore.getInstance(
 				elasticsearchConnectionConfigurationWrapper.
-					getCertificateFormat(
-						CCRElasticsearchConnection.CONNECTION_ID));
+					getCertificateFormat(connectionId));
 			String truststorePassword =
 				elasticsearchConnectionConfigurationWrapper.
-					getSslTruststorePassword(
-						CCRElasticsearchConnection.CONNECTION_ID);
+					getSslTruststorePassword(connectionId);
 
 			keyStore.load(is, truststorePassword.toCharArray());
 
@@ -216,8 +229,11 @@ public class CrossClusterReplicationHelperImpl
 		}
 	}
 
-	private void _deleteIndex(String indexName) throws Exception {
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient();
+	private void _deleteIndex(String indexName, String connectionId)
+		throws Exception {
+
+		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
+			connectionId);
 
 		IndicesClient indices = restHighLevelClient.indices();
 
@@ -227,8 +243,11 @@ public class CrossClusterReplicationHelperImpl
 		indices.delete(deleteIndexRequest, RequestOptions.DEFAULT);
 	}
 
-	private void _pauseFollow(String indexName) throws Exception {
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient();
+	private void _pauseFollow(String indexName, String connectionId)
+		throws Exception {
+
+		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
+			connectionId);
 
 		CcrClient ccrClient = restHighLevelClient.ccr();
 
@@ -238,8 +257,11 @@ public class CrossClusterReplicationHelperImpl
 		ccrClient.pauseFollow(pauseFollowRequest, RequestOptions.DEFAULT);
 	}
 
-	private void _putFollow(String indexName) throws Exception {
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient();
+	private void _putFollow(String indexName, String connectionId)
+		throws Exception {
+
+		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
+			connectionId);
 
 		CcrClient ccrClient = restHighLevelClient.ccr();
 
@@ -250,8 +272,11 @@ public class CrossClusterReplicationHelperImpl
 		ccrClient.putFollow(putFollowRequest, RequestOptions.DEFAULT);
 	}
 
-	private void _unfollow(String indexName) throws Exception {
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient();
+	private void _unfollow(String indexName, String connectionId)
+		throws Exception {
+
+		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
+			connectionId);
 
 		CcrClient ccrClient = restHighLevelClient.ccr();
 
