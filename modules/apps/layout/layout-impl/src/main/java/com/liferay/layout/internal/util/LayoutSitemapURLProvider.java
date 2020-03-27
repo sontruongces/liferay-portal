@@ -59,9 +59,7 @@ public class LayoutSitemapURLProvider implements SitemapURLProvider {
 		Layout layout = _layoutLocalService.getLayoutByUuidAndGroupId(
 			layoutUuid, layoutSet.getGroupId(), layoutSet.isPrivateLayout());
 
-		if (Objects.equals(
-				layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
-
+		if (layout.isSystem()) {
 			return;
 		}
 
@@ -103,9 +101,7 @@ public class LayoutSitemapURLProvider implements SitemapURLProvider {
 			Element element, Layout layout, ThemeDisplay themeDisplay)
 		throws PortalException {
 
-		if (Objects.equals(
-				layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
-
+		if (layout.isSystem()) {
 			return;
 		}
 
