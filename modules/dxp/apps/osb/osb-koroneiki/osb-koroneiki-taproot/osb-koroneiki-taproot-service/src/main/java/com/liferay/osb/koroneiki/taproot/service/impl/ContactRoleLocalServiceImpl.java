@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -264,7 +265,7 @@ public class ContactRoleLocalServiceImpl
 
 			BooleanQuery booleanQuery = new BooleanQueryImpl();
 
-			booleanQuery.addExactTerm("type", type);
+			booleanQuery.addExactTerm("type", StringUtil.toLowerCase(type));
 
 			BooleanClause booleanClause = BooleanClauseFactoryUtil.create(
 				booleanQuery, BooleanClauseOccur.MUST.getName());

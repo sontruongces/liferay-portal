@@ -34,6 +34,9 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 		/>
 
 		<c:choose>
+			<c:when test='<%= tabs1.equals("contacts") %>'>
+				<liferay-util:include page="/accounts/view_account_contacts.jsp" servletContext="<%= application %>" />
+			</c:when>
 			<c:when test='<%= tabs1.equals("details") %>'>
 				<liferay-util:include page="/accounts/view_account_details.jsp" servletContext="<%= application %>" />
 			</c:when>

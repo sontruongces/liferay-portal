@@ -14,12 +14,15 @@
 
 package com.liferay.osb.koroneiki.taproot.internal.search.spi.model.index.contributor;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type;
 import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
 import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalService;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
+import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -28,6 +31,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
 
 import java.util.HashSet;
@@ -77,26 +81,69 @@ public class ContactModelDocumentContributor
 		document.addTextSortable("firstName", contact.getFirstName());
 		document.addTextSortable("lastName", contact.getLastName());
 
-		_contributeContactRoles(document, contact.getContactId());
+		_contributeAccounts(document, contact.getContactId());
 		_contributeEntitlements(document, contact.getContactId());
 		_contributeExternalLinks(document, contact.getContactId());
 	}
 
-	private void _contributeContactRoles(Document document, long contactId)
+	private void _contributeAccounts(Document document, long contactId)
 		throws PortalException {
 
-		Set<String> contactRoleKeys = new HashSet<>();
+		Set<String> accountKeys = new HashSet<>();
+		Set<String> accountKeysContactRoleKeys = new HashSet<>();
+		Set<String> customerAccountKeys = new HashSet<>();
+		Set<String> workerAccountKeys = new HashSet<>();
 
-		List<ContactRole> contactRoles =
-			_contactRoleLocalService.getContactContactRoles(
-				contactId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		List<Account> accounts = _accountLocalService.getContactAccounts(
+			contactId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
-		for (ContactRole contactRole : contactRoles) {
-			contactRoleKeys.add(contactRole.getContactRoleKey());
+		for (Account account : accounts) {
+			accountKeys.add(account.getAccountKey());
+
+			List<ContactRole> customerContactRoles =
+				_contactRoleLocalService.getContactAccountContactRoles(
+					account.getAccountId(), contactId,
+					new String[] {Type.ACCOUNT_CUSTOMER.toString()},
+					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+			if (!customerContactRoles.isEmpty()) {
+				customerAccountKeys.add(account.getAccountKey());
+			}
+
+			for (ContactRole contactRole : customerContactRoles) {
+				accountKeysContactRoleKeys.add(
+					account.getAccountKey() + StringPool.UNDERLINE +
+						contactRole.getContactRoleKey());
+			}
+
+			List<ContactRole> workerContactRoles =
+				_contactRoleLocalService.getContactAccountContactRoles(
+					account.getAccountId(), contactId,
+					new String[] {Type.ACCOUNT_WORKER.toString()},
+					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+			if (!workerContactRoles.isEmpty()) {
+				workerAccountKeys.add(account.getAccountKey());
+			}
+
+			for (ContactRole contactRole : workerContactRoles) {
+				accountKeysContactRoleKeys.add(
+					account.getAccountKey() + StringPool.UNDERLINE +
+						contactRole.getContactRoleKey());
+			}
 		}
 
 		document.addKeyword(
-			"contactRoleKeys", ArrayUtil.toStringArray(contactRoles.toArray()));
+			"accountKeys", ArrayUtil.toStringArray(accountKeys.toArray()));
+		document.addKeyword(
+			"accountKeysContactRoleKeys",
+			ArrayUtil.toStringArray(accountKeysContactRoleKeys.toArray()));
+		document.addKeyword(
+			"customerAccountKeys",
+			ArrayUtil.toStringArray(customerAccountKeys.toArray()));
+		document.addKeyword(
+			"workerAccountKeys",
+			ArrayUtil.toStringArray(workerAccountKeys.toArray()));
 	}
 
 	private void _contributeEntitlements(Document document, long contactId)
@@ -149,6 +196,9 @@ public class ContactModelDocumentContributor
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ContactModelDocumentContributor.class);
+
+	@Reference
+	private AccountLocalService _accountLocalService;
 
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;

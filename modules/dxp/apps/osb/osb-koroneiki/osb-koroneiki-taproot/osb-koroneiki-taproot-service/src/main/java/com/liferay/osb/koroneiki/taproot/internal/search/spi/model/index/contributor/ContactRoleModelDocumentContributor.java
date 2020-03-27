@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.taproot.internal.search.spi.model.index.contri
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
 
 import org.osgi.service.component.annotations.Component;
@@ -39,7 +40,8 @@ public class ContactRoleModelDocumentContributor
 		document.addText(Field.DESCRIPTION, contactRole.getDescription());
 		document.addDate(Field.MODIFIED_DATE, contactRole.getModifiedDate());
 		document.addText(Field.NAME, contactRole.getName());
-		document.addKeyword(Field.TYPE, contactRole.getType());
+		document.addKeyword(
+			Field.TYPE, StringUtil.toLowerCase(contactRole.getType()));
 		document.addKeyword(Field.USER_ID, contactRole.getUserId());
 
 		document.addKeyword("contactRoleKey", contactRole.getContactRoleKey());

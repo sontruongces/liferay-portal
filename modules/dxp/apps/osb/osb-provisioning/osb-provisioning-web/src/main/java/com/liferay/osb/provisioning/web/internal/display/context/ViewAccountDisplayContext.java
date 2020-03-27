@@ -15,17 +15,23 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
+import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
@@ -49,6 +55,8 @@ public class ViewAccountDisplayContext {
 	public ViewAccountDisplayContext(
 			RenderRequest renderRequest, RenderResponse renderResponse,
 			HttpServletRequest httpServletRequest, AccountReader accountReader,
+			ContactRoleWebService contactRoleWebService,
+			ContactWebService contactWebService,
 			ExternalLinkWebService externalLinkWebService,
 			NoteWebService noteWebService,
 			ProductPurchaseViewWebService productPurchaseViewWebService)
@@ -58,6 +66,8 @@ public class ViewAccountDisplayContext {
 		_renderResponse = renderResponse;
 		_httpServletRequest = httpServletRequest;
 		_accountReader = accountReader;
+		_contactRoleWebService = contactRoleWebService;
+		_contactWebService = contactWebService;
 		_externalLinkWebService = externalLinkWebService;
 		_noteWebService = noteWebService;
 		_productPurchaseViewWebService = productPurchaseViewWebService;
@@ -94,6 +104,68 @@ public class ViewAccountDisplayContext {
 
 	public AccountDisplay getAccountDisplay() {
 		return _accountDisplay;
+	}
+
+	public List<ContactRole> getContactRoles(String type) throws Exception {
+		return _contactRoleWebService.search(
+			"type eq '" + type + "'", 1, 1000, "name");
+	}
+
+	public SearchContainer getContactsSearchContainer() throws Exception {
+		String keywords = ParamUtil.getString(_renderRequest, "keywords");
+
+		SearchContainer searchContainer = new SearchContainer(
+			_renderRequest, _renderResponse.createRenderURL(),
+			Collections.emptyList(), "no-contacts-were-found");
+
+		StringBundler sb = new StringBundler();
+
+		sb.append("customerAccountKeys/any(s:s eq '");
+		sb.append(_account.getKey());
+		sb.append("')");
+
+		String[] contactRoleKeys = ParamUtil.getStringValues(
+			_renderRequest, "contactRoleKeys");
+
+		if (!ArrayUtil.isEmpty(contactRoleKeys)) {
+			sb.append(" and accountKeysContactRoleKeys/any(s:");
+
+			for (int i = 0; i < contactRoleKeys.length; i++) {
+				if (i > 0) {
+					sb.append(" or ");
+				}
+
+				sb.append("s eq '");
+				sb.append(_account.getKey() + "_" + contactRoleKeys[i]);
+				sb.append("'");
+			}
+
+			sb.append(")");
+		}
+
+		List<Contact> contacts = _contactWebService.search(
+			keywords, sb.toString(), searchContainer.getCur(),
+			searchContainer.getEnd() - searchContainer.getStart(), "firstName");
+
+		searchContainer.setResults(
+			TransformUtil.transform(
+				contacts,
+				contact -> {
+					List<ContactRole> contactRoles =
+						_contactRoleWebService.getAccountCustomerContactRoles(
+							_account.getKey(), contact.getEmailAddress(), 1,
+							1000);
+
+					return new ContactDisplay(
+						_httpServletRequest, contact, contactRoles);
+				}));
+
+		int count = (int)_contactWebService.searchCount(
+			keywords, sb.toString());
+
+		searchContainer.setTotal(count);
+
+		return searchContainer;
 	}
 
 	public String getDeleteNoteURL(String noteKey) {
@@ -188,6 +260,8 @@ public class ViewAccountDisplayContext {
 	private final Account _account;
 	private final AccountDisplay _accountDisplay;
 	private final AccountReader _accountReader;
+	private final ContactRoleWebService _contactRoleWebService;
+	private final ContactWebService _contactWebService;
 	private final ExternalLinkWebService _externalLinkWebService;
 	private final HttpServletRequest _httpServletRequest;
 	private final NoteWebService _noteWebService;

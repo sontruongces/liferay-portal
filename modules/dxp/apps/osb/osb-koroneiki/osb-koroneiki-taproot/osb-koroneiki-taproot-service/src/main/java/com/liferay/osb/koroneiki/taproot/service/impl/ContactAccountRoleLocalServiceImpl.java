@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.taproot.exception.ContactRoleTypeException;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactAccountRoleLocalServiceBaseImpl;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactAccountRolePK;
@@ -61,6 +62,8 @@ public class ContactAccountRoleLocalServiceImpl
 
 			_accountLocalService.reindex(accountId);
 
+			_contactLocalService.reindex(contactId);
+
 			_teamLocalService.syncDefaultTeam(accountId);
 		}
 
@@ -83,6 +86,8 @@ public class ContactAccountRoleLocalServiceImpl
 
 			_accountLocalService.reindex(accountId);
 
+			_contactLocalService.reindex(contactId);
+
 			_teamLocalService.syncDefaultTeam(accountId);
 		}
 
@@ -95,6 +100,8 @@ public class ContactAccountRoleLocalServiceImpl
 		contactAccountRolePersistence.removeByCI_AI(contactId, accountId);
 
 		_accountLocalService.reindex(accountId);
+
+		_contactLocalService.reindex(contactId);
 
 		_teamLocalService.syncDefaultTeam(accountId);
 	}
@@ -136,6 +143,9 @@ public class ContactAccountRoleLocalServiceImpl
 
 	@Reference
 	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private ContactLocalService _contactLocalService;
 
 	@Reference
 	private TeamLocalService _teamLocalService;

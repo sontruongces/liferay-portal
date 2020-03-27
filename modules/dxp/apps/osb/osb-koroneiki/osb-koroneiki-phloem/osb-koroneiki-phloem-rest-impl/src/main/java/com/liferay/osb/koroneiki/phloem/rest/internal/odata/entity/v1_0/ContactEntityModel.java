@@ -35,8 +35,14 @@ public class ContactEntityModel implements EntityModel {
 	public ContactEntityModel() {
 		_entityFieldsMap = Stream.of(
 			new CollectionEntityField(
+				new StringEntityField("accountKeys", locale -> "accountKeys")),
+			new CollectionEntityField(
 				new StringEntityField(
-					"contactRoleKeys", locale -> "contactRoleKeys")),
+					"accountKeysContactRoleKeys",
+					locale -> "accountKeysContactRoleKeys")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"customerAccountKeys", locale -> "customerAccountKeys")),
 			new EntityField(
 				"emailAddress", EntityField.Type.STRING,
 				locale -> Field.getSortableFieldName("emailAddress_String"),
@@ -57,7 +63,10 @@ public class ContactEntityModel implements EntityModel {
 					locale -> "externalLinkEntityNames")),
 			new StringEntityField("firstName", locale -> "firstName"),
 			new StringEntityField("lastName", locale -> "lastName"),
-			new StringEntityField("middleName", locale -> "middleName")
+			new StringEntityField("middleName", locale -> "middleName"),
+			new CollectionEntityField(
+				new StringEntityField(
+					"workerAccountKeys", locale -> "workerAccountKeys"))
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
