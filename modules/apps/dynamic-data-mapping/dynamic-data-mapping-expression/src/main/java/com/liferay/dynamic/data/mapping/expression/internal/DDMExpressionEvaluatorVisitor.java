@@ -201,17 +201,17 @@ public class DDMExpressionEvaluatorVisitor
 				_ddmExpressionFieldAccessor);
 		}
 
-		Optional<Method> applyMethod = Stream.of(
+		Optional<Method> methodOptional = Stream.of(
 			_getMethodsInHierarchy(ddmExpressionFunction.getClass())
 		).filter(
 			method -> StringUtil.equals("apply", method.getName())
 		).findFirst();
 
-		if (!applyMethod.isPresent()) {
+		if (!methodOptional.isPresent()) {
 			return null;
 		}
 
-		Method method = applyMethod.get();
+		Method method = methodOptional.get();
 
 		method.setAccessible(true);
 
