@@ -37,6 +37,7 @@ import com.liferay.layout.util.LayoutCopyHelper;
 import com.liferay.layout.util.comparator.LayoutCreateDateComparator;
 import com.liferay.layout.util.template.LayoutConverter;
 import com.liferay.layout.util.template.LayoutConverterRegistry;
+import com.liferay.petra.content.ContentUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -92,6 +93,8 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.util.LayoutDescription;
 import com.liferay.portal.util.LayoutListUtil;
 import com.liferay.portal.util.LayoutTypeControllerTracker;
+import com.liferay.portal.util.PropsValues;
+import com.liferay.portal.util.RobotsUtil;
 import com.liferay.portlet.layoutsadmin.display.context.GroupDisplayContextHelper;
 import com.liferay.site.navigation.model.SiteNavigationMenu;
 import com.liferay.site.navigation.service.SiteNavigationMenuLocalServiceUtil;
@@ -1010,9 +1013,7 @@ public class LayoutsAdminDisplayContext {
 
 	public String getRobots() {
 		return ParamUtil.getString(
-			httpServletRequest, "robots",
-			RobotsUtil.getStrictRobots(
-				getSelLayoutSet(), httpServletRequest.isSecure()));
+			httpServletRequest, "robots", _getStrictRobots());
 	}
 
 	public String getRootNodeName() {
@@ -1881,6 +1882,27 @@ public class LayoutsAdminDisplayContext {
 			_liferayPortletRequest, "orderByType", "asc");
 
 		return _orderByType;
+	}
+
+	private String _getStrictRobots() {
+		String strictRobots = null;
+
+		LayoutSet layoutSet = getSelLayoutSet();
+
+		if (layoutSet != null) {
+			strictRobots = GetterUtil.getString(
+				layoutSet.getSettingsProperty(
+					layoutSet.isPrivateLayout() + "-robots.txt"),
+				null);
+		}
+
+		if (strictRobots == null) {
+			return ContentUtil.get(
+				RobotsUtil.class.getClassLoader(),
+				PropsValues.ROBOTS_TXT_WITH_SITEMAP);
+		}
+
+		return strictRobots;
 	}
 
 	private boolean _isActive(long plid) throws PortalException {
