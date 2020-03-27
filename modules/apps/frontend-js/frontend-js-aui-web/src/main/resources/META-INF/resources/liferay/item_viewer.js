@@ -326,7 +326,6 @@ AUI.add(
 						.item(instance.get('currentIndex'));
 
 					var itemTitle = item.getAttribute('data-title');
-					var itemDescription = item.getAttribute('data-description');
 					var itemFileEntryId = item.getAttribute('data-fileentryid');
 					var itemURL = item.getAttribute('data-url');
 
@@ -360,7 +359,6 @@ AUI.add(
 							uri: instance.get('editItemURL'),
 							urlParams: {
 								entityURL: itemURL,
-								saveFileDescription: itemDescription,
 								saveFileEntryId: itemFileEntryId,
 								saveFileName: itemTitle,
 								saveParamName: 'imageSelectorFileName',
