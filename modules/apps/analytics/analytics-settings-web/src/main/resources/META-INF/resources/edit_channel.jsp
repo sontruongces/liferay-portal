@@ -83,7 +83,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 			>
 
 				<%
-				List<Group> childSites = group.getChildren(true);
+				List<Group> childrenGroups = group.getChildren(true);
 				%>
 
 				<liferay-ui:search-container-column-text
@@ -107,7 +107,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 				<liferay-ui:search-container-column-text
 					cssClass="table-cell-expand-smaller table-cell-ws-nowrap"
 					name="child-sites"
-					value="<%= String.valueOf(childSites.size()) %>"
+					value="<%= String.valueOf(childrenGroups.size()) %>"
 				/>
 			</liferay-ui:search-container-row>
 
