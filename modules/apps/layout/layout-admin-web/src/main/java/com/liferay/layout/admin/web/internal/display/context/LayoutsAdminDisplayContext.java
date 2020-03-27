@@ -1009,21 +1009,10 @@ public class LayoutsAdminDisplayContext {
 	}
 
 	public String getRobots() {
-		String robots = StringPool.BLANK;
-
-		try {
-			robots = ParamUtil.getString(
-				httpServletRequest, "robots",
-				RobotsUtil.getStrictRobots(
-					getSelLayoutSet(), httpServletRequest.isSecure()));
-		}
-		catch (PortalException portalException) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(portalException, portalException);
-			}
-		}
-
-		return robots;
+		return ParamUtil.getString(
+			httpServletRequest, "robots",
+			RobotsUtil.getStrictRobots(
+				getSelLayoutSet(), httpServletRequest.isSecure()));
 	}
 
 	public String getRootNodeName() {
@@ -1126,6 +1115,7 @@ public class LayoutsAdminDisplayContext {
 		return _selLayout;
 	}
 
+
 	public LayoutSEOEntry getSelLayoutSEOEntry() {
 		Layout layout = getSelLayout();
 
@@ -1138,7 +1128,8 @@ public class LayoutsAdminDisplayContext {
 			layout.getLayoutId());
 	}
 
-	public LayoutSet getSelLayoutSet() throws PortalException {
+	public LayoutSet getSelLayoutSet() {
+
 		if (_selLayoutSet != null) {
 			return _selLayoutSet;
 		}
@@ -1149,7 +1140,7 @@ public class LayoutsAdminDisplayContext {
 			group = getLiveGroup();
 		}
 
-		_selLayoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+		_selLayoutSet = LayoutSetLocalServiceUtil.fetchLayoutSet(
 			group.getGroupId(), isPrivateLayout());
 
 		return _selLayoutSet;
@@ -1223,6 +1214,32 @@ public class LayoutsAdminDisplayContext {
 		}
 
 		return layoutFullURL;
+	}
+
+	public String getVirtualHostname() {
+		LayoutSet layoutSet = getSelLayoutSet();
+
+		if (layoutSet == null) {
+			return StringPool.BLANK;
+		}
+
+		String virtualHostname = PortalUtil.getVirtualHostname(layoutSet);
+
+		Group scopeGroup = themeDisplay.getScopeGroup();
+
+		if (Validator.isNull(virtualHostname) && scopeGroup.isStagingGroup()) {
+			Group liveGroup = scopeGroup.getLiveGroup();
+
+			LayoutSet liveGroupLayoutSet = liveGroup.getPublicLayoutSet();
+
+			if (layoutSet.isPrivateLayout()) {
+				liveGroupLayoutSet = liveGroup.getPrivateLayoutSet();
+			}
+
+			virtualHostname = PortalUtil.getVirtualHostname(liveGroupLayoutSet);
+		}
+
+		return virtualHostname;
 	}
 
 	public boolean hasLayouts() {
