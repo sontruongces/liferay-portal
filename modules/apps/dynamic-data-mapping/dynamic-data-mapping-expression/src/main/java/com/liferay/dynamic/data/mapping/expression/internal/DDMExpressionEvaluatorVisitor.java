@@ -202,7 +202,7 @@ public class DDMExpressionEvaluatorVisitor
 		}
 
 		Optional<Method> methodOptional = Stream.of(
-			_getMethodsInHierarchy(ddmExpressionFunction.getClass())
+			_getHierarchicalMethods(ddmExpressionFunction.getClass())
 		).filter(
 			method -> StringUtil.equals("apply", method.getName())
 		).findFirst();
@@ -542,12 +542,12 @@ public class DDMExpressionEvaluatorVisitor
 		return (T)parseTree.accept(this);
 	}
 
-	private Method[] _getMethodsInHierarchy(Class<?> clazz) {
+	private Method[] _getHierarchicalMethods(Class<?> clazz) {
 		Set<Method> methods = new HashSet<>();
 
 		if (clazz.getSuperclass() != null) {
 			Collections.addAll(
-				methods, _getMethodsInHierarchy(clazz.getSuperclass()));
+				methods, _getHierarchicalMethods(clazz.getSuperclass()));
 		}
 
 		Collections.addAll(methods, clazz.getDeclaredMethods());
