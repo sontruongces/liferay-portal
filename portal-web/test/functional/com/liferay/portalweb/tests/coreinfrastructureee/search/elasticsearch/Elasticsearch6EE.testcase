@@ -684,6 +684,10 @@ definition {
 			dmDocumentTitle = "DM Title 1",
 			groupName = "Guest");
 
+		OSGiConfig.deployOSGiConfigs(
+			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch.cross.cluster.replication.internal.configuration.ElasticsearchConnectionConfiguration-ccr.config",
+			OSGiConfigs = "clusterName=&quot;LiferayElasticsearchClusterTwo&quot;,connectionId=&quot;ccr&quot;,networkHostAddress=&quot;http://localhost:9202&quot;,transportAddresses=[&quot;localhost:9500&quot;]");
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
