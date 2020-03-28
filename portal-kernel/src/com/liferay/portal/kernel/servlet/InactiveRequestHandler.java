@@ -27,7 +27,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface InactiveRequestHandler {
 
-	public default boolean isShowInactiveRequestMessageEnabled() {
+	public default boolean isShowInactiveRequestMessage() {
 		return false;
 	}
 

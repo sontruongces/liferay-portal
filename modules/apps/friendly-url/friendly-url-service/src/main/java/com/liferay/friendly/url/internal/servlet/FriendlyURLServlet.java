@@ -127,7 +127,7 @@ public class FriendlyURLServlet extends HttpServlet {
 
 		if ((group == null) ||
 			(!group.isActive() &&
-			 !inactiveRequestHandler.isShowInactiveRequestMessageEnabled() &&
+			 !inactiveRequestHandler.isShowInactiveRequestMessage() &&
 			 !path.startsWith(GroupConstants.CONTROL_PANEL_FRIENDLY_URL) &&
 			 !path.startsWith(
 				 friendlyURL +
