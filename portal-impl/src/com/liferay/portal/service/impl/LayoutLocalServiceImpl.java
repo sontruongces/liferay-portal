@@ -1930,6 +1930,11 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	}
 
 	@Override
+	public int getLayoutsCount(long groupId, boolean privateLayout) {
+		return layoutPersistence.countByG_P(groupId, privateLayout);
+	}
+
+	@Override
 	public int getLayoutsCount(long groupId, String keywords, String[] types)
 		throws PortalException {
 
