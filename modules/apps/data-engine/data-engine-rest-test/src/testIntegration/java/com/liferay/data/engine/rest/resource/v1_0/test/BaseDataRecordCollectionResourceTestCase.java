@@ -570,13 +570,13 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 			204,
 			dataRecordCollectionResource.
 				postSiteDataRecordCollectionPermissionHttpResponse(
-					testGroup.getGroupId(), null, null));
+					dataRecordCollection.getSiteId(), null, null));
 
 		assertHttpResponseStatusCode(
 			404,
 			dataRecordCollectionResource.
 				postSiteDataRecordCollectionPermissionHttpResponse(
-					testGroup.getGroupId(), null, null));
+					dataRecordCollection.getSiteId(), null, null));
 	}
 
 	protected DataRecordCollection
@@ -1316,7 +1316,18 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 
 					sb.append(entry.getKey());
 					sb.append(":");
-					sb.append(entry.getValue());
+
+					Object value = entry.getValue();
+
+					if (value instanceof String) {
+						sb.append("\"");
+						sb.append(value);
+						sb.append("\"");
+					}
+					else {
+						sb.append(value);
+					}
+
 					sb.append(",");
 				}
 

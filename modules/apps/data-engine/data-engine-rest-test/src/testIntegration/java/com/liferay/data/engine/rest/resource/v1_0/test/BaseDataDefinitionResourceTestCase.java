@@ -399,12 +399,12 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			dataDefinitionResource.postSiteDataDefinitionPermissionHttpResponse(
-				testGroup.getGroupId(), null, null));
+				dataDefinition.getSiteId(), null, null));
 
 		assertHttpResponseStatusCode(
 			404,
 			dataDefinitionResource.postSiteDataDefinitionPermissionHttpResponse(
-				testGroup.getGroupId(), null, null));
+				dataDefinition.getSiteId(), null, null));
 	}
 
 	protected DataDefinition
@@ -1662,7 +1662,18 @@ public abstract class BaseDataDefinitionResourceTestCase {
 
 					sb.append(entry.getKey());
 					sb.append(":");
-					sb.append(entry.getValue());
+
+					Object value = entry.getValue();
+
+					if (value instanceof String) {
+						sb.append("\"");
+						sb.append(value);
+						sb.append("\"");
+					}
+					else {
+						sb.append(value);
+					}
+
 					sb.append(",");
 				}
 

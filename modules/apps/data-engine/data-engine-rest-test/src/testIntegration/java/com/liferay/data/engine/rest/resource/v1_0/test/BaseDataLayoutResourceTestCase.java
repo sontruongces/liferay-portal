@@ -617,12 +617,12 @@ public abstract class BaseDataLayoutResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			dataLayoutResource.postSiteDataLayoutPermissionHttpResponse(
-				testGroup.getGroupId(), null, null));
+				dataLayout.getSiteId(), null, null));
 
 		assertHttpResponseStatusCode(
 			404,
 			dataLayoutResource.postSiteDataLayoutPermissionHttpResponse(
-				testGroup.getGroupId(), null, null));
+				dataLayout.getSiteId(), null, null));
 	}
 
 	protected DataLayout testPostSiteDataLayoutPermission_addDataLayout()
@@ -1570,7 +1570,18 @@ public abstract class BaseDataLayoutResourceTestCase {
 
 					sb.append(entry.getKey());
 					sb.append(":");
-					sb.append(entry.getValue());
+
+					Object value = entry.getValue();
+
+					if (value instanceof String) {
+						sb.append("\"");
+						sb.append(value);
+						sb.append("\"");
+					}
+					else {
+						sb.append(value);
+					}
+
 					sb.append(",");
 				}
 
