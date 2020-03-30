@@ -29,6 +29,8 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.search.document.DocumentBuilder;
+import com.liferay.portal.search.document.DocumentBuilderFactory;
 
 import java.text.Format;
 
@@ -50,6 +52,17 @@ public class IndexedFieldsFixture {
 
 		_resourcePermissionLocalService = resourcePermissionLocalService;
 		_searchEngineHelper = searchEngineHelper;
+		_documentBuilderFactory = null;
+	}
+
+	public IndexedFieldsFixture(
+		ResourcePermissionLocalService resourcePermissionLocalService,
+		SearchEngineHelper searchEngineHelper,
+		DocumentBuilderFactory documentBuilderFactory) {
+
+		_resourcePermissionLocalService = resourcePermissionLocalService;
+		_searchEngineHelper = searchEngineHelper;
+		_documentBuilderFactory = documentBuilderFactory;
 	}
 
 	public void populateDate(
@@ -129,6 +142,21 @@ public class IndexedFieldsFixture {
 			"viewCount_sortable", String.valueOf(assetEntry.getViewCount()));
 	}
 
+	public com.liferay.portal.search.document.Document postProcessDocument(
+		com.liferay.portal.search.document.Document document) {
+
+		if (_isSearchEngineSolr()) {
+			DocumentBuilder documentBuilder = _documentBuilderFactory.builder(
+				document);
+
+			documentBuilder.unsetValue("score");
+
+			return documentBuilder.build();
+		}
+
+		return document;
+	}
+
 	public void postProcessDocument(Document document) {
 		if (_isSearchEngineSolr()) {
 			document.remove("score");
@@ -163,6 +191,7 @@ public class IndexedFieldsFixture {
 
 	private final Format _dateFormat =
 		FastDateFormatFactoryUtil.getSimpleDateFormat("yyyyMMddHHmmss");
+	private final DocumentBuilderFactory _documentBuilderFactory;
 	private final ResourcePermissionLocalService
 		_resourcePermissionLocalService;
 	private final SearchEngineHelper _searchEngineHelper;
