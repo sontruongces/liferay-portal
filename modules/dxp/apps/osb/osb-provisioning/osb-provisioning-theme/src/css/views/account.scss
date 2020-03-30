@@ -89,7 +89,7 @@
 	justify-content: center;
 
 	.note,
-	.notes-header {
+	.notes-section-header {
 		border-bottom: 1px solid $secondary-l3;
 	}
 
@@ -106,6 +106,12 @@
 		font-size: $h5-font-size;
 	}
 
+	.note-header {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+	}
+
 	.note-metadata {
 		align-items: center;
 		display: flex;
@@ -120,7 +126,7 @@
 		width: 100%;
 	}
 
-	.notes-header {
+	.notes-section-header {
 		background-color: $light-l1;
 		color: $secondary;
 		font-size: $small-font-size;

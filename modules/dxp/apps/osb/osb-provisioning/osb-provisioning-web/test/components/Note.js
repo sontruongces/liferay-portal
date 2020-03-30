@@ -1,4 +1,4 @@
-import {cleanup, render} from '@testing-library/react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
 import Note from '../../src/main/resources/META-INF/resources/js/components/Note';
@@ -12,7 +12,9 @@ function renderNote() {
 				creatorPortraitURL: '/',
 				edited: false,
 				htmlContent: '<div>note 1</div>',
-				key: '123'
+				key: '123',
+				pinned: true,
+				status: 'Approved'
 			}}
 		/>
 	);
@@ -43,5 +45,50 @@ describe('Note', () => {
 		const {getAllByText} = renderNote();
 
 		getAllByText(new Date().toLocaleString('en-US'));
+	});
+
+	it('displays a three-dot menu icon', () => {
+		const {getByLabelText} = renderNote();
+
+		getByLabelText('action-menu-icon');
+	});
+
+	it('displays the action menu icons on hover', () => {
+		const {container, getByLabelText, queryByLabelText} = renderNote();
+
+		expect(queryByLabelText('edit-note-icon')).toBeNull();
+
+		const note = container.querySelector('.note');
+
+		fireEvent.mouseEnter(note);
+
+		getByLabelText('edit-note-icon');
+
+		fireEvent.mouseLeave(note);
+
+		expect(queryByLabelText('edit-note-icon')).toBeNull();
+	});
+
+	it('displays no action menu icons for an archived note', () => {
+		const {container, queryByLabelText} = render(
+			<Note
+				data={{
+					createDate: new Date().toLocaleString('en-US'),
+					creatorName: 'John Doe',
+					creatorPortraitURL: '/',
+					edited: false,
+					htmlContent: '<div>note 2</div>',
+					key: '321',
+					pinned: false,
+					status: 'Archived'
+				}}
+			/>
+		);
+
+		const note = container.querySelector('.note');
+
+		fireEvent.mouseEnter(note);
+
+		expect(queryByLabelText('edit-note-icon')).toBeNull();
 	});
 });

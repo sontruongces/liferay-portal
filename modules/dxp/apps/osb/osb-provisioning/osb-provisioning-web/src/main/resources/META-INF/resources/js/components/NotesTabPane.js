@@ -30,9 +30,9 @@ function NotesTabPane({notes = []}) {
 	return (
 		<div className="notes-container">
 			<div className="notes">
-				{pinnedNotes.size > 0 ? (
+				{pinnedNotes.size > 0 && (
 					<div className="pinned-notes">
-						<div className="notes-header">
+						<div className="notes-section-header">
 							<svg
 								aria-label={Liferay.Language.get(
 									'pinned-notes-icon'
@@ -47,13 +47,11 @@ function NotesTabPane({notes = []}) {
 							<Note data={note} key={note.key} />
 						))}
 					</div>
-				) : (
-					''
 				)}
 
-				{unpinnedNotes.size > 0 ? (
+				{unpinnedNotes.size > 0 && (
 					<div className="general-notes">
-						<div className="notes-header">
+						<div className="notes-section-header">
 							{Liferay.Language.get('general')}
 						</div>
 
@@ -61,20 +59,16 @@ function NotesTabPane({notes = []}) {
 							<Note data={note} key={note.key} />
 						))}
 					</div>
-				) : (
-					''
 				)}
 
-				{pinnedNotes.size === 0 && unpinnedNotes.size === 0 ? (
+				{pinnedNotes.size === 0 && unpinnedNotes.size === 0 && (
 					<div className="empty-state">
 						{Liferay.Language.get('no-notes-were-found')}
 					</div>
-				) : (
-					''
 				)}
 			</div>
 
-			{archivedNotes.size > 0 ? (
+			{archivedNotes.size > 0 && (
 				<button className="archive-btn btn btn-link">
 					{Liferay.Language.get('view-archived-notes')}{' '}
 					<svg
@@ -86,8 +80,6 @@ function NotesTabPane({notes = []}) {
 						<use xlinkHref="#angle-right" />
 					</svg>
 				</button>
-			) : (
-				''
 			)}
 		</div>
 	);
