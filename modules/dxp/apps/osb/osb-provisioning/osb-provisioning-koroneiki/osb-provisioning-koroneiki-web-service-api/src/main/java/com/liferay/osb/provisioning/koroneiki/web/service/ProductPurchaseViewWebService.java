@@ -24,7 +24,7 @@ import java.util.List;
 public interface ProductPurchaseViewWebService {
 
 	public List<ProductPurchaseView> getProductPurchaseViews(
-			String accountKey, String search, String state, int page, 
+			String accountKey, String search, String state, int page,
 			int pageSize)
 		throws Exception;
 

@@ -136,7 +136,9 @@ public class ViewAccountDisplayContext {
 				}
 
 				sb.append("s eq '");
-				sb.append(_account.getKey() + "_" + contactRoleKeys[i]);
+				sb.append(_account.getKey());
+				sb.append("_");
+				sb.append(contactRoleKeys[i]);
 				sb.append("'");
 			}
 

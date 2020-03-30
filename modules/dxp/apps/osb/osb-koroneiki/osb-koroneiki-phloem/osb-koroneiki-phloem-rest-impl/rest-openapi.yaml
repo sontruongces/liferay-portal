@@ -2400,10 +2400,6 @@ paths:
                   schema:
                       type: string
                 - in: query
-                  name: search
-                  schema:
-                      type: string
-                - in: query
                   name: state
                   schema:
                       type: string
@@ -2415,6 +2411,10 @@ paths:
                   name: pageSize
                   schema:
                       type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
