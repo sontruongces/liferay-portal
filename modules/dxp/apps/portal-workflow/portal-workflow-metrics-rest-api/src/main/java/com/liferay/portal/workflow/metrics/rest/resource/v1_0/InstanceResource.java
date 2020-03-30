@@ -20,6 +20,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.workflow.metrics.rest.dto.v1_0.Instance;
 
 import java.util.Date;
+import java.util.Locale;
 
 import javax.annotation.Generated;
 
@@ -91,6 +92,8 @@ public interface InstanceResource {
 
 		public Builder httpServletRequest(
 			HttpServletRequest httpServletRequest);
+
+		public Builder preferredLocale(Locale preferredLocale);
 
 		public Builder user(com.liferay.portal.kernel.model.User user);
 

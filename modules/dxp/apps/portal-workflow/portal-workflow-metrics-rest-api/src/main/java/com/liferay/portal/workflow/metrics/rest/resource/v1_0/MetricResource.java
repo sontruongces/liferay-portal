@@ -18,6 +18,7 @@ import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.workflow.metrics.rest.dto.v1_0.Metric;
 
 import java.util.Date;
+import java.util.Locale;
 
 import javax.annotation.Generated;
 
@@ -84,6 +85,8 @@ public interface MetricResource {
 
 		public Builder httpServletRequest(
 			HttpServletRequest httpServletRequest);
+
+		public Builder preferredLocale(Locale preferredLocale);
 
 		public Builder user(com.liferay.portal.kernel.model.User user);
 
