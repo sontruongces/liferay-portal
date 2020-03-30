@@ -34,8 +34,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -49,6 +47,9 @@ public class ProductEntryFinderImpl
 
 	public static final String COUNT_BY_ACCOUNT =
 		ProductEntryFinder.class.getName() + ".countByAccount";
+
+	public static final String FILTER_BY_PRODUCT_ENTRY =
+		ProductEntryFinder.class.getName() + ".filterByProductEntry";
 
 	public static final String FIND_BY_ACCOUNT =
 		ProductEntryFinder.class.getName() + ".findByAccount";
@@ -70,23 +71,6 @@ public class ProductEntryFinderImpl
 
 			String sql = _customSQL.get(getClass(), COUNT_BY_ACCOUNT);
 
-			String[] keywords = _customSQL.keywords(
-				(String)params.get("search"), true, WildcardMode.SURROUND);
-
-			boolean keywordsEmpty = _isKeywordsEmpty(keywords);
-
-			if (keywordsEmpty) {
-				sql = _replaceKeywordConditionsWithBlank(sql);
-			}
-			else {
-				sql = _customSQL.replaceKeywords(
-					sql, "Koroneiki_ProductEntry.name", StringPool.LIKE, false,
-					keywords);
-				sql = StringUtil.replaceLast(
-					_customSQL.replaceAndOperator(sql, false), "OR",
-					StringPool.BLANK);
-			}
-
 			sql = StringUtil.replace(sql, "[$JOIN$]", getJoin(params));
 			sql = StringUtil.replace(sql, "[$WHERE$]", getWhere(params));
 
@@ -96,11 +80,9 @@ public class ProductEntryFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			qPos.add(accountId);
+			setJoin(qPos, params);
 
-			if (!keywordsEmpty) {
-				qPos.add(keywords, 2);
-			}
+			qPos.add(accountId);
 
 			Iterator<Long> itr = q.iterate();
 
@@ -134,23 +116,6 @@ public class ProductEntryFinderImpl
 
 			String sql = _customSQL.get(getClass(), FIND_BY_ACCOUNT);
 
-			String[] keywords = _customSQL.keywords(
-				(String)params.get("search"), true, WildcardMode.SURROUND);
-
-			boolean keywordsEmpty = _isKeywordsEmpty(keywords);
-
-			if (keywordsEmpty) {
-				sql = _replaceKeywordConditionsWithBlank(sql);
-			}
-			else {
-				sql = _customSQL.replaceKeywords(
-					sql, "Koroneiki_ProductEntry.name", StringPool.LIKE, false,
-					keywords);
-				sql = StringUtil.replaceLast(
-					_customSQL.replaceAndOperator(sql, false), "OR",
-					StringPool.BLANK);
-			}
-
 			sql = StringUtil.replace(sql, "[$JOIN$]", getJoin(params));
 			sql = StringUtil.replace(sql, "[$WHERE$]", getWhere(params));
 
@@ -160,11 +125,9 @@ public class ProductEntryFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			qPos.add(accountId);
+			setJoin(qPos, params);
 
-			if (!keywordsEmpty) {
-				qPos.add(keywords, 2);
-			}
+			qPos.add(accountId);
 
 			return (List<ProductEntry>)QueryUtil.list(
 				q, getDialect(), start, end);
@@ -232,7 +195,19 @@ public class ProductEntryFinderImpl
 	protected String getWhere(String key, Object value) {
 		String join = StringPool.BLANK;
 
-		if (key.equals("state")) {
+		if (key.equals("search")) {
+			String[] keywords = _customSQL.keywords(
+				(String)value, true, WildcardMode.SURROUND);
+
+			join = _customSQL.get(getClass(), FILTER_BY_PRODUCT_ENTRY);
+
+			join = _customSQL.replaceKeywords(
+				join, "Koroneiki_ProductEntry.name", StringPool.LIKE, true,
+				keywords);
+
+			join = _customSQL.replaceAndOperator(join, false);
+		}
+		else if (key.equals("state")) {
 			if (StringUtil.equalsIgnoreCase((String)value, "active")) {
 				join = _customSQL.get(getClass(), JOIN_BY_ACTIVE);
 			}
@@ -257,31 +232,25 @@ public class ProductEntryFinderImpl
 		return join;
 	}
 
-	private boolean _isKeywordsEmpty(String[] keywords) {
-		boolean emptyKeywords = false;
-		boolean nonEmptyKeywords = false;
+	protected void setJoin(
+		QueryPos qPos, LinkedHashMap<String, Object> params) {
 
-		for (String keyword : keywords) {
-			emptyKeywords = Validator.isNull(keyword);
-			nonEmptyKeywords = Validator.isNotNull(keyword);
+		if (params == null) {
+			return;
 		}
 
-		if (emptyKeywords && !nonEmptyKeywords) {
-			return true;
+		for (Map.Entry<String, Object> entry : params.entrySet()) {
+			String key = entry.getKey();
+			Object value = entry.getValue();
+
+			if (key.equals("search")) {
+				String[] keywords = _customSQL.keywords(
+					(String)value, true, WildcardMode.SURROUND);
+
+				qPos.add(keywords, 2);
+			}
 		}
-
-		return false;
 	}
-
-	private String _replaceKeywordConditionsWithBlank(String sql) {
-		Matcher matcher = _pattern.matcher(sql);
-
-		return matcher.replaceAll(StringPool.BLANK);
-	}
-
-	private static final Pattern _pattern = Pattern.compile(
-		"AND\\s*\\(*[A-Za-z\\.\\s\\?\\[\\]$_]*\\s*\\)*\\s*[A-Z\\[\\]$_]*\\s*" +
-			"\\)*");
 
 	@Reference
 	private CustomSQL _customSQL;
