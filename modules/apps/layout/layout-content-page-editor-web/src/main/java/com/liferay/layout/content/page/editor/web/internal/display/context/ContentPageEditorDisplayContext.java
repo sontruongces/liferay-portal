@@ -297,6 +297,10 @@ public class ContentPageEditorDisplayContext {
 		).put(
 			"themeColorsCssClasses", _getThemeColorsCssClasses()
 		).put(
+			"updateConfigurationValuesURL",
+			getFragmentEntryActionURL(
+				"/content_layout/update_configuration_values")
+		).put(
 			"updateLayoutPageTemplateDataURL",
 			getFragmentEntryActionURL(
 				"/content_layout/update_layout_page_template_data")
