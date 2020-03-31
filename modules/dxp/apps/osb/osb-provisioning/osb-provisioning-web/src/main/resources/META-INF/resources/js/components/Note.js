@@ -51,6 +51,7 @@ function Note({data}) {
 					<button
 						className="btn btn-unstyled"
 						role="button"
+						title={Liferay.Language.get('menu')}
 						type="button"
 					>
 						<svg

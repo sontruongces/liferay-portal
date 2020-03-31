@@ -130,6 +130,7 @@ function SidePanel(props) {
 					labelName="expand-panel-button"
 					onClick={handleCollapse}
 					svgId="#expand"
+					title={Liferay.Language.get('expand')}
 				/>
 			) : (
 				<CollapsiblePanel handleCollapse={handleCollapse} {...props} />
