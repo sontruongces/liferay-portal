@@ -85,7 +85,7 @@ describe('NotesTabPane', () => {
 			getByText('view-archived-notes');
 		});
 
-		it('does not display a button to view archived notes when none is available', () => {
+		it('does not display a button to view archived notes when none are available', () => {
 			const {queryByText} = render(
 				<NotesTabPane
 					notes={[
