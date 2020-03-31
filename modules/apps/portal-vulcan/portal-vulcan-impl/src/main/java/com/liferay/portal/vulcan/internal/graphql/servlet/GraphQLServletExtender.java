@@ -1935,8 +1935,8 @@ public class GraphQLServletExtender {
 				return _createObject(dataFetchingEnvironment, _method);
 			}
 			catch (InvocationTargetException invocationTargetException) {
-				if (dataFetchingEnvironment.getSource() !=
-						dataFetchingEnvironment.getRoot()) {
+				if (dataFetchingEnvironment.getRoot() !=
+						dataFetchingEnvironment.getSource()) {
 
 					return null;
 				}
