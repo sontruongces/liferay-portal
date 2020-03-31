@@ -23,6 +23,11 @@ import java.util.List;
  */
 public interface AccountWebService {
 
+	public void assignContactRoles(
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress, String[] contactRoleKeys)
+		throws Exception;
+
 	public Account fetchAccount(String accountKey) throws Exception;
 
 	public Account getAccount(String accountKey) throws Exception;
@@ -41,5 +46,15 @@ public interface AccountWebService {
 		throws Exception;
 
 	public long searchCount(String filterString) throws Exception;
+
+	public void unassignContactRoles(
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress, String[] contactRoleKeys)
+		throws Exception;
+
+	public void unassignCustomerContact(
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress)
+		throws Exception;
 
 }

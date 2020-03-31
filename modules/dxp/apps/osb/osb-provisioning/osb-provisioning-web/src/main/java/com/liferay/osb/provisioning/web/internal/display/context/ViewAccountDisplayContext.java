@@ -106,6 +106,18 @@ public class ViewAccountDisplayContext {
 		return _accountDisplay;
 	}
 
+	public String getAssignAccountContactRolesURL() {
+		PortletURL assignAccountContactRolesURL =
+			_renderResponse.createActionURL();
+
+		assignAccountContactRolesURL.setParameter(
+			ActionRequest.ACTION_NAME, "/assign_account_contact_roles");
+		assignAccountContactRolesURL.setParameter(
+			"accountKey", _account.getKey());
+
+		return assignAccountContactRolesURL.toString();
+	}
+
 	public List<ContactRole> getContactRoles(String type) throws Exception {
 		return _contactRoleWebService.search(
 			"type eq '" + type + "'", 1, 1000, "name");
@@ -250,6 +262,20 @@ public class ViewAccountDisplayContext {
 		searchContainer.setTotal(count);
 
 		return searchContainer;
+	}
+
+	public String getUnassignAccountCustomerContactURL(String emailAddress) {
+		PortletURL unassignAccountCustomerContactURL =
+			_renderResponse.createActionURL();
+
+		unassignAccountCustomerContactURL.setParameter(
+			ActionRequest.ACTION_NAME, "/unassign_account_customer_contact");
+		unassignAccountCustomerContactURL.setParameter(
+			"accountKey", _account.getKey());
+		unassignAccountCustomerContactURL.setParameter(
+			"emailAddress", emailAddress);
+
+		return unassignAccountCustomerContactURL.toString();
 	}
 
 	public String getUpdateNoteURL(String noteKey) {

@@ -45,6 +45,16 @@ import org.osgi.service.component.annotations.Component;
 )
 public class AccountWebServiceImpl implements AccountWebService {
 
+	public void assignContactRoles(
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress, String[] contactRoleKeys)
+		throws Exception {
+
+		_accountResource.putAccountContactByEmailAddresContactEmailAddressRole(
+			agentName, agentUID, accountKey, contactEmailAddress,
+			contactRoleKeys);
+	}
+
 	public Account fetchAccount(String accountKey) throws Exception {
 		HttpInvoker.HttpResponse httpResponse =
 			_accountDetailsResource.getAccountHttpResponse(accountKey);
@@ -101,6 +111,27 @@ public class AccountWebServiceImpl implements AccountWebService {
 		}
 
 		return 0;
+	}
+
+	public void unassignContactRoles(
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress, String[] contactRoleKeys)
+		throws Exception {
+
+		_accountResource.
+			deleteAccountContactByEmailAddresContactEmailAddressRole(
+				agentName, agentUID, accountKey, contactEmailAddress,
+				contactRoleKeys);
+	}
+
+	public void unassignCustomerContact(
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress)
+		throws Exception {
+
+		_accountResource.deleteAccountCustomerContactByEmailAddres(
+			agentName, agentUID, accountKey,
+			new String[] {contactEmailAddress});
 	}
 
 	@Activate
