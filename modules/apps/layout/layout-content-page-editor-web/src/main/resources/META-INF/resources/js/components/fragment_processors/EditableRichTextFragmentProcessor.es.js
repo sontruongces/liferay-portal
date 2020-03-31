@@ -14,6 +14,7 @@
 
 import {object} from 'metal';
 import {EventHandler} from 'metal-events';
+import {ItemSelectorDialog} from 'frontend-js-web';
 
 import {
 	CREATE_PROCESSOR_EVENT_TYPES,
@@ -213,6 +214,30 @@ function _getEditorConfiguration(
 	editorName
 ) {
 	return object.mixin({}, defaultEditorConfiguration.editorConfig || {}, {
+		documentBrowseLinkCallback: (editor, url, changeLinkCallback) => {
+			const itemSelectorDialog = new ItemSelectorDialog({
+				eventName: editor.title + 'selectItem',
+				singleSelect: true,
+				title: Liferay.Language.get('select-item'),
+				url
+			});
+
+			itemSelectorDialog.open();
+
+			itemSelectorDialog.on('selectedItemChange', event => {
+				const selectedItem = event.selectedItem;
+
+				if (selectedItem) {
+					changeLinkCallback(selectedItem);
+				}
+			});
+		},
+
+		documentBrowseLinkUrl: defaultEditorConfiguration.editorConfig.documentBrowseLinkUrl.replace(
+			'_EDITOR_NAME_',
+			editorName
+		),
+
 		filebrowserImageBrowseLinkUrl: defaultEditorConfiguration.editorConfig.filebrowserImageBrowseLinkUrl.replace(
 			'_EDITOR_NAME_',
 			editorName
