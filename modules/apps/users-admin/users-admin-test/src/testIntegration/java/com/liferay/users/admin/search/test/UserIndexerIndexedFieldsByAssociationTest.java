@@ -123,6 +123,9 @@ public class UserIndexerIndexedFieldsByAssociationTest {
 
 		final Map<String, String> map = getBaseFieldValuesMap(user);
 
+		indexedFieldsFixture.populateUID(
+			user.getModelClassName(), user.getUserId(), map);
+
 		assertFieldValues(user, fieldNames, map);
 
 		_userLocalService.addUserGroupUser(userGroupId, user);
@@ -156,6 +159,9 @@ public class UserIndexerIndexedFieldsByAssociationTest {
 		).put(
 			"organizationCount", "0"
 		).build();
+
+		indexedFieldsFixture.populateUID(
+			user.getModelClassName(), user.getUserId(), map1);
 
 		assertFieldValues(user, fieldNames, map1);
 
