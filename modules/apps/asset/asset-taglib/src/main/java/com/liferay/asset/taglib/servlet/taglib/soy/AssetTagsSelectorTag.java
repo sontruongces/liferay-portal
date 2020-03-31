@@ -245,6 +245,8 @@ public class AssetTagsSelectorTag extends ComponentRendererTag {
 			}
 
 			portletURL.setParameter("eventName", _getEventName());
+			portletURL.setParameter(
+				"groupIds", StringUtil.merge(_getGroupIds(), StringPool.COMMA));
 			portletURL.setParameter("selectedTagNames", "{selectedTagNames}");
 
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
