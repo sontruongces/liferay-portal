@@ -1,51 +1,29 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import IconButton from './IconButton';
+
 function ActionMenu({handleEdit, handlePinning, pinned = false}) {
 	return (
 		<>
-			<button
-				className="btn btn-unstyled"
+			<IconButton
+				labelName="edit-note-icon"
 				onClick={handleEdit}
-				role="button"
-				type="button"
-			>
-				<svg
-					aria-label={Liferay.Language.get('edit-note-icon')}
-					role="img"
-				>
-					<use xlinkHref="#edit" />
-				</svg>
-			</button>
+				svgID="#edit"
+			/>
 
 			{pinned ? (
-				<button
-					className="btn btn-unstyled"
+				<IconButton
+					labelName="unpin-note-icon"
 					onClick={handlePinning}
-					role="button"
-					type="button"
-				>
-					<svg
-						aria-label={Liferay.Language.get('unpin-note-icon')}
-						role="img"
-					>
-						<use xlinkHref="#unpin" />
-					</svg>
-				</button>
+					svgID="#unpin"
+				/>
 			) : (
-				<button
-					className="btn btn-unstyled"
+				<IconButton
+					labelName="pin-note-icon"
 					onClick={handlePinning}
-					role="button"
-					type="button"
-				>
-					<svg
-						aria-label={Liferay.Language.get('pin-note-icon')}
-						role="img"
-					>
-						<use xlinkHref="#pin" />
-					</svg>
-				</button>
+					svgID="#pin"
+				/>
 			)}
 		</>
 	);

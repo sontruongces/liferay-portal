@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import ExternalLinksTabPane from './ExternalLinksTabPane';
+import IconButton from './IconButton';
 import NotesTabPane from './NotesTabPane';
 import SalesInfoTabPane from './SalesInfoTabPane';
 
@@ -101,28 +102,6 @@ CollapsiblePanel.propTypes = {
 	)
 };
 
-function ExpandPanelButton({handleCollapse}) {
-	return (
-		<button
-			className="btn btn-unstyled panel-expand"
-			onClick={handleCollapse}
-			role="button"
-			type="button"
-		>
-			<svg
-				aria-label={Liferay.Language.get('expand-panel-button')}
-				role="img"
-			>
-				<use xlinkHref="#expand" />
-			</svg>
-		</button>
-	);
-}
-
-ExpandPanelButton.propTypes = {
-	handleCollapse: PropTypes.func.isRequired
-};
-
 function SidePanel(props) {
 	const [collapse, setCollapse] = useState(false);
 
@@ -144,7 +123,12 @@ function SidePanel(props) {
 	return (
 		<>
 			{collapse ? (
-				<ExpandPanelButton handleCollapse={handleCollapse} />
+				<IconButton
+					cssClass="panel-expand"
+					labelName="expand-panel-button"
+					onClick={handleCollapse}
+					svgId="#expand"
+				/>
 			) : (
 				<CollapsiblePanel handleCollapse={handleCollapse} {...props} />
 			)}

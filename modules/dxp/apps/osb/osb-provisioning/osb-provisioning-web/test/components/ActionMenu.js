@@ -3,8 +3,14 @@ import React from 'react';
 
 import ActionMenu from '../../src/main/resources/META-INF/resources/js/components/ActionMenu';
 
-function renderActionMenu() {
-	return render(<ActionMenu />);
+function renderActionMenu(props) {
+	return render(
+		<ActionMenu
+			handleEdit={jest.fn(val => val)}
+			handlePinning={jest.fn(val => val)}
+			{...props}
+		/>
+	);
 }
 
 describe('ActionMenu', () => {
@@ -29,7 +35,7 @@ describe('ActionMenu', () => {
 	});
 
 	it('displays an unpin icon if note has been pinned', () => {
-		const {getByLabelText} = render(<ActionMenu pinned />);
+		const {getByLabelText} = renderActionMenu({pinned: true});
 
 		getByLabelText('unpin-note-icon');
 	});

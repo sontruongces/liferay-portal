@@ -3,7 +3,7 @@ import React from 'react';
 
 import Note from '../../src/main/resources/META-INF/resources/js/components/Note';
 
-function renderNote() {
+function renderNote(props) {
 	return render(
 		<Note
 			data={{
@@ -14,7 +14,8 @@ function renderNote() {
 				htmlContent: '<div>note 1</div>',
 				key: '123',
 				pinned: true,
-				status: 'Approved'
+				status: 'Approved',
+				...props
 			}}
 		/>
 	);
@@ -70,20 +71,7 @@ describe('Note', () => {
 	});
 
 	it('displays no action menu icons for an archived note', () => {
-		const {container, queryByLabelText} = render(
-			<Note
-				data={{
-					createDate: new Date().toLocaleString('en-US'),
-					creatorName: 'John Doe',
-					creatorPortraitURL: '/',
-					edited: false,
-					htmlContent: '<div>note 2</div>',
-					key: '321',
-					pinned: false,
-					status: 'Archived'
-				}}
-			/>
-		);
+		const {container, queryByLabelText} = renderNote({status: 'Archived'});
 
 		const note = container.querySelector('.note');
 
