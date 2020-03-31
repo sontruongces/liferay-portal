@@ -12,9 +12,9 @@
  * details.
  */
 
+import {ItemSelectorDialog} from 'frontend-js-web';
 import {object} from 'metal';
 import {EventHandler} from 'metal-events';
-import {ItemSelectorDialog} from 'frontend-js-web';
 
 import {
 	CREATE_PROCESSOR_EVENT_TYPES,
