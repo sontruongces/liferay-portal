@@ -1,0 +1,136 @@
+.side-panel {
+	border-left: 1px solid $secondary-l3;
+	border-right: 1px solid $secondary-l3;
+	flex: 0 0 33.333333%;
+	max-width: 33.333333%;
+
+	.archive-btn {
+		margin: $spacing-default;
+
+		svg {
+			height: $spacing-sm;
+			width: $spacing-md;
+		}
+	}
+
+	.archive-section-header {
+		background: $light-l1;
+		padding: $spacing-sm;
+		text-align: center;
+
+		button {
+			float: left;
+			margin-left: $spacing-sm;
+		}
+
+		svg {
+			height: $spacing-md;
+			width: $spacing-md;
+		}
+	}
+
+	.back-btn {
+		color: $secondary;
+		font-size: $h5-font-size;
+	}
+
+	.nav-underline {
+		padding: 0 $spacing-md;
+	}
+
+	.notes-container {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		.note,
+		.notes-section-header {
+			border-bottom: 1px solid $secondary-l3;
+		}
+
+		.note {
+			padding: $spacing-md;
+
+			&:hover {
+				background-color: $primary-l3;
+			}
+		}
+
+		.note-create-date {
+			color: $secondary;
+			font-size: $h5-font-size;
+		}
+
+		.note-header {
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.note-menu {
+			svg {
+				height: $spacing-md;
+				margin: $spacing-xs;
+				width: $spacing-md;
+			}
+		}
+
+		.note-metadata {
+			align-items: center;
+			display: flex;
+			margin-bottom: $spacing-sm;
+
+			.metadata {
+				margin-left: $spacing-xs;
+			}
+		}
+
+		.notes {
+			width: 100%;
+		}
+
+		.notes-section-header {
+			background-color: $light-l1;
+			color: $secondary;
+			font-size: $small-font-size;
+			font-weight: $font-weight-semi-bold;
+			padding: $spacing-xs $spacing-md;
+			text-transform: uppercase;
+
+			svg {
+				height: 1rem;
+				margin-right: $spacing-xs;
+				width: 1rem;
+			}
+		}
+	}
+
+	.panel-collapse,
+	.panel-expand {
+		svg {
+			height: $spacing-lg;
+			width: $spacing-lg;
+		}
+	}
+
+	.panel-collapse.nav-item,
+	.panel-expand {
+		position: absolute;
+		right: 0;
+	}
+
+	.panel-collapse {
+		.nav-link {
+			padding-bottom: $spacing-xs;
+			padding-top: $spacing-xs;
+		}
+	}
+
+	.panel-expand {
+		background-color: $body-bg;
+		border: 1px solid $secondary-l3;
+		border-radius: 100px 0 0 100px;
+		box-shadow: 0 2px 4px rgba(39, 40, 51, 0.12);
+	}
+}

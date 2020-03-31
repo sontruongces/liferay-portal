@@ -9,7 +9,7 @@
  * distribution rights of the Software.
  */
 
-import {cleanup, render} from '@testing-library/react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
 import NotesTabPane from '../../src/main/resources/META-INF/resources/js/components/NotesTabPane';
@@ -24,7 +24,7 @@ function renderNotesTabPane() {
 					creatorName: 'Jane Doe',
 					creatorPortraitURL: '/',
 					edited: false,
-					htmlContent: '<div>note 1</div>',
+					htmlContent: '<div>pinned note</div>',
 					key: '123',
 					pinned: true,
 					status: 'Approved',
@@ -35,7 +35,7 @@ function renderNotesTabPane() {
 					creatorName: 'Jane Doe',
 					creatorPortraitURL: '/',
 					edited: false,
-					htmlContent: '<div>note 2</div>',
+					htmlContent: '<div>unpinned note</div>',
 					key: '456',
 					pinned: false,
 					status: 'Approved',
@@ -46,7 +46,7 @@ function renderNotesTabPane() {
 					creatorName: 'Jane Doe',
 					creatorPortraitURL: '/',
 					edited: false,
-					htmlContent: '<div>note 3</div>',
+					htmlContent: '<div>archived note</div>',
 					key: '789',
 					pinned: false,
 					status: 'Archived',
@@ -66,17 +66,19 @@ describe('NotesTabPane', () => {
 		expect(container).toBeTruthy();
 	});
 
-	describe('display', () => {
+	describe('displaying of general notes', () => {
 		it('displays a pinned note', () => {
 			const {getByText} = renderNotesTabPane();
 
 			getByText('pinned');
+			getByText('pinned note');
 		});
 
 		it('displays an approved general note', () => {
 			const {getByText} = renderNotesTabPane();
 
 			getByText('general');
+			getByText('unpinned note');
 		});
 
 		it('displays a button to view archived notes when there are archives', () => {
@@ -113,6 +115,41 @@ describe('NotesTabPane', () => {
 			expect(container.querySelector('.empty-state').textContent).toEqual(
 				'no-notes-were-found'
 			);
+		});
+	});
+
+	describe('displaying of archived notes', () => {
+		it('displays archived notes when "view Archived Notes" button is clicked', () => {
+			const {getByText} = renderNotesTabPane();
+
+			fireEvent.click(getByText('view-archived-notes'));
+
+			getByText('archived note');
+		});
+
+		it('displays a heading', () => {
+			const {getByText} = renderNotesTabPane();
+
+			fireEvent.click(getByText('view-archived-notes'));
+
+			getByText('archive');
+		});
+
+		it('displays a back button', () => {
+			const {getByText} = renderNotesTabPane();
+
+			fireEvent.click(getByText('view-archived-notes'));
+
+			getByText('back');
+		});
+
+		it('goes back to the general notes when the back button is clicked', () => {
+			const {getByText, queryByText} = renderNotesTabPane();
+
+			fireEvent.click(getByText('view-archived-notes'));
+			fireEvent.click(getByText('back'));
+
+			expect(queryByText('archived note')).toBeNull();
 		});
 	});
 });
