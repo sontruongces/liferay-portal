@@ -112,13 +112,15 @@ function SidePanel(props) {
 	useEffect(() => {
 		const account = document.getElementById('account');
 
-		if (account && account.classList.contains('full-view')) {
-			account.classList.remove('full-view');
-		}
-		else {
+		if (!account) return;
+
+		if (collapse) {
 			account.classList.add('full-view');
 		}
-	});
+		else {
+			account.classList.remove('full-view');
+		}
+	}, [collapse]);
 
 	return (
 		<>

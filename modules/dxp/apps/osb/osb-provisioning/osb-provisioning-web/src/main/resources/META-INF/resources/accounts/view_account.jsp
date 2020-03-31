@@ -26,7 +26,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 
 <liferay-util:include page="/accounts/view_account_header.jsp" servletContext="<%= application %>" />
 
-<div class="account full-view" id="account">
+<div class="account" id="account">
 	<div class="account-details">
 		<liferay-ui:tabs
 			names="subscriptions,details,contacts,liferay-workers,related-accounts,support,history,opportunities"
