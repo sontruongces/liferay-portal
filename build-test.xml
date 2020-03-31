@@ -7996,6 +7996,8 @@ jdbc.counter.minIdle=0
 
 browser.launcher.url=
 
+buffered.increment.enabled=false
+
 setup.wizard.enabled=false
 
 mail.send.blacklist=
