@@ -681,6 +681,10 @@ AUI.add(
 
 					var newLink = newLinkContainer.one('.item-preview');
 
+					newLink.setAttribute(
+						'data-fileentryid',
+						imageData.file.fileEntryId
+					);
 					newLink.setAttribute('data-href', imageData.file.url);
 					newLink.setAttribute('data-title', imageData.file.title);
 					newLink.setAttribute('data-value', imageData.file.url);
