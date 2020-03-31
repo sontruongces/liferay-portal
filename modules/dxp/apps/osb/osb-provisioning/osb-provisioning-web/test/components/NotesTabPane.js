@@ -110,7 +110,9 @@ describe('NotesTabPane', () => {
 		it('displays a message when there is no data', () => {
 			const {container} = render(<NotesTabPane />);
 
-			expect(container.textContent).toEqual('no-notes-were-found');
+			expect(container.querySelector('.empty-state').textContent).toEqual(
+				'no-notes-were-found'
+			);
 		});
 	});
 });

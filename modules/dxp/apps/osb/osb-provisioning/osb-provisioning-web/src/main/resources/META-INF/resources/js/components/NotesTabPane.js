@@ -12,7 +12,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {mapNoteByKey} from '../utilities/helpers';
 import Note from './Note';
 
 function NotesTabPane({notes = []}) {
@@ -20,17 +19,12 @@ function NotesTabPane({notes = []}) {
 	const archived = notes.filter(note => note.status === 'Archived');
 
 	const pinned = approved.filter(note => note.pinned);
-	const pinnedNotes = mapNoteByKey(pinned);
-
 	const unpinned = approved.filter(note => !note.pinned);
-	const unpinnedNotes = mapNoteByKey(unpinned);
-
-	const archivedNotes = mapNoteByKey(archived);
 
 	return (
 		<div className="notes-container">
 			<div className="notes">
-				{pinnedNotes.size > 0 && (
+				{pinned.length && (
 					<div className="pinned-notes">
 						<div className="notes-section-header">
 							<svg
@@ -43,32 +37,32 @@ function NotesTabPane({notes = []}) {
 							{Liferay.Language.get('pinned')}
 						</div>
 
-						{pinnedNotes.forEach(note => (
+						{pinned.map(note => (
 							<Note data={note} key={note.key} />
 						))}
 					</div>
 				)}
 
-				{unpinnedNotes.size > 0 && (
+				{unpinned.length && (
 					<div className="general-notes">
 						<div className="notes-section-header">
 							{Liferay.Language.get('general')}
 						</div>
 
-						{unpinnedNotes.forEach(note => (
+						{unpinned.map(note => (
 							<Note data={note} key={note.key} />
 						))}
 					</div>
 				)}
 
-				{pinnedNotes.size === 0 && unpinnedNotes.size === 0 && (
+				{!pinned.length && !unpinned.length && (
 					<div className="empty-state">
 						{Liferay.Language.get('no-notes-were-found')}
 					</div>
 				)}
 			</div>
 
-			{archivedNotes.size > 0 && (
+			{archived.length && (
 				<button className="archive-btn btn btn-link">
 					{Liferay.Language.get('view-archived-notes')}{' '}
 					<svg

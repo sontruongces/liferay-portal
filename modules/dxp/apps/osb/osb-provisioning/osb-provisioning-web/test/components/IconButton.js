@@ -3,7 +3,7 @@ import React from 'react';
 
 import IconButton from '../../src/main/resources/META-INF/resources/js/components/IconButton';
 
-const mockOnClickFn = jest.fn(val => val);
+const mockOnClickFn = jest.fn();
 
 function renderIconButton() {
 	return render(

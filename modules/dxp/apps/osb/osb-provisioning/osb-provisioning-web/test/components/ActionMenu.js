@@ -5,11 +5,7 @@ import ActionMenu from '../../src/main/resources/META-INF/resources/js/component
 
 function renderActionMenu(props) {
 	return render(
-		<ActionMenu
-			handleEdit={jest.fn(val => val)}
-			handlePinning={jest.fn(val => val)}
-			{...props}
-		/>
+		<ActionMenu onEdit={jest.fn()} onPinning={jest.fn()} {...props} />
 	);
 }
 

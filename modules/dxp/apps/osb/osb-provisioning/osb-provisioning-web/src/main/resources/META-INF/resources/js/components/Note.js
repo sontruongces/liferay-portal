@@ -36,7 +36,17 @@ function Note({data}) {
 				</div>
 
 				<div className="note-menu">
-					{showActionMenu && <ActionMenu pinned={data.pinned} />}
+					{showActionMenu && (
+						<ActionMenu
+							onEdit={() => {
+								/* TODO: fill in event handler LHC-2118 */
+							}}
+							onPinning={() => {
+								/* TODO: fill in event handler LHC-2061 */
+							}}
+							pinned={data.pinned}
+						/>
+					)}
 
 					<button
 						className="btn btn-unstyled"

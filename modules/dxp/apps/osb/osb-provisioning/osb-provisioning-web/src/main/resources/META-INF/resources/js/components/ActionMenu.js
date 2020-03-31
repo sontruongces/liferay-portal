@@ -3,26 +3,26 @@ import React from 'react';
 
 import IconButton from './IconButton';
 
-function ActionMenu({handleEdit, handlePinning, pinned = false}) {
+function ActionMenu({onEdit, onPinning, pinned = false}) {
 	return (
 		<>
 			<IconButton
 				labelName="edit-note-icon"
-				onClick={handleEdit}
-				svgID="#edit"
+				onClick={onEdit}
+				svgId="#edit"
 			/>
 
 			{pinned ? (
 				<IconButton
 					labelName="unpin-note-icon"
-					onClick={handlePinning}
-					svgID="#unpin"
+					onClick={onPinning}
+					svgId="#unpin"
 				/>
 			) : (
 				<IconButton
 					labelName="pin-note-icon"
-					onClick={handlePinning}
-					svgID="#pin"
+					onClick={onPinning}
+					svgId="#pin"
 				/>
 			)}
 		</>
@@ -30,8 +30,8 @@ function ActionMenu({handleEdit, handlePinning, pinned = false}) {
 }
 
 ActionMenu.propTypes = {
-	handleEdit: PropTypes.func,
-	handlePinning: PropTypes.func,
+	onEdit: PropTypes.func,
+	onPinning: PropTypes.func,
 	pinned: PropTypes.bool
 };
 

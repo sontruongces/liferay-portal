@@ -112,6 +112,14 @@
 		justify-content: space-between;
 	}
 
+	.note-menu {
+		svg {
+			height: $spacing-md;
+			margin: $spacing-xs;
+			width: $spacing-md;
+		}
+	}
+
 	.note-metadata {
 		align-items: center;
 		display: flex;
@@ -188,6 +196,8 @@
 
 .subscription-details {
 	margin: $spacing-default;
+
+	// See LPS-111197
 
 	.subscription-tabs {
 		margin-bottom: $spacing-sm !important;
