@@ -160,7 +160,7 @@ public class DDMServiceVerifyProcess extends VerifyProcess {
 	}
 
 	protected void verifyContent(DDMContent ddmContent) throws PortalException {
-		DDMStorageLink ddmStorageLink;
+		DDMStorageLink ddmStorageLink = null;
 
 		try {
 			ddmStorageLink = _ddmStorageLinkLocalService.getClassStorageLink(
@@ -169,7 +169,7 @@ public class DDMServiceVerifyProcess extends VerifyProcess {
 		catch (NoSuchStorageLinkException noSuchStorageLinkException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Skip verification for orphaned DDM content with id " +
+					"Skip verification for orphaned DDM content " +
 						ddmContent.getContentId());
 			}
 
