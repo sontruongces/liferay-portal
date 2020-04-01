@@ -38,7 +38,7 @@ function NotesTabPane({notes = []}) {
 						>
 							<svg
 								aria-label={Liferay.Language.get(
-									'back to notes'
+									'back-to-notes'
 								)}
 								role="img"
 							>
