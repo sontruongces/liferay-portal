@@ -14,8 +14,104 @@ import React, {useState} from 'react';
 
 import Note from './Note';
 
-function NotesTabPane({notes = []}) {
-	const [viewArchived, setViewArchived] = useState(false);
+function ApprovedNotes({hasArchive, onClick, pinned, unpinned}) {
+	return (
+		<>
+			<div className="notes">
+				{!!pinned.length && (
+					<div className="pinned-notes">
+						<div className="notes-section-header">
+							<svg
+								aria-label={Liferay.Language.get(
+									'pinned-notes-icon'
+								)}
+							>
+								<use xlinkHref="#pin" />
+							</svg>
+							{Liferay.Language.get('pinned')}
+						</div>
+
+						{pinned.map(note => (
+							<Note data={note} key={note.key} />
+						))}
+					</div>
+				)}
+
+				{!!unpinned.length && (
+					<div className="general-notes">
+						<div className="notes-section-header">
+							{Liferay.Language.get('general')}
+						</div>
+
+						{unpinned.map(note => (
+							<Note data={note} key={note.key} />
+						))}
+					</div>
+				)}
+
+				{!pinned.length && !unpinned.length && (
+					<div className="empty-state">
+						{Liferay.Language.get('no-notes-were-found')}
+					</div>
+				)}
+			</div>
+
+			{hasArchive && (
+				<button
+					className="archive-btn btn btn-link"
+					onClick={() => onClick(true)}
+				>
+					{Liferay.Language.get('view-archived-notes')}{' '}
+					<svg
+						aria-label={Liferay.Language.get(
+							'view-archived-notes-link'
+						)}
+						role="img"
+					>
+						<use xlinkHref="#angle-right" />
+					</svg>
+				</button>
+			)}
+		</>
+	);
+}
+
+function ArchivedNotes({notes, onClick}) {
+	return (
+		<div className="notes">
+			<div className="archive-section-header">
+				<button
+					className="back-btn btn btn-unstyled"
+					onClick={() => onClick(false)}
+					role="button"
+					type="button"
+				>
+					<svg
+						aria-label={Liferay.Language.get('back-to-notes')}
+						role="img"
+					>
+						<use xlinkHref="#angle-left" />
+					</svg>
+
+					{Liferay.Language.get('back')}
+				</button>
+
+				<h4>{Liferay.Language.get('archive')}</h4>
+			</div>
+
+			{notes.map(note => (
+				<Note data={note} key={note.key} />
+			))}
+		</div>
+	);
+}
+
+function NotesTabPane({addURL, notes = []}) {
+	const [viewArchive, setViewArchive] = useState(false);
+
+	const handleViewArchive = bool => {
+		setViewArchive(bool);
+	};
 
 	const approved = notes.filter(note => note.status === 'Approved');
 	const archived = notes.filter(note => note.status === 'Archived');
@@ -25,96 +121,16 @@ function NotesTabPane({notes = []}) {
 
 	return (
 		<div className="notes-container">
-			{viewArchived ? (
-				<div className="notes">
-					<div className="archive-section-header">
-						<button
-							className="back-btn btn btn-unstyled"
-							onClick={() => {
-								setViewArchived(false);
-							}}
-							role="button"
-							type="button"
-						>
-							<svg
-								aria-label={Liferay.Language.get(
-									'back-to-notes'
-								)}
-								role="img"
-							>
-								<use xlinkHref="#angle-left" />
-							</svg>
-
-							{Liferay.Language.get('back')}
-						</button>
-
-						<h4>{Liferay.Language.get('archive')}</h4>
-					</div>
-
-					{archived.map(note => (
-						<Note data={note} key={note.key} />
-					))}
-				</div>
+			{viewArchive ? (
+				<ArchivedNotes notes={archived} onClick={handleViewArchive} />
 			) : (
-				<>
-					<div className="notes">
-						{!!pinned.length && (
-							<div className="pinned-notes">
-								<div className="notes-section-header">
-									<svg
-										aria-label={Liferay.Language.get(
-											'pinned-notes-icon'
-										)}
-									>
-										<use xlinkHref="#pin" />
-									</svg>
-									{Liferay.Language.get('pinned')}
-								</div>
-
-								{pinned.map(note => (
-									<Note data={note} key={note.key} />
-								))}
-							</div>
-						)}
-
-						{!!unpinned.length && (
-							<div className="general-notes">
-								<div className="notes-section-header">
-									{Liferay.Language.get('general')}
-								</div>
-
-								{unpinned.map(note => (
-									<Note data={note} key={note.key} />
-								))}
-							</div>
-						)}
-
-						{!pinned.length && !unpinned.length && (
-							<div className="empty-state">
-								{Liferay.Language.get('no-notes-were-found')}
-							</div>
-						)}
-					</div>
-
-					{!!archived.length && (
-						<button
-							className="archive-btn btn btn-link"
-							onClick={() => {
-								setViewArchived(true);
-							}}
-						>
-							{Liferay.Language.get('view-archived-notes')}{' '}
-							<svg
-								aria-label={Liferay.Language.get(
-									'view-archived-notes-link'
-								)}
-								role="img"
-							>
-								<use xlinkHref="#angle-right" />
-							</svg>
-						</button>
-					)}
-				</>
+				<ApprovedNotes
+					addURL={addURL}
+					hasArchive={!!archived.length}
+					onClick={handleViewArchive}
+					pinned={pinned}
+					unpinned={unpinned}
+				/>
 			)}
 		</div>
 	);

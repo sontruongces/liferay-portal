@@ -66,7 +66,7 @@ describe('NotesTabPane', () => {
 		expect(container).toBeTruthy();
 	});
 
-	describe('displaying of general notes', () => {
+	describe('displaying of approved notes', () => {
 		it('displays a pinned note', () => {
 			const {getByText} = renderNotesTabPane();
 
