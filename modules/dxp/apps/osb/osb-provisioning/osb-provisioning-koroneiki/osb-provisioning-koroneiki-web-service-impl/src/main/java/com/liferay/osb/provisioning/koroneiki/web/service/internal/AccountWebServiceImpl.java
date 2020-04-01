@@ -45,6 +45,13 @@ import org.osgi.service.component.annotations.Component;
 )
 public class AccountWebServiceImpl implements AccountWebService {
 
+	public Account addAccount(
+			String agentName, String agentUID, Account account)
+		throws Exception {
+
+		return _accountResource.postAccount(agentName, agentUID, account);
+	}
+
 	public void assignContactRoles(
 			String agentName, String agentUID, String accountKey,
 			String contactEmailAddress, String[] contactRoleKeys)
@@ -53,6 +60,15 @@ public class AccountWebServiceImpl implements AccountWebService {
 		_accountResource.putAccountContactByEmailAddresContactEmailAddressRole(
 			agentName, agentUID, accountKey, contactEmailAddress,
 			contactRoleKeys);
+	}
+
+	public void assignTeamRoles(
+			String agentName, String agentUID, String accountKey,
+			String teamKey, String[] teamRoleKeys)
+		throws Exception {
+
+		_accountResource.putAccountAssignedTeamTeamKeyRole(
+			agentName, agentUID, accountKey, teamKey, teamRoleKeys);
 	}
 
 	public Account fetchAccount(String accountKey) throws Exception {
@@ -68,22 +84,6 @@ public class AccountWebServiceImpl implements AccountWebService {
 
 	public Account getAccount(String accountKey) throws Exception {
 		return _accountDetailsResource.getAccount(accountKey);
-	}
-
-	public Account postAccount(
-			String agentName, String agentUID, Account account)
-		throws Exception {
-
-		return _accountResource.postAccount(agentName, agentUID, account);
-	}
-
-	public Account putAccount(
-			String agentName, String agentUID, String accountKey,
-			Account account)
-		throws Exception {
-
-		return _accountResource.putAccount(
-			agentName, agentUID, accountKey, account);
 	}
 
 	public List<Account> search(
@@ -132,6 +132,24 @@ public class AccountWebServiceImpl implements AccountWebService {
 		_accountResource.deleteAccountCustomerContactByEmailAddres(
 			agentName, agentUID, accountKey,
 			new String[] {contactEmailAddress});
+	}
+
+	public void unassignTeamRoles(
+			String agentName, String agentUID, String accountKey,
+			String teamKey, String[] teamRoleKeys)
+		throws Exception {
+
+		_accountResource.deleteAccountAssignedTeamTeamKeyRole(
+			agentName, agentUID, accountKey, teamKey, teamRoleKeys);
+	}
+
+	public Account updateAccount(
+			String agentName, String agentUID, String accountKey,
+			Account account)
+		throws Exception {
+
+		return _accountResource.putAccount(
+			agentName, agentUID, accountKey, account);
 	}
 
 	@Activate

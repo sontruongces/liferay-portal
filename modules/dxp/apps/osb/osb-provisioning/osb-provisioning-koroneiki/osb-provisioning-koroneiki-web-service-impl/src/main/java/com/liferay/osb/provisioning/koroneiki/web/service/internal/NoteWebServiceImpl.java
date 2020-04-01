@@ -39,6 +39,14 @@ import org.osgi.service.component.annotations.Component;
 )
 public class NoteWebServiceImpl implements NoteWebService {
 
+	public Note addNote(
+			String agentName, String agentUID, String accountKey, Note note)
+		throws Exception {
+
+		return _noteResource.postAccountAccountKeyNote(
+			agentName, agentUID, accountKey, note);
+	}
+
 	public void deleteNote(String agentName, String agentUID, String noteKey)
 		throws Exception {
 
@@ -60,15 +68,7 @@ public class NoteWebServiceImpl implements NoteWebService {
 		return Collections.emptyList();
 	}
 
-	public Note postNote(
-			String agentName, String agentUID, String accountKey, Note note)
-		throws Exception {
-
-		return _noteResource.postAccountAccountKeyNote(
-			agentName, agentUID, accountKey, note);
-	}
-
-	public Note putNote(
+	public Note updateNote(
 			String agentName, String agentUID, String noteKey, Note note)
 		throws Exception {
 

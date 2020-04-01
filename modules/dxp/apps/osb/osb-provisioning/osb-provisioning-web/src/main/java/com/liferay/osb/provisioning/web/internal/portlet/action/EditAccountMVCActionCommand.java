@@ -92,7 +92,7 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 			account.setRegion(Account.Region.create(region));
 		}
 
-		_accountWebService.putAccount(
+		_accountWebService.updateAccount(
 			user.getFullName(), StringPool.BLANK, accountKey, account);
 	}
 

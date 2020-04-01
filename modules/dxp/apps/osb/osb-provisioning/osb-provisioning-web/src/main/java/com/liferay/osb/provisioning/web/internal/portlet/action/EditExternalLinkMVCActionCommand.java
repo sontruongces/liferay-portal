@@ -14,9 +14,9 @@
 
 package com.liferay.osb.provisioning.web.internal.portlet.action;
 
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
-import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
@@ -41,19 +41,20 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + ProvisioningPortletKeys.PROVISIONING,
-		"mvc.command.name=/edit_note"
+		"mvc.command.name=/edit_external_link"
 	},
 	service = MVCActionCommand.class
 )
-public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
+public class EditExternalLinkMVCActionCommand extends BaseMVCActionCommand {
 
-	protected void deleteNote(ActionRequest actionRequest, User user)
+	protected void deleteExternalLink(ActionRequest actionRequest, User user)
 		throws Exception {
 
-		String noteKey = ParamUtil.getString(actionRequest, "noteKey");
+		String externalLinkKey = ParamUtil.getString(
+			actionRequest, "externalLinkKey");
 
-		_noteWebService.deleteNote(
-			user.getFullName(), StringPool.BLANK, noteKey);
+		_externalLinkWebService.deleteExternalLink(
+			user.getFullName(), StringPool.BLANK, externalLinkKey);
 	}
 
 	@Override
@@ -70,10 +71,10 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 			User user = themeDisplay.getUser();
 
 			if (cmd.equals(Constants.DELETE)) {
-				deleteNote(actionRequest, user);
+				deleteExternalLink(actionRequest, user);
 			}
 			else {
-				updateNote(actionRequest, user);
+				updateExternalLink(actionRequest, user);
 			}
 
 			sendRedirect(actionRequest, actionResponse);
@@ -85,44 +86,38 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	protected void updateNote(ActionRequest actionRequest, User user)
+	protected void updateExternalLink(ActionRequest actionRequest, User user)
 		throws Exception {
 
-		String noteKey = ParamUtil.getString(actionRequest, "noteKey");
+		String externalLinkKey = ParamUtil.getString(
+			actionRequest, "externalLinkKey");
 
 		String accountKey = ParamUtil.getString(actionRequest, "accountKey");
-		int priority = ParamUtil.getInteger(actionRequest, "priority");
-		String content = ParamUtil.getString(actionRequest, "content");
-		String status = ParamUtil.getString(actionRequest, "status");
+		String domain = ParamUtil.getString(actionRequest, "domain");
+		String entityName = ParamUtil.getString(actionRequest, "entityName");
+		String entityId = ParamUtil.getString(actionRequest, "entityId");
 
-		Note note = new Note();
+		ExternalLink externalLink = new ExternalLink();
 
-		if (priority > 0) {
-			note.setPriority(priority);
-		}
+		externalLink.setDomain(domain);
+		externalLink.setEntityName(entityName);
+		externalLink.setEntityId(entityId);
 
-		if (Validator.isNotNull(content)) {
-			note.setContent(content);
-		}
-
-		if (Validator.isNotNull(status)) {
-			note.setStatus(Note.Status.create(status));
-		}
-
-		if (Validator.isNotNull(noteKey)) {
-			_noteWebService.updateNote(
-				user.getFullName(), StringPool.BLANK, noteKey, note);
+		if (Validator.isNotNull(externalLinkKey)) {
+			_externalLinkWebService.updateExternalLink(
+				user.getFullName(), StringPool.BLANK, externalLinkKey,
+				externalLink);
 		}
 		else {
-			_noteWebService.addNote(
-				user.getFullName(), StringPool.BLANK, accountKey, note);
+			_externalLinkWebService.addExternalLink(
+				user.getFullName(), StringPool.BLANK, accountKey, externalLink);
 		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		EditNoteMVCActionCommand.class);
+		EditExternalLinkMVCActionCommand.class);
 
 	@Reference
-	private NoteWebService _noteWebService;
+	private ExternalLinkWebService _externalLinkWebService;
 
 }

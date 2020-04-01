@@ -122,7 +122,7 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 		productPurchase.setQuantity(quantity);
 		productPurchase.setProperties(properties);
 
-		_productPurchaseWebService.putProductPurchase(
+		_productPurchaseWebService.updateProductPurchase(
 			user.getFullName(), StringPool.BLANK, productPurchaseKey,
 			productPurchase);
 	}

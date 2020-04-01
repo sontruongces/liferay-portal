@@ -106,6 +106,26 @@ public class ViewAccountDisplayContext {
 		return _accountDisplay;
 	}
 
+	public String getAddExternalLinkURL() {
+		PortletURL addExternalLinkURL = _renderResponse.createActionURL();
+
+		addExternalLinkURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_external_link");
+		addExternalLinkURL.setParameter("accountKey", _account.getKey());
+
+		return addExternalLinkURL.toString();
+	}
+
+	public String getAddPostalAddressURL() {
+		PortletURL addPostalAddressURL = _renderResponse.createActionURL();
+
+		addPostalAddressURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_postal_address");
+		addPostalAddressURL.setParameter("accountKey", _account.getKey());
+
+		return addPostalAddressURL.toString();
+	}
+
 	public String getAssignAccountContactRolesURL() {
 		PortletURL assignAccountContactRolesURL =
 			_renderResponse.createActionURL();
@@ -182,6 +202,17 @@ public class ViewAccountDisplayContext {
 		return searchContainer;
 	}
 
+	public String getDeleteExternalLinkURL(String externalLinkKey) {
+		PortletURL deleteExternalLinkURL = _renderResponse.createActionURL();
+
+		deleteExternalLinkURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_external_link");
+		deleteExternalLinkURL.setParameter(Constants.CMD, Constants.DELETE);
+		deleteExternalLinkURL.setParameter("externalLinkKey", externalLinkKey);
+
+		return deleteExternalLinkURL.toString();
+	}
+
 	public String getDeleteNoteURL(String noteKey) {
 		PortletURL deleteNoteURL = _renderResponse.createActionURL();
 
@@ -190,6 +221,48 @@ public class ViewAccountDisplayContext {
 		deleteNoteURL.setParameter("noteKey", noteKey);
 
 		return deleteNoteURL.toString();
+	}
+
+	public String getDeletePostalAddressURL(long postalAddressId) {
+		PortletURL deletePostalAddressURL = _renderResponse.createActionURL();
+
+		deletePostalAddressURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_postal_address");
+		deletePostalAddressURL.setParameter(Constants.CMD, Constants.DELETE);
+		deletePostalAddressURL.setParameter(
+			"postalAddressId", String.valueOf(postalAddressId));
+
+		return deletePostalAddressURL.toString();
+	}
+
+	public String getEditAccountURL() {
+		PortletURL editAccountURL = _renderResponse.createActionURL();
+
+		editAccountURL.setParameter(ActionRequest.ACTION_NAME, "/edit_account");
+		editAccountURL.setParameter("accountKey", _account.getKey());
+
+		return editAccountURL.toString();
+	}
+
+	public String getEditExternalLinkURL(String externalLinkKey) {
+		PortletURL editExternalLinkURL = _renderResponse.createActionURL();
+
+		editExternalLinkURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_external_link");
+		editExternalLinkURL.setParameter("externalLinkKey", externalLinkKey);
+
+		return editExternalLinkURL.toString();
+	}
+
+	public String getEditPostalAddressURL(long postalAddressId) {
+		PortletURL editPostalAddressURL = _renderResponse.createActionURL();
+
+		editPostalAddressURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_postal_address");
+		editPostalAddressURL.setParameter(
+			"postalAddressId", String.valueOf(postalAddressId));
+
+		return editPostalAddressURL.toString();
 	}
 
 	public List<ExternalLinkDisplay> getExternalLinkDisplays()

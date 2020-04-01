@@ -23,23 +23,23 @@ import java.util.List;
  */
 public interface AccountWebService {
 
+	public Account addAccount(
+			String agentName, String agentUID, Account account)
+		throws Exception;
+
 	public void assignContactRoles(
 			String agentName, String agentUID, String accountKey,
 			String contactEmailAddress, String[] contactRoleKeys)
 		throws Exception;
 
+	public void assignTeamRoles(
+			String agentName, String agentUID, String accountKey,
+			String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
 	public Account fetchAccount(String accountKey) throws Exception;
 
 	public Account getAccount(String accountKey) throws Exception;
-
-	public Account postAccount(
-			String agentName, String agentUID, Account account)
-		throws Exception;
-
-	public Account putAccount(
-			String agentName, String agentUID, String accountKey,
-			Account account)
-		throws Exception;
 
 	public List<Account> search(
 			String filterString, int page, int pageSize, String sortString)
@@ -55,6 +55,16 @@ public interface AccountWebService {
 	public void unassignCustomerContact(
 			String agentName, String agentUID, String accountKey,
 			String contactEmailAddress)
+		throws Exception;
+
+	public void unassignTeamRoles(
+			String agentName, String agentUID, String accountKey,
+			String teamKey, String[] teamRoleKeys)
+		throws Exception;
+
+	public Account updateAccount(
+			String agentName, String agentUID, String accountKey,
+			Account account)
 		throws Exception;
 
 }

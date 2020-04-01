@@ -76,6 +76,10 @@ public class PostalAddressDisplay {
 		return LanguageUtil.get(_httpServletRequest, "no");
 	}
 
+	public long getPostalAddressId() {
+		return _postalAddress.getId();
+	}
+
 	public String getPostalCode() {
 		if (Validator.isNotNull(_postalAddress.getPostalCode())) {
 			return _postalAddress.getPostalCode();

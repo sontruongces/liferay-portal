@@ -255,6 +255,23 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 		return postExternalLink(Team.class, team.getTeamId(), externalLink);
 	}
 
+	@Override
+	public ExternalLink putExternalLink(
+			String agentName, String agentUID, String externalLinkKey,
+			ExternalLink externalLink)
+		throws Exception {
+
+		ServiceContextUtil.setAgentFields(agentName, agentUID);
+
+		com.liferay.osb.koroneiki.root.model.ExternalLink curExternalLink =
+			_externalLinkService.getExternalLink(externalLinkKey);
+
+		return ExternalLinkUtil.toExternalLink(
+			_externalLinkService.updateExternalLink(
+				curExternalLink.getExternalLinkId(),
+				externalLink.getEntityId()));
+	}
+
 	protected Page<ExternalLink> getExternalLinksPage(
 			Class<?> clazz, long classPK, Pagination pagination)
 		throws Exception {

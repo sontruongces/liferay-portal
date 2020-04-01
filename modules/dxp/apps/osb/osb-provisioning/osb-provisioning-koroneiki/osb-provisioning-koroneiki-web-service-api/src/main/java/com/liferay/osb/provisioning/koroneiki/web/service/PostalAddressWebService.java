@@ -14,22 +14,30 @@
 
 package com.liferay.osb.provisioning.koroneiki.web.service;
 
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 
 import java.util.List;
 
 /**
- * @author Kyle Bischof
+ * @author Amos Fong
  */
-public interface ProductPurchaseWebService {
+public interface PostalAddressWebService {
 
-	public List<ProductPurchase> getProductPurchases(
-			String filterString, int page, int pageSize, String sortString)
+	public PostalAddress addPostalAddress(
+			String agentName, String agentUID, String accountKey,
+			PostalAddress postalAddress)
 		throws Exception;
 
-	public ProductPurchase updateProductPurchase(
-			String agentName, String agentUID, String productPurchaseKey,
-			ProductPurchase productPurchase)
+	public void deletePostalAddress(
+			String agentName, String agentUID, Long postalAddressId)
+		throws Exception;
+
+	public List<PostalAddress> getAccountPostalAddresss(String accountKey)
+		throws Exception;
+
+	public PostalAddress updatePostalAddress(
+			String agentName, String agentUID, Long postalAddressId,
+			PostalAddress postalAddress)
 		throws Exception;
 
 }

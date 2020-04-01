@@ -59,7 +59,7 @@ public class ProductPurchaseWebServiceImpl
 		return Collections.emptyList();
 	}
 
-	public ProductPurchase putProductPurchase(
+	public ProductPurchase updateProductPurchase(
 			String agentName, String agentUID, String productPurchaseKey,
 			ProductPurchase productPurchase)
 		throws Exception {

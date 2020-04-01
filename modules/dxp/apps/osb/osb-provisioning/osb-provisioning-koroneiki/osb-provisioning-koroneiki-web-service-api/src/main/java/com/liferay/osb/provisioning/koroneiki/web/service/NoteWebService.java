@@ -23,6 +23,10 @@ import java.util.List;
  */
 public interface NoteWebService {
 
+	public Note addNote(
+			String agentName, String agentUID, String accountKey, Note note)
+		throws Exception;
+
 	public void deleteNote(String agentName, String agentUID, String noteKey)
 		throws Exception;
 
@@ -31,11 +35,7 @@ public interface NoteWebService {
 			int pageSize)
 		throws Exception;
 
-	public Note postNote(
-			String agentName, String agentUID, String accountKey, Note note)
-		throws Exception;
-
-	public Note putNote(
+	public Note updateNote(
 			String agentName, String agentUID, String noteKey, Note note)
 		throws Exception;
 

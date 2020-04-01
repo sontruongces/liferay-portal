@@ -4160,6 +4160,39 @@ paths:
                     description:
                         ""
             tags: ["ExternalLink"]
+        put:
+            description:
+                Updates the external link. Only the entityId field can be updated.
+            operationId: putExternalLink
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - $ref: "#/components/parameters/AgentUID"
+                - in: path
+                  name: externalLinkKey
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ExternalLink"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ExternalLink"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ExternalLink"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ExternalLink"
+                    description:
+                        ""
+            tags: ["ExternalLink"]
     "/notes/{noteKey}":
         delete:
             operationId: deleteNote

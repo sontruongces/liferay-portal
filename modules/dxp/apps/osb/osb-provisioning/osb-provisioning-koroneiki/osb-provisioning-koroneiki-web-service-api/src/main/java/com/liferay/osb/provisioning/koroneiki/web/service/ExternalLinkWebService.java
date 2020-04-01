@@ -23,8 +23,22 @@ import java.util.List;
  */
 public interface ExternalLinkWebService {
 
+	public ExternalLink addExternalLink(
+			String agentName, String agentUID, String accountKey,
+			ExternalLink externalLink)
+		throws Exception;
+
+	public void deleteExternalLink(
+			String agentName, String agentUID, String externalLinkKey)
+		throws Exception;
+
 	public List<ExternalLink> getExternalLinks(
 			String accountKey, int page, int pageSize)
+		throws Exception;
+
+	public ExternalLink updateExternalLink(
+			String agentName, String agentUID, String externalLinkKey,
+			ExternalLink externalLink)
 		throws Exception;
 
 }

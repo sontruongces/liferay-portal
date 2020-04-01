@@ -23,6 +23,10 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 %>
 
 <div>
+	<%= viewAccountDisplayContext.getEditAccountURL() %>
+</div>
+
+<div>
 	<span><liferay-ui:message key="account-name" /></span>
 
 	<span><%= accountDisplay.getName() %></span>
@@ -70,6 +74,10 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 	<span><%= accountDisplay.getFirstLineSupportTeamName() %></span>
 </div>
 
+<div>
+	<%= viewAccountDisplayContext.getAddPostalAddressURL() %>
+</div>
+
 <%
 List<PostalAddressDisplay> postalAddressDisplays = accountDisplay.getPostalAddressDisplays();
 
@@ -78,6 +86,14 @@ for (int i = 0; i < postalAddressDisplays.size(); i++) {
 %>
 
 	<div>
+		<div>
+			<%= viewAccountDisplayContext.getEditPostalAddressURL(postalAddressDisplay.getPostalAddressId()) %>
+		</div>
+
+		<div>
+			<%= viewAccountDisplayContext.getDeletePostalAddressURL(postalAddressDisplay.getPostalAddressId()) %>
+		</div>
+
 		<div>
 			<liferay-ui:message key="address" /> <%= i + 1 %>
 		</div>

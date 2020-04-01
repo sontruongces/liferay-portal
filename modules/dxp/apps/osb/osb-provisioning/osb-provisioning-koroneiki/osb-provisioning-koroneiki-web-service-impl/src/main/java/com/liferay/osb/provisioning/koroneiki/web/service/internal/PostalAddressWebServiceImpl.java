@@ -14,11 +14,10 @@
 
 package com.liferay.osb.provisioning.koroneiki.web.service.internal;
 
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
-import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
-import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ExternalLinkResource;
-import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
+import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.PostalAddressResource;
+import com.liferay.osb.provisioning.koroneiki.web.service.PostalAddressWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
@@ -31,55 +30,54 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Kyle Bischof
+ * @author Amos Fong
  */
 @Component(
 	configurationPid = "com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration",
-	immediate = true, service = ExternalLinkWebService.class
+	immediate = true, service = PostalAddressWebService.class
 )
-public class ExternalLinkWebServiceImpl implements ExternalLinkWebService {
+public class PostalAddressWebServiceImpl implements PostalAddressWebService {
 
-	public ExternalLink addExternalLink(
+	public PostalAddress addPostalAddress(
 			String agentName, String agentUID, String accountKey,
-			ExternalLink externalLink)
+			PostalAddress postalAddress)
 		throws Exception {
 
-		return _externalLinkResource.postAccountAccountKeyExternalLink(
-			agentName, agentUID, accountKey, externalLink);
+		return _postalAddressResource.postAccountAccountKeyPostalAddress(
+			agentName, agentUID, accountKey, postalAddress);
 	}
 
-	public void deleteExternalLink(
-			String agentName, String agentUID, String externalLinkKey)
+	public void deletePostalAddress(
+			String agentName, String agentUID, Long postalAddressId)
 		throws Exception {
 
-		_externalLinkResource.deleteExternalLink(
-			agentName, agentUID, externalLinkKey);
+		_postalAddressResource.deletePostalAddress(
+			agentName, agentUID, postalAddressId);
 	}
 
-	public List<ExternalLink> getExternalLinks(
-			String accountKey, int page, int pageSize)
+	public List<PostalAddress> getAccountPostalAddresss(String accountKey)
 		throws Exception {
 
-		Page<ExternalLink> externalLinksPage =
-			_externalLinkResource.getAccountAccountKeyExternalLinksPage(
-				accountKey, Pagination.of(page, pageSize));
+		Page<PostalAddress> postalAddresssPage =
+			_postalAddressResource.getAccountAccountKeyPostalAddressesPage(
+				accountKey);
 
-		if ((externalLinksPage != null) &&
-			(externalLinksPage.getItems() != null)) {
+		if ((postalAddresssPage != null) &&
+			(postalAddresssPage.getItems() != null)) {
 
-			return new ArrayList<>(externalLinksPage.getItems());
+			return new ArrayList<>(postalAddresssPage.getItems());
 		}
 
 		return Collections.emptyList();
 	}
 
-	public ExternalLink updateExternalLink(
-			String agentName, String agentUID, String externalLinkKey,
-			ExternalLink externalLink)
+	public PostalAddress updatePostalAddress(
+			String agentName, String agentUID, Long postalAddressId,
+			PostalAddress postalAddress)
 		throws Exception {
 
-		return _externalLinkResource.putExternalLink(
-			agentName, agentUID, externalLinkKey, externalLink);
+		return _postalAddressResource.putPostalAddress(
+			agentName, agentUID, postalAddressId, postalAddress);
 	}
 
 	@Activate
@@ -88,9 +86,9 @@ public class ExternalLinkWebServiceImpl implements ExternalLinkWebService {
 			ConfigurableUtil.createConfigurable(
 				KoroneikiConfiguration.class, properties);
 
-		ExternalLinkResource.Builder builder = ExternalLinkResource.builder();
+		PostalAddressResource.Builder builder = PostalAddressResource.builder();
 
-		_externalLinkResource = builder.endpoint(
+		_postalAddressResource = builder.endpoint(
 			koroneikiConfiguration.host(), koroneikiConfiguration.port(),
 			koroneikiConfiguration.scheme()
 		).header(
@@ -98,6 +96,6 @@ public class ExternalLinkWebServiceImpl implements ExternalLinkWebService {
 		).build();
 	}
 
-	private ExternalLinkResource _externalLinkResource;
+	private PostalAddressResource _postalAddressResource;
 
 }
