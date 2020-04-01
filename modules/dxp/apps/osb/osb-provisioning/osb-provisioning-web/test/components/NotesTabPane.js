@@ -66,7 +66,7 @@ describe('NotesTabPane', () => {
 		expect(container).toBeTruthy();
 	});
 
-	describe('displaying of approved notes', () => {
+	describe('approved notes', () => {
 		it('displays a pinned note', () => {
 			const {getByText} = renderNotesTabPane();
 
@@ -109,6 +109,12 @@ describe('NotesTabPane', () => {
 			expect(queryByText('view-archived-notes')).toBeNull();
 		});
 
+		it('displays a textarea for adding new notes', () => {
+			const {getByPlaceholderText} = renderNotesTabPane();
+
+			getByPlaceholderText('write-a-note');
+		});
+
 		it('displays a message when there is no data', () => {
 			const {container} = render(<NotesTabPane />);
 
@@ -118,7 +124,7 @@ describe('NotesTabPane', () => {
 		});
 	});
 
-	describe('displaying of archived notes', () => {
+	describe('archived notes', () => {
 		it('displays archived notes when "view Archived Notes" button is clicked', () => {
 			const {getByText} = renderNotesTabPane();
 

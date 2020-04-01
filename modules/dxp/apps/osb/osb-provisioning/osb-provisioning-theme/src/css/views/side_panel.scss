@@ -4,6 +4,11 @@
 	flex: 0 0 33.333333%;
 	max-width: 33.333333%;
 
+	.add-note-textarea {
+		padding: $spacing-md;
+		width: 100%;
+	}
+
 	.archive-btn {
 		margin: $spacing-default;
 

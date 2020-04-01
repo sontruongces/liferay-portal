@@ -14,9 +14,26 @@ import React, {useState} from 'react';
 
 import Note from './Note';
 
-function ApprovedNotes({hasArchive, onClick, pinned, unpinned}) {
+function AddNote({addURL}) {
+	return (
+		<label
+			className="add-note-textarea form-control-label"
+			htmlFor="addNoteTextarea"
+		>
+			<textarea
+				className="form-control"
+				id="addNoteTextarea"
+				placeholder={Liferay.Language.get('write-a-note')}
+			></textarea>
+		</label>
+	);
+}
+
+function ApprovedNotes({addURL, hasArchive, onClick, pinned, unpinned}) {
 	return (
 		<>
+			<AddNote addURL={addURL} />
+
 			<div className="notes">
 				{!!pinned.length && (
 					<div className="pinned-notes">
@@ -55,7 +72,6 @@ function ApprovedNotes({hasArchive, onClick, pinned, unpinned}) {
 					</div>
 				)}
 			</div>
-
 			{hasArchive && (
 				<button
 					className="archive-btn btn btn-link"
