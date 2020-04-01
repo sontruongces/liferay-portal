@@ -930,6 +930,21 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public ExternalLink updateExternalLink(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("agentUID") String agentUID,
+			@GraphQLName("externalLinkKey") String externalLinkKey,
+			@GraphQLName("externalLink") ExternalLink externalLink)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_externalLinkResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			externalLinkResource -> externalLinkResource.putExternalLink(
+				agentName, agentUID, externalLinkKey, externalLink));
+	}
+
+	@GraphQLField
 	public ExternalLink
 			createProductConsumptionProductConsumptionKeyExternalLink(
 				@GraphQLName("agentName") String agentName,

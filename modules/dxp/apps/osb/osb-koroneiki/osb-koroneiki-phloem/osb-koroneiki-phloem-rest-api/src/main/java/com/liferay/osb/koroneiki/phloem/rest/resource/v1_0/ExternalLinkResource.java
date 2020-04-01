@@ -76,6 +76,11 @@ public interface ExternalLinkResource {
 	public ExternalLink getExternalLink(String externalLinkKey)
 		throws Exception;
 
+	public ExternalLink putExternalLink(
+			String agentName, String agentUID, String externalLinkKey,
+			ExternalLink externalLink)
+		throws Exception;
+
 	public Page<ExternalLink>
 			getProductConsumptionProductConsumptionKeyExternalLinksPage(
 				String productConsumptionKey, Pagination pagination)

@@ -1631,8 +1631,8 @@ public class Query {
 	@GraphQLField
 	public ProductPurchaseViewPage accountAccountKeyProductPurchaseViews(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("search") String search,
 			@GraphQLName("state") String state,
+			@GraphQLName("search") String search,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -1643,7 +1643,7 @@ public class Query {
 			productPurchaseViewResource -> new ProductPurchaseViewPage(
 				productPurchaseViewResource.
 					getAccountAccountKeyProductPurchaseViewsPage(
-						accountKey, search, state,
+						accountKey, state, search,
 						Pagination.of(page, pageSize))));
 	}
 
@@ -2985,8 +2985,8 @@ public class Query {
 
 		@GraphQLField
 		public ProductPurchaseViewPage accountKeyProductPurchaseViews(
-				@GraphQLName("search") String search,
 				@GraphQLName("state") String state,
+				@GraphQLName("search") String search,
 				@GraphQLName("pageSize") int pageSize,
 				@GraphQLName("page") int page)
 			throws Exception {
@@ -2997,7 +2997,7 @@ public class Query {
 				productPurchaseViewResource -> new ProductPurchaseViewPage(
 					productPurchaseViewResource.
 						getAccountAccountKeyProductPurchaseViewsPage(
-							_account.getKey(), search, state,
+							_account.getKey(), state, search,
 							Pagination.of(page, pageSize))));
 		}
 

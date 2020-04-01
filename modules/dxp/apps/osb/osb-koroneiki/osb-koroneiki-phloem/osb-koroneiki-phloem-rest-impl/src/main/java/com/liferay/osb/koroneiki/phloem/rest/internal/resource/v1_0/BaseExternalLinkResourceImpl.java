@@ -45,6 +45,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -274,6 +275,38 @@ public abstract class BaseExternalLinkResourceImpl
 	public ExternalLink getExternalLink(
 			@NotNull @Parameter(hidden = true) @PathParam("externalLinkKey")
 				String externalLinkKey)
+		throws Exception {
+
+		return new ExternalLink();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/external-links/{externalLinkKey}' -d $'{"domain": ___, "entityId": ___, "entityName": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@Operation(
+		description = "Updates the external link. Only the entityId field can be updated."
+	)
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
+			@Parameter(in = ParameterIn.PATH, name = "externalLinkKey")
+		}
+	)
+	@Path("/external-links/{externalLinkKey}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ExternalLink")})
+	public ExternalLink putExternalLink(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
+			@NotNull @Parameter(hidden = true) @PathParam("externalLinkKey")
+				String externalLinkKey,
+			ExternalLink externalLink)
 		throws Exception {
 
 		return new ExternalLink();
