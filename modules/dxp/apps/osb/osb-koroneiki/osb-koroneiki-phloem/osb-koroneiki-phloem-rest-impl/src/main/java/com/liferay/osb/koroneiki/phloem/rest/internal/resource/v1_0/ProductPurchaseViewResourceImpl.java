@@ -65,7 +65,7 @@ public class ProductPurchaseViewResourceImpl
 	@Override
 	public Page<ProductPurchaseView>
 			getAccountAccountKeyProductPurchaseViewsPage(
-				String accountKey, String search, String state,
+				String accountKey, String state, String search,
 				Pagination pagination)
 		throws Exception {
 

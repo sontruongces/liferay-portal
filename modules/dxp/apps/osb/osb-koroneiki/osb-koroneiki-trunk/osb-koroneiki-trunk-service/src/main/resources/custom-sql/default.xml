@@ -54,7 +54,7 @@
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.filterByProductEntry">
 		<![CDATA[
 			WHERE
-				Koroneiki_ProductEntry.name LIKE ? [$AND_OR_NULL_CHECK$]
+				(Koroneiki_ProductEntry.name LIKE ? [$AND_OR_NULL_CHECK$])
 		]]>
 	</sql>
 	<sql id="com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder.findByAccount">

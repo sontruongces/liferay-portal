@@ -166,7 +166,7 @@ public class ProductEntryFinderImpl
 		}
 
 		if (Validator.isNotNull(join)) {
-			int pos = join.indexOf("WHERE");
+			int pos = join.lastIndexOf("WHERE");
 
 			if (pos != -1) {
 				join = join.substring(0, pos);
@@ -217,7 +217,7 @@ public class ProductEntryFinderImpl
 		}
 
 		if (Validator.isNotNull(join)) {
-			int pos = join.indexOf("WHERE");
+			int pos = join.lastIndexOf("WHERE");
 
 			if (pos != -1) {
 				join = join.substring(pos + 5);

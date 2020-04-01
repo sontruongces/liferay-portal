@@ -319,7 +319,7 @@ public class ViewAccountDisplayContext {
 
 		List<ProductPurchaseView> productPurchaseViews =
 			_productPurchaseViewWebService.getProductPurchaseViews(
-				_account.getKey(), search, state, searchContainer.getCur(),
+				_account.getKey(), state, search, searchContainer.getCur(),
 				searchContainer.getEnd() - searchContainer.getStart());
 
 		searchContainer.setResults(
@@ -330,7 +330,7 @@ public class ViewAccountDisplayContext {
 
 		int count =
 			(int)_productPurchaseViewWebService.getProductPurchaseViewsCount(
-				_account.getKey(), search, state);
+				_account.getKey(), state, search);
 
 		searchContainer.setTotal(count);
 

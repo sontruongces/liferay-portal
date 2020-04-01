@@ -3,5 +3,6 @@
 <suppressions>
 	<source-check>
 		<suppress checks="SQLLongNamesCheck" files="src/main/resources/META-INF/sql/tables.sql" />
+		<suppress checks="XMLCustomSQLStylingCheck" files="src/main/resources/custom-sql/default.xml" />
 	</source-check>
 </suppressions>
