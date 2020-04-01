@@ -393,6 +393,7 @@ function AddResultModal({
 								selected={selectedIds.includes(result.id)}
 								title={result.title}
 								type={result.type}
+								viewURL={result.viewURL}
 							/>
 						))}
 					</ul>
