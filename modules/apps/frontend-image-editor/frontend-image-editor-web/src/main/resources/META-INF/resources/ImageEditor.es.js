@@ -546,7 +546,7 @@ ImageEditor.STATE = {
 	 * @type {String}
 	 */
 	saveFileEntryId: {
-		validator: core.isString,
+		validator: core.isString
 	},
 
 	/**
