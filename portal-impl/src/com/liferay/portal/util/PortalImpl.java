@@ -8741,7 +8741,10 @@ public class PortalImpl implements Portal {
 		sb.append(portalURL);
 		sb.append(_pathContext);
 
-		if (themeDisplay.isI18n() && !canonicalURL) {
+		if (themeDisplay.isI18n() && !canonicalURL &&
+			LanguageUtil.isAvailableLocale(
+				group.getGroupId(), themeDisplay.getI18nLanguageId())) {
+
 			sb.append(themeDisplay.getI18nPath());
 		}
 
