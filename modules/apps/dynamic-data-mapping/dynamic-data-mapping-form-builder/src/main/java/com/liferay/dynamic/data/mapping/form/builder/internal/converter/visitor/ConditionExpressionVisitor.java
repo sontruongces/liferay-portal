@@ -26,6 +26,7 @@ import com.liferay.dynamic.data.mapping.expression.model.IntegerLiteral;
 import com.liferay.dynamic.data.mapping.expression.model.NotExpression;
 import com.liferay.dynamic.data.mapping.expression.model.OrExpression;
 import com.liferay.dynamic.data.mapping.expression.model.StringLiteral;
+import com.liferay.dynamic.data.mapping.expression.model.Term;
 import com.liferay.dynamic.data.mapping.form.builder.internal.converter.model.DDMFormRuleCondition;
 import com.liferay.petra.string.StringPool;
 
@@ -155,6 +156,11 @@ public class ConditionExpressionVisitor extends ExpressionVisitor<Object> {
 	public Object visit(StringLiteral stringLiteral) {
 		return new DDMFormRuleCondition.Operand(
 			"string", stringLiteral.getValue());
+	}
+
+	@Override
+	public Object visit(Term term) {
+		return new DDMFormRuleCondition.Operand("field", term.getValue());
 	}
 
 	protected DDMFormRuleCondition createDDMFormRuleCondition(
