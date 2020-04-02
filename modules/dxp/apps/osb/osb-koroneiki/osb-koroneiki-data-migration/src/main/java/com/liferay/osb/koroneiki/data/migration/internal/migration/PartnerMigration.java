@@ -17,7 +17,6 @@ package com.liferay.osb.koroneiki.data.migration.internal.migration;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
-import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
@@ -64,12 +63,15 @@ public class PartnerMigration {
 
 		TeamRole flsTeamRole = _teamRoleLocalService.addTeamRole(
 			userId, "First Line Support", StringPool.BLANK,
-			TeamRoleType.ACCOUNT);
+			com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type.
+				ACCOUNT.toString());
 
 		_flsTeamRoleId = flsTeamRole.getTeamRoleId();
 
 		TeamRole partnerTeamRole = _teamRoleLocalService.addTeamRole(
-			userId, "Partner", StringPool.BLANK, TeamRoleType.ACCOUNT);
+			userId, "Partner", StringPool.BLANK,
+			com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type.
+				ACCOUNT.toString());
 
 		_partnerTeamRoleId = partnerTeamRole.getTeamRoleId();
 

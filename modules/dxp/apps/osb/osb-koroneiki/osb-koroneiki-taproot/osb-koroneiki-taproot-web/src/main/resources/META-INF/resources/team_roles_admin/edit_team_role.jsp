@@ -45,17 +45,17 @@ int type = BeanParamUtil.getInteger(teamRole, request, "type");
 					<h5><liferay-ui:message key="type" /></h5>
 
 					<p>
-						<%= TeamRoleType.getLabel(teamRole.getType()) %>
+						<%= teamRole.getType() %>
 					</p>
 				</c:when>
 				<c:otherwise>
 					<aui:select name="type">
 
 						<%
-						for (int curType : TeamRoleType.VALUES) {
+						for (com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type teamRoleType : com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type.values()) {
 						%>
 
-							<aui:option label="<%= TeamRoleType.getLabel(curType) %>" value="<%= curType %>" />
+							<aui:option label="<%= teamRoleType.toString() %>" value="<%= teamRoleType.toString() %>" />
 
 						<%
 						}

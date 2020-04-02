@@ -92,7 +92,7 @@ public class EditTeamRoleMVCActionCommand extends BaseMVCActionCommand {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
-		int type = ParamUtil.getInteger(actionRequest, "type");
+		String type = ParamUtil.getString(actionRequest, "type");
 
 		if (teamRoleId <= 0) {
 			_teamRoleService.addTeamRole(name, description, type);

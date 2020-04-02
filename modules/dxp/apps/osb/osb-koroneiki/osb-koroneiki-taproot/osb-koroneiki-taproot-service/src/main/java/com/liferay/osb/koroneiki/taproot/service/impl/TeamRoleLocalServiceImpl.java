@@ -15,7 +15,6 @@
 package com.liferay.osb.koroneiki.taproot.service.impl;
 
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
-import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.osb.koroneiki.taproot.exception.TeamRoleNameException;
 import com.liferay.osb.koroneiki.taproot.exception.TeamRoleTypeException;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
@@ -32,7 +31,6 @@ import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -55,7 +53,7 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.REINDEX)
 	public TeamRole addTeamRole(
-			long userId, String name, String description, int type)
+			long userId, String name, String description, String type)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -127,11 +125,17 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 		return teamRolePersistence.findByTeamRoleKey(teamRoleKey);
 	}
 
-	public List<TeamRole> getTeamRoles(int type, int start, int end) {
+	public TeamRole getTeamRole(String name, String type)
+		throws PortalException {
+
+		return teamRolePersistence.findByN_T(name, type);
+	}
+
+	public List<TeamRole> getTeamRoles(String type, int start, int end) {
 		return teamRolePersistence.findByType(type, start, end);
 	}
 
-	public int getTeamRolesCount(int type) {
+	public int getTeamRolesCount(String type) {
 		return teamRolePersistence.countByType(type);
 	}
 
@@ -195,14 +199,19 @@ public class TeamRoleLocalServiceImpl extends TeamRoleLocalServiceBaseImpl {
 		return teamRolePersistence.update(teamRole);
 	}
 
-	protected void validate(long teamRoleId, String name, int type)
+	protected void validate(long teamRoleId, String name, String type)
 		throws PortalException {
 
 		if (Validator.isNull(name)) {
 			throw new TeamRoleNameException();
 		}
 
-		if (!ArrayUtil.contains(TeamRoleType.VALUES, type)) {
+		com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type
+			teamRoleType =
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type.
+					create(type);
+
+		if (teamRoleType == null) {
 			throw new TeamRoleTypeException();
 		}
 

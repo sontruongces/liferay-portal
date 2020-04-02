@@ -12,14 +12,20 @@
  *
  */
 
-package com.liferay.osb.koroneiki.taproot.model.impl;
+package com.liferay.osb.provisioning.koroneiki.web.service;
+
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
+
+import java.util.List;
 
 /**
- * @author Kyle Bischof
+ * @author Amos Fong
  */
-public class TeamRoleImpl extends TeamRoleBaseImpl {
+public interface TeamWebService {
 
-	public TeamRoleImpl() {
-	}
+	public List<Team> search(
+			String search, String filterString, int page, int pageSize,
+			String sortString)
+		throws Exception;
 
 }

@@ -15,8 +15,13 @@
 package com.liferay.osb.provisioning.web.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
+import com.liferay.osb.provisioning.koroneiki.constants.TeamRoleConstants;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.TeamRoleWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
@@ -27,6 +32,8 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -46,13 +53,30 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
+	protected void addAccount(ActionRequest actionRequest, User user)
+		throws Exception {
+	}
+
 	@Override
 	protected void doProcessAction(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		User user = themeDisplay.getUser();
+
 		try {
-			updateAccount(actionRequest);
+			String accountKey = ParamUtil.getString(
+				actionRequest, "accountKey");
+
+			if (Validator.isNotNull(accountKey)) {
+				updateAccount(actionRequest, user);
+			}
+			else {
+				addAccount(actionRequest, user);
+			}
 
 			sendRedirect(actionRequest, actionResponse);
 		}
@@ -63,37 +87,94 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	protected void updateAccount(ActionRequest actionRequest) throws Exception {
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		User user = themeDisplay.getUser();
+	protected void updateAccount(ActionRequest actionRequest, User user)
+		throws Exception {
 
 		String accountKey = ParamUtil.getString(actionRequest, "accountKey");
 
-		String name = ParamUtil.getString(actionRequest, "name");
-		String code = ParamUtil.getString(actionRequest, "code");
-		String tier = ParamUtil.getString(actionRequest, "tier");
-		String region = ParamUtil.getString(actionRequest, "region");
+		boolean updateAccount = ParamUtil.getBoolean(
+			actionRequest, "updateAccount");
 
-		Account account = new Account();
+		if (updateAccount) {
+			String name = ParamUtil.getString(actionRequest, "name");
+			String code = ParamUtil.getString(actionRequest, "code");
+			String tier = ParamUtil.getString(actionRequest, "tier");
+			String region = ParamUtil.getString(actionRequest, "region");
 
-		account.setName(name);
+			Account account = new Account();
 
-		if (Validator.isNotNull(code)) {
-			account.setCode(code);
+			account.setName(name);
+
+			if (Validator.isNotNull(code)) {
+				account.setCode(code);
+			}
+
+			if (Validator.isNotNull(tier)) {
+				account.setTier(Account.Tier.create(tier));
+			}
+
+			if (Validator.isNotNull(region)) {
+				account.setRegion(Account.Region.create(region));
+			}
+
+			_accountWebService.updateAccount(
+				user.getFullName(), StringPool.BLANK, accountKey, account);
 		}
 
-		if (Validator.isNotNull(tier)) {
-			account.setTier(Account.Tier.create(tier));
+		boolean updatePartner = ParamUtil.getBoolean(
+			actionRequest, "updatePartner");
+
+		if (updatePartner) {
+			String partnerTeamKey = ParamUtil.getString(
+				actionRequest, "partnerTeamKey");
+
+			updateAssignedTeam(
+				user, accountKey, partnerTeamKey,
+				TeamRoleConstants.NAME_PARTNER);
 		}
 
-		if (Validator.isNotNull(region)) {
-			account.setRegion(Account.Region.create(region));
+		boolean updateFirstLineSupport = ParamUtil.getBoolean(
+			actionRequest, "updateFirstLineSupport");
+
+		if (updateFirstLineSupport) {
+			String firstLineSupportTeamKey = ParamUtil.getString(
+				actionRequest, "firstLineSupportTeamKey");
+
+			updateAssignedTeam(
+				user, accountKey, firstLineSupportTeamKey,
+				TeamRoleConstants.NAME_FIRST_LINE_SUPPORT);
+		}
+	}
+
+	protected void updateAssignedTeam(
+			User user, String accountKey, String teamKey, String teamRoleName)
+		throws Exception {
+
+		TeamRole teamRole = _teamRoleWebService.getTeamRole(
+			teamRoleName, TeamRole.Type.ACCOUNT.toString());
+
+		String filterString =
+			"accountKeysTeamRoleKeys/any(s:s eq '" + accountKey + "_" +
+				teamRole.getKey() + "')";
+
+		List<Team> teams = _teamWebService.search(
+			StringPool.BLANK, filterString, 1, 1000, StringPool.BLANK);
+
+		for (Team team : teams) {
+			if (teamKey.equals(team.getKey())) {
+				return;
+			}
+
+			_accountWebService.unassignTeamRoles(
+				user.getFullName(), StringPool.BLANK, accountKey, team.getKey(),
+				new String[] {teamRole.getKey()});
 		}
 
-		_accountWebService.updateAccount(
-			user.getFullName(), StringPool.BLANK, accountKey, account);
+		if (Validator.isNotNull(teamKey)) {
+			_accountWebService.assignTeamRoles(
+				user.getFullName(), StringPool.BLANK, accountKey, teamKey,
+				new String[] {teamRole.getKey()});
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -101,5 +182,11 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private AccountWebService _accountWebService;
+
+	@Reference
+	private TeamRoleWebService _teamRoleWebService;
+
+	@Reference
+	private TeamWebService _teamWebService;
 
 }

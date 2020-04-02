@@ -39,7 +39,7 @@ public class TeamRoleModelDocumentContributor
 		document.addText(Field.DESCRIPTION, teamRole.getDescription());
 		document.addDate(Field.MODIFIED_DATE, teamRole.getModifiedDate());
 		document.addText(Field.NAME, teamRole.getName());
-		document.addKeyword(Field.TYPE, teamRole.getTypeLabel());
+		document.addKeyword(Field.TYPE, teamRole.getType());
 		document.addKeyword(Field.USER_ID, teamRole.getUserId());
 
 		document.addKeyword("teamRoleKey", teamRole.getTeamRoleKey());

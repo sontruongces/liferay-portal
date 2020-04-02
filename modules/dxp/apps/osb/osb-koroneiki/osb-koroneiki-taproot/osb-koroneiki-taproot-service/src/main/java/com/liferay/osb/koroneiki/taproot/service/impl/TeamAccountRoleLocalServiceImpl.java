@@ -14,16 +14,19 @@
 
 package com.liferay.osb.koroneiki.taproot.service.impl;
 
-import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.osb.koroneiki.taproot.exception.TeamRoleTypeException;
 import com.liferay.osb.koroneiki.taproot.model.TeamAccountRole;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.TeamAccountRoleLocalServiceBaseImpl;
 import com.liferay.osb.koroneiki.taproot.service.persistence.TeamAccountRolePK;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Kyle Bischof
@@ -53,13 +56,16 @@ public class TeamAccountRoleLocalServiceImpl
 
 			teamAccountRole = teamAccountRolePersistence.update(
 				teamAccountRole);
+
+			_teamLocalService.reindex(teamId);
 		}
 
 		return teamAccountRole;
 	}
 
 	public TeamAccountRole deleteTeamAccountRole(
-		long teamId, long accountId, long teamRoleId) {
+			long teamId, long accountId, long teamRoleId)
+		throws PortalException {
 
 		TeamAccountRolePK teamAccountRolePK = new TeamAccountRolePK(
 			teamId, accountId, teamRoleId);
@@ -69,6 +75,8 @@ public class TeamAccountRoleLocalServiceImpl
 
 		if (teamAccountRole != null) {
 			deleteTeamAccountRole(teamAccountRole);
+
+			_teamLocalService.reindex(teamId);
 		}
 
 		return teamAccountRole;
@@ -76,6 +84,10 @@ public class TeamAccountRoleLocalServiceImpl
 
 	public void deleteTeamAccountRoles(long teamId, long accountId) {
 		teamAccountRolePersistence.removeByTI_AI(teamId, accountId);
+	}
+
+	public List<TeamAccountRole> getTeamAccountRoles(long teamId) {
+		return teamAccountRolePersistence.findByTeamId(teamId);
 	}
 
 	protected void validate(long teamId, long accountId, long teamRoleId)
@@ -87,9 +99,17 @@ public class TeamAccountRoleLocalServiceImpl
 
 		TeamRole teamRole = teamRolePersistence.findByPrimaryKey(teamRoleId);
 
-		if (teamRole.getType() != TeamRoleType.ACCOUNT) {
+		String type = teamRole.getType();
+
+		if (!type.equals(
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type.
+					ACCOUNT.toString())) {
+
 			throw new TeamRoleTypeException();
 		}
 	}
+
+	@Reference
+	private TeamLocalService _teamLocalService;
 
 }

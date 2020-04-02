@@ -23,6 +23,8 @@ import java.util.List;
  */
 public interface TeamRoleWebService {
 
+	public TeamRole getTeamRole(String type, String name) throws Exception;
+
 	public List<TeamRole> getTeamRoles(
 			String accountKey, String teamKey, int page, int pageSize)
 		throws Exception;

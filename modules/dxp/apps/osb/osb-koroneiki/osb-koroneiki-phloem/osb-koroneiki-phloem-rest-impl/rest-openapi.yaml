@@ -5442,6 +5442,34 @@ paths:
                     description:
                         ""
             tags: ["TeamRole"]
+    "/team-roles/{teamRoleType}/{teamRoleName}":
+        get:
+            description:
+                Retrieves the team role by name.
+            operationId: getTeamRoleTeamRoleTypeTeamRoleName
+            parameters:
+                - in: path
+                  name: teamRoleType
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: teamRoleName
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/TeamRole"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/TeamRole"
+                    description:
+                        ""
+            tags: ["TeamRole"]
     "/teams":
         get:
             description:

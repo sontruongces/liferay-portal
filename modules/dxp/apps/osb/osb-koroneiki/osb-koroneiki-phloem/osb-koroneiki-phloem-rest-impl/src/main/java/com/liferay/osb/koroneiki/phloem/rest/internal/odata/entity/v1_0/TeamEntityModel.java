@@ -36,6 +36,10 @@ public class TeamEntityModel implements EntityModel {
 			new StringEntityField("accountKey", locale -> "accountKey"),
 			new CollectionEntityField(
 				new StringEntityField(
+					"accountKeysTeamRoleKeys",
+					locale -> "accountKeysTeamRoleKeys")),
+			new CollectionEntityField(
+				new StringEntityField(
 					"externalLinkDomains", locale -> "externalLinkDomains")),
 			new CollectionEntityField(
 				new StringEntityField(

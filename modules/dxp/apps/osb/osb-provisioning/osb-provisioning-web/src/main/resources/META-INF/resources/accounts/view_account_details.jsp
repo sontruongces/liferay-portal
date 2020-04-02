@@ -27,49 +27,100 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 </div>
 
 <div>
-	<span><liferay-ui:message key="account-name" /></span>
+	<label><liferay-ui:message key="account-name" /></label>
 
 	<span><%= accountDisplay.getName() %></span>
 </div>
 
 <div>
-	<span><liferay-ui:message key="status" /></span>
+	<label><liferay-ui:message key="status" /></label>
 
 	<span><%= accountDisplay.getStatus() %></span>
+
+	<aui:select name="status">
+		<aui:option value="" />
+
+		<%
+		for (Account.Status status : Account.Status.values()) {
+		%>
+
+			<aui:option label="<%= status.toString() %>" value="<%= status.toString() %>" />
+
+		<%
+		}
+		%>
+
+	</aui:select>
 </div>
 
 <div>
-	<span><liferay-ui:message key="code" /></span>
+	<label><liferay-ui:message key="code" /></label>
 
 	<span><%= accountDisplay.getCode() %></span>
 </div>
 
 <div>
-	<span><liferay-ui:message key="created" /></span>
+	<label><liferay-ui:message key="created" /></label>
 
 	<span><%= accountDisplay.getDateCreated() %></span>
 </div>
 
 <div>
-	<span><liferay-ui:message key="last-modified" /></span>
+	<label><liferay-ui:message key="last-modified" /></label>
 
 	<span><%= accountDisplay.getDateModified() %></span>
 </div>
 
 <div>
-	<span><liferay-ui:message key="tier" /></span>
+	<label><liferay-ui:message key="tier" /></label>
 
 	<span><%= accountDisplay.getTier() %></span>
+
+	<aui:select name="tier">
+		<aui:option value="" />
+
+		<%
+		for (Account.Tier tier : Account.Tier.values()) {
+		%>
+
+			<aui:option label="<%= tier.toString() %>" value="<%= tier.toString() %>" />
+
+		<%
+		}
+		%>
+
+	</aui:select>
 </div>
 
 <div>
-	<span><liferay-ui:message key="partner-reseller-si" /></span>
+	<label><liferay-ui:message key="region" /></label>
+
+	<span><%= accountDisplay.getRegion() %></span>
+
+	<aui:select name="region">
+		<aui:option value="" />
+
+		<%
+		for (Account.Region region : Account.Region.values()) {
+		%>
+
+			<aui:option label="<%= region.toString() %>" value="<%= region.toString() %>" />
+
+		<%
+		}
+		%>
+
+	</aui:select>
+</div>
+
+<div>
+	<label><liferay-ui:message key="partner-reseller-si" /></label>
 
 	<span><%= accountDisplay.getPartnerTeamName() %></span>
 </div>
 
 <div>
-	<span><liferay-ui:message key="first-line-support" /></span>
+	<label><liferay-ui:message key="first-line-support" /></label>
 
 	<span><%= accountDisplay.getFirstLineSupportTeamName() %></span>
 </div>
@@ -140,19 +191,19 @@ for (int i = 0; i < postalAddressDisplays.size(); i++) {
 %>
 
 <div>
-	<span><liferay-ui:message key="dossiera-account" /></span>
+	<label><liferay-ui:message key="dossiera-account" /></label>
 
 	<span><%= accountDisplay.getDossieraAccountKey() %></span>
 </div>
 
 <div>
-	<span><liferay-ui:message key="dossiera-project" /></span>
+	<label><liferay-ui:message key="dossiera-project" /></label>
 
 	<span><%= accountDisplay.getDossieraProjectKey() %></span>
 </div>
 
 <div>
-	<span><liferay-ui:message key="salesforce-project" /></span>
+	<label><liferay-ui:message key="salesforce-project" /></label>
 
 	<span><%= accountDisplay.getSalesforceProjectKey() %></span>
 </div>

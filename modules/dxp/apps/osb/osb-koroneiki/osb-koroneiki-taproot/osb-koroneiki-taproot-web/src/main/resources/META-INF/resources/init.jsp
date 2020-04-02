@@ -40,7 +40,6 @@ page import="com.liferay.osb.koroneiki.root.exception.ExternalLinkEntityNameExce
 page import="com.liferay.osb.koroneiki.root.model.ExternalLink" %><%@
 page import="com.liferay.osb.koroneiki.taproot.constants.TaprootPortletKeys" %><%@
 page import="com.liferay.osb.koroneiki.taproot.constants.TaprootWebKeys" %><%@
-page import="com.liferay.osb.koroneiki.taproot.constants.TeamRoleType" %><%@
 page import="com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants" %><%@
 page import="com.liferay.osb.koroneiki.taproot.exception.AccountNameException" %><%@
 page import="com.liferay.osb.koroneiki.taproot.exception.ContactEmailAddressException" %><%@

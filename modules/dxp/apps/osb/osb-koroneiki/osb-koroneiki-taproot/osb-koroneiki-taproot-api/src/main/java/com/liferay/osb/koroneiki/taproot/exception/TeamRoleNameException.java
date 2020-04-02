@@ -14,7 +14,6 @@
 
 package com.liferay.osb.koroneiki.taproot.exception;
 
-import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
@@ -39,11 +38,11 @@ public class TeamRoleNameException extends PortalException {
 
 	public static class MustNotBeDuplicate extends TeamRoleNameException {
 
-		public MustNotBeDuplicate(String name, int type) {
+		public MustNotBeDuplicate(String name, String type) {
 			super(
 				String.format(
 					"A team role with name %s and type %s is already in use",
-					name, TeamRoleType.getLabel(type)));
+					name, type));
 		}
 
 	}

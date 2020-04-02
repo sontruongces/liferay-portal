@@ -52,7 +52,7 @@ Account koroneikiAccount = (Account)request.getAttribute(TaprootWebKeys.ACCOUNT)
 				<aui:option value="" />
 
 				<%
-				for (TeamRole teamRole : TeamRoleLocalServiceUtil.getTeamRoles(TeamRoleType.ACCOUNT, QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
+				for (TeamRole teamRole : TeamRoleLocalServiceUtil.getTeamRoles(com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type.ACCOUNT.toString(), QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
 				%>
 
 					<aui:option label="<%= teamRole.getName() %>" value="<%= teamRole.getTeamRoleId() %>" />

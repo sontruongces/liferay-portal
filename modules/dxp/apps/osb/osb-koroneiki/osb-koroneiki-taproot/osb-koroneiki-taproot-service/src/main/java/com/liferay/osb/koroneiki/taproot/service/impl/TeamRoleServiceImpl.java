@@ -41,7 +41,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class TeamRoleServiceImpl extends TeamRoleServiceBaseImpl {
 
-	public TeamRole addTeamRole(String name, String description, int type)
+	public TeamRole addTeamRole(String name, String description, String type)
 		throws PortalException {
 
 		_teamRolePermission.check(
@@ -101,6 +101,17 @@ public class TeamRoleServiceImpl extends TeamRoleServiceBaseImpl {
 
 	public TeamRole getTeamRole(String teamRoleKey) throws PortalException {
 		TeamRole teamRole = teamRoleLocalService.getTeamRole(teamRoleKey);
+
+		_teamRolePermission.check(
+			getPermissionChecker(), teamRole, ActionKeys.VIEW);
+
+		return teamRole;
+	}
+
+	public TeamRole getTeamRole(String name, String type)
+		throws PortalException {
+
+		TeamRole teamRole = teamRoleLocalService.getTeamRole(name, type);
 
 		_teamRolePermission.check(
 			getPermissionChecker(), teamRole, ActionKeys.VIEW);

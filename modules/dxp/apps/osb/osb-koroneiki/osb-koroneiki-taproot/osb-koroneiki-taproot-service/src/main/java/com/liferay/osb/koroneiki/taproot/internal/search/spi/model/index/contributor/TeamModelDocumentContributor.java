@@ -18,6 +18,9 @@ import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
+import com.liferay.osb.koroneiki.taproot.model.TeamAccountRole;
+import com.liferay.osb.koroneiki.taproot.model.TeamRole;
+import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -25,6 +28,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
 
 import java.util.HashSet;
@@ -71,7 +75,30 @@ public class TeamModelDocumentContributor
 
 		document.addTextSortable(Field.NAME, team.getName());
 
+		_contributeAssignedAccounts(document, team.getTeamId());
 		_contributeExternalLinks(document, team.getTeamId());
+	}
+
+	private void _contributeAssignedAccounts(Document document, long teamId)
+		throws PortalException {
+
+		Set<String> accountKeysTeamRoleKeys = new HashSet<>();
+
+		List<TeamAccountRole> teamAccountRoles =
+			_teamAccountRoleLocalService.getTeamAccountRoles(teamId);
+
+		for (TeamAccountRole teamAccountRole : teamAccountRoles) {
+			Account account = teamAccountRole.getAccount();
+			TeamRole teamRole = teamAccountRole.getTeamRole();
+
+			accountKeysTeamRoleKeys.add(
+				account.getAccountKey() + StringPool.UNDERLINE +
+					teamRole.getTeamRoleKey());
+		}
+
+		document.addKeyword(
+			"accountKeysTeamRoleKeys",
+			ArrayUtil.toStringArray(accountKeysTeamRoleKeys.toArray()));
 	}
 
 	private void _contributeExternalLinks(Document document, long teamId)
@@ -108,5 +135,8 @@ public class TeamModelDocumentContributor
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
+
+	@Reference
+	private TeamAccountRoleLocalService _teamAccountRoleLocalService;
 
 }

@@ -22,7 +22,6 @@ import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemP
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
-import com.liferay.osb.koroneiki.taproot.constants.TeamRoleType;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
@@ -137,19 +136,27 @@ public class TeamRoleResourceImpl
 	}
 
 	@Override
+	public TeamRole getTeamRoleTeamRoleTypeTeamRoleName(
+			String teamRoleType, String teamRoleName)
+		throws Exception {
+
+		return TeamRoleUtil.toTeamRole(
+			_teamRoleService.getTeamRole(teamRoleType, teamRoleName));
+	}
+
+	@Override
 	public TeamRole postTeamRole(
 			String agentName, String agentUID, TeamRole teamRole)
 		throws Exception {
 
-		TeamRole.Type teamRoleType = teamRole.getType();
-
 		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
-		int type = TeamRoleType.fromLabel(teamRoleType.toString());
+		TeamRole.Type teamRoleType = teamRole.getType();
 
 		return TeamRoleUtil.toTeamRole(
 			_teamRoleService.addTeamRole(
-				teamRole.getName(), teamRole.getDescription(), type));
+				teamRole.getName(), teamRole.getDescription(),
+				teamRoleType.toString()));
 	}
 
 	@Override

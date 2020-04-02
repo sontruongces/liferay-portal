@@ -45,10 +45,10 @@ renderResponse.setTitle(koroneikiAccount.getName());
 			emptyResultsMessage="no-team-roles-were-found"
 			headerNames="name,description"
 			iteratorURL="<%= renderResponse.createRenderURL() %>"
-			total="<%= TeamRoleLocalServiceUtil.getTeamRolesCount(TeamRoleType.ACCOUNT) %>"
+			total="<%= TeamRoleLocalServiceUtil.getTeamRolesCount(com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type.ACCOUNT.toString()) %>"
 		>
 			<liferay-ui:search-container-results
-				results="<%= TeamRoleLocalServiceUtil.getTeamRoles(TeamRoleType.ACCOUNT, searchContainer.getStart(), searchContainer.getEnd()) %>"
+				results="<%= TeamRoleLocalServiceUtil.getTeamRoles(com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.TeamRole.Type.ACCOUNT.toString(), searchContainer.getStart(), searchContainer.getEnd()) %>"
 			/>
 
 			<liferay-ui:search-container-row
