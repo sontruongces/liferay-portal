@@ -129,14 +129,14 @@ public class IndividualSegmentsChecker {
 		try {
 			ServiceContext serviceContext = _getServiceContext();
 
-			Map<Locale, String> nameMap = Collections.singletonMap(
-				_portal.getSiteDefaultLocale(serviceContext.getScopeGroupId()),
-				individualSegment.getName());
-
 			SegmentsEntry segmentsEntry =
 				_segmentsEntryLocalService.fetchSegmentsEntry(
 					serviceContext.getScopeGroupId(), individualSegment.getId(),
 					true);
+
+			Map<Locale, String> nameMap = Collections.singletonMap(
+				_portal.getSiteDefaultLocale(serviceContext.getScopeGroupId()),
+				individualSegment.getName());
 
 			if (segmentsEntry == null) {
 				_segmentsEntryLocalService.addSegmentsEntry(
