@@ -35,6 +35,14 @@ table {
 	}
 }
 
+.button-row {
+	margin-top: $spacing-sm;
+
+	.btn {
+		margin-right: $spacing-sm;
+	}
+}
+
 .empty-state {
 	color: $secondary;
 	margin: $spacing-default;

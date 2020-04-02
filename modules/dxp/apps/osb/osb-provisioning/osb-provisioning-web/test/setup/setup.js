@@ -20,6 +20,21 @@ window.Liferay = {
 };
 
 /**
+ * Mocks the portlet constants.
+ */
+window.ProvisioningConstants = {
+	namespace: 'namespace',
+	noteStatus: {
+		approved: 'Approved',
+		archived: 'Archived'
+	},
+	noteType: {
+		general: 'General',
+		sales: 'Sales'
+	}
+};
+
+/**
  * Mocks the form submission behavior
  */
 HTMLFormElement.prototype.submit = jest.fn();

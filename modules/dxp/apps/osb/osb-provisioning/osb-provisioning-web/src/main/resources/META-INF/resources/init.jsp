@@ -28,6 +28,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole" %><%@
+page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay" %><%@
@@ -55,3 +56,17 @@ page import="com.liferay.portal.kernel.util.WebKeys" %>
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<aui:script>
+	window.ProvisioningConstants = {
+		namespace: '${renderResponse.namespace}',
+		noteStatus: {
+			approved: '<%= Note.Status.APPROVED %>',
+			archived: '<%= Note.Status.ARCHIVED %>'
+		},
+		noteType: {
+			general: '<%= Note.Type.GENERAL %>',
+			sales: '<%= Note.Type.SALES %>'
+		}
+	};
+</aui:script>

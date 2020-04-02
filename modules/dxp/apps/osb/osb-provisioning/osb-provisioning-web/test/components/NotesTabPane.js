@@ -109,12 +109,6 @@ describe('NotesTabPane', () => {
 			expect(queryByText('view-archived-notes')).toBeNull();
 		});
 
-		it('displays a textarea for adding new notes', () => {
-			const {getByPlaceholderText} = renderNotesTabPane();
-
-			getByPlaceholderText('write-a-note');
-		});
-
 		it('displays a message when there is no data', () => {
 			const {container} = render(<NotesTabPane />);
 
