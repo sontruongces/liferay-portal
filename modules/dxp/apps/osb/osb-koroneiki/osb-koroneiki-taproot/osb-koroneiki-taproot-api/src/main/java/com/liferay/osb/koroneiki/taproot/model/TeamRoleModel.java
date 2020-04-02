@@ -232,13 +232,14 @@ public interface TeamRoleModel
 	 *
 	 * @return the type of this team role
 	 */
-	public int getType();
+	@AutoEscape
+	public String getType();
 
 	/**
 	 * Sets the type of this team role.
 	 *
 	 * @param type the type of this team role
 	 */
-	public void setType(int type);
+	public void setType(String type);
 
 }

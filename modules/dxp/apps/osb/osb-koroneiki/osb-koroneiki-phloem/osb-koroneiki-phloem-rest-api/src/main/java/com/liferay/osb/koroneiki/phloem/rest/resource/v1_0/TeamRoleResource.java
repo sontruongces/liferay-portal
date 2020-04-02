@@ -78,6 +78,10 @@ public interface TeamRoleResource {
 			TeamRolePermission teamRolePermission)
 		throws Exception;
 
+	public TeamRole getTeamRoleTeamRoleTypeTeamRoleName(
+			String teamRoleType, String teamRoleName)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

@@ -120,7 +120,7 @@ public class TeamRoleWrapper
 			setDescription(description);
 		}
 
-		Integer type = (Integer)attributes.get("type");
+		String type = (String)attributes.get("type");
 
 		if (type != null) {
 			setType(type);
@@ -223,13 +223,8 @@ public class TeamRoleWrapper
 	 * @return the type of this team role
 	 */
 	@Override
-	public int getType() {
+	public String getType() {
 		return model.getType();
-	}
-
-	@Override
-	public String getTypeLabel() {
-		return model.getTypeLabel();
 	}
 
 	/**
@@ -363,7 +358,7 @@ public class TeamRoleWrapper
 	 * @param type the type of this team role
 	 */
 	@Override
-	public void setType(int type) {
+	public void setType(String type) {
 		model.setType(type);
 	}
 

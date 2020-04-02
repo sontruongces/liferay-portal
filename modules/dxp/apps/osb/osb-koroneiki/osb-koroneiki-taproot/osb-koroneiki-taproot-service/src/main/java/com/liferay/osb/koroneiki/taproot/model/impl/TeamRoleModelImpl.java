@@ -79,7 +79,7 @@ public class TeamRoleModelImpl
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"teamRoleKey", Types.VARCHAR},
 		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
-		{"type_", Types.INTEGER}
+		{"type_", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -96,11 +96,11 @@ public class TeamRoleModelImpl
 		TABLE_COLUMNS_MAP.put("teamRoleKey", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_TeamRole (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,teamRoleId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,teamRoleKey VARCHAR(75) null,name VARCHAR(75) null,description VARCHAR(75) null,type_ INTEGER)";
+		"create table Koroneiki_TeamRole (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,teamRoleId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,teamRoleKey VARCHAR(75) null,name VARCHAR(75) null,description VARCHAR(75) null,type_ VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_TeamRole";
 
@@ -343,7 +343,7 @@ public class TeamRoleModelImpl
 			(BiConsumer<TeamRole, String>)TeamRole::setDescription);
 		attributeGetterFunctions.put("type", TeamRole::getType);
 		attributeSetterBiConsumers.put(
-			"type", (BiConsumer<TeamRole, Integer>)TeamRole::setType);
+			"type", (BiConsumer<TeamRole, String>)TeamRole::setType);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -547,25 +547,28 @@ public class TeamRoleModelImpl
 
 	@JSON
 	@Override
-	public int getType() {
-		return _type;
+	public String getType() {
+		if (_type == null) {
+			return "";
+		}
+		else {
+			return _type;
+		}
 	}
 
 	@Override
-	public void setType(int type) {
+	public void setType(String type) {
 		_columnBitmask |= TYPE_COLUMN_BITMASK;
 
-		if (!_setOriginalType) {
-			_setOriginalType = true;
-
+		if (_originalType == null) {
 			_originalType = _type;
 		}
 
 		_type = type;
 	}
 
-	public int getOriginalType() {
-		return _originalType;
+	public String getOriginalType() {
+		return GetterUtil.getString(_originalType);
 	}
 
 	@Override
@@ -695,8 +698,6 @@ public class TeamRoleModelImpl
 
 		teamRoleModelImpl._originalType = teamRoleModelImpl._type;
 
-		teamRoleModelImpl._setOriginalType = false;
-
 		teamRoleModelImpl._columnBitmask = 0;
 	}
 
@@ -763,6 +764,12 @@ public class TeamRoleModelImpl
 		}
 
 		teamRoleCacheModel.type = getType();
+
+		String type = teamRoleCacheModel.type;
+
+		if ((type != null) && (type.length() == 0)) {
+			teamRoleCacheModel.type = null;
+		}
 
 		return teamRoleCacheModel;
 	}
@@ -856,9 +863,8 @@ public class TeamRoleModelImpl
 	private String _name;
 	private String _originalName;
 	private String _description;
-	private int _type;
-	private int _originalType;
-	private boolean _setOriginalType;
+	private String _type;
+	private String _originalType;
 	private long _columnBitmask;
 	private TeamRole _escapedModel;
 

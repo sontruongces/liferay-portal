@@ -66,7 +66,7 @@ public interface TeamRoleLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public TeamRole addTeamRole(
-			long userId, String name, String description, int type)
+			long userId, String name, String description, String type)
 		throws PortalException;
 
 	/**
@@ -239,6 +239,10 @@ public interface TeamRoleLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TeamRole getTeamRole(String teamRoleKey) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TeamRole getTeamRole(String name, String type)
+		throws PortalException;
+
 	/**
 	 * Returns the team role with the matching UUID and company.
 	 *
@@ -266,7 +270,7 @@ public interface TeamRoleLocalService
 	public List<TeamRole> getTeamRoles(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<TeamRole> getTeamRoles(int type, int start, int end);
+	public List<TeamRole> getTeamRoles(String type, int start, int end);
 
 	/**
 	 * Returns the number of team roles.
@@ -277,7 +281,7 @@ public interface TeamRoleLocalService
 	public int getTeamRolesCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getTeamRolesCount(int type);
+	public int getTeamRolesCount(String type);
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

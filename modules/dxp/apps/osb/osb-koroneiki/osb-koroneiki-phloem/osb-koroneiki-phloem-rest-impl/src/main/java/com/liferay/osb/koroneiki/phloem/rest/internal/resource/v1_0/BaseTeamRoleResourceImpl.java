@@ -281,6 +281,33 @@ public abstract class BaseTeamRoleResourceImpl implements TeamRoleResource {
 		throws Exception {
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/team-roles/{teamRoleType}/{teamRoleName}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrieves the team role by name.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "teamRoleType"),
+			@Parameter(in = ParameterIn.PATH, name = "teamRoleName")
+		}
+	)
+	@Path("/team-roles/{teamRoleType}/{teamRoleName}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "TeamRole")})
+	public TeamRole getTeamRoleTeamRoleTypeTeamRoleName(
+			@NotNull @Parameter(hidden = true) @PathParam("teamRoleType") String
+				teamRoleType,
+			@NotNull @Parameter(hidden = true) @PathParam("teamRoleName") String
+				teamRoleName)
+		throws Exception {
+
+		return new TeamRole();
+	}
+
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

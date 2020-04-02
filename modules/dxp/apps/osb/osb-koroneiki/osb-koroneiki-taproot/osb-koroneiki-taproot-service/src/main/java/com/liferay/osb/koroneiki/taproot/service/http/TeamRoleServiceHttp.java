@@ -53,7 +53,7 @@ public class TeamRoleServiceHttp {
 
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRole addTeamRole(
 			HttpPrincipal httpPrincipal, String name, String description,
-			int type)
+			String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -336,6 +336,46 @@ public class TeamRoleServiceHttp {
 		}
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.TeamRole getTeamRole(
+			HttpPrincipal httpPrincipal, String name, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TeamRoleServiceUtil.class, "getTeamRole",
+				_getTeamRoleParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, name, type);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.osb.koroneiki.taproot.model.TeamRole)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRole
 			updateTeamRole(
 				HttpPrincipal httpPrincipal, long teamRoleId, String name,
@@ -345,7 +385,7 @@ public class TeamRoleServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TeamRoleServiceUtil.class, "updateTeamRole",
-				_updateTeamRoleParameterTypes7);
+				_updateTeamRoleParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, teamRoleId, name, description);
@@ -381,7 +421,7 @@ public class TeamRoleServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(TeamRoleServiceHttp.class);
 
 	private static final Class<?>[] _addTeamRoleParameterTypes0 = new Class[] {
-		String.class, String.class, int.class
+		String.class, String.class, String.class
 	};
 	private static final Class<?>[] _deleteTeamRoleParameterTypes1 =
 		new Class[] {long.class};
@@ -399,7 +439,10 @@ public class TeamRoleServiceHttp {
 	private static final Class<?>[] _getTeamRoleParameterTypes6 = new Class[] {
 		String.class
 	};
-	private static final Class<?>[] _updateTeamRoleParameterTypes7 =
+	private static final Class<?>[] _getTeamRoleParameterTypes7 = new Class[] {
+		String.class, String.class
+	};
+	private static final Class<?>[] _updateTeamRoleParameterTypes8 =
 		new Class[] {long.class, String.class, String.class};
 
 }

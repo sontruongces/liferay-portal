@@ -51,7 +51,7 @@ public interface TeamRoleService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TeamRoleServiceUtil} to access the team role remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamRoleServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public TeamRole addTeamRole(String name, String description, int type)
+	public TeamRole addTeamRole(String name, String description, String type)
 		throws PortalException;
 
 	public TeamRole deleteTeamRole(long teamRoleId) throws PortalException;
@@ -79,6 +79,10 @@ public interface TeamRoleService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TeamRole getTeamRole(String teamRoleKey) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TeamRole getTeamRole(String name, String type)
+		throws PortalException;
 
 	public TeamRole updateTeamRole(
 			long teamRoleId, String name, String description)

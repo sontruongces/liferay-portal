@@ -175,11 +175,11 @@ public class TeamRoleSoap implements Serializable {
 		_description = description;
 	}
 
-	public int getType() {
+	public String getType() {
 		return _type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		_type = type;
 	}
 
@@ -193,6 +193,6 @@ public class TeamRoleSoap implements Serializable {
 	private String _teamRoleKey;
 	private String _name;
 	private String _description;
-	private int _type;
+	private String _type;
 
 }

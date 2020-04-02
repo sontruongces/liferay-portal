@@ -1830,6 +1830,25 @@ public class Query {
 			teamRoleResource -> teamRoleResource.getTeamRole(teamRoleKey));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamRoleTeamRoleTypeTeamRoleName(teamRoleName: ___, teamRoleType: ___){dateCreated, dateModified, description, key, name, type}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public TeamRole teamRoleTeamRoleTypeTeamRoleName(
+			@GraphQLName("teamRoleType") String teamRoleType,
+			@GraphQLName("teamRoleName") String teamRoleName)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_teamRoleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamRoleResource ->
+				teamRoleResource.getTeamRoleTeamRoleTypeTeamRoleName(
+					teamRoleType, teamRoleName));
+	}
+
 	@GraphQLTypeExtension(Account.class)
 	public class GetAccountAccountKeyWorkerContactByOktaRolesPageTypeExtension {
 

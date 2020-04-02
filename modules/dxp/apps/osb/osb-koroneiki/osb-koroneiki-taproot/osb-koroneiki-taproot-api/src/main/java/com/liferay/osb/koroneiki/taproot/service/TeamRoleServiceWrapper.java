@@ -32,7 +32,7 @@ public class TeamRoleServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.TeamRole addTeamRole(
-			String name, String description, int type)
+			String name, String description, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _teamRoleService.addTeamRole(name, description, type);
@@ -95,6 +95,14 @@ public class TeamRoleServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _teamRoleService.getTeamRole(teamRoleKey);
+	}
+
+	@Override
+	public com.liferay.osb.koroneiki.taproot.model.TeamRole getTeamRole(
+			String name, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamRoleService.getTeamRole(name, type);
 	}
 
 	@Override

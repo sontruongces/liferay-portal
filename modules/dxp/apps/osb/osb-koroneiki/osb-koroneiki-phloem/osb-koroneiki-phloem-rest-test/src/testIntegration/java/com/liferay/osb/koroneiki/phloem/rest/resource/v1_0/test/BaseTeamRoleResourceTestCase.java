@@ -607,6 +607,18 @@ public abstract class BaseTeamRoleResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Test
+	public void testGetTeamRoleTeamRoleTypeTeamRoleName() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGraphQLGetTeamRoleTeamRoleTypeTeamRoleName()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

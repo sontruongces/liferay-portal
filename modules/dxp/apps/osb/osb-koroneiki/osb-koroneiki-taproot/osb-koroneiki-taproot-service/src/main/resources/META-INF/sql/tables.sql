@@ -129,5 +129,5 @@ create table Koroneiki_TeamRole (
 	teamRoleKey VARCHAR(75) null,
 	name VARCHAR(75) null,
 	description VARCHAR(75) null,
-	type_ INTEGER
+	type_ VARCHAR(75) null
 );

@@ -87,7 +87,8 @@ public class TeamAccountRoleLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.TeamAccountRole
-		deleteTeamAccountRole(long teamId, long accountId, long teamRoleId) {
+			deleteTeamAccountRole(long teamId, long accountId, long teamRoleId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _teamAccountRoleLocalService.deleteTeamAccountRole(
 			teamId, accountId, teamRoleId);
@@ -304,6 +305,14 @@ public class TeamAccountRoleLocalServiceWrapper
 			getTeamAccountRoles(int start, int end) {
 
 		return _teamAccountRoleLocalService.getTeamAccountRoles(start, end);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.TeamAccountRole>
+			getTeamAccountRoles(long teamId) {
+
+		return _teamAccountRoleLocalService.getTeamAccountRoles(teamId);
 	}
 
 	/**

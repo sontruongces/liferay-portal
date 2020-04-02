@@ -702,7 +702,7 @@ public class TeamRoleUtil {
 	 * @param type the type
 	 * @return the matching team roles
 	 */
-	public static List<TeamRole> findByType(int type) {
+	public static List<TeamRole> findByType(String type) {
 		return getPersistence().findByType(type);
 	}
 
@@ -718,7 +718,7 @@ public class TeamRoleUtil {
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @return the range of matching team roles
 	 */
-	public static List<TeamRole> findByType(int type, int start, int end) {
+	public static List<TeamRole> findByType(String type, int start, int end) {
 		return getPersistence().findByType(type, start, end);
 	}
 
@@ -736,7 +736,7 @@ public class TeamRoleUtil {
 	 * @return the ordered range of matching team roles
 	 */
 	public static List<TeamRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<TeamRole> orderByComparator) {
 
 		return getPersistence().findByType(type, start, end, orderByComparator);
@@ -757,7 +757,7 @@ public class TeamRoleUtil {
 	 * @return the ordered range of matching team roles
 	 */
 	public static List<TeamRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
 
 		return getPersistence().findByType(
@@ -773,7 +773,7 @@ public class TeamRoleUtil {
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
 	public static TeamRole findByType_First(
-			int type, OrderByComparator<TeamRole> orderByComparator)
+			String type, OrderByComparator<TeamRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchTeamRoleException {
 
@@ -788,7 +788,7 @@ public class TeamRoleUtil {
 	 * @return the first matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public static TeamRole fetchByType_First(
-		int type, OrderByComparator<TeamRole> orderByComparator) {
+		String type, OrderByComparator<TeamRole> orderByComparator) {
 
 		return getPersistence().fetchByType_First(type, orderByComparator);
 	}
@@ -802,7 +802,7 @@ public class TeamRoleUtil {
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
 	public static TeamRole findByType_Last(
-			int type, OrderByComparator<TeamRole> orderByComparator)
+			String type, OrderByComparator<TeamRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchTeamRoleException {
 
@@ -817,7 +817,7 @@ public class TeamRoleUtil {
 	 * @return the last matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public static TeamRole fetchByType_Last(
-		int type, OrderByComparator<TeamRole> orderByComparator) {
+		String type, OrderByComparator<TeamRole> orderByComparator) {
 
 		return getPersistence().fetchByType_Last(type, orderByComparator);
 	}
@@ -832,7 +832,7 @@ public class TeamRoleUtil {
 	 * @throws NoSuchTeamRoleException if a team role with the primary key could not be found
 	 */
 	public static TeamRole[] findByType_PrevAndNext(
-			long teamRoleId, int type,
+			long teamRoleId, String type,
 			OrderByComparator<TeamRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchTeamRoleException {
@@ -847,7 +847,7 @@ public class TeamRoleUtil {
 	 * @param type the type
 	 * @return the matching team roles that the user has permission to view
 	 */
-	public static List<TeamRole> filterFindByType(int type) {
+	public static List<TeamRole> filterFindByType(String type) {
 		return getPersistence().filterFindByType(type);
 	}
 
@@ -864,7 +864,7 @@ public class TeamRoleUtil {
 	 * @return the range of matching team roles that the user has permission to view
 	 */
 	public static List<TeamRole> filterFindByType(
-		int type, int start, int end) {
+		String type, int start, int end) {
 
 		return getPersistence().filterFindByType(type, start, end);
 	}
@@ -883,7 +883,7 @@ public class TeamRoleUtil {
 	 * @return the ordered range of matching team roles that the user has permission to view
 	 */
 	public static List<TeamRole> filterFindByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<TeamRole> orderByComparator) {
 
 		return getPersistence().filterFindByType(
@@ -900,7 +900,7 @@ public class TeamRoleUtil {
 	 * @throws NoSuchTeamRoleException if a team role with the primary key could not be found
 	 */
 	public static TeamRole[] filterFindByType_PrevAndNext(
-			long teamRoleId, int type,
+			long teamRoleId, String type,
 			OrderByComparator<TeamRole> orderByComparator)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchTeamRoleException {
@@ -914,7 +914,7 @@ public class TeamRoleUtil {
 	 *
 	 * @param type the type
 	 */
-	public static void removeByType(int type) {
+	public static void removeByType(String type) {
 		getPersistence().removeByType(type);
 	}
 
@@ -924,7 +924,7 @@ public class TeamRoleUtil {
 	 * @param type the type
 	 * @return the number of matching team roles
 	 */
-	public static int countByType(int type) {
+	public static int countByType(String type) {
 		return getPersistence().countByType(type);
 	}
 
@@ -934,7 +934,7 @@ public class TeamRoleUtil {
 	 * @param type the type
 	 * @return the number of matching team roles that the user has permission to view
 	 */
-	public static int filterCountByType(int type) {
+	public static int filterCountByType(String type) {
 		return getPersistence().filterCountByType(type);
 	}
 
@@ -946,7 +946,7 @@ public class TeamRoleUtil {
 	 * @return the matching team role
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
-	public static TeamRole findByN_T(String name, int type)
+	public static TeamRole findByN_T(String name, String type)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchTeamRoleException {
 
@@ -960,7 +960,7 @@ public class TeamRoleUtil {
 	 * @param type the type
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	public static TeamRole fetchByN_T(String name, int type) {
+	public static TeamRole fetchByN_T(String name, String type) {
 		return getPersistence().fetchByN_T(name, type);
 	}
 
@@ -973,7 +973,7 @@ public class TeamRoleUtil {
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public static TeamRole fetchByN_T(
-		String name, int type, boolean useFinderCache) {
+		String name, String type, boolean useFinderCache) {
 
 		return getPersistence().fetchByN_T(name, type, useFinderCache);
 	}
@@ -985,7 +985,7 @@ public class TeamRoleUtil {
 	 * @param type the type
 	 * @return the team role that was removed
 	 */
-	public static TeamRole removeByN_T(String name, int type)
+	public static TeamRole removeByN_T(String name, String type)
 		throws com.liferay.osb.koroneiki.taproot.exception.
 			NoSuchTeamRoleException {
 
@@ -999,7 +999,7 @@ public class TeamRoleUtil {
 	 * @param type the type
 	 * @return the number of matching team roles
 	 */
-	public static int countByN_T(String name, int type) {
+	public static int countByN_T(String name, String type) {
 		return getPersistence().countByN_T(name, type);
 	}
 

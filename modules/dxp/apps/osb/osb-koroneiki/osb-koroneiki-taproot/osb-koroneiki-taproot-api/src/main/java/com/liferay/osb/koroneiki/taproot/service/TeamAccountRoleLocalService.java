@@ -92,7 +92,8 @@ public interface TeamAccountRoleLocalService
 		throws PortalException;
 
 	public TeamAccountRole deleteTeamAccountRole(
-		long teamId, long accountId, long teamRoleId);
+			long teamId, long accountId, long teamRoleId)
+		throws PortalException;
 
 	/**
 	 * Deletes the team account role from the database. Also notifies the appropriate model listeners.
@@ -234,6 +235,9 @@ public interface TeamAccountRoleLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TeamAccountRole> getTeamAccountRoles(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TeamAccountRole> getTeamAccountRoles(long teamId);
 
 	/**
 	 * Returns the number of team account roles.

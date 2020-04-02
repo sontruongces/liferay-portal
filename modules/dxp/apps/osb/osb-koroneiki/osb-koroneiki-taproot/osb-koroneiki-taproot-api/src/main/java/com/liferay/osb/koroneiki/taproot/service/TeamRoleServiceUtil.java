@@ -38,7 +38,7 @@ public class TeamRoleServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamRoleServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRole addTeamRole(
-			String name, String description, int type)
+			String name, String description, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addTeamRole(name, description, type);
@@ -95,6 +95,13 @@ public class TeamRoleServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getTeamRole(teamRoleKey);
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.TeamRole getTeamRole(
+			String name, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeamRole(name, type);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRole

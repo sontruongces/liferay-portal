@@ -62,7 +62,7 @@ import java.rmi.RemoteException;
 public class TeamRoleServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap
-			addTeamRole(String name, String description, int type)
+			addTeamRole(String name, String description, String type)
 		throws RemoteException {
 
 		try {
@@ -176,6 +176,24 @@ public class TeamRoleServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.taproot.model.TeamRole returnValue =
 				TeamRoleServiceUtil.getTeamRole(teamRoleKey);
+
+			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap
+			getTeamRole(String name, String type)
+		throws RemoteException {
+
+		try {
+			com.liferay.osb.koroneiki.taproot.model.TeamRole returnValue =
+				TeamRoleServiceUtil.getTeamRole(name, type);
 
 			return com.liferay.osb.koroneiki.taproot.model.TeamRoleSoap.
 				toSoapModel(returnValue);

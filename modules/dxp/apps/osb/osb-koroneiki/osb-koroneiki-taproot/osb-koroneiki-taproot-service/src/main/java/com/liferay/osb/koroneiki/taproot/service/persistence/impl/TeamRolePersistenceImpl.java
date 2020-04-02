@@ -2306,7 +2306,7 @@ public class TeamRolePersistenceImpl
 	 * @return the matching team roles
 	 */
 	@Override
-	public List<TeamRole> findByType(int type) {
+	public List<TeamRole> findByType(String type) {
 		return findByType(type, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -2323,7 +2323,7 @@ public class TeamRolePersistenceImpl
 	 * @return the range of matching team roles
 	 */
 	@Override
-	public List<TeamRole> findByType(int type, int start, int end) {
+	public List<TeamRole> findByType(String type, int start, int end) {
 		return findByType(type, start, end, null);
 	}
 
@@ -2342,7 +2342,7 @@ public class TeamRolePersistenceImpl
 	 */
 	@Override
 	public List<TeamRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<TeamRole> orderByComparator) {
 
 		return findByType(type, start, end, orderByComparator, true);
@@ -2364,8 +2364,10 @@ public class TeamRolePersistenceImpl
 	 */
 	@Override
 	public List<TeamRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<TeamRole> orderByComparator, boolean useFinderCache) {
+
+		type = Objects.toString(type, "");
 
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -2391,7 +2393,7 @@ public class TeamRolePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (TeamRole teamRole : list) {
-					if (type != teamRole.getType()) {
+					if (!type.equals(teamRole.getType())) {
 						list = null;
 
 						break;
@@ -2413,7 +2415,16 @@ public class TeamRolePersistenceImpl
 
 			sb.append(_SQL_SELECT_TEAMROLE_WHERE);
 
-			sb.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			boolean bindType = false;
+
+			if (type.isEmpty()) {
+				sb.append(_FINDER_COLUMN_TYPE_TYPE_3);
+			}
+			else {
+				bindType = true;
+
+				sb.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -2434,7 +2445,9 @@ public class TeamRolePersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
-				queryPos.add(type);
+				if (bindType) {
+					queryPos.add(type);
+				}
 
 				list = (List<TeamRole>)QueryUtil.list(
 					query, getDialect(), start, end);
@@ -2470,7 +2483,7 @@ public class TeamRolePersistenceImpl
 	 */
 	@Override
 	public TeamRole findByType_First(
-			int type, OrderByComparator<TeamRole> orderByComparator)
+			String type, OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException {
 
 		TeamRole teamRole = fetchByType_First(type, orderByComparator);
@@ -2500,7 +2513,7 @@ public class TeamRolePersistenceImpl
 	 */
 	@Override
 	public TeamRole fetchByType_First(
-		int type, OrderByComparator<TeamRole> orderByComparator) {
+		String type, OrderByComparator<TeamRole> orderByComparator) {
 
 		List<TeamRole> list = findByType(type, 0, 1, orderByComparator);
 
@@ -2521,7 +2534,7 @@ public class TeamRolePersistenceImpl
 	 */
 	@Override
 	public TeamRole findByType_Last(
-			int type, OrderByComparator<TeamRole> orderByComparator)
+			String type, OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException {
 
 		TeamRole teamRole = fetchByType_Last(type, orderByComparator);
@@ -2551,7 +2564,7 @@ public class TeamRolePersistenceImpl
 	 */
 	@Override
 	public TeamRole fetchByType_Last(
-		int type, OrderByComparator<TeamRole> orderByComparator) {
+		String type, OrderByComparator<TeamRole> orderByComparator) {
 
 		int count = countByType(type);
 
@@ -2580,9 +2593,11 @@ public class TeamRolePersistenceImpl
 	 */
 	@Override
 	public TeamRole[] findByType_PrevAndNext(
-			long teamRoleId, int type,
+			long teamRoleId, String type,
 			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException {
+
+		type = Objects.toString(type, "");
 
 		TeamRole teamRole = findByPrimaryKey(teamRoleId);
 
@@ -2612,7 +2627,7 @@ public class TeamRolePersistenceImpl
 	}
 
 	protected TeamRole getByType_PrevAndNext(
-		Session session, TeamRole teamRole, int type,
+		Session session, TeamRole teamRole, String type,
 		OrderByComparator<TeamRole> orderByComparator, boolean previous) {
 
 		StringBundler sb = null;
@@ -2628,7 +2643,16 @@ public class TeamRolePersistenceImpl
 
 		sb.append(_SQL_SELECT_TEAMROLE_WHERE);
 
-		sb.append(_FINDER_COLUMN_TYPE_TYPE_2);
+		boolean bindType = false;
+
+		if (type.isEmpty()) {
+			sb.append(_FINDER_COLUMN_TYPE_TYPE_3);
+		}
+		else {
+			bindType = true;
+
+			sb.append(_FINDER_COLUMN_TYPE_TYPE_2);
+		}
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -2699,7 +2723,9 @@ public class TeamRolePersistenceImpl
 
 		QueryPos queryPos = QueryPos.getInstance(query);
 
-		queryPos.add(type);
+		if (bindType) {
+			queryPos.add(type);
+		}
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
@@ -2726,7 +2752,7 @@ public class TeamRolePersistenceImpl
 	 * @return the matching team roles that the user has permission to view
 	 */
 	@Override
-	public List<TeamRole> filterFindByType(int type) {
+	public List<TeamRole> filterFindByType(String type) {
 		return filterFindByType(
 			type, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -2744,7 +2770,7 @@ public class TeamRolePersistenceImpl
 	 * @return the range of matching team roles that the user has permission to view
 	 */
 	@Override
-	public List<TeamRole> filterFindByType(int type, int start, int end) {
+	public List<TeamRole> filterFindByType(String type, int start, int end) {
 		return filterFindByType(type, start, end, null);
 	}
 
@@ -2763,12 +2789,14 @@ public class TeamRolePersistenceImpl
 	 */
 	@Override
 	public List<TeamRole> filterFindByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		OrderByComparator<TeamRole> orderByComparator) {
 
 		if (!InlineSQLHelperUtil.isEnabled()) {
 			return findByType(type, start, end, orderByComparator);
 		}
+
+		type = Objects.toString(type, "");
 
 		StringBundler sb = null;
 
@@ -2787,7 +2815,16 @@ public class TeamRolePersistenceImpl
 			sb.append(_FILTER_SQL_SELECT_TEAMROLE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		boolean bindType = false;
+
+		if (type.isEmpty()) {
+			sb.append(_FINDER_COLUMN_TYPE_TYPE_3_SQL);
+		}
+		else {
+			bindType = true;
+
+			sb.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		}
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			sb.append(_FILTER_SQL_SELECT_TEAMROLE_NO_INLINE_DISTINCT_WHERE_2);
@@ -2832,7 +2869,9 @@ public class TeamRolePersistenceImpl
 
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 
-			queryPos.add(type);
+			if (bindType) {
+				queryPos.add(type);
+			}
 
 			return (List<TeamRole>)QueryUtil.list(
 				sqlQuery, getDialect(), start, end);
@@ -2856,13 +2895,15 @@ public class TeamRolePersistenceImpl
 	 */
 	@Override
 	public TeamRole[] filterFindByType_PrevAndNext(
-			long teamRoleId, int type,
+			long teamRoleId, String type,
 			OrderByComparator<TeamRole> orderByComparator)
 		throws NoSuchTeamRoleException {
 
 		if (!InlineSQLHelperUtil.isEnabled()) {
 			return findByType_PrevAndNext(teamRoleId, type, orderByComparator);
 		}
+
+		type = Objects.toString(type, "");
 
 		TeamRole teamRole = findByPrimaryKey(teamRoleId);
 
@@ -2892,7 +2933,7 @@ public class TeamRolePersistenceImpl
 	}
 
 	protected TeamRole filterGetByType_PrevAndNext(
-		Session session, TeamRole teamRole, int type,
+		Session session, TeamRole teamRole, String type,
 		OrderByComparator<TeamRole> orderByComparator, boolean previous) {
 
 		StringBundler sb = null;
@@ -2913,7 +2954,16 @@ public class TeamRolePersistenceImpl
 			sb.append(_FILTER_SQL_SELECT_TEAMROLE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		sb.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		boolean bindType = false;
+
+		if (type.isEmpty()) {
+			sb.append(_FINDER_COLUMN_TYPE_TYPE_3_SQL);
+		}
+		else {
+			bindType = true;
+
+			sb.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		}
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			sb.append(_FILTER_SQL_SELECT_TEAMROLE_NO_INLINE_DISTINCT_WHERE_2);
@@ -3020,7 +3070,9 @@ public class TeamRolePersistenceImpl
 
 		QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 
-		queryPos.add(type);
+		if (bindType) {
+			queryPos.add(type);
+		}
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
@@ -3046,7 +3098,7 @@ public class TeamRolePersistenceImpl
 	 * @param type the type
 	 */
 	@Override
-	public void removeByType(int type) {
+	public void removeByType(String type) {
 		for (TeamRole teamRole :
 				findByType(type, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
@@ -3061,7 +3113,9 @@ public class TeamRolePersistenceImpl
 	 * @return the number of matching team roles
 	 */
 	@Override
-	public int countByType(int type) {
+	public int countByType(String type) {
+		type = Objects.toString(type, "");
+
 		FinderPath finderPath = _finderPathCountByType;
 
 		Object[] finderArgs = new Object[] {type};
@@ -3073,7 +3127,16 @@ public class TeamRolePersistenceImpl
 
 			sb.append(_SQL_COUNT_TEAMROLE_WHERE);
 
-			sb.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			boolean bindType = false;
+
+			if (type.isEmpty()) {
+				sb.append(_FINDER_COLUMN_TYPE_TYPE_3);
+			}
+			else {
+				bindType = true;
+
+				sb.append(_FINDER_COLUMN_TYPE_TYPE_2);
+			}
 
 			String sql = sb.toString();
 
@@ -3086,7 +3149,9 @@ public class TeamRolePersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
-				queryPos.add(type);
+				if (bindType) {
+					queryPos.add(type);
+				}
 
 				count = (Long)query.uniqueResult();
 
@@ -3112,16 +3177,27 @@ public class TeamRolePersistenceImpl
 	 * @return the number of matching team roles that the user has permission to view
 	 */
 	@Override
-	public int filterCountByType(int type) {
+	public int filterCountByType(String type) {
 		if (!InlineSQLHelperUtil.isEnabled()) {
 			return countByType(type);
 		}
+
+		type = Objects.toString(type, "");
 
 		StringBundler sb = new StringBundler(2);
 
 		sb.append(_FILTER_SQL_COUNT_TEAMROLE_WHERE);
 
-		sb.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		boolean bindType = false;
+
+		if (type.isEmpty()) {
+			sb.append(_FINDER_COLUMN_TYPE_TYPE_3_SQL);
+		}
+		else {
+			bindType = true;
+
+			sb.append(_FINDER_COLUMN_TYPE_TYPE_2_SQL);
+		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(
 			sb.toString(), TeamRole.class.getName(),
@@ -3139,7 +3215,9 @@ public class TeamRolePersistenceImpl
 
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 
-			queryPos.add(type);
+			if (bindType) {
+				queryPos.add(type);
+			}
 
 			Long count = (Long)sqlQuery.uniqueResult();
 
@@ -3156,8 +3234,14 @@ public class TeamRolePersistenceImpl
 	private static final String _FINDER_COLUMN_TYPE_TYPE_2 =
 		"teamRole.type = ?";
 
+	private static final String _FINDER_COLUMN_TYPE_TYPE_3 =
+		"(teamRole.type IS NULL OR teamRole.type = '')";
+
 	private static final String _FINDER_COLUMN_TYPE_TYPE_2_SQL =
 		"teamRole.type_ = ?";
+
+	private static final String _FINDER_COLUMN_TYPE_TYPE_3_SQL =
+		"(teamRole.type_ IS NULL OR teamRole.type_ = '')";
 
 	private FinderPath _finderPathFetchByN_T;
 	private FinderPath _finderPathCountByN_T;
@@ -3171,7 +3255,7 @@ public class TeamRolePersistenceImpl
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
 	@Override
-	public TeamRole findByN_T(String name, int type)
+	public TeamRole findByN_T(String name, String type)
 		throws NoSuchTeamRoleException {
 
 		TeamRole teamRole = fetchByN_T(name, type);
@@ -3207,7 +3291,7 @@ public class TeamRolePersistenceImpl
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	@Override
-	public TeamRole fetchByN_T(String name, int type) {
+	public TeamRole fetchByN_T(String name, String type) {
 		return fetchByN_T(name, type, true);
 	}
 
@@ -3220,8 +3304,11 @@ public class TeamRolePersistenceImpl
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	@Override
-	public TeamRole fetchByN_T(String name, int type, boolean useFinderCache) {
+	public TeamRole fetchByN_T(
+		String name, String type, boolean useFinderCache) {
+
 		name = Objects.toString(name, "");
+		type = Objects.toString(type, "");
 
 		Object[] finderArgs = null;
 
@@ -3240,7 +3327,7 @@ public class TeamRolePersistenceImpl
 			TeamRole teamRole = (TeamRole)result;
 
 			if (!Objects.equals(name, teamRole.getName()) ||
-				(type != teamRole.getType())) {
+				!Objects.equals(type, teamRole.getType())) {
 
 				result = null;
 			}
@@ -3262,7 +3349,16 @@ public class TeamRolePersistenceImpl
 				sb.append(_FINDER_COLUMN_N_T_NAME_2);
 			}
 
-			sb.append(_FINDER_COLUMN_N_T_TYPE_2);
+			boolean bindType = false;
+
+			if (type.isEmpty()) {
+				sb.append(_FINDER_COLUMN_N_T_TYPE_3);
+			}
+			else {
+				bindType = true;
+
+				sb.append(_FINDER_COLUMN_N_T_TYPE_2);
+			}
 
 			String sql = sb.toString();
 
@@ -3279,7 +3375,9 @@ public class TeamRolePersistenceImpl
 					queryPos.add(name);
 				}
 
-				queryPos.add(type);
+				if (bindType) {
+					queryPos.add(type);
+				}
 
 				List<TeamRole> list = query.list();
 
@@ -3299,7 +3397,7 @@ public class TeamRolePersistenceImpl
 							}
 
 							_log.warn(
-								"TeamRolePersistenceImpl.fetchByN_T(String, int, boolean) with parameters (" +
+								"TeamRolePersistenceImpl.fetchByN_T(String, String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
 										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
@@ -3340,7 +3438,7 @@ public class TeamRolePersistenceImpl
 	 * @return the team role that was removed
 	 */
 	@Override
-	public TeamRole removeByN_T(String name, int type)
+	public TeamRole removeByN_T(String name, String type)
 		throws NoSuchTeamRoleException {
 
 		TeamRole teamRole = findByN_T(name, type);
@@ -3356,8 +3454,9 @@ public class TeamRolePersistenceImpl
 	 * @return the number of matching team roles
 	 */
 	@Override
-	public int countByN_T(String name, int type) {
+	public int countByN_T(String name, String type) {
 		name = Objects.toString(name, "");
+		type = Objects.toString(type, "");
 
 		FinderPath finderPath = _finderPathCountByN_T;
 
@@ -3381,7 +3480,16 @@ public class TeamRolePersistenceImpl
 				sb.append(_FINDER_COLUMN_N_T_NAME_2);
 			}
 
-			sb.append(_FINDER_COLUMN_N_T_TYPE_2);
+			boolean bindType = false;
+
+			if (type.isEmpty()) {
+				sb.append(_FINDER_COLUMN_N_T_TYPE_3);
+			}
+			else {
+				bindType = true;
+
+				sb.append(_FINDER_COLUMN_N_T_TYPE_2);
+			}
 
 			String sql = sb.toString();
 
@@ -3398,7 +3506,9 @@ public class TeamRolePersistenceImpl
 					queryPos.add(name);
 				}
 
-				queryPos.add(type);
+				if (bindType) {
+					queryPos.add(type);
+				}
 
 				count = (Long)query.uniqueResult();
 
@@ -3424,6 +3534,9 @@ public class TeamRolePersistenceImpl
 		"(teamRole.name IS NULL OR teamRole.name = '') AND ";
 
 	private static final String _FINDER_COLUMN_N_T_TYPE_2 = "teamRole.type = ?";
+
+	private static final String _FINDER_COLUMN_N_T_TYPE_3 =
+		"(teamRole.type IS NULL OR teamRole.type = '')";
 
 	public TeamRolePersistenceImpl() {
 		setModelClass(TeamRole.class);
@@ -4225,33 +4338,33 @@ public class TeamRolePersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, TeamRoleImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByType",
 			new String[] {
-				Integer.class.getName(), Integer.class.getName(),
+				String.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), OrderByComparator.class.getName()
 			});
 
 		_finderPathWithoutPaginationFindByType = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TeamRoleImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByType",
-			new String[] {Integer.class.getName()},
+			new String[] {String.class.getName()},
 			TeamRoleModelImpl.TYPE_COLUMN_BITMASK |
 			TeamRoleModelImpl.NAME_COLUMN_BITMASK);
 
 		_finderPathCountByType = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByType",
-			new String[] {Integer.class.getName()});
+			new String[] {String.class.getName()});
 
 		_finderPathFetchByN_T = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TeamRoleImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchByN_T",
-			new String[] {String.class.getName(), Integer.class.getName()},
+			new String[] {String.class.getName(), String.class.getName()},
 			TeamRoleModelImpl.NAME_COLUMN_BITMASK |
 			TeamRoleModelImpl.TYPE_COLUMN_BITMASK);
 
 		_finderPathCountByN_T = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByN_T",
-			new String[] {String.class.getName(), Integer.class.getName()});
+			new String[] {String.class.getName(), String.class.getName()});
 	}
 
 	@Deactivate

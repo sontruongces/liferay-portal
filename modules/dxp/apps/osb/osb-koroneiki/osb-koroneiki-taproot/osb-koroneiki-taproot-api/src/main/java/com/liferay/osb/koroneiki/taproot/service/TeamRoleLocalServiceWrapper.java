@@ -34,7 +34,7 @@ public class TeamRoleLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.TeamRole addTeamRole(
-			long userId, String name, String description, int type)
+			long userId, String name, String description, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _teamRoleLocalService.addTeamRole(
@@ -303,6 +303,14 @@ public class TeamRoleLocalServiceWrapper
 		return _teamRoleLocalService.getTeamRole(teamRoleKey);
 	}
 
+	@Override
+	public com.liferay.osb.koroneiki.taproot.model.TeamRole getTeamRole(
+			String name, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _teamRoleLocalService.getTeamRole(name, type);
+	}
+
 	/**
 	 * Returns the team role with the matching UUID and company.
 	 *
@@ -340,7 +348,7 @@ public class TeamRoleLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.koroneiki.taproot.model.TeamRole>
-		getTeamRoles(int type, int start, int end) {
+		getTeamRoles(String type, int start, int end) {
 
 		return _teamRoleLocalService.getTeamRoles(type, start, end);
 	}
@@ -356,7 +364,7 @@ public class TeamRoleLocalServiceWrapper
 	}
 
 	@Override
-	public int getTeamRolesCount(int type) {
+	public int getTeamRolesCount(String type) {
 		return _teamRoleLocalService.getTeamRolesCount(type);
 	}
 

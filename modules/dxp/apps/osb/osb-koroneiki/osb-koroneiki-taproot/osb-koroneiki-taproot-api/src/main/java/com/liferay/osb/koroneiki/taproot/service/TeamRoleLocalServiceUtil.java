@@ -38,7 +38,7 @@ public class TeamRoleLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamRoleLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.TeamRole addTeamRole(
-			long userId, String name, String description, int type)
+			long userId, String name, String description, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addTeamRole(userId, name, description, type);
@@ -288,6 +288,13 @@ public class TeamRoleLocalServiceUtil {
 		return getService().getTeamRole(teamRoleKey);
 	}
 
+	public static com.liferay.osb.koroneiki.taproot.model.TeamRole getTeamRole(
+			String name, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTeamRole(name, type);
+	}
+
 	/**
 	 * Returns the team role with the matching UUID and company.
 	 *
@@ -323,7 +330,7 @@ public class TeamRoleLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.TeamRole> getTeamRoles(
-			int type, int start, int end) {
+			String type, int start, int end) {
 
 		return getService().getTeamRoles(type, start, end);
 	}
@@ -337,7 +344,7 @@ public class TeamRoleLocalServiceUtil {
 		return getService().getTeamRolesCount();
 	}
 
-	public static int getTeamRolesCount(int type) {
+	public static int getTeamRolesCount(String type) {
 		return getService().getTeamRolesCount(type);
 	}
 

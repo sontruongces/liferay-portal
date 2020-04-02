@@ -157,7 +157,12 @@ public class TeamRoleCacheModel
 			teamRoleImpl.setDescription(description);
 		}
 
-		teamRoleImpl.setType(type);
+		if (type == null) {
+			teamRoleImpl.setType("");
+		}
+		else {
+			teamRoleImpl.setType(type);
+		}
 
 		teamRoleImpl.resetOriginalValues();
 
@@ -179,8 +184,7 @@ public class TeamRoleCacheModel
 		teamRoleKey = objectInput.readUTF();
 		name = objectInput.readUTF();
 		description = objectInput.readUTF();
-
-		type = objectInput.readInt();
+		type = objectInput.readUTF();
 	}
 
 	@Override
@@ -223,7 +227,12 @@ public class TeamRoleCacheModel
 			objectOutput.writeUTF(description);
 		}
 
-		objectOutput.writeInt(type);
+		if (type == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(type);
+		}
 	}
 
 	public long mvccVersion;
@@ -236,6 +245,6 @@ public class TeamRoleCacheModel
 	public String teamRoleKey;
 	public String name;
 	public String description;
-	public int type;
+	public String type;
 
 }

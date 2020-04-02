@@ -114,6 +114,15 @@ public interface TeamRoleResource {
 				TeamRolePermission teamRolePermission)
 		throws Exception;
 
+	public TeamRole getTeamRoleTeamRoleTypeTeamRoleName(
+			String teamRoleType, String teamRoleName)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getTeamRoleTeamRoleTypeTeamRoleNameHttpResponse(
+				String teamRoleType, String teamRoleName)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -707,6 +716,72 @@ public interface TeamRoleResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/team-roles/{teamRoleKey}/team-role-permissions",
 				teamRoleKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public TeamRole getTeamRoleTeamRoleTypeTeamRoleName(
+				String teamRoleType, String teamRoleName)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getTeamRoleTeamRoleTypeTeamRoleNameHttpResponse(
+					teamRoleType, teamRoleName);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return TeamRoleSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse
+				getTeamRoleTeamRoleTypeTeamRoleNameHttpResponse(
+					String teamRoleType, String teamRoleName)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/team-roles/{teamRoleType}/{teamRoleName}",
+				teamRoleType, teamRoleName);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

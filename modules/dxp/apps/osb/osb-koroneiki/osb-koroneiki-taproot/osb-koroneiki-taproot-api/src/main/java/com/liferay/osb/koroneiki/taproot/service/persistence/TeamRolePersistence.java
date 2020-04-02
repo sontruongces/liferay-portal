@@ -521,7 +521,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param type the type
 	 * @return the matching team roles
 	 */
-	public java.util.List<TeamRole> findByType(int type);
+	public java.util.List<TeamRole> findByType(String type);
 
 	/**
 	 * Returns a range of all the team roles where type = &#63;.
@@ -535,7 +535,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param end the upper bound of the range of team roles (not inclusive)
 	 * @return the range of matching team roles
 	 */
-	public java.util.List<TeamRole> findByType(int type, int start, int end);
+	public java.util.List<TeamRole> findByType(String type, int start, int end);
 
 	/**
 	 * Returns an ordered range of all the team roles where type = &#63;.
@@ -551,7 +551,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the ordered range of matching team roles
 	 */
 	public java.util.List<TeamRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
 			orderByComparator);
 
@@ -570,7 +570,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the ordered range of matching team roles
 	 */
 	public java.util.List<TeamRole> findByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
 			orderByComparator,
 		boolean useFinderCache);
@@ -584,7 +584,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
 	public TeamRole findByType_First(
-			int type,
+			String type,
 			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
 				orderByComparator)
 		throws NoSuchTeamRoleException;
@@ -597,7 +597,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the first matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public TeamRole fetchByType_First(
-		int type,
+		String type,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
 			orderByComparator);
 
@@ -610,7 +610,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
 	public TeamRole findByType_Last(
-			int type,
+			String type,
 			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
 				orderByComparator)
 		throws NoSuchTeamRoleException;
@@ -623,7 +623,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the last matching team role, or <code>null</code> if a matching team role could not be found
 	 */
 	public TeamRole fetchByType_Last(
-		int type,
+		String type,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
 			orderByComparator);
 
@@ -637,7 +637,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @throws NoSuchTeamRoleException if a team role with the primary key could not be found
 	 */
 	public TeamRole[] findByType_PrevAndNext(
-			long teamRoleId, int type,
+			long teamRoleId, String type,
 			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
 				orderByComparator)
 		throws NoSuchTeamRoleException;
@@ -648,7 +648,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param type the type
 	 * @return the matching team roles that the user has permission to view
 	 */
-	public java.util.List<TeamRole> filterFindByType(int type);
+	public java.util.List<TeamRole> filterFindByType(String type);
 
 	/**
 	 * Returns a range of all the team roles that the user has permission to view where type = &#63;.
@@ -663,7 +663,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the range of matching team roles that the user has permission to view
 	 */
 	public java.util.List<TeamRole> filterFindByType(
-		int type, int start, int end);
+		String type, int start, int end);
 
 	/**
 	 * Returns an ordered range of all the team roles that the user has permissions to view where type = &#63;.
@@ -679,7 +679,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the ordered range of matching team roles that the user has permission to view
 	 */
 	public java.util.List<TeamRole> filterFindByType(
-		int type, int start, int end,
+		String type, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
 			orderByComparator);
 
@@ -693,7 +693,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @throws NoSuchTeamRoleException if a team role with the primary key could not be found
 	 */
 	public TeamRole[] filterFindByType_PrevAndNext(
-			long teamRoleId, int type,
+			long teamRoleId, String type,
 			com.liferay.portal.kernel.util.OrderByComparator<TeamRole>
 				orderByComparator)
 		throws NoSuchTeamRoleException;
@@ -703,7 +703,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 *
 	 * @param type the type
 	 */
-	public void removeByType(int type);
+	public void removeByType(String type);
 
 	/**
 	 * Returns the number of team roles where type = &#63;.
@@ -711,7 +711,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param type the type
 	 * @return the number of matching team roles
 	 */
-	public int countByType(int type);
+	public int countByType(String type);
 
 	/**
 	 * Returns the number of team roles that the user has permission to view where type = &#63;.
@@ -719,7 +719,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param type the type
 	 * @return the number of matching team roles that the user has permission to view
 	 */
-	public int filterCountByType(int type);
+	public int filterCountByType(String type);
 
 	/**
 	 * Returns the team role where name = &#63; and type = &#63; or throws a <code>NoSuchTeamRoleException</code> if it could not be found.
@@ -729,7 +729,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @return the matching team role
 	 * @throws NoSuchTeamRoleException if a matching team role could not be found
 	 */
-	public TeamRole findByN_T(String name, int type)
+	public TeamRole findByN_T(String name, String type)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -739,7 +739,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param type the type
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	public TeamRole fetchByN_T(String name, int type);
+	public TeamRole fetchByN_T(String name, String type);
 
 	/**
 	 * Returns the team role where name = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -749,7 +749,8 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching team role, or <code>null</code> if a matching team role could not be found
 	 */
-	public TeamRole fetchByN_T(String name, int type, boolean useFinderCache);
+	public TeamRole fetchByN_T(
+		String name, String type, boolean useFinderCache);
 
 	/**
 	 * Removes the team role where name = &#63; and type = &#63; from the database.
@@ -758,7 +759,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param type the type
 	 * @return the team role that was removed
 	 */
-	public TeamRole removeByN_T(String name, int type)
+	public TeamRole removeByN_T(String name, String type)
 		throws NoSuchTeamRoleException;
 
 	/**
@@ -768,7 +769,7 @@ public interface TeamRolePersistence extends BasePersistence<TeamRole> {
 	 * @param type the type
 	 * @return the number of matching team roles
 	 */
-	public int countByN_T(String name, int type);
+	public int countByN_T(String name, String type);
 
 	/**
 	 * Caches the team role in the entity cache if it is enabled.
