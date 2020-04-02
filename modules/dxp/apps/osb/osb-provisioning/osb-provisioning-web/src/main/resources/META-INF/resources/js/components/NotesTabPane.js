@@ -58,7 +58,7 @@ function NotesTabPane({notes = []}) {
 			) : (
 				<>
 					<div className="notes">
-						{pinned.length && (
+						{!!pinned.length && (
 							<div className="pinned-notes">
 								<div className="notes-section-header">
 									<svg
@@ -77,7 +77,7 @@ function NotesTabPane({notes = []}) {
 							</div>
 						)}
 
-						{unpinned.length && (
+						{!!unpinned.length && (
 							<div className="general-notes">
 								<div className="notes-section-header">
 									{Liferay.Language.get('general')}
@@ -96,7 +96,7 @@ function NotesTabPane({notes = []}) {
 						)}
 					</div>
 
-					{archived.length && (
+					{!!archived.length && (
 						<button
 							className="archive-btn btn btn-link"
 							onClick={() => {
