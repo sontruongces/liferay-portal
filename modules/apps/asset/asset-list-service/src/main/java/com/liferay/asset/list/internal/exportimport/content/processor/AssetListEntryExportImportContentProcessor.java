@@ -242,9 +242,7 @@ public class AssetListEntryExportImportContentProcessor
 
 			long[] newClassTypeIds = classTypeIdsStream.map(
 				classTypeId -> {
-					long newClassTypeId = classTypeId;
-
-					newClassTypeId = MapUtil.getLong(
+					long newClassTypeId = MapUtil.getLong(
 						ddmStructureIds, classTypeId, classTypeId);
 
 					if (newClassTypeId != classTypeId) {
