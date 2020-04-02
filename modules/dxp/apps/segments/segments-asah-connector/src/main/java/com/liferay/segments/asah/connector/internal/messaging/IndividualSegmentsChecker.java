@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.segments.asah.connector.internal.cache.AsahSegmentsEntryCache;
 import com.liferay.segments.asah.connector.internal.client.AsahFaroBackendClient;
@@ -43,7 +42,6 @@ import com.liferay.segments.service.SegmentsEntryLocalService;
 import com.liferay.segments.service.SegmentsEntryRelLocalService;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -128,14 +126,12 @@ public class IndividualSegmentsChecker {
 	}
 
 	private void _addSegmentsEntry(IndividualSegment individualSegment) {
-		Map<Locale, String> nameMap = new HashMap<Locale, String>() {
-			{
-				put(LocaleUtil.getDefault(), individualSegment.getName());
-			}
-		};
-
 		try {
 			ServiceContext serviceContext = _getServiceContext();
+
+			Map<Locale, String> nameMap = Collections.singletonMap(
+				_portal.getSiteDefaultLocale(serviceContext.getScopeGroupId()),
+				individualSegment.getName());
 
 			SegmentsEntry segmentsEntry =
 				_segmentsEntryLocalService.fetchSegmentsEntry(
