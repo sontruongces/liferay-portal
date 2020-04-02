@@ -211,9 +211,10 @@ public class ProductSubscriptionDisplay {
 			}
 
 			if (!_perpetual && _inSupportGap &&
-				(((_nextTermStartDate == null) && startDate.after(now)) ||
+				((_nextTermStartDate == null) ||
 				 ((_nextTermStartDate != null) &&
-				  startDate.before(_nextTermStartDate)))) {
+				  startDate.before(_nextTermStartDate))) &&
+				startDate.after(now)) {
 
 				_nextTermStartDate = startDate;
 			}
