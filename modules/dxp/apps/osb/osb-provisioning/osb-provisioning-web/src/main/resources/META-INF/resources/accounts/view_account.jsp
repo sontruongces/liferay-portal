@@ -29,7 +29,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 <div class="account" id="account">
 	<div class="account-details">
 		<liferay-ui:tabs
-			names="subscriptions,details,contacts,liferay-workers,related-accounts,support,history,opportunities"
+			names="subscriptions,details,contacts,liferay-workers,teams,related-accounts,support,history,opportunities"
 			portletURL="<%= viewAccountDisplayContext.getPortletURL() %>"
 		/>
 
@@ -39,6 +39,9 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 			</c:when>
 			<c:when test='<%= tabs1.equals("details") %>'>
 				<liferay-util:include page="/accounts/view_account_details.jsp" servletContext="<%= application %>" />
+			</c:when>
+			<c:when test='<%= tabs1.equals("teams") %>'>
+				<liferay-util:include page="/accounts/view_account_teams.jsp" servletContext="<%= application %>" />
 			</c:when>
 			<c:otherwise>
 				<div class="subscription-details" id="subscriptionDetails">

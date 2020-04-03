@@ -36,6 +36,12 @@ public class TeamImpl extends TeamBaseImpl {
 		return AccountLocalServiceUtil.getAccount(getAccountId());
 	}
 
+	public String getAccountKey() throws PortalException {
+		Account account = getAccount();
+
+		return account.getAccountKey();
+	}
+
 	public List<ExternalLink> getExternalLinks() {
 		return ExternalLinkLocalServiceUtil.getExternalLinks(
 			Team.class.getName(), getTeamId(), QueryUtil.ALL_POS,

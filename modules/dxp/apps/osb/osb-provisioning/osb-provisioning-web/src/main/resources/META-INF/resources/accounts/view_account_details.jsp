@@ -138,11 +138,11 @@ for (int i = 0; i < postalAddressDisplays.size(); i++) {
 
 	<div>
 		<div>
-			<%= viewAccountDisplayContext.getEditPostalAddressURL(postalAddressDisplay.getPostalAddressId()) %>
+			<%= viewAccountDisplayContext.getEditPostalAddressURL(postalAddressDisplay.getId()) %>
 		</div>
 
 		<div>
-			<%= viewAccountDisplayContext.getDeletePostalAddressURL(postalAddressDisplay.getPostalAddressId()) %>
+			<%= viewAccountDisplayContext.getDeletePostalAddressURL(postalAddressDisplay.getId()) %>
 		</div>
 
 		<div>

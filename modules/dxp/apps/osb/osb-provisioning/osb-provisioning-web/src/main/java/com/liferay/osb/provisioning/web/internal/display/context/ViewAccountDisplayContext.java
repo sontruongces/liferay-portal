@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
@@ -25,6 +26,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -59,105 +61,117 @@ public class ViewAccountDisplayContext {
 			ContactWebService contactWebService,
 			ExternalLinkWebService externalLinkWebService,
 			NoteWebService noteWebService,
-			ProductPurchaseViewWebService productPurchaseViewWebService)
+			ProductPurchaseViewWebService productPurchaseViewWebService,
+			TeamWebService teamWebService)
 		throws Exception {
 
-		_renderRequest = renderRequest;
-		_renderResponse = renderResponse;
-		_httpServletRequest = httpServletRequest;
-		_accountReader = accountReader;
-		_contactRoleWebService = contactRoleWebService;
-		_contactWebService = contactWebService;
-		_externalLinkWebService = externalLinkWebService;
-		_noteWebService = noteWebService;
-		_productPurchaseViewWebService = productPurchaseViewWebService;
+		this.renderRequest = renderRequest;
+		this.renderResponse = renderResponse;
+		this.httpServletRequest = httpServletRequest;
+		this.accountReader = accountReader;
+		this.contactRoleWebService = contactRoleWebService;
+		this.contactWebService = contactWebService;
+		this.externalLinkWebService = externalLinkWebService;
+		this.noteWebService = noteWebService;
+		this.productPurchaseViewWebService = productPurchaseViewWebService;
+		this.teamWebService = teamWebService;
 
-		_account = (Account)renderRequest.getAttribute(
+		account = (Account)renderRequest.getAttribute(
 			ProvisioningWebKeys.ACCOUNT);
 
-		_accountDisplay = new AccountDisplay(
-			httpServletRequest, _accountReader, _account);
+		accountDisplay = new AccountDisplay(
+			httpServletRequest, accountReader, account);
 	}
 
 	public void addPortletBreadcrumbEntries() throws Exception {
-		PortletURL accountsPortletURL = _renderResponse.createRenderURL();
+		PortletURL accountsPortletURL = renderResponse.createRenderURL();
 
 		PortalUtil.addPortletBreadcrumbEntry(
-			_httpServletRequest,
-			LanguageUtil.get(_httpServletRequest, "accounts"),
+			httpServletRequest,
+			LanguageUtil.get(httpServletRequest, "accounts"),
 			accountsPortletURL.toString());
 
-		List<Account> ancestorAccounts = _accountReader.getAncestorAccounts(
-			_account);
+		List<Account> ancestorAccounts = accountReader.getAncestorAccounts(
+			account);
 
-		for (Account account : ancestorAccounts) {
-			PortletURL portletURL = _renderResponse.createRenderURL();
+		for (Account ancestorAccount : ancestorAccounts) {
+			PortletURL portletURL = renderResponse.createRenderURL();
 
 			portletURL.setParameter(
 				"mvcRenderCommandName", "/accounts/view_account");
-			portletURL.setParameter("accountKey", account.getKey());
+			portletURL.setParameter("accountKey", ancestorAccount.getKey());
 
 			PortalUtil.addPortletBreadcrumbEntry(
-				_httpServletRequest, account.getName(), portletURL.toString());
+				httpServletRequest, ancestorAccount.getName(),
+				portletURL.toString());
 		}
+
+		PortletURL portletURL = renderResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/accounts/view_account");
+		portletURL.setParameter("accountKey", account.getKey());
+
+		PortalUtil.addPortletBreadcrumbEntry(
+			httpServletRequest, account.getName(), portletURL.toString());
 	}
 
 	public AccountDisplay getAccountDisplay() {
-		return _accountDisplay;
+		return accountDisplay;
 	}
 
 	public String getAddExternalLinkURL() {
-		PortletURL addExternalLinkURL = _renderResponse.createActionURL();
+		PortletURL addExternalLinkURL = renderResponse.createActionURL();
 
 		addExternalLinkURL.setParameter(
 			ActionRequest.ACTION_NAME, "/edit_external_link");
-		addExternalLinkURL.setParameter("accountKey", _account.getKey());
+		addExternalLinkURL.setParameter("accountKey", account.getKey());
 
 		return addExternalLinkURL.toString();
 	}
 
 	public String getAddPostalAddressURL() {
-		PortletURL addPostalAddressURL = _renderResponse.createActionURL();
+		PortletURL addPostalAddressURL = renderResponse.createActionURL();
 
 		addPostalAddressURL.setParameter(
 			ActionRequest.ACTION_NAME, "/edit_postal_address");
-		addPostalAddressURL.setParameter("accountKey", _account.getKey());
+		addPostalAddressURL.setParameter("accountKey", account.getKey());
 
 		return addPostalAddressURL.toString();
 	}
 
 	public String getAssignAccountContactRolesURL() {
 		PortletURL assignAccountContactRolesURL =
-			_renderResponse.createActionURL();
+			renderResponse.createActionURL();
 
 		assignAccountContactRolesURL.setParameter(
 			ActionRequest.ACTION_NAME, "/assign_account_contact_roles");
 		assignAccountContactRolesURL.setParameter(
-			"accountKey", _account.getKey());
+			"accountKey", account.getKey());
 
 		return assignAccountContactRolesURL.toString();
 	}
 
 	public List<ContactRole> getContactRoles(String type) throws Exception {
-		return _contactRoleWebService.search(
+		return contactRoleWebService.search(
 			"type eq '" + type + "'", 1, 1000, "name");
 	}
 
 	public SearchContainer getContactsSearchContainer() throws Exception {
-		String keywords = ParamUtil.getString(_renderRequest, "keywords");
+		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		SearchContainer searchContainer = new SearchContainer(
-			_renderRequest, _renderResponse.createRenderURL(),
+			renderRequest, renderResponse.createRenderURL(),
 			Collections.emptyList(), "no-contacts-were-found");
 
 		StringBundler sb = new StringBundler();
 
 		sb.append("customerAccountKeys/any(s:s eq '");
-		sb.append(_account.getKey());
+		sb.append(account.getKey());
 		sb.append("')");
 
 		String[] contactRoleKeys = ParamUtil.getStringValues(
-			_renderRequest, "contactRoleKeys");
+			renderRequest, "contactRoleKeys");
 
 		if (!ArrayUtil.isEmpty(contactRoleKeys)) {
 			sb.append(" and accountKeysContactRoleKeys/any(s:");
@@ -168,8 +182,8 @@ public class ViewAccountDisplayContext {
 				}
 
 				sb.append("s eq '");
-				sb.append(_account.getKey());
-				sb.append("_");
+				sb.append(account.getKey());
+				sb.append("");
 				sb.append(contactRoleKeys[i]);
 				sb.append("'");
 			}
@@ -177,7 +191,7 @@ public class ViewAccountDisplayContext {
 			sb.append(")");
 		}
 
-		List<Contact> contacts = _contactWebService.search(
+		List<Contact> contacts = contactWebService.search(
 			keywords, sb.toString(), searchContainer.getCur(),
 			searchContainer.getEnd() - searchContainer.getStart(), "firstName");
 
@@ -186,16 +200,15 @@ public class ViewAccountDisplayContext {
 				contacts,
 				contact -> {
 					List<ContactRole> contactRoles =
-						_contactRoleWebService.getAccountCustomerContactRoles(
-							_account.getKey(), contact.getEmailAddress(), 1,
+						contactRoleWebService.getAccountCustomerContactRoles(
+							account.getKey(), contact.getEmailAddress(), 1,
 							1000);
 
 					return new ContactDisplay(
-						_httpServletRequest, contact, contactRoles);
+						httpServletRequest, contact, contactRoles);
 				}));
 
-		int count = (int)_contactWebService.searchCount(
-			keywords, sb.toString());
+		int count = (int)contactWebService.searchCount(keywords, sb.toString());
 
 		searchContainer.setTotal(count);
 
@@ -203,7 +216,7 @@ public class ViewAccountDisplayContext {
 	}
 
 	public String getDeleteExternalLinkURL(String externalLinkKey) {
-		PortletURL deleteExternalLinkURL = _renderResponse.createActionURL();
+		PortletURL deleteExternalLinkURL = renderResponse.createActionURL();
 
 		deleteExternalLinkURL.setParameter(
 			ActionRequest.ACTION_NAME, "/edit_external_link");
@@ -214,7 +227,7 @@ public class ViewAccountDisplayContext {
 	}
 
 	public String getDeleteNoteURL(String noteKey) {
-		PortletURL deleteNoteURL = _renderResponse.createActionURL();
+		PortletURL deleteNoteURL = renderResponse.createActionURL();
 
 		deleteNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
 		deleteNoteURL.setParameter(Constants.CMD, Constants.DELETE);
@@ -224,7 +237,7 @@ public class ViewAccountDisplayContext {
 	}
 
 	public String getDeletePostalAddressURL(long postalAddressId) {
-		PortletURL deletePostalAddressURL = _renderResponse.createActionURL();
+		PortletURL deletePostalAddressURL = renderResponse.createActionURL();
 
 		deletePostalAddressURL.setParameter(
 			ActionRequest.ACTION_NAME, "/edit_postal_address");
@@ -236,16 +249,16 @@ public class ViewAccountDisplayContext {
 	}
 
 	public String getEditAccountURL() {
-		PortletURL editAccountURL = _renderResponse.createActionURL();
+		PortletURL editAccountURL = renderResponse.createActionURL();
 
 		editAccountURL.setParameter(ActionRequest.ACTION_NAME, "/edit_account");
-		editAccountURL.setParameter("accountKey", _account.getKey());
+		editAccountURL.setParameter("accountKey", account.getKey());
 
 		return editAccountURL.toString();
 	}
 
 	public String getEditExternalLinkURL(String externalLinkKey) {
-		PortletURL editExternalLinkURL = _renderResponse.createActionURL();
+		PortletURL editExternalLinkURL = renderResponse.createActionURL();
 
 		editExternalLinkURL.setParameter(
 			ActionRequest.ACTION_NAME, "/edit_external_link");
@@ -255,7 +268,7 @@ public class ViewAccountDisplayContext {
 	}
 
 	public String getEditPostalAddressURL(long postalAddressId) {
-		PortletURL editPostalAddressURL = _renderResponse.createActionURL();
+		PortletURL editPostalAddressURL = renderResponse.createActionURL();
 
 		editPostalAddressURL.setParameter(
 			ActionRequest.ACTION_NAME, "/edit_postal_address");
@@ -269,68 +282,91 @@ public class ViewAccountDisplayContext {
 		throws Exception {
 
 		return TransformUtil.transform(
-			_externalLinkWebService.getExternalLinks(
-				_account.getKey(), 1, 1000),
+			externalLinkWebService.getExternalLinks(account.getKey(), 1, 1000),
 			externalLink -> new ExternalLinkDisplay(
-				_httpServletRequest, externalLink));
+				httpServletRequest, externalLink));
 	}
 
 	public Map<String, Object> getPanelData() throws Exception {
 		Map<String, Object> data = new HashMap<>();
 
-		PortletURL addNoteURL = _renderResponse.createActionURL();
+		PortletURL addNoteURL = renderResponse.createActionURL();
 
 		addNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
-		addNoteURL.setParameter("accountKey", _account.getKey());
+		addNoteURL.setParameter("accountKey", account.getKey());
 
 		data.put("addNoteURL", addNoteURL.toString());
 
 		data.put(
 			"notes",
 			TransformUtil.transform(
-				_noteWebService.getNotes(
-					_account.getKey(), StringPool.BLANK, StringPool.BLANK, 1,
+				noteWebService.getNotes(
+					account.getKey(), StringPool.BLANK, StringPool.BLANK, 1,
 					1000),
-				note -> new NoteDisplay(_httpServletRequest, note)));
+				note -> new NoteDisplay(httpServletRequest, note)));
 
 		return data;
 	}
 
 	public PortletURL getPortletURL() {
-		PortletURL portletURL = _renderResponse.createRenderURL();
+		PortletURL portletURL = renderResponse.createRenderURL();
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "/accounts/view_account");
 		portletURL.setParameter(
-			"tabs1", ParamUtil.getString(_renderRequest, "tabs1"));
-		portletURL.setParameter("accountKey", _account.getKey());
+			"tabs1", ParamUtil.getString(renderRequest, "tabs1"));
+		portletURL.setParameter("accountKey", account.getKey());
 
 		return portletURL;
 	}
 
-	public SearchContainer getProductPurchaseViewSearchContainer(String state)
+	public SearchContainer getProductPurchaseViewsSearchContainer(String state)
 		throws Exception {
 
 		SearchContainer searchContainer = new SearchContainer(
-			_renderRequest, _renderResponse.createRenderURL(),
+			renderRequest, renderResponse.createRenderURL(),
 			Collections.emptyList(), "no-subscriptions-were-found");
 
-		String search = ParamUtil.getString(_renderRequest, "search");
+		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		List<ProductPurchaseView> productPurchaseViews =
-			_productPurchaseViewWebService.getProductPurchaseViews(
-				_account.getKey(), state, search, searchContainer.getCur(),
+			productPurchaseViewWebService.getProductPurchaseViews(
+				account.getKey(), state, keywords, searchContainer.getCur(),
 				searchContainer.getEnd() - searchContainer.getStart());
 
 		searchContainer.setResults(
 			TransformUtil.transform(
 				productPurchaseViews,
 				productPurchaseView -> new ProductSubscriptionDisplay(
-					_httpServletRequest, _account, productPurchaseView)));
+					httpServletRequest, account, productPurchaseView)));
 
 		int count =
-			(int)_productPurchaseViewWebService.getProductPurchaseViewsCount(
-				_account.getKey(), state, search);
+			(int)productPurchaseViewWebService.getProductPurchaseViewsCount(
+				account.getKey(), state, keywords);
+
+		searchContainer.setTotal(count);
+
+		return searchContainer;
+	}
+
+	public SearchContainer getTeamsSearchContainer() throws Exception {
+		SearchContainer searchContainer = new SearchContainer(
+			renderRequest, renderResponse.createRenderURL(),
+			Collections.emptyList(), "no-teams-were-found");
+
+		String keywords = ParamUtil.getString(renderRequest, "keywords");
+
+		String filterString = "accountKey eq '" + account.getKey() + "'";
+
+		List<Team> teams = teamWebService.search(
+			keywords, filterString, searchContainer.getCur(),
+			searchContainer.getEnd() - searchContainer.getStart(), "name");
+
+		searchContainer.setResults(
+			TransformUtil.transform(
+				teams, team -> new TeamDisplay(httpServletRequest, team)));
+
+		int count = (int)teamWebService.searchCount(keywords, filterString);
 
 		searchContainer.setTotal(count);
 
@@ -339,12 +375,12 @@ public class ViewAccountDisplayContext {
 
 	public String getUnassignAccountCustomerContactURL(String emailAddress) {
 		PortletURL unassignAccountCustomerContactURL =
-			_renderResponse.createActionURL();
+			renderResponse.createActionURL();
 
 		unassignAccountCustomerContactURL.setParameter(
 			ActionRequest.ACTION_NAME, "/unassign_account_customer_contact");
 		unassignAccountCustomerContactURL.setParameter(
-			"accountKey", _account.getKey());
+			"accountKey", account.getKey());
 		unassignAccountCustomerContactURL.setParameter(
 			"emailAddress", emailAddress);
 
@@ -352,7 +388,7 @@ public class ViewAccountDisplayContext {
 	}
 
 	public String getUpdateNoteURL(String noteKey) {
-		PortletURL updateNoteURL = _renderResponse.createActionURL();
+		PortletURL updateNoteURL = renderResponse.createActionURL();
 
 		updateNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
 		updateNoteURL.setParameter("noteKey", noteKey);
@@ -360,16 +396,17 @@ public class ViewAccountDisplayContext {
 		return updateNoteURL.toString();
 	}
 
-	private final Account _account;
-	private final AccountDisplay _accountDisplay;
-	private final AccountReader _accountReader;
-	private final ContactRoleWebService _contactRoleWebService;
-	private final ContactWebService _contactWebService;
-	private final ExternalLinkWebService _externalLinkWebService;
-	private final HttpServletRequest _httpServletRequest;
-	private final NoteWebService _noteWebService;
-	private final ProductPurchaseViewWebService _productPurchaseViewWebService;
-	private final RenderRequest _renderRequest;
-	private final RenderResponse _renderResponse;
+	protected final Account account;
+	protected final AccountDisplay accountDisplay;
+	protected final AccountReader accountReader;
+	protected final ContactRoleWebService contactRoleWebService;
+	protected final ContactWebService contactWebService;
+	protected final ExternalLinkWebService externalLinkWebService;
+	protected final HttpServletRequest httpServletRequest;
+	protected final NoteWebService noteWebService;
+	protected final ProductPurchaseViewWebService productPurchaseViewWebService;
+	protected final RenderRequest renderRequest;
+	protected final RenderResponse renderResponse;
+	protected final TeamWebService teamWebService;
 
 }

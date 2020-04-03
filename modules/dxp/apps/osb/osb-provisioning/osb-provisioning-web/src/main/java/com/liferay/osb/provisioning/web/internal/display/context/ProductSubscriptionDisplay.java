@@ -40,9 +40,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ProductSubscriptionDisplay {
 
 	public ProductSubscriptionDisplay(
-			HttpServletRequest httpServletRequest, Account account,
-			ProductPurchaseView productPurchaseView)
-		throws Exception {
+		HttpServletRequest httpServletRequest, Account account,
+		ProductPurchaseView productPurchaseView) {
 
 		_httpServletRequest = httpServletRequest;
 		_account = account;

@@ -65,6 +65,8 @@ public class ContactEntityModel implements EntityModel {
 			new StringEntityField("lastName", locale -> "lastName"),
 			new StringEntityField("middleName", locale -> "middleName"),
 			new CollectionEntityField(
+				new StringEntityField("teamKeys", locale -> "teamKeys")),
+			new CollectionEntityField(
 				new StringEntityField(
 					"workerAccountKeys", locale -> "workerAccountKeys"))
 		).collect(

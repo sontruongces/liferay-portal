@@ -21,6 +21,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.TeamResource;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +40,10 @@ import org.osgi.service.component.annotations.Component;
 )
 public class TeamWebServiceImpl implements TeamWebService {
 
+	public Team getTeam(String teamKey) throws Exception {
+		return _teamResource.getTeam(teamKey);
+	}
+
 	public List<Team> search(
 			String search, String filterString, int page, int pageSize,
 			String sortString)
@@ -54,6 +59,19 @@ public class TeamWebServiceImpl implements TeamWebService {
 		return Collections.emptyList();
 	}
 
+	public long searchCount(String search, String filterString)
+		throws Exception {
+
+		Page<Team> teamsPage = _teamResource.getTeamsPage(
+			search, filterString, Pagination.of(1, 1), StringPool.BLANK);
+
+		if (teamsPage != null) {
+			return teamsPage.getTotalCount();
+		}
+
+		return 0;
+	}
+
 	@Activate
 	protected void activate(Map<String, Object> properties) throws Exception {
 		KoroneikiConfiguration koroneikiConfiguration =
@@ -67,6 +85,8 @@ public class TeamWebServiceImpl implements TeamWebService {
 			koroneikiConfiguration.scheme()
 		).header(
 			"API_Token", koroneikiConfiguration.apiToken()
+		).parameter(
+			"nestedFields", "contacts"
 		).build();
 	}
 

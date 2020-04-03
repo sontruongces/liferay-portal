@@ -26,54 +26,42 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 	<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
 
 	<aui:input label="" name="keywords" placeholder="search" />
-
-	<aui:select label="roles" multiple="<%= true %>" name="contactRoleKeys">
-
-		<%
-		for (ContactRole contactRole : viewAccountDisplayContext.getContactRoles(ContactRole.Type.ACCOUNT_CUSTOMER.toString())) {
-		%>
-
-			<aui:option label="<%= contactRole.getName() %>" value="<%= contactRole.getKey() %>" />
-
-		<%
-		}
-		%>
-
-	</aui:select>
 </aui:form>
 
 <liferay-ui:search-container
-	searchContainer="<%= viewAccountDisplayContext.getContactsSearchContainer() %>"
+	searchContainer="<%= viewAccountDisplayContext.getTeamsSearchContainer() %>"
 >
 	<liferay-ui:search-container-row
-		className="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay"
+		className="com.liferay.osb.provisioning.web.internal.display.context.TeamDisplay"
 		escapedModel="<%= true %>"
-		modelVar="contactDisplay"
+		modelVar="teamDisplay"
 	>
+		<portlet:renderURL var="rowURL">
+			<portlet:param name="mvcRenderCommandName" value="/accounts/view_team" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
+		</portlet:renderURL>
+
 		<liferay-ui:search-container-column-text
-			name="name-email"
+			href="<%= rowURL %>"
+			name="team"
 		>
-			<%= contactDisplay.getFullName() %>
+			<%= teamDisplay.getName() %>
 
 			<div class="secondary-information">
-				<%= contactDisplay.getEmailAddress() %>
+				<%= teamDisplay.getContactNames() %>
 			</div>
 		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-text
-			name="role"
+			href="<%= rowURL %>"
+			name="last-modified"
 		>
-			<%= StringUtil.merge(contactDisplay.getContactRoleNames(), "<br />") %>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			name="status"
-		>
-			<span class="label"><%= contactDisplay.getStatus() %></span>
+			<%= teamDisplay.getDateModified() %>
 		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-jsp
-			path="/accounts/contact_action.jsp"
+			path="/accounts/team_action.jsp"
 		/>
 	</liferay-ui:search-container-row>
 

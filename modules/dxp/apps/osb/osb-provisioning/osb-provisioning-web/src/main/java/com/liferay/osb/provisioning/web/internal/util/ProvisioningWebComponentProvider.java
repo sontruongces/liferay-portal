@@ -21,8 +21,10 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.ViewTeamDisplayContext;
 
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -64,6 +66,15 @@ public class ProvisioningWebComponentProvider {
 			renderRequest, renderResponse, httpServletRequest);
 	}
 
+	public static ViewTeamDisplayContext getViewTeamDisplayContext(
+			RenderRequest renderRequest, RenderResponse renderResponse,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider._getViewTeamDisplayContext(
+			renderRequest, renderResponse, httpServletRequest);
+	}
+
 	@Activate
 	protected void activate() {
 		_provisioningWebComponentProvider = this;
@@ -99,13 +110,37 @@ public class ProvisioningWebComponentProvider {
 		viewAccountDisplayContext = new ViewAccountDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
 			_contactRoleWebService, _contactWebService, _externalLinkWebService,
-			_noteWebService, _productPurchaseViewWebService);
+			_noteWebService, _productPurchaseViewWebService, _teamWebService);
 
 		httpServletRequest.setAttribute(
 			ViewAccountDisplayContext.class.getName(),
 			viewAccountDisplayContext);
 
 		return viewAccountDisplayContext;
+	}
+
+	private ViewTeamDisplayContext _getViewTeamDisplayContext(
+			RenderRequest renderRequest, RenderResponse renderResponse,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		ViewTeamDisplayContext viewTeamDisplayContext =
+			(ViewTeamDisplayContext)httpServletRequest.getAttribute(
+				ViewTeamDisplayContext.class.getName());
+
+		if (viewTeamDisplayContext != null) {
+			return viewTeamDisplayContext;
+		}
+
+		viewTeamDisplayContext = new ViewTeamDisplayContext(
+			renderRequest, renderResponse, httpServletRequest, _accountReader,
+			_contactRoleWebService, _contactWebService, _externalLinkWebService,
+			_noteWebService, _productPurchaseViewWebService, _teamWebService);
+
+		httpServletRequest.setAttribute(
+			ViewTeamDisplayContext.class.getName(), viewTeamDisplayContext);
+
+		return viewTeamDisplayContext;
 	}
 
 	private static ProvisioningWebComponentProvider
@@ -131,5 +166,8 @@ public class ProvisioningWebComponentProvider {
 
 	@Reference
 	private ProductPurchaseViewWebService _productPurchaseViewWebService;
+
+	@Reference
+	private TeamWebService _teamWebService;
 
 }

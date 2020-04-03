@@ -24,8 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ExternalLinkDisplay {
 
 	public ExternalLinkDisplay(
-			HttpServletRequest httpServletRequest, ExternalLink externalLink)
-		throws Exception {
+		HttpServletRequest httpServletRequest, ExternalLink externalLink) {
 
 		_httpServletRequest = httpServletRequest;
 		_externalLink = externalLink;

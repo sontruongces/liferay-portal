@@ -28,6 +28,7 @@ public class TeamUtil {
 
 		return new Team() {
 			{
+				accountKey = team.getAccountKey();
 				dateCreated = team.getCreateDate();
 				dateModified = team.getModifiedDate();
 				externalLinks = TransformUtil.transformToArray(

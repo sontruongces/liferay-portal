@@ -17,33 +17,19 @@
 <%@ include file="/init.jsp" %>
 
 <%
-ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
+ViewTeamDisplayContext viewTeamDisplayContext = ProvisioningWebComponentProvider.getViewTeamDisplayContext(renderRequest, renderResponse, request);
 
-PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
+PortletURL searchURL = viewTeamDisplayContext.getPortletURL();
 %>
 
 <aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
 	<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
 
 	<aui:input label="" name="keywords" placeholder="search" />
-
-	<aui:select label="roles" multiple="<%= true %>" name="contactRoleKeys">
-
-		<%
-		for (ContactRole contactRole : viewAccountDisplayContext.getContactRoles(ContactRole.Type.ACCOUNT_CUSTOMER.toString())) {
-		%>
-
-			<aui:option label="<%= contactRole.getName() %>" value="<%= contactRole.getKey() %>" />
-
-		<%
-		}
-		%>
-
-	</aui:select>
 </aui:form>
 
 <liferay-ui:search-container
-	searchContainer="<%= viewAccountDisplayContext.getContactsSearchContainer() %>"
+	searchContainer="<%= viewTeamDisplayContext.getContactsSearchContainer() %>"
 >
 	<liferay-ui:search-container-row
 		className="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay"
@@ -58,12 +44,6 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 			<div class="secondary-information">
 				<%= contactDisplay.getEmailAddress() %>
 			</div>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			name="role"
-		>
-			<%= StringUtil.merge(contactDisplay.getContactRoleNames(), "<br />") %>
 		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-text

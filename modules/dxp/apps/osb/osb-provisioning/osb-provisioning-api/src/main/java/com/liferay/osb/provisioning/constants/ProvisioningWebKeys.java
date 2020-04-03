@@ -21,4 +21,6 @@ public class ProvisioningWebKeys {
 
 	public static final String ACCOUNT = "ACCOUNT";
 
+	public static final String TEAM = "TEAM";
+
 }

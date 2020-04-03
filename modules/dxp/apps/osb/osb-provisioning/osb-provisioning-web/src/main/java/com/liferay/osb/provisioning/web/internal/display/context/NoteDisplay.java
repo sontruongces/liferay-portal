@@ -30,9 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class NoteDisplay {
 
-	public NoteDisplay(HttpServletRequest httpServletRequest, Note note)
-		throws Exception {
-
+	public NoteDisplay(HttpServletRequest httpServletRequest, Note note) {
 		_httpServletRequest = httpServletRequest;
 		_note = note;
 

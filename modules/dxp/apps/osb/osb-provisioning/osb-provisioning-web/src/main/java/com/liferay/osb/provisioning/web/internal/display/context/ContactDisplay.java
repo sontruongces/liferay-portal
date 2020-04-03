@@ -32,17 +32,12 @@ import javax.servlet.http.HttpServletRequest;
 public class ContactDisplay {
 
 	public ContactDisplay(
-			HttpServletRequest httpServletRequest, Contact contact,
-			List<ContactRole> contactRoles)
-		throws Exception {
+		HttpServletRequest httpServletRequest, Contact contact,
+		List<ContactRole> contactRoles) {
 
 		_httpServletRequest = httpServletRequest;
 		_contact = contact;
 		_contactRoles = contactRoles;
-	}
-
-	public String getContactKey() {
-		return _contact.getKey();
 	}
 
 	public List<String> getContactRoleNames() {
@@ -87,6 +82,10 @@ public class ContactDisplay {
 		}
 
 		return sb.toString();
+	}
+
+	public String getKey() {
+		return _contact.getKey();
 	}
 
 	public String getStatus() {

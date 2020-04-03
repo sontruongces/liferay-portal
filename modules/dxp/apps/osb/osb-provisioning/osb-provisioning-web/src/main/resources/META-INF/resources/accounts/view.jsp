@@ -42,7 +42,7 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 			<portlet:renderURL var="rowURL">
 				<portlet:param name="mvcRenderCommandName" value="/accounts/view_account" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="accountKey" value="<%= accountDisplay.getAccountKey() %>" />
+				<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 			</portlet:renderURL>
 
 			<liferay-ui:search-container-column-text

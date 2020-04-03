@@ -67,10 +67,6 @@ public class AccountDisplay {
 		return _account;
 	}
 
-	public String getAccountKey() {
-		return _account.getKey();
-	}
-
 	public String getCode() {
 		if (Validator.isNotNull(_account.getCode())) {
 			return _account.getCode();
@@ -121,6 +117,10 @@ public class AccountDisplay {
 		}
 
 		return StringPool.DASH;
+	}
+
+	public String getKey() {
+		return _account.getKey();
 	}
 
 	public String getName() {

@@ -27,8 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 public class PostalAddressDisplay {
 
 	public PostalAddressDisplay(
-			HttpServletRequest httpServletRequest, PostalAddress postalAddress)
-		throws Exception {
+		HttpServletRequest httpServletRequest, PostalAddress postalAddress) {
 
 		_httpServletRequest = httpServletRequest;
 		_postalAddress = postalAddress;
@@ -66,6 +65,10 @@ public class PostalAddressDisplay {
 		return StringPool.DASH;
 	}
 
+	public long getId() {
+		return _postalAddress.getId();
+	}
+
 	public String getMailing() {
 		if ((_postalAddress.getMailing() != null) &&
 			_postalAddress.getMailing()) {
@@ -74,10 +77,6 @@ public class PostalAddressDisplay {
 		}
 
 		return LanguageUtil.get(_httpServletRequest, "no");
-	}
-
-	public long getPostalAddressId() {
-		return _postalAddress.getId();
 	}
 
 	public String getPostalCode() {

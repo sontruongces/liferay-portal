@@ -19,23 +19,19 @@
 <%
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 
-AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
-
 String state = ParamUtil.getString(request, "state");
+
+PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 %>
 
-<portlet:renderURL var="subscriptionSearchURL">
-	<portlet:param name="mvcRenderCommandName" value="/accounts/view_account" />
-	<portlet:param name="redirect" value="<%= currentURL %>" />
-	<portlet:param name="accountKey" value="<%= accountDisplay.getAccountKey() %>" />
-</portlet:renderURL>
+<aui:form action="<%= searchURL.toString() %>" method="get" name="searchFm">
+	<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
 
-<aui:form action="<%= subscriptionSearchURL.toString() %>" name="searchFm">
-	<aui:input label="" name="search" placeholder="search" />
+	<aui:input label="" name="keywords" placeholder="search" />
 </aui:form>
 
 <liferay-ui:search-container
-	searchContainer="<%= viewAccountDisplayContext.getProductPurchaseViewSearchContainer(state) %>"
+	searchContainer="<%= viewAccountDisplayContext.getProductPurchaseViewsSearchContainer(state) %>"
 >
 	<liferay-ui:search-container-row
 		className="com.liferay.osb.provisioning.web.internal.display.context.ProductSubscriptionDisplay"

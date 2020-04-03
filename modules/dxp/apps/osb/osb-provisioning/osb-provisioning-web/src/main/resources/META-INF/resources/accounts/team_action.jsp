@@ -19,11 +19,7 @@
 <%
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
-ContactDisplay contactDisplay = (ContactDisplay)row.getObject();
-
-ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
-
-AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
+TeamDisplay teamDisplay = (TeamDisplay)row.getObject();
 %>
 
 <liferay-ui:icon-menu
@@ -34,9 +30,9 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 	showWhenSingleIcon="<%= true %>"
 >
 	<portlet:renderURL var="editURL">
-		<portlet:param name="mvcRenderCommandName" value="/accounts/edit_contact" />
+		<portlet:param name="mvcRenderCommandName" value="/accounts/edit_team" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="contactKey" value="<%= contactDisplay.getKey() %>" />
+		<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon
@@ -44,14 +40,14 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 		url="<%= editURL %>"
 	/>
 
-	<portlet:actionURL name="/accounts/unassign_contact" var="unassignURL">
+	<portlet:actionURL name="/accounts/edit_team" var="deleteURL">
+		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
-		<portlet:param name="contactKey" value="<%= contactDisplay.getKey() %>" />
+		<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete
-		confirmation="are-you-sure-you-want-to-unassign-this-contact"
-		url="<%= unassignURL %>"
+		confirmation="are-you-sure-you-want-to-delete-this-team"
+		url="<%= deleteURL %>"
 	/>
 </liferay-ui:icon-menu>

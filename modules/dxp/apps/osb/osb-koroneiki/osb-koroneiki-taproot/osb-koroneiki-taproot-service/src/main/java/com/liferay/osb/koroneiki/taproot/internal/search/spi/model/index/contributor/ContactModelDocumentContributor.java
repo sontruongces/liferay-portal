@@ -22,8 +22,11 @@ import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.model.ContactTeamRole;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -84,6 +87,7 @@ public class ContactModelDocumentContributor
 		_contributeAccounts(document, contact.getContactId());
 		_contributeEntitlements(document, contact.getContactId());
 		_contributeExternalLinks(document, contact.getContactId());
+		_contributeTeams(document, contact.getContactId());
 	}
 
 	private void _contributeAccounts(Document document, long contactId)
@@ -194,6 +198,32 @@ public class ContactModelDocumentContributor
 			ArrayUtil.toStringArray(externalLinkEntityNames.toArray()));
 	}
 
+	private void _contributeTeams(Document document, long contactId)
+		throws PortalException {
+
+		Set<String> teamKeys = new HashSet<>();
+		Set<String> teamKeysContactRoleKeys = new HashSet<>();
+
+		List<ContactTeamRole> contactTeamRoles =
+			_contactTeamRoleLocalService.getContactTeamRoles(contactId);
+
+		for (ContactTeamRole contactTeamRole : contactTeamRoles) {
+			Team team = contactTeamRole.getTeam();
+			ContactRole contactRole = contactTeamRole.getContactRole();
+
+			teamKeys.add(team.getTeamKey());
+			teamKeysContactRoleKeys.add(
+				team.getTeamKey() + StringPool.UNDERLINE +
+					contactRole.getContactRoleKey());
+		}
+
+		document.addKeyword(
+			"teamKeys", ArrayUtil.toStringArray(teamKeys.toArray()));
+		document.addKeyword(
+			"teamKeysContactRoleKeys",
+			ArrayUtil.toStringArray(teamKeysContactRoleKeys.toArray()));
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		ContactModelDocumentContributor.class);
 
@@ -202,6 +232,9 @@ public class ContactModelDocumentContributor
 
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;
+
+	@Reference
+	private ContactTeamRoleLocalService _contactTeamRoleLocalService;
 
 	@Reference
 	private EntitlementLocalService _entitlementLocalService;

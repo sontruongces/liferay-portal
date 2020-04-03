@@ -1,3 +1,4 @@
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -11,26 +12,18 @@
  *
  *
  */
+--%>
 
-package com.liferay.osb.provisioning.koroneiki.web.service;
+<%@ include file="/init.jsp" %>
 
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
+<%
+ViewTeamDisplayContext viewTeamDisplayContext = ProvisioningWebComponentProvider.getViewTeamDisplayContext(renderRequest, renderResponse, request);
 
-import java.util.List;
+TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
+%>
 
-/**
- * @author Amos Fong
- */
-public interface TeamWebService {
+<div>
+	<label><liferay-ui:message key="team-name" /></label>
 
-	public Team getTeam(String teamKey) throws Exception;
-
-	public List<Team> search(
-			String search, String filterString, int page, int pageSize,
-			String sortString)
-		throws Exception;
-
-	public long searchCount(String search, String filterString)
-		throws Exception;
-
-}
+	<span><%= teamDisplay.getName() %></span>
+</div>
