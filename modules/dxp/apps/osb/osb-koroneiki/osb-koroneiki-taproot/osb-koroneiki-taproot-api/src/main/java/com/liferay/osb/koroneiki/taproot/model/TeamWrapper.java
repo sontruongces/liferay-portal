@@ -143,6 +143,13 @@ public class TeamWrapper
 		return model.getAccountId();
 	}
 
+	@Override
+	public String getAccountKey()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getAccountKey();
+	}
+
 	/**
 	 * Returns the company ID of this team.
 	 *
