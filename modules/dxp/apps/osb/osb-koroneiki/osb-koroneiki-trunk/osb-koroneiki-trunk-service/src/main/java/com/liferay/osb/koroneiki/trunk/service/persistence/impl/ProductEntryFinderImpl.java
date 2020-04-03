@@ -195,9 +195,16 @@ public class ProductEntryFinderImpl
 	protected String getWhere(String key, Object value) {
 		String join = StringPool.BLANK;
 
-		if (key.equals("search")) {
-			String[] keywords = _customSQL.keywords(
-				(String)value, true, WildcardMode.SURROUND);
+		if (key.equals("products") || key.equals("search")) {
+			String[] keywords = null;
+
+			if (key.equals("products")) {
+				keywords = (String[])value;
+			}
+			else {
+				keywords = _customSQL.keywords(
+					(String)value, true, WildcardMode.SURROUND);
+			}
 
 			join = _customSQL.get(getClass(), FILTER_BY_PRODUCT_ENTRY);
 
@@ -243,7 +250,12 @@ public class ProductEntryFinderImpl
 			String key = entry.getKey();
 			Object value = entry.getValue();
 
-			if (key.equals("search")) {
+			if (key.equals("products")) {
+				String[] keywords = (String[])value;
+
+				qPos.add(keywords, 2);
+			}
+			else if (key.equals("search")) {
 				String[] keywords = _customSQL.keywords(
 					(String)value, true, WildcardMode.SURROUND);
 

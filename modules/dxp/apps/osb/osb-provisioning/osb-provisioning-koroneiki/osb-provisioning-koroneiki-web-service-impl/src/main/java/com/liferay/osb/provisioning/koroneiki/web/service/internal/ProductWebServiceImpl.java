@@ -14,11 +14,11 @@
 
 package com.liferay.osb.provisioning.koroneiki.web.service.internal;
 
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
-import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductPurchaseViewResource;
-import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
+import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductResource;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
@@ -35,45 +35,23 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	configurationPid = "com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration",
-	immediate = true, service = ProductPurchaseViewWebService.class
+	immediate = true, service = ProductWebService.class
 )
-public class ProductPurchaseViewWebServiceImpl
-	implements ProductPurchaseViewWebService {
+public class ProductWebServiceImpl implements ProductWebService {
 
-	public List<ProductPurchaseView> getProductPurchaseViews(
-			String accountKey, String[] products, String state, String search,
-			int page, int pageSize)
+	public List<Product> getProducts(
+			String search, String filterString, int page, int pageSize,
+			String sortString)
 		throws Exception {
 
-		Page<ProductPurchaseView> productPurchaseViewsPage =
-			_productPurchaseViewResource.
-				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, products, state, search,
-					Pagination.of(page, pageSize));
+		Page<Product> productsPage = _productResource.getProductsPage(
+			search, filterString, Pagination.of(page, pageSize), sortString);
 
-		if ((productPurchaseViewsPage != null) &&
-			(productPurchaseViewsPage.getItems() != null)) {
-
-			return new ArrayList<>(productPurchaseViewsPage.getItems());
+		if ((productsPage != null) && (productsPage.getItems() != null)) {
+			return new ArrayList<>(productsPage.getItems());
 		}
 
 		return Collections.emptyList();
-	}
-
-	public long getProductPurchaseViewsCount(
-			String accountKey, String[] products, String state, String search)
-		throws Exception {
-
-		Page<ProductPurchaseView> productPurchaseViewsPage =
-			_productPurchaseViewResource.
-				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, products, state, search, Pagination.of(1, 1));
-
-		if (productPurchaseViewsPage != null) {
-			return productPurchaseViewsPage.getTotalCount();
-		}
-
-		return 0;
 	}
 
 	@Activate
@@ -82,10 +60,9 @@ public class ProductPurchaseViewWebServiceImpl
 			ConfigurableUtil.createConfigurable(
 				KoroneikiConfiguration.class, properties);
 
-		ProductPurchaseViewResource.Builder builder =
-			ProductPurchaseViewResource.builder();
+		ProductResource.Builder builder = ProductResource.builder();
 
-		_productPurchaseViewResource = builder.endpoint(
+		_productResource = builder.endpoint(
 			koroneikiConfiguration.host(), koroneikiConfiguration.port(),
 			koroneikiConfiguration.scheme()
 		).header(
@@ -93,6 +70,6 @@ public class ProductPurchaseViewWebServiceImpl
 		).build();
 	}
 
-	private ProductPurchaseViewResource _productPurchaseViewResource;
+	private ProductResource _productResource;
 
 }

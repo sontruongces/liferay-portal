@@ -154,32 +154,41 @@ public class ProductEntryLocalServiceImpl
 	}
 
 	public List<ProductEntry> getAccountProductEntries(
-		long accountId, String search, String state, int start, int end) {
+		long accountId, String[] products, String state, String search,
+		int start, int end) {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
-		if (Validator.isNotNull(search)) {
-			params.put("search", search);
+		if (products.length > 0) {
+			params.put("products", products);
 		}
 
 		if (Validator.isNotNull(state)) {
 			params.put("state", state);
+		}
+
+		if (Validator.isNotNull(search)) {
+			params.put("search", search);
 		}
 
 		return productEntryFinder.findByAccount(accountId, params, start, end);
 	}
 
 	public int getAccountProductEntriesCount(
-		long accountId, String search, String state) {
+		long accountId, String[] products, String state, String search) {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
-		if (Validator.isNotNull(search)) {
-			params.put("search", search);
+		if (products.length > 0) {
+			params.put("products", products);
 		}
 
 		if (Validator.isNotNull(state)) {
 			params.put("state", state);
+		}
+
+		if (Validator.isNotNull(search)) {
+			params.put("search", search);
 		}
 
 		return productEntryFinder.countByAccount(accountId, params);

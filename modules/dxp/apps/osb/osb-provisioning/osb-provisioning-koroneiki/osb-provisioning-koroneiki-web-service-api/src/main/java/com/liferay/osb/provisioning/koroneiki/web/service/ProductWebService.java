@@ -14,22 +14,18 @@
 
 package com.liferay.osb.provisioning.koroneiki.web.service;
 
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 
 import java.util.List;
 
 /**
  * @author Kyle Bischof
  */
-public interface ProductPurchaseViewWebService {
+public interface ProductWebService {
 
-	public List<ProductPurchaseView> getProductPurchaseViews(
-			String accountKey, String[] products, String state, String search,
-			int page, int pageSize)
-		throws Exception;
-
-	public long getProductPurchaseViewsCount(
-			String accountKey, String[] products, String state, String search)
+	public List<Product> getProducts(
+			String search, String filterString, int page, int pageSize,
+			String sortString)
 		throws Exception;
 
 }

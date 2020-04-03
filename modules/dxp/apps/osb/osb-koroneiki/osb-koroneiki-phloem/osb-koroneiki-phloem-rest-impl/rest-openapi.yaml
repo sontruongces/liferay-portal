@@ -2400,6 +2400,12 @@ paths:
                   schema:
                       type: string
                 - in: query
+                  name: products
+                  schema:
+                      items:
+                          type: string
+                      type: array
+                - in: query
                   name: state
                   schema:
                       type: string
