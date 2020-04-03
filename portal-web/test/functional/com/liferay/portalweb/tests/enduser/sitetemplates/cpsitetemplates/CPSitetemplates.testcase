@@ -27,6 +27,8 @@ definition {
 
 	@priority = "4"
 	test AddSiteTemplate {
+		property portal.acceptance = "true";
+
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
@@ -50,6 +52,7 @@ definition {
 
 	@priority = "4"
 	test AddSiteTemplateApplySiteTemplateChangesToSite {
+		property portal.acceptance = "true";
 		property portal.release = "false";
 
 		ProductMenu.gotoPortlet(
@@ -135,6 +138,8 @@ definition {
 
 	@priority = "4"
 	test AddSiteTemplateDisablePageModification {
+		property portal.acceptance = "true";
+
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
@@ -200,6 +205,8 @@ definition {
 
 	@priority = "4"
 	test DeactivateDefaultSiteTemplate {
+		property portal.acceptance = "true";
+
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
@@ -359,6 +366,8 @@ definition {
 
 	@priority = "4"
 	test EditSiteTemplate {
+		property portal.acceptance = "true";
+
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
@@ -482,6 +491,8 @@ definition {
 
 	@priority = "4"
 	test OnlySiteAdminCanModifyPageAssociatedWithSiteTemplate {
+		property portal.acceptance = "true";
+
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
@@ -547,6 +558,7 @@ definition {
 
 	@priority = "5"
 	test ResetPageChanges {
+		property portal.acceptance = "true";
 		property testray.component.names = "Training";
 
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
