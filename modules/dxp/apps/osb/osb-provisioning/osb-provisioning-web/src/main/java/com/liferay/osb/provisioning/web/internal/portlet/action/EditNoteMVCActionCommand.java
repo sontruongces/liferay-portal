@@ -94,6 +94,7 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 		int priority = ParamUtil.getInteger(actionRequest, "priority");
 		String content = ParamUtil.getString(actionRequest, "content");
 		String status = ParamUtil.getString(actionRequest, "status");
+		String type = ParamUtil.getString(actionRequest, "type");
 
 		Note note = new Note();
 
@@ -114,6 +115,8 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 				user.getFullName(), StringPool.BLANK, noteKey, note);
 		}
 		else {
+			note.setType(Note.Type.create(type));
+
 			_noteWebService.addNote(
 				user.getFullName(), StringPool.BLANK, accountKey, note);
 		}
