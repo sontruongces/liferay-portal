@@ -980,8 +980,16 @@ public class LayoutsAdminDisplayContext {
 			if (showLayoutPath) {
 				BreadcrumbEntry breadcrumbEntry = new BreadcrumbEntry();
 
-				breadcrumbEntry.setTitle(
-					curLayout.getName(_themeDisplay.getLocale()));
+				if (LayoutPermissionUtil.contains(
+						_themeDisplay.getPermissionChecker(), curLayout,
+						ActionKeys.VIEW)) {
+
+					breadcrumbEntry.setTitle(
+						curLayout.getName(_themeDisplay.getLocale()));
+				}
+				else {
+					breadcrumbEntry.setTitle(StringPool.TRIPLE_PERIOD);
+				}
 
 				breadcrumbEntries.add(breadcrumbEntry);
 			}
@@ -1268,6 +1276,21 @@ public class LayoutsAdminDisplayContext {
 		}
 
 		return false;
+	}
+
+	public boolean isLayoutReachable(Layout layout) throws PortalException {
+		List<Layout> layouts = layout.getAncestors();
+
+		for (Layout curLayout : layouts) {
+			if (!LayoutPermissionUtil.contains(
+					_themeDisplay.getPermissionChecker(), curLayout,
+					ActionKeys.VIEW)) {
+
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public boolean isPagesTab() {
