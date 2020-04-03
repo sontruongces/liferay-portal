@@ -66,7 +66,7 @@ String state = ParamUtil.getString(request, "state");
 		>
 			<%= productSubscriptionDisplay.getSupportLife() %>
 
-			<c:if test="<%= productSubscriptionDisplay.isInactive() %>">
+			<c:if test="<%= productSubscriptionDisplay.isInactive() && Validator.isNotNull(productSubscriptionDisplay.getNextTermStartDate()) %>">
 				<div class="secondary-information">
 					<liferay-ui:message key="next-term-starts" />: <%= productSubscriptionDisplay.getNextTermStartDate() %>
 				</div>
