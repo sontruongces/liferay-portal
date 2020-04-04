@@ -14,19 +14,11 @@
 
 package com.liferay.portal.search.elasticsearch7.internal;
 
-import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnection;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch7.internal.connection.EmbeddedElasticsearchConnection;
-import com.liferay.portal.search.elasticsearch7.internal.connection.OperationMode;
-import com.liferay.portal.search.elasticsearch7.internal.index.CompanyIdIndexNameBuilder;
-import com.liferay.portal.search.elasticsearch7.internal.index.CompanyIndexFactory;
-import com.liferay.portal.search.elasticsearch7.internal.search.engine.adapter.ElasticsearchEngineAdapterFixture;
-import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
-import com.liferay.portal.search.index.IndexNameBuilder;
 
 import java.util.List;
 
@@ -39,10 +31,9 @@ import org.elasticsearch.action.admin.cluster.snapshots.get.GetSnapshotsRequestB
 import org.elasticsearch.action.admin.cluster.snapshots.get.GetSnapshotsResponse;
 import org.elasticsearch.snapshots.SnapshotInfo;
 
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -50,44 +41,27 @@ import org.junit.Test;
  */
 public class ElasticsearchSearchEngineTest {
 
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		_elasticsearchFixture = new ElasticsearchFixture(
-			ElasticsearchSearchEngineTest.class.getSimpleName());
-
-		_elasticsearchFixture.setUp();
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-		_elasticsearchFixture.tearDown();
-	}
-
 	@Before
 	public void setUp() throws Exception {
-		_elasticsearchConnectionManager = createElasticsearchConnectionManager(
-			_elasticsearchFixture.getEmbeddedElasticsearchConnection());
+		_elasticsearchSearchEngineFixture =
+			new ElasticsearchSearchEngineFixture(
+				ElasticsearchSearchEngineTest.class.getSimpleName());
 
-		_elasticsearchConnectionManager.activate(OperationMode.EMBEDDED);
+		_elasticsearchSearchEngineFixture.setUp();
 
-		ElasticsearchEngineAdapterFixture elasticsearchEngineAdapterFixture =
-			new ElasticsearchEngineAdapterFixture() {
-				{
-					setElasticsearchClientResolver(_elasticsearchFixture);
-				}
-			};
+		_elasticsearchFixture =
+			_elasticsearchSearchEngineFixture.getElasticsearchFixture();
+	}
 
-		elasticsearchEngineAdapterFixture.setUp();
-
-		_searchEngineAdapter =
-			elasticsearchEngineAdapterFixture.getSearchEngineAdapter();
+	@After
+	public void tearDown() throws Exception {
+		_elasticsearchSearchEngineFixture.tearDown();
 	}
 
 	@Test
 	public void testBackup() throws SearchException {
 		ElasticsearchSearchEngine elasticsearchSearchEngine =
-			createElasticsearchSearchEngine(
-				_elasticsearchConnectionManager, _searchEngineAdapter);
+			_elasticsearchSearchEngineFixture.getElasticsearchSearchEngine();
 
 		long companyId = RandomTestUtil.randomLong();
 
@@ -124,14 +98,15 @@ public class ElasticsearchSearchEngineTest {
 	@Test
 	public void testInitializeAfterReconnect() {
 		ElasticsearchSearchEngine elasticsearchSearchEngine =
-			createElasticsearchSearchEngine(
-				_elasticsearchConnectionManager, _searchEngineAdapter);
+			_elasticsearchSearchEngineFixture.getElasticsearchSearchEngine();
 
 		long companyId = RandomTestUtil.randomLong();
 
 		elasticsearchSearchEngine.initialize(companyId);
 
-		reconnect(_elasticsearchConnectionManager);
+		reconnect(
+			_elasticsearchSearchEngineFixture.
+				getElasticsearchConnectionManager());
 
 		elasticsearchSearchEngine.initialize(companyId);
 	}
@@ -139,8 +114,7 @@ public class ElasticsearchSearchEngineTest {
 	@Test
 	public void testRestore() throws SearchException {
 		ElasticsearchSearchEngine elasticsearchSearchEngine =
-			createElasticsearchSearchEngine(
-				_elasticsearchConnectionManager, _searchEngineAdapter);
+			_elasticsearchSearchEngineFixture.getElasticsearchSearchEngine();
 
 		long companyId = RandomTestUtil.randomLong();
 
@@ -173,51 +147,6 @@ public class ElasticsearchSearchEngineTest {
 		deleteSnapshotRequestBuilder.get();
 	}
 
-	protected static CompanyIndexFactory createCompanyIndexFactory() {
-		return new CompanyIndexFactory() {
-			{
-				indexNameBuilder = createIndexNameBuilder();
-				jsonFactory = new JSONFactoryImpl();
-			}
-		};
-	}
-
-	protected static IndexNameBuilder createIndexNameBuilder() {
-		return new CompanyIdIndexNameBuilder() {
-			{
-				setIndexNamePrefix(null);
-			}
-		};
-	}
-
-	protected ElasticsearchConnectionManager
-		createElasticsearchConnectionManager(
-			EmbeddedElasticsearchConnection embeddedElasticsearchConnection) {
-
-		ElasticsearchConnectionManager elasticsearchConnectionManager =
-			new ElasticsearchConnectionManager();
-
-		elasticsearchConnectionManager.setEmbeddedElasticsearchConnection(
-			embeddedElasticsearchConnection);
-
-		return elasticsearchConnectionManager;
-	}
-
-	protected ElasticsearchSearchEngine createElasticsearchSearchEngine(
-		final ElasticsearchConnectionManager elasticsearchConnectionManager,
-		final SearchEngineAdapter searchEngineAdapter) {
-
-		return new ElasticsearchSearchEngine() {
-			{
-				setIndexFactory(createCompanyIndexFactory());
-				setIndexNameBuilder(String::valueOf);
-				setElasticsearchConnectionManager(
-					elasticsearchConnectionManager);
-				setSearchEngineAdapter(searchEngineAdapter);
-			}
-		};
-	}
-
 	protected void reconnect(
 		ElasticsearchConnectionManager elasticsearchConnectionManager) {
 
@@ -229,9 +158,7 @@ public class ElasticsearchSearchEngineTest {
 		elasticsearchConnectionManager.connect();
 	}
 
-	private static ElasticsearchFixture _elasticsearchFixture;
-
-	private ElasticsearchConnectionManager _elasticsearchConnectionManager;
-	private SearchEngineAdapter _searchEngineAdapter;
+	private ElasticsearchFixture _elasticsearchFixture;
+	private ElasticsearchSearchEngineFixture _elasticsearchSearchEngineFixture;
 
 }
