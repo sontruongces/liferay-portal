@@ -4,11 +4,6 @@
 	flex: 0 0 33.333333%;
 	max-width: 33.333333%;
 
-	.add-new-note {
-		padding: $spacing-md;
-		width: 100%;
-	}
-
 	.archive-btn {
 		margin: $spacing-default;
 
@@ -43,6 +38,11 @@
 		padding: 0 $spacing-md;
 	}
 
+	.new-note {
+		padding: $spacing-md;
+		width: 100%;
+	}
+
 	.notes-container {
 		align-items: center;
 		display: flex;
@@ -59,6 +59,10 @@
 
 			&:hover {
 				background-color: $primary-l3;
+			}
+
+			.new-note {
+				padding: 0;
 			}
 		}
 

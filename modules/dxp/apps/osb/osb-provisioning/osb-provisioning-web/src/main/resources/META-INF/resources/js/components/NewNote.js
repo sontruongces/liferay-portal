@@ -9,15 +9,16 @@ const UNNPINNED_PRIORITY = 2;
 
 function NewNote({
 	addURL,
+	content = '',
 	format = NOTE_FORMAT_PLAIN,
 	status = NOTE_STATUS_APPROVED,
 	type = NOTE_TYPE_GENERAL
 }) {
-	const [noteContent, setNoteContent] = useState('');
+	const [noteContent, setNoteContent] = useState(content);
 	const [showButtons, setShowButtons] = useState(false);
 
 	return (
-		<form action={addURL} className="add-new-note" method="post">
+		<form action={addURL} className="new-note" method="post">
 			<input name={`${NAMESPACE}format`} type="hidden" value={format} />
 			<input
 				name={`${NAMESPACE}priority`}
@@ -32,7 +33,7 @@ function NewNote({
 					className="form-control"
 					id="addNoteContent"
 					name={`${NAMESPACE}content`}
-					onChange={event =>
+					onChange={(event) =>
 						setNoteContent(event.currentTarget.value)
 					}
 					onClick={() => setShowButtons(true)}
@@ -67,7 +68,11 @@ function NewNote({
 }
 
 NewNote.propTypes = {
-	addURL: PropTypes.string
+	addURL: PropTypes.string,
+	content: PropTypes.string,
+	format: PropTypes.string,
+	status: PropTypes.string,
+	type: PropTypes.string
 };
 
 export default NewNote;

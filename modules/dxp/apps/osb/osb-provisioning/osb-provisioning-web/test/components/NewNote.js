@@ -3,8 +3,8 @@ import React from 'react';
 
 import NewNote from '../../src/main/resources/META-INF/resources/js/components/NewNote';
 
-function renderNewNote() {
-	return render(<NewNote addURL="/" />);
+function renderNewNote(props) {
+	return render(<NewNote addURL="/" {...props} />);
 }
 
 describe('New Note', () => {
@@ -20,6 +20,15 @@ describe('New Note', () => {
 		const {getByPlaceholderText} = renderNewNote();
 
 		getByPlaceholderText('write-a-note');
+	});
+
+	it('prefills textarea value when one is supplied', () => {
+		const {container} = renderNewNote({content: 'test content'});
+
+		expect.stringMatching(
+			container.querySelector('textarea').innerHTML,
+			'text content'
+		);
 	});
 
 	it('displays a cancel button when the textarea is focused', () => {

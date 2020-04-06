@@ -47,7 +47,7 @@ function ApprovedNotes({addURL, hasArchive, onClick, pinned, unpinned}) {
 						</div>
 
 						{unpinned.map(note => (
-							<Note data={note} key={note.key} />
+							<Note addURL={addURL} data={note} key={note.key} />
 						))}
 					</div>
 				)}
@@ -58,6 +58,7 @@ function ApprovedNotes({addURL, hasArchive, onClick, pinned, unpinned}) {
 					</div>
 				)}
 			</div>
+
 			{hasArchive && (
 				<button
 					className="archive-btn btn btn-link"

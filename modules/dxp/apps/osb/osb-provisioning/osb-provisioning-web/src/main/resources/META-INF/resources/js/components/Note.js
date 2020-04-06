@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import ActionMenu from './ActionMenu';
+import NewNote from './NewNote';
 
-function Note({data}) {
+function Note({addURL, data}) {
+	const [editNote, setEditNote] = useState(false);
 	const [showActionMenu, setShowActionMenu] = useState(false);
 
 	return (
@@ -30,7 +32,12 @@ function Note({data}) {
 					<div className="metadata">
 						<h4 className="note-author">{data.creatorName}</h4>
 						<div className="note-create-date">
-							{data.createDate}
+							{data.createDate}{' '}
+							{!!data.edited && (
+								<span className="edited">
+									{Liferay.Language.get('edited')}
+								</span>
+							)}
 						</div>
 					</div>
 				</div>
@@ -39,7 +46,7 @@ function Note({data}) {
 					{showActionMenu && (
 						<ActionMenu
 							onEdit={() => {
-								/* TODO: fill in event handler LHC-2118 */
+								setEditNote(true);
 							}}
 							onPinning={() => {
 								/* TODO: fill in event handler LHC-2061 */
@@ -66,15 +73,20 @@ function Note({data}) {
 				</div>
 			</div>
 
-			<section
-				className="note-content"
-				dangerouslySetInnerHTML={{__html: data.htmlContent}}
-			/>
+			{editNote ? (
+				<NewNote addURL={addURL} content={data.htmlContent} status={data.status} />
+			) : (
+				<section
+					className="note-content"
+					dangerouslySetInnerHTML={{__html: data.htmlContent}}
+				/>
+			)}
 		</div>
 	);
 }
 
 Note.propTypes = {
+	addURL: PropTypes.string,
 	data: PropTypes.shape({
 		createDate: PropTypes.string.isRequired,
 		creatorName: PropTypes.string.isRequired,
