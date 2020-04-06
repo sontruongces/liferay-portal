@@ -91,17 +91,13 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 		String noteKey = ParamUtil.getString(actionRequest, "noteKey");
 
 		String accountKey = ParamUtil.getString(actionRequest, "accountKey");
-		int priority = ParamUtil.getInteger(actionRequest, "priority");
 		String content = ParamUtil.getString(actionRequest, "content");
 		String format = ParamUtil.getString(actionRequest, "format");
+		int priority = ParamUtil.getInteger(actionRequest, "priority");
 		String status = ParamUtil.getString(actionRequest, "status");
 		String type = ParamUtil.getString(actionRequest, "type");
 
 		Note note = new Note();
-
-		if (priority > 0) {
-			note.setPriority(priority);
-		}
 
 		if (Validator.isNotNull(content)) {
 			note.setContent(content);
@@ -109,6 +105,10 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 
 		if (Validator.isNotNull(format)) {
 			note.setFormat(Note.Format.create(format));
+		}
+
+		if (priority > 0) {
+			note.setPriority(priority);
 		}
 
 		if (Validator.isNotNull(status)) {
