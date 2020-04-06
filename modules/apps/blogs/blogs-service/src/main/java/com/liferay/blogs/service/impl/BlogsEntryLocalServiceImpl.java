@@ -111,6 +111,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -2267,22 +2268,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			FileEntry fileEntry = _portletFileRepository.getPortletFileEntry(
 				smallImageFileEntryId);
 
-			boolean validSmallImageExtension = false;
-
-			for (String imageExtension :
-					_blogsFileUploadsConfiguration.imageExtensions()) {
-
-				if (StringPool.STAR.equals(imageExtension) ||
-					imageExtension.equals(
-						StringPool.PERIOD + fileEntry.getExtension())) {
-
-					validSmallImageExtension = true;
-
-					break;
-				}
-			}
-
-			if (!validSmallImageExtension) {
+			if (!_isValidImageMimeType(fileEntry)) {
 				throw new EntrySmallImageNameException(
 					"Invalid small image for file entry " +
 						smallImageFileEntryId);
@@ -2426,6 +2412,20 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		}
 
 		return true;
+	}
+
+	private boolean _isValidImageMimeType(FileEntry fileEntry) {
+		List<String> imageExtensions = Arrays.asList(
+			_blogsFileUploadsConfiguration.imageExtensions());
+
+		if (imageExtensions.contains(StringPool.STAR)) {
+			return true;
+		}
+
+		Set<String> supportedMimeTypes = MimeTypesUtil.getExtensionsMimeTypes(
+			_blogsFileUploadsConfiguration.imageExtensions());
+
+		return supportedMimeTypes.contains(fileEntry.getMimeType());
 	}
 
 	private static final String _COVER_IMAGE_FOLDER_NAME = "Cover Image";
