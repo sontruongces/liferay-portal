@@ -60,6 +60,10 @@ page import="com.liferay.portal.kernel.util.WebKeys" %>
 <aui:script>
 	window.ProvisioningConstants = {
 		namespace: '${renderResponse.namespace}',
+		noteFormat: {
+			html: '<%= Note.Format.HTML %>',
+			plaintext: '<%= Note.Format.PLAIN %>'
+		},
 		noteStatus: {
 			approved: '<%= Note.Status.APPROVED %>',
 			archived: '<%= Note.Status.ARCHIVED %>'

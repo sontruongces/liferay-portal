@@ -57,16 +57,12 @@ public class NoteDisplay {
 	public String getHtmlContent() {
 		Note.Format format = _note.getFormat();
 
-		if (format == Note.Format.HTML) {
-			return _note.getContent();
-		}
-
 		if (format == Note.Format.PLAIN) {
 			return StringUtil.replace(
 				_note.getContent(), CharPool.NEW_LINE, "<br />");
 		}
 
-		return StringPool.BLANK;
+		return _note.getContent();
 	}
 
 	public String getKey() {

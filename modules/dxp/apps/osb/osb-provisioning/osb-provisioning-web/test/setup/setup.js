@@ -24,6 +24,10 @@ window.Liferay = {
  */
 window.ProvisioningConstants = {
 	namespace: 'namespace',
+	noteFormat: {
+		html: 'HTML',
+		plaintext: 'plain'
+	},
 	noteStatus: {
 		approved: 'Approved',
 		archived: 'Archived'
