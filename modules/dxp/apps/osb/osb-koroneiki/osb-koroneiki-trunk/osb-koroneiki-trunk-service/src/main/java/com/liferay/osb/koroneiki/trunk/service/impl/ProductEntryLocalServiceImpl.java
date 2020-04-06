@@ -154,13 +154,13 @@ public class ProductEntryLocalServiceImpl
 	}
 
 	public List<ProductEntry> getAccountProductEntries(
-		long accountId, String[] products, String state, String search,
-		int start, int end) {
+		long accountId, String[] names, String state, String search, int start,
+		int end) {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
-		if (products.length > 0) {
-			params.put("products", products);
+		if (names.length > 0) {
+			params.put("names", names);
 		}
 
 		if (Validator.isNotNull(state)) {
@@ -175,12 +175,12 @@ public class ProductEntryLocalServiceImpl
 	}
 
 	public int getAccountProductEntriesCount(
-		long accountId, String[] products, String state, String search) {
+		long accountId, String[] names, String state, String search) {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
-		if (products.length > 0) {
-			params.put("products", products);
+		if (names.length > 0) {
+			params.put("names", names);
 		}
 
 		if (Validator.isNotNull(state)) {

@@ -328,12 +328,12 @@ public class ViewAccountDisplayContext {
 			Collections.emptyList(), "no-subscriptions-were-found");
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		String[] products = ParamUtil.getStringValues(
-			renderRequest, "products");
+		String[] productNames = ParamUtil.getStringValues(
+			renderRequest, "productNames");
 
 		List<ProductPurchaseView> productPurchaseViews =
 			productPurchaseViewWebService.getProductPurchaseViews(
-				account.getKey(), products, state, keywords,
+				account.getKey(), productNames, state, keywords,
 				searchContainer.getCur(),
 				searchContainer.getEnd() - searchContainer.getStart());
 
@@ -345,7 +345,7 @@ public class ViewAccountDisplayContext {
 
 		int count =
 			(int)productPurchaseViewWebService.getProductPurchaseViewsCount(
-				account.getKey(), products, state, keywords);
+				account.getKey(), productNames, state, keywords);
 
 		searchContainer.setTotal(count);
 

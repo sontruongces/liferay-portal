@@ -2400,7 +2400,7 @@ paths:
                   schema:
                       type: string
                 - in: query
-                  name: products
+                  name: productNames
                   schema:
                       items:
                           type: string

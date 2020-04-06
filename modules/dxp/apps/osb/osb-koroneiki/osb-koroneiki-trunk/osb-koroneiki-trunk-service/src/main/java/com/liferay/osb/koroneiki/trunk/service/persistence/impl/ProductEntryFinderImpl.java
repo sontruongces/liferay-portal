@@ -195,10 +195,10 @@ public class ProductEntryFinderImpl
 	protected String getWhere(String key, Object value) {
 		String join = StringPool.BLANK;
 
-		if (key.equals("products") || key.equals("search")) {
+		if (key.equals("names") || key.equals("search")) {
 			String[] keywords = null;
 
-			if (key.equals("products")) {
+			if (key.equals("names")) {
 				keywords = (String[])value;
 			}
 			else {
@@ -250,7 +250,7 @@ public class ProductEntryFinderImpl
 			String key = entry.getKey();
 			Object value = entry.getValue();
 
-			if (key.equals("products")) {
+			if (key.equals("names")) {
 				String[] keywords = (String[])value;
 
 				qPos.add(keywords, 2);
