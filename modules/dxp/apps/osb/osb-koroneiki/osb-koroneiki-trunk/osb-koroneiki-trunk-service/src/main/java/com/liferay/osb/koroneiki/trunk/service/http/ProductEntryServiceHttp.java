@@ -182,8 +182,9 @@ public class ProductEntryServiceHttp {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
 				getAccountProductEntries(
-					HttpPrincipal httpPrincipal, long accountId, String search,
-					String state, int start, int end)
+					HttpPrincipal httpPrincipal, long accountId,
+					String[] products, String state, String search, int start,
+					int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -192,7 +193,7 @@ public class ProductEntryServiceHttp {
 				_getAccountProductEntriesParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, search, state, start, end);
+				methodKey, accountId, products, state, search, start, end);
 
 			Object returnObj = null;
 
@@ -224,8 +225,8 @@ public class ProductEntryServiceHttp {
 	}
 
 	public static int getAccountProductEntriesCount(
-			HttpPrincipal httpPrincipal, long accountId, String search,
-			String state)
+			HttpPrincipal httpPrincipal, long accountId, String[] products,
+			String state, String search)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -234,7 +235,7 @@ public class ProductEntryServiceHttp {
 				_getAccountProductEntriesCountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, search, state);
+				methodKey, accountId, products, state, search);
 
 			Object returnObj = null;
 
@@ -652,11 +653,12 @@ public class ProductEntryServiceHttp {
 		new Class[] {String.class};
 	private static final Class<?>[] _getAccountProductEntriesParameterTypes3 =
 		new Class[] {
-			long.class, String.class, String.class, int.class, int.class
+			long.class, String[].class, String.class, String.class, int.class,
+			int.class
 		};
 	private static final Class<?>[]
 		_getAccountProductEntriesCountParameterTypes4 = new Class[] {
-			long.class, String.class, String.class
+			long.class, String[].class, String.class, String.class
 		};
 	private static final Class<?>[] _getProductEntriesParameterTypes5 =
 		new Class[] {int.class, int.class};

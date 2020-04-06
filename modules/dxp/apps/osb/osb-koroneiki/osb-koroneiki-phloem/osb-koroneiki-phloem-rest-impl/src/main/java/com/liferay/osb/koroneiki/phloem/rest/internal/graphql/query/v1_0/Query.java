@@ -1626,11 +1626,12 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyProductPurchaseViews(accountKey: ___, page: ___, pageSize: ___, search: ___, state: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyProductPurchaseViews(accountKey: ___, page: ___, pageSize: ___, productNames: ___, search: ___, state: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public ProductPurchaseViewPage accountAccountKeyProductPurchaseViews(
 			@GraphQLName("accountKey") String accountKey,
+			@GraphQLName("productNames") String[] productNames,
 			@GraphQLName("state") String state,
 			@GraphQLName("search") String search,
 			@GraphQLName("pageSize") int pageSize,
@@ -1643,7 +1644,7 @@ public class Query {
 			productPurchaseViewResource -> new ProductPurchaseViewPage(
 				productPurchaseViewResource.
 					getAccountAccountKeyProductPurchaseViewsPage(
-						accountKey, state, search,
+						accountKey, productNames, state, search,
 						Pagination.of(page, pageSize))));
 	}
 
@@ -3004,6 +3005,7 @@ public class Query {
 
 		@GraphQLField
 		public ProductPurchaseViewPage accountKeyProductPurchaseViews(
+				@GraphQLName("productNames") String[] productNames,
 				@GraphQLName("state") String state,
 				@GraphQLName("search") String search,
 				@GraphQLName("pageSize") int pageSize,
@@ -3016,7 +3018,7 @@ public class Query {
 				productPurchaseViewResource -> new ProductPurchaseViewPage(
 					productPurchaseViewResource.
 						getAccountAccountKeyProductPurchaseViewsPage(
-							_account.getKey(), state, search,
+							_account.getKey(), productNames, state, search,
 							Pagination.of(page, pageSize))));
 		}
 

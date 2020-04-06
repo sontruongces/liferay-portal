@@ -71,6 +71,7 @@ public abstract class BaseProductPurchaseViewResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "productNames"),
 			@Parameter(in = ParameterIn.QUERY, name = "state"),
 			@Parameter(in = ParameterIn.QUERY, name = "search"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
@@ -84,6 +85,8 @@ public abstract class BaseProductPurchaseViewResourceImpl
 			getAccountAccountKeyProductPurchaseViewsPage(
 				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
 					String accountKey,
+				@Parameter(hidden = true) @QueryParam("productNames") String[]
+					productNames,
 				@Parameter(hidden = true) @QueryParam("state") String state,
 				@Parameter(hidden = true) @QueryParam("search") String search,
 				@Context Pagination pagination)

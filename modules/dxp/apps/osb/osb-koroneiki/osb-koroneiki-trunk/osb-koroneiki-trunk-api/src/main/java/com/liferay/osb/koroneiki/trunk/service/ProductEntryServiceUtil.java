@@ -65,20 +65,20 @@ public class ProductEntryServiceUtil {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
 				getAccountProductEntries(
-					long accountId, String search, String state, int start,
-					int end)
+					long accountId, String[] products, String state,
+					String search, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getAccountProductEntries(
-			accountId, search, state, start, end);
+			accountId, products, state, search, start, end);
 	}
 
 	public static int getAccountProductEntriesCount(
-			long accountId, String search, String state)
+			long accountId, String[] products, String state, String search)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getAccountProductEntriesCount(
-			accountId, search, state);
+			accountId, products, state, search);
 	}
 
 	/**

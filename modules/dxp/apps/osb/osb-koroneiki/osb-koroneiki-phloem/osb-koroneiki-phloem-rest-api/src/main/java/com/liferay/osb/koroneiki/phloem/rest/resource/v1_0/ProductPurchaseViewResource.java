@@ -44,8 +44,8 @@ public interface ProductPurchaseViewResource {
 
 	public Page<ProductPurchaseView>
 			getAccountAccountKeyProductPurchaseViewsPage(
-				String accountKey, String state, String search,
-				Pagination pagination)
+				String accountKey, String[] productNames, String state,
+				String search, Pagination pagination)
 		throws Exception;
 
 	public ProductPurchaseView

@@ -41,14 +41,14 @@ public interface ProductPurchaseViewResource {
 
 	public Page<ProductPurchaseView>
 			getAccountAccountKeyProductPurchaseViewsPage(
-				String accountKey, String state, String search,
-				Pagination pagination)
+				String accountKey, String[] productNames, String state,
+				String search, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			getAccountAccountKeyProductPurchaseViewsPageHttpResponse(
-				String accountKey, String state, String search,
-				Pagination pagination)
+				String accountKey, String[] productNames, String state,
+				String search, Pagination pagination)
 		throws Exception;
 
 	public ProductPurchaseView
@@ -119,13 +119,13 @@ public interface ProductPurchaseViewResource {
 
 		public Page<ProductPurchaseView>
 				getAccountAccountKeyProductPurchaseViewsPage(
-					String accountKey, String state, String search,
-					Pagination pagination)
+					String accountKey, String[] productNames, String state,
+					String search, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getAccountAccountKeyProductPurchaseViewsPageHttpResponse(
-					accountKey, state, search, pagination);
+					accountKey, productNames, state, search, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -140,8 +140,8 @@ public interface ProductPurchaseViewResource {
 
 		public HttpInvoker.HttpResponse
 				getAccountAccountKeyProductPurchaseViewsPageHttpResponse(
-					String accountKey, String state, String search,
-					Pagination pagination)
+					String accountKey, String[] productNames, String state,
+					String search, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -164,6 +164,13 @@ public interface ProductPurchaseViewResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (productNames != null) {
+				for (int i = 0; i < productNames.length; i++) {
+					httpInvoker.parameter(
+						"productNames", String.valueOf(productNames[i]));
+				}
+			}
 
 			if (state != null) {
 				httpInvoker.parameter("state", String.valueOf(state));
