@@ -23,6 +23,18 @@ import java.util.List;
  */
 public interface TeamWebService {
 
+	public Team addTeam(
+			String agentName, String agentUID, String accountKey, Team team)
+		throws Exception;
+
+	public void assignContacts(
+			String agentName, String agentUID, String teamKey,
+			String[] contactEmailAddresses)
+		throws Exception;
+
+	public void deleteTeam(String agentName, String agentUID, String teamKey)
+		throws Exception;
+
 	public Team getTeam(String teamKey) throws Exception;
 
 	public List<Team> search(
@@ -31,6 +43,15 @@ public interface TeamWebService {
 		throws Exception;
 
 	public long searchCount(String search, String filterString)
+		throws Exception;
+
+	public void unassignContacts(
+			String agentName, String agentUID, String teamKey,
+			String[] contactEmailAddresses)
+		throws Exception;
+
+	public Team updateTeam(
+			String agentName, String agentUID, String teamKey, Team team)
 		throws Exception;
 
 }

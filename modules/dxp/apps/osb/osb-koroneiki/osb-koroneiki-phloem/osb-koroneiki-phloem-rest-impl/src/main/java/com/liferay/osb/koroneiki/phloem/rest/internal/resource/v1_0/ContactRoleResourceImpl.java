@@ -280,6 +280,16 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
+	public Page<ContactRole> getTeamTeamKeyContactByEmailAddressRolesPage(
+			String teamKey, String emailAddress, Pagination pagination)
+		throws Exception {
+
+		return _getTeamContactRolesPage(
+			_contactLocalService.getContactByEmailAddress(emailAddress),
+			teamKey, pagination);
+	}
+
+	@Override
 	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
 			String teamKey, String oktaId, Pagination pagination)
 		throws Exception {

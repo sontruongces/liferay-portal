@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 import com.liferay.osb.koroneiki.taproot.exception.ContactRoleTypeException;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactTeamRole;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactTeamRoleLocalServiceBaseImpl;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactTeamRolePK;
 import com.liferay.portal.aop.AopService;
@@ -25,6 +26,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Kyle Bischof
@@ -54,13 +56,16 @@ public class ContactTeamRoleLocalServiceImpl
 
 			contactTeamRole = contactTeamRolePersistence.update(
 				contactTeamRole);
+
+			_contactLocalService.reindex(contactId);
 		}
 
 		return contactTeamRole;
 	}
 
 	public ContactTeamRole deleteContactTeamRole(
-		long contactId, long teamId, long contactRoleId) {
+			long contactId, long teamId, long contactRoleId)
+		throws PortalException {
 
 		ContactTeamRolePK contactTeamRolePK = new ContactTeamRolePK(
 			contactId, teamId, contactRoleId);
@@ -70,13 +75,19 @@ public class ContactTeamRoleLocalServiceImpl
 
 		if (contactTeamRole != null) {
 			deleteContactTeamRole(contactTeamRole);
+
+			_contactLocalService.reindex(contactId);
 		}
 
 		return contactTeamRole;
 	}
 
-	public void deleteContactTeamRoles(long contactId, long teamId) {
+	public void deleteContactTeamRoles(long contactId, long teamId)
+		throws PortalException {
+
 		contactTeamRolePersistence.removeByCI_TI(contactId, teamId);
+
+		_contactLocalService.reindex(contactId);
 	}
 
 	public List<ContactTeamRole> getContactTeamRoles(long contactId) {
@@ -102,5 +113,8 @@ public class ContactTeamRoleLocalServiceImpl
 			throw new ContactRoleTypeException();
 		}
 	}
+
+	@Reference
+	private ContactLocalService _contactLocalService;
 
 }

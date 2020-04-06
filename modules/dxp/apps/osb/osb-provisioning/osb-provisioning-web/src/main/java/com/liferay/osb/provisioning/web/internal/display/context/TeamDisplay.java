@@ -73,6 +73,10 @@ public class TeamDisplay {
 		return _team.getName();
 	}
 
+	public boolean isSystem() {
+		return _team.getSystem();
+	}
+
 	private final Format _dateFormat;
 	private final HttpServletRequest _httpServletRequest;
 	private final Team _team;

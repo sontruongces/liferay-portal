@@ -40,6 +40,29 @@ import org.osgi.service.component.annotations.Component;
 )
 public class TeamWebServiceImpl implements TeamWebService {
 
+	public Team addTeam(
+			String agentName, String agentUID, String accountKey, Team team)
+		throws Exception {
+
+		return _teamResource.postAccountAccountKeyTeam(
+			agentName, agentUID, accountKey, team);
+	}
+
+	public void assignContacts(
+			String agentName, String agentUID, String teamKey,
+			String[] contactEmailAddresses)
+		throws Exception {
+
+		_teamResource.putTeamContactByEmailAddress(
+			agentName, agentUID, teamKey, contactEmailAddresses);
+	}
+
+	public void deleteTeam(String agentName, String agentUID, String teamKey)
+		throws Exception {
+
+		_teamResource.deleteTeam(agentName, agentUID, teamKey);
+	}
+
 	public Team getTeam(String teamKey) throws Exception {
 		return _teamResource.getTeam(teamKey);
 	}
@@ -70,6 +93,22 @@ public class TeamWebServiceImpl implements TeamWebService {
 		}
 
 		return 0;
+	}
+
+	public void unassignContacts(
+			String agentName, String agentUID, String teamKey,
+			String[] contactEmailAddresses)
+		throws Exception {
+
+		_teamResource.deleteTeamContactByEmailAddress(
+			agentName, agentUID, teamKey, contactEmailAddresses);
+	}
+
+	public Team updateTeam(
+			String agentName, String agentUID, String teamKey, Team team)
+		throws Exception {
+
+		return _teamResource.putTeam(agentName, agentUID, teamKey, team);
 	}
 
 	@Activate

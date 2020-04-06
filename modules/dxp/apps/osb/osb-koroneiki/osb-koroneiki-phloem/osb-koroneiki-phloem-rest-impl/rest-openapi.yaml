@@ -5740,6 +5740,165 @@ paths:
                     description:
                         ""
             tags: ["Contact"]
+    "/teams/{teamKey}/contacts/by-email-address":
+        delete:
+            description:
+                Unassigns contacts from the team.
+            operationId: deleteTeamContactByEmailAddress
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - $ref: "#/components/parameters/AgentUID"
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: emailAddresses
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Team"]
+        put:
+            description:
+                Assigns contacts to the team.
+            operationId: putTeamContactByEmailAddress
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - $ref: "#/components/parameters/AgentUID"
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: emailAddresses
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Team"]
+    "/teams/{teamKey}/contacts/by-email-address/{emailAddress}/roles":
+        delete:
+            description:
+                Unassigns roles from the contact for the team.
+            operationId: deleteTeamContactByEmailAddressRole
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - $ref: "#/components/parameters/AgentUID"
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: emailAddress
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Team"]
+        get:
+            description:
+                Retrieves the team's contact's contact roles.
+            operationId: getTeamTeamKeyContactByEmailAddressRolesPage
+            parameters:
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: emailAddress
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ContactRole"
+                                type: array
+                    description:
+                        ""
+            tags: ["ContactRole"]
+        put:
+            description:
+                Assigns roles to the contact for the team.
+            operationId: putTeamContactByEmailAddressRole
+            parameters:
+                - $ref: "#/components/parameters/AgentName"
+                - $ref: "#/components/parameters/AgentUID"
+                - in: path
+                  name: teamKey
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: emailAddress
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: contactRoleKeys
+                  required: true
+                  schema:
+                      items:
+                          type: string
+                      type: array
+            responses:
+                204:
+                    content:
+                        application/json: {}
+                        application/xml: {}
+                    description:
+                        ""
+            tags: ["Team"]
     "/teams/{teamKey}/contacts/by-okta-id":
         delete:
             description:

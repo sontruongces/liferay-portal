@@ -20,34 +20,32 @@
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 TeamDisplay teamDisplay = (TeamDisplay)row.getObject();
+
+ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 %>
 
-<liferay-ui:icon-menu
-	direction="left-side"
-	icon="<%= StringPool.BLANK %>"
-	markupView="lexicon"
-	message="<%= StringPool.BLANK %>"
-	showWhenSingleIcon="<%= true %>"
->
-	<portlet:renderURL var="editURL">
-		<portlet:param name="mvcRenderCommandName" value="/accounts/edit_team" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
-	</portlet:renderURL>
+<c:if test="<%= !teamDisplay.isSystem() %>">
+	<liferay-ui:icon-menu
+		direction="left-side"
+		icon="<%= StringPool.BLANK %>"
+		markupView="lexicon"
+		message="<%= StringPool.BLANK %>"
+		showWhenSingleIcon="<%= true %>"
+	>
+		<portlet:renderURL var="editURL">
+			<portlet:param name="mvcRenderCommandName" value="/accounts/edit_team" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
+		</portlet:renderURL>
 
-	<liferay-ui:icon
-		message="edit"
-		url="<%= editURL %>"
-	/>
+		<liferay-ui:icon
+			message="edit"
+			url="<%= editURL %>"
+		/>
 
-	<portlet:actionURL name="/accounts/edit_team" var="deleteURL">
-		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
-	</portlet:actionURL>
-
-	<liferay-ui:icon-delete
-		confirmation="are-you-sure-you-want-to-delete-this-team"
-		url="<%= deleteURL %>"
-	/>
-</liferay-ui:icon-menu>
+		<liferay-ui:icon-delete
+			confirmation="are-you-sure-you-want-to-delete-this-team"
+			url="<%= viewAccountDisplayContext.getDeleteTeamURL(teamDisplay.getKey()) %>"
+		/>
+	</liferay-ui:icon-menu>
+</c:if>

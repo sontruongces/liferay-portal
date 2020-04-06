@@ -248,6 +248,16 @@ public class ViewAccountDisplayContext {
 		return deletePostalAddressURL.toString();
 	}
 
+	public String getDeleteTeamURL(String teamKey) {
+		PortletURL deleteTeamURL = renderResponse.createActionURL();
+
+		deleteTeamURL.setParameter(ActionRequest.ACTION_NAME, "/edit_team");
+		deleteTeamURL.setParameter(Constants.CMD, Constants.DELETE);
+		deleteTeamURL.setParameter("teamKey", teamKey);
+
+		return deleteTeamURL.toString();
+	}
+
 	public String getEditAccountURL() {
 		PortletURL editAccountURL = renderResponse.createActionURL();
 
@@ -276,6 +286,15 @@ public class ViewAccountDisplayContext {
 			"postalAddressId", String.valueOf(postalAddressId));
 
 		return editPostalAddressURL.toString();
+	}
+
+	public String getEditTeamURL(String teamKey) {
+		PortletURL editTeamURL = renderResponse.createActionURL();
+
+		editTeamURL.setParameter(ActionRequest.ACTION_NAME, "/edit_account");
+		editTeamURL.setParameter("teamKey", teamKey);
+
+		return editTeamURL.toString();
 	}
 
 	public List<ExternalLinkDisplay> getExternalLinkDisplays()
