@@ -945,6 +945,28 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyContactByEmailAddressRoles(emailAddress: ___, page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ContactRolePage teamTeamKeyContactByEmailAddressRoles(
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("emailAddress") String emailAddress,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_contactRoleResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			contactRoleResource -> new ContactRolePage(
+				contactRoleResource.
+					getTeamTeamKeyContactByEmailAddressRolesPage(
+						teamKey, emailAddress, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyContactByOktaRoles(oktaId: ___, page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -3086,6 +3108,36 @@ public class Query {
 		}
 
 		private ProductPurchase _productPurchase;
+
+	}
+
+	@GraphQLTypeExtension(Team.class)
+	public class GetTeamTeamKeyContactByEmailAddressRolesPageTypeExtension {
+
+		public GetTeamTeamKeyContactByEmailAddressRolesPageTypeExtension(
+			Team team) {
+
+			_team = team;
+		}
+
+		@GraphQLField
+		public ContactRolePage teamKeyContactByEmailAddressRoles(
+				@GraphQLName("emailAddress") String emailAddress,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_contactRoleResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				contactRoleResource -> new ContactRolePage(
+					contactRoleResource.
+						getTeamTeamKeyContactByEmailAddressRolesPage(
+							_team.getKey(), emailAddress,
+							Pagination.of(page, pageSize))));
+		}
+
+		private Team _team;
 
 	}
 

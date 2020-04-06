@@ -108,9 +108,11 @@ public interface ContactTeamRoleLocalService
 		throws PortalException;
 
 	public ContactTeamRole deleteContactTeamRole(
-		long contactId, long teamId, long contactRoleId);
+			long contactId, long teamId, long contactRoleId)
+		throws PortalException;
 
-	public void deleteContactTeamRoles(long contactId, long teamId);
+	public void deleteContactTeamRoles(long contactId, long teamId)
+		throws PortalException;
 
 	/**
 	 * @throws PortalException

@@ -209,6 +209,15 @@ public interface ContactRoleResource {
 				String contactRoleType, String contactRoleName)
 		throws Exception;
 
+	public Page<ContactRole> getTeamTeamKeyContactByEmailAddressRolesPage(
+			String teamKey, String emailAddress, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getTeamTeamKeyContactByEmailAddressRolesPageHttpResponse(
+				String teamKey, String emailAddress, Pagination pagination)
+		throws Exception;
+
 	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
 			String teamKey, String oktaId, Pagination pagination)
 		throws Exception;
@@ -1422,6 +1431,70 @@ public interface ContactRoleResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/contact-roles/{contactRoleType}/{contactRoleName}",
 				contactRoleType, contactRoleName);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<ContactRole> getTeamTeamKeyContactByEmailAddressRolesPage(
+				String teamKey, String emailAddress, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getTeamTeamKeyContactByEmailAddressRolesPageHttpResponse(
+					teamKey, emailAddress, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, ContactRoleSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getTeamTeamKeyContactByEmailAddressRolesPageHttpResponse(
+					String teamKey, String emailAddress, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address/{emailAddress}/roles",
+				teamKey, emailAddress);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

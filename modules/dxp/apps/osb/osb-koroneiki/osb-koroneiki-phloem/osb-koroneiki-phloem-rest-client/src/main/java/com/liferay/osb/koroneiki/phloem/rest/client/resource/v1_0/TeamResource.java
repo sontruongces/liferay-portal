@@ -105,6 +105,48 @@ public interface TeamResource {
 			String agentName, String agentUID, String teamKey, Team team)
 		throws Exception;
 
+	public void deleteTeamContactByEmailAddress(
+			String agentName, String agentUID, String teamKey,
+			String[] emailAddresses)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteTeamContactByEmailAddressHttpResponse(
+			String agentName, String agentUID, String teamKey,
+			String[] emailAddresses)
+		throws Exception;
+
+	public void putTeamContactByEmailAddress(
+			String agentName, String agentUID, String teamKey,
+			String[] emailAddresses)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putTeamContactByEmailAddressHttpResponse(
+			String agentName, String agentUID, String teamKey,
+			String[] emailAddresses)
+		throws Exception;
+
+	public void deleteTeamContactByEmailAddressRole(
+			String agentName, String agentUID, String teamKey,
+			String emailAddress, String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			deleteTeamContactByEmailAddressRoleHttpResponse(
+				String agentName, String agentUID, String teamKey,
+				String emailAddress, String[] contactRoleKeys)
+		throws Exception;
+
+	public void putTeamContactByEmailAddressRole(
+			String agentName, String agentUID, String teamKey,
+			String emailAddress, String[] contactRoleKeys)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			putTeamContactByEmailAddressRoleHttpResponse(
+				String agentName, String agentUID, String teamKey,
+				String emailAddress, String[] contactRoleKeys)
+		throws Exception;
+
 	public void deleteTeamContactByOkta(
 			String agentName, String agentUID, String teamKey, String[] oktaIds)
 		throws Exception;
@@ -790,6 +832,300 @@ public interface TeamResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/koroneiki-rest/v1.0/teams/{teamKey}",
 				teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteTeamContactByEmailAddress(
+				String agentName, String agentUID, String teamKey,
+				String[] emailAddresses)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteTeamContactByEmailAddressHttpResponse(
+					agentName, agentUID, teamKey, emailAddresses);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteTeamContactByEmailAddressHttpResponse(
+					String agentName, String agentUID, String teamKey,
+					String[] emailAddresses)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (emailAddresses != null) {
+				for (int i = 0; i < emailAddresses.length; i++) {
+					httpInvoker.parameter(
+						"emailAddresses", String.valueOf(emailAddresses[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address",
+				teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putTeamContactByEmailAddress(
+				String agentName, String agentUID, String teamKey,
+				String[] emailAddresses)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putTeamContactByEmailAddressHttpResponse(
+					agentName, agentUID, teamKey, emailAddresses);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				putTeamContactByEmailAddressHttpResponse(
+					String agentName, String agentUID, String teamKey,
+					String[] emailAddresses)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(emailAddresses.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (emailAddresses != null) {
+				for (int i = 0; i < emailAddresses.length; i++) {
+					httpInvoker.parameter(
+						"emailAddresses", String.valueOf(emailAddresses[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address",
+				teamKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteTeamContactByEmailAddressRole(
+				String agentName, String agentUID, String teamKey,
+				String emailAddress, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteTeamContactByEmailAddressRoleHttpResponse(
+					agentName, agentUID, teamKey, emailAddress,
+					contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteTeamContactByEmailAddressRoleHttpResponse(
+					String agentName, String agentUID, String teamKey,
+					String emailAddress, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address/{emailAddress}/roles",
+				teamKey, emailAddress);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putTeamContactByEmailAddressRole(
+				String agentName, String agentUID, String teamKey,
+				String emailAddress, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putTeamContactByEmailAddressRoleHttpResponse(
+					agentName, agentUID, teamKey, emailAddress,
+					contactRoleKeys);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				putTeamContactByEmailAddressRoleHttpResponse(
+					String agentName, String agentUID, String teamKey,
+					String emailAddress, String[] contactRoleKeys)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (contactRoleKeys != null) {
+				for (int i = 0; i < contactRoleKeys.length; i++) {
+					httpInvoker.parameter(
+						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
+				}
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address/{emailAddress}/roles",
+				teamKey, emailAddress);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

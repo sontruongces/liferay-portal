@@ -105,13 +105,17 @@ public class ContactTeamRoleLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactTeamRole
-		deleteContactTeamRole(long contactId, long teamId, long contactRoleId) {
+			deleteContactTeamRole(
+				long contactId, long teamId, long contactRoleId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteContactTeamRole(
 			contactId, teamId, contactRoleId);
 	}
 
-	public static void deleteContactTeamRoles(long contactId, long teamId) {
+	public static void deleteContactTeamRoles(long contactId, long teamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		getService().deleteContactTeamRoles(contactId, teamId);
 	}
 

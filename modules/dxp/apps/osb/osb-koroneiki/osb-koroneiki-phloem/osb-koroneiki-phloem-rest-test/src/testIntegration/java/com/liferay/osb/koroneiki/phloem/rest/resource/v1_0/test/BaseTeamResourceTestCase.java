@@ -808,6 +808,26 @@ public abstract class BaseTeamResourceTestCase {
 	}
 
 	@Test
+	public void testDeleteTeamContactByEmailAddress() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutTeamContactByEmailAddress() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteTeamContactByEmailAddressRole() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPutTeamContactByEmailAddressRole() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testDeleteTeamContactByOkta() throws Exception {
 		Assert.assertTrue(false);
 	}

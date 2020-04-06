@@ -123,6 +123,10 @@ public interface ContactRoleResource {
 			String contactRoleType, String contactRoleName)
 		throws Exception;
 
+	public Page<ContactRole> getTeamTeamKeyContactByEmailAddressRolesPage(
+			String teamKey, String emailAddress, Pagination pagination)
+		throws Exception;
+
 	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
 			String teamKey, String oktaId, Pagination pagination)
 		throws Exception;

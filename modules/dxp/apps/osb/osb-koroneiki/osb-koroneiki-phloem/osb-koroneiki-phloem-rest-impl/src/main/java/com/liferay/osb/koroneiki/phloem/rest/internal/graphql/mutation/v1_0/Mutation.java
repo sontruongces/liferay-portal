@@ -1402,6 +1402,76 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public boolean deleteTeamContactByEmailAddress(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("agentUID") String agentUID,
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("emailAddresses") String[] emailAddresses)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.deleteTeamContactByEmailAddress(
+				agentName, agentUID, teamKey, emailAddresses));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean updateTeamContactByEmailAddress(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("agentUID") String agentUID,
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("emailAddresses") String[] emailAddresses)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.putTeamContactByEmailAddress(
+				agentName, agentUID, teamKey, emailAddresses));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean deleteTeamContactByEmailAddressRole(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("agentUID") String agentUID,
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("emailAddress") String emailAddress,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.deleteTeamContactByEmailAddressRole(
+				agentName, agentUID, teamKey, emailAddress, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
+	public boolean updateTeamContactByEmailAddressRole(
+			@GraphQLName("agentName") String agentName,
+			@GraphQLName("agentUID") String agentUID,
+			@GraphQLName("teamKey") String teamKey,
+			@GraphQLName("emailAddress") String emailAddress,
+			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_teamResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			teamResource -> teamResource.putTeamContactByEmailAddressRole(
+				agentName, agentUID, teamKey, emailAddress, contactRoleKeys));
+
+		return true;
+	}
+
+	@GraphQLField
 	public boolean deleteTeamContactByOkta(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,

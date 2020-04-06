@@ -288,6 +288,128 @@ public abstract class BaseTeamResourceImpl implements TeamResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns contacts from the team.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "emailAddresses")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-email-address")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Team")})
+	public void deleteTeamContactByEmailAddress(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("emailAddresses")
+				String[] emailAddresses)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Operation(description = "Assigns contacts to the team.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.QUERY, name = "emailAddresses")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-email-address")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Team")})
+	public void putTeamContactByEmailAddress(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @QueryParam("emailAddresses")
+				String[] emailAddresses)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address/{emailAddress}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Operation(description = "Unassigns roles from the contact for the team.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.PATH, name = "emailAddress"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-email-address/{emailAddress}/roles")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Team")})
+	public void deleteTeamContactByEmailAddressRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
+				emailAddress,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
+				String[] contactRoleKeys)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address/{emailAddress}/roles'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Operation(description = "Assigns roles to the contact for the team.")
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
+			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
+			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
+			@Parameter(in = ParameterIn.PATH, name = "emailAddress"),
+			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
+		}
+	)
+	@Path("/teams/{teamKey}/contacts/by-email-address/{emailAddress}/roles")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Team")})
+	public void putTeamContactByEmailAddressRole(
+			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
+			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
+			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
+				teamKey,
+			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
+				emailAddress,
+			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
+				String[] contactRoleKeys)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id'  -u 'test@liferay.com:test'
 	 */
 	@Override

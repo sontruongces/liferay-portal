@@ -75,6 +75,26 @@ public interface TeamResource {
 			String agentName, String agentUID, String teamKey, Team team)
 		throws Exception;
 
+	public void deleteTeamContactByEmailAddress(
+			String agentName, String agentUID, String teamKey,
+			String[] emailAddresses)
+		throws Exception;
+
+	public void putTeamContactByEmailAddress(
+			String agentName, String agentUID, String teamKey,
+			String[] emailAddresses)
+		throws Exception;
+
+	public void deleteTeamContactByEmailAddressRole(
+			String agentName, String agentUID, String teamKey,
+			String emailAddress, String[] contactRoleKeys)
+		throws Exception;
+
+	public void putTeamContactByEmailAddressRole(
+			String agentName, String agentUID, String teamKey,
+			String emailAddress, String[] contactRoleKeys)
+		throws Exception;
+
 	public void deleteTeamContactByOkta(
 			String agentName, String agentUID, String teamKey, String[] oktaIds)
 		throws Exception;
