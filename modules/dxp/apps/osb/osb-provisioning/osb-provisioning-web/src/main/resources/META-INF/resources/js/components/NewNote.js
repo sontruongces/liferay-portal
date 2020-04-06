@@ -32,7 +32,7 @@ function NewNote({
 					className="form-control"
 					id="addNoteContent"
 					name={`${NAMESPACE}content`}
-					onChange={(event) =>
+					onChange={event =>
 						setNoteContent(event.currentTarget.value)
 					}
 					onClick={() => setShowButtons(true)}
@@ -54,6 +54,7 @@ function NewNote({
 
 					<button
 						className="btn btn-primary save-btn"
+						disabled={!noteContent}
 						role="button"
 						type="submit"
 					>

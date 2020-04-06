@@ -51,4 +51,22 @@ describe('New Note', () => {
 
 		expect(textarea.value).toMatch('');
 	});
+
+	it('enables the save button when text is entered in the textarea', () => {
+		const {container, getByText} = renderNewNote();
+
+		const textarea = container.querySelector('textarea');
+
+		fireEvent.click(textarea);
+
+		const saveButton = getByText('save');
+
+		expect(saveButton.disabled).toBeTruthy();
+
+		fireEvent.change(textarea, {
+			target: {value: 'test'}
+		});
+
+		expect(saveButton.disabled).toBeFalsy();
+	});
 });
