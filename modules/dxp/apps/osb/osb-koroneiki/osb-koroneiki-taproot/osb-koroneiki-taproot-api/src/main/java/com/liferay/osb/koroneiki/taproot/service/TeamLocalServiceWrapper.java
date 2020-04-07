@@ -363,10 +363,11 @@ public class TeamLocalServiceWrapper
 	}
 
 	@Override
-	public void syncDefaultTeam(long accountId)
+	public com.liferay.osb.koroneiki.taproot.model.Team syncDefaultTeam(
+			long accountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		_teamLocalService.syncDefaultTeam(accountId);
+		return _teamLocalService.syncDefaultTeam(accountId);
 	}
 
 	@Override

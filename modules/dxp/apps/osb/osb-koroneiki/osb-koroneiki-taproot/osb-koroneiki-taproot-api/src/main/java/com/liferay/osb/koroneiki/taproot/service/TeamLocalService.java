@@ -287,7 +287,8 @@ public interface TeamLocalService
 			long companyId, String keywords, int start, int end, Sort sort)
 		throws PortalException;
 
-	public void syncDefaultTeam(long accountId) throws PortalException;
+	@Indexable(type = IndexableType.REINDEX)
+	public Team syncDefaultTeam(long accountId) throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Team updateTeam(long teamId, String name) throws PortalException;

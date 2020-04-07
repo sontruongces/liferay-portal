@@ -348,10 +348,11 @@ public class TeamLocalServiceUtil {
 		return getService().search(companyId, keywords, start, end, sort);
 	}
 
-	public static void syncDefaultTeam(long accountId)
+	public static com.liferay.osb.koroneiki.taproot.model.Team syncDefaultTeam(
+			long accountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		getService().syncDefaultTeam(accountId);
+		return getService().syncDefaultTeam(accountId);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Team updateTeam(
