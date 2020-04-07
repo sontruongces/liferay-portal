@@ -199,7 +199,8 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 		}
 	}
 
-	public void syncDefaultTeam(long accountId) throws PortalException {
+	@Indexable(type = IndexableType.REINDEX)
+	public Team syncDefaultTeam(long accountId) throws PortalException {
 		Account account = accountPersistence.findByPrimaryKey(accountId);
 
 		Team team = teamPersistence.fetchByAI_S(account.getAccountId(), true);
@@ -242,6 +243,8 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 			_contactTeamRoleLocalService.deleteContactTeamRoles(
 				contact.getContactId(), team.getTeamId());
 		}
+
+		return team;
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
