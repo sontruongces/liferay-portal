@@ -31,6 +31,7 @@ page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole" 
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
+page import="com.liferay.osb.provisioning.web.internal.display.context.AuditEntryDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ExternalLinkDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.PostalAddressDisplay" %><%@

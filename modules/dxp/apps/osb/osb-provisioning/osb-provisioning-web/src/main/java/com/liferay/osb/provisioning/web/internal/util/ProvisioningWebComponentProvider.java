@@ -16,6 +16,7 @@ package com.liferay.osb.provisioning.web.internal.util;
 
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.AuditEntryWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
@@ -109,8 +110,9 @@ public class ProvisioningWebComponentProvider {
 
 		viewAccountDisplayContext = new ViewAccountDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
-			_contactRoleWebService, _contactWebService, _externalLinkWebService,
-			_noteWebService, _productPurchaseViewWebService, _teamWebService);
+			_auditEntryWebService, _contactRoleWebService, _contactWebService,
+			_externalLinkWebService, _noteWebService,
+			_productPurchaseViewWebService, _teamWebService);
 
 		httpServletRequest.setAttribute(
 			ViewAccountDisplayContext.class.getName(),
@@ -134,8 +136,9 @@ public class ProvisioningWebComponentProvider {
 
 		viewTeamDisplayContext = new ViewTeamDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
-			_contactRoleWebService, _contactWebService, _externalLinkWebService,
-			_noteWebService, _productPurchaseViewWebService, _teamWebService);
+			_auditEntryWebService, _contactRoleWebService, _contactWebService,
+			_externalLinkWebService, _noteWebService,
+			_productPurchaseViewWebService, _teamWebService);
 
 		httpServletRequest.setAttribute(
 			ViewTeamDisplayContext.class.getName(), viewTeamDisplayContext);
@@ -151,6 +154,9 @@ public class ProvisioningWebComponentProvider {
 
 	@Reference
 	private AccountWebService _accountWebService;
+
+	@Reference
+	private AuditEntryWebService _auditEntryWebService;
 
 	@Reference
 	private ContactRoleWebService _contactRoleWebService;

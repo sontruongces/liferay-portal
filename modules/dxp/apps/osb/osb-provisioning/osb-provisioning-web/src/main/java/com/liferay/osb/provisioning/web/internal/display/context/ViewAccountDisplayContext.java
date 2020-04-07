@@ -21,6 +21,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
+import com.liferay.osb.provisioning.koroneiki.web.service.AuditEntryWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
@@ -57,6 +58,7 @@ public class ViewAccountDisplayContext {
 	public ViewAccountDisplayContext(
 			RenderRequest renderRequest, RenderResponse renderResponse,
 			HttpServletRequest httpServletRequest, AccountReader accountReader,
+			AuditEntryWebService auditEntryWebService,
 			ContactRoleWebService contactRoleWebService,
 			ContactWebService contactWebService,
 			ExternalLinkWebService externalLinkWebService,
@@ -69,6 +71,7 @@ public class ViewAccountDisplayContext {
 		this.renderResponse = renderResponse;
 		this.httpServletRequest = httpServletRequest;
 		this.accountReader = accountReader;
+		this.auditEntryWebService = auditEntryWebService;
 		this.contactRoleWebService = contactRoleWebService;
 		this.contactWebService = contactWebService;
 		this.externalLinkWebService = externalLinkWebService;
@@ -150,6 +153,14 @@ public class ViewAccountDisplayContext {
 			"accountKey", account.getKey());
 
 		return assignAccountContactRolesURL.toString();
+	}
+
+	public List<AuditEntryDisplay> getAuditEntryDisplays() throws Exception {
+		return TransformUtil.transform(
+			auditEntryWebService.getAccountAuditEntries(
+				account.getKey(), 1, 1000),
+			auditEntry -> new AuditEntryDisplay(
+				httpServletRequest, auditEntry));
 	}
 
 	public List<ContactRole> getContactRoles(String type) throws Exception {
@@ -421,6 +432,7 @@ public class ViewAccountDisplayContext {
 	protected final Account account;
 	protected final AccountDisplay accountDisplay;
 	protected final AccountReader accountReader;
+	protected final AuditEntryWebService auditEntryWebService;
 	protected final ContactRoleWebService contactRoleWebService;
 	protected final ContactWebService contactWebService;
 	protected final ExternalLinkWebService externalLinkWebService;
