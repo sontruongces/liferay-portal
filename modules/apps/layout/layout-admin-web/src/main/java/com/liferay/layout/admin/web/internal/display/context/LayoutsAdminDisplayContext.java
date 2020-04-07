@@ -78,6 +78,7 @@ import com.liferay.portal.kernel.servlet.taglib.ui.BreadcrumbEntry;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -1013,7 +1014,7 @@ public class LayoutsAdminDisplayContext {
 
 	public String getRobots() {
 		return ParamUtil.getString(
-			httpServletRequest, "robots", _getStrictRobots());
+			_httpServletRequest, "robots", _getStrictRobots());
 	}
 
 	public String getRootNodeName() {
@@ -1116,7 +1117,6 @@ public class LayoutsAdminDisplayContext {
 		return _selLayout;
 	}
 
-
 	public LayoutSEOEntry getSelLayoutSEOEntry() {
 		Layout layout = getSelLayout();
 
@@ -1130,7 +1130,6 @@ public class LayoutsAdminDisplayContext {
 	}
 
 	public LayoutSet getSelLayoutSet() {
-
 		if (_selLayoutSet != null) {
 			return _selLayoutSet;
 		}
@@ -1226,7 +1225,7 @@ public class LayoutsAdminDisplayContext {
 
 		String virtualHostname = PortalUtil.getVirtualHostname(layoutSet);
 
-		Group scopeGroup = themeDisplay.getScopeGroup();
+		Group scopeGroup = _themeDisplay.getScopeGroup();
 
 		if (Validator.isNull(virtualHostname) && scopeGroup.isStagingGroup()) {
 			Group liveGroup = scopeGroup.getLiveGroup();
