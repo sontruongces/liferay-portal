@@ -1166,7 +1166,7 @@ AUI.add(
 							if (!localizationMap[key]) {
 								localizationMap[key] = '';
 							}
-						} 
+						}
 					}
 					else {
 						localizationMap = value;
