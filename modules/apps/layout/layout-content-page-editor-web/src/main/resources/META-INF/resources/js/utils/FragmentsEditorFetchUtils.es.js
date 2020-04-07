@@ -298,6 +298,28 @@ function setStore(store) {
 }
 
 /**
+ * Update configurationValues of the fragmentEntryLink with the given fragmentEntryLinkId
+ * @param {object} options
+ * @param {string} options.configurationValues New configurationValues
+ * @param {string} options.fragmentEntryLinkId Id of the fragmentEntryLink
+ * @param {boolean} updateClassedModel Update classed model(Layout) associated
+ * with the fragment entry link
+ */
+function updateConfigurationValues(
+	configurationValues,
+	fragmentEntryLinkId,
+	updateClassedModel = true
+) {
+	const state = _store.getState();
+
+	return _fetch(state.updateConfigurationValuesURL, {
+		editableValues: JSON.stringify(configurationValues),
+		fragmentEntryLinkId,
+		updateClassedModel
+	});
+}
+
+/**
  * @param {string} fragmentEntryLinkId
  * @param {object} editableValues
  * @param {boolean} updateClassedModel Update classed model(Layout) associated
@@ -351,6 +373,7 @@ export {
 	removeExperience,
 	removeFragmentEntryLinks,
 	setStore,
+	updateConfigurationValues,
 	updateEditableValues,
 	updatePageEditorLayoutData
 };

@@ -720,6 +720,15 @@ const INITIAL_STATE = {
 	themeColorsCssClasses: Config.arrayOf(Config.string()).value([]),
 
 	/**
+	 * URL for updating configuration values to a fragment entry link.
+	 * @default ''
+	 * @instance
+	 * @review
+	 * @type {string}
+	 */
+	updateConfigurationValuesURL: Config.string().value(''),
+
+	/**
 	 * URL for updating layout data.
 	 * @default ''
 	 * @review
