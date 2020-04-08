@@ -44,6 +44,9 @@ String coverImageCaption = BeanParamUtil.getString(entry, request, "coverImageCa
 long coverImageFileEntryId = BeanParamUtil.getLong(entry, request, "coverImageFileEntryId");
 long smallImageFileEntryId = BeanParamUtil.getLong(entry, request, "smallImageFileEntryId");
 
+BlogsFileUploadsConfiguration blogsFileUploadsConfiguration = ConfigurationProviderUtil.getSystemConfiguration(BlogsFileUploadsConfiguration.class);
+BlogsGroupServiceSettings blogsGroupServiceSettings = BlogsGroupServiceSettings.getInstance(scopeGroupId);
+
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(redirect);
 
@@ -52,10 +55,6 @@ boolean portletTitleBasedNavigation = GetterUtil.getBoolean(portletConfig.getIni
 if (portletTitleBasedNavigation) {
 	renderResponse.setTitle((entry != null) ? BlogsEntryUtil.getDisplayTitle(resourceBundle, entry) : LanguageUtil.get(request, "new-blog-entry"));
 }
-
-BlogsFileUploadsConfiguration blogsFileUploadsConfiguration = ConfigurationProviderUtil.getSystemConfiguration(BlogsFileUploadsConfiguration.class);
-
-BlogsGroupServiceSettings blogsGroupServiceSettings = BlogsGroupServiceSettings.getInstance(scopeGroupId);
 
 BlogsPortletInstanceConfiguration blogsPortletInstanceConfiguration = BlogsPortletInstanceConfigurationUtil.getBlogsPortletInstanceConfiguration(themeDisplay);
 %>
