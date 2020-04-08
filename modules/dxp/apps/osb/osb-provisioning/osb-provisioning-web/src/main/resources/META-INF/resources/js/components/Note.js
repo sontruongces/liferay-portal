@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import ActionMenu from './ActionMenu';
-import NewNote from './NewNote';
+import AddNote from './AddNote';
 
 function Note({addURL, data}) {
 	const [editNote, setEditNote] = useState(false);
 	const [showActionMenu, setShowActionMenu] = useState(false);
+
+	const handleCancel = () => {
+		setEditNote(false);
+	};
 
 	return (
 		<div
@@ -74,7 +78,12 @@ function Note({addURL, data}) {
 			</div>
 
 			{editNote ? (
-				<NewNote addURL={addURL} content={data.htmlContent} status={data.status} />
+				<AddNote
+					addURL={addURL}
+					content={data.htmlContent}
+					onCancel={handleCancel}
+					status={data.status}
+				/>
 			) : (
 				<section
 					className="note-content"

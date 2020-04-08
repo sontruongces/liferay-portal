@@ -12,13 +12,13 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import NewNote from './NewNote';
+import AddNote from './AddNote';
 import Note from './Note';
 
 function ApprovedNotes({addURL, hasArchive, onClick, pinned, unpinned}) {
 	return (
 		<>
-			<NewNote addURL={addURL} />
+			<AddNote addURL={addURL} />
 
 			<div className="notes">
 				{!!pinned.length && (

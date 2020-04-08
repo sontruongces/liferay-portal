@@ -7,15 +7,25 @@ const NOTE_STATUS_APPROVED = window.ProvisioningConstants.noteStatus.approved;
 const NOTE_TYPE_GENERAL = window.ProvisioningConstants.noteType.general;
 const UNNPINNED_PRIORITY = 2;
 
-function NewNote({
+function AddNote({
 	addURL,
 	content = '',
 	format = NOTE_FORMAT_PLAIN,
+	onCancel,
 	status = NOTE_STATUS_APPROVED,
 	type = NOTE_TYPE_GENERAL
 }) {
 	const [noteContent, setNoteContent] = useState(content);
-	const [showButtons, setShowButtons] = useState(false);
+	const [showButtons, setShowButtons] = useState(!!content);
+
+	const handleCancel = () => {
+		setNoteContent(content ? content : '');
+		setShowButtons(false);
+
+		if (onCancel) {
+			onCancel();
+		}
+	};
 
 	return (
 		<form action={addURL} className="new-note" method="post">
@@ -33,7 +43,7 @@ function NewNote({
 					className="form-control"
 					id="addNoteContent"
 					name={`${NAMESPACE}content`}
-					onChange={(event) =>
+					onChange={event =>
 						setNoteContent(event.currentTarget.value)
 					}
 					onClick={() => setShowButtons(true)}
@@ -46,7 +56,7 @@ function NewNote({
 				<div className="button-row">
 					<button
 						className="btn btn-secondary cancel-btn"
-						onClick={() => setNoteContent('')}
+						onClick={handleCancel}
 						role="button"
 						type="button"
 					>
@@ -67,12 +77,13 @@ function NewNote({
 	);
 }
 
-NewNote.propTypes = {
+AddNote.propTypes = {
 	addURL: PropTypes.string,
 	content: PropTypes.string,
 	format: PropTypes.string,
+	onCancel: PropTypes.func,
 	status: PropTypes.string,
 	type: PropTypes.string
 };
 
-export default NewNote;
+export default AddNote;
