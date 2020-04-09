@@ -19,6 +19,7 @@ import com.liferay.layout.admin.kernel.util.Sitemap;
 import com.liferay.layout.admin.kernel.util.SitemapURLProvider;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutSet;
 import com.liferay.portal.kernel.model.LayoutTypeController;
 import com.liferay.portal.kernel.service.LayoutLocalService;
@@ -33,6 +34,7 @@ import com.liferay.portal.util.LayoutTypeControllerTracker;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -57,7 +59,9 @@ public class LayoutSitemapURLProvider implements SitemapURLProvider {
 		Layout layout = _layoutLocalService.getLayoutByUuidAndGroupId(
 			layoutUuid, layoutSet.getGroupId(), layoutSet.isPrivateLayout());
 
-		if (layout.isTypeAssetDisplay()) {
+		if (Objects.equals(
+				layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
+
 			return;
 		}
 
@@ -99,7 +103,9 @@ public class LayoutSitemapURLProvider implements SitemapURLProvider {
 			Element element, Layout layout, ThemeDisplay themeDisplay)
 		throws PortalException {
 
-		if (layout.isTypeAssetDisplay()) {
+		if (Objects.equals(
+				layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
+
 			return;
 		}
 
