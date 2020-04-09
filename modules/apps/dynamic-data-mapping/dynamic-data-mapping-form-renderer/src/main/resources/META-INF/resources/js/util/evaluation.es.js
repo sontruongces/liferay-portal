@@ -129,6 +129,10 @@ export const mergePages = (
 				valid: field.valid !== false
 			};
 
+			if (newField.type === 'captcha') {
+				return sourceField;
+			}
+
 			if (sourceField.nestedFields && newField.nestedFields) {
 				newField = {
 					...newField,
