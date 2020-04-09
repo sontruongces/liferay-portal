@@ -39,6 +39,30 @@ class Captcha extends Component {
 				}
 			});
 		}
+
+		const DDM_PREFIX = 'ddm$$';
+
+		var namespace = this.name.substring(0, this.name.indexOf(DDM_PREFIX));
+
+		var refreshCaptcha = document.getElementById(
+			namespace + 'refreshCaptcha'
+		);
+
+		if (refreshCaptcha) {
+			var captcha = document.getElementById(namespace + 'captcha');
+
+			if (!captcha || !captcha.src) {
+				return;
+			}
+
+			var url = captcha.src;
+
+			refreshCaptcha.addEventListener('click', () => {
+				url = url.replace(/(t=).*?($)/, '$1' + Date.now());
+
+				captcha.setAttribute('src', url);
+			});
+		}
 	}
 
 	shouldUpdate() {
