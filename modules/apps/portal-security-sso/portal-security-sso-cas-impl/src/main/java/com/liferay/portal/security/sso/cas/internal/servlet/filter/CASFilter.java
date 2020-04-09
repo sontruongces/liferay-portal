@@ -259,7 +259,7 @@ public class CASFilter extends BaseFilter {
 
 			_portal.sendError(
 				new PortalException(
-					"Error occured whilst validating CAS ticket: " + ticket,
+					"Unable to validate CAS ticket: " + ticket,
 					ticketValidationException),
 				httpServletRequest, httpServletResponse);
 
