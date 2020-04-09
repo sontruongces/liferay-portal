@@ -109,8 +109,6 @@ describe('New Note', () => {
 		});
 		fireEvent.click(getByText('cancel'));
 
-		expect(textarea.value).toMatch(
-			'test content'
-		);
+		expect(textarea.value).toMatch('test content');
 	});
 });

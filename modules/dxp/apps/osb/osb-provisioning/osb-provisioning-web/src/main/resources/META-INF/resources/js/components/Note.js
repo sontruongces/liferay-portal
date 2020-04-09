@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 
 import ActionMenu from './ActionMenu';
 import AddNote from './AddNote';
+import PanelDropdownMenu from './PanelDropdownMenu';
 
 function Note({addURL, data}) {
 	const [editNote, setEditNote] = useState(false);
@@ -11,6 +12,10 @@ function Note({addURL, data}) {
 
 	const handleCancel = () => {
 		setEditNote(false);
+	};
+
+	const handleEdit = () => {
+		setEditNote(true);
 	};
 
 	return (
@@ -49,9 +54,7 @@ function Note({addURL, data}) {
 				<div className="note-menu">
 					{showActionMenu && (
 						<ActionMenu
-							onEdit={() => {
-								setEditNote(true);
-							}}
+							onEdit={handleEdit}
 							onPinning={() => {
 								/* TODO: fill in event handler LHC-2061 */
 							}}
@@ -59,21 +62,18 @@ function Note({addURL, data}) {
 						/>
 					)}
 
-					<button
-						className="btn btn-unstyled"
-						role="button"
-						title={Liferay.Language.get('menu')}
-						type="button"
-					>
-						<svg
-							aria-label={Liferay.Language.get(
-								'action-menu-icon'
-							)}
-							role="img"
-						>
-							<use xlinkHref="#three-dot" />
-						</svg>
-					</button>
+					<PanelDropdownMenu
+						id={data.key}
+						onArchive={() => {
+							/* TODO: fill in event handler LHC-2116 */
+						}}
+						onEdit={handleEdit}
+						onPinning={() => {
+							/* TODO: fill in event handler LHC-2061 */
+						}}
+						pinned={data.pinned}
+						status={data.status}
+					/>
 				</div>
 			</div>
 

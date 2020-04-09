@@ -136,6 +136,10 @@
 		}
 	}
 
+	.panel-dropdown-menu {
+		display: inline-block;
+	}
+
 	.panel-expand {
 		background-color: $body-bg;
 		border: 1px solid $secondary-l3;

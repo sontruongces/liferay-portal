@@ -1,5 +1,6 @@
 {
 	"dependencies": {
+		"@clayui/drop-down": "3.2.0",
 		"@clayui/sticker": "3.0.5",
 		"@clayui/tabs": "3.0.6",
 		"@clayui/tooltip": "3.1.0",

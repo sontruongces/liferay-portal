@@ -1,0 +1,124 @@
+import {cleanup, fireEvent, render} from '@testing-library/react';
+import React from 'react';
+
+import PanelDropdownMenu from '../../src/main/resources/META-INF/resources/js/components/PanelDropdownMenu';
+
+const mockOnArchiveFn = jest.fn();
+const mockOnEditFn = jest.fn();
+const mockOnPinningFn = jest.fn();
+
+function renderPanelDropdownMenu(props) {
+	return render(
+		<PanelDropdownMenu
+			id="123"
+			onArchive={mockOnArchiveFn}
+			onEdit={mockOnEditFn}
+			onPinning={mockOnPinningFn}
+			{...props}
+		/>
+	);
+}
+
+describe('PanelDropdownMenu', () => {
+	afterEach(cleanup);
+
+	it('renders', () => {
+		const {container} = renderPanelDropdownMenu();
+
+		expect(container).toBeTruthy();
+	});
+
+	it('shows "Edit" as a dropdown menu option for an unarchived note', () => {
+		const {getByLabelText, getByText} = renderPanelDropdownMenu();
+
+		fireEvent.click(getByLabelText('action-menu-icon'));
+
+		getByText('edit');
+	});
+
+	it('shows "Pin" as a dropdown menu option for an unarchived note that has not been pinned', () => {
+		const {
+			getByLabelText,
+			getByText,
+			queryByText
+		} = renderPanelDropdownMenu();
+
+		fireEvent.click(getByLabelText('action-menu-icon'));
+
+		getByText('pin');
+		expect(queryByText('unpin')).toBeFalsy();
+	});
+
+	it('shows "Unpin" as a dropdown menu option for an unarchived note that has been pinned', () => {
+		const {
+			getByLabelText,
+			getByText,
+			queryByText
+		} = renderPanelDropdownMenu({
+			pinned: true
+		});
+
+		fireEvent.click(getByLabelText('action-menu-icon'));
+
+		getByText('unpin');
+		expect(queryByText('pin')).toBeFalsy();
+	});
+
+	it('shows "Archive" as a dropdown menu option for an unarchived note', () => {
+		const {
+			getByLabelText,
+			getByText,
+			queryByText
+		} = renderPanelDropdownMenu();
+
+		fireEvent.click(getByLabelText('action-menu-icon'));
+
+		getByText('archive');
+		expect(queryByText('unarchive')).toBeFalsy();
+	});
+
+	it('shows only the "Unarchive" dropdown menu option for an archived note', () => {
+		const {
+			getByLabelText,
+			getByText,
+			queryByText
+		} = renderPanelDropdownMenu({
+			status: 'Archived'
+		});
+
+		fireEvent.click(getByLabelText('action-menu-icon'));
+
+		getByText('unarchive');
+		expect(queryByText('archive')).toBeFalsy();
+		expect(queryByText('edit')).toBeFalsy();
+		expect(queryByText('pin')).toBeFalsy();
+		expect(queryByText('unpin')).toBeFalsy();
+	});
+
+	it('calls onArchive function when the "Archive" menu item has been clicked', () => {
+		const {getByLabelText, getByText} = renderPanelDropdownMenu();
+
+		fireEvent.click(getByLabelText('action-menu-icon'));
+		fireEvent.click(getByText('archive'));
+
+		expect(mockOnArchiveFn).toHaveBeenCalled();
+	});
+
+	it('calls onEdit function when the "Edit" menu item has been clicked', () => {
+		const {getByLabelText, getByText} = renderPanelDropdownMenu();
+
+		fireEvent.click(getByLabelText('action-menu-icon'));
+		fireEvent.click(getByText('edit'));
+
+		expect(mockOnEditFn).toHaveBeenCalled();
+	});
+
+	it('calls onPinning function when the "Pin" menu item has been clicked', () => {
+		const {getByLabelText, getByText} = renderPanelDropdownMenu();
+
+		fireEvent.click(getByLabelText('action-menu-icon'));
+		fireEvent.click(getByText('pin'));
+
+		expect(mockOnPinningFn).toHaveBeenCalled();
+	});
+});
