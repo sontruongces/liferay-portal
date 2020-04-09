@@ -1153,8 +1153,8 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 		checkParentLayoutIds.add(LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
 
-		LayoutSet layoutSet = layoutSetPersistence.findByG_P(
-			groupId, privateLayout);
+		LayoutSet layoutSet = layoutSetPersistence.findByG_P_Head(
+			groupId, privateLayout, false);
 
 		while (!checkParentLayoutIds.isEmpty()) {
 			long parentLayoutId = checkParentLayoutIds.poll();
