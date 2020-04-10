@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-const NAMESPACE = window.ProvisioningConstants.namespace;
-const NOTE_FORMAT_PLAIN = window.ProvisioningConstants.noteFormat.plaintext;
-const NOTE_STATUS_APPROVED = window.ProvisioningConstants.noteStatus.approved;
-const NOTE_TYPE_GENERAL = window.ProvisioningConstants.noteType.general;
-const PRIORITY_PINNED = 1;
-const PRIORITY_UNPINNED = 2;
+import {
+	NAMESPACE,
+	NOTE_FORMAT_HTML,
+	NOTE_FORMAT_PLAIN,
+	NOTE_PRIORITY_PINNED,
+	NOTE_PRIORITY_UNPINNED,
+	NOTE_STATUS_APPROVED,
+	NOTE_STATUS_ARCHIVED,
+	NOTE_TYPE_GENERAL,
+	NOTE_TYPE_SALES
+} from '../utilities/constants';
 
 function AddNote({
 	actionURL = '',
@@ -35,7 +40,7 @@ function AddNote({
 			<input
 				name={`${NAMESPACE}priority`}
 				type="hidden"
-				value={pinned ? PRIORITY_PINNED : PRIORITY_UNPINNED}
+				value={pinned ? NOTE_PRIORITY_PINNED : NOTE_PRIORITY_UNPINNED}
 			/>
 			<input name={`${NAMESPACE}status`} type="hidden" value={status} />
 			<input name={`${NAMESPACE}type`} type="hidden" value={type} />
@@ -86,11 +91,11 @@ function AddNote({
 AddNote.propTypes = {
 	actionURL: PropTypes.string,
 	content: PropTypes.string,
-	format: PropTypes.string,
+	format: PropTypes.oneOf([NOTE_FORMAT_HTML, NOTE_FORMAT_PLAIN]),
 	onCancel: PropTypes.func,
 	pinned: PropTypes.bool,
-	status: PropTypes.string,
-	type: PropTypes.string
+	status: PropTypes.oneOf([NOTE_STATUS_APPROVED, NOTE_STATUS_ARCHIVED]),
+	type: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
 };
 
 export default AddNote;

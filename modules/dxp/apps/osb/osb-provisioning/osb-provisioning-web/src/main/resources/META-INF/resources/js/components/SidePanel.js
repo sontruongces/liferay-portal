@@ -13,12 +13,15 @@ import ClayTabs from '@clayui/tabs';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
+import {
+	NOTE_STATUS_APPROVED,
+	NOTE_STATUS_ARCHIVED,
+	NOTE_TYPE_GENERAL,
+	NOTE_TYPE_SALES
+} from '../utilities/constants';
 import ExternalLinksTabPane from './ExternalLinksTabPane';
 import IconButton from './IconButton';
 import NotesTabPane from './NotesTabPane';
-
-const NOTE_TYPE_GENERAL = window.ProvisioningConstants.noteType.general;
-const NOTE_TYPE_SALES = window.ProvisioningConstants.noteType.sales;
 
 function CollapsiblePanel({addNoteURL, handleCollapse, notes = []}) {
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -106,8 +109,12 @@ CollapsiblePanel.propTypes = {
 			htmlContent: PropTypes.string.isRequired,
 			key: PropTypes.string.isRequired,
 			pinned: PropTypes.bool.isRequired,
-			status: PropTypes.string.isRequired,
-			type: PropTypes.string.isRequired
+			status: PropTypes.oneOf([
+				NOTE_STATUS_APPROVED,
+				NOTE_STATUS_ARCHIVED
+			]).isRequired,
+			type: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
+				.isRequired
 		})
 	)
 };

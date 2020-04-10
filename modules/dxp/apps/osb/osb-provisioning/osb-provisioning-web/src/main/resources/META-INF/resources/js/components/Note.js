@@ -2,6 +2,12 @@ import ClaySticker from '@clayui/sticker';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
+import {
+	NOTE_FORMAT_HTML,
+	NOTE_FORMAT_PLAIN,
+	NOTE_STATUS_APPROVED,
+	NOTE_STATUS_ARCHIVED
+} from '../utilities/constants';
 import ActionMenu from './ActionMenu';
 import AddNote from './AddNote';
 import PanelDropdownMenu from './PanelDropdownMenu';
@@ -21,7 +27,9 @@ function Note({data}) {
 	return (
 		<div
 			className="note"
-			onMouseEnter={() => setShowActionMenu(data.status === 'Approved')}
+			onMouseEnter={() =>
+				setShowActionMenu(data.status === NOTE_STATUS_APPROVED)
+			}
 			onMouseLeave={() => setShowActionMenu(false)}
 		>
 			<div className="note-header">
@@ -102,11 +110,13 @@ Note.propTypes = {
 		creatorName: PropTypes.string.isRequired,
 		creatorPortraitURL: PropTypes.string,
 		edited: PropTypes.bool.isRequired,
-		format: PropTypes.string.isRequired,
+		format: PropTypes.oneOf([NOTE_FORMAT_HTML, NOTE_FORMAT_PLAIN])
+			.isRequired,
 		htmlContent: PropTypes.string.isRequired,
 		key: PropTypes.string.isRequired,
 		pinned: PropTypes.bool.isRequired,
-		status: PropTypes.string.isRequired,
+		status: PropTypes.oneOf([NOTE_STATUS_APPROVED, NOTE_STATUS_ARCHIVED])
+			.isRequired,
 		updateNoteURL: PropTypes.string.isRequired
 	}).isRequired
 };

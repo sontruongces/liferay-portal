@@ -2,7 +2,10 @@ import {Align, ClayDropDownWithItems} from '@clayui/drop-down';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const NOTE_STATUS_APPROVED = window.ProvisioningConstants.noteStatus.approved;
+import {
+	NOTE_STATUS_APPROVED,
+	NOTE_STATUS_ARCHIVED
+} from '../utilities/constants';
 
 function PanelDropdownMenu({
 	id,
@@ -70,7 +73,7 @@ PanelDropdownMenu.propTypes = {
 	id: PropTypes.string.isRequired,
 	onEdit: PropTypes.func.isRequired,
 	pinned: PropTypes.bool,
-	status: PropTypes.string
+	status: PropTypes.oneOf([NOTE_STATUS_APPROVED, NOTE_STATUS_ARCHIVED])
 };
 
 export default PanelDropdownMenu;
