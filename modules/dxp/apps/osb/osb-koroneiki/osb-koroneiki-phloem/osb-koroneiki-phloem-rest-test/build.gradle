@@ -12,6 +12,6 @@ dependencies {
 	testIntegrationCompile project(":apps:portal-vulcan:portal-vulcan-api")
 	testIntegrationCompile project(":core:petra:petra-function")
 	testIntegrationCompile project(":core:petra:petra-string")
-	testIntegrationCompile project(":private:apps:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-api")
-	testIntegrationCompile project(":private:apps:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-client")
+	testIntegrationCompile project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-api")
+	testIntegrationCompile project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-client")
 }
