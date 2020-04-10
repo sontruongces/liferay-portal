@@ -80,8 +80,8 @@ public class BaseConnection implements Connection {
 				_log.info("Connection successful");
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
 			disconnect();
 		}
@@ -103,11 +103,11 @@ public class BaseConnection implements Connection {
 		try {
 			channel = _connection.createChannel();
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Unable to create channel. Reconnecting and retrying.",
-					ioe);
+					ioException);
 			}
 
 			disconnect();
@@ -132,8 +132,8 @@ public class BaseConnection implements Connection {
 				_connection.close();
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		if (_log.isInfoEnabled()) {

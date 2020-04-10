@@ -49,11 +49,11 @@ public abstract class BaseMessageBroker implements MessageBroker {
 			try {
 				_publish(channel, topic, message);
 			}
-			catch (IOException ioe) {
+			catch (IOException ioException) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						"Unable to publish. Resetting channel and retrying.",
-						ioe);
+						ioException);
 				}
 
 				closeChannel();
@@ -70,10 +70,11 @@ public abstract class BaseMessageBroker implements MessageBroker {
 		try {
 			_publish(getChannel(), topic, message);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to publish. Resetting channel and retrying.", ioe);
+					"Unable to publish. Resetting channel and retrying.",
+					ioException);
 			}
 
 			closeChannel();
@@ -100,8 +101,8 @@ public abstract class BaseMessageBroker implements MessageBroker {
 			try {
 				channel.close();
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 	}

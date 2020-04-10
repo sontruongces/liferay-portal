@@ -73,8 +73,9 @@ public abstract class BaseConsumer implements Consumer {
 		try {
 			payload = new String(body, "UTF-8");
 		}
-		catch (UnsupportedEncodingException uee) {
-			_log.error(uee, uee);
+		catch (UnsupportedEncodingException unsupportedEncodingException) {
+			_log.error(
+				unsupportedEncodingException, unsupportedEncodingException);
 
 			basicAck(envelope);
 
@@ -90,8 +91,8 @@ public abstract class BaseConsumer implements Consumer {
 
 			basicAck(envelope);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
 			basicReject(envelope);
 		}
@@ -101,7 +102,7 @@ public abstract class BaseConsumer implements Consumer {
 	}
 
 	public void handleShutdownSignal(
-		String consumerTag, ShutdownSignalException sse) {
+		String consumerTag, ShutdownSignalException shutdownSignalException) {
 	}
 
 	@Activate
@@ -130,8 +131,8 @@ public abstract class BaseConsumer implements Consumer {
 		try {
 			channel.basicAck(envelope.getDeliveryTag(), false);
 		}
-		catch (IOException ioe) {
-			_log.error(ioe, ioe);
+		catch (IOException ioException) {
+			_log.error(ioException, ioException);
 		}
 	}
 
@@ -139,8 +140,8 @@ public abstract class BaseConsumer implements Consumer {
 		try {
 			channel.basicReject(envelope.getDeliveryTag(), false);
 		}
-		catch (IOException ioe) {
-			_log.error(ioe, ioe);
+		catch (IOException ioException) {
+			_log.error(ioException, ioException);
 		}
 	}
 
