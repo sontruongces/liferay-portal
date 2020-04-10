@@ -5,13 +5,15 @@ const NAMESPACE = window.ProvisioningConstants.namespace;
 const NOTE_FORMAT_PLAIN = window.ProvisioningConstants.noteFormat.plaintext;
 const NOTE_STATUS_APPROVED = window.ProvisioningConstants.noteStatus.approved;
 const NOTE_TYPE_GENERAL = window.ProvisioningConstants.noteType.general;
-const UNNPINNED_PRIORITY = 2;
+const PRIORITY_PINNED = 1;
+const PRIORITY_UNPINNED = 2;
 
 function AddNote({
-	addURL,
+	actionURL = '',
 	content = '',
 	format = NOTE_FORMAT_PLAIN,
 	onCancel,
+	pinned = false,
 	status = NOTE_STATUS_APPROVED,
 	type = NOTE_TYPE_GENERAL
 }) {
@@ -28,12 +30,12 @@ function AddNote({
 	};
 
 	return (
-		<form action={addURL} className="new-note" method="post">
+		<form action={actionURL} className="new-note" method="post">
 			<input name={`${NAMESPACE}format`} type="hidden" value={format} />
 			<input
 				name={`${NAMESPACE}priority`}
 				type="hidden"
-				value={UNNPINNED_PRIORITY}
+				value={pinned ? PRIORITY_PINNED : PRIORITY_UNPINNED}
 			/>
 			<input name={`${NAMESPACE}status`} type="hidden" value={status} />
 			<input name={`${NAMESPACE}type`} type="hidden" value={type} />
@@ -78,10 +80,11 @@ function AddNote({
 }
 
 AddNote.propTypes = {
-	addURL: PropTypes.string,
+	actionURL: PropTypes.string,
 	content: PropTypes.string,
 	format: PropTypes.string,
 	onCancel: PropTypes.func,
+	pinned: PropTypes.bool,
 	status: PropTypes.string,
 	type: PropTypes.string
 };

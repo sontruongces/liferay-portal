@@ -4,11 +4,11 @@ import React from 'react';
 import AddNote from '../../src/main/resources/META-INF/resources/js/components/AddNote';
 
 function renderAddNote() {
-	return render(<AddNote addURL="/" />);
+	return render(<AddNote actionURL="add url" />);
 }
 
 function renderEditNote() {
-	return render(<AddNote addURL="/" content="test content" />);
+	return render(<AddNote actionURL="edit url" content="test content" />);
 }
 
 describe('New Note', () => {

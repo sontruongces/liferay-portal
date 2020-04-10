@@ -6,7 +6,7 @@ import ActionMenu from './ActionMenu';
 import AddNote from './AddNote';
 import PanelDropdownMenu from './PanelDropdownMenu';
 
-function Note({addURL, data}) {
+function Note({data}) {
 	const [editNote, setEditNote] = useState(false);
 	const [showActionMenu, setShowActionMenu] = useState(false);
 
@@ -42,7 +42,7 @@ function Note({addURL, data}) {
 						<h4 className="note-author">{data.creatorName}</h4>
 						<div className="note-create-date">
 							{data.createDate}{' '}
-							{!!data.edited && (
+							{data.edited && (
 								<span className="edited">
 									{Liferay.Language.get('edited')}
 								</span>
@@ -79,10 +79,11 @@ function Note({addURL, data}) {
 
 			{editNote ? (
 				<AddNote
-					addURL={addURL}
+					actionURL={data.updateNoteURL}
 					content={data.htmlContent}
 					format={data.format}
 					onCancel={handleCancel}
+					pinned={data.pinned}
 					status={data.status}
 				/>
 			) : (
@@ -96,7 +97,6 @@ function Note({addURL, data}) {
 }
 
 Note.propTypes = {
-	addURL: PropTypes.string,
 	data: PropTypes.shape({
 		createDate: PropTypes.string.isRequired,
 		creatorName: PropTypes.string.isRequired,
@@ -106,7 +106,8 @@ Note.propTypes = {
 		htmlContent: PropTypes.string.isRequired,
 		key: PropTypes.string.isRequired,
 		pinned: PropTypes.bool.isRequired,
-		status: PropTypes.string.isRequired
+		status: PropTypes.string.isRequired,
+		updateNoteURL: PropTypes.string.isRequired
 	}).isRequired
 };
 

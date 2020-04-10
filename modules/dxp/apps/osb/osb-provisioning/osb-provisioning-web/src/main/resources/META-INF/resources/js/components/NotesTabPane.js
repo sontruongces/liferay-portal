@@ -47,7 +47,7 @@ function ApprovedNotes({addURL, hasArchive, onClick, pinned, unpinned}) {
 						</div>
 
 						{unpinned.map(note => (
-							<Note addURL={addURL} data={note} key={note.key} />
+							<Note data={note} key={note.key} />
 						))}
 					</div>
 				)}
@@ -152,7 +152,8 @@ NotesTabPane.propTypes = {
 			key: PropTypes.string.isRequired,
 			pinned: PropTypes.bool.isRequired,
 			status: PropTypes.string.isRequired,
-			type: PropTypes.string.isRequired
+			type: PropTypes.string.isRequired,
+			updateNoteURL: PropTypes.string.isRequired
 		})
 	)
 };

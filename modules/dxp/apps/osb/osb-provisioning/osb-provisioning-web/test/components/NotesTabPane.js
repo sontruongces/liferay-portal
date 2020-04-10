@@ -29,7 +29,8 @@ function renderNotesTabPane() {
 					key: '123',
 					pinned: true,
 					status: 'Approved',
-					type: 'General'
+					type: 'General',
+					updateNoteURL: '/'
 				},
 				{
 					createDate: new Date().toLocaleString('en-US'),
@@ -41,7 +42,8 @@ function renderNotesTabPane() {
 					key: '456',
 					pinned: false,
 					status: 'Approved',
-					type: 'General'
+					type: 'General',
+					updateNoteURL: '/'
 				},
 				{
 					createDate: new Date().toLocaleString('en-US'),
@@ -53,7 +55,8 @@ function renderNotesTabPane() {
 					key: '789',
 					pinned: false,
 					status: 'Archived',
-					type: 'General'
+					type: 'General',
+					updateNoteURL: '/'
 				}
 			]}
 		/>
@@ -104,7 +107,8 @@ describe('NotesTabPane', () => {
 							key: '123',
 							pinned: true,
 							status: 'Approved',
-							type: 'General'
+							type: 'General',
+							updateNoteURL: '/'
 						}
 					]}
 				/>
