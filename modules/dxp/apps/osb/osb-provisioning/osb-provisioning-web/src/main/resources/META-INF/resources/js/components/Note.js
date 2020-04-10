@@ -81,6 +81,7 @@ function Note({addURL, data}) {
 				<AddNote
 					addURL={addURL}
 					content={data.htmlContent}
+					format={data.format}
 					onCancel={handleCancel}
 					status={data.status}
 				/>
@@ -101,6 +102,7 @@ Note.propTypes = {
 		creatorName: PropTypes.string.isRequired,
 		creatorPortraitURL: PropTypes.string,
 		edited: PropTypes.bool.isRequired,
+		format: PropTypes.string.isRequired,
 		htmlContent: PropTypes.string.isRequired,
 		key: PropTypes.string.isRequired,
 		pinned: PropTypes.bool.isRequired,

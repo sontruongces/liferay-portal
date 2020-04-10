@@ -54,6 +54,10 @@ public class NoteDisplay {
 		return StringPool.BLANK;
 	}
 
+	public String getFormat() {
+		return _note.getFormatAsString();
+	}
+
 	public String getHtmlContent() {
 		Note.Format format = _note.getFormat();
 

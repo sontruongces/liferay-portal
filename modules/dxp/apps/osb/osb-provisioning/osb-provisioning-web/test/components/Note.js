@@ -11,6 +11,7 @@ function renderNote(props) {
 				creatorName: 'Jane Doe',
 				creatorPortraitURL: '/',
 				edited: false,
+				format: 'HTML',
 				htmlContent: '<div>note 1</div>',
 				key: '123',
 				pinned: true,
