@@ -333,7 +333,9 @@ public class ViewAccountDisplayContext {
 				noteWebService.getNotes(
 					account.getKey(), StringPool.BLANK, StringPool.BLANK, 1,
 					1000),
-				note -> new NoteDisplay(httpServletRequest, note)));
+				note -> new NoteDisplay(
+					httpServletRequest, note, getUpdateNoteURL(note.getKey()),
+					getDeleteNoteURL(note.getKey()))));
 
 		return data;
 	}

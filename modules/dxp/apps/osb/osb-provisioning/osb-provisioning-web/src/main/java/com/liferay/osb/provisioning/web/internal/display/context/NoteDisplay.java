@@ -30,9 +30,14 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class NoteDisplay {
 
-	public NoteDisplay(HttpServletRequest httpServletRequest, Note note) {
+	public NoteDisplay(
+		HttpServletRequest httpServletRequest, Note note, String updateNoteURL,
+		String deleteNoteURL) {
+
+		_deleteNoteURL = deleteNoteURL;
 		_httpServletRequest = httpServletRequest;
 		_note = note;
+		_updateNoteURL = updateNoteURL;
 
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy hh:mm a");
@@ -81,6 +86,10 @@ public class NoteDisplay {
 		return _note.getTypeAsString();
 	}
 
+	public String getUpdateNoteURL() {
+		return _updateNoteURL;
+	}
+
 	public boolean isEdited() {
 		if ((_note.getDateModified() != null) &&
 			_note.getDateModified().after(_note.getDateCreated())) {
@@ -100,7 +109,9 @@ public class NoteDisplay {
 	}
 
 	private final Format _dateFormat;
+	private final String _deleteNoteURL;
 	private final HttpServletRequest _httpServletRequest;
 	private final Note _note;
+	private final String _updateNoteURL;
 
 }
