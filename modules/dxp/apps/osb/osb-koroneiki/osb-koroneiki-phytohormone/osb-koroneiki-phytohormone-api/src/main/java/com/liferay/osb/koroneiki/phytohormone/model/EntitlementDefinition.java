@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface EntitlementDefinition
 	extends EntitlementDefinitionModel, PersistedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.osb.koroneiki.phytohormone.model.impl.EntitlementDefinitionImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

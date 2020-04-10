@@ -39,7 +39,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface EntitlementModel
 	extends AttachedModel, BaseModel<Entitlement>, MVCCModel, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a entitlement model instance should use the {@link Entitlement} interface instead.

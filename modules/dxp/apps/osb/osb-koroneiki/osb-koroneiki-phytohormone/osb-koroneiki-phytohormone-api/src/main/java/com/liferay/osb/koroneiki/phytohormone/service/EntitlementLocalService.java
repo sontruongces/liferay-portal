@@ -55,7 +55,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface EntitlementLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link EntitlementLocalServiceUtil} to access the entitlement local service. Add custom service methods to <code>com.liferay.osb.koroneiki.phytohormone.service.impl.EntitlementLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
@@ -236,6 +236,9 @@ public interface EntitlementLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @throws PortalException
+	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

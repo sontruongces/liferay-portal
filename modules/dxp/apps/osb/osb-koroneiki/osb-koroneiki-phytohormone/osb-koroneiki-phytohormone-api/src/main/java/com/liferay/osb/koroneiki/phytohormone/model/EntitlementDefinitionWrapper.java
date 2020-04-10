@@ -318,11 +318,6 @@ public class EntitlementDefinitionWrapper
 		return model.getUuid();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a entitlement definition model instance should use the <code>EntitlementDefinition</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

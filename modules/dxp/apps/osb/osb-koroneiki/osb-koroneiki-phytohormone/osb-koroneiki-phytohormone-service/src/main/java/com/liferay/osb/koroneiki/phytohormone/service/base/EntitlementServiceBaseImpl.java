@@ -47,7 +47,7 @@ public abstract class EntitlementServiceBaseImpl
 	extends BaseServiceImpl
 	implements AopService, EntitlementService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>EntitlementService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.koroneiki.phytohormone.service.EntitlementServiceUtil</code>.
@@ -101,8 +101,8 @@ public abstract class EntitlementServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

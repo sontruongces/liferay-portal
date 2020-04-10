@@ -33,11 +33,6 @@ public class EntitlementDefinitionServiceWrapper
 		_entitlementDefinitionService = entitlementDefinitionService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link EntitlementDefinitionServiceUtil} to access the entitlement definition remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.phytohormone.service.impl.EntitlementDefinitionServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition
 			addEntitlementDefinition(

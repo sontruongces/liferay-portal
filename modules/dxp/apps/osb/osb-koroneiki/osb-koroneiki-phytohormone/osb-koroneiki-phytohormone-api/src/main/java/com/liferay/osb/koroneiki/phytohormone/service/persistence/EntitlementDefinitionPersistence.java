@@ -35,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface EntitlementDefinitionPersistence
 	extends BasePersistence<EntitlementDefinition> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link EntitlementDefinitionUtil} to access the entitlement definition persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

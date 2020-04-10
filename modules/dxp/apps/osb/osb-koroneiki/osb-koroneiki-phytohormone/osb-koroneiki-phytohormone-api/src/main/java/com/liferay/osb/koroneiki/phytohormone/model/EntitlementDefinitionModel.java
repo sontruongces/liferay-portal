@@ -41,7 +41,7 @@ public interface EntitlementDefinitionModel
 	extends BaseModel<EntitlementDefinition>, MVCCModel, ShardedModel,
 			StagedModel, TypedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a entitlement definition model instance should use the {@link EntitlementDefinition} interface instead.

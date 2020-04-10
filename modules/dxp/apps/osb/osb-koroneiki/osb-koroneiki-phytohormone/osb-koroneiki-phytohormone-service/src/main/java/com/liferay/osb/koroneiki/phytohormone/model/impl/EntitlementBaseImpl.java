@@ -32,7 +32,7 @@ import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalServiceUti
 public abstract class EntitlementBaseImpl
 	extends EntitlementModelImpl implements Entitlement {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a entitlement model instance should use the <code>Entitlement</code> interface instead.
