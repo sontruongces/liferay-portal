@@ -67,7 +67,7 @@ public class AccountServiceSoap {
 				String description, long logoId, String contactEmailAddress,
 				String profileEmailAddress, String phoneNumber,
 				String faxNumber, String website, String tier, String region,
-				boolean internal, int status)
+				boolean internal, String status)
 		throws RemoteException {
 
 		try {
@@ -305,7 +305,7 @@ public class AccountServiceSoap {
 				String description, long logoId, String contactEmailAddress,
 				String profileEmailAddress, String phoneNumber,
 				String faxNumber, String website, String tier, String region,
-				boolean internal, int status)
+				boolean internal, String status)
 		throws RemoteException {
 
 		try {
@@ -331,7 +331,7 @@ public class AccountServiceSoap {
 				String code, String description, long logoId,
 				String contactEmailAddress, String profileEmailAddress,
 				String phoneNumber, String faxNumber, String website,
-				String tier, String region, boolean internal, int status)
+				String tier, String region, boolean internal, String status)
 		throws RemoteException {
 
 		try {

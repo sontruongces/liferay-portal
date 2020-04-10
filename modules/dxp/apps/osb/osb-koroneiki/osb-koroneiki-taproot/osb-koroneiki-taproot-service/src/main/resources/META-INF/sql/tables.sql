@@ -20,11 +20,7 @@ create table Koroneiki_Account (
 	tier VARCHAR(75) null,
 	region VARCHAR(75) null,
 	internal_ BOOLEAN,
-	status INTEGER,
-	statusByUserId LONG,
-	statusByUserName VARCHAR(75) null,
-	statusDate DATE null,
-	statusMessage VARCHAR(75) null
+	status VARCHAR(75) null
 );
 
 create table Koroneiki_AccountNote (

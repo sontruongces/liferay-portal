@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 import com.liferay.portal.kernel.model.StagedModel;
-import com.liferay.portal.kernel.model.WorkflowedModel;
 
 import java.util.Date;
 
@@ -38,8 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface AccountModel
-	extends BaseModel<Account>, MVCCModel, ShardedModel, StagedModel,
-			WorkflowedModel {
+	extends BaseModel<Account>, MVCCModel, ShardedModel, StagedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -403,159 +401,14 @@ public interface AccountModel
 	 *
 	 * @return the status of this account
 	 */
-	@Override
-	public int getStatus();
+	@AutoEscape
+	public String getStatus();
 
 	/**
 	 * Sets the status of this account.
 	 *
 	 * @param status the status of this account
 	 */
-	@Override
-	public void setStatus(int status);
-
-	/**
-	 * Returns the status by user ID of this account.
-	 *
-	 * @return the status by user ID of this account
-	 */
-	@Override
-	public long getStatusByUserId();
-
-	/**
-	 * Sets the status by user ID of this account.
-	 *
-	 * @param statusByUserId the status by user ID of this account
-	 */
-	@Override
-	public void setStatusByUserId(long statusByUserId);
-
-	/**
-	 * Returns the status by user uuid of this account.
-	 *
-	 * @return the status by user uuid of this account
-	 */
-	@Override
-	public String getStatusByUserUuid();
-
-	/**
-	 * Sets the status by user uuid of this account.
-	 *
-	 * @param statusByUserUuid the status by user uuid of this account
-	 */
-	@Override
-	public void setStatusByUserUuid(String statusByUserUuid);
-
-	/**
-	 * Returns the status by user name of this account.
-	 *
-	 * @return the status by user name of this account
-	 */
-	@AutoEscape
-	@Override
-	public String getStatusByUserName();
-
-	/**
-	 * Sets the status by user name of this account.
-	 *
-	 * @param statusByUserName the status by user name of this account
-	 */
-	@Override
-	public void setStatusByUserName(String statusByUserName);
-
-	/**
-	 * Returns the status date of this account.
-	 *
-	 * @return the status date of this account
-	 */
-	@Override
-	public Date getStatusDate();
-
-	/**
-	 * Sets the status date of this account.
-	 *
-	 * @param statusDate the status date of this account
-	 */
-	@Override
-	public void setStatusDate(Date statusDate);
-
-	/**
-	 * Returns the status message of this account.
-	 *
-	 * @return the status message of this account
-	 */
-	@AutoEscape
-	public String getStatusMessage();
-
-	/**
-	 * Sets the status message of this account.
-	 *
-	 * @param statusMessage the status message of this account
-	 */
-	public void setStatusMessage(String statusMessage);
-
-	/**
-	 * Returns <code>true</code> if this account is approved.
-	 *
-	 * @return <code>true</code> if this account is approved; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isApproved();
-
-	/**
-	 * Returns <code>true</code> if this account is denied.
-	 *
-	 * @return <code>true</code> if this account is denied; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isDenied();
-
-	/**
-	 * Returns <code>true</code> if this account is a draft.
-	 *
-	 * @return <code>true</code> if this account is a draft; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isDraft();
-
-	/**
-	 * Returns <code>true</code> if this account is expired.
-	 *
-	 * @return <code>true</code> if this account is expired; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isExpired();
-
-	/**
-	 * Returns <code>true</code> if this account is inactive.
-	 *
-	 * @return <code>true</code> if this account is inactive; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isInactive();
-
-	/**
-	 * Returns <code>true</code> if this account is incomplete.
-	 *
-	 * @return <code>true</code> if this account is incomplete; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isIncomplete();
-
-	/**
-	 * Returns <code>true</code> if this account is pending.
-	 *
-	 * @return <code>true</code> if this account is pending; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isPending();
-
-	/**
-	 * Returns <code>true</code> if this account is scheduled.
-	 *
-	 * @return <code>true</code> if this account is scheduled; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isScheduled();
+	public void setStatus(String status);
 
 }

@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.Serializable;
 
@@ -85,9 +84,7 @@ public class AccountModelImpl
 		{"profileEmailAddress", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
 		{"faxNumber", Types.VARCHAR}, {"website", Types.VARCHAR},
 		{"tier", Types.VARCHAR}, {"region", Types.VARCHAR},
-		{"internal_", Types.BOOLEAN}, {"status", Types.INTEGER},
-		{"statusByUserId", Types.BIGINT}, {"statusByUserName", Types.VARCHAR},
-		{"statusDate", Types.TIMESTAMP}, {"statusMessage", Types.VARCHAR}
+		{"internal_", Types.BOOLEAN}, {"status", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -115,15 +112,11 @@ public class AccountModelImpl
 		TABLE_COLUMNS_MAP.put("tier", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("region", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("internal_", Types.BOOLEAN);
-		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("statusByUserId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("statusByUserName", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("statusDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("statusMessage", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("status", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Account (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,tier VARCHAR(75) null,region VARCHAR(75) null,internal_ BOOLEAN,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage VARCHAR(75) null)";
+		"create table Koroneiki_Account (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,accountKey VARCHAR(75) null,parentAccountId LONG,name VARCHAR(150) null,code_ VARCHAR(75) null,description STRING null,logoId LONG,contactEmailAddress VARCHAR(75) null,profileEmailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,faxNumber VARCHAR(75) null,website VARCHAR(75) null,tier VARCHAR(75) null,region VARCHAR(75) null,internal_ BOOLEAN,status VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Account";
 
@@ -196,10 +189,6 @@ public class AccountModelImpl
 		model.setRegion(soapModel.getRegion());
 		model.setInternal(soapModel.isInternal());
 		model.setStatus(soapModel.getStatus());
-		model.setStatusByUserId(soapModel.getStatusByUserId());
-		model.setStatusByUserName(soapModel.getStatusByUserName());
-		model.setStatusDate(soapModel.getStatusDate());
-		model.setStatusMessage(soapModel.getStatusMessage());
 
 		return model;
 	}
@@ -423,25 +412,7 @@ public class AccountModelImpl
 			"internal", (BiConsumer<Account, Boolean>)Account::setInternal);
 		attributeGetterFunctions.put("status", Account::getStatus);
 		attributeSetterBiConsumers.put(
-			"status", (BiConsumer<Account, Integer>)Account::setStatus);
-		attributeGetterFunctions.put(
-			"statusByUserId", Account::getStatusByUserId);
-		attributeSetterBiConsumers.put(
-			"statusByUserId",
-			(BiConsumer<Account, Long>)Account::setStatusByUserId);
-		attributeGetterFunctions.put(
-			"statusByUserName", Account::getStatusByUserName);
-		attributeSetterBiConsumers.put(
-			"statusByUserName",
-			(BiConsumer<Account, String>)Account::setStatusByUserName);
-		attributeGetterFunctions.put("statusDate", Account::getStatusDate);
-		attributeSetterBiConsumers.put(
-			"statusDate", (BiConsumer<Account, Date>)Account::setStatusDate);
-		attributeGetterFunctions.put(
-			"statusMessage", Account::getStatusMessage);
-		attributeSetterBiConsumers.put(
-			"statusMessage",
-			(BiConsumer<Account, String>)Account::setStatusMessage);
+			"status", (BiConsumer<Account, String>)Account::setStatus);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -834,169 +805,24 @@ public class AccountModelImpl
 
 	@JSON
 	@Override
-	public int getStatus() {
-		return _status;
+	public String getStatus() {
+		if (_status == null) {
+			return "";
+		}
+		else {
+			return _status;
+		}
 	}
 
 	@Override
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		_status = status;
-	}
-
-	@JSON
-	@Override
-	public long getStatusByUserId() {
-		return _statusByUserId;
-	}
-
-	@Override
-	public void setStatusByUserId(long statusByUserId) {
-		_statusByUserId = statusByUserId;
-	}
-
-	@Override
-	public String getStatusByUserUuid() {
-		try {
-			User user = UserLocalServiceUtil.getUserById(getStatusByUserId());
-
-			return user.getUuid();
-		}
-		catch (PortalException portalException) {
-			return "";
-		}
-	}
-
-	@Override
-	public void setStatusByUserUuid(String statusByUserUuid) {
-	}
-
-	@JSON
-	@Override
-	public String getStatusByUserName() {
-		if (_statusByUserName == null) {
-			return "";
-		}
-		else {
-			return _statusByUserName;
-		}
-	}
-
-	@Override
-	public void setStatusByUserName(String statusByUserName) {
-		_statusByUserName = statusByUserName;
-	}
-
-	@JSON
-	@Override
-	public Date getStatusDate() {
-		return _statusDate;
-	}
-
-	@Override
-	public void setStatusDate(Date statusDate) {
-		_statusDate = statusDate;
-	}
-
-	@JSON
-	@Override
-	public String getStatusMessage() {
-		if (_statusMessage == null) {
-			return "";
-		}
-		else {
-			return _statusMessage;
-		}
-	}
-
-	@Override
-	public void setStatusMessage(String statusMessage) {
-		_statusMessage = statusMessage;
 	}
 
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
 			PortalUtil.getClassNameId(Account.class.getName()));
-	}
-
-	@Override
-	public boolean isApproved() {
-		if (getStatus() == WorkflowConstants.STATUS_APPROVED) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean isDenied() {
-		if (getStatus() == WorkflowConstants.STATUS_DENIED) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean isDraft() {
-		if (getStatus() == WorkflowConstants.STATUS_DRAFT) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean isExpired() {
-		if (getStatus() == WorkflowConstants.STATUS_EXPIRED) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean isInactive() {
-		if (getStatus() == WorkflowConstants.STATUS_INACTIVE) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean isIncomplete() {
-		if (getStatus() == WorkflowConstants.STATUS_INCOMPLETE) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean isPending() {
-		if (getStatus() == WorkflowConstants.STATUS_PENDING) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean isScheduled() {
-		if (getStatus() == WorkflowConstants.STATUS_SCHEDULED) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	public long getColumnBitmask() {
@@ -1057,10 +883,6 @@ public class AccountModelImpl
 		accountImpl.setRegion(getRegion());
 		accountImpl.setInternal(isInternal());
 		accountImpl.setStatus(getStatus());
-		accountImpl.setStatusByUserId(getStatusByUserId());
-		accountImpl.setStatusByUserName(getStatusByUserName());
-		accountImpl.setStatusDate(getStatusDate());
-		accountImpl.setStatusMessage(getStatusMessage());
 
 		accountImpl.resetOriginalValues();
 
@@ -1283,31 +1105,10 @@ public class AccountModelImpl
 
 		accountCacheModel.status = getStatus();
 
-		accountCacheModel.statusByUserId = getStatusByUserId();
+		String status = accountCacheModel.status;
 
-		accountCacheModel.statusByUserName = getStatusByUserName();
-
-		String statusByUserName = accountCacheModel.statusByUserName;
-
-		if ((statusByUserName != null) && (statusByUserName.length() == 0)) {
-			accountCacheModel.statusByUserName = null;
-		}
-
-		Date statusDate = getStatusDate();
-
-		if (statusDate != null) {
-			accountCacheModel.statusDate = statusDate.getTime();
-		}
-		else {
-			accountCacheModel.statusDate = Long.MIN_VALUE;
-		}
-
-		accountCacheModel.statusMessage = getStatusMessage();
-
-		String statusMessage = accountCacheModel.statusMessage;
-
-		if ((statusMessage != null) && (statusMessage.length() == 0)) {
-			accountCacheModel.statusMessage = null;
+		if ((status != null) && (status.length() == 0)) {
+			accountCacheModel.status = null;
 		}
 
 		return accountCacheModel;
@@ -1416,11 +1217,7 @@ public class AccountModelImpl
 	private String _tier;
 	private String _region;
 	private boolean _internal;
-	private int _status;
-	private long _statusByUserId;
-	private String _statusByUserName;
-	private Date _statusDate;
-	private String _statusMessage;
+	private String _status;
 	private long _columnBitmask;
 	private Account _escapedModel;
 

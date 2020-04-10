@@ -76,6 +76,4 @@ public interface Account extends AccountModel, PersistedModel {
 	public Account getParentAccount()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
-	public String getStatusLabel();
-
 }

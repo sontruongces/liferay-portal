@@ -65,10 +65,6 @@ public class AccountWrapper
 		attributes.put("region", getRegion());
 		attributes.put("internal", isInternal());
 		attributes.put("status", getStatus());
-		attributes.put("statusByUserId", getStatusByUserId());
-		attributes.put("statusByUserName", getStatusByUserName());
-		attributes.put("statusDate", getStatusDate());
-		attributes.put("statusMessage", getStatusMessage());
 
 		return attributes;
 	}
@@ -203,34 +199,10 @@ public class AccountWrapper
 			setInternal(internal);
 		}
 
-		Integer status = (Integer)attributes.get("status");
+		String status = (String)attributes.get("status");
 
 		if (status != null) {
 			setStatus(status);
-		}
-
-		Long statusByUserId = (Long)attributes.get("statusByUserId");
-
-		if (statusByUserId != null) {
-			setStatusByUserId(statusByUserId);
-		}
-
-		String statusByUserName = (String)attributes.get("statusByUserName");
-
-		if (statusByUserName != null) {
-			setStatusByUserName(statusByUserName);
-		}
-
-		Date statusDate = (Date)attributes.get("statusDate");
-
-		if (statusDate != null) {
-			setStatusDate(statusDate);
-		}
-
-		String statusMessage = (String)attributes.get("statusMessage");
-
-		if (statusMessage != null) {
-			setStatusMessage(statusMessage);
 		}
 	}
 
@@ -461,63 +433,8 @@ public class AccountWrapper
 	 * @return the status of this account
 	 */
 	@Override
-	public int getStatus() {
+	public String getStatus() {
 		return model.getStatus();
-	}
-
-	/**
-	 * Returns the status by user ID of this account.
-	 *
-	 * @return the status by user ID of this account
-	 */
-	@Override
-	public long getStatusByUserId() {
-		return model.getStatusByUserId();
-	}
-
-	/**
-	 * Returns the status by user name of this account.
-	 *
-	 * @return the status by user name of this account
-	 */
-	@Override
-	public String getStatusByUserName() {
-		return model.getStatusByUserName();
-	}
-
-	/**
-	 * Returns the status by user uuid of this account.
-	 *
-	 * @return the status by user uuid of this account
-	 */
-	@Override
-	public String getStatusByUserUuid() {
-		return model.getStatusByUserUuid();
-	}
-
-	/**
-	 * Returns the status date of this account.
-	 *
-	 * @return the status date of this account
-	 */
-	@Override
-	public Date getStatusDate() {
-		return model.getStatusDate();
-	}
-
-	@Override
-	public String getStatusLabel() {
-		return model.getStatusLabel();
-	}
-
-	/**
-	 * Returns the status message of this account.
-	 *
-	 * @return the status message of this account
-	 */
-	@Override
-	public String getStatusMessage() {
-		return model.getStatusMessage();
 	}
 
 	/**
@@ -571,66 +488,6 @@ public class AccountWrapper
 	}
 
 	/**
-	 * Returns <code>true</code> if this account is approved.
-	 *
-	 * @return <code>true</code> if this account is approved; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isApproved() {
-		return model.isApproved();
-	}
-
-	/**
-	 * Returns <code>true</code> if this account is denied.
-	 *
-	 * @return <code>true</code> if this account is denied; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isDenied() {
-		return model.isDenied();
-	}
-
-	/**
-	 * Returns <code>true</code> if this account is a draft.
-	 *
-	 * @return <code>true</code> if this account is a draft; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isDraft() {
-		return model.isDraft();
-	}
-
-	/**
-	 * Returns <code>true</code> if this account is expired.
-	 *
-	 * @return <code>true</code> if this account is expired; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isExpired() {
-		return model.isExpired();
-	}
-
-	/**
-	 * Returns <code>true</code> if this account is inactive.
-	 *
-	 * @return <code>true</code> if this account is inactive; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isInactive() {
-		return model.isInactive();
-	}
-
-	/**
-	 * Returns <code>true</code> if this account is incomplete.
-	 *
-	 * @return <code>true</code> if this account is incomplete; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isIncomplete() {
-		return model.isIncomplete();
-	}
-
-	/**
 	 * Returns <code>true</code> if this account is internal.
 	 *
 	 * @return <code>true</code> if this account is internal; <code>false</code> otherwise
@@ -638,26 +495,6 @@ public class AccountWrapper
 	@Override
 	public boolean isInternal() {
 		return model.isInternal();
-	}
-
-	/**
-	 * Returns <code>true</code> if this account is pending.
-	 *
-	 * @return <code>true</code> if this account is pending; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isPending() {
-		return model.isPending();
-	}
-
-	/**
-	 * Returns <code>true</code> if this account is scheduled.
-	 *
-	 * @return <code>true</code> if this account is scheduled; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isScheduled() {
-		return model.isScheduled();
 	}
 
 	@Override
@@ -851,58 +688,8 @@ public class AccountWrapper
 	 * @param status the status of this account
 	 */
 	@Override
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		model.setStatus(status);
-	}
-
-	/**
-	 * Sets the status by user ID of this account.
-	 *
-	 * @param statusByUserId the status by user ID of this account
-	 */
-	@Override
-	public void setStatusByUserId(long statusByUserId) {
-		model.setStatusByUserId(statusByUserId);
-	}
-
-	/**
-	 * Sets the status by user name of this account.
-	 *
-	 * @param statusByUserName the status by user name of this account
-	 */
-	@Override
-	public void setStatusByUserName(String statusByUserName) {
-		model.setStatusByUserName(statusByUserName);
-	}
-
-	/**
-	 * Sets the status by user uuid of this account.
-	 *
-	 * @param statusByUserUuid the status by user uuid of this account
-	 */
-	@Override
-	public void setStatusByUserUuid(String statusByUserUuid) {
-		model.setStatusByUserUuid(statusByUserUuid);
-	}
-
-	/**
-	 * Sets the status date of this account.
-	 *
-	 * @param statusDate the status date of this account
-	 */
-	@Override
-	public void setStatusDate(Date statusDate) {
-		model.setStatusDate(statusDate);
-	}
-
-	/**
-	 * Sets the status message of this account.
-	 *
-	 * @param statusMessage the status message of this account
-	 */
-	@Override
-	public void setStatusMessage(String statusMessage) {
-		model.setStatusMessage(statusMessage);
 	}
 
 	/**

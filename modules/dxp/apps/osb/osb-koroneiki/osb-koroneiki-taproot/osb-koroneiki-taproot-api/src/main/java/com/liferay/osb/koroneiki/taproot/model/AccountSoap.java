@@ -53,10 +53,6 @@ public class AccountSoap implements Serializable {
 		soapModel.setRegion(model.getRegion());
 		soapModel.setInternal(model.isInternal());
 		soapModel.setStatus(model.getStatus());
-		soapModel.setStatusByUserId(model.getStatusByUserId());
-		soapModel.setStatusByUserName(model.getStatusByUserName());
-		soapModel.setStatusDate(model.getStatusDate());
-		soapModel.setStatusMessage(model.getStatusMessage());
 
 		return soapModel;
 	}
@@ -282,44 +278,12 @@ public class AccountSoap implements Serializable {
 		_internal = internal;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return _status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		_status = status;
-	}
-
-	public long getStatusByUserId() {
-		return _statusByUserId;
-	}
-
-	public void setStatusByUserId(long statusByUserId) {
-		_statusByUserId = statusByUserId;
-	}
-
-	public String getStatusByUserName() {
-		return _statusByUserName;
-	}
-
-	public void setStatusByUserName(String statusByUserName) {
-		_statusByUserName = statusByUserName;
-	}
-
-	public Date getStatusDate() {
-		return _statusDate;
-	}
-
-	public void setStatusDate(Date statusDate) {
-		_statusDate = statusDate;
-	}
-
-	public String getStatusMessage() {
-		return _statusMessage;
-	}
-
-	public void setStatusMessage(String statusMessage) {
-		_statusMessage = statusMessage;
 	}
 
 	private long _mvccVersion;
@@ -343,10 +307,6 @@ public class AccountSoap implements Serializable {
 	private String _tier;
 	private String _region;
 	private boolean _internal;
-	private int _status;
-	private long _statusByUserId;
-	private String _statusByUserName;
-	private Date _statusDate;
-	private String _statusMessage;
+	private String _status;
 
 }

@@ -76,7 +76,7 @@ public class AccountCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(53);
+		StringBundler sb = new StringBundler(45);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -122,14 +122,6 @@ public class AccountCacheModel
 		sb.append(internal);
 		sb.append(", status=");
 		sb.append(status);
-		sb.append(", statusByUserId=");
-		sb.append(statusByUserId);
-		sb.append(", statusByUserName=");
-		sb.append(statusByUserName);
-		sb.append(", statusDate=");
-		sb.append(statusDate);
-		sb.append(", statusMessage=");
-		sb.append(statusMessage);
 		sb.append("}");
 
 		return sb.toString();
@@ -248,28 +240,12 @@ public class AccountCacheModel
 		}
 
 		accountImpl.setInternal(internal);
-		accountImpl.setStatus(status);
-		accountImpl.setStatusByUserId(statusByUserId);
 
-		if (statusByUserName == null) {
-			accountImpl.setStatusByUserName("");
+		if (status == null) {
+			accountImpl.setStatus("");
 		}
 		else {
-			accountImpl.setStatusByUserName(statusByUserName);
-		}
-
-		if (statusDate == Long.MIN_VALUE) {
-			accountImpl.setStatusDate(null);
-		}
-		else {
-			accountImpl.setStatusDate(new Date(statusDate));
-		}
-
-		if (statusMessage == null) {
-			accountImpl.setStatusMessage("");
-		}
-		else {
-			accountImpl.setStatusMessage(statusMessage);
+			accountImpl.setStatus(status);
 		}
 
 		accountImpl.resetOriginalValues();
@@ -306,13 +282,7 @@ public class AccountCacheModel
 		region = objectInput.readUTF();
 
 		internal = objectInput.readBoolean();
-
-		status = objectInput.readInt();
-
-		statusByUserId = objectInput.readLong();
-		statusByUserName = objectInput.readUTF();
-		statusDate = objectInput.readLong();
-		statusMessage = objectInput.readUTF();
+		status = objectInput.readUTF();
 	}
 
 	@Override
@@ -417,24 +387,11 @@ public class AccountCacheModel
 
 		objectOutput.writeBoolean(internal);
 
-		objectOutput.writeInt(status);
-
-		objectOutput.writeLong(statusByUserId);
-
-		if (statusByUserName == null) {
+		if (status == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(statusByUserName);
-		}
-
-		objectOutput.writeLong(statusDate);
-
-		if (statusMessage == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(statusMessage);
+			objectOutput.writeUTF(status);
 		}
 	}
 
@@ -459,10 +416,6 @@ public class AccountCacheModel
 	public String tier;
 	public String region;
 	public boolean internal;
-	public int status;
-	public long statusByUserId;
-	public String statusByUserName;
-	public long statusDate;
-	public String statusMessage;
+	public String status;
 
 }

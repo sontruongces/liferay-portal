@@ -27,11 +27,7 @@
 		<field name="tier" type="String" />
 		<field name="region" type="String" />
 		<field name="internal" type="boolean" />
-		<field name="status" type="int" />
-		<field name="statusByUserId" type="long" />
-		<field name="statusByUserName" type="String" />
-		<field name="statusDate" type="Date" />
-		<field name="statusMessage" type="String" />
+		<field name="status" type="String" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.AccountNote">
 		<field name="mvccVersion" type="long" />

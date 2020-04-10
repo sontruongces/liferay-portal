@@ -55,7 +55,7 @@ public class AccountLocalServiceUtil {
 			String description, long logoId, String contactEmailAddress,
 			String profileEmailAddress, String phoneNumber, String faxNumber,
 			String website, String tier, String region, boolean internal,
-			int status)
+			String status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addAccount(
@@ -389,15 +389,15 @@ public class AccountLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Account updateAccount(
-			long userId, long accountId, long parentAccountId, String name,
-			String code, String description, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, String tier,
-			String region, boolean internal, int status)
+			long accountId, long parentAccountId, String name, String code,
+			String description, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String tier, String region, boolean internal,
+			String status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateAccount(
-			userId, accountId, parentAccountId, name, code, description, logoId,
+			accountId, parentAccountId, name, code, description, logoId,
 			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
 			website, tier, region, internal, status);
 	}
