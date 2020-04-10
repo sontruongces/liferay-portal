@@ -6,7 +6,9 @@ import {
 	NOTE_FORMAT_HTML,
 	NOTE_FORMAT_PLAIN,
 	NOTE_STATUS_APPROVED,
-	NOTE_STATUS_ARCHIVED
+	NOTE_STATUS_ARCHIVED,
+	NOTE_TYPE_GENERAL,
+	NOTE_TYPE_SALES
 } from '../utilities/constants';
 import ActionMenu from './ActionMenu';
 import AddNote from './AddNote';
@@ -95,6 +97,7 @@ function Note({data}) {
 					onCancel={handleCancel}
 					pinned={data.pinned}
 					status={data.status}
+					type={data.type}
 				/>
 			) : (
 				<section
@@ -119,6 +122,7 @@ Note.propTypes = {
 		pinned: PropTypes.bool.isRequired,
 		status: PropTypes.oneOf([NOTE_STATUS_APPROVED, NOTE_STATUS_ARCHIVED])
 			.isRequired,
+		type: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES]).isRequired,
 		updateNoteURL: PropTypes.string.isRequired
 	}).isRequired
 };

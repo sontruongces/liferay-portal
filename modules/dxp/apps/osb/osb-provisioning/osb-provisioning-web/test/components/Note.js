@@ -16,6 +16,7 @@ function renderNote(props) {
 				key: '123',
 				pinned: true,
 				status: 'Approved',
+				type: 'General',
 				updateNoteURL: '/',
 				...props
 			}}
