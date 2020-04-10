@@ -78,7 +78,9 @@ public class NoteDisplay {
 	}
 
 	public boolean isEdited() {
-		if (_note.getDateModified() != null) {
+		if ((_note.getDateModified() != null) &&
+			_note.getDateModified().after(_note.getDateCreated())) {
+
 			return true;
 		}
 
