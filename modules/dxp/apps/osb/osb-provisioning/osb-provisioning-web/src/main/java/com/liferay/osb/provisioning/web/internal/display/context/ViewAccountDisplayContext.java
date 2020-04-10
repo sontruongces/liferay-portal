@@ -237,16 +237,6 @@ public class ViewAccountDisplayContext {
 		return deleteExternalLinkURL.toString();
 	}
 
-	public String getDeleteNoteURL(String noteKey) {
-		PortletURL deleteNoteURL = renderResponse.createActionURL();
-
-		deleteNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
-		deleteNoteURL.setParameter(Constants.CMD, Constants.DELETE);
-		deleteNoteURL.setParameter("noteKey", noteKey);
-
-		return deleteNoteURL.toString();
-	}
-
 	public String getDeletePostalAddressURL(long postalAddressId) {
 		PortletURL deletePostalAddressURL = renderResponse.createActionURL();
 
@@ -334,8 +324,8 @@ public class ViewAccountDisplayContext {
 					account.getKey(), StringPool.BLANK, StringPool.BLANK, 1,
 					1000),
 				note -> new NoteDisplay(
-					httpServletRequest, note, getUpdateNoteURL(note.getKey()),
-					getDeleteNoteURL(note.getKey()))));
+					httpServletRequest, note, _getUpdateNoteURL(note.getKey()),
+					_getDeleteNoteURL(note.getKey()))));
 
 		return data;
 	}
@@ -422,15 +412,6 @@ public class ViewAccountDisplayContext {
 		return unassignAccountCustomerContactURL.toString();
 	}
 
-	public String getUpdateNoteURL(String noteKey) {
-		PortletURL updateNoteURL = renderResponse.createActionURL();
-
-		updateNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
-		updateNoteURL.setParameter("noteKey", noteKey);
-
-		return updateNoteURL.toString();
-	}
-
 	protected final Account account;
 	protected final AccountDisplay accountDisplay;
 	protected final AccountReader accountReader;
@@ -444,5 +425,24 @@ public class ViewAccountDisplayContext {
 	protected final RenderRequest renderRequest;
 	protected final RenderResponse renderResponse;
 	protected final TeamWebService teamWebService;
+
+	private String _getDeleteNoteURL(String noteKey) {
+		PortletURL deleteNoteURL = renderResponse.createActionURL();
+
+		deleteNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
+		deleteNoteURL.setParameter(Constants.CMD, Constants.DELETE);
+		deleteNoteURL.setParameter("noteKey", noteKey);
+
+		return deleteNoteURL.toString();
+	}
+
+	private String _getUpdateNoteURL(String noteKey) {
+		PortletURL updateNoteURL = renderResponse.createActionURL();
+
+		updateNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
+		updateNoteURL.setParameter("noteKey", noteKey);
+
+		return updateNoteURL.toString();
+	}
 
 }

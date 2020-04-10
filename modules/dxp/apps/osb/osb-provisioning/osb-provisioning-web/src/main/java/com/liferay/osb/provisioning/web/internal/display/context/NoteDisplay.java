@@ -16,6 +16,7 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
 import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -34,10 +35,10 @@ public class NoteDisplay {
 		HttpServletRequest httpServletRequest, Note note, String updateNoteURL,
 		String deleteNoteURL) {
 
-		_deleteNoteURL = deleteNoteURL;
 		_httpServletRequest = httpServletRequest;
 		_note = note;
 		_updateNoteURL = updateNoteURL;
+		_deleteNoteURL = deleteNoteURL;
 
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy hh:mm a");
@@ -92,7 +93,7 @@ public class NoteDisplay {
 
 	public boolean isEdited() {
 		if ((_note.getDateModified() != null) &&
-			_note.getDateModified().after(_note.getDateCreated())) {
+			!DateUtil.equals(_note.getDateModified(), _note.getDateCreated())) {
 
 			return true;
 		}

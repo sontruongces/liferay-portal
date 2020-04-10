@@ -44,7 +44,7 @@ function Note({data}) {
 							{data.createDate}{' '}
 							{data.edited && (
 								<span className="edited">
-									{Liferay.Language.get('edited')}
+									({Liferay.Language.get('edited')})
 								</span>
 							)}
 						</div>
