@@ -311,9 +311,7 @@ public class IconTag extends IncludeTag {
 				httpServletRequest, IconTag.class.getName());
 		}
 
-		id = HtmlUtil.getAUICompatibleId(id);
-
-		return id;
+		return HtmlUtil.getAUICompatibleId(id);
 	}
 
 	protected String getImage() {

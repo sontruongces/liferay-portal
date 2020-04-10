@@ -1064,7 +1064,7 @@ public class CalendarBookingServiceImpl extends CalendarBookingServiceBaseImpl {
 		Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(
 			themeDisplay.getLocale(), timeZone);
 
-		content = StringUtil.replace(
+		return StringUtil.replace(
 			content,
 			new String[] {
 				"[$EVENT_DESCRIPTION$]", "[$EVENT_END_DATE$]",
@@ -1077,8 +1077,6 @@ public class CalendarBookingServiceImpl extends CalendarBookingServiceBaseImpl {
 				dateFormatDateTime.format(calendarBooking.getStartTime()),
 				calendarBooking.getTitle(themeDisplay.getLocale())
 			});
-
-		return content;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

@@ -145,9 +145,7 @@ public class MBMessageModelDocumentContributor
 				exception);
 		}
 
-		content = HtmlUtil.extractText(content);
-
-		return content;
+		return HtmlUtil.extractText(content);
 	}
 
 	@Reference

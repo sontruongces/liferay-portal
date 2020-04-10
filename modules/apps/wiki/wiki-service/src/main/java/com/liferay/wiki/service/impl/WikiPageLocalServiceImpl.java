@@ -276,9 +276,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 		// Workflow
 
-		page = _startWorkflowInstance(userId, page, serviceContext);
-
-		return page;
+		return _startWorkflowInstance(userId, page, serviceContext);
 	}
 
 	@Override
@@ -3408,9 +3406,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 		// Workflow
 
-		page = _startWorkflowInstance(userId, page, serviceContext);
-
-		return page;
+		return _startWorkflowInstance(userId, page, serviceContext);
 	}
 
 	private void _validate(long nodeId, String content, String format)

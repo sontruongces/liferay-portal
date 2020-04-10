@@ -118,7 +118,7 @@ public class DateRangeFactory {
 		DateFormat dateFormat = _dateFormatFactory.getSimpleDateFormat(
 			"yyyyMMddHHmmss");
 
-		rangeString = StringUtil.replace(
+		return StringUtil.replace(
 			rangeString, _ALIASES,
 			new String[] {
 				dateFormat.format(pastHour.getTime()),
@@ -128,8 +128,6 @@ public class DateRangeFactory {
 				dateFormat.format(pastYear.getTime()),
 				dateFormat.format(now.getTime())
 			});
-
-		return rangeString;
 	}
 
 	public void validateRange(String ranges)
