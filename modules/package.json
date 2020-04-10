@@ -52,8 +52,9 @@
 			"apps/portal-portlet-bridge/portal-portlet-bridge-soy-impl",
 			"apps/portal-template/portal-template-react-renderer-impl",
 			"apps/product-navigation/product-navigation-simulation-device",
-			"dxp/apps/*/*-taglib",
-			"dxp/apps/*/*-web"
+			"dxp/apps/**/*-taglib",
+			"dxp/apps/**/*-theme",
+			"dxp/apps/**/*-web"
 		]
 	}
 }
