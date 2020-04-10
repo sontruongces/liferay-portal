@@ -49,7 +49,11 @@ function AddNote({
 						setNoteContent(event.currentTarget.value)
 					}
 					onClick={() => setShowButtons(true)}
-					placeholder={Liferay.Language.get('write-a-note')}
+					placeholder={
+						type === NOTE_TYPE_GENERAL
+							? Liferay.Language.get('write-a-note')
+							: Liferay.Language.get('write-sales-info')
+					}
 					value={noteContent}
 				/>
 			</label>

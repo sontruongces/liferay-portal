@@ -16,13 +16,15 @@ import React, {useEffect, useState} from 'react';
 import ExternalLinksTabPane from './ExternalLinksTabPane';
 import IconButton from './IconButton';
 import NotesTabPane from './NotesTabPane';
-import SalesInfoTabPane from './SalesInfoTabPane';
+
+const NOTE_TYPE_GENERAL = window.ProvisioningConstants.noteType.general;
+const NOTE_TYPE_SALES = window.ProvisioningConstants.noteType.sales;
 
 function CollapsiblePanel({addNoteURL, handleCollapse, notes = []}) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
-	const generalNotes = notes.filter(note => note.type === 'General');
-	const salesNotes = notes.filter(note => note.type === 'Sales');
+	const generalNotes = notes.filter(note => note.type === NOTE_TYPE_GENERAL);
+	const salesNotes = notes.filter(note => note.type === NOTE_TYPE_SALES);
 
 	return (
 		<>
@@ -71,10 +73,18 @@ function CollapsiblePanel({addNoteURL, handleCollapse, notes = []}) {
 
 			<ClayTabs.Content activeIndex={activeIndex}>
 				<ClayTabs.TabPane id="tabPaneNotes">
-					<NotesTabPane addURL={addNoteURL} notes={generalNotes} />
+					<NotesTabPane
+						addURL={addNoteURL}
+						notes={generalNotes}
+						tabType={NOTE_TYPE_GENERAL}
+					/>
 				</ClayTabs.TabPane>
 				<ClayTabs.TabPane id="tabPaneSalesInfo">
-					<SalesInfoTabPane addURL={addNoteURL} notes={salesNotes} />
+					<NotesTabPane
+						addURL={addNoteURL}
+						notes={salesNotes}
+						tabType={NOTE_TYPE_SALES}
+					/>
 				</ClayTabs.TabPane>
 				<ClayTabs.TabPane id="tabPaneExternalLinks">
 					<ExternalLinksTabPane />

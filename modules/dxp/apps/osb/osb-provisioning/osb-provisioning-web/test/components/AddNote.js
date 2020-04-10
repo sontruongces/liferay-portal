@@ -3,12 +3,14 @@ import React from 'react';
 
 import AddNote from '../../src/main/resources/META-INF/resources/js/components/AddNote';
 
-function renderAddNote() {
-	return render(<AddNote actionURL="add url" />);
+function renderAddNote(props) {
+	return render(<AddNote actionURL="add url" {...props} />);
 }
 
-function renderEditNote() {
-	return render(<AddNote actionURL="edit url" content="test content" />);
+function renderEditNote(props) {
+	return render(
+		<AddNote actionURL="edit url" content="test content" {...props} />
+	);
 }
 
 describe('New Note', () => {
@@ -24,6 +26,12 @@ describe('New Note', () => {
 		const {getByPlaceholderText} = renderAddNote();
 
 		getByPlaceholderText('write-a-note');
+	});
+
+	it('displays a different textarea placeholder for Sales notes', () => {
+		const {getByPlaceholderText} = renderAddNote({type: 'Sales'});
+
+		getByPlaceholderText('write-sales-info');
 	});
 
 	it('displays a "Cancel" button when the textarea for adding a new note is focused', () => {

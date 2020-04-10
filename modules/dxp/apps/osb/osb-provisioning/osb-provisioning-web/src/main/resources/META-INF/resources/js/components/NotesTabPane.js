@@ -15,46 +15,66 @@ import React, {useState} from 'react';
 import AddNote from './AddNote';
 import Note from './Note';
 
-function ApprovedNotes({addURL, hasArchive, onClick, pinned, unpinned}) {
+const NOTE_TYPE_GENERAL = window.ProvisioningConstants.noteType.general;
+const NOTE_TYPE_SALES = window.ProvisioningConstants.noteType.sales;
+
+function ApprovedGeneralNotes({notes}) {
+	const pinned = notes.filter(note => note.pinned);
+	const unpinned = notes.filter(note => !note.pinned);
+
 	return (
 		<>
-			<AddNote addURL={addURL} />
+			{!!pinned.length && (
+				<div className="pinned-notes">
+					<div className="notes-section-header">
+						<svg
+							aria-label={Liferay.Language.get(
+								'pinned-notes-icon'
+							)}
+						>
+							<use xlinkHref="#pin" />
+						</svg>
+						{Liferay.Language.get('pinned')}
+					</div>
+
+					{pinned.map(note => (
+						<Note data={note} key={note.key} />
+					))}
+				</div>
+			)}
+
+			{!!unpinned.length && (
+				<div className="general-notes">
+					<div className="notes-section-header">
+						{Liferay.Language.get('general')}
+					</div>
+
+					{unpinned.map(note => (
+						<Note data={note} key={note.key} />
+					))}
+				</div>
+			)}
+		</>
+	);
+}
+
+function ApprovedNotes({addURL, hasArchive, notes, onClick, tabType}) {
+	return (
+		<>
+			<AddNote actionURL={addURL} type={tabType} />
 
 			<div className="notes">
-				{!!pinned.length && (
-					<div className="pinned-notes">
-						<div className="notes-section-header">
-							<svg
-								aria-label={Liferay.Language.get(
-									'pinned-notes-icon'
-								)}
-							>
-								<use xlinkHref="#pin" />
-							</svg>
-							{Liferay.Language.get('pinned')}
-						</div>
-
-						{pinned.map(note => (
-							<Note data={note} key={note.key} />
-						))}
-					</div>
+				{tabType === NOTE_TYPE_GENERAL ? (
+					<ApprovedGeneralNotes notes={notes} />
+				) : (
+					notes.map(note => <Note data={note} key={note.key} />)
 				)}
 
-				{!!unpinned.length && (
-					<div className="general-notes">
-						<div className="notes-section-header">
-							{Liferay.Language.get('general')}
-						</div>
-
-						{unpinned.map(note => (
-							<Note data={note} key={note.key} />
-						))}
-					</div>
-				)}
-
-				{!pinned.length && !unpinned.length && (
+				{!notes.length && (
 					<div className="empty-state">
-						{Liferay.Language.get('no-notes-were-found')}
+						{tabType === NOTE_TYPE_GENERAL
+							? Liferay.Language.get('no-notes-were-found')
+							: Liferay.Language.get('no-sales-info-were-found')}
 					</div>
 				)}
 			</div>
@@ -109,7 +129,7 @@ function ArchivedNotes({notes, onClick}) {
 	);
 }
 
-function NotesTabPane({addURL, notes = []}) {
+function NotesTabPane({addURL, notes = [], tabType}) {
 	const [viewArchive, setViewArchive] = useState(false);
 
 	const handleViewArchive = bool => {
@@ -119,9 +139,6 @@ function NotesTabPane({addURL, notes = []}) {
 	const approved = notes.filter(note => note.status === 'Approved');
 	const archived = notes.filter(note => note.status === 'Archived');
 
-	const pinned = approved.filter(note => note.pinned);
-	const unpinned = approved.filter(note => !note.pinned);
-
 	return (
 		<div className="notes-container">
 			{viewArchive ? (
@@ -130,9 +147,9 @@ function NotesTabPane({addURL, notes = []}) {
 				<ApprovedNotes
 					addURL={addURL}
 					hasArchive={!!archived.length}
+					notes={approved}
 					onClick={handleViewArchive}
-					pinned={pinned}
-					unpinned={unpinned}
+					tabType={tabType}
 				/>
 			)}
 		</div>
@@ -155,7 +172,8 @@ NotesTabPane.propTypes = {
 			type: PropTypes.string.isRequired,
 			updateNoteURL: PropTypes.string.isRequired
 		})
-	)
+	),
+	tabType: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES]).isRequired
 };
 
 export default NotesTabPane;

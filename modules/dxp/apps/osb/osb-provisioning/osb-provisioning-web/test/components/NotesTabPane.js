@@ -14,7 +14,7 @@ import React from 'react';
 
 import NotesTabPane from '../../src/main/resources/META-INF/resources/js/components/NotesTabPane';
 
-function renderNotesTabPane() {
+function renderNotesTabPane(props) {
 	return render(
 		<NotesTabPane
 			addURL="/"
@@ -59,6 +59,8 @@ function renderNotesTabPane() {
 					updateNoteURL: '/'
 				}
 			]}
+			tabType="General"
+			{...props}
 		/>
 	);
 }
@@ -73,18 +75,29 @@ describe('NotesTabPane', () => {
 	});
 
 	describe('approved notes', () => {
-		it('displays a pinned note', () => {
+		it('displays a pinned general note in a "Pinned" section', () => {
 			const {getByText} = renderNotesTabPane();
 
 			getByText('pinned');
 			getByText('pinned note');
 		});
 
-		it('displays an approved general note', () => {
+		it('displays an approved general note in a "General" section', () => {
 			const {getByText} = renderNotesTabPane();
 
 			getByText('general');
 			getByText('unpinned note');
+		});
+
+		it('displays a sales note with no special section', () => {
+			const {getByText, queryByText} = renderNotesTabPane({
+				tabType: 'Sales'
+			});
+
+			getByText('pinned note');
+			getByText('unpinned note');
+			expect(queryByText('pinned')).toBeFalsy();
+			expect(queryByText('general')).toBeFalsy();
 		});
 
 		it('displays a button to view archived notes when there are archives', () => {
@@ -111,18 +124,25 @@ describe('NotesTabPane', () => {
 							updateNoteURL: '/'
 						}
 					]}
+					tabType="General"
 				/>
 			);
 
 			expect(queryByText('view-archived-notes')).toBeNull();
 		});
 
-		it('displays a message when there is no data', () => {
-			const {container} = render(<NotesTabPane />);
+		it('displays a message when there is no data for general notes', () => {
+			const {container} = render(<NotesTabPane tabType="General" />);
 
 			expect(container.querySelector('.empty-state').textContent).toEqual(
 				'no-notes-were-found'
 			);
+		});
+
+		it('displays a message when there is no data for sales notes', () => {
+			const {container} = render(<NotesTabPane tabType="Sales" />);
+
+			expect(container.textContent).toEqual('no-sales-info-were-found');
 		});
 	});
 
