@@ -18,7 +18,6 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.odata.entity.CollectionEntityField;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
-import com.liferay.portal.odata.entity.IntegerEntityField;
 import com.liferay.portal.odata.entity.StringEntityField;
 
 import java.util.Map;
@@ -35,6 +34,7 @@ public class AccountEntityModel implements EntityModel {
 
 	public AccountEntityModel() {
 		_entityFieldsMap = Stream.of(
+			new StringEntityField("accountKey", locale -> "accountKey"),
 			new EntityField(
 				"code", EntityField.Type.STRING,
 				locale -> Field.getSortableFieldName("code_String"),
@@ -68,12 +68,12 @@ public class AccountEntityModel implements EntityModel {
 					"externalLinkEntityNames",
 					locale -> "externalLinkEntityNames")),
 			new StringEntityField("name", locale -> "name"),
-			new IntegerEntityField("status", locale -> "status"),
 			new StringEntityField(
 				"parentAccountKey", locale -> "parentAccountKey"),
 			new CollectionEntityField(
 				new StringEntityField(
-					"productKeys", locale -> "productEntryKeys"))
+					"productKeys", locale -> "productEntryKeys")),
+			new StringEntityField("status", locale -> "status")
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);

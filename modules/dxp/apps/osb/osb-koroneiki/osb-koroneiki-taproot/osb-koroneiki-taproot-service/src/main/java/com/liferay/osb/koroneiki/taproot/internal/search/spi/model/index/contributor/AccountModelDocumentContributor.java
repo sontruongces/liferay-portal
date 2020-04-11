@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
 
 import java.util.HashSet;
@@ -73,7 +74,8 @@ public class AccountModelDocumentContributor
 		document.addText(Field.DESCRIPTION, account.getDescription());
 		document.addDate(Field.MODIFIED_DATE, account.getModifiedDate());
 		document.addText(Field.NAME, account.getName());
-		document.addKeyword(Field.STATUS, account.getStatus());
+		document.addKeyword(
+			Field.STATUS, StringUtil.toLowerCase(account.getStatus()));
 		document.addKeyword(Field.USER_ID, account.getUserId());
 
 		document.addKeyword("accountKey", account.getAccountKey());
@@ -82,6 +84,14 @@ public class AccountModelDocumentContributor
 			"contactEmailAddress", account.getContactEmailAddress());
 		document.addKeyword("faxNumber", account.getFaxNumber());
 		document.addKeyword("internal", account.isInternal());
+
+		Account parentAccount = account.getParentAccount();
+
+		if (parentAccount != null) {
+			document.addKeyword(
+				"parentAccountKey", parentAccount.getAccountKey());
+		}
+
 		document.addKeyword("phoneNumber", account.getPhoneNumber());
 		document.addKeyword(
 			"profileEmailAddress", account.getProfileEmailAddress());

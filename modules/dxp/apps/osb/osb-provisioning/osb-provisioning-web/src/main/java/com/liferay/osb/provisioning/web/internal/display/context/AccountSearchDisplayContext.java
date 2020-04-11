@@ -20,7 +20,6 @@ import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
@@ -55,14 +54,8 @@ public class AccountSearchDisplayContext {
 
 		String keywords = ParamUtil.getString(_renderRequest, "keywords");
 
-		String filterString = StringPool.BLANK;
-
-		if (Validator.isNotNull(keywords)) {
-			filterString = "name eq '" + keywords + "'";
-		}
-
 		List<Account> accounts = _accountWebService.search(
-			filterString, searchContainer.getCur(),
+			keywords, StringPool.BLANK, searchContainer.getCur(),
 			searchContainer.getEnd() - searchContainer.getStart(), null);
 
 		searchContainer.setResults(
@@ -71,7 +64,8 @@ public class AccountSearchDisplayContext {
 				account -> new AccountDisplay(
 					_httpServletRequest, _accountReader, account)));
 
-		int count = (int)_accountWebService.searchCount(filterString);
+		int count = (int)_accountWebService.searchCount(
+			keywords, StringPool.BLANK);
 
 		searchContainer.setTotal(count);
 

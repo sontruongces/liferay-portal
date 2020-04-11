@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
+import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.AuditEntryWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
@@ -49,6 +50,7 @@ public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
 	public ViewTeamDisplayContext(
 			RenderRequest renderRequest, RenderResponse renderResponse,
 			HttpServletRequest httpServletRequest, AccountReader accountReader,
+			AccountWebService accountWebService,
 			AuditEntryWebService auditEntryWebService,
 			ContactRoleWebService contactRoleWebService,
 			ContactWebService contactWebService,
@@ -60,8 +62,8 @@ public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
 
 		super(
 			renderRequest, renderResponse, httpServletRequest, accountReader,
-			auditEntryWebService, contactRoleWebService, contactWebService,
-			externalLinkWebService, noteWebService,
+			accountWebService, auditEntryWebService, contactRoleWebService,
+			contactWebService, externalLinkWebService, noteWebService,
 			productPurchaseViewWebService, teamWebService);
 
 		_team = (Team)renderRequest.getAttribute(ProvisioningWebKeys.TEAM);

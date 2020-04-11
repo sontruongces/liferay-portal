@@ -75,10 +75,10 @@ renderResponse.setTitle(koroneikiAccount.getName());
 					value="<%= curAccount.getDescription() %>"
 				/>
 
-				<liferay-ui:search-container-column-status
+				<liferay-ui:search-container-column-text
 					href="<%= rowURL %>"
 					name="status"
-					status="<%= curAccount.getStatus() %>"
+					value="<%= curAccount.getStatus() %>"
 				/>
 			</liferay-ui:search-container-row>
 

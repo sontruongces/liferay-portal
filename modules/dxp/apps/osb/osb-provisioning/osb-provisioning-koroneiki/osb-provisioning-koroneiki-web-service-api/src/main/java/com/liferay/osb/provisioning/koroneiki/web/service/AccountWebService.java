@@ -42,10 +42,12 @@ public interface AccountWebService {
 	public Account getAccount(String accountKey) throws Exception;
 
 	public List<Account> search(
-			String filterString, int page, int pageSize, String sortString)
+			String search, String filterString, int page, int pageSize,
+			String sortString)
 		throws Exception;
 
-	public long searchCount(String filterString) throws Exception;
+	public long searchCount(String search, String filterString)
+		throws Exception;
 
 	public void unassignContactRoles(
 			String agentName, String agentUID, String accountKey,

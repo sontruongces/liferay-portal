@@ -110,8 +110,8 @@ public class ProvisioningWebComponentProvider {
 
 		viewAccountDisplayContext = new ViewAccountDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
-			_auditEntryWebService, _contactRoleWebService, _contactWebService,
-			_externalLinkWebService, _noteWebService,
+			_accountWebService, _auditEntryWebService, _contactRoleWebService,
+			_contactWebService, _externalLinkWebService, _noteWebService,
 			_productPurchaseViewWebService, _teamWebService);
 
 		httpServletRequest.setAttribute(
@@ -136,8 +136,8 @@ public class ProvisioningWebComponentProvider {
 
 		viewTeamDisplayContext = new ViewTeamDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
-			_auditEntryWebService, _contactRoleWebService, _contactWebService,
-			_externalLinkWebService, _noteWebService,
+			_accountWebService, _auditEntryWebService, _contactRoleWebService,
+			_contactWebService, _externalLinkWebService, _noteWebService,
 			_productPurchaseViewWebService, _teamWebService);
 
 		httpServletRequest.setAttribute(

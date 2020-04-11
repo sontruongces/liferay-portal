@@ -32,11 +32,7 @@
 		<column name="tier" type="String" />
 		<column name="region" type="String" />
 		<column name="internal" type="boolean" />
-		<column name="status" type="int" />
-		<column name="statusByUserId" type="long" />
-		<column name="statusByUserName" type="String" />
-		<column name="statusDate" type="Date" />
-		<column name="statusMessage" type="String" />
+		<column name="status" type="String" />
 
 		<!-- Finder methods -->
 

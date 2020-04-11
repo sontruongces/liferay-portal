@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Status;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -32,14 +33,13 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -87,11 +87,15 @@ public class CorpEntryMigration {
 				account.setPhoneNumber(resultSet.getString("phoneNumber"));
 				account.setFaxNumber(resultSet.getString("faxNumber"));
 				account.setWebsite(resultSet.getString("website"));
-				account.setStatus(resultSet.getInt("status"));
-				account.setStatusByUserId(userId);
-				account.setStatusByUserName(user.getFullName());
-				account.setStatusDate(new Date());
-				account.setStatusMessage(StringPool.BLANK);
+
+				int status = resultSet.getInt("status");
+
+				if (status == WorkflowConstants.STATUS_EXPIRED) {
+					account.setStatus(Status.EXPIRED.toString());
+				}
+				else {
+					account.setStatus(Status.APPROVED.toString());
+				}
 
 				_accountLocalService.addAccount(account);
 

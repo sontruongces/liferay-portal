@@ -24,7 +24,6 @@ import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.AccountLocalServiceBaseImpl;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -43,7 +42,6 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +81,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			String description, long logoId, String contactEmailAddress,
 			String profileEmailAddress, String phoneNumber, String faxNumber,
 			String website, String tier, String region, boolean internal,
-			int status)
+			String status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -91,6 +89,12 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		code = StringUtil.toUpperCase(code);
 
 		validate(0, name, code);
+
+		if (Validator.isNull(status)) {
+			status =
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Status.
+					APPROVED.toString();
+		}
 
 		long accountId = counterLocalService.increment();
 
@@ -113,10 +117,6 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setRegion(region);
 		account.setInternal(internal);
 		account.setStatus(status);
-		account.setStatusByUserId(userId);
-		account.setStatusByUserName(user.getFullName());
-		account.setStatusDate(new Date());
-		account.setStatusMessage(StringPool.BLANK);
 
 		account = accountPersistence.update(account);
 
@@ -266,14 +266,12 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Account updateAccount(
-			long userId, long accountId, long parentAccountId, String name,
-			String code, String description, long logoId,
-			String contactEmailAddress, String profileEmailAddress,
-			String phoneNumber, String faxNumber, String website, String tier,
-			String region, boolean internal, int status)
+			long accountId, long parentAccountId, String name, String code,
+			String description, long logoId, String contactEmailAddress,
+			String profileEmailAddress, String phoneNumber, String faxNumber,
+			String website, String tier, String region, boolean internal,
+			String status)
 		throws PortalException {
-
-		User user = userLocalService.getUser(userId);
 
 		code = StringUtil.toUpperCase(code);
 
@@ -294,14 +292,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setTier(tier);
 		account.setRegion(region);
 		account.setInternal(internal);
-
-		if (status != account.getStatus()) {
-			account.setStatus(status);
-			account.setStatusByUserId(userId);
-			account.setStatusByUserName(user.getFullName());
-			account.setStatusDate(new Date());
-			account.setStatusMessage(StringPool.BLANK);
-		}
+		account.setStatus(status);
 
 		account = accountPersistence.update(account);
 

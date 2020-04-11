@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Status;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Tier;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
@@ -34,7 +35,6 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -114,11 +114,7 @@ public class CorpProjectMigration {
 				account.setRegion(
 					_getRegion(resultSet.getLong("supportRegionId")));
 				account.setInternal(_getInternal(resultSet.getInt("type_")));
-				account.setStatus(WorkflowConstants.STATUS_APPROVED);
-				account.setStatusByUserId(userId);
-				account.setStatusByUserName(user.getFullName());
-				account.setStatusDate(new Date());
-				account.setStatusMessage(StringPool.BLANK);
+				account.setStatus(Status.APPROVED.toString());
 
 				_accountLocalService.addAccount(account);
 

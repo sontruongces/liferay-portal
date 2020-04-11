@@ -110,7 +110,7 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 		String tier = ParamUtil.getString(actionRequest, "tier");
 		String region = ParamUtil.getString(actionRequest, "region");
 		boolean internal = ParamUtil.getBoolean(actionRequest, "internal");
-		int status = ParamUtil.getInteger(actionRequest, "status");
+		String status = ParamUtil.getString(actionRequest, "status");
 
 		Account account = null;
 

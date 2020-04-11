@@ -48,7 +48,7 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			long parentAccountId, String name, String code, String description,
 			long logoId, String contactEmailAddress, String profileEmailAddress,
 			String phoneNumber, String faxNumber, String website, String tier,
-			String region, boolean internal, int status)
+			String region, boolean internal, String status)
 		throws PortalException {
 
 		_accountPermission.check(
@@ -171,16 +171,16 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			String description, long logoId, String contactEmailAddress,
 			String profileEmailAddress, String phoneNumber, String faxNumber,
 			String website, String tier, String region, boolean internal,
-			int status)
+			String status)
 		throws PortalException {
 
 		_accountPermission.check(
 			getPermissionChecker(), accountId, ActionKeys.UPDATE);
 
 		return accountLocalService.updateAccount(
-			getUserId(), accountId, parentAccountId, name, code, description,
-			logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
-			faxNumber, website, tier, region, internal, status);
+			accountId, parentAccountId, name, code, description, logoId,
+			contactEmailAddress, profileEmailAddress, phoneNumber, faxNumber,
+			website, tier, region, internal, status);
 	}
 
 	public Account updateAccount(
@@ -188,7 +188,7 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			String description, long logoId, String contactEmailAddress,
 			String profileEmailAddress, String phoneNumber, String faxNumber,
 			String website, String tier, String region, boolean internal,
-			int status)
+			String status)
 		throws PortalException {
 
 		Account account = accountLocalService.getAccount(accountKey);
@@ -197,9 +197,9 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 			getPermissionChecker(), account, ActionKeys.UPDATE);
 
 		return accountLocalService.updateAccount(
-			getUserId(), account.getAccountId(), parentAccountId, name, code,
-			description, logoId, contactEmailAddress, profileEmailAddress,
-			phoneNumber, faxNumber, website, tier, region, internal, status);
+			account.getAccountId(), parentAccountId, name, code, description,
+			logoId, contactEmailAddress, profileEmailAddress, phoneNumber,
+			faxNumber, website, tier, region, internal, status);
 	}
 
 	@Reference

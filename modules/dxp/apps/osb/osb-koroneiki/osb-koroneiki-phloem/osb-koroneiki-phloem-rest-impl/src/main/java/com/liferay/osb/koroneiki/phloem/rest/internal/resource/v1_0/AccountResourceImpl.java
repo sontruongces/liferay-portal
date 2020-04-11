@@ -33,7 +33,6 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.PostalAddressResource
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseResource;
 import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
-import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.AccountService;
@@ -437,12 +436,12 @@ public class AccountResourceImpl
 		boolean internal = GetterUtil.getBoolean(
 			account.getInternal(), curAccount.getInternal());
 
-		int status = curAccount.getStatus();
+		String status = curAccount.getStatus();
 
 		Account.Status accountStatus = account.getStatus();
 
 		if (accountStatus != null) {
-			status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+			status = accountStatus.toString();
 		}
 
 		return AccountUtil.toAccount(
@@ -607,12 +606,12 @@ public class AccountResourceImpl
 			region = accountRegion.toString();
 		}
 
-		int status = WorkflowConstants.STATUS_APPROVED;
+		String status = Account.Status.APPROVED.toString();
 
 		Account.Status accountStatus = account.getStatus();
 
 		if (accountStatus != null) {
-			status = WorkflowConstants.getLabelStatus(accountStatus.toString());
+			status = accountStatus.toString();
 		}
 
 		Account curAccount = AccountUtil.toAccount(

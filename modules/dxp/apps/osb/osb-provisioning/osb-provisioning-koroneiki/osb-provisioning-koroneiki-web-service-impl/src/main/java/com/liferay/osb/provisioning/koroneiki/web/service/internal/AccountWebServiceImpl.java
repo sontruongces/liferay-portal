@@ -87,12 +87,12 @@ public class AccountWebServiceImpl implements AccountWebService {
 	}
 
 	public List<Account> search(
-			String filterString, int page, int pageSize, String sortString)
+			String search, String filterString, int page, int pageSize,
+			String sortString)
 		throws Exception {
 
 		Page<Account> accountsPage = _accountResource.getAccountsPage(
-			StringPool.BLANK, filterString, Pagination.of(page, pageSize),
-			sortString);
+			search, filterString, Pagination.of(page, pageSize), sortString);
 
 		if ((accountsPage != null) && (accountsPage.getItems() != null)) {
 			return new ArrayList<>(accountsPage.getItems());
@@ -101,10 +101,11 @@ public class AccountWebServiceImpl implements AccountWebService {
 		return Collections.emptyList();
 	}
 
-	public long searchCount(String filterString) throws Exception {
+	public long searchCount(String search, String filterString)
+		throws Exception {
+
 		Page<Account> accountsPage = _accountResource.getAccountsPage(
-			StringPool.BLANK, filterString, Pagination.of(1, 1),
-			StringPool.BLANK);
+			search, filterString, Pagination.of(1, 1), StringPool.BLANK);
 
 		if (accountsPage != null) {
 			return accountsPage.getTotalCount();

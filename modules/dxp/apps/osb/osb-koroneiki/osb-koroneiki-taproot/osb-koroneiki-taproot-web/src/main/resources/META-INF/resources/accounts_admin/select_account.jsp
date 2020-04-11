@@ -58,9 +58,9 @@ ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplay
 				value="<%= koroneikiAccount.getDescription() %>"
 			/>
 
-			<liferay-ui:search-container-column-status
+			<liferay-ui:search-container-column-text
 				name="status"
-				status="<%= koroneikiAccount.getStatus() %>"
+				value="<%= koroneikiAccount.getStatus() %>"
 			/>
 
 			<liferay-ui:search-container-column-text>

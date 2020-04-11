@@ -57,7 +57,7 @@ public class AccountUtil {
 					PostalAddress.class);
 				profileEmailAddress = account.getProfileEmailAddress();
 				region = Region.create(account.getRegion());
-				status = Status.create(account.getStatusLabel());
+				status = Status.create(account.getStatus());
 				tier = Tier.create(account.getTier());
 				website = account.getWebsite();
 			}

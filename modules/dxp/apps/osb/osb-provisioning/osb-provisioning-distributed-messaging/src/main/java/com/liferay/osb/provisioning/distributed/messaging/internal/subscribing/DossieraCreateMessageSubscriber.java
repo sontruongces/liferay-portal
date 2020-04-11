@@ -515,7 +515,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 	private boolean _isDuplicateCode(String code) throws Exception {
 		List<Account> accounts = _accountWebService.search(
-			"code eq '" + code + "'", 1, 1, null);
+			StringPool.BLANK, "code eq '" + code + "'", 1, 1, null);
 
 		if (!accounts.isEmpty()) {
 			return true;

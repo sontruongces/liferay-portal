@@ -18,7 +18,6 @@ import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
 import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalServiceUtil;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
-import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalServiceUtil;
@@ -71,10 +70,6 @@ public class AccountImpl extends AccountBaseImpl {
 		}
 
 		return AccountLocalServiceUtil.getAccount(getParentAccountId());
-	}
-
-	public String getStatusLabel() {
-		return WorkflowConstants.getStatusLabel(getStatus());
 	}
 
 }

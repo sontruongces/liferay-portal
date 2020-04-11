@@ -74,7 +74,7 @@ ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplay
 				href="<%= rowURL %>"
 				name="status"
 			>
-				<span class="label label-sm label-<%= StringUtil.lowerCase(koroneikiAccount.getStatusLabel()) %>"><%= StringUtil.lowerCase(koroneikiAccount.getStatusLabel()) %></span>
+				<span class="label label-sm label-<%= StringUtil.lowerCase(koroneikiAccount.getStatus()) %>"><%= StringUtil.lowerCase(koroneikiAccount.getStatus()) %></span>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-jsp
