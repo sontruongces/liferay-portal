@@ -4,7 +4,9 @@ import React from 'react';
 
 import {
 	NOTE_STATUS_APPROVED,
-	NOTE_STATUS_ARCHIVED
+	NOTE_STATUS_ARCHIVED,
+	NOTE_TYPE_GENERAL,
+	NOTE_TYPE_SALES
 } from '../utilities/constants';
 
 function PanelDropdownMenu({
@@ -13,7 +15,8 @@ function PanelDropdownMenu({
 	onEdit,
 	onPinning,
 	pinned = false,
-	status = NOTE_STATUS_APPROVED
+	status = NOTE_STATUS_APPROVED,
+	tabType = NOTE_TYPE_GENERAL
 }) {
 	const generateDropdownItems = () => {
 		const dropdownItems = [];
@@ -23,12 +26,16 @@ function PanelDropdownMenu({
 				label: Liferay.Language.get('edit'),
 				onClick: onEdit
 			});
-			dropdownItems.push({
-				label: pinned
-					? Liferay.Language.get('unpin')
-					: Liferay.Language.get('pin'),
-				onClick: onPinning
-			});
+
+			if (tabType === NOTE_TYPE_GENERAL) {
+				dropdownItems.push({
+					label: pinned
+						? Liferay.Language.get('unpin')
+						: Liferay.Language.get('pin'),
+					onClick: onPinning
+				});
+			}
+
 			dropdownItems.push({
 				label: Liferay.Language.get('archive'),
 				onClick: onArchive
@@ -73,7 +80,8 @@ PanelDropdownMenu.propTypes = {
 	id: PropTypes.string.isRequired,
 	onEdit: PropTypes.func.isRequired,
 	pinned: PropTypes.bool,
-	status: PropTypes.oneOf([NOTE_STATUS_APPROVED, NOTE_STATUS_ARCHIVED])
+	status: PropTypes.oneOf([NOTE_STATUS_APPROVED, NOTE_STATUS_ARCHIVED]),
+	tabType: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
 };
 
 export default PanelDropdownMenu;

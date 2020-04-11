@@ -36,7 +36,7 @@ describe('PanelDropdownMenu', () => {
 		getByText('edit');
 	});
 
-	it('shows "Pin" as a dropdown menu option for an unarchived note that has not been pinned', () => {
+	it('shows "Pin" as a dropdown menu option for an unarchived note that has not been pinned on General tab', () => {
 		const {
 			getByLabelText,
 			getByText,
@@ -49,7 +49,7 @@ describe('PanelDropdownMenu', () => {
 		expect(queryByText('unpin')).toBeFalsy();
 	});
 
-	it('shows "Unpin" as a dropdown menu option for an unarchived note that has been pinned', () => {
+	it('shows "Unpin" as a dropdown menu option for an unarchived note that has been pinned on General tab', () => {
 		const {
 			getByLabelText,
 			getByText,
@@ -62,6 +62,17 @@ describe('PanelDropdownMenu', () => {
 
 		getByText('unpin');
 		expect(queryByText('pin')).toBeFalsy();
+	});
+
+	it('shows no "Pin" or "Unpin" dropdown option for an unarchived note on Sales Info tab', () => {
+		const {getByLabelText, queryByText} = renderPanelDropdownMenu({
+			tabType: 'Sales'
+		});
+
+		fireEvent.click(getByLabelText('action-menu-icon'));
+
+		expect(queryByText('pin')).toBeFalsy();
+		expect(queryByText('unpin')).toBeFalsy();
 	});
 
 	it('shows "Archive" as a dropdown menu option for an unarchived note', () => {

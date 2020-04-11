@@ -85,6 +85,6 @@ describe('Note', () => {
 	it('displays the "edited" text next to the date of the note that has been modified', () => {
 		const {getByText} = renderNote({edited: true});
 
-		getByText('edited');
+		getByText('(edited)');
 	});
 });

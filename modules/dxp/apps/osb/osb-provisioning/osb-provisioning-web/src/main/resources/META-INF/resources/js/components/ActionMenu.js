@@ -2,9 +2,15 @@ import {ClayTooltipProvider} from '@clayui/tooltip';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {NOTE_TYPE_GENERAL, NOTE_TYPE_SALES} from '../utilities/constants';
 import IconButton from './IconButton';
 
-function ActionMenu({onEdit, onPinning, pinned = false}) {
+function ActionMenu({
+	onEdit,
+	onPinning,
+	pinned = false,
+	tabType = NOTE_TYPE_GENERAL
+}) {
 	return (
 		<>
 			<ClayTooltipProvider>
@@ -17,6 +23,23 @@ function ActionMenu({onEdit, onPinning, pinned = false}) {
 				/>
 			</ClayTooltipProvider>
 
+			{tabType === NOTE_TYPE_GENERAL && (
+				<Pinning onPinning={onPinning} pinned={pinned} />
+			)}
+		</>
+	);
+}
+
+ActionMenu.propTypes = {
+	onEdit: PropTypes.func,
+	onPinning: PropTypes.func,
+	pinned: PropTypes.bool,
+	tabType: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
+};
+
+function Pinning({onPinning, pinned}) {
+	return (
+		<>
 			{pinned ? (
 				<ClayTooltipProvider>
 					<IconButton
@@ -41,11 +64,5 @@ function ActionMenu({onEdit, onPinning, pinned = false}) {
 		</>
 	);
 }
-
-ActionMenu.propTypes = {
-	onEdit: PropTypes.func,
-	onPinning: PropTypes.func,
-	pinned: PropTypes.bool
-};
 
 export default ActionMenu;

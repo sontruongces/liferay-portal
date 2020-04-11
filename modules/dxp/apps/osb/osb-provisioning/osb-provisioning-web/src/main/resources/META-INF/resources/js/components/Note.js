@@ -67,6 +67,7 @@ function Note({data}) {
 								/* TODO: fill in event handler LHC-2061 */
 							}}
 							pinned={data.pinned}
+							tabType={data.type}
 						/>
 					)}
 
@@ -81,6 +82,7 @@ function Note({data}) {
 						}}
 						pinned={data.pinned}
 						status={data.status}
+						tabType={data.type}
 					/>
 				</div>
 			</div>
