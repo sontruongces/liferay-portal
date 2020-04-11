@@ -3521,6 +3521,7 @@ go</echo>
 				<elseif>
 					<or>
 						<equals arg1="@{liferay.portal.bundle}" arg2="7.1.10.3" />
+						<equals arg1="@{liferay.portal.bundle}" arg2="7.2.1" />
 						<equals arg1="@{liferay.portal.bundle}" arg2="7.2.10" />
 						<equals arg1="@{liferay.portal.bundle}" arg2="7.2.10.1" />
 					</or>
