@@ -129,7 +129,9 @@ function SidePanel(props) {
 	useEffect(() => {
 		const account = document.getElementById('account');
 
-		if (!account) return;
+		if (!account) {
+			return;
+		}
 
 		if (collapse) {
 			account.classList.add('full-view');
