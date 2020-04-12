@@ -202,12 +202,12 @@ public interface ProductEntryLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProductEntry> getAccountProductEntries(
-		long accountId, String[] products, String state, String search,
-		int start, int end);
+		long accountId, String[] names, String state, String search, int start,
+		int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getAccountProductEntriesCount(
-		long accountId, String[] products, String state, String search);
+		long accountId, String[] names, String state, String search);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

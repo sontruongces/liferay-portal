@@ -123,14 +123,14 @@ public class ProductEntryServiceSoap {
 
 	public static com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap[]
 			getAccountProductEntries(
-				long accountId, String[] products, String state, String search,
+				long accountId, String[] names, String state, String search,
 				int start, int end)
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
 				returnValue = ProductEntryServiceUtil.getAccountProductEntries(
-					accountId, products, state, search, start, end);
+					accountId, names, state, search, start, end);
 
 			return com.liferay.osb.koroneiki.trunk.model.ProductEntrySoap.
 				toSoapModels(returnValue);
@@ -143,13 +143,13 @@ public class ProductEntryServiceSoap {
 	}
 
 	public static int getAccountProductEntriesCount(
-			long accountId, String[] products, String state, String search)
+			long accountId, String[] names, String state, String search)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				ProductEntryServiceUtil.getAccountProductEntriesCount(
-					accountId, products, state, search);
+					accountId, names, state, search);
 
 			return returnValue;
 		}

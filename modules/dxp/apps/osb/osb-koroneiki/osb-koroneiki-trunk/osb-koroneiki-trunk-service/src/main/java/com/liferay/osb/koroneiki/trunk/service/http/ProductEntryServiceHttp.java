@@ -182,9 +182,8 @@ public class ProductEntryServiceHttp {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.trunk.model.ProductEntry>
 				getAccountProductEntries(
-					HttpPrincipal httpPrincipal, long accountId,
-					String[] products, String state, String search, int start,
-					int end)
+					HttpPrincipal httpPrincipal, long accountId, String[] names,
+					String state, String search, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -193,7 +192,7 @@ public class ProductEntryServiceHttp {
 				_getAccountProductEntriesParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, products, state, search, start, end);
+				methodKey, accountId, names, state, search, start, end);
 
 			Object returnObj = null;
 
@@ -225,7 +224,7 @@ public class ProductEntryServiceHttp {
 	}
 
 	public static int getAccountProductEntriesCount(
-			HttpPrincipal httpPrincipal, long accountId, String[] products,
+			HttpPrincipal httpPrincipal, long accountId, String[] names,
 			String state, String search)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -235,7 +234,7 @@ public class ProductEntryServiceHttp {
 				_getAccountProductEntriesCountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, products, state, search);
+				methodKey, accountId, names, state, search);
 
 			Object returnObj = null;
 
