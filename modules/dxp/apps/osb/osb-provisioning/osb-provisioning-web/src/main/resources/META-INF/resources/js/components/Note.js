@@ -105,6 +105,7 @@ function Note({data}) {
 					actionURL={data.updateNoteURL}
 					content={data.htmlContent}
 					format={data.format}
+					id={data.key}
 					onCancel={handleCancel}
 					pinned={data.pinned}
 					status={data.status}

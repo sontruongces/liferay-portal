@@ -28,6 +28,7 @@ function AddNote({
 	actionURL = '',
 	content = '',
 	format = NOTE_FORMAT_PLAIN,
+	id = '',
 	onCancel,
 	pinned = false,
 	status = NOTE_STATUS_APPROVED,
@@ -56,10 +57,13 @@ function AddNote({
 			<input name={`${NAMESPACE}status`} type="hidden" value={status} />
 			<input name={`${NAMESPACE}type`} type="hidden" value={type} />
 
-			<label className="form-control-label" htmlFor="addNoteContent">
+			<label
+				className="form-control-label"
+				htmlFor={`addNoteContent${id}`}
+			>
 				<textarea
 					className="form-control"
-					id="addNoteContent"
+					id={`addNoteContent${id}`}
 					name={`${NAMESPACE}content`}
 					onChange={event =>
 						setNoteContent(event.currentTarget.value)
@@ -103,6 +107,7 @@ AddNote.propTypes = {
 	actionURL: PropTypes.string,
 	content: PropTypes.string,
 	format: PropTypes.oneOf([NOTE_FORMAT_HTML, NOTE_FORMAT_PLAIN]),
+	id: PropTypes.string,
 	onCancel: PropTypes.func,
 	pinned: PropTypes.bool,
 	status: PropTypes.oneOf([NOTE_STATUS_APPROVED, NOTE_STATUS_ARCHIVED]),
