@@ -56,6 +56,12 @@ describe('Note', () => {
 		getByText('Jane Doe');
 	});
 
+	it('displays a note with the create date', () => {
+		const {getAllByText} = renderNote();
+
+		getAllByText(new Date().toLocaleString('en-US'));
+	});
+
 	it('displays a three-dot menu icon', () => {
 		const {getByLabelText} = renderNote();
 
