@@ -29,6 +29,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
+import com.liferay.osb.provisioning.web.internal.dao.search.AccountResultRowSplitter;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -42,7 +43,6 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -126,6 +126,10 @@ public class ViewAccountDisplayContext {
 
 	public AccountDisplay getAccountDisplay() {
 		return accountDisplay;
+	}
+
+	public AccountResultRowSplitter getAccountResultRowSplitter() {
+		return new AccountResultRowSplitter(account);
 	}
 
 	public String getAddExternalLinkURL() {
@@ -379,19 +383,51 @@ public class ViewAccountDisplayContext {
 		return searchContainer;
 	}
 
-	public Map<String, List<AccountDisplay>> getRelatedAccountDisplaysMap()
+	public SearchContainer getRelatedAccountsSearchContainer()
 		throws Exception {
 
-		Map<String, List<AccountDisplay>> accountDisplayMap =
-			new LinkedHashMap<>();
+		SearchContainer searchContainer = new SearchContainer(
+			renderRequest, renderResponse.createRenderURL(),
+			Collections.emptyList(), "no-accounts-were-found");
 
-		accountDisplayMap.put("parent-account", _getParentAccountDisplays());
+		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
-		accountDisplayMap.put("sibling-accounts", _getSiblingAccountDisplays());
+		StringBundler sb = new StringBundler(14);
 
-		accountDisplayMap.put("child-accounts", _getChildAccountDisplays());
+		sb.append("(");
 
-		return accountDisplayMap;
+		if (Validator.isNotNull(account.getParentAccountKey())) {
+			sb.append("accountKey eq '");
+			sb.append(account.getParentAccountKey());
+			sb.append("' or (parentAccountKey eq '");
+			sb.append(account.getParentAccountKey());
+			sb.append("' and accountKey ne '");
+			sb.append(account.getKey());
+			sb.append("') or ");
+		}
+
+		sb.append("parentAccountKey eq '");
+		sb.append(account.getKey());
+		sb.append("') ");
+
+		String tabs2 = ParamUtil.getString(renderRequest, "tabs2");
+
+		if (Validator.isNotNull(tabs2) && !tabs2.equals("all")) {
+			sb.append(" and status eq '");
+			sb.append(tabs2);
+			sb.append("'");
+		}
+
+		List<Account> accounts = accountWebService.search(
+			keywords, sb.toString(), 1, 1000, "name");
+
+		searchContainer.setResults(
+			TransformUtil.transform(
+				accounts,
+				account -> new AccountDisplay(
+					httpServletRequest, accountReader, account)));
+
+		return searchContainer;
 	}
 
 	public SearchContainer getTeamsSearchContainer() throws Exception {
@@ -447,29 +483,6 @@ public class ViewAccountDisplayContext {
 	protected final RenderResponse renderResponse;
 	protected final TeamWebService teamWebService;
 
-	private List<AccountDisplay> _getChildAccountDisplays() throws Exception {
-		String keywords = ParamUtil.getString(renderRequest, "keywords");
-
-		StringBundler sb = new StringBundler(6);
-
-		sb.append("parentAccountKey eq '");
-		sb.append(account.getKey());
-		sb.append("'");
-
-		String tabs2 = ParamUtil.getString(renderRequest, "tabs2");
-
-		if (Validator.isNotNull(tabs2) && !tabs2.equals("all")) {
-			sb.append(" and status eq '");
-			sb.append(tabs2);
-			sb.append("'");
-		}
-
-		return TransformUtil.transform(
-			accountWebService.search(keywords, sb.toString(), 1, 1000, "name"),
-			account -> new AccountDisplay(
-				httpServletRequest, accountReader, account));
-	}
-
 	private String _getDeleteNoteURL(String noteKey) {
 		PortletURL deleteNoteURL = renderResponse.createActionURL();
 
@@ -478,60 +491,6 @@ public class ViewAccountDisplayContext {
 		deleteNoteURL.setParameter("noteKey", noteKey);
 
 		return deleteNoteURL.toString();
-	}
-
-	private List<AccountDisplay> _getParentAccountDisplays() throws Exception {
-		if (Validator.isNull(account.getParentAccountKey())) {
-			return Collections.emptyList();
-		}
-
-		String keywords = ParamUtil.getString(renderRequest, "keywords");
-
-		StringBundler sb = new StringBundler(6);
-
-		sb.append("accountKey eq '");
-		sb.append(account.getParentAccountKey());
-		sb.append("'");
-
-		String tabs2 = ParamUtil.getString(renderRequest, "tabs2");
-
-		if (Validator.isNotNull(tabs2) && !tabs2.equals("all")) {
-			sb.append(" and status eq '");
-			sb.append(tabs2);
-			sb.append("'");
-		}
-
-		return TransformUtil.transform(
-			accountWebService.search(keywords, sb.toString(), 1, 1000, "name"),
-			account -> new AccountDisplay(
-				httpServletRequest, accountReader, account));
-	}
-
-	private List<AccountDisplay> _getSiblingAccountDisplays() throws Exception {
-		if (Validator.isNull(account.getParentAccountKey())) {
-			return Collections.emptyList();
-		}
-
-		String keywords = ParamUtil.getString(renderRequest, "keywords");
-
-		StringBundler sb = new StringBundler(6);
-
-		sb.append("parentAccountKey eq '");
-		sb.append(account.getParentAccountKey());
-		sb.append("'");
-
-		String tabs2 = ParamUtil.getString(renderRequest, "tabs2");
-
-		if (Validator.isNotNull(tabs2) && !tabs2.equals("all")) {
-			sb.append(" and status eq '");
-			sb.append(tabs2);
-			sb.append("'");
-		}
-
-		return TransformUtil.transform(
-			accountWebService.search(keywords, sb.toString(), 1, 1000, "name"),
-			account -> new AccountDisplay(
-				httpServletRequest, accountReader, account));
 	}
 
 	private String _getUpdateNoteURL(String noteKey) {

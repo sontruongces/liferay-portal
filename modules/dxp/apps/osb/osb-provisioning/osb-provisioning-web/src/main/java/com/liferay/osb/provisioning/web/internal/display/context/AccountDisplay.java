@@ -127,6 +127,10 @@ public class AccountDisplay {
 		return _account.getName();
 	}
 
+	public String getParentAccountKey() {
+		return _account.getParentAccountKey();
+	}
+
 	public String getPartnerTeamName() throws Exception {
 		if (_partnerTeam != null) {
 			return _partnerTeam.getName();

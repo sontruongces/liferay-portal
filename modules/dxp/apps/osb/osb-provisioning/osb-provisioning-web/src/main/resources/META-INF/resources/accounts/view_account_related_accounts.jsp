@@ -34,84 +34,73 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 		<aui:input label="" name="keywords" placeholder="search" />
 	</aui:form>
 
-	<table>
-		<tr>
-			<th>
-				<liferay-ui:message key="name-code" />
-			</th>
-			<th>
-				<liferay-ui:message key="support-end-date" />
-			</th>
-			<th>
-				<liferay-ui:message key="partner" />
-			</th>
-			<th>
-				<liferay-ui:message key="region" />
-			</th>
-			<th>
-				<liferay-ui:message key="sla-tier" />
-			</th>
-			<th>
-				<liferay-ui:message key="status" />
-			</th>
-		</tr>
+	<liferay-ui:search-container
+		searchContainer="<%= viewAccountDisplayContext.getRelatedAccountsSearchContainer() %>"
+	>
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
+			escapedModel="<%= true %>"
+			keyProperty="accountKey"
+			modelVar="accountDisplay"
+		>
+			<portlet:renderURL var="rowURL">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/view_account" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+			</portlet:renderURL>
 
-		<%
-		Map<String, List<AccountDisplay>> accountDisplayMap = viewAccountDisplayContext.getRelatedAccountDisplaysMap();
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="name-code"
+			>
+				<%= accountDisplay.getName() %>
 
-		for (Map.Entry<String, List<AccountDisplay>> entry : accountDisplayMap.entrySet()) {
-			List<AccountDisplay> accountDisplays = entry.getValue();
+				<div class="secondary-information">
+					<%= accountDisplay.getCode() %>
+				</div>
+			</liferay-ui:search-container-column-text>
 
-			if (accountDisplays.isEmpty()) {
-				continue;
-			}
-		%>
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="support-end-date"
+				value="<%= accountDisplay.getSupportEndDate() %>"
+			/>
 
-			<tr>
-				<td colspan="6">
-					<div class="list-group-header">
-						<liferay-ui:message key="<%= entry.getKey() %>" />
-					</div>
-				</td>
-			</tr>
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="partner"
+				value="<%= HtmlUtil.escape(accountDisplay.getPartnerTeamName()) %>"
+			/>
 
-			<%
-			for (AccountDisplay accountDisplay : accountDisplays) {
-			%>
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="region"
+				value="<%= accountDisplay.getRegion() %>"
+			/>
 
-				<tr>
-					<td>
-						<%= accountDisplay.getName() %>
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="sla-tier"
+			>
+				<%= HtmlUtil.escape(accountDisplay.getSLAName()) %>
 
-						<div class="secondary-information">
-							<%= accountDisplay.getCode() %>
-						</div>
-					</td>
-					<td>
-						<%= accountDisplay.getSupportEndDate() %>
-					</td>
-					<td>
-						<%= HtmlUtil.escape(accountDisplay.getPartnerTeamName()) %>
-					</td>
-					<td>
-						<%= accountDisplay.getRegion() %>
-					</td>
-					<td>
-						<%= HtmlUtil.escape(accountDisplay.getSLAName()) %>
+				<div class="secondary-information">
+					<%= accountDisplay.getTier() %>
+				</div>
+			</liferay-ui:search-container-column-text>
 
-						<div class="secondary-information">
-							<%= accountDisplay.getTier() %>
-						</div>
-					</td>
-					<td>
-						<span class="label <%= accountDisplay.getStatusStyle() %>"><%= accountDisplay.getStatus() %></span>
-					</td>
-				</tr>
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="status"
+			>
+				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= accountDisplay.getStatus() %></span>
+			</liferay-ui:search-container-column-text>
+		</liferay-ui:search-container-row>
 
-		<%
-			}
-		}
-		%>
-
-	</table>
+		<liferay-ui:search-iterator
+			markupView="lexicon"
+			paginate="<%= false %>"
+			resultRowSplitter="<%= viewAccountDisplayContext.getAccountResultRowSplitter() %>"
+		/>
+	</liferay-ui:search-container>
 </liferay-ui:tabs>
