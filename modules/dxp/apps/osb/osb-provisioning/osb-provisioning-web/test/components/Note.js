@@ -57,9 +57,9 @@ describe('Note', () => {
 	});
 
 	it('displays a note with the create date', () => {
-		const {getAllByText} = renderNote();
+		const {getAllByText} = renderNote({createDate: 'Today'});
 
-		getAllByText(new Date().toLocaleString('en-US'));
+		getAllByText('Today');
 	});
 
 	it('displays a three-dot menu icon', () => {

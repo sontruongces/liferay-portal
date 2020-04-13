@@ -68,7 +68,7 @@ function AddNote({
 					onChange={event =>
 						setNoteContent(event.currentTarget.value)
 					}
-					onClick={() => setShowButtons(true)}
+					onFocus={() => setShowButtons(true)}
 					placeholder={
 						type === NOTE_TYPE_GENERAL
 							? Liferay.Language.get('write-a-note')

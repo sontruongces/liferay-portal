@@ -48,7 +48,7 @@ describe('New Note', () => {
 	it('displays a "Cancel" button when the textarea for adding a new note is focused', () => {
 		const {container, getByText} = renderAddNote();
 
-		fireEvent.click(container.querySelector('textarea'));
+		fireEvent.focus(container.querySelector('textarea'));
 
 		getByText('cancel');
 	});
@@ -56,7 +56,7 @@ describe('New Note', () => {
 	it('displays a "Save" button when the textarea for adding a new note is focused', () => {
 		const {container, getByText} = renderAddNote();
 
-		fireEvent.click(container.querySelector('textarea'));
+		fireEvent.focus(container.querySelector('textarea'));
 
 		getByText('save');
 	});
@@ -66,7 +66,7 @@ describe('New Note', () => {
 
 		const textarea = container.querySelector('textarea');
 
-		fireEvent.click(textarea);
+		fireEvent.focus(textarea);
 		fireEvent.change(textarea, {
 			target: {value: 'test'}
 		});
@@ -80,7 +80,7 @@ describe('New Note', () => {
 
 		const textarea = container.querySelector('textarea');
 
-		fireEvent.click(textarea);
+		fireEvent.focus(textarea);
 		fireEvent.click(getByText('cancel'));
 
 		expect(queryByText('save')).toBeFalsy();
@@ -91,7 +91,7 @@ describe('New Note', () => {
 		const {container, getByText} = renderAddNote();
 		const textarea = container.querySelector('textarea');
 
-		fireEvent.click(textarea);
+		fireEvent.focus(textarea);
 
 		const saveButton = getByText('save');
 
