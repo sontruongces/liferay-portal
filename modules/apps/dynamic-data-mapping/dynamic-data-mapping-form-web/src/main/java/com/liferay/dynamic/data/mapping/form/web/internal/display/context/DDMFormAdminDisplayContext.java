@@ -883,6 +883,9 @@ public class DDMFormAdminDisplayContext {
 		ddmFormBuilderContextRequest.addProperty(
 			"ddmStructureVersion", getLatestDDMStructureVersion());
 
+		ddmFormBuilderContextRequest.addProperty(
+			"portletNamespace", renderResponse.getNamespace());
+
 		DDMFormBuilderContextResponse ddmFormBuilderContextResponse =
 			_ddmFormBuilderContextFactory.create(ddmFormBuilderContextRequest);
 
