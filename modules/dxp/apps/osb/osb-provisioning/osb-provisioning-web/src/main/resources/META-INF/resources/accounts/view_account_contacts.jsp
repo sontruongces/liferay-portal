@@ -18,33 +18,24 @@
 
 <%
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
-
-PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 %>
 
-<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
-	<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
-
-	<aui:input label="" name="keywords" placeholder="search" />
-
-	<aui:select label="roles" multiple="<%= true %>" name="contactRoleKeys">
-
-		<%
-		for (ContactRole contactRole : viewAccountDisplayContext.getContactRoles(ContactRole.Type.ACCOUNT_CUSTOMER.toString())) {
-		%>
-
-			<aui:option label="<%= contactRole.getName() %>" value="<%= contactRole.getKey() %>" />
-
-		<%
-		}
-		%>
-
-	</aui:select>
-</aui:form>
-
 <liferay-ui:search-container
+	id="accounts"
 	searchContainer="<%= viewAccountDisplayContext.getContactsSearchContainer() %>"
 >
+	<clay:management-toolbar
+		clearResultsURL="<%= viewAccountDisplayContext.getClearResultsURL() %>"
+		filterDropdownItems="<%= viewAccountDisplayContext.getContactsFilterDropdownItems() %>"
+		filterLabelItems="<%= viewAccountDisplayContext.getContactFilterLabelItems() %>"
+		itemsTotal="<%= searchContainer.getTotal() %>"
+		searchActionURL="<%= viewAccountDisplayContext.getCurrentURL() %>"
+		searchContainerId="accounts"
+		selectable="<%= true %>"
+		showSearch="<%= true %>"
+		supportsBulkActions="<%= true %>"
+	/>
+
 	<liferay-ui:search-container-row
 		className="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay"
 		escapedModel="<%= true %>"

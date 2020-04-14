@@ -14,6 +14,10 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItemList;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
@@ -30,14 +34,17 @@ import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.osb.provisioning.web.internal.dao.search.AccountResultRowSplitter;
+import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
@@ -89,6 +96,9 @@ public class ViewAccountDisplayContext {
 
 		accountDisplay = new AccountDisplay(
 			httpServletRequest, accountReader, account);
+
+		currentURLObj = PortletURLUtil.getCurrent(
+			renderRequest, renderResponse);
 	}
 
 	public void addPortletBreadcrumbEntries() throws Exception {
@@ -172,9 +182,68 @@ public class ViewAccountDisplayContext {
 				httpServletRequest, auditEntry));
 	}
 
-	public List<ContactRole> getContactRoles(String type) throws Exception {
-		return contactRoleWebService.search(
-			"type eq '" + type + "'", 1, 1000, "name");
+	public String getClearResultsURL() {
+		PortletURL portletURL = getPortletURL();
+
+		return portletURL.toString();
+	}
+
+	public List<LabelItem> getContactFilterLabelItems() {
+		return new LabelItemList() {
+			{
+				String[] contactRoleKeys = ParamUtil.getStringValues(
+					renderRequest, "contactRoleKeys");
+
+				for (String contactRoleKey : contactRoleKeys) {
+					add(
+						labelItem -> {
+							PortletURL removeLabelURL = PortletURLUtil.clone(
+								currentURLObj, renderResponse);
+
+							String[] removeContactRoleKeys = ArrayUtil.remove(
+								contactRoleKeys, contactRoleKey);
+
+							removeLabelURL.setParameter(
+								"contactRoleKeys",
+								StringUtil.merge(removeContactRoleKeys));
+
+							labelItem.putData(
+								"removeLabelURL", removeLabelURL.toString());
+
+							labelItem.setCloseable(true);
+
+							ContactRole contactRole =
+								contactRoleWebService.getContactRole(
+									contactRoleKey);
+
+							String label = String.format(
+								"%s: %s",
+								LanguageUtil.get(
+									httpServletRequest, "contact-role"),
+								contactRole.getName());
+
+							labelItem.setLabel(label);
+						});
+				}
+			}
+		};
+	}
+
+	public List<DropdownItem> getContactsFilterDropdownItems()
+		throws Exception {
+
+		return new DropdownItemList() {
+			{
+				addGroup(
+					dropdownGroupItem -> {
+						dropdownGroupItem.setDropdownItems(
+							_getContactFilterRoleDropdownItems());
+						dropdownGroupItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "filter-by-role"));
+					});
+			}
+		};
 	}
 
 	public SearchContainer getContactsSearchContainer() throws Exception {
@@ -203,7 +272,7 @@ public class ViewAccountDisplayContext {
 
 				sb.append("s eq '");
 				sb.append(account.getKey());
-				sb.append("");
+				sb.append("_");
 				sb.append(contactRoleKeys[i]);
 				sb.append("'");
 			}
@@ -228,11 +297,18 @@ public class ViewAccountDisplayContext {
 						httpServletRequest, contact, contactRoles);
 				}));
 
+		searchContainer.setRowChecker(
+			new EmptyOnClickRowChecker(renderResponse));
+
 		int count = (int)contactWebService.searchCount(keywords, sb.toString());
 
 		searchContainer.setTotal(count);
 
 		return searchContainer;
+	}
+
+	public String getCurrentURL() {
+		return currentURLObj.toString();
 	}
 
 	public String getDeleteExternalLinkURL(String externalLinkKey) {
@@ -475,6 +551,7 @@ public class ViewAccountDisplayContext {
 	protected final AuditEntryWebService auditEntryWebService;
 	protected final ContactRoleWebService contactRoleWebService;
 	protected final ContactWebService contactWebService;
+	protected final PortletURL currentURLObj;
 	protected final ExternalLinkWebService externalLinkWebService;
 	protected final HttpServletRequest httpServletRequest;
 	protected final NoteWebService noteWebService;
@@ -482,6 +559,46 @@ public class ViewAccountDisplayContext {
 	protected final RenderRequest renderRequest;
 	protected final RenderResponse renderResponse;
 	protected final TeamWebService teamWebService;
+
+	private List<DropdownItem> _getContactFilterRoleDropdownItems()
+		throws Exception {
+
+		String[] contactRoleKeys = ParamUtil.getStringValues(
+			renderRequest, "contactRoleKeys");
+
+		return new DropdownItemList() {
+			{
+				for (ContactRole contactRole :
+						_getContactRoles(
+							ContactRole.Type.ACCOUNT_CUSTOMER.toString())) {
+
+					add(
+						dropdownItem -> {
+							dropdownItem.setActive(
+								ArrayUtil.contains(
+									contactRoleKeys, contactRole.getKey()));
+
+							PortletURL portletURL = PortletURLUtil.clone(
+								currentURLObj, renderResponse);
+
+							String[] newContactRoleKeys = ArrayUtil.append(
+								contactRoleKeys, contactRole.getKey());
+
+							dropdownItem.setHref(
+								portletURL, "contactRoleKeys",
+								StringUtil.merge(newContactRoleKeys));
+
+							dropdownItem.setLabel(contactRole.getName());
+						});
+				}
+			}
+		};
+	}
+
+	private List<ContactRole> _getContactRoles(String type) throws Exception {
+		return contactRoleWebService.search(
+			"type eq '" + type + "'", 1, 1000, "name");
+	}
 
 	private String _getDeleteNoteURL(String noteKey) {
 		PortletURL deleteNoteURL = renderResponse.createActionURL();

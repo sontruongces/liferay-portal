@@ -58,6 +58,10 @@ public class ContactRoleWebServiceImpl implements ContactRoleWebService {
 		return Collections.emptyList();
 	}
 
+	public ContactRole getContactRole(String contactRoleKey) throws Exception {
+		return _contactRoleResource.getContactRole(contactRoleKey);
+	}
+
 	public List<ContactRole> search(
 			String filterString, int page, int pageSize, String sortString)
 		throws Exception {
