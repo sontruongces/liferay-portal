@@ -733,6 +733,23 @@ xpack.monitoring.collection.enabled: true</echo>
 			select="\1"
 		/>
 
+		<exec executable="curl" outputproperty="indexList">
+			<arg value="-X" />
+			<arg value="GET" />
+			<arg value="http://localhost:9200/_cat/indices?h=idx" />
+			<arg value="-s" />
+		</exec>
+
+		<propertyregex
+			input="${indexList}"
+			override="true"
+			property="indexList"
+			regexp="\n"
+			replace=","
+		/>
+
+		<echo>${indexList}</echo>
+
 		<property name="synonyms.index.with.soft.deletes">
 			<![CDATA[
 				{
