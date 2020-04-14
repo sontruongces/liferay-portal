@@ -765,35 +765,28 @@ xpack.monitoring.collection.enabled: true</echo>
 						</not>
 					</and>
 					<then>
+						<exec executable="curl" outputproperty="indexMapping">
+							<arg value="-X" />
+							<arg value="GET" />
+							<arg value="http://localhost:9200/${indexName}/_mapping?pretty" />
+							<arg value="-s" />
+						</exec>
+
+						<propertyregex
+							input="${indexMapping}"
+							override="true"
+							property="indexMapping"
+							regexp="(\A.*)|(.*\s*$)"
+							replace=""
+						/>
+
 						<property name="synonyms.index.with.soft.deletes">
 							<![CDATA[
 								{
 									"settings" : {
 										"index.soft_deletes.enabled" : true
 									},
-									"mappings": {
-										"_doc": {
-											"properties": {
-												"index": {
-													"store": true,
-													"type": "keyword"
-												},
-												"synonyms": {
-													"fields" : {
-														"keyword" : {
-															"type" : "keyword"
-														}
-													},
-													"store": true,
-													"type": "text"
-												},
-												"uid": {
-													"store": true,
-													"type": "keyword"
-												}
-											}
-										}
-									}
+									${indexMapping}
 								}
 							]]>
 						</property>
