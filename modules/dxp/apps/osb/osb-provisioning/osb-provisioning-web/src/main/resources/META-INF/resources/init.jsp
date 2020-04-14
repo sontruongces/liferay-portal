@@ -36,6 +36,7 @@ page import="com.liferay.osb.provisioning.web.internal.display.context.ContactDi
 page import="com.liferay.osb.provisioning.web.internal.display.context.ExternalLinkDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.PostalAddressDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.TeamDisplay" %><%@
+page import="com.liferay.osb.provisioning.web.internal.display.context.ViewAccountContactsDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ViewTeamDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.util.ProvisioningWebComponentProvider" %><%@

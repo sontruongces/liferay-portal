@@ -17,20 +17,20 @@
 <%@ include file="/init.jsp" %>
 
 <%
-ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
+ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = ProvisioningWebComponentProvider.getViewAccountContactsDisplayContext(renderRequest, renderResponse, request);
 %>
 
 <liferay-ui:search-container
-	id="accounts"
-	searchContainer="<%= viewAccountDisplayContext.getContactsSearchContainer() %>"
+	id="contacts"
+	searchContainer="<%= viewAccountContactsDisplayContext.getSearchContainer() %>"
 >
 	<clay:management-toolbar
-		clearResultsURL="<%= viewAccountDisplayContext.getClearResultsURL() %>"
-		filterDropdownItems="<%= viewAccountDisplayContext.getContactsFilterDropdownItems() %>"
-		filterLabelItems="<%= viewAccountDisplayContext.getContactFilterLabelItems() %>"
+		clearResultsURL="<%= viewAccountContactsDisplayContext.getClearResultsURL() %>"
+		filterDropdownItems="<%= viewAccountContactsDisplayContext.getFilterDropdownItems() %>"
+		filterLabelItems="<%= viewAccountContactsDisplayContext.getFilterLabelItems() %>"
 		itemsTotal="<%= searchContainer.getTotal() %>"
-		searchActionURL="<%= viewAccountDisplayContext.getCurrentURL() %>"
-		searchContainerId="accounts"
+		searchActionURL="<%= viewAccountContactsDisplayContext.getCurrentURL() %>"
+		searchContainerId="contacts"
 		selectable="<%= true %>"
 		showSearch="<%= true %>"
 		supportsBulkActions="<%= true %>"
