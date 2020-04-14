@@ -6324,10 +6324,10 @@ clay-modal@2.21.0:
     metal-state "^2.16.0"
     metal-web-component "^2.16.0"
 
-clay-multi-select@2.21.0:
-  version "2.21.0"
-  resolved "https://registry.yarnpkg.com/clay-multi-select/-/clay-multi-select-2.21.0.tgz#58a0995904813f8e3074e8657f3bae9718cb4508"
-  integrity sha512-W5G5vJ1dol6zKOPXCi2Nx9nkbBoX/d62AllKpnb0Ow2/RZVzWtyyOhW56NGJtXhk3wZ7h5zqwtJ43662USVTYA==
+clay-multi-select@2.21.1:
+  version "2.21.1"
+  resolved "https://registry.yarnpkg.com/clay-multi-select/-/clay-multi-select-2.21.1.tgz#12d21a0e8d45b9484a9a854409fb88040700c099"
+  integrity sha512-W5YaPVL9A7ynCb6HAi8f3hIvtvvbId/CsimTQO2J9DVID2DijiU4+6OAnmISWcXLrR5HOFScsCC74hWoO3LlmQ==
   dependencies:
     clay-autocomplete "^2.21.0"
     clay-button "^2.21.0"
