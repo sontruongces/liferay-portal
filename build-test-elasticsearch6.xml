@@ -926,47 +926,37 @@ xpack.monitoring.collection.enabled: true</echo>
 
 		<echo>${curl.output.connect.to.remote.cluster}</echo>
 
-		<property name="follower.liferay.index">
-			<![CDATA[
-				{
-					"leader_index": "liferay-${companyId}",
-					"remote_cluster": "leader"
-				}
-			]]>
-		</property>
+		<for list="${indexList}" param="indexName">
+			<sequential>
+				<if>
+					<not>
+						<contains string="${indexName}" substring="." />
+					</not>
+					<then>
+						<property name="follower.liferay.index">
+							<![CDATA[
+								{
+									"leader_index": "liferay-${companyId}",
+									"remote_cluster": "leader"
+								}
+							]]>
+						</property>
 
-		<exec executable="curl" outputproperty="curl.output.follower.liferay.index">
-			<arg value="-H" />
-			<arg value="Content-Type: application/json" />
-			<arg value="-X" />
-			<arg value="PUT" />
-			<arg value="localhost:9202/liferay-${companyId}/_ccr/follow?wait_for_active_shards=1" />
-			<arg value="-d" />
-			<arg value="${follower.liferay.index}" />
-		</exec>
+						<exec executable="curl" outputproperty="curl.output.follower.liferay.index">
+							<arg value="-H" />
+							<arg value="Content-Type: application/json" />
+							<arg value="-X" />
+							<arg value="PUT" />
+							<arg value="localhost:9202/liferay-${companyId}/_ccr/follow?wait_for_active_shards=1" />
+							<arg value="-d" />
+							<arg value="${follower.liferay.index}" />
+						</exec>
 
-		<echo>${curl.output.follower.liferay.index}</echo>
-
-		<property name="follower.synonyms.index">
-			<![CDATA[
-				{
-					"leader_index": "liferay-search-tuning-synonyms-liferay-${companyId}",
-					"remote_cluster": "leader"
-				}
-			]]>
-		</property>
-
-		<exec executable="curl" outputproperty="curl.output.follower.synonyms.index">
-			<arg value="-H" />
-			<arg value="Content-Type: application/json" />
-			<arg value="-X" />
-			<arg value="PUT" />
-			<arg value="localhost:9202/liferay-search-tuning-synonyms-liferay-${companyId}/_ccr/follow?wait_for_active_shards=1" />
-			<arg value="-d" />
-			<arg value="${follower.synonyms.index}" />
-		</exec>
-
-		<echo>${curl.output.follower.synonyms.index}</echo>
+						<echo>${curl.output.follower.liferay.index}</echo>
+					</then>
+				</if>
+			</sequential>
+		</for>
 
 		<exec executable="curl" outputproperty="curl.output.follower.indices">
 			<arg value="-X" />
