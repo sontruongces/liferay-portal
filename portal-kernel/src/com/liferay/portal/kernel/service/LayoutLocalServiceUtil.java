@@ -1285,17 +1285,21 @@ public class LayoutLocalServiceUtil {
 			group, privateLayout, keywords, types);
 	}
 
+	public static int getLayoutsCount(long groupId) {
+		return getService().getLayoutsCount(groupId);
+	}
+
+	public static int getLayoutsCount(long groupId, boolean privateLayout) {
+		return getService().getLayoutsCount(groupId, privateLayout);
+	}
+
 	public static int getLayoutsCount(
-			com.liferay.portal.kernel.model.Group group, long userId,
-			boolean privateLayout, String keywords, String[] types)
+			long groupId, long userId, boolean privateLayout, String keywords,
+			String[] types)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getLayoutsCount(
-			group, userId, privateLayout, keywords, types);
-	}
-
-	public static int getLayoutsCount(long groupId) {
-		return getService().getLayoutsCount(groupId);
+			groupId, userId, privateLayout, keywords, types);
 	}
 
 	public static int getLayoutsCount(

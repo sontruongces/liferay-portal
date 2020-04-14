@@ -1355,19 +1355,23 @@ public class LayoutLocalServiceWrapper
 	}
 
 	@Override
-	public int getLayoutsCount(
-			com.liferay.portal.kernel.model.Group group, long userId,
-			boolean privateLayout, java.lang.String keywords,
-			java.lang.String[] types)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _layoutLocalService.getLayoutsCount(
-			group, userId, privateLayout, keywords, types);
+	public int getLayoutsCount(long groupId) {
+		return _layoutLocalService.getLayoutsCount(groupId);
 	}
 
 	@Override
-	public int getLayoutsCount(long groupId) {
-		return _layoutLocalService.getLayoutsCount(groupId);
+	public int getLayoutsCount(long groupId, boolean privateLayout) {
+		return _layoutLocalService.getLayoutsCount(groupId, privateLayout);
+	}
+
+	@Override
+	public int getLayoutsCount(
+			long groupId, long userId, boolean privateLayout,
+			java.lang.String keywords, java.lang.String[] types)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _layoutLocalService.getLayoutsCount(
+			groupId, userId, privateLayout, keywords, types);
 	}
 
 	@Override
