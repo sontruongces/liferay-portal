@@ -953,6 +953,9 @@ xpack.monitoring.collection.enabled: true</echo>
 						</exec>
 
 						<echo>${curl.output.follower.index}</echo>
+
+						<var name="curl.output.follower.index" unset="true" />
+						<var name="follower.index" unset="true" />
 					</then>
 				</if>
 			</sequential>
