@@ -964,23 +964,31 @@ xpack.monitoring.collection.enabled: true</echo>
 		<exec executable="curl" outputproperty="curl.output.follower.indices">
 			<arg value="-X" />
 			<arg value="GET" />
-			<arg value="localhost:9202/_cat/indices" />
+			<arg value="localhost:9202/_cat/indices?h=idx" />
+			<arg value="-s" />
 		</exec>
 
 		<echo>${curl.output.follower.indices}</echo>
 
-		<if>
-			<and>
-				<contains string="${curl.output.follower.indices}" substring="liferay-${companyId}" />
-				<contains string="${curl.output.follower.indices}" substring="liferay-search-tuning-synonyms-liferay-${companyId}" />
-			</and>
-			<then>
-				<echo>Created follower indices.</echo>
-			</then>
-			<else>
-				<fail>Failed to create follower indices.</fail>
-			</else>
-		</if>
+		<for list="${indexList}" param="indexName">
+			<sequential>
+				<if>
+					<and>
+						<not>
+							<contains string="@{indexName}" substring="." />
+						</not>
+						<not>
+							<contains string="${curl.output.follower.indices}" substring="@{indexName}" />
+						</not>
+					</and>
+					<then>
+						<fail>Failed to create follower indices.</fail>
+					</then>
+				</if>
+			</sequential>
+		</for>
+
+		<echo>Created follower indices.</echo>
 	</target>
 
 	<target name="prepare-additional-elasticsearch-dirs">
