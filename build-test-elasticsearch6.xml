@@ -880,6 +880,17 @@ xpack.monitoring.collection.enabled: true</echo>
 						</exec>
 
 						<echo>${curl.output.delete.temporary.index}</echo>
+
+						<var name="curl.output.create.temporary.index" unset="true" />
+						<var name="curl.output.delete.index" unset="true" />
+						<var name="curl.output.delete.temporary.index" unset="true" />
+						<var name="curl.output.recreate.index" unset="true" />
+						<var name="curl.output.reindex.recreated.index" unset="true" />
+						<var name="curl.output.reindex.temporary.index" unset="true" />
+						<var name="indexMapping" unset="true" />
+						<var name="index.with.soft.deletes" unset="true" />
+						<var name="reindex.recreated.index" unset="true" />
+						<var name="reindex.temporary.index" unset="true" />
 					</then>
 				</if>
 			</sequential>
