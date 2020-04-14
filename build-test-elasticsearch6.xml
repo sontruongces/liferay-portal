@@ -933,26 +933,26 @@ xpack.monitoring.collection.enabled: true</echo>
 						<contains string="${indexName}" substring="." />
 					</not>
 					<then>
-						<property name="follower.liferay.index">
+						<property name="follower.index">
 							<![CDATA[
 								{
-									"leader_index": "liferay-${companyId}",
+									"leader_index": "${indexName}",
 									"remote_cluster": "leader"
 								}
 							]]>
 						</property>
 
-						<exec executable="curl" outputproperty="curl.output.follower.liferay.index">
+						<exec executable="curl" outputproperty="curl.output.follower.index">
 							<arg value="-H" />
 							<arg value="Content-Type: application/json" />
 							<arg value="-X" />
 							<arg value="PUT" />
-							<arg value="localhost:9202/liferay-${companyId}/_ccr/follow?wait_for_active_shards=1" />
+							<arg value="localhost:9202/${indexName}/_ccr/follow?wait_for_active_shards=1" />
 							<arg value="-d" />
-							<arg value="${follower.liferay.index}" />
+							<arg value="${follower.index}" />
 						</exec>
 
-						<echo>${curl.output.follower.liferay.index}</echo>
+						<echo>${curl.output.follower.index}</echo>
 					</then>
 				</if>
 			</sequential>
