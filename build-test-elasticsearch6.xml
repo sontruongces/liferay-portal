@@ -780,7 +780,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							replace=""
 						/>
 
-						<property name="synonyms.index.with.soft.deletes">
+						<property name="index.with.soft.deletes">
 							<![CDATA[
 								{
 									"settings" : {
@@ -791,95 +791,95 @@ xpack.monitoring.collection.enabled: true</echo>
 							]]>
 						</property>
 
-						<exec executable="curl" outputproperty="curl.output.create.temporary.synonyms.index">
+						<exec executable="curl" outputproperty="curl.output.create.temporary.index">
 							<arg value="-H" />
 							<arg value="Content-Type: application/json" />
 							<arg value="-X" />
 							<arg value="PUT" />
-							<arg value="localhost:9200/synonyms_temp" />
+							<arg value="localhost:9200/temp_index" />
 							<arg value="-d" />
-							<arg value="${synonyms.index.with.soft.deletes}" />
+							<arg value="${index.with.soft.deletes}" />
 						</exec>
 
-						<echo>${curl.output.create.temporary.synonyms.index}</echo>
+						<echo>${curl.output.create.temporary.index}</echo>
 
-						<property name="reindex.temporary.synonyms.index">
+						<property name="reindex.temporary.index">
 							<![CDATA[
 								{
 									"source": {
-										"index": "liferay-search-tuning-synonyms-liferay-${companyId}"
+										"index": "${indexName}"
 									},
 									"dest": {
-										"index": "synonyms_temp"
+										"index": "temp_index"
 									}
 								}
 							]]>
 						</property>
 
-						<exec executable="curl" outputproperty="curl.output.reindex.temporary.synonyms.index">
+						<exec executable="curl" outputproperty="curl.output.reindex.temporary.index">
 							<arg value="-H" />
 							<arg value="Content-Type: application/json" />
 							<arg value="-X" />
 							<arg value="POST" />
 							<arg value="localhost:9200/_reindex" />
 							<arg value="-d" />
-							<arg value="${reindex.temporary.synonyms.index}" />
+							<arg value="${reindex.temporary.index}" />
 						</exec>
 
-						<echo>${curl.output.reindex.temporary.synonyms.index}</echo>
+						<echo>${curl.output.reindex.temporary.index}</echo>
 
-						<exec executable="curl" outputproperty="curl.output.delete.synonyms.index">
+						<exec executable="curl" outputproperty="curl.output.delete.index">
 							<arg value="-X" />
 							<arg value="DELETE" />
-							<arg value="localhost:9200/liferay-search-tuning-synonyms-liferay-${companyId}" />
+							<arg value="localhost:9200/${indexName}" />
 						</exec>
 
-						<echo>${curl.output.delete.synonyms.index}</echo>
+						<echo>${curl.output.delete.index}</echo>
 
-						<exec executable="curl" outputproperty="curl.output.create.synonyms.index">
+						<exec executable="curl" outputproperty="curl.output.recreate.index">
 							<arg value="-H" />
 							<arg value="Content-Type: application/json" />
 							<arg value="-X" />
 							<arg value="PUT" />
-							<arg value="localhost:9200/liferay-search-tuning-synonyms-liferay-${companyId}" />
+							<arg value="localhost:9200/${indexName}" />
 							<arg value="-d" />
-							<arg value="${synonyms.index.with.soft.deletes}" />
+							<arg value="${index.with.soft.deletes}" />
 						</exec>
 
-						<echo>${curl.output.create.synonyms.index}</echo>
+						<echo>${curl.output.recreate.index}</echo>
 
-						<property name="reindex.synonyms.index">
+						<property name="reindex.recreated.index">
 							<![CDATA[
 								{
 									"source": {
-										"index": "synonyms_temp"
+										"index": "temp_index"
 									},
 									"dest": {
-										"index": "liferay-search-tuning-synonyms-liferay-${companyId}"
+										"index": "${indexName}"
 									}
 								}
 							]]>
 						</property>
 
-						<exec executable="curl" outputproperty="curl.output.reindex.synonyms.index">
+						<exec executable="curl" outputproperty="curl.output.reindex.recreated.index">
 							<arg value="-H" />
 							<arg value="Content-Type: application/json" />
 							<arg value="-X" />
 							<arg value="POST" />
 							<arg value="localhost:9200/_reindex" />
 							<arg value="-d" />
-							<arg value="${reindex.synonyms.index}" />
+							<arg value="${reindex.recreated.index}" />
 						</exec>
 
-						<echo>${curl.output.reindex.synonyms.index}</echo>
+						<echo>${curl.output.reindex.recreated.index}</echo>
 
-						<exec executable="curl" outputproperty="curl.output.delete.temporary.synonyms.index">
+						<exec executable="curl" outputproperty="curl.output.delete.temporary.index">
 							<arg value="-X" />
 							<arg value="DELETE" />
-							<arg value="localhost:9200/synonyms_temp" />
+							<arg value="localhost:9200/temp_index" />
 						</exec>
 
-						<echo>${curl.output.delete.temporary.synonyms.index}</echo>
+						<echo>${curl.output.delete.temporary.index}</echo>
 					</then>
 				</if>
 			</sequential>
