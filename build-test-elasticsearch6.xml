@@ -755,20 +755,20 @@ xpack.monitoring.collection.enabled: true</echo>
 				<if>
 					<and>
 						<not>
-							<contains string="${indexName}" substring="." />
+							<contains string="@{indexName}" substring="." />
 						</not>
 						<not>
-							<equals arg1="${indexName}" arg2="liferay-0" />
+							<equals arg1="@{indexName}" arg2="liferay-0" />
 						</not>
 						<not>
-							<equals arg1="${indexName}" arg2="liferay-${companyId}" />
+							<equals arg1="@{indexName}" arg2="liferay-${companyId}" />
 						</not>
 					</and>
 					<then>
 						<exec executable="curl" outputproperty="indexMapping">
 							<arg value="-X" />
 							<arg value="GET" />
-							<arg value="http://localhost:9200/${indexName}/_mapping?pretty" />
+							<arg value="http://localhost:9200/@{indexName}/_mapping?pretty" />
 							<arg value="-s" />
 						</exec>
 
@@ -807,7 +807,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<![CDATA[
 								{
 									"source": {
-										"index": "${indexName}"
+										"index": "@{indexName}"
 									},
 									"dest": {
 										"index": "temp_index"
@@ -831,7 +831,7 @@ xpack.monitoring.collection.enabled: true</echo>
 						<exec executable="curl" outputproperty="curl.output.delete.index">
 							<arg value="-X" />
 							<arg value="DELETE" />
-							<arg value="localhost:9200/${indexName}" />
+							<arg value="localhost:9200/@{indexName}" />
 						</exec>
 
 						<echo>${curl.output.delete.index}</echo>
@@ -841,7 +841,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="Content-Type: application/json" />
 							<arg value="-X" />
 							<arg value="PUT" />
-							<arg value="localhost:9200/${indexName}" />
+							<arg value="localhost:9200/@{indexName}" />
 							<arg value="-d" />
 							<arg value="${index.with.soft.deletes}" />
 						</exec>
@@ -855,7 +855,7 @@ xpack.monitoring.collection.enabled: true</echo>
 										"index": "temp_index"
 									},
 									"dest": {
-										"index": "${indexName}"
+										"index": "@{indexName}"
 									}
 								}
 							]]>
@@ -930,13 +930,13 @@ xpack.monitoring.collection.enabled: true</echo>
 			<sequential>
 				<if>
 					<not>
-						<contains string="${indexName}" substring="." />
+						<contains string="@{indexName}" substring="." />
 					</not>
 					<then>
 						<property name="follower.index">
 							<![CDATA[
 								{
-									"leader_index": "${indexName}",
+									"leader_index": "@{indexName}",
 									"remote_cluster": "leader"
 								}
 							]]>
@@ -947,7 +947,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="Content-Type: application/json" />
 							<arg value="-X" />
 							<arg value="PUT" />
-							<arg value="localhost:9202/${indexName}/_ccr/follow?wait_for_active_shards=1" />
+							<arg value="localhost:9202/@{indexName}/_ccr/follow?wait_for_active_shards=1" />
 							<arg value="-d" />
 							<arg value="${follower.index}" />
 						</exec>
