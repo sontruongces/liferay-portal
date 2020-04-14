@@ -22,6 +22,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutSet;
 import com.liferay.portal.kernel.model.LayoutTypeController;
 import com.liferay.portal.kernel.service.LayoutLocalService;
@@ -46,6 +47,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -269,7 +271,10 @@ public class SitemapImpl implements Sitemap {
 				entry.getKey());
 
 			for (Layout layout : layouts) {
-				if (layout.isSystem() && !layout.isTypeAssetDisplay()) {
+				if (layout.isSystem() &&
+					!Objects.equals(
+						layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
+
 					continue;
 				}
 

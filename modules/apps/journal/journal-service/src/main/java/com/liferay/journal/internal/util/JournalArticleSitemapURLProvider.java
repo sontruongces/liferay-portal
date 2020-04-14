@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutSet;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.LayoutSetLocalService;
@@ -43,6 +44,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.osgi.service.component.annotations.Component;
@@ -69,12 +71,16 @@ public class JournalArticleSitemapURLProvider implements SitemapURLProvider {
 			layoutUuid, layoutSet.getGroupId(), layoutSet.isPrivateLayout());
 
 		if ((layout == null) ||
-			(layout.isSystem() && !layout.isTypeAssetDisplay())) {
+			(layout.isSystem() &&
+			 !Objects.equals(
+				 layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY))) {
 
 			return;
 		}
 
-		if (layout.isTypeAssetDisplay()) {
+		if (Objects.equals(
+				layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
+
 			visitArticles(
 				element, layoutSet, themeDisplay,
 				getDisplayPageTemplateArticles(layout), false);
