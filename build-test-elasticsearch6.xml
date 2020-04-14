@@ -752,128 +752,143 @@ xpack.monitoring.collection.enabled: true</echo>
 
 		<for list="${indexList}" param="indexName">
 			<sequential>
-				<property name="synonyms.index.with.soft.deletes">
-					<![CDATA[
-						{
-							"settings" : {
-								"index.soft_deletes.enabled" : true
-							},
-							"mappings": {
-								"_doc": {
-									"properties": {
-										"index": {
-											"store": true,
-											"type": "keyword"
-										},
-										"synonyms": {
-											"fields" : {
-												"keyword" : {
-													"type" : "keyword"
+				<if>
+					<and>
+						<not>
+							<contains string="${indexName}" substring="." />
+						</not>
+						<not>
+							<equals arg1="${indexName}" arg2="liferay-0" />
+						</not>
+						<not>
+							<equals arg1="${indexName}" arg2="liferay-${companyId}" />
+						</not>
+					</and>
+					<then>
+						<property name="synonyms.index.with.soft.deletes">
+							<![CDATA[
+								{
+									"settings" : {
+										"index.soft_deletes.enabled" : true
+									},
+									"mappings": {
+										"_doc": {
+											"properties": {
+												"index": {
+													"store": true,
+													"type": "keyword"
+												},
+												"synonyms": {
+													"fields" : {
+														"keyword" : {
+															"type" : "keyword"
+														}
+													},
+													"store": true,
+													"type": "text"
+												},
+												"uid": {
+													"store": true,
+													"type": "keyword"
 												}
-											},
-											"store": true,
-											"type": "text"
-										},
-										"uid": {
-											"store": true,
-											"type": "keyword"
+											}
 										}
 									}
 								}
-							}
-						}
-					]]>
-				</property>
+							]]>
+						</property>
 
-				<exec executable="curl" outputproperty="curl.output.create.temporary.synonyms.index">
-					<arg value="-H" />
-					<arg value="Content-Type: application/json" />
-					<arg value="-X" />
-					<arg value="PUT" />
-					<arg value="localhost:9200/synonyms_temp" />
-					<arg value="-d" />
-					<arg value="${synonyms.index.with.soft.deletes}" />
-				</exec>
+						<exec executable="curl" outputproperty="curl.output.create.temporary.synonyms.index">
+							<arg value="-H" />
+							<arg value="Content-Type: application/json" />
+							<arg value="-X" />
+							<arg value="PUT" />
+							<arg value="localhost:9200/synonyms_temp" />
+							<arg value="-d" />
+							<arg value="${synonyms.index.with.soft.deletes}" />
+						</exec>
 
-				<echo>${curl.output.create.temporary.synonyms.index}</echo>
+						<echo>${curl.output.create.temporary.synonyms.index}</echo>
 
-				<property name="reindex.temporary.synonyms.index">
-					<![CDATA[
-						{
-							"source": {
-								"index": "liferay-search-tuning-synonyms-liferay-${companyId}"
-							},
-							"dest": {
-								"index": "synonyms_temp"
-							}
-						}
-					]]>
-				</property>
+						<property name="reindex.temporary.synonyms.index">
+							<![CDATA[
+								{
+									"source": {
+										"index": "liferay-search-tuning-synonyms-liferay-${companyId}"
+									},
+									"dest": {
+										"index": "synonyms_temp"
+									}
+								}
+							]]>
+						</property>
 
-				<exec executable="curl" outputproperty="curl.output.reindex.temporary.synonyms.index">
-					<arg value="-H" />
-					<arg value="Content-Type: application/json" />
-					<arg value="-X" />
-					<arg value="POST" />
-					<arg value="localhost:9200/_reindex" />
-					<arg value="-d" />
-					<arg value="${reindex.temporary.synonyms.index}" />
-				</exec>
+						<exec executable="curl" outputproperty="curl.output.reindex.temporary.synonyms.index">
+							<arg value="-H" />
+							<arg value="Content-Type: application/json" />
+							<arg value="-X" />
+							<arg value="POST" />
+							<arg value="localhost:9200/_reindex" />
+							<arg value="-d" />
+							<arg value="${reindex.temporary.synonyms.index}" />
+						</exec>
 
-				<echo>${curl.output.reindex.temporary.synonyms.index}</echo>
+						<echo>${curl.output.reindex.temporary.synonyms.index}</echo>
 
-				<exec executable="curl" outputproperty="curl.output.delete.synonyms.index">
-					<arg value="-X" />
-					<arg value="DELETE" />
-					<arg value="localhost:9200/liferay-search-tuning-synonyms-liferay-${companyId}" />
-				</exec>
+						<exec executable="curl" outputproperty="curl.output.delete.synonyms.index">
+							<arg value="-X" />
+							<arg value="DELETE" />
+							<arg value="localhost:9200/liferay-search-tuning-synonyms-liferay-${companyId}" />
+						</exec>
 
-				<echo>${curl.output.delete.synonyms.index}</echo>
+						<echo>${curl.output.delete.synonyms.index}</echo>
 
-				<exec executable="curl" outputproperty="curl.output.create.synonyms.index">
-					<arg value="-H" />
-					<arg value="Content-Type: application/json" />
-					<arg value="-X" />
-					<arg value="PUT" />
-					<arg value="localhost:9200/liferay-search-tuning-synonyms-liferay-${companyId}" />
-					<arg value="-d" />
-					<arg value="${synonyms.index.with.soft.deletes}" />
-				</exec>
+						<exec executable="curl" outputproperty="curl.output.create.synonyms.index">
+							<arg value="-H" />
+							<arg value="Content-Type: application/json" />
+							<arg value="-X" />
+							<arg value="PUT" />
+							<arg value="localhost:9200/liferay-search-tuning-synonyms-liferay-${companyId}" />
+							<arg value="-d" />
+							<arg value="${synonyms.index.with.soft.deletes}" />
+						</exec>
 
-				<echo>${curl.output.create.synonyms.index}</echo>
+						<echo>${curl.output.create.synonyms.index}</echo>
 
-				<property name="reindex.synonyms.index">
-					<![CDATA[
-						{
-							"source": {
-								"index": "synonyms_temp"
-							},
-							"dest": {
-								"index": "liferay-search-tuning-synonyms-liferay-${companyId}"
-							}
-						}
-					]]>
-				</property>
+						<property name="reindex.synonyms.index">
+							<![CDATA[
+								{
+									"source": {
+										"index": "synonyms_temp"
+									},
+									"dest": {
+										"index": "liferay-search-tuning-synonyms-liferay-${companyId}"
+									}
+								}
+							]]>
+						</property>
 
-				<exec executable="curl" outputproperty="curl.output.reindex.synonyms.index">
-					<arg value="-H" />
-					<arg value="Content-Type: application/json" />
-					<arg value="-X" />
-					<arg value="POST" />
-					<arg value="localhost:9200/_reindex" />
-					<arg value="-d" />
-					<arg value="${reindex.synonyms.index}" />
-				</exec>
+						<exec executable="curl" outputproperty="curl.output.reindex.synonyms.index">
+							<arg value="-H" />
+							<arg value="Content-Type: application/json" />
+							<arg value="-X" />
+							<arg value="POST" />
+							<arg value="localhost:9200/_reindex" />
+							<arg value="-d" />
+							<arg value="${reindex.synonyms.index}" />
+						</exec>
 
-				<echo>${curl.output.reindex.synonyms.index}</echo>
+						<echo>${curl.output.reindex.synonyms.index}</echo>
 
-				<exec executable="curl" outputproperty="curl.output.delete.temporary.synonyms.index">
-					<arg value="-X" />
-					<arg value="DELETE" />
-					<arg value="localhost:9200/synonyms_temp" />
-				</exec>
+						<exec executable="curl" outputproperty="curl.output.delete.temporary.synonyms.index">
+							<arg value="-X" />
+							<arg value="DELETE" />
+							<arg value="localhost:9200/synonyms_temp" />
+						</exec>
 
-				<echo>${curl.output.delete.temporary.synonyms.index}</echo>
+						<echo>${curl.output.delete.temporary.synonyms.index}</echo>
+					</then>
+				</if>
 			</sequential>
 		</for>
 
