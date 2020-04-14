@@ -439,6 +439,18 @@ public class LayoutServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.portal.kernel.model.Layout> getLayouts(
+			long groupId, boolean privateLayout, java.lang.String keywords,
+			java.lang.String[] types, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<com.liferay.portal.kernel.model.Layout> obc)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _layoutService.getLayouts(
+			groupId, privateLayout, keywords, types, start, end, obc);
+	}
+
+	@Override
+	public java.util.List<com.liferay.portal.kernel.model.Layout> getLayouts(
 		long groupId, java.lang.String type) {
 
 		return _layoutService.getLayouts(groupId, type);
@@ -449,6 +461,16 @@ public class LayoutServiceWrapper
 		long groupId, java.lang.String type, int start, int end) {
 
 		return _layoutService.getLayouts(groupId, type, start, end);
+	}
+
+	@Override
+	public int getLayoutsCount(
+			com.liferay.portal.kernel.model.Group group, boolean privateLayout,
+			java.lang.String keywords, java.lang.String[] types)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _layoutService.getLayoutsCount(
+			group, privateLayout, keywords, types);
 	}
 
 	@Override
