@@ -26,6 +26,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountContactsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountLiferayWorkersDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewTeamDisplayContext;
 
 import javax.portlet.RenderRequest;
@@ -77,6 +78,17 @@ public class ProvisioningWebComponentProvider {
 
 		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
 			renderRequest, renderResponse, httpServletRequest);
+	}
+
+	public static ViewAccountLiferayWorkersDisplayContext
+			getViewAccountLiferayWorkersDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider.
+			_getViewAccountLiferayWorkersDisplayContext(
+				renderRequest, renderResponse, httpServletRequest);
 	}
 
 	public static ViewTeamDisplayContext getViewTeamDisplayContext(
@@ -160,6 +172,38 @@ public class ProvisioningWebComponentProvider {
 			viewAccountDisplayContext);
 
 		return viewAccountDisplayContext;
+	}
+
+	private ViewAccountLiferayWorkersDisplayContext
+			_getViewAccountLiferayWorkersDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		ViewAccountLiferayWorkersDisplayContext
+			viewAccountLiferayWorkersDisplayContext =
+				(ViewAccountLiferayWorkersDisplayContext)
+					httpServletRequest.getAttribute(
+						ViewAccountLiferayWorkersDisplayContext.class.
+							getName());
+
+		if (viewAccountLiferayWorkersDisplayContext != null) {
+			return viewAccountLiferayWorkersDisplayContext;
+		}
+
+		viewAccountLiferayWorkersDisplayContext =
+			new ViewAccountLiferayWorkersDisplayContext(
+				renderRequest, renderResponse, httpServletRequest,
+				_accountReader, _accountWebService, _auditEntryWebService,
+				_contactRoleWebService, _contactWebService,
+				_externalLinkWebService, _noteWebService,
+				_productPurchaseViewWebService, _teamWebService);
+
+		httpServletRequest.setAttribute(
+			ViewAccountLiferayWorkersDisplayContext.class.getName(),
+			viewAccountLiferayWorkersDisplayContext);
+
+		return viewAccountLiferayWorkersDisplayContext;
 	}
 
 	private ViewTeamDisplayContext _getViewTeamDisplayContext(

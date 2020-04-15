@@ -38,6 +38,7 @@ page import="com.liferay.osb.provisioning.web.internal.display.context.PostalAdd
 page import="com.liferay.osb.provisioning.web.internal.display.context.TeamDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ViewAccountContactsDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext" %><%@
+page import="com.liferay.osb.provisioning.web.internal.display.context.ViewAccountLiferayWorkersDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ViewTeamDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.util.ProvisioningWebComponentProvider" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@

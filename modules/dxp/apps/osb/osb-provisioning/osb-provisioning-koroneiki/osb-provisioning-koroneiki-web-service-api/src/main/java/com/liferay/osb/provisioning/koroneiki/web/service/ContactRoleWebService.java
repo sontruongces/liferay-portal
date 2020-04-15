@@ -27,6 +27,10 @@ public interface ContactRoleWebService {
 			String accountKey, String emailAddress, int page, int pageSize)
 		throws Exception;
 
+	public List<ContactRole> getAccountWorkerContactRoles(
+			String accountKey, String emailAddress, int page, int pageSize)
+		throws Exception;
+
 	public ContactRole getContactRole(String contactRoleKey) throws Exception;
 
 	public List<ContactRole> search(

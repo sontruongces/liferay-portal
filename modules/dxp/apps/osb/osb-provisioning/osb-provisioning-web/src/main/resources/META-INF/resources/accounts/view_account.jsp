@@ -43,6 +43,9 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 			<c:when test='<%= tabs1.equals("history") %>'>
 				<liferay-util:include page="/accounts/view_account_history.jsp" servletContext="<%= application %>" />
 			</c:when>
+			<c:when test='<%= tabs1.equals("liferay-workers") %>'>
+				<liferay-util:include page="/accounts/view_account_liferay_workers.jsp" servletContext="<%= application %>" />
+			</c:when>
 			<c:when test='<%= tabs1.equals("opportunities") %>'>
 				<liferay-util:include page="/accounts/view_account_opportunities.jsp" servletContext="<%= application %>" />
 			</c:when>

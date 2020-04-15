@@ -51,10 +51,10 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Amos Fong
  */
-public class ViewAccountContactsDisplayContext
+public class ViewAccountLiferayWorkersDisplayContext
 	extends ViewAccountDisplayContext {
 
-	public ViewAccountContactsDisplayContext(
+	public ViewAccountLiferayWorkersDisplayContext(
 			RenderRequest renderRequest, RenderResponse renderResponse,
 			HttpServletRequest httpServletRequest, AccountReader accountReader,
 			AccountWebService accountWebService,
@@ -139,7 +139,7 @@ public class ViewAccountContactsDisplayContext
 
 		StringBundler sb = new StringBundler();
 
-		sb.append("customerAccountKeys/any(s:s eq '");
+		sb.append("workerAccountKeys/any(s:s eq '");
 		sb.append(account.getKey());
 		sb.append("')");
 
@@ -173,7 +173,7 @@ public class ViewAccountContactsDisplayContext
 				contacts,
 				contact -> {
 					List<ContactRole> contactRoles =
-						contactRoleWebService.getAccountCustomerContactRoles(
+						contactRoleWebService.getAccountWorkerContactRoles(
 							account.getKey(), contact.getEmailAddress(), 1,
 							1000);
 
@@ -193,7 +193,7 @@ public class ViewAccountContactsDisplayContext
 
 	private List<ContactRole> _getContactRoles() throws Exception {
 		return contactRoleWebService.search(
-			"type eq '" + ContactRole.Type.ACCOUNT_CUSTOMER.toString() + "'", 1,
+			"type eq '" + ContactRole.Type.ACCOUNT_WORKER.toString() + "'", 1,
 			1000, "name");
 	}
 

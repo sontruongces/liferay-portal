@@ -46,7 +46,25 @@ public class ContactRoleWebServiceImpl implements ContactRoleWebService {
 
 		Page<ContactRole> contactRolesPage =
 			_contactRoleResource.
-				getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
+				getAccountAccountKeyCustomerContactByEmailAddresContactEmailAddressRolesPage(
+					accountKey, emailAddress, Pagination.of(page, pageSize));
+
+		if ((contactRolesPage != null) &&
+			(contactRolesPage.getItems() != null)) {
+
+			return new ArrayList<>(contactRolesPage.getItems());
+		}
+
+		return Collections.emptyList();
+	}
+
+	public List<ContactRole> getAccountWorkerContactRoles(
+			String accountKey, String emailAddress, int page, int pageSize)
+		throws Exception {
+
+		Page<ContactRole> contactRolesPage =
+			_contactRoleResource.
+				getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage(
 					accountKey, emailAddress, Pagination.of(page, pageSize));
 
 		if ((contactRolesPage != null) &&
