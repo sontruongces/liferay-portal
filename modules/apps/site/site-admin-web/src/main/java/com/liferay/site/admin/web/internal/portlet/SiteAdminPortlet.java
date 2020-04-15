@@ -45,6 +45,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.Layout;
@@ -52,6 +53,7 @@ import com.liferay.portal.kernel.model.LayoutSet;
 import com.liferay.portal.kernel.model.LayoutSetPrototype;
 import com.liferay.portal.kernel.model.MembershipRequest;
 import com.liferay.portal.kernel.model.MembershipRequestConstants;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.security.auth.AuthException;
@@ -929,6 +931,15 @@ public class SiteAdminPortlet extends MVCPortlet {
 		}
 
 		if (inheritLocales) {
+			Company company = themeDisplay.getCompany();
+
+			User user = company.getDefaultUser();
+
+			Locale defaultLocale = user.getLocale();
+
+			formTypeSettingsProperties.setProperty(
+				"languageId", LocaleUtil.toLanguageId(defaultLocale));
+
 			formTypeSettingsProperties.setProperty(
 				PropsKeys.LOCALES,
 				StringUtil.merge(
