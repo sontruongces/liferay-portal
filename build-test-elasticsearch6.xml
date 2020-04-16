@@ -721,6 +721,7 @@ xpack.monitoring.collection.enabled: true</echo>
 	<target name="create-follower-indices">
 		<exec executable="curl" outputproperty="companyId">
 			<arg value="http://localhost:8080/api/jsonws/company/get-company-by-virtual-host/virtual-host/localhost" />
+			<arg value="-s" />
 			<arg value="-u" />
 			<arg value="test@liferay.com:test" />
 		</exec>
@@ -799,6 +800,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="localhost:9200/temp_index" />
 							<arg value="-d" />
 							<arg value="${index.with.soft.deletes}" />
+							<arg value="-s" />
 						</exec>
 
 						<echo>${curl.output.create.temporary.index}</echo>
@@ -824,6 +826,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="localhost:9200/_reindex" />
 							<arg value="-d" />
 							<arg value="${reindex.temporary.index}" />
+							<arg value="-s" />
 						</exec>
 
 						<echo>${curl.output.reindex.temporary.index}</echo>
@@ -832,6 +835,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="-X" />
 							<arg value="DELETE" />
 							<arg value="localhost:9200/@{indexName}" />
+							<arg value="-s" />
 						</exec>
 
 						<echo>${curl.output.delete.index}</echo>
@@ -844,6 +848,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="localhost:9200/@{indexName}" />
 							<arg value="-d" />
 							<arg value="${index.with.soft.deletes}" />
+							<arg value="-s" />
 						</exec>
 
 						<echo>${curl.output.recreate.index}</echo>
@@ -869,6 +874,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="localhost:9200/_reindex" />
 							<arg value="-d" />
 							<arg value="${reindex.recreated.index}" />
+							<arg value="-s" />
 						</exec>
 
 						<echo>${curl.output.reindex.recreated.index}</echo>
@@ -877,6 +883,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="-X" />
 							<arg value="DELETE" />
 							<arg value="localhost:9200/temp_index" />
+							<arg value="-s" />
 						</exec>
 
 						<echo>${curl.output.delete.temporary.index}</echo>
@@ -922,6 +929,7 @@ xpack.monitoring.collection.enabled: true</echo>
 			<arg value="localhost:9202/_cluster/settings" />
 			<arg value="-d" />
 			<arg value="${configure.cluster}" />
+			<arg value="-s" />
 		</exec>
 
 		<echo>${curl.output.connect.to.remote.cluster}</echo>
@@ -950,6 +958,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="localhost:9202/@{indexName}/_ccr/follow?wait_for_active_shards=1" />
 							<arg value="-d" />
 							<arg value="${follower.index}" />
+							<arg value="-s" />
 						</exec>
 
 						<echo>${curl.output.follower.index}</echo>
