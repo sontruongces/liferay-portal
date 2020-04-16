@@ -15,15 +15,14 @@
 package com.liferay.osb.provisioning.koroneiki.web.service.internal;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
-import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
+import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.NoteResource;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.NoteSerDes;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -37,20 +36,27 @@ import org.osgi.service.component.annotations.Component;
 	configurationPid = "com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration",
 	immediate = true, service = NoteWebService.class
 )
-public class NoteWebServiceImpl implements NoteWebService {
+public class NoteWebServiceImpl
+	extends BaseWebService implements NoteWebService {
 
 	public Note addNote(
 			String agentName, String agentUID, String accountKey, Note note)
 		throws Exception {
 
-		return _noteResource.postAccountAccountKeyNote(
-			agentName, agentUID, accountKey, note);
+		HttpInvoker.HttpResponse httpResponse =
+			_noteResource.postAccountAccountKeyNoteHttpResponse(
+				agentName, agentUID, accountKey, note);
+
+		return processDTO(httpResponse, NoteSerDes::toDTO);
 	}
 
 	public void deleteNote(String agentName, String agentUID, String noteKey)
 		throws Exception {
 
-		_noteResource.deleteNote(agentName, agentUID, noteKey);
+		HttpInvoker.HttpResponse httpResponse =
+			_noteResource.deleteNoteHttpResponse(agentName, agentUID, noteKey);
+
+		validateResponse(httpResponse);
 	}
 
 	public List<Note> getNotes(
@@ -58,21 +64,22 @@ public class NoteWebServiceImpl implements NoteWebService {
 			int pageSize)
 		throws Exception {
 
-		Page<Note> notesPage = _noteResource.getAccountAccountKeyNotesPage(
-			accountKey, status, type, Pagination.of(page, pageSize));
+		HttpInvoker.HttpResponse httpResponse =
+			_noteResource.getAccountAccountKeyNotesPageHttpResponse(
+				accountKey, status, type, Pagination.of(page, pageSize));
 
-		if ((notesPage != null) && (notesPage.getItems() != null)) {
-			return new ArrayList<>(notesPage.getItems());
-		}
-
-		return Collections.emptyList();
+		return processDTOList(httpResponse, NoteSerDes::toDTO);
 	}
 
 	public Note updateNote(
 			String agentName, String agentUID, String noteKey, Note note)
 		throws Exception {
 
-		return _noteResource.putNote(agentName, agentUID, noteKey, note);
+		HttpInvoker.HttpResponse httpResponse =
+			_noteResource.putNoteHttpResponse(
+				agentName, agentUID, noteKey, note);
+
+		return processDTO(httpResponse, NoteSerDes::toDTO);
 	}
 
 	@Activate

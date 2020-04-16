@@ -17,20 +17,28 @@ package com.liferay.osb.provisioning.web.internal.portlet.action;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -47,13 +55,23 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 
-	protected void deleteNote(ActionRequest actionRequest, User user)
+	protected JSONObject deleteNote(ActionRequest actionRequest)
 		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		User user = themeDisplay.getUser();
 
 		String noteKey = ParamUtil.getString(actionRequest, "noteKey");
 
 		_noteWebService.deleteNote(
 			user.getFullName(), StringPool.BLANK, noteKey);
+
+		return JSONUtil.put(
+			"successMessage",
+			LanguageUtil.get(
+				themeDisplay.getRequest(), "note-deleted-successfully"));
 	}
 
 	@Override
@@ -61,32 +79,53 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		JSONObject jsonObject = null;
 
 		try {
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-
-			User user = themeDisplay.getUser();
+			String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 			if (cmd.equals(Constants.DELETE)) {
-				deleteNote(actionRequest, user);
+				jsonObject = deleteNote(actionRequest);
 			}
 			else {
-				updateNote(actionRequest, user);
+				jsonObject = updateNote(actionRequest);
 			}
-
-			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
 
-			throw exception;
+			HttpServletResponse httpServletResponse =
+				_portal.getHttpServletResponse(actionResponse);
+
+			httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+			if (Validator.isNotNull(exception.getMessage())) {
+				jsonObject = JSONUtil.put(
+					"errorMessage", exception.getMessage());
+			}
+			else {
+				jsonObject = JSONUtil.put(
+					"errorMessage",
+					LanguageUtil.get(
+						themeDisplay.getRequest(),
+						"an-unexpected-error-occurred"));
+			}
 		}
+
+		JSONPortletResponseUtil.writeJSON(
+			actionRequest, actionResponse, jsonObject);
 	}
 
-	protected void updateNote(ActionRequest actionRequest, User user)
+	protected JSONObject updateNote(ActionRequest actionRequest)
 		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		User user = themeDisplay.getUser();
 
 		String noteKey = ParamUtil.getString(actionRequest, "noteKey");
 
@@ -115,16 +154,42 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 			note.setStatus(Note.Status.create(status));
 		}
 
+		JSONObject jsonObject = null;
+
 		if (Validator.isNotNull(noteKey)) {
-			_noteWebService.updateNote(
+			note = _noteWebService.updateNote(
 				user.getFullName(), StringPool.BLANK, noteKey, note);
+
+			JSONObject noteJsonObject = JSONFactoryUtil.createJSONObject(
+				note.toString());
+
+			jsonObject = JSONUtil.put(
+				"note", noteJsonObject
+			).put(
+				"successMessage",
+				LanguageUtil.get(
+					themeDisplay.getRequest(), "note-updated-successfully")
+			);
 		}
 		else {
 			note.setType(Note.Type.create(type));
 
-			_noteWebService.addNote(
+			note = _noteWebService.addNote(
 				user.getFullName(), StringPool.BLANK, accountKey, note);
+
+			JSONObject noteJsonObject = JSONFactoryUtil.createJSONObject(
+				note.toString());
+
+			jsonObject = JSONUtil.put(
+				"note", noteJsonObject
+			).put(
+				"successMessage",
+				LanguageUtil.get(
+					themeDisplay.getRequest(), "note-added-successfully")
+			);
 		}
+
+		return jsonObject;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -132,5 +197,8 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private NoteWebService _noteWebService;
+
+	@Reference
+	private Portal _portal;
 
 }

@@ -557,6 +557,7 @@ components:
                     readOnly: true
                     type: string
                 priority:
+                    default: 1
                     description:
                         The importance of this note. A lower number indicates a higher importance.
                     type: integer

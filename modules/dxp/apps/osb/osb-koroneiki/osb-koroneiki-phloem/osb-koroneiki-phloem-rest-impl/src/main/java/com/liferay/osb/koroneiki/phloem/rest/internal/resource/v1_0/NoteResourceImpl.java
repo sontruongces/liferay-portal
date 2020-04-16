@@ -105,6 +105,12 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 			type = noteType.toString();
 		}
 
+		int priority = 1;
+
+		if (note.getPriority() != null) {
+			priority = note.getPriority();
+		}
+
 		String format = StringPool.BLANK;
 
 		Note.Format noteFormat = note.getFormat();
@@ -123,8 +129,8 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 
 		return NoteUtil.toNote(
 			_accountNoteService.addAccountNote(
-				agentUID, agentName, account.getAccountId(), type,
-				note.getPriority(), note.getContent(), format, status));
+				agentUID, agentName, account.getAccountId(), type, priority,
+				note.getContent(), format, status));
 	}
 
 	@Override
