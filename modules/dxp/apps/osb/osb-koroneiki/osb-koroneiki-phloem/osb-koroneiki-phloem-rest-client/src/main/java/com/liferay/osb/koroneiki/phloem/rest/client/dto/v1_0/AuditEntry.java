@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class AuditEntry implements Cloneable {
+public class AuditEntry {
 
 	public static enum Action {
 
@@ -297,11 +297,6 @@ public class AuditEntry implements Cloneable {
 	}
 
 	protected String summary;
-
-	@Override
-	public AuditEntry clone() throws CloneNotSupportedException {
-		return (AuditEntry)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

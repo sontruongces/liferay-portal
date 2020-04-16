@@ -18,7 +18,6 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
-import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.TeamSerDes;
 
 import java.util.LinkedHashMap;
@@ -26,8 +25,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.annotation.Generated;
 
@@ -95,16 +92,6 @@ public interface TeamResource {
 			String agentName, String agentUID, String teamKey)
 		throws Exception;
 
-	public void deleteTeamBatch(
-			String agentName, String agentUID, String teamKey,
-			String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse deleteTeamBatchHttpResponse(
-			String agentName, String agentUID, String teamKey,
-			String callbackURL, Object object)
-		throws Exception;
-
 	public Team getTeam(String teamKey) throws Exception;
 
 	public HttpInvoker.HttpResponse getTeamHttpResponse(String teamKey)
@@ -116,16 +103,6 @@ public interface TeamResource {
 
 	public HttpInvoker.HttpResponse putTeamHttpResponse(
 			String agentName, String agentUID, String teamKey, Team team)
-		throws Exception;
-
-	public void putTeamBatch(
-			String agentName, String agentUID, String teamKey,
-			String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse putTeamBatchHttpResponse(
-			String agentName, String agentUID, String teamKey,
-			String callbackURL, Object object)
 		throws Exception;
 
 	public void deleteTeamContactByEmailAddress(
@@ -343,16 +320,7 @@ public interface TeamResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, TeamSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, TeamSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -416,16 +384,7 @@ public interface TeamResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, TeamSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, TeamSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -497,7 +456,7 @@ public interface TeamResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -564,16 +523,7 @@ public interface TeamResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, TeamSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, TeamSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse getTeamsPageHttpResponse(
@@ -648,16 +598,7 @@ public interface TeamResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, TeamSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, TeamSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -720,17 +661,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamHttpResponse(
@@ -777,74 +707,6 @@ public interface TeamResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteTeamBatch(
-				String agentName, String agentUID, String teamKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse = deleteTeamBatchHttpResponse(
-				agentName, agentUID, teamKey, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse deleteTeamBatchHttpResponse(
-				String agentName, String agentUID, String teamKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/teams/{teamKey}/batch",
-				teamKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public Team getTeam(String teamKey) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = getTeamHttpResponse(
 				teamKey);
@@ -865,7 +727,7 @@ public interface TeamResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -927,7 +789,7 @@ public interface TeamResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -977,76 +839,6 @@ public interface TeamResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putTeamBatch(
-				String agentName, String agentUID, String teamKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse = putTeamBatchHttpResponse(
-				agentName, agentUID, teamKey, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse putTeamBatchHttpResponse(
-				String agentName, String agentUID, String teamKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/teams/{teamKey}/batch",
-				teamKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public void deleteTeamContactByEmailAddress(
 				String agentName, String agentUID, String teamKey,
 				String[] emailAddresses)
@@ -1063,17 +855,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1146,17 +927,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1167,15 +937,7 @@ public interface TeamResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					emailAddresses
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(emailAddresses.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1240,17 +1002,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1324,17 +1075,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1345,15 +1085,7 @@ public interface TeamResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					contactRoleKeys
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1417,17 +1149,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamContactByOktaHttpResponse(
@@ -1499,17 +1220,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse putTeamContactByOktaHttpResponse(
@@ -1519,15 +1229,7 @@ public interface TeamResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					oktaIds
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(oktaIds.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1591,17 +1293,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamContactByOktaRoleHttpResponse(
@@ -1673,17 +1364,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse putTeamContactByOktaRoleHttpResponse(
@@ -1693,15 +1373,7 @@ public interface TeamResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					contactRoleKeys
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1765,17 +1437,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamContactByUuidHttpResponse(
@@ -1847,17 +1508,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse putTeamContactByUuidHttpResponse(
@@ -1867,15 +1517,7 @@ public interface TeamResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					contactUuids
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(contactUuids.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1939,17 +1581,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2022,17 +1653,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2043,15 +1663,7 @@ public interface TeamResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					contactRoleKeys
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -2116,17 +1728,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamTeamPermissionHttpResponse(
@@ -2193,17 +1794,6 @@ public interface TeamResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse putTeamTeamPermissionHttpResponse(

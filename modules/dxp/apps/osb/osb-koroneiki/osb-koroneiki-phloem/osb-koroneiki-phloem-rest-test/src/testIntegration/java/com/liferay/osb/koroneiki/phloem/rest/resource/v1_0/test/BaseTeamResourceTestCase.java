@@ -546,46 +546,23 @@ public abstract class BaseTeamResourceTestCase {
 			(entityField, team1, team2) -> {
 				Class<?> clazz = team1.getClass();
 
-				String entityFieldName = entityField.getName();
-
 				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						team1, entityFieldName,
+						team1, entityField.getName(),
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						team2, entityFieldName,
+						team2, entityField.getName(),
 						Collections.singletonMap("Bbb", "Bbb"));
 				}
-				else if (entityFieldName.contains("email")) {
-					BeanUtils.setProperty(
-						team1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanUtils.setProperty(
-						team2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-				}
 				else {
-					BeanUtils.setProperty(
-						team1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-					BeanUtils.setProperty(
-						team2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(team1, entityField.getName(), "Aaa");
+					BeanUtils.setProperty(team2, entityField.getName(), "Bbb");
 				}
 			});
 	}
@@ -1178,30 +1155,6 @@ public abstract class BaseTeamResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
 	protected boolean equalsJSONObject(Team team, JSONObject jsonObject) {
 		for (String fieldName : getAdditionalAssertFieldNames()) {
 			if (Objects.equals("accountKey", fieldName)) {
@@ -1432,12 +1385,11 @@ public abstract class BaseTeamResourceTestCase {
 	protected Team randomTeam() throws Exception {
 		return new Team() {
 			{
-				accountKey = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				accountKey = RandomTestUtil.randomString();
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				key = RandomTestUtil.randomString();
+				name = RandomTestUtil.randomString();
 				system = RandomTestUtil.randomBoolean();
 			}
 		};

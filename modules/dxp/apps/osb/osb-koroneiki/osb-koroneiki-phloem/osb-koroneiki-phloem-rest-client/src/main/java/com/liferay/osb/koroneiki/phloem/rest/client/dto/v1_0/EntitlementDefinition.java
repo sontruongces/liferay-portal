@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class EntitlementDefinition implements Cloneable {
+public class EntitlementDefinition {
 
 	public static enum Status {
 
@@ -231,11 +231,6 @@ public class EntitlementDefinition implements Cloneable {
 	}
 
 	protected Status status;
-
-	@Override
-	public EntitlementDefinition clone() throws CloneNotSupportedException {
-		return (EntitlementDefinition)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

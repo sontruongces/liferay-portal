@@ -18,7 +18,6 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
-import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.AccountSerDes;
 
 import java.util.LinkedHashMap;
@@ -26,8 +25,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.annotation.Generated;
 
@@ -60,16 +57,6 @@ public interface AccountResource {
 			String agentName, String agentUID, Account account)
 		throws Exception;
 
-	public void postAccountBatch(
-			String agentName, String agentUID, String callbackURL,
-			Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse postAccountBatchHttpResponse(
-			String agentName, String agentUID, String callbackURL,
-			Object object)
-		throws Exception;
-
 	public Page<Account> getAccountByExternalLinkDomainEntityNameEntityPage(
 			String domain, String entityName, String entityId,
 			Pagination pagination)
@@ -89,16 +76,6 @@ public interface AccountResource {
 			String agentName, String agentUID, String accountKey)
 		throws Exception;
 
-	public void deleteAccountBatch(
-			String agentName, String agentUID, String accountKey,
-			String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse deleteAccountBatchHttpResponse(
-			String agentName, String agentUID, String accountKey,
-			String callbackURL, Object object)
-		throws Exception;
-
 	public Account getAccount(String accountKey) throws Exception;
 
 	public HttpInvoker.HttpResponse getAccountHttpResponse(String accountKey)
@@ -112,16 +89,6 @@ public interface AccountResource {
 	public HttpInvoker.HttpResponse putAccountHttpResponse(
 			String agentName, String agentUID, String accountKey,
 			Account account)
-		throws Exception;
-
-	public void putAccountBatch(
-			String agentName, String agentUID, String accountKey,
-			String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse putAccountBatchHttpResponse(
-			String agentName, String agentUID, String accountKey,
-			String callbackURL, Object object)
 		throws Exception;
 
 	public void deleteAccountAccountPermission(
@@ -415,16 +382,7 @@ public interface AccountResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, AccountSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, AccountSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse getAccountsPageHttpResponse(
@@ -505,7 +463,7 @@ public interface AccountResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -554,75 +512,6 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void postAccountBatch(
-				String agentName, String agentUID, String callbackURL,
-				Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postAccountBatchHttpResponse(
-					agentName, agentUID, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse postAccountBatchHttpResponse(
-				String agentName, String agentUID, String callbackURL,
-				Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/koroneiki-rest/v1.0/accounts/batch");
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public Page<Account> getAccountByExternalLinkDomainEntityNameEntityPage(
 				String domain, String entityName, String entityId,
 				Pagination pagination)
@@ -640,16 +529,7 @@ public interface AccountResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, AccountSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, AccountSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -712,17 +592,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse deleteAccountHttpResponse(
@@ -770,75 +639,6 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteAccountBatch(
-				String agentName, String agentUID, String accountKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountBatchHttpResponse(
-					agentName, agentUID, accountKey, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse deleteAccountBatchHttpResponse(
-				String agentName, String agentUID, String accountKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/batch",
-				accountKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public Account getAccount(String accountKey) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = getAccountHttpResponse(
 				accountKey);
@@ -859,7 +659,7 @@ public interface AccountResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -924,7 +724,7 @@ public interface AccountResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -976,76 +776,6 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putAccountBatch(
-				String agentName, String agentUID, String accountKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse = putAccountBatchHttpResponse(
-				agentName, agentUID, accountKey, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse putAccountBatchHttpResponse(
-				String agentName, String agentUID, String accountKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/batch",
-				accountKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public void deleteAccountAccountPermission(
 				String agentName, String agentUID, String accountKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
@@ -1063,17 +793,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1141,17 +860,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse putAccountAccountPermissionHttpResponse(
@@ -1219,17 +927,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1302,17 +999,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1323,15 +1009,7 @@ public interface AccountResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					teamRoleKeys
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(teamRoleKeys.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1394,16 +1072,7 @@ public interface AccountResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, AccountSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, AccountSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse getAccountChildAccountsPageHttpResponse(
@@ -1475,7 +1144,7 @@ public interface AccountResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -1544,17 +1213,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1628,17 +1286,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1649,15 +1296,7 @@ public interface AccountResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					contactRoleKeys
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1721,17 +1360,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1804,17 +1432,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse putAccountContactByOktaRoleHttpResponse(
@@ -1824,15 +1441,7 @@ public interface AccountResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					contactRoleKeys
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1897,17 +1506,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1981,17 +1579,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2002,15 +1589,7 @@ public interface AccountResource {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(
-				Stream.of(
-					contactRoleKeys
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
+			httpInvoker.body(contactRoleKeys.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -2074,17 +1653,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2158,17 +1726,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2241,17 +1798,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2324,17 +1870,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2408,17 +1943,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2491,17 +2015,6 @@ public interface AccountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2573,16 +2086,7 @@ public interface AccountResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, AccountSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, AccountSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2646,16 +2150,7 @@ public interface AccountResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, AccountSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, AccountSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -2719,16 +2214,7 @@ public interface AccountResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, AccountSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, AccountSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse

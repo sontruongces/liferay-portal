@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Team implements Cloneable {
+public class Team {
 
 	public String getAccountKey() {
 		return accountKey;
@@ -213,11 +213,6 @@ public class Team implements Cloneable {
 	}
 
 	protected TeamRole[] teamRoles;
-
-	@Override
-	public Team clone() throws CloneNotSupportedException {
-		return (Team)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

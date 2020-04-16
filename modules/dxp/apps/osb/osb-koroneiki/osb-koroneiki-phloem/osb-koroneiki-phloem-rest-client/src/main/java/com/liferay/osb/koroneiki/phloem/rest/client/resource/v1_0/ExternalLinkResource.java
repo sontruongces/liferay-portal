@@ -18,7 +18,6 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
-import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ExternalLinkSerDes;
 
 import java.util.LinkedHashMap;
@@ -107,16 +106,6 @@ public interface ExternalLinkResource {
 			String agentName, String agentUID, String externalLinkKey)
 		throws Exception;
 
-	public void deleteExternalLinkBatch(
-			String agentName, String agentUID, String externalLinkKey,
-			String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse deleteExternalLinkBatchHttpResponse(
-			String agentName, String agentUID, String externalLinkKey,
-			String callbackURL, Object object)
-		throws Exception;
-
 	public ExternalLink getExternalLink(String externalLinkKey)
 		throws Exception;
 
@@ -132,16 +121,6 @@ public interface ExternalLinkResource {
 	public HttpInvoker.HttpResponse putExternalLinkHttpResponse(
 			String agentName, String agentUID, String externalLinkKey,
 			ExternalLink externalLink)
-		throws Exception;
-
-	public void putExternalLinkBatch(
-			String agentName, String agentUID, String externalLinkKey,
-			String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse putExternalLinkBatchHttpResponse(
-			String agentName, String agentUID, String externalLinkKey,
-			String callbackURL, Object object)
 		throws Exception;
 
 	public Page<ExternalLink>
@@ -296,16 +275,7 @@ public interface ExternalLinkResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, ExternalLinkSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, ExternalLinkSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -378,7 +348,7 @@ public interface ExternalLinkResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -447,16 +417,7 @@ public interface ExternalLinkResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, ExternalLinkSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, ExternalLinkSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -529,7 +490,7 @@ public interface ExternalLinkResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -598,16 +559,7 @@ public interface ExternalLinkResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, ExternalLinkSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, ExternalLinkSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -680,7 +632,7 @@ public interface ExternalLinkResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -748,17 +700,6 @@ public interface ExternalLinkResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse deleteExternalLinkHttpResponse(
@@ -806,75 +747,6 @@ public interface ExternalLinkResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteExternalLinkBatch(
-				String agentName, String agentUID, String externalLinkKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteExternalLinkBatchHttpResponse(
-					agentName, agentUID, externalLinkKey, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse deleteExternalLinkBatchHttpResponse(
-				String agentName, String agentUID, String externalLinkKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/external-links/{externalLinkKey}/batch",
-				externalLinkKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public ExternalLink getExternalLink(String externalLinkKey)
 			throws Exception {
 
@@ -897,7 +769,7 @@ public interface ExternalLinkResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -962,7 +834,7 @@ public interface ExternalLinkResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -1014,77 +886,6 @@ public interface ExternalLinkResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putExternalLinkBatch(
-				String agentName, String agentUID, String externalLinkKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				putExternalLinkBatchHttpResponse(
-					agentName, agentUID, externalLinkKey, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse putExternalLinkBatchHttpResponse(
-				String agentName, String agentUID, String externalLinkKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/external-links/{externalLinkKey}/batch",
-				externalLinkKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public Page<ExternalLink>
 				getProductConsumptionProductConsumptionKeyExternalLinksPage(
 					String productConsumptionKey, Pagination pagination)
@@ -1102,16 +903,7 @@ public interface ExternalLinkResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, ExternalLinkSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, ExternalLinkSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1185,7 +977,7 @@ public interface ExternalLinkResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -1255,16 +1047,7 @@ public interface ExternalLinkResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, ExternalLinkSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, ExternalLinkSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1337,7 +1120,7 @@ public interface ExternalLinkResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -1406,16 +1189,7 @@ public interface ExternalLinkResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, ExternalLinkSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, ExternalLinkSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1488,7 +1262,7 @@ public interface ExternalLinkResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -1557,16 +1331,7 @@ public interface ExternalLinkResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, ExternalLinkSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, ExternalLinkSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1639,7 +1404,7 @@ public interface ExternalLinkResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 

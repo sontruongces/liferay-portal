@@ -42,7 +42,6 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -750,30 +749,6 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
 	protected boolean equalsJSONObject(
 		EntitlementDefinition entitlementDefinition, JSONObject jsonObject) {
 
@@ -1019,12 +994,10 @@ public abstract class BaseEntitlementDefinitionResourceTestCase {
 			{
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				definition = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				description = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				definition = RandomTestUtil.randomString();
+				description = RandomTestUtil.randomString();
+				key = RandomTestUtil.randomString();
+				name = RandomTestUtil.randomString();
 			}
 		};
 	}

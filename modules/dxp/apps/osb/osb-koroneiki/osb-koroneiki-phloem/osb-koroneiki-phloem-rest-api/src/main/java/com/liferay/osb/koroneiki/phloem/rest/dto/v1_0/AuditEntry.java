@@ -121,7 +121,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(description = "The action performed on the object.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Action action;
 
@@ -151,9 +151,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(
-		description = "The full name of the user performing the audited action."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String agentName;
 
@@ -183,9 +181,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(
-		description = "The Okta ID of the user performing the audited action."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String agentUID;
 
@@ -213,7 +209,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(description = "The id of related audit entries.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long auditSetId;
 
@@ -241,7 +237,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(description = "The audit entry's creation date.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -269,9 +265,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(
-		description = "Additional information describing what occurred."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String description;
 
@@ -299,7 +293,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(description = "The field of the audited object.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String field;
 
@@ -325,7 +319,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(description = "The audit entry's key.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -353,9 +347,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(
-		description = "The new value of the field on the audited object."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String newValue;
 
@@ -383,9 +375,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(
-		description = "The old value of the field on the audited object."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String oldValue;
 
@@ -413,7 +403,7 @@ public class AuditEntry {
 		}
 	}
 
-	@GraphQLField(description = "A summary of the what occurred.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String summary;
 

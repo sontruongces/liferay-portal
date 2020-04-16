@@ -26,7 +26,7 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	property = {
-		"liferay.jackson=false", "osgi.jaxrs.application.base=/koroneiki-rest",
+		"osgi.jaxrs.application.base=/koroneiki-rest",
 		"osgi.jaxrs.extension.select=(osgi.jaxrs.name=Liferay.Vulcan)",
 		"osgi.jaxrs.name=Liferay.Koroneiki.REST"
 	},

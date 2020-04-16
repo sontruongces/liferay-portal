@@ -341,46 +341,25 @@ public abstract class BaseAccountResourceTestCase {
 			(entityField, account1, account2) -> {
 				Class<?> clazz = account1.getClass();
 
-				String entityFieldName = entityField.getName();
-
 				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						account1, entityFieldName,
+						account1, entityField.getName(),
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						account2, entityFieldName,
+						account2, entityField.getName(),
 						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanUtils.setProperty(
-						account1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanUtils.setProperty(
-						account2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						account1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						account1, entityField.getName(), "Aaa");
 					BeanUtils.setProperty(
-						account2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						account2, entityField.getName(), "Bbb");
 				}
 			});
 	}
@@ -1784,30 +1763,6 @@ public abstract class BaseAccountResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
 	protected boolean equalsJSONObject(Account account, JSONObject jsonObject) {
 		for (String fieldName : getAdditionalAssertFieldNames()) {
 			if (Objects.equals("code", fieldName)) {
@@ -2226,26 +2181,20 @@ public abstract class BaseAccountResourceTestCase {
 	protected Account randomAccount() throws Exception {
 		return new Account() {
 			{
-				code = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				contactEmailAddress = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				code = RandomTestUtil.randomString();
+				contactEmailAddress = RandomTestUtil.randomString();
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				description = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				faxNumber = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				description = RandomTestUtil.randomString();
+				faxNumber = RandomTestUtil.randomString();
 				internal = RandomTestUtil.randomBoolean();
-				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				key = RandomTestUtil.randomString();
 				logoId = RandomTestUtil.randomLong();
-				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				parentAccountKey = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				phoneNumber = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				profileEmailAddress = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				website = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				name = RandomTestUtil.randomString();
+				parentAccountKey = RandomTestUtil.randomString();
+				phoneNumber = RandomTestUtil.randomString();
+				profileEmailAddress = RandomTestUtil.randomString();
+				website = RandomTestUtil.randomString();
 			}
 		};
 	}

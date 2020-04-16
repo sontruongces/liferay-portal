@@ -70,7 +70,7 @@ public class Entitlement {
 		}
 	}
 
-	@GraphQLField(description = "The key of the entitlement's definition.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String entitlementDefinitionKey;
 
@@ -96,7 +96,7 @@ public class Entitlement {
 		}
 	}
 
-	@GraphQLField(description = "The name of the entitlement.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String name;
 

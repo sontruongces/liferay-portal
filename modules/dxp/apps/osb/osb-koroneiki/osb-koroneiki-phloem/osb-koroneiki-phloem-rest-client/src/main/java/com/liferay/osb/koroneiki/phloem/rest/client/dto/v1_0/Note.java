@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Note implements Cloneable {
+public class Note {
 
 	public static enum Format {
 
@@ -393,11 +393,6 @@ public class Note implements Cloneable {
 	}
 
 	protected Type type;
-
-	@Override
-	public Note clone() throws CloneNotSupportedException {
-		return (Note)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

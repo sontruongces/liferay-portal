@@ -454,13 +454,10 @@ public class PostalAddressSerDes {
 
 				sb.append("]");
 			}
-			else if (value instanceof String) {
+			else {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
-			}
-			else {
-				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {

@@ -17,22 +17,11 @@ package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.EntitlementDefinitionResource;
 import com.liferay.petra.function.UnsafeFunction;
-import com.liferay.portal.kernel.model.GroupedModel;
-import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.filter.Filter;
-import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.service.ResourceActionLocalService;
-import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
-import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.batch.engine.VulcanBatchEngineTaskItemDelegate;
-import com.liferay.portal.vulcan.batch.engine.resource.VulcanBatchEngineImportTaskResource;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
-import com.liferay.portal.vulcan.resource.EntityModelResource;
-import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,12 +31,8 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 
-import java.io.Serializable;
-
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import javax.annotation.Generated;
 
@@ -65,9 +50,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -77,8 +59,7 @@ import javax.ws.rs.core.UriInfo;
 @Generated("")
 @Path("/v1.0")
 public abstract class BaseEntitlementDefinitionResourceImpl
-	implements EntitlementDefinitionResource, EntityModelResource,
-			   VulcanBatchEngineTaskItemDelegate<EntitlementDefinition> {
+	implements EntitlementDefinitionResource {
 
 	/**
 	 * Invoke this method with the command line:
@@ -137,49 +118,6 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/entitlement-definitions/batch'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes("application/json")
-	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
-		}
-	)
-	@Path("/accounts/entitlement-definitions/batch")
-	@Produces("application/json")
-	@Tags(value = {@Tag(name = "EntitlementDefinition")})
-	public Response postAccountEntitlementDefinitionBatch(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
-			Object object)
-		throws Exception {
-
-		vulcanBatchEngineImportTaskResource.setContextAcceptLanguage(
-			contextAcceptLanguage);
-		vulcanBatchEngineImportTaskResource.setContextCompany(contextCompany);
-		vulcanBatchEngineImportTaskResource.setContextHttpServletRequest(
-			contextHttpServletRequest);
-		vulcanBatchEngineImportTaskResource.setContextUriInfo(contextUriInfo);
-		vulcanBatchEngineImportTaskResource.setContextUser(contextUser);
-
-		Response.ResponseBuilder responseBuilder = Response.accepted();
-
-		return responseBuilder.entity(
-			vulcanBatchEngineImportTaskResource.postImportTask(
-				EntitlementDefinition.class.getName(), callbackURL, null,
-				object)
-		).build();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/entitlement-definitions'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -232,49 +170,6 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/entitlement-definitions/batch'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes("application/json")
-	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
-		}
-	)
-	@Path("/contacts/entitlement-definitions/batch")
-	@Produces("application/json")
-	@Tags(value = {@Tag(name = "EntitlementDefinition")})
-	public Response postContactEntitlementDefinitionBatch(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
-			Object object)
-		throws Exception {
-
-		vulcanBatchEngineImportTaskResource.setContextAcceptLanguage(
-			contextAcceptLanguage);
-		vulcanBatchEngineImportTaskResource.setContextCompany(contextCompany);
-		vulcanBatchEngineImportTaskResource.setContextHttpServletRequest(
-			contextHttpServletRequest);
-		vulcanBatchEngineImportTaskResource.setContextUriInfo(contextUriInfo);
-		vulcanBatchEngineImportTaskResource.setContextUser(contextUser);
-
-		Response.ResponseBuilder responseBuilder = Response.accepted();
-
-		return responseBuilder.entity(
-			vulcanBatchEngineImportTaskResource.postImportTask(
-				EntitlementDefinition.class.getName(), callbackURL, null,
-				object)
-		).build();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/entitlement-definitions/{entitlementDefinitionKey}'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -296,54 +191,6 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 			@PathParam("entitlementDefinitionKey") String
 				entitlementDefinitionKey)
 		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/entitlement-definitions/{entitlementDefinitionKey}/batch'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes("application/json")
-	@DELETE
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(
-				in = ParameterIn.PATH, name = "entitlementDefinitionKey"
-			),
-			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
-		}
-	)
-	@Path("/entitlement-definitions/{entitlementDefinitionKey}/batch")
-	@Produces("application/json")
-	@Tags(value = {@Tag(name = "EntitlementDefinition")})
-	public Response deleteEntitlementDefinitionBatch(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true)
-			@PathParam("entitlementDefinitionKey") String
-				entitlementDefinitionKey,
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
-			Object object)
-		throws Exception {
-
-		vulcanBatchEngineImportTaskResource.setContextAcceptLanguage(
-			contextAcceptLanguage);
-		vulcanBatchEngineImportTaskResource.setContextCompany(contextCompany);
-		vulcanBatchEngineImportTaskResource.setContextHttpServletRequest(
-			contextHttpServletRequest);
-		vulcanBatchEngineImportTaskResource.setContextUriInfo(contextUriInfo);
-		vulcanBatchEngineImportTaskResource.setContextUser(contextUser);
-
-		Response.ResponseBuilder responseBuilder = Response.accepted();
-
-		return responseBuilder.entity(
-			vulcanBatchEngineImportTaskResource.deleteImportTask(
-				EntitlementDefinition.class.getName(), callbackURL, object)
-		).build();
 	}
 
 	/**
@@ -400,93 +247,11 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 		throws Exception {
 	}
 
-	@Override
-	@SuppressWarnings("PMD.UnusedLocalVariable")
-	public void create(
-			java.util.Collection<EntitlementDefinition> entitlementDefinitions,
-			Map<String, Serializable> parameters)
-		throws Exception {
-
-		for (EntitlementDefinition entitlementDefinition :
-				entitlementDefinitions) {
-
-			postAccountEntitlementDefinition(null, null, entitlementDefinition);
-		}
-	}
-
-	@Override
-	public void delete(
-			java.util.Collection<EntitlementDefinition> entitlementDefinitions,
-			Map<String, Serializable> parameters)
-		throws Exception {
-
-		for (EntitlementDefinition entitlementDefinition :
-				entitlementDefinitions) {
-
-			deleteEntitlementDefinition(entitlementDefinition.getId());
-		}
-	}
-
-	@Override
-	public EntityModel getEntityModel(Map<String, List<String>> multivaluedMap)
-		throws Exception {
-
-		return getEntityModel(
-			new MultivaluedHashMap<String, Object>(multivaluedMap));
-	}
-
-	@Override
-	public EntityModel getEntityModel(MultivaluedMap multivaluedMap)
-		throws Exception {
-
-		return null;
-	}
-
-	@Override
-	public Page<EntitlementDefinition> read(
-			Filter filter, Pagination pagination, Sort[] sorts,
-			Map<String, Serializable> parameters, String search)
-		throws Exception {
-
-		return getAccountEntitlementDefinitionsPage(search, pagination);
-	}
-
-	@Override
-	public void setLanguageId(String languageId) {
-		this.contextAcceptLanguage = new AcceptLanguage() {
-
-			@Override
-			public List<Locale> getLocales() {
-				return null;
-			}
-
-			@Override
-			public String getPreferredLanguageId() {
-				return languageId;
-			}
-
-			@Override
-			public Locale getPreferredLocale() {
-				return LocaleUtil.fromLanguageId(languageId);
-			}
-
-		};
-	}
-
-	@Override
-	public void update(
-			java.util.Collection<EntitlementDefinition> entitlementDefinitions,
-			Map<String, Serializable> parameters)
-		throws Exception {
-	}
-
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}
 
-	public void setContextCompany(
-		com.liferay.portal.kernel.model.Company contextCompany) {
-
+	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
 	}
 
@@ -506,35 +271,8 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 		this.contextUriInfo = contextUriInfo;
 	}
 
-	public void setContextUser(
-		com.liferay.portal.kernel.model.User contextUser) {
-
+	public void setContextUser(User contextUser) {
 		this.contextUser = contextUser;
-	}
-
-	protected Map<String, String> addAction(
-		String actionName, GroupedModel groupedModel, String methodName) {
-
-		return ActionUtil.addAction(
-			actionName, getClass(), groupedModel, methodName,
-			contextScopeChecker, contextUriInfo);
-	}
-
-	protected Map<String, String> addAction(
-		String actionName, Long id, String methodName, Long ownerId,
-		String permissionName, Long siteId) {
-
-		return ActionUtil.addAction(
-			actionName, getClass(), id, methodName, contextScopeChecker,
-			ownerId, permissionName, siteId, contextUriInfo);
-	}
-
-	protected Map<String, String> addAction(
-		String actionName, String methodName, String permissionName,
-		Long siteId) {
-
-		return addAction(
-			actionName, siteId, methodName, null, permissionName, siteId);
 	}
 
 	protected void preparePatch(
@@ -571,17 +309,10 @@ public abstract class BaseEntitlementDefinitionResourceImpl
 	}
 
 	protected AcceptLanguage contextAcceptLanguage;
-	protected com.liferay.portal.kernel.model.Company contextCompany;
+	protected Company contextCompany;
 	protected HttpServletRequest contextHttpServletRequest;
 	protected HttpServletResponse contextHttpServletResponse;
-	protected Object contextScopeChecker;
 	protected UriInfo contextUriInfo;
-	protected com.liferay.portal.kernel.model.User contextUser;
-	protected GroupLocalService groupLocalService;
-	protected ResourceActionLocalService resourceActionLocalService;
-	protected ResourcePermissionLocalService resourcePermissionLocalService;
-	protected RoleLocalService roleLocalService;
-	protected VulcanBatchEngineImportTaskResource
-		vulcanBatchEngineImportTaskResource;
+	protected User contextUser;
 
 }

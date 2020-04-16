@@ -679,46 +679,25 @@ public abstract class BaseContactResourceTestCase {
 			(entityField, contact1, contact2) -> {
 				Class<?> clazz = contact1.getClass();
 
-				String entityFieldName = entityField.getName();
-
 				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						contact1, entityFieldName,
+						contact1, entityField.getName(),
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						contact2, entityFieldName,
+						contact2, entityField.getName(),
 						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanUtils.setProperty(
-						contact1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanUtils.setProperty(
-						contact2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						contact1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						contact1, entityField.getName(), "Aaa");
 					BeanUtils.setProperty(
-						contact2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						contact2, entityField.getName(), "Bbb");
 				}
 			});
 	}
@@ -1346,30 +1325,6 @@ public abstract class BaseContactResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
 	protected boolean equalsJSONObject(Contact contact, JSONObject jsonObject) {
 		for (String fieldName : getAdditionalAssertFieldNames()) {
 			if (Objects.equals("emailAddress", fieldName)) {
@@ -1681,20 +1636,14 @@ public abstract class BaseContactResourceTestCase {
 			{
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				emailAddress =
-					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
-						"@liferay.com";
-				firstName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				languageId = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				lastName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				middleName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				oktaId = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				uuid = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				emailAddress = RandomTestUtil.randomString();
+				firstName = RandomTestUtil.randomString();
+				key = RandomTestUtil.randomString();
+				languageId = RandomTestUtil.randomString();
+				lastName = RandomTestUtil.randomString();
+				middleName = RandomTestUtil.randomString();
+				oktaId = RandomTestUtil.randomString();
+				uuid = RandomTestUtil.randomString();
 			}
 		};
 	}

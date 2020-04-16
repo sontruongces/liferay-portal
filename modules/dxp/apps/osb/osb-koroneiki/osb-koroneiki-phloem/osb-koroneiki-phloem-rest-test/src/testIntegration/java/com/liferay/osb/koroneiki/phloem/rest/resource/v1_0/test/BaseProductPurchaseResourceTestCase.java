@@ -762,46 +762,25 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			(entityField, productPurchase1, productPurchase2) -> {
 				Class<?> clazz = productPurchase1.getClass();
 
-				String entityFieldName = entityField.getName();
-
 				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						productPurchase1, entityFieldName,
+						productPurchase1, entityField.getName(),
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						productPurchase2, entityFieldName,
+						productPurchase2, entityField.getName(),
 						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanUtils.setProperty(
-						productPurchase1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanUtils.setProperty(
-						productPurchase2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						productPurchase1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						productPurchase1, entityField.getName(), "Aaa");
 					BeanUtils.setProperty(
-						productPurchase2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						productPurchase2, entityField.getName(), "Bbb");
 				}
 			});
 	}
@@ -1421,9 +1400,9 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			}
 
 			if (Objects.equals("properties", additionalAssertFieldName)) {
-				if (!equals(
-						(Map)productPurchase1.getProperties(),
-						(Map)productPurchase2.getProperties())) {
+				if (!Objects.deepEquals(
+						productPurchase1.getProperties(),
+						productPurchase2.getProperties())) {
 
 					return false;
 				}
@@ -1467,30 +1446,6 @@ public abstract class BaseProductPurchaseResourceTestCase {
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
-		}
-
-		return true;
-	}
-
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
 		}
 
 		return true;
@@ -1823,15 +1778,13 @@ public abstract class BaseProductPurchaseResourceTestCase {
 	protected ProductPurchase randomProductPurchase() throws Exception {
 		return new ProductPurchase() {
 			{
-				accountKey = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				accountKey = RandomTestUtil.randomString();
 				dateCreated = RandomTestUtil.nextDate();
 				endDate = RandomTestUtil.nextDate();
-				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				key = RandomTestUtil.randomString();
 				originalEndDate = RandomTestUtil.nextDate();
 				perpetual = RandomTestUtil.randomBoolean();
-				productKey = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				productKey = RandomTestUtil.randomString();
 				quantity = RandomTestUtil.randomInt();
 				startDate = RandomTestUtil.nextDate();
 			}

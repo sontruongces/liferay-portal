@@ -42,7 +42,6 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -1253,30 +1252,6 @@ public abstract class BaseAuditEntryResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
 	protected boolean equalsJSONObject(
 		AuditEntry auditEntry, JSONObject jsonObject) {
 
@@ -1564,21 +1539,16 @@ public abstract class BaseAuditEntryResourceTestCase {
 	protected AuditEntry randomAuditEntry() throws Exception {
 		return new AuditEntry() {
 			{
-				agentName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				agentUID = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				agentName = RandomTestUtil.randomString();
+				agentUID = RandomTestUtil.randomString();
 				auditSetId = RandomTestUtil.randomLong();
 				dateCreated = RandomTestUtil.nextDate();
-				description = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				field = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				newValue = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				oldValue = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				summary = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				description = RandomTestUtil.randomString();
+				field = RandomTestUtil.randomString();
+				key = RandomTestUtil.randomString();
+				newValue = RandomTestUtil.randomString();
+				oldValue = RandomTestUtil.randomString();
+				summary = RandomTestUtil.randomString();
 			}
 		};
 	}

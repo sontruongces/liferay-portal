@@ -76,7 +76,7 @@ public class Product {
 		}
 	}
 
-	@GraphQLField(description = "The product's creation date.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -106,9 +106,7 @@ public class Product {
 		}
 	}
 
-	@GraphQLField(
-		description = "The most recent time that any of the product's fields changed."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -139,9 +137,7 @@ public class Product {
 		}
 	}
 
-	@GraphQLField(
-		description = "The product's links to entities in external domains."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ExternalLink[] externalLinks;
 
@@ -167,7 +163,7 @@ public class Product {
 		}
 	}
 
-	@GraphQLField(description = "The product's key.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -193,7 +189,7 @@ public class Product {
 		}
 	}
 
-	@GraphQLField(description = "The name of the product.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String name;

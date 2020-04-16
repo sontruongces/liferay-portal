@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Entitlement implements Cloneable {
+public class Entitlement {
 
 	public String getEntitlementDefinitionKey() {
 		return entitlementDefinitionKey;
@@ -69,11 +69,6 @@ public class Entitlement implements Cloneable {
 	}
 
 	protected String name;
-
-	@Override
-	public Entitlement clone() throws CloneNotSupportedException {
-		return (Entitlement)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

@@ -114,7 +114,7 @@ public class ContactRole {
 		}
 	}
 
-	@GraphQLField(description = "The contact role's creation date.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -144,9 +144,7 @@ public class ContactRole {
 		}
 	}
 
-	@GraphQLField(
-		description = "The most recent time that any of the contact role's fields changed."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -174,7 +172,7 @@ public class ContactRole {
 		}
 	}
 
-	@GraphQLField(description = "The description of the contact role.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
@@ -200,7 +198,7 @@ public class ContactRole {
 		}
 	}
 
-	@GraphQLField(description = "The contact role's key.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -226,7 +224,7 @@ public class ContactRole {
 		}
 	}
 
-	@GraphQLField(description = "The name of the contact role.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String name;
@@ -257,9 +255,7 @@ public class ContactRole {
 		}
 	}
 
-	@GraphQLField(
-		description = "A flag that identifies whether this is a system role."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Boolean system;
 
@@ -295,7 +291,7 @@ public class ContactRole {
 		}
 	}
 
-	@GraphQLField(description = "The contact role's type.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotNull
 	protected Type type;

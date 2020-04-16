@@ -42,7 +42,6 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -305,7 +304,6 @@ public abstract class BasePostalAddressResourceTestCase {
 
 	@Test
 	public void testDeletePostalAddress() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
 		PostalAddress postalAddress =
 			testDeletePostalAddress_addPostalAddress();
 
@@ -815,30 +813,6 @@ public abstract class BasePostalAddressResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
 	protected boolean equalsJSONObject(
 		PostalAddress postalAddress, JSONObject jsonObject) {
 
@@ -1123,25 +1097,17 @@ public abstract class BasePostalAddressResourceTestCase {
 	protected PostalAddress randomPostalAddress() throws Exception {
 		return new PostalAddress() {
 			{
-				addressCountry = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				addressLocality = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				addressRegion = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				addressType = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				addressCountry = RandomTestUtil.randomString();
+				addressLocality = RandomTestUtil.randomString();
+				addressRegion = RandomTestUtil.randomString();
+				addressType = RandomTestUtil.randomString();
 				id = RandomTestUtil.randomLong();
 				mailing = RandomTestUtil.randomBoolean();
-				postalCode = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				postalCode = RandomTestUtil.randomString();
 				primary = RandomTestUtil.randomBoolean();
-				streetAddressLine1 = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				streetAddressLine2 = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				streetAddressLine3 = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				streetAddressLine1 = RandomTestUtil.randomString();
+				streetAddressLine2 = RandomTestUtil.randomString();
+				streetAddressLine3 = RandomTestUtil.randomString();
 			}
 		};
 	}

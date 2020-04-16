@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Contact implements Cloneable {
+public class Contact {
 
 	public ContactRole[] getContactRoles() {
 		return contactRoles;
@@ -297,11 +297,6 @@ public class Contact implements Cloneable {
 	}
 
 	protected String uuid;
-
-	@Override
-	public Contact clone() throws CloneNotSupportedException {
-		return (Contact)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

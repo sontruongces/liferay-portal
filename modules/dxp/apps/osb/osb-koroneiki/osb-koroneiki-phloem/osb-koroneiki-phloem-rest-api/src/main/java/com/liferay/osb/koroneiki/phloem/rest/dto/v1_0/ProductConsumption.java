@@ -76,7 +76,7 @@ public class ProductConsumption {
 		}
 	}
 
-	@GraphQLField(description = "The key of the account consuming the product.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String accountKey;
 
@@ -104,7 +104,7 @@ public class ProductConsumption {
 		}
 	}
 
-	@GraphQLField(description = "The product consumption's creation date.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -132,9 +132,7 @@ public class ProductConsumption {
 		}
 	}
 
-	@GraphQLField(
-		description = "The product consumption's end date if applicable."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date endDate;
 
@@ -165,9 +163,7 @@ public class ProductConsumption {
 		}
 	}
 
-	@GraphQLField(
-		description = "The product consumption's links to entities in external domains."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected ExternalLink[] externalLinks;
 
@@ -193,7 +189,7 @@ public class ProductConsumption {
 		}
 	}
 
-	@GraphQLField(description = "The product consumption's key.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -221,7 +217,7 @@ public class ProductConsumption {
 		}
 	}
 
-	@GraphQLField(description = "The key of the product being consumed.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String productKey;
@@ -252,9 +248,7 @@ public class ProductConsumption {
 		}
 	}
 
-	@GraphQLField(
-		description = "The key of the product consumption's product purchase if applicable."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String productPurchaseKey;
 
@@ -312,9 +306,7 @@ public class ProductConsumption {
 		}
 	}
 
-	@GraphQLField(
-		description = "The product consumption's start date if applicable."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date startDate;
 

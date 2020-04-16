@@ -18,13 +18,11 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactAccountView;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
-import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactAccountViewSerDes;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Generated;
@@ -131,16 +129,7 @@ public interface ContactAccountViewResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, ContactAccountViewSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, ContactAccountViewSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -205,16 +194,7 @@ public interface ContactAccountViewResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, ContactAccountViewSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, ContactAccountViewSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse

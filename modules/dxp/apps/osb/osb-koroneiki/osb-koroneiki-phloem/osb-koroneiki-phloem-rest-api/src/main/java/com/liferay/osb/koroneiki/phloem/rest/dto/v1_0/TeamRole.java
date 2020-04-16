@@ -113,7 +113,7 @@ public class TeamRole {
 		}
 	}
 
-	@GraphQLField(description = "The team role's creation date.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -143,9 +143,7 @@ public class TeamRole {
 		}
 	}
 
-	@GraphQLField(
-		description = "The most recent time that any of the team role's fields changed."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -173,7 +171,7 @@ public class TeamRole {
 		}
 	}
 
-	@GraphQLField(description = "The description of the team role.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
@@ -199,7 +197,7 @@ public class TeamRole {
 		}
 	}
 
-	@GraphQLField(description = "The team role's key.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -225,7 +223,7 @@ public class TeamRole {
 		}
 	}
 
-	@GraphQLField(description = "The name of the team role.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String name;
@@ -262,7 +260,7 @@ public class TeamRole {
 		}
 	}
 
-	@GraphQLField(description = "The team role's type.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotNull
 	protected Type type;

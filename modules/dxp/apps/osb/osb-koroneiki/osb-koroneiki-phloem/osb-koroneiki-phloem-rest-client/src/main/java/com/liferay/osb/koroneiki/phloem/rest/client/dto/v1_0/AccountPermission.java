@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class AccountPermission implements Cloneable {
+public class AccountPermission {
 
 	public Boolean getAssignContact() {
 		return assignContact;
@@ -172,11 +172,6 @@ public class AccountPermission implements Cloneable {
 	}
 
 	protected Boolean view;
-
-	@Override
-	public AccountPermission clone() throws CloneNotSupportedException {
-		return (AccountPermission)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

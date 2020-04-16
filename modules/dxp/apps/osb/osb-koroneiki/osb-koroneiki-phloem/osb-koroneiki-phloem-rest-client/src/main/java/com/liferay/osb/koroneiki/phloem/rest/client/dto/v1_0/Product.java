@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Product implements Cloneable {
+public class Product {
 
 	public Date getDateCreated() {
 		return dateCreated;
@@ -152,11 +152,6 @@ public class Product implements Cloneable {
 	}
 
 	protected Map<String, String> properties;
-
-	@Override
-	public Product clone() throws CloneNotSupportedException {
-		return (Product)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

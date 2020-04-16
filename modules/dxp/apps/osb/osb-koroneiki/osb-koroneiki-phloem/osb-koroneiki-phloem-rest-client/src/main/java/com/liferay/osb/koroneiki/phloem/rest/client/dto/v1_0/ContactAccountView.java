@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ContactAccountView implements Cloneable {
+public class ContactAccountView {
 
 	public Account getAccount() {
 		return account;
@@ -92,11 +92,6 @@ public class ContactAccountView implements Cloneable {
 	}
 
 	protected ContactRole[] workerContactRoles;
-
-	@Override
-	public ContactAccountView clone() throws CloneNotSupportedException {
-		return (ContactAccountView)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

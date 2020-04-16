@@ -42,7 +42,6 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -672,30 +671,6 @@ public abstract class BaseNoteResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
 	protected boolean equalsJSONObject(Note note, JSONObject jsonObject) {
 		for (String fieldName : getAdditionalAssertFieldNames()) {
 			if (Objects.equals("content", fieldName)) {
@@ -983,18 +958,14 @@ public abstract class BaseNoteResourceTestCase {
 	protected Note randomNote() throws Exception {
 		return new Note() {
 			{
-				content = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				creatorName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				creatorUID = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				content = RandomTestUtil.randomString();
+				creatorName = RandomTestUtil.randomString();
+				creatorUID = RandomTestUtil.randomString();
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				modifierName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				modifierUID = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				key = RandomTestUtil.randomString();
+				modifierName = RandomTestUtil.randomString();
+				modifierUID = RandomTestUtil.randomString();
 				priority = RandomTestUtil.randomInt();
 			}
 		};

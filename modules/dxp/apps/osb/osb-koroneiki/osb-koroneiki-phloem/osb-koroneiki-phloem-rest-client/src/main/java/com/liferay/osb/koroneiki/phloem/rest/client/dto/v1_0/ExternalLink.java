@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ExternalLink implements Cloneable {
+public class ExternalLink {
 
 	public Date getDateCreated() {
 		return dateCreated;
@@ -150,11 +150,6 @@ public class ExternalLink implements Cloneable {
 	}
 
 	protected String url;
-
-	@Override
-	public ExternalLink clone() throws CloneNotSupportedException {
-		return (ExternalLink)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {

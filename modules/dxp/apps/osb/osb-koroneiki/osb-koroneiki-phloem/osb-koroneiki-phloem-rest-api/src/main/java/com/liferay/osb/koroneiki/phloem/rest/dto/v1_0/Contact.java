@@ -77,7 +77,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The contact's roles.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ContactRole[] contactRoles;
 
@@ -105,7 +105,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The contact's creation date.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -135,9 +135,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(
-		description = "The most recent time that any of the contact's fields changed."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -165,7 +163,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The email address of the contact.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String emailAddress;
@@ -195,7 +193,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The contact's entitlements.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Entitlement[] entitlements;
 
@@ -226,9 +224,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(
-		description = "The account's links to entities in external domains."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected ExternalLink[] externalLinks;
 
@@ -256,7 +252,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The first name of the contact.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String firstName;
@@ -283,7 +279,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The contact's key.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -311,7 +307,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The language ID of the contact.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String languageId;
 
@@ -339,7 +335,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The last name of the contact.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String lastName;
@@ -368,7 +364,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The middle name of the contact.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String middleName;
 
@@ -396,7 +392,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(description = "The ID provisioned from Okta.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String oktaId;
 
@@ -422,9 +418,7 @@ public class Contact {
 		}
 	}
 
-	@GraphQLField(
-		description = "A universal identifier to reference this contact."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String uuid;
 

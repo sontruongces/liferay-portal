@@ -178,7 +178,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(description = "The content of the note.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String content;
 
@@ -206,9 +206,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(
-		description = "The full name of the user who created the note."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String creatorName;
 
@@ -236,7 +234,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(description = "The Okta ID of the user who created the note.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String creatorUID;
 
@@ -264,7 +262,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(description = "The note's creation date.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -294,9 +292,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(
-		description = "The most recent time that any of the note's fields changed."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -334,7 +330,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(description = "The style structure of the content.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Format format;
 
@@ -360,7 +356,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(description = "The note's key.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -390,9 +386,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(
-		description = "The full name of the user who last modified the note."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String modifierName;
 
@@ -420,9 +414,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(
-		description = "The Okta ID of the user who last modified the note."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String modifierUID;
 
@@ -452,9 +444,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(
-		description = "The importance of this note. A lower number indicates a higher importance."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer priority;
 
@@ -492,7 +482,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(description = "The workflow status of the note.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Status status;
 
@@ -528,7 +518,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(description = "The type of information the note contains.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Type type;
 

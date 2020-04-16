@@ -1717,46 +1717,25 @@ public abstract class BaseContactRoleResourceTestCase {
 			(entityField, contactRole1, contactRole2) -> {
 				Class<?> clazz = contactRole1.getClass();
 
-				String entityFieldName = entityField.getName();
-
 				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						contactRole1, entityFieldName,
+						contactRole1, entityField.getName(),
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						contactRole2, entityFieldName,
+						contactRole2, entityField.getName(),
 						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanUtils.setProperty(
-						contactRole1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanUtils.setProperty(
-						contactRole2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						contactRole1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						contactRole1, entityField.getName(), "Aaa");
 					BeanUtils.setProperty(
-						contactRole2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
+						contactRole2, entityField.getName(), "Bbb");
 				}
 			});
 	}
@@ -2575,30 +2554,6 @@ public abstract class BaseContactRoleResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
 	protected boolean equalsJSONObject(
 		ContactRole contactRole, JSONObject jsonObject) {
 
@@ -2827,10 +2782,9 @@ public abstract class BaseContactRoleResourceTestCase {
 			{
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				description = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				description = RandomTestUtil.randomString();
+				key = RandomTestUtil.randomString();
+				name = RandomTestUtil.randomString();
 				system = RandomTestUtil.randomBoolean();
 			}
 		};

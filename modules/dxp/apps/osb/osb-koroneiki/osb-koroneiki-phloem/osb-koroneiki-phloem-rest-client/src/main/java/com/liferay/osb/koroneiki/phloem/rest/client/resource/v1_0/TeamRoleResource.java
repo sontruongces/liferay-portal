@@ -18,7 +18,6 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
-import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.TeamRoleSerDes;
 
 import java.util.LinkedHashMap;
@@ -67,32 +66,12 @@ public interface TeamRoleResource {
 			String agentName, String agentUID, TeamRole teamRole)
 		throws Exception;
 
-	public void postTeamRoleBatch(
-			String agentName, String agentUID, String callbackURL,
-			Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse postTeamRoleBatchHttpResponse(
-			String agentName, String agentUID, String callbackURL,
-			Object object)
-		throws Exception;
-
 	public void deleteTeamRole(
 			String agentName, String agentUID, String teamRoleKey)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteTeamRoleHttpResponse(
 			String agentName, String agentUID, String teamRoleKey)
-		throws Exception;
-
-	public void deleteTeamRoleBatch(
-			String agentName, String agentUID, String teamRoleKey,
-			String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse deleteTeamRoleBatchHttpResponse(
-			String agentName, String agentUID, String teamRoleKey,
-			String callbackURL, Object object)
 		throws Exception;
 
 	public TeamRole getTeamRole(String teamRoleKey) throws Exception;
@@ -108,16 +87,6 @@ public interface TeamRoleResource {
 	public HttpInvoker.HttpResponse putTeamRoleHttpResponse(
 			String agentName, String agentUID, String teamRoleKey,
 			TeamRole teamRole)
-		throws Exception;
-
-	public void putTeamRoleBatch(
-			String agentName, String agentUID, String teamRoleKey,
-			String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse putTeamRoleBatchHttpResponse(
-			String agentName, String agentUID, String teamRoleKey,
-			String callbackURL, Object object)
 		throws Exception;
 
 	public void deleteTeamRoleTeamRolePermission(
@@ -225,16 +194,7 @@ public interface TeamRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, TeamRoleSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, TeamRoleSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
@@ -299,16 +259,7 @@ public interface TeamRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return Page.of(content, TeamRoleSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
+			return Page.of(content, TeamRoleSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse getTeamRolesPageHttpResponse(
@@ -389,7 +340,7 @@ public interface TeamRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -438,75 +389,6 @@ public interface TeamRoleResource {
 			return httpInvoker.invoke();
 		}
 
-		public void postTeamRoleBatch(
-				String agentName, String agentUID, String callbackURL,
-				Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postTeamRoleBatchHttpResponse(
-					agentName, agentUID, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse postTeamRoleBatchHttpResponse(
-				String agentName, String agentUID, String callbackURL,
-				Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/koroneiki-rest/v1.0/team-roles/batch");
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public void deleteTeamRole(
 				String agentName, String agentUID, String teamRoleKey)
 			throws Exception {
@@ -521,17 +403,6 @@ public interface TeamRoleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamRoleHttpResponse(
@@ -579,75 +450,6 @@ public interface TeamRoleResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteTeamRoleBatch(
-				String agentName, String agentUID, String teamRoleKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteTeamRoleBatchHttpResponse(
-					agentName, agentUID, teamRoleKey, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse deleteTeamRoleBatchHttpResponse(
-				String agentName, String agentUID, String teamRoleKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/team-roles/{teamRoleKey}/batch",
-				teamRoleKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public TeamRole getTeamRole(String teamRoleKey) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = getTeamRoleHttpResponse(
 				teamRoleKey);
@@ -668,7 +470,7 @@ public interface TeamRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -733,7 +535,7 @@ public interface TeamRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 
@@ -785,77 +587,6 @@ public interface TeamRoleResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putTeamRoleBatch(
-				String agentName, String agentUID, String teamRoleKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				putTeamRoleBatchHttpResponse(
-					agentName, agentUID, teamRoleKey, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse putTeamRoleBatchHttpResponse(
-				String agentName, String agentUID, String teamRoleKey,
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/team-roles/{teamRoleKey}/batch",
-				teamRoleKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public void deleteTeamRoleTeamRolePermission(
 				String agentName, String agentUID, String teamRoleKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
@@ -873,17 +604,6 @@ public interface TeamRoleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -951,17 +671,6 @@ public interface TeamRoleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1038,7 +747,7 @@ public interface TeamRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw new Problem.ProblemException(Problem.toDTO(content));
+				throw e;
 			}
 		}
 

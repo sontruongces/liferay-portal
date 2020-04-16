@@ -185,7 +185,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The teams that are assigned to this account.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Team[] assignedTeams;
 
@@ -211,7 +211,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The code of the account.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String code;
 
@@ -239,7 +239,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's contact email address.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String contactEmailAddress;
 
@@ -268,7 +268,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's contacts.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Contact[] contacts;
 
@@ -297,7 +297,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's customer contacts.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Contact[] customerContacts;
 
@@ -325,7 +325,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's creation date.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -355,9 +355,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(
-		description = "The most recent time that any of the account's fields changed."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -385,7 +383,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The description of the account.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
@@ -414,7 +412,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's entitlements.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Entitlement[] entitlements;
 
@@ -445,9 +443,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(
-		description = "The account's links to entities in external domains."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ExternalLink[] externalLinks;
 
@@ -475,7 +471,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's fax number.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String faxNumber;
 
@@ -505,9 +501,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(
-		description = "A flag that identifies whether this account is an internal or test account."
-	)
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean internal;
 
@@ -533,7 +527,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's key.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -562,7 +556,7 @@ public class Account {
 	}
 
 	@Deprecated
-	@GraphQLField(description = "The assetAttachmentId of the account's logo.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long logoId;
 
@@ -588,7 +582,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The name of the account.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String name;
@@ -617,7 +611,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's parent account key.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String parentAccountKey;
 
@@ -645,7 +639,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's phone number.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String phoneNumber;
 
@@ -675,7 +669,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's postal addresses.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected PostalAddress[] postalAddresses;
 
@@ -705,7 +699,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The products that the account has purchased.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ProductPurchase[] productPurchases;
 
@@ -733,7 +727,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's profile email address.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String profileEmailAddress;
 
@@ -771,7 +765,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The region responsible for the account.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Region region;
 
@@ -809,7 +803,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The status of the account.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Status status;
 
@@ -845,7 +839,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The tier of the account.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Tier tier;
 
@@ -873,7 +867,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's website.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String website;
 
@@ -902,7 +896,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField(description = "The account's worker contacts.")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Contact[] workerContacts;
 

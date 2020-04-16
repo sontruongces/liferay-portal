@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class TeamRole implements Cloneable {
+public class TeamRole {
 
 	public static enum Type {
 
@@ -187,11 +187,6 @@ public class TeamRole implements Cloneable {
 	}
 
 	protected Type type;
-
-	@Override
-	public TeamRole clone() throws CloneNotSupportedException {
-		return (TeamRole)super.clone();
-	}
 
 	@Override
 	public boolean equals(Object object) {
