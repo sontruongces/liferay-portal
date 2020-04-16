@@ -21,6 +21,8 @@ import com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseEndDateException
 import com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseQuantityException;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
+import com.liferay.osb.koroneiki.trunk.model.impl.view.ProductPurchaseViewImpl;
+import com.liferay.osb.koroneiki.trunk.model.view.ProductPurchaseView;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.base.ProductPurchaseLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -31,10 +33,12 @@ import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistry;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 
 import java.io.Serializable;
 
@@ -107,6 +111,8 @@ public class ProductPurchaseLocalServiceImpl
 
 		_accountLocalService.reindex(accountId);
 
+		reindexProductPurchaseView(productPurchase);
+
 		return productPurchase;
 	}
 
@@ -137,6 +143,8 @@ public class ProductPurchaseLocalServiceImpl
 			productPurchase.getProductPurchaseId());
 
 		_accountLocalService.reindex(productPurchase.getAccountId());
+
+		reindexProductPurchaseView(productPurchase);
 
 		return productPurchasePersistence.remove(productPurchaseId);
 	}
@@ -174,6 +182,13 @@ public class ProductPurchaseLocalServiceImpl
 
 	public int getContactProductPurchasesCount(long contactId) {
 		return productPurchaseFinder.countByContact(contactId);
+	}
+
+	public List<ProductPurchase> getProductEntryProductPurchases(
+			long productEntryId)
+		throws PortalException {
+
+		return productPurchasePersistence.findByProductEntryId(productEntryId);
 	}
 
 	public int getProductEntryProductPurchasesCount(long productEntryId)
@@ -291,6 +306,8 @@ public class ProductPurchaseLocalServiceImpl
 				productField.getProductFieldId());
 		}
 
+		reindexProductPurchaseView(productPurchase);
+
 		return productPurchase;
 	}
 
@@ -311,6 +328,27 @@ public class ProductPurchaseLocalServiceImpl
 		}
 
 		return productFieldsMap;
+	}
+
+	protected void reindexProductPurchaseView(ProductPurchase productPurchase)
+		throws PortalException {
+
+		ProductPurchaseView productPurchaseView = new ProductPurchaseViewImpl();
+
+		productPurchaseView.setCompanyId(productPurchase.getCompanyId());
+		productPurchaseView.setAccountId(productPurchase.getAccountId());
+		productPurchaseView.setProductEntryId(
+			productPurchase.getProductEntryId());
+
+		TransactionCommitCallbackUtil.registerCallback(
+			() -> {
+				Indexer<ProductPurchaseView> indexer =
+					_indexerRegistry.getIndexer(ProductPurchaseView.class);
+
+				indexer.reindex(productPurchaseView);
+
+				return null;
+			});
 	}
 
 	protected void validate(Date startDate, Date endDate, int quantity)
@@ -344,6 +382,9 @@ public class ProductPurchaseLocalServiceImpl
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
+
+	@Reference
+	private IndexerRegistry _indexerRegistry;
 
 	@Reference
 	private ProductFieldLocalService _productFieldLocalService;

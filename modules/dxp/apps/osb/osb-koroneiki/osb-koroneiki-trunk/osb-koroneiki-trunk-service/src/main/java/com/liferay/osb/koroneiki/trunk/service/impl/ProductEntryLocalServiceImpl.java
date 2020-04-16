@@ -20,6 +20,9 @@ import com.liferay.osb.koroneiki.trunk.exception.ProductEntryNameException;
 import com.liferay.osb.koroneiki.trunk.exception.RequiredProductEntryException;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
+import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
+import com.liferay.osb.koroneiki.trunk.model.impl.view.ProductPurchaseViewImpl;
+import com.liferay.osb.koroneiki.trunk.model.view.ProductPurchaseView;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
@@ -32,10 +35,12 @@ import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistry;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -44,6 +49,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -145,6 +153,8 @@ public class ProductEntryLocalServiceImpl
 			productEntry.getCompanyId(), ProductEntry.class.getName(),
 			ResourceConstants.SCOPE_INDIVIDUAL,
 			productEntry.getProductEntryId());
+
+		reindexProductPurchaseView(productEntry);
 
 		return productEntryPersistence.remove(productEntry);
 	}
@@ -293,6 +303,8 @@ public class ProductEntryLocalServiceImpl
 				productField.getProductFieldId());
 		}
 
+		reindexProductPurchaseView(productEntry);
+
 		return productEntryPersistence.update(productEntry);
 	}
 
@@ -315,6 +327,41 @@ public class ProductEntryLocalServiceImpl
 		return productFieldsMap;
 	}
 
+	protected void reindexProductPurchaseView(ProductEntry productEntry)
+		throws PortalException {
+
+		List<ProductPurchase> productPurchases =
+			_productPurchaseLocalService.getProductEntryProductPurchases(
+				productEntry.getProductEntryId());
+
+		Stream<ProductPurchase> productPurchaseStream =
+			productPurchases.stream();
+
+		Set<Long> accountIds = productPurchaseStream.collect(
+			Collectors.mapping(
+				ProductPurchase::getAccountId, Collectors.toSet()));
+
+		for (long accountId : accountIds) {
+			ProductPurchaseView productPurchaseView =
+				new ProductPurchaseViewImpl();
+
+			productPurchaseView.setCompanyId(productEntry.getCompanyId());
+			productPurchaseView.setAccountId(accountId);
+			productPurchaseView.setProductEntryId(
+				productEntry.getProductEntryId());
+
+			TransactionCommitCallbackUtil.registerCallback(
+				() -> {
+					Indexer<ProductPurchaseView> indexer =
+						_indexerRegistry.getIndexer(ProductPurchaseView.class);
+
+					indexer.reindex(productPurchaseView);
+
+					return null;
+				});
+		}
+	}
+
 	protected void validate(long productEntryId, String name)
 		throws PortalException {
 
@@ -333,6 +380,9 @@ public class ProductEntryLocalServiceImpl
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
+
+	@Reference
+	private IndexerRegistry _indexerRegistry;
 
 	@Reference
 	private ProductConsumptionLocalService _productConsumptionLocalService;
