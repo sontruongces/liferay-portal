@@ -112,7 +112,7 @@ public class EntitlementDefinition {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The entitlement definition's creation date.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -142,7 +142,9 @@ public class EntitlementDefinition {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The most recent time that any of the entitlement definition's fields changed."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -172,7 +174,9 @@ public class EntitlementDefinition {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Defines who has access to the entitlement using SQL."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String definition;
 
@@ -200,7 +204,7 @@ public class EntitlementDefinition {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The description of the entitlement.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
@@ -231,7 +235,9 @@ public class EntitlementDefinition {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The entitlement definition's links to entities in external domains."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected ExternalLink[] externalLinks;
 
@@ -257,7 +263,7 @@ public class EntitlementDefinition {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The entitlement definition's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -283,7 +289,7 @@ public class EntitlementDefinition {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The name of the entitlement.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String name;
@@ -322,7 +328,7 @@ public class EntitlementDefinition {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The status of the entitlement definition.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Status status;
 

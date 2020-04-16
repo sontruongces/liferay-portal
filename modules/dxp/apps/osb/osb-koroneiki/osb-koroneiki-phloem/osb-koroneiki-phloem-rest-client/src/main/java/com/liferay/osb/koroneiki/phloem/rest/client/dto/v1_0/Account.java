@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Account {
+public class Account implements Cloneable {
 
 	public static enum Region {
 
@@ -668,6 +668,11 @@ public class Account {
 	}
 
 	protected Contact[] workerContacts;
+
+	@Override
+	public Account clone() throws CloneNotSupportedException {
+		return (Account)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

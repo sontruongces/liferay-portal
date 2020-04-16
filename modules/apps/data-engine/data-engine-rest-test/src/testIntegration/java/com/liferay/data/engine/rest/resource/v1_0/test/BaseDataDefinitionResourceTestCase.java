@@ -1276,9 +1276,9 @@ public abstract class BaseDataDefinitionResourceTestCase {
 			}
 
 			if (Objects.equals("description", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						dataDefinition1.getDescription(),
-						dataDefinition2.getDescription())) {
+				if (!equals(
+						(Map)dataDefinition1.getDescription(),
+						(Map)dataDefinition2.getDescription())) {
 
 					return false;
 				}
@@ -1297,8 +1297,9 @@ public abstract class BaseDataDefinitionResourceTestCase {
 			}
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						dataDefinition1.getName(), dataDefinition2.getName())) {
+				if (!equals(
+						(Map)dataDefinition1.getName(),
+						(Map)dataDefinition2.getName())) {
 
 					return false;
 				}
@@ -1331,6 +1332,30 @@ public abstract class BaseDataDefinitionResourceTestCase {
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
+		}
+
+		return true;
+	}
+
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
+
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
+
+					return false;
+				}
+			}
 		}
 
 		return true;

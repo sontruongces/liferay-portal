@@ -75,7 +75,7 @@ public class ExternalLink {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The external link's creation date.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -103,7 +103,7 @@ public class ExternalLink {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The external domain.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String domain;
@@ -132,7 +132,7 @@ public class ExternalLink {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The unique ID for the entity.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String entityId;
@@ -161,7 +161,7 @@ public class ExternalLink {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The unique classification for the entity.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String entityName;
@@ -188,7 +188,7 @@ public class ExternalLink {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The external link's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -214,7 +214,7 @@ public class ExternalLink {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The url of the external entity.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String url;
 

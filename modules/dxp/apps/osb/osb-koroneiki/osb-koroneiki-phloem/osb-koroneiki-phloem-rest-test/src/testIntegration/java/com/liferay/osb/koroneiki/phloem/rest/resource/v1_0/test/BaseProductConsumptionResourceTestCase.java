@@ -807,9 +807,11 @@ public abstract class BaseProductConsumptionResourceTestCase {
 				}
 				else {
 					BeanUtils.setProperty(
-						productConsumption1, entityField.getName(), "Aaa");
+						productConsumption1, entityField.getName(),
+						"Aaa" + RandomTestUtil.randomString());
 					BeanUtils.setProperty(
-						productConsumption2, entityField.getName(), "Bbb");
+						productConsumption2, entityField.getName(),
+						"Bbb" + RandomTestUtil.randomString());
 				}
 			});
 	}
@@ -1389,9 +1391,9 @@ public abstract class BaseProductConsumptionResourceTestCase {
 			}
 
 			if (Objects.equals("properties", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						productConsumption1.getProperties(),
-						productConsumption2.getProperties())) {
+				if (!equals(
+						(Map)productConsumption1.getProperties(),
+						(Map)productConsumption2.getProperties())) {
 
 					return false;
 				}
@@ -1413,6 +1415,30 @@ public abstract class BaseProductConsumptionResourceTestCase {
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
+		}
+
+		return true;
+	}
+
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
+
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
+
+					return false;
+				}
+			}
 		}
 
 		return true;

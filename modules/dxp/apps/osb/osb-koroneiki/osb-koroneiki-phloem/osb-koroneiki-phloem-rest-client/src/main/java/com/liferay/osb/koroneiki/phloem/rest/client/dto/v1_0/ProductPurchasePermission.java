@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ProductPurchasePermission {
+public class ProductPurchasePermission implements Cloneable {
 
 	public Boolean getDelete() {
 		return delete;
@@ -130,6 +130,11 @@ public class ProductPurchasePermission {
 	}
 
 	protected Boolean view;
+
+	@Override
+	public ProductPurchasePermission clone() throws CloneNotSupportedException {
+		return (ProductPurchasePermission)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ProductPurchaseView {
+public class ProductPurchaseView implements Cloneable {
 
 	public Product getProduct() {
 		return product;
@@ -94,6 +94,11 @@ public class ProductPurchaseView {
 	}
 
 	protected ProductPurchase[] productPurchases;
+
+	@Override
+	public ProductPurchaseView clone() throws CloneNotSupportedException {
+		return (ProductPurchaseView)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

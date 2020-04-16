@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ProductPermission {
+public class ProductPermission implements Cloneable {
 
 	public Boolean getConsume() {
 		return consume;
@@ -151,6 +151,11 @@ public class ProductPermission {
 	}
 
 	protected Boolean view;
+
+	@Override
+	public ProductPermission clone() throws CloneNotSupportedException {
+		return (ProductPermission)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

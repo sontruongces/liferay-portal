@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
+import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.NoteSerDes;
 
 import java.util.LinkedHashMap;
@@ -64,6 +65,16 @@ public interface NoteResource {
 			String agentName, String agentUID, String noteKey)
 		throws Exception;
 
+	public void deleteNoteBatch(
+			String agentName, String agentUID, String noteKey,
+			String callbackURL, Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteNoteBatchHttpResponse(
+			String agentName, String agentUID, String noteKey,
+			String callbackURL, Object object)
+		throws Exception;
+
 	public Note getNote(String noteKey) throws Exception;
 
 	public HttpInvoker.HttpResponse getNoteHttpResponse(String noteKey)
@@ -75,6 +86,16 @@ public interface NoteResource {
 
 	public HttpInvoker.HttpResponse putNoteHttpResponse(
 			String agentName, String agentUID, String noteKey, Note note)
+		throws Exception;
+
+	public void putNoteBatch(
+			String agentName, String agentUID, String noteKey,
+			String callbackURL, Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putNoteBatchHttpResponse(
+			String agentName, String agentUID, String noteKey,
+			String callbackURL, Object object)
 		throws Exception;
 
 	public static class Builder {
@@ -149,7 +170,16 @@ public interface NoteResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, NoteSerDes::toDTO);
+			try {
+				return Page.of(content, NoteSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -230,7 +260,7 @@ public interface NoteResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -295,6 +325,17 @@ public interface NoteResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse deleteNoteHttpResponse(
@@ -341,6 +382,74 @@ public interface NoteResource {
 			return httpInvoker.invoke();
 		}
 
+		public void deleteNoteBatch(
+				String agentName, String agentUID, String noteKey,
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = deleteNoteBatchHttpResponse(
+				agentName, agentUID, noteKey, callbackURL, object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse deleteNoteBatchHttpResponse(
+				String agentName, String agentUID, String noteKey,
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/notes/{noteKey}/batch",
+				noteKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public Note getNote(String noteKey) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = getNoteHttpResponse(
 				noteKey);
@@ -361,7 +470,7 @@ public interface NoteResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -423,7 +532,7 @@ public interface NoteResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -465,6 +574,76 @@ public interface NoteResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/koroneiki-rest/v1.0/notes/{noteKey}",
+				noteKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putNoteBatch(
+				String agentName, String agentUID, String noteKey,
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = putNoteBatchHttpResponse(
+				agentName, agentUID, noteKey, callbackURL, object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putNoteBatchHttpResponse(
+				String agentName, String agentUID, String noteKey,
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(object.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/notes/{noteKey}/batch",
 				noteKey);
 
 			httpInvoker.userNameAndPassword(

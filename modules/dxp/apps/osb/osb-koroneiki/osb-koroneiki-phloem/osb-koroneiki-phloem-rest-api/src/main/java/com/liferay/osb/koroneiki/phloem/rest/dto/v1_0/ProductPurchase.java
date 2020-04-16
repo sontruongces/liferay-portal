@@ -110,7 +110,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The key of the account purchasing the product."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String accountKey;
 
@@ -138,7 +140,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The product purchase's creation date.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -168,7 +170,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The product purchase's actual end date including extensions or grace periods."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date endDate;
 
@@ -199,7 +203,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The product purchase's links to entities in external domains."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ExternalLink[] externalLinks;
 
@@ -225,7 +231,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The product purchase's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -255,7 +261,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The product purchase's original end date that was purchased from sales."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date originalEndDate;
 
@@ -285,7 +293,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "A flag that identifies if the product purchase has a start and end date."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean perpetual;
 
@@ -314,7 +324,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The product that is being purchased.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Product product;
 
@@ -342,7 +352,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The key of the product being purchased.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String productKey;
 
@@ -400,7 +410,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The quantity of the product purchased.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer quantity;
 
@@ -428,7 +438,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The product purchase's start date.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date startDate;
 
@@ -466,7 +476,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The workflow status of the product purchase.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Status status;
 

@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ProductPurchase {
+public class ProductPurchase implements Cloneable {
 
 	public static enum Status {
 
@@ -340,6 +340,11 @@ public class ProductPurchase {
 	}
 
 	protected Status status;
+
+	@Override
+	public ProductPurchase clone() throws CloneNotSupportedException {
+		return (ProductPurchase)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

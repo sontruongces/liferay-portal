@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
+import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductPurchaseSerDes;
 
 import java.util.LinkedHashMap;
@@ -108,6 +109,16 @@ public interface ProductPurchaseResource {
 			String agentName, String agentUID, String productPurchaseKey)
 		throws Exception;
 
+	public void deleteProductPurchaseBatch(
+			String agentName, String agentUID, String productPurchaseKey,
+			String callbackURL, Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteProductPurchaseBatchHttpResponse(
+			String agentName, String agentUID, String productPurchaseKey,
+			String callbackURL, Object object)
+		throws Exception;
+
 	public ProductPurchase getProductPurchase(String productPurchaseKey)
 		throws Exception;
 
@@ -123,6 +134,16 @@ public interface ProductPurchaseResource {
 	public HttpInvoker.HttpResponse putProductPurchaseHttpResponse(
 			String agentName, String agentUID, String productPurchaseKey,
 			ProductPurchase productPurchase)
+		throws Exception;
+
+	public void putProductPurchaseBatch(
+			String agentName, String agentUID, String productPurchaseKey,
+			String callbackURL, Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putProductPurchaseBatchHttpResponse(
+			String agentName, String agentUID, String productPurchaseKey,
+			String callbackURL, Object object)
 		throws Exception;
 
 	public void deleteProductPurchaseProductPurchasePermission(
@@ -223,7 +244,16 @@ public interface ProductPurchaseResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ProductPurchaseSerDes::toDTO);
+			try {
+				return Page.of(content, ProductPurchaseSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -296,7 +326,7 @@ public interface ProductPurchaseResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -365,7 +395,16 @@ public interface ProductPurchaseResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ProductPurchaseSerDes::toDTO);
+			try {
+				return Page.of(content, ProductPurchaseSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -430,7 +469,16 @@ public interface ProductPurchaseResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ProductPurchaseSerDes::toDTO);
+			try {
+				return Page.of(content, ProductPurchaseSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -495,7 +543,16 @@ public interface ProductPurchaseResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ProductPurchaseSerDes::toDTO);
+			try {
+				return Page.of(content, ProductPurchaseSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse getProductPurchasesPageHttpResponse(
@@ -572,7 +629,16 @@ public interface ProductPurchaseResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ProductPurchaseSerDes::toDTO);
+			try {
+				return Page.of(content, ProductPurchaseSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -636,6 +702,17 @@ public interface ProductPurchaseResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse deleteProductPurchaseHttpResponse(
@@ -683,6 +760,76 @@ public interface ProductPurchaseResource {
 			return httpInvoker.invoke();
 		}
 
+		public void deleteProductPurchaseBatch(
+				String agentName, String agentUID, String productPurchaseKey,
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteProductPurchaseBatchHttpResponse(
+					agentName, agentUID, productPurchaseKey, callbackURL,
+					object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse deleteProductPurchaseBatchHttpResponse(
+				String agentName, String agentUID, String productPurchaseKey,
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/product-purchases/{productPurchaseKey}/batch",
+				productPurchaseKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public ProductPurchase getProductPurchase(String productPurchaseKey)
 			throws Exception {
 
@@ -705,7 +852,7 @@ public interface ProductPurchaseResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -771,7 +918,7 @@ public interface ProductPurchaseResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -823,6 +970,78 @@ public interface ProductPurchaseResource {
 			return httpInvoker.invoke();
 		}
 
+		public void putProductPurchaseBatch(
+				String agentName, String agentUID, String productPurchaseKey,
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putProductPurchaseBatchHttpResponse(
+					agentName, agentUID, productPurchaseKey, callbackURL,
+					object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putProductPurchaseBatchHttpResponse(
+				String agentName, String agentUID, String productPurchaseKey,
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(object.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/product-purchases/{productPurchaseKey}/batch",
+				productPurchaseKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public void deleteProductPurchaseProductPurchasePermission(
 				String agentName, String agentUID, String productPurchaseKey,
 				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
@@ -841,6 +1060,17 @@ public interface ProductPurchaseResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -910,6 +1140,17 @@ public interface ProductPurchaseResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse

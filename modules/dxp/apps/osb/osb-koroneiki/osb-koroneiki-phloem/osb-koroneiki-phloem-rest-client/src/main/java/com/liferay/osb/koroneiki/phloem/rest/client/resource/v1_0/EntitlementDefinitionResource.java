@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.EntitlementDefiniti
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
+import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.EntitlementDefinitionSerDes;
 
 import java.util.LinkedHashMap;
@@ -59,6 +60,17 @@ public interface EntitlementDefinitionResource {
 				EntitlementDefinition entitlementDefinition)
 		throws Exception;
 
+	public void postAccountEntitlementDefinitionBatch(
+			String agentName, String agentUID, String callbackURL,
+			Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			postAccountEntitlementDefinitionBatchHttpResponse(
+				String agentName, String agentUID, String callbackURL,
+				Object object)
+		throws Exception;
+
 	public Page<EntitlementDefinition> getContactEntitlementDefinitionsPage(
 			String search, Pagination pagination)
 		throws Exception;
@@ -79,12 +91,35 @@ public interface EntitlementDefinitionResource {
 				EntitlementDefinition entitlementDefinition)
 		throws Exception;
 
+	public void postContactEntitlementDefinitionBatch(
+			String agentName, String agentUID, String callbackURL,
+			Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			postContactEntitlementDefinitionBatchHttpResponse(
+				String agentName, String agentUID, String callbackURL,
+				Object object)
+		throws Exception;
+
 	public void deleteEntitlementDefinition(
 			String agentName, String agentUID, String entitlementDefinitionKey)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteEntitlementDefinitionHttpResponse(
 			String agentName, String agentUID, String entitlementDefinitionKey)
+		throws Exception;
+
+	public void deleteEntitlementDefinitionBatch(
+			String agentName, String agentUID, String entitlementDefinitionKey,
+			String callbackURL, Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			deleteEntitlementDefinitionBatchHttpResponse(
+				String agentName, String agentUID,
+				String entitlementDefinitionKey, String callbackURL,
+				Object object)
 		throws Exception;
 
 	public EntitlementDefinition getEntitlementDefinition(
@@ -177,7 +212,16 @@ public interface EntitlementDefinitionResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, EntitlementDefinitionSerDes::toDTO);
+			try {
+				return Page.of(content, EntitlementDefinitionSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -253,7 +297,7 @@ public interface EntitlementDefinitionResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -306,6 +350,77 @@ public interface EntitlementDefinitionResource {
 			return httpInvoker.invoke();
 		}
 
+		public void postAccountEntitlementDefinitionBatch(
+				String agentName, String agentUID, String callbackURL,
+				Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postAccountEntitlementDefinitionBatchHttpResponse(
+					agentName, agentUID, callbackURL, object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				postAccountEntitlementDefinitionBatchHttpResponse(
+					String agentName, String agentUID, String callbackURL,
+					Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(object.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/entitlement-definitions/batch");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public Page<EntitlementDefinition> getContactEntitlementDefinitionsPage(
 				String search, Pagination pagination)
 			throws Exception {
@@ -322,7 +437,16 @@ public interface EntitlementDefinitionResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, EntitlementDefinitionSerDes::toDTO);
+			try {
+				return Page.of(content, EntitlementDefinitionSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -398,7 +522,7 @@ public interface EntitlementDefinitionResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -451,6 +575,77 @@ public interface EntitlementDefinitionResource {
 			return httpInvoker.invoke();
 		}
 
+		public void postContactEntitlementDefinitionBatch(
+				String agentName, String agentUID, String callbackURL,
+				Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postContactEntitlementDefinitionBatchHttpResponse(
+					agentName, agentUID, callbackURL, object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				postContactEntitlementDefinitionBatchHttpResponse(
+					String agentName, String agentUID, String callbackURL,
+					Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(object.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/contacts/entitlement-definitions/batch");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public void deleteEntitlementDefinition(
 				String agentName, String agentUID,
 				String entitlementDefinitionKey)
@@ -467,6 +662,17 @@ public interface EntitlementDefinitionResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse deleteEntitlementDefinitionHttpResponse(
@@ -515,6 +721,79 @@ public interface EntitlementDefinitionResource {
 			return httpInvoker.invoke();
 		}
 
+		public void deleteEntitlementDefinitionBatch(
+				String agentName, String agentUID,
+				String entitlementDefinitionKey, String callbackURL,
+				Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteEntitlementDefinitionBatchHttpResponse(
+					agentName, agentUID, entitlementDefinitionKey, callbackURL,
+					object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse
+				deleteEntitlementDefinitionBatchHttpResponse(
+					String agentName, String agentUID,
+					String entitlementDefinitionKey, String callbackURL,
+					Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (agentName != null) {
+				httpInvoker.parameter("agentName", String.valueOf(agentName));
+			}
+
+			if (agentUID != null) {
+				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
+			}
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/entitlement-definitions/{entitlementDefinitionKey}/batch",
+				entitlementDefinitionKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public EntitlementDefinition getEntitlementDefinition(
 				String entitlementDefinitionKey)
 			throws Exception {
@@ -538,7 +817,7 @@ public interface EntitlementDefinitionResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -595,6 +874,17 @@ public interface EntitlementDefinitionResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse

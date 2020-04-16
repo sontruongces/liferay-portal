@@ -27,7 +27,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ContactRole {
+public class ContactRole implements Cloneable {
 
 	public static enum Type {
 
@@ -209,6 +209,11 @@ public class ContactRole {
 	}
 
 	protected Type type;
+
+	@Override
+	public ContactRole clone() throws CloneNotSupportedException {
+		return (ContactRole)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

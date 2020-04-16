@@ -68,7 +68,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's country (e.g., United States).")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String addressCountry;
 
@@ -96,7 +96,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's locality (e.g., city).")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String addressLocality;
 
@@ -124,7 +124,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's region (e.g., California).")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String addressRegion;
 
@@ -152,7 +152,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's type.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String addressType;
 
@@ -178,7 +178,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's ID.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
 
@@ -208,7 +208,9 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "A flag that identifies whether this is a mailing addrress."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean mailing;
 
@@ -236,7 +238,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's postal code (e.g., zip code).")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String postalCode;
 
@@ -266,7 +268,9 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "A flag that identifies whether this is the main address of the user/organization."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean primary;
 
@@ -296,7 +300,9 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The street address's first line (e.g., 1600 Amphitheatre Pkwy.)."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String streetAddressLine1;
 
@@ -324,7 +330,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The street address's second line.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String streetAddressLine2;
 
@@ -352,7 +358,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The street address's third line.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String streetAddressLine3;
 

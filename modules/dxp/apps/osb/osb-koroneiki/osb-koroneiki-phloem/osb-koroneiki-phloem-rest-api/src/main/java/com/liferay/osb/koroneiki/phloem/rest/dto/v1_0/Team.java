@@ -76,7 +76,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's account's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String accountKey;
 
@@ -105,7 +105,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's contacts.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Contact[] contacts;
 
@@ -133,7 +133,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's creation date.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -163,7 +163,9 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The most recent time that any of the team's fields changed."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -192,7 +194,9 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The team's links to entities in external domains."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected ExternalLink[] externalLinks;
 
@@ -218,7 +222,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -244,7 +248,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The name of the team.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String name;
@@ -275,7 +279,9 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "A flag that identifies whether this is a system team."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Boolean system;
 
@@ -304,7 +310,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's account team roles.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected TeamRole[] teamRoles;
 

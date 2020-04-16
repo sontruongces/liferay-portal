@@ -28,7 +28,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ProductConsumption {
+public class ProductConsumption implements Cloneable {
 
 	public String getAccountKey() {
 		return accountKey;
@@ -217,6 +217,11 @@ public class ProductConsumption {
 	}
 
 	protected Date startDate;
+
+	@Override
+	public ProductConsumption clone() throws CloneNotSupportedException {
+		return (ProductConsumption)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {
