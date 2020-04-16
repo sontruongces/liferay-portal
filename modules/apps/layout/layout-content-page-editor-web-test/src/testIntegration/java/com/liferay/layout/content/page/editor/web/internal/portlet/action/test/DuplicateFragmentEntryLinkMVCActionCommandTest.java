@@ -99,6 +99,8 @@ public class DuplicateFragmentEntryLinkMVCActionCommandTest {
 		_company = _companyLocalService.getCompany(_group.getCompanyId());
 		_layout = LayoutTestUtil.addLayout(_group);
 
+		_themeDisplay = _getThemeDisplay();
+
 		_serviceContext = _getServiceContext(
 			_group, TestPropsValues.getUserId());
 
@@ -299,15 +301,11 @@ public class DuplicateFragmentEntryLinkMVCActionCommandTest {
 			jsonObject.getString("error"));
 	}
 
-	private MockActionRequest _getMockActionRequest(long fragmentEntryLinkId)
-		throws PortalException {
-
-		ThemeDisplay themeDisplay = _getThemeDisplay();
-
+	private MockActionRequest _getMockActionRequest(long fragmentEntryLinkId) {
 		MockActionRequest mockActionRequest = new MockActionRequest(
-			themeDisplay);
+			_themeDisplay);
 
-		mockActionRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
+		mockActionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
 
 		mockActionRequest.addParameter(
 			"fragmentEntryLinkId", String.valueOf(fragmentEntryLinkId));
@@ -320,6 +318,7 @@ public class DuplicateFragmentEntryLinkMVCActionCommandTest {
 
 		httpServletRequest.setAttribute(
 			JavaConstants.JAVAX_PORTLET_RESPONSE, new MockActionResponse());
+		httpServletRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(group, userId);
@@ -376,6 +375,7 @@ public class DuplicateFragmentEntryLinkMVCActionCommandTest {
 
 	private ServiceContext _serviceContext;
 	private ServiceRegistration<FragmentRenderer> _serviceRegistration;
+	private ThemeDisplay _themeDisplay;
 
 	private static class MockActionRequest
 		extends MockLiferayPortletActionRequest {
