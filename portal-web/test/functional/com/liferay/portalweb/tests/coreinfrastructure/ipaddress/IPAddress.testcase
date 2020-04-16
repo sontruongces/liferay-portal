@@ -31,7 +31,7 @@ definition {
 
 		// AUI-3161
 
-		// Smoke.runSmoke();
+		//Smoke.runSmoke();
 
 		User.logoutPG();
 

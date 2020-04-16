@@ -23,11 +23,6 @@ Account koroneikiAccount = (Account)request.getAttribute(TaprootWebKeys.ACCOUNT)
 AccountNote accountNote = (AccountNote)request.getAttribute(TaprootWebKeys.ACCOUNT_NOTE);
 
 long accountNoteId = BeanParamUtil.getLong(accountNote, request, "accountNoteId");
-String type = BeanParamUtil.getString(accountNote, request, "type");
-int priority = BeanParamUtil.getInteger(accountNote, request, "accountNoteId");
-String content = BeanParamUtil.getString(accountNote, request, "content");
-String format = BeanParamUtil.getString(accountNote, request, "format");
-String status = BeanParamUtil.getString(accountNote, request, "status");
 
 renderResponse.setTitle(koroneikiAccount.getName());
 %>

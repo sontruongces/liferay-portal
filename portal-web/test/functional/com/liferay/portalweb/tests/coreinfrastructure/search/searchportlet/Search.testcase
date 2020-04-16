@@ -251,7 +251,7 @@ definition {
 
 		Pagination.changePagination(itemsPerPage = "10");
 
-		//Workaround LPS-98391
+		// Workaround LPS-98391
 
 		/*var currentURL = selenium.getCurrentUrl();
 

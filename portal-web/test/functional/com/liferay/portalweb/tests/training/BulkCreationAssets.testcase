@@ -215,9 +215,7 @@ String namePostfix = "";
 // Regular roles set this to 1, site roles set to 2, organization role set to 3.
 int roleType = 3;
 
-//
 // End Configuration
-//
 
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;

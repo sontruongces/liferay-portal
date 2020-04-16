@@ -22,7 +22,6 @@ String redirect = ParamUtil.getString(request, "redirect");
 TeamRole teamRole = (TeamRole)request.getAttribute(TaprootWebKeys.TEAM_ROLE);
 
 long teamRoleId = BeanParamUtil.getLong(teamRole, request, "teamRoleId");
-int type = BeanParamUtil.getInteger(teamRole, request, "type");
 %>
 
 <portlet:actionURL name="/team_roles_admin/edit_team_role" var="editTeamRoleURL" />
