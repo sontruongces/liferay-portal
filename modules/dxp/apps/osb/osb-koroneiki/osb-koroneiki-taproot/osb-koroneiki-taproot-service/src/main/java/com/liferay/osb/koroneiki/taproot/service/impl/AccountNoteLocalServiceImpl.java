@@ -21,6 +21,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -100,8 +101,15 @@ public class AccountNoteLocalServiceImpl
 		AccountNote accountNote = accountNotePersistence.findByPrimaryKey(
 			accountNoteId);
 
-		accountNote.setModifierOktaId(modifierOktaId);
-		accountNote.setModifierName(modifierName);
+		if (!content.equals(accountNote.getContent())) {
+			accountNote.setModifiedDate(new Date());
+			accountNote.setModifierOktaId(modifierOktaId);
+			accountNote.setModifierName(modifierName);
+		}
+		else {
+			accountNote.setModifiedDate(accountNote.getModifiedDate());
+		}
+
 		accountNote.setPriority(priority);
 		accountNote.setContent(content);
 		accountNote.setFormat(format);
