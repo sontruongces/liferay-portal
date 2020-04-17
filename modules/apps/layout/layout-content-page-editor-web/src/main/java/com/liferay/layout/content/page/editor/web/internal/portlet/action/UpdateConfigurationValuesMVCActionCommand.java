@@ -15,27 +15,28 @@
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.fragment.constants.FragmentEntryLinkConstants;
-import com.liferay.fragment.contributor.FragmentCollectionContributorTracker;
 import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.processor.DefaultFragmentEntryProcessorContext;
 import com.liferay.fragment.processor.FragmentEntryProcessorContext;
 import com.liferay.fragment.processor.FragmentEntryProcessorRegistry;
+import com.liferay.fragment.renderer.DefaultFragmentRendererContext;
 import com.liferay.fragment.renderer.FragmentRendererController;
-import com.liferay.fragment.renderer.FragmentRendererTracker;
 import com.liferay.fragment.service.FragmentEntryLinkService;
-import com.liferay.fragment.util.configuration.FragmentEntryConfigurationParser;
-import com.liferay.item.selector.ItemSelector;
+import com.liferay.fragment.util.FragmentEntryConfigUtil;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
-import com.liferay.layout.content.page.editor.web.internal.util.FragmentEntryLinkUtil;
-import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.segments.constants.SegmentsExperienceConstants;
 
 import java.util.Iterator;
 
@@ -99,12 +100,48 @@ public class UpdateConfigurationValuesMVCActionCommand
 
 		JSONPortletResponseUtil.writeJSON(
 			actionRequest, actionResponse,
-			FragmentEntryLinkUtil.getFragmentEntryLinkJSONObject(
-				actionRequest, actionResponse,
-				_fragmentEntryConfigurationParser, fragmentEntryLink,
-				_fragmentCollectionContributorTracker,
-				_fragmentRendererController, _fragmentRendererTracker,
-				_itemSelector, StringPool.BLANK));
+			_getFragmentEntryLinkJSONObject(
+				actionRequest, actionResponse, fragmentEntryLink));
+	}
+
+	private JSONObject _getFragmentEntryLinkJSONObject(
+			ActionRequest actionRequest, ActionResponse actionResponse,
+			FragmentEntryLink fragmentEntryLink)
+		throws JSONException {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		DefaultFragmentRendererContext defaultFragmentRendererContext =
+			new DefaultFragmentRendererContext(fragmentEntryLink);
+
+		defaultFragmentRendererContext.setLocale(themeDisplay.getLocale());
+		defaultFragmentRendererContext.setMode(FragmentEntryLinkConstants.EDIT);
+		defaultFragmentRendererContext.setSegmentsExperienceIds(
+			new long[] {SegmentsExperienceConstants.ID_DEFAULT});
+
+		String configuration = _fragmentRendererController.getConfiguration(
+			defaultFragmentRendererContext);
+
+		return JSONUtil.put(
+			"configuration", JSONFactoryUtil.createJSONObject(configuration)
+		).put(
+			"content",
+			_fragmentRendererController.render(
+				defaultFragmentRendererContext,
+				_portal.getHttpServletRequest(actionRequest),
+				_portal.getHttpServletResponse(actionResponse))
+		).put(
+			"defaultConfigurationValues",
+			FragmentEntryConfigUtil.getConfigurationDefaultValuesJSONObject(
+				configuration)
+		).put(
+			"editableValues",
+			JSONFactoryUtil.createJSONObject(
+				fragmentEntryLink.getEditableValues())
+		).put(
+			"fragmentEntryLinkId", fragmentEntryLink.getFragmentEntryLinkId()
+		);
 	}
 
 	private JSONObject _mergeEditableValuesJSONObject(
@@ -144,13 +181,6 @@ public class UpdateConfigurationValuesMVCActionCommand
 			"EditableFragmentEntryProcessor";
 
 	@Reference
-	private FragmentCollectionContributorTracker
-		_fragmentCollectionContributorTracker;
-
-	@Reference
-	private FragmentEntryConfigurationParser _fragmentEntryConfigurationParser;
-
-	@Reference
 	private FragmentEntryLinkService _fragmentEntryLinkService;
 
 	@Reference
@@ -158,12 +188,6 @@ public class UpdateConfigurationValuesMVCActionCommand
 
 	@Reference
 	private FragmentRendererController _fragmentRendererController;
-
-	@Reference
-	private FragmentRendererTracker _fragmentRendererTracker;
-
-	@Reference
-	private ItemSelector _itemSelector;
 
 	@Reference
 	private Portal _portal;
