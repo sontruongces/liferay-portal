@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"liferay-ckeditor": "4.13.1-liferay.4"
+		"liferay-ckeditor": "4.13.1-liferay.5"
 	},
 	"name": "frontend-editor-ckeditor-web",
 	"scripts": {
