@@ -36,7 +36,10 @@ class DocumentLibrary extends Component {
 		if (value) {
 			if (typeof value === 'object') {
 				fileEntryTitle = value.title;
-				fileEntryURL = value.url;
+
+				if (value.url) {
+					fileEntryURL = value.url;
+				}
 
 				value = JSON.stringify(value);
 			}
@@ -44,7 +47,10 @@ class DocumentLibrary extends Component {
 				const object = JSON.parse(value);
 
 				fileEntryTitle = object.title;
-				fileEntryURL = object.url;
+
+				if (object.url) {
+					fileEntryURL = object.url;
+				}
 			}
 		}
 
