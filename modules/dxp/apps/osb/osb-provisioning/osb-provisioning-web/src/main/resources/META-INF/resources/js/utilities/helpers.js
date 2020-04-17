@@ -9,6 +9,29 @@
  * distribution rights of the Software.
  */
 
+import axios from 'axios';
+
+import {NAMESPACE} from '../utilities/constants';
+
+/**
+ * Returns a promise of the request data
+ * @param {string} endpoint The endpoint to post to
+ * @param {object} params The parameters object to post with
+ * @returns {Promise} A Promise of the object that results from the Request
+ */
+export async function postData(endpoint, params) {
+	const namespacedParams = Object.fromEntries(
+		Object.entries(params).map(([key, value]) => [
+			`${NAMESPACE}${key}`,
+			value
+		])
+	);
+
+	const {data} = await axios.post(endpoint, namespacedParams);
+
+	return data;
+}
+
 /**
  * Creates a new Map for all the notes, where
  * each key is the note's key and
