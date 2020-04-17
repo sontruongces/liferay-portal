@@ -30,7 +30,6 @@ import java.io.File;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -40,24 +39,6 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class BlogPostingImageResourceTest
 	extends BaseBlogPostingImageResourceTestCase {
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLDeleteBlogPostingImage() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetBlogPostingImage() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetSiteBlogPostingImagesPage() {
-	}
 
 	@Test
 	public void testPostSiteBlogPostingImageRollback() throws Exception {
@@ -99,8 +80,13 @@ public class BlogPostingImageResourceTest
 	}
 
 	@Override
+	protected String[] getAdditionalAssertFieldNames() {
+		return new String[] {"title"};
+	}
+
+	@Override
 	protected String[] getIgnoredEntityFieldNames() {
-		return new String[] {"fileExtension"};
+		return new String[] {"fileExtension", "sizeInBytes"};
 	}
 
 	@Override
@@ -110,6 +96,13 @@ public class BlogPostingImageResourceTest
 		return HashMapBuilder.<String, File>put(
 			"file", FileUtil.createTempFile(randomString.getBytes())
 		).build();
+	}
+
+	@Override
+	protected BlogPostingImage testGraphQLBlogPostingImage_addBlogPostingImage()
+		throws Exception {
+
+		return testDeleteBlogPostingImage_addBlogPostingImage();
 	}
 
 	private String _read(String url) throws Exception {
