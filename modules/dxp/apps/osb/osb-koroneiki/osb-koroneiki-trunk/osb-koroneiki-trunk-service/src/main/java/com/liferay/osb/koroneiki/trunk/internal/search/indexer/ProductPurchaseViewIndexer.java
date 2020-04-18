@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.IndexWriterHelperUtil;
 import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.search.Summary;
 import com.liferay.portal.kernel.util.GetterUtil;
 
@@ -53,7 +52,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	service = {ProductPurchaseViewIndexer.class, Indexer.class}
+	service = {Indexer.class, ProductPurchaseViewIndexer.class}
 )
 public class ProductPurchaseViewIndexer
 	extends BaseIndexer<ProductPurchaseView> {
@@ -69,32 +68,6 @@ public class ProductPurchaseViewIndexer
 	@Override
 	public String getClassName() {
 		return CLASS_NAME;
-	}
-
-	@Override
-	public void reindex(ProductPurchaseView productPurchaseView)
-		throws SearchException {
-
-		try {
-			if (IndexWriterHelperUtil.isIndexReadOnly() ||
-				IndexWriterHelperUtil.isIndexReadOnly(getClassName()) ||
-				!isIndexerEnabled()) {
-
-				return;
-			}
-
-			if (productPurchaseView == null) {
-				return;
-			}
-
-			doReindex(productPurchaseView);
-		}
-		catch (SearchException se) {
-			throw se;
-		}
-		catch (Exception e) {
-			throw new SearchException(e);
-		}
 	}
 
 	@Override
