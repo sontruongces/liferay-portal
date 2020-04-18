@@ -247,6 +247,11 @@ public interface ProductPurchaseLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProductPurchase> getProductEntryProductPurchases(
+			long productEntryId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getProductEntryProductPurchasesCount(long productEntryId)
 		throws PortalException;
 

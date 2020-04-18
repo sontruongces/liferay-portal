@@ -300,6 +300,14 @@ public class ProductPurchaseLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.trunk.model.ProductPurchase>
+				getProductEntryProductPurchases(long productEntryId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getProductEntryProductPurchases(productEntryId);
+	}
+
 	public static int getProductEntryProductPurchasesCount(long productEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
