@@ -286,21 +286,6 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Account createAccountChildAccount(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("account") Account account)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.postAccountChildAccount(
-				agentName, agentUID, accountKey, account));
-	}
-
-	@GraphQLField
 	public boolean deleteAccountContactByEmailAddresContactEmailAddressRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,

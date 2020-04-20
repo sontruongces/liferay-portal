@@ -757,24 +757,6 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testPostAccountChildAccount() throws Exception {
-		Account randomAccount = randomAccount();
-
-		Account postAccount = testPostAccountChildAccount_addAccount(
-			randomAccount);
-
-		assertEquals(randomAccount, postAccount);
-		assertValid(postAccount);
-	}
-
-	protected Account testPostAccountChildAccount_addAccount(Account account)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
 	public void testDeleteAccountContactByEmailAddresContactEmailAddressRole()
 		throws Exception {
 

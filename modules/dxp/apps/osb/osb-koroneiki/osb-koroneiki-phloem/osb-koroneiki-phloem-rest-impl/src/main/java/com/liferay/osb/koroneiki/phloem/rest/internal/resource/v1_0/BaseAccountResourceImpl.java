@@ -98,7 +98,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "internal": ___, "logoId": ___, "name": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "region": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "internal": ___, "logoId": ___, "name": ___, "parentAccountKey": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "region": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -204,7 +204,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "internal": ___, "logoId": ___, "name": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "region": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "internal": ___, "logoId": ___, "name": ___, "parentAccountKey": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "region": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -373,35 +373,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/child-accounts' -d $'{"code": ___, "contactEmailAddress": ___, "contacts": ___, "description": ___, "externalLinks": ___, "faxNumber": ___, "internal": ___, "logoId": ___, "name": ___, "phoneNumber": ___, "postalAddresses": ___, "productPurchases": ___, "profileEmailAddress": ___, "region": ___, "status": ___, "tier": ___, "website": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey")
-		}
-	)
-	@Path("/accounts/{accountKey}/child-accounts")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public Account postAccountChildAccount(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			Account account)
-		throws Exception {
-
-		return new Account();
 	}
 
 	/**

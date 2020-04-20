@@ -93,11 +93,6 @@ public interface AccountResource {
 			String accountKey, Pagination pagination)
 		throws Exception;
 
-	public Account postAccountChildAccount(
-			String agentName, String agentUID, String accountKey,
-			Account account)
-		throws Exception;
-
 	public void deleteAccountContactByEmailAddresContactEmailAddressRole(
 			String agentName, String agentUID, String accountKey,
 			String contactEmailAddress, String[] contactRoleKeys)
