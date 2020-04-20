@@ -1,3 +1,9 @@
+buildREST {
+	onlyIf {
+		projectDir.path.equals(System.getProperty("user.dir"))
+	}
+}
+
 dependencies {
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
 	compileOnly group: "com.liferay", name: "com.liferay.petra.function", version: "3.0.0"
