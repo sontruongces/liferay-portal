@@ -117,6 +117,12 @@ public abstract class BaseStore implements Store {
 			long companyId, long repositoryId, String fileName, InputStream is)
 		throws PortalException;
 
+	@Override
+	public abstract void addFile(
+			long companyId, long repositoryId, String fileName,
+			String versionLabel, InputStream is)
+		throws PortalException;
+
 	/**
 	 * Ensures company's root directory exists.
 	 *
@@ -363,11 +369,6 @@ public abstract class BaseStore implements Store {
 	public abstract String[] getFileNames(
 		long companyId, long repositoryId, String dirName);
 
-	@Override
-	public abstract String[] getFileVersions(
-		long companyId, long repositoryId, String fileName)
-		throws PortalException;
-
 	/**
 	 * Returns the size of the file.
 	 *
@@ -379,6 +380,11 @@ public abstract class BaseStore implements Store {
 	 */
 	@Override
 	public abstract long getFileSize(
+			long companyId, long repositoryId, String fileName)
+		throws PortalException;
+
+	@Override
+	public abstract String[] getFileVersions(
 			long companyId, long repositoryId, String fileName)
 		throws PortalException;
 

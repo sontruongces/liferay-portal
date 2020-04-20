@@ -105,6 +105,16 @@ public class DBStore extends BaseStore {
 	}
 
 	@Override
+	public void addFile(
+			long companyId, long repositoryId, String fileName,
+			String versionLabel, InputStream inputStream)
+		throws DuplicateFileException {
+
+		updateFile(
+			companyId, repositoryId, fileName, versionLabel, inputStream);
+	}
+
+	@Override
 	public void checkRoot(long companyId) {
 	}
 
@@ -230,13 +240,6 @@ public class DBStore extends BaseStore {
 	}
 
 	@Override
-	public boolean hasDirectory(
-		long companyId, long repositoryId, String dirName) {
-
-		return true;
-	}
-
-	@Override
 	public String[] getFileVersions(
 			long companyId, long repositoryId, String fileName)
 		throws PortalException {
@@ -259,6 +262,13 @@ public class DBStore extends BaseStore {
 		Arrays.sort(versions);
 
 		return versions;
+	}
+
+	@Override
+	public boolean hasDirectory(
+		long companyId, long repositoryId, String dirName) {
+
+		return true;
 	}
 
 	@Override

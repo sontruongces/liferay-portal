@@ -48,6 +48,11 @@ public interface Store {
 			long companyId, long repositoryId, String fileName, InputStream is)
 		throws PortalException;
 
+	public void addFile(
+			long companyId, long repositoryId, String fileName,
+			String versionLabel, InputStream is)
+		throws PortalException;
+
 	/**
 	 * @deprecated As of Mueller (7.2.x), with no direct replacement
 	 */
@@ -108,7 +113,7 @@ public interface Store {
 		throws PortalException;
 
 	public String[] getFileVersions(
-		long companyId, long repositoryId, String fileName)
+			long companyId, long repositoryId, String fileName)
 		throws PortalException;
 
 	public boolean hasDirectory(
