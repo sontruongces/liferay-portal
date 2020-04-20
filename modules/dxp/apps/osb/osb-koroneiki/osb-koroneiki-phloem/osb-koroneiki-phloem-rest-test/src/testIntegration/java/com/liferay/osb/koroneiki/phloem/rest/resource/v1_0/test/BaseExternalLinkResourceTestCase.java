@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -1729,11 +1730,13 @@ public abstract class BaseExternalLinkResourceTestCase {
 		return new ExternalLink() {
 			{
 				dateCreated = RandomTestUtil.nextDate();
-				domain = RandomTestUtil.randomString();
-				entityId = RandomTestUtil.randomString();
-				entityName = RandomTestUtil.randomString();
-				key = RandomTestUtil.randomString();
-				url = RandomTestUtil.randomString();
+				domain = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				entityId = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				entityName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				url = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}

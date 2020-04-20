@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -1563,16 +1564,21 @@ public abstract class BaseAuditEntryResourceTestCase {
 	protected AuditEntry randomAuditEntry() throws Exception {
 		return new AuditEntry() {
 			{
-				agentName = RandomTestUtil.randomString();
-				agentUID = RandomTestUtil.randomString();
+				agentName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				agentUID = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				auditSetId = RandomTestUtil.randomLong();
 				dateCreated = RandomTestUtil.nextDate();
-				description = RandomTestUtil.randomString();
-				field = RandomTestUtil.randomString();
-				key = RandomTestUtil.randomString();
-				newValue = RandomTestUtil.randomString();
-				oldValue = RandomTestUtil.randomString();
-				summary = RandomTestUtil.randomString();
+				description = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				field = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				newValue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				oldValue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				summary = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}

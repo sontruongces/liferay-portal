@@ -341,27 +341,46 @@ public abstract class BaseAccountResourceTestCase {
 			(entityField, account1, account2) -> {
 				Class<?> clazz = account1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						account1, entityField.getName(),
+						account1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						account2, entityField.getName(),
+						account2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						account1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						account2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						account1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						account1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						account2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						account2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -2207,20 +2226,26 @@ public abstract class BaseAccountResourceTestCase {
 	protected Account randomAccount() throws Exception {
 		return new Account() {
 			{
-				code = RandomTestUtil.randomString();
-				contactEmailAddress = RandomTestUtil.randomString();
+				code = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				contactEmailAddress = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				description = RandomTestUtil.randomString();
-				faxNumber = RandomTestUtil.randomString();
+				description = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				faxNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				internal = RandomTestUtil.randomBoolean();
-				key = RandomTestUtil.randomString();
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				logoId = RandomTestUtil.randomLong();
-				name = RandomTestUtil.randomString();
-				parentAccountKey = RandomTestUtil.randomString();
-				phoneNumber = RandomTestUtil.randomString();
-				profileEmailAddress = RandomTestUtil.randomString();
-				website = RandomTestUtil.randomString();
+				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				parentAccountKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				phoneNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				profileEmailAddress = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				website = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}

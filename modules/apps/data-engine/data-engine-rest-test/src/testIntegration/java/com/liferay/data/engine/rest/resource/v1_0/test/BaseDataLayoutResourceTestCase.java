@@ -332,27 +332,46 @@ public abstract class BaseDataLayoutResourceTestCase {
 			(entityField, dataLayout1, dataLayout2) -> {
 				Class<?> clazz = dataLayout1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						dataLayout1, entityField.getName(),
+						dataLayout1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						dataLayout2, entityField.getName(),
+						dataLayout2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						dataLayout1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						dataLayout2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						dataLayout1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						dataLayout1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						dataLayout2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						dataLayout2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -746,27 +765,46 @@ public abstract class BaseDataLayoutResourceTestCase {
 			(entityField, dataLayout1, dataLayout2) -> {
 				Class<?> clazz = dataLayout1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						dataLayout1, entityField.getName(),
+						dataLayout1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						dataLayout2, entityField.getName(),
+						dataLayout2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						dataLayout1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						dataLayout2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						dataLayout1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						dataLayout1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						dataLayout2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						dataLayout2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -839,6 +877,8 @@ public abstract class BaseDataLayoutResourceTestCase {
 
 	@Test
 	public void testGraphQLGetSiteDataLayoutsPage() throws Exception {
+		Long siteId = testGetSiteDataLayoutsPage_getSiteId();
+
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
 		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
@@ -858,7 +898,8 @@ public abstract class BaseDataLayoutResourceTestCase {
 					{
 						put("page", 1);
 						put("pageSize", 2);
-						put("siteKey", "\"" + testGroup.getGroupId() + "\"");
+
+						put("siteKey", "\"" + siteId + "\"");
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -920,7 +961,7 @@ public abstract class BaseDataLayoutResourceTestCase {
 				"siteDataLayout",
 				new HashMap<String, Object>() {
 					{
-						put("siteId", dataLayout.getSiteId());
+						put("siteKey", "\"" + dataLayout.getSiteId() + "\"");
 						put("dataLayoutKey", dataLayout.getDataLayoutKey());
 					}
 				},
@@ -1540,11 +1581,13 @@ public abstract class BaseDataLayoutResourceTestCase {
 		return new DataLayout() {
 			{
 				dataDefinitionId = RandomTestUtil.randomLong();
-				dataLayoutKey = RandomTestUtil.randomString();
+				dataLayoutKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
 				id = RandomTestUtil.randomLong();
-				paginationMode = RandomTestUtil.randomString();
+				paginationMode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				siteId = testGroup.getGroupId();
 				userId = RandomTestUtil.randomLong();
 			}

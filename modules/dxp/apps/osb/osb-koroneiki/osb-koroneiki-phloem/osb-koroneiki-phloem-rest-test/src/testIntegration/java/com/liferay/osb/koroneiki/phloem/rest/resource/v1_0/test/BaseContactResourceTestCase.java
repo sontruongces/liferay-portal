@@ -679,27 +679,46 @@ public abstract class BaseContactResourceTestCase {
 			(entityField, contact1, contact2) -> {
 				Class<?> clazz = contact1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						contact1, entityField.getName(),
+						contact1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						contact2, entityField.getName(),
+						contact2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						contact1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						contact2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						contact1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						contact1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						contact2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						contact2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -1662,14 +1681,20 @@ public abstract class BaseContactResourceTestCase {
 			{
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				emailAddress = RandomTestUtil.randomString();
-				firstName = RandomTestUtil.randomString();
-				key = RandomTestUtil.randomString();
-				languageId = RandomTestUtil.randomString();
-				lastName = RandomTestUtil.randomString();
-				middleName = RandomTestUtil.randomString();
-				oktaId = RandomTestUtil.randomString();
-				uuid = RandomTestUtil.randomString();
+				emailAddress =
+					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
+						"@liferay.com";
+				firstName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				languageId = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				lastName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				middleName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				oktaId = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				uuid = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}

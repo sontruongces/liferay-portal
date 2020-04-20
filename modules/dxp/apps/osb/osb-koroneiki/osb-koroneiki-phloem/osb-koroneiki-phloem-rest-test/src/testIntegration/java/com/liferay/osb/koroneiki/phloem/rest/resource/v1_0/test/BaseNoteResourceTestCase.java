@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -982,14 +983,18 @@ public abstract class BaseNoteResourceTestCase {
 	protected Note randomNote() throws Exception {
 		return new Note() {
 			{
-				content = RandomTestUtil.randomString();
-				creatorName = RandomTestUtil.randomString();
-				creatorUID = RandomTestUtil.randomString();
+				content = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				creatorName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				creatorUID = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				key = RandomTestUtil.randomString();
-				modifierName = RandomTestUtil.randomString();
-				modifierUID = RandomTestUtil.randomString();
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				modifierName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				modifierUID = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				priority = RandomTestUtil.randomInt();
 			}
 		};

@@ -298,27 +298,46 @@ public abstract class BaseTaskResourceTestCase {
 			(entityField, task1, task2) -> {
 				Class<?> clazz = task1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						task1, entityField.getName(),
+						task1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						task2, entityField.getName(),
+						task2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						task1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						task2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						task1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						task1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						task2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						task2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -876,8 +895,8 @@ public abstract class BaseTaskResourceTestCase {
 				breachedInstanceCount = RandomTestUtil.randomLong();
 				durationAvg = RandomTestUtil.randomLong();
 				instanceCount = RandomTestUtil.randomLong();
-				key = RandomTestUtil.randomString();
-				name = RandomTestUtil.randomString();
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				onTimeInstanceCount = RandomTestUtil.randomLong();
 				overdueInstanceCount = RandomTestUtil.randomLong();
 			}

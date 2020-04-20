@@ -43,6 +43,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.log.CaptureAppender;
@@ -718,6 +719,8 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 
 	@Test
 	public void testGraphQLGetSiteDataRecordCollectionsPage() throws Exception {
+		Long siteId = testGetSiteDataRecordCollectionsPage_getSiteId();
+
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
 		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
@@ -737,7 +740,8 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 					{
 						put("page", 1);
 						put("pageSize", 2);
-						put("siteKey", "\"" + testGroup.getGroupId() + "\"");
+
+						put("siteKey", "\"" + siteId + "\"");
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -809,7 +813,9 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 				"siteDataRecordCollection",
 				new HashMap<String, Object>() {
 					{
-						put("siteId", dataRecordCollection.getSiteId());
+						put(
+							"siteKey",
+							"\"" + dataRecordCollection.getSiteId() + "\"");
 						put(
 							"dataRecordCollectionKey",
 							dataRecordCollection.getDataRecordCollectionKey());
@@ -1283,7 +1289,8 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 		return new DataRecordCollection() {
 			{
 				dataDefinitionId = RandomTestUtil.randomLong();
-				dataRecordCollectionKey = RandomTestUtil.randomString();
+				dataRecordCollectionKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				siteId = testGroup.getGroupId();
 			}

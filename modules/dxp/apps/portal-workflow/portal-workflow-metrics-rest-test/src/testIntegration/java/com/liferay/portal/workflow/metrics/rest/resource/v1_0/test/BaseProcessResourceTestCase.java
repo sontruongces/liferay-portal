@@ -275,27 +275,46 @@ public abstract class BaseProcessResourceTestCase {
 			(entityField, process1, process2) -> {
 				Class<?> clazz = process1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						process1, entityField.getName(),
+						process1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						process2, entityField.getName(),
+						process2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						process1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						process2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						process1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						process1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						process2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						process2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -911,7 +930,7 @@ public abstract class BaseProcessResourceTestCase {
 				instanceCount = RandomTestUtil.randomLong();
 				onTimeInstanceCount = RandomTestUtil.randomLong();
 				overdueInstanceCount = RandomTestUtil.randomLong();
-				title = RandomTestUtil.randomString();
+				title = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				untrackedInstanceCount = RandomTestUtil.randomLong();
 			}
 		};

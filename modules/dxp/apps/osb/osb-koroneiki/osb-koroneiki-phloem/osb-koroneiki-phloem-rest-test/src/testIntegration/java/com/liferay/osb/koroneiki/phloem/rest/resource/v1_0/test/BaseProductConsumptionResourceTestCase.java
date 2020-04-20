@@ -791,27 +791,46 @@ public abstract class BaseProductConsumptionResourceTestCase {
 			(entityField, productConsumption1, productConsumption2) -> {
 				Class<?> clazz = productConsumption1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						productConsumption1, entityField.getName(),
+						productConsumption1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						productConsumption2, entityField.getName(),
+						productConsumption2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						productConsumption1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						productConsumption2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						productConsumption1, entityField.getName(),
-						"Aaa" + RandomTestUtil.randomString());
+						productConsumption1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						productConsumption2, entityField.getName(),
-						"Bbb" + RandomTestUtil.randomString());
+						productConsumption2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -1718,12 +1737,15 @@ public abstract class BaseProductConsumptionResourceTestCase {
 	protected ProductConsumption randomProductConsumption() throws Exception {
 		return new ProductConsumption() {
 			{
-				accountKey = RandomTestUtil.randomString();
+				accountKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
 				endDate = RandomTestUtil.nextDate();
-				key = RandomTestUtil.randomString();
-				productKey = RandomTestUtil.randomString();
-				productPurchaseKey = RandomTestUtil.randomString();
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				productKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				productPurchaseKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				startDate = RandomTestUtil.nextDate();
 			}
 		};
