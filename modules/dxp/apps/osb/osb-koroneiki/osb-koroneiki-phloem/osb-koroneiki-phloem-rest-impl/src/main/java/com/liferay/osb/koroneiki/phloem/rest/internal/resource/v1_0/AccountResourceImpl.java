@@ -377,17 +377,6 @@ public class AccountResourceImpl
 	}
 
 	@Override
-	public Account postAccountChildAccount(
-			String agentName, String agentUID, String accountKey,
-			Account account)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		return _postAccount(agentName, agentUID, accountKey, account);
-	}
-
-	@Override
 	public Account putAccount(
 			String agentName, String agentUID, String accountKey,
 			Account account)
@@ -398,6 +387,23 @@ public class AccountResourceImpl
 		com.liferay.osb.koroneiki.taproot.model.Account curAccount =
 			_accountLocalService.getAccount(accountKey);
 
+		long parentAccountId = curAccount.getParentAccountId();
+
+		if (account.getParentAccountKey() != null) {
+			if (Validator.isNotNull(account.getParentAccountKey())) {
+				com.liferay.osb.koroneiki.taproot.model.Account parentAccount =
+					_accountLocalService.getAccount(
+						account.getParentAccountKey());
+
+				parentAccountId = parentAccount.getAccountId();
+			}
+			else {
+				parentAccountId = 0;
+			}
+		}
+
+		String name = GetterUtil.getString(
+			account.getName(), curAccount.getName());
 		String code = GetterUtil.getString(
 			account.getCode(), curAccount.getCode());
 		String description = GetterUtil.getString(
@@ -446,10 +452,9 @@ public class AccountResourceImpl
 
 		return AccountUtil.toAccount(
 			_accountService.updateAccount(
-				accountKey, curAccount.getParentAccountId(), account.getName(),
-				code, description, logoId, contactEmailAddress,
-				profileEmailAddress, phoneNumber, faxNumber, website, tier,
-				region, internal, status));
+				accountKey, parentAccountId, name, code, description, logoId,
+				contactEmailAddress, profileEmailAddress, phoneNumber,
+				faxNumber, website, tier, region, internal, status));
 	}
 
 	@Override

@@ -104,7 +104,6 @@ components:
                 parentAccountKey:
                     description:
                         The account's parent account key.
-                    readOnly: true
                     type: string
                 phoneNumber:
                     description:
@@ -152,8 +151,6 @@ components:
                         $ref: "#/components/schemas/Contact"
                     readOnly: true
                     type: array
-            required:
-                - name
             type: object
         AccountPermission:
             properties:
@@ -987,7 +984,7 @@ components:
             type: object
 info:
     description:
-        ""
+        "A Java client JAR is available for use with the group ID 'com.liferay', artifact ID 'com.liferay.osb.koroneiki.phloem.rest.client', and version '1.0.0'."
     license:
         name: "Apache 2.0"
         url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -1503,37 +1500,6 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Account"
                                 type: array
-                    description:
-                        ""
-            tags: ["Account"]
-        post:
-            operationId: postAccountChildAccount
-            parameters:
-                - $ref: "#/components/parameters/AgentName"
-                - $ref: "#/components/parameters/AgentUID"
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/Account"
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/Account"
-                required: true
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Account"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Account"
                     description:
                         ""
             tags: ["Account"]

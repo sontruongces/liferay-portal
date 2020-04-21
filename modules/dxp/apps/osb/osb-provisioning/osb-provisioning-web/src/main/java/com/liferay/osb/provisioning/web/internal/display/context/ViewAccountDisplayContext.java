@@ -173,6 +173,20 @@ public class ViewAccountDisplayContext {
 				httpServletRequest, auditEntry));
 	}
 
+	public List<AccountDisplay> getChildAccountDisplays() throws Exception {
+		StringBundler sb = new StringBundler(3);
+
+		sb.append("parentAccountKey eq '");
+		sb.append(account.getKey());
+		sb.append("'");
+
+		return TransformUtil.transform(
+			accountWebService.search(
+				StringPool.BLANK, sb.toString(), 1, 1000, "name"),
+			account -> new AccountDisplay(
+				httpServletRequest, accountReader, account));
+	}
+
 	public String getClearResultsURL() {
 		PortletURL portletURL = getPortletURL();
 
@@ -285,6 +299,20 @@ public class ViewAccountDisplayContext {
 					_getDeleteNoteURL(note.getKey()))));
 
 		return data;
+	}
+
+	public AccountDisplay getParentAccountDisplay() throws Exception {
+		if (Validator.isNotNull(account.getParentAccountKey())) {
+			Account parentAccount = accountWebService.fetchAccount(
+				account.getParentAccountKey());
+
+			if (parentAccount != null) {
+				return new AccountDisplay(
+					httpServletRequest, accountReader, parentAccount);
+			}
+		}
+
+		return null;
 	}
 
 	public PortletURL getPortletURL() {

@@ -19,6 +19,8 @@
 <%
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 
+AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
+
 PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 %>
 
@@ -32,6 +34,14 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 		<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
 
 		<aui:input label="" name="keywords" placeholder="search" />
+
+		<portlet:renderURL var="editAccountHierarchyURL">
+			<portlet:param name="mvcRenderCommandName" value="/accounts/edit_account_hierarchy" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+		</portlet:renderURL>
+
+		<aui:button href="<%= editAccountHierarchyURL %>" value="edit-account-hierarchy" />
 	</aui:form>
 
 	<liferay-ui:search-container
@@ -41,51 +51,51 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
 			escapedModel="<%= true %>"
 			keyProperty="accountKey"
-			modelVar="accountDisplay"
+			modelVar="curAccountDisplay"
 		>
 			<portlet:renderURL var="rowURL">
 				<portlet:param name="mvcRenderCommandName" value="/accounts/view_account" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+				<portlet:param name="accountKey" value="<%= curAccountDisplay.getKey() %>" />
 			</portlet:renderURL>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="name-code"
 			>
-				<%= accountDisplay.getName() %>
+				<%= curAccountDisplay.getName() %>
 
 				<div class="secondary-information">
-					<%= accountDisplay.getCode() %>
+					<%= curAccountDisplay.getCode() %>
 				</div>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="support-end-date"
-				value="<%= accountDisplay.getSupportEndDate() %>"
+				value="<%= curAccountDisplay.getSupportEndDate() %>"
 			/>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="partner"
-				value="<%= HtmlUtil.escape(accountDisplay.getPartnerTeamName()) %>"
+				value="<%= HtmlUtil.escape(curAccountDisplay.getPartnerTeamName()) %>"
 			/>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="region"
-				value="<%= accountDisplay.getRegion() %>"
+				value="<%= curAccountDisplay.getRegion() %>"
 			/>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="sla-tier"
 			>
-				<%= HtmlUtil.escape(accountDisplay.getSLAName()) %>
+				<%= HtmlUtil.escape(curAccountDisplay.getSLAName()) %>
 
 				<div class="secondary-information">
-					<%= accountDisplay.getTier() %>
+					<%= curAccountDisplay.getTier() %>
 				</div>
 			</liferay-ui:search-container-column-text>
 
@@ -93,7 +103,7 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 				href="<%= rowURL %>"
 				name="status"
 			>
-				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= accountDisplay.getStatus() %></span>
+				<span class="label <%= curAccountDisplay.getStatusStyle() %>"><%= curAccountDisplay.getStatus() %></span>
 			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 
