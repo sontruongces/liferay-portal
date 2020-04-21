@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Multi Factor Authentication API
 Bundle-SymbolicName: com.liferay.multi.factor.authentication.api
-Bundle-Version: 1.0.2
+Bundle-Version: 1.0.3
 Export-Package:\
 	com.liferay.multi.factor.authentication,\
 	com.liferay.multi.factor.authentication.checker,\
