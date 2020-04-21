@@ -27,6 +27,7 @@ import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDi
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountContactsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountLiferayWorkersDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountRelatedAccountsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewTeamDisplayContext;
 
 import javax.portlet.RenderRequest;
@@ -88,6 +89,17 @@ public class ProvisioningWebComponentProvider {
 
 		return _provisioningWebComponentProvider.
 			_getViewAccountLiferayWorkersDisplayContext(
+				renderRequest, renderResponse, httpServletRequest);
+	}
+
+	public static ViewAccountRelatedAccountsDisplayContext
+			getViewAccountRelatedAccountsDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider.
+			_getViewAccountRelatedAccountsDisplayContext(
 				renderRequest, renderResponse, httpServletRequest);
 	}
 
@@ -204,6 +216,38 @@ public class ProvisioningWebComponentProvider {
 			viewAccountLiferayWorkersDisplayContext);
 
 		return viewAccountLiferayWorkersDisplayContext;
+	}
+
+	private ViewAccountRelatedAccountsDisplayContext
+			_getViewAccountRelatedAccountsDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		ViewAccountRelatedAccountsDisplayContext
+			viewAccountRelatedAccountsDisplayContext =
+				(ViewAccountRelatedAccountsDisplayContext)
+					httpServletRequest.getAttribute(
+						ViewAccountRelatedAccountsDisplayContext.class.
+							getName());
+
+		if (viewAccountRelatedAccountsDisplayContext != null) {
+			return viewAccountRelatedAccountsDisplayContext;
+		}
+
+		viewAccountRelatedAccountsDisplayContext =
+			new ViewAccountRelatedAccountsDisplayContext(
+				renderRequest, renderResponse, httpServletRequest,
+				_accountReader, _accountWebService, _auditEntryWebService,
+				_contactRoleWebService, _contactWebService,
+				_externalLinkWebService, _noteWebService,
+				_productPurchaseViewWebService, _teamWebService);
+
+		httpServletRequest.setAttribute(
+			ViewAccountRelatedAccountsDisplayContext.class.getName(),
+			viewAccountRelatedAccountsDisplayContext);
+
+		return viewAccountRelatedAccountsDisplayContext;
 	}
 
 	private ViewTeamDisplayContext _getViewTeamDisplayContext(

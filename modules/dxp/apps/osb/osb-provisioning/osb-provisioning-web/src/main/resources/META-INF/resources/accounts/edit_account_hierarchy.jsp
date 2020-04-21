@@ -19,9 +19,9 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
+ViewAccountRelatedAccountsDisplayContext viewAccountRelatedAccountsDisplayContext = ProvisioningWebComponentProvider.getViewAccountRelatedAccountsDisplayContext(renderRequest, renderResponse, request);
 
-AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
+AccountDisplay accountDisplay = viewAccountRelatedAccountsDisplayContext.getAccountDisplay();
 
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(redirect);
@@ -37,7 +37,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "edit-account-hierarchy"));
 <aui:form action="<%= editAccountHierarchyURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
 
 	<%
-	AccountDisplay parentAccountDisplay = viewAccountDisplayContext.getParentAccountDisplay();
+	AccountDisplay parentAccountDisplay = viewAccountRelatedAccountsDisplayContext.getParentAccountDisplay();
 	%>
 
 	<aui:row>
@@ -75,7 +75,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "edit-account-hierarchy"));
 	</aui:row>
 
 	<%
-	List<AccountDisplay> childAccountDisplays = viewAccountDisplayContext.getChildAccountDisplays();
+	List<AccountDisplay> childAccountDisplays = viewAccountRelatedAccountsDisplayContext.getChildAccountDisplays();
 	%>
 
 	<aui:row>

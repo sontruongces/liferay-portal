@@ -17,36 +17,45 @@
 <%@ include file="/init.jsp" %>
 
 <%
-ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
+ViewAccountRelatedAccountsDisplayContext viewAccountRelatedAccountsDisplayContext = ProvisioningWebComponentProvider.getViewAccountRelatedAccountsDisplayContext(renderRequest, renderResponse, request);
 
-AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
-
-PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
+AccountDisplay accountDisplay = viewAccountRelatedAccountsDisplayContext.getAccountDisplay();
 %>
 
 <liferay-ui:tabs
 	cssClass="related-accounts-tabs"
-	names='<%= "all," + Account.Status.APPROVED.toString() + "," + Account.Status.CLOSED.toString() %>'
+	names="<%= viewAccountRelatedAccountsDisplayContext.getTabsNames() %>"
 	param="tabs2"
-	portletURL="<%= viewAccountDisplayContext.getPortletURL() %>"
+	portletURL="<%= viewAccountRelatedAccountsDisplayContext.getPortletURL() %>"
+	tabsValues="<%= viewAccountRelatedAccountsDisplayContext.getTabsValues() %>"
 >
-	<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
-		<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
-
-		<aui:input label="" name="keywords" placeholder="search" />
-
-		<portlet:renderURL var="editAccountHierarchyURL">
-			<portlet:param name="mvcRenderCommandName" value="/accounts/edit_account_hierarchy" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
-		</portlet:renderURL>
-
-		<aui:button href="<%= editAccountHierarchyURL %>" value="edit-account-hierarchy" />
-	</aui:form>
-
 	<liferay-ui:search-container
-		searchContainer="<%= viewAccountDisplayContext.getRelatedAccountsSearchContainer() %>"
+		id="related-accounts"
+		searchContainer="<%= viewAccountRelatedAccountsDisplayContext.getSearchContainer() %>"
 	>
+		<aui:row>
+			<aui:col width="<%= 75 %>">
+				<clay:management-toolbar
+					clearResultsURL="<%= viewAccountRelatedAccountsDisplayContext.getClearResultsURL() %>"
+					itemsTotal="<%= searchContainer.getTotal() %>"
+					searchActionURL="<%= viewAccountRelatedAccountsDisplayContext.getCurrentURL() %>"
+					searchContainerId="related-accounts"
+					selectable="<%= false %>"
+					showSearch="<%= true %>"
+				/>
+			</aui:col>
+
+			<aui:col width="<%= 25 %>">
+				<portlet:renderURL var="editAccountHierarchyURL">
+					<portlet:param name="mvcRenderCommandName" value="/accounts/edit_account_hierarchy" />
+					<portlet:param name="redirect" value="<%= currentURL %>" />
+					<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+				</portlet:renderURL>
+
+				<aui:button href="<%= editAccountHierarchyURL %>" value="edit-account-hierarchy" />
+			</aui:col>
+		</aui:row>
+
 		<liferay-ui:search-container-row
 			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
 			escapedModel="<%= true %>"
@@ -110,7 +119,7 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 		<liferay-ui:search-iterator
 			markupView="lexicon"
 			paginate="<%= false %>"
-			resultRowSplitter="<%= viewAccountDisplayContext.getAccountResultRowSplitter() %>"
+			resultRowSplitter="<%= viewAccountRelatedAccountsDisplayContext.getAccountResultRowSplitter() %>"
 		/>
 	</liferay-ui:search-container>
 </liferay-ui:tabs>

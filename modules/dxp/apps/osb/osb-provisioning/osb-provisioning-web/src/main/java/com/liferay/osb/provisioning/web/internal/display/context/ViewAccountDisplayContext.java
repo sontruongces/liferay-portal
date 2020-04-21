@@ -27,16 +27,13 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
-import com.liferay.osb.provisioning.web.internal.dao.search.AccountResultRowSplitter;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
@@ -129,10 +126,6 @@ public class ViewAccountDisplayContext {
 		return accountDisplay;
 	}
 
-	public AccountResultRowSplitter getAccountResultRowSplitter() {
-		return new AccountResultRowSplitter(account);
-	}
-
 	public String getAddExternalLinkURL() {
 		PortletURL addExternalLinkURL = renderResponse.createActionURL();
 
@@ -171,20 +164,6 @@ public class ViewAccountDisplayContext {
 				account.getKey(), 1, 1000),
 			auditEntry -> new AuditEntryDisplay(
 				httpServletRequest, auditEntry));
-	}
-
-	public List<AccountDisplay> getChildAccountDisplays() throws Exception {
-		StringBundler sb = new StringBundler(3);
-
-		sb.append("parentAccountKey eq '");
-		sb.append(account.getKey());
-		sb.append("'");
-
-		return TransformUtil.transform(
-			accountWebService.search(
-				StringPool.BLANK, sb.toString(), 1, 1000, "name"),
-			account -> new AccountDisplay(
-				httpServletRequest, accountReader, account));
 	}
 
 	public String getClearResultsURL() {
@@ -301,20 +280,6 @@ public class ViewAccountDisplayContext {
 		return data;
 	}
 
-	public AccountDisplay getParentAccountDisplay() throws Exception {
-		if (Validator.isNotNull(account.getParentAccountKey())) {
-			Account parentAccount = accountWebService.fetchAccount(
-				account.getParentAccountKey());
-
-			if (parentAccount != null) {
-				return new AccountDisplay(
-					httpServletRequest, accountReader, parentAccount);
-			}
-		}
-
-		return null;
-	}
-
 	public PortletURL getPortletURL() {
 		PortletURL portletURL = renderResponse.createRenderURL();
 
@@ -355,53 +320,6 @@ public class ViewAccountDisplayContext {
 				account.getKey(), productNames, state, keywords);
 
 		searchContainer.setTotal(count);
-
-		return searchContainer;
-	}
-
-	public SearchContainer getRelatedAccountsSearchContainer()
-		throws Exception {
-
-		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, renderResponse.createRenderURL(),
-			Collections.emptyList(), "no-accounts-were-found");
-
-		String keywords = ParamUtil.getString(renderRequest, "keywords");
-
-		StringBundler sb = new StringBundler(14);
-
-		sb.append("(");
-
-		if (Validator.isNotNull(account.getParentAccountKey())) {
-			sb.append("accountKey eq '");
-			sb.append(account.getParentAccountKey());
-			sb.append("' or (parentAccountKey eq '");
-			sb.append(account.getParentAccountKey());
-			sb.append("' and accountKey ne '");
-			sb.append(account.getKey());
-			sb.append("') or ");
-		}
-
-		sb.append("parentAccountKey eq '");
-		sb.append(account.getKey());
-		sb.append("') ");
-
-		String tabs2 = ParamUtil.getString(renderRequest, "tabs2");
-
-		if (Validator.isNotNull(tabs2) && !tabs2.equals("all")) {
-			sb.append(" and status eq '");
-			sb.append(tabs2);
-			sb.append("'");
-		}
-
-		List<Account> accounts = accountWebService.search(
-			keywords, sb.toString(), 1, 1000, "name");
-
-		searchContainer.setResults(
-			TransformUtil.transform(
-				accounts,
-				account -> new AccountDisplay(
-					httpServletRequest, accountReader, account)));
 
 		return searchContainer;
 	}
