@@ -10,10 +10,9 @@
  */
 
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
-	NAMESPACE,
 	NOTE_FORMAT_HTML,
 	NOTE_FORMAT_PLAIN,
 	NOTE_PRIORITY_PINNED,
@@ -23,6 +22,7 @@ import {
 	NOTE_TYPE_GENERAL,
 	NOTE_TYPE_SALES
 } from '../utilities/constants';
+import {postData} from '../utilities/helpers';
 
 function AddNote({
 	actionURL = '',
@@ -35,6 +35,7 @@ function AddNote({
 	type = NOTE_TYPE_GENERAL
 }) {
 	const [noteContent, setNoteContent] = useState(content);
+	const [saveNote, setSaveNote] = useState(false);
 	const [showButtons, setShowButtons] = useState(!!content);
 
 	const handleCancel = () => {
@@ -46,17 +47,22 @@ function AddNote({
 		}
 	};
 
-	return (
-		<form action={actionURL} className="new-note" method="post">
-			<input name={`${NAMESPACE}format`} type="hidden" value={format} />
-			<input
-				name={`${NAMESPACE}priority`}
-				type="hidden"
-				value={pinned ? NOTE_PRIORITY_PINNED : NOTE_PRIORITY_UNPINNED}
-			/>
-			<input name={`${NAMESPACE}status`} type="hidden" value={status} />
-			<input name={`${NAMESPACE}type`} type="hidden" value={type} />
+	const noteData = {
+		content: noteContent,
+		format,
+		priority: pinned ? NOTE_PRIORITY_PINNED : NOTE_PRIORITY_UNPINNED,
+		status,
+		type
+	};
 
+	useEffect(() => {
+		postData(actionURL, noteData)
+			.then(data => console.log('success', data))
+			.catch(err => console.error(err));
+	}, [actionURL, noteData, saveNote]);
+
+	return (
+		<form className="new-note" method="post">
 			<label
 				className="form-control-label"
 				htmlFor={`addNoteContent${id}`}
@@ -64,7 +70,7 @@ function AddNote({
 				<textarea
 					className="form-control"
 					id={`addNoteContent${id}`}
-					name={`${NAMESPACE}content`}
+					name="content"
 					onChange={event =>
 						setNoteContent(event.currentTarget.value)
 					}
@@ -92,8 +98,9 @@ function AddNote({
 					<button
 						className="btn btn-primary save-btn"
 						disabled={!noteContent}
+						onClick={() => setSaveNote(true)}
 						role="button"
-						type="submit"
+						type="button"
 					>
 						{Liferay.Language.get('save')}
 					</button>
