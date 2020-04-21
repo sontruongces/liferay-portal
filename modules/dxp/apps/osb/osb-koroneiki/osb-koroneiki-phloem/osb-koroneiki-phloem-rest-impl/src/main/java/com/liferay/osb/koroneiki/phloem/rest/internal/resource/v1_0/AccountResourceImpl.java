@@ -373,7 +373,106 @@ public class AccountResourceImpl
 
 		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
-		return _postAccount(agentName, agentUID, null, account);
+		long parentAccountId = 0;
+
+		if (Validator.isNotNull(account.getParentAccountKey())) {
+			com.liferay.osb.koroneiki.taproot.model.Account parentAccount =
+				_accountLocalService.getAccount(account.getParentAccountKey());
+
+			parentAccountId = parentAccount.getAccountId();
+		}
+
+		String tier = StringPool.BLANK;
+
+		Account.Tier accountTier = account.getTier();
+
+		if (accountTier != null) {
+			tier = accountTier.toString();
+		}
+
+		String region = StringPool.BLANK;
+
+		Account.Region accountRegion = account.getRegion();
+
+		if (accountRegion != null) {
+			region = accountRegion.toString();
+		}
+
+		String status = Account.Status.APPROVED.toString();
+
+		Account.Status accountStatus = account.getStatus();
+
+		if (accountStatus != null) {
+			status = accountStatus.toString();
+		}
+
+		Account curAccount = AccountUtil.toAccount(
+			_accountService.addAccount(
+				parentAccountId, account.getName(), account.getCode(),
+				account.getDescription(),
+				GetterUtil.getLong(account.getLogoId()),
+				account.getContactEmailAddress(),
+				account.getProfileEmailAddress(), account.getPhoneNumber(),
+				account.getFaxNumber(), account.getWebsite(), tier, region,
+				GetterUtil.getBoolean(account.getInternal()), status));
+
+		if (!ArrayUtil.isEmpty(account.getContacts())) {
+			for (Contact contact : account.getContacts()) {
+				String[] contactRoleKeys = new String[0];
+
+				if (!ArrayUtil.isEmpty(contact.getContactRoles())) {
+					for (ContactRole contactRole : contact.getContactRoles()) {
+						contactRoleKeys = ArrayUtil.append(
+							contactRoleKeys,
+							_getContactRoleKey(
+								agentName, agentUID, contactRole));
+					}
+				}
+
+				if (Validator.isNotNull(contact.getOktaId())) {
+					putAccountContactByOktaRole(
+						agentName, agentUID, curAccount.getKey(),
+						contact.getOktaId(), contactRoleKeys);
+				}
+				else if (Validator.isNotNull(contact.getUuid())) {
+					putAccountContactByUuidContactUuidRole(
+						agentName, agentUID, curAccount.getKey(),
+						contact.getUuid(), contactRoleKeys);
+				}
+				else {
+					_postContact(agentName, agentUID, contact);
+
+					putAccountContactByEmailAddresContactEmailAddressRole(
+						agentName, agentUID, curAccount.getKey(),
+						contact.getEmailAddress(), contactRoleKeys);
+				}
+			}
+		}
+
+		if (!ArrayUtil.isEmpty(account.getExternalLinks())) {
+			for (ExternalLink externalLink : account.getExternalLinks()) {
+				_externalLinkResource.postAccountAccountKeyExternalLink(
+					agentName, agentUID, curAccount.getKey(), externalLink);
+			}
+		}
+
+		if (!ArrayUtil.isEmpty(account.getPostalAddresses())) {
+			for (PostalAddress postalAddress : account.getPostalAddresses()) {
+				_postalAddressResource.postAccountAccountKeyPostalAddress(
+					agentName, agentUID, curAccount.getKey(), postalAddress);
+			}
+		}
+
+		if (!ArrayUtil.isEmpty(account.getProductPurchases())) {
+			for (ProductPurchase productPurchase :
+					account.getProductPurchases()) {
+
+				_productPurchaseResource.postAccountAccountKeyProductPurchase(
+					agentName, agentUID, curAccount.getKey(), productPurchase);
+			}
+		}
+
+		return curAccount;
 	}
 
 	@Override
@@ -579,113 +678,6 @@ public class AccountResourceImpl
 			agentName, agentUID, contactRole);
 
 		return contactRole.getKey();
-	}
-
-	private Account _postAccount(
-			String agentName, String agentUID, String parentAccountKey,
-			Account account)
-		throws Exception {
-
-		long parentAccountId = 0;
-
-		if (Validator.isNotNull(parentAccountKey)) {
-			com.liferay.osb.koroneiki.taproot.model.Account parentAccount =
-				_accountLocalService.getAccount(parentAccountKey);
-
-			parentAccountId = parentAccount.getAccountId();
-		}
-
-		String tier = StringPool.BLANK;
-
-		Account.Tier accountTier = account.getTier();
-
-		if (accountTier != null) {
-			tier = accountTier.toString();
-		}
-
-		String region = StringPool.BLANK;
-
-		Account.Region accountRegion = account.getRegion();
-
-		if (accountRegion != null) {
-			region = accountRegion.toString();
-		}
-
-		String status = Account.Status.APPROVED.toString();
-
-		Account.Status accountStatus = account.getStatus();
-
-		if (accountStatus != null) {
-			status = accountStatus.toString();
-		}
-
-		Account curAccount = AccountUtil.toAccount(
-			_accountService.addAccount(
-				parentAccountId, account.getName(), account.getCode(),
-				account.getDescription(),
-				GetterUtil.getLong(account.getLogoId()),
-				account.getContactEmailAddress(),
-				account.getProfileEmailAddress(), account.getPhoneNumber(),
-				account.getFaxNumber(), account.getWebsite(), tier, region,
-				GetterUtil.getBoolean(account.getInternal()), status));
-
-		if (!ArrayUtil.isEmpty(account.getContacts())) {
-			for (Contact contact : account.getContacts()) {
-				String[] contactRoleKeys = new String[0];
-
-				if (!ArrayUtil.isEmpty(contact.getContactRoles())) {
-					for (ContactRole contactRole : contact.getContactRoles()) {
-						contactRoleKeys = ArrayUtil.append(
-							contactRoleKeys,
-							_getContactRoleKey(
-								agentName, agentUID, contactRole));
-					}
-				}
-
-				if (Validator.isNotNull(contact.getOktaId())) {
-					putAccountContactByOktaRole(
-						agentName, agentUID, curAccount.getKey(),
-						contact.getOktaId(), contactRoleKeys);
-				}
-				else if (Validator.isNotNull(contact.getUuid())) {
-					putAccountContactByUuidContactUuidRole(
-						agentName, agentUID, curAccount.getKey(),
-						contact.getUuid(), contactRoleKeys);
-				}
-				else {
-					_postContact(agentName, agentUID, contact);
-
-					putAccountContactByEmailAddresContactEmailAddressRole(
-						agentName, agentUID, curAccount.getKey(),
-						contact.getEmailAddress(), contactRoleKeys);
-				}
-			}
-		}
-
-		if (!ArrayUtil.isEmpty(account.getExternalLinks())) {
-			for (ExternalLink externalLink : account.getExternalLinks()) {
-				_externalLinkResource.postAccountAccountKeyExternalLink(
-					agentName, agentUID, curAccount.getKey(), externalLink);
-			}
-		}
-
-		if (!ArrayUtil.isEmpty(account.getPostalAddresses())) {
-			for (PostalAddress postalAddress : account.getPostalAddresses()) {
-				_postalAddressResource.postAccountAccountKeyPostalAddress(
-					agentName, agentUID, curAccount.getKey(), postalAddress);
-			}
-		}
-
-		if (!ArrayUtil.isEmpty(account.getProductPurchases())) {
-			for (ProductPurchase productPurchase :
-					account.getProductPurchases()) {
-
-				_productPurchaseResource.postAccountAccountKeyProductPurchase(
-					agentName, agentUID, curAccount.getKey(), productPurchase);
-			}
-		}
-
-		return curAccount;
 	}
 
 	private void _postContact(
