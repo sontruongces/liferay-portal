@@ -217,10 +217,10 @@ public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 	protected TransportClient createTransportClient() {
 		if (xPackSecurityConfiguration.requiresAuthentication()) {
 			configureAuthentication(settingsBuilder);
+		}
 
-			if (xPackSecurityConfiguration.transportSSLEnabled()) {
-				configureSSL(settingsBuilder);
-			}
+		if (xPackSecurityConfiguration.transportSSLEnabled()) {
+			configureSSL(settingsBuilder);
 		}
 
 		Settings settings = settingsBuilder.build();
@@ -229,7 +229,9 @@ public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 			_log.debug("Settings: " + settings.toString());
 		}
 
-		if (xPackSecurityConfiguration.requiresAuthentication()) {
+		if (xPackSecurityConfiguration.requiresAuthentication() ||
+			xPackSecurityConfiguration.transportSSLEnabled()) {
+
 			return new PreBuiltXPackTransportClient(settings);
 		}
 
