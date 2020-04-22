@@ -19,7 +19,7 @@ import {NAMESPACE} from '../utilities/constants';
  * @param {object} params The parameters object to post with
  * @returns {Promise} A Promise of the object that results from the Request
  */
-export async function postData(endpoint, params) {
+export function postData(endpoint, params) {
 	const namespacedParams = Object.fromEntries(
 		Object.entries(params).map(([key, value]) => [
 			`${NAMESPACE}${key}`,
@@ -27,9 +27,7 @@ export async function postData(endpoint, params) {
 		])
 	);
 
-	const {data} = await axios.post(endpoint, namespacedParams);
-
-	return data;
+	return axios.post(endpoint, namespacedParams);
 }
 
 /**

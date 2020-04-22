@@ -57,7 +57,7 @@ function AddNote({
 
 	useEffect(() => {
 		postData(actionURL, noteData)
-			.then(data => console.log('success', data))
+			.then(({data}) => console.log('success', data))
 			.catch(err => console.error(err));
 	}, [actionURL, noteData, saveNote]);
 
