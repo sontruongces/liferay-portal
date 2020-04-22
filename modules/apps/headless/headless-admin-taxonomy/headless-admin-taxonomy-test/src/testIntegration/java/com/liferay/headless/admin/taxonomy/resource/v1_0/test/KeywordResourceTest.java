@@ -15,6 +15,9 @@
 package com.liferay.headless.admin.taxonomy.resource.v1_0.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.service.AssetTagLocalServiceUtil;
+import com.liferay.asset.test.util.AssetTestUtil;
 import com.liferay.headless.admin.taxonomy.client.dto.v1_0.Keyword;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -27,30 +30,6 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class KeywordResourceTest extends BaseKeywordResourceTestCase {
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLDeleteKeyword() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetKeyword() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetSiteKeywordsPage() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLPostSiteKeyword() {
-	}
 
 	@Override
 	protected String[] getAdditionalAssertFieldNames() {

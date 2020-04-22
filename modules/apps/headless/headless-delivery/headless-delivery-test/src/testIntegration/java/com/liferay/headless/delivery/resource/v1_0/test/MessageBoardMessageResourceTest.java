@@ -47,42 +47,6 @@ public class MessageBoardMessageResourceTest
 		serviceContext.setScopeGroupId(testGroup.getGroupId());
 	}
 
-	@Ignore
-	@Override
-	@Test
-	public void testGetMessageBoardMessageMessageBoardMessagesPageWithSortInteger() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGetMessageBoardThreadMessageBoardMessagesPageWithSortInteger() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGetSiteMessageBoardMessagesPageWithSortInteger() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLDeleteMessageBoardMessage() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetMessageBoardMessage() {
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetSiteMessageBoardMessagesPage() {
-	}
-
 	@Override
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[] {"articleBody", "headline"};
