@@ -18,8 +18,11 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
@@ -52,10 +55,29 @@ public class AccountSearchDisplayContext {
 			_renderRequest, _renderResponse.createRenderURL(),
 			Collections.emptyList(), "no-accounts-were-found");
 
-		String keywords = ParamUtil.getString(_renderRequest, "keywords");
+		String[] keywords = StringUtil.split(
+			ParamUtil.getString(_renderRequest, "keywords"), StringPool.SPACE);
+
+		StringBundler sb = new StringBundler();
+
+		if (!ArrayUtil.isEmpty(keywords)) {
+			for (int i = 0; i < keywords.length; i++) {
+				String keyword = keywords[i];
+
+				sb.append("(contains(code, '");
+				sb.append(keyword);
+				sb.append("') or name eq '");
+				sb.append(keyword);
+				sb.append("')");
+
+				if (i < (keywords.length - 1)) {
+					sb.append(" and ");
+				}
+			}
+		}
 
 		List<Account> accounts = _accountWebService.search(
-			keywords, StringPool.BLANK, searchContainer.getCur(),
+			StringPool.BLANK, sb.toString(), searchContainer.getCur(),
 			searchContainer.getEnd() - searchContainer.getStart(), null);
 
 		searchContainer.setResults(
@@ -65,7 +87,7 @@ public class AccountSearchDisplayContext {
 					_httpServletRequest, _accountReader, account)));
 
 		int count = (int)_accountWebService.searchCount(
-			keywords, StringPool.BLANK);
+			StringPool.BLANK, sb.toString());
 
 		searchContainer.setTotal(count);
 

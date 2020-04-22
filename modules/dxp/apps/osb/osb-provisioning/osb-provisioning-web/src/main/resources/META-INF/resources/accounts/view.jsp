@@ -21,11 +21,9 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 %>
 
 <div class="container-fluid-1280">
-	<liferay-portlet:renderURL varImpl="searchURL" />
+	<portlet:actionURL name="/search" var="searchURL" />
 
-	<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
-		<liferay-portlet:renderURLParams varImpl="searchURL" />
-
+	<aui:form action="<%= searchURL.toString() %>" method="post" name="fm">
 		<aui:input label="" name="keywords" placeholder="search" />
 	</aui:form>
 
