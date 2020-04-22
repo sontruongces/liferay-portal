@@ -46,7 +46,6 @@ import com.liferay.portal.kernel.util.Validator;
 import java.io.Serializable;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -161,47 +160,6 @@ public class ProductEntryLocalServiceImpl
 
 	public ProductEntry fetchProductEntryByName(String name) {
 		return productEntryPersistence.fetchByName(name);
-	}
-
-	public List<ProductEntry> getAccountProductEntries(
-		long accountId, String[] names, String state, String search, int start,
-		int end) {
-
-		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-
-		if (names.length > 0) {
-			params.put("names", names);
-		}
-
-		if (Validator.isNotNull(state)) {
-			params.put("state", state);
-		}
-
-		if (Validator.isNotNull(search)) {
-			params.put("search", search);
-		}
-
-		return productEntryFinder.findByAccount(accountId, params, start, end);
-	}
-
-	public int getAccountProductEntriesCount(
-		long accountId, String[] names, String state, String search) {
-
-		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-
-		if (names.length > 0) {
-			params.put("names", names);
-		}
-
-		if (Validator.isNotNull(state)) {
-			params.put("state", state);
-		}
-
-		if (Validator.isNotNull(search)) {
-			params.put("search", search);
-		}
-
-		return productEntryFinder.countByAccount(accountId, params);
 	}
 
 	public ProductEntry getProductEntry(String productEntryKey)

@@ -80,29 +80,6 @@ public class ProductEntryServiceImpl extends ProductEntryServiceBaseImpl {
 		return productEntryLocalService.deleteProductEntry(productEntry);
 	}
 
-	public List<ProductEntry> getAccountProductEntries(
-			long accountId, String[] names, String state, String search,
-			int start, int end)
-		throws PortalException {
-
-		_accountPermission.check(
-			getPermissionChecker(), accountId, ActionKeys.VIEW);
-
-		return productEntryLocalService.getAccountProductEntries(
-			accountId, names, state, search, start, end);
-	}
-
-	public int getAccountProductEntriesCount(
-			long accountId, String[] names, String state, String search)
-		throws PortalException {
-
-		_accountPermission.check(
-			getPermissionChecker(), accountId, ActionKeys.VIEW);
-
-		return productEntryLocalService.getAccountProductEntriesCount(
-			accountId, names, state, search);
-	}
-
 	public List<ProductEntry> getProductEntries(int start, int end)
 		throws PortalException {
 
