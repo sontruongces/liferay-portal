@@ -41,15 +41,15 @@ public class ProductPurchaseViewWebServiceImpl
 	implements ProductPurchaseViewWebService {
 
 	public List<ProductPurchaseView> getProductPurchaseViews(
-			String accountKey, String[] productNames, String state,
-			String search, int page, int pageSize)
+			String search, String filterString, int page, int pageSize,
+			String sortString)
 		throws Exception {
 
 		Page<ProductPurchaseView> productPurchaseViewsPage =
 			_productPurchaseViewResource.
-				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, productNames, state, search,
-					Pagination.of(page, pageSize));
+				getProductPurchaseViewsPage(
+					search, filterString, Pagination.of(page, pageSize),
+					sortString);
 
 		if ((productPurchaseViewsPage != null) &&
 			(productPurchaseViewsPage.getItems() != null)) {
@@ -61,15 +61,15 @@ public class ProductPurchaseViewWebServiceImpl
 	}
 
 	public long getProductPurchaseViewsCount(
-			String accountKey, String[] productNames, String state,
-			String search)
+			String search, String filterString, int page, int pageSize,
+			String sortString)
 		throws Exception {
 
 		Page<ProductPurchaseView> productPurchaseViewsPage =
 			_productPurchaseViewResource.
-				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, productNames, state, search,
-					Pagination.of(1, 1));
+				getProductPurchaseViewsPage(
+					search, filterString, Pagination.of(page, pageSize),
+					sortString);
 
 		if (productPurchaseViewsPage != null) {
 			return productPurchaseViewsPage.getTotalCount();

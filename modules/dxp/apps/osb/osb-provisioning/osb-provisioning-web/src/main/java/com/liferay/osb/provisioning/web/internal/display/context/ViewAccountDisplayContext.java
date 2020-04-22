@@ -31,12 +31,16 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
+import java.text.Format;
+
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -300,14 +304,57 @@ public class ViewAccountDisplayContext {
 			Collections.emptyList(), "no-subscriptions-were-found");
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		String[] productNames = ParamUtil.getStringValues(
-			renderRequest, "productNames");
+		long[] productEntryIds = ParamUtil.getLongValues(
+			renderRequest, "productEntryIds");
+
+		Format format = FastDateFormatFactoryUtil.getSimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		String now = format.format(new Date());
+
+		StringBundler sb = new StringBundler(8);
+
+		sb.append("(accountKey eq '");
+		sb.append(account.getKey());
+		sb.append("')");
+
+		if (state.equals("active")) {
+			sb.append(" and ((perpetual eq 'true') or ((startDate lt ");
+			sb.append(now);
+			sb.append(") and (endDate gt ");
+			sb.append(now);
+			sb.append("))) and (cancelled eq 'false')");
+		}
+		else if (state.equals("inactive")) {
+			sb.append(" and ((cancelled eq 'true') or ((startDate gt ");
+			sb.append(now);
+			sb.append(") or (endDate lt ");
+			sb.append(now);
+			sb.append(")))");
+		}
+
+		if (productEntryIds.length > 0) {
+			for (int i = 0; i < productEntryIds.length; i++) {
+				if (i == 0) {
+					sb.append(" and (");
+				}
+
+				sb.append("(productEntryId eq '");
+				sb.append(productEntryIds[i]);
+				sb.append("')");
+
+				if (i < (productEntryIds.length - 1)) {
+					sb.append(" or ");
+				}
+			}
+
+			sb.append(")");
+		}
 
 		List<ProductPurchaseView> productPurchaseViews =
 			productPurchaseViewWebService.getProductPurchaseViews(
-				account.getKey(), productNames, state, keywords,
-				searchContainer.getCur(),
-				searchContainer.getEnd() - searchContainer.getStart());
+				keywords, sb.toString(), searchContainer.getCur(),
+				searchContainer.getEnd() - searchContainer.getStart(), null);
 
 		searchContainer.setResults(
 			TransformUtil.transform(
@@ -317,7 +364,8 @@ public class ViewAccountDisplayContext {
 
 		int count =
 			(int)productPurchaseViewWebService.getProductPurchaseViewsCount(
-				account.getKey(), productNames, state, keywords);
+				keywords, sb.toString(), searchContainer.getCur(),
+				searchContainer.getEnd() - searchContainer.getStart(), null);
 
 		searchContainer.setTotal(count);
 
