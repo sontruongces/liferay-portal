@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.trunk.internal.search.indexer;
 
+import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
@@ -27,14 +28,19 @@ import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseIndexer;
+import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.IndexWriterHelperUtil;
 import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.search.Summary;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.util.GetterUtil;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -60,14 +66,56 @@ public class ProductPurchaseViewIndexer
 	public static final String CLASS_NAME = ProductPurchaseView.class.getName();
 
 	public ProductPurchaseViewIndexer() {
-		setDefaultSelectedFieldNames(Field.NAME);
-		setPermissionAware(true);
+		setDefaultSelectedFieldNames(
+			"accountId", Field.COMPANY_ID, Field.ENTRY_CLASS_NAME,
+			Field.ENTRY_CLASS_PK, "productEntryId", Field.UID);
+		setPermissionAware(false);
 		setStagingAware(false);
 	}
 
 	@Override
 	public String getClassName() {
 		return CLASS_NAME;
+	}
+
+	@Override
+	public void postProcessSearchQuery(
+			BooleanQuery searchQuery, BooleanFilter fullQueryBooleanFilter,
+			SearchContext searchContext)
+		throws Exception {
+
+		addSearchTerm(searchQuery, searchContext, "accountKey", false);
+		addSearchTerm(searchQuery, searchContext, "name", true);
+		addSearchTerm(
+			searchQuery, searchContext, "productConsumptionIds", false);
+		addSearchTerm(searchQuery, searchContext, "productKey", false);
+		addSearchTerm(searchQuery, searchContext, "productPurchaseIds", false);
+	}
+
+	@Override
+	public void reindex(ProductPurchaseView productPurchaseView)
+		throws SearchException {
+
+		try {
+			if (IndexWriterHelperUtil.isIndexReadOnly() ||
+				IndexWriterHelperUtil.isIndexReadOnly(getClassName()) ||
+				!isIndexerEnabled()) {
+
+				return;
+			}
+
+			if (productPurchaseView == null) {
+				return;
+			}
+
+			doReindex(productPurchaseView);
+		}
+		catch (SearchException se) {
+			throw se;
+		}
+		catch (Exception e) {
+			throw new SearchException(e);
+		}
 	}
 
 	@Override
@@ -93,20 +141,36 @@ public class ProductPurchaseViewIndexer
 		document.addKeyword(
 			Field.COMPANY_ID, productPurchaseView.getCompanyId());
 
+		Account account = _accountLocalService.getAccount(
+			productPurchaseView.getAccountId());
+
 		document.addKeyword("accountId", productPurchaseView.getAccountId());
+		document.addKeyword("accountKey", account.getAccountKey());
 		document.addKeyword(
 			"productEntryId", productPurchaseView.getProductEntryId());
 
 		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
 			productPurchaseView.getProductEntryId());
 
+		document.addKeyword("productKey", productEntry.getProductEntryKey());
+
 		document.addKeyword("name", productEntry.getName());
 
-		document.addKeyword(
-			"productPurchaseIds",
-			getProductPurchaseIds(
+		List<ProductPurchase> productPurchases =
+			_productPurchaseLocalService.getAccountProductEntryProductPurchases(
 				productPurchaseView.getAccountId(),
-				productPurchaseView.getProductEntryId()));
+				productPurchaseView.getProductEntryId(), QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS);
+
+		document.addKeyword("perpetual", isPerpetual(productPurchases));
+		document.addKeyword("cancelled", isCancelled(productPurchases));
+
+		document.addDate("startDate", getStartDate(productPurchases));
+		document.addDate("endDate", getEndDate(productPurchases));
+
+		document.addKeyword(
+			"productPurchaseIds", getProductPurchaseIds(productPurchases));
+
 		document.addKeyword(
 			"productConsumptionIds",
 			getProductConsumptionIds(
@@ -165,6 +229,20 @@ public class ProductPurchaseViewIndexer
 		return document;
 	}
 
+	protected Date getEndDate(List<ProductPurchase> productPurchases) {
+		Date endDate = null;
+
+		for (ProductPurchase productPurchase : productPurchases) {
+			Date curEndDate = productPurchase.getEndDate();
+
+			if ((endDate == null) || curEndDate.after(endDate)) {
+				endDate = curEndDate;
+			}
+		}
+
+		return endDate;
+	}
+
 	protected long[] getProductConsumptionIds(
 		long accountId, long productEntryId) {
 
@@ -182,12 +260,7 @@ public class ProductPurchaseViewIndexer
 	}
 
 	protected long[] getProductPurchaseIds(
-		long accountId, long productEntryId) {
-
-		List<ProductPurchase> productPurchases =
-			_productPurchaseLocalService.getAccountProductEntryProductPurchases(
-				accountId, productEntryId, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS);
+		List<ProductPurchase> productPurchases) {
 
 		Stream<ProductPurchase> productPurchasesStream =
 			productPurchases.stream();
@@ -195,6 +268,42 @@ public class ProductPurchaseViewIndexer
 		return productPurchasesStream.mapToLong(
 			ProductPurchase::getProductPurchaseId
 		).toArray();
+	}
+
+	protected Date getStartDate(List<ProductPurchase> productPurchases) {
+		Date startDate = null;
+
+		for (ProductPurchase productPurchase : productPurchases) {
+			Date curStartDate = productPurchase.getStartDate();
+
+			if ((startDate == null) || curStartDate.before(startDate)) {
+				startDate = curStartDate;
+			}
+		}
+
+		return startDate;
+	}
+
+	protected boolean isCancelled(List<ProductPurchase> productPurchases) {
+		for (ProductPurchase productPurchase : productPurchases) {
+			if (productPurchase.getStatus() !=
+					WorkflowConstants.STATUS_CANCELLED) {
+
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	protected boolean isPerpetual(List<ProductPurchase> productPurchases) {
+		for (ProductPurchase productPurchase : productPurchases) {
+			if (productPurchase.getStartDate() == null) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	protected void reindexProductPurchaseViews(long companyId)

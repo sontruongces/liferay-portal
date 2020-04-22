@@ -2355,25 +2355,14 @@ paths:
                     description:
                         ""
             tags: ["ProductConsumption"]
-    "/accounts/{accountKey}/product-purchase-views":
+    "/product-purchase-views":
         get:
             description:
                 Retrieves the account's products and related product consumptions and product purchases.
-            operationId: getAccountAccountKeyProductPurchaseViewsPage
+            operationId: getProductPurchaseViewsPage
             parameters:
-                - in: path
-                  name: accountKey
-                  required: true
-                  schema:
-                      type: string
                 - in: query
-                  name: productNames
-                  schema:
-                      items:
-                          type: string
-                      type: array
-                - in: query
-                  name: state
+                  name: filter
                   schema:
                       type: string
                 - in: query
@@ -2386,6 +2375,10 @@ paths:
                       type: integer
                 - in: query
                   name: search
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
                   schema:
                       type: string
             responses:
