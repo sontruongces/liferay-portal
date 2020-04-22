@@ -104,7 +104,7 @@ describe('New Note', () => {
 		expect(saveButton.disabled).toBeFalsy();
 	});
 
-	it('disables the "Save" button after the "Save" button has been pressed', () => {
+	it('disables the "Save" and "Cancel" buttons after the "Save" button has been pressed', () => {
 		const {container, getByText} = renderAddNote();
 		const textarea = container.querySelector('textarea');
 
@@ -114,10 +114,11 @@ describe('New Note', () => {
 		});
 
 		const saveButton = getByText('save');
-		
+
 		fireEvent.click(saveButton);
 
 		expect(saveButton.disabled).toBeTruthy();
+		expect(getByText('cancel').disabled).toBeTruthy();
 	});
 
 	it('prefills the textarea with original value for editing a note', () => {

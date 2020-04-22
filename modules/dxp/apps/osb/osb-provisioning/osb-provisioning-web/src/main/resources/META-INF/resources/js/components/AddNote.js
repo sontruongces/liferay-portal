@@ -59,7 +59,7 @@ function AddNote({
 		if (savingNote) {
 			postData(actionURL, noteData, 'formData')
 				.then(({data}) => {
-					console.log(data);
+					console.log(data, data.note.key);
 					setSavingNote(false);
 				})
 				.catch(err => console.error(err));
@@ -93,6 +93,7 @@ function AddNote({
 				<div className="button-row">
 					<button
 						className="btn btn-secondary cancel-btn"
+						disabled={savingNote}
 						onClick={handleCancel}
 						role="button"
 						type="button"
