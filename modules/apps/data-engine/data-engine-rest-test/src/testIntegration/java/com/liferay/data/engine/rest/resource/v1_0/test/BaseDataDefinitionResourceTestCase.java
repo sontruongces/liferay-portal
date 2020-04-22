@@ -29,6 +29,7 @@ import com.liferay.data.engine.rest.client.pagination.Pagination;
 import com.liferay.data.engine.rest.client.resource.v1_0.DataDefinitionResource;
 import com.liferay.data.engine.rest.client.serdes.v1_0.DataDefinitionSerDes;
 import com.liferay.petra.function.UnsafeTriConsumer;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONDeserializer;
@@ -54,6 +55,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -328,9 +330,10 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				dataDefinition,
-				dataJSONObject.getJSONObject("dataDefinition")));
+				DataDefinitionSerDes.toDTO(
+					dataJSONObject.getString("dataDefinition"))));
 	}
 
 	@Test
@@ -718,9 +721,11 @@ public abstract class BaseDataDefinitionResourceTestCase {
 
 		Assert.assertEquals(2, dataDefinitionsJSONObject.get("totalCount"));
 
-		assertEqualsJSONArray(
+		assertEqualsIgnoringOrder(
 			Arrays.asList(dataDefinition1, dataDefinition2),
-			dataDefinitionsJSONObject.getJSONArray("items"));
+			Arrays.asList(
+				DataDefinitionSerDes.toDTOs(
+					dataDefinitionsJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -749,11 +754,7 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		DataDefinition dataDefinition =
 			testGraphQLDataDefinition_addDataDefinition(randomDataDefinition);
 
-		Assert.assertTrue(
-			equalsJSONObject(
-				randomDataDefinition,
-				JSONFactoryUtil.createJSONObject(
-					JSONFactoryUtil.serialize(dataDefinition))));
+		Assert.assertTrue(equals(randomDataDefinition, dataDefinition));
 	}
 
 	@Test
@@ -806,9 +807,56 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(
+			equals(
 				dataDefinition,
-				dataJSONObject.getJSONObject("siteDataDefinition")));
+				DataDefinitionSerDes.toDTO(
+					dataJSONObject.getString("siteDataDefinition"))));
+	}
+
+	protected void appendGraphQLFieldValue(StringBuilder sb, Object value)
+		throws Exception {
+
+		if (value instanceof Object[]) {
+			StringBuilder arraySB = new StringBuilder("[");
+
+			for (Object object : (Object[])value) {
+				if (arraySB.length() > 1) {
+					arraySB.append(",");
+				}
+
+				arraySB.append("{");
+
+				Class<?> clazz = object.getClass();
+
+				for (Field field :
+						ReflectionUtil.getDeclaredFields(
+							clazz.getSuperclass())) {
+
+					arraySB.append(field.getName());
+					arraySB.append(": ");
+
+					appendGraphQLFieldValue(arraySB, field.get(object));
+
+					arraySB.append(",");
+				}
+
+				arraySB.setLength(arraySB.length() - 1);
+
+				arraySB.append("}");
+			}
+
+			arraySB.append("]");
+
+			sb.append(arraySB.toString());
+		}
+		else if (value instanceof String) {
+			sb.append("\"");
+			sb.append(value);
+			sb.append("\"");
+		}
+		else {
+			sb.append(value);
+		}
 	}
 
 	protected DataDefinition testGraphQLDataDefinition_addDataDefinition()
@@ -824,120 +872,23 @@ public abstract class BaseDataDefinitionResourceTestCase {
 
 		StringBuilder sb = new StringBuilder("{");
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(DataDefinition.class)) {
 
-			if (Objects.equals(
-					"dataDefinitionKey", additionalAssertFieldName)) {
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
 
-				sb.append(additionalAssertFieldName);
-				sb.append(": ");
+				continue;
+			}
 
-				Object value = dataDefinition.getDataDefinitionKey();
-
-				if (value instanceof String) {
-					sb.append("\"");
-					sb.append(value);
-					sb.append("\"");
-				}
-				else {
-					sb.append(value);
-				}
-
+			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			if (Objects.equals(
-					"defaultLanguageId", additionalAssertFieldName)) {
+			sb.append(field.getName());
+			sb.append(": ");
 
-				sb.append(additionalAssertFieldName);
-				sb.append(": ");
-
-				Object value = dataDefinition.getDefaultLanguageId();
-
-				if (value instanceof String) {
-					sb.append("\"");
-					sb.append(value);
-					sb.append("\"");
-				}
-				else {
-					sb.append(value);
-				}
-
-				sb.append(", ");
-			}
-
-			if (Objects.equals("id", additionalAssertFieldName)) {
-				sb.append(additionalAssertFieldName);
-				sb.append(": ");
-
-				Object value = dataDefinition.getId();
-
-				if (value instanceof String) {
-					sb.append("\"");
-					sb.append(value);
-					sb.append("\"");
-				}
-				else {
-					sb.append(value);
-				}
-
-				sb.append(", ");
-			}
-
-			if (Objects.equals("siteId", additionalAssertFieldName)) {
-				sb.append(additionalAssertFieldName);
-				sb.append(": ");
-
-				Object value = dataDefinition.getSiteId();
-
-				if (value instanceof String) {
-					sb.append("\"");
-					sb.append(value);
-					sb.append("\"");
-				}
-				else {
-					sb.append(value);
-				}
-
-				sb.append(", ");
-			}
-
-			if (Objects.equals("storageType", additionalAssertFieldName)) {
-				sb.append(additionalAssertFieldName);
-				sb.append(": ");
-
-				Object value = dataDefinition.getStorageType();
-
-				if (value instanceof String) {
-					sb.append("\"");
-					sb.append(value);
-					sb.append("\"");
-				}
-				else {
-					sb.append(value);
-				}
-
-				sb.append(", ");
-			}
-
-			if (Objects.equals("userId", additionalAssertFieldName)) {
-				sb.append(additionalAssertFieldName);
-				sb.append(": ");
-
-				Object value = dataDefinition.getUserId();
-
-				if (value instanceof String) {
-					sb.append("\"");
-					sb.append(value);
-					sb.append("\"");
-				}
-				else {
-					sb.append(value);
-				}
-
-				sb.append(", ");
-			}
+			appendGraphQLFieldValue(sb, field.get(dataDefinition));
 		}
 
 		sb.append("}");
@@ -1023,25 +974,6 @@ public abstract class BaseDataDefinitionResourceTestCase {
 			Assert.assertTrue(
 				dataDefinitions2 + " does not contain " + dataDefinition1,
 				contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(
-		List<DataDefinition> dataDefinitions, JSONArray jsonArray) {
-
-		for (DataDefinition dataDefinition : dataDefinitions) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(dataDefinition, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + dataDefinition, contains);
 		}
 	}
 
@@ -1180,13 +1112,54 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		graphQLFields.add(new GraphQLField("siteId"));
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.data.engine.rest.dto.v1_0.DataDefinition.
+						class)) {
+
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(
+						field.getName(),
+						childrenGraphQLFields.toArray(new GraphQLField[0])));
+			}
 		}
 
 		return graphQLFields;
@@ -1380,71 +1353,6 @@ public abstract class BaseDataDefinitionResourceTestCase {
 					return false;
 				}
 			}
-		}
-
-		return true;
-	}
-
-	protected boolean equalsJSONObject(
-		DataDefinition dataDefinition, JSONObject jsonObject) {
-
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("dataDefinitionKey", fieldName)) {
-				if (!Objects.deepEquals(
-						dataDefinition.getDataDefinitionKey(),
-						jsonObject.getString("dataDefinitionKey"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("defaultLanguageId", fieldName)) {
-				if (!Objects.deepEquals(
-						dataDefinition.getDefaultLanguageId(),
-						jsonObject.getString("defaultLanguageId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("id", fieldName)) {
-				if (!Objects.deepEquals(
-						dataDefinition.getId(), jsonObject.getLong("id"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("storageType", fieldName)) {
-				if (!Objects.deepEquals(
-						dataDefinition.getStorageType(),
-						jsonObject.getString("storageType"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("userId", fieldName)) {
-				if (!Objects.deepEquals(
-						dataDefinition.getUserId(),
-						jsonObject.getLong("userId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;

@@ -246,13 +246,23 @@ public class DataLayoutSerDes {
 				String.valueOf(dataLayout.getDataLayoutPages()));
 		}
 
-		map.put(
-			"dateCreated",
-			liferayToJSONDateFormat.format(dataLayout.getDateCreated()));
+		if (dataLayout.getDateCreated() == null) {
+			map.put("dateCreated", null);
+		}
+		else {
+			map.put(
+				"dateCreated",
+				liferayToJSONDateFormat.format(dataLayout.getDateCreated()));
+		}
 
-		map.put(
-			"dateModified",
-			liferayToJSONDateFormat.format(dataLayout.getDateModified()));
+		if (dataLayout.getDateModified() == null) {
+			map.put("dateModified", null);
+		}
+		else {
+			map.put(
+				"dateModified",
+				liferayToJSONDateFormat.format(dataLayout.getDateModified()));
+		}
 
 		if (dataLayout.getDescription() == null) {
 			map.put("description", null);
