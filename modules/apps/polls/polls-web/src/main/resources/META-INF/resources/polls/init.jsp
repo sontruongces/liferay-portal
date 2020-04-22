@@ -17,5 +17,5 @@
 <%@ include file="/init.jsp" %>
 
 <%
-PollsDisplayContext pollsDisplayContext = new PollsDisplayContext(renderRequest, renderResponse);
+PollsDisplayContext pollsDisplayContext = (PollsDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
