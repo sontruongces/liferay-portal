@@ -17,15 +17,30 @@ import {NAMESPACE} from '../utilities/constants';
  * Returns a promise of the request data
  * @param {string} endpoint The endpoint to post to
  * @param {object} params The parameters object to post with
+ * @param {string} encoding The data encoding for the request
  * @returns {Promise} A Promise of the object that results from the Request
  */
-export function postData(endpoint, params) {
-	const namespacedParams = Object.fromEntries(
-		Object.entries(params).map(([key, value]) => [
-			`${NAMESPACE}${key}`,
-			value
-		])
-	);
+export function postData(endpoint, params, encoding = 'json') {
+	let namespacedParams;
+
+	if (encoding === 'json') {
+		namespacedParams = Object.fromEntries(
+			Object.entries(params).map(([key, value]) => [
+				`${NAMESPACE}${key}`,
+				value
+			])
+		);
+	}
+	else if (encoding === 'formData') {
+		namespacedParams = new FormData();
+
+		Object.entries(params).forEach(([key, value]) =>
+			namespacedParams.append(`${NAMESPACE}${key}`, value)
+		);
+	}
+	else {
+		throw new TypeError(`Invalid data encoding: ${encoding}`);
+	}
 
 	return axios.post(endpoint, namespacedParams);
 }

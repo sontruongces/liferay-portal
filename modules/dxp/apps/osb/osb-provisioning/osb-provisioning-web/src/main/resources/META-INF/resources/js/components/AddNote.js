@@ -35,7 +35,7 @@ function AddNote({
 	type = NOTE_TYPE_GENERAL
 }) {
 	const [noteContent, setNoteContent] = useState(content);
-	const [saveNote, setSaveNote] = useState(false);
+	const [savingNote, setSavingNote] = useState(false);
 	const [showButtons, setShowButtons] = useState(!!content);
 
 	const handleCancel = () => {
@@ -56,10 +56,15 @@ function AddNote({
 	};
 
 	useEffect(() => {
-		postData(actionURL, noteData)
-			.then(({data}) => console.log('success', data))
-			.catch(err => console.error(err));
-	}, [actionURL, noteData, saveNote]);
+		if (savingNote) {
+			postData(actionURL, noteData, 'formData')
+				.then(({data}) => {
+					console.log(data);
+					setSavingNote(false);
+				})
+				.catch(err => console.error(err));
+		}
+	}, [actionURL, noteData, savingNote]);
 
 	return (
 		<form className="new-note" method="post">
@@ -97,8 +102,8 @@ function AddNote({
 
 					<button
 						className="btn btn-primary save-btn"
-						disabled={!noteContent}
-						onClick={() => setSaveNote(true)}
+						disabled={!noteContent || savingNote}
+						onClick={() => setSavingNote(true)}
 						role="button"
 						type="button"
 					>
