@@ -523,7 +523,17 @@ definition {
 			panel = "Control Panel",
 			portlet = "Site Templates");
 
-		SiteTemplates.gotoViewPages(
+		SiteTemplates.addSitePageViaSiteTemplateCP(
+			pageName = "Test Page Name",
+			siteTemplateName = "Site Template Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Site Templates");
+
+		SiteTemplatesNavigator.gotoSiteTemplatesPage(
+			pageName = "Test Page Name",
 			siteName = "${siteName}",
 			siteTemplateName = "Site Template Name");
 
@@ -534,7 +544,8 @@ definition {
 			panel = "Control Panel",
 			portlet = "Site Templates");
 
-		SiteTemplates.gotoViewPages(
+		SiteTemplatesNavigator.gotoSiteTemplatesPage(
+			pageName = "Test Page Name",
 			siteName = "${siteName}",
 			siteTemplateName = "Site Template Name");
 
@@ -549,7 +560,8 @@ definition {
 				panel = "Control Panel",
 				portlet = "Site Templates");
 
-			SiteTemplates.gotoViewPages(
+			SiteTemplatesNavigator.gotoSiteTemplatesPage(
+				pageName = "Test Page Name",
 				siteName = "${siteName}",
 				siteTemplateName = "Site Template Name");
 		}
@@ -879,7 +891,17 @@ definition {
 			panel = "Control Panel",
 			portlet = "Site Templates");
 
-		SiteTemplates.gotoViewPages(
+		SiteTemplates.addSitePageViaSiteTemplateCP(
+			pageName = "Test Page Name",
+			siteTemplateName = "Site Template Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Site Templates");
+
+		SiteTemplatesNavigator.gotoSiteTemplatesPage(
+			pageName = "Test Page Name",
 			siteName = "${siteName}",
 			siteTemplateName = "Site Template Name");
 
@@ -892,7 +914,8 @@ definition {
 			panel = "Control Panel",
 			portlet = "Site Templates");
 
-		SiteTemplates.gotoViewPages(
+		SiteTemplatesNavigator.gotoSiteTemplatesPage(
+			pageName = "Test Page Name",
 			siteName = "${siteName}",
 			siteTemplateName = "Site Template Name");
 
