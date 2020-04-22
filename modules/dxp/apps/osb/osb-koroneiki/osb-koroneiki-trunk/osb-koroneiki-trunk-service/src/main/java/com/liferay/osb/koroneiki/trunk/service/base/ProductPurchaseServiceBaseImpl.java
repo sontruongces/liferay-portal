@@ -18,7 +18,6 @@ import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductConsumptionFinder;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductConsumptionPersistence;
-import com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryFinder;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductEntryPersistence;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductFieldFinder;
 import com.liferay.osb.koroneiki.trunk.service.persistence.ProductFieldPersistence;
@@ -120,9 +119,6 @@ public abstract class ProductPurchaseServiceBaseImpl
 
 	@Reference
 	protected ProductEntryPersistence productEntryPersistence;
-
-	@Reference
-	protected ProductEntryFinder productEntryFinder;
 
 	@Reference
 	protected ProductFieldPersistence productFieldPersistence;
