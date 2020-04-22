@@ -1648,26 +1648,28 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyProductPurchaseViews(accountKey: ___, page: ___, pageSize: ___, productNames: ___, search: ___, state: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productPurchaseViews(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public ProductPurchaseViewPage accountAccountKeyProductPurchaseViews(
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("productNames") String[] productNames,
-			@GraphQLName("state") String state,
+	public ProductPurchaseViewPage productPurchaseViews(
 			@GraphQLName("search") String search,
+			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
+			@GraphQLName("page") int page,
+			@GraphQLName("sort") String sortsString)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_productPurchaseViewResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			productPurchaseViewResource -> new ProductPurchaseViewPage(
-				productPurchaseViewResource.
-					getAccountAccountKeyProductPurchaseViewsPage(
-						accountKey, productNames, state, search,
-						Pagination.of(page, pageSize))));
+				productPurchaseViewResource.getProductPurchaseViewsPage(
+					search,
+					_filterBiFunction.apply(
+						productPurchaseViewResource, filterString),
+					Pagination.of(page, pageSize),
+					_sortsBiFunction.apply(
+						productPurchaseViewResource, sortsString))));
 	}
 
 	/**
@@ -3013,38 +3015,6 @@ public class Query {
 		}
 
 		private Contact _contact;
-
-	}
-
-	@GraphQLTypeExtension(Account.class)
-	public class GetAccountAccountKeyProductPurchaseViewsPageTypeExtension {
-
-		public GetAccountAccountKeyProductPurchaseViewsPageTypeExtension(
-			Account account) {
-
-			_account = account;
-		}
-
-		@GraphQLField
-		public ProductPurchaseViewPage accountKeyProductPurchaseViews(
-				@GraphQLName("productNames") String[] productNames,
-				@GraphQLName("state") String state,
-				@GraphQLName("search") String search,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_productPurchaseViewResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				productPurchaseViewResource -> new ProductPurchaseViewPage(
-					productPurchaseViewResource.
-						getAccountAccountKeyProductPurchaseViewsPage(
-							_account.getKey(), productNames, state, search,
-							Pagination.of(page, pageSize))));
-		}
-
-		private Account _account;
 
 	}
 

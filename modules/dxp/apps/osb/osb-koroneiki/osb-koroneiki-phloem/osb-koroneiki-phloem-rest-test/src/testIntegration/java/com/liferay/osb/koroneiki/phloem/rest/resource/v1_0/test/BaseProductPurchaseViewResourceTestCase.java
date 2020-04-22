@@ -28,6 +28,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductPurchaseViewResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductPurchaseViewSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -42,6 +43,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -49,11 +51,14 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +70,9 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -185,55 +192,23 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 	}
 
 	@Test
-	public void testGetAccountAccountKeyProductPurchaseViewsPage()
-		throws Exception {
-
+	public void testGetProductPurchaseViewsPage() throws Exception {
 		Page<ProductPurchaseView> page =
-			productPurchaseViewResource.
-				getAccountAccountKeyProductPurchaseViewsPage(
-					testGetAccountAccountKeyProductPurchaseViewsPage_getAccountKey(),
-					null, RandomTestUtil.randomString(),
-					RandomTestUtil.randomString(), Pagination.of(1, 2));
+			productPurchaseViewResource.getProductPurchaseViewsPage(
+				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		String accountKey =
-			testGetAccountAccountKeyProductPurchaseViewsPage_getAccountKey();
-		String irrelevantAccountKey =
-			testGetAccountAccountKeyProductPurchaseViewsPage_getIrrelevantAccountKey();
-
-		if ((irrelevantAccountKey != null)) {
-			ProductPurchaseView irrelevantProductPurchaseView =
-				testGetAccountAccountKeyProductPurchaseViewsPage_addProductPurchaseView(
-					irrelevantAccountKey,
-					randomIrrelevantProductPurchaseView());
-
-			page =
-				productPurchaseViewResource.
-					getAccountAccountKeyProductPurchaseViewsPage(
-						irrelevantAccountKey, null, null, null,
-						Pagination.of(1, 2));
-
-			Assert.assertEquals(1, page.getTotalCount());
-
-			assertEquals(
-				Arrays.asList(irrelevantProductPurchaseView),
-				(List<ProductPurchaseView>)page.getItems());
-			assertValid(page);
-		}
-
 		ProductPurchaseView productPurchaseView1 =
-			testGetAccountAccountKeyProductPurchaseViewsPage_addProductPurchaseView(
-				accountKey, randomProductPurchaseView());
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				randomProductPurchaseView());
 
 		ProductPurchaseView productPurchaseView2 =
-			testGetAccountAccountKeyProductPurchaseViewsPage_addProductPurchaseView(
-				accountKey, randomProductPurchaseView());
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				randomProductPurchaseView());
 
-		page =
-			productPurchaseViewResource.
-				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, null, null, null, Pagination.of(1, 2));
+		page = productPurchaseViewResource.getProductPurchaseViewsPage(
+			null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -244,28 +219,88 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 	}
 
 	@Test
-	public void testGetAccountAccountKeyProductPurchaseViewsPageWithPagination()
+	public void testGetProductPurchaseViewsPageWithFilterDateTimeEquals()
 		throws Exception {
 
-		String accountKey =
-			testGetAccountAccountKeyProductPurchaseViewsPage_getAccountKey();
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		ProductPurchaseView productPurchaseView1 = randomProductPurchaseView();
+
+		productPurchaseView1 =
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				productPurchaseView1);
+
+		for (EntityField entityField : entityFields) {
+			Page<ProductPurchaseView> page =
+				productPurchaseViewResource.getProductPurchaseViewsPage(
+					null,
+					getFilterString(
+						entityField, "between", productPurchaseView1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(productPurchaseView1),
+				(List<ProductPurchaseView>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetProductPurchaseViewsPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
 
 		ProductPurchaseView productPurchaseView1 =
-			testGetAccountAccountKeyProductPurchaseViewsPage_addProductPurchaseView(
-				accountKey, randomProductPurchaseView());
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				randomProductPurchaseView());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ProductPurchaseView productPurchaseView2 =
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				randomProductPurchaseView());
+
+		for (EntityField entityField : entityFields) {
+			Page<ProductPurchaseView> page =
+				productPurchaseViewResource.getProductPurchaseViewsPage(
+					null,
+					getFilterString(entityField, "eq", productPurchaseView1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(productPurchaseView1),
+				(List<ProductPurchaseView>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetProductPurchaseViewsPageWithPagination()
+		throws Exception {
+
+		ProductPurchaseView productPurchaseView1 =
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				randomProductPurchaseView());
 
 		ProductPurchaseView productPurchaseView2 =
-			testGetAccountAccountKeyProductPurchaseViewsPage_addProductPurchaseView(
-				accountKey, randomProductPurchaseView());
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				randomProductPurchaseView());
 
 		ProductPurchaseView productPurchaseView3 =
-			testGetAccountAccountKeyProductPurchaseViewsPage_addProductPurchaseView(
-				accountKey, randomProductPurchaseView());
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				randomProductPurchaseView());
 
 		Page<ProductPurchaseView> page1 =
-			productPurchaseViewResource.
-				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, null, null, null, Pagination.of(1, 2));
+			productPurchaseViewResource.getProductPurchaseViewsPage(
+				null, null, Pagination.of(1, 2), null);
 
 		List<ProductPurchaseView> productPurchaseViews1 =
 			(List<ProductPurchaseView>)page1.getItems();
@@ -274,9 +309,8 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 			productPurchaseViews1.toString(), 2, productPurchaseViews1.size());
 
 		Page<ProductPurchaseView> page2 =
-			productPurchaseViewResource.
-				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, null, null, null, Pagination.of(2, 2));
+			productPurchaseViewResource.getProductPurchaseViewsPage(
+				null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -287,9 +321,8 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 			productPurchaseViews2.toString(), 1, productPurchaseViews2.size());
 
 		Page<ProductPurchaseView> page3 =
-			productPurchaseViewResource.
-				getAccountAccountKeyProductPurchaseViewsPage(
-					accountKey, null, null, null, Pagination.of(1, 3));
+			productPurchaseViewResource.getProductPurchaseViewsPage(
+				null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(
@@ -298,28 +331,127 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 			(List<ProductPurchaseView>)page3.getItems());
 	}
 
+	@Test
+	public void testGetProductPurchaseViewsPageWithSortDateTime()
+		throws Exception {
+
+		testGetProductPurchaseViewsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, productPurchaseView1, productPurchaseView2) -> {
+				BeanUtils.setProperty(
+					productPurchaseView1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetProductPurchaseViewsPageWithSortInteger()
+		throws Exception {
+
+		testGetProductPurchaseViewsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, productPurchaseView1, productPurchaseView2) -> {
+				BeanUtils.setProperty(
+					productPurchaseView1, entityField.getName(), 0);
+				BeanUtils.setProperty(
+					productPurchaseView2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetProductPurchaseViewsPageWithSortString()
+		throws Exception {
+
+		testGetProductPurchaseViewsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, productPurchaseView1, productPurchaseView2) -> {
+				Class<?> clazz = productPurchaseView1.getClass();
+
+				Method method = clazz.getMethod(
+					"get" +
+						StringUtil.upperCaseFirstLetter(entityField.getName()));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						productPurchaseView1, entityField.getName(),
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						productPurchaseView2, entityField.getName(),
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else {
+					BeanUtils.setProperty(
+						productPurchaseView1, entityField.getName(), "Aaa");
+					BeanUtils.setProperty(
+						productPurchaseView2, entityField.getName(), "Bbb");
+				}
+			});
+	}
+
+	protected void testGetProductPurchaseViewsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, ProductPurchaseView, ProductPurchaseView,
+				 Exception> unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		ProductPurchaseView productPurchaseView1 = randomProductPurchaseView();
+		ProductPurchaseView productPurchaseView2 = randomProductPurchaseView();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, productPurchaseView1, productPurchaseView2);
+		}
+
+		productPurchaseView1 =
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				productPurchaseView1);
+
+		productPurchaseView2 =
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				productPurchaseView2);
+
+		for (EntityField entityField : entityFields) {
+			Page<ProductPurchaseView> ascPage =
+				productPurchaseViewResource.getProductPurchaseViewsPage(
+					null, null, Pagination.of(1, 2),
+					entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(productPurchaseView1, productPurchaseView2),
+				(List<ProductPurchaseView>)ascPage.getItems());
+
+			Page<ProductPurchaseView> descPage =
+				productPurchaseViewResource.getProductPurchaseViewsPage(
+					null, null, Pagination.of(1, 2),
+					entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(productPurchaseView2, productPurchaseView1),
+				(List<ProductPurchaseView>)descPage.getItems());
+		}
+	}
+
 	protected ProductPurchaseView
-			testGetAccountAccountKeyProductPurchaseViewsPage_addProductPurchaseView(
-				String accountKey, ProductPurchaseView productPurchaseView)
+			testGetProductPurchaseViewsPage_addProductPurchaseView(
+				ProductPurchaseView productPurchaseView)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected String
-			testGetAccountAccountKeyProductPurchaseViewsPage_getAccountKey()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String
-			testGetAccountAccountKeyProductPurchaseViewsPage_getIrrelevantAccountKey()
-		throws Exception {
-
-		return null;
+	@Test
+	public void testGraphQLGetProductPurchaseViewsPage() throws Exception {
+		Assert.assertTrue(false);
 	}
 
 	@Test

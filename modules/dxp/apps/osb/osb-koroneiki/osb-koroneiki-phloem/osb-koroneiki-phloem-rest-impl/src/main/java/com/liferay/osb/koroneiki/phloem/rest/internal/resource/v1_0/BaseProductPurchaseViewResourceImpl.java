@@ -19,6 +19,8 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductPurchaseViewRe
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -61,7 +63,7 @@ public abstract class BaseProductPurchaseViewResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/product-purchase-views'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/product-purchase-views'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -70,26 +72,20 @@ public abstract class BaseProductPurchaseViewResourceImpl
 	)
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "productNames"),
-			@Parameter(in = ParameterIn.QUERY, name = "state"),
 			@Parameter(in = ParameterIn.QUERY, name = "search"),
+			@Parameter(in = ParameterIn.QUERY, name = "filter"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
+			@Parameter(in = ParameterIn.QUERY, name = "sort")
 		}
 	)
-	@Path("/accounts/{accountKey}/product-purchase-views")
+	@Path("/product-purchase-views")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductPurchaseView")})
-	public Page<ProductPurchaseView>
-			getAccountAccountKeyProductPurchaseViewsPage(
-				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
-					String accountKey,
-				@Parameter(hidden = true) @QueryParam("productNames") String[]
-					productNames,
-				@Parameter(hidden = true) @QueryParam("state") String state,
-				@Parameter(hidden = true) @QueryParam("search") String search,
-				@Context Pagination pagination)
+	public Page<ProductPurchaseView> getProductPurchaseViewsPage(
+			@Parameter(hidden = true) @QueryParam("search") String search,
+			@Context Filter filter, @Context Pagination pagination,
+			@Context Sort[] sorts)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());

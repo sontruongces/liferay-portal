@@ -39,16 +39,14 @@ public interface ProductPurchaseViewResource {
 		return new Builder();
 	}
 
-	public Page<ProductPurchaseView>
-			getAccountAccountKeyProductPurchaseViewsPage(
-				String accountKey, String[] productNames, String state,
-				String search, Pagination pagination)
+	public Page<ProductPurchaseView> getProductPurchaseViewsPage(
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			getAccountAccountKeyProductPurchaseViewsPageHttpResponse(
-				String accountKey, String[] productNames, String state,
-				String search, Pagination pagination)
+	public HttpInvoker.HttpResponse getProductPurchaseViewsPageHttpResponse(
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public ProductPurchaseView
@@ -117,15 +115,14 @@ public interface ProductPurchaseViewResource {
 	public static class ProductPurchaseViewResourceImpl
 		implements ProductPurchaseViewResource {
 
-		public Page<ProductPurchaseView>
-				getAccountAccountKeyProductPurchaseViewsPage(
-					String accountKey, String[] productNames, String state,
-					String search, Pagination pagination)
+		public Page<ProductPurchaseView> getProductPurchaseViewsPage(
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getAccountAccountKeyProductPurchaseViewsPageHttpResponse(
-					accountKey, productNames, state, search, pagination);
+				getProductPurchaseViewsPageHttpResponse(
+					search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -138,10 +135,9 @@ public interface ProductPurchaseViewResource {
 			return Page.of(content, ProductPurchaseViewSerDes::toDTO);
 		}
 
-		public HttpInvoker.HttpResponse
-				getAccountAccountKeyProductPurchaseViewsPageHttpResponse(
-					String accountKey, String[] productNames, String state,
-					String search, Pagination pagination)
+		public HttpInvoker.HttpResponse getProductPurchaseViewsPageHttpResponse(
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -165,19 +161,12 @@ public interface ProductPurchaseViewResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
-			if (productNames != null) {
-				for (int i = 0; i < productNames.length; i++) {
-					httpInvoker.parameter(
-						"productNames", String.valueOf(productNames[i]));
-				}
-			}
-
-			if (state != null) {
-				httpInvoker.parameter("state", String.valueOf(state));
-			}
-
 			if (search != null) {
 				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
 			}
 
 			if (pagination != null) {
@@ -187,11 +176,14 @@ public interface ProductPurchaseViewResource {
 					"pageSize", String.valueOf(pagination.getPageSize()));
 			}
 
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/product-purchase-views",
-				accountKey);
+						"/o/koroneiki-rest/v1.0/product-purchase-views");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
