@@ -194,10 +194,10 @@ public class DDMFormEvaluatorHelper {
 			_evaluatedActions = ListUtil.copy(actions);
 		}
 		else {
-			DDMFormRule ddmFormRuleCopy = new DDMFormRule(ddmFormRule);
+			DDMFormRule copyDDMFormRule = new DDMFormRule(ddmFormRule);
 
 			if (_evaluatedActions != null) {
-				List<String> actions = ddmFormRuleCopy.getActions();
+				List<String> actions = copyDDMFormRule.getActions();
 
 				Stream<String> stream = actions.stream();
 
@@ -207,10 +207,10 @@ public class DDMFormEvaluatorHelper {
 					Collectors.toList()
 				);
 
-				ddmFormRuleCopy.setActions(actionsNotEvaluated);
+				copyDDMFormRule.setActions(actionsNotEvaluated);
 			}
 
-			_ddmFormRuleHelper.checkFieldAffectedByAction(ddmFormRuleCopy);
+			_ddmFormRuleHelper.checkFieldAffectedByAction(copyDDMFormRule);
 		}
 	}
 
