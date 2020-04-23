@@ -157,6 +157,8 @@ public class StructuredContentResourceTest
 
 		List<GraphQLField> graphQLFields = getGraphQLFields();
 
+		graphQLFields.add(new GraphQLField("siteId"));
+
 		GraphQLField graphQLField = new GraphQLField(
 			"query",
 			new GraphQLField(
@@ -188,6 +190,8 @@ public class StructuredContentResourceTest
 				randomStructuredContent());
 
 		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		graphQLFields.add(new GraphQLField("siteId"));
 
 		GraphQLField graphQLField = new GraphQLField(
 			"query",
