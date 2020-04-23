@@ -744,7 +744,7 @@ definition {
 		property osgi.module.configurations = "blacklistBundleSymbolicNames=&quot;com.liferay.portal.mobile.device.detection.fiftyonedegrees.api,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise.test.data,com.liferay.portal.mobile.device.detection.fiftyonedegrees,com.liferay.portal.search.tuning.rankings.web&quot;";
 		property remote.elasticsearch.enabled = "true";
 		property remote.elasticsearch.ccr.enabled = "true";
-		property test.name.skip.portal.instance = "elasticsearch6EE#CrossClusterReplicationSmoke";
+		property test.name.skip.portal.instance = "Elasticsearch6EE#CrossClusterReplicationSmoke";
 
 		JSONDocument.addFile(
 			dmDocumentDescription = "DM Description",
