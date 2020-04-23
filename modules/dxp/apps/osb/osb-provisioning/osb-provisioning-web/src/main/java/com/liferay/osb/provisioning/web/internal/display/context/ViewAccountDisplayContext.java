@@ -105,7 +105,9 @@ public class ViewAccountDisplayContext {
 		List<Account> ancestorAccounts = accountReader.getAncestorAccounts(
 			account);
 
-		for (Account ancestorAccount : ancestorAccounts) {
+		for (int i = ancestorAccounts.size() - 1; i >= 0; i--) {
+			Account ancestorAccount = ancestorAccounts.get(i);
+
 			PortletURL portletURL = renderResponse.createRenderURL();
 
 			portletURL.setParameter(
