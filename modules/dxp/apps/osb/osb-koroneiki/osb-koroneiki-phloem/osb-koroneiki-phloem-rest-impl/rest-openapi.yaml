@@ -2355,48 +2355,6 @@ paths:
                     description:
                         ""
             tags: ["ProductConsumption"]
-    "/product-purchase-views":
-        get:
-            description:
-                Retrieves the account's products and related product consumptions and product purchases.
-            operationId: getProductPurchaseViewsPage
-            parameters:
-                - in: query
-                  name: filter
-                  schema:
-                      type: string
-                - in: query
-                  name: page
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  schema:
-                      type: integer
-                - in: query
-                  name: search
-                  schema:
-                      type: string
-                - in: query
-                  name: sort
-                  schema:
-                      type: string
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductPurchaseView"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductPurchaseView"
-                                type: array
-                    description:
-                        ""
-            tags: ["ProductPurchaseView"]
     "/accounts/{accountKey}/product-purchases":
         get:
             description:
@@ -4559,6 +4517,48 @@ paths:
                     description:
                         ""
             tags: ["ProductConsumption"]
+    "/product-purchase-views":
+        get:
+            description:
+                Retrieves the account's products and related product consumptions and product purchases.
+            operationId: getProductPurchaseViewsPage
+            parameters:
+                - in: query
+                  name: filter
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchaseView"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/ProductPurchaseView"
+                                type: array
+                    description:
+                        ""
+            tags: ["ProductPurchaseView"]
     "/product-purchases":
         get:
             description:

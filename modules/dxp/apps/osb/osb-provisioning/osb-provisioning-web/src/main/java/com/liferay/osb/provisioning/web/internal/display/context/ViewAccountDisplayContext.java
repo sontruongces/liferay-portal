@@ -304,13 +304,10 @@ public class ViewAccountDisplayContext {
 			Collections.emptyList(), "no-subscriptions-were-found");
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		long[] productEntryIds = ParamUtil.getLongValues(
-			renderRequest, "productEntryIds");
+		String[] productKeys = ParamUtil.getStringValues(
+			renderRequest, "productKeys");
 
-		Format format = FastDateFormatFactoryUtil.getSimpleDateFormat(
-			"yyyy-MM-dd'T'HH:mm:ss'Z'");
-
-		String now = format.format(new Date());
+		String now = dateFormat.format(new Date());
 
 		StringBundler sb = new StringBundler(8);
 
@@ -333,17 +330,17 @@ public class ViewAccountDisplayContext {
 			sb.append(")))");
 		}
 
-		if (productEntryIds.length > 0) {
-			for (int i = 0; i < productEntryIds.length; i++) {
+		if (productKeys.length > 0) {
+			for (int i = 0; i < productKeys.length; i++) {
 				if (i == 0) {
 					sb.append(" and (");
 				}
 
-				sb.append("(productEntryId eq '");
-				sb.append(productEntryIds[i]);
+				sb.append("(productKey eq '");
+				sb.append(productKeys[i]);
 				sb.append("')");
 
-				if (i < (productEntryIds.length - 1)) {
+				if (i < (productKeys.length - 1)) {
 					sb.append(" or ");
 				}
 			}
@@ -418,6 +415,9 @@ public class ViewAccountDisplayContext {
 	protected final ContactRoleWebService contactRoleWebService;
 	protected final ContactWebService contactWebService;
 	protected final PortletURL currentURLObj;
+	protected final Format dateFormat =
+		FastDateFormatFactoryUtil.getSimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 	protected final ExternalLinkWebService externalLinkWebService;
 	protected final HttpServletRequest httpServletRequest;
 	protected final NoteWebService noteWebService;

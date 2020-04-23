@@ -110,11 +110,11 @@ public class ProductPurchaseViewIndexer
 
 			doReindex(productPurchaseView);
 		}
-		catch (SearchException se) {
-			throw se;
+		catch (SearchException searchException) {
+			throw searchException;
 		}
-		catch (Exception e) {
-			throw new SearchException(e);
+		catch (Exception exception) {
+			throw new SearchException(exception);
 		}
 	}
 
@@ -143,39 +143,30 @@ public class ProductPurchaseViewIndexer
 
 		Account account = _accountLocalService.getAccount(
 			productPurchaseView.getAccountId());
-
-		document.addKeyword("accountId", productPurchaseView.getAccountId());
-		document.addKeyword("accountKey", account.getAccountKey());
-		document.addKeyword(
-			"productEntryId", productPurchaseView.getProductEntryId());
-
 		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
 			productPurchaseView.getProductEntryId());
-
-		document.addKeyword("productKey", productEntry.getProductEntryKey());
-
-		document.addKeyword("name", productEntry.getName());
-
 		List<ProductPurchase> productPurchases =
 			_productPurchaseLocalService.getAccountProductEntryProductPurchases(
 				productPurchaseView.getAccountId(),
 				productPurchaseView.getProductEntryId(), QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS);
 
-		document.addKeyword("perpetual", isPerpetual(productPurchases));
+		document.addKeyword("accountId", account.getAccountId());
+		document.addKeyword("accountKey", account.getAccountKey());
 		document.addKeyword("cancelled", isCancelled(productPurchases));
-
-		document.addDate("startDate", getStartDate(productPurchases));
 		document.addDate("endDate", getEndDate(productPurchases));
-
-		document.addKeyword(
-			"productPurchaseIds", getProductPurchaseIds(productPurchases));
-
+		document.addKeyword("name", productEntry.getName());
+		document.addKeyword("perpetual", isPerpetual(productPurchases));
 		document.addKeyword(
 			"productConsumptionIds",
 			getProductConsumptionIds(
 				productPurchaseView.getAccountId(),
 				productPurchaseView.getProductEntryId()));
+		document.addKeyword("productEntryId", productEntry.getProductEntryId());
+		document.addKeyword("productKey", productEntry.getProductEntryKey());
+		document.addKeyword(
+			"productPurchaseIds", getProductPurchaseIds(productPurchases));
+		document.addDate("startDate", getStartDate(productPurchases));
 
 		return document;
 	}

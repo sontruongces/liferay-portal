@@ -46,10 +46,9 @@ public class ProductPurchaseViewWebServiceImpl
 		throws Exception {
 
 		Page<ProductPurchaseView> productPurchaseViewsPage =
-			_productPurchaseViewResource.
-				getProductPurchaseViewsPage(
-					search, filterString, Pagination.of(page, pageSize),
-					sortString);
+			_productPurchaseViewResource.getProductPurchaseViewsPage(
+				search, filterString, Pagination.of(page, pageSize),
+				sortString);
 
 		if ((productPurchaseViewsPage != null) &&
 			(productPurchaseViewsPage.getItems() != null)) {
@@ -66,10 +65,9 @@ public class ProductPurchaseViewWebServiceImpl
 		throws Exception {
 
 		Page<ProductPurchaseView> productPurchaseViewsPage =
-			_productPurchaseViewResource.
-				getProductPurchaseViewsPage(
-					search, filterString, Pagination.of(page, pageSize),
-					sortString);
+			_productPurchaseViewResource.getProductPurchaseViewsPage(
+				search, filterString, Pagination.of(page, pageSize),
+				sortString);
 
 		if (productPurchaseViewsPage != null) {
 			return productPurchaseViewsPage.getTotalCount();

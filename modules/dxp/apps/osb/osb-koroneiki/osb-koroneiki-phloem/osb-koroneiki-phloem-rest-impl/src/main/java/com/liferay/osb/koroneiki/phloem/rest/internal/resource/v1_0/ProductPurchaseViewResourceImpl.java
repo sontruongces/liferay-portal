@@ -27,7 +27,6 @@ import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
@@ -73,10 +72,13 @@ public class ProductPurchaseViewResourceImpl
 	}
 
 	@Override
-	public Page<ProductPurchaseView>
-			getProductPurchaseViewsPage(
-				String search, Filter filter, Pagination pagination, 
-				Sort[] sorts)
+	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
+		return new ProductPurchaseViewEntityModel();
+	}
+
+	@Override
+	public Page<ProductPurchaseView> getProductPurchaseViewsPage(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
 
 		return SearchUtil.search(
@@ -102,11 +104,6 @@ public class ProductPurchaseViewResourceImpl
 					GetterUtil.getLong(document.get("productEntryId")),
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS)),
 			sorts);
-	}
-
-	@Override
-	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
-		return new ProductPurchaseViewEntityModel();
 	}
 
 	@Reference

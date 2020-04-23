@@ -14,7 +14,6 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0;
 
-import com.liferay.portal.odata.entity.CollectionEntityField;
 import com.liferay.portal.odata.entity.DateTimeEntityField;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
@@ -34,23 +33,13 @@ public class ProductPurchaseViewEntityModel implements EntityModel {
 
 	public ProductPurchaseViewEntityModel() {
 		_entityFieldsMap = Stream.of(
-			new StringEntityField("accountId", locale -> "accountId"),
 			new StringEntityField("accountKey", locale -> "accountKey"),
 			new StringEntityField("cancelled", locale -> "cancelled"),
 			new DateTimeEntityField(
 				"endDate", locale -> "endDate", locale -> "endDate"),
 			new StringEntityField("name", locale -> "name"),
 			new StringEntityField("perpetual", locale -> "perpetual"),
-			new CollectionEntityField(
-				new StringEntityField(
-					"productConsumptionIds",
-					locale -> "productConsumptionIds")),
-			new StringEntityField("productEntryId", locale -> "productEntryId"),
 			new StringEntityField("productKey", locale -> "productKey"),
-			new CollectionEntityField(
-				new StringEntityField(
-					"productPurchaseIds",
-					locale -> "productPurchaseIds")),
 			new DateTimeEntityField(
 				"startDate", locale -> "startDate", locale -> "startDate")
 		).collect(
