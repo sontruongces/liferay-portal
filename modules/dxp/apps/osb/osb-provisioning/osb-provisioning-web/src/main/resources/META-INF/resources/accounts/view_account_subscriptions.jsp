@@ -16,26 +16,35 @@
 
 <%@ include file="/init.jsp" %>
 
-<div class="details-table">
-	<liferay-ui:tabs
-		cssClass="subscription-tabs"
-		names="active,inactive,all"
-		refresh="<%= false %>"
-	>
-		<liferay-ui:section>
-			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
-				<liferay-util:param name="state" value="active" />
-			</liferay-util:include>
-		</liferay-ui:section>
+<%
+ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 
-		<liferay-ui:section>
+String tabs2 = ParamUtil.getString(request, "tabs2");
+
+PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
+%>
+
+<div class="details-table">
+	<liferay-util:include page="/common/tabs.jsp" servletContext="<%= application %>">
+		<liferay-util:param name="names" value="active,inactive,all" />
+		<liferay-util:param name="param" value="tabs2" />
+		<liferay-util:param name="url" value="<%= portletURL.toString() %>" />
+		<liferay-util:param name="values" value="active,inactive,all" />
+	</liferay-util:include>
+
+	<c:choose>
+		<c:when test='<%= tabs2.equals("all") %>'>
+			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>" />
+		</c:when>
+		<c:when test='<%= tabs2.equals("inactive") %>'>
 			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
 				<liferay-util:param name="state" value="inactive" />
 			</liferay-util:include>
-		</liferay-ui:section>
-
-		<liferay-ui:section>
-			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>" />
-		</liferay-ui:section>
-	</liferay-ui:tabs>
+		</c:when>
+		<c:otherwise>
+			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
+				<liferay-util:param name="state" value="active" />
+			</liferay-util:include>
+		</c:otherwise>
+	</c:choose>
 </div>

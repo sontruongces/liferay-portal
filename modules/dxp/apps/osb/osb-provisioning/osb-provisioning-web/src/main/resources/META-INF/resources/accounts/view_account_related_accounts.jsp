@@ -20,106 +20,107 @@
 ViewAccountRelatedAccountsDisplayContext viewAccountRelatedAccountsDisplayContext = ProvisioningWebComponentProvider.getViewAccountRelatedAccountsDisplayContext(renderRequest, renderResponse, request);
 
 AccountDisplay accountDisplay = viewAccountRelatedAccountsDisplayContext.getAccountDisplay();
+
+PortletURL portletURL = viewAccountRelatedAccountsDisplayContext.getPortletURL();
 %>
 
-<liferay-ui:tabs
-	cssClass="related-accounts-tabs"
-	names="<%= viewAccountRelatedAccountsDisplayContext.getTabsNames() %>"
-	param="tabs2"
-	portletURL="<%= viewAccountRelatedAccountsDisplayContext.getPortletURL() %>"
-	tabsValues="<%= viewAccountRelatedAccountsDisplayContext.getTabsValues() %>"
+<liferay-util:include page="/common/tabs.jsp" servletContext="<%= application %>">
+	<liferay-util:param name="names" value="<%= viewAccountRelatedAccountsDisplayContext.getTabsNames() %>" />
+	<liferay-util:param name="param" value="tabs2" />
+	<liferay-util:param name="url" value="<%= portletURL.toString() %>" />
+	<liferay-util:param name="values" value="<%= viewAccountRelatedAccountsDisplayContext.getTabsValues() %>" />
+</liferay-util:include>
+
+<liferay-ui:search-container
+	id="related-accounts"
+	searchContainer="<%= viewAccountRelatedAccountsDisplayContext.getSearchContainer() %>"
 >
-	<liferay-ui:search-container
-		id="related-accounts"
-		searchContainer="<%= viewAccountRelatedAccountsDisplayContext.getSearchContainer() %>"
-	>
-		<aui:row>
-			<aui:col width="<%= 75 %>">
-				<clay:management-toolbar
-					clearResultsURL="<%= viewAccountRelatedAccountsDisplayContext.getClearResultsURL() %>"
-					itemsTotal="<%= searchContainer.getTotal() %>"
-					searchActionURL="<%= viewAccountRelatedAccountsDisplayContext.getCurrentURL() %>"
-					searchContainerId="related-accounts"
-					selectable="<%= false %>"
-					showSearch="<%= true %>"
-				/>
-			</aui:col>
+	<aui:row>
+		<aui:col width="<%= 75 %>">
+			<clay:management-toolbar
+				clearResultsURL="<%= viewAccountRelatedAccountsDisplayContext.getClearResultsURL() %>"
+				itemsTotal="<%= searchContainer.getTotal() %>"
+				searchActionURL="<%= viewAccountRelatedAccountsDisplayContext.getCurrentURL() %>"
+				searchContainerId="related-accounts"
+				selectable="<%= false %>"
+				showSearch="<%= true %>"
+			/>
+		</aui:col>
 
-			<aui:col width="<%= 25 %>">
-				<portlet:renderURL var="editAccountHierarchyURL">
-					<portlet:param name="mvcRenderCommandName" value="/accounts/edit_account_hierarchy" />
-					<portlet:param name="redirect" value="<%= currentURL %>" />
-					<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
-				</portlet:renderURL>
-
-				<aui:button href="<%= editAccountHierarchyURL %>" value="edit-account-hierarchy" />
-			</aui:col>
-		</aui:row>
-
-		<liferay-ui:search-container-row
-			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
-			escapedModel="<%= true %>"
-			keyProperty="accountKey"
-			modelVar="curAccountDisplay"
-		>
-			<portlet:renderURL var="rowURL">
-				<portlet:param name="mvcRenderCommandName" value="/accounts/view_account" />
+		<aui:col width="<%= 25 %>">
+			<portlet:renderURL var="editAccountHierarchyURL">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/edit_account_hierarchy" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="accountKey" value="<%= curAccountDisplay.getKey() %>" />
+				<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 			</portlet:renderURL>
 
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="name-code"
-			>
-				<%= curAccountDisplay.getName() %>
+			<aui:button href="<%= editAccountHierarchyURL %>" value="edit-account-hierarchy" />
+		</aui:col>
+	</aui:row>
 
-				<div class="secondary-information">
-					<%= curAccountDisplay.getCode() %>
-				</div>
-			</liferay-ui:search-container-column-text>
+	<liferay-ui:search-container-row
+		className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
+		escapedModel="<%= true %>"
+		keyProperty="accountKey"
+		modelVar="curAccountDisplay"
+	>
+		<portlet:renderURL var="rowURL">
+			<portlet:param name="mvcRenderCommandName" value="/accounts/view_account" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="accountKey" value="<%= curAccountDisplay.getKey() %>" />
+		</portlet:renderURL>
 
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="support-end-date"
-				value="<%= curAccountDisplay.getSupportEndDate() %>"
-			/>
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="name-code"
+		>
+			<%= curAccountDisplay.getName() %>
 
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="partner"
-				value="<%= HtmlUtil.escape(curAccountDisplay.getPartnerTeamName()) %>"
-			/>
+			<div class="secondary-information">
+				<%= curAccountDisplay.getCode() %>
+			</div>
+		</liferay-ui:search-container-column-text>
 
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="region"
-				value="<%= curAccountDisplay.getRegion() %>"
-			/>
-
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="sla-tier"
-			>
-				<%= HtmlUtil.escape(curAccountDisplay.getSLAName()) %>
-
-				<div class="secondary-information">
-					<%= curAccountDisplay.getTier() %>
-				</div>
-			</liferay-ui:search-container-column-text>
-
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
-				name="status"
-			>
-				<span class="label <%= curAccountDisplay.getStatusStyle() %>"><%= curAccountDisplay.getStatus() %></span>
-			</liferay-ui:search-container-column-text>
-		</liferay-ui:search-container-row>
-
-		<liferay-ui:search-iterator
-			markupView="lexicon"
-			paginate="<%= false %>"
-			resultRowSplitter="<%= viewAccountRelatedAccountsDisplayContext.getAccountResultRowSplitter() %>"
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="support-end-date"
+			value="<%= curAccountDisplay.getSupportEndDate() %>"
 		/>
-	</liferay-ui:search-container>
-</liferay-ui:tabs>
+
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="partner"
+			value="<%= HtmlUtil.escape(curAccountDisplay.getPartnerTeamName()) %>"
+		/>
+
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="region"
+			value="<%= curAccountDisplay.getRegion() %>"
+		/>
+
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="sla-tier"
+		>
+			<%= HtmlUtil.escape(curAccountDisplay.getSLAName()) %>
+
+			<div class="secondary-information">
+				<%= curAccountDisplay.getTier() %>
+			</div>
+		</liferay-ui:search-container-column-text>
+
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="status"
+		>
+			<span class="label <%= curAccountDisplay.getStatusStyle() %>"><%= curAccountDisplay.getStatus() %></span>
+		</liferay-ui:search-container-column-text>
+	</liferay-ui:search-container-row>
+
+	<liferay-ui:search-iterator
+		markupView="lexicon"
+		paginate="<%= false %>"
+		resultRowSplitter="<%= viewAccountRelatedAccountsDisplayContext.getAccountResultRowSplitter() %>"
+	/>
+</liferay-ui:search-container>

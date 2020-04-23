@@ -141,22 +141,22 @@ public class ViewAccountRelatedAccountsDisplayContext
 			StringPool.BLANK);
 
 		tabsNames.add(
-			LanguageUtil.get(httpServletRequest, "all") + " (" +
-				accounts.size() + ")");
+			_getTabName(
+				LanguageUtil.get(httpServletRequest, "all"), accounts.size()));
 
 		accounts = accountWebService.search(
 			StringPool.BLANK, _getFilter(Account.Status.APPROVED.toString()), 1,
 			1000, StringPool.BLANK);
 
 		tabsNames.add(
-			Account.Status.APPROVED.toString() + " (" + accounts.size() + ")");
+			_getTabName(Account.Status.APPROVED.toString(), accounts.size()));
 
 		accounts = accountWebService.search(
 			StringPool.BLANK, _getFilter(Account.Status.CLOSED.toString()), 1,
 			1000, StringPool.BLANK);
 
 		tabsNames.add(
-			Account.Status.CLOSED.toString() + " (" + accounts.size() + ")");
+			_getTabName(Account.Status.CLOSED.toString(), accounts.size()));
 
 		return StringUtil.merge(tabsNames);
 	}
@@ -190,6 +190,17 @@ public class ViewAccountRelatedAccountsDisplayContext
 			sb.append(status);
 			sb.append("'");
 		}
+
+		return sb.toString();
+	}
+
+	private String _getTabName(String label, int count) {
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(label);
+		sb.append(" <span class=\"badge badge-secondary\">");
+		sb.append(count);
+		sb.append("</span>");
 
 		return sb.toString();
 	}
