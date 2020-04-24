@@ -309,22 +309,14 @@ public class ViewAccountDisplayContext {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		String[] productKeys = ParamUtil.getStringValues(
 			renderRequest, "productKeys");
-
 		int startDateMonth = ParamUtil.getInteger(
 			renderRequest, "startDateMonth");
 		int startDateDay = ParamUtil.getInteger(renderRequest, "startDateDay");
 		int startDateYear = ParamUtil.getInteger(
 			renderRequest, "startDateYear");
-
-		Date startDate = PortalUtil.getDate(
-			startDateMonth, startDateDay, startDateYear, null);
-
 		int endDateMonth = ParamUtil.getInteger(renderRequest, "endDateMonth");
 		int endDateDay = ParamUtil.getInteger(renderRequest, "endDateDay");
 		int endDateYear = ParamUtil.getInteger(renderRequest, "endDateYear");
-
-		Date endDate = PortalUtil.getDate(
-			endDateMonth, endDateDay, endDateYear, null);
 
 		String now = dateFormat.format(new Date());
 
@@ -366,6 +358,12 @@ public class ViewAccountDisplayContext {
 
 			sb.append(")");
 		}
+
+		Date startDate = PortalUtil.getDate(
+			startDateMonth, startDateDay, startDateYear, null);
+
+		Date endDate = PortalUtil.getDate(
+			endDateMonth, endDateDay, endDateYear, null);
 
 		if ((startDate != null) && (endDate != null)) {
 			sb.append(" and ((startDate ge ");
