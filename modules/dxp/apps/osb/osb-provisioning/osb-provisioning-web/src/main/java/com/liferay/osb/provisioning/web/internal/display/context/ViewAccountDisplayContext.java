@@ -308,6 +308,22 @@ public class ViewAccountDisplayContext {
 		String[] productKeys = ParamUtil.getStringValues(
 			renderRequest, "productKeys");
 
+		int startDateMonth = ParamUtil.getInteger(
+			renderRequest, "startDateMonth");
+		int startDateDay = ParamUtil.getInteger(renderRequest, "startDateDay");
+		int startDateYear = ParamUtil.getInteger(
+			renderRequest, "startDateYear");
+
+		Date startDate = PortalUtil.getDate(
+			startDateMonth, startDateDay, startDateYear, null);
+
+		int endDateMonth = ParamUtil.getInteger(renderRequest, "endDateMonth");
+		int endDateDay = ParamUtil.getInteger(renderRequest, "endDateDay");
+		int endDateYear = ParamUtil.getInteger(renderRequest, "endDateYear");
+
+		Date endDate = PortalUtil.getDate(
+			endDateMonth, endDateDay, endDateYear, null);
+
 		String now = dateFormat.format(new Date());
 
 		StringBundler sb = new StringBundler(8);
@@ -321,14 +337,14 @@ public class ViewAccountDisplayContext {
 			sb.append(now);
 			sb.append(") and (endDate gt ");
 			sb.append(now);
-			sb.append("))) and (cancelled eq 'false')");
+			sb.append("))) and (status eq '0')");
 		}
 		else if (state.equals("inactive")) {
-			sb.append(" and ((cancelled eq 'true') or ((startDate gt ");
+			sb.append(" and ((startDate gt ");
 			sb.append(now);
 			sb.append(") or (endDate lt ");
 			sb.append(now);
-			sb.append(")))");
+			sb.append(")) or (status eq '600')");
 		}
 
 		if (productKeys.length > 0) {
@@ -347,6 +363,14 @@ public class ViewAccountDisplayContext {
 			}
 
 			sb.append(")");
+		}
+
+		if ((startDate != null) && (endDate != null)) {
+			sb.append(" and ((startDate ge ");
+			sb.append(dateFormat.format(startDate));
+			sb.append(") and (endDate le ");
+			sb.append(dateFormat.format(endDate));
+			sb.append("))");
 		}
 
 		List<ProductPurchaseView> productPurchaseViews =
