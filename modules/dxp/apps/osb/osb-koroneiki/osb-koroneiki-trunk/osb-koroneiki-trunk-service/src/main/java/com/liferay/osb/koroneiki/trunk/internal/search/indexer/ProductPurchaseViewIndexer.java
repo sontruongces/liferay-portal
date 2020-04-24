@@ -153,7 +153,6 @@ public class ProductPurchaseViewIndexer
 
 		document.addKeyword("accountId", account.getAccountId());
 		document.addKeyword("accountKey", account.getAccountKey());
-		document.addKeyword("cancelled", isCancelled(productPurchases));
 		document.addDate("endDate", getEndDate(productPurchases));
 		document.addKeyword("name", productEntry.getName());
 		document.addKeyword("perpetual", isPerpetual(productPurchases));
@@ -167,6 +166,7 @@ public class ProductPurchaseViewIndexer
 		document.addKeyword(
 			"productPurchaseIds", getProductPurchaseIds(productPurchases));
 		document.addDate("startDate", getStartDate(productPurchases));
+		document.addKeyword("status", getStatus(productPurchases));
 
 		return document;
 	}
@@ -275,16 +275,16 @@ public class ProductPurchaseViewIndexer
 		return startDate;
 	}
 
-	protected boolean isCancelled(List<ProductPurchase> productPurchases) {
+	protected int getStatus(List<ProductPurchase> productPurchases) {
 		for (ProductPurchase productPurchase : productPurchases) {
-			if (productPurchase.getStatus() !=
-					WorkflowConstants.STATUS_CANCELLED) {
+			if (productPurchase.getStatus() ==
+					WorkflowConstants.STATUS_APPROVED) {
 
-				return false;
+				return WorkflowConstants.STATUS_APPROVED;
 			}
 		}
 
-		return true;
+		return WorkflowConstants.STATUS_CANCELLED;
 	}
 
 	protected boolean isPerpetual(List<ProductPurchase> productPurchases) {

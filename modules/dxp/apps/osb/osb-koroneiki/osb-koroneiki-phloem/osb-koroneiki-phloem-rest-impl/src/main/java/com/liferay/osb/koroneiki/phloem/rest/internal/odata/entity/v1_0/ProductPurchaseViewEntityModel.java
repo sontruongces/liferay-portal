@@ -34,14 +34,14 @@ public class ProductPurchaseViewEntityModel implements EntityModel {
 	public ProductPurchaseViewEntityModel() {
 		_entityFieldsMap = Stream.of(
 			new StringEntityField("accountKey", locale -> "accountKey"),
-			new StringEntityField("cancelled", locale -> "cancelled"),
 			new DateTimeEntityField(
 				"endDate", locale -> "endDate", locale -> "endDate"),
 			new StringEntityField("name", locale -> "name"),
 			new StringEntityField("perpetual", locale -> "perpetual"),
 			new StringEntityField("productKey", locale -> "productKey"),
 			new DateTimeEntityField(
-				"startDate", locale -> "startDate", locale -> "startDate")
+				"startDate", locale -> "startDate", locale -> "startDate"),
+			new StringEntityField("status", locale -> "status")
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
