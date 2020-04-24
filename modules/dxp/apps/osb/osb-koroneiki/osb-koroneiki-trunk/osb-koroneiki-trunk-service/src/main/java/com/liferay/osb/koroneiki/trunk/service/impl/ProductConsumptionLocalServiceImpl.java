@@ -193,6 +193,13 @@ public class ProductConsumptionLocalServiceImpl
 			accountId, productEntryId);
 	}
 
+	public int getAccountProductEntryProductConsumptionsCount(
+		long accountId, long productEntryId) {
+
+		return productConsumptionPersistence.countByAI_PEI(
+			accountId, productEntryId);
+	}
+
 	public List<ProductConsumption> getContactProductConsumptions(
 		long contactId, int start, int end) {
 
