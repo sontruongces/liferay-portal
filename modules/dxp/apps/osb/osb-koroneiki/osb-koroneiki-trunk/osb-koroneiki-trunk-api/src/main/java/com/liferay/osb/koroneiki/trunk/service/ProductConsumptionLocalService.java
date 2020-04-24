@@ -223,6 +223,10 @@ public interface ProductConsumptionLocalService
 		long accountId, long productEntryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAccountProductEntryProductConsumptionsCount(
+		long accountId, long productEntryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -246,9 +250,6 @@ public interface ProductConsumptionLocalService
 	 */
 	public String getOSGiServiceIdentifier();
 
-	/**
-	 * @throws PortalException
-	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

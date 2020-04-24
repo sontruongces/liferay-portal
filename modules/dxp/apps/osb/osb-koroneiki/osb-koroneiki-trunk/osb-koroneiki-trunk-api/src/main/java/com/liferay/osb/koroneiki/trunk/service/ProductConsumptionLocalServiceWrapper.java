@@ -280,6 +280,15 @@ public class ProductConsumptionLocalServiceWrapper
 	}
 
 	@Override
+	public int getAccountProductEntryProductConsumptionsCount(
+		long accountId, long productEntryId) {
+
+		return _productConsumptionLocalService.
+			getAccountProductEntryProductConsumptionsCount(
+				accountId, productEntryId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -329,9 +338,6 @@ public class ProductConsumptionLocalServiceWrapper
 		return _productConsumptionLocalService.getOSGiServiceIdentifier();
 	}
 
-	/**
-	 * @throws PortalException
-	 */
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 			java.io.Serializable primaryKeyObj)

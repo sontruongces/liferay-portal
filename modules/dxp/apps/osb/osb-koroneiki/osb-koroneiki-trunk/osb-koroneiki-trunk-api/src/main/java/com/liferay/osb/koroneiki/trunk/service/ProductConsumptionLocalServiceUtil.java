@@ -258,6 +258,13 @@ public class ProductConsumptionLocalServiceUtil {
 			accountId, productEntryId);
 	}
 
+	public static int getAccountProductEntryProductConsumptionsCount(
+		long accountId, long productEntryId) {
+
+		return getService().getAccountProductEntryProductConsumptionsCount(
+			accountId, productEntryId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -300,9 +307,6 @@ public class ProductConsumptionLocalServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	/**
-	 * @throws PortalException
-	 */
 	public static com.liferay.portal.kernel.model.PersistedModel
 			getPersistedModel(java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
