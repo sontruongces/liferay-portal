@@ -10,6 +10,9 @@
  */
 
 export const NAMESPACE = window.ProvisioningConstants.namespace;
+
+// Note properties
+
 export const NOTE_FORMAT_HTML = window.ProvisioningConstants.noteFormat.html;
 export const NOTE_FORMAT_PLAIN =
 	window.ProvisioningConstants.noteFormat.plaintext;
@@ -21,3 +24,10 @@ export const NOTE_STATUS_ARCHIVED =
 	window.ProvisioningConstants.noteStatus.archived;
 export const NOTE_TYPE_GENERAL = window.ProvisioningConstants.noteType.general;
 export const NOTE_TYPE_SALES = window.ProvisioningConstants.noteType.sales;
+
+// Action types for interacting with a Note
+
+export const ADD_NOTE = 'ADD_NOTE';
+export const ARCHIVE_NOTE = 'ARCHIVE_NOTE';
+export const EDIT_NOTE = 'EDIT_NOTE';
+export const PIN_NOTE = 'PIN_NOTE';
