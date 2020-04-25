@@ -70,14 +70,14 @@ public class CompleteTaskMVCActionCommand
 		Map<String, Serializable> workflowContext = _getWorkflowContext(
 			themeDisplay.getCompanyId(), workflowTaskId);
 
-		workflowContext.put(
-			WorkflowConstants.CONTEXT_USER_ID,
-			String.valueOf(themeDisplay.getUserId()));
-
 		ServiceContext serviceContext = (ServiceContext)workflowContext.get(
 			"serviceContext");
 
 		serviceContext.setRequest(_portal.getHttpServletRequest(actionRequest));
+
+		workflowContext.put(
+			WorkflowConstants.CONTEXT_USER_ID,
+			String.valueOf(themeDisplay.getUserId()));
 
 		workflowTaskManager.completeWorkflowTask(
 			themeDisplay.getCompanyId(), themeDisplay.getUserId(),
