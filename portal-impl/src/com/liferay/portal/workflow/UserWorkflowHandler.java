@@ -75,14 +75,16 @@ public class UserWorkflowHandler extends BaseWorkflowHandler<User> {
 
 			UserLocalServiceUtil.completeUserRegistration(user, serviceContext);
 
-			_updateAudit(workflowContext);
+			_updateAuditRequestThreadLocal(workflowContext);
 		}
 
 		return UserLocalServiceUtil.updateStatus(
 			userId, status, serviceContext);
 	}
 
-	private void _updateAudit(Map<String, Serializable> workflowContext) {
+	private void _updateAuditRequestThreadLocal(
+		Map<String, Serializable> workflowContext) {
+
 		AuditRequestThreadLocal auditRequestThreadLocal =
 			AuditRequestThreadLocal.getAuditThreadLocal();
 
