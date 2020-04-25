@@ -23,6 +23,7 @@ import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.layout.page.template.constants.LayoutPageTemplateEntryTypeConstants;
 import com.liferay.layout.page.template.exception.LayoutPageTemplateEntryNameException;
+import com.liferay.layout.page.template.internal.validator.LayoutPageTemplateEntryValidator;
 import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.service.base.LayoutPageTemplateEntryLocalServiceBaseImpl;
 import com.liferay.petra.string.StringPool;
@@ -855,12 +856,7 @@ public class LayoutPageTemplateEntryLocalServiceImpl
 				groupId);
 		}
 
-		for (char c : _BLACKLIST_CHAR) {
-			if (name.indexOf(c) >= 0) {
-				throw new LayoutPageTemplateEntryNameException.
-					MustNotContainInvalidCharacters(c);
-			}
-		}
+		LayoutPageTemplateEntryValidator.validateNameCharacters(name);
 
 		int nameMaxLength = ModelHintsUtil.getMaxLength(
 			LayoutPageTemplateEntry.class.getName(), "name");
@@ -915,11 +911,6 @@ public class LayoutPageTemplateEntryLocalServiceImpl
 
 		return layout;
 	}
-
-	private static final char[] _BLACKLIST_CHAR = {
-		';', '/', '?', ':', '@', '=', '&', '\"', '<', '>', '#', '%', '{', '}',
-		'|', '\\', '^', '~', '[', ']', '`'
-	};
 
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
