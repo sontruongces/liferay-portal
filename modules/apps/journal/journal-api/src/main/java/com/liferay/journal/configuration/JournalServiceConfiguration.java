@@ -151,4 +151,10 @@ public interface JournalServiceConfiguration {
 	)
 	public boolean singleAssetPublishIncludeVersionHistory();
 
+	@Meta.AD(
+		deflt = "true", name = "enable-content-transformer-listener",
+		required = false
+	)
+	public boolean enableContentTransformerListener();
+
 }
