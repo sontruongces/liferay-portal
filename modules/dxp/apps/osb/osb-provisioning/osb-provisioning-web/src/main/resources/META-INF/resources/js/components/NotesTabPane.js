@@ -12,9 +12,8 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
+import {useNotes} from '../hooks/notes';
 import {
-	NOTE_FORMAT_HTML,
-	NOTE_FORMAT_PLAIN,
 	NOTE_STATUS_APPROVED,
 	NOTE_STATUS_ARCHIVED,
 	NOTE_TYPE_GENERAL,
@@ -134,15 +133,22 @@ function ArchivedNotes({notes, onClick}) {
 	);
 }
 
-function NotesTabPane({addURL, notes = [], tabType}) {
+function NotesTabPane({addURL, tabType}) {
+	const [notes] = useNotes();
 	const [viewArchive, setViewArchive] = useState(false);
+
+	const notesForType = notes.filter(note => note.type === tabType);
 
 	const handleViewArchive = bool => {
 		setViewArchive(bool);
 	};
 
-	const approved = notes.filter(note => note.status === NOTE_STATUS_APPROVED);
-	const archived = notes.filter(note => note.status === NOTE_STATUS_ARCHIVED);
+	const approved = notesForType.filter(
+		note => note.status === NOTE_STATUS_APPROVED
+	);
+	const archived = notesForType.filter(
+		note => note.status === NOTE_STATUS_ARCHIVED
+	);
 
 	return (
 		<div className="notes-container">
@@ -163,26 +169,6 @@ function NotesTabPane({addURL, notes = [], tabType}) {
 
 NotesTabPane.propTypes = {
 	addURL: PropTypes.string,
-	notes: PropTypes.arrayOf(
-		PropTypes.shape({
-			createDate: PropTypes.string.isRequired,
-			creatorName: PropTypes.string.isRequired,
-			creatorPortraitURL: PropTypes.string,
-			edited: PropTypes.bool.isRequired,
-			format: PropTypes.oneOf([NOTE_FORMAT_HTML, NOTE_FORMAT_PLAIN])
-				.isRequired,
-			htmlContent: PropTypes.string.isRequired,
-			key: PropTypes.string.isRequired,
-			pinned: PropTypes.bool.isRequired,
-			status: PropTypes.oneOf([
-				NOTE_STATUS_APPROVED,
-				NOTE_STATUS_ARCHIVED
-			]).isRequired,
-			type: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
-				.isRequired,
-			updateNoteURL: PropTypes.string.isRequired
-		})
-	),
 	tabType: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES]).isRequired
 };
 

@@ -13,6 +13,7 @@ import ClayTabs from '@clayui/tabs';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
+import {NotesProvider} from '../hooks/notes';
 import {
 	NOTE_STATUS_APPROVED,
 	NOTE_STATUS_ARCHIVED,
@@ -23,11 +24,8 @@ import ExternalLinksTabPane from './ExternalLinksTabPane';
 import IconButton from './IconButton';
 import NotesTabPane from './NotesTabPane';
 
-function CollapsiblePanel({addNoteURL, handleCollapse, notes = []}) {
+function CollapsiblePanel({addNoteURL, handleCollapse}) {
 	const [activeIndex, setActiveIndex] = useState(0);
-
-	const generalNotes = notes.filter(note => note.type === NOTE_TYPE_GENERAL);
-	const salesNotes = notes.filter(note => note.type === NOTE_TYPE_SALES);
 
 	return (
 		<>
@@ -78,14 +76,12 @@ function CollapsiblePanel({addNoteURL, handleCollapse, notes = []}) {
 				<ClayTabs.TabPane id="tabPaneNotes">
 					<NotesTabPane
 						addURL={addNoteURL}
-						notes={generalNotes}
 						tabType={NOTE_TYPE_GENERAL}
 					/>
 				</ClayTabs.TabPane>
 				<ClayTabs.TabPane id="tabPaneSalesInfo">
 					<NotesTabPane
 						addURL={addNoteURL}
-						notes={salesNotes}
 						tabType={NOTE_TYPE_SALES}
 					/>
 				</ClayTabs.TabPane>
@@ -123,7 +119,7 @@ function SidePanel(props) {
 	}, [collapse]);
 
 	return (
-		<>
+		<NotesProvider initialNotes={props.notes}>
 			{collapse ? (
 				<IconButton
 					cssClass="panel-expand"
@@ -135,7 +131,7 @@ function SidePanel(props) {
 			) : (
 				<CollapsiblePanel handleCollapse={handleCollapse} {...props} />
 			)}
-		</>
+		</NotesProvider>
 	);
 }
 

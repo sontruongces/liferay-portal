@@ -13,55 +13,57 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
 import NotesTabPane from '../../src/main/resources/META-INF/resources/js/components/NotesTabPane';
+import {NotesProvider} from '../../src/main/resources/META-INF/resources/js/hooks/notes';
 
-function renderNotesTabPane(props) {
+function mockNotes({type}) {
+	return [
+		{
+			createDate: new Date().toLocaleString('en-US'),
+			creatorName: 'Jane Doe',
+			creatorPortraitURL: '/',
+			edited: false,
+			format: 'HTML',
+			htmlContent: '<div>pinned note</div>',
+			key: '123',
+			pinned: true,
+			status: 'Approved',
+			type,
+			updateNoteURL: '/'
+		},
+		{
+			createDate: new Date().toLocaleString('en-US'),
+			creatorName: 'Jane Doe',
+			creatorPortraitURL: '/',
+			edited: false,
+			format: 'HTML',
+			htmlContent: '<div>unpinned note</div>',
+			key: '456',
+			pinned: false,
+			status: 'Approved',
+			type,
+			updateNoteURL: '/'
+		},
+		{
+			createDate: new Date().toLocaleString('en-US'),
+			creatorName: 'Jane Doe',
+			creatorPortraitURL: '/',
+			edited: false,
+			format: 'HTML',
+			htmlContent: '<div>archived note</div>',
+			key: '789',
+			pinned: false,
+			status: 'Archived',
+			type,
+			updateNoteURL: '/'
+		}
+	];
+}
+
+function renderNotesTabPane({type = 'General', ...props} = {}) {
 	return render(
-		<NotesTabPane
-			addURL="/"
-			notes={[
-				{
-					createDate: new Date().toLocaleString('en-US'),
-					creatorName: 'Jane Doe',
-					creatorPortraitURL: '/',
-					edited: false,
-					format: 'HTML',
-					htmlContent: '<div>pinned note</div>',
-					key: '123',
-					pinned: true,
-					status: 'Approved',
-					type: 'General',
-					updateNoteURL: '/'
-				},
-				{
-					createDate: new Date().toLocaleString('en-US'),
-					creatorName: 'Jane Doe',
-					creatorPortraitURL: '/',
-					edited: false,
-					format: 'HTML',
-					htmlContent: '<div>unpinned note</div>',
-					key: '456',
-					pinned: false,
-					status: 'Approved',
-					type: 'General',
-					updateNoteURL: '/'
-				},
-				{
-					createDate: new Date().toLocaleString('en-US'),
-					creatorName: 'Jane Doe',
-					creatorPortraitURL: '/',
-					edited: false,
-					format: 'HTML',
-					htmlContent: '<div>archived note</div>',
-					key: '789',
-					pinned: false,
-					status: 'Archived',
-					type: 'General',
-					updateNoteURL: '/'
-				}
-			]}
-			tabType="General"
-			{...props}
-		/>
+		<NotesProvider initialNotes={mockNotes({type})}>
+			<NotesTabPane addURL="/" tabType={type} {...props} />
+		</NotesProvider>
 	);
 }
 
@@ -91,7 +93,7 @@ describe('NotesTabPane', () => {
 
 		it('displays a sales note with no special section', () => {
 			const {getByText, queryByText} = renderNotesTabPane({
-				tabType: 'Sales'
+				type: 'Sales'
 			});
 
 			getByText('pinned note');
@@ -107,26 +109,7 @@ describe('NotesTabPane', () => {
 		});
 
 		it('does not display a button to view archived notes when none are available', () => {
-			const {queryByText} = render(
-				<NotesTabPane
-					notes={[
-						{
-							createDate: new Date().toLocaleString('en-US'),
-							creatorName: 'Jane Doe',
-							creatorPortraitURL: '/',
-							edited: false,
-							format: 'HTML',
-							htmlContent: '<div>note 1</div>',
-							key: '123',
-							pinned: true,
-							status: 'Approved',
-							type: 'General',
-							updateNoteURL: '/'
-						}
-					]}
-					tabType="General"
-				/>
-			);
+			const {queryByText} = render(<NotesTabPane tabType="Sales" />);
 
 			expect(queryByText('view-archived-notes')).toBeNull();
 		});

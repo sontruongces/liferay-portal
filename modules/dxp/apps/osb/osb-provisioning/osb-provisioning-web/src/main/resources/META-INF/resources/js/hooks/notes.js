@@ -13,10 +13,11 @@ import React, {useContext, useState} from 'react';
 
 import {mapNoteByKey} from '../utilities/helpers';
 
-const NotesContext = React.createContext();
+const NotesContext = React.createContext([[], () => {}]);
 
 export function NotesProvider({initialNotes = [], children}) {
-	const processedNotes = mapNoteByKey(initialNotes);
+	// TODO: modify and then call mapNoteByKey
+	const processedNotes = initialNotes;
 
 	const [notes, setNotes] = useState(processedNotes);
 
