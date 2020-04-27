@@ -36,6 +36,7 @@ public class ProductPurchaseViewEntityModel implements EntityModel {
 			new StringEntityField("accountKey", locale -> "accountKey"),
 			new DateTimeEntityField(
 				"endDate", locale -> "endDate", locale -> "endDate"),
+			new StringEntityField("inSupportGap", locale -> "inSupportGap"),
 			new StringEntityField("name", locale -> "name"),
 			new StringEntityField("perpetual", locale -> "perpetual"),
 			new StringEntityField("productKey", locale -> "productKey"),

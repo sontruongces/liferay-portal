@@ -154,6 +154,7 @@ public class ProductPurchaseViewIndexer
 		document.addKeyword("accountId", account.getAccountId());
 		document.addKeyword("accountKey", account.getAccountKey());
 		document.addDate("endDate", getEndDate(productPurchases));
+		document.addKeyword("inSupportGap", isInSupportGap(productPurchases));
 		document.addKeyword("name", productEntry.getName());
 		document.addKeyword("perpetual", isPerpetual(productPurchases));
 		document.addKeyword(
@@ -301,6 +302,23 @@ public class ProductPurchaseViewIndexer
 		}
 
 		return WorkflowConstants.STATUS_CANCELLED;
+	}
+
+	protected boolean isInSupportGap(List<ProductPurchase> productPurchases) {
+		Date now = new Date();
+
+		for (ProductPurchase productPurchase : productPurchases) {
+			Date startDate = productPurchase.getStartDate();
+			Date endDate = productPurchase.getEndDate();
+
+			if ((startDate != null) && startDate.before(now) &&
+				(endDate != null) && endDate.after(now)) {
+
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	protected boolean isPerpetual(List<ProductPurchase> productPurchases) {

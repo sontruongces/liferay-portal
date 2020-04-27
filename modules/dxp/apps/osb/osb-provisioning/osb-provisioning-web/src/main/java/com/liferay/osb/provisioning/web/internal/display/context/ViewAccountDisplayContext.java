@@ -331,14 +331,14 @@ public class ViewAccountDisplayContext {
 			sb.append(now);
 			sb.append(") and (endDate gt ");
 			sb.append(now);
-			sb.append("))) and (status eq '0')");
+			sb.append("))) and (status eq '0') and (inSupportGap eq 'false')");
 		}
 		else if (state.equals("inactive")) {
 			sb.append(" and ((startDate gt ");
 			sb.append(now);
 			sb.append(") or (endDate lt ");
 			sb.append(now);
-			sb.append(")) or (status eq '600')");
+			sb.append(")) or (status eq '600') or (inSupportGap eq 'true')");
 		}
 
 		if (productKeys.length > 0) {
