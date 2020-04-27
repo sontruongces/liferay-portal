@@ -3823,9 +3823,16 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public Group updateGroup(long groupId, String typeSettings)
 		throws PortalException {
 
+		Group group = groupPersistence.findByPrimaryKey(groupId);
+
+		UnicodeProperties oldTypeSettingsProperties =
+			new UnicodeProperties(true);
+
+		oldTypeSettingsProperties.fastLoad(group.getTypeSettings());
+
 		_validateGroupKeyChange(groupId, typeSettings);
 
-		Group group = groupPersistence.findByPrimaryKey(groupId);
+		group = groupPersistence.findByPrimaryKey(groupId);
 
 		UnicodeProperties typeSettingsProperties = new UnicodeProperties(true);
 
@@ -3835,9 +3842,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			PropsKeys.LOCALES);
 
 		if (Validator.isNotNull(newLanguageIds)) {
-			UnicodeProperties oldTypeSettingsProperties =
-				group.getTypeSettingsProperties();
-
 			String oldLanguageIds = oldTypeSettingsProperties.getProperty(
 				PropsKeys.LOCALES, StringPool.BLANK);
 
