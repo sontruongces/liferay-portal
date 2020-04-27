@@ -98,25 +98,7 @@ function CollapsiblePanel({addNoteURL, handleCollapse, notes = []}) {
 }
 
 CollapsiblePanel.propTypes = {
-	addNoteURL: PropTypes.string,
-	handleCollapse: PropTypes.func.isRequired,
-	notes: PropTypes.arrayOf(
-		PropTypes.shape({
-			createDate: PropTypes.string.isRequired,
-			creatorName: PropTypes.string.isRequired,
-			creatorPortraitURL: PropTypes.string,
-			edited: PropTypes.bool.isRequired,
-			htmlContent: PropTypes.string.isRequired,
-			key: PropTypes.string.isRequired,
-			pinned: PropTypes.bool.isRequired,
-			status: PropTypes.oneOf([
-				NOTE_STATUS_APPROVED,
-				NOTE_STATUS_ARCHIVED
-			]).isRequired,
-			type: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
-				.isRequired
-		})
-	)
+	handleCollapse: PropTypes.func.isRequired
 };
 
 function SidePanel(props) {
@@ -135,8 +117,7 @@ function SidePanel(props) {
 
 		if (collapse) {
 			account.classList.add('full-view');
-		}
-		else {
+		} else {
 			account.classList.remove('full-view');
 		}
 	}, [collapse]);
@@ -157,5 +138,26 @@ function SidePanel(props) {
 		</>
 	);
 }
+
+SidePanel.propTypes = {
+	addNoteURL: PropTypes.string,
+	notes: PropTypes.arrayOf(
+		PropTypes.shape({
+			createDate: PropTypes.string.isRequired,
+			creatorName: PropTypes.string.isRequired,
+			creatorPortraitURL: PropTypes.string,
+			edited: PropTypes.bool.isRequired,
+			htmlContent: PropTypes.string.isRequired,
+			key: PropTypes.string.isRequired,
+			pinned: PropTypes.bool.isRequired,
+			status: PropTypes.oneOf([
+				NOTE_STATUS_APPROVED,
+				NOTE_STATUS_ARCHIVED
+			]).isRequired,
+			type: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
+				.isRequired
+		})
+	)
+};
 
 export default SidePanel;
