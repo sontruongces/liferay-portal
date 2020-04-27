@@ -59,7 +59,7 @@ function AddNote({
 		if (savingNote) {
 			postData(actionURL, noteData, 'formData')
 				.then(({data}) => {
-					console.log(data, data.note.key);
+					console.log(data, data.note.id);
 					setSavingNote(false);
 				})
 				.catch(err => console.error(err));

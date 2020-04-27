@@ -113,7 +113,8 @@ function SidePanel(props) {
 
 		if (collapse) {
 			account.classList.add('full-view');
-		} else {
+		}
+		else {
 			account.classList.remove('full-view');
 		}
 	}, [collapse]);
@@ -143,6 +144,7 @@ SidePanel.propTypes = {
 			creatorName: PropTypes.string.isRequired,
 			creatorPortraitURL: PropTypes.string,
 			edited: PropTypes.bool.isRequired,
+			format: PropTypes.string.isRequired,
 			htmlContent: PropTypes.string.isRequired,
 			key: PropTypes.string.isRequired,
 			pinned: PropTypes.bool.isRequired,
@@ -151,7 +153,8 @@ SidePanel.propTypes = {
 				NOTE_STATUS_ARCHIVED
 			]).isRequired,
 			type: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
-				.isRequired
+				.isRequired,
+			updateNoteURL: PropTypes.string.isRequired
 		})
 	)
 };

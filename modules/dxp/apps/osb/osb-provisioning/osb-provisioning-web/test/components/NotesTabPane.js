@@ -59,9 +59,13 @@ function mockNotes({type}) {
 	];
 }
 
-function renderNotesTabPane({type = 'General', ...props} = {}) {
+function renderNotesTabPane({
+	type = 'General',
+	notes = mockNotes({type}),
+	...props
+} = {}) {
 	return render(
-		<NotesProvider initialNotes={mockNotes({type})}>
+		<NotesProvider initialNotes={notes}>
 			<NotesTabPane addURL="/" tabType={type} {...props} />
 		</NotesProvider>
 	);
@@ -109,13 +113,19 @@ describe('NotesTabPane', () => {
 		});
 
 		it('does not display a button to view archived notes when none are available', () => {
-			const {queryByText} = render(<NotesTabPane tabType="Sales" />);
+			const {queryByText} = renderNotesTabPane({
+				notes: [],
+				type: 'Sales'
+			});
 
 			expect(queryByText('view-archived-notes')).toBeNull();
 		});
 
 		it('displays a message when there is no data for general notes', () => {
-			const {container} = render(<NotesTabPane tabType="General" />);
+			const {container} = renderNotesTabPane({
+				notes: [],
+				type: 'General'
+			});
 
 			expect(container.querySelector('.empty-state').textContent).toEqual(
 				'no-notes-were-found'
@@ -123,7 +133,7 @@ describe('NotesTabPane', () => {
 		});
 
 		it('displays a message when there is no data for sales notes', () => {
-			const {container} = render(<NotesTabPane tabType="Sales" />);
+			const {container} = renderNotesTabPane({notes: [], type: 'Sales'});
 
 			expect(container.textContent).toEqual('no-sales-info-were-found');
 		});

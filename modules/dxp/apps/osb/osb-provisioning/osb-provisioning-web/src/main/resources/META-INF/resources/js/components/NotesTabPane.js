@@ -28,7 +28,7 @@ function ApprovedGeneralNotes({notes}) {
 
 	return (
 		<>
-			{!!pinned.length && (
+			{!pinned.isEmpty() && (
 				<div className="pinned-notes">
 					<div className="notes-section-header">
 						<svg
@@ -42,19 +42,19 @@ function ApprovedGeneralNotes({notes}) {
 					</div>
 
 					{pinned.map(note => (
-						<Note data={note} key={note.key} />
+						<Note key={note.id} note={note} />
 					))}
 				</div>
 			)}
 
-			{!!unpinned.length && (
+			{!unpinned.isEmpty() && (
 				<div className="general-notes">
 					<div className="notes-section-header">
 						{Liferay.Language.get('general')}
 					</div>
 
 					{unpinned.map(note => (
-						<Note data={note} key={note.key} />
+						<Note key={note.id} note={note} />
 					))}
 				</div>
 			)}
@@ -71,10 +71,10 @@ function ApprovedNotes({addURL, hasArchive, notes, onClick, tabType}) {
 				{tabType === NOTE_TYPE_GENERAL ? (
 					<ApprovedGeneralNotes notes={notes} />
 				) : (
-					notes.map(note => <Note data={note} key={note.key} />)
+					notes.map(note => <Note key={note.id} note={note} />)
 				)}
 
-				{!notes.length && (
+				{notes.isEmpty() && (
 					<div className="empty-state">
 						{tabType === NOTE_TYPE_GENERAL
 							? Liferay.Language.get('no-notes-were-found')
@@ -127,7 +127,7 @@ function ArchivedNotes({notes, onClick}) {
 			</div>
 
 			{notes.map(note => (
-				<Note data={note} key={note.key} />
+				<Note key={note.id} note={note} />
 			))}
 		</div>
 	);
@@ -135,9 +135,10 @@ function ArchivedNotes({notes, onClick}) {
 
 function NotesTabPane({addURL, tabType}) {
 	const [notes] = useNotes();
+
 	const [viewArchive, setViewArchive] = useState(false);
 
-	const notesForType = notes.filter(note => note.type === tabType);
+	const notesForType = notes.toList().filter(note => note.type === tabType);
 
 	const handleViewArchive = bool => {
 		setViewArchive(bool);
@@ -157,7 +158,7 @@ function NotesTabPane({addURL, tabType}) {
 			) : (
 				<ApprovedNotes
 					addURL={addURL}
-					hasArchive={!!archived.length}
+					hasArchive={!archived.isEmpty()}
 					notes={approved}
 					onClick={handleViewArchive}
 					tabType={tabType}

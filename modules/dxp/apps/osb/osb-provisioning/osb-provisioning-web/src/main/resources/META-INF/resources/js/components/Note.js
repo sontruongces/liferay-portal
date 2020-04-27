@@ -13,21 +13,17 @@ import ClaySticker from '@clayui/sticker';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {
-	NOTE_FORMAT_HTML,
-	NOTE_FORMAT_PLAIN,
-	NOTE_STATUS_APPROVED,
-	NOTE_STATUS_ARCHIVED,
-	NOTE_TYPE_GENERAL,
-	NOTE_TYPE_SALES
-} from '../utilities/constants';
+import {NoteRecord} from '../hooks/notes';
+import {NOTE_STATUS_APPROVED} from '../utilities/constants';
 import ActionMenu from './ActionMenu';
 import AddNote from './AddNote';
 import PanelDropdownMenu from './PanelDropdownMenu';
 
-function Note({data}) {
+function Note({note}) {
 	const [editNote, setEditNote] = useState(false);
 	const [showActionMenu, setShowActionMenu] = useState(false);
+
+	const {content, id, pinned, status, type} = note;
 
 	const handleCancel = () => {
 		setEditNote(false);
@@ -41,7 +37,7 @@ function Note({data}) {
 		<div
 			className="note"
 			onMouseEnter={() =>
-				setShowActionMenu(data.status === NOTE_STATUS_APPROVED)
+				setShowActionMenu(status === NOTE_STATUS_APPROVED)
 			}
 			onMouseLeave={() => setShowActionMenu(false)}
 		>
@@ -55,15 +51,15 @@ function Note({data}) {
 						<img
 							alt={Liferay.Language.get('note-author-avatar')}
 							className="sticker-img"
-							src={data.creatorPortraitURL}
+							src={note.creatorPortraitURL}
 						/>
 					</ClaySticker>
 
 					<div className="metadata">
-						<h4 className="note-author">{data.creatorName}</h4>
+						<h4 className="note-author">{note.creatorName}</h4>
 						<div className="note-create-date">
-							{data.createDate}{' '}
-							{data.edited && (
+							{note.createDate}{' '}
+							{note.edited && (
 								<span className="edited">
 									({Liferay.Language.get('edited')})
 								</span>
@@ -79,13 +75,13 @@ function Note({data}) {
 							onPinning={() => {
 								/* TODO: fill in event handler LHC-2061 */
 							}}
-							pinned={data.pinned}
-							tabType={data.type}
+							pinned={pinned}
+							tabType={type}
 						/>
 					)}
 
 					<PanelDropdownMenu
-						id={data.key}
+						id={id}
 						onArchive={() => {
 							/* TODO: fill in event handler LHC-2116 */
 						}}
@@ -93,28 +89,28 @@ function Note({data}) {
 						onPinning={() => {
 							/* TODO: fill in event handler LHC-2061 */
 						}}
-						pinned={data.pinned}
-						status={data.status}
-						tabType={data.type}
+						pinned={pinned}
+						status={status}
+						tabType={type}
 					/>
 				</div>
 			</div>
 
 			{editNote ? (
 				<AddNote
-					actionURL={data.updateNoteURL}
-					content={data.htmlContent}
-					format={data.format}
-					id={data.key}
+					actionURL={note.updateURL}
+					content={content}
+					format={note.format}
+					id={id}
 					onCancel={handleCancel}
-					pinned={data.pinned}
-					status={data.status}
-					type={data.type}
+					pinned={pinned}
+					status={status}
+					type={type}
 				/>
 			) : (
 				<section
 					className="note-content"
-					dangerouslySetInnerHTML={{__html: data.htmlContent}}
+					dangerouslySetInnerHTML={{__html: content}}
 				/>
 			)}
 		</div>
@@ -122,21 +118,7 @@ function Note({data}) {
 }
 
 Note.propTypes = {
-	data: PropTypes.shape({
-		createDate: PropTypes.string.isRequired,
-		creatorName: PropTypes.string.isRequired,
-		creatorPortraitURL: PropTypes.string,
-		edited: PropTypes.bool.isRequired,
-		format: PropTypes.oneOf([NOTE_FORMAT_HTML, NOTE_FORMAT_PLAIN])
-			.isRequired,
-		htmlContent: PropTypes.string.isRequired,
-		key: PropTypes.string.isRequired,
-		pinned: PropTypes.bool.isRequired,
-		status: PropTypes.oneOf([NOTE_STATUS_APPROVED, NOTE_STATUS_ARCHIVED])
-			.isRequired,
-		type: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES]).isRequired,
-		updateNoteURL: PropTypes.string.isRequired
-	}).isRequired
+	note: PropTypes.instanceOf(NoteRecord)
 };
 
 export default Note;

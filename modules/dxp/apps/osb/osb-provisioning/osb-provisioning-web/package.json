@@ -5,6 +5,7 @@
 		"@clayui/tabs": "3.0.6",
 		"@clayui/tooltip": "3.1.0",
 		"axios": "^0.19.2",
+		"immutable": "^4.0.0-rc.12",
 		"prop-types": "15.7.2"
 	},
 	"jest": {

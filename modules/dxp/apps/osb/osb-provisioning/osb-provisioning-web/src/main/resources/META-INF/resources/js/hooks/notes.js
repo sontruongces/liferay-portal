@@ -9,20 +9,79 @@
  * distribution rights of the Software.
  */
 
+import {Map, Record} from 'immutable';
 import React, {useContext, useState} from 'react';
 
-import {mapNoteByKey} from '../utilities/helpers';
+import {
+	NOTE_FORMAT_PLAIN,
+	NOTE_STATUS_APPROVED,
+	NOTE_TYPE_GENERAL
+} from '../utilities/constants';
 
-const NotesContext = React.createContext([[], () => {}]);
+// Notes definition
+
+export const NoteRecord = Record({
+	content: '',
+	createDate: null,
+	creatorName: '-',
+	creatorPortraitURL: null,
+	edited: false,
+	format: NOTE_FORMAT_PLAIN,
+	id: null,
+	pinned: false,
+	status: NOTE_STATUS_APPROVED,
+	type: NOTE_TYPE_GENERAL,
+	updateURL: null
+});
+
+const NotesContext = React.createContext();
 
 export function NotesProvider({initialNotes = [], children}) {
-	// TODO: modify and then call mapNoteByKey
-	const processedNotes = initialNotes;
+	const processedNotes = initialNotes.map(note => [
+		note.key,
+		NoteRecord({
+			content: note.htmlContent,
+			createDate: note.createDate,
+			creatorName: note.creatorName,
+			creatorPortraitURL: note.creatorPortraitURL,
+			edited: note.edited,
+			format: note.format,
+			id: note.key,
+			pinned: note.pinned,
+			status: note.status,
+			type: note.type,
+			updateURL: note.updateNoteURL
+		})
+	]);
 
-	const [notes, setNotes] = useState(processedNotes);
+	const [notes, setNotes] = useState(Map(processedNotes));
+
+	// Actions that can be performed on a Note
 
 	return (
-		<NotesContext.Provider value={[notes, setNotes]}>
+		<NotesContext.Provider
+			value={[
+				notes,
+				{
+					addNote(note) {
+						setNotes(notes.set(note.id, note));
+					},
+					archiveNote(id, status) {
+						setNotes(notes.setIn([id, 'status'], status));
+					},
+					editNote(id, content) {
+						setNotes(
+							notes
+								.setIn([id, 'content'], content)
+								.setIn([id, 'edited'], true)
+						);
+					},
+					pinNote(id, priority) {
+						setNotes(notes.setIn([id, 'pinned'], priority === 1));
+					}
+				}
+			]}
+		>
 			{children}
 		</NotesContext.Provider>
 	);
