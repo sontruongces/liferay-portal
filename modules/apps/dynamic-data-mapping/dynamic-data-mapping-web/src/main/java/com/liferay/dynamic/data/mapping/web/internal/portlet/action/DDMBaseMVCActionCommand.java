@@ -137,6 +137,40 @@ public abstract class DDMBaseMVCActionCommand extends BaseMVCActionCommand {
 		return portletURL.toString();
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), with no direct replacement
+	 */
+	@Deprecated
+	protected String getSaveTemplateWithNewStructureRedirect(
+			ActionRequest actionRequest, DDMTemplate template, String redirect)
+		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		long classNameId = ParamUtil.getLong(actionRequest, "classNameId");
+		long classPK = ParamUtil.getLong(actionRequest, "classPK");
+		long resourceClassNameId = ParamUtil.getLong(
+			actionRequest, "resourceClassNameId");
+
+		LiferayPortletURL portletURL = PortletURLFactoryUtil.create(
+			actionRequest, themeDisplay.getPpid(), PortletRequest.RENDER_PHASE);
+
+		portletURL.setParameter("mvcPath", "/view_template.jsp");
+		portletURL.setParameter("redirect", redirect, false);
+		portletURL.setParameter(
+			"resourceClassNameId", String.valueOf(resourceClassNameId), false);
+		portletURL.setParameter(
+			"groupId", String.valueOf(template.getGroupId()), false);
+		portletURL.setParameter(
+			"classNameId", String.valueOf(classNameId), false);
+		portletURL.setParameter("classPK", String.valueOf(classPK), false);
+		portletURL.setParameter("type", template.getType(), false);
+		portletURL.setWindowState(actionRequest.getWindowState());
+
+		return portletURL.toString();
+	}
+
 	protected PortletPreferences getStrictPortletSetup(
 			ActionRequest actionRequest)
 		throws PortalException {

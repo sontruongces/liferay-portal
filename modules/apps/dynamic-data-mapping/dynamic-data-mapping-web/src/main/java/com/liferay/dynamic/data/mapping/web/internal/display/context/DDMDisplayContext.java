@@ -930,6 +930,14 @@ public class DDMDisplayContext {
 		return PortalUtil.getClassNameId(ddmDisplay.getStructureType());
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), with no direct replacement
+	 */
+	@Deprecated
+	protected long getStructureId() {
+		return ParamUtil.getLong(_renderRequest, "structureId");
+	}
+
 	protected long[] getTemplateClassNameIds() {
 		DDMDisplay ddmDisplay = getDDMDisplay();
 
