@@ -27,7 +27,7 @@ export const NOTE_TYPE_SALES = window.ProvisioningConstants.noteType.sales;
 
 // Action types for interacting with a Note
 
-export const ADD_NOTE = 'ADD_NOTE';
-export const ARCHIVE_NOTE = 'ARCHIVE_NOTE';
-export const EDIT_NOTE = 'EDIT_NOTE';
-export const PIN_NOTE = 'PIN_NOTE';
+export const ADD_NOTE = 'addNote';
+export const ARCHIVE_NOTE = 'archiveNote';
+export const EDIT_NOTE = 'editNote';
+export const PIN_NOTE = 'pinNote';

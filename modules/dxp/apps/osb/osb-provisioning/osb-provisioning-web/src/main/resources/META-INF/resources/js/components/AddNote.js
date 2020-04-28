@@ -10,9 +10,12 @@
  */
 
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
+import {NoteRecord, useNotes} from '../hooks/notes';
 import {
+	ADD_NOTE,
+	EDIT_NOTE,
 	NOTE_FORMAT_HTML,
 	NOTE_FORMAT_PLAIN,
 	NOTE_PRIORITY_PINNED,
@@ -34,37 +37,63 @@ function AddNote({
 	status = NOTE_STATUS_APPROVED,
 	type = NOTE_TYPE_GENERAL
 }) {
-	const [noteContent, setNoteContent] = useState(content);
+	const [localContent, setLocalContent] = useState(content);
 	const [savingNote, setSavingNote] = useState(false);
 	const [showButtons, setShowButtons] = useState(!!content);
+	const [, {addNote, editNote}] = useNotes();
 
-	const handleCancel = () => {
-		setNoteContent(content ? content : '');
-		setShowButtons(false);
-
-		if (onCancel) {
-			onCancel();
-		}
-	};
+	const actionType = id ? EDIT_NOTE : ADD_NOTE;
 
 	const noteData = {
-		content: noteContent,
+		content: localContent,
 		format,
 		priority: pinned ? NOTE_PRIORITY_PINNED : NOTE_PRIORITY_UNPINNED,
 		status,
 		type
 	};
 
-	useEffect(() => {
-		if (savingNote) {
-			postData(actionURL, noteData, 'formData')
-				.then(({data}) => {
-					console.log(data, data.note.id);
-					setSavingNote(false);
-				})
-				.catch(err => console.error(err));
+	function handleCancel() {
+		setLocalContent(content ? content : '');
+		setShowButtons(false);
+
+		if (onCancel) {
+			onCancel();
 		}
-	}, [actionURL, noteData, savingNote]);
+	}
+
+	function handleSubmit() {
+		setSavingNote(true);
+
+		postData(actionURL, noteData, 'formData')
+			.then(({data}) => {
+				// TODO: Abstract once JSON field names are consistent (createDate vs dateCreated) and creatorName is provided on backend.
+
+				const noteFromAPI = NoteRecord({
+					content: data.note.content,
+					createDate: data.note.dateCreated,
+					creatorName: data.note.creatorName || '-',
+					creatorPortraitURL: '/image/user_portrait',
+					edited: data.note.dateCreated !== data.note.dateModified,
+					format: data.note.format,
+					id: data.note.key,
+					pinned: data.note.priority === NOTE_PRIORITY_PINNED,
+					status: data.note.status,
+					type: data.note.type,
+					updateURL: data.note.updateURL
+				});
+
+				if (actionType === EDIT_NOTE) {
+					editNote(noteFromAPI.id, noteFromAPI.content);
+				}
+				else {
+					addNote(noteFromAPI);
+				}
+
+				setSavingNote(false);
+				handleCancel();
+			})
+			.catch(err => console.error(err));
+	}
 
 	return (
 		<form className="new-note" method="post">
@@ -77,7 +106,7 @@ function AddNote({
 					id={`addNoteContent${id}`}
 					name="content"
 					onChange={event =>
-						setNoteContent(event.currentTarget.value)
+						setLocalContent(event.currentTarget.value)
 					}
 					onFocus={() => setShowButtons(true)}
 					placeholder={
@@ -85,7 +114,7 @@ function AddNote({
 							? Liferay.Language.get('write-a-note')
 							: Liferay.Language.get('write-sales-info')
 					}
-					value={noteContent}
+					value={localContent}
 				/>
 			</label>
 
@@ -103,8 +132,8 @@ function AddNote({
 
 					<button
 						className="btn btn-primary save-btn"
-						disabled={!noteContent || savingNote}
-						onClick={() => setSavingNote(true)}
+						disabled={!localContent || savingNote}
+						onClick={() => handleSubmit()}
 						role="button"
 						type="button"
 					>

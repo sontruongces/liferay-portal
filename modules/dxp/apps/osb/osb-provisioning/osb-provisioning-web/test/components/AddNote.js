@@ -13,14 +13,39 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
 import AddNote from '../../src/main/resources/META-INF/resources/js/components/AddNote';
+import {NotesProvider} from '../../src/main/resources/META-INF/resources/js/hooks/notes';
 
-function renderAddNote(props) {
-	return render(<AddNote actionURL="add url" {...props} />);
+function mockNotes() {
+	return [
+		{
+			createDate: new Date().toLocaleString('en-US'),
+			creatorName: 'Jane Doe',
+			creatorPortraitURL: '/',
+			edited: false,
+			format: 'HTML',
+			htmlContent: '<div>pinned note</div>',
+			key: '123',
+			pinned: true,
+			status: 'Approved',
+			type: 'General',
+			updateNoteURL: '/'
+		}
+	];
 }
 
-function renderEditNote(props) {
+function renderAddNote(props) {
 	return render(
-		<AddNote actionURL="edit url" content="test content" {...props} />
+		<NotesProvider initialNotes={[]}>
+			<AddNote actionURL="add url" {...props} />
+		</NotesProvider>
+	);
+}
+
+function renderEditNote(notes = mockNotes(), props) {
+	return render(
+		<NotesProvider initialNotes={notes}>
+			<AddNote actionURL="edit url" content="test content" {...props} />
+		</NotesProvider>
 	);
 }
 
