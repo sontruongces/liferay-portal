@@ -28,19 +28,41 @@ import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseIndexer;
+import com.liferay.portal.kernel.search.BooleanClause;
+import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.FieldArray;
 import com.liferay.portal.kernel.search.IndexWriterHelperUtil;
 import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.ParseException;
+import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.search.Summary;
+import com.liferay.portal.kernel.search.TermRangeQuery;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.search.filter.QueryFilter;
+import com.liferay.portal.kernel.search.filter.RangeTermFilter;
+import com.liferay.portal.kernel.search.filter.TermFilter;
+import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
+import com.liferay.portal.kernel.search.generic.NestedQuery;
+import com.liferay.portal.kernel.search.generic.TermRangeQueryImpl;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Time;
+import com.liferay.portal.kernel.util.Validator;
+
+import java.text.Format;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -76,6 +98,20 @@ public class ProductPurchaseViewIndexer
 	@Override
 	public String getClassName() {
 		return CLASS_NAME;
+	}
+
+	@Override
+	public void postProcessFullQuery(
+			BooleanQuery fullQuery, SearchContext searchContext)
+		throws Exception {
+
+		List<BooleanClause<Query>> booleanClauses = fullQuery.clauses();
+
+		for (BooleanClause<Query> booleanClause : booleanClauses) {
+			Query query = booleanClause.getClause();
+
+			_processBooleanFilter(query.getPreBooleanFilter());
+		}
 	}
 
 	@Override
@@ -145,16 +181,17 @@ public class ProductPurchaseViewIndexer
 			productPurchaseView.getAccountId());
 		ProductEntry productEntry = _productEntryLocalService.getProductEntry(
 			productPurchaseView.getProductEntryId());
+
 		List<ProductPurchase> productPurchases =
 			_productPurchaseLocalService.getAccountProductEntryProductPurchases(
 				productPurchaseView.getAccountId(),
 				productPurchaseView.getProductEntryId(), QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS);
 
+		document.add(getProductPurchasesField(productPurchases));
+
 		document.addKeyword("accountId", account.getAccountId());
 		document.addKeyword("accountKey", account.getAccountKey());
-		document.addDate("endDate", getEndDate(productPurchases));
-		document.addKeyword("inSupportGap", isInSupportGap(productPurchases));
 		document.addKeyword("name", productEntry.getName());
 		document.addKeyword("perpetual", isPerpetual(productPurchases));
 		document.addKeyword(
@@ -166,7 +203,9 @@ public class ProductPurchaseViewIndexer
 		document.addKeyword("productKey", productEntry.getProductEntryKey());
 		document.addKeyword(
 			"productPurchaseIds", getProductPurchaseIds(productPurchases));
-		document.addDate("startDate", getStartDate(productPurchases));
+		document.addDate("supportLifeEndDate", getEndDate(productPurchases));
+		document.addDate(
+			"supportLifeStartDate", getStartDate(productPurchases));
 		document.addKeyword("status", getStatus(productPurchases));
 
 		return document;
@@ -278,6 +317,59 @@ public class ProductPurchaseViewIndexer
 		).toArray();
 	}
 
+	protected FieldArray getProductPurchasesField(
+		List<ProductPurchase> productPurchases) {
+
+		FieldArray fieldArray = new FieldArray("productPurchases");
+
+		for (ProductPurchase productPurchase : productPurchases) {
+			Date startDate = productPurchase.getStartDate();
+			Date endDate = productPurchase.getEndDate();
+
+			Field field = new Field("");
+
+			if (endDate != null) {
+				Field endDateField = new Field("endDate");
+
+				endDateField.setDates(new Date[] {endDate});
+				endDateField.setValue(dateFormat.format(endDate));
+
+				field.addField(endDateField);
+
+				Field endDateSortableField = new Field("endDate_sortable");
+
+				endDateSortableField.setNumeric(true);
+				endDateSortableField.setNumericClass(Long.class);
+				endDateSortableField.setValue(
+					String.valueOf(endDate.getTime()));
+
+				field.addField(endDateSortableField);
+			}
+
+			if (startDate != null) {
+				Field startDateField = new Field("startDate");
+
+				startDateField.setDates(new Date[] {startDate});
+				startDateField.setValue(dateFormat.format(startDate));
+
+				field.addField(startDateField);
+
+				Field startDateSortableField = new Field("startDate_sortable");
+
+				startDateSortableField.setNumeric(true);
+				startDateSortableField.setNumericClass(Long.class);
+				startDateSortableField.setValue(
+					String.valueOf(startDate.getTime()));
+
+				field.addField(startDateSortableField);
+			}
+
+			fieldArray.addField(field);
+		}
+
+		return fieldArray;
+	}
+
 	protected Date getStartDate(List<ProductPurchase> productPurchases) {
 		Date startDate = null;
 
@@ -302,23 +394,6 @@ public class ProductPurchaseViewIndexer
 		}
 
 		return WorkflowConstants.STATUS_CANCELLED;
-	}
-
-	protected boolean isInSupportGap(List<ProductPurchase> productPurchases) {
-		Date now = new Date();
-
-		for (ProductPurchase productPurchase : productPurchases) {
-			Date startDate = productPurchase.getStartDate();
-			Date endDate = productPurchase.getEndDate();
-
-			if ((startDate != null) && startDate.before(now) &&
-				(endDate != null) && endDate.after(now)) {
-
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	protected boolean isPerpetual(List<ProductPurchase> productPurchases) {
@@ -361,6 +436,179 @@ public class ProductPurchaseViewIndexer
 				reindex(productPurchaseView);
 			}
 		}
+	}
+
+	protected static final String INDEX_DATE_FORMAT_PATTERN = PropsUtil.get(
+		PropsKeys.INDEX_DATE_FORMAT_PATTERN);
+
+	protected Format dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
+		INDEX_DATE_FORMAT_PATTERN);
+
+	private BooleanFilter _getActiveFilter() throws ParseException {
+		BooleanFilter booleanFilter = new BooleanFilter();
+
+		booleanFilter.addRequiredTerm(
+			Field.STATUS, WorkflowConstants.STATUS_APPROVED);
+
+		BooleanFilter activeDateFilter = new BooleanFilter();
+
+		BooleanFilter perpetualFilter = new BooleanFilter();
+
+		perpetualFilter.addRequiredTerm("perpetual", true);
+
+		activeDateFilter.add(perpetualFilter, BooleanClauseOccur.SHOULD);
+
+		long now = System.currentTimeMillis();
+
+		BooleanQuery rangeQuery = new BooleanQueryImpl();
+
+		TermRangeQuery startDateQuery = new TermRangeQueryImpl(
+			"productPurchases.startDate_sortable", String.valueOf(0),
+			String.valueOf(now), true, true);
+
+		rangeQuery.add(startDateQuery, BooleanClauseOccur.MUST);
+
+		TermRangeQuery endDateQuery = new TermRangeQueryImpl(
+			"productPurchases.endDate_sortable", String.valueOf(now),
+			String.valueOf(now + (Time.YEAR * 100)), true, true);
+
+		rangeQuery.add(endDateQuery, BooleanClauseOccur.MUST);
+
+		activeDateFilter.add(
+			new QueryFilter(new NestedQuery("productPurchases", rangeQuery)),
+			BooleanClauseOccur.SHOULD);
+
+		booleanFilter.add(activeDateFilter, BooleanClauseOccur.MUST);
+
+		return booleanFilter;
+	}
+
+	private BooleanFilter _getExpiredFilter() {
+		BooleanFilter booleanFilter = new BooleanFilter();
+
+		booleanFilter.addRequiredTerm(
+			Field.STATUS, WorkflowConstants.STATUS_APPROVED);
+
+		RangeTermFilter rangeTermFilter = new RangeTermFilter(
+			"supportLifeEndDate_sortable", true, true, String.valueOf(0),
+			String.valueOf(System.currentTimeMillis()));
+
+		booleanFilter.add(rangeTermFilter, BooleanClauseOccur.MUST);
+
+		return booleanFilter;
+	}
+
+	private BooleanFilter _getInactiveFilter() throws ParseException {
+		BooleanFilter booleanFilter = new BooleanFilter();
+
+		booleanFilter.addRequiredTerm(
+			Field.STATUS, WorkflowConstants.STATUS_APPROVED);
+
+		BooleanFilter inactiveFilter = new BooleanFilter();
+
+		long now = System.currentTimeMillis();
+
+		BooleanQuery rangeQuery = new BooleanQueryImpl();
+
+		TermRangeQuery startDateQuery = new TermRangeQueryImpl(
+			"productPurchases.startDate_sortable", String.valueOf(now),
+			String.valueOf(now + (Time.YEAR * 100)), true, true);
+
+		rangeQuery.add(startDateQuery, BooleanClauseOccur.SHOULD);
+
+		TermRangeQuery endDateQuery = new TermRangeQueryImpl(
+			"productPurchases.endDate_sortable", String.valueOf(0),
+			String.valueOf(now), true, true);
+
+		rangeQuery.add(endDateQuery, BooleanClauseOccur.SHOULD);
+
+		inactiveFilter.add(
+			new QueryFilter(new NestedQuery("productPurchases", rangeQuery)),
+			BooleanClauseOccur.MUST);
+
+		booleanFilter.add(inactiveFilter, BooleanClauseOccur.MUST);
+
+		return booleanFilter;
+	}
+
+	private BooleanFilter _getUnactivatedFilter() {
+		BooleanFilter booleanFilter = new BooleanFilter();
+
+		booleanFilter.addRequiredTerm(
+			Field.STATUS, WorkflowConstants.STATUS_APPROVED);
+
+		long now = System.currentTimeMillis();
+
+		RangeTermFilter rangeTermFilter = new RangeTermFilter(
+			"supportLifeStartDate_sortable", true, true, String.valueOf(now),
+			String.valueOf(now + (Time.YEAR * 100)));
+
+		booleanFilter.add(rangeTermFilter, BooleanClauseOccur.MUST);
+
+		return booleanFilter;
+	}
+
+	private void _processBooleanClauses(
+			BooleanFilter booleanFilter,
+			List<BooleanClause<Filter>> booleanClauses,
+			BooleanClauseOccur booleanClauseOccur)
+		throws Exception {
+
+		String state = null;
+
+		Iterator<BooleanClause<Filter>> iterator = booleanClauses.iterator();
+
+		while (iterator.hasNext()) {
+			BooleanClause<Filter> booleanClause = iterator.next();
+
+			Filter filter = booleanClause.getClause();
+
+			if (filter instanceof BooleanFilter) {
+				_processBooleanFilter((BooleanFilter)filter);
+			}
+			else if (filter instanceof TermFilter) {
+				TermFilter termFilter = (TermFilter)filter;
+
+				String field = termFilter.getField();
+
+				if (field.equals("state")) {
+					state = termFilter.getValue();
+
+					iterator.remove();
+				}
+			}
+		}
+
+		if (Validator.isNull(state)) {
+			return;
+		}
+
+		if (StringUtil.equalsIgnoreCase(state, "active")) {
+			booleanFilter.add(_getActiveFilter(), booleanClauseOccur);
+		}
+		else if (StringUtil.equalsIgnoreCase(state, "expired")) {
+			booleanFilter.add(_getExpiredFilter(), booleanClauseOccur);
+		}
+		else if (StringUtil.equalsIgnoreCase(state, "inactive")) {
+			booleanFilter.add(_getInactiveFilter(), booleanClauseOccur);
+		}
+		else if (StringUtil.equalsIgnoreCase(state, "unactivated")) {
+			booleanFilter.add(_getUnactivatedFilter(), booleanClauseOccur);
+		}
+	}
+
+	private void _processBooleanFilter(BooleanFilter booleanFilter)
+		throws Exception {
+
+		_processBooleanClauses(
+			booleanFilter, booleanFilter.getMustBooleanClauses(),
+			BooleanClauseOccur.MUST);
+		_processBooleanClauses(
+			booleanFilter, booleanFilter.getMustNotBooleanClauses(),
+			BooleanClauseOccur.MUST_NOT);
+		_processBooleanClauses(
+			booleanFilter, booleanFilter.getShouldBooleanClauses(),
+			BooleanClauseOccur.SHOULD);
 	}
 
 	@Reference

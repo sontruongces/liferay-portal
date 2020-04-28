@@ -299,8 +299,6 @@ public class ViewAccountDisplayContext {
 		int endDateDay = ParamUtil.getInteger(renderRequest, "endDateDay");
 		int endDateYear = ParamUtil.getInteger(renderRequest, "endDateYear");
 
-		String now = dateFormat.format(new Date());
-
 		StringBundler sb = new StringBundler(8);
 
 		sb.append("(accountKey eq '");
@@ -308,18 +306,10 @@ public class ViewAccountDisplayContext {
 		sb.append("')");
 
 		if (state.equals("active")) {
-			sb.append(" and ((perpetual eq 'true') or ((startDate lt ");
-			sb.append(now);
-			sb.append(") and (endDate gt ");
-			sb.append(now);
-			sb.append("))) and (status eq '0') and (inSupportGap eq 'false')");
+			sb.append(" and (state eq 'active')");
 		}
 		else if (state.equals("inactive")) {
-			sb.append(" and ((startDate gt ");
-			sb.append(now);
-			sb.append(") or (endDate lt ");
-			sb.append(now);
-			sb.append(")) or (status eq '600') or (inSupportGap eq 'true')");
+			sb.append(" and ((state eq 'inactive') or (status eq '600'))");
 		}
 
 		if (productKeys.length > 0) {
@@ -347,9 +337,9 @@ public class ViewAccountDisplayContext {
 			endDateMonth, endDateDay, endDateYear, null);
 
 		if ((startDate != null) && (endDate != null)) {
-			sb.append(" and ((startDate ge ");
+			sb.append(" and ((supportLifeStartDate ge ");
 			sb.append(dateFormat.format(startDate));
-			sb.append(") and (endDate le ");
+			sb.append(") and (supportLifeEndDate le ");
 			sb.append(dateFormat.format(endDate));
 			sb.append("))");
 		}
