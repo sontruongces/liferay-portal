@@ -1,5 +1,6 @@
 {
-	"config": {},
+	"config": {
+	},
 	"nextColumnId": 3,
 	"nextRowId": 2,
 	"structure": [
@@ -7,11 +8,13 @@
 			"columns": [
 				{
 					"columnId": "0",
-					"fragmentEntryLinkIds": [],
+					"fragmentEntryLinkIds": [
+					],
 					"size": "12"
 				}
 			],
-			"config": {},
+			"config": {
+			},
 			"rowId": "0",
 			"type": "1"
 		},
@@ -19,16 +22,19 @@
 			"columns": [
 				{
 					"columnId": "1",
-					"fragmentEntryLinkIds": [],
+					"fragmentEntryLinkIds": [
+					],
 					"size": "4"
 				},
 				{
 					"columnId": "2",
-					"fragmentEntryLinkIds": [],
+					"fragmentEntryLinkIds": [
+					],
 					"size": "8"
 				}
 			],
-			"config": {},
+			"config": {
+			},
 			"rowId": "1",
 			"type": "1"
 		}

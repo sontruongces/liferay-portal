@@ -1,5 +1,6 @@
 {
-	"config": {},
+	"config": {
+	},
 	"nextColumnId": 2,
 	"nextRowId": 1,
 	"structure": [
@@ -7,16 +8,19 @@
 			"columns": [
 				{
 					"columnId": "0",
-					"fragmentEntryLinkIds": [],
+					"fragmentEntryLinkIds": [
+					],
 					"size": "4"
 				},
 				{
 					"columnId": "1",
-					"fragmentEntryLinkIds": [],
+					"fragmentEntryLinkIds": [
+					],
 					"size": "8"
 				}
 			],
-			"config": {},
+			"config": {
+			},
 			"rowId": "0",
 			"type": "1"
 		}
