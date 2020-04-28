@@ -571,7 +571,11 @@ function updateFragmentEntryLinkConfigReducer(state, action) {
  * @review
  */
 function updateFragmentEntryLinkContentReducer(state, action) {
-	const {fragmentEntryLinkContent, fragmentEntryLinkId} = action;
+	const {
+		editableValues,
+		fragmentEntryLinkContent,
+		fragmentEntryLinkId
+	} = action;
 	let nextState = state;
 
 	const fragmentEntryLink = nextState.fragmentEntryLinks[fragmentEntryLinkId];
@@ -586,6 +590,18 @@ function updateFragmentEntryLinkContentReducer(state, action) {
 			],
 			fragmentEntryLinkContent
 		);
+
+		if (editableValues) {
+			nextState = setIn(
+				nextState,
+				[
+					'fragmentEntryLinks',
+					fragmentEntryLink.fragmentEntryLinkId,
+					'editableValues'
+				],
+				editableValues
+			);
+		}
 	}
 
 	return nextState;

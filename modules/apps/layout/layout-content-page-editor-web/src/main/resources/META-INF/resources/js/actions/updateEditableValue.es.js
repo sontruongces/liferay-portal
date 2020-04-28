@@ -13,7 +13,10 @@
  */
 
 import {getFragmentEntryLinkContent} from '../reducers/fragments.es';
-import {updateConfigurationValues, updateEditableValues} from '../utils/FragmentsEditorFetchUtils.es';
+import {
+	updateConfigurationValues,
+	updateEditableValues
+} from '../utils/FragmentsEditorFetchUtils.es';
 import {setIn, updateIn} from '../utils/FragmentsEditorUpdateUtils.es';
 import {FREEMARKER_FRAGMENT_ENTRY_PROCESSOR} from '../utils/constants';
 import {prefixSegmentsExperienceId} from '../utils/prefixSegmentsExperienceId.es';
@@ -180,9 +183,10 @@ function updateFragmentEntryLinkContent(
 			state.portletNamespace,
 			segmentsExperienceId
 		).then(response => {
-			const {content, fragmentEntryLinkId} = response;
+			const {content, editableValues, fragmentEntryLinkId} = response;
 
 			dispatch({
+				editableValues,
 				fragmentEntryLinkContent: content,
 				fragmentEntryLinkId,
 				type: UPDATE_FRAGMENT_ENTRY_LINK_CONTENT
@@ -267,7 +271,7 @@ const _sendEditableValues = (
 	dispatch(enableSavingChangesStatusAction());
 
 	return updateConfigurationValues(nextEditableValues, fragmentEntryLinkId)
-		.then(({content, editableValues}) => {
+		.then(({_, editableValues}) => {
 			dispatch(updateEditableValues(fragmentEntryLinkId, editableValues));
 			dispatch(disableSavingChangesStatusAction());
 			dispatch(updateLastSaveDateAction());
