@@ -541,16 +541,6 @@ name = HtmlUtil.escapeJS(name);
 					}
 					catch (e) {}
 				}, 300);
-
-				var clearContentChangeHandle = function(event) {
-					if (event.portletId === '<%= portletId %>') {
-						clearInterval(contentChangeHandle);
-
-						Liferay.detach('destroyPortlet', clearContentChangeHandle);
-					}
-				};
-
-				Liferay.on('destroyPortlet', clearContentChangeHandle);
 			</c:if>
 
 			<c:if test="<%= Validator.isNotNull(onFocusMethod) %>">
