@@ -749,7 +749,13 @@ xpack.monitoring.collection.enabled: true</echo>
 			replace=","
 		/>
 
+		<echo></echo>
+		<echo>##</echo>
+		<echo>## Remote Cluster Indices</echo>
+		<echo>##</echo>
+		<echo></echo>
 		<echo>${indexList}</echo>
+		<echo></echo>
 
 		<for list="${indexList}" param="indexName">
 			<sequential>
@@ -803,7 +809,11 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="-s" />
 						</exec>
 
+						<echo></echo>
+						<echo>Creating temporary index with soft deletes.</echo>
+						<echo></echo>
 						<echo>${curl.output.create.temporary.index}</echo>
+						<echo></echo>
 
 						<property name="reindex.temporary.index.request.body">
 							<![CDATA[
@@ -829,7 +839,11 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="-s" />
 						</exec>
 
+						<echo></echo>
+						<echo>Reindexing temporary index.</echo>
+						<echo></echo>
 						<echo>${curl.output.reindex.temporary.index}</echo>
+						<echo></echo>
 
 						<exec executable="curl" outputproperty="curl.output.delete.index">
 							<arg value="-X" />
@@ -838,7 +852,11 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="-s" />
 						</exec>
 
+						<echo></echo>
+						<echo>Deleting @{indexName}.</echo>
+						<echo></echo>
 						<echo>${curl.output.delete.index}</echo>
+						<echo></echo>
 
 						<exec executable="curl" outputproperty="curl.output.recreate.index">
 							<arg value="-H" />
@@ -851,7 +869,11 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="-s" />
 						</exec>
 
+						<echo></echo>
+						<echo>Recreating @{indexName} with soft deletes.</echo>
+						<echo></echo>
 						<echo>${curl.output.recreate.index}</echo>
+						<echo></echo>
 
 						<property name="reindex.recreated.index.request.body">
 							<![CDATA[
@@ -877,7 +899,11 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="-s" />
 						</exec>
 
+						<echo></echo>
+						<echo>Reindexing @{indexName}.</echo>
+						<echo></echo>
 						<echo>${curl.output.reindex.recreated.index}</echo>
+						<echo></echo>
 
 						<exec executable="curl" outputproperty="curl.output.delete.temporary.index">
 							<arg value="-X" />
@@ -886,7 +912,11 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="-s" />
 						</exec>
 
+						<echo></echo>
+						<echo>Deleting temporary index.</echo>
+						<echo></echo>
 						<echo>${curl.output.delete.temporary.index}</echo>
+						<echo></echo>
 
 						<var name="curl.output.create.temporary.index" unset="true" />
 						<var name="curl.output.delete.index" unset="true" />
@@ -932,7 +962,11 @@ xpack.monitoring.collection.enabled: true</echo>
 			<arg value="-s" />
 		</exec>
 
+		<echo></echo>
+		<echo>Connecting local cluster to remote cluster.</echo>
+		<echo></echo>
 		<echo>${curl.output.connect.to.remote.cluster}</echo>
+		<echo></echo>
 
 		<for list="${indexList}" param="indexName">
 			<sequential>
@@ -961,7 +995,11 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="-s" />
 						</exec>
 
+						<echo></echo>
+						<echo>Creating follower index for @{indexName}.</echo>
+						<echo></echo>
 						<echo>${curl.output.create.follower.index}</echo>
+						<echo></echo>
 
 						<var name="create.follower.request.body" unset="true" />
 						<var name="curl.output.create.follower.index" unset="true" />
@@ -977,7 +1015,13 @@ xpack.monitoring.collection.enabled: true</echo>
 			<arg value="-s" />
 		</exec>
 
+		<echo></echo>
+		<echo>##</echo>
+		<echo>## Local Cluster Indices</echo>
+		<echo>##</echo>
+		<echo></echo>
 		<echo>${curl.output.follower.indices}</echo>
+		<echo></echo>
 
 		<for list="${indexList}" param="indexName">
 			<sequential>
