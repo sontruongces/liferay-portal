@@ -17,7 +17,8 @@ import {NoteRecord, useNotes} from '../hooks/notes';
 import {
 	NOTE_PRIORITY_PINNED,
 	NOTE_PRIORITY_UNPINNED,
-	NOTE_STATUS_APPROVED
+	NOTE_STATUS_APPROVED,
+	NOTE_STATUS_ARCHIVED
 } from '../utilities/constants';
 import {postData} from '../utilities/helpers';
 import ActionMenu from './ActionMenu';
@@ -27,17 +28,40 @@ import PanelDropdownMenu from './PanelDropdownMenu';
 function Note({note}) {
 	const [editNote, setEditNote] = useState(false);
 	const [showActionMenu, setShowActionMenu] = useState(false);
-	const [, {pinNote}] = useNotes();
+	const [, {archiveNote, pinNote}] = useNotes();
 
 	const {content, format, id, pinned, status, type, updateURL} = note;
 
-	const noteData = {
-		content,
-		format,
-		priority: pinned ? NOTE_PRIORITY_UNPINNED : NOTE_PRIORITY_PINNED,
-		status,
-		type
+	const noteData = prop => {
+		return {
+			content,
+			format,
+			priority: pinned ? NOTE_PRIORITY_PINNED : NOTE_PRIORITY_UNPINNED,
+			status,
+			type,
+			...prop
+		};
 	};
+
+	function handleArchive() {
+		const data = noteData({
+			status:
+				status === NOTE_STATUS_APPROVED
+					? NOTE_STATUS_ARCHIVED
+					: NOTE_STATUS_APPROVED
+		});
+
+		postData(updateURL, data, 'formData')
+			.then(({data}) => {
+				const noteFromAPI = NoteRecord({
+					id: data.note.key,
+					status: data.note.status
+				});
+
+				archiveNote(noteFromAPI.id, noteFromAPI.status);
+			})
+			.catch(err => console.error(err));
+	}
 
 	function handleCancel() {
 		setEditNote(false);
@@ -48,7 +72,11 @@ function Note({note}) {
 	}
 
 	function handlePinning() {
-		postData(updateURL, noteData, 'formData')
+		const data = noteData({
+			priority: pinned ? NOTE_PRIORITY_UNPINNED : NOTE_PRIORITY_PINNED
+		});
+
+		postData(updateURL, data, 'formData')
 			.then(({data}) => {
 				const noteFromAPI = NoteRecord({
 					id: data.note.key,
@@ -107,9 +135,7 @@ function Note({note}) {
 
 					<PanelDropdownMenu
 						id={id}
-						onArchive={() => {
-							/* TODO: fill in event handler LHC-2116 */
-						}}
+						onArchive={handleArchive}
 						onEdit={handleEdit}
 						onPinning={handlePinning}
 						pinned={pinned}
