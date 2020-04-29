@@ -13,8 +13,13 @@ import ClaySticker from '@clayui/sticker';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {NoteRecord} from '../hooks/notes';
-import {NOTE_STATUS_APPROVED} from '../utilities/constants';
+import {NoteRecord, useNotes} from '../hooks/notes';
+import {
+	NOTE_PRIORITY_PINNED,
+	NOTE_PRIORITY_UNPINNED,
+	NOTE_STATUS_APPROVED
+} from '../utilities/constants';
+import {postData} from '../utilities/helpers';
 import ActionMenu from './ActionMenu';
 import AddNote from './AddNote';
 import PanelDropdownMenu from './PanelDropdownMenu';
@@ -22,16 +27,38 @@ import PanelDropdownMenu from './PanelDropdownMenu';
 function Note({note}) {
 	const [editNote, setEditNote] = useState(false);
 	const [showActionMenu, setShowActionMenu] = useState(false);
+	const [, {pinNote}] = useNotes();
 
-	const {content, id, pinned, status, type} = note;
+	const {content, format, id, pinned, status, type, updateURL} = note;
 
-	const handleCancel = () => {
+	const noteData = {
+		content,
+		format,
+		priority: pinned ? NOTE_PRIORITY_UNPINNED : NOTE_PRIORITY_PINNED,
+		status,
+		type
+	};
+
+	function handleCancel() {
 		setEditNote(false);
-	};
+	}
 
-	const handleEdit = () => {
+	function handleEdit() {
 		setEditNote(true);
-	};
+	}
+
+	function handlePinning() {
+		postData(updateURL, noteData, 'formData')
+			.then(({data}) => {
+				const noteFromAPI = NoteRecord({
+					id: data.note.key,
+					pinned: data.note.priority === NOTE_PRIORITY_PINNED
+				});
+
+				pinNote(noteFromAPI.id, noteFromAPI.pinned);
+			})
+			.catch(err => console.error(err));
+	}
 
 	return (
 		<div
@@ -72,9 +99,7 @@ function Note({note}) {
 					{showActionMenu && (
 						<ActionMenu
 							onEdit={handleEdit}
-							onPinning={() => {
-								/* TODO: fill in event handler LHC-2061 */
-							}}
+							onPinning={handlePinning}
 							pinned={pinned}
 							tabType={type}
 						/>
@@ -86,9 +111,7 @@ function Note({note}) {
 							/* TODO: fill in event handler LHC-2116 */
 						}}
 						onEdit={handleEdit}
-						onPinning={() => {
-							/* TODO: fill in event handler LHC-2061 */
-						}}
+						onPinning={handlePinning}
 						pinned={pinned}
 						status={status}
 						tabType={type}
@@ -98,9 +121,9 @@ function Note({note}) {
 
 			{editNote ? (
 				<AddNote
-					actionURL={note.updateURL}
+					actionURL={updateURL}
 					content={content}
-					format={note.format}
+					format={format}
 					id={id}
 					onCancel={handleCancel}
 					pinned={pinned}

@@ -76,8 +76,8 @@ export function NotesProvider({initialNotes = [], children}) {
 								.setIn([id, 'edited'], true)
 						);
 					},
-					pinNote(id, priority) {
-						setNotes(notes.setIn([id, 'pinned'], priority === 1));
+					pinNote(id, pinned) {
+						setNotes(notes.setIn([id, 'pinned'], pinned));
 					}
 				}
 			]}

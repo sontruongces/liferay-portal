@@ -66,7 +66,7 @@ function AddNote({
 
 		postData(actionURL, noteData, 'formData')
 			.then(({data}) => {
-				// TODO: Abstract once JSON field names are consistent (createDate vs dateCreated) and creatorName is provided on backend.
+				// TODO: Update once creatorName and creatorPortraitURL are provided on backend.
 
 				const noteFromAPI = NoteRecord({
 					content: data.note.content,

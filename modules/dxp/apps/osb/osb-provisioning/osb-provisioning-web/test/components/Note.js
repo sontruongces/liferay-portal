@@ -13,7 +13,10 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
 import Note from '../../src/main/resources/META-INF/resources/js/components/Note';
-import {NoteRecord} from '../../src/main/resources/META-INF/resources/js/hooks/notes';
+import {
+	NoteRecord,
+	NotesProvider
+} from '../../src/main/resources/META-INF/resources/js/hooks/notes';
 
 function renderNote(props) {
 	const note = NoteRecord({
@@ -31,7 +34,27 @@ function renderNote(props) {
 		...props
 	});
 
-	return render(<Note note={note} />);
+	return render(
+		<NotesProvider
+			initialNotes={[
+				{
+					createDate: new Date().toLocaleString('en-US'),
+					creatorName: 'Jane Doe',
+					creatorPortraitURL: '/',
+					edited: false,
+					format: 'HTML',
+					htmlContent: '<div>pinned note</div>',
+					key: '123',
+					pinned: true,
+					status: 'Approved',
+					type: 'General',
+					updateNoteURL: '/'
+				}
+			]}
+		>
+			<Note note={note} />
+		</NotesProvider>
+	);
 }
 
 describe('Note', () => {
