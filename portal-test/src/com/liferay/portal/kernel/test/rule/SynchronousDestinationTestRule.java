@@ -126,6 +126,8 @@ public class SynchronousDestinationTestRule
 			ServiceDependencyManager serviceDependencyManager =
 				new ServiceDependencyManager();
 
+			Filter auditFilter = _registerDestinationFilter(
+				DestinationNames.AUDIT);
 			Filter asyncFilter = _registerDestinationFilter(
 				DestinationNames.ASYNC_SERVICE);
 			Filter backgroundTaskFilter = _registerDestinationFilter(
@@ -144,9 +146,10 @@ public class SynchronousDestinationTestRule
 				DestinationNames.SUBSCRIPTION_SENDER);
 
 			serviceDependencyManager.registerDependencies(
-				asyncFilter, backgroundTaskFilter, backgroundTaskStatusFilter,
-				kaleoGraphWalkerFilter, mailFilter, pdfProcessorFilter,
-				rawMetaDataProcessorFilter, subscrpitionSenderFilter);
+				auditFilter, asyncFilter, backgroundTaskFilter,
+				backgroundTaskStatusFilter, kaleoGraphWalkerFilter, mailFilter,
+				pdfProcessorFilter, rawMetaDataProcessorFilter,
+				subscrpitionSenderFilter);
 
 			serviceDependencyManager.waitForDependencies();
 
@@ -155,6 +158,7 @@ public class SynchronousDestinationTestRule
 
 			ProxyModeThreadLocal.setForceSync(true);
 
+			replaceDestination(DestinationNames.AUDIT);
 			replaceDestination(DestinationNames.ASYNC_SERVICE);
 			replaceDestination(DestinationNames.BACKGROUND_TASK);
 			replaceDestination(DestinationNames.BACKGROUND_TASK_STATUS);
