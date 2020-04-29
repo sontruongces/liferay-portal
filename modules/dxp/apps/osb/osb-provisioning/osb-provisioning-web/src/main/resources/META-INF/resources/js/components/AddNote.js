@@ -69,17 +69,17 @@ function AddNote({
 				// TODO: Update once creatorName and creatorPortraitURL are provided on backend.
 
 				const noteFromAPI = NoteRecord({
-					content: data.note.content,
-					createDate: data.note.dateCreated,
-					creatorName: data.note.creatorName || '-',
-					creatorPortraitURL: '/image/user_portrait',
-					edited: data.note.dateCreated !== data.note.dateModified,
+					content: data.note.htmlContent,
+					createDate: data.note.createDate,
+					creatorName: data.note.creatorName,
+					creatorPortraitURL: data.note.creatorPortraitURL,
+					edited: data.note.edited,
 					format: data.note.format,
 					id: data.note.key,
-					pinned: data.note.priority === NOTE_PRIORITY_PINNED,
+					pinned: data.note.pinned,
 					status: data.note.status,
 					type: data.note.type,
-					updateURL: data.note.updateURL
+					updateURL: data.note.updateNoteURL
 				});
 
 				if (actionType === EDIT_NOTE) {

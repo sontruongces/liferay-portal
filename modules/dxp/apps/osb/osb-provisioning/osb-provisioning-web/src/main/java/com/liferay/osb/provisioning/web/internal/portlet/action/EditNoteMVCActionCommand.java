@@ -17,7 +17,8 @@ package com.liferay.osb.provisioning.web.internal.portlet.action;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.osb.provisioning.web.internal.display.context.NoteDisplay;
+import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -25,6 +26,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -37,6 +39,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -91,7 +94,7 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 				jsonObject = deleteNote(actionRequest);
 			}
 			else {
-				jsonObject = updateNote(actionRequest);
+				jsonObject = updateNote(actionRequest, actionResponse);
 			}
 		}
 		catch (Exception exception) {
@@ -115,11 +118,14 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 			}
 		}
 
+		hideDefaultSuccessMessage(actionRequest);
+
 		JSONPortletResponseUtil.writeJSON(
 			actionRequest, actionResponse, jsonObject);
 	}
 
-	protected JSONObject updateNote(ActionRequest actionRequest)
+	protected JSONObject updateNote(
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
@@ -160,11 +166,8 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 			note = _noteWebService.updateNote(
 				user.getFullName(), StringPool.BLANK, noteKey, note);
 
-			JSONObject noteJsonObject = JSONFactoryUtil.createJSONObject(
-				note.toString());
-
 			jsonObject = JSONUtil.put(
-				"note", noteJsonObject
+				"note", _createJSONObject(actionRequest, actionResponse, note)
 			).put(
 				"successMessage",
 				LanguageUtil.get(
@@ -177,11 +180,8 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 			note = _noteWebService.addNote(
 				user.getFullName(), StringPool.BLANK, accountKey, note);
 
-			JSONObject noteJsonObject = JSONFactoryUtil.createJSONObject(
-				note.toString());
-
 			jsonObject = JSONUtil.put(
-				"note", noteJsonObject
+				"note", _createJSONObject(actionRequest, actionResponse, note)
 			).put(
 				"successMessage",
 				LanguageUtil.get(
@@ -192,8 +192,55 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 		return jsonObject;
 	}
 
+	private JSONObject _createJSONObject(
+			ActionRequest actionRequest, ActionResponse actionResponse,
+			Note note)
+		throws Exception {
+
+		NoteDisplay noteDisplay = new NoteDisplay(
+			_portal.getHttpServletRequest(actionRequest), note,
+			_getUpdateNoteURL(actionResponse, note.getKey()),
+			_getDeleteNoteURL(actionResponse, note.getKey()));
+
+		String jsonString = _jsonFactory.looseSerializeDeep(noteDisplay);
+
+		return _jsonFactory.createJSONObject(jsonString);
+	}
+
+	private String _getDeleteNoteURL(
+		ActionResponse actionResponse, String noteKey) {
+
+		LiferayPortletResponse liferayPortletResponse =
+			_portal.getLiferayPortletResponse(actionResponse);
+
+		PortletURL deleteNoteURL = liferayPortletResponse.createRenderURL();
+
+		deleteNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
+		deleteNoteURL.setParameter(Constants.CMD, Constants.DELETE);
+		deleteNoteURL.setParameter("noteKey", noteKey);
+
+		return deleteNoteURL.toString();
+	}
+
+	private String _getUpdateNoteURL(
+		ActionResponse actionResponse, String noteKey) {
+
+		LiferayPortletResponse liferayPortletResponse =
+			_portal.getLiferayPortletResponse(actionResponse);
+
+		PortletURL updateNoteURL = liferayPortletResponse.createActionURL();
+
+		updateNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
+		updateNoteURL.setParameter("noteKey", noteKey);
+
+		return updateNoteURL.toString();
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		EditNoteMVCActionCommand.class);
+
+	@Reference
+	private JSONFactory _jsonFactory;
 
 	@Reference
 	private NoteWebService _noteWebService;
