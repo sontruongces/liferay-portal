@@ -734,7 +734,7 @@ xpack.monitoring.collection.enabled: true</echo>
 			select="\1"
 		/>
 
-		<exec executable="curl" outputproperty="indexList">
+		<exec executable="curl" outputproperty="index.list">
 			<arg value="-X" />
 			<arg value="GET" />
 			<arg value="http://localhost:9200/_cat/indices?h=idx" />
@@ -742,9 +742,9 @@ xpack.monitoring.collection.enabled: true</echo>
 		</exec>
 
 		<propertyregex
-			input="${indexList}"
+			input="${index.list}"
 			override="true"
-			property="indexList"
+			property="index.list"
 			regexp="\n"
 			replace=","
 		/>
@@ -754,35 +754,35 @@ xpack.monitoring.collection.enabled: true</echo>
 		<echo>## Remote Cluster Indices</echo>
 		<echo>##</echo>
 		<echo></echo>
-		<echo>${indexList}</echo>
+		<echo>${index.list}</echo>
 		<echo></echo>
 
-		<for list="${indexList}" param="indexName">
+		<for list="${index.list}" param="index.name">
 			<sequential>
 				<if>
 					<and>
 						<not>
-							<contains string="@{indexName}" substring="." />
+							<contains string="@{index.name}" substring="." />
 						</not>
 						<not>
-							<equals arg1="@{indexName}" arg2="liferay-0" />
+							<equals arg1="@{index.name}" arg2="liferay-0" />
 						</not>
 						<not>
-							<equals arg1="@{indexName}" arg2="liferay-${companyId}" />
+							<equals arg1="@{index.name}" arg2="liferay-${companyId}" />
 						</not>
 					</and>
 					<then>
-						<exec executable="curl" outputproperty="indexMapping">
+						<exec executable="curl" outputproperty="index.mapping">
 							<arg value="-X" />
 							<arg value="GET" />
-							<arg value="http://localhost:9200/@{indexName}/_mapping?pretty" />
+							<arg value="http://localhost:9200/@{index.name}/_mapping?pretty" />
 							<arg value="-s" />
 						</exec>
 
 						<propertyregex
-							input="${indexMapping}"
+							input="${index.mapping}"
 							override="true"
-							property="indexMapping"
+							property="index.mapping"
 							regexp="(\A.*)|(.*\s*$)"
 							replace=""
 						/>
@@ -793,7 +793,7 @@ xpack.monitoring.collection.enabled: true</echo>
 									"settings" : {
 										"index.soft_deletes.enabled" : true
 									},
-									${indexMapping}
+									${index.mapping}
 								}
 							]]>
 						</property>
@@ -819,7 +819,7 @@ xpack.monitoring.collection.enabled: true</echo>
 							<![CDATA[
 								{
 									"source": {
-										"index": "@{indexName}"
+										"index": "@{index.name}"
 									},
 									"dest": {
 										"index": "temp_index"
@@ -848,12 +848,12 @@ xpack.monitoring.collection.enabled: true</echo>
 						<exec executable="curl" outputproperty="curl.output.delete.index">
 							<arg value="-X" />
 							<arg value="DELETE" />
-							<arg value="localhost:9200/@{indexName}" />
+							<arg value="localhost:9200/@{index.name}" />
 							<arg value="-s" />
 						</exec>
 
 						<echo></echo>
-						<echo>Deleting @{indexName}.</echo>
+						<echo>Deleting @{index.name}.</echo>
 						<echo></echo>
 						<echo>${curl.output.delete.index}</echo>
 						<echo></echo>
@@ -863,14 +863,14 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="Content-Type: application/json" />
 							<arg value="-X" />
 							<arg value="PUT" />
-							<arg value="localhost:9200/@{indexName}" />
+							<arg value="localhost:9200/@{index.name}" />
 							<arg value="-d" />
 							<arg value="${index.with.soft.deletes}" />
 							<arg value="-s" />
 						</exec>
 
 						<echo></echo>
-						<echo>Recreating @{indexName} with soft deletes.</echo>
+						<echo>Recreating @{index.name} with soft deletes.</echo>
 						<echo></echo>
 						<echo>${curl.output.recreate.index}</echo>
 						<echo></echo>
@@ -882,7 +882,7 @@ xpack.monitoring.collection.enabled: true</echo>
 										"index": "temp_index"
 									},
 									"dest": {
-										"index": "@{indexName}"
+										"index": "@{index.name}"
 									}
 								}
 							]]>
@@ -900,7 +900,7 @@ xpack.monitoring.collection.enabled: true</echo>
 						</exec>
 
 						<echo></echo>
-						<echo>Reindexing @{indexName}.</echo>
+						<echo>Reindexing @{index.name}.</echo>
 						<echo></echo>
 						<echo>${curl.output.reindex.recreated.index}</echo>
 						<echo></echo>
@@ -924,7 +924,7 @@ xpack.monitoring.collection.enabled: true</echo>
 						<var name="curl.output.recreate.index" unset="true" />
 						<var name="curl.output.reindex.recreated.index" unset="true" />
 						<var name="curl.output.reindex.temporary.index" unset="true" />
-						<var name="indexMapping" unset="true" />
+						<var name="index.mapping" unset="true" />
 						<var name="index.with.soft.deletes" unset="true" />
 						<var name="reindex.recreated.index.request.body" unset="true" />
 						<var name="reindex.temporary.index.request.body" unset="true" />
@@ -968,17 +968,17 @@ xpack.monitoring.collection.enabled: true</echo>
 		<echo>${curl.output.connect.to.remote.cluster}</echo>
 		<echo></echo>
 
-		<for list="${indexList}" param="indexName">
+		<for list="${index.list}" param="index.name">
 			<sequential>
 				<if>
 					<not>
-						<contains string="@{indexName}" substring="." />
+						<contains string="@{index.name}" substring="." />
 					</not>
 					<then>
 						<property name="create.follower.request.body">
 							<![CDATA[
 								{
-									"leader_index": "@{indexName}",
+									"leader_index": "@{index.name}",
 									"remote_cluster": "leader"
 								}
 							]]>
@@ -989,14 +989,14 @@ xpack.monitoring.collection.enabled: true</echo>
 							<arg value="Content-Type: application/json" />
 							<arg value="-X" />
 							<arg value="PUT" />
-							<arg value="localhost:9202/@{indexName}/_ccr/follow?wait_for_active_shards=1" />
+							<arg value="localhost:9202/@{index.name}/_ccr/follow?wait_for_active_shards=1" />
 							<arg value="-d" />
 							<arg value="${create.follower.request.body}" />
 							<arg value="-s" />
 						</exec>
 
 						<echo></echo>
-						<echo>Creating follower index for @{indexName}.</echo>
+						<echo>Creating follower index for @{index.name}.</echo>
 						<echo></echo>
 						<echo>${curl.output.create.follower.index}</echo>
 						<echo></echo>
@@ -1023,15 +1023,15 @@ xpack.monitoring.collection.enabled: true</echo>
 		<echo>${curl.output.follower.indices}</echo>
 		<echo></echo>
 
-		<for list="${indexList}" param="indexName">
+		<for list="${index.list}" param="index.name">
 			<sequential>
 				<if>
 					<and>
 						<not>
-							<contains string="@{indexName}" substring="." />
+							<contains string="@{index.name}" substring="." />
 						</not>
 						<not>
-							<contains string="${curl.output.follower.indices}" substring="@{indexName}" />
+							<contains string="${curl.output.follower.indices}" substring="@{index.name}" />
 						</not>
 					</and>
 					<then>
