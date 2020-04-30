@@ -14,6 +14,7 @@
 
 package com.liferay.osb.provisioning.web.internal.util;
 
+import com.liferay.osb.provisioning.customer.web.service.AccountEntryWebService;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.AuditEntryWebService;
@@ -137,27 +138,37 @@ public class ProvisioningWebComponentProvider {
 				HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		ViewAccountContactsDisplayContext viewAccountContactsDisplayContext =
-			(ViewAccountContactsDisplayContext)httpServletRequest.getAttribute(
-				ViewAccountContactsDisplayContext.class.getName());
+		return _getViewAccountDisplayContext(
+			ViewAccountContactsDisplayContext.class, renderRequest,
+			renderResponse, httpServletRequest);
+	}
 
-		if (viewAccountContactsDisplayContext != null) {
-			return viewAccountContactsDisplayContext;
+	private <T extends ViewAccountDisplayContext> T
+			_getViewAccountDisplayContext(
+				Class<T> clazz, RenderRequest renderRequest,
+				RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		T viewAccountDisplayContext = (T)httpServletRequest.getAttribute(
+			clazz.getName());
+
+		if (viewAccountDisplayContext != null) {
+			return viewAccountDisplayContext;
 		}
 
-		viewAccountContactsDisplayContext =
-			new ViewAccountContactsDisplayContext(
-				renderRequest, renderResponse, httpServletRequest,
-				_accountReader, _accountWebService, _auditEntryWebService,
-				_contactRoleWebService, _contactWebService,
-				_externalLinkWebService, _noteWebService,
-				_productPurchaseViewWebService, _teamWebService);
+		viewAccountDisplayContext = clazz.newInstance();
+
+		viewAccountDisplayContext.init(
+			renderRequest, renderResponse, httpServletRequest, _accountReader,
+			_accountEntryWebService, _accountWebService, _auditEntryWebService,
+			_contactRoleWebService, _contactWebService, _externalLinkWebService,
+			_noteWebService, _productPurchaseViewWebService, _teamWebService);
 
 		httpServletRequest.setAttribute(
-			ViewAccountContactsDisplayContext.class.getName(),
-			viewAccountContactsDisplayContext);
+			clazz.getName(), viewAccountDisplayContext);
 
-		return viewAccountContactsDisplayContext;
+		return viewAccountDisplayContext;
 	}
 
 	private ViewAccountDisplayContext _getViewAccountDisplayContext(
@@ -165,25 +176,9 @@ public class ProvisioningWebComponentProvider {
 			HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		ViewAccountDisplayContext viewAccountDisplayContext =
-			(ViewAccountDisplayContext)httpServletRequest.getAttribute(
-				ViewAccountDisplayContext.class.getName());
-
-		if (viewAccountDisplayContext != null) {
-			return viewAccountDisplayContext;
-		}
-
-		viewAccountDisplayContext = new ViewAccountDisplayContext(
-			renderRequest, renderResponse, httpServletRequest, _accountReader,
-			_accountWebService, _auditEntryWebService, _contactRoleWebService,
-			_contactWebService, _externalLinkWebService, _noteWebService,
-			_productPurchaseViewWebService, _teamWebService);
-
-		httpServletRequest.setAttribute(
-			ViewAccountDisplayContext.class.getName(),
-			viewAccountDisplayContext);
-
-		return viewAccountDisplayContext;
+		return _getViewAccountDisplayContext(
+			ViewAccountDisplayContext.class, renderRequest, renderResponse,
+			httpServletRequest);
 	}
 
 	private ViewAccountLiferayWorkersDisplayContext
@@ -192,30 +187,9 @@ public class ProvisioningWebComponentProvider {
 				HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		ViewAccountLiferayWorkersDisplayContext
-			viewAccountLiferayWorkersDisplayContext =
-				(ViewAccountLiferayWorkersDisplayContext)
-					httpServletRequest.getAttribute(
-						ViewAccountLiferayWorkersDisplayContext.class.
-							getName());
-
-		if (viewAccountLiferayWorkersDisplayContext != null) {
-			return viewAccountLiferayWorkersDisplayContext;
-		}
-
-		viewAccountLiferayWorkersDisplayContext =
-			new ViewAccountLiferayWorkersDisplayContext(
-				renderRequest, renderResponse, httpServletRequest,
-				_accountReader, _accountWebService, _auditEntryWebService,
-				_contactRoleWebService, _contactWebService,
-				_externalLinkWebService, _noteWebService,
-				_productPurchaseViewWebService, _teamWebService);
-
-		httpServletRequest.setAttribute(
-			ViewAccountLiferayWorkersDisplayContext.class.getName(),
-			viewAccountLiferayWorkersDisplayContext);
-
-		return viewAccountLiferayWorkersDisplayContext;
+		return _getViewAccountDisplayContext(
+			ViewAccountLiferayWorkersDisplayContext.class, renderRequest,
+			renderResponse, httpServletRequest);
 	}
 
 	private ViewAccountRelatedAccountsDisplayContext
@@ -224,30 +198,9 @@ public class ProvisioningWebComponentProvider {
 				HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		ViewAccountRelatedAccountsDisplayContext
-			viewAccountRelatedAccountsDisplayContext =
-				(ViewAccountRelatedAccountsDisplayContext)
-					httpServletRequest.getAttribute(
-						ViewAccountRelatedAccountsDisplayContext.class.
-							getName());
-
-		if (viewAccountRelatedAccountsDisplayContext != null) {
-			return viewAccountRelatedAccountsDisplayContext;
-		}
-
-		viewAccountRelatedAccountsDisplayContext =
-			new ViewAccountRelatedAccountsDisplayContext(
-				renderRequest, renderResponse, httpServletRequest,
-				_accountReader, _accountWebService, _auditEntryWebService,
-				_contactRoleWebService, _contactWebService,
-				_externalLinkWebService, _noteWebService,
-				_productPurchaseViewWebService, _teamWebService);
-
-		httpServletRequest.setAttribute(
-			ViewAccountRelatedAccountsDisplayContext.class.getName(),
-			viewAccountRelatedAccountsDisplayContext);
-
-		return viewAccountRelatedAccountsDisplayContext;
+		return _getViewAccountDisplayContext(
+			ViewAccountRelatedAccountsDisplayContext.class, renderRequest,
+			renderResponse, httpServletRequest);
 	}
 
 	private ViewTeamDisplayContext _getViewTeamDisplayContext(
@@ -255,28 +208,16 @@ public class ProvisioningWebComponentProvider {
 			HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		ViewTeamDisplayContext viewTeamDisplayContext =
-			(ViewTeamDisplayContext)httpServletRequest.getAttribute(
-				ViewTeamDisplayContext.class.getName());
-
-		if (viewTeamDisplayContext != null) {
-			return viewTeamDisplayContext;
-		}
-
-		viewTeamDisplayContext = new ViewTeamDisplayContext(
-			renderRequest, renderResponse, httpServletRequest, _accountReader,
-			_accountWebService, _auditEntryWebService, _contactRoleWebService,
-			_contactWebService, _externalLinkWebService, _noteWebService,
-			_productPurchaseViewWebService, _teamWebService);
-
-		httpServletRequest.setAttribute(
-			ViewTeamDisplayContext.class.getName(), viewTeamDisplayContext);
-
-		return viewTeamDisplayContext;
+		return _getViewAccountDisplayContext(
+			ViewTeamDisplayContext.class, renderRequest, renderResponse,
+			httpServletRequest);
 	}
 
 	private static ProvisioningWebComponentProvider
 		_provisioningWebComponentProvider;
+
+	@Reference
+	private AccountEntryWebService _accountEntryWebService;
 
 	@Reference
 	private AccountReader _accountReader;

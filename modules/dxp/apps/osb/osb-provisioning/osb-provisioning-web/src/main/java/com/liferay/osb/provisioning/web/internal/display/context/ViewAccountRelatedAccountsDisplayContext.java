@@ -15,15 +15,6 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
-import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
-import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.AuditEntryWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.osb.provisioning.web.internal.dao.search.AccountResultRowSplitter;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -38,35 +29,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * @author Amos Fong
  */
 public class ViewAccountRelatedAccountsDisplayContext
 	extends ViewAccountDisplayContext {
 
-	public ViewAccountRelatedAccountsDisplayContext(
-			RenderRequest renderRequest, RenderResponse renderResponse,
-			HttpServletRequest httpServletRequest, AccountReader accountReader,
-			AccountWebService accountWebService,
-			AuditEntryWebService auditEntryWebService,
-			ContactRoleWebService contactRoleWebService,
-			ContactWebService contactWebService,
-			ExternalLinkWebService externalLinkWebService,
-			NoteWebService noteWebService,
-			ProductPurchaseViewWebService productPurchaseViewWebService,
-			TeamWebService teamWebService)
-		throws Exception {
-
-		super(
-			renderRequest, renderResponse, httpServletRequest, accountReader,
-			accountWebService, auditEntryWebService, contactRoleWebService,
-			contactWebService, externalLinkWebService, noteWebService,
-			productPurchaseViewWebService, teamWebService);
+	public ViewAccountRelatedAccountsDisplayContext() {
 	}
 
 	public AccountResultRowSplitter getAccountResultRowSplitter() {

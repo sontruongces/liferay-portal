@@ -1,0 +1,3 @@
+Bundle-Name: Liferay OSB Provisioning Customer Web Service Implementation
+Bundle-SymbolicName: com.liferay.osb.provisioning.customer.web.service.impl
+Bundle-Version: 1.0.0

@@ -17,7 +17,10 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
+import com.liferay.osb.provisioning.constants.ProvisioningActionKeys;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
+import com.liferay.osb.provisioning.customer.model.AccountEntry;
+import com.liferay.osb.provisioning.customer.web.service.AccountEntryWebService;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.AuditEntryWebService;
@@ -58,40 +61,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ViewAccountDisplayContext {
 
-	public ViewAccountDisplayContext(
-			RenderRequest renderRequest, RenderResponse renderResponse,
-			HttpServletRequest httpServletRequest, AccountReader accountReader,
-			AccountWebService accountWebService,
-			AuditEntryWebService auditEntryWebService,
-			ContactRoleWebService contactRoleWebService,
-			ContactWebService contactWebService,
-			ExternalLinkWebService externalLinkWebService,
-			NoteWebService noteWebService,
-			ProductPurchaseViewWebService productPurchaseViewWebService,
-			TeamWebService teamWebService)
-		throws Exception {
-
-		this.renderRequest = renderRequest;
-		this.renderResponse = renderResponse;
-		this.httpServletRequest = httpServletRequest;
-		this.accountReader = accountReader;
-		this.accountWebService = accountWebService;
-		this.auditEntryWebService = auditEntryWebService;
-		this.contactRoleWebService = contactRoleWebService;
-		this.contactWebService = contactWebService;
-		this.externalLinkWebService = externalLinkWebService;
-		this.noteWebService = noteWebService;
-		this.productPurchaseViewWebService = productPurchaseViewWebService;
-		this.teamWebService = teamWebService;
-
-		account = (Account)renderRequest.getAttribute(
-			ProvisioningWebKeys.ACCOUNT);
-
-		accountDisplay = new AccountDisplay(
-			httpServletRequest, accountReader, account);
-
-		currentURLObj = PortletURLUtil.getCurrent(
-			renderRequest, renderResponse);
+	public ViewAccountDisplayContext() {
 	}
 
 	public void addPortletBreadcrumbEntries() throws Exception {
@@ -129,8 +99,19 @@ public class ViewAccountDisplayContext {
 			httpServletRequest, account.getName(), portletURL.toString());
 	}
 
+	public String getAccountAttachmentURL(long accountAttachmentId)
+		throws Exception {
+
+		return accountEntryWebService.getAccountAttachmentURL(
+			accountAttachmentId);
+	}
+
 	public AccountDisplay getAccountDisplay() {
 		return accountDisplay;
+	}
+
+	public AccountEntry getAccountEntry() throws Exception {
+		return accountEntryWebService.fetchAccountEntry(account.getKey());
 	}
 
 	public String getAddExternalLinkURL() {
@@ -432,24 +413,95 @@ public class ViewAccountDisplayContext {
 		return unassignAccountCustomerContactURL.toString();
 	}
 
-	protected final Account account;
-	protected final AccountDisplay accountDisplay;
-	protected final AccountReader accountReader;
-	protected final AccountWebService accountWebService;
-	protected final AuditEntryWebService auditEntryWebService;
-	protected final ContactRoleWebService contactRoleWebService;
-	protected final ContactWebService contactWebService;
-	protected final PortletURL currentURLObj;
+	public String getUpdateAccountAttachmentURL() throws Exception {
+		return accountEntryWebService.getUpdateAccountAttachmentURL();
+	}
+
+	public String getUpdateInstructionsURL() {
+		PortletURL updateInstructionsURL = renderResponse.createActionURL();
+
+		updateInstructionsURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_account_entry");
+		updateInstructionsURL.setParameter(
+			Constants.CMD, ProvisioningActionKeys.UPDATE_INSTRUCTIONS);
+		updateInstructionsURL.setParameter("accountKey", account.getKey());
+
+		return updateInstructionsURL.toString();
+	}
+
+	public String getUpdateLanguageIdURL() {
+		PortletURL updateLanguageIdURL = renderResponse.createActionURL();
+
+		updateLanguageIdURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_account_entry");
+		updateLanguageIdURL.setParameter(
+			Constants.CMD, ProvisioningActionKeys.UPDATE_LANGUAGE_ID);
+		updateLanguageIdURL.setParameter("accountKey", account.getKey());
+
+		return updateLanguageIdURL.toString();
+	}
+
+	public void init(
+			RenderRequest renderRequest, RenderResponse renderResponse,
+			HttpServletRequest httpServletRequest, AccountReader accountReader,
+			AccountEntryWebService accountEntryWebService,
+			AccountWebService accountWebService,
+			AuditEntryWebService auditEntryWebService,
+			ContactRoleWebService contactRoleWebService,
+			ContactWebService contactWebService,
+			ExternalLinkWebService externalLinkWebService,
+			NoteWebService noteWebService,
+			ProductPurchaseViewWebService productPurchaseViewWebService,
+			TeamWebService teamWebService)
+		throws Exception {
+
+		this.renderRequest = renderRequest;
+		this.renderResponse = renderResponse;
+		this.httpServletRequest = httpServletRequest;
+		this.accountReader = accountReader;
+		this.accountEntryWebService = accountEntryWebService;
+		this.accountWebService = accountWebService;
+		this.auditEntryWebService = auditEntryWebService;
+		this.contactRoleWebService = contactRoleWebService;
+		this.contactWebService = contactWebService;
+		this.externalLinkWebService = externalLinkWebService;
+		this.noteWebService = noteWebService;
+		this.productPurchaseViewWebService = productPurchaseViewWebService;
+		this.teamWebService = teamWebService;
+
+		doInit();
+	}
+
+	protected void doInit() throws Exception {
+		account = (Account)renderRequest.getAttribute(
+			ProvisioningWebKeys.ACCOUNT);
+
+		accountDisplay = new AccountDisplay(
+			httpServletRequest, accountReader, account);
+
+		currentURLObj = PortletURLUtil.getCurrent(
+			renderRequest, renderResponse);
+	}
+
+	protected Account account;
+	protected AccountDisplay accountDisplay;
+	protected AccountEntryWebService accountEntryWebService;
+	protected AccountReader accountReader;
+	protected AccountWebService accountWebService;
+	protected AuditEntryWebService auditEntryWebService;
+	protected ContactRoleWebService contactRoleWebService;
+	protected ContactWebService contactWebService;
+	protected PortletURL currentURLObj;
 	protected final Format dateFormat =
 		FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
-	protected final ExternalLinkWebService externalLinkWebService;
-	protected final HttpServletRequest httpServletRequest;
-	protected final NoteWebService noteWebService;
-	protected final ProductPurchaseViewWebService productPurchaseViewWebService;
-	protected final RenderRequest renderRequest;
-	protected final RenderResponse renderResponse;
-	protected final TeamWebService teamWebService;
+	protected ExternalLinkWebService externalLinkWebService;
+	protected HttpServletRequest httpServletRequest;
+	protected NoteWebService noteWebService;
+	protected ProductPurchaseViewWebService productPurchaseViewWebService;
+	protected RenderRequest renderRequest;
+	protected RenderResponse renderResponse;
+	protected TeamWebService teamWebService;
 
 	private String _getDeleteNoteURL(String noteKey) {
 		PortletURL deleteNoteURL = renderResponse.createActionURL();

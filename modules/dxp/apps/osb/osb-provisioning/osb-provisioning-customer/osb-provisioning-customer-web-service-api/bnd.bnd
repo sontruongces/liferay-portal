@@ -1,0 +1,4 @@
+Bundle-Name: Liferay OSB Provisioning Customer Web Service API
+Bundle-SymbolicName: com.liferay.osb.provisioning.customer.web.service.api
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.osb.provisioning.customer.web.service
