@@ -772,6 +772,8 @@ xpack.monitoring.collection.enabled: true</echo>
 						</not>
 					</and>
 					<then>
+						<local name="index.mapping" />
+
 						<exec executable="curl" outputproperty="index.mapping">
 							<arg value="-X" />
 							<arg value="GET" />
@@ -787,6 +789,8 @@ xpack.monitoring.collection.enabled: true</echo>
 							replace=""
 						/>
 
+						<local name="index.with.soft.deletes" />
+
 						<property name="index.with.soft.deletes">
 							<![CDATA[
 								{
@@ -797,6 +801,8 @@ xpack.monitoring.collection.enabled: true</echo>
 								}
 							]]>
 						</property>
+
+						<local name="curl.output.create.temporary.index" />
 
 						<exec executable="curl" outputproperty="curl.output.create.temporary.index">
 							<arg value="-H" />
@@ -815,6 +821,8 @@ xpack.monitoring.collection.enabled: true</echo>
 						<echo>${curl.output.create.temporary.index}</echo>
 						<echo></echo>
 
+						<local name="reindex.temporary.index.request.body" />
+
 						<property name="reindex.temporary.index.request.body">
 							<![CDATA[
 								{
@@ -827,6 +835,8 @@ xpack.monitoring.collection.enabled: true</echo>
 								}
 							]]>
 						</property>
+
+						<local name="curl.output.reindex.temporary.index" />
 
 						<exec executable="curl" outputproperty="curl.output.reindex.temporary.index">
 							<arg value="-H" />
@@ -845,6 +855,8 @@ xpack.monitoring.collection.enabled: true</echo>
 						<echo>${curl.output.reindex.temporary.index}</echo>
 						<echo></echo>
 
+						<local name="curl.output.delete.index" />
+
 						<exec executable="curl" outputproperty="curl.output.delete.index">
 							<arg value="-X" />
 							<arg value="DELETE" />
@@ -857,6 +869,8 @@ xpack.monitoring.collection.enabled: true</echo>
 						<echo></echo>
 						<echo>${curl.output.delete.index}</echo>
 						<echo></echo>
+
+						<local name="curl.output.recreate.index" />
 
 						<exec executable="curl" outputproperty="curl.output.recreate.index">
 							<arg value="-H" />
@@ -875,6 +889,8 @@ xpack.monitoring.collection.enabled: true</echo>
 						<echo>${curl.output.recreate.index}</echo>
 						<echo></echo>
 
+						<local name="reindex.recreated.index.request.body" />
+
 						<property name="reindex.recreated.index.request.body">
 							<![CDATA[
 								{
@@ -887,6 +903,8 @@ xpack.monitoring.collection.enabled: true</echo>
 								}
 							]]>
 						</property>
+
+						<local name="curl.output.reindex.recreated.index" />
 
 						<exec executable="curl" outputproperty="curl.output.reindex.recreated.index">
 							<arg value="-H" />
@@ -905,6 +923,8 @@ xpack.monitoring.collection.enabled: true</echo>
 						<echo>${curl.output.reindex.recreated.index}</echo>
 						<echo></echo>
 
+						<local name="curl.output.delete.temporary.index" />
+
 						<exec executable="curl" outputproperty="curl.output.delete.temporary.index">
 							<arg value="-X" />
 							<arg value="DELETE" />
@@ -917,17 +937,6 @@ xpack.monitoring.collection.enabled: true</echo>
 						<echo></echo>
 						<echo>${curl.output.delete.temporary.index}</echo>
 						<echo></echo>
-
-						<var name="curl.output.create.temporary.index" unset="true" />
-						<var name="curl.output.delete.index" unset="true" />
-						<var name="curl.output.delete.temporary.index" unset="true" />
-						<var name="curl.output.recreate.index" unset="true" />
-						<var name="curl.output.reindex.recreated.index" unset="true" />
-						<var name="curl.output.reindex.temporary.index" unset="true" />
-						<var name="index.mapping" unset="true" />
-						<var name="index.with.soft.deletes" unset="true" />
-						<var name="reindex.recreated.index.request.body" unset="true" />
-						<var name="reindex.temporary.index.request.body" unset="true" />
 					</then>
 				</if>
 			</sequential>
@@ -975,6 +984,8 @@ xpack.monitoring.collection.enabled: true</echo>
 						<contains string="@{index.name}" substring="." />
 					</not>
 					<then>
+						<local name="create.follower.request.body" />
+
 						<property name="create.follower.request.body">
 							<![CDATA[
 								{
@@ -983,6 +994,8 @@ xpack.monitoring.collection.enabled: true</echo>
 								}
 							]]>
 						</property>
+
+						<local name="curl.output.create.follower.index" />
 
 						<exec executable="curl" outputproperty="curl.output.create.follower.index">
 							<arg value="-H" />
@@ -1000,9 +1013,6 @@ xpack.monitoring.collection.enabled: true</echo>
 						<echo></echo>
 						<echo>${curl.output.create.follower.index}</echo>
 						<echo></echo>
-
-						<var name="create.follower.request.body" unset="true" />
-						<var name="curl.output.create.follower.index" unset="true" />
 					</then>
 				</if>
 			</sequential>
