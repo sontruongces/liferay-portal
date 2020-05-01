@@ -23,6 +23,10 @@ import java.util.List;
  */
 public interface ProductPurchaseViewWebService {
 
+	public ProductPurchaseView getProductPurchaseView(
+			String accountKey, String productKey)
+		throws Exception;
+
 	public List<ProductPurchaseView> getProductPurchaseViews(
 			String search, String filterString, int page, int pageSize,
 			String sortString)

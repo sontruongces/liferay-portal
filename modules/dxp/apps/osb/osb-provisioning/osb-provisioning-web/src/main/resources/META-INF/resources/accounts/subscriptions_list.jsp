@@ -34,25 +34,25 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 	searchContainer="<%= viewAccountDisplayContext.getProductPurchaseViewsSearchContainer(state) %>"
 >
 	<liferay-ui:search-container-row
-		className="com.liferay.osb.provisioning.web.internal.display.context.ProductSubscriptionDisplay"
+		className="com.liferay.osb.provisioning.web.internal.display.context.ProductPurchaseViewDisplay"
 		escapedModel="<%= true %>"
-		modelVar="productSubscriptionDisplay"
+		modelVar="productPurchaseViewDisplay"
 	>
 		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcRenderCommandName" value="/accounts/view_product_subscription" />
+			<portlet:param name="mvcRenderCommandName" value="/accounts/view_subscription" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="accountKey" value="<%= productSubscriptionDisplay.getAccountKey() %>" />
-			<portlet:param name="productKey" value="<%= productSubscriptionDisplay.getProductKey() %>" />
+			<portlet:param name="accountKey" value="<%= productPurchaseViewDisplay.getAccountKey() %>" />
+			<portlet:param name="productKey" value="<%= productPurchaseViewDisplay.getProductKey() %>" />
 		</portlet:renderURL>
 
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
 			name="product"
 		>
-			<%= productSubscriptionDisplay.getName() %>
+			<%= productPurchaseViewDisplay.getName() %>
 
 			<div class="secondary-information">
-				<%= productSubscriptionDisplay.getSizing() %>
+				<%= productPurchaseViewDisplay.getSizingWithLabel() %>
 			</div>
 		</liferay-ui:search-container-column-text>
 
@@ -60,11 +60,11 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 			href="<%= rowURL %>"
 			name="support-life"
 		>
-			<%= productSubscriptionDisplay.getSupportLife() %>
+			<%= productPurchaseViewDisplay.getSupportLife() %>
 
-			<c:if test="<%= productSubscriptionDisplay.isInactive() && Validator.isNotNull(productSubscriptionDisplay.getNextTermStartDate()) %>">
+			<c:if test="<%= productPurchaseViewDisplay.isInactive() && Validator.isNotNull(productPurchaseViewDisplay.getNextTermStartDate()) %>">
 				<div class="secondary-information">
-					<liferay-ui:message key="next-term-starts" />: <%= productSubscriptionDisplay.getNextTermStartDate() %>
+					<liferay-ui:message key="next-term-starts" />: <%= productPurchaseViewDisplay.getNextTermStartDate() %>
 				</div>
 			</c:if>
 		</liferay-ui:search-container-column-text>
@@ -72,20 +72,20 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
 			name="provisioned"
-			value="<%= productSubscriptionDisplay.getProvisionedCount() %>"
+			value="<%= productPurchaseViewDisplay.getProvisionedCount() %>"
 		/>
 
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
 			name="purchased"
-			value="<%= productSubscriptionDisplay.getPurchasedCount() %>"
+			value="<%= productPurchaseViewDisplay.getPurchasedCount() %>"
 		/>
 
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
 			name="status"
 		>
-			<span class="label <%= productSubscriptionDisplay.getStatusStyle() %>"><%= productSubscriptionDisplay.getStatus() %></span>
+			<span class="label <%= productPurchaseViewDisplay.getStatusStyle() %>"><%= productPurchaseViewDisplay.getStatus() %></span>
 		</liferay-ui:search-container-column-text>
 	</liferay-ui:search-container-row>
 

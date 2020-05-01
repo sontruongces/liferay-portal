@@ -362,7 +362,7 @@ public class ViewAccountDisplayContext {
 		searchContainer.setResults(
 			TransformUtil.transform(
 				productPurchaseViews,
-				productPurchaseView -> new ProductSubscriptionDisplay(
+				productPurchaseView -> new ProductPurchaseViewDisplay(
 					httpServletRequest, account, productPurchaseView)));
 
 		int count =

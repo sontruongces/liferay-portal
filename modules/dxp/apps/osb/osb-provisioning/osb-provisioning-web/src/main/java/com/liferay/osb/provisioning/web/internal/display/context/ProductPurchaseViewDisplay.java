@@ -37,9 +37,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Amos Fong
  */
-public class ProductSubscriptionDisplay {
+public class ProductPurchaseViewDisplay {
 
-	public ProductSubscriptionDisplay(
+	public ProductPurchaseViewDisplay(
 		HttpServletRequest httpServletRequest, Account account,
 		ProductPurchaseView productPurchaseView) {
 
@@ -86,6 +86,26 @@ public class ProductSubscriptionDisplay {
 		return _account.getKey();
 	}
 
+	public String getGracePeriod() {
+		if (_perpetual) {
+			return StringPool.DASH;
+		}
+
+		StringBundler sb = new StringBundler(3);
+
+		sb.append(_dateFormat.format(_originalEndDate));
+		sb.append(" - ");
+
+		if (_endDate != null) {
+			sb.append(_dateFormat.format(_endDate));
+		}
+		else {
+			sb.append(LanguageUtil.get(_httpServletRequest, "perpetual"));
+		}
+
+		return sb.toString();
+	}
+
 	public String getName() {
 		return _product.getName();
 	}
@@ -111,6 +131,14 @@ public class ProductSubscriptionDisplay {
 	}
 
 	public String getSizing() {
+		if (_sizing > 0) {
+			return String.valueOf(_sizing);
+		}
+
+		return StringPool.DASH;
+	}
+
+	public String getSizingWithLabel() {
 		if (_sizing > 0) {
 			return LanguageUtil.get(_httpServletRequest, "instance-size") +
 				": " + _sizing;
@@ -184,6 +212,7 @@ public class ProductSubscriptionDisplay {
 
 		for (ProductPurchase productPurchase : productPurchases) {
 			Date startDate = productPurchase.getStartDate();
+			Date originalEndDate = productPurchase.getOriginalEndDate();
 			Date endDate = productPurchase.getEndDate();
 
 			if (startDate == null) {
@@ -195,6 +224,13 @@ public class ProductSubscriptionDisplay {
 				((_startDate == null) || startDate.before(_startDate))) {
 
 				_startDate = startDate;
+			}
+
+			if (!_perpetual &&
+				((_originalEndDate == null) ||
+				 originalEndDate.after(_originalEndDate))) {
+
+				_originalEndDate = originalEndDate;
 			}
 
 			if (!_perpetual &&
@@ -245,6 +281,7 @@ public class ProductSubscriptionDisplay {
 	private final HttpServletRequest _httpServletRequest;
 	private boolean _inSupportGap;
 	private Date _nextTermStartDate;
+	private Date _originalEndDate;
 	private boolean _perpetual;
 	private final Product _product;
 	private final int _provisionedCount;

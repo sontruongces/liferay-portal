@@ -29,6 +29,7 @@ import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountCont
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountLiferayWorkersDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountRelatedAccountsDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.ViewSubscriptionDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewTeamDisplayContext;
 
 import javax.portlet.RenderRequest;
@@ -101,6 +102,17 @@ public class ProvisioningWebComponentProvider {
 
 		return _provisioningWebComponentProvider.
 			_getViewAccountRelatedAccountsDisplayContext(
+				renderRequest, renderResponse, httpServletRequest);
+	}
+
+	public static ViewSubscriptionDisplayContext
+			getViewSubscriptionDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider.
+			_getViewSubscriptionDisplayContext(
 				renderRequest, renderResponse, httpServletRequest);
 	}
 
@@ -201,6 +213,16 @@ public class ProvisioningWebComponentProvider {
 		return _getViewAccountDisplayContext(
 			ViewAccountRelatedAccountsDisplayContext.class, renderRequest,
 			renderResponse, httpServletRequest);
+	}
+
+	private ViewSubscriptionDisplayContext _getViewSubscriptionDisplayContext(
+			RenderRequest renderRequest, RenderResponse renderResponse,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _getViewAccountDisplayContext(
+			ViewSubscriptionDisplayContext.class, renderRequest, renderResponse,
+			httpServletRequest);
 	}
 
 	private ViewTeamDisplayContext _getViewTeamDisplayContext(

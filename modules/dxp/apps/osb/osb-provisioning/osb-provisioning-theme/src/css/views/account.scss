@@ -21,7 +21,9 @@
 	max-width: 66.666667%;
 }
 
-.account-header {
+.account-header,
+.subscription-header,
+.team-header {
 	border-bottom: 1px solid $secondary-l3;
 
 	.account-code {
