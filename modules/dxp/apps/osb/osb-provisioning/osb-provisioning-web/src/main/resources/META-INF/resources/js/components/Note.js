@@ -44,14 +44,14 @@ function Note({note}) {
 	};
 
 	function handleArchive() {
-		const data = noteData({
+		const formData = noteData({
 			status:
 				status === NOTE_STATUS_APPROVED
 					? NOTE_STATUS_ARCHIVED
 					: NOTE_STATUS_APPROVED
 		});
 
-		postData(updateURL, data, 'formData')
+		postData(updateURL, formData, 'formData')
 			.then(({data}) => {
 				const noteFromAPI = NoteRecord({
 					id: data.note.key,
@@ -72,11 +72,11 @@ function Note({note}) {
 	}
 
 	function handlePinning() {
-		const data = noteData({
+		const formData = noteData({
 			priority: pinned ? NOTE_PRIORITY_UNPINNED : NOTE_PRIORITY_PINNED
 		});
 
-		postData(updateURL, data, 'formData')
+		postData(updateURL, formData, 'formData')
 			.then(({data}) => {
 				const noteFromAPI = NoteRecord({
 					id: data.note.key,
