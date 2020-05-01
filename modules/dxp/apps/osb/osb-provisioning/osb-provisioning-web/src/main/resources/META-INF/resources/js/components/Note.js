@@ -80,7 +80,7 @@ function Note({note}) {
 			.then(({data}) => {
 				const noteFromAPI = NoteRecord({
 					id: data.note.key,
-					pinned: data.note.priority === NOTE_PRIORITY_PINNED
+					pinned: data.note.pinned
 				});
 
 				pinNote(noteFromAPI.id, noteFromAPI.pinned);
