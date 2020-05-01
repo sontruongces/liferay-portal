@@ -34,15 +34,15 @@ PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 
 	<c:choose>
 		<c:when test='<%= tabs2.equals("all") %>'>
-			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>" />
+			<liferay-util:include page="/accounts/view_account_subscriptions_results.jsp" servletContext="<%= application %>" />
 		</c:when>
 		<c:when test='<%= tabs2.equals("inactive") %>'>
-			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
+			<liferay-util:include page="/accounts/view_account_subscriptions_results.jsp" servletContext="<%= application %>">
 				<liferay-util:param name="state" value="inactive" />
 			</liferay-util:include>
 		</c:when>
 		<c:otherwise>
-			<liferay-util:include page="/accounts/subscriptions_list.jsp" servletContext="<%= application %>">
+			<liferay-util:include page="/accounts/view_account_subscriptions_results.jsp" servletContext="<%= application %>">
 				<liferay-util:param name="state" value="active" />
 			</liferay-util:include>
 		</c:otherwise>
