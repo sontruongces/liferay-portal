@@ -244,43 +244,34 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		DataDefinition dataDefinition =
 			testGraphQLDataDefinition_addDataDefinition();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteDataDefinition",
-				new HashMap<String, Object>() {
-					{
-						put("dataDefinitionId", dataDefinition.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(dataJSONObject.getBoolean("deleteDataDefinition"));
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteDataDefinition",
+						new HashMap<String, Object>() {
+							{
+								put("dataDefinitionId", dataDefinition.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteDataDefinition"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"dataDefinition",
-					new HashMap<String, Object>() {
-						{
-							put("dataDefinitionId", dataDefinition.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"dataDefinition",
+						new HashMap<String, Object>() {
+							{
+								put("dataDefinitionId", dataDefinition.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -311,29 +302,23 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		DataDefinition dataDefinition =
 			testGraphQLDataDefinition_addDataDefinition();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"dataDefinition",
-				new HashMap<String, Object>() {
-					{
-						put("dataDefinitionId", dataDefinition.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				dataDefinition,
 				DataDefinitionSerDes.toDTO(
-					dataJSONObject.getString("dataDefinition"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"dataDefinition",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"dataDefinitionId",
+											dataDefinition.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/dataDefinition"))));
 	}
 
 	@Test
@@ -671,38 +656,22 @@ public abstract class BaseDataDefinitionResourceTestCase {
 	public void testGraphQLGetSiteDataDefinitionsPage() throws Exception {
 		Long siteId = testGetSiteDataDefinitionsPage_getSiteId();
 
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
-
-		graphQLFields.add(
-			new GraphQLField(
-				"items", itemsGraphQLFields.toArray(new GraphQLField[0])));
-
-		graphQLFields.add(new GraphQLField("page"));
-		graphQLFields.add(new GraphQLField("totalCount"));
-
 		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"dataDefinitions",
-				new HashMap<String, Object>() {
-					{
-						put("page", 1);
-						put("pageSize", 2);
+			"dataDefinitions",
+			new HashMap<String, Object>() {
+				{
+					put("page", 1);
+					put("pageSize", 2);
 
-						put("siteKey", "\"" + siteId + "\"");
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
+					put("siteKey", "\"" + siteId + "\"");
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		JSONObject dataDefinitionsJSONObject = dataJSONObject.getJSONObject(
-			"dataDefinitions");
+		JSONObject dataDefinitionsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/dataDefinitions");
 
 		Assert.assertEquals(0, dataDefinitionsJSONObject.get("totalCount"));
 
@@ -711,13 +680,9 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		DataDefinition dataDefinition2 =
 			testGraphQLDataDefinition_addDataDefinition();
 
-		jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		dataJSONObject = jsonObject.getJSONObject("data");
-
-		dataDefinitionsJSONObject = dataJSONObject.getJSONObject(
-			"dataDefinitions");
+		dataDefinitionsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/dataDefinitions");
 
 		Assert.assertEquals(2, dataDefinitionsJSONObject.get("totalCount"));
 
@@ -783,34 +748,28 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		DataDefinition dataDefinition =
 			testGraphQLDataDefinition_addDataDefinition();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"siteDataDefinition",
-				new HashMap<String, Object>() {
-					{
-						put(
-							"siteKey",
-							"\"" + dataDefinition.getSiteId() + "\"");
-						put(
-							"dataDefinitionKey",
-							dataDefinition.getDataDefinitionKey());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				dataDefinition,
 				DataDefinitionSerDes.toDTO(
-					dataJSONObject.getString("siteDataDefinition"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"siteDataDefinition",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"siteKey",
+											"\"" + dataDefinition.getSiteId() +
+												"\"");
+										put(
+											"dataDefinitionKey",
+											dataDefinition.
+												getDataDefinitionKey());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/siteDataDefinition"))));
 	}
 
 	protected void appendGraphQLFieldValue(StringBuilder sb, Object value)
@@ -870,6 +829,9 @@ public abstract class BaseDataDefinitionResourceTestCase {
 			DataDefinition dataDefinition)
 		throws Exception {
 
+		JSONDeserializer<DataDefinition> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
 		StringBuilder sb = new StringBuilder("{");
 
 		for (Field field :
@@ -897,30 +859,21 @@ public abstract class BaseDataDefinitionResourceTestCase {
 
 		graphQLFields.add(new GraphQLField("id"));
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"createSiteDataDefinition",
-				new HashMap<String, Object>() {
-					{
-						put("siteKey", "\"" + testGroup.getGroupId() + "\"");
-						put("dataDefinition", sb.toString());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONDeserializer<DataDefinition> jsonDeserializer =
-			JSONFactoryUtil.createJSONDeserializer();
-
-		String object = invoke(graphQLField.toString());
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(object);
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		return jsonDeserializer.deserialize(
-			String.valueOf(
-				dataJSONObject.getJSONObject("createSiteDataDefinition")),
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createSiteDataDefinition",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"siteKey",
+									"\"" + testGroup.getGroupId() + "\"");
+								put("dataDefinition", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createSiteDataDefinition"),
 			DataDefinition.class);
 	}
 
@@ -1156,9 +1109,7 @@ public abstract class BaseDataDefinitionResourceTestCase {
 					ReflectionUtil.getDeclaredFields(clazz));
 
 				graphQLFields.add(
-					new GraphQLField(
-						field.getName(),
-						childrenGraphQLFields.toArray(new GraphQLField[0])));
+					new GraphQLField(field.getName(), childrenGraphQLFields));
 			}
 		}
 
@@ -1560,6 +1511,26 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected DataDefinition randomDataDefinition() throws Exception {
 		return new DataDefinition() {
 			{
@@ -1601,9 +1572,22 @@ public abstract class BaseDataDefinitionResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1631,7 +1615,7 @@ public abstract class BaseDataDefinitionResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1647,7 +1631,7 @@ public abstract class BaseDataDefinitionResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

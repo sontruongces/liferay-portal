@@ -496,43 +496,34 @@ public abstract class BaseDataLayoutResourceTestCase {
 	public void testGraphQLDeleteDataLayout() throws Exception {
 		DataLayout dataLayout = testGraphQLDataLayout_addDataLayout();
 
-		GraphQLField graphQLField = new GraphQLField(
-			"mutation",
-			new GraphQLField(
-				"deleteDataLayout",
-				new HashMap<String, Object>() {
-					{
-						put("dataLayoutId", dataLayout.getId());
-					}
-				}));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(dataJSONObject.getBoolean("deleteDataLayout"));
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteDataLayout",
+						new HashMap<String, Object>() {
+							{
+								put("dataLayoutId", dataLayout.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteDataLayout"));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
 					"graphql.execution.SimpleDataFetcherExceptionHandler",
 					Level.WARN)) {
 
-			graphQLField = new GraphQLField(
-				"query",
-				new GraphQLField(
-					"dataLayout",
-					new HashMap<String, Object>() {
-						{
-							put("dataLayoutId", dataLayout.getId());
-						}
-					},
-					new GraphQLField("id")));
-
-			jsonObject = JSONFactoryUtil.createJSONObject(
-				invoke(graphQLField.toString()));
-
-			JSONArray errorsJSONArray = jsonObject.getJSONArray("errors");
+			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"dataLayout",
+						new HashMap<String, Object>() {
+							{
+								put("dataLayoutId", dataLayout.getId());
+							}
+						},
+						new GraphQLField("id"))),
+				"JSONArray/errors");
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
@@ -558,29 +549,21 @@ public abstract class BaseDataLayoutResourceTestCase {
 	public void testGraphQLGetDataLayout() throws Exception {
 		DataLayout dataLayout = testGraphQLDataLayout_addDataLayout();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"dataLayout",
-				new HashMap<String, Object>() {
-					{
-						put("dataLayoutId", dataLayout.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				dataLayout,
 				DataLayoutSerDes.toDTO(
-					dataJSONObject.getString("dataLayout"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"dataLayout",
+								new HashMap<String, Object>() {
+									{
+										put("dataLayoutId", dataLayout.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/dataLayout"))));
 	}
 
 	@Test
@@ -883,50 +866,31 @@ public abstract class BaseDataLayoutResourceTestCase {
 	public void testGraphQLGetSiteDataLayoutsPage() throws Exception {
 		Long siteId = testGetSiteDataLayoutsPage_getSiteId();
 
-		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		List<GraphQLField> itemsGraphQLFields = getGraphQLFields();
-
-		graphQLFields.add(
-			new GraphQLField(
-				"items", itemsGraphQLFields.toArray(new GraphQLField[0])));
-
-		graphQLFields.add(new GraphQLField("page"));
-		graphQLFields.add(new GraphQLField("totalCount"));
-
 		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"dataLayouts",
-				new HashMap<String, Object>() {
-					{
-						put("page", 1);
-						put("pageSize", 2);
+			"dataLayouts",
+			new HashMap<String, Object>() {
+				{
+					put("page", 1);
+					put("pageSize", 2);
 
-						put("siteKey", "\"" + siteId + "\"");
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
+					put("siteKey", "\"" + siteId + "\"");
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		JSONObject dataLayoutsJSONObject = dataJSONObject.getJSONObject(
-			"dataLayouts");
+		JSONObject dataLayoutsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/dataLayouts");
 
 		Assert.assertEquals(0, dataLayoutsJSONObject.get("totalCount"));
 
 		DataLayout dataLayout1 = testGraphQLDataLayout_addDataLayout();
 		DataLayout dataLayout2 = testGraphQLDataLayout_addDataLayout();
 
-		jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		dataJSONObject = jsonObject.getJSONObject("data");
-
-		dataLayoutsJSONObject = dataJSONObject.getJSONObject("dataLayouts");
+		dataLayoutsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/dataLayouts");
 
 		Assert.assertEquals(2, dataLayoutsJSONObject.get("totalCount"));
 
@@ -959,30 +923,27 @@ public abstract class BaseDataLayoutResourceTestCase {
 	public void testGraphQLGetSiteDataLayout() throws Exception {
 		DataLayout dataLayout = testGraphQLDataLayout_addDataLayout();
 
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"siteDataLayout",
-				new HashMap<String, Object>() {
-					{
-						put("siteKey", "\"" + dataLayout.getSiteId() + "\"");
-						put("dataLayoutKey", dataLayout.getDataLayoutKey());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
 		Assert.assertTrue(
 			equals(
 				dataLayout,
 				DataLayoutSerDes.toDTO(
-					dataJSONObject.getString("siteDataLayout"))));
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"siteDataLayout",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"siteKey",
+											"\"" + dataLayout.getSiteId() +
+												"\"");
+										put(
+											"dataLayoutKey",
+											dataLayout.getDataLayoutKey());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/siteDataLayout"))));
 	}
 
 	protected DataLayout testGraphQLDataLayout_addDataLayout()
@@ -1192,9 +1153,7 @@ public abstract class BaseDataLayoutResourceTestCase {
 					ReflectionUtil.getDeclaredFields(clazz));
 
 				graphQLFields.add(
-					new GraphQLField(
-						field.getName(),
-						childrenGraphQLFields.toArray(new GraphQLField[0])));
+					new GraphQLField(field.getName(), childrenGraphQLFields));
 			}
 		}
 
@@ -1542,6 +1501,26 @@ public abstract class BaseDataLayoutResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected DataLayout randomDataLayout() throws Exception {
 		return new DataLayout() {
 			{
@@ -1582,9 +1561,22 @@ public abstract class BaseDataLayoutResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1612,7 +1604,7 @@ public abstract class BaseDataLayoutResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1628,7 +1620,7 @@ public abstract class BaseDataLayoutResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 
