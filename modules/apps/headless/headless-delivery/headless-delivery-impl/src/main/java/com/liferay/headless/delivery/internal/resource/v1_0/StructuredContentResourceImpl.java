@@ -470,7 +470,8 @@ public class StructuredContentResourceImpl
 		notFoundLocales.addAll(friendlyUrlMap.keySet());
 
 		LocalizedMapUtil.validateI18n(
-			false, "Structured content", titleMap, notFoundLocales);
+			false, LocaleUtil.getSiteDefault(), "Structured content", titleMap,
+			notFoundLocales);
 
 		_validateContentFields(
 			structuredContent.getContentFields(), ddmStructure);
@@ -567,7 +568,8 @@ public class StructuredContentResourceImpl
 		notFoundLocales.addAll(friendlyUrlMap.keySet());
 
 		LocalizedMapUtil.validateI18n(
-			true, "Structured content", titleMap, notFoundLocales);
+			true, LocaleUtil.getSiteDefault(), "Structured content", titleMap,
+			notFoundLocales);
 
 		_validateContentFields(
 			structuredContent.getContentFields(), ddmStructure);
