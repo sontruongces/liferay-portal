@@ -275,7 +275,7 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 				new NaturalOrderStringComparator());
 
 			for (User user : users) {
-				pooledActors.put(user.getFullName(), user.getUserId());
+				pooledActors.put(user.getScreenName(), user.getUserId());
 			}
 
 			return ArrayUtil.toLongArray(pooledActors.values());
