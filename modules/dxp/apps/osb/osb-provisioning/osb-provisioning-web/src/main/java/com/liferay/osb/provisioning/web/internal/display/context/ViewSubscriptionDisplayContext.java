@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
+import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -124,6 +125,9 @@ public class ViewSubscriptionDisplayContext extends ViewAccountDisplayContext {
 
 			searchContainer.setTotal(productPurchases.length);
 		}
+
+		searchContainer.setRowChecker(
+			new EmptyOnClickRowChecker(renderResponse));
 
 		return searchContainer;
 	}
