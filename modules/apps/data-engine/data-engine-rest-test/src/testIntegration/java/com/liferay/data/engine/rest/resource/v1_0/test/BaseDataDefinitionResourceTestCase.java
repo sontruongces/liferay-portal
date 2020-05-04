@@ -764,8 +764,10 @@ public abstract class BaseDataDefinitionResourceTestCase {
 												"\"");
 										put(
 											"dataDefinitionKey",
-											dataDefinition.
-												getDataDefinitionKey());
+											"\"" +
+												dataDefinition.
+													getDataDefinitionKey() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),

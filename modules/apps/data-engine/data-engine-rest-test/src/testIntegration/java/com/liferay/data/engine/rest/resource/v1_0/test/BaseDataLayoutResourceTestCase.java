@@ -939,7 +939,9 @@ public abstract class BaseDataLayoutResourceTestCase {
 												"\"");
 										put(
 											"dataLayoutKey",
-											dataLayout.getDataLayoutKey());
+											"\"" +
+												dataLayout.getDataLayoutKey() +
+													"\"");
 									}
 								},
 								getGraphQLFields())),

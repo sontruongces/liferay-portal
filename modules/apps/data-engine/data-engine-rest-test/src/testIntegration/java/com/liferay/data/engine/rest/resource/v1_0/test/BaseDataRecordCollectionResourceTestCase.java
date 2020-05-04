@@ -790,8 +790,10 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 													getSiteId() + "\"");
 										put(
 											"dataRecordCollectionKey",
-											dataRecordCollection.
-												getDataRecordCollectionKey());
+											"\"" +
+												dataRecordCollection.
+													getDataRecordCollectionKey() +
+														"\"");
 									}
 								},
 								getGraphQLFields())),
