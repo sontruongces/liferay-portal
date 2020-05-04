@@ -19,6 +19,7 @@ import com.liferay.petra.encryptor.EncryptorException;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.NoSuchGroupException;
 import com.liferay.portal.kernel.exception.NoSuchLayoutException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -316,17 +317,10 @@ public class FriendlyURLServlet extends HttpServlet {
 		if ((layout != null) &&
 			Objects.equals(layout.getType(), LayoutConstants.TYPE_URL)) {
 
-			Map<String, String[]> parameterMap =
-				httpServletRequest.getParameterMap();
-
-			if (parameterMap != null) {
-				for (Map.Entry<String, String[]> entry :
-						parameterMap.entrySet()) {
-
-					actualURL = HttpUtil.setParameter(
-						actualURL, entry.getKey(), entry.getValue()[0]);
-				}
-			}
+			actualURL = actualURL.concat(
+				HttpUtil.parameterMapToString(
+					httpServletRequest.getParameterMap(),
+					!actualURL.contains(StringPool.QUESTION)));
 		}
 
 		return new Redirect(actualURL);
