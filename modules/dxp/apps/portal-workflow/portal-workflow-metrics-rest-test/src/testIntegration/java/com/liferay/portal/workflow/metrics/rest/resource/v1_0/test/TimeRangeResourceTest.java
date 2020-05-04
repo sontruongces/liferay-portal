@@ -52,13 +52,12 @@ public class TimeRangeResourceTest extends BaseTimeRangeResourceTestCase {
 	@Override
 	@Test
 	public void testGraphQLGetTimeRangesPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"timeRanges", new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
 		JSONObject timeRangesJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/timeRanges");
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"timeRanges", new GraphQLField("items", getGraphQLFields()),
+					new GraphQLField("page"), new GraphQLField("totalCount"))),
+			"JSONObject/data", "JSONObject/timeRanges");
 
 		Assert.assertEquals(7, timeRangesJSONObject.get("totalCount"));
 
