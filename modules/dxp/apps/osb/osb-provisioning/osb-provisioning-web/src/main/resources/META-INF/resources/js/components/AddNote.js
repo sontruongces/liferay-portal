@@ -9,6 +9,7 @@
  * distribution rights of the Software.
  */
 
+import ClayLoadingIndicator from '@clayui/loading-indicator';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
@@ -82,13 +83,12 @@ function AddNote({
 
 				if (actionType === EDIT_NOTE) {
 					editNote(noteFromAPI.id, noteFromAPI.content);
-				}
-				else {
+				} else {
 					addNote(noteFromAPI);
 				}
 
-				setSavingNote(false);
-				handleCancel();
+				// setSavingNote(false);
+				// handleCancel();
 			})
 			.catch(err => console.error(err));
 	}
@@ -137,6 +137,12 @@ function AddNote({
 					>
 						{Liferay.Language.get('save')}
 					</button>
+
+					{savingNote && (
+						<div className="confirmation">
+							<ClayLoadingIndicator small />
+						</div>
+					)}
 				</div>
 			)}
 		</form>
