@@ -85,9 +85,11 @@ describe('Note', () => {
 	});
 
 	it('displays a note with the create date', () => {
-		const {getAllByText} = renderNote({createDate: 'Today'});
+		const {getAllByText} = renderNote({
+			createDate: 'May 01, 2020 12:10 AM'
+		});
 
-		getAllByText('Today');
+		getAllByText('May 01, 2020 12:10 AM');
 	});
 
 	it('displays a three-dot menu icon', () => {

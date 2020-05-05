@@ -9,7 +9,7 @@
  * distribution rights of the Software.
  */
 
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {cleanup, fireEvent, render, within} from '@testing-library/react';
 import React from 'react';
 
 import NotesTabPane from '../../src/main/resources/META-INF/resources/js/components/NotesTabPane';
@@ -25,13 +25,26 @@ import {
 function mockNotes({type}) {
 	return [
 		{
-			createDate: new Date().toLocaleString('en-US'),
+			createDate: 'Apr 30, 2020 11:53 PM',
 			creatorName: 'Jane Doe',
 			creatorPortraitURL: '/',
 			edited: false,
 			format: NOTE_FORMAT_HTML,
-			htmlContent: '<div>pinned note</div>',
+			htmlContent: '<div>a pinned note</div>',
 			key: '123',
+			pinned: true,
+			status: NOTE_STATUS_APPROVED,
+			type,
+			updateNoteURL: '/'
+		},
+		{
+			createDate: 'May 01, 2020 12:10 AM',
+			creatorName: 'Jane Doe',
+			creatorPortraitURL: '/',
+			edited: false,
+			format: NOTE_FORMAT_HTML,
+			htmlContent: '<div>top most note</div>',
+			key: '321',
 			pinned: true,
 			status: NOTE_STATUS_APPROVED,
 			type,
@@ -43,7 +56,7 @@ function mockNotes({type}) {
 			creatorPortraitURL: '/',
 			edited: false,
 			format: NOTE_FORMAT_HTML,
-			htmlContent: '<div>unpinned note</div>',
+			htmlContent: '<div>an unpinned note</div>',
 			key: '456',
 			pinned: false,
 			status: NOTE_STATUS_APPROVED,
@@ -56,7 +69,7 @@ function mockNotes({type}) {
 			creatorPortraitURL: '/',
 			edited: false,
 			format: NOTE_FORMAT_HTML,
-			htmlContent: '<div>archived note</div>',
+			htmlContent: '<div>an archived note</div>',
 			key: '789',
 			pinned: false,
 			status: NOTE_STATUS_ARCHIVED,
@@ -87,28 +100,35 @@ describe('NotesTabPane', () => {
 		expect(container).toBeTruthy();
 	});
 
+	it('renders latest notes first', () => {
+		const {container} = renderNotesTabPane();
+
+		const notes = container.querySelectorAll('.note');
+
+		within(notes.item(0)).getByText('May 01, 2020 12:10 AM');
+		within(notes.item(1)).getByText('Apr 30, 2020 11:53 PM');
+	});
+
 	describe('approved notes', () => {
 		it('displays a pinned general note in a "Pinned" section', () => {
 			const {getByText} = renderNotesTabPane();
 
 			getByText('pinned');
-			getByText('pinned note');
+			getByText('a pinned note');
 		});
 
 		it('displays an approved general note in a "General" section', () => {
 			const {getByText} = renderNotesTabPane();
 
 			getByText('general');
-			getByText('unpinned note');
+			getByText('an unpinned note');
 		});
 
-		it('displays a sales note with no special section', () => {
-			const {getByText, queryByText} = renderNotesTabPane({
+		it('displays a sales note with no pinned or general section', () => {
+			const {queryByText} = renderNotesTabPane({
 				type: NOTE_TYPE_SALES
 			});
 
-			getByText('pinned note');
-			getByText('unpinned note');
 			expect(queryByText('pinned')).toBeFalsy();
 			expect(queryByText('general')).toBeFalsy();
 		});
@@ -155,7 +175,7 @@ describe('NotesTabPane', () => {
 
 			fireEvent.click(getByText('view-archived-notes'));
 
-			getByText('archived note');
+			getByText('an archived note');
 		});
 
 		it('displays a heading', () => {
