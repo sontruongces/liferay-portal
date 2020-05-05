@@ -15,6 +15,7 @@
 package com.liferay.data.engine.rest.client.resource.v1_0;
 
 import com.liferay.data.engine.rest.client.dto.v1_0.DataRecordCollection;
+import com.liferay.data.engine.rest.client.dto.v1_0.DataRecordCollectionPermission;
 import com.liferay.data.engine.rest.client.http.HttpInvoker;
 import com.liferay.data.engine.rest.client.pagination.Page;
 import com.liferay.data.engine.rest.client.pagination.Pagination;
@@ -111,30 +112,24 @@ public interface DataRecordCollectionResource {
 
 	public void postDataRecordCollectionDataRecordCollectionPermission(
 			Long dataRecordCollectionId, String operation,
-			com.liferay.data.engine.rest.client.dto.v1_0.
-				DataRecordCollectionPermission dataRecordCollectionPermission)
+			DataRecordCollectionPermission dataRecordCollectionPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postDataRecordCollectionDataRecordCollectionPermissionHttpResponse(
 				Long dataRecordCollectionId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataRecordCollectionPermission
-						dataRecordCollectionPermission)
+				DataRecordCollectionPermission dataRecordCollectionPermission)
 		throws Exception;
 
 	public void postSiteDataRecordCollectionPermission(
 			Long siteId, String operation,
-			com.liferay.data.engine.rest.client.dto.v1_0.
-				DataRecordCollectionPermission dataRecordCollectionPermission)
+			DataRecordCollectionPermission dataRecordCollectionPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postSiteDataRecordCollectionPermissionHttpResponse(
 				Long siteId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataRecordCollectionPermission
-						dataRecordCollectionPermission)
+				DataRecordCollectionPermission dataRecordCollectionPermission)
 		throws Exception;
 
 	public Page<DataRecordCollection> getSiteDataRecordCollectionsPage(
@@ -741,9 +736,7 @@ public interface DataRecordCollectionResource {
 
 		public void postDataRecordCollectionDataRecordCollectionPermission(
 				Long dataRecordCollectionId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataRecordCollectionPermission
-						dataRecordCollectionPermission)
+				DataRecordCollectionPermission dataRecordCollectionPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -774,9 +767,8 @@ public interface DataRecordCollectionResource {
 		public HttpInvoker.HttpResponse
 				postDataRecordCollectionDataRecordCollectionPermissionHttpResponse(
 					Long dataRecordCollectionId, String operation,
-					com.liferay.data.engine.rest.client.dto.v1_0.
-						DataRecordCollectionPermission
-							dataRecordCollectionPermission)
+					DataRecordCollectionPermission
+						dataRecordCollectionPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -821,9 +813,7 @@ public interface DataRecordCollectionResource {
 
 		public void postSiteDataRecordCollectionPermission(
 				Long siteId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataRecordCollectionPermission
-						dataRecordCollectionPermission)
+				DataRecordCollectionPermission dataRecordCollectionPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -853,9 +843,8 @@ public interface DataRecordCollectionResource {
 		public HttpInvoker.HttpResponse
 				postSiteDataRecordCollectionPermissionHttpResponse(
 					Long siteId, String operation,
-					com.liferay.data.engine.rest.client.dto.v1_0.
-						DataRecordCollectionPermission
-							dataRecordCollectionPermission)
+					DataRecordCollectionPermission
+						dataRecordCollectionPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();

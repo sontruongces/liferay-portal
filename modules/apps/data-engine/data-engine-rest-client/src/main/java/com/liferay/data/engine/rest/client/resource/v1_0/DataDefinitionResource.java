@@ -15,6 +15,7 @@
 package com.liferay.data.engine.rest.client.resource.v1_0;
 
 import com.liferay.data.engine.rest.client.dto.v1_0.DataDefinition;
+import com.liferay.data.engine.rest.client.dto.v1_0.DataDefinitionPermission;
 import com.liferay.data.engine.rest.client.http.HttpInvoker;
 import com.liferay.data.engine.rest.client.pagination.Page;
 import com.liferay.data.engine.rest.client.pagination.Pagination;
@@ -84,28 +85,24 @@ public interface DataDefinitionResource {
 
 	public void postDataDefinitionDataDefinitionPermission(
 			Long dataDefinitionId, String operation,
-			com.liferay.data.engine.rest.client.dto.v1_0.
-				DataDefinitionPermission dataDefinitionPermission)
+			DataDefinitionPermission dataDefinitionPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postDataDefinitionDataDefinitionPermissionHttpResponse(
 				Long dataDefinitionId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataDefinitionPermission dataDefinitionPermission)
+				DataDefinitionPermission dataDefinitionPermission)
 		throws Exception;
 
 	public void postSiteDataDefinitionPermission(
 			Long siteId, String operation,
-			com.liferay.data.engine.rest.client.dto.v1_0.
-				DataDefinitionPermission dataDefinitionPermission)
+			DataDefinitionPermission dataDefinitionPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postSiteDataDefinitionPermissionHttpResponse(
 				Long siteId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataDefinitionPermission dataDefinitionPermission)
+				DataDefinitionPermission dataDefinitionPermission)
 		throws Exception;
 
 	public Page<DataDefinition> getSiteDataDefinitionsPage(
@@ -568,8 +565,7 @@ public interface DataDefinitionResource {
 
 		public void postDataDefinitionDataDefinitionPermission(
 				Long dataDefinitionId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataDefinitionPermission dataDefinitionPermission)
+				DataDefinitionPermission dataDefinitionPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -599,8 +595,7 @@ public interface DataDefinitionResource {
 		public HttpInvoker.HttpResponse
 				postDataDefinitionDataDefinitionPermissionHttpResponse(
 					Long dataDefinitionId, String operation,
-					com.liferay.data.engine.rest.client.dto.v1_0.
-						DataDefinitionPermission dataDefinitionPermission)
+					DataDefinitionPermission dataDefinitionPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -645,8 +640,7 @@ public interface DataDefinitionResource {
 
 		public void postSiteDataDefinitionPermission(
 				Long siteId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataDefinitionPermission dataDefinitionPermission)
+				DataDefinitionPermission dataDefinitionPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -676,8 +670,7 @@ public interface DataDefinitionResource {
 		public HttpInvoker.HttpResponse
 				postSiteDataDefinitionPermissionHttpResponse(
 					Long siteId, String operation,
-					com.liferay.data.engine.rest.client.dto.v1_0.
-						DataDefinitionPermission dataDefinitionPermission)
+					DataDefinitionPermission dataDefinitionPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();

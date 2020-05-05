@@ -259,10 +259,6 @@ public abstract class BaseExperimentResourceImpl
 			actionName, siteId, methodName, null, permissionName, siteId);
 	}
 
-	protected void preparePatch(
-		Experiment experiment, Experiment existingExperiment) {
-	}
-
 	protected <T, R> List<R> transform(
 		java.util.Collection<T> collection,
 		UnsafeFunction<T, R, Exception> unsafeFunction) {

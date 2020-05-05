@@ -15,6 +15,7 @@
 package com.liferay.data.engine.rest.client.resource.v1_0;
 
 import com.liferay.data.engine.rest.client.dto.v1_0.DataLayout;
+import com.liferay.data.engine.rest.client.dto.v1_0.DataLayoutPermission;
 import com.liferay.data.engine.rest.client.http.HttpInvoker;
 import com.liferay.data.engine.rest.client.pagination.Page;
 import com.liferay.data.engine.rest.client.pagination.Pagination;
@@ -102,27 +103,23 @@ public interface DataLayoutResource {
 
 	public void postDataLayoutDataLayoutPermission(
 			Long dataLayoutId, String operation,
-			com.liferay.data.engine.rest.client.dto.v1_0.DataLayoutPermission
-				dataLayoutPermission)
+			DataLayoutPermission dataLayoutPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			postDataLayoutDataLayoutPermissionHttpResponse(
 				Long dataLayoutId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataLayoutPermission dataLayoutPermission)
+				DataLayoutPermission dataLayoutPermission)
 		throws Exception;
 
 	public void postSiteDataLayoutPermission(
 			Long siteId, String operation,
-			com.liferay.data.engine.rest.client.dto.v1_0.DataLayoutPermission
-				dataLayoutPermission)
+			DataLayoutPermission dataLayoutPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse postSiteDataLayoutPermissionHttpResponse(
 			Long siteId, String operation,
-			com.liferay.data.engine.rest.client.dto.v1_0.DataLayoutPermission
-				dataLayoutPermission)
+			DataLayoutPermission dataLayoutPermission)
 		throws Exception;
 
 	public Page<DataLayout> getSiteDataLayoutsPage(
@@ -712,8 +709,7 @@ public interface DataLayoutResource {
 
 		public void postDataLayoutDataLayoutPermission(
 				Long dataLayoutId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataLayoutPermission dataLayoutPermission)
+				DataLayoutPermission dataLayoutPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -743,8 +739,7 @@ public interface DataLayoutResource {
 		public HttpInvoker.HttpResponse
 				postDataLayoutDataLayoutPermissionHttpResponse(
 					Long dataLayoutId, String operation,
-					com.liferay.data.engine.rest.client.dto.v1_0.
-						DataLayoutPermission dataLayoutPermission)
+					DataLayoutPermission dataLayoutPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -789,8 +784,7 @@ public interface DataLayoutResource {
 
 		public void postSiteDataLayoutPermission(
 				Long siteId, String operation,
-				com.liferay.data.engine.rest.client.dto.v1_0.
-					DataLayoutPermission dataLayoutPermission)
+				DataLayoutPermission dataLayoutPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -820,8 +814,7 @@ public interface DataLayoutResource {
 		public HttpInvoker.HttpResponse
 				postSiteDataLayoutPermissionHttpResponse(
 					Long siteId, String operation,
-					com.liferay.data.engine.rest.client.dto.v1_0.
-						DataLayoutPermission dataLayoutPermission)
+					DataLayoutPermission dataLayoutPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
