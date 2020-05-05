@@ -37,6 +37,19 @@
 	.confirmation {
 		display: inline-block;
 		vertical-align: middle;
+
+		svg {
+			margin-right: $spacing-xs;
+			width: $spacing-md;
+		}
+
+		&.confirmation-failed {
+			color: $danger;
+		}
+
+		&.confirmation-successful {
+			color: $success;
+		}
 	}
 
 	.nav-underline {

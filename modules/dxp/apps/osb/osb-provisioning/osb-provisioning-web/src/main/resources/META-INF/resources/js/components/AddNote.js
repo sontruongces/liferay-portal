@@ -28,6 +28,9 @@ import {
 } from '../utilities/constants';
 import {postData} from '../utilities/helpers';
 
+const FAILED = 'FAILED';
+const SUCCESSFUL = 'SUCCESSFUL';
+
 function AddNote({
 	actionURL = '',
 	content = '',
@@ -39,6 +42,7 @@ function AddNote({
 	type = NOTE_TYPE_GENERAL
 }) {
 	const [localContent, setLocalContent] = useState(content);
+	const [responseStatus, setResponseStatus] = useState('');
 	const [savingNote, setSavingNote] = useState(false);
 	const [showButtons, setShowButtons] = useState(!!content);
 	const [, {addNote, editNote}] = useNotes();
@@ -83,14 +87,26 @@ function AddNote({
 
 				if (actionType === EDIT_NOTE) {
 					editNote(noteFromAPI.id, noteFromAPI.content);
-				} else {
+				}
+				else {
 					addNote(noteFromAPI);
 				}
 
-				// setSavingNote(false);
-				// handleCancel();
+				setSavingNote(false);
+				setResponseStatus(SUCCESSFUL);
+
+				setTimeout(() => {
+					setResponseStatus('');
+
+					handleCancel();
+				}, 500);
 			})
-			.catch(err => console.error(err));
+			.catch(err => {
+				console.error(err);
+
+				setSavingNote(false);
+				setResponseStatus(FAILED);
+			});
 	}
 
 	return (
@@ -141,6 +157,36 @@ function AddNote({
 					{savingNote && (
 						<div className="confirmation">
 							<ClayLoadingIndicator small />
+						</div>
+					)}
+
+					{responseStatus === SUCCESSFUL && (
+						<div className="confirmation confirmation-successful">
+							<svg
+								aria-label={Liferay.Language.get(
+									'saving-successful-icon'
+								)}
+							>
+								<use xlinkHref="#check-circle-full" />
+							</svg>
+
+							{Liferay.Language.get('saved')}
+						</div>
+					)}
+
+					{responseStatus === FAILED && (
+						<div className="confirmation confirmation-failed">
+							<svg
+								aria-label={Liferay.Language.get(
+									'saving-unsuccessful-icon'
+								)}
+							>
+								<use xlinkHref="#exclaimation-full" />
+							</svg>
+
+							{Liferay.Language.get(
+								"couldn't-save-please-try-again"
+							)}
 						</div>
 					)}
 				</div>
