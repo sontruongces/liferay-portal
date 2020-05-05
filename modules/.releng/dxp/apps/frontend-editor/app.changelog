@@ -76,3 +76,20 @@ app.artifacts-2.0.4=\
 app.change.log-2.0.4=LPS-102655 LPS-103302 LPS-103966 LPS-105380 LPS-106574 LPS-106830 LPS-98032 LPS-98135
 
 app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
+
+#
+# Liferay App Version 2.0.5
+#
+
+app.artifacts-2.0.5=\
+	com.liferay.frontend.editor.alloyeditor.web-3.0.29.jar,\
+	com.liferay.frontend.editor.api-4.0.3.jar,\
+	com.liferay.frontend.editor.ckeditor.web-3.0.28.jar,\
+	com.liferay.frontend.editor.lang-4.0.11.jar,\
+	com.liferay.frontend.editor.simple.web-3.0.12.jar,\
+	com.liferay.frontend.editor.taglib-2.0.10.jar,\
+	com.liferay.frontend.editor.tinymce.web-3.0.18.jar
+
+app.change.log-2.0.5=LPS-102655 LPS-103302 LPS-105147 LPS-105380 LPS-107869 LPS-108850 LPS-110117 LPS-110498 LPS-111213 LPS-112082 LPS-77699 LPS-98135 LRQA-51488
+
+app.git.id-2.0.5=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1

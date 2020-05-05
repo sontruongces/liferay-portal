@@ -172,3 +172,45 @@ app.artifacts-2.0.4=\
 app.change.log-2.0.4=LPS-102159 LPS-102481 LPS-103252 LPS-103302 LPS-103581 LPS-103853 LPS-103981 LPS-104004 LPS-104349 LPS-105035 LPS-105380 LPS-105565 LPS-105916 LPS-106321 LPS-77425 LPS-77699 LPS-80332 LPS-80517 LPS-80843 LPS-81106 LPS-81828 LPS-82828 LPS-83244 LPS-84119 LPS-84435 LPS-84513 LPS-85296 LPS-86090 LPS-88683 LPS-90186 LPS-93032 LPS-95083 LPS-95555 LPS-96012 LPS-96981 LRDOCS-7139 OAUTH2-144
 
 app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
+
+#
+# Liferay App Version 2.0.5
+#
+
+app.artifacts-2.0.5=\
+	com.liferay.portal.aop.api-1.0.3.jar,\
+	com.liferay.portal.aop.impl-1.0.7.jar,\
+	com.liferay.portal.async.advice-1.0.16.jar,\
+	com.liferay.portal.cluster.multiple-3.0.22.jar,\
+	com.liferay.portal.compound.session.id-4.0.10.jar,\
+	com.liferay.portal.custom.jsp.bag.api-3.0.4.jar,\
+	com.liferay.portal.dao.orm.custom.sql.api-2.0.3.jar,\
+	com.liferay.portal.dao.orm.custom.sql.impl-2.0.11.jar,\
+	com.liferay.portal.error.code-1.0.7.jar,\
+	com.liferay.portal.executor-4.0.4.jar,\
+	com.liferay.portal.inactive.request.handler-2.0.15.jar,\
+	com.liferay.portal.init.servlet.filter-4.0.10.jar,\
+	com.liferay.portal.instance.lifecycle.api-2.0.4.jar,\
+	com.liferay.portal.instance.lifecycle.impl-2.0.6.jar,\
+	com.liferay.portal.jmx-6.0.6.jar,\
+	com.liferay.portal.jmx.api-3.0.1.jar,\
+	com.liferay.portal.license.deployer-3.0.19.jar,\
+	com.liferay.portal.messaging-6.0.15.jar,\
+	com.liferay.portal.monitoring-7.0.18.jar,\
+	com.liferay.portal.output.stream.container-5.0.7.jar,\
+	com.liferay.portal.output.stream.container.api-3.1.1.jar,\
+	com.liferay.portal.pop.notifications-4.0.7.jar,\
+	com.liferay.portal.properties.swapper-3.0.6.jar,\
+	com.liferay.portal.spring.extender.api-4.0.2.jar,\
+	com.liferay.portal.spring.extender.impl-2.0.12.jar,\
+	com.liferay.portal.uad-4.0.7.jar,\
+	com.liferay.portal.upgrade.api-3.3.6.jar,\
+	com.liferay.portal.upgrade.impl-3.0.17.jar,\
+	com.liferay.portal.upload-2.0.19.jar,\
+	com.liferay.portal.verify.extender-5.0.13.jar,\
+	com.liferay.portal.virtual.host.impl-1.0.2.jar,\
+	com.liferay.portal.weblogic.support-4.0.8.jar
+
+app.change.log-2.0.5=LPS-102159 LPS-102481 LPS-103302 LPS-105380 LPS-106321 LPS-107697 LPS-107845 LPS-108285 LPS-108461 LPS-108986 LPS-109315 LPS-109475 LPS-110376 LPS-111631 LPS-111694 LPS-111695 LPS-111697 LPS-112764 LPS-77425 LPS-77699 LPS-80332 LPS-80517 LPS-80843 LPS-81106 LPS-82828 LPS-83244 LPS-84119 LPS-84513 LPS-85296 LPS-86090 LPS-95083 LPS-95555 LPS-96012 LPS-96981 LPS-98866 LRDOCS-7139 LRQA-51488 LRQA-55436 OAUTH2-144
+
+app.git.id-2.0.5=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1

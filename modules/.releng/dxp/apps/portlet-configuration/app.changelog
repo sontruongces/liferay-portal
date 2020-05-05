@@ -104,3 +104,27 @@ app.artifacts-2.0.4=\
 app.change.log-2.0.4=LPS-100448 LPS-103252 LPS-103302 LPS-103511 LPS-105380 LPS-77425 LPS-77699 LPS-79653 LPS-80332 LPS-98032 LPS-98877 LPS-98879
 
 app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
+
+#
+# Liferay App Version 2.0.5
+#
+
+app.artifacts-2.0.5=\
+	com.liferay.portlet.configuration.css.web-4.0.22.jar,\
+	com.liferay.portlet.configuration.icon.close-4.0.6.jar,\
+	com.liferay.portlet.configuration.icon.edit-4.0.6.jar,\
+	com.liferay.portlet.configuration.icon.edit.defaults-4.0.6.jar,\
+	com.liferay.portlet.configuration.icon.edit.guest-4.0.6.jar,\
+	com.liferay.portlet.configuration.icon.help-4.0.6.jar,\
+	com.liferay.portlet.configuration.icon.locator.impl-2.0.6.jar,\
+	com.liferay.portlet.configuration.icon.maximize-4.0.8.jar,\
+	com.liferay.portlet.configuration.icon.minimize-4.0.8.jar,\
+	com.liferay.portlet.configuration.icon.print-4.0.6.jar,\
+	com.liferay.portlet.configuration.icon.refresh-4.0.6.jar,\
+	com.liferay.portlet.configuration.sharing.web-4.0.14.jar,\
+	com.liferay.portlet.configuration.toolbar.contributor.locator.impl-2.0.7.jar,\
+	com.liferay.portlet.configuration.web-3.0.30.jar
+
+app.change.log-2.0.5=LPS-100448 LPS-103302 LPS-105380 LPS-107255 LPS-107697 LPS-109103 LPS-77425 LPS-79653 LPS-80332 LPS-98877 LPS-98879 LRQA-51488
+
+app.git.id-2.0.5=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1

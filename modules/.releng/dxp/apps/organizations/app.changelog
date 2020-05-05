@@ -64,3 +64,17 @@ app.artifacts-2.0.4=\
 app.change.log-2.0.4=LPS-103252 LPS-103302 LPS-105380 LPS-95555 LPS-98032
 
 app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
+
+#
+# Liferay App Version 2.0.5
+#
+
+app.artifacts-2.0.5=\
+	com.liferay.organizations.api-4.0.5.jar,\
+	com.liferay.organizations.item.selector.api-2.0.3.jar,\
+	com.liferay.organizations.item.selector.web-2.0.11.jar,\
+	com.liferay.organizations.service-2.0.17.jar
+
+app.change.log-2.0.5=LPS-103252 LPS-103302 LPS-105380 LPS-105477 LPS-107697 LPS-109111 LPS-95555 LRQA-51488
+
+app.git.id-2.0.5=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1

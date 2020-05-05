@@ -64,3 +64,17 @@ app.artifacts-2.0.4=\
 app.change.log-2.0.4=LPS-102554 LPS-102655 LPS-103252 LPS-103302 LPS-104559 LPS-105380 LPS-106666 LPS-63259
 
 app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
+
+#
+# Liferay App Version 2.0.5
+#
+
+app.artifacts-2.0.5=\
+	com.liferay.flags.api-4.0.14.jar,\
+	com.liferay.flags.service-4.0.16.jar,\
+	com.liferay.flags.taglib-4.2.10.jar,\
+	com.liferay.flags.web-4.0.14.jar
+
+app.change.log-2.0.5=LPS-102554 LPS-103587 LPS-105147 LPS-105380 LPS-106666 LPS-107541 LPS-107545 LPS-107697 LPS-110165 LPS-110405 LPS-77699 LRQA-51488
+
+app.git.id-2.0.5=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1

@@ -151,3 +151,39 @@ app.artifacts-2.0.4=\
 app.change.log-2.0.4=LPS-100838 LPS-101762 LPS-102266 LPS-102838 LPS-103252 LPS-103302 LPS-103511 LPS-103514 LPS-103604 LPS-103676 LPS-104119 LPS-104129 LPS-104297 LPS-104756 LPS-105248 LPS-105380 LPS-105745 LPS-106110 LPS-106302 LPS-106465 LPS-106662 LPS-106666 LPS-77425 LPS-77699 LPS-80332 LPS-84119 LPS-95096 LPS-95555 LPS-95571 LPS-98032
 
 app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
+
+#
+# Liferay App Version 2.0.5
+#
+
+app.artifacts-2.0.5=\
+	com.liferay.layout.admin.api-2.0.2.jar,\
+	com.liferay.layout.admin.web-3.0.75.jar,\
+	com.liferay.layout.api-5.0.3.jar,\
+	com.liferay.layout.content.page.editor.api-1.1.1.jar,\
+	com.liferay.layout.content.page.editor.web-1.0.70.jar,\
+	com.liferay.layout.impl-4.0.27.jar,\
+	com.liferay.layout.item.selector.api-3.0.3.jar,\
+	com.liferay.layout.item.selector.web-3.0.9.jar,\
+	com.liferay.layout.page.template.api-2.4.6.jar,\
+	com.liferay.layout.page.template.service-2.1.31.jar,\
+	com.liferay.layout.prototype.api-3.0.1.jar,\
+	com.liferay.layout.prototype.impl-3.0.10.jar,\
+	com.liferay.layout.seo.api-1.1.5.jar,\
+	com.liferay.layout.seo.service-1.0.13.jar,\
+	com.liferay.layout.set.prototype.api-3.0.1.jar,\
+	com.liferay.layout.set.prototype.impl-4.0.10.jar,\
+	com.liferay.layout.set.prototype.web-3.0.15.jar,\
+	com.liferay.layout.taglib-4.1.20.jar,\
+	com.liferay.layout.type.controller.asset.display-2.0.10.jar,\
+	com.liferay.layout.type.controller.content-2.0.25.jar,\
+	com.liferay.layout.type.controller.control.panel-4.0.7.jar,\
+	com.liferay.layout.type.controller.display.page-1.0.33.jar,\
+	com.liferay.layout.type.controller.full.page.application-4.0.12.jar,\
+	com.liferay.layout.type.controller.link.to.page-2.0.13.jar,\
+	com.liferay.layout.type.controller.node-4.0.12.jar,\
+	com.liferay.layout.uad-4.0.4.jar
+
+app.change.log-2.0.5=LPS-100838 LPS-102951 LPS-103302 LPS-103846 LPS-104567 LPS-104679 LPS-104944 LPS-105108 LPS-105147 LPS-105248 LPS-105255 LPS-105380 LPS-105826 LPS-106070 LPS-106140 LPS-106151 LPS-106211 LPS-106469 LPS-106651 LPS-106666 LPS-107255 LPS-107321 LPS-107541 LPS-107545 LPS-107677 LPS-107697 LPS-108113 LPS-108120 LPS-108386 LPS-108458 LPS-108846 LPS-109177 LPS-109645 LPS-109848 LPS-109985 LPS-109995 LPS-110165 LPS-110168 LPS-110207 LPS-110405 LPS-110419 LPS-110552 LPS-110597 LPS-111421 LPS-112258 LPS-112643 LPS-44217 LPS-77425 LPS-77699 LPS-79546 LPS-80332 LPS-82798 LPS-95096 LPS-95555 LRQA-51488
+
+app.git.id-2.0.5=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1

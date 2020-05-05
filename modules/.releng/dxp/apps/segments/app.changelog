@@ -85,3 +85,23 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-102367 LPS-102481 LPS-102577 LPS-102655 LPS-103252 LPS-103302 LPS-103511 LPS-103516 LPS-103809 LPS-104129 LPS-104666 LPS-104679 LPS-104813 LPS-105193 LPS-105233 LPS-105235 LPS-105380 LPS-105719 LPS-105982 LPS-106128 LPS-106662 LPS-106666 LPS-77699 LPS-84119 LPS-94523 LPS-98032 LPS-98387
 
 app.git.id-1.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.segments.api-1.10.1.jar,\
+	com.liferay.segments.asah.connector-1.0.23.jar,\
+	com.liferay.segments.asah.rest.api-1.4.2.jar,\
+	com.liferay.segments.asah.rest.impl-1.0.17.jar,\
+	com.liferay.segments.content.targeting.upgrade-1.0.9.jar,\
+	com.liferay.segments.experiment.web-1.0.17.jar,\
+	com.liferay.segments.lang-1.0.41.jar,\
+	com.liferay.segments.service-1.1.5.jar,\
+	com.liferay.segments.simulation.web-1.0.16.jar,\
+	com.liferay.segments.web-1.0.47.jar
+
+app.change.log-1.0.5=LPS-102740 LPS-102741 LPS-102742 LPS-103284 LPS-103409 LPS-104495 LPS-104679 LPS-104813 LPS-104995 LPS-105147 LPS-105235 LPS-105380 LPS-105392 LPS-105970 LPS-106123 LPS-106128 LPS-106666 LPS-107321 LPS-107541 LPS-107545 LPS-107697 LPS-108120 LPS-108386 LPS-109307 LPS-109645 LPS-109882 LPS-109953 LPS-110165 LPS-110347 LPS-110419 LPS-110753 LPS-111049 LPS-111084 LPS-111193 LPS-111235 LPS-111278 LPS-112102 LPS-77699 LPS-98387 LRAC-5571 LRQA-51488 LRQA-57124
+
+app.git.id-1.0.5=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1

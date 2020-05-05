@@ -175,3 +175,45 @@ app.artifacts-2.0.4=\
 app.change.log-2.0.4=LPS-101483 LPS-102987 LPS-103252 LPS-103302 LPS-103511 LPS-103695 LPS-103716 LPS-103774 LPS-104076 LPS-104129 LPS-104252 LPS-104679 LPS-105263 LPS-105380 LPS-106662 LPS-106666 LPS-77699 LPS-98032
 
 app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
+
+#
+# Liferay App Version 2.0.5
+#
+
+app.artifacts-2.0.5=\
+	com.liferay.document.library.analytics-3.0.12.jar,\
+	com.liferay.document.library.api-5.3.0.jar,\
+	com.liferay.document.library.asset.auto.tagger.google.cloud.vision-1.0.21.jar,\
+	com.liferay.document.library.asset.auto.tagger.microsoft.cognitive.services-1.0.21.jar,\
+	com.liferay.document.library.asset.auto.tagger.tensorflow-1.0.19.jar,\
+	com.liferay.document.library.content.api-2.2.3.jar,\
+	com.liferay.document.library.content.service-2.0.19.jar,\
+	com.liferay.document.library.document.conversion-2.0.21.jar,\
+	com.liferay.document.library.file.rank.api-2.2.5.jar,\
+	com.liferay.document.library.file.rank.service-2.0.26.jar,\
+	com.liferay.document.library.google.drive.api-1.0.15.jar,\
+	com.liferay.document.library.google.drive.impl-1.0.6.jar,\
+	com.liferay.document.library.item.selector.web-3.0.19.jar,\
+	com.liferay.document.library.layout.set.prototype-4.0.9.jar,\
+	com.liferay.document.library.preview.audio-1.0.18.jar,\
+	com.liferay.document.library.preview.document-1.0.24.jar,\
+	com.liferay.document.library.preview.image-1.0.23.jar,\
+	com.liferay.document.library.preview.lang-1.0.7.jar,\
+	com.liferay.document.library.preview.video-1.0.20.jar,\
+	com.liferay.document.library.repository.authorization.api-3.0.8.jar,\
+	com.liferay.document.library.repository.cmis.api-3.0.16.jar,\
+	com.liferay.document.library.repository.cmis.impl-4.0.23.jar,\
+	com.liferay.document.library.repository.external.api-3.0.11.jar,\
+	com.liferay.document.library.repository.portlet.file.repository.impl-1.0.7.jar,\
+	com.liferay.document.library.repository.portlet.repository.impl-1.0.4.jar,\
+	com.liferay.document.library.repository.search-5.0.4.jar,\
+	com.liferay.document.library.service-4.0.43.jar,\
+	com.liferay.document.library.sync.api-2.0.9.jar,\
+	com.liferay.document.library.sync.service-2.0.17.jar,\
+	com.liferay.document.library.taglib-1.0.8.jar,\
+	com.liferay.document.library.uad-4.0.10.jar,\
+	com.liferay.document.library.web-4.0.75.jar
+
+app.change.log-2.0.5=LPS-103167 LPS-103231 LPS-103252 LPS-103302 LPS-103335 LPS-104076 LPS-104547 LPS-104679 LPS-104841 LPS-104957 LPS-105147 LPS-105380 LPS-106146 LPS-106474 LPS-106508 LPS-106666 LPS-106943 LPS-107255 LPS-107279 LPS-107291 LPS-107295 LPS-107321 LPS-107401 LPS-107541 LPS-107606 LPS-107697 LPS-107966 LPS-108098 LPS-108357 LPS-108386 LPS-109066 LPS-110134 LPS-110264 LPS-110405 LPS-110419 LPS-110589 LPS-110813 LPS-111526 LPS-111962 LPS-77699 LRQA-51488
+
+app.git.id-2.0.5=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1

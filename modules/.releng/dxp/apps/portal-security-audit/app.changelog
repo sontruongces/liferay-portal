@@ -88,3 +88,23 @@ app.artifacts-2.0.4=\
 app.change.log-2.0.4=LPS-100448 LPS-103302 LPS-104129 LPS-105380 LPS-106662 LPS-106666 LPS-77425 LPS-77699 LPS-79653 LPS-79679 LPS-80332 LPS-81106 LPS-81805 LPS-82343 LPS-84119 LPS-84732 LPS-85213 LPS-85296 LPS-88218 LPS-93906 LPS-95555 LPS-96095 LPS-98877 LPS-98879
 
 app.git.id-2.0.4=c9cfaaa0e2208d7acc2a130f36e81c4595e09ce1
+
+#
+# Liferay App Version 2.0.5
+#
+
+app.artifacts-2.0.5=\
+	com.liferay.portal.security.audit.api-4.0.10.jar,\
+	com.liferay.portal.security.audit.event.generators-3.0.9.jar,\
+	com.liferay.portal.security.audit.event.generators.api-3.0.6.jar,\
+	com.liferay.portal.security.audit.event.generators.user.management-3.0.5.jar,\
+	com.liferay.portal.security.audit.impl-2.0.3.jar,\
+	com.liferay.portal.security.audit.router-4.0.12.jar,\
+	com.liferay.portal.security.audit.storage.api-4.0.9.jar,\
+	com.liferay.portal.security.audit.storage.service-4.0.22.jar,\
+	com.liferay.portal.security.audit.web-3.0.8.jar,\
+	com.liferay.portal.security.audit.wiring-4.0.9.jar
+
+app.change.log-2.0.5=LPS-100448 LPS-103302 LPS-105380 LPS-106666 LPS-107321 LPS-107697 LPS-108120 LPS-108386 LPS-110419 LPS-77425 LPS-77699 LPS-79653 LPS-80332 LPS-81106 LPS-81805 LPS-82343 LPS-84119 LPS-88218 LPS-96095 LPS-98877 LPS-98879 LRQA-51488
+
+app.git.id-2.0.5=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1
