@@ -292,3 +292,8 @@ d001cc2c3065b8fa289863eba4a425f064d83586^..93cbf5c5e9efdaf1cfc91c6841c09011efecc
 # Bundle Version 4.0.59
 #
 e3de86c65743700de5bdb1271e8723d3ddb428db^..1f2fcd0e19b0eefbcb06a4b3a5370e48db884a88=LPS-105380
+
+#
+# Bundle Version 4.0.60
+#
+1f2fcd0e19b0eefbcb06a4b3a5370e48db884a88^..7fd5a36dfc4a2c8a6e459cd5e00dbf28fae0f839=LPS-103528 LPS-111448
