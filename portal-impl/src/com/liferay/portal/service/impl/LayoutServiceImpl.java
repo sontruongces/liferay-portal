@@ -683,6 +683,16 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 	@Override
 	public List<Layout> getLayouts(
+			long groupId, boolean privateLayout, String type, int start,
+			int end)
+		throws PortalException {
+
+		return layoutPersistence.filterFindByG_P_T(
+			groupId, privateLayout, type, start, end);
+	}
+
+	@Override
+	public List<Layout> getLayouts(
 			long groupId, boolean privateLayout, String keywords,
 			String[] types, int start, int end, OrderByComparator<Layout> obc)
 		throws PortalException {
@@ -731,6 +741,14 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 		return layoutPersistence.filterCountByG_P_P_LtP_Head(
 			groupId, privateLayout, parentLayoutId, priority, false);
+	}
+
+	@Override
+	public int getLayoutsCount(
+		long groupId, boolean privateLayout, String type) {
+
+		return layoutPersistence.filterCountByG_P_T(
+			groupId, privateLayout, type);
 	}
 
 	@Override
