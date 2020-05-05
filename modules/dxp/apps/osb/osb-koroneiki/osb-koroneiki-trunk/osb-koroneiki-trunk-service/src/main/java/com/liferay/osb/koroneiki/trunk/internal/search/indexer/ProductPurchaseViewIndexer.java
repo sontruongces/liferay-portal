@@ -55,6 +55,7 @@ import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
@@ -203,10 +204,10 @@ public class ProductPurchaseViewIndexer
 		document.addKeyword("productKey", productEntry.getProductEntryKey());
 		document.addKeyword(
 			"productPurchaseIds", getProductPurchaseIds(productPurchases));
+		document.addKeyword("status", getStatus(productPurchases));
 		document.addDate("supportLifeEndDate", getEndDate(productPurchases));
 		document.addDate(
 			"supportLifeStartDate", getStartDate(productPurchases));
-		document.addKeyword("status", getStatus(productPurchases));
 
 		return document;
 	}
@@ -323,10 +324,9 @@ public class ProductPurchaseViewIndexer
 		FieldArray fieldArray = new FieldArray("productPurchases");
 
 		for (ProductPurchase productPurchase : productPurchases) {
-			Date startDate = productPurchase.getStartDate();
-			Date endDate = productPurchase.getEndDate();
+			Field field = new Field(StringPool.BLANK);
 
-			Field field = new Field("");
+			Date endDate = productPurchase.getEndDate();
 
 			if (endDate != null) {
 				Field endDateField = new Field("endDate");
@@ -345,6 +345,8 @@ public class ProductPurchaseViewIndexer
 
 				field.addField(endDateSortableField);
 			}
+
+			Date startDate = productPurchase.getStartDate();
 
 			if (startDate != null) {
 				Field startDateField = new Field("startDate");
@@ -463,8 +465,8 @@ public class ProductPurchaseViewIndexer
 		BooleanQuery rangeQuery = new BooleanQueryImpl();
 
 		TermRangeQuery startDateQuery = new TermRangeQueryImpl(
-			"productPurchases.startDate_sortable", String.valueOf(0),
-			String.valueOf(now), true, true);
+			"productPurchases.startDate_sortable", "0", String.valueOf(now),
+			true, true);
 
 		rangeQuery.add(startDateQuery, BooleanClauseOccur.MUST);
 
@@ -490,7 +492,7 @@ public class ProductPurchaseViewIndexer
 			Field.STATUS, WorkflowConstants.STATUS_APPROVED);
 
 		RangeTermFilter rangeTermFilter = new RangeTermFilter(
-			"supportLifeEndDate_sortable", true, true, String.valueOf(0),
+			"supportLifeEndDate_sortable", true, true, "0",
 			String.valueOf(System.currentTimeMillis()));
 
 		booleanFilter.add(rangeTermFilter, BooleanClauseOccur.MUST);
@@ -517,8 +519,8 @@ public class ProductPurchaseViewIndexer
 		rangeQuery.add(startDateQuery, BooleanClauseOccur.SHOULD);
 
 		TermRangeQuery endDateQuery = new TermRangeQueryImpl(
-			"productPurchases.endDate_sortable", String.valueOf(0),
-			String.valueOf(now), true, true);
+			"productPurchases.endDate_sortable", "0", String.valueOf(now), true,
+			true);
 
 		rangeQuery.add(endDateQuery, BooleanClauseOccur.SHOULD);
 

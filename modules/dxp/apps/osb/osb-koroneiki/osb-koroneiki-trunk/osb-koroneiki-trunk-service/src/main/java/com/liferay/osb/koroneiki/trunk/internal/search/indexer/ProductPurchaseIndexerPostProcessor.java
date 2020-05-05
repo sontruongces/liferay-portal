@@ -80,8 +80,7 @@ public class ProductPurchaseIndexerPostProcessor
 		long now = System.currentTimeMillis();
 
 		RangeTermFilter startRangeTermFilter = new RangeTermFilter(
-			"startDate_sortable", true, true, String.valueOf(0),
-			String.valueOf(now));
+			"startDate_sortable", true, true, "0", String.valueOf(now));
 
 		rangeBooleanFilter.add(startRangeTermFilter, BooleanClauseOccur.MUST);
 
@@ -105,7 +104,7 @@ public class ProductPurchaseIndexerPostProcessor
 			Field.STATUS, WorkflowConstants.STATUS_APPROVED);
 
 		RangeTermFilter rangeTermFilter = new RangeTermFilter(
-			"endDate_sortable", true, true, String.valueOf(0),
+			"endDate_sortable", true, true, "0",
 			String.valueOf(System.currentTimeMillis()));
 
 		booleanFilter.add(rangeTermFilter, BooleanClauseOccur.MUST);
