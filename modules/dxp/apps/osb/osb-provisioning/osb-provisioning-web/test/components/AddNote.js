@@ -14,6 +14,12 @@ import React from 'react';
 
 import AddNote from '../../src/main/resources/META-INF/resources/js/components/AddNote';
 import {NotesProvider} from '../../src/main/resources/META-INF/resources/js/hooks/notes';
+import {
+	NOTE_FORMAT_HTML,
+	NOTE_STATUS_APPROVED,
+	NOTE_TYPE_GENERAL,
+	NOTE_TYPE_SALES
+} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 function mockNotes() {
 	return [
@@ -22,12 +28,12 @@ function mockNotes() {
 			creatorName: 'Jane Doe',
 			creatorPortraitURL: '/',
 			edited: false,
-			format: 'HTML',
+			format: NOTE_FORMAT_HTML,
 			htmlContent: '<div>pinned note</div>',
 			key: '123',
 			pinned: true,
-			status: 'Approved',
-			type: 'General',
+			status: NOTE_STATUS_APPROVED,
+			type: NOTE_TYPE_GENERAL,
 			updateNoteURL: '/'
 		}
 	];
@@ -65,7 +71,7 @@ describe('New Note', () => {
 	});
 
 	it('displays a different textarea placeholder for Sales notes', () => {
-		const {getByPlaceholderText} = renderAddNote({type: 'Sales'});
+		const {getByPlaceholderText} = renderAddNote({type: NOTE_TYPE_SALES});
 
 		getByPlaceholderText('write-sales-info');
 	});

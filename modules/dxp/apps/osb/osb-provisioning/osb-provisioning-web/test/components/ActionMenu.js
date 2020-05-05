@@ -13,6 +13,7 @@ import {cleanup, render} from '@testing-library/react';
 import React from 'react';
 
 import ActionMenu from '../../src/main/resources/META-INF/resources/js/components/ActionMenu';
+import {NOTE_TYPE_SALES} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 function renderActionMenu(props) {
 	return render(
@@ -48,7 +49,7 @@ describe('ActionMenu', () => {
 	});
 
 	it('displays no pin or unpin icon on Sales Info tab', () => {
-		const {queryByLabelText} = renderActionMenu({tabType: 'Sales'});
+		const {queryByLabelText} = renderActionMenu({tabType: NOTE_TYPE_SALES});
 
 		expect(queryByLabelText('pin-note-icon')).toBeFalsy();
 		expect(queryByLabelText('unpin-note-icon')).toBeFalsy();

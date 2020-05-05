@@ -17,6 +17,12 @@ import {
 	NoteRecord,
 	NotesProvider
 } from '../../src/main/resources/META-INF/resources/js/hooks/notes';
+import {
+	NOTE_FORMAT_HTML,
+	NOTE_STATUS_APPROVED,
+	NOTE_STATUS_ARCHIVED,
+	NOTE_TYPE_GENERAL
+} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 function renderNote(props) {
 	const note = NoteRecord({
@@ -25,11 +31,11 @@ function renderNote(props) {
 		creatorName: 'Jane Doe',
 		creatorPortraitURL: '/',
 		edited: false,
-		format: 'HTML',
+		format: NOTE_FORMAT_HTML,
 		id: '123',
 		pinned: true,
-		status: 'Approved',
-		type: 'General',
+		status: NOTE_STATUS_APPROVED,
+		type: NOTE_TYPE_GENERAL,
 		updateURL: '/',
 		...props
 	});
@@ -42,12 +48,12 @@ function renderNote(props) {
 					creatorName: 'Jane Doe',
 					creatorPortraitURL: '/',
 					edited: false,
-					format: 'HTML',
+					format: NOTE_FORMAT_HTML,
 					htmlContent: '<div>pinned note</div>',
 					key: '123',
 					pinned: true,
-					status: 'Approved',
-					type: 'General',
+					status: NOTE_STATUS_APPROVED,
+					type: NOTE_TYPE_GENERAL,
 					updateNoteURL: '/'
 				}
 			]}
@@ -107,7 +113,9 @@ describe('Note', () => {
 	});
 
 	it('displays no action menu icons for an archived note', () => {
-		const {container, queryByLabelText} = renderNote({status: 'Archived'});
+		const {container, queryByLabelText} = renderNote({
+			status: NOTE_STATUS_ARCHIVED
+		});
 
 		const note = container.querySelector('.note');
 

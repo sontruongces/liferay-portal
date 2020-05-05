@@ -14,6 +14,13 @@ import React from 'react';
 
 import NotesTabPane from '../../src/main/resources/META-INF/resources/js/components/NotesTabPane';
 import {NotesProvider} from '../../src/main/resources/META-INF/resources/js/hooks/notes';
+import {
+	NOTE_FORMAT_HTML,
+	NOTE_STATUS_APPROVED,
+	NOTE_STATUS_ARCHIVED,
+	NOTE_TYPE_GENERAL,
+	NOTE_TYPE_SALES
+} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 function mockNotes({type}) {
 	return [
@@ -22,11 +29,11 @@ function mockNotes({type}) {
 			creatorName: 'Jane Doe',
 			creatorPortraitURL: '/',
 			edited: false,
-			format: 'HTML',
+			format: NOTE_FORMAT_HTML,
 			htmlContent: '<div>pinned note</div>',
 			key: '123',
 			pinned: true,
-			status: 'Approved',
+			status: NOTE_STATUS_APPROVED,
 			type,
 			updateNoteURL: '/'
 		},
@@ -35,11 +42,11 @@ function mockNotes({type}) {
 			creatorName: 'Jane Doe',
 			creatorPortraitURL: '/',
 			edited: false,
-			format: 'HTML',
+			format: NOTE_FORMAT_HTML,
 			htmlContent: '<div>unpinned note</div>',
 			key: '456',
 			pinned: false,
-			status: 'Approved',
+			status: NOTE_STATUS_APPROVED,
 			type,
 			updateNoteURL: '/'
 		},
@@ -48,11 +55,11 @@ function mockNotes({type}) {
 			creatorName: 'Jane Doe',
 			creatorPortraitURL: '/',
 			edited: false,
-			format: 'HTML',
+			format: NOTE_FORMAT_HTML,
 			htmlContent: '<div>archived note</div>',
 			key: '789',
 			pinned: false,
-			status: 'Archived',
+			status: NOTE_STATUS_ARCHIVED,
 			type,
 			updateNoteURL: '/'
 		}
@@ -60,7 +67,7 @@ function mockNotes({type}) {
 }
 
 function renderNotesTabPane({
-	type = 'General',
+	type = NOTE_TYPE_GENERAL,
 	notes = mockNotes({type}),
 	...props
 } = {}) {
@@ -97,7 +104,7 @@ describe('NotesTabPane', () => {
 
 		it('displays a sales note with no special section', () => {
 			const {getByText, queryByText} = renderNotesTabPane({
-				type: 'Sales'
+				type: NOTE_TYPE_SALES
 			});
 
 			getByText('pinned note');
@@ -115,7 +122,7 @@ describe('NotesTabPane', () => {
 		it('does not display a button to view archived notes when none are available', () => {
 			const {queryByText} = renderNotesTabPane({
 				notes: [],
-				type: 'Sales'
+				type: NOTE_TYPE_SALES
 			});
 
 			expect(queryByText('view-archived-notes')).toBeNull();
@@ -124,7 +131,7 @@ describe('NotesTabPane', () => {
 		it('displays a message when there is no data for general notes', () => {
 			const {container} = renderNotesTabPane({
 				notes: [],
-				type: 'General'
+				type: NOTE_TYPE_GENERAL
 			});
 
 			expect(container.querySelector('.empty-state').textContent).toEqual(
@@ -133,7 +140,10 @@ describe('NotesTabPane', () => {
 		});
 
 		it('displays a message when there is no data for sales notes', () => {
-			const {container} = renderNotesTabPane({notes: [], type: 'Sales'});
+			const {container} = renderNotesTabPane({
+				notes: [],
+				type: NOTE_TYPE_SALES
+			});
 
 			expect(container.textContent).toEqual('no-sales-info-were-found');
 		});

@@ -18,7 +18,7 @@ import {
 	NOTE_TYPE_GENERAL
 } from '../utilities/constants';
 
-// Notes definition
+// Notes definition with default values
 
 export const NoteRecord = Record({
 	content: '',

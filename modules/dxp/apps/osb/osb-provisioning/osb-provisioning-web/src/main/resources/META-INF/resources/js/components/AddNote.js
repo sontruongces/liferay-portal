@@ -66,8 +66,6 @@ function AddNote({
 
 		postData(actionURL, noteData, 'formData')
 			.then(({data}) => {
-				// TODO: Update once creatorName and creatorPortraitURL are provided on backend.
-
 				const noteFromAPI = NoteRecord({
 					content: data.note.htmlContent,
 					createDate: data.note.createDate,

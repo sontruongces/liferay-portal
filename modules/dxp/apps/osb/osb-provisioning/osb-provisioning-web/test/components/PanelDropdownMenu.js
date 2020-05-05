@@ -13,6 +13,10 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
 import PanelDropdownMenu from '../../src/main/resources/META-INF/resources/js/components/PanelDropdownMenu';
+import {
+	NOTE_STATUS_ARCHIVED,
+	NOTE_TYPE_SALES
+} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 const mockOnArchiveFn = jest.fn();
 const mockOnEditFn = jest.fn();
@@ -77,7 +81,7 @@ describe('PanelDropdownMenu', () => {
 
 	it('shows no "Pin" or "Unpin" dropdown option for an unarchived note on Sales Info tab', () => {
 		const {getByLabelText, queryByText} = renderPanelDropdownMenu({
-			tabType: 'Sales'
+			tabType: NOTE_TYPE_SALES
 		});
 
 		fireEvent.click(getByLabelText('action-menu-icon'));
@@ -105,7 +109,7 @@ describe('PanelDropdownMenu', () => {
 			getByText,
 			queryByText
 		} = renderPanelDropdownMenu({
-			status: 'Archived'
+			status: NOTE_STATUS_ARCHIVED
 		});
 
 		fireEvent.click(getByLabelText('action-menu-icon'));
