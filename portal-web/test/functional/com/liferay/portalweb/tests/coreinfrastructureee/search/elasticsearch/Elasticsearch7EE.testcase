@@ -96,7 +96,7 @@ definition {
 	}
 
 	test AssertSimilarResultsDisplayTemplate {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		for (var count : list "1,2,3") {
 			JSONWebcontent.addWebContent(
@@ -145,7 +145,7 @@ definition {
 	}
 
 	test AssertSimilarResultsMatchesAssetType {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		for (var count : list "1,2,3") {
 			JSONBlog.addEntry(
@@ -326,7 +326,7 @@ definition {
 	}
 
 	test ConfigureSimilarResultsDocumentFrequency {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		JSONWebcontent.addWebContent(
 			content = "WC Content",
@@ -388,7 +388,7 @@ definition {
 	}
 
 	test ConfigureSimilarResultsFields {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		JSONBlog.addEntry(
 			entryContent = "Content",
@@ -439,7 +439,7 @@ definition {
 	}
 
 	test ConfigureSimilarResultsMaximumItemDisplay {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		for (var titleName : list "Alpha,Bravo,Charlie,Delta,Echo,Foxtrot") {
 			JSONWebcontent.addWebContent(
@@ -481,7 +481,7 @@ definition {
 	}
 
 	test ConfigureSimilarResultsMaximumQueryTerms {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		for (var count : list "One, Two, Three") {
 			JSONWebcontent.addWebContent(
@@ -516,7 +516,7 @@ definition {
 	}
 
 	test ConfigureSimilarResultsMinimumShouldMatch {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		JSONWebcontent.addWebContent(
 			content = "WC Content",
@@ -577,7 +577,7 @@ definition {
 	}
 
 	test ConfigureSimilarResultsStopWords {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		JSONWebcontent.addWebContent(
 			content = "No Match",
@@ -638,7 +638,7 @@ definition {
 	}
 
 	test ConfigureSimilarResultsTermFrequency {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		for (var count : list "One, Two, Three") {
 			JSONWebcontent.addWebContent(
@@ -698,7 +698,7 @@ definition {
 	}
 
 	test ConfigureSimilarResultsWordLength {
-		property osgi.app.includes = "portal-search-similar-results";
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
 
 		JSONWebcontent.addWebContent(
 			content = "WC Content",
@@ -1055,6 +1055,8 @@ definition {
 	}
 
 	test ViewSimilarResultsOnContentPages {
+		property osgi.app.includes = "portal-search-elasticsearch7,portal-search-similar-results";
+
 		JSONWebcontent.addWebContent(
 			content = "WC Content",
 			groupName = "Guest",
