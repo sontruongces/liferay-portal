@@ -602,15 +602,17 @@ public class ProductPurchaseViewIndexer
 	private void _processBooleanFilter(BooleanFilter booleanFilter)
 		throws Exception {
 
-		_processBooleanClauses(
-			booleanFilter, booleanFilter.getMustBooleanClauses(),
-			BooleanClauseOccur.MUST);
-		_processBooleanClauses(
-			booleanFilter, booleanFilter.getMustNotBooleanClauses(),
-			BooleanClauseOccur.MUST_NOT);
-		_processBooleanClauses(
-			booleanFilter, booleanFilter.getShouldBooleanClauses(),
-			BooleanClauseOccur.SHOULD);
+		if (booleanFilter != null) {
+			_processBooleanClauses(
+				booleanFilter, booleanFilter.getMustBooleanClauses(),
+				BooleanClauseOccur.MUST);
+			_processBooleanClauses(
+				booleanFilter, booleanFilter.getMustNotBooleanClauses(),
+				BooleanClauseOccur.MUST_NOT);
+			_processBooleanClauses(
+				booleanFilter, booleanFilter.getShouldBooleanClauses(),
+				BooleanClauseOccur.SHOULD);
+		}
 	}
 
 	@Reference
