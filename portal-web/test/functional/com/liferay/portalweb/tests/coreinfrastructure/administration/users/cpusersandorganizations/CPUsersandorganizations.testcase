@@ -1475,7 +1475,7 @@ definition {
 
 		User.gotoEditCP(userScreenName = "usersn");
 
-		User.viewUserSiteCP(siteName = "Site Name");
+		User.viewUserInfomationSitesCP(siteName = "Site Name");
 	}
 
 	@priority = "4"
