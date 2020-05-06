@@ -2580,17 +2580,17 @@ public class TeamPersistenceImpl
 		"(team.name IS NULL OR team.name = '')";
 
 	public TeamPersistenceImpl() {
-		setModelClass(Team.class);
-
-		setModelImplClass(TeamImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(TeamModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Team.class);
+
+		setModelImplClass(TeamImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(TeamModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

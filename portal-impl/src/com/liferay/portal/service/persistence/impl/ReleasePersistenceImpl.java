@@ -324,17 +324,17 @@ public class ReleasePersistenceImpl
 			"(release_.servletContextName IS NULL OR release_.servletContextName = '')";
 
 	public ReleasePersistenceImpl() {
-		setModelClass(Release.class);
-
-		setModelImplClass(ReleaseImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(ReleaseModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("state", "state_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Release.class);
+
+		setModelImplClass(ReleaseImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(ReleaseModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

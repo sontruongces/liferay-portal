@@ -10676,17 +10676,17 @@ public class DDMStructurePersistenceImpl
 		"(ddmStructure.description IS NULL OR CAST_CLOB_TEXT(ddmStructure.description) = '')";
 
 	public DDMStructurePersistenceImpl() {
-		setModelClass(DDMStructure.class);
-
-		setModelImplClass(DDMStructureImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DDMStructure.class);
+
+		setModelImplClass(DDMStructureImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

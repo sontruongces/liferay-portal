@@ -6293,17 +6293,17 @@ public class SyncDLObjectPersistenceImpl
 		"(syncDLObject.type IS NULL OR syncDLObject.type = '')";
 
 	public SyncDLObjectPersistenceImpl() {
-		setModelClass(SyncDLObject.class);
-
-		setModelImplClass(SyncDLObjectImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("size", "size_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SyncDLObject.class);
+
+		setModelImplClass(SyncDLObjectImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

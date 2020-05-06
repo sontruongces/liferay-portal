@@ -1297,17 +1297,17 @@ public class ExpandoRowPersistenceImpl
 		"expandoRow.classPK = ?";
 
 	public ExpandoRowPersistenceImpl() {
-		setModelClass(ExpandoRow.class);
-
-		setModelImplClass(ExpandoRowImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(ExpandoRowModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("rowId", "rowId_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(ExpandoRow.class);
+
+		setModelImplClass(ExpandoRowImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(ExpandoRowModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

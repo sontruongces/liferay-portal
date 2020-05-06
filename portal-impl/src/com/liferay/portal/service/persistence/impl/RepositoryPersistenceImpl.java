@@ -2261,17 +2261,17 @@ public class RepositoryPersistenceImpl
 		"(repository.portletId IS NULL OR repository.portletId = '')";
 
 	public RepositoryPersistenceImpl() {
-		setModelClass(Repository.class);
-
-		setModelImplClass(RepositoryImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(RepositoryModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Repository.class);
+
+		setModelImplClass(RepositoryImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(RepositoryModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

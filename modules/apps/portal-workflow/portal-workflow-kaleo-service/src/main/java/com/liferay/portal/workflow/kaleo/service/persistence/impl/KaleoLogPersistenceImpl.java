@@ -3451,17 +3451,17 @@ public class KaleoLogPersistenceImpl
 		"(kaleoLog.type IS NULL OR kaleoLog.type = '')";
 
 	public KaleoLogPersistenceImpl() {
-		setModelClass(KaleoLog.class);
-
-		setModelImplClass(KaleoLogImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
 		dbColumnNames.put("comment", "comment_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(KaleoLog.class);
+
+		setModelImplClass(KaleoLogImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

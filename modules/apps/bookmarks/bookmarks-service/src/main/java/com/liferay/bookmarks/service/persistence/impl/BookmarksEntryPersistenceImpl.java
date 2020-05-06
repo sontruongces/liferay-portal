@@ -12563,16 +12563,16 @@ public class BookmarksEntryPersistenceImpl
 		"bookmarksEntry.status = ?";
 
 	public BookmarksEntryPersistenceImpl() {
-		setModelClass(BookmarksEntry.class);
-
-		setModelImplClass(BookmarksEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(BookmarksEntry.class);
+
+		setModelImplClass(BookmarksEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

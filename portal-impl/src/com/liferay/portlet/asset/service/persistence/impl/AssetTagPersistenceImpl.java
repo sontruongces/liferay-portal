@@ -4170,17 +4170,17 @@ public class AssetTagPersistenceImpl
 		"(assetTag.name IS NULL OR assetTag.name LIKE '')";
 
 	public AssetTagPersistenceImpl() {
-		setModelClass(AssetTag.class);
-
-		setModelImplClass(AssetTagImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(AssetTagModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(AssetTag.class);
+
+		setModelImplClass(AssetTagImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(AssetTagModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

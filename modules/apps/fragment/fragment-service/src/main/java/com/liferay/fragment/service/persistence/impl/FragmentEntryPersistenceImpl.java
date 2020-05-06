@@ -6415,17 +6415,17 @@ public class FragmentEntryPersistenceImpl
 		"fragmentEntry.status = ?";
 
 	public FragmentEntryPersistenceImpl() {
-		setModelClass(FragmentEntry.class);
-
-		setModelImplClass(FragmentEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(FragmentEntry.class);
+
+		setModelImplClass(FragmentEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

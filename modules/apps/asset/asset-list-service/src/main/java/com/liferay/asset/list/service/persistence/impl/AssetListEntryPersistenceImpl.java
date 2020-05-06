@@ -5859,17 +5859,17 @@ public class AssetListEntryPersistenceImpl
 		"assetListEntry.type_ = ?";
 
 	public AssetListEntryPersistenceImpl() {
-		setModelClass(AssetListEntry.class);
-
-		setModelImplClass(AssetListEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(AssetListEntry.class);
+
+		setModelImplClass(AssetListEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

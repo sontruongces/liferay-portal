@@ -2007,16 +2007,16 @@ public class KaleoDefinitionPersistenceImpl
 		"kaleoDefinition.active = ?";
 
 	public KaleoDefinitionPersistenceImpl() {
-		setModelClass(KaleoDefinition.class);
-
-		setModelImplClass(KaleoDefinitionImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(KaleoDefinition.class);
+
+		setModelImplClass(KaleoDefinitionImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

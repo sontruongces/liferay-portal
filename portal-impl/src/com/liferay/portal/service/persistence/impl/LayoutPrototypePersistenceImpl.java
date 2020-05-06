@@ -3923,12 +3923,6 @@ public class LayoutPrototypePersistenceImpl
 		"layoutPrototype.active_ = ?";
 
 	public LayoutPrototypePersistenceImpl() {
-		setModelClass(LayoutPrototype.class);
-
-		setModelImplClass(LayoutPrototypeImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(LayoutPrototypeModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -3936,6 +3930,12 @@ public class LayoutPrototypePersistenceImpl
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutPrototype.class);
+
+		setModelImplClass(LayoutPrototypeImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(LayoutPrototypeModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

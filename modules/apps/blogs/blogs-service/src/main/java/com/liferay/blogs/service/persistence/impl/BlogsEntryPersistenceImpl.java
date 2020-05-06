@@ -21139,16 +21139,16 @@ public class BlogsEntryPersistenceImpl
 		"blogsEntry.status != ?";
 
 	public BlogsEntryPersistenceImpl() {
-		setModelClass(BlogsEntry.class);
-
-		setModelImplClass(BlogsEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(BlogsEntry.class);
+
+		setModelImplClass(BlogsEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

@@ -2272,16 +2272,16 @@ public class LayoutPageTemplateStructurePersistenceImpl
 		"layoutPageTemplateStructure.classPK = ?";
 
 	public LayoutPageTemplateStructurePersistenceImpl() {
-		setModelClass(LayoutPageTemplateStructure.class);
-
-		setModelImplClass(LayoutPageTemplateStructureImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutPageTemplateStructure.class);
+
+		setModelImplClass(LayoutPageTemplateStructureImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

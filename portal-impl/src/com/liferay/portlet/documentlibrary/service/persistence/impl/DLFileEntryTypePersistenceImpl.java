@@ -3079,17 +3079,17 @@ public class DLFileEntryTypePersistenceImpl
 		"(dlFileEntryType.fileEntryTypeKey IS NULL OR dlFileEntryType.fileEntryTypeKey = '')";
 
 	public DLFileEntryTypePersistenceImpl() {
-		setModelClass(DLFileEntryType.class);
-
-		setModelImplClass(DLFileEntryTypeImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(DLFileEntryTypeModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DLFileEntryType.class);
+
+		setModelImplClass(DLFileEntryTypeImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(DLFileEntryTypeModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

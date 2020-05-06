@@ -14493,18 +14493,18 @@ public class DLFileEntryPersistenceImpl
 		"dlFileEntry.custom2ImageId = ?";
 
 	public DLFileEntryPersistenceImpl() {
-		setModelClass(DLFileEntry.class);
-
-		setModelImplClass(DLFileEntryImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(DLFileEntryModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("size", "size_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DLFileEntry.class);
+
+		setModelImplClass(DLFileEntryImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(DLFileEntryModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

@@ -11973,11 +11973,6 @@ public class DDMTemplatePersistenceImpl
 		"(ddmTemplate.mode_ IS NULL OR ddmTemplate.mode_ = '')";
 
 	public DDMTemplatePersistenceImpl() {
-		setModelClass(DDMTemplate.class);
-
-		setModelImplClass(DDMTemplateImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -11985,6 +11980,11 @@ public class DDMTemplatePersistenceImpl
 		dbColumnNames.put("mode", "mode_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DDMTemplate.class);
+
+		setModelImplClass(DDMTemplateImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

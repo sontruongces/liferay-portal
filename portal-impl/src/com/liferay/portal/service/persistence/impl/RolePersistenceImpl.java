@@ -9042,12 +9042,6 @@ public class RolePersistenceImpl
 		"role_.classPK IN (";
 
 	public RolePersistenceImpl() {
-		setModelClass(Role.class);
-
-		setModelImplClass(RoleImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(RoleModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -9055,6 +9049,12 @@ public class RolePersistenceImpl
 		dbColumnNames.put("groups", "groups_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Role.class);
+
+		setModelImplClass(RoleImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(RoleModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

@@ -4142,16 +4142,16 @@ public class SAPEntryPersistenceImpl
 		"(sapEntry.name IS NULL OR sapEntry.name = '')";
 
 	public SAPEntryPersistenceImpl() {
-		setModelClass(SAPEntry.class);
-
-		setModelImplClass(SAPEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SAPEntry.class);
+
+		setModelImplClass(SAPEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

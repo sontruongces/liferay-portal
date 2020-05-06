@@ -5829,16 +5829,16 @@ public class SegmentsExperimentPersistenceImpl
 		"segmentsExperiment.status IN (";
 
 	public SegmentsExperimentPersistenceImpl() {
-		setModelClass(SegmentsExperiment.class);
-
-		setModelImplClass(SegmentsExperimentImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SegmentsExperiment.class);
+
+		setModelImplClass(SegmentsExperimentImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

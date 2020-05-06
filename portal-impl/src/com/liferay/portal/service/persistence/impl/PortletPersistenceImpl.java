@@ -831,18 +831,18 @@ public class PortletPersistenceImpl
 		"(portlet.portletId IS NULL OR portlet.portletId = '')";
 
 	public PortletPersistenceImpl() {
-		setModelClass(Portlet.class);
-
-		setModelImplClass(PortletImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(PortletModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("id", "id_");
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Portlet.class);
+
+		setModelImplClass(PortletImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(PortletModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

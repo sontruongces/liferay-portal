@@ -3708,16 +3708,16 @@ public class LayoutPageTemplateCollectionPersistenceImpl
 		"(layoutPageTemplateCollection.name IS NULL OR layoutPageTemplateCollection.name LIKE '')";
 
 	public LayoutPageTemplateCollectionPersistenceImpl() {
-		setModelClass(LayoutPageTemplateCollection.class);
-
-		setModelImplClass(LayoutPageTemplateCollectionImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutPageTemplateCollection.class);
+
+		setModelImplClass(LayoutPageTemplateCollectionImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

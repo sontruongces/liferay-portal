@@ -3944,12 +3944,6 @@ public class PhonePersistenceImpl
 		"phone.primary = ?";
 
 	public PhonePersistenceImpl() {
-		setModelClass(Phone.class);
-
-		setModelImplClass(PhoneImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(PhoneModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -3957,6 +3951,12 @@ public class PhonePersistenceImpl
 		dbColumnNames.put("primary", "primary_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Phone.class);
+
+		setModelImplClass(PhoneImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(PhoneModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

@@ -2343,16 +2343,16 @@ public class KBTemplatePersistenceImpl
 		"kbTemplate.groupId = ?";
 
 	public KBTemplatePersistenceImpl() {
-		setModelClass(KBTemplate.class);
-
-		setModelImplClass(KBTemplateImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(KBTemplate.class);
+
+		setModelImplClass(KBTemplateImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

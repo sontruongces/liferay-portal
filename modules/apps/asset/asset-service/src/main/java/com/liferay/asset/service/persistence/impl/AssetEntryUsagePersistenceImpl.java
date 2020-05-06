@@ -3386,17 +3386,17 @@ public class AssetEntryUsagePersistenceImpl
 		"assetEntryUsage.plid = ?";
 
 	public AssetEntryUsagePersistenceImpl() {
-		setModelClass(AssetEntryUsage.class);
-
-		setModelImplClass(AssetEntryUsageImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(AssetEntryUsage.class);
+
+		setModelImplClass(AssetEntryUsageImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

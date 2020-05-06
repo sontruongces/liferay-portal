@@ -1727,16 +1727,16 @@ public class WikiPageResourcePersistenceImpl
 		"(wikiPageResource.title IS NULL OR wikiPageResource.title = '')";
 
 	public WikiPageResourcePersistenceImpl() {
-		setModelClass(WikiPageResource.class);
-
-		setModelImplClass(WikiPageResourceImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(WikiPageResource.class);
+
+		setModelImplClass(WikiPageResourceImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

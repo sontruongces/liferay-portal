@@ -2482,18 +2482,18 @@ public class DLFileEntryMetadataPersistenceImpl
 		"dlFileEntryMetadata.fileVersionId = ?";
 
 	public DLFileEntryMetadataPersistenceImpl() {
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("uuid", "uuid_");
+
+		setDBColumnNames(dbColumnNames);
+
 		setModelClass(DLFileEntryMetadata.class);
 
 		setModelImplClass(DLFileEntryMetadataImpl.class);
 		setModelPKClass(long.class);
 		setEntityCacheEnabled(
 			DLFileEntryMetadataModelImpl.ENTITY_CACHE_ENABLED);
-
-		Map<String, String> dbColumnNames = new HashMap<String, String>();
-
-		dbColumnNames.put("uuid", "uuid_");
-
-		setDBColumnNames(dbColumnNames);
 	}
 
 	/**

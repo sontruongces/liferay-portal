@@ -3964,18 +3964,18 @@ public class EmailAddressPersistenceImpl
 		"emailAddress.primary = ?";
 
 	public EmailAddressPersistenceImpl() {
-		setModelClass(EmailAddress.class);
-
-		setModelImplClass(EmailAddressImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(EmailAddressModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("primary", "primary_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(EmailAddress.class);
+
+		setModelImplClass(EmailAddressImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(EmailAddressModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

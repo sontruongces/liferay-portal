@@ -21034,17 +21034,17 @@ public class LayoutPageTemplateEntryPersistenceImpl
 		"layoutPageTemplateEntry.status = ?";
 
 	public LayoutPageTemplateEntryPersistenceImpl() {
-		setModelClass(LayoutPageTemplateEntry.class);
-
-		setModelImplClass(LayoutPageTemplateEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutPageTemplateEntry.class);
+
+		setModelImplClass(LayoutPageTemplateEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

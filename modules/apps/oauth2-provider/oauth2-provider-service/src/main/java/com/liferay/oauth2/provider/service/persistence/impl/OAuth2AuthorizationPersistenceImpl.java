@@ -2174,17 +2174,17 @@ public class OAuth2AuthorizationPersistenceImpl
 			"oAuth2Authorization.refreshTokenContentHash = ?";
 
 	public OAuth2AuthorizationPersistenceImpl() {
-		setModelClass(OAuth2Authorization.class);
-
-		setModelImplClass(OAuth2AuthorizationImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
 			"oAuth2ApplicationScopeAliasesId", "oA2AScopeAliasesId");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(OAuth2Authorization.class);
+
+		setModelImplClass(OAuth2AuthorizationImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

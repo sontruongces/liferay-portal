@@ -2405,13 +2405,6 @@ public class WorkflowMetricsSLADefinitionVersionPersistenceImpl
 			"workflowMetricsSLADefinitionVersion.workflowMetricsSLADefinitionId = ?";
 
 	public WorkflowMetricsSLADefinitionVersionPersistenceImpl() {
-		setModelClass(WorkflowMetricsSLADefinitionVersion.class);
-
-		setModelImplClass(WorkflowMetricsSLADefinitionVersionImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(
-			WorkflowMetricsSLADefinitionVersionModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -2423,6 +2416,13 @@ public class WorkflowMetricsSLADefinitionVersionPersistenceImpl
 			"workflowMetricsSLADefinitionId", "wmSLADefinitionId");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(WorkflowMetricsSLADefinitionVersion.class);
+
+		setModelImplClass(WorkflowMetricsSLADefinitionVersionImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(
+			WorkflowMetricsSLADefinitionVersionModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

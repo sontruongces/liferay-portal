@@ -6267,17 +6267,17 @@ public class LayoutSetVersionPersistenceImpl
 		"layoutSetVersion.version = ?";
 
 	public LayoutSetVersionPersistenceImpl() {
-		setModelClass(LayoutSetVersion.class);
-
-		setModelImplClass(LayoutSetVersionImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(LayoutSetVersionModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("settings", "settings_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutSetVersion.class);
+
+		setModelImplClass(LayoutSetVersionImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(LayoutSetVersionModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

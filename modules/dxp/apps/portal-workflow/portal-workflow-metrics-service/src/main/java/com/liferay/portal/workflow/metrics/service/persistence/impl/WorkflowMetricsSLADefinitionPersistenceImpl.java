@@ -4939,13 +4939,6 @@ public class WorkflowMetricsSLADefinitionPersistenceImpl
 		"workflowMetricsSLADefinition.status = ?";
 
 	public WorkflowMetricsSLADefinitionPersistenceImpl() {
-		setModelClass(WorkflowMetricsSLADefinition.class);
-
-		setModelImplClass(WorkflowMetricsSLADefinitionImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(
-			WorkflowMetricsSLADefinitionModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -4954,6 +4947,13 @@ public class WorkflowMetricsSLADefinitionPersistenceImpl
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(WorkflowMetricsSLADefinition.class);
+
+		setModelImplClass(WorkflowMetricsSLADefinitionImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(
+			WorkflowMetricsSLADefinitionModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

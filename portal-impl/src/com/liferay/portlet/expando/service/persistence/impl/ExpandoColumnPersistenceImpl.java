@@ -1696,17 +1696,17 @@ public class ExpandoColumnPersistenceImpl
 		"(expandoColumn.name IS NULL OR expandoColumn.name = '')";
 
 	public ExpandoColumnPersistenceImpl() {
-		setModelClass(ExpandoColumn.class);
-
-		setModelImplClass(ExpandoColumnImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(ExpandoColumnModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(ExpandoColumn.class);
+
+		setModelImplClass(ExpandoColumnImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(ExpandoColumnModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

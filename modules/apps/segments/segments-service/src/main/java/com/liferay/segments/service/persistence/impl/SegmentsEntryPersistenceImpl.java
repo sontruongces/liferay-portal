@@ -9775,11 +9775,6 @@ public class SegmentsEntryPersistenceImpl
 		"(segmentsEntry.type_ IS NULL OR segmentsEntry.type_ = '')";
 
 	public SegmentsEntryPersistenceImpl() {
-		setModelClass(SegmentsEntry.class);
-
-		setModelImplClass(SegmentsEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -9787,6 +9782,11 @@ public class SegmentsEntryPersistenceImpl
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SegmentsEntry.class);
+
+		setModelImplClass(SegmentsEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

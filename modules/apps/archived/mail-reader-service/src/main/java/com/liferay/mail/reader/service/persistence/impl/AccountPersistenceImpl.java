@@ -855,16 +855,16 @@ public class AccountPersistenceImpl
 		"(account.address IS NULL OR account.address = '')";
 
 	public AccountPersistenceImpl() {
-		setModelClass(Account.class);
-
-		setModelImplClass(AccountImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("password", "password_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Account.class);
+
+		setModelImplClass(AccountImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

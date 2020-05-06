@@ -2354,16 +2354,16 @@ public class PollsQuestionPersistenceImpl
 		"pollsQuestion.groupId = ?";
 
 	public PollsQuestionPersistenceImpl() {
-		setModelClass(PollsQuestion.class);
-
-		setModelImplClass(PollsQuestionImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(PollsQuestion.class);
+
+		setModelImplClass(PollsQuestionImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

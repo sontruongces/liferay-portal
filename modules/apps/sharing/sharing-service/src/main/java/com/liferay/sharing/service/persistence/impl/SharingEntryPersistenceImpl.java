@@ -5389,16 +5389,16 @@ public class SharingEntryPersistenceImpl
 		"sharingEntry.classPK = ?";
 
 	public SharingEntryPersistenceImpl() {
-		setModelClass(SharingEntry.class);
-
-		setModelImplClass(SharingEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SharingEntry.class);
+
+		setModelImplClass(SharingEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

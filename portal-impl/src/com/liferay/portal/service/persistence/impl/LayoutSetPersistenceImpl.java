@@ -5352,17 +5352,17 @@ public class LayoutSetPersistenceImpl
 		"layoutSet.headId = ?";
 
 	public LayoutSetPersistenceImpl() {
-		setModelClass(LayoutSet.class);
-
-		setModelImplClass(LayoutSetImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(LayoutSetModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("settings", "settings_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutSet.class);
+
+		setModelImplClass(LayoutSetImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(LayoutSetModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

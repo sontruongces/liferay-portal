@@ -3468,17 +3468,17 @@ public class PasswordPolicyPersistenceImpl
 		"(passwordPolicy.name IS NULL OR passwordPolicy.name = '')";
 
 	public PasswordPolicyPersistenceImpl() {
-		setModelClass(PasswordPolicy.class);
-
-		setModelImplClass(PasswordPolicyImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(PasswordPolicyModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(PasswordPolicy.class);
+
+		setModelImplClass(PasswordPolicyImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(PasswordPolicyModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

@@ -79,18 +79,18 @@ public class AccountPersistenceImpl
 	private FinderPath _finderPathCountAll;
 
 	public AccountPersistenceImpl() {
-		setModelClass(Account.class);
-
-		setModelImplClass(AccountImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(AccountModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
 		dbColumnNames.put("size", "size_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Account.class);
+
+		setModelImplClass(AccountImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(AccountModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

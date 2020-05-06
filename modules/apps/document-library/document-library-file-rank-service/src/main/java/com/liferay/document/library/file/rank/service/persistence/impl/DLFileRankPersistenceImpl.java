@@ -2474,16 +2474,16 @@ public class DLFileRankPersistenceImpl
 		"dlFileRank.fileEntryId = ?";
 
 	public DLFileRankPersistenceImpl() {
-		setModelClass(DLFileRank.class);
-
-		setModelImplClass(DLFileRankImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DLFileRank.class);
+
+		setModelImplClass(DLFileRankImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

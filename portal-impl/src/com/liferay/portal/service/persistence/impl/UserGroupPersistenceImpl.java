@@ -6047,18 +6047,18 @@ public class UserGroupPersistenceImpl
 		"(userGroup.externalReferenceCode IS NULL OR userGroup.externalReferenceCode = '')";
 
 	public UserGroupPersistenceImpl() {
-		setModelClass(UserGroup.class);
-
-		setModelImplClass(UserGroupImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(UserGroupModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("groups", "groups_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(UserGroup.class);
+
+		setModelImplClass(UserGroupImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(UserGroupModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

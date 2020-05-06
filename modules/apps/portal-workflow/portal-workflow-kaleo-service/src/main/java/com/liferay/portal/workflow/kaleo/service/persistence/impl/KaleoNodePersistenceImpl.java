@@ -1671,17 +1671,17 @@ public class KaleoNodePersistenceImpl
 			"kaleoNode.kaleoDefinitionVersionId = ?";
 
 	public KaleoNodePersistenceImpl() {
-		setModelClass(KaleoNode.class);
-
-		setModelImplClass(KaleoNodeImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
 		dbColumnNames.put("initial", "initial_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(KaleoNode.class);
+
+		setModelImplClass(KaleoNodeImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

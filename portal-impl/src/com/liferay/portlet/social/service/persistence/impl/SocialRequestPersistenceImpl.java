@@ -6261,18 +6261,18 @@ public class SocialRequestPersistenceImpl
 		"socialRequest.status = ?";
 
 	public SocialRequestPersistenceImpl() {
-		setModelClass(SocialRequest.class);
-
-		setModelImplClass(SocialRequestImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(SocialRequestModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SocialRequest.class);
+
+		setModelImplClass(SocialRequestImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(SocialRequestModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

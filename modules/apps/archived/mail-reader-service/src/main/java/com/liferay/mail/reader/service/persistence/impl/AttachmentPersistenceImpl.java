@@ -589,16 +589,16 @@ public class AttachmentPersistenceImpl
 		"attachment.messageId = ?";
 
 	public AttachmentPersistenceImpl() {
-		setModelClass(Attachment.class);
-
-		setModelImplClass(AttachmentImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("size", "size_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Attachment.class);
+
+		setModelImplClass(AttachmentImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

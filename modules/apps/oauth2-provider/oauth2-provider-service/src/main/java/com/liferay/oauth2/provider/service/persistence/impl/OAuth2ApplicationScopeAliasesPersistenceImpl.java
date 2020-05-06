@@ -1135,17 +1135,17 @@ public class OAuth2ApplicationScopeAliasesPersistenceImpl
 			"oAuth2ApplicationScopeAliases.oAuth2ApplicationId = ?";
 
 	public OAuth2ApplicationScopeAliasesPersistenceImpl() {
-		setModelClass(OAuth2ApplicationScopeAliases.class);
-
-		setModelImplClass(OAuth2ApplicationScopeAliasesImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
 			"oAuth2ApplicationScopeAliasesId", "oA2AScopeAliasesId");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(OAuth2ApplicationScopeAliases.class);
+
+		setModelImplClass(OAuth2ApplicationScopeAliasesImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

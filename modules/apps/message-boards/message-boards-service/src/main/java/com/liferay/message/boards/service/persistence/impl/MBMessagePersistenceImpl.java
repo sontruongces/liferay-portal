@@ -20578,16 +20578,16 @@ public class MBMessagePersistenceImpl
 		"mbMessage.status = ?";
 
 	public MBMessagePersistenceImpl() {
-		setModelClass(MBMessage.class);
-
-		setModelImplClass(MBMessageImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(MBMessage.class);
+
+		setModelImplClass(MBMessageImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

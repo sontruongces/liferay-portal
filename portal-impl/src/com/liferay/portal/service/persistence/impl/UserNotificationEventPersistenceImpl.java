@@ -8267,19 +8267,19 @@ public class UserNotificationEventPersistenceImpl
 		"userNotificationEvent.archived = ?";
 
 	public UserNotificationEventPersistenceImpl() {
-		setModelClass(UserNotificationEvent.class);
-
-		setModelImplClass(UserNotificationEventImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(
-			UserNotificationEventModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(UserNotificationEvent.class);
+
+		setModelImplClass(UserNotificationEventImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(
+			UserNotificationEventModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

@@ -21870,16 +21870,16 @@ public class WikiPagePersistenceImpl
 		"wikiPage.status = ?";
 
 	public WikiPagePersistenceImpl() {
-		setModelClass(WikiPage.class);
-
-		setModelImplClass(WikiPageImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(WikiPage.class);
+
+		setModelImplClass(WikiPageImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

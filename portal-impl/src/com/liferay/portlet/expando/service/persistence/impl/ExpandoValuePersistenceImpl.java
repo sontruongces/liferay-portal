@@ -4853,18 +4853,18 @@ public class ExpandoValuePersistenceImpl
 		"(expandoValue.data IS NULL OR CAST_CLOB_TEXT(expandoValue.data) = '')";
 
 	public ExpandoValuePersistenceImpl() {
-		setModelClass(ExpandoValue.class);
-
-		setModelImplClass(ExpandoValueImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(ExpandoValueModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("rowId", "rowId_");
 		dbColumnNames.put("data", "data_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(ExpandoValue.class);
+
+		setModelImplClass(ExpandoValueImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(ExpandoValueModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

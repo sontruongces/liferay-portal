@@ -2799,11 +2799,6 @@ public class AssetListEntrySegmentsEntryRelPersistenceImpl
 		"assetListEntrySegmentsEntryRel.segmentsEntryId = ?";
 
 	public AssetListEntrySegmentsEntryRelPersistenceImpl() {
-		setModelClass(AssetListEntrySegmentsEntryRel.class);
-
-		setModelImplClass(AssetListEntrySegmentsEntryRelImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -2811,6 +2806,11 @@ public class AssetListEntrySegmentsEntryRelPersistenceImpl
 			"assetListEntrySegmentsEntryRelId", "alEntrySegmentsEntryRelId");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(AssetListEntrySegmentsEntryRel.class);
+
+		setModelImplClass(AssetListEntrySegmentsEntryRelImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

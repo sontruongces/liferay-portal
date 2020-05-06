@@ -2284,17 +2284,17 @@ public class SyncDevicePersistenceImpl
 		"(syncDevice.userName IS NULL OR syncDevice.userName LIKE '')";
 
 	public SyncDevicePersistenceImpl() {
-		setModelClass(SyncDevice.class);
-
-		setModelImplClass(SyncDeviceImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SyncDevice.class);
+
+		setModelImplClass(SyncDeviceImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

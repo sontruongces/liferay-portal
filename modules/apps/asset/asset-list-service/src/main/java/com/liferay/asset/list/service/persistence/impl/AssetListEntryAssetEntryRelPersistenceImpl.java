@@ -3452,16 +3452,16 @@ public class AssetListEntryAssetEntryRelPersistenceImpl
 		"assetListEntryAssetEntryRel.position > ?";
 
 	public AssetListEntryAssetEntryRelPersistenceImpl() {
-		setModelClass(AssetListEntryAssetEntryRel.class);
-
-		setModelImplClass(AssetListEntryAssetEntryRelImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(AssetListEntryAssetEntryRel.class);
+
+		setModelImplClass(AssetListEntryAssetEntryRelImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

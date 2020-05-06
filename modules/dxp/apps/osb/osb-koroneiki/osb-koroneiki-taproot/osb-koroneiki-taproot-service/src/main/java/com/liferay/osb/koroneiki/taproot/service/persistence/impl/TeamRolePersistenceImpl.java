@@ -3539,17 +3539,17 @@ public class TeamRolePersistenceImpl
 		"(teamRole.type IS NULL OR teamRole.type = '')";
 
 	public TeamRolePersistenceImpl() {
-		setModelClass(TeamRole.class);
-
-		setModelImplClass(TeamRoleImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(TeamRole.class);
+
+		setModelImplClass(TeamRoleImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

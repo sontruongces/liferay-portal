@@ -3605,16 +3605,16 @@ public class DDLRecordPersistenceImpl
 		"(ddlRecord.recordSetVersion IS NULL OR ddlRecord.recordSetVersion = '')";
 
 	public DDLRecordPersistenceImpl() {
-		setModelClass(DDLRecord.class);
-
-		setModelImplClass(DDLRecordImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DDLRecord.class);
+
+		setModelImplClass(DDLRecordImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

@@ -2065,16 +2065,16 @@ public class DEDataListViewPersistenceImpl
 		"deDataListView.ddmStructureId = ?";
 
 	public DEDataListViewPersistenceImpl() {
-		setModelClass(DEDataListView.class);
-
-		setModelImplClass(DEDataListViewImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DEDataListView.class);
+
+		setModelImplClass(DEDataListViewImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

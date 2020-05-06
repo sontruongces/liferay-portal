@@ -2556,17 +2556,17 @@ public class LockPersistenceImpl
 		"(lock_.key IS NULL OR lock_.key = '')";
 
 	public LockPersistenceImpl() {
-		setModelClass(Lock.class);
-
-		setModelImplClass(LockImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("key", "key_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Lock.class);
+
+		setModelImplClass(LockImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

@@ -3656,11 +3656,6 @@ public class AccountPersistenceImpl
 		"(account.code IS NULL OR account.code = '')";
 
 	public AccountPersistenceImpl() {
-		setModelClass(Account.class);
-
-		setModelImplClass(AccountImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -3668,6 +3663,11 @@ public class AccountPersistenceImpl
 		dbColumnNames.put("internal", "internal_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Account.class);
+
+		setModelImplClass(AccountImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

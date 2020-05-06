@@ -3725,11 +3725,6 @@ public class SiteNavigationMenuItemPersistenceImpl
 		"(siteNavigationMenuItem.name IS NULL OR siteNavigationMenuItem.name LIKE '')";
 
 	public SiteNavigationMenuItemPersistenceImpl() {
-		setModelClass(SiteNavigationMenuItem.class);
-
-		setModelImplClass(SiteNavigationMenuItemImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -3737,6 +3732,11 @@ public class SiteNavigationMenuItemPersistenceImpl
 		dbColumnNames.put("order", "order_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SiteNavigationMenuItem.class);
+
+		setModelImplClass(SiteNavigationMenuItemImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

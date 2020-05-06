@@ -1372,17 +1372,17 @@ public class SamlSpSessionPersistenceImpl
 		"(samlSpSession.sessionIndex IS NULL OR samlSpSession.sessionIndex = '')";
 
 	public SamlSpSessionPersistenceImpl() {
-		setModelClass(SamlSpSession.class);
-
-		setModelImplClass(SamlSpSessionImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("terminated", "terminated_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SamlSpSession.class);
+
+		setModelImplClass(SamlSpSessionImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

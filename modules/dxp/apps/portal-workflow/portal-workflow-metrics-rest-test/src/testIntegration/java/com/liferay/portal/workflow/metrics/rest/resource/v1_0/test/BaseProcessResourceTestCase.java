@@ -439,6 +439,29 @@ public abstract class BaseProcessResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetProcessNotFound() throws Exception {
+		Long irrelevantProcessId = RandomTestUtil.randomLong();
+		Boolean irrelevantCompleted = RandomTestUtil.randomBoolean();
+		Date irrelevantDateEnd = null;
+		Date irrelevantDateStart = null;
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"process",
+						new HashMap<String, Object>() {
+							{
+								put("processId", irrelevantProcessId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	@Test
 	public void testGetProcessTitle() throws Exception {
 		Assert.assertTrue(false);
 	}

@@ -1217,16 +1217,16 @@ public class DEDataDefinitionFieldLinkPersistenceImpl
 		"(deDataDefinitionFieldLink.fieldName IS NULL OR deDataDefinitionFieldLink.fieldName = '')";
 
 	public DEDataDefinitionFieldLinkPersistenceImpl() {
-		setModelClass(DEDataDefinitionFieldLink.class);
-
-		setModelImplClass(DEDataDefinitionFieldLinkImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DEDataDefinitionFieldLink.class);
+
+		setModelImplClass(DEDataDefinitionFieldLinkImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

@@ -1256,17 +1256,17 @@ public class OAuth2ApplicationPersistenceImpl
 		"(oAuth2Application.clientId IS NULL OR oAuth2Application.clientId = '')";
 
 	public OAuth2ApplicationPersistenceImpl() {
-		setModelClass(OAuth2Application.class);
-
-		setModelImplClass(OAuth2ApplicationImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put(
 			"oAuth2ApplicationScopeAliasesId", "oA2AScopeAliasesId");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(OAuth2Application.class);
+
+		setModelImplClass(OAuth2ApplicationImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

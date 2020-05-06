@@ -2258,16 +2258,16 @@ public class JournalArticleResourcePersistenceImpl
 		"(journalArticleResource.articleId IS NULL OR journalArticleResource.articleId = '')";
 
 	public JournalArticleResourcePersistenceImpl() {
-		setModelClass(JournalArticleResource.class);
-
-		setModelImplClass(JournalArticleResourceImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(JournalArticleResource.class);
+
+		setModelImplClass(JournalArticleResourceImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

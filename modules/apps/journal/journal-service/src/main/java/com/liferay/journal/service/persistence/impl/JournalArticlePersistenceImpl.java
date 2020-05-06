@@ -32396,17 +32396,17 @@ public class JournalArticlePersistenceImpl
 		"journalArticle.status = ?";
 
 	public JournalArticlePersistenceImpl() {
-		setModelClass(JournalArticle.class);
-
-		setModelImplClass(JournalArticleImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("id", "id_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(JournalArticle.class);
+
+		setModelImplClass(JournalArticleImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

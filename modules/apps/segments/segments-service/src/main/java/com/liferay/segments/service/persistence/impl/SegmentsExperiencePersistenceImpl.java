@@ -9453,17 +9453,17 @@ public class SegmentsExperiencePersistenceImpl
 		"segmentsExperience.active_ = ?";
 
 	public SegmentsExperiencePersistenceImpl() {
-		setModelClass(SegmentsExperience.class);
-
-		setModelImplClass(SegmentsExperienceImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SegmentsExperience.class);
+
+		setModelImplClass(SegmentsExperienceImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

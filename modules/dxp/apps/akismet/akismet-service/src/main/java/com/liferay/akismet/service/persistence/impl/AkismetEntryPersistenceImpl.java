@@ -855,17 +855,17 @@ public class AkismetEntryPersistenceImpl
 		"akismetEntry.classPK = ?";
 
 	public AkismetEntryPersistenceImpl() {
-		setModelClass(AkismetEntry.class);
-
-		setModelImplClass(AkismetEntryImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(AkismetEntryModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(AkismetEntry.class);
+
+		setModelImplClass(AkismetEntryImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(AkismetEntryModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

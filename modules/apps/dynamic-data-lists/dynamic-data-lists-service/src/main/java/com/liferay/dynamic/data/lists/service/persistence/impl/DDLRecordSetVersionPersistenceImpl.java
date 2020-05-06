@@ -1408,16 +1408,16 @@ public class DDLRecordSetVersionPersistenceImpl
 		"ddlRecordSetVersion.status = ?";
 
 	public DDLRecordSetVersionPersistenceImpl() {
-		setModelClass(DDLRecordSetVersion.class);
-
-		setModelImplClass(DDLRecordSetVersionImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("settings", "settings_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DDLRecordSetVersion.class);
+
+		setModelImplClass(DDLRecordSetVersionImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

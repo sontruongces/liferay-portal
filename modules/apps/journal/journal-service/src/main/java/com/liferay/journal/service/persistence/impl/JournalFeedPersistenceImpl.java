@@ -2597,17 +2597,17 @@ public class JournalFeedPersistenceImpl
 		"(journalFeed.feedId IS NULL OR journalFeed.feedId = '')";
 
 	public JournalFeedPersistenceImpl() {
-		setModelClass(JournalFeed.class);
-
-		setModelImplClass(JournalFeedImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("id", "id_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(JournalFeed.class);
+
+		setModelImplClass(JournalFeedImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

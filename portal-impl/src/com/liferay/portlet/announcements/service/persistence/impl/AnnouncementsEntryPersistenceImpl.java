@@ -7935,18 +7935,18 @@ public class AnnouncementsEntryPersistenceImpl
 		"announcementsEntry.alert = ?";
 
 	public AnnouncementsEntryPersistenceImpl() {
-		setModelClass(AnnouncementsEntry.class);
-
-		setModelImplClass(AnnouncementsEntryImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(AnnouncementsEntryModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(AnnouncementsEntry.class);
+
+		setModelImplClass(AnnouncementsEntryImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(AnnouncementsEntryModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

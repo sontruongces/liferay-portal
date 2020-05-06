@@ -1822,16 +1822,16 @@ public class StatusPersistenceImpl
 		"status.online = ?";
 
 	public StatusPersistenceImpl() {
-		setModelClass(Status.class);
-
-		setModelImplClass(StatusImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("online", "online_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Status.class);
+
+		setModelImplClass(StatusImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

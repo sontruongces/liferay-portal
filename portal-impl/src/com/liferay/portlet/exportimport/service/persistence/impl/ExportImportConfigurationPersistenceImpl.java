@@ -2800,19 +2800,19 @@ public class ExportImportConfigurationPersistenceImpl
 		"exportImportConfiguration.status = ?";
 
 	public ExportImportConfigurationPersistenceImpl() {
-		setModelClass(ExportImportConfiguration.class);
-
-		setModelImplClass(ExportImportConfigurationImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(
-			ExportImportConfigurationModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
 		dbColumnNames.put("settings", "settings_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(ExportImportConfiguration.class);
+
+		setModelImplClass(ExportImportConfigurationImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(
+			ExportImportConfigurationModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

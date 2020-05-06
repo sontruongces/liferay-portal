@@ -487,6 +487,28 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetDataRecordCollectionNotFound() throws Exception {
+		Long irrelevantDataRecordCollectionId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"dataRecordCollection",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"dataRecordCollectionId",
+									irrelevantDataRecordCollectionId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	@Test
 	public void testPutDataRecordCollection() throws Exception {
 		DataRecordCollection postDataRecordCollection =
 			testPutDataRecordCollection_addDataRecordCollection();
@@ -799,6 +821,34 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 								getGraphQLFields())),
 						"JSONObject/data",
 						"Object/siteDataRecordCollection"))));
+	}
+
+	@Test
+	public void testGraphQLGetSiteDataRecordCollectionNotFound()
+		throws Exception {
+
+		String irrelevantDataRecordCollectionKey =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"siteDataRecordCollection",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"siteKey",
+									"\"" + irrelevantGroup.getGroupId() + "\"");
+								put(
+									"dataRecordCollectionKey",
+									irrelevantDataRecordCollectionKey);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
 	}
 
 	protected DataRecordCollection

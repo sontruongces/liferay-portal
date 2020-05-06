@@ -2559,17 +2559,17 @@ public class KaleoProcessPersistenceImpl
 		"kaleoProcess.DDLRecordSetId = ?";
 
 	public KaleoProcessPersistenceImpl() {
-		setModelClass(KaleoProcess.class);
-
-		setModelImplClass(KaleoProcessImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(KaleoProcess.class);
+
+		setModelImplClass(KaleoProcessImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

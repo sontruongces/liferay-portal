@@ -2570,16 +2570,16 @@ public class ProductEntryPersistenceImpl
 		"(productEntry.name IS NULL OR productEntry.name = '')";
 
 	public ProductEntryPersistenceImpl() {
-		setModelClass(ProductEntry.class);
-
-		setModelImplClass(ProductEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(ProductEntry.class);
+
+		setModelImplClass(ProductEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

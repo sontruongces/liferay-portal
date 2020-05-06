@@ -6141,16 +6141,16 @@ public class ProductConsumptionPersistenceImpl
 		"productConsumption.productEntryId = ?";
 
 	public ProductConsumptionPersistenceImpl() {
-		setModelClass(ProductConsumption.class);
-
-		setModelImplClass(ProductConsumptionImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(ProductConsumption.class);
+
+		setModelImplClass(ProductConsumptionImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

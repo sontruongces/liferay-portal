@@ -1357,18 +1357,18 @@ public class AnnouncementsDeliveryPersistenceImpl
 		"(announcementsDelivery.type IS NULL OR announcementsDelivery.type = '')";
 
 	public AnnouncementsDeliveryPersistenceImpl() {
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("type", "type_");
+
+		setDBColumnNames(dbColumnNames);
+
 		setModelClass(AnnouncementsDelivery.class);
 
 		setModelImplClass(AnnouncementsDeliveryImpl.class);
 		setModelPKClass(long.class);
 		setEntityCacheEnabled(
 			AnnouncementsDeliveryModelImpl.ENTITY_CACHE_ENABLED);
-
-		Map<String, String> dbColumnNames = new HashMap<String, String>();
-
-		dbColumnNames.put("type", "type_");
-
-		setDBColumnNames(dbColumnNames);
 	}
 
 	/**

@@ -2484,18 +2484,18 @@ public class SocialActivityCounterPersistenceImpl
 		"socialActivityCounter.endPeriod = ?";
 
 	public SocialActivityCounterPersistenceImpl() {
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("active", "active_");
+
+		setDBColumnNames(dbColumnNames);
+
 		setModelClass(SocialActivityCounter.class);
 
 		setModelImplClass(SocialActivityCounterImpl.class);
 		setModelPKClass(long.class);
 		setEntityCacheEnabled(
 			SocialActivityCounterModelImpl.ENTITY_CACHE_ENABLED);
-
-		Map<String, String> dbColumnNames = new HashMap<String, String>();
-
-		dbColumnNames.put("active", "active_");
-
-		setDBColumnNames(dbColumnNames);
 	}
 
 	/**

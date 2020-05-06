@@ -899,17 +899,17 @@ public class ServiceComponentPersistenceImpl
 		"serviceComponent.buildNumber = ?";
 
 	public ServiceComponentPersistenceImpl() {
-		setModelClass(ServiceComponent.class);
-
-		setModelImplClass(ServiceComponentImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(ServiceComponentModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("data", "data_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(ServiceComponent.class);
+
+		setModelImplClass(ServiceComponentImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(ServiceComponentModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

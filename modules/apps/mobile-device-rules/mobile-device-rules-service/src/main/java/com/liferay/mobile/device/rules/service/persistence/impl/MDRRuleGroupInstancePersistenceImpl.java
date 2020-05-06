@@ -4719,16 +4719,16 @@ public class MDRRuleGroupInstancePersistenceImpl
 		"mdrRuleGroupInstance.ruleGroupId = ?";
 
 	public MDRRuleGroupInstancePersistenceImpl() {
-		setModelClass(MDRRuleGroupInstance.class);
-
-		setModelImplClass(MDRRuleGroupInstanceImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(MDRRuleGroupInstance.class);
+
+		setModelImplClass(MDRRuleGroupInstanceImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

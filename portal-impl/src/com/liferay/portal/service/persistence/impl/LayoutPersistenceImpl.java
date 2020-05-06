@@ -33506,12 +33506,6 @@ public class LayoutPersistenceImpl
 		"layout.headId = ?";
 
 	public LayoutPersistenceImpl() {
-		setModelClass(Layout.class);
-
-		setModelImplClass(LayoutImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(LayoutModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -33520,6 +33514,12 @@ public class LayoutPersistenceImpl
 		dbColumnNames.put("system", "system_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Layout.class);
+
+		setModelImplClass(LayoutImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(LayoutModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

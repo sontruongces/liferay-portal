@@ -3400,16 +3400,16 @@ public class FragmentCollectionPersistenceImpl
 		"(fragmentCollection.name IS NULL OR fragmentCollection.name LIKE '')";
 
 	public FragmentCollectionPersistenceImpl() {
-		setModelClass(FragmentCollection.class);
-
-		setModelImplClass(FragmentCollectionImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(FragmentCollection.class);
+
+		setModelImplClass(FragmentCollectionImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

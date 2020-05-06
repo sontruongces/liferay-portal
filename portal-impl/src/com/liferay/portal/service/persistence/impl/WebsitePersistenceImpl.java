@@ -3947,18 +3947,18 @@ public class WebsitePersistenceImpl
 		"website.primary = ?";
 
 	public WebsitePersistenceImpl() {
-		setModelClass(Website.class);
-
-		setModelImplClass(WebsiteImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(WebsiteModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("primary", "primary_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Website.class);
+
+		setModelImplClass(WebsiteImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(WebsiteModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

@@ -4627,16 +4627,16 @@ public class EntitlementDefinitionPersistenceImpl
 		"entitlementDefinition.status = ?";
 
 	public EntitlementDefinitionPersistenceImpl() {
-		setModelClass(EntitlementDefinition.class);
-
-		setModelImplClass(EntitlementDefinitionImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(EntitlementDefinition.class);
+
+		setModelImplClass(EntitlementDefinitionImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

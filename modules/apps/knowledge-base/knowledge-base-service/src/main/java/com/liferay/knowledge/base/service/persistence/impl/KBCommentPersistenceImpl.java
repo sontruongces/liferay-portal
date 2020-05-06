@@ -5054,16 +5054,16 @@ public class KBCommentPersistenceImpl
 		"kbComment.status IN (";
 
 	public KBCommentPersistenceImpl() {
-		setModelClass(KBComment.class);
-
-		setModelImplClass(KBCommentImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(KBComment.class);
+
+		setModelImplClass(KBCommentImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

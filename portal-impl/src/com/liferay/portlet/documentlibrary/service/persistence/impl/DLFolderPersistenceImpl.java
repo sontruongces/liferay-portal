@@ -12330,18 +12330,18 @@ public class DLFolderPersistenceImpl
 		"dlFolder.status = ?";
 
 	public DLFolderPersistenceImpl() {
-		setModelClass(DLFolder.class);
-
-		setModelImplClass(DLFolderImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(DLFolderModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("hidden", "hidden_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DLFolder.class);
+
+		setModelImplClass(DLFolderImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(DLFolderModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

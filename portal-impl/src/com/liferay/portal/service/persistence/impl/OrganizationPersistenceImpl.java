@@ -9097,12 +9097,6 @@ public class OrganizationPersistenceImpl
 		"(organization.externalReferenceCode IS NULL OR organization.externalReferenceCode = '')";
 
 	public OrganizationPersistenceImpl() {
-		setModelClass(Organization.class);
-
-		setModelImplClass(OrganizationImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(OrganizationModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -9110,6 +9104,12 @@ public class OrganizationPersistenceImpl
 		dbColumnNames.put("groups", "groups_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Organization.class);
+
+		setModelImplClass(OrganizationImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(OrganizationModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

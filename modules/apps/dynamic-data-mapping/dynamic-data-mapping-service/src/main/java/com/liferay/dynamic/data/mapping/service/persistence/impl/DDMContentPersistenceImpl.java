@@ -2465,17 +2465,17 @@ public class DDMContentPersistenceImpl
 		"ddmContent.companyId = ?";
 
 	public DDMContentPersistenceImpl() {
-		setModelClass(DDMContent.class);
-
-		setModelImplClass(DDMContentImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("data", "data_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DDMContent.class);
+
+		setModelImplClass(DDMContentImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

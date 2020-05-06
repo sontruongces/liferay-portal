@@ -1254,12 +1254,6 @@ public class CountryPersistenceImpl
 		"country.active = ?";
 
 	public CountryPersistenceImpl() {
-		setModelClass(Country.class);
-
-		setModelImplClass(CountryImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(CountryModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("number", "number_");
@@ -1267,6 +1261,12 @@ public class CountryPersistenceImpl
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Country.class);
+
+		setModelImplClass(CountryImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(CountryModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

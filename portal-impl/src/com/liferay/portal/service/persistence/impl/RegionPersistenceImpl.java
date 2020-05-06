@@ -1863,17 +1863,17 @@ public class RegionPersistenceImpl
 		"region.active = ?";
 
 	public RegionPersistenceImpl() {
-		setModelClass(Region.class);
-
-		setModelImplClass(RegionImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(RegionModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Region.class);
+
+		setModelImplClass(RegionImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(RegionModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

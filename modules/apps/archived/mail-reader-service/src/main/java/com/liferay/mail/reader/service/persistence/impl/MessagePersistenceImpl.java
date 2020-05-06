@@ -1325,17 +1325,17 @@ public class MessagePersistenceImpl
 		"message.remoteMessageId = ?";
 
 	public MessagePersistenceImpl() {
-		setModelClass(Message.class);
-
-		setModelImplClass(MessageImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("to", "to_");
 		dbColumnNames.put("size", "size_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Message.class);
+
+		setModelImplClass(MessageImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

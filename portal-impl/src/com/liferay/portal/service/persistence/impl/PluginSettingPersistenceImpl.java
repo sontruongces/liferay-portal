@@ -894,17 +894,17 @@ public class PluginSettingPersistenceImpl
 		"(pluginSetting.pluginType IS NULL OR pluginSetting.pluginType = '')";
 
 	public PluginSettingPersistenceImpl() {
-		setModelClass(PluginSetting.class);
-
-		setModelImplClass(PluginSettingImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(PluginSettingModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(PluginSetting.class);
+
+		setModelImplClass(PluginSettingImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(PluginSettingModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

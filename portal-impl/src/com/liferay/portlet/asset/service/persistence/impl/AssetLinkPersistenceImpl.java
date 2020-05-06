@@ -2942,17 +2942,17 @@ public class AssetLinkPersistenceImpl
 		"assetLink.type = ?";
 
 	public AssetLinkPersistenceImpl() {
-		setModelClass(AssetLink.class);
-
-		setModelImplClass(AssetLinkImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(AssetLinkModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(AssetLink.class);
+
+		setModelImplClass(AssetLinkImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(AssetLinkModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

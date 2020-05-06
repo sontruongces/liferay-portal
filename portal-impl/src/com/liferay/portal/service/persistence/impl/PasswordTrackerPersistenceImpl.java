@@ -577,17 +577,17 @@ public class PasswordTrackerPersistenceImpl
 		"passwordTracker.userId = ?";
 
 	public PasswordTrackerPersistenceImpl() {
-		setModelClass(PasswordTracker.class);
-
-		setModelImplClass(PasswordTrackerImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(PasswordTrackerModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("password", "password_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(PasswordTracker.class);
+
+		setModelImplClass(PasswordTrackerImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(PasswordTrackerModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

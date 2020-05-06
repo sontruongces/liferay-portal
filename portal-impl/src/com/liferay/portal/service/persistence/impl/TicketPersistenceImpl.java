@@ -1528,18 +1528,18 @@ public class TicketPersistenceImpl
 		"ticket.type = ?";
 
 	public TicketPersistenceImpl() {
-		setModelClass(Ticket.class);
-
-		setModelImplClass(TicketImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(TicketModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("key", "key_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Ticket.class);
+
+		setModelImplClass(TicketImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(TicketModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

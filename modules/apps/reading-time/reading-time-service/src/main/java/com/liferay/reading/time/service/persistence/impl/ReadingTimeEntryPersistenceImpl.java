@@ -1730,16 +1730,16 @@ public class ReadingTimeEntryPersistenceImpl
 		"readingTimeEntry.classPK = ?";
 
 	public ReadingTimeEntryPersistenceImpl() {
-		setModelClass(ReadingTimeEntry.class);
-
-		setModelImplClass(ReadingTimeEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(ReadingTimeEntry.class);
+
+		setModelImplClass(ReadingTimeEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

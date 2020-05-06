@@ -2824,16 +2824,16 @@ public class SourcePersistenceImpl
 		"source.companyId = ?";
 
 	public SourcePersistenceImpl() {
-		setModelClass(Source.class);
-
-		setModelImplClass(SourceImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Source.class);
+
+		setModelImplClass(SourceImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

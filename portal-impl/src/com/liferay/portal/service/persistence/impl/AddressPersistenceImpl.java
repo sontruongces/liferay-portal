@@ -4575,18 +4575,18 @@ public class AddressPersistenceImpl
 		"address.primary = ?";
 
 	public AddressPersistenceImpl() {
-		setModelClass(Address.class);
-
-		setModelImplClass(AddressImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(AddressModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("primary", "primary_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Address.class);
+
+		setModelImplClass(AddressImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(AddressModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

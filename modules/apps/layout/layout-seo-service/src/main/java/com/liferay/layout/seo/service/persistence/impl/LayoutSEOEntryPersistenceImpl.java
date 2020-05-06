@@ -1730,16 +1730,16 @@ public class LayoutSEOEntryPersistenceImpl
 		"layoutSEOEntry.layoutId = ?";
 
 	public LayoutSEOEntryPersistenceImpl() {
-		setModelClass(LayoutSEOEntry.class);
-
-		setModelImplClass(LayoutSEOEntryImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutSEOEntry.class);
+
+		setModelImplClass(LayoutSEOEntryImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

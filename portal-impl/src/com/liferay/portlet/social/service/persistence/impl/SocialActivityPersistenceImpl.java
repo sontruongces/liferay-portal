@@ -6129,17 +6129,17 @@ public class SocialActivityPersistenceImpl
 		"socialActivity.receiverUserId = ?";
 
 	public SocialActivityPersistenceImpl() {
-		setModelClass(SocialActivity.class);
-
-		setModelImplClass(SocialActivityImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(SocialActivityModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SocialActivity.class);
+
+		setModelImplClass(SocialActivityImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(SocialActivityModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

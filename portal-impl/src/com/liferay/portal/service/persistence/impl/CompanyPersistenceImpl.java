@@ -1259,12 +1259,6 @@ public class CompanyPersistenceImpl
 		"company.system = ?";
 
 	public CompanyPersistenceImpl() {
-		setModelClass(Company.class);
-
-		setModelImplClass(CompanyImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(CompanyModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("key", "key_");
@@ -1272,6 +1266,12 @@ public class CompanyPersistenceImpl
 		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Company.class);
+
+		setModelImplClass(CompanyImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(CompanyModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

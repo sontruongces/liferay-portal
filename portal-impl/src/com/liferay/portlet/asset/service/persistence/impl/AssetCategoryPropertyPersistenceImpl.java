@@ -1959,18 +1959,18 @@ public class AssetCategoryPropertyPersistenceImpl
 		"(assetCategoryProperty.key IS NULL OR assetCategoryProperty.key = '')";
 
 	public AssetCategoryPropertyPersistenceImpl() {
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("key", "key_");
+
+		setDBColumnNames(dbColumnNames);
+
 		setModelClass(AssetCategoryProperty.class);
 
 		setModelImplClass(AssetCategoryPropertyImpl.class);
 		setModelPKClass(long.class);
 		setEntityCacheEnabled(
 			AssetCategoryPropertyModelImpl.ENTITY_CACHE_ENABLED);
-
-		Map<String, String> dbColumnNames = new HashMap<String, String>();
-
-		dbColumnNames.put("key", "key_");
-
-		setDBColumnNames(dbColumnNames);
 	}
 
 	/**

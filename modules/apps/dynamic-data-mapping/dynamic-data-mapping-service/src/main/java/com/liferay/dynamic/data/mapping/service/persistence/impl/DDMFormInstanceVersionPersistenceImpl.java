@@ -1419,16 +1419,16 @@ public class DDMFormInstanceVersionPersistenceImpl
 		"ddmFormInstanceVersion.status = ?";
 
 	public DDMFormInstanceVersionPersistenceImpl() {
-		setModelClass(DDMFormInstanceVersion.class);
-
-		setModelImplClass(DDMFormInstanceVersionImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("settings", "settings_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DDMFormInstanceVersion.class);
+
+		setModelImplClass(DDMFormInstanceVersionImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

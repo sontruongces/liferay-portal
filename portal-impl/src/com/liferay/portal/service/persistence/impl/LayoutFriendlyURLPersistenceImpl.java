@@ -5211,17 +5211,17 @@ public class LayoutFriendlyURLPersistenceImpl
 		"(layoutFriendlyURL.languageId IS NULL OR layoutFriendlyURL.languageId = '')";
 
 	public LayoutFriendlyURLPersistenceImpl() {
-		setModelClass(LayoutFriendlyURL.class);
-
-		setModelImplClass(LayoutFriendlyURLImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(LayoutFriendlyURLModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutFriendlyURL.class);
+
+		setModelImplClass(LayoutFriendlyURLImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(LayoutFriendlyURLModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

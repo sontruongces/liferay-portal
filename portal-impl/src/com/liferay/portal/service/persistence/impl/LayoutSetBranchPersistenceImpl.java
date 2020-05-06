@@ -3221,17 +3221,17 @@ public class LayoutSetBranchPersistenceImpl
 		"layoutSetBranch.master = ?";
 
 	public LayoutSetBranchPersistenceImpl() {
-		setModelClass(LayoutSetBranch.class);
-
-		setModelImplClass(LayoutSetBranchImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(LayoutSetBranchModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("settings", "settings_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutSetBranch.class);
+
+		setModelImplClass(LayoutSetBranchImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(LayoutSetBranchModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

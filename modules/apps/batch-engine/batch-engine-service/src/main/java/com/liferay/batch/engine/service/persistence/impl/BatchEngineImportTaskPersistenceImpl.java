@@ -1793,16 +1793,16 @@ public class BatchEngineImportTaskPersistenceImpl
 		"(batchEngineImportTask.executeStatus IS NULL OR batchEngineImportTask.executeStatus = '')";
 
 	public BatchEngineImportTaskPersistenceImpl() {
-		setModelClass(BatchEngineImportTask.class);
-
-		setModelImplClass(BatchEngineImportTaskImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(BatchEngineImportTask.class);
+
+		setModelImplClass(BatchEngineImportTaskImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

@@ -2331,17 +2331,17 @@ public class SystemEventPersistenceImpl
 		"systemEvent.type = ?";
 
 	public SystemEventPersistenceImpl() {
-		setModelClass(SystemEvent.class);
-
-		setModelImplClass(SystemEventImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(SystemEventModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SystemEvent.class);
+
+		setModelImplClass(SystemEventImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(SystemEventModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

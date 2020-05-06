@@ -24872,12 +24872,6 @@ public class LayoutVersionPersistenceImpl
 		"layoutVersion.version = ?";
 
 	public LayoutVersionPersistenceImpl() {
-		setModelClass(LayoutVersion.class);
-
-		setModelImplClass(LayoutVersionImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(LayoutVersionModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -24886,6 +24880,12 @@ public class LayoutVersionPersistenceImpl
 		dbColumnNames.put("system", "system_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutVersion.class);
+
+		setModelImplClass(LayoutVersionImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(LayoutVersionModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

@@ -5648,18 +5648,18 @@ public class DLFileVersionPersistenceImpl
 		"(dlFileVersion.version IS NULL OR dlFileVersion.version = '')";
 
 	public DLFileVersionPersistenceImpl() {
-		setModelClass(DLFileVersion.class);
-
-		setModelImplClass(DLFileVersionImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(DLFileVersionModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("size", "size_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DLFileVersion.class);
+
+		setModelImplClass(DLFileVersionImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(DLFileVersionModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**

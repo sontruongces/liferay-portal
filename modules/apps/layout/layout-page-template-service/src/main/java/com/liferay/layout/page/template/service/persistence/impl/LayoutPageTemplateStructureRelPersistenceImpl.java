@@ -2855,11 +2855,6 @@ public class LayoutPageTemplateStructureRelPersistenceImpl
 		"layoutPageTemplateStructureRel.segmentsExperienceId = ?";
 
 	public LayoutPageTemplateStructureRelPersistenceImpl() {
-		setModelClass(LayoutPageTemplateStructureRel.class);
-
-		setModelImplClass(LayoutPageTemplateStructureRelImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -2868,6 +2863,11 @@ public class LayoutPageTemplateStructureRelPersistenceImpl
 		dbColumnNames.put("data", "data_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(LayoutPageTemplateStructureRel.class);
+
+		setModelImplClass(LayoutPageTemplateStructureRelImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

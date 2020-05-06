@@ -5555,11 +5555,6 @@ public class SiteNavigationMenuPersistenceImpl
 		"siteNavigationMenu.auto_ = ?";
 
 	public SiteNavigationMenuPersistenceImpl() {
-		setModelClass(SiteNavigationMenu.class);
-
-		setModelImplClass(SiteNavigationMenuImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -5567,6 +5562,11 @@ public class SiteNavigationMenuPersistenceImpl
 		dbColumnNames.put("auto", "auto_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(SiteNavigationMenu.class);
+
+		setModelImplClass(SiteNavigationMenuImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

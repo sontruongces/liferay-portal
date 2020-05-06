@@ -13076,16 +13076,16 @@ public class MBThreadPersistenceImpl
 		"mbThread.status != ?";
 
 	public MBThreadPersistenceImpl() {
-		setModelClass(MBThread.class);
-
-		setModelImplClass(MBThreadImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(MBThread.class);
+
+		setModelImplClass(MBThreadImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**
