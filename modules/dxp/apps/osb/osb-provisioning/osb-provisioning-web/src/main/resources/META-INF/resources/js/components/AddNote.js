@@ -86,9 +86,12 @@ function AddNote({
 				});
 
 				if (actionType === EDIT_NOTE) {
-					editNote(noteFromAPI.id, noteFromAPI.content);
-				}
-				else {
+					editNote(
+						noteFromAPI.id,
+						noteFromAPI.content,
+						noteFromAPI.edited
+					);
+				} else {
 					addNote(noteFromAPI);
 				}
 

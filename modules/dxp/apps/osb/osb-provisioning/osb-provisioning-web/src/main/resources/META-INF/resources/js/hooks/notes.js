@@ -69,11 +69,11 @@ export function NotesProvider({initialNotes = [], children}) {
 					archiveNote(id, status) {
 						setNotes(notes.setIn([id, 'status'], status));
 					},
-					editNote(id, content) {
+					editNote(id, content, edited) {
 						setNotes(
 							notes
 								.setIn([id, 'content'], content)
-								.setIn([id, 'edited'], true)
+								.setIn([id, 'edited'], edited)
 						);
 					},
 					pinNote(id, pinned) {
