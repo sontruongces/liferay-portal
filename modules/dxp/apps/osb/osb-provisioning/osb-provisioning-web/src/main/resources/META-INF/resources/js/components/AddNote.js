@@ -164,7 +164,7 @@ function AddNote({
 						<div className="confirmation confirmation-successful">
 							<svg
 								aria-label={Liferay.Language.get(
-									'saving-successful-icon'
+									'save-successful-icon'
 								)}
 							>
 								<use xlinkHref="#check-circle-full" />
@@ -178,7 +178,7 @@ function AddNote({
 						<div className="confirmation confirmation-failed">
 							<svg
 								aria-label={Liferay.Language.get(
-									'saving-unsuccessful-icon'
+									'save-unsuccessful-icon'
 								)}
 							>
 								<use xlinkHref="#exclaimation-full" />
