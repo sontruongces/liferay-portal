@@ -503,32 +503,7 @@ public class ProductPurchaseViewIndexer
 	private BooleanFilter _getInactiveFilter() throws ParseException {
 		BooleanFilter booleanFilter = new BooleanFilter();
 
-		booleanFilter.addRequiredTerm(
-			Field.STATUS, WorkflowConstants.STATUS_APPROVED);
-
-		BooleanFilter inactiveFilter = new BooleanFilter();
-
-		long now = System.currentTimeMillis();
-
-		BooleanQuery rangeQuery = new BooleanQueryImpl();
-
-		TermRangeQuery startDateQuery = new TermRangeQueryImpl(
-			"productPurchases.startDate_sortable", String.valueOf(now),
-			String.valueOf(now + (Time.YEAR * 100)), true, true);
-
-		rangeQuery.add(startDateQuery, BooleanClauseOccur.SHOULD);
-
-		TermRangeQuery endDateQuery = new TermRangeQueryImpl(
-			"productPurchases.endDate_sortable", "0", String.valueOf(now), true,
-			true);
-
-		rangeQuery.add(endDateQuery, BooleanClauseOccur.SHOULD);
-
-		inactiveFilter.add(
-			new QueryFilter(new NestedQuery("productPurchases", rangeQuery)),
-			BooleanClauseOccur.MUST);
-
-		booleanFilter.add(inactiveFilter, BooleanClauseOccur.MUST);
+		booleanFilter.add(_getActiveFilter(), BooleanClauseOccur.MUST_NOT);
 
 		return booleanFilter;
 	}
