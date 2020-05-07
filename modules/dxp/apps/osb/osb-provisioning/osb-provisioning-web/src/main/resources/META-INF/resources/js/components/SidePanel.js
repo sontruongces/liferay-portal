@@ -24,7 +24,7 @@ import ExternalLinksTabPane from './ExternalLinksTabPane';
 import IconButton from './IconButton';
 import NotesTabPane from './NotesTabPane';
 
-function CollapsiblePanel({addNoteURL, handleCollapse}) {
+function CollapsiblePanel({addNoteURL, externalLinks, handleCollapse}) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (
@@ -86,7 +86,7 @@ function CollapsiblePanel({addNoteURL, handleCollapse}) {
 					/>
 				</ClayTabs.TabPane>
 				<ClayTabs.TabPane id="tabPaneExternalLinks">
-					<ExternalLinksTabPane />
+					<ExternalLinksTabPane links={externalLinks} />
 				</ClayTabs.TabPane>
 			</ClayTabs.Content>
 		</>
@@ -138,6 +138,16 @@ function SidePanel(props) {
 
 SidePanel.propTypes = {
 	addNoteURL: PropTypes.string,
+	externalLinks: PropTypes.arrayOf(
+		PropTypes.shape({
+			domain: PropTypes.string.isRequired,
+			entityId: PropTypes.string,
+			entityName: PropTypes.string,
+			key: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired,
+			url: PropTypes.string
+		})
+	),
 	notes: PropTypes.arrayOf(
 		PropTypes.shape({
 			createDate: PropTypes.string.isRequired,

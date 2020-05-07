@@ -91,7 +91,8 @@ function AddNote({
 						noteFromAPI.content,
 						noteFromAPI.edited
 					);
-				} else {
+				}
+				else {
 					addNote(noteFromAPI);
 				}
 

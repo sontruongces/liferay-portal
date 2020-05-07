@@ -50,45 +50,14 @@
 	</symbol>
 
 	<symbol id="logo-corp-project" viewBox="0 0 33 32">
-		<linearGradient id="a" gradientUnits="userSpaceOnUse" x1="16" x2="16" y1="6" y2="26">
-			<stop offset="0" stop-color="#ACACAC" />
-			<stop offset="1" stop-color="#7D7D7D" />
-		</linearGradient>
-
-		<linearGradient id="b" gradientUnits="userSpaceOnUse" x1="16" x2="16" y1="12.6" y2="24">
-			<stop offset=".518" stop-color="#FFF" />
-			<stop offset="1" stop-color="#BEE6FE" />
-		</linearGradient>
-
-		<linearGradient id="c" gradientUnits="userSpaceOnUse" x1="16" x2="16" y1="12" y2="24">
-			<stop offset="0" stop-color="#D2D8DC" />
-			<stop offset="1" stop-color="#B5BDC2" />
-		</linearGradient>
-
-		<radialGradient id="d" cx="0" cy="0" gradientTransform="rotate(90 0 9.25) scale(1.25)" gradientUnits="userSpaceOnUse" r="1">
-			<stop offset="0" stop-color="#FF6F6D" />
-			<stop offset="1" stop-color="#D95D5C" />
-		</radialGradient>
-
-		<radialGradient id="e" cx="0" cy="0" gradientTransform="rotate(90 1.25 10.5) scale(1.25)" gradientUnits="userSpaceOnUse" r="1">
-			<stop offset="0" stop-color="#FFDD76" />
-			<stop offset="1" stop-color="#F4d063" />
-		</radialGradient>
-
-		<radialGradient id="f" cx="0" cy="0" gradientTransform="rotate(90 2.5 11.75) scale(1.25)" gradientUnits="userSpaceOnUse" r="1">
-			<stop offset="0" stop-color="#89E960" />
-			<stop offset="1" stop-color="#7AD055" />
-		</radialGradient>
-
-		<path d="M0 4a4 4 0 014-4h24a4 4 0 014 4v24a4 4 0 01-4 4H4a4 4 0 01-4-4z" fill="#DCE3EA" />
-
-		<rect fill="url(#a)" height="20" rx="3" width="20" x="6" y="6" />
-
-		<path d="M9 12.5h14a.5.5 0 01.5.5v9a1.5 1.5 0 01-1.5 1.5H10A1.5 1.5 0 018.5 22v-9a.5.5 0 01.5-.5z" fill="url(#b)" stroke="url(#c)" />
-
-		<circle cx="9.25" cy="9.25" fill="url(#d)" r="1.25" />
-		<circle cx="11.75" cy="9.25" fill="url(#e)" r="1.25" />
-		<circle cx="14.25" cy="9.25" fill="url(#f)" r="1.25" />
+		<rect width="32" height="32" rx="4" fill="#DCE3EA" />
+		<path d="M6 9C6 7.34315 7.34315 6 9 6H23C24.6569 6 26 7.34315 26 9V23C26 24.6569 24.6569 26 23 26H9C7.34315 26 6 24.6569 6 23V9Z" fill="#949494" />
+		<path d="M8 13C8 12.4477 8.44772 12 9 12H23C23.5523 12 24 12.4477 24 13V22C24 23.1046 23.1046 24 22 24H10C8.89543 24 8 23.1046 8 22V13Z" fill="#FCFCFC" />
+		<path d="M8 19C8 18.4477 8.44772 18 9 18H23C23.5523 18 24 18.4477 24 19V22C24 23.1046 23.1046 24 22 24H10C8.89543 24 8 23.1046 8 22V19Z" fill="#ECF8FF" />
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M23 13H9V22C9 22.5523 9.44772 23 10 23H22C22.5523 23 23 22.5523 23 22V13ZM9 12C8.44772 12 8 12.4477 8 13V22C8 23.1046 8.89543 24 10 24H22C23.1046 24 24 23.1046 24 22V13C24 12.4477 23.5523 12 23 12H9Z" fill="#C7CED3" />
+		<path d="M10.5 9.25C10.5 9.94036 9.94036 10.5 9.25 10.5C8.55964 10.5 8 9.94036 8 9.25C8 8.55964 8.55964 8 9.25 8C9.94036 8 10.5 8.55964 10.5 9.25Z" fill="#EB6665" />
+		<path d="M13 9.25C13 9.94036 12.4404 10.5 11.75 10.5C11.0596 10.5 10.5 9.94036 10.5 9.25C10.5 8.55964 11.0596 8 11.75 8C12.4404 8 13 8.55964 13 9.25Z" fill="#F9D66C" />
+		<path d="M15.5 9.25C15.5 9.94036 14.9404 10.5 14.25 10.5C13.5596 10.5 13 9.94036 13 9.25C13 8.55964 13.5596 8 14.25 8C14.9404 8 15.5 8.55964 15.5 9.25Z" fill="#7ED658" />
 	</symbol>
 
 	<symbol id="logo-custom-link" viewBox="0 0 33 32">
@@ -101,17 +70,11 @@
 	</symbol>
 
 	<symbol id="logo-dossiera" viewBox="0 0 33 32">
-		<path d="M.76 4a4 4 0 014-4h24a4 4 0 014 4v24a4 4 0 01-4 4h-24a4 4 0 01-4-4V4z" fill="url(#paint0_linear)" />
-		<path fill-rule="evenodd" clip-rule="evenodd" d="M21.754 23.091L9.76 28V4l11.994 4.909a2.132 2.132 0 011.442 2.024c0-1.178-.944-2.133-2.108-2.133-.354 0-.689.089-.982.245L9.76 13.257V28l11.994-4.909z" fill="#FFF" fill-opacity=".404" />
-		<path fill-rule="evenodd" clip-rule="evenodd" d="M9.76 18.743v-5.486l10.346-4.212c.293-.156.628-.245.982-.245 1.164 0 2.108.955 2.108 2.133v10.134c0 1.178-.944 2.133-2.108 2.133a2.08 2.08 0 01-.982-.245L9.76 18.743z" fill="#FFF" />
-		<path fill-rule="evenodd" clip-rule="evenodd" d="M9.76 28l11.994-4.909a2.082 2.082 0 01-1.648-.136L9.76 18.743V28zm13.435-6.967v-.201l-.01.01c.006.062.01.126.01.19z" fill="#FFF" fill-opacity=".746" />
-
-		<defs>
-			<linearGradient id="paint0_linear" x1="48.76" y1="16" x2="16.76" y2="-16" gradientUnits="userSpaceOnUse">
-			<stop stop-color="#79A7FF" />
-			<stop offset="1" stop-color="#5FB9FC" />
-			</linearGradient>
-		</defs>
+		<rect width="32" height="32" rx="4" fill="#6DB0FE" />
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M20.994 23.0914L9 28V4L20.994 8.90865C21.8317 9.19076 22.4357 9.99064 22.4357 10.9333C22.4357 10.9714 22.4347 11.0092 22.4328 11.0468C22.4347 11.0092 22.4357 10.9714 22.4357 10.9333C22.4357 9.75513 21.4921 8.8 20.3282 8.8C19.9735 8.8 19.6394 8.88865 19.3462 9.04524L9 13.2569V28L20.994 23.0914C21.4128 22.9503 21.7733 22.6798 22.029 22.3267C21.7733 22.6798 21.4128 22.9503 20.994 23.0914Z" fill="#A6D2FE" />
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M9 18.7431V13.2569L19.3462 9.04524C19.6394 8.88865 19.9735 8.8 20.3282 8.8C21.4921 8.8 22.4357 9.75513 22.4357 10.9333C22.4357 10.9447 22.4356 10.9561 22.4355 10.9674L22.4357 21.0322C22.4359 21.0435 22.4357 21.0553 22.4357 21.0667C22.4357 22.2449 21.4921 23.2 20.3282 23.2C19.9735 23.2 19.6394 23.1114 19.3462 22.9548L9 18.7431Z" fill="white" />
+		<path d="M9 28L20.994 23.0914C20.7847 23.1618 20.5608 23.2 20.3282 23.2C19.9735 23.2 19.6394 23.1114 19.3462 22.9548L9 18.7431V28Z" fill="#DAEBFF"/>
+		<path d="M22.4355 21.0326L22.4357 20.8318L22.4241 20.8413C22.4306 20.9043 22.4345 20.9681 22.4355 21.0326Z" fill="#DAEBFF" />
 	</symbol>
 
 	<symbol id="logo-lcs" viewBox="0 0 33 32">
@@ -183,6 +146,11 @@
 
 	<symbol id="search" viewBox="0 0 512 512">
 		<path class="lexicon-icon-outline" d="M503.254 467.861l-133.645-133.645c27.671-35.13 44.344-79.327 44.344-127.415 0-113.784-92.578-206.362-206.362-206.362s-206.362 92.578-206.362 206.362 92.578 206.362 206.362 206.362c47.268 0 90.735-16.146 125.572-42.969l133.851 133.851c5.002 5.002 11.554 7.488 18.106 7.488s13.104-2.486 18.106-7.488c10.004-10.003 10.004-26.209 0.029-36.183zM52.446 206.801c0-85.558 69.616-155.173 155.173-155.173s155.174 69.616 155.174 155.173-69.616 155.173-155.173 155.173-155.173-69.616-155.173-155.173z" />
+	</symbol>
+
+	<symbol id="shortcut" viewBox="0 0 16 16" fill="none"">
+		<path d="M14 11C14 10.4477 14.4473 10 15 10C15.5527 10 16 10.4477 16 11V14C16 15.1028 15.1025 16 14 16H2C0.897461 16 0 15.1028 0 14V2C0 0.897202 0.897461 0 2 0H5C5.55273 0 6 0.447723 6 1C6 1.55228 5.55273 2 5 2H2V14H14V11Z" fill="currentColor" />
+		<path d="M10 0H15C15.5527 0 16 0.447708 16 1V6C16 6.55229 15.5527 7 15 7C14.4473 7 14 6.55229 14 6V3.4142L9.70703 7.70711C9.51172 7.90237 9.25586 8 9 8C8.74414 8 8.48828 7.90237 8.29297 7.70711C7.90234 7.31657 7.90234 6.68343 8.29297 6.29289L12.5859 2H10C9.44727 2 9 1.55229 9 1C9 0.447708 9.44727 0 10 0Z" fill="currentColor" />
 	</symbol>
 
 	<symbol id="three-dot" viewBox="0 0 16 16">

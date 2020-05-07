@@ -52,6 +52,36 @@
 		}
 	}
 
+	.external-links-container {
+		.external-link {
+			border-bottom: 1px solid $divider;
+			display: block;
+			padding: $spacing-md;
+
+			&:hover {
+				background-color: $primary-l3;
+
+				.lexicon-icon-shortcut {
+					display: inline-block;
+				}
+			}
+
+			.lexicon-icon-shortcut {
+				color: $primary;
+				display: none;
+				height: $spacing-sm;
+				margin-left: $spacing-xs;
+				width: $spacing-sm;
+			}
+		}
+
+		.link-logo {
+			height: $spacing-lg;
+			margin-right: $spacing-md;
+			width: $spacing-lg;
+		}
+	}
+
 	.nav-underline {
 		padding: 0 $spacing-md;
 	}
