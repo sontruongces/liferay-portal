@@ -192,6 +192,20 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 	}
 
 	@Test
+	public void testGetAccountAccountKeyProductProductKeyProductPurchaseView()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGraphQLGetAccountAccountKeyProductProductKeyProductPurchaseView()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testGetProductPurchaseViewsPage() throws Exception {
 		Page<ProductPurchaseView> page =
 			productPurchaseViewResource.getProductPurchaseViewsPage(
@@ -452,20 +466,6 @@ public abstract class BaseProductPurchaseViewResourceTestCase {
 	@Test
 	public void testGraphQLGetProductPurchaseViewsPage() throws Exception {
 		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testGetAccountAccountKeyProductProductKeyProductPurchaseView()
-		throws Exception {
-
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testGraphQLGetAccountAccountKeyProductProductKeyProductPurchaseView()
-		throws Exception {
-
-		Assert.assertTrue(true);
 	}
 
 	protected void assertHttpResponseStatusCode(

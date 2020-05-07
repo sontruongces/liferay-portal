@@ -63,6 +63,36 @@ public abstract class BaseProductPurchaseViewResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/product/{productKey}/product-purchase-view'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(
+		description = "Retrieves the account's product consumptions and product purchases based on product."
+	)
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
+			@Parameter(in = ParameterIn.PATH, name = "productKey")
+		}
+	)
+	@Path("/accounts/{accountKey}/product/{productKey}/product-purchase-view")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ProductPurchaseView")})
+	public ProductPurchaseView
+			getAccountAccountKeyProductProductKeyProductPurchaseView(
+				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
+					String accountKey,
+				@NotNull @Parameter(hidden = true) @PathParam("productKey")
+					String productKey)
+		throws Exception {
+
+		return new ProductPurchaseView();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/product-purchase-views'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -89,36 +119,6 @@ public abstract class BaseProductPurchaseViewResourceImpl
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/product/{productKey}/product-purchase-view'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(
-		description = "Retrieves the account's product consumptions and product purchases based on product."
-	)
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "productKey")
-		}
-	)
-	@Path("/accounts/{accountKey}/product/{productKey}/product-purchase-view")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ProductPurchaseView")})
-	public ProductPurchaseView
-			getAccountAccountKeyProductProductKeyProductPurchaseView(
-				@NotNull @Parameter(hidden = true) @PathParam("accountKey")
-					String accountKey,
-				@NotNull @Parameter(hidden = true) @PathParam("productKey")
-					String productKey)
-		throws Exception {
-
-		return new ProductPurchaseView();
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {

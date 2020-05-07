@@ -39,16 +39,6 @@ public interface ProductPurchaseViewResource {
 		return new Builder();
 	}
 
-	public Page<ProductPurchaseView> getProductPurchaseViewsPage(
-			String search, String filterString, Pagination pagination,
-			String sortString)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse getProductPurchaseViewsPageHttpResponse(
-			String search, String filterString, Pagination pagination,
-			String sortString)
-		throws Exception;
-
 	public ProductPurchaseView
 			getAccountAccountKeyProductProductKeyProductPurchaseView(
 				String accountKey, String productKey)
@@ -57,6 +47,16 @@ public interface ProductPurchaseViewResource {
 	public HttpInvoker.HttpResponse
 			getAccountAccountKeyProductProductKeyProductPurchaseViewHttpResponse(
 				String accountKey, String productKey)
+		throws Exception;
+
+	public Page<ProductPurchaseView> getProductPurchaseViewsPage(
+			String search, String filterString, Pagination pagination,
+			String sortString)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getProductPurchaseViewsPageHttpResponse(
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public static class Builder {
@@ -114,6 +114,73 @@ public interface ProductPurchaseViewResource {
 
 	public static class ProductPurchaseViewResourceImpl
 		implements ProductPurchaseViewResource {
+
+		public ProductPurchaseView
+				getAccountAccountKeyProductProductKeyProductPurchaseView(
+					String accountKey, String productKey)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getAccountAccountKeyProductProductKeyProductPurchaseViewHttpResponse(
+					accountKey, productKey);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ProductPurchaseViewSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse
+				getAccountAccountKeyProductProductKeyProductPurchaseViewHttpResponse(
+					String accountKey, String productKey)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/product/{productKey}/product-purchase-view",
+				accountKey, productKey);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
 
 		public Page<ProductPurchaseView> getProductPurchaseViewsPage(
 				String search, String filterString, Pagination pagination,
@@ -184,73 +251,6 @@ public interface ProductPurchaseViewResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/product-purchase-views");
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public ProductPurchaseView
-				getAccountAccountKeyProductProductKeyProductPurchaseView(
-					String accountKey, String productKey)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getAccountAccountKeyProductProductKeyProductPurchaseViewHttpResponse(
-					accountKey, productKey);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return ProductPurchaseViewSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw e;
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				getAccountAccountKeyProductProductKeyProductPurchaseViewHttpResponse(
-					String accountKey, String productKey)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/product/{productKey}/product-purchase-view",
-				accountKey, productKey);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

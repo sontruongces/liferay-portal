@@ -198,7 +198,7 @@ public class Contact {
 	protected Entitlement[] entitlements;
 
 	@Schema(
-		description = "The account's links to entities in external domains."
+		description = "The contacts's links to entities in external domains."
 	)
 	@Valid
 	public ExternalLink[] getExternalLinks() {

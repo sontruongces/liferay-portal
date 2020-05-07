@@ -44,13 +44,13 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ProductPurchaseViewResource {
 
-	public Page<ProductPurchaseView> getProductPurchaseViewsPage(
-			String search, Filter filter, Pagination pagination, Sort[] sorts)
-		throws Exception;
-
 	public ProductPurchaseView
 			getAccountAccountKeyProductProductKeyProductPurchaseView(
 				String accountKey, String productKey)
+		throws Exception;
+
+	public Page<ProductPurchaseView> getProductPurchaseViewsPage(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

@@ -1648,6 +1648,27 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyProductProductKeyProductPurchaseView(accountKey: ___, productKey: ___){product, productConsumptions, productPurchases}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductPurchaseView
+			accountAccountKeyProductProductKeyProductPurchaseView(
+				@GraphQLName("accountKey") String accountKey,
+				@GraphQLName("productKey") String productKey)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productPurchaseViewResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productPurchaseViewResource ->
+				productPurchaseViewResource.
+					getAccountAccountKeyProductProductKeyProductPurchaseView(
+						accountKey, productKey));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productPurchaseViews(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -1670,27 +1691,6 @@ public class Query {
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(
 						productPurchaseViewResource, sortsString))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyProductProductKeyProductPurchaseView(accountKey: ___, productKey: ___){product, productConsumptions, productPurchases}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField
-	public ProductPurchaseView
-			accountAccountKeyProductProductKeyProductPurchaseView(
-				@GraphQLName("accountKey") String accountKey,
-				@GraphQLName("productKey") String productKey)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_productPurchaseViewResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			productPurchaseViewResource ->
-				productPurchaseViewResource.
-					getAccountAccountKeyProductProductKeyProductPurchaseView(
-						accountKey, productKey));
 	}
 
 	/**
