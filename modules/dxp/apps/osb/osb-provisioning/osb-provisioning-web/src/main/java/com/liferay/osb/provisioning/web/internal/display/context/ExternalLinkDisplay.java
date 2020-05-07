@@ -42,8 +42,8 @@ public class ExternalLinkDisplay {
 		return _externalLink.getEntityName();
 	}
 
-	public ExternalLink getExternalLink() {
-		return _externalLink;
+	public String getKey() {
+		return _externalLink.getKey();
 	}
 
 	public String getUrl() {

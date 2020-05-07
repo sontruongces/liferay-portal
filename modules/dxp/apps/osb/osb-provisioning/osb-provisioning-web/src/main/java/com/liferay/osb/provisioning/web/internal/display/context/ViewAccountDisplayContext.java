@@ -236,15 +236,6 @@ public class ViewAccountDisplayContext {
 		return editTeamURL.toString();
 	}
 
-	public List<ExternalLinkDisplay> getExternalLinkDisplays()
-		throws Exception {
-
-		return TransformUtil.transform(
-			externalLinkWebService.getExternalLinks(account.getKey(), 1, 1000),
-			externalLink -> new ExternalLinkDisplay(
-				httpServletRequest, externalLink));
-	}
-
 	public Map<String, Object> getPanelData() throws Exception {
 		Map<String, Object> data = new HashMap<>();
 
@@ -254,6 +245,14 @@ public class ViewAccountDisplayContext {
 		addNoteURL.setParameter("accountKey", account.getKey());
 
 		data.put("addNoteURL", addNoteURL.toString());
+
+		data.put(
+			"externalLinks",
+			TransformUtil.transform(
+				externalLinkWebService.getExternalLinks(
+					account.getKey(), 1, 1000),
+				externalLink -> new ExternalLinkDisplay(
+					httpServletRequest, externalLink)));
 
 		data.put(
 			"notes",
