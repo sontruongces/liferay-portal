@@ -21,8 +21,8 @@ import com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseEndDateException
 import com.liferay.osb.koroneiki.trunk.exception.ProductPurchaseQuantityException;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
-import com.liferay.osb.koroneiki.trunk.model.impl.view.ProductPurchaseViewImpl;
 import com.liferay.osb.koroneiki.trunk.model.view.ProductPurchaseView;
+import com.liferay.osb.koroneiki.trunk.model.view.impl.ProductPurchaseViewImpl;
 import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.base.ProductPurchaseLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;

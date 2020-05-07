@@ -270,7 +270,7 @@ components:
                     type: array
                 externalLinks:
                     description:
-                        The account's links to entities in external domains.
+                        The contacts's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
                     readOnly: true

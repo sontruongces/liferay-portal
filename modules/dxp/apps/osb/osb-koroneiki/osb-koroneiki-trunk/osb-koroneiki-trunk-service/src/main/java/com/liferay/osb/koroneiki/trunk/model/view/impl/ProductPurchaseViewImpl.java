@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.koroneiki.trunk.model.impl.view;
+package com.liferay.osb.koroneiki.trunk.model.view.impl;
 
 import com.liferay.osb.koroneiki.trunk.model.view.ProductPurchaseView;
 import com.liferay.petra.string.StringPool;
