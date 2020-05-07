@@ -302,6 +302,7 @@ public class FriendlyURLServletTest {
 
 		_layoutLocalService.updateLayout(redirectLayout);
 
+		mockHttpServletRequest.setParameter("param", "true");
 		mockHttpServletRequest.setPathInfo(StringPool.SLASH);
 
 		String requestURI =
@@ -309,8 +310,6 @@ public class FriendlyURLServletTest {
 				getPath(_group, redirectLayout);
 
 		mockHttpServletRequest.setRequestURI(requestURI);
-
-		mockHttpServletRequest.setParameter("param", "true");
 
 		MockHttpServletResponse mockHttpServletResponse =
 			new MockHttpServletResponse();
