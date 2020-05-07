@@ -17,7 +17,7 @@ import '../FieldBase/FieldBase.es';
 import './TextRegister.soy';
 
 import 'clay-autocomplete';
-import {cancelDebounce, debounce} from 'frontend-js-web';
+import {debounce} from 'frontend-js-web';
 import Component from 'metal-component';
 import dom from 'metal-dom';
 import Soy from 'metal-soy';
@@ -93,7 +93,6 @@ class Text extends Component {
 
 	willReceiveState(changes) {
 		if (changes.value) {
-			cancelDebounce(this.debouncedUpdate);
 			this.debouncedUpdate(changes.value.newVal);
 		}
 	}
