@@ -1,0 +1,4 @@
+Bundle-Name: Liferay OSB Commerce Saas Provisioning Site Initializer
+Bundle-SymbolicName: com.liferay.osb.commerce.saas.provisioning.site.initializer
+Bundle-Version: 1.0.0
+Web-ContextPath: /osb-commerce-saas-provisioning-site-initializer

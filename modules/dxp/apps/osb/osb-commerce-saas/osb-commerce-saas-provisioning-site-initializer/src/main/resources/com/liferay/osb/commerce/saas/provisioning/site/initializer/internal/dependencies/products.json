@@ -1,0 +1,55 @@
+[
+	{
+		"BackOrders": true,
+		"Description": "Trial subscription description",
+		"ExternalReferenceCode": "TRIAL101",
+		"Images": [
+			"Minium_ProductImage_01.png"
+		],
+		"Name": "Trial",
+		"Price": 0.00,
+		"PromoPrice": 0.00,
+		"Sku": "TRIAL101",
+		"TaxCategory": "Normal Product"
+	},
+	{
+		"BackOrders": true,
+		"Description": "Basic subscription description",
+		"ExternalReferenceCode": "BASIC101",
+		"Images": [
+			"Minium_ProductImage_01.png"
+		],
+		"Name": "Basic",
+		"Price": 25000.00,
+		"PromoPrice": 20000.00,
+		"Sku": "BASIC101",
+		"SubscriptionInfo": {
+			"MaxSubscriptionCycles": 0,
+			"SubscriptionEnabled": true,
+			"SubscriptionLength": 1,
+			"SubscriptionType": "yearly",
+			"SubscriptionTypeSettingsProperties": "month=0 monthDay=1 yearlyMode=0"
+		},
+		"TaxCategory": "Normal Product"
+	},
+	{
+		"BackOrders": true,
+		"Description": "Premium subscription description",
+		"ExternalReferenceCode": "PREMIUM101",
+		"Images": [
+			"Minium_ProductImage_01.png"
+		],
+		"Name": "Premium",
+		"Price": 50000.00,
+		"PromoPrice": 40000.00,
+		"Sku": "PREMIUM101",
+		"SubscriptionInfo": {
+			"MaxSubscriptionCycles": 0,
+			"SubscriptionEnabled": true,
+			"SubscriptionLength": 1,
+			"SubscriptionType": "yearly",
+			"SubscriptionTypeSettingsProperties": "month=0 monthDay=1 yearlyMode=0"
+		},
+		"TaxCategory": "Normal Product"
+	}
+]
