@@ -2,7 +2,8 @@
 	{
 		"layoutTemplateId": "1_column",
 		"name": "Home",
-		"portlets": []
+		"portlets": [
+		]
 	},
 	{
 		"layoutTemplateId": "1_column",
@@ -50,7 +51,8 @@
 		"name": "Checkout",
 		"permissions": [
 			{
-				"actionIds": [],
+				"actionIds": [
+				],
 				"roleName": "Guest",
 				"scope": 4
 			}

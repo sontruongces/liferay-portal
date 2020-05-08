@@ -7,8 +7,8 @@
 			"Minium_ProductImage_01.png"
 		],
 		"Name": "Trial",
-		"Price": 0.00,
-		"PromoPrice": 0.00,
+		"Price": 0.0,
+		"PromoPrice": 0.0,
 		"Sku": "TRIAL101",
 		"TaxCategory": "Normal Product"
 	},
@@ -20,8 +20,8 @@
 			"Minium_ProductImage_01.png"
 		],
 		"Name": "Basic",
-		"Price": 25000.00,
-		"PromoPrice": 20000.00,
+		"Price": 25000.0,
+		"PromoPrice": 20000.0,
 		"Sku": "BASIC101",
 		"SubscriptionInfo": {
 			"MaxSubscriptionCycles": 0,
@@ -40,8 +40,8 @@
 			"Minium_ProductImage_01.png"
 		],
 		"Name": "Premium",
-		"Price": 50000.00,
-		"PromoPrice": 40000.00,
+		"Price": 50000.0,
+		"PromoPrice": 40000.0,
 		"Sku": "PREMIUM101",
 		"SubscriptionInfo": {
 			"MaxSubscriptionCycles": 0,
