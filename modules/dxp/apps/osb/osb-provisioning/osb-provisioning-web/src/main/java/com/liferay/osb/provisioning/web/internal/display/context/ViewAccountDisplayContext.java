@@ -300,7 +300,7 @@ public class ViewAccountDisplayContext {
 		int endDateDay = ParamUtil.getInteger(renderRequest, "endDateDay");
 		int endDateYear = ParamUtil.getInteger(renderRequest, "endDateYear");
 
-		StringBundler sb = new StringBundler();
+		StringBundler sb = new StringBundler(7);
 
 		sb.append("(accountKey eq '");
 		sb.append(account.getKey());
@@ -314,66 +314,11 @@ public class ViewAccountDisplayContext {
 		}
 
 		if (statuses.length > 0) {
-			StringBundler statusSB = new StringBundler();
-
-			statusSB.append(" and (");
-
-			for (int i = 0; i < statuses.length; i++) {
-				String status = statuses[i];
-
-				if (status.equals("cancelled")) {
-					if (!state.equals("inactive")) {
-						statusSB.append("(status eq '600')");
-					}
-				}
-				else {
-					String sbString = sb.toString();
-
-					if (sbString.contains(status)) {
-						continue;
-					}
-
-					statusSB.append("(state eq '");
-					statusSB.append(status);
-					statusSB.append("')");
-				}
-
-				if (i < (statuses.length - 1)) {
-					String nextStatus = statuses[i + 1];
-
-					if (nextStatus.equals("cancelled") &&
-						state.equals("inactive")) {
-
-						continue;
-					}
-
-					statusSB.append(" or ");
-				}
-			}
-
-			statusSB.append(")");
-
-			if (statusSB.length() > 7) {
-				sb.append(statusSB.toString());
-			}
+			sb.append(_getStatusFilter(statuses, state));
 		}
 
 		if (productKeys.length > 0) {
-			for (int i = 0; i < productKeys.length; i++) {
-				if (i == 0) {
-					sb.append(" and (");
-				}
-
-				sb.append("(productKey eq '");
-				sb.append(productKeys[i]);
-				sb.append("')");
-
-				if (i < (productKeys.length - 1)) {
-					sb.append(" or ");
-				}
-			}
-
-			sb.append(")");
+			sb.append(_getProductKeysFilter(productKeys));
 		}
 
 		Date startDate = PortalUtil.getDate(
@@ -383,11 +328,7 @@ public class ViewAccountDisplayContext {
 			endDateMonth, endDateDay, endDateYear, null);
 
 		if ((startDate != null) && (endDate != null)) {
-			sb.append(" and ((supportLifeStartDate ge ");
-			sb.append(dateFormat.format(startDate));
-			sb.append(") and (supportLifeEndDate le ");
-			sb.append(dateFormat.format(endDate));
-			sb.append("))");
+			sb.append(_getSupportLifeFilter(startDate, endDate));
 		}
 
 		List<ProductPurchaseView> productPurchaseViews =
@@ -547,6 +488,87 @@ public class ViewAccountDisplayContext {
 		deleteNoteURL.setParameter("noteKey", noteKey);
 
 		return deleteNoteURL.toString();
+	}
+
+	private String _getProductKeysFilter(String[] productKeys) {
+		StringBundler sb = new StringBundler((5 * productKeys.length) + 1);
+
+		for (int i = 0; i < productKeys.length; i++) {
+			if (i == 0) {
+				sb.append(" and (");
+			}
+
+			sb.append("(productKey eq '");
+			sb.append(productKeys[i]);
+			sb.append("')");
+
+			if (i < (productKeys.length - 1)) {
+				sb.append(" or ");
+			}
+		}
+
+		sb.append(")");
+
+		return sb.toString();
+	}
+
+	private String _getStatusFilter(String[] statuses, String state) {
+		StringBundler sb = new StringBundler((4 * statuses.length) + 2);
+
+		sb.append(" and (");
+
+		for (int i = 0; i < statuses.length; i++) {
+			String status = statuses[i];
+
+			if (status.equals("cancelled")) {
+				if (!state.equals("inactive")) {
+					sb.append("(status eq '600')");
+				}
+			}
+			else {
+				String sbString = sb.toString();
+
+				if (sbString.contains(status)) {
+					continue;
+				}
+
+				sb.append("(state eq '");
+				sb.append(status);
+				sb.append("')");
+			}
+
+			if (i < (statuses.length - 1)) {
+				String nextStatus = statuses[i + 1];
+
+				if (nextStatus.equals("cancelled") &&
+					state.equals("inactive")) {
+
+					continue;
+				}
+
+				sb.append(" or ");
+			}
+		}
+
+		sb.append(")");
+
+		if (sb.length() > 7) {
+			return sb.toString();
+		}
+
+		return StringPool.BLANK;
+	}
+
+	private String _getSupportLifeFilter(Date startDate, Date endDate) {
+		StringBundler sb = new StringBundler(5);
+
+		sb.append(" and ((supportLifeStartDate ge ");
+		sb.append(dateFormat.format(startDate));
+		sb.append(") and (supportLifeEndDate le ");
+		sb.append(dateFormat.format(endDate));
+		sb.append("))");
+
+		return sb.toString();
 	}
 
 	private String _getUpdateNoteURL(String noteKey) {
