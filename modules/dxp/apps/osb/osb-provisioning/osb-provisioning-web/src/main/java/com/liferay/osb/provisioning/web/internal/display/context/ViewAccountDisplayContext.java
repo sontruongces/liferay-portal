@@ -289,6 +289,8 @@ public class ViewAccountDisplayContext {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		String[] productKeys = ParamUtil.getStringValues(
 			renderRequest, "productKeys");
+		String[] statuses = ParamUtil.getStringValues(
+			renderRequest, "statuses");
 		int startDateMonth = ParamUtil.getInteger(
 			renderRequest, "startDateMonth");
 		int startDateDay = ParamUtil.getInteger(renderRequest, "startDateDay");
@@ -298,7 +300,7 @@ public class ViewAccountDisplayContext {
 		int endDateDay = ParamUtil.getInteger(renderRequest, "endDateDay");
 		int endDateYear = ParamUtil.getInteger(renderRequest, "endDateYear");
 
-		StringBundler sb = new StringBundler(8);
+		StringBundler sb = new StringBundler();
 
 		sb.append("(accountKey eq '");
 		sb.append(account.getKey());
@@ -309,6 +311,51 @@ public class ViewAccountDisplayContext {
 		}
 		else if (state.equals("inactive")) {
 			sb.append(" and ((state eq 'inactive') or (status eq '600'))");
+		}
+
+		if (statuses.length > 0) {
+			StringBundler statusSB = new StringBundler();
+
+			statusSB.append(" and (");
+
+			for (int i = 0; i < statuses.length; i++) {
+				String status = statuses[i];
+
+				if (status.equals("cancelled")) {
+					if (!state.equals("inactive")) {
+						statusSB.append("(status eq '600')");
+					}
+				}
+				else {
+					String sbString = sb.toString();
+
+					if (sbString.contains(status)) {
+						continue;
+					}
+
+					statusSB.append("(state eq '");
+					statusSB.append(status);
+					statusSB.append("')");
+				}
+
+				if (i < (statuses.length - 1)) {
+					String nextStatus = statuses[i + 1];
+
+					if (nextStatus.equals("cancelled") &&
+						state.equals("inactive")) {
+
+						continue;
+					}
+
+					statusSB.append(" or ");
+				}
+			}
+
+			statusSB.append(")");
+
+			if (statusSB.length() > 7) {
+				sb.append(statusSB.toString());
+			}
 		}
 
 		if (productKeys.length > 0) {
