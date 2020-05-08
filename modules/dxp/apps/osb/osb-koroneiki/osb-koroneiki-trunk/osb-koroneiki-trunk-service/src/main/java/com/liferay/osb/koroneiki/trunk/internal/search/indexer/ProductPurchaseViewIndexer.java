@@ -58,10 +58,10 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.text.Format;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -535,6 +535,8 @@ public class ProductPurchaseViewIndexer
 
 		Iterator<BooleanClause<Filter>> iterator = booleanClauses.iterator();
 
+		List<String> states = new ArrayList<>();
+
 		while (iterator.hasNext()) {
 			BooleanClause<Filter> booleanClause = iterator.next();
 
@@ -551,26 +553,30 @@ public class ProductPurchaseViewIndexer
 				if (field.equals("state")) {
 					state = termFilter.getValue();
 
+					states.add(state);
+
 					iterator.remove();
 				}
 			}
 		}
 
-		if (Validator.isNull(state)) {
+		if (states.isEmpty()) {
 			return;
 		}
 
-		if (StringUtil.equalsIgnoreCase(state, "active")) {
-			booleanFilter.add(_getActiveFilter(), booleanClauseOccur);
-		}
-		else if (StringUtil.equalsIgnoreCase(state, "expired")) {
-			booleanFilter.add(_getExpiredFilter(), booleanClauseOccur);
-		}
-		else if (StringUtil.equalsIgnoreCase(state, "inactive")) {
-			booleanFilter.add(_getInactiveFilter(), booleanClauseOccur);
-		}
-		else if (StringUtil.equalsIgnoreCase(state, "unactivated")) {
-			booleanFilter.add(_getUnactivatedFilter(), booleanClauseOccur);
+		for (String curState : states) {
+			if (StringUtil.equalsIgnoreCase(curState, "active")) {
+				booleanFilter.add(_getActiveFilter(), booleanClauseOccur);
+			}
+			else if (StringUtil.equalsIgnoreCase(curState, "expired")) {
+				booleanFilter.add(_getExpiredFilter(), booleanClauseOccur);
+			}
+			else if (StringUtil.equalsIgnoreCase(curState, "inactive")) {
+				booleanFilter.add(_getInactiveFilter(), booleanClauseOccur);
+			}
+			else if (StringUtil.equalsIgnoreCase(curState, "unactivated")) {
+				booleanFilter.add(_getUnactivatedFilter(), booleanClauseOccur);
+			}
 		}
 	}
 
