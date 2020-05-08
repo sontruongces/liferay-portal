@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.commerce.saas.provisioning.site.initializer.internal;
+package com.liferay.osb.commerce.provisioning.site.initializer.internal;
 
 import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolver;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -29,10 +29,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "site.initializer.key=" + CommerceSaaSProvisioningSiteInitializer.KEY,
+	property = "site.initializer.key=" + CommerceProvisioningSiteInitializer.KEY,
 	service = SiteInitializerDependencyResolver.class
 )
-public class CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl
+public class CommerceProvisioningSiteInitializerDependencyResolverImpl
 	implements SiteInitializerDependencyResolver {
 
 	@Override
@@ -42,8 +42,8 @@ public class CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl
 
 	@Override
 	public ClassLoader getDisplayTemplatesClassLoader() {
-		return CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl.
-			class.getClassLoader();
+		return CommerceProvisioningSiteInitializerDependencyResolverImpl.class.
+			getClassLoader();
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public class CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl
 
 	@Override
 	public ClassLoader getDocumentsClassLoader() {
-		return CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl.
-			class.getClassLoader();
+		return CommerceProvisioningSiteInitializerDependencyResolverImpl.class.
+			getClassLoader();
 	}
 
 	@Override
@@ -64,8 +64,8 @@ public class CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl
 
 	@Override
 	public ClassLoader getImageClassLoader() {
-		return CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl.
-			class.getClassLoader();
+		return CommerceProvisioningSiteInitializerDependencyResolverImpl.class.
+			getClassLoader();
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl
 	@Override
 	public String getJSON(String name) throws IOException {
 		ClassLoader classLoader =
-			CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl.class.
+			CommerceProvisioningSiteInitializerDependencyResolverImpl.class.
 				getClassLoader();
 
 		try (InputStream inputStream = classLoader.getResourceAsStream(
@@ -91,7 +91,7 @@ public class CommerceSaaSProvisioningSiteInitializerDependencyResolverImpl
 	}
 
 	private static final String _DEPENDENCIES_PATH =
-		"com/liferay/osb/commerce/saas/provisioning/site/initializer/internal" +
+		"com/liferay/osb/commerce/provisioning/site/initializer/internal" +
 			"/dependencies/";
 
 	@Reference(target = "(site.initializer.key=minium-initializer)")

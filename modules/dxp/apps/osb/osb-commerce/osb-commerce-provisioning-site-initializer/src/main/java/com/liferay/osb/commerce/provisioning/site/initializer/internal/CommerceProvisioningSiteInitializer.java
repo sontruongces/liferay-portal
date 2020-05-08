@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.commerce.saas.provisioning.site.initializer.internal;
+package com.liferay.osb.commerce.provisioning.site.initializer.internal;
 
 import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolver;
 import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolverThreadLocal;
@@ -37,13 +37,12 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "site.initializer.key=" + CommerceSaaSProvisioningSiteInitializer.KEY,
+	property = "site.initializer.key=" + CommerceProvisioningSiteInitializer.KEY,
 	service = SiteInitializer.class
 )
-public class CommerceSaaSProvisioningSiteInitializer
-	implements SiteInitializer {
+public class CommerceProvisioningSiteInitializer implements SiteInitializer {
 
-	public static final String KEY = "commerce-saas-provisioning-initializer";
+	public static final String KEY = "commerce-provisioning-initializer";
 
 	@Override
 	public String getDescription(Locale locale) {
@@ -60,7 +59,7 @@ public class CommerceSaaSProvisioningSiteInitializer
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, "commerce-saas-provisioning");
+		return LanguageUtil.get(resourceBundle, "commerce-provisioning");
 	}
 
 	@Override
@@ -93,16 +92,16 @@ public class CommerceSaaSProvisioningSiteInitializer
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceSaaSProvisioningSiteInitializer.class);
+		CommerceProvisioningSiteInitializer.class);
 
 	@Reference(
-		target = "(site.initializer.key=commerce-saas-provisioning-initializer)"
+		target = "(site.initializer.key=commerce-provisioning-initializer)"
 	)
 	private SiteInitializerDependencyResolver
 		_osbCommerceProvisioningSiteInitializerDependencyResolver;
 
 	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.osb.commerce.saas.provisioning.site.initializer)"
+		target = "(osgi.web.symbolicname=com.liferay.osb.commerce.provisioning.site.initializer)"
 	)
 	private ServletContext _servletContext;
 
