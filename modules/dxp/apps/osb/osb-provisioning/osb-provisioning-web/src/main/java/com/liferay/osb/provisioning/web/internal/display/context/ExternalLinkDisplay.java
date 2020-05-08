@@ -15,6 +15,9 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,6 +47,16 @@ public class ExternalLinkDisplay {
 
 	public String getKey() {
 		return _externalLink.getKey();
+	}
+
+	public String getLabel() {
+		StringBundler sb = new StringBundler(3);
+
+		sb.append(_externalLink.getDomain());
+		sb.append(StringPool.DASH);
+		sb.append(_externalLink.getEntityName());
+
+		return LanguageUtil.get(_httpServletRequest, sb.toString());
 	}
 
 	public String getUrl() {
