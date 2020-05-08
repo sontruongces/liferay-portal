@@ -12,17 +12,14 @@
  *
  */
 
-package com.liferay.osb.provisioning.constants;
+package com.liferay.osb.provisioning.web.internal.application.list.constants;
 
 /**
- * @author Kyle Bischof
+ * @author Amos Fong
  */
-public class ProvisioningPortletKeys {
+public class ProvisioningPanelCategoryKeys {
 
-	public static final String ADMIN =
-		"com_liferay_osb_provisioning_web_portlet_AdminPortlet";
-
-	public static final String PROVISIONING =
-		"com_liferay_osb_provisioning_web_portlet_ProvisioningPortlet";
+	public static final String CONTROL_PANEL_PROVISIONING =
+		"control_panel.provisioning";
 
 }
