@@ -1083,6 +1083,8 @@ definition {
 
 	@priority = "3"
 	test ViewDateFieldPredefinedValue {
+		property custom.properties = "default.layout.template.id=1_column";
+
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
