@@ -27,17 +27,21 @@ import templates from './Text.soy';
 
 class Text extends Component {
 	created() {
-		this.debouncedUpdate = debounce(_value => {
-			if (this.animationFrameRequest) {
-				window.cancelAnimationFrame(this.animationFrameRequest);
-			}
-
-			this.animationFrameRequest = window.requestAnimationFrame(() => {
-				if (!this.isDisposed()) {
-					this.setState({_value});
+		if (this.displayStyle == 'singleline') {
+			this.debouncedUpdate = debounce(_value => {
+				if (this.animationFrameRequest) {
+					window.cancelAnimationFrame(this.animationFrameRequest);
 				}
-			});
-		}, 300);
+
+				this.animationFrameRequest = window.requestAnimationFrame(
+					() => {
+						if (!this.isDisposed()) {
+							this.setState({_value});
+						}
+					}
+				);
+			}, 300);
+		}
 	}
 
 	attached() {
@@ -92,7 +96,7 @@ class Text extends Component {
 	}
 
 	willReceiveState(changes) {
-		if (changes.value) {
+		if (changes.value && this.debouncedUpdate) {
 			this.debouncedUpdate(changes.value.newVal);
 		}
 	}
