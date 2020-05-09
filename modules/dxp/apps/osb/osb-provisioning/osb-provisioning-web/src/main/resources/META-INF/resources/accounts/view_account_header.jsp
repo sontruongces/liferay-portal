@@ -53,7 +53,7 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 			</li>
 			<li>
 				<div class="header-label">
-					<liferay-ui:message key="sup-region" />
+					<liferay-ui:message key="support-region" />
 				</div>
 
 				<%= accountDisplay.getRegion() %>
