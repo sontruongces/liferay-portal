@@ -218,9 +218,9 @@ definition {
 			userScreenName = "uskandi");
 	}
 
-	@description = "Checks for each portlet having defined boundries."
+	@description = "Checks for each portlet having defined boundaries."
 	@priority = "5"
-	test ViewPortletBoundries {
+	test ViewPortletBoundaries {
 		property portal.acceptance = "false";
 
 		ProductMenu.gotoPortlet(
