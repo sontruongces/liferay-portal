@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -8,21 +7,15 @@
  * contacting Liferay, Inc. See the License for the specific language governing
  * permissions and limitations under the License, including but not limited to
  * distribution rights of the Software.
- *
- *
- *
  */
---%>
 
-<%@ include file="/init.jsp" %>
+import React from 'react';
 
-<%
-ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
-%>
+import ErrorBoundary from './ErrorBoundary';
+import AccountDetails from './components/account_details/AccountDetails';
 
-<div class="details-table" id="accountDetails">
-	<react:component
-		data="<%= viewAccountDisplayContext.getAccountDetailsData() %>"
-		module="js/AccountDetailsApp"
-	/>
-</div>
+export default props => (
+	<ErrorBoundary>
+		<AccountDetails {...props} />
+	</ErrorBoundary>
+);

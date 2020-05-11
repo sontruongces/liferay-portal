@@ -1,0 +1,18 @@
+#accountDetails {
+	.account-field {
+		align-items: center;
+		display: flex;
+		padding-left: $spacing-xs;
+		padding-right: $spacing-xs;
+		width: 50%;
+	}
+
+	.list-group-text {
+		font-size: $font-size-base;
+		width: 60%;
+	}
+
+	.list-group-title {
+		width: 40%;
+	}
+}
