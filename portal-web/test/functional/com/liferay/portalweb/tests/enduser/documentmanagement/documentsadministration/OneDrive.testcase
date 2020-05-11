@@ -469,7 +469,9 @@ definition {
 
 		OneDrive.gotoEdit(dmDocumentTitle = "Document_3.docx");
 
-		OneDrive.editTitle(dmDocumentTitle = "Word Doc Title Edited");
+		OneDrive.editTitle(
+			dmDocumentTitle = "Word Doc Title Edited",
+			dmDocumentTypeName = "Word");
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
