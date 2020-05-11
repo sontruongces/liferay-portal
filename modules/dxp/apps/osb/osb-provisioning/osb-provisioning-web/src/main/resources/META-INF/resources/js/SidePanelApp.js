@@ -78,7 +78,7 @@
 import React from 'react';
 
 import ErrorBoundary from './ErrorBoundary';
-import SidePanel from './components/SidePanel';
+import SidePanel from './components/side_panel/SidePanel';
 
 export default props => (
 	<ErrorBoundary>

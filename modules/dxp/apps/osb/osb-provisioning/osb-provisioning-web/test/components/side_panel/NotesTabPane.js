@@ -78,15 +78,15 @@
 import {cleanup, fireEvent, render, within} from '@testing-library/react';
 import React from 'react';
 
-import NotesTabPane from '../../src/main/resources/META-INF/resources/js/components/NotesTabPane';
-import {NotesProvider} from '../../src/main/resources/META-INF/resources/js/hooks/notes';
+import NotesTabPane from '../../../src/main/resources/META-INF/resources/js/components/side_panel/NotesTabPane';
+import {NotesProvider} from '../../../src/main/resources/META-INF/resources/js/hooks/notes';
 import {
 	NOTE_FORMAT_HTML,
 	NOTE_STATUS_APPROVED,
 	NOTE_STATUS_ARCHIVED,
 	NOTE_TYPE_GENERAL,
 	NOTE_TYPE_SALES
-} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
+} from '../../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 function mockNotes({type}) {
 	return [

@@ -79,8 +79,8 @@ import {ClayTooltipProvider} from '@clayui/tooltip';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {NOTE_TYPE_GENERAL, NOTE_TYPE_SALES} from '../utilities/constants';
-import IconButton from './IconButton';
+import {NOTE_TYPE_GENERAL, NOTE_TYPE_SALES} from '../../utilities/constants';
+import IconButton from '../IconButton';
 
 function ActionMenu({
 	onEdit,

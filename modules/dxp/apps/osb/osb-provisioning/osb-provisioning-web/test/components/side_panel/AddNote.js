@@ -78,14 +78,14 @@
 import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
-import AddNote from '../../src/main/resources/META-INF/resources/js/components/AddNote';
-import {NotesProvider} from '../../src/main/resources/META-INF/resources/js/hooks/notes';
+import AddNote from '../../../src/main/resources/META-INF/resources/js/components/side_panel/AddNote';
+import {NotesProvider} from '../../../src/main/resources/META-INF/resources/js/hooks/notes';
 import {
 	NOTE_FORMAT_HTML,
 	NOTE_STATUS_APPROVED,
 	NOTE_TYPE_GENERAL,
 	NOTE_TYPE_SALES
-} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
+} from '../../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 function mockNotes() {
 	return [

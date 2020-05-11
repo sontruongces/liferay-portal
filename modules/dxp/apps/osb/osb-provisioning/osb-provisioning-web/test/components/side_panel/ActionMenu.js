@@ -75,67 +75,49 @@
  * distribution rights of the Software.
  */
 
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {cleanup, render} from '@testing-library/react';
 import React from 'react';
 
-import SidePanel from '../../src/main/resources/META-INF/resources/js/components/SidePanel';
+import ActionMenu from '../../../src/main/resources/META-INF/resources/js/components/side_panel/ActionMenu';
+import {NOTE_TYPE_SALES} from '../../../src/main/resources/META-INF/resources/js/utilities/constants';
 
-function renderSidePanel() {
-	return render(<SidePanel />);
+function renderActionMenu(props) {
+	return render(
+		<ActionMenu onEdit={jest.fn()} onPinning={jest.fn()} {...props} />
+	);
 }
 
-describe('SidePanel', () => {
-	beforeEach(() => {
-		document.body.innerHTML = `<div id="account">dummy account node</div>`;
-	});
-
+describe('ActionMenu', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {
-		const {container} = renderSidePanel();
+		const {container} = renderActionMenu();
 
 		expect(container).toBeTruthy();
 	});
 
-	it('has a "Notes" tab', () => {
-		const {getByText} = renderSidePanel();
+	it('displays an edit icon', () => {
+		const {getByLabelText} = renderActionMenu();
 
-		getByText('notes');
+		getByLabelText('edit-note-icon');
 	});
 
-	it('has a "Sales Info" tab', () => {
-		const {getByText} = renderSidePanel();
+	it('displays a pin icon if note has not been pinned on Genearl Notes tab', () => {
+		const {getByLabelText} = renderActionMenu();
 
-		getByText('sales-info');
+		getByLabelText('pin-note-icon');
 	});
 
-	it('has an "External Links" tab', () => {
-		const {getByText} = renderSidePanel();
+	it('displays an unpin icon if note has been pinned on Genearl Notes tab', () => {
+		const {getByLabelText} = renderActionMenu({pinned: true});
 
-		getByText('external-links');
+		getByLabelText('unpin-note-icon');
 	});
 
-	it('shows the corresponding tab content when a tab is clicked', () => {
-		const {getByText} = renderSidePanel();
+	it('displays no pin or unpin icon on Sales Info tab', () => {
+		const {queryByLabelText} = renderActionMenu({tabType: NOTE_TYPE_SALES});
 
-		fireEvent.click(getByText('sales-info'));
-
-		expect(getByText('sales-info').className).toEqual(
-			expect.stringContaining('active')
-		);
-
-		fireEvent.click(getByText('external-links'));
-
-		expect(getByText('external-links').className).toEqual(
-			expect.stringContaining('active')
-		);
-	});
-
-	it('shows an expand button when collapsed', () => {
-		const {getByLabelText} = renderSidePanel();
-
-		fireEvent.click(getByLabelText('collapse-panel-button'));
-
-		getByLabelText('expand-panel-button');
+		expect(queryByLabelText('pin-note-icon')).toBeFalsy();
+		expect(queryByLabelText('unpin-note-icon')).toBeFalsy();
 	});
 });

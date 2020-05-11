@@ -78,7 +78,7 @@
 import {cleanup, render} from '@testing-library/react';
 import React from 'react';
 
-import ExternalLinksTabPane from '../../src/main/resources/META-INF/resources/js/components/ExternalLinksTabPane';
+import ExternalLinksTabPane from '../../../src/main/resources/META-INF/resources/js/components/side_panel/ExternalLinksTabPane';
 
 const defaultProp = [
 	{domain: 'dossiera', key: '123', label: 'dossiera-project', url: '/'}

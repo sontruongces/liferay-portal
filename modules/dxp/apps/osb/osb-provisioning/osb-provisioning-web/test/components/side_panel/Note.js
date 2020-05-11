@@ -78,17 +78,17 @@
 import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
-import Note from '../../src/main/resources/META-INF/resources/js/components/Note';
+import Note from '../../../src/main/resources/META-INF/resources/js/components/side_panel/Note';
 import {
 	NoteRecord,
 	NotesProvider
-} from '../../src/main/resources/META-INF/resources/js/hooks/notes';
+} from '../../../src/main/resources/META-INF/resources/js/hooks/notes';
 import {
 	NOTE_FORMAT_HTML,
 	NOTE_STATUS_APPROVED,
 	NOTE_STATUS_ARCHIVED,
 	NOTE_TYPE_GENERAL
-} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
+} from '../../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 function renderNote(props) {
 	const note = NoteRecord({

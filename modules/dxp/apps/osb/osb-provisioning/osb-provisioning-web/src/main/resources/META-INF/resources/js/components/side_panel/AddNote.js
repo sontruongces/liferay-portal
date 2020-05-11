@@ -79,7 +79,7 @@ import ClayLoadingIndicator from '@clayui/loading-indicator';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {NoteRecord, useNotes} from '../hooks/notes';
+import {NoteRecord, useNotes} from '../../hooks/notes';
 import {
 	ADD_NOTE,
 	EDIT_NOTE,
@@ -91,8 +91,8 @@ import {
 	NOTE_STATUS_ARCHIVED,
 	NOTE_TYPE_GENERAL,
 	NOTE_TYPE_SALES
-} from '../utilities/constants';
-import {postData} from '../utilities/helpers';
+} from '../../utilities/constants';
+import {postData} from '../../utilities/helpers';
 
 const FAILED = 'FAILED';
 const SUCCESSFUL = 'SUCCESSFUL';

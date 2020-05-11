@@ -75,91 +75,164 @@
  * distribution rights of the Software.
  */
 
-import {Align, ClayDropDownWithItems} from '@clayui/drop-down';
+import ClayTabs from '@clayui/tabs';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
+import {NotesProvider} from '../../hooks/notes';
 import {
 	NOTE_STATUS_APPROVED,
 	NOTE_STATUS_ARCHIVED,
 	NOTE_TYPE_GENERAL,
 	NOTE_TYPE_SALES
-} from '../utilities/constants';
+} from '../../utilities/constants';
+import IconButton from '../IconButton';
+import ExternalLinksTabPane from './ExternalLinksTabPane';
+import NotesTabPane from './NotesTabPane';
 
-function PanelDropdownMenu({
-	id,
-	onArchive,
-	onEdit,
-	onPinning,
-	pinned = false,
-	status = NOTE_STATUS_APPROVED,
-	tabType = NOTE_TYPE_GENERAL
-}) {
-	const generateDropdownItems = () => {
-		const dropdownItems = [];
-
-		if (status === NOTE_STATUS_APPROVED) {
-			dropdownItems.push({
-				label: Liferay.Language.get('edit'),
-				onClick: onEdit
-			});
-
-			if (tabType === NOTE_TYPE_GENERAL) {
-				dropdownItems.push({
-					label: pinned
-						? Liferay.Language.get('unpin')
-						: Liferay.Language.get('pin'),
-					onClick: onPinning
-				});
-			}
-
-			dropdownItems.push({
-				label: Liferay.Language.get('archive'),
-				onClick: onArchive
-			});
-		}
-		else {
-			dropdownItems.push({
-				label: Liferay.Language.get('unarchive'),
-				onClick: onArchive
-			});
-		}
-
-		return dropdownItems;
-	};
+function CollapsiblePanel({addNoteURL, externalLinks, handleCollapse}) {
+	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (
-		// Clay drop-down expects a HTMLButtonElement as a trigger
-
-		<ClayDropDownWithItems
-			alignmentPosition={Align.BottomRight}
-			className="panel-dropdown-menu"
-			items={generateDropdownItems()}
-			key={`dropdownMenu-${id}`}
-			trigger={
-				<button
-					className="btn btn-unstyled"
-					role="button"
-					type="button"
+		<>
+			<ClayTabs modern>
+				<ClayTabs.Item
+					active={activeIndex === 0}
+					innerProps={{
+						'aria-controls': 'tabPaneNotes'
+					}}
+					onClick={() => setActiveIndex(0)}
+				>
+					{Liferay.Language.get('notes')}
+				</ClayTabs.Item>
+				<ClayTabs.Item
+					active={activeIndex === 1}
+					innerProps={{
+						'aria-controls': 'tabPaneSalesInfo'
+					}}
+					onClick={() => setActiveIndex(1)}
+				>
+					{Liferay.Language.get('sales-info')}
+				</ClayTabs.Item>
+				<ClayTabs.Item
+					active={activeIndex === 2}
+					innerProps={{
+						'aria-controls': 'tabPaneExternalLinks'
+					}}
+					onClick={() => setActiveIndex(2)}
+				>
+					{Liferay.Language.get('external-links')}
+				</ClayTabs.Item>
+				<ClayTabs.Item
+					className="panel-collapse"
+					onClick={handleCollapse}
 				>
 					<svg
-						aria-label={Liferay.Language.get('action-menu-icon')}
+						aria-label={Liferay.Language.get(
+							'collapse-panel-button'
+						)}
 						role="img"
 					>
-						<use xlinkHref="#three-dot" />
+						<use xlinkHref="#collapse" />
 					</svg>
-				</button>
-			}
-		/>
+				</ClayTabs.Item>
+			</ClayTabs>
+
+			<ClayTabs.Content activeIndex={activeIndex}>
+				<ClayTabs.TabPane id="tabPaneNotes">
+					<NotesTabPane
+						addURL={addNoteURL}
+						tabType={NOTE_TYPE_GENERAL}
+					/>
+				</ClayTabs.TabPane>
+				<ClayTabs.TabPane id="tabPaneSalesInfo">
+					<NotesTabPane
+						addURL={addNoteURL}
+						tabType={NOTE_TYPE_SALES}
+					/>
+				</ClayTabs.TabPane>
+				<ClayTabs.TabPane id="tabPaneExternalLinks">
+					<ExternalLinksTabPane links={externalLinks} />
+				</ClayTabs.TabPane>
+			</ClayTabs.Content>
+		</>
 	);
 }
 
-PanelDropdownMenu.propTypes = {
-	id: PropTypes.string.isRequired,
-	onEdit: PropTypes.func.isRequired,
-	pinned: PropTypes.bool,
-	status: PropTypes.oneOf([NOTE_STATUS_APPROVED, NOTE_STATUS_ARCHIVED]),
-	tabType: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
+CollapsiblePanel.propTypes = {
+	handleCollapse: PropTypes.func.isRequired
 };
 
-export default PanelDropdownMenu;
+function SidePanel(props) {
+	const [collapse, setCollapse] = useState(false);
+
+	const handleCollapse = () => {
+		setCollapse(!collapse);
+	};
+
+	useEffect(() => {
+		const account = document.getElementById('account');
+
+		if (!account) {
+			return;
+		}
+
+		if (collapse) {
+			account.classList.add('full-view');
+		}
+		else {
+			account.classList.remove('full-view');
+		}
+	}, [collapse]);
+
+	return (
+		<NotesProvider initialNotes={props.notes}>
+			{collapse ? (
+				<IconButton
+					cssClass="panel-expand"
+					labelName="expand-panel-button"
+					onClick={handleCollapse}
+					svgId="#expand"
+					title={Liferay.Language.get('expand')}
+				/>
+			) : (
+				<CollapsiblePanel handleCollapse={handleCollapse} {...props} />
+			)}
+		</NotesProvider>
+	);
+}
+
+SidePanel.propTypes = {
+	addNoteURL: PropTypes.string,
+	externalLinks: PropTypes.arrayOf(
+		PropTypes.shape({
+			domain: PropTypes.string.isRequired,
+			entityId: PropTypes.string,
+			entityName: PropTypes.string,
+			key: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired,
+			url: PropTypes.string
+		})
+	),
+	notes: PropTypes.arrayOf(
+		PropTypes.shape({
+			createDate: PropTypes.string.isRequired,
+			creatorName: PropTypes.string.isRequired,
+			creatorPortraitURL: PropTypes.string,
+			edited: PropTypes.bool.isRequired,
+			format: PropTypes.string.isRequired,
+			htmlContent: PropTypes.string.isRequired,
+			key: PropTypes.string.isRequired,
+			pinned: PropTypes.bool.isRequired,
+			status: PropTypes.oneOf([
+				NOTE_STATUS_APPROVED,
+				NOTE_STATUS_ARCHIVED
+			]).isRequired,
+			type: PropTypes.oneOf([NOTE_TYPE_GENERAL, NOTE_TYPE_SALES])
+				.isRequired,
+			updateNoteURL: PropTypes.string.isRequired
+		})
+	)
+};
+
+export default SidePanel;

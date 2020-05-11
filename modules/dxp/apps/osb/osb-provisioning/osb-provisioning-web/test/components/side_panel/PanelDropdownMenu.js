@@ -78,11 +78,11 @@
 import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
-import PanelDropdownMenu from '../../src/main/resources/META-INF/resources/js/components/PanelDropdownMenu';
+import PanelDropdownMenu from '../../../src/main/resources/META-INF/resources/js/components/side_panel/PanelDropdownMenu';
 import {
 	NOTE_STATUS_ARCHIVED,
 	NOTE_TYPE_SALES
-} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
+} from '../../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 const mockOnArchiveFn = jest.fn();
 const mockOnEditFn = jest.fn();
