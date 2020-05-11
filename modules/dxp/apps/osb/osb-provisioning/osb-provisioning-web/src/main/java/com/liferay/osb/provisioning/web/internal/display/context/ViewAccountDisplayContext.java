@@ -279,18 +279,19 @@ public class ViewAccountDisplayContext {
 		return portletURL;
 	}
 
-	public SearchContainer getProductPurchaseViewsSearchContainer(String state)
+	public SearchContainer getProductPurchaseViewsSearchContainer()
 		throws Exception {
 
 		SearchContainer searchContainer = new SearchContainer(
 			renderRequest, renderResponse.createRenderURL(),
 			Collections.emptyList(), "no-subscriptions-were-found");
 
+		String tabs2 = ParamUtil.getString(renderRequest, "tabs2", "active");
+
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		String[] productKeys = ParamUtil.getStringValues(
 			renderRequest, "productKeys");
-		String[] statuses = ParamUtil.getStringValues(
-			renderRequest, "statuses");
+		String[] states = ParamUtil.getStringValues(renderRequest, "states");
 		int startDateMonth = ParamUtil.getInteger(
 			renderRequest, "startDateMonth");
 		int startDateDay = ParamUtil.getInteger(renderRequest, "startDateDay");
@@ -306,16 +307,16 @@ public class ViewAccountDisplayContext {
 		sb.append(account.getKey());
 		sb.append("')");
 
-		if (state.equals("active")) {
+		if (tabs2.equals("active")) {
 			sb.append(" and (state eq 'active')");
 		}
-		else if (state.equals("inactive") && (statuses.length == 0)) {
+		else if (tabs2.equals("inactive") && (states.length == 0)) {
 			sb.append(" and ((state eq 'cancelled') or (state eq 'expired') ");
 			sb.append("or (state eq 'unactivated'))");
 		}
 
-		if (!state.equals("active") && (statuses.length > 0)) {
-			sb.append(_getStatusFilter(statuses));
+		if (!tabs2.equals("active") && (states.length > 0)) {
+			sb.append(_getStatesFilter(states));
 		}
 
 		if (productKeys.length > 0) {
@@ -513,19 +514,19 @@ public class ViewAccountDisplayContext {
 		return sb.toString();
 	}
 
-	private String _getStatusFilter(String[] statuses) {
-		StringBundler sb = new StringBundler((4 * statuses.length) + 2);
+	private String _getStatesFilter(String[] states) {
+		StringBundler sb = new StringBundler((4 * states.length) + 2);
 
 		sb.append(" and (");
 
-		for (int i = 0; i < statuses.length; i++) {
-			String status = statuses[i];
+		for (int i = 0; i < states.length; i++) {
+			String state = states[i];
 
 			sb.append("(state eq '");
-			sb.append(status);
+			sb.append(state);
 			sb.append("')");
 
-			if (i < (statuses.length - 1)) {
+			if (i < (states.length - 1)) {
 				sb.append(" or ");
 			}
 		}

@@ -19,8 +19,6 @@
 <%
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 
-String tabs2 = ParamUtil.getString(request, "tabs2");
-
 PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 %>
 
@@ -32,19 +30,73 @@ PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 		<liferay-util:param name="values" value="active,inactive,all" />
 	</liferay-util:include>
 
-	<c:choose>
-		<c:when test='<%= tabs2.equals("all") %>'>
-			<liferay-util:include page="/accounts/view_account_subscriptions_results.jsp" servletContext="<%= application %>" />
-		</c:when>
-		<c:when test='<%= tabs2.equals("inactive") %>'>
-			<liferay-util:include page="/accounts/view_account_subscriptions_results.jsp" servletContext="<%= application %>">
-				<liferay-util:param name="state" value="inactive" />
-			</liferay-util:include>
-		</c:when>
-		<c:otherwise>
-			<liferay-util:include page="/accounts/view_account_subscriptions_results.jsp" servletContext="<%= application %>">
-				<liferay-util:param name="state" value="active" />
-			</liferay-util:include>
-		</c:otherwise>
-	</c:choose>
+	<aui:form action="<%= portletURL.toString() %>" method="get" name="searchFm">
+		<liferay-portlet:renderURLParams portletURL="<%= portletURL %>" />
+
+		<aui:input label="" name="keywords" placeholder="search" />
+	</aui:form>
+
+	<liferay-ui:search-container
+		searchContainer="<%= viewAccountDisplayContext.getProductPurchaseViewsSearchContainer() %>"
+	>
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.provisioning.web.internal.display.context.ProductPurchaseViewDisplay"
+			escapedModel="<%= true %>"
+			modelVar="productPurchaseViewDisplay"
+		>
+			<portlet:renderURL var="rowURL">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/view_subscription" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="accountKey" value="<%= productPurchaseViewDisplay.getAccountKey() %>" />
+				<portlet:param name="productKey" value="<%= productPurchaseViewDisplay.getProductKey() %>" />
+			</portlet:renderURL>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="product"
+			>
+				<%= productPurchaseViewDisplay.getName() %>
+
+				<div class="secondary-information">
+					<%= productPurchaseViewDisplay.getSizingWithLabel() %>
+				</div>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="support-life"
+			>
+				<%= productPurchaseViewDisplay.getSupportLife() %>
+
+				<c:if test="<%= productPurchaseViewDisplay.isFuture() && Validator.isNotNull(productPurchaseViewDisplay.getNextTermStartDate()) %>">
+					<div class="secondary-information">
+						<liferay-ui:message key="next-term-starts" />: <%= productPurchaseViewDisplay.getNextTermStartDate() %>
+					</div>
+				</c:if>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="provisioned"
+				value="<%= productPurchaseViewDisplay.getProvisionedCount() %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="purchased"
+				value="<%= productPurchaseViewDisplay.getPurchasedCount() %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="status"
+			>
+				<span class="label <%= productPurchaseViewDisplay.getStatusStyle() %>"><%= productPurchaseViewDisplay.getStatus() %></span>
+			</liferay-ui:search-container-column-text>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			markupView="lexicon"
+		/>
+	</liferay-ui:search-container>
 </div>
