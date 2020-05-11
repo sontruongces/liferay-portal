@@ -73,21 +73,15 @@
 
 .details-table {
 	background-color: $body-bg;
-}
-
-.subscription-details {
 	margin: $spacing-default;
 
-	// See LPS-111197
-
-	.subscription-tabs {
-		margin-bottom: $spacing-sm !important;
-	}
-
 	.nav-underline {
+		// See LPS-111197
+
 		border: 1px solid $secondary-l3;
 		border-top-left-radius: $border-radius;
 		border-top-right-radius: $border-radius;
+		margin-bottom: 0 !important;
 
 		.nav-link {
 			margin: $spacing-sm;

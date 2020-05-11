@@ -59,9 +59,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 				<liferay-util:include page="/accounts/view_account_teams.jsp" servletContext="<%= application %>" />
 			</c:when>
 			<c:otherwise>
-				<div class="subscription-details" id="subscriptionDetails">
-					<liferay-util:include page="/accounts/view_account_subscriptions.jsp" servletContext="<%= application %>" />
-				</div>
+				<liferay-util:include page="/accounts/view_account_subscriptions.jsp" servletContext="<%= application %>" />
 			</c:otherwise>
 		</c:choose>
 	</div>

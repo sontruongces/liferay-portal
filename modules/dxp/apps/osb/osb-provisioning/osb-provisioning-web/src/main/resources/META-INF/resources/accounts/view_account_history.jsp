@@ -33,7 +33,7 @@ for (AuditEntryDisplay auditEntryDisplay : auditEntryDisplays) {
 		</div>
 	</c:if>
 
-	<div>
+	<div class="details-table">
 		<c:if test="<%= auditSetId != auditEntryDisplay.getAuditSetId() %>">
 			<h2>
 				<%= auditEntryDisplay.getAgentName() %> > <%= auditEntryDisplay.getSummary() %>
