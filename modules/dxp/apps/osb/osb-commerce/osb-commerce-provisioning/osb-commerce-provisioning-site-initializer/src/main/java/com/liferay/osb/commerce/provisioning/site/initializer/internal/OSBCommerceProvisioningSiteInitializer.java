@@ -37,12 +37,12 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "site.initializer.key=" + CommerceProvisioningSiteInitializer.KEY,
+	property = "site.initializer.key=" + OSBCommerceProvisioningSiteInitializer.KEY,
 	service = SiteInitializer.class
 )
-public class CommerceProvisioningSiteInitializer implements SiteInitializer {
+public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
-	public static final String KEY = "commerce-provisioning-initializer";
+	public static final String KEY = "osb-commerce-provisioning-initializer";
 
 	@Override
 	public String getDescription(Locale locale) {
@@ -59,7 +59,7 @@ public class CommerceProvisioningSiteInitializer implements SiteInitializer {
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, "commerce-provisioning");
+		return LanguageUtil.get(resourceBundle, "osb-commerce-provisioning");
 	}
 
 	@Override
@@ -92,10 +92,10 @@ public class CommerceProvisioningSiteInitializer implements SiteInitializer {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceProvisioningSiteInitializer.class);
+		OSBCommerceProvisioningSiteInitializer.class);
 
 	@Reference(
-		target = "(site.initializer.key=commerce-provisioning-initializer)"
+		target = "(site.initializer.key=osb-commerce-provisioning-initializer)"
 	)
 	private SiteInitializerDependencyResolver
 		_osbCommerceProvisioningSiteInitializerDependencyResolver;

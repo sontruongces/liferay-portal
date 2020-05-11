@@ -29,10 +29,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "site.initializer.key=" + CommerceProvisioningSiteInitializer.KEY,
+	property = "site.initializer.key=" + OSBCommerceProvisioningSiteInitializer.KEY,
 	service = SiteInitializerDependencyResolver.class
 )
-public class CommerceProvisioningSiteInitializerDependencyResolverImpl
+public class OSBCommerceProvisioningSiteInitializerDependencyResolverImpl
 	implements SiteInitializerDependencyResolver {
 
 	@Override
@@ -42,8 +42,8 @@ public class CommerceProvisioningSiteInitializerDependencyResolverImpl
 
 	@Override
 	public ClassLoader getDisplayTemplatesClassLoader() {
-		return CommerceProvisioningSiteInitializerDependencyResolverImpl.class.
-			getClassLoader();
+		return OSBCommerceProvisioningSiteInitializerDependencyResolverImpl.
+			class.getClassLoader();
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public class CommerceProvisioningSiteInitializerDependencyResolverImpl
 
 	@Override
 	public ClassLoader getDocumentsClassLoader() {
-		return CommerceProvisioningSiteInitializerDependencyResolverImpl.class.
-			getClassLoader();
+		return OSBCommerceProvisioningSiteInitializerDependencyResolverImpl.
+			class.getClassLoader();
 	}
 
 	@Override
@@ -64,8 +64,8 @@ public class CommerceProvisioningSiteInitializerDependencyResolverImpl
 
 	@Override
 	public ClassLoader getImageClassLoader() {
-		return CommerceProvisioningSiteInitializerDependencyResolverImpl.class.
-			getClassLoader();
+		return OSBCommerceProvisioningSiteInitializerDependencyResolverImpl.
+			class.getClassLoader();
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class CommerceProvisioningSiteInitializerDependencyResolverImpl
 	@Override
 	public String getJSON(String name) throws IOException {
 		ClassLoader classLoader =
-			CommerceProvisioningSiteInitializerDependencyResolverImpl.class.
+			OSBCommerceProvisioningSiteInitializerDependencyResolverImpl.class.
 				getClassLoader();
 
 		try (InputStream inputStream = classLoader.getResourceAsStream(
