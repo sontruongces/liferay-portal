@@ -441,9 +441,6 @@ public abstract class BaseProcessResourceTestCase {
 	@Test
 	public void testGraphQLGetProcessNotFound() throws Exception {
 		Long irrelevantProcessId = RandomTestUtil.randomLong();
-		Boolean irrelevantCompleted = RandomTestUtil.randomBoolean();
-		Date irrelevantDateEnd = null;
-		Date irrelevantDateStart = null;
 
 		Assert.assertEquals(
 			"Not Found",
