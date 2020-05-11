@@ -300,7 +300,7 @@ public class ViewAccountDisplayContext {
 		int endDateDay = ParamUtil.getInteger(renderRequest, "endDateDay");
 		int endDateYear = ParamUtil.getInteger(renderRequest, "endDateYear");
 
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(8);
 
 		sb.append("(accountKey eq '");
 		sb.append(account.getKey());
@@ -309,12 +309,13 @@ public class ViewAccountDisplayContext {
 		if (state.equals("active")) {
 			sb.append(" and (state eq 'active')");
 		}
-		else if (state.equals("inactive")) {
-			sb.append(" and ((state eq 'inactive') or (status eq '600'))");
+		else if (state.equals("inactive") && (statuses.length == 0)) {
+			sb.append(" and ((state eq 'cancelled') or (state eq 'expired') ");
+			sb.append("or (state eq 'unactivated'))");
 		}
 
-		if (statuses.length > 0) {
-			sb.append(_getStatusFilter(statuses, state));
+		if (!state.equals("active") && (statuses.length > 0)) {
+			sb.append(_getStatusFilter(statuses));
 		}
 
 		if (productKeys.length > 0) {
@@ -512,7 +513,7 @@ public class ViewAccountDisplayContext {
 		return sb.toString();
 	}
 
-	private String _getStatusFilter(String[] statuses, String state) {
+	private String _getStatusFilter(String[] statuses) {
 		StringBundler sb = new StringBundler((4 * statuses.length) + 2);
 
 		sb.append(" and (");
@@ -520,32 +521,11 @@ public class ViewAccountDisplayContext {
 		for (int i = 0; i < statuses.length; i++) {
 			String status = statuses[i];
 
-			if (status.equals("cancelled")) {
-				if (!state.equals("inactive")) {
-					sb.append("(status eq '600')");
-				}
-			}
-			else {
-				String sbString = sb.toString();
-
-				if (sbString.contains(status)) {
-					continue;
-				}
-
-				sb.append("(state eq '");
-				sb.append(status);
-				sb.append("')");
-			}
+			sb.append("(state eq '");
+			sb.append(status);
+			sb.append("')");
 
 			if (i < (statuses.length - 1)) {
-				String nextStatus = statuses[i + 1];
-
-				if (nextStatus.equals("cancelled") &&
-					state.equals("inactive")) {
-
-					continue;
-				}
-
 				sb.append(" or ");
 			}
 		}

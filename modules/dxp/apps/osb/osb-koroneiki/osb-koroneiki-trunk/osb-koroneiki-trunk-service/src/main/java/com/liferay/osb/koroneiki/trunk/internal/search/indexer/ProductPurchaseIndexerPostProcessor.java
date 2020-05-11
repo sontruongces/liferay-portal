@@ -175,9 +175,6 @@ public class ProductPurchaseIndexerPostProcessor
 			else if (StringUtil.equalsIgnoreCase(curState, "expired")) {
 				booleanFilter.add(_getExpiredFilter(), booleanClauseOccur);
 			}
-			else if (StringUtil.equalsIgnoreCase(curState, "inactive")) {
-				booleanFilter.add(_getInactiveFilter(), booleanClauseOccur);
-			}
 			else if (StringUtil.equalsIgnoreCase(curState, "unactivated")) {
 				booleanFilter.add(_getUnactivatedFilter(), booleanClauseOccur);
 			}

@@ -485,6 +485,15 @@ public class ProductPurchaseViewIndexer
 		return booleanFilter;
 	}
 
+	private BooleanFilter _getCancelledFilter() {
+		BooleanFilter booleanFilter = new BooleanFilter();
+
+		booleanFilter.addRequiredTerm(
+			Field.STATUS, WorkflowConstants.STATUS_CANCELLED);
+
+		return booleanFilter;
+	}
+
 	private BooleanFilter _getExpiredFilter() {
 		BooleanFilter booleanFilter = new BooleanFilter();
 
@@ -500,15 +509,7 @@ public class ProductPurchaseViewIndexer
 		return booleanFilter;
 	}
 
-	private BooleanFilter _getInactiveFilter() throws ParseException {
-		BooleanFilter booleanFilter = new BooleanFilter();
-
-		booleanFilter.add(_getActiveFilter(), BooleanClauseOccur.MUST_NOT);
-
-		return booleanFilter;
-	}
-
-	private BooleanFilter _getUnactivatedFilter() {
+	private BooleanFilter _getUnactivatedFilter() throws ParseException {
 		BooleanFilter booleanFilter = new BooleanFilter();
 
 		booleanFilter.addRequiredTerm(
@@ -516,11 +517,19 @@ public class ProductPurchaseViewIndexer
 
 		long now = System.currentTimeMillis();
 
-		RangeTermFilter rangeTermFilter = new RangeTermFilter(
-			"supportLifeStartDate_sortable", true, true, String.valueOf(now),
-			String.valueOf(now + (Time.YEAR * 100)));
+		BooleanQuery rangeQuery = new BooleanQueryImpl();
 
-		booleanFilter.add(rangeTermFilter, BooleanClauseOccur.MUST);
+		TermRangeQuery startDateQuery = new TermRangeQueryImpl(
+			"productPurchases.startDate_sortable", String.valueOf(now),
+			String.valueOf(now + (Time.YEAR * 100)), false, true);
+
+		rangeQuery.add(startDateQuery, BooleanClauseOccur.MUST);
+
+		booleanFilter.add(
+			new QueryFilter(new NestedQuery("productPurchases", rangeQuery)),
+			BooleanClauseOccur.MUST);
+
+		booleanFilter.add(_getActiveFilter(), BooleanClauseOccur.MUST_NOT);
 
 		return booleanFilter;
 	}
@@ -568,11 +577,11 @@ public class ProductPurchaseViewIndexer
 			if (StringUtil.equalsIgnoreCase(curState, "active")) {
 				booleanFilter.add(_getActiveFilter(), booleanClauseOccur);
 			}
+			else if (StringUtil.equalsIgnoreCase(curState, "cancelled")) {
+				booleanFilter.add(_getCancelledFilter(), booleanClauseOccur);
+			}
 			else if (StringUtil.equalsIgnoreCase(curState, "expired")) {
 				booleanFilter.add(_getExpiredFilter(), booleanClauseOccur);
-			}
-			else if (StringUtil.equalsIgnoreCase(curState, "inactive")) {
-				booleanFilter.add(_getInactiveFilter(), booleanClauseOccur);
 			}
 			else if (StringUtil.equalsIgnoreCase(curState, "unactivated")) {
 				booleanFilter.add(_getUnactivatedFilter(), booleanClauseOccur);
