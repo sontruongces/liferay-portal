@@ -70,15 +70,15 @@ public class ProductPurchaseViewDisplay {
 
 				_status = "active";
 			}
-			else if ((_startDate != null) && _startDate.after(now)) {
-				_status = "unactivated";
+			else if (_endDate.before(now)) {
+				_status = "expired";
 			}
 			else {
-				_status = "inactive";
+				_status = "future";
 			}
 		}
 		else {
-			_status = "inactive";
+			_status = "cancelled";
 		}
 	}
 
@@ -155,7 +155,7 @@ public class ProductPurchaseViewDisplay {
 		if (_status.equals("active")) {
 			return "label-success";
 		}
-		else if (_status.equals("inactive")) {
+		else if (_status.equals("expired") || _status.equals("future")) {
 			return "label-warning";
 		}
 		else {
@@ -197,8 +197,8 @@ public class ProductPurchaseViewDisplay {
 		return StringPool.BLANK;
 	}
 
-	public boolean isInactive() {
-		if (_status.equals("inactive")) {
+	public boolean isFuture() {
+		if (_status.equals("future")) {
 			return true;
 		}
 
