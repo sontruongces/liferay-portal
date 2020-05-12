@@ -426,6 +426,19 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 
 			if (selectOrganizationRoleLink) {
 				selectOrganizationRoleLink.addEventListener('click', function(event) {
+					var searchContainerName = '<portlet:namespace />organizationRolesSearchContainer';
+
+					var searchContainer = Liferay.SearchContainer.get(searchContainerName);
+
+					var searchContainerData = searchContainer.getData();
+
+					if (!searchContainerData.length) {
+						searchContainerData = [];
+					}
+					else {
+						searchContainerData = searchContainerData.split(',');
+					}
+
 					Liferay.Util.selectEntity(
 						{
 							dialog: {
@@ -438,7 +451,7 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 							%>
 
 							id: '<%= organizationRoleEventName %>',
-							selectedData: [],
+							selectedData: searchContainerData,
 							title:
 								'<liferay-ui:message arguments="organization-role" key="select-x" />',
 
@@ -649,6 +662,19 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 				});
 
 				A.one('#<portlet:namespace />selectSiteRoleLink').on('click', function(event) {
+					var searchContainerName = '<portlet:namespace />siteRolesSearchContainer';
+
+					var searchContainer = Liferay.SearchContainer.get(searchContainerName);
+
+					var searchContainerData = searchContainer.getData();
+
+					if (!searchContainerData.length) {
+						searchContainerData = [];
+					}
+					else {
+						searchContainerData = searchContainerData.split(',');
+					}
+
 					Util.selectEntity(
 						{
 							dialog: {
@@ -661,7 +687,7 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 							%>
 
 							id: '<%= siteRoleEventName %>',
-							selectedData: [],
+							selectedData: searchContainerData,
 							title:
 								'<liferay-ui:message arguments="site-role" key="select-x" />',
 
