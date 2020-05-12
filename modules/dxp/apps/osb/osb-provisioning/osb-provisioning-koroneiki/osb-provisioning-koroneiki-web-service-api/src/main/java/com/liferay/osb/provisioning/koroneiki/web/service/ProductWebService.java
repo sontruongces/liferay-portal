@@ -28,4 +28,9 @@ public interface ProductWebService {
 			String sortString)
 		throws Exception;
 
+	public List<Product> getProducts(
+			String domain, String entityName, String entityId, int page,
+			int pageSize)
+		throws Exception;
+
 }

@@ -21,6 +21,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ContactRoleRes
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.StringPool;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import java.util.Map;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Amos Fong
@@ -80,6 +82,14 @@ public class ContactRoleWebServiceImpl implements ContactRoleWebService {
 		return _contactRoleResource.getContactRole(contactRoleKey);
 	}
 
+	public ContactRole getContactRole(String type, String name)
+		throws Exception {
+
+		return _contactRoleResource.
+			getContactRoleContactRoleTypeContactRoleName(
+				_http.encodePath(type), _http.encodePath(name));
+	}
+
 	public List<ContactRole> search(
 			String filterString, int page, int pageSize, String sortString)
 		throws Exception {
@@ -115,5 +125,8 @@ public class ContactRoleWebServiceImpl implements ContactRoleWebService {
 	}
 
 	private ContactRoleResource _contactRoleResource;
+
+	@Reference
+	private Http _http;
 
 }

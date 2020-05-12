@@ -23,6 +23,13 @@ import java.util.List;
  */
 public interface ContactWebService {
 
+	public Contact addContact(
+			String agentName, String agentUID, Contact contact)
+		throws Exception;
+
+	public Contact getContactByEmailAddress(String emailAddress)
+		throws Exception;
+
 	public List<Contact> search(
 			String search, String filterString, int page, int pageSize,
 			String sortString)

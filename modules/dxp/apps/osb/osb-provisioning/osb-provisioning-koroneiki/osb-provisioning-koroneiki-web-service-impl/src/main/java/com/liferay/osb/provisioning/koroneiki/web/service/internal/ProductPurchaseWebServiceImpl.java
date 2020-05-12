@@ -41,6 +41,15 @@ import org.osgi.service.component.annotations.Component;
 public class ProductPurchaseWebServiceImpl
 	implements ProductPurchaseWebService {
 
+	public ProductPurchase addProductPurchase(
+			String agentName, String agentUID, String accountKey,
+			ProductPurchase productPurchase)
+		throws Exception {
+
+		return _productPurchaseResource.postAccountAccountKeyProductPurchase(
+			agentName, agentUID, accountKey, productPurchase);
+	}
+
 	public List<ProductPurchase> getProductPurchases(
 			String filterString, int page, int pageSize, String sortString)
 		throws Exception {

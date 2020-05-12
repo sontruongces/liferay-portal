@@ -86,6 +86,22 @@ public class AccountWebServiceImpl implements AccountWebService {
 		return _accountDetailsResource.getAccount(accountKey);
 	}
 
+	public List<Account> getAccounts(
+			String domain, String entityName, String entityId, int page,
+			int pageSize)
+		throws Exception {
+
+		Page<Account> accountsPage =
+			_accountResource.getAccountByExternalLinkDomainEntityNameEntityPage(
+				domain, entityName, entityId, Pagination.of(page, pageSize));
+
+		if ((accountsPage != null) && (accountsPage.getItems() != null)) {
+			return new ArrayList<>(accountsPage.getItems());
+		}
+
+		return Collections.emptyList();
+	}
+
 	public List<Account> search(
 			String search, String filterString, int page, int pageSize,
 			String sortString)

@@ -40,6 +40,20 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ContactWebServiceImpl implements ContactWebService {
 
+	public Contact addContact(
+			String agentName, String agentUID, Contact contact)
+		throws Exception {
+
+		return _contactResource.postContact(agentName, agentUID, contact);
+	}
+
+	public Contact getContactByEmailAddress(String emailAddress)
+		throws Exception {
+
+		return _contactResource.getContactByEmailAddresEmailAddress(
+			emailAddress);
+	}
+
 	public List<Contact> search(
 			String search, String filterString, int page, int pageSize,
 			String sortString)

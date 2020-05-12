@@ -21,6 +21,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductResourc
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.util.Http;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Kyle Bischof
@@ -54,6 +56,23 @@ public class ProductWebServiceImpl implements ProductWebService {
 		return Collections.emptyList();
 	}
 
+	public List<Product> getProducts(
+			String domain, String entityName, String entityId, int page,
+			int pageSize)
+		throws Exception {
+
+		Page<Product> productsPage =
+			_productResource.getProductByExternalLinkDomainEntityNameEntityPage(
+				_http.encodePath(domain), _http.encodePath(entityName),
+				_http.encodePath(entityId), Pagination.of(page, pageSize));
+
+		if ((productsPage != null) && (productsPage.getItems() != null)) {
+			return new ArrayList<>(productsPage.getItems());
+		}
+
+		return Collections.emptyList();
+	}
+
 	@Activate
 	protected void activate(Map<String, Object> properties) throws Exception {
 		KoroneikiConfiguration koroneikiConfiguration =
@@ -69,6 +88,9 @@ public class ProductWebServiceImpl implements ProductWebService {
 			"API_Token", koroneikiConfiguration.apiToken()
 		).build();
 	}
+
+	@Reference
+	private Http _http;
 
 	private ProductResource _productResource;
 

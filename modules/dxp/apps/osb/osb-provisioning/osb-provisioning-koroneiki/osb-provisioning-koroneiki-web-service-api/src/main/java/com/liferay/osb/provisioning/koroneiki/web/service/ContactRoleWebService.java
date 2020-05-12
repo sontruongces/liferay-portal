@@ -33,6 +33,9 @@ public interface ContactRoleWebService {
 
 	public ContactRole getContactRole(String contactRoleKey) throws Exception;
 
+	public ContactRole getContactRole(String type, String name)
+		throws Exception;
+
 	public List<ContactRole> search(
 			String filterString, int page, int pageSize, String sortString)
 		throws Exception;

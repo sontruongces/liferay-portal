@@ -41,6 +41,11 @@ public interface AccountWebService {
 
 	public Account getAccount(String accountKey) throws Exception;
 
+	public List<Account> getAccounts(
+			String domain, String entityName, String entityId, int page,
+			int pageSize)
+		throws Exception;
+
 	public List<Account> search(
 			String search, String filterString, int page, int pageSize,
 			String sortString)

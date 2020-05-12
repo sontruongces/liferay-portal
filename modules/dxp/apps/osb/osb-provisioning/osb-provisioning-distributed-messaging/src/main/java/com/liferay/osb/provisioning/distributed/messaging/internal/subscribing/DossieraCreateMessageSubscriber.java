@@ -14,6 +14,8 @@
 
 package com.liferay.osb.provisioning.distributed.messaging.internal.subscribing;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
@@ -22,7 +24,12 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.provisioning.distributed.messaging.internal.constants.SalesforceConstants;
+import com.liferay.osb.provisioning.koroneiki.constants.ContactRoleConstants;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -54,6 +61,49 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
+	protected void createAccount(
+			PostalAddress postalAddress, Contact[] contacts,
+			ExternalLink[] externalLinks, ProductPurchase[] productPurchases,
+			JSONObject jsonObject)
+		throws Exception {
+
+		JSONObject accountJSONObject = jsonObject.getJSONObject("_account");
+
+		Account account = new Account();
+
+		String accountName = accountJSONObject.getString("_name");
+
+		account.setName(accountName);
+
+		JSONObject projectJSONObject = jsonObject.getJSONObject("_project");
+
+		String projectName = projectJSONObject.getString("_name");
+
+		account.setCode(_getCode(accountName, projectName));
+
+		JSONObject ownerJSONObject = jsonObject.getJSONObject("_owner");
+
+		if (ownerJSONObject != null) {
+			account.setContactEmailAddress(
+				ownerJSONObject.getString("_emailAddress"));
+		}
+
+		account.setContacts(contacts);
+		account.setExternalLinks(externalLinks);
+		account.setPostalAddresses(new PostalAddress[] {postalAddress});
+		account.setProductPurchases(productPurchases);
+
+		String soldBy = jsonObject.getString("_salesforceOpportunitySoldBy");
+
+		Account.Region region = getSupportRegion(
+			soldBy, postalAddress.getAddressCountry());
+
+		account.setRegion(region);
+
+		_accountWebService.addAccount(
+			StringPool.BLANK, StringPool.BLANK, account);
+	}
+
 	@Override
 	protected void doParse(JSONObject jsonObject) throws Exception {
 		if (!hasOpportunityProductFamily(jsonObject)) {
@@ -77,17 +127,42 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			return;
 		}
 
-		PostalAddress postalAddress = parseAddress(jsonObject);
 		List<Contact> contacts = parseContacts(jsonObject);
-		ExternalLink[] externalLinks = parseExternalLinks(jsonObject);
-		List<ProductPurchase> productPurchases = parseProducts(jsonObject);
+		List<ProductPurchase> productPurchases = parseProductPurchases(
+			jsonObject);
 
-		Account account = parseAccount(
-			postalAddress, contacts.toArray(new Contact[0]), externalLinks,
-			productPurchases.toArray(new ProductPurchase[0]), jsonObject);
+		String accountKey = getAccountKey(jsonObject);
 
-		_accountWebService.addAccount(
-			StringPool.BLANK, StringPool.BLANK, account);
+		if (Validator.isNotNull(accountKey)) {
+			updateAccount(accountKey, contacts, productPurchases);
+		}
+		else {
+			PostalAddress postalAddress = parseAddress(jsonObject);
+			ExternalLink[] externalLinks = parseExternalLinks(jsonObject);
+
+			createAccount(
+				postalAddress, contacts.toArray(new Contact[0]), externalLinks,
+				productPurchases.toArray(new ProductPurchase[0]), jsonObject);
+		}
+	}
+
+	protected String getAccountKey(JSONObject jsonObject) throws Exception {
+		JSONObject accountJSONObject = jsonObject.getJSONObject("_account");
+
+		String dossieraAccountKey = accountJSONObject.getString(
+			"_dossieraAccountKey");
+
+		List<Account> accounts = _accountWebService.getAccounts(
+			ExternalLinkDomain.DOSSIERA,
+			ExternalLinkEntityName.DOSSIERA_ACCOUNT, dossieraAccountKey, 1, 1);
+
+		if (!accounts.isEmpty()) {
+			Account account = accounts.get(0);
+
+			return account.getKey();
+		}
+
+		return null;
 	}
 
 	protected PostalAddress getPostalAddress(JSONObject jsonObject) {
@@ -252,46 +327,6 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		return false;
 	}
 
-	protected Account parseAccount(
-			PostalAddress postalAddress, Contact[] contacts,
-			ExternalLink[] externalLinks, ProductPurchase[] productPurchases,
-			JSONObject jsonObject)
-		throws Exception {
-
-		JSONObject accountJSONObject = jsonObject.getJSONObject("_account");
-
-		Account account = new Account();
-
-		String accountName = accountJSONObject.getString("_name");
-
-		account.setName(accountName);
-
-		JSONObject projectJSONObject = jsonObject.getJSONObject("_project");
-
-		String projectName = projectJSONObject.getString("_name");
-
-		account.setCode(_getCode(accountName, projectName));
-
-		JSONObject ownerJSONObject = jsonObject.getJSONObject("_owner");
-
-		account.setContactEmailAddress(
-			ownerJSONObject.getString("_emailAddress"));
-
-		account.setContacts(contacts);
-		account.setExternalLinks(externalLinks);
-		account.setPostalAddresses(new PostalAddress[] {postalAddress});
-		account.setProductPurchases(productPurchases);
-
-		String soldBy = jsonObject.getString("_salesforceOpportunitySoldBy");
-
-		Account.Region region = getSupportRegion(
-			soldBy, postalAddress.getAddressCountry());
-
-		account.setRegion(region);
-
-		return account;
-	}
-
 	protected PostalAddress parseAddress(JSONObject jsonObject) {
 		JSONObject billingAddressJSONObject = jsonObject.getJSONObject(
 			"_billingAddress");
@@ -349,10 +384,14 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 			String role = contactJSONObject.getString("_role");
 
+			if (Validator.isNull(role)) {
+				role = ContactRoleConstants.NAME_MEMBER;
+			}
+
 			ContactRole contactRole = new ContactRole();
 
 			contactRole.setName(role);
-			contactRole.setType(ContactRole.Type.create("Account Customer"));
+			contactRole.setType(ContactRole.Type.ACCOUNT_CUSTOMER);
 
 			contact.setContactRoles(new ContactRole[] {contactRole});
 
@@ -368,8 +407,9 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		ExternalLink accountExternalLink = new ExternalLink();
 
-		accountExternalLink.setDomain("salesforce");
-		accountExternalLink.setEntityName("account");
+		accountExternalLink.setDomain(ExternalLinkDomain.SALESFORCE);
+		accountExternalLink.setEntityName(
+			ExternalLinkEntityName.SALESFORCE_ACCOUNT);
 		accountExternalLink.setEntityId(salesforceAccountKey);
 
 		String salesforceProjectKey = jsonObject.getString(
@@ -377,15 +417,30 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		ExternalLink projectExternalLink = new ExternalLink();
 
-		projectExternalLink.setDomain("salesforce");
-		projectExternalLink.setEntityName("project");
+		projectExternalLink.setDomain(ExternalLinkDomain.SALESFORCE);
+		projectExternalLink.setEntityName(
+			ExternalLinkEntityName.SALESFORCE_PROJECT);
 		projectExternalLink.setEntityId(salesforceProjectKey);
 
-		return new ExternalLink[] {accountExternalLink, projectExternalLink};
+		JSONObject accountJSONObject = jsonObject.getJSONObject("_account");
+
+		String dossieraAccountKey = accountJSONObject.getString(
+			"_dossieraAccountKey");
+
+		ExternalLink dossieraExternalLink = new ExternalLink();
+
+		dossieraExternalLink.setDomain(ExternalLinkDomain.DOSSIERA);
+		dossieraExternalLink.setEntityName(
+			ExternalLinkEntityName.DOSSIERA_ACCOUNT);
+		dossieraExternalLink.setEntityId(dossieraAccountKey);
+
+		return new ExternalLink[] {
+			accountExternalLink, dossieraExternalLink, projectExternalLink
+		};
 	}
 
-	protected List<ProductPurchase> parseProducts(JSONObject jsonObject)
-		throws PortalException {
+	protected List<ProductPurchase> parseProductPurchases(JSONObject jsonObject)
+		throws Exception {
 
 		JSONArray bundledProductsJSONArray = jsonObject.getJSONArray(
 			"_bundledProducts");
@@ -423,20 +478,8 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 				productPurchase.setStartDate(startDate);
 
-				Product product = new Product();
-
-				String productName = purchasedProductJSONObject.getString(
-					"_name");
-
-				product.setName(productName);
-
-				ExternalLink externalLink = new ExternalLink();
-
-				externalLink.setDomain("salesforce");
-				externalLink.setEntityName("product");
-				externalLink.setEntityId(productName);
-
-				product.setExternalLinks(new ExternalLink[] {externalLink});
+				Product product = _getProduct(
+					purchasedProductJSONObject.getString("_name"));
 
 				productPurchase.setProduct(product);
 
@@ -479,6 +522,47 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		return productPurchases;
 	}
 
+	protected void updateAccount(
+			String accountKey, List<Contact> contacts,
+			List<ProductPurchase> productPurchases)
+		throws Exception {
+
+		for (Contact contact : contacts) {
+			Contact curContact = _contactWebService.getContactByEmailAddress(
+				contact.getEmailAddress());
+
+			if (curContact == null) {
+				_contactWebService.addContact(
+					StringPool.BLANK, StringPool.BLANK, contact);
+			}
+
+			ContactRole[] contactRoles = contact.getContactRoles();
+
+			String[] contactRoleKeys = new String[contactRoles.length];
+
+			for (int i = 0; i < contactRoles.length; i++) {
+				ContactRole contactRole = contactRoles[i];
+
+				ContactRole.Type type = contactRole.getType();
+
+				contactRole = _contactRoleWebService.getContactRole(
+					type.toString(), contactRole.getName());
+
+				contactRoleKeys[i] = contactRole.getKey();
+			}
+
+			_accountWebService.assignContactRoles(
+				StringPool.BLANK, StringPool.BLANK, accountKey,
+				contact.getEmailAddress(), contactRoleKeys);
+		}
+
+		for (ProductPurchase productPurchase : productPurchases) {
+			_productPurchaseWebService.addProductPurchase(
+				StringPool.BLANK, StringPool.BLANK, accountKey,
+				productPurchase);
+		}
+	}
+
 	private String _getCode(String parentAccountName, String accountName)
 		throws Exception {
 
@@ -511,6 +595,30 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 			i++;
 		}
+	}
+
+	private Product _getProduct(String productName) throws Exception {
+		List<Product> products = _productWebService.getProducts(
+			ExternalLinkDomain.DOSSIERA,
+			ExternalLinkEntityName.DOSSIERA_PRODUCT, productName, 1, 1);
+
+		if (!products.isEmpty()) {
+			return products.get(0);
+		}
+
+		Product product = new Product();
+
+		product.setName(productName);
+
+		ExternalLink externalLink = new ExternalLink();
+
+		externalLink.setDomain(ExternalLinkDomain.DOSSIERA);
+		externalLink.setEntityName(ExternalLinkEntityName.DOSSIERA_PRODUCT);
+		externalLink.setEntityId(productName);
+
+		product.setExternalLinks(new ExternalLink[] {externalLink});
+
+		return product;
 	}
 
 	private boolean _isDuplicateCode(String code) throws Exception {
@@ -555,6 +663,18 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 	private AccountWebService _accountWebService;
 
 	@Reference
+	private ContactRoleWebService _contactRoleWebService;
+
+	@Reference
+	private ContactWebService _contactWebService;
+
+	@Reference
 	private Portal _portal;
+
+	@Reference
+	private ProductPurchaseWebService _productPurchaseWebService;
+
+	@Reference
+	private ProductWebService _productWebService;
 
 }
