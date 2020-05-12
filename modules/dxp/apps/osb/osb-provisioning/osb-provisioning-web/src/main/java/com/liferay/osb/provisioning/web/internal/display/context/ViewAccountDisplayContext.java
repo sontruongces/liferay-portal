@@ -108,6 +108,29 @@ public class ViewAccountDisplayContext {
 			accountAttachmentId);
 	}
 
+	public Map<String, Object> getAccountDetailsData() {
+		Map<String, Object> data = new HashMap<>();
+
+		PortletURL addPostalAddressURL = renderResponse.createActionURL();
+
+		addPostalAddressURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_postal_address");
+		addPostalAddressURL.setParameter("accountKey", account.getKey());
+
+		data.put("addPostalAddressURL", addPostalAddressURL.toString());
+
+		data.put("details", getAccountDisplay());
+
+		PortletURL editAccountURL = renderResponse.createActionURL();
+
+		editAccountURL.setParameter(ActionRequest.ACTION_NAME, "/edit_account");
+		editAccountURL.setParameter("accountKey", account.getKey());
+
+		data.put("editAccountURL", editAccountURL.toString());
+
+		return data;
+	}
+
 	public AccountDisplay getAccountDisplay() {
 		return accountDisplay;
 	}
@@ -124,16 +147,6 @@ public class ViewAccountDisplayContext {
 		addExternalLinkURL.setParameter("accountKey", account.getKey());
 
 		return addExternalLinkURL.toString();
-	}
-
-	public String getAddPostalAddressURL() {
-		PortletURL addPostalAddressURL = renderResponse.createActionURL();
-
-		addPostalAddressURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_postal_address");
-		addPostalAddressURL.setParameter("accountKey", account.getKey());
-
-		return addPostalAddressURL.toString();
 	}
 
 	public String getAssignAccountContactRolesURL() {
@@ -198,15 +211,6 @@ public class ViewAccountDisplayContext {
 		deleteTeamURL.setParameter("teamKey", teamKey);
 
 		return deleteTeamURL.toString();
-	}
-
-	public String getEditAccountURL() {
-		PortletURL editAccountURL = renderResponse.createActionURL();
-
-		editAccountURL.setParameter(ActionRequest.ACTION_NAME, "/edit_account");
-		editAccountURL.setParameter("accountKey", account.getKey());
-
-		return editAccountURL.toString();
 	}
 
 	public String getEditExternalLinkURL(String externalLinkKey) {

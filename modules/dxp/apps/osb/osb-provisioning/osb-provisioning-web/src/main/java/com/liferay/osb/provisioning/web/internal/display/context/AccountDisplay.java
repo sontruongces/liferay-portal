@@ -63,10 +63,6 @@ public class AccountDisplay {
 			"MMM dd, yyyy hh:mm a z");
 	}
 
-	public Account getAccount() {
-		return _account;
-	}
-
 	public String getCode() {
 		if (Validator.isNotNull(_account.getCode())) {
 			return _account.getCode();
