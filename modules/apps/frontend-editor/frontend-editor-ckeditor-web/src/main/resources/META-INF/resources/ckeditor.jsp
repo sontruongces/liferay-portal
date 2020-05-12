@@ -187,15 +187,13 @@ name = HtmlUtil.escapeJS(name);
 		destroy: function() {
 			clearInterval(contentChangeHandle);
 
-			setTimeout(
-				function() {
-					window['<%= name %>'].dispose();
+			setTimeout(function() {
+				window['<%= name %>'].dispose();
 
-					window['<%= name %>'] = null;
+				window['<%= name %>'] = null;
 
-					Liferay.namespace('EDITORS').ckeditor.removeInstance();
-				},
-			0);
+				Liferay.namespace('EDITORS').ckeditor.removeInstance();
+			}, 0);
 		},
 
 		dispose: function() {
