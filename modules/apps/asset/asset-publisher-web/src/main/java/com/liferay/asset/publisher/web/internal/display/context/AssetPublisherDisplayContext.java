@@ -50,6 +50,8 @@ import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
 import com.liferay.info.list.provider.DefaultInfoListProviderContext;
 import com.liferay.info.list.provider.InfoListProvider;
 import com.liferay.info.list.provider.InfoListProviderTracker;
+import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
+import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalServiceUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -58,6 +60,8 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -68,6 +72,7 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
 import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.theme.PortletDisplay;
@@ -1327,6 +1332,32 @@ public class AssetPublisherDisplayContext {
 	}
 
 	public boolean isEnableSetAsDefaultAssetPublisher() {
+		Layout layout = _themeDisplay.getLayout();
+
+		if (Objects.equals(
+				layout.getType(), LayoutConstants.TYPE_ASSET_DISPLAY)) {
+
+			return false;
+		}
+
+		if (Objects.equals(layout.getType(), LayoutConstants.TYPE_CONTENT)) {
+			Layout publishedLayout = LayoutLocalServiceUtil.fetchLayout(
+				layout.getClassPK());
+
+			if (publishedLayout == null) {
+				return true;
+			}
+
+			LayoutPageTemplateEntry layoutPageTemplateEntry =
+				LayoutPageTemplateEntryLocalServiceUtil.
+					fetchLayoutPageTemplateEntryByPlid(
+						publishedLayout.getPlid());
+
+			if (layoutPageTemplateEntry != null) {
+				return false;
+			}
+		}
+
 		String rootPortletId = PortletIdCodec.decodePortletName(
 			getPortletResource());
 
