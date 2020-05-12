@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class Process implements Cloneable {
 
+	public static Process toDTO(String json) {
+		return ProcessSerDes.toDTO(json);
+	}
+
 	public Long getId() {
 		return id;
 	}

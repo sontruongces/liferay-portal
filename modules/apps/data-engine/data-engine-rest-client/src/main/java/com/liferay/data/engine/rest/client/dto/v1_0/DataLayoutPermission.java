@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class DataLayoutPermission implements Cloneable {
 
+	public static DataLayoutPermission toDTO(String json) {
+		return DataLayoutPermissionSerDes.toDTO(json);
+	}
+
 	public Boolean getAddDataLayout() {
 		return addDataLayout;
 	}

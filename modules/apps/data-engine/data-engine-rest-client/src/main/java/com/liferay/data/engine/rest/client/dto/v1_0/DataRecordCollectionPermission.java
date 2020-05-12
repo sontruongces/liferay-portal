@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class DataRecordCollectionPermission implements Cloneable {
 
+	public static DataRecordCollectionPermission toDTO(String json) {
+		return DataRecordCollectionPermissionSerDes.toDTO(json);
+	}
+
 	public Boolean getAddDataRecord() {
 		return addDataRecord;
 	}

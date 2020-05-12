@@ -29,6 +29,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class DataDefinitionRule implements Cloneable {
 
+	public static DataDefinitionRule toDTO(String json) {
+		return DataDefinitionRuleSerDes.toDTO(json);
+	}
+
 	public String[] getDataDefinitionFieldNames() {
 		return dataDefinitionFieldNames;
 	}

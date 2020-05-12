@@ -29,66 +29,8 @@ import javax.annotation.Generated;
 @Generated("")
 public class Instance implements Cloneable {
 
-	public static enum SLAStatus {
-
-		ON_TIME("OnTime"), OVERDUE("Overdue"), UNTRACKED("Untracked");
-
-		public static SLAStatus create(String value) {
-			for (SLAStatus slaStatus : values()) {
-				if (Objects.equals(slaStatus.getValue(), value)) {
-					return slaStatus;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private SLAStatus(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
-	public static enum Status {
-
-		COMPLETED("Completed"), PENDING("Pending");
-
-		public static Status create(String value) {
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value)) {
-					return status;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static Instance toDTO(String json) {
+		return InstanceSerDes.toDTO(json);
 	}
 
 	public String getAssetTitle() {
@@ -386,6 +328,68 @@ public class Instance implements Cloneable {
 
 	public String toString() {
 		return InstanceSerDes.toJSON(this);
+	}
+
+	public static enum SLAStatus {
+
+		ON_TIME("OnTime"), OVERDUE("Overdue"), UNTRACKED("Untracked");
+
+		public static SLAStatus create(String value) {
+			for (SLAStatus slaStatus : values()) {
+				if (Objects.equals(slaStatus.getValue(), value)) {
+					return slaStatus;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private SLAStatus(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
+	public static enum Status {
+
+		COMPLETED("Completed"), PENDING("Pending");
+
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

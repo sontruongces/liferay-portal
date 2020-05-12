@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class DataDefinitionPermission implements Cloneable {
 
+	public static DataDefinitionPermission toDTO(String json) {
+		return DataDefinitionPermissionSerDes.toDTO(json);
+	}
+
 	public Boolean getAddDataDefinition() {
 		return addDataDefinition;
 	}

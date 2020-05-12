@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class Task implements Cloneable {
 
+	public static Task toDTO(String json) {
+		return TaskSerDes.toDTO(json);
+	}
+
 	public Long getBreachedInstanceCount() {
 		return breachedInstanceCount;
 	}
