@@ -197,8 +197,8 @@ public class ProductPurchaseViewDisplay {
 		return StringPool.BLANK;
 	}
 
-	public boolean isFuture() {
-		if (_status.equals("future")) {
+	public boolean isInSupportGap() {
+		if (_inSupportGap) {
 			return true;
 		}
 
@@ -272,6 +272,10 @@ public class ProductPurchaseViewDisplay {
 			if (!StringUtil.equalsIgnoreCase(_status, "approved")) {
 				_status = productPurchase.getStatusAsString();
 			}
+		}
+
+		if (_inSupportGap && (_startDate != null) && _startDate.after(now)) {
+			_inSupportGap = false;
 		}
 	}
 

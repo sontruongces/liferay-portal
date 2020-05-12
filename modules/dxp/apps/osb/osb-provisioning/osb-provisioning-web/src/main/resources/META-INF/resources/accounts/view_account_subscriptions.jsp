@@ -68,7 +68,7 @@ PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 			>
 				<%= productPurchaseViewDisplay.getSupportLife() %>
 
-				<c:if test="<%= productPurchaseViewDisplay.isFuture() && Validator.isNotNull(productPurchaseViewDisplay.getNextTermStartDate()) %>">
+				<c:if test="<%= productPurchaseViewDisplay.isInSupportGap() && Validator.isNotNull(productPurchaseViewDisplay.getNextTermStartDate()) %>">
 					<div class="secondary-information">
 						<liferay-ui:message key="next-term-starts" />: <%= productPurchaseViewDisplay.getNextTermStartDate() %>
 					</div>
