@@ -14,6 +14,8 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
@@ -190,7 +192,8 @@ public class ViewAccountDisplayContext {
 	public String getDeleteTeamURL(String teamKey) {
 		PortletURL deleteTeamURL = renderResponse.createActionURL();
 
-		deleteTeamURL.setParameter(ActionRequest.ACTION_NAME, "/edit_team");
+		deleteTeamURL.setParameter(
+			ActionRequest.ACTION_NAME, "/accounts/edit_team");
 		deleteTeamURL.setParameter(Constants.CMD, Constants.DELETE);
 		deleteTeamURL.setParameter("teamKey", teamKey);
 
@@ -234,6 +237,48 @@ public class ViewAccountDisplayContext {
 		editTeamURL.setParameter("teamKey", teamKey);
 
 		return editTeamURL.toString();
+	}
+
+	public List<DropdownItem> getHeaderActionDropdownItems() {
+		return new DropdownItemList() {
+			{
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							"javascript:openCloseAccountModal()");
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "close-account"));
+					});
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							renderResponse.createRenderURL(),
+							"mvcRenderCommandName",
+							"/accounts/edit_account_hierarchy", "redirect",
+							getCurrentURL(), "accountKey", account.getKey());
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "edit-account-hierarchy"));
+					});
+			}
+		};
+	}
+
+	public List<DropdownItem> getHeaderAddDropdownItems() {
+		return new DropdownItemList() {
+			{
+				addGroup(
+					dropdownGroupItem -> {
+						dropdownGroupItem.setDropdownItems(
+							_getHeaderAddDropdownItems());
+						dropdownGroupItem.setSeparator(true);
+					});
+				addGroup(
+					dropdownGroupItem -> dropdownGroupItem.setDropdownItems(
+						_getHeaderAddSubscriptionsDropdownItems()));
+			}
+		};
 	}
 
 	public Map<String, Object> getPanelData() throws Exception {
@@ -490,6 +535,52 @@ public class ViewAccountDisplayContext {
 		deleteNoteURL.setParameter("noteKey", noteKey);
 
 		return deleteNoteURL.toString();
+	}
+
+	private List<DropdownItem> _getHeaderAddDropdownItems() {
+		return new DropdownItemList() {
+			{
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							"javascript:openAddContactsModal()");
+						dropdownItem.setLabel(
+							LanguageUtil.get(httpServletRequest, "contacts"));
+					});
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							"javascript:openAddLiferayWorkersModal()");
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "liferay-workers"));
+					});
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							renderResponse.createRenderURL(),
+							"mvcRenderCommandName", "/accounts/edit_team",
+							"redirect", getCurrentURL(), "accountKey",
+							account.getKey());
+						dropdownItem.setLabel(
+							LanguageUtil.get(httpServletRequest, "team"));
+					});
+			}
+		};
+	}
+
+	private List<DropdownItem> _getHeaderAddSubscriptionsDropdownItems() {
+		return new DropdownItemList() {
+			{
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref("/");
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "subscriptions"));
+					});
+			}
+		};
 	}
 
 	private String _getProductKeysFilter(String[] productKeys) {

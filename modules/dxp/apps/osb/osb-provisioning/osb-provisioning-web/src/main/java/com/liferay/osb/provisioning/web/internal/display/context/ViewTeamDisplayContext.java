@@ -108,6 +108,10 @@ public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
 		return portletURL;
 	}
 
+	public Team getTeam() {
+		return _team;
+	}
+
 	public TeamDisplay getTeamDisplay() {
 		return _teamDisplay;
 	}

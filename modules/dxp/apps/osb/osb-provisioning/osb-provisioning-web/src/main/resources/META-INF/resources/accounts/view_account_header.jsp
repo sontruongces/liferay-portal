@@ -102,4 +102,16 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 			</li>
 		</ul>
 	</div>
+
+	<clay:dropdown-menu
+		buttonStyle="primary"
+		dropdownItems="<%= viewAccountDisplayContext.getHeaderAddDropdownItems() %>"
+		icon="plus"
+		style="primary"
+		triggerCssClasses="nav-btn nav-btn-monospaced"
+	/>
+
+	<clay:dropdown-actions
+		dropdownItems="<%= viewAccountDisplayContext.getHeaderActionDropdownItems() %>"
+	/>
 </div>
