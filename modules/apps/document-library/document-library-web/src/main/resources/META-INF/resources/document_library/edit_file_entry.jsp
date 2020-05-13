@@ -490,7 +490,7 @@ if (portletTitleBasedNavigation) {
 						<liferay-asset:asset-categories-selector
 							className="<%= DLFileEntry.class.getName() %>"
 							classPK="<%= assetClassPK %>"
-							classTypePK="<%= fileEntryTypeId %>"
+							classTypePK="<%= (fileEntryTypeId < 0) ? DLFileEntryTypeConstants.FILE_ENTRY_TYPE_ID_BASIC_DOCUMENT : fileEntryTypeId %>"
 						/>
 
 						<liferay-asset:asset-tags-selector
