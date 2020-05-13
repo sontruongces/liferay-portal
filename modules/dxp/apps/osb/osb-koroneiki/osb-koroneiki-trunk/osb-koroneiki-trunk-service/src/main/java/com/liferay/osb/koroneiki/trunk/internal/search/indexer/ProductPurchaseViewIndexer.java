@@ -58,6 +58,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.text.Format;
 
@@ -66,6 +67,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -204,10 +206,18 @@ public class ProductPurchaseViewIndexer
 		document.addKeyword("productKey", productEntry.getProductEntryKey());
 		document.addKeyword(
 			"productPurchaseIds", getProductPurchaseIds(productPurchases));
+		document.addNumberSortable(
+			"provisionedCount",
+			getProvisionedCount(
+				productPurchaseView.getAccountId(),
+				productPurchaseView.getProductEntryId()));
+		document.addNumberSortable(
+			"purchasedCount", getPurchasedCount(productPurchases));
 		document.addKeyword("status", getStatus(productPurchases));
 		document.addDate("supportLifeEndDate", getEndDate(productPurchases));
 		document.addDate(
 			"supportLifeStartDate", getStartDate(productPurchases));
+		document.addTextSortable("type", getType(productEntry));
 
 		return document;
 	}
@@ -367,6 +377,22 @@ public class ProductPurchaseViewIndexer
 		return fieldArray;
 	}
 
+	protected int getProvisionedCount(long accountId, long productEntryId) {
+		return _productConsumptionLocalService.
+			getAccountProductEntryProductConsumptionsCount(
+				accountId, productEntryId);
+	}
+
+	protected int getPurchasedCount(List<ProductPurchase> productPurchases) {
+		int count = 0;
+
+		for (ProductPurchase productPurchase : productPurchases) {
+			count += productPurchase.getQuantity();
+		}
+
+		return count;
+	}
+
 	protected Date getStartDate(List<ProductPurchase> productPurchases) {
 		Date startDate = null;
 
@@ -391,6 +417,20 @@ public class ProductPurchaseViewIndexer
 		}
 
 		return WorkflowConstants.STATUS_CANCELLED;
+	}
+
+	protected String getType(ProductEntry productEntry) {
+		Map<String, String> properties = productEntry.getProductFieldsMap();
+
+		if (properties != null) {
+			String type = properties.get("type");
+
+			if (Validator.isNotNull(type)) {
+				return type;
+			}
+		}
+
+		return StringPool.BLANK;
 	}
 
 	protected boolean isPerpetual(List<ProductPurchase> productPurchases) {

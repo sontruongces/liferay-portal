@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.text.Format;
@@ -357,6 +358,9 @@ public class ViewAccountDisplayContext {
 		String tabs2 = ParamUtil.getString(renderRequest, "tabs2", "active");
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol");
+		String orderByType = ParamUtil.getString(
+			renderRequest, "orderByType", "asc");
 		String[] productKeys = ParamUtil.getStringValues(
 			renderRequest, "productKeys");
 		String[] states = ParamUtil.getStringValues(renderRequest, "states");
@@ -401,10 +405,12 @@ public class ViewAccountDisplayContext {
 			sb.append(_getSupportLifeFilter(startDate, endDate));
 		}
 
+		String sorts = _getSorts(orderByCol, orderByType);
+
 		List<ProductPurchaseView> productPurchaseViews =
 			productPurchaseViewWebService.getProductPurchaseViews(
 				keywords, sb.toString(), searchContainer.getCur(),
-				searchContainer.getEnd() - searchContainer.getStart(), null);
+				searchContainer.getEnd() - searchContainer.getStart(), sorts);
 
 		searchContainer.setResults(
 			TransformUtil.transform(
@@ -415,7 +421,7 @@ public class ViewAccountDisplayContext {
 		int count =
 			(int)productPurchaseViewWebService.getProductPurchaseViewsCount(
 				keywords, sb.toString(), searchContainer.getCur(),
-				searchContainer.getEnd() - searchContainer.getStart(), null);
+				searchContainer.getEnd() - searchContainer.getStart(), sorts);
 
 		searchContainer.setTotal(count);
 
@@ -622,6 +628,23 @@ public class ViewAccountDisplayContext {
 		}
 
 		sb.append(")");
+
+		return sb.toString();
+	}
+
+	private String _getSorts(String orderByCol, String orderByType) {
+		StringBundler sb = new StringBundler(4);
+
+		sb.append("type:desc,");
+
+		if (Validator.isNotNull(orderByCol)) {
+			sb.append(orderByCol);
+			sb.append(StringPool.COLON);
+			sb.append(orderByType);
+		}
+		else {
+			sb.append("name:asc");
+		}
 
 		return sb.toString();
 	}
