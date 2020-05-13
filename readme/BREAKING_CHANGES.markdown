@@ -20,7 +20,7 @@ Here are some of the types of changes documented in this file:
   replaces an old API, in spite of the old API being kept in Liferay Portal for
   backwards compatibility.
 
-*This document has been reviewed through commit `77cef15df6f0`.*
+*This document has been reviewed through commit `91b230547252`.*
 
 ## Breaking Changes Contribution Guidelines
 
@@ -533,32 +533,30 @@ updated to use the ES6 class syntax instead of `React.createClass`.
 #### Who is affected?
 
 This affects anyone who built their own buttons using `React.createClass`. The
-`createClass` function is no longer available and attempts to access it at
+`createClass` function is no longer available, and attempts to access it at
 runtime will trigger an error.
 
 #### How should I update my code?
 
 You should update your code in one of two ways:
 
-1. Port custom buttons from the `React.createClass` API to use the ES6 `class`
-   API as described in
-   [the React documentation](https://reactjs.org/docs/react-component.html). For
-   example, see the changes made in moving to an
-   [ES6 class-based button](https://github.com/liferay/alloy-editor/blob/b082c312179ae6626cb2ddcc04ad3ebc5b355e1b/src/components/buttons/button-ol.jsx),
-   from
-   [the previous `createClass`-based implementation](https://github.com/liferay/alloy-editor/blob/2826ab9ceabe17c6ba0d38985baf8a787c23db43/src/ui/react/src/components/buttons/button-ol.jsx).
+- Port custom buttons from the `React.createClass` API to use the ES6 `class`
+  API, as described in
+  [the React documentation](https://reactjs.org/docs/react-component.html). For
+  example, see the changes made in moving to an
+  [ES6 class-based button](https://github.com/liferay/alloy-editor/blob/b082c312179ae6626cb2ddcc04ad3ebc5b355e1b/src/components/buttons/button-ol.jsx)
+  from
+  [the previous `createClass`-based implementation](https://github.com/liferay/alloy-editor/blob/2826ab9ceabe17c6ba0d38985baf8a787c23db43/src/ui/react/src/components/buttons/button-ol.jsx).
 
-2. Provide a compatibility adapter. The
-   [create-react-class package](https://www.npmjs.com/package/create-react-class)
-   (described [here](https://reactjs.org/docs/react-without-es6.html)) can be
-   injected into the page to restore the `createClass` API.
+- Provide a compatibility adapter. The
+  [create-react-class package](https://www.npmjs.com/package/create-react-class)
+  (described [here](https://reactjs.org/docs/react-without-es6.html)) can be
+  injected into the page to restore the `createClass` API.
 
 #### Why was this change made?
 
-Moving to a newer major version of React
-
-- brings performance and compatibility improvements
-- reduces the bundle size due to the removal of deprecated APIs
+This change was made to use a newer major version of React, which brings
+performance and compatibility improvements and reduces the bundle size by removing deprecated APIs.
 
 ---------------------------------------
 
@@ -646,7 +644,7 @@ Macau are now the special administrative regions of China.
 
 ---------------------------------------
 
-### Upgraded JGroups from 3.6.16 to 4.1.1
+### JGroups Was Upgraded From 3.6.16 to 4.1.1
 - **Date:** 2019-Aug-15
 - **JIRA Ticket:** [LPS-97897](https://issues.liferay.com/browse/LPS-97897)
 
@@ -656,7 +654,7 @@ JGroups was upgraded from version 3.6.16 to 4.1.1.
 
 #### Who is affected?
 
-This affects anyone who is using Cluster Link.
+This affects anyone using Cluster Link.
 
 #### How should I update my code?
 
@@ -668,65 +666,11 @@ accordingly.
 
 #### Why was this change made?
 
-This upgrade is needed to fix a security issue.
+This upgrade was made to fix a security issue.
 
 ---------------------------------------
 
-### Auto Tagging Needs To Be Reconfigured Manually
-- **Date: 2019-Oct-2**
-- **JIRA Ticket: LPS-97123**
-
-#### What changed?
-
-Auto Tagging configurations were renamed and reorganized. There's no
-automatic upgrade process, things need to be reconfigured manually again.
-
-#### Who is affected?
-
-This affects any installation of DXP 7.2 upgrading to SP1 that has Auto
-Tagging configured and enabled.
-
-#### How should I update my code?
-
-Changes need to be made in System Settings (please consult the official
-documentation for the details). Any code referencing the old configuration
-interfaces must be updated to use the new ones.
-
-#### Why was this change made?
-
-The old configuration UI was very confusing, split between different
-configuration interfaces. This change unifies the configuration interfaces.
-
----------------------------------------
-
-### Blogs Image Properties Moved To System Settings
-- **Date: 2019-Oct-2**
-- **JIRA Ticket: LPS-95298**
-
-#### What changed?
-
-Configuration of Blogs images was moved from portal.properties to System
-Settings. There's no automatic upgrade process, so if there was a custom
-property, it needs to be reconfigured manually again.
-
-#### Who is affected?
-
-This affects any installation of DXP 7.2 upgrading to SP1 that has custom
-values for the blogs.image.max.size and blogs.image.extensions properties.
-
-#### How should I update my code?
-
-Changes need to be made in System Settings, in the configuration section
-Blogs > File Uploads. Any code referencing the old properties must be updated
-to use the new configuration interfaces.
-
-#### Why was this change made?
-
-The ability to change these configuration options dynamically (i.e. without a restart) was considered as a valuable feature.
-
----------------------------------------
-
-### Liferay `AssetEntries_AssetCategories` is not longer used
+### Liferay `AssetEntries_AssetCategories` is No Longer Used
 - **Date:** 2019-Sep-11
 - **JIRA Tickets:** [LPS-99973](https://issues.liferay.com/browse/LPS-99973),
 [LPS-76488](https://issues.liferay.com/browse/LPS-76488)
@@ -734,10 +678,11 @@ The ability to change these configuration options dynamically (i.e. without a re
 #### What changed?
 
 Previously, Liferay used a mapping table and a corresponding interface for the
-relationship between AssetEntry and AssetCategory in `AssetEntryLocalService`
-and `AssetCategoryLocalService`. This mapping table and the corresponding
-interface have been replaced by the table `AssetEntryAssetCategoryRel` and the
-service `AssetEntryAssetCategoryRelLocalService`.
+relationship between `AssetEntry` and `AssetCategory` in
+`AssetEntryLocalService` and `AssetCategoryLocalService`. This mapping table and
+the corresponding interface have been replaced by the table
+`AssetEntryAssetCategoryRel` and the service
+`AssetEntryAssetCategoryRelLocalService`.
 
 #### Who is affected?
 
@@ -748,43 +693,104 @@ the `AssetEntries_AssetCategories` relationship, through the
 #### How should I update my code?
 
 Use the new methods in `AssetEntryAssetCategoryRelLocalService` to retrieve the
-same data as before. Note, the new method signatures are the same as before, but
-are just located in a different service.
+same data as before. The method signatures haven't changed; they have just been
+relocated to a different service.
 
 **Example**
 
 Old way:
 
-  List<AssetEntry> entries = AssetEntryLocalServiceUtil.getAssetCategoryAssetEntries(categoryId);
+```java
+List<AssetEntry> entries =
+AssetEntryLocalServiceUtil.getAssetCategoryAssetEntries(categoryId);
 
-  for (AssetEntry entry: entries) {
-    ...
-  }
+for (AssetEntry entry: entries) {
+  ...
+}
+```
 
 New way:
 
-  long[] assetEntryPKs = _assetEntryAssetCategoryRelLocalService.getAssetEntryPrimaryKeys(assetCategoryId);
+```java
+long[] assetEntryPKs =
+_assetEntryAssetCategoryRelLocalService.getAssetEntryPrimaryKeys(assetCategoryId);
 
-  for (long assetEntryPK: assetEntryPKs) {
-    AssetEntry = _assetEntryLocalService.getEntry(assetEntryPK);
-    ...
-  }
-
+for (long assetEntryPK: assetEntryPKs) {
+  AssetEntry = _assetEntryLocalService.getEntry(assetEntryPK);
   ...
+}
 
-  @Reference
-  private AssetEntryAssetCategoryRelLocalService _assetEntryAssetCategoryRelLocalService;
+...
 
-  @Reference
-  private AssetEntryLocalService _assetEntryLocalService;
+@Reference
+private AssetEntryAssetCategoryRelLocalService _assetEntryAssetCategoryRelLocalService;
+
+@Reference
+private AssetEntryLocalService _assetEntryLocalService;
+```
 
 #### Why was this change made?
 
 This change was made due to changes resulting from
-[LPS-76488](https://issues.liferay.com/browse/LPS-76488), which was introduced
-so that developers would be able to specify a priority when assigning Assets to
-AssetCategory in order to make it possible to control the order of a list of
-assets with a given category.
+[LPS-76488](https://issues.liferay.com/browse/LPS-76488), which let developers
+control the order of a list of assets for a given category.
+
+---------------------------------------
+
+### Auto Tagging Must Be Reconfigured Manually
+- **Date: 2019-Oct-2**
+- **JIRA Ticket:** [LPS-97123](https://issues.liferay.com/browse/LPS-97123)
+
+#### What changed?
+
+Auto Tagging configurations were renamed and reorganized. There's no longer an
+automatic upgrade process, so you must reconfigure Auto Tagging manually.
+
+#### Who is affected?
+
+This affects DXP 7.2 installations that are upgraded to SP1 and have Auto
+Tagging configured and enabled.
+
+#### How should I update my code?
+
+You must reconfigure Auto Tagging through System Settings (please see the
+[official documentation](https://help.liferay.com/hc/en-us/articles/360029041551-Configuring-Asset-Auto-Tagging)
+for details). Any code referencing the old configuration interfaces must be
+updated to use the new ones.
+
+#### Why was this change made?
+
+This change unifies the previously split configuration interfaces, improving the
+user experience.
+
+---------------------------------------
+
+### Blogs Image Properties Were Moved to System Settings
+- **Date: 2019-Oct-2**
+- **JIRA Ticket:** [LPS-95298](https://issues.liferay.com/browse/LPS-95298)
+
+#### What changed?
+
+Blogs image configuration was moved from `portal.properties` to System
+Settings. There's no automatic upgrade process, so custom Blogs image properties
+must be reconfigured manually.
+
+#### Who is affected?
+
+This affects DXP 7.2 installations that are upgraded to SP1 and have custom
+values for the `blogs.image.max.size` and `blogs.image.extensions` properties.
+
+#### How should I update my code?
+
+If you would like to keep your custom Blogs image property values, you must
+reconfigure them through the System Settings under *Configuration* &rarr;
+*Blogs* &rarr; *File Uploads*. Any code referencing the old properties must be
+updated to use the new configuration interfaces.
+
+#### Why was this change made?
+
+This change was made so Blogs image properties can be configured without a
+restart.
 
 ---------------------------------------
 
@@ -794,20 +800,21 @@ assets with a given category.
 
 #### What changed?
 
-The cache bootstrap feature has been removed, which means you can not use the
-following properties to enable/configure cache bootstrap:
+The cache bootstrap feature has been removed. These properties can no longer
+be used to enable/configure cache bootstrap:
+
 `ehcache.bootstrap.cache.loader.enabled`,
 `ehcache.bootstrap.cache.loader.properties.default`,
 `ehcache.bootstrap.cache.loader.properties.${specific.cache.name}`.
 
 #### Who is affected?
 
-This affects who is using the properties listed above.
+This affects anyone using the properties listed above.
 
 #### How should I update my code?
 
 There's no direct replacement for the removed feature. If you have code that
-depends on it, you would need to implement it by yourself.
+depends on it, you must implement it yourself.
 
 #### Why was this change made?
 
