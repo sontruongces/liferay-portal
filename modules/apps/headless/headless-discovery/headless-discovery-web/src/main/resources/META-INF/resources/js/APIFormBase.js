@@ -151,16 +151,16 @@ const formikAPIForm = withFormik({
 		const apiURL = getURL({baseURL, params: parameters, path, values});
 
 		apiFetch(apiURL, method, data, contentType, headers)
-			.then((response) => {
+			.then(response => {
 				onResponse({
 					apiURL,
 					data,
-					response,
+					response
 				});
 
 				setSubmitting(false);
 			})
-			.catch((err) => {
+			.catch(err => {
 				setSubmitting(false);
 				if (process.env.NODE_ENV === 'development') {
 					console.error(err);
