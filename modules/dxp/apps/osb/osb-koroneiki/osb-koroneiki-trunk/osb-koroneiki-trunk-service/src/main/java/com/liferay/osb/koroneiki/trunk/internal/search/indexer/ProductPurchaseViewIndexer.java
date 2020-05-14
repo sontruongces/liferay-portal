@@ -228,18 +228,13 @@ public class ProductPurchaseViewIndexer
 	protected void doReindex(ProductPurchaseView productPurchaseView)
 		throws Exception {
 
-		int productConsumptionsCount =
-			_productConsumptionLocalService.
-				getAccountProductEntryProductConsumptionsCount(
-					productPurchaseView.getAccountId(),
-					productPurchaseView.getProductEntryId());
 		int productPurchasesCount =
 			_productPurchaseLocalService.
 				getAccountProductEntryProductPurchasesCount(
 					productPurchaseView.getAccountId(),
 					productPurchaseView.getProductEntryId());
 
-		if ((productConsumptionsCount > 0) || (productPurchasesCount > 0)) {
+		if (productPurchasesCount > 0) {
 			IndexWriterHelperUtil.updateDocument(
 				getSearchEngineId(), productPurchaseView.getCompanyId(),
 				getDocument(productPurchaseView), isCommitImmediately());
