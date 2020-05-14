@@ -41,7 +41,7 @@ public class MessageListenerWrapper implements MessageListener {
 		if (_log.isDebugEnabled()) {
 			_log.debug("Listener " + ClassUtil.getClassName(_messageListener));
 			_log.debug("From " + from);
-			_log.debug("Recipient(s) " + recipients.toString());
+			_log.debug("Recipients " + recipients.toString());
 		}
 
 		boolean value = _messageListener.accept(from, recipients, message);
@@ -70,7 +70,7 @@ public class MessageListenerWrapper implements MessageListener {
 		if (_log.isDebugEnabled()) {
 			_log.debug("Listener " + ClassUtil.getClassName(_messageListener));
 			_log.debug("From " + from);
-			_log.debug("Recipient(s) " + recipients.toString());
+			_log.debug("Recipients " + recipients.toString());
 			_log.debug("Message " + message);
 		}
 

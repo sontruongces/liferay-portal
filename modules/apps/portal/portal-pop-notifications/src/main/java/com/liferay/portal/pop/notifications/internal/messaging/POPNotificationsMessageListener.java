@@ -241,7 +241,7 @@ public class POPNotificationsMessageListener extends BaseMessageListener {
 
 			if (_log.isDebugEnabled()) {
 				_log.debug("From " + from);
-				_log.debug("Recipient(s) " + recipients.toString());
+				_log.debug("Recipients " + recipients.toString());
 			}
 
 			for (MessageListener messageListener :
