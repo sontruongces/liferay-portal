@@ -168,6 +168,10 @@ public class ProductPurchaseViewDisplay {
 			return LanguageUtil.get(_httpServletRequest, "perpetual");
 		}
 
+		if (_startDate == null) {
+			return StringPool.BLANK;
+		}
+
 		StringBundler sb = new StringBundler(3);
 
 		sb.append(_dateFormat.format(_startDate));
