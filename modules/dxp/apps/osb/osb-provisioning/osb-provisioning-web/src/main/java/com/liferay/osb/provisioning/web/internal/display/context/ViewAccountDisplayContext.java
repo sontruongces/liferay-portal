@@ -260,6 +260,18 @@ public class ViewAccountDisplayContext {
 						dropdownItem.setLabel(
 							LanguageUtil.get(
 								httpServletRequest, "edit-account-hierarchy"));
+						dropdownItem.setSeparator(true);
+					});
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							renderResponse.createActionURL(),
+							ActionRequest.ACTION_NAME, "/accounts/sync_to_lcs",
+							"redirect", getCurrentURL(), "accountKey",
+							account.getKey());
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "sync-to-lcs"));
 					});
 			}
 		};
@@ -298,7 +310,6 @@ public class ViewAccountDisplayContext {
 					account.getKey(), 1, 1000),
 				externalLink -> new ExternalLinkDisplay(
 					httpServletRequest, externalLink)));
-
 		data.put(
 			"notes",
 			TransformUtil.transform(
