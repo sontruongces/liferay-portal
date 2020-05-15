@@ -95,7 +95,7 @@ renderResponse.setTitle((productConsumption == null) ? LanguageUtil.get(request,
 								<portlet:param name="mvcRenderCommandName" value="/products_admin/edit_product_purchase" />
 								<portlet:param name="productPurchaseId" value="<%= String.valueOf(productPurchase.getProductPurchaseId()) %>" />
 							</liferay-portlet:renderURL>
-	
+
 							<a href="<%= productPurchaseURL %>"><%= HtmlUtil.escape(productPurchase.getProductPurchaseKey()) %></a>
 						</p>
 					</c:if>

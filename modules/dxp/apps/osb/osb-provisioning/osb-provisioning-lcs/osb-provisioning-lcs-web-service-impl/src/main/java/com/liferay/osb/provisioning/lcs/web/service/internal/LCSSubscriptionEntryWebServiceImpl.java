@@ -35,7 +35,6 @@ import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -309,7 +308,7 @@ public class LCSSubscriptionEntryWebServiceImpl
 		Map<String, LCSSubscriptionEntry> lcsSubscriptionEntriesMap =
 			new HashMap<>();
 
-		StringBundler sb = new StringBundler(8);
+		StringBundler sb = new StringBundler(3);
 
 		sb.append("(accountKey eq '");
 		sb.append(accountKey);
@@ -508,9 +507,12 @@ public class LCSSubscriptionEntryWebServiceImpl
 				curLCSSubscriptionEntry.getInstanceSize());
 		}
 
-		if (DateUtil.compareTo(
-				lcsSubscriptionEntry.getSupportEndDate(),
-				curLCSSubscriptionEntry.getSupportEndDate()) == 1) {
+		Date supportEndDate = lcsSubscriptionEntry.getSupportEndDate();
+
+		if ((curLCSSubscriptionEntry.getSupportEndDate() != null) &&
+			((supportEndDate == null) ||
+			 supportEndDate.after(
+				 curLCSSubscriptionEntry.getSupportEndDate()))) {
 
 			lcsSubscriptionEntry.setSupportEndDate(
 				curLCSSubscriptionEntry.getSupportEndDate());
