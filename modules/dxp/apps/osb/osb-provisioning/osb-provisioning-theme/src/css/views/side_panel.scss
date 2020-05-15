@@ -89,6 +89,10 @@
 	.new-note {
 		padding: $spacing-md;
 		width: 100%;
+
+		.form-control-label {
+			display: inline;
+		}
 	}
 
 	.notes-container {
