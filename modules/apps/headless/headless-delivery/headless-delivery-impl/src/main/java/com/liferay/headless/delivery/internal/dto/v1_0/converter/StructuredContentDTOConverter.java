@@ -103,7 +103,7 @@ public class StructuredContentDTOConverter
 				contentStructureId = ddmStructure.getStructureId();
 				creator = CreatorUtil.toCreator(
 					_portal,
-					_userLocalService.getUserById(journalArticle.getUserId()));
+					_userLocalService.fetchUser(journalArticle.getUserId()));
 				customFields = CustomFieldsUtil.toCustomFields(
 					dtoConverterContext.isAcceptAllLanguages(),
 					JournalArticle.class.getName(), journalArticle.getId(),
