@@ -81,6 +81,15 @@ public class AccountEntryWebServiceImpl implements AccountEntryWebService {
 		return sb.toString();
 	}
 
+	public void syncToZendesk(String koroneikiAccountKey) throws Exception {
+		Map<String, String> parameters = new HashMap<>();
+
+		parameters.put("koroneikiAccountKey", koroneikiAccountKey);
+
+		_jsonWebServiceClient.doPost(
+			_URL_API_JSONWS_SYNC_TO_ZENDESK, parameters);
+	}
+
 	public void updateInstructions(
 			String koroneikiAccountKey, String instructions)
 		throws Exception {
@@ -158,6 +167,9 @@ public class AccountEntryWebServiceImpl implements AccountEntryWebService {
 
 	private static final String _URL_API_JSONWS_FETCH_ACCOUNT_ENTRY =
 		_URL_API_JSONWS + "/fetch-koroneiki-account-entry";
+
+	private static final String _URL_API_JSONWS_SYNC_TO_ZENDESK =
+		_URL_API_JSONWS + "/sync-to-zendesk";
 
 	private static final String _URL_API_JSONWS_UPDATE_INSTRUCTIONS =
 		_URL_API_JSONWS + "/update-instructions";

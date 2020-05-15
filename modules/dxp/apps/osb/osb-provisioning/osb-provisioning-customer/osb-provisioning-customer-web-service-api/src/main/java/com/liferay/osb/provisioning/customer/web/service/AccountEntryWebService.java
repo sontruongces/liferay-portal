@@ -29,6 +29,8 @@ public interface AccountEntryWebService {
 
 	public String getUpdateAccountAttachmentURL() throws Exception;
 
+	public void syncToZendesk(String koroneikiAccountKey) throws Exception;
+
 	public void updateInstructions(
 			String koroneikiAccountKey, String instructions)
 		throws Exception;

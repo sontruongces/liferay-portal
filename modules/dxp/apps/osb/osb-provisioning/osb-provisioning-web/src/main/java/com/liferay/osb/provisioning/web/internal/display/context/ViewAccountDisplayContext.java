@@ -273,6 +273,17 @@ public class ViewAccountDisplayContext {
 							LanguageUtil.get(
 								httpServletRequest, "sync-to-lcs"));
 					});
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							renderResponse.createActionURL(),
+							ActionRequest.ACTION_NAME,
+							"/accounts/sync_to_zendesk", "redirect",
+							getCurrentURL(), "accountKey", account.getKey());
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "sync-to-zendesk"));
+					});
 			}
 		};
 	}

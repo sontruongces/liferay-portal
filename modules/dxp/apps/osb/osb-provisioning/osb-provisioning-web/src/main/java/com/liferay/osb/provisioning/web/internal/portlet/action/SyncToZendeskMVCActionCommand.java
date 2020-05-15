@@ -15,7 +15,7 @@
 package com.liferay.osb.provisioning.web.internal.portlet.action;
 
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
-import com.liferay.osb.provisioning.lcs.web.service.LCSSubscriptionEntryWebService;
+import com.liferay.osb.provisioning.customer.web.service.AccountEntryWebService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -35,11 +35,11 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + ProvisioningPortletKeys.PROVISIONING,
-		"mvc.command.name=/accounts/sync_to_lcs"
+		"mvc.command.name=/accounts/sync_to_zendesk"
 	},
 	service = MVCActionCommand.class
 )
-public class SyncToLCSMVCActionCommand extends BaseMVCActionCommand {
+public class SyncToZendeskMVCActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(
@@ -50,7 +50,7 @@ public class SyncToLCSMVCActionCommand extends BaseMVCActionCommand {
 			String accountKey = ParamUtil.getString(
 				actionRequest, "accountKey");
 
-			_lcsSubscriptionEntryWebService.syncToLCS(accountKey);
+			_accountEntryWebService.syncToZendesk(accountKey);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -62,9 +62,9 @@ public class SyncToLCSMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		SyncToLCSMVCActionCommand.class);
+		SyncToZendeskMVCActionCommand.class);
 
 	@Reference
-	private LCSSubscriptionEntryWebService _lcsSubscriptionEntryWebService;
+	private AccountEntryWebService _accountEntryWebService;
 
 }
