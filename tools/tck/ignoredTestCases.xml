@@ -112,4 +112,8 @@
 	<entry key="V3ResourceAsyncTests_SPEC_21_Async_onStartAsync"></entry>
 	<entry key="V3ResourceAsyncTests_SPEC_21_Async_start2"></entry>
 	<entry key="V3ResourceAsyncTests_SPEC_21_Async_start4"></entry>
+
+	<!-- https://issues.liferay.com/browse/LPS-113845 -->
+
+	<entry key="V2AddlResponseTests_SPEC2_12_Resource_characterEncoding2"></entry>
 </properties>
