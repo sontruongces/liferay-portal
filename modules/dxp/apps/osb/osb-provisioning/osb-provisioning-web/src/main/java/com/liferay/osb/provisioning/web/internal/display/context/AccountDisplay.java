@@ -267,7 +267,7 @@ public class AccountDisplay {
 			}
 		}
 
-		return StringPool.BLANK;
+		return StringPool.DASH;
 	}
 
 	private ProductPurchase _getSLAProductPurchase() {
