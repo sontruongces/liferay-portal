@@ -98,7 +98,10 @@ function AccountDetails({details}) {
 				</div>
 			</ClayList.Item>
 
-			<AccountAddress addresses={details.postalAddressDisplays} />
+			<AccountAddress
+				addresses={details.postalAddressDisplays}
+				addURL={details.addPostalAddressURL}
+			/>
 
 			<ClayList.Header>
 				{Liferay.Language.get('external-account-keys')}
@@ -138,13 +141,14 @@ function AccountDetails({details}) {
 }
 
 AccountDetails.propTypes = {
-	addPostalAddressURL: PropTypes.string,
 	details: PropTypes.shape({
+		addPostalAddressURL: PropTypes.string,
 		code: PropTypes.string,
 		dateCreated: PropTypes.string,
 		dateModified: PropTypes.string,
 		dossieraAccountKey: PropTypes.string,
 		dossieraProjectKey: PropTypes.string,
+		editAccountURL: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
 		name: PropTypes.string,
@@ -154,6 +158,9 @@ AccountDetails.propTypes = {
 				addressCountry: PropTypes.string,
 				addressLocality: PropTypes.string,
 				addressRegion: PropTypes.string,
+				addressType: PropTypes.string,
+				deletePostalAddressURL: PropTypes.string,
+				editPostalAddressURL: PropTypes.string,
 				id: PropTypes.string,
 				postalCode: PropTypes.string,
 				primary: PropTypes.string,
@@ -166,8 +173,7 @@ AccountDetails.propTypes = {
 		status: PropTypes.string,
 		statusStyle: PropTypes.string,
 		tier: PropTypes.string
-	}),
-	editAccountURL: PropTypes.string
+	})
 };
 
 export default AccountDetails;

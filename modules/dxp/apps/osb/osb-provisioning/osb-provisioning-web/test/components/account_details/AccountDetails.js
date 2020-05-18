@@ -18,6 +18,7 @@ function renderAccountDetails(props) {
 	return render(
 		<AccountDetails
 			details={{
+				addPostalAddressURL: '',
 				code: '123',
 				dateCreated: new Date().toLocaleString('en-US'),
 				dateModified: new Date().toLocaleString('en-US'),

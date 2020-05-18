@@ -1,4 +1,9 @@
 #accountDetails {
+	.address-controls {
+		justify-content: flex-end;
+		width: 100%;
+	}
+
 	.account-field {
 		align-items: center;
 		display: flex;

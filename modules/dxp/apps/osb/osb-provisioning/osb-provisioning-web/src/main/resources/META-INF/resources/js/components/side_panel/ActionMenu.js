@@ -26,6 +26,7 @@ function ActionMenu({
 		<>
 			<ClayTooltipProvider>
 				<IconButton
+					className="btn-unstyled"
 					data-tooltip-align="top"
 					labelName="edit-note-icon"
 					onClick={onEdit}
@@ -54,6 +55,7 @@ function Pinning({onPinning, pinned}) {
 			{pinned ? (
 				<ClayTooltipProvider>
 					<IconButton
+						className="btn-unstyled"
 						data-tooltip-align="top"
 						labelName="unpin-note-icon"
 						onClick={onPinning}
@@ -64,6 +66,7 @@ function Pinning({onPinning, pinned}) {
 			) : (
 				<ClayTooltipProvider>
 					<IconButton
+						className="btn-unstyled"
 						data-tooltip-align="top"
 						labelName="pin-note-icon"
 						onClick={onPinning}

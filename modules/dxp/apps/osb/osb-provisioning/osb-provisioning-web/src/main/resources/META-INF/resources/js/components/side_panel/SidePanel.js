@@ -123,7 +123,7 @@ function SidePanel(props) {
 		<NotesProvider initialNotes={props.notes}>
 			{collapse ? (
 				<IconButton
-					cssClass="panel-expand"
+					cssClass="btn-unstyled panel-expand"
 					labelName="expand-panel-button"
 					onClick={handleCollapse}
 					svgId="#expand"

@@ -72,7 +72,7 @@ public class AccountDisplay {
 		_partnerTeam = _accountReader.getPartnerTeam(_account);
 	}
 
-	public String addPostalAddressURL() {
+	public String getAddPostalAddressURL() {
 		PortletURL addPostalAddressURL =
 			_liferayPortletResponse.createActionURL();
 

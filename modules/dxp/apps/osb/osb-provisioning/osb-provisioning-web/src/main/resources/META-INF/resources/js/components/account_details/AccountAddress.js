@@ -13,7 +13,9 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function AccountAddress({addresses}) {
+import IconButton from '../IconButton';
+
+function AccountAddress({addURL, addresses}) {
 	if (addresses.length === 0) {
 		addresses.push({
 			addressCountry: '-',
@@ -101,6 +103,45 @@ function AccountAddress({addresses}) {
 							</ClayList.ItemText>
 						</div>
 					</ClayList.Item>
+
+					<ClayList.Item flex>
+						<div
+							className="address-controls btn-group"
+							role="group"
+						>
+							<div className="btn-group-item">
+								<a
+									className="add-address btn btn-secondary nav-btn nav-btn-monospaced"
+									href={addURL}
+									title={Liferay.Language.get('add')}
+								>
+									<svg
+										aria-label={Liferay.Language.get('add')}
+										className="lexicon-icon"
+										role="img"
+									>
+										<use xlinkHref="#plus" />
+									</svg>
+								</a>
+							</div>
+
+							{!!address.deletePostalAddressURL && (
+								<div className="btn-group-item">
+									<IconButton
+										cssClass="btn-secondary delete-address nav-btn nav-btn-monospaced"
+										labelName={Liferay.Language.get(
+											'delete'
+										)}
+										onClick={() => {
+											// TODO: LHC-2366
+										}}
+										svgId="#hr"
+										title={Liferay.Language.get('delete')}
+									/>
+								</div>
+							)}
+						</div>
+					</ClayList.Item>
 				</React.Fragment>
 			))}
 		</>
@@ -108,10 +149,13 @@ function AccountAddress({addresses}) {
 }
 
 AccountAddress.propTypes = {
+	addURL: PropTypes.string.isRequired,
 	addresses: PropTypes.arrayOf(
 		PropTypes.shape({
 			addressCountry: PropTypes.string,
 			addressLocality: PropTypes.string,
+			deletePostalAddressURL: PropTypes.string,
+			editPostalAddressURL: PropTypes.string,
 			id: PropTypes.string,
 			postalCode: PropTypes.string,
 			streetAddressLine1: PropTypes.string,

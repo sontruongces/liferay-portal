@@ -15,13 +15,13 @@ import React from 'react';
 function IconButton({cssClass, labelName, onClick, svgId, ...otherProps}) {
 	return (
 		<button
-			className={`btn btn-unstyled ${cssClass}`}
+			className={`btn ${cssClass}`}
 			onClick={onClick}
 			role="button"
 			type="button"
 			{...otherProps}
 		>
-			<svg aria-label={Liferay.Language.get(labelName)} role="img">
+			<svg aria-label={labelName} className="lexicon-icon" role="img">
 				<use xlinkHref={svgId} />
 			</svg>
 		</button>
