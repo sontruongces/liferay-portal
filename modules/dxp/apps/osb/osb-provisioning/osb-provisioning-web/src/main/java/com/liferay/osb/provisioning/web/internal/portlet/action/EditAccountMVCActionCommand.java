@@ -47,7 +47,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + ProvisioningPortletKeys.PROVISIONING,
-		"mvc.command.name=/edit_account"
+		"mvc.command.name=/accounts/edit_account"
 	},
 	service = MVCActionCommand.class
 )
@@ -100,6 +100,7 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 			String code = ParamUtil.getString(actionRequest, "code");
 			String tier = ParamUtil.getString(actionRequest, "tier");
 			String region = ParamUtil.getString(actionRequest, "region");
+			String status = ParamUtil.getString(actionRequest, "status");
 
 			Account account = new Account();
 
@@ -115,6 +116,10 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
 			if (Validator.isNotNull(region)) {
 				account.setRegion(Account.Region.create(region));
+			}
+
+			if (Validator.isNotNull(status)) {
+				account.setStatus(Account.Status.create(status));
 			}
 
 			_accountWebService.updateAccount(

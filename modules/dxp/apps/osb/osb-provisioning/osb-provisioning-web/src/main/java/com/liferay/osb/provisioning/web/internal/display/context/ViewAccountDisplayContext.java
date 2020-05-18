@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -199,7 +200,8 @@ public class ViewAccountDisplayContext {
 	public String getEditTeamURL(String teamKey) {
 		PortletURL editTeamURL = renderResponse.createActionURL();
 
-		editTeamURL.setParameter(ActionRequest.ACTION_NAME, "/edit_account");
+		editTeamURL.setParameter(
+			ActionRequest.ACTION_NAME, "/accounts/edit_account");
 		editTeamURL.setParameter("teamKey", teamKey);
 
 		return editTeamURL.toString();
@@ -210,12 +212,47 @@ public class ViewAccountDisplayContext {
 			{
 				add(
 					dropdownItem -> {
+						PortletURL workflowURL =
+							renderResponse.createActionURL();
+
+						workflowURL.setParameter(
+							ActionRequest.ACTION_NAME,
+							"/accounts/edit_account");
+						workflowURL.setParameter("redirect", getCurrentURL());
+						workflowURL.setParameter(
+							"accountKey", account.getKey());
+						workflowURL.setParameter("name", account.getName());
+
+						if (account.getStatus() == Account.Status.CLOSED) {
+							workflowURL.setParameter(
+								"status", Account.Status.APPROVED.toString());
+						}
+						else {
+							workflowURL.setParameter(
+								"status", Account.Status.CLOSED.toString());
+						}
+
+						workflowURL.setParameter(
+							"updateAccount", Boolean.TRUE.toString());
+
 						dropdownItem.setHref(
-							"javascript:openCloseAccountModal()");
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								httpServletRequest, "close-account"));
+							"javascript:" + renderResponse.getNamespace() +
+								"updateStatus('" +
+									HtmlUtil.escapeJS(workflowURL.toString()) +
+										"');");
+
+						if (account.getStatus() == Account.Status.CLOSED) {
+							dropdownItem.setLabel(
+								LanguageUtil.get(
+									httpServletRequest, "activate-account"));
+						}
+						else {
+							dropdownItem.setLabel(
+								LanguageUtil.get(
+									httpServletRequest, "close-account"));
+						}
 					});
+
 				add(
 					dropdownItem -> {
 						dropdownItem.setHref(
@@ -449,6 +486,14 @@ public class ViewAccountDisplayContext {
 		updateLanguageIdURL.setParameter("accountKey", account.getKey());
 
 		return updateLanguageIdURL.toString();
+	}
+
+	public String getWorkflowStep() {
+		if (account.getStatus() == Account.Status.CLOSED) {
+			return "activate";
+		}
+
+		return "close";
 	}
 
 	public void init(
