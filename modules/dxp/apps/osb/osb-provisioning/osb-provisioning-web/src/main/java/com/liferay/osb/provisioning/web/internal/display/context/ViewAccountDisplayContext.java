@@ -358,9 +358,6 @@ public class ViewAccountDisplayContext {
 		String tabs2 = ParamUtil.getString(renderRequest, "tabs2", "active");
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol");
-		String orderByType = ParamUtil.getString(
-			renderRequest, "orderByType", "asc");
 		String[] productKeys = ParamUtil.getStringValues(
 			renderRequest, "productKeys");
 		String[] states = ParamUtil.getStringValues(renderRequest, "states");
@@ -372,6 +369,9 @@ public class ViewAccountDisplayContext {
 		int endDateMonth = ParamUtil.getInteger(renderRequest, "endDateMonth");
 		int endDateDay = ParamUtil.getInteger(renderRequest, "endDateDay");
 		int endDateYear = ParamUtil.getInteger(renderRequest, "endDateYear");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol");
+		String orderByType = ParamUtil.getString(
+			renderRequest, "orderByType", "asc");
 
 		StringBundler sb = new StringBundler(8);
 

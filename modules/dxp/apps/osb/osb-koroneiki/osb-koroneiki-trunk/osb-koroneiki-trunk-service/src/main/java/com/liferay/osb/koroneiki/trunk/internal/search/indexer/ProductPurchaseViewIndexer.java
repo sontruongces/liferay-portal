@@ -59,7 +59,6 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.text.Format;
 
@@ -68,7 +67,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -424,20 +422,6 @@ public class ProductPurchaseViewIndexer
 		}
 
 		return WorkflowConstants.STATUS_CANCELLED;
-	}
-
-	protected String getType(ProductEntry productEntry) {
-		Map<String, String> properties = productEntry.getProductFieldsMap();
-
-		if (properties != null) {
-			String type = properties.get("type");
-
-			if (Validator.isNotNull(type)) {
-				return type;
-			}
-		}
-
-		return StringPool.BLANK;
 	}
 
 	protected boolean isPerpetual(List<ProductPurchase> productPurchases) {
