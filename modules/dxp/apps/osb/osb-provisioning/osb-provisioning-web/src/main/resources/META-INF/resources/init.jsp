@@ -31,6 +31,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team" %><%@
 page import="com.liferay.osb.provisioning.customer.model.AccountEntry" %><%@
+page import="com.liferay.osb.provisioning.web.internal.configuration.ProvisioningWebConfigurationValues" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AuditEntryDisplay" %><%@

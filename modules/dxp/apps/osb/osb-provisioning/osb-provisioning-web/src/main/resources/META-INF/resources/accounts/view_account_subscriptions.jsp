@@ -82,7 +82,7 @@ PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 			/>
 
 			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
+				href="<%= ProvisioningWebConfigurationValues.LICENSE_MANAGER_URL %>"
 				name="purchased"
 				value="<%= productPurchaseViewDisplay.getPurchasedCount() %>"
 			/>
