@@ -84,7 +84,7 @@ public class AccountSearchDisplayContext {
 			TransformUtil.transform(
 				accounts,
 				account -> new AccountDisplay(
-					_httpServletRequest, _accountReader, account)));
+					_renderRequest, _renderResponse, _accountReader, account)));
 
 		int count = (int)_accountWebService.searchCount(
 			StringPool.BLANK, sb.toString());

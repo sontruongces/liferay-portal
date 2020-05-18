@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
-import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -39,7 +38,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -198,42 +196,11 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 		throws Exception {
 
 		NoteDisplay noteDisplay = new NoteDisplay(
-			_portal.getHttpServletRequest(actionRequest), note,
-			_getUpdateNoteURL(actionResponse, note.getKey()),
-			_getDeleteNoteURL(actionResponse, note.getKey()));
+			actionRequest, actionResponse, note);
 
 		String jsonString = _jsonFactory.looseSerializeDeep(noteDisplay);
 
 		return _jsonFactory.createJSONObject(jsonString);
-	}
-
-	private String _getDeleteNoteURL(
-		ActionResponse actionResponse, String noteKey) {
-
-		LiferayPortletResponse liferayPortletResponse =
-			_portal.getLiferayPortletResponse(actionResponse);
-
-		PortletURL deleteNoteURL = liferayPortletResponse.createRenderURL();
-
-		deleteNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
-		deleteNoteURL.setParameter(Constants.CMD, Constants.DELETE);
-		deleteNoteURL.setParameter("noteKey", noteKey);
-
-		return deleteNoteURL.toString();
-	}
-
-	private String _getUpdateNoteURL(
-		ActionResponse actionResponse, String noteKey) {
-
-		LiferayPortletResponse liferayPortletResponse =
-			_portal.getLiferayPortletResponse(actionResponse);
-
-		PortletURL updateNoteURL = liferayPortletResponse.createActionURL();
-
-		updateNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
-		updateNoteURL.setParameter("noteKey", noteKey);
-
-		return updateNoteURL.toString();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

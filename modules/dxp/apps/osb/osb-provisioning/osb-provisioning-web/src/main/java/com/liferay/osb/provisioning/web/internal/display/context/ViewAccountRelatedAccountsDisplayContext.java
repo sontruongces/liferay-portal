@@ -53,7 +53,7 @@ public class ViewAccountRelatedAccountsDisplayContext
 			accountWebService.search(
 				StringPool.BLANK, sb.toString(), 1, 1000, "name"),
 			account -> new AccountDisplay(
-				httpServletRequest, accountReader, account));
+				renderRequest, renderResponse, accountReader, account));
 	}
 
 	public AccountDisplay getParentAccountDisplay() throws Exception {
@@ -63,7 +63,8 @@ public class ViewAccountRelatedAccountsDisplayContext
 
 			if (parentAccount != null) {
 				return new AccountDisplay(
-					httpServletRequest, accountReader, parentAccount);
+					renderRequest, renderResponse, accountReader,
+					parentAccount);
 			}
 		}
 
@@ -95,7 +96,7 @@ public class ViewAccountRelatedAccountsDisplayContext
 			TransformUtil.transform(
 				accounts,
 				account -> new AccountDisplay(
-					httpServletRequest, accountReader, account)));
+					renderRequest, renderResponse, accountReader, account)));
 
 		searchContainer.setTotal(accounts.size());
 

@@ -23,7 +23,9 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.provisioning.koroneiki.constants.ProductConstants;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -35,6 +37,11 @@ import java.text.Format;
 import java.util.Collections;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+import javax.portlet.PortletURL;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -43,24 +50,37 @@ import javax.servlet.http.HttpServletRequest;
 public class AccountDisplay {
 
 	public AccountDisplay(
-			HttpServletRequest httpServletRequest, AccountReader accountReader,
-			Account account)
+			PortletRequest portletRequest, PortletResponse portletResponse,
+			AccountReader accountReader, Account account)
 		throws Exception {
 
-		_httpServletRequest = httpServletRequest;
+		_portletRequest = portletRequest;
+		_portletResponse = portletResponse;
 
 		_accountReader = accountReader;
 		_account = account;
-
-		_firstLineSupportTeam = _accountReader.getFirstLineSupportTeam(
-			_account);
-
-		_partnerTeam = _accountReader.getPartnerTeam(_account);
 
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy");
 		_dateTimeFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy hh:mm a z");
+		_firstLineSupportTeam = _accountReader.getFirstLineSupportTeam(
+			_account);
+		_httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
+			portletResponse);
+		_partnerTeam = _accountReader.getPartnerTeam(_account);
+	}
+
+	public String addPostalAddressURL() {
+		PortletURL addPostalAddressURL =
+			_liferayPortletResponse.createActionURL();
+
+		addPostalAddressURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_postal_address");
+		addPostalAddressURL.setParameter("accountKey", _account.getKey());
+
+		return addPostalAddressURL.toString();
 	}
 
 	public String getCode() {
@@ -97,6 +117,15 @@ public class AccountDisplay {
 
 	public String getDossieraProjectKey() {
 		return _getExternalLinkEntityId("dossiera", "project");
+	}
+
+	public String getEditAccountURL() {
+		PortletURL editAccountURL = _liferayPortletResponse.createActionURL();
+
+		editAccountURL.setParameter(ActionRequest.ACTION_NAME, "/edit_account");
+		editAccountURL.setParameter("accountKey", _account.getKey());
+
+		return editAccountURL.toString();
 	}
 
 	public String getEWSA() throws Exception {
@@ -143,7 +172,7 @@ public class AccountDisplay {
 		return TransformUtil.transformToList(
 			_account.getPostalAddresses(),
 			postalAddress -> new PostalAddressDisplay(
-				_httpServletRequest, postalAddress));
+				_portletRequest, _portletResponse, postalAddress));
 	}
 
 	public String getPrimaryCountry() {
@@ -305,7 +334,10 @@ public class AccountDisplay {
 	private final Format _dateTimeFormat;
 	private final Team _firstLineSupportTeam;
 	private final HttpServletRequest _httpServletRequest;
+	private final LiferayPortletResponse _liferayPortletResponse;
 	private final Team _partnerTeam;
+	private final PortletRequest _portletRequest;
+	private final PortletResponse _portletResponse;
 	private ProductPurchase _slaProductPurchase;
 
 }

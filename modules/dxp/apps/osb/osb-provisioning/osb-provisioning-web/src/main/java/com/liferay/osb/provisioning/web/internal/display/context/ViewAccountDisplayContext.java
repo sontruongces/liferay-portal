@@ -111,22 +111,7 @@ public class ViewAccountDisplayContext {
 	public Map<String, Object> getAccountDetailsData() {
 		Map<String, Object> data = new HashMap<>();
 
-		PortletURL addPostalAddressURL = renderResponse.createActionURL();
-
-		addPostalAddressURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_postal_address");
-		addPostalAddressURL.setParameter("accountKey", account.getKey());
-
-		data.put("addPostalAddressURL", addPostalAddressURL.toString());
-
 		data.put("details", getAccountDisplay());
-
-		PortletURL editAccountURL = renderResponse.createActionURL();
-
-		editAccountURL.setParameter(ActionRequest.ACTION_NAME, "/edit_account");
-		editAccountURL.setParameter("accountKey", account.getKey());
-
-		data.put("editAccountURL", editAccountURL.toString());
 
 		return data;
 	}
@@ -190,18 +175,6 @@ public class ViewAccountDisplayContext {
 		return deleteExternalLinkURL.toString();
 	}
 
-	public String getDeletePostalAddressURL(long postalAddressId) {
-		PortletURL deletePostalAddressURL = renderResponse.createActionURL();
-
-		deletePostalAddressURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_postal_address");
-		deletePostalAddressURL.setParameter(Constants.CMD, Constants.DELETE);
-		deletePostalAddressURL.setParameter(
-			"postalAddressId", String.valueOf(postalAddressId));
-
-		return deletePostalAddressURL.toString();
-	}
-
 	public String getDeleteTeamURL(String teamKey) {
 		PortletURL deleteTeamURL = renderResponse.createActionURL();
 
@@ -221,17 +194,6 @@ public class ViewAccountDisplayContext {
 		editExternalLinkURL.setParameter("externalLinkKey", externalLinkKey);
 
 		return editExternalLinkURL.toString();
-	}
-
-	public String getEditPostalAddressURL(long postalAddressId) {
-		PortletURL editPostalAddressURL = renderResponse.createActionURL();
-
-		editPostalAddressURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_postal_address");
-		editPostalAddressURL.setParameter(
-			"postalAddressId", String.valueOf(postalAddressId));
-
-		return editPostalAddressURL.toString();
 	}
 
 	public String getEditTeamURL(String teamKey) {
@@ -331,9 +293,7 @@ public class ViewAccountDisplayContext {
 				noteWebService.getNotes(
 					account.getKey(), StringPool.BLANK, StringPool.BLANK, 1,
 					1000),
-				note -> new NoteDisplay(
-					httpServletRequest, note, _getUpdateNoteURL(note.getKey()),
-					_getDeleteNoteURL(note.getKey()))));
+				note -> new NoteDisplay(renderRequest, renderResponse, note)));
 
 		return data;
 	}
@@ -527,7 +487,7 @@ public class ViewAccountDisplayContext {
 			ProvisioningWebKeys.ACCOUNT);
 
 		accountDisplay = new AccountDisplay(
-			httpServletRequest, accountReader, account);
+			renderRequest, renderResponse, accountReader, account);
 
 		currentURLObj = PortletURLUtil.getCurrent(
 			renderRequest, renderResponse);
@@ -552,16 +512,6 @@ public class ViewAccountDisplayContext {
 	protected RenderRequest renderRequest;
 	protected RenderResponse renderResponse;
 	protected TeamWebService teamWebService;
-
-	private String _getDeleteNoteURL(String noteKey) {
-		PortletURL deleteNoteURL = renderResponse.createActionURL();
-
-		deleteNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
-		deleteNoteURL.setParameter(Constants.CMD, Constants.DELETE);
-		deleteNoteURL.setParameter("noteKey", noteKey);
-
-		return deleteNoteURL.toString();
-	}
 
 	private List<DropdownItem> _getHeaderAddDropdownItems() {
 		return new DropdownItemList() {
@@ -667,15 +617,6 @@ public class ViewAccountDisplayContext {
 		sb.append("))");
 
 		return sb.toString();
-	}
-
-	private String _getUpdateNoteURL(String noteKey) {
-		PortletURL updateNoteURL = renderResponse.createActionURL();
-
-		updateNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
-		updateNoteURL.setParameter("noteKey", noteKey);
-
-		return updateNoteURL.toString();
 	}
 
 }

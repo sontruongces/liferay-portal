@@ -16,16 +16,24 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
 import com.liferay.portal.kernel.model.UserConstants;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.text.Format;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,16 +43,18 @@ import javax.servlet.http.HttpServletRequest;
 public class NoteDisplay {
 
 	public NoteDisplay(
-		HttpServletRequest httpServletRequest, Note note, String updateNoteURL,
-		String deleteNoteURL) {
+		PortletRequest portletRequest, PortletResponse portletResponse,
+		Note note) {
 
-		_httpServletRequest = httpServletRequest;
+		_portletRequest = portletRequest;
+		_portletResponse = portletResponse;
 		_note = note;
-		_updateNoteURL = updateNoteURL;
-		_deleteNoteURL = deleteNoteURL;
 
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy hh:mm a");
+		_httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
+			portletResponse);
 	}
 
 	public String getCreateDate() {
@@ -66,6 +76,16 @@ public class NoteDisplay {
 
 		return UserConstants.getPortraitURL(
 			themeDisplay.getPathImage(), true, 0, StringPool.BLANK);
+	}
+
+	public String getDeleteNoteURL() {
+		PortletURL deleteNoteURL = _liferayPortletResponse.createActionURL();
+
+		deleteNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
+		deleteNoteURL.setParameter(Constants.CMD, Constants.DELETE);
+		deleteNoteURL.setParameter("noteKey", _note.getKey());
+
+		return deleteNoteURL.toString();
 	}
 
 	public String getFormat() {
@@ -96,7 +116,12 @@ public class NoteDisplay {
 	}
 
 	public String getUpdateNoteURL() {
-		return _updateNoteURL;
+		PortletURL updateNoteURL = _liferayPortletResponse.createActionURL();
+
+		updateNoteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_note");
+		updateNoteURL.setParameter("noteKey", _note.getKey());
+
+		return updateNoteURL.toString();
 	}
 
 	public boolean isEdited() {
@@ -118,9 +143,10 @@ public class NoteDisplay {
 	}
 
 	private final Format _dateFormat;
-	private final String _deleteNoteURL;
 	private final HttpServletRequest _httpServletRequest;
+	private final LiferayPortletResponse _liferayPortletResponse;
 	private final Note _note;
-	private final String _updateNoteURL;
+	private final PortletRequest _portletRequest;
+	private final PortletResponse _portletResponse;
 
 }

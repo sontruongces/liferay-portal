@@ -16,8 +16,16 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,10 +35,16 @@ import javax.servlet.http.HttpServletRequest;
 public class PostalAddressDisplay {
 
 	public PostalAddressDisplay(
-		HttpServletRequest httpServletRequest, PostalAddress postalAddress) {
+		PortletRequest portletRequest, PortletResponse portletResponse,
+		PostalAddress postalAddress) {
 
-		_httpServletRequest = httpServletRequest;
+		_portletRequest = portletRequest;
+		_portletResponse = portletResponse;
 		_postalAddress = postalAddress;
+
+		_httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
+			portletResponse);
 	}
 
 	public String getAddressCountry() {
@@ -63,6 +77,31 @@ public class PostalAddressDisplay {
 		}
 
 		return StringPool.DASH;
+	}
+
+	public String getDeletePostalAddressURL() {
+		PortletURL deletePostalAddressURL =
+			_liferayPortletResponse.createActionURL();
+
+		deletePostalAddressURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_postal_address");
+		deletePostalAddressURL.setParameter(Constants.CMD, Constants.DELETE);
+		deletePostalAddressURL.setParameter(
+			"postalAddressId", String.valueOf(_postalAddress.getId()));
+
+		return deletePostalAddressURL.toString();
+	}
+
+	public String getEditPostalAddressURL() {
+		PortletURL editPostalAddressURL =
+			_liferayPortletResponse.createActionURL();
+
+		editPostalAddressURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_postal_address");
+		editPostalAddressURL.setParameter(
+			"postalAddressId", String.valueOf(_postalAddress.getId()));
+
+		return editPostalAddressURL.toString();
 	}
 
 	public long getId() {
@@ -122,6 +161,9 @@ public class PostalAddressDisplay {
 	}
 
 	private final HttpServletRequest _httpServletRequest;
+	private final LiferayPortletResponse _liferayPortletResponse;
+	private final PortletRequest _portletRequest;
+	private final PortletResponse _portletResponse;
 	private final PostalAddress _postalAddress;
 
 }
