@@ -635,7 +635,7 @@ public class ViewAccountDisplayContext {
 	private String _getSorts(String orderByCol, String orderByType) {
 		StringBundler sb = new StringBundler(4);
 
-		sb.append("type:desc,");
+		sb.append("property_type:desc,");
 
 		if (Validator.isNotNull(orderByCol)) {
 			sb.append(orderByCol);

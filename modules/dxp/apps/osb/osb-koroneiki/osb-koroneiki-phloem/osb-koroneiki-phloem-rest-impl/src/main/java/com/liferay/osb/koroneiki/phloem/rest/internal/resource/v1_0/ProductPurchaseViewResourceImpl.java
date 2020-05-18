@@ -25,10 +25,12 @@ import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.osb.koroneiki.trunk.service.ProductConsumptionService;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryService;
+import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -83,7 +85,11 @@ public class ProductPurchaseViewResourceImpl
 
 	@Override
 	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
-		return new ProductPurchaseViewEntityModel();
+		long classNameId = _classNameLocalService.getClassNameId(
+			ProductEntry.class);
+
+		return new ProductPurchaseViewEntityModel(
+			_productFieldLocalService.getProductFieldNames(classNameId));
 	}
 
 	@Override
@@ -120,6 +126,9 @@ public class ProductPurchaseViewResourceImpl
 	private AccountService _accountService;
 
 	@Reference
+	private ClassNameLocalService _classNameLocalService;
+
+	@Reference
 	private ProductConsumptionService _productConsumptionService;
 
 	@Reference
@@ -127,6 +136,9 @@ public class ProductPurchaseViewResourceImpl
 
 	@Reference
 	private ProductEntryService _productEntryService;
+
+	@Reference
+	private ProductFieldLocalService _productFieldLocalService;
 
 	@Reference
 	private ProductPurchaseService _productPurchaseService;

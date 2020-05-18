@@ -21,6 +21,7 @@ import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.odata.entity.IntegerEntityField;
 import com.liferay.portal.odata.entity.StringEntityField;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class ProductPurchaseViewEntityModel implements EntityModel {
 
 	public static final String NAME = "ProductPurchaseView";
 
-	public ProductPurchaseViewEntityModel() {
+	public ProductPurchaseViewEntityModel(List<String> productFieldNames) {
 		_entityFieldsMap = Stream.of(
 			new StringEntityField("accountKey", locale -> "accountKey"),
 			new StringEntityField("name", locale -> "name"),
@@ -54,12 +55,20 @@ public class ProductPurchaseViewEntityModel implements EntityModel {
 			new DateTimeEntityField(
 				"supportLifeStartDate",
 				locale -> Field.getSortableFieldName("supportLifeStartDate"),
-				locale -> "supportLifeStartDate"),
-			new StringEntityField(
-				"type", locale -> Field.getSortableFieldName("type_String"))
+				locale -> "supportLifeStartDate")
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
+
+		for (String productFieldName : productFieldNames) {
+			String name = "property_" + productFieldName;
+
+			_entityFieldsMap.put(
+				name,
+				new StringEntityField(
+					name,
+					locale -> Field.getSortableFieldName(name + "_String")));
+		}
 	}
 
 	@Override

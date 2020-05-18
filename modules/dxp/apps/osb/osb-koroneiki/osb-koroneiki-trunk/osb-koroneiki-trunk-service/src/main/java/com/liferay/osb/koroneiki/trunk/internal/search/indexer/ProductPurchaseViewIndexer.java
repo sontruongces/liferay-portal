@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.osb.koroneiki.trunk.model.view.ProductPurchaseView;
 import com.liferay.osb.koroneiki.trunk.model.view.impl.ProductPurchaseViewImpl;
@@ -217,7 +218,13 @@ public class ProductPurchaseViewIndexer
 		document.addDate("supportLifeEndDate", getEndDate(productPurchases));
 		document.addDate(
 			"supportLifeStartDate", getStartDate(productPurchases));
-		document.addTextSortable("type", getType(productEntry));
+
+		List<ProductField> productFields = productEntry.getProductFields();
+
+		for (ProductField productField : productFields) {
+			document.addTextSortable(
+				"property_" + productField.getName(), productField.getValue());
+		}
 
 		return document;
 	}
