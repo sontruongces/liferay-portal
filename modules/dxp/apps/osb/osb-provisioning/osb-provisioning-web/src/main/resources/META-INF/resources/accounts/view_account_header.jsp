@@ -113,5 +113,6 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 
 	<clay:dropdown-actions
 		dropdownItems="<%= viewAccountDisplayContext.getHeaderActionDropdownItems() %>"
+		elementClasses="nav-btn"
 	/>
 </div>
