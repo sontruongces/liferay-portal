@@ -338,9 +338,12 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 			<aui:script use="liferay-search-container">
 				var Util = Liferay.Util;
 
-				var searchContainer = Liferay.SearchContainer.get(
-					'<portlet:namespace />organizationRolesSearchContainer'
-				);
+				var searchContainerName =
+					'<portlet:namespace />organizationRolesSearchContainer';
+
+				var searchContainer = Liferay.SearchContainer.get(searchContainerName);
+
+				<portlet:namespace />searchContainerUpdateDataStore(searchContainer);
 
 				var searchContainerContentBox = searchContainer.get('contentBox');
 
@@ -352,6 +355,7 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 
 						var groupId = link.getAttribute('data-groupId');
 						var rowId = link.getAttribute('data-rowId');
+						var id = groupId + '-' + rowId;
 
 						var selectOrganizationRole = Util.getWindow(
 							'<portlet:namespace />selectOrganizationRole'
@@ -371,7 +375,7 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 							Util.toggleDisabled(selectButton, false);
 						}
 
-						searchContainer.deleteRow(tr, rowId);
+						searchContainer.deleteRow(tr, id);
 
 						<portlet:namespace />deleteGroupRole(rowId, groupId);
 					},
@@ -426,7 +430,8 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 
 			if (selectOrganizationRoleLink) {
 				selectOrganizationRoleLink.addEventListener('click', function(event) {
-					var searchContainerName = '<portlet:namespace />organizationRolesSearchContainer';
+					var searchContainerName =
+						'<portlet:namespace />organizationRolesSearchContainer';
 
 					var searchContainer = Liferay.SearchContainer.get(searchContainerName);
 
@@ -584,9 +589,11 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 			<aui:script use="liferay-search-container">
 				var Util = Liferay.Util;
 
-				var searchContainer = Liferay.SearchContainer.get(
-					'<portlet:namespace />siteRolesSearchContainer'
-				);
+				var searchContainerName = '<portlet:namespace />siteRolesSearchContainer';
+
+				var searchContainer = Liferay.SearchContainer.get(searchContainerName);
+
+				<portlet:namespace />searchContainerUpdateDataStore(searchContainer);
 
 				var searchContainerContentBox = searchContainer.get('contentBox');
 
@@ -598,6 +605,7 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 
 						var groupId = link.getAttribute('data-groupId');
 						var rowId = link.getAttribute('data-rowId');
+						var id = groupId + '-' + rowId;
 
 						var selectSiteRole = Util.getWindow(
 							'<portlet:namespace />selectSiteRole'
@@ -617,7 +625,7 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 							Util.toggleDisabled(selectButton, false);
 						}
 
-						searchContainer.deleteRow(tr, rowId);
+						searchContainer.deleteRow(tr, id);
 
 						<portlet:namespace />deleteGroupRole(rowId, groupId);
 					},
@@ -828,6 +836,26 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 				);
 			}
 
+			function <portlet:namespace />searchContainerUpdateDataStore(searchContainer) {
+				var searchContainerDataStore = [];
+
+				var searchContainerContentBox = searchContainer.get('contentBox');
+
+				var modifyLinkList = searchContainerContentBox._node.querySelectorAll(
+					'.modify-link'
+				);
+
+				for (var i = 0; i < modifyLinkList.length; i++) {
+					var groupId = modifyLinkList[i].getAttribute('data-groupId');
+					var rowId = modifyLinkList[i].getAttribute('data-rowId');
+					var id = groupId + '-' + rowId;
+
+					searchContainerDataStore.push(id);
+				}
+
+				searchContainer.updateDataStore(searchContainerDataStore.join(','));
+			}
+
 			Liferay.provide(
 				window,
 				'<portlet:namespace />selectRole',
@@ -891,6 +919,8 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 						document.<portlet:namespace />fm.<portlet:namespace />deleteGroupRolesRoleIds.value = <portlet:namespace />deleteGroupRolesRoleIds.join(
 							','
 						);
+
+						searchContainer.addRow(rowColumns, groupId + '-' + roleId);
 					}
 					else {
 						rowColumns.push(
@@ -909,9 +939,9 @@ String organizationRoleSyncEntitiesEventName = liferayPortletResponse.getNamespa
 						document.<portlet:namespace />fm.<portlet:namespace />deleteRoleIds.value = <portlet:namespace />deleteRoleIds.join(
 							','
 						);
-					}
 
-					searchContainer.addRow(rowColumns, roleId);
+						searchContainer.addRow(rowColumns, roleId);
+					}
 
 					searchContainer.updateDataStore();
 				},
