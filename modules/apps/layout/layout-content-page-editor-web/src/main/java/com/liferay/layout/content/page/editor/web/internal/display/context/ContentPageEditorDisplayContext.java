@@ -267,7 +267,8 @@ public class ContentPageEditorDisplayContext {
 		).put(
 			"imageSelectorURL", _getItemSelectorURL()
 		).put(
-			"languageId", themeDisplay.getLanguageId()
+			"languageId",
+			LocaleUtil.toLanguageId(themeDisplay.getSiteDefaultLocale())
 		).put(
 			"layoutData", JSONFactoryUtil.createJSONObject(_getLayoutData())
 		).put(
