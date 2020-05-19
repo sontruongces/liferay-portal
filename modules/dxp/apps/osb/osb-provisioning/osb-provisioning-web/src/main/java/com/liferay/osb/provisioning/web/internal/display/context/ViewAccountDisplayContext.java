@@ -47,6 +47,7 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.text.Format;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -114,6 +115,30 @@ public class ViewAccountDisplayContext {
 		Map<String, Object> data = new HashMap<>();
 
 		data.put("details", getAccountDisplay());
+
+		List<String> regionNames = new ArrayList<>();
+
+		for (Account.Region region : Account.Region.values()) {
+			regionNames.add(region.toString());
+		}
+
+		data.put("regionNames", regionNames);
+
+		List<String> statusNames = new ArrayList<>();
+
+		for (Account.Status status : Account.Status.values()) {
+			statusNames.add(status.toString());
+		}
+
+		data.put("statusNames", statusNames);
+
+		List<String> tierNames = new ArrayList<>();
+
+		for (Account.Tier tier : Account.Tier.values()) {
+			tierNames.add(tier.toString());
+		}
+
+		data.put("tierNames", tierNames);
 
 		return data;
 	}

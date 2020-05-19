@@ -1,15 +1,15 @@
 #accountDetails {
-	.address-controls {
-		justify-content: flex-end;
-		width: 100%;
-	}
-
 	.account-field {
 		align-items: center;
 		display: flex;
 		padding-left: $spacing-xs;
 		padding-right: $spacing-xs;
 		width: 50%;
+	}
+
+	.address-controls {
+		justify-content: flex-end;
+		width: 100%;
 	}
 
 	.list-group-text {

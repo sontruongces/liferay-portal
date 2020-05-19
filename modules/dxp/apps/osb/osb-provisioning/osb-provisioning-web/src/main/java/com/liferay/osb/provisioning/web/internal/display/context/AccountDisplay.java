@@ -34,7 +34,6 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.text.Format;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -202,16 +201,6 @@ public class AccountDisplay {
 		return StringPool.DASH;
 	}
 
-	public List<String> getRegionNames() {
-		List<String> regionNames = new ArrayList<>();
-
-		for (Account.Region region : Account.Region.values()) {
-			regionNames.add(region.toString());
-		}
-
-		return regionNames;
-	}
-
 	public String getSalesforceProjectKey() {
 		return _getExternalLinkEntityId("salesforce", "project");
 	}
@@ -237,16 +226,6 @@ public class AccountDisplay {
 		}
 
 		return StringPool.DASH;
-	}
-
-	public List<String> getStatusNames() {
-		List<String> statusNames = new ArrayList<>();
-
-		for (Account.Status status : Account.Status.values()) {
-			statusNames.add(status.toString());
-		}
-
-		return statusNames;
 	}
 
 	public String getStatusStyle() {
@@ -288,16 +267,6 @@ public class AccountDisplay {
 		}
 
 		return StringPool.DASH;
-	}
-
-	public List<String> getTierNames() {
-		List<String> tierNames = new ArrayList<>();
-
-		for (Account.Tier tier : Account.Tier.values()) {
-			tierNames.add(tier.toString());
-		}
-
-		return tierNames;
 	}
 
 	public boolean isEWSA() throws Exception {

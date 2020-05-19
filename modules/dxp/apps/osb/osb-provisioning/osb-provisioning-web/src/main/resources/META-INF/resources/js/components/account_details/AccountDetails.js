@@ -171,11 +171,11 @@ AccountDetails.propTypes = {
 		),
 		salesforceProjectKey: PropTypes.string,
 		status: PropTypes.string,
-		statusNames: PropTypes.arrayOf(PropTypes.string),
 		statusStyle: PropTypes.string,
-		tier: PropTypes.string,
-		tierNames: PropTypes.arrayOf(PropTypes.string)
-	})
+		tier: PropTypes.string
+	}),
+	statusNames: PropTypes.arrayOf(PropTypes.string),
+	tierNames: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default AccountDetails;
