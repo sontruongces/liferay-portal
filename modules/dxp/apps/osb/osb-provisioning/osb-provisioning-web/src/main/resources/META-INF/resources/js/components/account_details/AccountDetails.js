@@ -13,6 +13,7 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import InlineEdit from '../InlineEdit';
 import AccountAddress from './AccountAddress';
 
 function AccountDetails({details}) {
@@ -26,7 +27,10 @@ function AccountDetails({details}) {
 					<ClayList.ItemTitle>
 						{Liferay.Language.get('account-name')}
 					</ClayList.ItemTitle>
-					<ClayList.ItemText>{details.name}</ClayList.ItemText>
+
+					<div className="list-group-text">
+						<InlineEdit>{details.name}</InlineEdit>
+					</div>
 				</div>
 
 				<div className="account-field">

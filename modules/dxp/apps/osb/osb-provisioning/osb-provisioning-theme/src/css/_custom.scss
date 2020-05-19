@@ -51,6 +51,35 @@ table {
 	text-align: center;
 }
 
+.inline-edit {
+	display: inline-block;
+
+	.editable-field {
+		border: 1px solid $primary-l2;
+		border-radius: $border-radius;
+		display: flex;
+
+		.edit-icon,
+		.field {
+			padding: $spacing-xs;
+		}
+
+		.edit-icon {
+			background: $primary-l3;
+			border-left: 1px solid $primary-l2;
+		}
+
+		.lexicon-icon-pencil {
+			height: $spacing-md;
+			width: $spacing-md;
+		}
+
+		.form-control {
+			padding: $spacing-xxs $spacing-xs;
+		}
+	}
+}
+
 .label {
 	letter-spacing: 0.04rem;
 }
