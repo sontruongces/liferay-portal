@@ -20,55 +20,57 @@
 ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = ProvisioningWebComponentProvider.getViewAccountContactsDisplayContext(renderRequest, renderResponse, request);
 %>
 
-<liferay-ui:search-container
-	id="contacts"
-	searchContainer="<%= viewAccountContactsDisplayContext.getSearchContainer() %>"
->
-	<clay:management-toolbar
-		clearResultsURL="<%= viewAccountContactsDisplayContext.getClearResultsURL() %>"
-		filterDropdownItems="<%= viewAccountContactsDisplayContext.getFilterDropdownItems() %>"
-		filterLabelItems="<%= viewAccountContactsDisplayContext.getFilterLabelItems() %>"
-		itemsTotal="<%= searchContainer.getTotal() %>"
-		searchActionURL="<%= viewAccountContactsDisplayContext.getCurrentURL() %>"
-		searchContainerId="contacts"
-		selectable="<%= true %>"
-		showSearch="<%= true %>"
-		supportsBulkActions="<%= true %>"
-	/>
-
-	<liferay-ui:search-container-row
-		className="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay"
-		escapedModel="<%= true %>"
-		modelVar="contactDisplay"
+<div class="details-table">
+	<liferay-ui:search-container
+		id="contacts"
+		searchContainer="<%= viewAccountContactsDisplayContext.getSearchContainer() %>"
 	>
-		<liferay-ui:search-container-column-text
-			name="name-email"
-		>
-			<%= contactDisplay.getFullName() %>
-
-			<div class="secondary-information">
-				<%= contactDisplay.getEmailAddress() %>
-			</div>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			name="role"
-		>
-			<%= StringUtil.merge(contactDisplay.getContactRoleNames(), "<br />") %>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			name="status"
-		>
-			<span class="label"><%= contactDisplay.getStatus() %></span>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-jsp
-			path="/accounts/contact_action.jsp"
+		<clay:management-toolbar
+			clearResultsURL="<%= viewAccountContactsDisplayContext.getClearResultsURL() %>"
+			filterDropdownItems="<%= viewAccountContactsDisplayContext.getFilterDropdownItems() %>"
+			filterLabelItems="<%= viewAccountContactsDisplayContext.getFilterLabelItems() %>"
+			itemsTotal="<%= searchContainer.getTotal() %>"
+			searchActionURL="<%= viewAccountContactsDisplayContext.getCurrentURL() %>"
+			searchContainerId="contacts"
+			selectable="<%= true %>"
+			showSearch="<%= true %>"
+			supportsBulkActions="<%= true %>"
 		/>
-	</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator
-		markupView="lexicon"
-	/>
-</liferay-ui:search-container>
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay"
+			escapedModel="<%= true %>"
+			modelVar="contactDisplay"
+		>
+			<liferay-ui:search-container-column-text
+				name="name-email"
+			>
+				<%= contactDisplay.getFullName() %>
+
+				<div class="secondary-information">
+					<%= contactDisplay.getEmailAddress() %>
+				</div>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				name="role"
+			>
+				<%= StringUtil.merge(contactDisplay.getContactRoleNames(), "<br />") %>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				name="status"
+			>
+				<span class="label"><%= contactDisplay.getStatus() %></span>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-jsp
+				path="/accounts/contact_action.jsp"
+			/>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			markupView="lexicon"
+		/>
+	</liferay-ui:search-container>
+</div>

@@ -15,3 +15,5 @@
 --%>
 
 <%@ include file="/init.jsp" %>
+
+<div class="details-table"></div>

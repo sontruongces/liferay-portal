@@ -22,50 +22,52 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 %>
 
-<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
-	<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
+<div class="details-table">
+	<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
+		<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
 
-	<aui:input label="" name="keywords" placeholder="search" />
-</aui:form>
+		<aui:input label="" name="keywords" placeholder="search" />
+	</aui:form>
 
-<liferay-ui:search-container
-	searchContainer="<%= viewAccountDisplayContext.getTeamsSearchContainer() %>"
->
-	<liferay-ui:search-container-row
-		className="com.liferay.osb.provisioning.web.internal.display.context.TeamDisplay"
-		escapedModel="<%= true %>"
-		modelVar="teamDisplay"
+	<liferay-ui:search-container
+		searchContainer="<%= viewAccountDisplayContext.getTeamsSearchContainer() %>"
 	>
-		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcRenderCommandName" value="/accounts/view_team" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
-		</portlet:renderURL>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="team"
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.provisioning.web.internal.display.context.TeamDisplay"
+			escapedModel="<%= true %>"
+			modelVar="teamDisplay"
 		>
-			<%= teamDisplay.getName() %>
+			<portlet:renderURL var="rowURL">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/view_team" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
+			</portlet:renderURL>
 
-			<div class="secondary-information">
-				<%= teamDisplay.getContactNames() %>
-			</div>
-		</liferay-ui:search-container-column-text>
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="team"
+			>
+				<%= teamDisplay.getName() %>
 
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="last-modified"
-		>
-			<%= teamDisplay.getDateModified() %>
-		</liferay-ui:search-container-column-text>
+				<div class="secondary-information">
+					<%= teamDisplay.getContactNames() %>
+				</div>
+			</liferay-ui:search-container-column-text>
 
-		<liferay-ui:search-container-column-jsp
-			path="/accounts/team_action.jsp"
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="last-modified"
+			>
+				<%= teamDisplay.getDateModified() %>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-jsp
+				path="/accounts/team_action.jsp"
+			/>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			markupView="lexicon"
 		/>
-	</liferay-ui:search-container-row>
-
-	<liferay-ui:search-iterator
-		markupView="lexicon"
-	/>
-</liferay-ui:search-container>
+	</liferay-ui:search-container>
+</div>
