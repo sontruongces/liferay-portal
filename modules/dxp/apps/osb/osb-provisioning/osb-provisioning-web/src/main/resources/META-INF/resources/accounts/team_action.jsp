@@ -20,8 +20,6 @@
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 TeamDisplay teamDisplay = (TeamDisplay)row.getObject();
-
-ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 %>
 
 <c:if test="<%= !teamDisplay.isSystem() %>">
@@ -45,7 +43,7 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 
 		<liferay-ui:icon-delete
 			confirmation="are-you-sure-you-want-to-delete-this-team"
-			url="<%= viewAccountDisplayContext.getDeleteTeamURL(teamDisplay.getKey()) %>"
+			url="<%= teamDisplay.getDeleteTeamURL() %>"
 		/>
 	</liferay-ui:icon-menu>
 </c:if>

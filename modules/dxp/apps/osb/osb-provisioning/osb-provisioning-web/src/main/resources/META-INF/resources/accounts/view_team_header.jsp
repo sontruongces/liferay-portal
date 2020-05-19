@@ -56,4 +56,15 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 			</li>
 		</ul>
 	</div>
+
+	<div class="autofit-col">
+		<c:if test="<%= !teamDisplay.isSystem() %>">
+
+			<%
+			String taglibOnClick = "if (confirm('" + LanguageUtil.get(request, "are-you-sure-you-want-to-delete-this-team") + "')) {submitForm(document.hrefFm, '" + teamDisplay.getDeleteTeamURL() + "');}";
+			%>
+
+			<aui:button cssClass="btn-secondary" onClick="<%= taglibOnClick %>" value="delete" />
+		</c:if>
+	</div>
 </div>

@@ -16,7 +16,10 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -25,6 +28,11 @@ import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+import javax.portlet.PortletURL;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -32,12 +40,19 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class TeamDisplay {
 
-	public TeamDisplay(HttpServletRequest httpServletRequest, Team team) {
-		_httpServletRequest = httpServletRequest;
+	public TeamDisplay(
+		PortletRequest portletRequest, PortletResponse portletResponse,
+		Team team) {
+
+		_portletRequest = portletRequest;
+		_portletResponse = portletResponse;
 		_team = team;
 
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy hh:mm a");
+		_httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
+			portletResponse);
 	}
 
 	public String getContactNames() {
@@ -65,6 +80,27 @@ public class TeamDisplay {
 		return _dateFormat.format(_team.getDateModified());
 	}
 
+	public String getDeleteTeamURL() {
+		PortletURL deleteTeamURL = _liferayPortletResponse.createActionURL();
+
+		deleteTeamURL.setParameter(
+			ActionRequest.ACTION_NAME, "/accounts/edit_team");
+		deleteTeamURL.setParameter(Constants.CMD, Constants.DELETE);
+
+		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/accounts/view_account");
+		portletURL.setParameter("accountKey", _team.getAccountKey());
+		portletURL.setParameter("tabs1", "teams");
+
+		deleteTeamURL.setParameter("redirect", portletURL.toString());
+
+		deleteTeamURL.setParameter("teamKey", _team.getKey());
+
+		return deleteTeamURL.toString();
+	}
+
 	public String getKey() {
 		return _team.getKey();
 	}
@@ -79,6 +115,9 @@ public class TeamDisplay {
 
 	private final Format _dateFormat;
 	private final HttpServletRequest _httpServletRequest;
+	private final LiferayPortletResponse _liferayPortletResponse;
+	private final PortletRequest _portletRequest;
+	private final PortletResponse _portletResponse;
 	private final Team _team;
 
 }

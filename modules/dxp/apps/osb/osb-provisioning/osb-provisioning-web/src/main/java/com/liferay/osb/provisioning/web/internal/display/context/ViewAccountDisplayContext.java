@@ -177,17 +177,6 @@ public class ViewAccountDisplayContext {
 		return deleteExternalLinkURL.toString();
 	}
 
-	public String getDeleteTeamURL(String teamKey) {
-		PortletURL deleteTeamURL = renderResponse.createActionURL();
-
-		deleteTeamURL.setParameter(
-			ActionRequest.ACTION_NAME, "/accounts/edit_team");
-		deleteTeamURL.setParameter(Constants.CMD, Constants.DELETE);
-		deleteTeamURL.setParameter("teamKey", teamKey);
-
-		return deleteTeamURL.toString();
-	}
-
 	public String getEditExternalLinkURL(String externalLinkKey) {
 		PortletURL editExternalLinkURL = renderResponse.createActionURL();
 
@@ -443,7 +432,8 @@ public class ViewAccountDisplayContext {
 
 		searchContainer.setResults(
 			TransformUtil.transform(
-				teams, team -> new TeamDisplay(httpServletRequest, team)));
+				teams,
+				team -> new TeamDisplay(renderRequest, renderResponse, team)));
 
 		int count = (int)teamWebService.searchCount(keywords, filterString);
 
