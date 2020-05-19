@@ -29,51 +29,53 @@ for (AuditEntryDisplay auditEntryDisplay : auditEntryDisplays) {
 
 	<c:if test="<%= !currentDate.equals(auditEntryDisplay.getDateCreated()) %>">
 		<div class="list-group-header">
-			<%= auditEntryDisplay.getDateCreated() %>
+			<span class="list-group-header-title"><%= auditEntryDisplay.getDateCreated() %></span>
 		</div>
 	</c:if>
 
-	<div class="details-table">
-		<c:if test="<%= auditSetId != auditEntryDisplay.getAuditSetId() %>">
-			<h2>
+	<c:if test="<%= auditSetId != auditEntryDisplay.getAuditSetId() %>">
+		<aui:row cssClass="detail-title">
+			<aui:col cssClass="description" width="<%= 80 %>">
 				<%= auditEntryDisplay.getAgentName() %> > <%= auditEntryDisplay.getSummary() %>
 
 				<c:if test="<%= Validator.isNotNull(auditEntryDisplay.getDescription()) %>">
 					> <%= auditEntryDisplay.getDescription() %>
 				</c:if>
+			</aui:col>
 
+			<aui:col cssClass="timestamp" width="<%= 20 %>">
 				<%= auditEntryDisplay.getTimeCreated() %>
-			</h2>
-
-			<aui:row>
-				<aui:col width="<%= 14 %>">
-					<liferay-ui:message key="field" />
-				</aui:col>
-
-				<aui:col width="<%= 33 %>">
-					<liferay-ui:message key="original-value" />
-				</aui:col>
-
-				<aui:col width="<%= 33 %>">
-					<liferay-ui:message key="new-value" />
-				</aui:col>
-			</aui:row>
-		</c:if>
-
-		<aui:row>
-			<aui:col width="<%= 14 %>">
-				<strong><%= auditEntryDisplay.getField() %></strong>
-			</aui:col>
-
-			<aui:col width="<%= 33 %>">
-				<%= auditEntryDisplay.getOldValue() %>
-			</aui:col>
-
-			<aui:col width="<%= 33 %>">
-				<%= auditEntryDisplay.getNewValue() %>
 			</aui:col>
 		</aui:row>
-	</div>
+
+		<aui:row cssClass="detail-label">
+			<aui:col width="<%= 20 %>">
+				<span class="list-group-header-title"><liferay-ui:message key="field" /></span>
+			</aui:col>
+
+			<aui:col width="<%= 40 %>">
+				<span class="list-group-header-title"><liferay-ui:message key="original-value" /></span>
+			</aui:col>
+
+			<aui:col width="<%= 40 %>">
+				<span class="list-group-header-title"><liferay-ui:message key="new-value" /></span>
+			</aui:col>
+		</aui:row>
+	</c:if>
+
+	<aui:row>
+		<aui:col cssClass="col-field" width="<%= 20 %>">
+			<%= auditEntryDisplay.getField() %>
+		</aui:col>
+
+		<aui:col width="<%= 40 %>">
+			<%= auditEntryDisplay.getOldValue() %>
+		</aui:col>
+
+		<aui:col width="<%= 40 %>">
+			<%= auditEntryDisplay.getNewValue() %>
+		</aui:col>
+	</aui:row>
 
 <%
 	auditSetId = auditEntryDisplay.getAuditSetId();
