@@ -16,7 +16,6 @@ AUI.add(
 		var AObject = A.Object;
 		var Lang = A.Lang;
 
-		var XMLFormatter = new Liferay.XMLFormatter();
 		var XMLUtil = Liferay.XMLUtil;
 
 		var isArray = Lang.isArray;
@@ -36,8 +35,6 @@ AUI.add(
 			var xml = toXML(xmlNamespace, metadata, json);
 
 			xml = XMLUtil.format(xml);
-
-			xml = XMLFormatter.format(xml);
 
 			xml = xml.trim();
 
@@ -658,8 +655,7 @@ AUI.add(
 		requires: [
 			'escape',
 			'liferay-kaleo-designer-utils',
-			'liferay-kaleo-designer-xml-util',
-			'liferay-xml-formatter'
+			'liferay-kaleo-designer-xml-util'
 		]
 	}
 );
