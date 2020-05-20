@@ -27,8 +27,8 @@ ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = Provisioni
 	>
 		<clay:management-toolbar
 			clearResultsURL="<%= viewAccountContactsDisplayContext.getClearResultsURL() %>"
-			filterDropdownItems="<%= viewAccountContactsDisplayContext.getFilterDropdownItems() %>"
-			filterLabelItems="<%= viewAccountContactsDisplayContext.getFilterLabelItems() %>"
+			filterDropdownItems="<%= viewAccountContactsDisplayContext.getFilterCustomerRoleDropdownItems() %>"
+			filterLabelItems="<%= viewAccountContactsDisplayContext.getFilterCustomerRoleLabelItems() %>"
 			itemsTotal="<%= searchContainer.getTotal() %>"
 			searchActionURL="<%= viewAccountContactsDisplayContext.getCurrentURL() %>"
 			searchContainerId="contacts"

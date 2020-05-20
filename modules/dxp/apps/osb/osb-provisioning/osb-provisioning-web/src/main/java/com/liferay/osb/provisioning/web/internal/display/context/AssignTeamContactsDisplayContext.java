@@ -16,12 +16,14 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
-import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
+import com.liferay.osb.provisioning.web.internal.dao.search.AssignTeamContactRowChecker;
+import com.liferay.portal.kernel.dao.search.RowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
@@ -32,34 +34,22 @@ import javax.portlet.PortletURL;
 /**
  * @author Amos Fong
  */
-public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
+public class AssignTeamContactsDisplayContext extends ViewTeamDisplayContext {
 
-	public ViewTeamDisplayContext() {
+	public AssignTeamContactsDisplayContext() {
 	}
 
-	@Override
-	public void addPortletBreadcrumbEntries() throws Exception {
-		super.addPortletBreadcrumbEntries();
-
+	public String getClearResultsURL() {
 		PortletURL portletURL = renderResponse.createRenderURL();
 
-		portletURL.setParameter("mvcRenderCommandName", "/accounts/view_team");
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/accounts/assign_team_contacts");
 		portletURL.setParameter("teamKey", team.getKey());
 
-		PortalUtil.addPortletBreadcrumbEntry(
-			httpServletRequest, team.getName(), portletURL.toString());
+		return portletURL.toString();
 	}
 
-	@Override
-	public void doInit() throws Exception {
-		super.doInit();
-
-		team = (Team)renderRequest.getAttribute(ProvisioningWebKeys.TEAM);
-
-		teamDisplay = new TeamDisplay(renderRequest, renderResponse, team);
-	}
-
-	public SearchContainer getContactsSearchContainer() throws Exception {
+	public SearchContainer getSearchContainer() throws Exception {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		SearchContainer searchContainer = new SearchContainer(
@@ -68,9 +58,30 @@ public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
 
 		StringBundler sb = new StringBundler(3);
 
-		sb.append("teamKeys/any(s:s eq '");
-		sb.append(team.getKey());
+		sb.append("customerAccountKeys/any(s:s eq '");
+		sb.append(account.getKey());
 		sb.append("')");
+
+		String[] contactRoleKeys = ParamUtil.getStringValues(
+			renderRequest, "contactRoleKeys");
+
+		if (!ArrayUtil.isEmpty(contactRoleKeys)) {
+			sb.append(" and accountKeysContactRoleKeys/any(s:");
+
+			for (int i = 0; i < contactRoleKeys.length; i++) {
+				if (i > 0) {
+					sb.append(" or ");
+				}
+
+				sb.append("s eq '");
+				sb.append(account.getKey());
+				sb.append("_");
+				sb.append(contactRoleKeys[i]);
+				sb.append("'");
+			}
+
+			sb.append(")");
+		}
 
 		List<Contact> contacts = contactWebService.search(
 			keywords, sb.toString(), searchContainer.getCur(),
@@ -89,6 +100,8 @@ public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
 						httpServletRequest, contact, contactRoles);
 				}));
 
+		searchContainer.setRowChecker(_getRowChecker());
+
 		int count = (int)contactWebService.searchCount(keywords, sb.toString());
 
 		searchContainer.setTotal(count);
@@ -96,27 +109,18 @@ public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
 		return searchContainer;
 	}
 
-	@Override
-	public PortletURL getPortletURL() {
-		PortletURL portletURL = renderResponse.createRenderURL();
+	private RowChecker _getRowChecker() throws Exception {
+		StringBundler sb = new StringBundler(3);
 
-		portletURL.setParameter("mvcRenderCommandName", "/accounts/view_team");
-		portletURL.setParameter(
-			"tabs1", ParamUtil.getString(renderRequest, "tabs1"));
-		portletURL.setParameter("teamKey", team.getKey());
+		sb.append("teamKeys/any(s:s eq '");
+		sb.append(team.getKey());
+		sb.append("')");
 
-		return portletURL;
+		List<Contact> contacts = contactWebService.search(
+			StringPool.BLANK, sb.toString(), 1, 1000, StringPool.BLANK);
+
+		return new AssignTeamContactRowChecker(
+			renderResponse, ListUtil.toList(contacts, Contact::getKey));
 	}
-
-	public Team getTeam() {
-		return team;
-	}
-
-	public TeamDisplay getTeamDisplay() {
-		return teamDisplay;
-	}
-
-	protected Team team;
-	protected TeamDisplay teamDisplay;
 
 }

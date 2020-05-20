@@ -14,26 +14,17 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItem;
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItemList;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
 import java.util.List;
-
-import javax.portlet.PortletURL;
 
 /**
  * @author Amos Fong
@@ -42,62 +33,6 @@ public class ViewAccountContactsDisplayContext
 	extends ViewAccountDisplayContext {
 
 	public ViewAccountContactsDisplayContext() {
-	}
-
-	public List<DropdownItem> getFilterDropdownItems() throws Exception {
-		return new DropdownItemList() {
-			{
-				addGroup(
-					dropdownGroupItem -> {
-						dropdownGroupItem.setDropdownItems(
-							_getFilterRoleDropdownItems());
-						dropdownGroupItem.setLabel(
-							LanguageUtil.get(
-								httpServletRequest, "filter-by-role"));
-					});
-			}
-		};
-	}
-
-	public List<LabelItem> getFilterLabelItems() {
-		return new LabelItemList() {
-			{
-				String[] contactRoleKeys = ParamUtil.getStringValues(
-					renderRequest, "contactRoleKeys");
-
-				for (String contactRoleKey : contactRoleKeys) {
-					add(
-						labelItem -> {
-							PortletURL removeLabelURL = PortletURLUtil.clone(
-								currentURLObj, renderResponse);
-
-							String[] removeContactRoleKeys = ArrayUtil.remove(
-								contactRoleKeys, contactRoleKey);
-
-							removeLabelURL.setParameter(
-								"contactRoleKeys",
-								StringUtil.merge(removeContactRoleKeys));
-
-							labelItem.putData(
-								"removeLabelURL", removeLabelURL.toString());
-
-							labelItem.setCloseable(true);
-
-							ContactRole contactRole =
-								contactRoleWebService.getContactRole(
-									contactRoleKey);
-
-							String label = String.format(
-								"%s: %s",
-								LanguageUtil.get(
-									httpServletRequest, "contact-role"),
-								contactRole.getName());
-
-							labelItem.setLabel(label);
-						});
-				}
-			}
-		};
 	}
 
 	public SearchContainer getSearchContainer() throws Exception {
@@ -159,42 +94,6 @@ public class ViewAccountContactsDisplayContext
 		searchContainer.setTotal(count);
 
 		return searchContainer;
-	}
-
-	private List<ContactRole> _getContactRoles() throws Exception {
-		return contactRoleWebService.search(
-			"type eq '" + ContactRole.Type.ACCOUNT_CUSTOMER.toString() + "'", 1,
-			1000, "name");
-	}
-
-	private List<DropdownItem> _getFilterRoleDropdownItems() throws Exception {
-		String[] contactRoleKeys = ParamUtil.getStringValues(
-			renderRequest, "contactRoleKeys");
-
-		return new DropdownItemList() {
-			{
-				for (ContactRole contactRole : _getContactRoles()) {
-					add(
-						dropdownItem -> {
-							dropdownItem.setActive(
-								ArrayUtil.contains(
-									contactRoleKeys, contactRole.getKey()));
-
-							PortletURL portletURL = PortletURLUtil.clone(
-								currentURLObj, renderResponse);
-
-							String[] newContactRoleKeys = ArrayUtil.append(
-								contactRoleKeys, contactRole.getKey());
-
-							dropdownItem.setHref(
-								portletURL, "contactRoleKeys",
-								StringUtil.merge(newContactRoleKeys));
-
-							dropdownItem.setLabel(contactRole.getName());
-						});
-				}
-			}
-		};
 	}
 
 }

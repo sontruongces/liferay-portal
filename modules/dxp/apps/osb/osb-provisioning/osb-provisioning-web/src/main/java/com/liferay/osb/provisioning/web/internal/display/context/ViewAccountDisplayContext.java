@@ -16,7 +16,10 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItemList;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.provisioning.constants.ProvisioningActionKeys;
@@ -35,6 +38,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
@@ -42,6 +46,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
@@ -220,6 +225,64 @@ public class ViewAccountDisplayContext {
 		editTeamURL.setParameter("teamKey", teamKey);
 
 		return editTeamURL.toString();
+	}
+
+	public List<DropdownItem> getFilterCustomerRoleDropdownItems()
+		throws Exception {
+
+		return new DropdownItemList() {
+			{
+				addGroup(
+					dropdownGroupItem -> {
+						dropdownGroupItem.setDropdownItems(
+							_getFilterCustomerRoleDropdownItems());
+						dropdownGroupItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "filter-by-role"));
+					});
+			}
+		};
+	}
+
+	public List<LabelItem> getFilterCustomerRoleLabelItems() {
+		return new LabelItemList() {
+			{
+				String[] contactRoleKeys = ParamUtil.getStringValues(
+					renderRequest, "contactRoleKeys");
+
+				for (String contactRoleKey : contactRoleKeys) {
+					add(
+						labelItem -> {
+							PortletURL removeLabelURL = PortletURLUtil.clone(
+								currentURLObj, renderResponse);
+
+							String[] removeContactRoleKeys = ArrayUtil.remove(
+								contactRoleKeys, contactRoleKey);
+
+							removeLabelURL.setParameter(
+								"contactRoleKeys",
+								StringUtil.merge(removeContactRoleKeys));
+
+							labelItem.putData(
+								"removeLabelURL", removeLabelURL.toString());
+
+							labelItem.setCloseable(true);
+
+							ContactRole contactRole =
+								contactRoleWebService.getContactRole(
+									contactRoleKey);
+
+							String label = String.format(
+								"%s: %s",
+								LanguageUtil.get(
+									httpServletRequest, "contact-role"),
+								contactRole.getName());
+
+							labelItem.setLabel(label);
+						});
+				}
+			}
+		};
 	}
 
 	public List<DropdownItem> getHeaderActionDropdownItems() {
@@ -578,6 +641,43 @@ public class ViewAccountDisplayContext {
 	protected RenderRequest renderRequest;
 	protected RenderResponse renderResponse;
 	protected TeamWebService teamWebService;
+
+	private List<DropdownItem> _getFilterCustomerRoleDropdownItems()
+		throws Exception {
+
+		String[] contactRoleKeys = ParamUtil.getStringValues(
+			renderRequest, "contactRoleKeys");
+
+		return new DropdownItemList() {
+			{
+				List<ContactRole> contactRoles = contactRoleWebService.search(
+					"type eq '" + ContactRole.Type.ACCOUNT_CUSTOMER.toString() +
+						"'",
+					1, 1000, "name");
+
+				for (ContactRole contactRole : contactRoles) {
+					add(
+						dropdownItem -> {
+							dropdownItem.setActive(
+								ArrayUtil.contains(
+									contactRoleKeys, contactRole.getKey()));
+
+							PortletURL portletURL = PortletURLUtil.clone(
+								currentURLObj, renderResponse);
+
+							String[] newContactRoleKeys = ArrayUtil.append(
+								contactRoleKeys, contactRole.getKey());
+
+							dropdownItem.setHref(
+								portletURL, "contactRoleKeys",
+								StringUtil.merge(newContactRoleKeys));
+
+							dropdownItem.setLabel(contactRole.getName());
+						});
+				}
+			}
+		};
+	}
 
 	private List<DropdownItem> _getHeaderAddDropdownItems() {
 		return new DropdownItemList() {

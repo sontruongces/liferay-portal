@@ -25,6 +25,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.AssignTeamContactsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountContactsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountLiferayWorkersDisplayContext;
@@ -54,6 +55,17 @@ public class ProvisioningWebComponentProvider {
 
 		return _provisioningWebComponentProvider.
 			_getAccountSearchDisplayContext(
+				renderRequest, renderResponse, httpServletRequest);
+	}
+
+	public static AssignTeamContactsDisplayContext
+			getAssignTeamContactsDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider.
+			_getAssignTeamContactsDisplayContext(
 				renderRequest, renderResponse, httpServletRequest);
 	}
 
@@ -142,6 +154,17 @@ public class ProvisioningWebComponentProvider {
 		return new AccountSearchDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
 			_accountWebService);
+	}
+
+	private AssignTeamContactsDisplayContext
+			_getAssignTeamContactsDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _getViewAccountDisplayContext(
+			AssignTeamContactsDisplayContext.class, renderRequest,
+			renderResponse, httpServletRequest);
 	}
 
 	private ViewAccountContactsDisplayContext
