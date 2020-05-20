@@ -1,9 +1,7 @@
 .history-details {
-	background: $body-bg;
-	border: 1px solid $secondary-l3;
-	border-radius: 4px;
-	margin: $spacing-default $spacing-default 0 $spacing-default;
-	padding-bottom: $spacing-sm;
+	.img-thumbnail {
+		margin-right: $spacing-xs;
+	}
 
 	.list-group-header {
 		border: 0;
@@ -12,13 +10,23 @@
 	.row {
 		padding: $spacing-xxs $spacing-md;
 
+		& + .detail-title {
+			margin-top: $spacing-sm;
+		}
+
+		& + .list-group-header {
+			border-top: 1px solid $secondary-l3;
+			margin-top: $spacing-sm;
+		}
+
 		&.detail-label {
 			padding-bottom: $spacing-sm;
 		}
 
 		&.detail-title {
 			border-top: 1px solid $secondary-l3;
-			margin: 0;
+			margin-left: 0;
+			margin-right: 0;
 			padding: $spacing-md $spacing-xxs;
 
 			.description {
@@ -34,18 +42,13 @@
 			}
 		}
 
+		&:last-child {
+			padding-bottom: $spacing-sm;
+		}
+
 		.col-field {
 			font-size: $mid-font-size;
 			font-weight: $font-weight-semi-bold;
 		}
-	}
-
-	.row + .detail-title {
-		margin-top: $spacing-sm;
-	}
-
-	.row + .list-group-header {
-		border-top: 1px solid $secondary-l3;
-		margin-top: $spacing-sm;
 	}
 }

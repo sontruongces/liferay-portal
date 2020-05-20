@@ -41,7 +41,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 				<liferay-util:include page="/accounts/view_account_details.jsp" servletContext="<%= application %>" />
 			</c:when>
 			<c:when test='<%= tabs1.equals("history") %>'>
-				<div class="history-details" id="historyDetails">
+				<div class="details-table history-details" id="historyDetails">
 					<liferay-util:include page="/accounts/view_account_history.jsp" servletContext="<%= application %>" />
 				</div>
 			</c:when>

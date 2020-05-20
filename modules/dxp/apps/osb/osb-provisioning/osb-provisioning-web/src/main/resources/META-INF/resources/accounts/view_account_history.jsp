@@ -36,6 +36,10 @@ for (AuditEntryDisplay auditEntryDisplay : auditEntryDisplays) {
 	<c:if test="<%= auditSetId != auditEntryDisplay.getAuditSetId() %>">
 		<aui:row cssClass="detail-title">
 			<aui:col cssClass="description" width="<%= 80 %>">
+				<c:if test="<%= Validator.isNotNull(auditEntryDisplay.getAgentPortraitURL()) %>">
+					<img class="img-rounded img-thumbnail" src="${auditEntryDisplay.getAgentPortraitURL()}" />
+				</c:if>
+
 				<%= auditEntryDisplay.getAgentName() %> > <%= auditEntryDisplay.getSummary() %>
 
 				<c:if test="<%= Validator.isNotNull(auditEntryDisplay.getDescription()) %>">
