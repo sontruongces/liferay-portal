@@ -232,7 +232,7 @@ describe('Liferay.KaleoDesignerXMLDefinitionSerializer', () => {
 			done();
 		});
 
-		it('test should serialize <user-id>, <screen-name> and <email-address> element if given.', done => {
+		it('test should serialize <email-address>, <screen-name> and <user-id> element if given.', done => {
 			var jsonDefinition = {
 				nodes: [
 					{
@@ -260,8 +260,8 @@ describe('Liferay.KaleoDesignerXMLDefinitionSerializer', () => {
 			);
 
 			assert(
-				definition.indexOf('<user-id>0</user-id>') > 0,
-				'<user-id> element not serialized.'
+				definition.indexOf('<email-address>test@liferay.com</email-address>') > 0,
+				'<email-address> element not serialized.'
 			);
 
 			assert(
@@ -270,8 +270,8 @@ describe('Liferay.KaleoDesignerXMLDefinitionSerializer', () => {
 			);
 
 			assert(
-				definition.indexOf('<email-address>test@liferay.com</email-address>') > 0,
-				'<email-address> element not serialized.'
+				definition.indexOf('<user-id>0</user-id>') > 0,
+				'<user-id> element not serialized.'
 			);
 
 			done();
