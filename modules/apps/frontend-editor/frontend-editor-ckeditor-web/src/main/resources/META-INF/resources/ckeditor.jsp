@@ -607,7 +607,7 @@ name = HtmlUtil.escapeJS(name);
 			window['<%= name %>']._setStyles();
 		});
 
-		ckEditor.on('drop', function (event) {
+		ckEditor.on('drop', function(event) {
 			var data = event.data.dataTransfer.getData('text/html');
 			var fragment = CKEDITOR.htmlParser.fragment.fromHtml(data);
 			var name = fragment.children[0].name;
@@ -616,7 +616,7 @@ name = HtmlUtil.escapeJS(name);
 			}
 		});
 
-		ckEditor.on('setData', function (event) {
+		ckEditor.on('setData', function(event) {
 			instanceDataReady = false;
 		});
 
