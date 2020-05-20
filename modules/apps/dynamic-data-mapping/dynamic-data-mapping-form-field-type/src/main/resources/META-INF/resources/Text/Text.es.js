@@ -101,9 +101,19 @@ class Text extends Component {
 				this.debouncedUpdate(changes.value.newVal);
 			}
 			else if (this.displayStyle == 'multiline') {
-				this.setState({
-					_value: changes.value.newVal
-				});
+				const textArea = this.elementValue_.querySelector('textarea');
+
+				this.setState(
+					{
+						_cursorPosition: textArea.selectionStart,
+						_value: changes.value.newVal
+					},
+					() =>
+						textArea.setSelectionRange(
+							this._cursorPosition,
+							this._cursorPosition
+						)
+				);
 			}
 		}
 	}
@@ -174,6 +184,15 @@ class Text extends Component {
 }
 
 Text.STATE = {
+	/**
+	 * @default undefined
+	 * @instance
+	 * @memberof Text
+	 * @type {?(string|undefined)}
+	 */
+
+	_cursorPosition: Config.number().value(0),
+
 	/**
 	 * @default undefined
 	 * @instance
