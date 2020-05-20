@@ -15,9 +15,11 @@
 package com.liferay.osb.provisioning.koroneiki.web.service.internal;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ContactResource;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactSerDes;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -27,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -45,6 +49,20 @@ public class ContactWebServiceImpl implements ContactWebService {
 		throws Exception {
 
 		return _contactResource.postContact(agentName, agentUID, contact);
+	}
+
+	public Contact fetchContactByEmailAddress(String emailAddress)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			_contactResource.getContactByEmailAddresEmailAddressHttpResponse(
+				emailAddress);
+
+		if (httpResponse.getStatusCode() == HttpServletResponse.SC_NOT_FOUND) {
+			return null;
+		}
+
+		return ContactSerDes.toDTO(httpResponse.getContent());
 	}
 
 	public Contact getContactByEmailAddress(String emailAddress)

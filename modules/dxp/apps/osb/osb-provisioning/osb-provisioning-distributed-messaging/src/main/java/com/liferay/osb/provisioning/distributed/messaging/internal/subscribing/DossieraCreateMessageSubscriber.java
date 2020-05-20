@@ -528,7 +528,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		throws Exception {
 
 		for (Contact contact : contacts) {
-			Contact curContact = _contactWebService.getContactByEmailAddress(
+			Contact curContact = _contactWebService.fetchContactByEmailAddress(
 				contact.getEmailAddress());
 
 			if (curContact == null) {
