@@ -51,7 +51,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	property = {
-		"javax.portlet.name=" + ProvisioningPortletKeys.PROVISIONING,
+		"javax.portlet.name=" + ProvisioningPortletKeys.ACCOUNTS,
 		"mvc.command.name=/accounts/autocomplete"
 	},
 	service = MVCResourceCommand.class

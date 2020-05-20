@@ -27,17 +27,16 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"com.liferay.portlet.css-class-wrapper=provisioning-portlet",
-		"com.liferay.portlet.display-category=category.provisioning",
+		"com.liferay.portlet.css-class-wrapper=accounts-portlet",
+		"com.liferay.portlet.display-category=category.hidden",
 		"com.liferay.portlet.render-weight=0",
-		"javax.portlet.display-name=Provisioning",
-		"javax.portlet.expiration-cache=0",
+		"javax.portlet.display-name=Accounts", "javax.portlet.expiration-cache=0",
 		"javax.portlet.init-param.template-path=/META-INF/resources/",
-		"javax.portlet.name=" + ProvisioningPortletKeys.PROVISIONING,
+		"javax.portlet.name=" + ProvisioningPortletKeys.ACCOUNTS,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,guest,power-user,user"
 	},
 	service = Portlet.class
 )
-public class ProvisioningPortlet extends MVCPortlet {
+public class AccountsPortlet extends MVCPortlet {
 }

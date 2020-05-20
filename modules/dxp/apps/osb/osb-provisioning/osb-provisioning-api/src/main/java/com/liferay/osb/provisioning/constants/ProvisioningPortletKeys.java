@@ -19,10 +19,10 @@ package com.liferay.osb.provisioning.constants;
  */
 public class ProvisioningPortletKeys {
 
+	public static final String ACCOUNTS =
+		"com_liferay_osb_provisioning_web_portlet_AccountsPortlet";
+
 	public static final String ADMIN =
 		"com_liferay_osb_provisioning_web_portlet_AdminPortlet";
-
-	public static final String PROVISIONING =
-		"com_liferay_osb_provisioning_web_portlet_ProvisioningPortlet";
 
 }
