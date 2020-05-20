@@ -229,6 +229,35 @@ definition {
 			vocabularyName = "${vocabularyName}");
 	}
 
+	macro addPublicPageUnderSitePagesVariation {
+		LexiconEntry.gotoAdd();
+
+		SitePages._selectPageType(
+			collectionName = "${collectionName}",
+			pageTemplateName = "${pageTemplateName}",
+			sitePageType = "${sitePageType}");
+
+		SelectFrame(locator1 = "IFrame#DIALOG");
+
+		PortletEntry.inputName(name = "${pageName}");
+
+		Button.clickAdd();
+
+		SelectFrame.selectFrameTop();
+
+		AssertVisible(locator1 = "TextInput#NAME");
+
+		Pause(locator1 = "1000");
+
+		Alert.closeMessage(messageType = "SUCCESS");
+
+		AssertElementNotPresent(locator1 = "Message#SUCCESS");
+
+		Button.click(button = "Save");
+
+		WaitForSPARefresh();
+	}
+
 	macro configureChildPage {
 		SitePages.gotoPageMenuItem(
 			menuItem = "Configure",
