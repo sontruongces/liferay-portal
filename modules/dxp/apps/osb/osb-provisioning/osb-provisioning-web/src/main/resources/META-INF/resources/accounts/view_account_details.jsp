@@ -20,7 +20,7 @@
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 %>
 
-<div class="details-table" id="accountDetails">
+<div class="account-details details-table" id="accountDetails">
 	<react:component
 		data="<%= viewAccountDisplayContext.getAccountDetailsData() %>"
 		module="js/AccountDetailsApp"

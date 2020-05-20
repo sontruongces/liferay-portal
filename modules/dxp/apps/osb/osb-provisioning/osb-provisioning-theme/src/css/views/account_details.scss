@@ -1,4 +1,4 @@
-#accountDetails {
+.account-details {
 	.account-field {
 		align-items: center;
 		display: flex;
@@ -10,6 +10,10 @@
 	.address-controls {
 		justify-content: flex-end;
 		width: 100%;
+	}
+
+	.form-control {
+		padding: $spacing-xxs $spacing-xs;
 	}
 
 	.list-group-text {

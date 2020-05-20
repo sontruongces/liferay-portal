@@ -7,7 +7,7 @@
 			max-width: 0%;
 		}
 
-		.account-details {
+		.account-content {
 			flex-basis: 100%;
 			flex-grow: 1;
 			max-width: 100%;
@@ -15,7 +15,7 @@
 	}
 }
 
-.account-details {
+.account-content {
 	background-color: $light;
 	flex: 0 0 66.666667%;
 	max-width: 66.666667%;
