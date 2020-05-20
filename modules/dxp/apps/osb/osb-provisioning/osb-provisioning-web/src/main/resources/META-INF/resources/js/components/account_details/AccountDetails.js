@@ -29,7 +29,7 @@ function AccountDetails({details}) {
 					</ClayList.ItemTitle>
 
 					<div className="list-group-text">
-						<InlineEdit>{details.name}</InlineEdit>
+						<InlineEdit fieldName="name">{details.name}</InlineEdit>
 					</div>
 				</div>
 
@@ -50,7 +50,10 @@ function AccountDetails({details}) {
 					<ClayList.ItemTitle>
 						{Liferay.Language.get('code')}
 					</ClayList.ItemTitle>
-					<ClayList.ItemText>{details.code}</ClayList.ItemText>
+
+					<div className="list-group-text">
+						<InlineEdit fieldName="code">{details.code}</InlineEdit>
+					</div>
 				</div>
 
 				<div className="account-field">
@@ -66,7 +69,10 @@ function AccountDetails({details}) {
 					<ClayList.ItemTitle>
 						{Liferay.Language.get('tier')}
 					</ClayList.ItemTitle>
-					<ClayList.ItemText>{details.tier}</ClayList.ItemText>
+
+					<div className="list-group-text">
+						<InlineEdit fieldName="tier">{details.tier}</InlineEdit>
+					</div>
 				</div>
 
 				<div className="account-field">
@@ -115,18 +121,20 @@ function AccountDetails({details}) {
 					<ClayList.ItemTitle>
 						{Liferay.Language.get('dossiera-account')}
 					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						{details.dossieraAccountKey}
-					</ClayList.ItemText>
+
+					<div className="list-group-text">
+						<InlineEdit>{details.dossieraAccountKey}</InlineEdit>
+					</div>
 				</div>
 
 				<div className="account-field">
 					<ClayList.ItemTitle>
 						{Liferay.Language.get('dossiera-project')}
 					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						{details.dossieraProjectKey}
-					</ClayList.ItemText>
+
+					<div className="list-group-text">
+						<InlineEdit>{details.dossieraProjectKey}</InlineEdit>
+					</div>
 				</div>
 			</ClayList.Item>
 
@@ -135,9 +143,10 @@ function AccountDetails({details}) {
 					<ClayList.ItemTitle>
 						{Liferay.Language.get('salesforce-project')}
 					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						{details.salesforceProjectKey}
-					</ClayList.ItemText>
+
+					<div className="list-group-text">
+						<InlineEdit>{details.salesforceProjectKey}</InlineEdit>
+					</div>
 				</div>
 			</ClayList.Item>
 		</ClayList>

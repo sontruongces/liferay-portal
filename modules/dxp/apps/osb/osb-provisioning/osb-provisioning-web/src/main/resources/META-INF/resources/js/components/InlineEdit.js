@@ -12,10 +12,14 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-function InlineEdit({children}) {
+import {NAMESPACE} from '../utilities/constants';
+
+function InlineEdit({children, fieldName, submit}) {
 	const [fieldEditable, setFieldEditable] = useState(false);
 	const [showEditor, setShowEditor] = useState(false);
 	const [value, setValue] = useState(children);
+
+	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
 
 	function handleCancel() {
 		setFieldEditable(false);
@@ -24,7 +28,7 @@ function InlineEdit({children}) {
 	}
 
 	function handleSubmit() {
-		// TODO
+		submit(namespacedFieldName, value);
 	}
 
 	return (
@@ -60,12 +64,12 @@ function InlineEdit({children}) {
 				<form method="post">
 					<label
 						className="form-control-label"
-						// htmlFor= id
+						htmlFor={namespacedFieldName}
 					>
 						<input
 							className="form-control"
-							// id
-							// name
+							id={namespacedFieldName}
+							name={namespacedFieldName}
 							onChange={event =>
 								setValue(event.currentTarget.value)
 							}
@@ -99,7 +103,9 @@ function InlineEdit({children}) {
 }
 
 InlineEdit.propTypes = {
-	children: PropTypes.string
+	children: PropTypes.string,
+	fieldName: PropTypes.string,
+	submit: PropTypes.func
 };
 
 export default InlineEdit;
