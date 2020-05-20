@@ -187,8 +187,12 @@ class Form extends Component {
 
 		store.on('fieldDuplicated', () => this.openSidebar());
 
-		store.on('focusedFieldChanged', ({newVal}) => {
-			if (newVal && Object.keys(newVal).length > 0) {
+		store.on('focusedFieldChanged', ({newVal, prevVal}) => {
+			if (
+				newVal &&
+				(!prevVal || prevVal.fieldName !== newVal.fieldName) &&
+				Object.keys(newVal).length > 0
+			) {
 				this.openSidebar();
 			}
 		});
