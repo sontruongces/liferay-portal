@@ -55,6 +55,35 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
 	protected void addAccount(ActionRequest actionRequest, User user)
 		throws Exception {
+
+		String name = ParamUtil.getString(actionRequest, "name");
+		String code = ParamUtil.getString(actionRequest, "code");
+		String tier = ParamUtil.getString(actionRequest, "tier");
+		String region = ParamUtil.getString(actionRequest, "region");
+		String status = ParamUtil.getString(actionRequest, "status");
+
+		Account account = new Account();
+
+		account.setName(name);
+
+		if (Validator.isNotNull(code)) {
+			account.setCode(code);
+		}
+
+		if (Validator.isNotNull(tier)) {
+			account.setTier(Account.Tier.create(tier));
+		}
+
+		if (Validator.isNotNull(region)) {
+			account.setRegion(Account.Region.create(region));
+		}
+
+		if (Validator.isNotNull(status)) {
+			account.setStatus(Account.Status.create(status));
+		}
+
+		_accountWebService.addAccount(
+			user.getFullName(), StringPool.BLANK, account);
 	}
 
 	@Override

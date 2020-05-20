@@ -18,14 +18,16 @@
 
 <%
 AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse, request);
+
+ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplayContext = new ViewAccountsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, accountSearchDisplayContext.getSearchContainer());
 %>
 
 <div class="container-fluid-1280">
 	<portlet:actionURL name="/search" var="searchURL" />
 
-	<aui:form action="<%= searchURL.toString() %>" method="post" name="fm">
-		<aui:input label="" name="keywords" placeholder="search" />
-	</aui:form>
+	<clay:management-toolbar
+		displayContext="<%= viewAccountsManagementToolbarDisplayContext %>"
+	/>
 
 	<liferay-ui:search-container
 		cssClass=""
