@@ -198,7 +198,6 @@ definition {
 
 	@priority = "4"
 	test AssertSearchFunctionalityWhenSettingIndexOnStartupToTrue {
-		property test.assert.warning.exceptions = "true";
 		property test.name.skip.portal.instance = "Search#AssertSearchFunctionalityWhenSettingIndexOnStartupToTrue";
 
 		JSONWebcontent.addWebContent(
