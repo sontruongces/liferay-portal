@@ -96,8 +96,15 @@ class Text extends Component {
 	}
 
 	willReceiveState(changes) {
-		if (changes.value && this.debouncedUpdate) {
-			this.debouncedUpdate(changes.value.newVal);
+		if (changes.value) {
+			if (this.debouncedUpdate) {
+				this.debouncedUpdate(changes.value.newVal);
+			}
+			else if (this.displayStyle == 'multiline') {
+				this.setState({
+					_value: changes.value.newVal
+				});
+			}
 		}
 	}
 
