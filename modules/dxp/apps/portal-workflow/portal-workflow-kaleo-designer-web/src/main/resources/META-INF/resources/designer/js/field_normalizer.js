@@ -56,8 +56,8 @@ AUI.add(
 					assignments.emailAddress,
 					null,
 					null,
-					(data) => {
-						AArray.each(data, (item) => {
+					data => {
+						AArray.each(data, item => {
 							if (item) {
 								var index = assignments.emailAddress.indexOf(
 									item.emailAddress
@@ -77,8 +77,8 @@ AUI.add(
 					null,
 					assignments.screenName,
 					null,
-					(data) => {
-						AArray.each(data, (item) => {
+					data => {
+						AArray.each(data, item => {
 							if (item) {
 								var index = assignments.screenName.indexOf(
 									item.screenName
