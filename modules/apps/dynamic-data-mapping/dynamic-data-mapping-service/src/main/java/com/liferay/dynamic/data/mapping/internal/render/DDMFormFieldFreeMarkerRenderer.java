@@ -260,12 +260,11 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 			return fieldContext;
 		}
 
-		Locale structureLocale = _getPreferredLocale(
-			httpServletRequest, ddmFormField, locale);
-
 		fieldContext = new HashMap<>();
 
-		addLayoutProperties(ddmFormField, fieldContext, structureLocale);
+		addLayoutProperties(
+			ddmFormField, fieldContext,
+			_getPreferredLocale(httpServletRequest, ddmFormField, locale));
 
 		addStructureProperties(ddmFormField, fieldContext);
 
