@@ -545,10 +545,16 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 				ContactRole.Type type = contactRole.getType();
 
-				contactRole = _contactRoleWebService.getContactRole(
-					type.toString(), contactRole.getName());
+				ContactRole curContactRole =
+					_contactRoleWebService.fetchContactRole(
+						type.toString(), contactRole.getName());
 
-				contactRoleKeys[i] = contactRole.getKey();
+				if (curContactRole == null) {
+					curContactRole = _contactRoleWebService.addContactRole(
+						StringPool.BLANK, StringPool.BLANK, contactRole);
+				}
+
+				contactRoleKeys[i] = curContactRole.getKey();
 			}
 
 			_accountWebService.assignContactRoles(

@@ -23,6 +23,13 @@ import java.util.List;
  */
 public interface ContactRoleWebService {
 
+	public ContactRole addContactRole(
+			String agentName, String agentUID, ContactRole contactRole)
+		throws Exception;
+
+	public ContactRole fetchContactRole(String type, String name)
+		throws Exception;
+
 	public List<ContactRole> getAccountCustomerContactRoles(
 			String accountKey, String emailAddress, int page, int pageSize)
 		throws Exception;
