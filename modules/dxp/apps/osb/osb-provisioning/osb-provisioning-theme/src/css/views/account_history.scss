@@ -1,6 +1,6 @@
 .history-details {
-	.img-thumbnail {
-		margin-right: $spacing-xs;
+	.sticker {
+		margin-right: $spacing-xxs;
 	}
 
 	.list-group-header {
@@ -36,9 +36,9 @@
 
 			.timestamp {
 				color: $secondary;
-				text-align: right;
 				font-size: $mid-font-size;
 				font-weight: $font-weight-normal;
+				text-align: right;
 			}
 		}
 

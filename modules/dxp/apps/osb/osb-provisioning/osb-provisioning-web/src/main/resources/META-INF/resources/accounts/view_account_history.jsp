@@ -37,7 +37,11 @@ for (AuditEntryDisplay auditEntryDisplay : auditEntryDisplays) {
 		<aui:row cssClass="detail-title">
 			<aui:col cssClass="description" width="<%= 80 %>">
 				<c:if test="<%= Validator.isNotNull(auditEntryDisplay.getAgentPortraitURL()) %>">
-					<img class="img-rounded img-thumbnail" src="<%= auditEntryDisplay.getAgentPortraitURL() %>" />
+					<span class="sticker sticker-circle sticker-sm sticker-secondary">
+						<span class="sticker-overlay">
+							<img alt="<%= LanguageUtil.get(request, "agent-avatar") %>" class="sticker-img" src="<%= auditEntryDisplay.getAgentPortraitURL() %>" />
+						</span>
+					</span>
 				</c:if>
 
 				<%= auditEntryDisplay.getAgentName() %> > <%= auditEntryDisplay.getSummary() %>
