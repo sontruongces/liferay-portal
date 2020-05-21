@@ -15,9 +15,12 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.AuditEntry;
+import com.liferay.portal.kernel.model.UserConstants;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.text.Format;
 
@@ -45,7 +48,12 @@ public class AuditEntryDisplay {
 	}
 
 	public String getAgentPortraitURL() {
-		return StringPool.BLANK;
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)_httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		return UserConstants.getPortraitURL(
+			themeDisplay.getPathImage(), true, 0, StringPool.BLANK);
 	}
 
 	public long getAuditSetId() {
