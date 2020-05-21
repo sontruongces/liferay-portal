@@ -34,44 +34,46 @@ SearchContainer searchContainer = assignTeamContactsDisplayContext.getSearchCont
 	showSearch="<%= true %>"
 />
 
-<liferay-ui:search-container
-	id="assignContacts"
-	searchContainer="<%= searchContainer %>"
-	var="contactsSearchContainer"
->
-	<liferay-ui:search-container-row
-		className="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay"
-		escapedModel="<%= true %>"
-		keyProperty="emailAddress"
-		modelVar="contactDisplay"
+<div class="container-fluid-1280">
+	<liferay-ui:search-container
+		id="assignContacts"
+		searchContainer="<%= searchContainer %>"
+		var="contactsSearchContainer"
 	>
-		<liferay-ui:search-container-column-text
-			name="name-email"
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay"
+			escapedModel="<%= true %>"
+			keyProperty="emailAddress"
+			modelVar="contactDisplay"
 		>
-			<%= contactDisplay.getFullName() %>
+			<liferay-ui:search-container-column-text
+				name="name-email"
+			>
+				<%= contactDisplay.getFullName() %>
 
-			<div class="secondary-information">
-				<%= contactDisplay.getEmailAddress() %>
-			</div>
-		</liferay-ui:search-container-column-text>
+				<div class="secondary-information">
+					<%= contactDisplay.getEmailAddress() %>
+				</div>
+			</liferay-ui:search-container-column-text>
 
-		<liferay-ui:search-container-column-text
-			name="role"
-		>
-			<%= StringUtil.merge(contactDisplay.getContactRoleNames(), "<br />") %>
-		</liferay-ui:search-container-column-text>
+			<liferay-ui:search-container-column-text
+				name="role"
+			>
+				<%= StringUtil.merge(contactDisplay.getContactRoleNames(), "<br />") %>
+			</liferay-ui:search-container-column-text>
 
-		<liferay-ui:search-container-column-text
-			name="status"
-		>
-			<span class="label"><%= contactDisplay.getStatus() %></span>
-		</liferay-ui:search-container-column-text>
-	</liferay-ui:search-container-row>
+			<liferay-ui:search-container-column-text
+				name="status"
+			>
+				<span class="label"><%= contactDisplay.getStatus() %></span>
+			</liferay-ui:search-container-column-text>
+		</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator
-		markupView="lexicon"
-	/>
-</liferay-ui:search-container>
+		<liferay-ui:search-iterator
+			markupView="lexicon"
+		/>
+	</liferay-ui:search-container>
+</div>
 
 <aui:script use="liferay-search-container">
 	var searchContainer = Liferay.SearchContainer.get(
