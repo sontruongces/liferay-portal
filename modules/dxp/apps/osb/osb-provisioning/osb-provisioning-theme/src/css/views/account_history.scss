@@ -1,8 +1,4 @@
 .history-details {
-	.sticker {
-		margin-right: $spacing-xxs;
-	}
-
 	.list-group-header {
 		border: 0;
 	}
@@ -50,5 +46,9 @@
 			font-size: $mid-font-size;
 			font-weight: $font-weight-semi-bold;
 		}
+	}
+
+	.sticker {
+		margin-right: $spacing-xxs;
 	}
 }
