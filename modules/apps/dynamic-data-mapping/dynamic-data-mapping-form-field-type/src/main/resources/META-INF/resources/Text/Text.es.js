@@ -101,15 +101,15 @@ class Text extends Component {
 				this.debouncedUpdate(changes.value.newVal);
 			}
 			else if (this.displayStyle == 'multiline') {
-				const textArea = this.elementValue_.querySelector('textarea');
+				const textarea = this.elementValue_.querySelector('textarea');
 
 				this.setState(
 					{
-						_cursorPosition: textArea.selectionStart,
+						_cursorPosition: textarea.selectionStart,
 						_value: changes.value.newVal
 					},
 					() =>
-						textArea.setSelectionRange(
+						textarea.setSelectionRange(
 							this._cursorPosition,
 							this._cursorPosition
 						)
