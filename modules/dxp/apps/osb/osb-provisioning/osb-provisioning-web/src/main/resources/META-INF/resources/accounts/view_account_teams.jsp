@@ -17,21 +17,24 @@
 <%@ include file="/init.jsp" %>
 
 <%
-ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
-
-PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
+ViewAccountTeamsDisplayContext viewAccountTeamsDisplayContext = ProvisioningWebComponentProvider.getViewAccountTeamsDisplayContext(renderRequest, renderResponse, request);
 %>
 
 <div class="details-table">
-	<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
-		<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
-
-		<aui:input label="" name="keywords" placeholder="search" />
-	</aui:form>
-
 	<liferay-ui:search-container
-		searchContainer="<%= viewAccountDisplayContext.getTeamsSearchContainer() %>"
+		id="teams"
+		searchContainer="<%= viewAccountTeamsDisplayContext.getSearchContainer() %>"
 	>
+		<clay:management-toolbar
+			clearResultsURL="<%= viewAccountTeamsDisplayContext.getClearResultsURL() %>"
+			creationMenu="<%= viewAccountTeamsDisplayContext.getCreationMenu() %>"
+			itemsTotal="<%= searchContainer.getTotal() %>"
+			searchActionURL="<%= viewAccountTeamsDisplayContext.getCurrentURL() %>"
+			searchContainerId="teams"
+			selectable="<%= false %>"
+			showSearch="<%= true %>"
+		/>
+
 		<liferay-ui:search-container-row
 			className="com.liferay.osb.provisioning.web.internal.display.context.TeamDisplay"
 			escapedModel="<%= true %>"
@@ -62,6 +65,7 @@ PortletURL searchURL = viewAccountDisplayContext.getPortletURL();
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-jsp
+				align="right"
 				path="/accounts/team_action.jsp"
 			/>
 		</liferay-ui:search-container-row>

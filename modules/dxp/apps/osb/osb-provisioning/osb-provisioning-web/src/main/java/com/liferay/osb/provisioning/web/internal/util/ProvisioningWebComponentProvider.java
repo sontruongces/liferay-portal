@@ -30,6 +30,7 @@ import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountCont
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountLiferayWorkersDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountRelatedAccountsDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountTeamsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewSubscriptionDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewTeamDisplayContext;
 
@@ -64,9 +65,9 @@ public class ProvisioningWebComponentProvider {
 				HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		return _provisioningWebComponentProvider.
-			_getAssignTeamContactsDisplayContext(
-				renderRequest, renderResponse, httpServletRequest);
+		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
+			AssignTeamContactsDisplayContext.class, renderRequest,
+			renderResponse, httpServletRequest);
 	}
 
 	public static ProvisioningWebComponentProvider
@@ -81,9 +82,9 @@ public class ProvisioningWebComponentProvider {
 				HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		return _provisioningWebComponentProvider.
-			_getViewAccountContactsDisplayContext(
-				renderRequest, renderResponse, httpServletRequest);
+		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
+			ViewAccountContactsDisplayContext.class, renderRequest,
+			renderResponse, httpServletRequest);
 	}
 
 	public static ViewAccountDisplayContext getViewAccountDisplayContext(
@@ -92,7 +93,8 @@ public class ProvisioningWebComponentProvider {
 		throws Exception {
 
 		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
-			renderRequest, renderResponse, httpServletRequest);
+			ViewAccountDisplayContext.class, renderRequest, renderResponse,
+			httpServletRequest);
 	}
 
 	public static ViewAccountLiferayWorkersDisplayContext
@@ -101,9 +103,9 @@ public class ProvisioningWebComponentProvider {
 				HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		return _provisioningWebComponentProvider.
-			_getViewAccountLiferayWorkersDisplayContext(
-				renderRequest, renderResponse, httpServletRequest);
+		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
+			ViewAccountLiferayWorkersDisplayContext.class, renderRequest,
+			renderResponse, httpServletRequest);
 	}
 
 	public static ViewAccountRelatedAccountsDisplayContext
@@ -112,9 +114,20 @@ public class ProvisioningWebComponentProvider {
 				HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		return _provisioningWebComponentProvider.
-			_getViewAccountRelatedAccountsDisplayContext(
-				renderRequest, renderResponse, httpServletRequest);
+		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
+			ViewAccountRelatedAccountsDisplayContext.class, renderRequest,
+			renderResponse, httpServletRequest);
+	}
+
+	public static ViewAccountTeamsDisplayContext
+			getViewAccountTeamsDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
+			ViewAccountTeamsDisplayContext.class, renderRequest, renderResponse,
+			httpServletRequest);
 	}
 
 	public static ViewSubscriptionDisplayContext
@@ -123,9 +136,9 @@ public class ProvisioningWebComponentProvider {
 				HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		return _provisioningWebComponentProvider.
-			_getViewSubscriptionDisplayContext(
-				renderRequest, renderResponse, httpServletRequest);
+		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
+			ViewSubscriptionDisplayContext.class, renderRequest, renderResponse,
+			httpServletRequest);
 	}
 
 	public static ViewTeamDisplayContext getViewTeamDisplayContext(
@@ -133,8 +146,9 @@ public class ProvisioningWebComponentProvider {
 			HttpServletRequest httpServletRequest)
 		throws Exception {
 
-		return _provisioningWebComponentProvider._getViewTeamDisplayContext(
-			renderRequest, renderResponse, httpServletRequest);
+		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
+			ViewTeamDisplayContext.class, renderRequest, renderResponse,
+			httpServletRequest);
 	}
 
 	@Activate
@@ -154,28 +168,6 @@ public class ProvisioningWebComponentProvider {
 		return new AccountSearchDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
 			_accountWebService);
-	}
-
-	private AssignTeamContactsDisplayContext
-			_getAssignTeamContactsDisplayContext(
-				RenderRequest renderRequest, RenderResponse renderResponse,
-				HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		return _getViewAccountDisplayContext(
-			AssignTeamContactsDisplayContext.class, renderRequest,
-			renderResponse, httpServletRequest);
-	}
-
-	private ViewAccountContactsDisplayContext
-			_getViewAccountContactsDisplayContext(
-				RenderRequest renderRequest, RenderResponse renderResponse,
-				HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		return _getViewAccountDisplayContext(
-			ViewAccountContactsDisplayContext.class, renderRequest,
-			renderResponse, httpServletRequest);
 	}
 
 	private <T extends ViewAccountDisplayContext> T
@@ -204,58 +196,6 @@ public class ProvisioningWebComponentProvider {
 			clazz.getName(), viewAccountDisplayContext);
 
 		return viewAccountDisplayContext;
-	}
-
-	private ViewAccountDisplayContext _getViewAccountDisplayContext(
-			RenderRequest renderRequest, RenderResponse renderResponse,
-			HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		return _getViewAccountDisplayContext(
-			ViewAccountDisplayContext.class, renderRequest, renderResponse,
-			httpServletRequest);
-	}
-
-	private ViewAccountLiferayWorkersDisplayContext
-			_getViewAccountLiferayWorkersDisplayContext(
-				RenderRequest renderRequest, RenderResponse renderResponse,
-				HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		return _getViewAccountDisplayContext(
-			ViewAccountLiferayWorkersDisplayContext.class, renderRequest,
-			renderResponse, httpServletRequest);
-	}
-
-	private ViewAccountRelatedAccountsDisplayContext
-			_getViewAccountRelatedAccountsDisplayContext(
-				RenderRequest renderRequest, RenderResponse renderResponse,
-				HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		return _getViewAccountDisplayContext(
-			ViewAccountRelatedAccountsDisplayContext.class, renderRequest,
-			renderResponse, httpServletRequest);
-	}
-
-	private ViewSubscriptionDisplayContext _getViewSubscriptionDisplayContext(
-			RenderRequest renderRequest, RenderResponse renderResponse,
-			HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		return _getViewAccountDisplayContext(
-			ViewSubscriptionDisplayContext.class, renderRequest, renderResponse,
-			httpServletRequest);
-	}
-
-	private ViewTeamDisplayContext _getViewTeamDisplayContext(
-			RenderRequest renderRequest, RenderResponse renderResponse,
-			HttpServletRequest httpServletRequest)
-		throws Exception {
-
-		return _getViewAccountDisplayContext(
-			ViewTeamDisplayContext.class, renderRequest, renderResponse,
-			httpServletRequest);
 	}
 
 	private static ProvisioningWebComponentProvider

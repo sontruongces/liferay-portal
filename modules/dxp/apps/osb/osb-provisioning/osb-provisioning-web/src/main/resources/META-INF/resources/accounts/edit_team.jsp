@@ -40,10 +40,6 @@ renderResponse.setTitle(LanguageUtil.get(request, "new-team"));
 <aui:form action="<%= editTeamURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="name" value='<%= (team != null) ? team.getName() : "" %>' />
 
-	<label><liferay-ui:message key="team-members" /></label>
-
-	<aui:button value="select" />
-
 	<aui:button-row>
 		<aui:button type="submit" />
 

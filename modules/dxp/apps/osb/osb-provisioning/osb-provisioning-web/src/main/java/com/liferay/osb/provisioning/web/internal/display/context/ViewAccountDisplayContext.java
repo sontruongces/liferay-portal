@@ -21,7 +21,6 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItemList;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.provisioning.constants.ProvisioningActionKeys;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.customer.model.AccountEntry;
@@ -499,31 +498,6 @@ public class ViewAccountDisplayContext {
 			(int)productPurchaseViewWebService.getProductPurchaseViewsCount(
 				keywords, sb.toString(), searchContainer.getCur(),
 				searchContainer.getEnd() - searchContainer.getStart(), sorts);
-
-		searchContainer.setTotal(count);
-
-		return searchContainer;
-	}
-
-	public SearchContainer getTeamsSearchContainer() throws Exception {
-		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, renderResponse.createRenderURL(),
-			Collections.emptyList(), "no-teams-were-found");
-
-		String keywords = ParamUtil.getString(renderRequest, "keywords");
-
-		String filterString = "accountKey eq '" + account.getKey() + "'";
-
-		List<Team> teams = teamWebService.search(
-			keywords, filterString, searchContainer.getCur(),
-			searchContainer.getEnd() - searchContainer.getStart(), "name");
-
-		searchContainer.setResults(
-			TransformUtil.transform(
-				teams,
-				team -> new TeamDisplay(renderRequest, renderResponse, team)));
-
-		int count = (int)teamWebService.searchCount(keywords, filterString);
 
 		searchContainer.setTotal(count);
 
