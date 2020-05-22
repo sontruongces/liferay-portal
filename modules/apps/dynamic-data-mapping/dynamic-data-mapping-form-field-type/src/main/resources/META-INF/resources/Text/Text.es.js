@@ -101,7 +101,7 @@ class Text extends Component {
 				this.debouncedUpdate(changes.value.newVal);
 			}
 			else if (this.displayStyle == 'multiline') {
-				const textarea = this.elementValue_.querySelector('textarea');
+				const textarea = this.element.querySelector('textarea');
 
 				this.setState(
 					{
