@@ -109,9 +109,11 @@
 		}
 	}
 
-	.table-list thead:first-child th,
-	.table-list thead:first-child td {
-		box-shadow: none;
+	.table-list thead:first-child {
+		td,
+		th {
+			box-shadow: none;
+		}
 	}
 }
 
