@@ -185,10 +185,10 @@ class Text extends Component {
 
 Text.STATE = {
 	/**
-	 * @default undefined
+	 * @default 0
 	 * @instance
 	 * @memberof Text
-	 * @type {?(string|undefined)}
+	 * @type {number}
 	 */
 
 	_cursorPosition: Config.number().value(0),
