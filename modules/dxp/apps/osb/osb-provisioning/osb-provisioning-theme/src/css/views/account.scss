@@ -90,6 +90,11 @@
 		border-top-right-radius: $border-radius;
 		margin-bottom: 0 !important;
 
+		& + .subnav-tbar-primary {
+			margin-bottom: -1.25rem;
+			margin-top: 0;
+		}
+
 		.nav-link {
 			margin: $spacing-sm;
 			padding: $spacing-xs;
@@ -102,6 +107,11 @@
 				}
 			}
 		}
+	}
+
+	.table-list thead:first-child th,
+	.table-list thead:first-child td {
+		box-shadow: none;
 	}
 }
 

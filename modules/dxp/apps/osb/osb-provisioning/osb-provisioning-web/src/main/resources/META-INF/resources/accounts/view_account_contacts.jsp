@@ -20,7 +20,7 @@
 ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = ProvisioningWebComponentProvider.getViewAccountContactsDisplayContext(renderRequest, renderResponse, request);
 %>
 
-<div class="details-table">
+<div class="details-table table-striped">
 	<liferay-ui:search-container
 		id="contacts"
 		searchContainer="<%= viewAccountContactsDisplayContext.getSearchContainer() %>"
@@ -59,9 +59,16 @@ ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = Provisioni
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
-				name="status"
+				name="user-status"
 			>
-				<span class="label"><%= contactDisplay.getStatus() %></span>
+				<c:choose>
+					<c:when test="<%= Validator.isBlank(contactDisplay.getStatus()) %>">
+						<span>-</span>
+					</c:when>
+					<c:otherwise>
+						<span class="label <%= contactDisplay.getStatus().equals("verified") ? "label-success" : contactDisplay.getStatus().equals("unverified") ? "label-danger" : "label-secondary" %>"><%= contactDisplay.getStatus() %></span>
+					</c:otherwise>
+				</c:choose>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-jsp
