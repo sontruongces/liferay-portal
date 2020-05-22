@@ -61,7 +61,7 @@ public class ProductFieldFinderImpl
 
 			Iterator<String> itr = q.iterate();
 
-			if (itr.hasNext()) {
+			while (itr.hasNext()) {
 				String name = itr.next();
 
 				if (Validator.isNotNull(name)) {
