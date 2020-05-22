@@ -61,14 +61,7 @@ ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = Provisioni
 			<liferay-ui:search-container-column-text
 				name="user-status"
 			>
-				<c:choose>
-					<c:when test="<%= Validator.isBlank(contactDisplay.getStatus()) %>">
-						<span>-</span>
-					</c:when>
-					<c:otherwise>
-						<span class="label <%= contactDisplay.getStatus().equals("verified") ? "label-success" : contactDisplay.getStatus().equals("unverified") ? "label-danger" : "label-secondary" %>"><%= contactDisplay.getStatus() %></span>
-					</c:otherwise>
-				</c:choose>
+				<span class="label <%= contactDisplay.getStatusStyle() %>"><%= contactDisplay.getStatus() %></span>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-jsp

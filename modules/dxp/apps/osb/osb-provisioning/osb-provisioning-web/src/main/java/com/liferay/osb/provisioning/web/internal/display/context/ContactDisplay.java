@@ -92,6 +92,20 @@ public class ContactDisplay {
 		return StringPool.BLANK;
 	}
 
+	public String getStatusStyle() {
+		String status = getStatus();
+
+		if (status.equals("verified")) {
+			return "label-success";
+		}
+		else if (status.equals("unverified")) {
+			return "label-danger";
+		}
+		else {
+			return "label-secondary";
+		}
+	}
+
 	private final Contact _contact;
 	private final List<ContactRole> _contactRoles;
 	private final HttpServletRequest _httpServletRequest;
