@@ -11,6 +11,6 @@ if ((doc.uid.value.startsWith("WorkflowMetricsSLAProcessResult") ||
 
 if (doc.uid.value.startsWith("WorkflowMetricsSLATaskResult")) {
 	state.breachedMap.merge(
-		instanceId, doc.breached.value,
+		instanceId, (doc.breached.size() != 0) ? doc.breached.value : false,
 		(breached1, breached2) -> (breached1 || breached2));
 }
