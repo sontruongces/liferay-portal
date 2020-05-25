@@ -42,6 +42,9 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
@@ -116,14 +119,13 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		throws PortalException {
 
 		long osbCommerceProvisioningSiteGroupId =
-			_addOSBCommerceProvisioningSiteGroup(
-				serviceContext.getCompanyId());
+			_addOSBCommerceProvisioningSiteGroup(serviceContext.getCompanyId());
 
-		long userId = _addUser(
+		User user = _addUser(
 			serviceContext.getCompanyId(), emailAddress, jobTitle, name,
 			osbCommerceProvisioningSiteGroupId);
 
-		serviceContext.setUserId(userId);
+		serviceContext.setUserId(user.getUserId());
 
 		long commerceAccountId = _addCommerceAccount(
 			emailAddress, commerceAccountName, serviceContext);
@@ -135,11 +137,23 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			commerceAccountId, commerceChannelGroupId, countryCode, name,
 			osbCommerceProvisioningSiteGroupId, serviceContext);
 
-		_addCommerceOrderItem(
-			commerceAccountId, commerceChannelGroupId,
-			commerceOrder.getCommerceOrderId(), serviceContext);
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
 
-		_commerceOrderEngine.checkoutCommerceOrder(commerceOrder, userId);
+		PermissionThreadLocal.setPermissionChecker(
+			PermissionCheckerFactoryUtil.create(user));
+
+		try {
+			_addCommerceOrderItem(
+				commerceAccountId, commerceChannelGroupId,
+				commerceOrder.getCommerceOrderId(), serviceContext);
+
+			_commerceOrderEngine.checkoutCommerceOrder(
+				commerceOrder, user.getUserId());
+		}
+		finally {
+			PermissionThreadLocal.setPermissionChecker(permissionChecker);
+		}
 	}
 
 	private long _addCommerceAccount(
@@ -229,21 +243,19 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		return osbCommerceProvisioningSiteGroup.getGroupId();
 	}
 
-	private long _addUser(
+	private User _addUser(
 			long companyId, String emailAddress, String jobTitle, String name,
 			long osbCommerceProvisioningSiteGroupId)
 		throws PortalException {
 
 		String[] nameItems = name.split(" ");
 
-		User user = _userLocalService.addUser(
+		return _userLocalService.addUser(
 			0, companyId, true, null, null, true, null, emailAddress, 0, null,
 			LocaleUtil.ENGLISH, nameItems[0], null,
 			(nameItems.length > 1) ? nameItems[1] : null, 0, 0, true, 1, 1,
 			1970, jobTitle, new long[] {osbCommerceProvisioningSiteGroupId},
 			null, null, null, true, new ServiceContext());
-
-		return user.getUserId();
 	}
 
 	private void _checkCommerceAccount(String name) {
