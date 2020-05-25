@@ -35,8 +35,12 @@ import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
@@ -44,6 +48,7 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortletKeys;
 import com.liferay.site.initializer.SiteInitializer;
 
@@ -80,8 +85,7 @@ public class OSBCommercePortalInstanceInitializer
 		throws InitializationException {
 
 		try {
-			Company company = _companyLocalService.addCompany(
-				webId, virtualHostname, mx, false, 0, true);
+			Company company = _addCompany(mx, webId, virtualHostname);
 
 			_initializeOSBCommercePortalInstance(company.getWebId());
 
@@ -102,6 +106,24 @@ public class OSBCommercePortalInstanceInitializer
 	@Override
 	public boolean isActive() {
 		return true;
+	}
+
+	private Company _addCompany(String mx, String webId, String virtualHostname)
+		throws PortalException {
+
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+
+		PermissionThreadLocal.setPermissionChecker(
+			PermissionCheckerFactoryUtil.create(_getAdministratorUser()));
+
+		try {
+			return _companyLocalService.addCompany(
+				webId, virtualHostname, mx, false, 0, true);
+		}
+		finally {
+			PermissionThreadLocal.setPermissionChecker(permissionChecker);
+		}
 	}
 
 	private void _addOSBCommerceAdministratorRole(long companyId)
@@ -146,6 +168,17 @@ public class OSBCommercePortalInstanceInitializer
 		return group.getGroupId();
 	}
 
+	private User _getAdministratorUser() throws PortalException {
+		Role role = _roleLocalService.getRole(
+			_portal.getDefaultCompanyId(), RoleConstants.ADMINISTRATOR);
+
+		for (User user : _userLocalService.getRoleUsers(role.getRoleId())) {
+			return user;
+		}
+
+		throw new IllegalStateException("Administrator user does not exist");
+	}
+
 	private long _getDefaultCompanyGroupId(long companyId)
 		throws PortalException {
 
@@ -181,6 +214,13 @@ public class OSBCommercePortalInstanceInitializer
 			long osbCommerceSiteGroupId, long userId)
 		throws Exception {
 
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+
+		PermissionThreadLocal.setPermissionChecker(
+			PermissionCheckerFactoryUtil.create(
+				_userLocalService.getUser(userId)));
+
 		long currentUserId = PrincipalThreadLocal.getUserId();
 
 		PrincipalThreadLocal.setName(userId);
@@ -193,6 +233,7 @@ public class OSBCommercePortalInstanceInitializer
 			_siteInitializer.initialize(osbCommerceSiteGroupId);
 		}
 		finally {
+			PermissionThreadLocal.setPermissionChecker(permissionChecker);
 			PrincipalThreadLocal.setName(currentUserId);
 		}
 	}
@@ -244,6 +285,9 @@ public class OSBCommercePortalInstanceInitializer
 
 	@Reference
 	private GroupLocalService _groupLocalService;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference
 	private PortalInstancesLocalService _portalInstancesLocalService;
