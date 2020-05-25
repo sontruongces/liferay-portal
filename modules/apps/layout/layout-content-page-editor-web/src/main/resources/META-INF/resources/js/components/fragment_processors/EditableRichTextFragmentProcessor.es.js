@@ -29,13 +29,6 @@ let _editor = null;
 let _editorEventHandler = null;
 
 /**
- * @param {Event}
- */
-function _stopEventPropagation(event) {
-	event.stopPropagation();
-}
-
-/**
  * Destroys, if any, an existing instance of AlloyEditor.
  */
 function destroy() {
