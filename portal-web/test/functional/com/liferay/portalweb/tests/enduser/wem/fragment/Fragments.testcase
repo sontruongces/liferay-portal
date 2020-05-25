@@ -90,14 +90,14 @@ definition {
 			PageEditor.gotoConfiguration(fragmentName = "Button");
 
 			PageEditor.configureFragment(
-				align = "Center",
+				alignment = "Center",
 				size = "Large",
 				type = "Link");
 		}
 
 		task ("View the fragment style") {
 			PageEditor.viewFragmentStyle(
-				align = "center",
+				alignment = "center",
 				fragmentName = "button",
 				size = "lg",
 				type = "link");
@@ -139,19 +139,19 @@ definition {
 			PageEditor.gotoConfiguration(fragmentName = "Card");
 
 			PageEditor.configureFragment(
-				alignment = "Center",
 				borderRadius = "None",
 				bottomSpacing = "5",
 				boxShadow = "Large",
+				contentAlign = "Center",
 				imageSize = "Fit");
 		}
 
 		task ("View the fragment style") {
 			PageEditor.viewFragmentStyle(
-				alignment = "center",
 				borderRadius = "0",
 				bottomSpacing = "5",
 				boxShadow = "lg",
+				contentAlign = "Center",
 				fragmentName = "card",
 				imageSize = "100");
 		}
@@ -192,14 +192,14 @@ definition {
 			PageEditor.gotoConfiguration(fragmentName = "Heading");
 
 			PageEditor.configureFragment(
-				align = "Right",
 				headingLevel = "H2",
+				textAlign = "Right",
 				textColor = "secondary");
 		}
 
 		task ("View the fragment style") {
 			PageEditor.viewFragmentStyle(
-				align = "right",
+				alignment = "right",
 				fragmentName = "heading",
 				headingLevel = "h2",
 				textColor = "secondary");
@@ -241,14 +241,14 @@ definition {
 			PageEditor.gotoConfiguration(fragmentName = "Image");
 
 			PageEditor.configureFragment(
-				align = "Center",
+				alignment = "Center",
 				bottomSpacing = "2",
 				imageSize = "Original Size");
 		}
 
 		task ("View the fragment style") {
 			PageEditor.viewFragmentStyle(
-				align = "center",
+				alignment = "center",
 				bottomSpacing = "2",
 				fragmentName = "image",
 				imageSize = "0");
@@ -290,13 +290,13 @@ definition {
 			PageEditor.gotoConfiguration(fragmentName = "Paragraph");
 
 			PageEditor.configureFragment(
-				align = "Right",
+				textAlign = "Right",
 				textColor = "warning");
 		}
 
 		task ("View the fragment style") {
 			PageEditor.viewFragmentStyle(
-				align = "right",
+				alignment = "right",
 				fragmentName = "paragraph",
 				textColor = "warning");
 		}

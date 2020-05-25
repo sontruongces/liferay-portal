@@ -791,11 +791,18 @@ definition {
 				locator1 = "Fragment#FRAGMENT_CONFIGURATION_BOX_SHADOW");
 		}
 
+		if (isSet(contentAlign)) {
+			Select(
+				key_fieldLabel = "Content Align",
+				locator1 = "Select#GENERIC_SELECT_FIELD",
+				value1 = "${contentAlign}");
+		}
+
 		if (isSet(headingLevel)) {
 			AssertElementPresent(
 				key_fragmentName = "${fragmentName}",
 				key_headingLevel = "${headingLevel}",
-				locator1 = "Fragment#FRAGMENT_CONFIGURATION_HEADER_H2");
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_HEADER");
 		}
 
 		if (isSet(height)) {
@@ -823,6 +830,13 @@ definition {
 				key_fragmentName = "${fragmentName}",
 				key_textColor = "${textColor}",
 				locator1 = "Fragment#FRAGMENT_CONFIGURATION_TEXT_COLOR");
+		}
+
+		if (isSet(textAlign)) {
+			Select(
+				key_fieldLabel = "Text Align",
+				locator1 = "Select#GENERIC_SELECT_FIELD",
+				value1 = "${textAlign}");
 		}
 
 		if (isSet(type)) {
