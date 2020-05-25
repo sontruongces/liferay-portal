@@ -10,6 +10,12 @@
 		"Price": 0.0,
 		"PromoPrice": 0.0,
 		"Sku": "TRIAL101",
+		"SubscriptionInfo": {
+			"MaxSubscriptionCycles": 1,
+			"SubscriptionEnabled": true,
+			"SubscriptionLength": 30,
+			"SubscriptionType": "daily"
+		},
 		"TaxCategory": "Normal Product"
 	},
 	{
