@@ -116,7 +116,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		throws PortalException {
 
 		long osbCommerceProvisioningSiteGroupId =
-			_addOSBCommerceProvisioningSiteGroupId(
+			_addOSBCommerceProvisioningSiteGroup(
 				serviceContext.getCompanyId());
 
 		long userId = _addUser(
@@ -128,7 +128,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		long commerceAccountId = _addCommerceAccount(
 			emailAddress, commerceAccountName, serviceContext);
 
-		long commerceChannelGroupId = _addCommerceChannelGroupId(
+		long commerceChannelGroupId = _addCommerceChannelGroup(
 			osbCommerceProvisioningSiteGroupId);
 
 		CommerceOrder commerceOrder = _addCommerceOrder(
@@ -154,7 +154,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		return commerceAccount.getCommerceAccountId();
 	}
 
-	private long _addCommerceChannelGroupId(
+	private long _addCommerceChannelGroup(
 			long osbCommerceProvisioningSiteGroupId)
 		throws PortalException {
 
@@ -219,7 +219,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			commerceContext, serviceContext);
 	}
 
-	private long _addOSBCommerceProvisioningSiteGroupId(long companyId) {
+	private long _addOSBCommerceProvisioningSiteGroup(long companyId) {
 		Group osbCommerceProvisioningSiteGroup =
 			_groupLocalService.fetchFriendlyURLGroup(
 				companyId,
