@@ -59,6 +59,7 @@ import com.liferay.portal.workflow.metrics.rest.dto.v1_0.AssigneeUser;
 import com.liferay.portal.workflow.metrics.rest.dto.v1_0.CreatorUser;
 import com.liferay.portal.workflow.metrics.rest.dto.v1_0.Instance;
 import com.liferay.portal.workflow.metrics.rest.dto.v1_0.SLAResult;
+import com.liferay.portal.workflow.metrics.rest.internal.resource.exception.NoSuchInstanceException;
 import com.liferay.portal.workflow.metrics.rest.internal.resource.helper.ResourceHelper;
 import com.liferay.portal.workflow.metrics.rest.resource.v1_0.InstanceResource;
 import com.liferay.portal.workflow.metrics.service.WorkflowMetricsSLADefinitionLocalService;
@@ -191,8 +192,9 @@ public class InstanceResourceImpl extends BaseInstanceResourceImpl {
 
 				return instance;
 			}
-		).orElseGet(
-			Instance::new
+		).orElseThrow(
+			() -> new NoSuchInstanceException(
+				"No instance exists with the instance ID " + instanceId)
 		);
 	}
 

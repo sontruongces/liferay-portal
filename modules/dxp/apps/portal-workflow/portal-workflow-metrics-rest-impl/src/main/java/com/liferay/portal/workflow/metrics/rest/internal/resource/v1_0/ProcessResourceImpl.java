@@ -49,6 +49,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.workflow.metrics.rest.dto.v1_0.Process;
 import com.liferay.portal.workflow.metrics.rest.internal.odata.entity.v1_0.ProcessEntityModel;
+import com.liferay.portal.workflow.metrics.rest.internal.resource.exception.NoSuchProcessException;
 import com.liferay.portal.workflow.metrics.rest.internal.resource.helper.ResourceHelper;
 import com.liferay.portal.workflow.metrics.rest.resource.v1_0.ProcessResource;
 import com.liferay.portal.workflow.metrics.sla.processor.WorkfowMetricsSLAStatus;
@@ -118,8 +119,9 @@ public class ProcessResourceImpl
 
 				return process;
 			}
-		).orElseGet(
-			Process::new
+		).orElseThrow(
+			() -> new NoSuchProcessException(
+				"No process exists with the process ID " + processId)
 		);
 	}
 
