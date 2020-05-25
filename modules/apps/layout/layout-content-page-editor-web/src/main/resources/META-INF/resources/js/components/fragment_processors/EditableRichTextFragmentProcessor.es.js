@@ -47,10 +47,6 @@ function destroy() {
 
 		_editableElement.innerHTML = editorData;
 
-		_editableElement.removeEventListener('keydown', _stopEventPropagation);
-		_editableElement.removeEventListener('keyup', _stopEventPropagation);
-		_editableElement.removeEventListener('keypress', _stopEventPropagation);
-
 		_editor.destroy();
 
 		_editableElement = null;
@@ -117,10 +113,6 @@ function init(
 	type
 ) {
 	destroy();
-
-	editableElement.addEventListener('keydown', _stopEventPropagation);
-	editableElement.addEventListener('keyup', _stopEventPropagation);
-	editableElement.addEventListener('keypress', _stopEventPropagation);
 
 	const {defaultEditorConfiguration} = options;
 	const editableContent = editableElement.innerHTML;
