@@ -1,0 +1,38 @@
+$body-bg: #fff;
+$danger: #da1414;
+$dark: #272833;
+$divider: #e7e7ed;
+$light: #f1f2f5;
+$light-l1: #f7f8f9;
+$primary: #0b5fff;
+$primary-l3: #f0f5ff;
+$secondary: #6b6c7e;
+$secondary-l3: #e7e7ed;
+$success: #287d3c;
+
+$font-family-sans-serif: 'Source Sans Pro', system-ui, -apple-system,
+	blinkmacsystemfont, 'Segoe UI', roboto, oxygen-sans, ubuntu, cantarell,
+	'Helvetica Neue', arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+	'Segoe UI Symbol';
+
+$font-weight-normal: 400;
+$font-weight-semi-bold: 600;
+
+$font-size-base: 1rem; // 16px
+$mid-font-size: 0.875rem; // 14px
+$small-font-size: 0.75rem; // 12px
+
+$breadcrumb-divider-color: $secondary;
+$breadcrumb-divider-font-weight: $font-weight-normal;
+$breadcrumb-font-weight: $font-weight-semi-bold;
+$breadcrumb-link-color: $primary;
+
+$btn-group-item-margin-right: 0.5rem; // 8px
+
+$input-textarea-height: auto;
+
+$nav-underline-font-size: $font-size-base;
+$nav-underline-link-active-highlight-height: 0.25rem; // 4px
+
+$table-font-size: $font-size-base;
+$table-head-color: $dark;
