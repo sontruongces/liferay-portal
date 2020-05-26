@@ -4,12 +4,33 @@
 		display: flex;
 		padding-left: $spacing-xs;
 		padding-right: $spacing-xs;
-		width: 50%;
+		width: 100%;
 	}
 
 	.address-controls {
 		justify-content: flex-end;
 		width: 100%;
+	}
+
+	.list-group {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.list-group-header,
+	.list-group-item-flex {
+		border-left-width: 0;
+		border-right-width: 0;
+	}
+
+	.list-group-header {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+
+	.list-group-item-flex {
+		flex: 0 0 50%;
+		max-width: 50%;
 	}
 
 	.list-group-text {

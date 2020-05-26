@@ -13,142 +13,25 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import InlineEdit from '../InlineEdit';
 import AccountAddress from './AccountAddress';
+import ExternalAccountKeys from './ExternalAccountKeys';
+import GeneralDetails from './GeneralDetails';
 
-function AccountDetails({details}) {
+function AccountDetails({details, statusNames, tierNames}) {
 	return (
 		<ClayList>
-			<ClayList.Header>
-				{Liferay.Language.get('general-details')}
-			</ClayList.Header>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('account-name')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit fieldName="name">{details.name}</InlineEdit>
-					</div>
-				</div>
-
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('status')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						<span className={`label ${details.statusStyle}`}>
-							{details.status}
-						</span>
-					</ClayList.ItemText>
-				</div>
-			</ClayList.Item>
-
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('code')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit fieldName="code">{details.code}</InlineEdit>
-					</div>
-				</div>
-
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('created')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>{details.dateCreated}</ClayList.ItemText>
-				</div>
-			</ClayList.Item>
-
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('tier')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit fieldName="tier">{details.tier}</InlineEdit>
-					</div>
-				</div>
-
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('last-modified')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						{details.dateModified}
-					</ClayList.ItemText>
-				</div>
-			</ClayList.Item>
-
-			<ClayList.Header>
-				{Liferay.Language.get('partner-info')}
-			</ClayList.Header>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('partner-reseller-si')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						{details.partnerTeamName}
-					</ClayList.ItemText>
-				</div>
-
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('first-line-support')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						{details.firstLineSupportTeamName}
-					</ClayList.ItemText>
-				</div>
-			</ClayList.Item>
+			<GeneralDetails
+				details={details}
+				statuses={statusNames}
+				tiers={tierNames}
+			/>
 
 			<AccountAddress
 				addresses={details.postalAddressDisplays}
 				addURL={details.addPostalAddressURL}
 			/>
 
-			<ClayList.Header>
-				{Liferay.Language.get('external-account-keys')}
-			</ClayList.Header>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('dossiera-account')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit>{details.dossieraAccountKey}</InlineEdit>
-					</div>
-				</div>
-
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('dossiera-project')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit>{details.dossieraProjectKey}</InlineEdit>
-					</div>
-				</div>
-			</ClayList.Item>
-
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('salesforce-project')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit>{details.salesforceProjectKey}</InlineEdit>
-					</div>
-				</div>
-			</ClayList.Item>
+			<ExternalAccountKeys details={details} />
 		</ClayList>
 	);
 }

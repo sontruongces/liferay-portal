@@ -45,7 +45,8 @@ function AccountAddress({addURL, addresses}) {
 								{address.streetAddressLine1}
 							</ClayList.ItemText>
 						</div>
-
+					</ClayList.Item>
+					<ClayList.Item flex>
 						<div className="account-field">
 							<ClayList.ItemTitle>
 								{Liferay.Language.get('city')}
@@ -64,7 +65,8 @@ function AccountAddress({addURL, addresses}) {
 								{address.streetAddressLine2}
 							</ClayList.ItemText>
 						</div>
-
+					</ClayList.Item>
+					<ClayList.Item flex>
 						<div className="account-field">
 							<ClayList.ItemTitle>
 								{Liferay.Language.get('state-province')}
@@ -83,7 +85,8 @@ function AccountAddress({addURL, addresses}) {
 								{address.streetAddressLine3}
 							</ClayList.ItemText>
 						</div>
-
+					</ClayList.Item>
+					<ClayList.Item flex>
 						<div className="account-field">
 							<ClayList.ItemTitle>
 								{Liferay.Language.get('postal-code')}
