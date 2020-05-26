@@ -6438,6 +6438,9 @@ go</echo>
 									</else>
 								</if>
 							</then>
+							<else>
+								<delete dir="${test.app.server.liferay.home}/data/elasticsearch6" />
+							</else>
 						</if>
 					</then>
 				</if>
