@@ -69,6 +69,11 @@ public interface AccountWebService {
 			String teamKey, String[] teamRoleKeys)
 		throws Exception;
 
+	public void unassignWorkerContact(
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress)
+		throws Exception;
+
 	public Account updateAccount(
 			String agentName, String agentUID, String accountKey,
 			Account account)

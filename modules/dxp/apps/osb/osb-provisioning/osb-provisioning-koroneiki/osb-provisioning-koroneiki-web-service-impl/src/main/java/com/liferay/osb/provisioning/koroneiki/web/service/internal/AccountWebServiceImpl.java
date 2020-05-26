@@ -165,6 +165,16 @@ public class AccountWebServiceImpl
 			agentName, agentUID, accountKey, teamKey, teamRoleKeys);
 	}
 
+	public void unassignWorkerContact(
+			String agentName, String agentUID, String accountKey,
+			String contactEmailAddress)
+		throws Exception {
+
+		_accountResource.deleteAccountWorkerContactByEmailAddres(
+			agentName, agentUID, accountKey,
+			new String[] {contactEmailAddress});
+	}
+
 	public Account updateAccount(
 			String agentName, String agentUID, String accountKey,
 			Account account)

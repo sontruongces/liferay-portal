@@ -38,11 +38,11 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + ProvisioningPortletKeys.ACCOUNTS,
-		"mvc.command.name=/accounts/unassign_account_customer_contact"
+		"mvc.command.name=/accounts/unassign_account_worker_contact"
 	},
 	service = MVCActionCommand.class
 )
-public class UnassignAccountCustomerContactMVCActionCommand
+public class UnassignAccountWorkerContactMVCActionCommand
 	extends BaseMVCActionCommand {
 
 	@Override
@@ -62,7 +62,7 @@ public class UnassignAccountCustomerContactMVCActionCommand
 			String emailAddress = ParamUtil.getString(
 				actionRequest, "emailAddress");
 
-			_accountWebService.unassignCustomerContact(
+			_accountWebService.unassignWorkerContact(
 				user.getFullName(), StringPool.BLANK, accountKey, emailAddress);
 
 			sendRedirect(actionRequest, actionResponse);
@@ -75,7 +75,7 @@ public class UnassignAccountCustomerContactMVCActionCommand
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		UnassignAccountCustomerContactMVCActionCommand.class);
+		UnassignAccountWorkerContactMVCActionCommand.class);
 
 	@Reference
 	private AccountWebService _accountWebService;

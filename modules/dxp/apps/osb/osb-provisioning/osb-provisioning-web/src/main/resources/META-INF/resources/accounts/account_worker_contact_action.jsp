@@ -44,14 +44,15 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 		url="<%= editURL %>"
 	/>
 
-	<portlet:actionURL name="/accounts/unassign_contact" var="unassignURL">
+	<portlet:actionURL name="/accounts/unassign_account_worker_contact" var="unassignURL">
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
-		<portlet:param name="contactKey" value="<%= contactDisplay.getKey() %>" />
+		<portlet:param name="emailAddress" value="<%= contactDisplay.getEmailAddress() %>" />
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete
 		confirmation="are-you-sure-you-want-to-unassign-this-contact"
+		message="unassign"
 		url="<%= unassignURL %>"
 	/>
 </liferay-ui:icon-menu>

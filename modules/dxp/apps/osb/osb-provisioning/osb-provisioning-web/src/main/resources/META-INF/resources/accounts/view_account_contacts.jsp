@@ -65,7 +65,8 @@ ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = Provisioni
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-jsp
-				path="/accounts/contact_action.jsp"
+				align="right"
+				path="/accounts/account_customer_contact_action.jsp"
 			/>
 		</liferay-ui:search-container-row>
 

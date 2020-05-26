@@ -47,7 +47,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "assign-liferay-worker"));
 
 	<aui:input name="emailAddress" />
 
-	<aui:select multiple="<%= true %>" label="roles" name="addContactRoleKeys">
+	<aui:select label="roles" multiple="<%= true %>" name="addContactRoleKeys">
 
 		<%
 		List<ContactRole> contactRoles = viewAccountLiferayWorkersDisplayContext.getContactRoles();

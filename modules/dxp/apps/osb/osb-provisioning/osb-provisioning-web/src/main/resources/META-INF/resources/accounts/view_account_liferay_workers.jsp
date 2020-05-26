@@ -65,7 +65,8 @@ ViewAccountLiferayWorkersDisplayContext viewAccountLiferayWorkersDisplayContext 
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-jsp
-				path="/accounts/contact_action.jsp"
+				align="right"
+				path="/accounts/account_worker_contact_action.jsp"
 			/>
 		</liferay-ui:search-container-row>
 
