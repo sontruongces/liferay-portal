@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Dynamic Data Lists Service
 Bundle-SymbolicName: com.liferay.dynamic.data.lists.service
-Bundle-Version: 3.0.41
+Bundle-Version: 3.0.42
 Import-Package:\
 	!org.apache.commons.collections4.*,\
 	!org.apache.poi.hssf.usermodel.*,\
