@@ -21,6 +21,8 @@ import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductPurchas
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,18 +56,25 @@ public class ProductPurchaseViewWebServiceImpl
 			String sortString)
 		throws Exception {
 
-		Page<ProductPurchaseView> productPurchaseViewsPage =
-			_productPurchaseViewResource.getProductPurchaseViewsPage(
-				search, filterString, Pagination.of(page, pageSize),
-				sortString);
+		try {
+			Page<ProductPurchaseView> productPurchaseViewsPage =
+				_productPurchaseViewResource.getProductPurchaseViewsPage(
+					search, filterString, Pagination.of(page, pageSize),
+					sortString);
 
-		if ((productPurchaseViewsPage != null) &&
-			(productPurchaseViewsPage.getItems() != null)) {
+			if ((productPurchaseViewsPage != null) &&
+				(productPurchaseViewsPage.getItems() != null)) {
 
-			return new ArrayList<>(productPurchaseViewsPage.getItems());
+				return new ArrayList<>(productPurchaseViewsPage.getItems());
+			}
+
+			return Collections.emptyList();
 		}
+		catch (Exception exception) {
+			_log.error(exception);
 
-		return Collections.emptyList();
+			return Collections.emptyList();
+		}
 	}
 
 	public long getProductPurchaseViewsCount(
@@ -73,16 +82,23 @@ public class ProductPurchaseViewWebServiceImpl
 			String sortString)
 		throws Exception {
 
-		Page<ProductPurchaseView> productPurchaseViewsPage =
-			_productPurchaseViewResource.getProductPurchaseViewsPage(
-				search, filterString, Pagination.of(page, pageSize),
-				sortString);
+		try {
+			Page<ProductPurchaseView> productPurchaseViewsPage =
+				_productPurchaseViewResource.getProductPurchaseViewsPage(
+					search, filterString, Pagination.of(page, pageSize),
+					sortString);
 
-		if (productPurchaseViewsPage != null) {
-			return productPurchaseViewsPage.getTotalCount();
+			if (productPurchaseViewsPage != null) {
+				return productPurchaseViewsPage.getTotalCount();
+			}
+
+			return 0;
 		}
+		catch (Exception exception) {
+			_log.error(exception);
 
-		return 0;
+			return 0;
+		}
 	}
 
 	@Activate
@@ -101,6 +117,9 @@ public class ProductPurchaseViewWebServiceImpl
 			"API_Token", koroneikiConfiguration.apiToken()
 		).build();
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		ProductPurchaseViewWebServiceImpl.class);
 
 	private ProductPurchaseViewResource _productPurchaseViewResource;
 
