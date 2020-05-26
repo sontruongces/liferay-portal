@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.search.document.Document;
 import com.liferay.portal.search.engine.adapter.search.SearchRequestExecutor;
@@ -413,9 +414,8 @@ public class WorkflowMetricsSLAProcessor {
 						elapsedTime <=
 							workflowMetricsSLADefinitionVersion.getDuration());
 
-					long remainingTime =
-						workflowMetricsSLADefinitionVersion.getDuration() -
-							elapsedTime;
+					long remainingTime = _getRemainingTime(
+						elapsedTime, workflowMetricsSLADefinitionVersion);
 
 					setOverdueLocalDateTime(
 						workflowMetricsSLACalendar.getOverdueLocalDateTime(
@@ -588,6 +588,16 @@ public class WorkflowMetricsSLAProcessor {
 		}
 
 		return localDateTime2;
+	}
+
+	private long _getRemainingTime(
+		long elapsedTime,
+		WorkflowMetricsSLADefinitionVersion
+			workflowMetricsSLADefinitionVersion) {
+
+		return Math.min(
+			9999 * Time.DAY,
+			workflowMetricsSLADefinitionVersion.getDuration() - elapsedTime);
 	}
 
 	private Map<Long, String> _getTimeMarkers(List<String> nodeKeys) {
