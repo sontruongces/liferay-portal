@@ -27,14 +27,14 @@ ViewAccountLiferayWorkersDisplayContext viewAccountLiferayWorkersDisplayContext 
 	>
 		<clay:management-toolbar
 			clearResultsURL="<%= viewAccountLiferayWorkersDisplayContext.getClearResultsURL() %>"
+			creationMenu="<%= viewAccountLiferayWorkersDisplayContext.getCreationMenu() %>"
 			filterDropdownItems="<%= viewAccountLiferayWorkersDisplayContext.getFilterDropdownItems() %>"
 			filterLabelItems="<%= viewAccountLiferayWorkersDisplayContext.getFilterLabelItems() %>"
 			itemsTotal="<%= searchContainer.getTotal() %>"
 			searchActionURL="<%= viewAccountLiferayWorkersDisplayContext.getCurrentURL() %>"
 			searchContainerId="liferay-workers"
-			selectable="<%= true %>"
+			selectable="<%= false %>"
 			showSearch="<%= true %>"
-			supportsBulkActions="<%= true %>"
 		/>
 
 		<liferay-ui:search-container-row

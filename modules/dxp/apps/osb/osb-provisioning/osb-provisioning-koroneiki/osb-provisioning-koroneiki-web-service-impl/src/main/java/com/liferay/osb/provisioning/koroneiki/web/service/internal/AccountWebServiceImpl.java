@@ -43,7 +43,8 @@ import org.osgi.service.component.annotations.Component;
 	configurationPid = "com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration",
 	immediate = true, service = AccountWebService.class
 )
-public class AccountWebServiceImpl implements AccountWebService {
+public class AccountWebServiceImpl
+	extends BaseWebService implements AccountWebService {
 
 	public Account addAccount(
 			String agentName, String agentUID, Account account)
@@ -57,9 +58,13 @@ public class AccountWebServiceImpl implements AccountWebService {
 			String contactEmailAddress, String[] contactRoleKeys)
 		throws Exception {
 
-		_accountResource.putAccountContactByEmailAddresContactEmailAddressRole(
-			agentName, agentUID, accountKey, contactEmailAddress,
-			contactRoleKeys);
+		HttpInvoker.HttpResponse httpResponse =
+			_accountResource.
+				putAccountContactByEmailAddresContactEmailAddressRoleHttpResponse(
+					agentName, agentUID, accountKey, contactEmailAddress,
+					contactRoleKeys);
+
+		validateResponse(httpResponse);
 	}
 
 	public void assignTeamRoles(

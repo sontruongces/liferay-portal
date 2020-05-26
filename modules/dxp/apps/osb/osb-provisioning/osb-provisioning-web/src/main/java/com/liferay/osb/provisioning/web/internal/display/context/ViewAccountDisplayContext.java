@@ -165,18 +165,6 @@ public class ViewAccountDisplayContext {
 		return addExternalLinkURL.toString();
 	}
 
-	public String getAssignAccountContactRolesURL() {
-		PortletURL assignAccountContactRolesURL =
-			renderResponse.createActionURL();
-
-		assignAccountContactRolesURL.setParameter(
-			ActionRequest.ACTION_NAME, "/assign_account_contact_roles");
-		assignAccountContactRolesURL.setParameter(
-			"accountKey", account.getKey());
-
-		return assignAccountContactRolesURL.toString();
-	}
-
 	public List<AuditEntryDisplay> getAuditEntryDisplays() throws Exception {
 		return TransformUtil.transform(
 			auditEntryWebService.getAccountAuditEntries(
@@ -666,7 +654,10 @@ public class ViewAccountDisplayContext {
 				add(
 					dropdownItem -> {
 						dropdownItem.setHref(
-							"javascript:openAddLiferayWorkersModal()");
+							renderResponse.createRenderURL(),
+							"mvcRenderCommandName",
+							"/accounts/assign_liferay_workers", "redirect",
+							getCurrentURL(), "accountKey", account.getKey());
 						dropdownItem.setLabel(
 							LanguageUtil.get(
 								httpServletRequest, "liferay-workers"));

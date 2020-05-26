@@ -14,6 +14,7 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItem;
@@ -42,6 +43,30 @@ public class ViewAccountLiferayWorkersDisplayContext
 	extends ViewAccountDisplayContext {
 
 	public ViewAccountLiferayWorkersDisplayContext() {
+	}
+
+	public List<ContactRole> getContactRoles() throws Exception {
+		return contactRoleWebService.search(
+			"type eq '" + ContactRole.Type.ACCOUNT_WORKER.toString() + "'", 1,
+			1000, "name");
+	}
+
+	public CreationMenu getCreationMenu() {
+		return new CreationMenu() {
+			{
+				addDropdownItem(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							renderResponse.createRenderURL(),
+							"mvcRenderCommandName",
+							"/accounts/assign_liferay_workers", "redirect",
+							getCurrentURL(), "accountKey", account.getKey());
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "assign-liferay-worker"));
+					});
+			}
+		};
 	}
 
 	public List<DropdownItem> getFilterDropdownItems() throws Exception {

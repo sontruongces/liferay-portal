@@ -16,11 +16,13 @@ package com.liferay.osb.provisioning.web.internal.portlet.action;
 
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -39,7 +41,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + ProvisioningPortletKeys.ACCOUNTS,
-		"mvc.command.name=/assign_account_contact_roles"
+		"mvc.command.name=/accounts/assign_contact_roles"
 	},
 	service = MVCActionCommand.class
 )
@@ -80,6 +82,10 @@ public class AssignAccountContactRolesMVCActionCommand
 			}
 
 			sendRedirect(actionRequest, actionResponse);
+		}
+		catch (HttpException httpException) {
+			SessionErrors.add(
+				actionRequest, httpException.getClass(), httpException);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
