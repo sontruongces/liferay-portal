@@ -111,6 +111,7 @@ List<SiteNavigationMenu> autoSiteNavigationMenus = layoutsAdminDisplayContext.ge
 		formData.append('p_auth', Liferay.authToken);
 
 		formActionURL = new URL(form.action);
+
 		formActionURL.searchParams.delete('p_auth');
 
 		form.action = formActionURL;
