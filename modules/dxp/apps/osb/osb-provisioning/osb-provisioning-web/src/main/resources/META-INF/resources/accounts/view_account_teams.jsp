@@ -48,7 +48,7 @@ ViewAccountTeamsDisplayContext viewAccountTeamsDisplayContext = ProvisioningWebC
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
-				name="team"
+				name="name-users"
 			>
 				<%= teamDisplay.getName() %>
 

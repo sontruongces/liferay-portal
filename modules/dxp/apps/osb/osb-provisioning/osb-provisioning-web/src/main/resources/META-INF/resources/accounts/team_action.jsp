@@ -28,21 +28,12 @@ TeamDisplay teamDisplay = (TeamDisplay)row.getObject();
 		icon="<%= StringPool.BLANK %>"
 		markupView="lexicon"
 		message="<%= StringPool.BLANK %>"
-		showWhenSingleIcon="<%= true %>"
 	>
-		<portlet:renderURL var="editURL">
-			<portlet:param name="mvcRenderCommandName" value="/accounts/edit_team" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
-		</portlet:renderURL>
-
-		<liferay-ui:icon
-			message="edit"
-			url="<%= editURL %>"
-		/>
-
 		<liferay-ui:icon-delete
 			confirmation="are-you-sure-you-want-to-delete-this-team"
+			icon="trash"
+			label="<%= false %>"
+			showIcon="<%= true %>"
 			url="<%= teamDisplay.getDeleteTeamURL() %>"
 		/>
 	</liferay-ui:icon-menu>

@@ -77,6 +77,10 @@
 	border-radius: $border-radius;
 	margin: $spacing-default;
 
+	.container-fluid-form {
+		margin-top: $spacing-sm;
+	}
+
 	.list-group,
 	.sheet {
 		margin-bottom: 0;
@@ -109,11 +113,22 @@
 		}
 	}
 
-	.table-list thead:first-child {
+	.table-list {
 		td,
 		th {
-			box-shadow: none;
+			box-shadow: inset 0 0.0625rem $secondary-l3;
 		}
+
+		thead:first-child {
+			td,
+			th {
+				box-shadow: none;
+			}
+		}
+	}
+
+	a.taglib-icon {
+		color: $secondary;
 	}
 }
 

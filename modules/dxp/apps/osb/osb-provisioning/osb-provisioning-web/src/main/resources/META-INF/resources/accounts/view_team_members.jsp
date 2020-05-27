@@ -22,11 +22,13 @@ ViewTeamDisplayContext viewTeamDisplayContext = ProvisioningWebComponentProvider
 PortletURL searchURL = viewTeamDisplayContext.getPortletURL();
 %>
 
-<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
-	<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
+<div class="container-fluid container-fluid-form">
+	<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
+		<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
 
-	<aui:input label="" name="keywords" placeholder="search" />
-</aui:form>
+		<aui:input label="" name="keywords" placeholder="search" />
+	</aui:form>
+</div>
 
 <liferay-ui:search-container
 	searchContainer="<%= viewTeamDisplayContext.getContactsSearchContainer() %>"
@@ -49,7 +51,7 @@ PortletURL searchURL = viewTeamDisplayContext.getPortletURL();
 		<liferay-ui:search-container-column-text
 			name="status"
 		>
-			<span class="label"><%= contactDisplay.getStatus() %></span>
+			<span class="label <%= contactDisplay.getStatusStyle() %>"><%= contactDisplay.getStatus() %></span>
 		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-jsp

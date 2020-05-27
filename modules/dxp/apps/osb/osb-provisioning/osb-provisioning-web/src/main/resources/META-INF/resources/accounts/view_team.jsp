@@ -26,19 +26,21 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 
 <liferay-util:include page="/accounts/view_team_header.jsp" servletContext="<%= application %>" />
 
-<div class="team" id="team">
-	<div class="team-details">
+<div class="account team" id="team">
+	<div class="account-content team-details">
 		<liferay-ui:tabs
-			names="members,details"
+			names="team-members,details"
 			portletURL="<%= viewTeamDisplayContext.getPortletURL() %>"
 		/>
 
 		<c:choose>
 			<c:when test='<%= tabs1.equals("details") %>'>
-				<liferay-util:include page="/accounts/view_team_details.jsp" servletContext="<%= application %>" />
+				<div class="details-table">
+					<liferay-util:include page="/accounts/view_team_details.jsp" servletContext="<%= application %>" />
+				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="member-details" id="memberDetails">
+				<div class="details-table member-details" id="memberDetails">
 					<liferay-util:include page="/accounts/view_team_members.jsp" servletContext="<%= application %>" />
 				</div>
 			</c:otherwise>
