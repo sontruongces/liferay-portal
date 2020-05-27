@@ -10,7 +10,6 @@
 	{@param? _handleAutocompleteFieldBlurred: any}
 	{@param? _handleAutocompleteFieldChanged: any}
 	{@param? _handleAutocompleteFilteredItemsChanged: any}
-	{@param? _value: string}
 	{@param? autocompleteEnabled: bool}
 	{@param? displayErrors: bool}
 	{@param? displayStyle: string}
@@ -28,6 +27,7 @@
 	{@param? spritemap: string}
 	{@param? tip: string}
 	{@param? tooltip: string}
+	{@param? value: string}
 	{@param? valid: bool}
 	{@param? visible: bool}
 
@@ -51,7 +51,7 @@
 				{param placeholder: $placeholder /}
 				{param predefinedValue: $predefinedValue /}
 				{param readOnly: $readOnly /}
-				{param value: $_value /}
+				{param value: $value /}
 			{/call}
 		{/param}
 		{param displayErrors: $displayErrors /}
