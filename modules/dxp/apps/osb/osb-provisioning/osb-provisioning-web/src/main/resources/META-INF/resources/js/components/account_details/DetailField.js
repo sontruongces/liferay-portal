@@ -15,20 +15,35 @@ import React from 'react';
 
 import InlineEdit from '../InlineEdit';
 
-function DetailField({children, editable = true, name, save, type = 'input'}) {
+function DetailField({
+	children,
+	displayAs,
+	inputStyle,
+	name,
+	options,
+	save,
+	type = 'text'
+}) {
 	return (
 		<ClayList.Item flex>
 			<div className="account-field">
 				<ClayList.ItemTitle>{name}</ClayList.ItemTitle>
 
 				<div className="list-group-text">
-					{editable && (
-						<InlineEdit fieldName="name" save={save} type={type}>
+					{type === 'noneditable' ? (
+						<>{children}</>
+					) : (
+						<InlineEdit
+							displayAs={displayAs}
+							fieldName="name"
+							inputStyle={inputStyle}
+							options={options}
+							save={save}
+							type={type}
+						>
 							{children}
 						</InlineEdit>
 					)}
-
-					{!editable && <>{children}</>}
 				</div>
 			</div>
 		</ClayList.Item>
@@ -36,11 +51,19 @@ function DetailField({children, editable = true, name, save, type = 'input'}) {
 }
 
 DetailField.propTypes = {
-	children: PropTypes.node,
-	editable: PropTypes.bool,
+	children: PropTypes.string,
+	displayAs: PropTypes.oneOf(['label', 'text']),
+	inputStyle: PropTypes.string,
 	name: PropTypes.string,
+	options: PropTypes.arrayOf(PropTypes.string),
 	save: PropTypes.func,
-	type: PropTypes.oneOf(['external', 'input', 'radio', 'select'])
+	type: PropTypes.oneOf([
+		'external',
+		'noneditable',
+		'select',
+		'text',
+		'toggle'
+	])
 };
 
 export default DetailField;

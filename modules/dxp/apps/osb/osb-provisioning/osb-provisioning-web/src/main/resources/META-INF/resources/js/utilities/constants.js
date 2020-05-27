@@ -31,3 +31,5 @@ export const ADD_NOTE = 'addNote';
 export const ARCHIVE_NOTE = 'archiveNote';
 export const EDIT_NOTE = 'editNote';
 export const PIN_NOTE = 'pinNote';
+
+

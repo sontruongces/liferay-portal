@@ -54,7 +54,7 @@ describe('DetailField', () => {
 	});
 
 	it('allows inline edit to be turned off', () => {
-		const {container} = renderDetailField({editable: false});
+		const {container} = renderDetailField({type: 'noneditable'});
 		const {queryByText} = within(container);
 
 		fireEvent.click(queryByText('test'));

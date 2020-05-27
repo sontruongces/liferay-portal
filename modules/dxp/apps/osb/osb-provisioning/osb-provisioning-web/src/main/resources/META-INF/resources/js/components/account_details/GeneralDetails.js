@@ -17,7 +17,7 @@ import {convertDashToEmptyString} from '../../utilities/helpers';
 import HiddenFields from '../HiddenFields';
 import DetailField from './DetailField';
 
-function GeneralDetails({details}) {
+function GeneralDetails({details, statuses, tiers}) {
 	const refForm = useRef();
 
 	const initialDetails = {
@@ -62,13 +62,14 @@ function GeneralDetails({details}) {
 				</DetailField>
 
 				<DetailField
+					displayAs="label"
+					inputStyle={details.statusStyle}
 					name={Liferay.Language.get('status')}
+					options={statuses}
 					save={handleSubmit}
 					type="select"
 				>
-					<span className={`label ${details.statusStyle}`}>
-						{details.status}
-					</span>
+					{details.status}
 				</DetailField>
 
 				<DetailField
@@ -79,15 +80,16 @@ function GeneralDetails({details}) {
 				</DetailField>
 
 				<DetailField
-					editable={false}
 					name={Liferay.Language.get('created')}
 					save={handleSubmit}
+					type="noneditable"
 				>
 					{details.dateCreated}
 				</DetailField>
 
 				<DetailField
 					name={Liferay.Language.get('tier')}
+					options={tiers}
 					save={handleSubmit}
 					type="select"
 				>
@@ -95,9 +97,9 @@ function GeneralDetails({details}) {
 				</DetailField>
 
 				<DetailField
-					editable={false}
 					name={Liferay.Language.get('last-modified')}
 					save={handleSubmit}
+					type="noneditable"
 				>
 					{details.dateModified}
 				</DetailField>
@@ -109,6 +111,7 @@ function GeneralDetails({details}) {
 				<DetailField
 					name={Liferay.Language.get('partner-reseller-si')}
 					save={handleSubmit}
+					type="external"
 				>
 					{details.partnerTeamName}
 				</DetailField>
@@ -116,6 +119,7 @@ function GeneralDetails({details}) {
 				<DetailField
 					name={Liferay.Language.get('first-line-support')}
 					save={handleSubmit}
+					type="toggle"
 				>
 					{details.firstLineSupportTeamName}
 				</DetailField>

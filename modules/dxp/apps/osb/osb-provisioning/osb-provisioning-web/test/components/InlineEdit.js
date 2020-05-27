@@ -16,9 +16,9 @@ import InlineEdit from '../../src/main/resources/META-INF/resources/js/component
 
 const mockSubmitFn = jest.fn();
 
-function renderInlineEdit() {
+function renderInlineEdit(props) {
 	return render(
-		<InlineEdit fieldName="field1" save={mockSubmitFn}>
+		<InlineEdit fieldName="field1" save={mockSubmitFn} {...props}>
 			test
 		</InlineEdit>
 	);
@@ -96,5 +96,40 @@ describe('IconButton', () => {
 		fireEvent.click(getByText('save'));
 
 		expect(mockSubmitFn).toHaveBeenCalled();
+	});
+
+	it('displays an editable text input correctly', () => {
+		const {container} = renderInlineEdit();
+		const {getByText} = within(container);
+
+		fireEvent.click(getByText('test'));
+
+		expect(container.querySelector('input')['type']).toBe('text');
+	});
+
+	it('displays an editable select input correctly', () => {
+		const {container} = renderInlineEdit({
+			options: ['1', '2', '3', 'test'],
+			type: 'select'
+		});
+		const {getByText, getNodeText} = within(container);
+
+		fireEvent.click(getByText('test'));
+
+		const select = container.querySelector('select');
+
+		expect(select).toBeTruthy();
+		getByText('1');
+		getByText('2');
+		getByText('3');
+	});
+
+	it('displays an editable toggle correctly', () => {
+		const {container} = renderInlineEdit({type: 'toggle'});
+		const {getByText} = within(container);
+
+		fireEvent.click(getByText('test'));
+
+		expect(container.querySelector('input')['type']).toBe('checkbox');
 	});
 });

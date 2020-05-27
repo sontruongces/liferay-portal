@@ -13,8 +13,17 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import {NAMESPACE} from '../utilities/constants';
+import {convertDashToEmptyString} from '../utilities/helpers';
 
-function InlineEdit({children, fieldName, save}) {
+function InlineEdit({
+	children,
+	displayAs = 'text',
+	fieldName,
+	inputStyle = '',
+	options = [],
+	save,
+	type = 'text'
+}) {
 	const [fieldEditable, setFieldEditable] = useState(false);
 	const [showEditor, setShowEditor] = useState(false);
 	const [value, setValue] = useState(children);
@@ -25,6 +34,14 @@ function InlineEdit({children, fieldName, save}) {
 		setFieldEditable(false);
 		setShowEditor(false);
 		setValue(children);
+	}
+
+	function handleChange(event) {
+		setValue(event.currentTarget.value);
+	}
+
+	function handleToggle() {
+		setValue(!convertDashToEmptyString(value));
 	}
 
 	function handleSubmit() {
@@ -54,6 +71,8 @@ function InlineEdit({children, fieldName, save}) {
 								</svg>
 							</div>
 						</div>
+					) : displayAs === 'label' ? (
+						<Label inputStyle={inputStyle} value={value} />
 					) : (
 						value
 					)}
@@ -62,19 +81,61 @@ function InlineEdit({children, fieldName, save}) {
 
 			{showEditor && (
 				<>
-					<label
-						className="form-control-label"
-						htmlFor={namespacedFieldName}
-					>
-						<input
-							className="form-control"
-							id={namespacedFieldName}
-							onChange={event =>
-								setValue(event.currentTarget.value)
-							}
-							value={value}
-						/>
-					</label>
+					{type === 'select' && (
+						<label
+							className="form-control-label"
+							htmlFor={namespacedFieldName}
+						>
+							<select
+								className="form-control"
+								id={namespacedFieldName}
+								onChange={handleChange}
+								value={value}
+							>
+								{options.map((option, index) => (
+									<option key={index}>{option}</option>
+								))}
+							</select>
+						</label>
+					)}
+
+					{type === 'text' && (
+						<label
+							className="form-control-label"
+							htmlFor={namespacedFieldName}
+						>
+							<input
+								className="form-control"
+								id={namespacedFieldName}
+								onChange={handleChange}
+								type="text"
+								value={value}
+							/>
+						</label>
+					)}
+
+					{type === 'toggle' && (
+						<label
+							className="simple-toggle-switch toggle-switch"
+							htmlFor={namespacedFieldName}
+						>
+							<span className="toggle-switch-check-bar">
+								<input
+									className="toggle-switch-check"
+									id={namespacedFieldName}
+									onChange={handleToggle}
+									type="checkbox"
+									value={value}
+								/>
+								<span
+									aria-hidden="true"
+									className="toggle-switch-bar"
+								>
+									<span className="toggle-switch-handle"></span>
+								</span>
+							</span>
+						</label>
+					)}
 
 					<div className="button-row">
 						<button
@@ -101,10 +162,18 @@ function InlineEdit({children, fieldName, save}) {
 	);
 }
 
+function Label({inputStyle, value}) {
+	return <span className={`label ${inputStyle}`}>{value}</span>;
+}
+
 InlineEdit.propTypes = {
-	children: PropTypes.node,
+	children: PropTypes.string,
+	displayAs: PropTypes.oneOf(['label', 'text']),
 	fieldName: PropTypes.string,
-	save: PropTypes.func
+	inputStyle: PropTypes.string,
+	options: PropTypes.arrayOf(PropTypes.string),
+	save: PropTypes.func.isRequired,
+	type: PropTypes.oneOf(['external', 'select', 'text', 'toggle'])
 };
 
 export default InlineEdit;
