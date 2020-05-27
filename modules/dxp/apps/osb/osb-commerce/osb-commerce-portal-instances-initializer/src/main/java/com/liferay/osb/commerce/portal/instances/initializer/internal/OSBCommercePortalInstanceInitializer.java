@@ -91,7 +91,7 @@ public class OSBCommercePortalInstanceInitializer
 
 			_addOSBCommerceAdministratorRole(company.getCompanyId());
 
-			long osbCommerceSiteGroupId = _addOSBCommerceSite(
+			long osbCommerceSiteGroupId = _addOSBCommerceSiteGroup(
 				company.getCompanyId());
 
 			_initializeOSBCommerceSite(
@@ -149,7 +149,7 @@ public class OSBCommercePortalInstanceInitializer
 		}
 	}
 
-	private long _addOSBCommerceSite(long companyId) throws Exception {
+	private long _addOSBCommerceSiteGroup(long companyId) throws Exception {
 		Map<Locale, String> nameMap = new HashMap<>();
 
 		nameMap.put(LocaleUtil.getDefault(), "OSB Commerce");
