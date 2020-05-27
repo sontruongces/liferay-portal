@@ -14,8 +14,14 @@ import React from 'react';
 
 import InlineEdit from '../../src/main/resources/META-INF/resources/js/components/InlineEdit';
 
+const mockSubmitFn = jest.fn();
+
 function renderInlineEdit() {
-	return render(<InlineEdit>test</InlineEdit>);
+	return render(
+		<InlineEdit fieldName="field1" submit={mockSubmitFn}>
+			test
+		</InlineEdit>
+	);
 }
 
 describe('IconButton', () => {
@@ -80,5 +86,15 @@ describe('IconButton', () => {
 		fireEvent.click(getByText('cancel'));
 
 		expect(queryByLabelText('edit-field-icon')).toBeFalsy();
+	});
+
+	it('calls the provided submit function', () => {
+		const {container} = renderInlineEdit();
+		const {getByText} = within(container);
+
+		fireEvent.click(getByText('test'));
+		fireEvent.click(getByText('save'));
+
+		expect(mockSubmitFn).toHaveBeenCalled();
 	});
 });

@@ -11,13 +11,52 @@
 
 import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
+import HiddenFields from '../HiddenFields';
 import InlineEdit from '../InlineEdit';
 
 function GeneralDetails({details}) {
+	const refForm = useRef();
+
+	const initialDetails = {
+		code: convertDashToEmptyString(details.code),
+		name: convertDashToEmptyString(details.name),
+		region: convertDashToEmptyString(details.region),
+		status: convertDashToEmptyString(details.status),
+		tier: convertDashToEmptyString(details.tier),
+		updateAccount: true
+	};
+
+	const [accountDetails, setAccountDetails] = useState(initialDetails);
+
+	useEffect(() => {
+		if (!Object.is(initialDetails, accountDetails)) {
+			refForm.current.submit();
+		}
+	}, [accountDetails, initialDetails]);
+
+	function convertDashToEmptyString(value) {
+		return value === '-' ? '' : value;
+	}
+
+	function handleSubmit(fieldName, value) {
+		setAccountDetails({...initialDetails, [fieldName]: value});
+	}
+
 	return (
 		<>
+			<li className="d-none">
+				<form
+					action={details.editAccountURL}
+					method="post"
+					name="generalDetailsForm"
+					ref={refForm}
+				>
+					<HiddenFields data={accountDetails} />;
+				</form>
+			</li>
+
 			<ClayList.Header>
 				{Liferay.Language.get('general-details')}
 			</ClayList.Header>
@@ -28,7 +67,9 @@ function GeneralDetails({details}) {
 					</ClayList.ItemTitle>
 
 					<div className="list-group-text">
-						<InlineEdit fieldName="name">{details.name}</InlineEdit>
+						<InlineEdit fieldName="name" submit={handleSubmit}>
+							{details.name}
+						</InlineEdit>
 					</div>
 				</div>
 			</ClayList.Item>
@@ -51,7 +92,9 @@ function GeneralDetails({details}) {
 					</ClayList.ItemTitle>
 
 					<div className="list-group-text">
-						<InlineEdit fieldName="code">{details.code}</InlineEdit>
+						<InlineEdit fieldName="code" submit={handleSubmit}>
+							{details.code}
+						</InlineEdit>
 					</div>
 				</div>
 			</ClayList.Item>
@@ -70,7 +113,9 @@ function GeneralDetails({details}) {
 					</ClayList.ItemTitle>
 
 					<div className="list-group-text">
-						<InlineEdit fieldName="tier">{details.tier}</InlineEdit>
+						<InlineEdit fieldName="tier" submit={handleSubmit}>
+							{details.tier}
+						</InlineEdit>
 					</div>
 				</div>
 			</ClayList.Item>

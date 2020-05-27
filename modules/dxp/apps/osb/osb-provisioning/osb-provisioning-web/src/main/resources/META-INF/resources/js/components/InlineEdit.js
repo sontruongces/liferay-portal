@@ -28,7 +28,7 @@ function InlineEdit({children, fieldName, submit}) {
 	}
 
 	function handleSubmit() {
-		submit(namespacedFieldName, value);
+		submit(fieldName, value);
 	}
 
 	return (
@@ -69,7 +69,6 @@ function InlineEdit({children, fieldName, submit}) {
 						<input
 							className="form-control"
 							id={namespacedFieldName}
-							name={namespacedFieldName}
 							onChange={event =>
 								setValue(event.currentTarget.value)
 							}
