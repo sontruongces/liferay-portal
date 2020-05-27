@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 
 import HiddenFields from '../HiddenFields';
-import InlineEdit from '../InlineEdit';
+import DetailField from './DetailField';
 
 function GeneralDetails({details}) {
 	const refForm = useRef();
@@ -56,101 +56,72 @@ function GeneralDetails({details}) {
 				<ClayList.Header>
 					{Liferay.Language.get('general-details')}
 				</ClayList.Header>
-				<ClayList.Item flex>
-					<div className="account-field">
-						<ClayList.ItemTitle>
-							{Liferay.Language.get('account-name')}
-						</ClayList.ItemTitle>
 
-						<div className="list-group-text">
-							<InlineEdit fieldName="name" submit={handleSubmit}>
-								{details.name}
-							</InlineEdit>
-						</div>
-					</div>
-				</ClayList.Item>
-				<ClayList.Item flex>
-					<div className="account-field">
-						<ClayList.ItemTitle>
-							{Liferay.Language.get('status')}
-						</ClayList.ItemTitle>
-						<ClayList.ItemText>
-							<span className={`label ${details.statusStyle}`}>
-								{details.status}
-							</span>
-						</ClayList.ItemText>
-					</div>
-				</ClayList.Item>
-				<ClayList.Item flex>
-					<div className="account-field">
-						<ClayList.ItemTitle>
-							{Liferay.Language.get('code')}
-						</ClayList.ItemTitle>
+				<DetailField
+					name={Liferay.Language.get('account-name')}
+					save={handleSubmit}
+				>
+					{details.name}
+				</DetailField>
 
-						<div className="list-group-text">
-							<InlineEdit fieldName="code" submit={handleSubmit}>
-								{details.code}
-							</InlineEdit>
-						</div>
-					</div>
-				</ClayList.Item>
-				<ClayList.Item flex>
-					<div className="account-field">
-						<ClayList.ItemTitle>
-							{Liferay.Language.get('created')}
-						</ClayList.ItemTitle>
-						<ClayList.ItemText>
-							{details.dateCreated}
-						</ClayList.ItemText>
-					</div>
-				</ClayList.Item>
-				<ClayList.Item flex>
-					<div className="account-field">
-						<ClayList.ItemTitle>
-							{Liferay.Language.get('tier')}
-						</ClayList.ItemTitle>
+				<DetailField
+					name={Liferay.Language.get('status')}
+					save={handleSubmit}
+					type="select"
+				>
+					<span className={`label ${details.statusStyle}`}>
+						{details.status}
+					</span>
+				</DetailField>
 
-						<div className="list-group-text">
-							<InlineEdit fieldName="tier" submit={handleSubmit}>
-								{details.tier}
-							</InlineEdit>
-						</div>
-					</div>
-				</ClayList.Item>
-				<ClayList.Item flex>
-					<div className="account-field">
-						<ClayList.ItemTitle>
-							{Liferay.Language.get('last-modified')}
-						</ClayList.ItemTitle>
-						<ClayList.ItemText>
-							{details.dateModified}
-						</ClayList.ItemText>
-					</div>
-				</ClayList.Item>
+				<DetailField
+					name={Liferay.Language.get('code')}
+					save={handleSubmit}
+				>
+					{details.code}
+				</DetailField>
+
+				<DetailField
+					editable={false}
+					name={Liferay.Language.get('created')}
+					save={handleSubmit}
+				>
+					{details.dateCreated}
+				</DetailField>
+
+				<DetailField
+					name={Liferay.Language.get('tier')}
+					save={handleSubmit}
+					type="select"
+				>
+					{details.tier}
+				</DetailField>
+
+				<DetailField
+					editable={false}
+					name={Liferay.Language.get('last-modified')}
+					save={handleSubmit}
+				>
+					{details.dateModified}
+				</DetailField>
 
 				<ClayList.Header>
 					{Liferay.Language.get('partner-info')}
 				</ClayList.Header>
-				<ClayList.Item flex>
-					<div className="account-field">
-						<ClayList.ItemTitle>
-							{Liferay.Language.get('partner-reseller-si')}
-						</ClayList.ItemTitle>
-						<ClayList.ItemText>
-							{details.partnerTeamName}
-						</ClayList.ItemText>
-					</div>
-				</ClayList.Item>
-				<ClayList.Item flex>
-					<div className="account-field">
-						<ClayList.ItemTitle>
-							{Liferay.Language.get('first-line-support')}
-						</ClayList.ItemTitle>
-						<ClayList.ItemText>
-							{details.firstLineSupportTeamName}
-						</ClayList.ItemText>
-					</div>
-				</ClayList.Item>
+
+				<DetailField
+					name={Liferay.Language.get('partner-reseller-si')}
+					save={handleSubmit}
+				>
+					{details.partnerTeamName}
+				</DetailField>
+
+				<DetailField
+					name={Liferay.Language.get('first-line-support')}
+					save={handleSubmit}
+				>
+					{details.firstLineSupportTeamName}
+				</DetailField>
 			</ClayList>
 		</form>
 	);

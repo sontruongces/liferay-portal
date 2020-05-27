@@ -14,7 +14,7 @@ import React, {useState} from 'react';
 
 import {NAMESPACE} from '../utilities/constants';
 
-function InlineEdit({children, fieldName, submit}) {
+function InlineEdit({children, fieldName, save}) {
 	const [fieldEditable, setFieldEditable] = useState(false);
 	const [showEditor, setShowEditor] = useState(false);
 	const [value, setValue] = useState(children);
@@ -28,7 +28,7 @@ function InlineEdit({children, fieldName, submit}) {
 	}
 
 	function handleSubmit() {
-		submit(fieldName, value);
+		save(fieldName, value);
 	}
 
 	return (
@@ -102,9 +102,9 @@ function InlineEdit({children, fieldName, submit}) {
 }
 
 InlineEdit.propTypes = {
-	children: PropTypes.string,
+	children: PropTypes.node,
 	fieldName: PropTypes.string,
-	submit: PropTypes.func
+	save: PropTypes.func
 };
 
 export default InlineEdit;

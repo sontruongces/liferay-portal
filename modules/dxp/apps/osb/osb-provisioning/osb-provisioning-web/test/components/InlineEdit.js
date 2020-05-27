@@ -18,7 +18,7 @@ const mockSubmitFn = jest.fn();
 
 function renderInlineEdit() {
 	return render(
-		<InlineEdit fieldName="field1" submit={mockSubmitFn}>
+		<InlineEdit fieldName="field1" save={mockSubmitFn}>
 			test
 		</InlineEdit>
 	);
