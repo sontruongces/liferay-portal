@@ -45,115 +45,114 @@ function GeneralDetails({details}) {
 	}
 
 	return (
-		<>
-			<li className="d-none">
-				<form
-					action={details.editAccountURL}
-					method="post"
-					name="generalDetailsForm"
-					ref={refForm}
-				>
-					<HiddenFields data={accountDetails} />;
-				</form>
-			</li>
+		<form
+			action={details.editAccountURL}
+			method="post"
+			name="generalDetailsForm"
+			ref={refForm}
+		>
+			<HiddenFields data={accountDetails} />
+			<ClayList>
+				<ClayList.Header>
+					{Liferay.Language.get('general-details')}
+				</ClayList.Header>
+				<ClayList.Item flex>
+					<div className="account-field">
+						<ClayList.ItemTitle>
+							{Liferay.Language.get('account-name')}
+						</ClayList.ItemTitle>
 
-			<ClayList.Header>
-				{Liferay.Language.get('general-details')}
-			</ClayList.Header>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('account-name')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit fieldName="name" submit={handleSubmit}>
-							{details.name}
-						</InlineEdit>
+						<div className="list-group-text">
+							<InlineEdit fieldName="name" submit={handleSubmit}>
+								{details.name}
+							</InlineEdit>
+						</div>
 					</div>
-				</div>
-			</ClayList.Item>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('status')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						<span className={`label ${details.statusStyle}`}>
-							{details.status}
-						</span>
-					</ClayList.ItemText>
-				</div>
-			</ClayList.Item>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('code')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit fieldName="code" submit={handleSubmit}>
-							{details.code}
-						</InlineEdit>
+				</ClayList.Item>
+				<ClayList.Item flex>
+					<div className="account-field">
+						<ClayList.ItemTitle>
+							{Liferay.Language.get('status')}
+						</ClayList.ItemTitle>
+						<ClayList.ItemText>
+							<span className={`label ${details.statusStyle}`}>
+								{details.status}
+							</span>
+						</ClayList.ItemText>
 					</div>
-				</div>
-			</ClayList.Item>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('created')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>{details.dateCreated}</ClayList.ItemText>
-				</div>
-			</ClayList.Item>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('tier')}
-					</ClayList.ItemTitle>
+				</ClayList.Item>
+				<ClayList.Item flex>
+					<div className="account-field">
+						<ClayList.ItemTitle>
+							{Liferay.Language.get('code')}
+						</ClayList.ItemTitle>
 
-					<div className="list-group-text">
-						<InlineEdit fieldName="tier" submit={handleSubmit}>
-							{details.tier}
-						</InlineEdit>
+						<div className="list-group-text">
+							<InlineEdit fieldName="code" submit={handleSubmit}>
+								{details.code}
+							</InlineEdit>
+						</div>
 					</div>
-				</div>
-			</ClayList.Item>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('last-modified')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						{details.dateModified}
-					</ClayList.ItemText>
-				</div>
-			</ClayList.Item>
+				</ClayList.Item>
+				<ClayList.Item flex>
+					<div className="account-field">
+						<ClayList.ItemTitle>
+							{Liferay.Language.get('created')}
+						</ClayList.ItemTitle>
+						<ClayList.ItemText>
+							{details.dateCreated}
+						</ClayList.ItemText>
+					</div>
+				</ClayList.Item>
+				<ClayList.Item flex>
+					<div className="account-field">
+						<ClayList.ItemTitle>
+							{Liferay.Language.get('tier')}
+						</ClayList.ItemTitle>
 
-			<ClayList.Header>
-				{Liferay.Language.get('partner-info')}
-			</ClayList.Header>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('partner-reseller-si')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						{details.partnerTeamName}
-					</ClayList.ItemText>
-				</div>
-			</ClayList.Item>
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('first-line-support')}
-					</ClayList.ItemTitle>
-					<ClayList.ItemText>
-						{details.firstLineSupportTeamName}
-					</ClayList.ItemText>
-				</div>
-			</ClayList.Item>
-		</>
+						<div className="list-group-text">
+							<InlineEdit fieldName="tier" submit={handleSubmit}>
+								{details.tier}
+							</InlineEdit>
+						</div>
+					</div>
+				</ClayList.Item>
+				<ClayList.Item flex>
+					<div className="account-field">
+						<ClayList.ItemTitle>
+							{Liferay.Language.get('last-modified')}
+						</ClayList.ItemTitle>
+						<ClayList.ItemText>
+							{details.dateModified}
+						</ClayList.ItemText>
+					</div>
+				</ClayList.Item>
+
+				<ClayList.Header>
+					{Liferay.Language.get('partner-info')}
+				</ClayList.Header>
+				<ClayList.Item flex>
+					<div className="account-field">
+						<ClayList.ItemTitle>
+							{Liferay.Language.get('partner-reseller-si')}
+						</ClayList.ItemTitle>
+						<ClayList.ItemText>
+							{details.partnerTeamName}
+						</ClayList.ItemText>
+					</div>
+				</ClayList.Item>
+				<ClayList.Item flex>
+					<div className="account-field">
+						<ClayList.ItemTitle>
+							{Liferay.Language.get('first-line-support')}
+						</ClayList.ItemTitle>
+						<ClayList.ItemText>
+							{details.firstLineSupportTeamName}
+						</ClayList.ItemText>
+					</div>
+				</ClayList.Item>
+			</ClayList>
+		</form>
 	);
 }
 

@@ -9,7 +9,6 @@
  * distribution rights of the Software.
  */
 
-import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -19,7 +18,7 @@ import GeneralDetails from './GeneralDetails';
 
 function AccountDetails({details, statusNames, tierNames}) {
 	return (
-		<ClayList>
+		<>
 			<GeneralDetails
 				details={details}
 				statuses={statusNames}
@@ -32,7 +31,7 @@ function AccountDetails({details, statusNames, tierNames}) {
 			/>
 
 			<ExternalAccountKeys details={details} />
-		</ClayList>
+		</>
 	);
 }
 

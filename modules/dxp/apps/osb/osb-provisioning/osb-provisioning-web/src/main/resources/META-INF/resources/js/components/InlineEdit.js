@@ -61,7 +61,7 @@ function InlineEdit({children, fieldName, submit}) {
 			)}
 
 			{showEditor && (
-				<form method="post">
+				<>
 					<label
 						className="form-control-label"
 						htmlFor={namespacedFieldName}
@@ -95,7 +95,7 @@ function InlineEdit({children, fieldName, submit}) {
 							{Liferay.Language.get('cancel')}
 						</button>
 					</div>
-				</form>
+				</>
 			)}
 		</div>
 	);

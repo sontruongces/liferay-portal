@@ -30,7 +30,7 @@ function AccountAddress({addURL, addresses}) {
 	}
 
 	return (
-		<>
+		<ClayList>
 			{addresses.map((address, index) => (
 				<React.Fragment key={address.id}>
 					<ClayList.Header>
@@ -147,7 +147,7 @@ function AccountAddress({addURL, addresses}) {
 					</ClayList.Item>
 				</React.Fragment>
 			))}
-		</>
+		</ClayList>
 	);
 }
 

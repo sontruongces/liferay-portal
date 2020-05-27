@@ -17,7 +17,7 @@ import InlineEdit from '../InlineEdit';
 
 function ExternalAccountKeys({details}) {
 	return (
-		<>
+		<ClayList>
 			<ClayList.Header>
 				{Liferay.Language.get('external-account-keys')}
 			</ClayList.Header>
@@ -57,7 +57,7 @@ function ExternalAccountKeys({details}) {
 					</div>
 				</div>
 			</ClayList.Item>
-		</>
+		</ClayList>
 	);
 }
 
