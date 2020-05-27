@@ -13,6 +13,7 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 
+import {convertDashToEmptyString} from '../../utilities/helpers';
 import HiddenFields from '../HiddenFields';
 import DetailField from './DetailField';
 
@@ -35,10 +36,6 @@ function GeneralDetails({details}) {
 			refForm.current.submit();
 		}
 	}, [accountDetails, initialDetails]);
-
-	function convertDashToEmptyString(value) {
-		return value === '-' ? '' : value;
-	}
 
 	function handleSubmit(fieldName, value) {
 		setAccountDetails({...initialDetails, [fieldName]: value});

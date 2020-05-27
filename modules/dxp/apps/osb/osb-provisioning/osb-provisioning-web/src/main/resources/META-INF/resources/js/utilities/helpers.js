@@ -44,3 +44,14 @@ export function postData(endpoint, params, encoding = 'json') {
 
 	return axios.post(endpoint, namespacedParams);
 }
+
+/**
+ * Certain empty values are represented by a dash in the UI.
+ * This helper converts that value from its dash representation to its true
+ * value.
+ * @param {string} value The value to be evaluated
+ * @returns {string} The value after it's checked
+ */
+export function convertDashToEmptyString(value) {
+	return value === '-' ? '' : value;
+}
