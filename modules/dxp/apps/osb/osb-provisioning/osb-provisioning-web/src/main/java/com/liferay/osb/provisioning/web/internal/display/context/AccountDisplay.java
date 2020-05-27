@@ -122,7 +122,8 @@ public class AccountDisplay {
 	public String getEditAccountURL() {
 		PortletURL editAccountURL = _liferayPortletResponse.createActionURL();
 
-		editAccountURL.setParameter(ActionRequest.ACTION_NAME, " /accounts/edit_account");
+		editAccountURL.setParameter(
+			ActionRequest.ACTION_NAME, " /accounts/edit_account");
 		editAccountURL.setParameter("accountKey", _account.getKey());
 
 		return editAccountURL.toString();
