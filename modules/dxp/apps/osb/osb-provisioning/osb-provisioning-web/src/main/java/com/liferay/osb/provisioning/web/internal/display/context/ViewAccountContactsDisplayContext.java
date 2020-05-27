@@ -14,10 +14,12 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -33,6 +35,30 @@ public class ViewAccountContactsDisplayContext
 	extends ViewAccountDisplayContext {
 
 	public ViewAccountContactsDisplayContext() {
+	}
+
+	public List<ContactRole> getContactRoles() throws Exception {
+		return contactRoleWebService.search(
+			"type eq '" + ContactRole.Type.ACCOUNT_CUSTOMER.toString() + "'", 1,
+			1000, "name");
+	}
+
+	public CreationMenu getCreationMenu() {
+		return new CreationMenu() {
+			{
+				addDropdownItem(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							renderResponse.createRenderURL(),
+							"mvcRenderCommandName", "/accounts/assign_contacts",
+							"redirect", getCurrentURL(), "accountKey",
+							account.getKey());
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								httpServletRequest, "assign-contact"));
+					});
+			}
+		};
 	}
 
 	public SearchContainer getSearchContainer() throws Exception {

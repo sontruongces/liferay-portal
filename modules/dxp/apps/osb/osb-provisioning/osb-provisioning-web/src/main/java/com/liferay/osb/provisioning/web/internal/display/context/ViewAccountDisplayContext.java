@@ -492,20 +492,6 @@ public class ViewAccountDisplayContext {
 		return searchContainer;
 	}
 
-	public String getUnassignAccountCustomerContactURL(String emailAddress) {
-		PortletURL unassignAccountCustomerContactURL =
-			renderResponse.createActionURL();
-
-		unassignAccountCustomerContactURL.setParameter(
-			ActionRequest.ACTION_NAME, "/unassign_account_customer_contact");
-		unassignAccountCustomerContactURL.setParameter(
-			"accountKey", account.getKey());
-		unassignAccountCustomerContactURL.setParameter(
-			"emailAddress", emailAddress);
-
-		return unassignAccountCustomerContactURL.toString();
-	}
-
 	public String getUpdateAccountAttachmentURL() throws Exception {
 		return accountEntryWebService.getUpdateAccountAttachmentURL();
 	}
@@ -647,7 +633,10 @@ public class ViewAccountDisplayContext {
 				add(
 					dropdownItem -> {
 						dropdownItem.setHref(
-							"javascript:openAddContactsModal()");
+							renderResponse.createRenderURL(),
+							"mvcRenderCommandName", "/accounts/assign_contacts",
+							"redirect", getCurrentURL(), "accountKey",
+							account.getKey());
 						dropdownItem.setLabel(
 							LanguageUtil.get(httpServletRequest, "contacts"));
 					});
