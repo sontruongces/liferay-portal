@@ -8648,10 +8648,7 @@ public class PortalImpl implements Portal {
 						);
 					}
 
-					if (_containsHostname(virtualHostnames, portalDomain) ||
-						PropsValues.VIRTUAL_HOSTS_DEFAULT_SITE_NAME.equals(
-							group.getGroupKey())) {
-
+					if (_containsHostname(virtualHostnames, portalDomain)) {
 						String path = StringPool.BLANK;
 
 						if (themeDisplay.isWidget()) {
