@@ -57,8 +57,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 
 import java.math.BigDecimal;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
@@ -96,8 +94,6 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			_checkUser(serviceContext.getCompanyId(), workEmail);
-
-			_checkCommerceAccount(companyName);
 
 			_invoke(
 				() -> {
@@ -246,18 +242,6 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			(nameItems.length > 1) ? nameItems[1] : null, 0, 0, true, 1, 1,
 			1970, jobTitle, new long[] {osbCommerceProvisioningSiteGroupId},
 			null, null, null, true, new ServiceContext());
-	}
-
-	private void _checkCommerceAccount(String name) {
-		List<CommerceAccount> commerceAccounts =
-			_commerceAccountLocalService.getCommerceAccounts(
-				0, _commerceAccountLocalService.getCommerceAccountsCount());
-
-		for (CommerceAccount commerceAccount : commerceAccounts) {
-			if (Objects.equals(commerceAccount.getName(), name)) {
-				throw new IllegalArgumentException("Account already exists");
-			}
-		}
 	}
 
 	private void _checkUser(long companyId, String emailAddress) {
