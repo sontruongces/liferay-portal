@@ -33,9 +33,8 @@ ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = Provisioni
 			itemsTotal="<%= searchContainer.getTotal() %>"
 			searchActionURL="<%= viewAccountContactsDisplayContext.getCurrentURL() %>"
 			searchContainerId="contacts"
-			selectable="<%= true %>"
+			selectable="<%= false %>"
 			showSearch="<%= true %>"
-			supportsBulkActions="<%= true %>"
 		/>
 
 		<liferay-ui:search-container-row

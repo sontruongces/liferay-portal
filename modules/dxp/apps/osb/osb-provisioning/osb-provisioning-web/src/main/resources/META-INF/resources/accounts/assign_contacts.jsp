@@ -19,6 +19,10 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
+List<ContactRole> contactRoles = (List<ContactRole>)request.getAttribute(ProvisioningWebKeys.CONTACT_ROLES);
+
+String emailAddress = ParamUtil.getString(request, "emailAddress");
+
 ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = ProvisioningWebComponentProvider.getViewAccountContactsDisplayContext(renderRequest, renderResponse, request);
 
 AccountDisplay accountDisplay = viewAccountContactsDisplayContext.getAccountDisplay();
@@ -35,7 +39,10 @@ renderResponse.setTitle(LanguageUtil.get(request, "assign-contact"));
 	<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 </portlet:actionURL>
 
-<aui:form action="<%= assignContactRolesURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= assignContactRolesURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "submitForm();" %>'>
+	<aui:input name="addContactRoleKeys" type="hidden" />
+	<aui:input name="deleteContactRoleKeys" type="hidden" />
+
 	<liferay-ui:error exception="<%= HttpException.class %>">
 
 		<%
@@ -45,23 +52,59 @@ renderResponse.setTitle(LanguageUtil.get(request, "assign-contact"));
 		<%= httpException.getMessage() %>
 	</liferay-ui:error>
 
-	<aui:input name="emailAddress" />
+	<aui:input name="emailAddress" value="<%= emailAddress %>" />
 
-	<aui:select label="roles" multiple="<%= true %>" name="addContactRoleKeys">
+	<label>
+		<liferay-ui:message key="roles" />
+	</label>
 
-		<%
-		List<ContactRole> contactRoles = viewAccountContactsDisplayContext.getContactRoles();
+	<div class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#1">
+			<liferay-ui:message key="select" />
 
-		for (ContactRole contactRole : contactRoles) {
-		%>
+			<aui:icon image="caret-double-l" markupView="lexicon" />
+		</a>
 
-			<aui:option label="<%= contactRole.getName() %>" value="<%= contactRole.getKey() %>" />
+		<ul class="dropdown-menu" role="menu">
 
-		<%
-		}
-		%>
+			<%
+			List<ContactRole> curContactRoles = viewAccountContactsDisplayContext.getContactRoles();
 
-	</aui:select>
+			for (ContactRole contactRole : curContactRoles) {
+				boolean hasContactRole = (contactRoles != null) && contactRoles.contains(contactRole);
+			%>
+
+				<li class="dropdown-item">
+					<div class="checkbox-inline">
+
+						<%
+						StringBundler sb = new StringBundler();
+
+						sb.append(renderResponse.getNamespace());
+						sb.append("updateContactRole(");
+
+						if (hasContactRole) {
+							sb.append("true");
+						}
+						else {
+							sb.append("false");
+						}
+
+						sb.append(", '");
+						sb.append(contactRole.getKey());
+						sb.append("');");
+						%>
+
+						<aui:input checked="<%= hasContactRole %>" id="<%= contactRole.getKey() %>" inline="<%= true %>" label="<%= contactRole.getName() %>" name="contactRole" onChange="<%= sb.toString() %>" type="checkbox" value="<%= contactRole.getKey() %>" />
+					</div>
+				</li>
+
+			<%
+			}
+			%>
+
+		</ul>
+	</div>
 
 	<aui:button-row>
 		<aui:button type="submit" />
@@ -69,3 +112,63 @@ renderResponse.setTitle(LanguageUtil.get(request, "assign-contact"));
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
+
+<aui:script>
+	function <portlet:namespace />submitForm() {
+		var A = AUI();
+
+		var form = document.getElementById('<portlet:namespace />fm');
+
+		var addContactRoleKeys = [];
+
+		var addContactRoleCheckboxes = A.all('input[action=add]');
+
+		addContactRoleCheckboxes.each(function(item, index, collection) {
+			addContactRoleKeys.push(item.val());
+		});
+
+		var addContactRoleKeysInput = form.querySelector(
+			'#<portlet:namespace />addContactRoleKeys'
+		);
+
+		addContactRoleKeysInput.setAttribute('value', addContactRoleKeys.join(','));
+
+		var deleteContactRoleKeys = [];
+
+		var deleteContactRoleCheckboxes = A.all('input[action=delete]');
+
+		deleteContactRoleCheckboxes.each(function(item, index, collection) {
+			deleteContactRoleKeys.push(item.val());
+		});
+
+		var deleteContactRoleKeysInput = form.querySelector(
+			'#<portlet:namespace />deleteContactRoleKeys'
+		);
+
+		deleteContactRoleKeysInput.setAttribute(
+			'value',
+			deleteContactRoleKeys.join(',')
+		);
+
+		form.submit();
+	}
+
+	function <portlet:namespace />updateContactRole(
+		hasContactRole,
+		contactRoleKey
+	) {
+		var A = AUI();
+
+		var checkbox = A.one('#<portlet:namespace />' + contactRoleKey);
+
+		if (hasContactRole && !checkbox.attr('checked')) {
+			checkbox.attr('action', 'delete');
+		}
+		else if (!hasContactRole && checkbox.attr('checked')) {
+			checkbox.attr('action', 'add');
+		}
+		else {
+			checkbox.attr('action', '');
+		}
+	}
+</aui:script>

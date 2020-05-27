@@ -17,10 +17,12 @@ package com.liferay.osb.provisioning.web.internal.portlet.action;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -48,10 +50,20 @@ public class AssignAccountContactsMVCRenderCommand implements MVCRenderCommand {
 
 		String accountKey = ParamUtil.getString(renderRequest, "accountKey");
 
+		String emailAddress = ParamUtil.getString(
+			renderRequest, "emailAddress");
+
 		try {
 			renderRequest.setAttribute(
 				ProvisioningWebKeys.ACCOUNT,
 				_accountWebService.getAccount(accountKey));
+
+			if (Validator.isNotNull(emailAddress)) {
+				renderRequest.setAttribute(
+					ProvisioningWebKeys.CONTACT_ROLES,
+					_contactRoleWebService.getAccountCustomerContactRoles(
+						accountKey, emailAddress, 1, 1000));
+			}
 
 			return "/accounts/assign_contacts.jsp";
 		}
@@ -64,6 +76,9 @@ public class AssignAccountContactsMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private AccountWebService _accountWebService;
+
+	@Reference
+	private ContactRoleWebService _contactRoleWebService;
 
 	@Reference
 	private TeamWebService _teamWebService;

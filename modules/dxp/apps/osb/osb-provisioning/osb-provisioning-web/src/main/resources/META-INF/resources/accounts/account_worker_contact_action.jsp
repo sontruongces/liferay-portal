@@ -34,9 +34,10 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 	showWhenSingleIcon="<%= true %>"
 >
 	<portlet:renderURL var="editURL">
-		<portlet:param name="mvcRenderCommandName" value="/accounts/edit_contact" />
+		<portlet:param name="mvcRenderCommandName" value="/accounts/assign_liferay_workers" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="contactKey" value="<%= contactDisplay.getKey() %>" />
+		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+		<portlet:param name="emailAddress" value="<%= contactDisplay.getEmailAddress() %>" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon
@@ -44,7 +45,7 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 		url="<%= editURL %>"
 	/>
 
-	<portlet:actionURL name="/accounts/unassign_account_worker_contact" var="unassignURL">
+	<portlet:actionURL name="/accounts/unassign_worker_contact" var="unassignURL">
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 		<portlet:param name="emailAddress" value="<%= contactDisplay.getEmailAddress() %>" />

@@ -17,7 +17,6 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
-import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -111,9 +110,6 @@ public class ViewAccountContactsDisplayContext
 					return new ContactDisplay(
 						httpServletRequest, contact, contactRoles);
 				}));
-
-		searchContainer.setRowChecker(
-			new EmptyOnClickRowChecker(renderResponse));
 
 		int count = (int)contactWebService.searchCount(keywords, sb.toString());
 
