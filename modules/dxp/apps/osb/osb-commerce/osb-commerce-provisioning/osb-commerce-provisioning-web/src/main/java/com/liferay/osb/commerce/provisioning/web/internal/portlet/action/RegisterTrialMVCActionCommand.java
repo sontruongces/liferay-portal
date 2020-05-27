@@ -119,7 +119,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		throws PortalException {
 
 		long osbCommerceProvisioningSiteGroupId =
-			_addOSBCommerceProvisioningSiteGroup(serviceContext.getCompanyId());
+			_getOSBCommerceProvisioningSiteGroup(serviceContext.getCompanyId());
 
 		User user = _addUser(
 			serviceContext.getCompanyId(), emailAddress, jobTitle, name,
@@ -233,16 +233,6 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			commerceContext, serviceContext);
 	}
 
-	private long _addOSBCommerceProvisioningSiteGroup(long companyId) {
-		Group osbCommerceProvisioningSiteGroup =
-			_groupLocalService.fetchFriendlyURLGroup(
-				companyId,
-				OSBCommerceProvisioningConstants.
-					OSB_COMMERCE_PROVISIONING_FRIENDLY_URL);
-
-		return osbCommerceProvisioningSiteGroup.getGroupId();
-	}
-
 	private User _addUser(
 			long companyId, String emailAddress, String jobTitle, String name,
 			long osbCommerceProvisioningSiteGroupId)
@@ -277,6 +267,18 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		if (user != null) {
 			throw new IllegalArgumentException("User already exists");
 		}
+	}
+
+	private long _getOSBCommerceProvisioningSiteGroup(long companyId)
+		throws PortalException {
+
+		Group osbCommerceProvisioningSiteGroup =
+			_groupLocalService.getFriendlyURLGroup(
+				companyId,
+				OSBCommerceProvisioningConstants.
+					OSB_COMMERCE_PROVISIONING_FRIENDLY_URL);
+
+		return osbCommerceProvisioningSiteGroup.getGroupId();
 	}
 
 	private void _invoke(Callable<Void> callable) throws Throwable {
