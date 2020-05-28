@@ -59,20 +59,17 @@ public class FontAwesomeTopHeadDynamicInclude extends BaseDynamicInclude {
 
 		PrintWriter printWriter = httpServletResponse.getWriter();
 
-		StringBundler sb = new StringBundler(3);
-
 		AbsolutePortalURLBuilder absolutePortalURLBuilder =
 			_absolutePortalURLBuilderFactory.getAbsolutePortalURLBuilder(
 				httpServletRequest);
 
-		sb.append("<link data-senna-track=\"permanent\" href=\"");
-		sb.append(
-			absolutePortalURLBuilder.forModule(
-				_bundleContext.getBundle(), "css/main.css"
-			).build());
-		sb.append("\" rel=\"stylesheet\" type=\"text/css\" />");
-
-		printWriter.println(sb.toString());
+		printWriter.println(
+			StringBundler.concat(
+				"<link data-senna-track=\"permanent\" href=\"",
+				absolutePortalURLBuilder.forModule(
+					_bundleContext.getBundle(), "css/main.css"
+				).build(),
+				"\" rel=\"stylesheet\" type=\"text/css\" />"));
 	}
 
 	@Override
