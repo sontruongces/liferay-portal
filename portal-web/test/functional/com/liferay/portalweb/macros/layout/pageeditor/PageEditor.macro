@@ -289,6 +289,13 @@ definition {
 				locator1 = "Button#PALETTE_ITEM");
 		}
 
+		if (isSet(textAlign)) {
+			Select(
+				key_fieldLabel = "Text Align",
+				locator1 = "Select#GENERIC_SELECT_FIELD",
+				value1 = "${textAlign}");
+		}
+
 		if (isSet(type)) {
 			Select(
 				key_fieldLabel = "Type",
