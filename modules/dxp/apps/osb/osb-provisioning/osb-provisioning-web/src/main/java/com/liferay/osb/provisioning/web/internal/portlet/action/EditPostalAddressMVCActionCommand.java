@@ -17,11 +17,21 @@ package com.liferay.osb.provisioning.web.internal.portlet.action;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.PostalAddressWebService;
+import com.liferay.portal.kernel.exception.NoSuchCountryException;
+import com.liferay.portal.kernel.exception.NoSuchListTypeException;
+import com.liferay.portal.kernel.exception.NoSuchRegionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Country;
+import com.liferay.portal.kernel.model.ListType;
+import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.service.CountryService;
+import com.liferay.portal.kernel.service.ListTypeService;
+import com.liferay.portal.kernel.service.RegionService;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -77,12 +87,28 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 				updatePostalAddress(actionRequest, user);
 			}
 
+			actionResponse.setRenderParameter(
+				"mvcRenderCommandName", "/accounts/view_account");
+			actionResponse.setRenderParameter(
+				"accountKey", ParamUtil.getString(actionRequest, "accountKey"));
+
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (Exception exception) {
-			_log.error(exception, exception);
+			if (exception instanceof NoSuchCountryException ||
+				exception instanceof NoSuchListTypeException ||
+				exception instanceof NoSuchRegionException) {
 
-			throw exception;
+				SessionErrors.add(actionRequest, exception.getClass());
+
+				actionResponse.setRenderParameter(
+					"mvcRenderCommandName", "/accounts/add_postal_address");
+			}
+			else {
+				_log.error(exception, exception);
+
+				throw exception;
+			}
 		}
 	}
 
@@ -101,12 +127,12 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "streetAddressLine3");
 		String addressLocality = ParamUtil.getString(
 			actionRequest, "addressLocality");
-		String postalCode = ParamUtil.getString(actionRequest, "postalCode");
-		String addressRegion = ParamUtil.getString(
-			actionRequest, "addressRegion");
-		String addressCountry = ParamUtil.getString(
-			actionRequest, "addressCountry");
-		String addressType = ParamUtil.getString(actionRequest, "addressType");
+		String addressZip = ParamUtil.getString(actionRequest, "addressZip");
+		long addressCountryId = ParamUtil.getLong(
+			actionRequest, "addressCountryId");
+		long addressRegionId = ParamUtil.getLong(
+			actionRequest, "addressRegionId");
+		long addressType = ParamUtil.getLong(actionRequest, "addressType");
 		boolean mailing = ParamUtil.getBoolean(actionRequest, "mailing");
 		boolean primary = ParamUtil.getBoolean(actionRequest, "primary");
 
@@ -128,20 +154,26 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 			postalAddress.setAddressLocality(addressLocality);
 		}
 
-		if (Validator.isNotNull(postalCode)) {
-			postalAddress.setPostalCode(postalCode);
+		if (Validator.isNotNull(addressZip)) {
+			postalAddress.setPostalCode(addressZip);
 		}
 
-		if (Validator.isNotNull(addressRegion)) {
-			postalAddress.setAddressRegion(addressRegion);
+		if (addressRegionId > 0) {
+			Region region = _regionService.getRegion(addressRegionId);
+
+			postalAddress.setAddressRegion(region.getName());
 		}
 
-		if (Validator.isNotNull(addressCountry)) {
-			postalAddress.setAddressCountry(addressCountry);
+		if (addressCountryId > 0) {
+			Country country = _countryService.getCountry(addressCountryId);
+
+			postalAddress.setAddressCountry(country.getName());
 		}
 
-		if (Validator.isNotNull(addressType)) {
-			postalAddress.setAddressType(addressType);
+		if (addressType > 0) {
+			ListType listType = _listTypeService.getListType(addressType);
+
+			postalAddress.setAddressType(listType.getName());
 		}
 
 		postalAddress.setMailing(mailing);
@@ -163,6 +195,15 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 		EditPostalAddressMVCActionCommand.class);
 
 	@Reference
+	private CountryService _countryService;
+
+	@Reference
+	private ListTypeService _listTypeService;
+
+	@Reference
 	private PostalAddressWebService _postalAddressWebService;
+
+	@Reference
+	private RegionService _regionService;
 
 }
