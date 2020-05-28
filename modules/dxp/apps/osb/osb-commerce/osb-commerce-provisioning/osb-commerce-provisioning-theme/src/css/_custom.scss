@@ -1,1 +1,32 @@
+@import "components/navbars";
+@import "fonts";
 
+body {
+	background: linear-gradient(
+			0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)
+	), $gray-400;
+}
+
+main {
+	.btn-primary,
+	.btn-outline-primary,
+	.btn-secondary,
+	.btn-outline-secondary {
+		font-size: .8rem;
+		font-variant: all-small-caps;
+		font-weight: 600;
+		letter-spacing: .1rem;
+	}
+
+	.btn-link {
+		font-size: .8em;
+	}
+
+	.btn-outline-primary {
+		border-color: $border-color;
+	}
+}
+
+#wrapper {
+	padding: 0;
+}

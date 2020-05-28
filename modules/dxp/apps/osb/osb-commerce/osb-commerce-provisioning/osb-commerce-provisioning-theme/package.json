@@ -1,11 +1,13 @@
 {
+	"author": "Gianmarco Brunialti Masera <gianmarco.brunialti@liferay.com> (https://github.com/gianmarcobrunialti)",
 	"keywords": [
 		"liferay-theme"
 	],
+	"license": "LGPL",
 	"liferayTheme": {
 		"baseTheme": "styled",
-		"fontAwesome": false,
-		"screenshot": "",
+		"distName": "osb-commerce-provisioning-theme",
+		"rubySass": false,
 		"templateLanguage": "ftl",
 		"version": "7.2"
 	},

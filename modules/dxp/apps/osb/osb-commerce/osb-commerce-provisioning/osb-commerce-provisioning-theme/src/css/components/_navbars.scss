@@ -1,0 +1,136 @@
+.navbar-top .portlet {
+	&:hover,
+	&.open {
+		z-index: 1035;
+	}
+}
+
+.navbar-blank {
+	flex-wrap: wrap;
+
+	.lexicon-icon {
+		font-size: 0.625rem;
+		margin: 0 0 0 0.25rem;
+	}
+}
+
+.navbar-commerce {
+	$navbar-margin-left: calc(100vw / 2);
+
+	height: 70px;
+
+	@include media-breakpoint-down(xs) {
+		&-md {
+			display: none;
+		}
+	}
+
+	@include media-breakpoint-up(sm) {
+		&-xs {
+			display: none;
+		}
+
+		&-md {
+			display: flex;
+		}
+	}
+
+	&::before {
+		background-color: $gray-300;
+		content: '';
+		height: 100%;
+		left: 50%;
+		margin-left: -#{$navbar-margin-left};
+		position: absolute;
+		top: 0;
+
+	}
+
+	&.navbar-light {
+		border-bottom: 1px solid $gray-300;
+	}
+
+	.navbar-blank {
+		@include media-breakpoint-down(xs) {
+			margin-top: 1rem;
+		}
+	}
+
+	.navbar-form {
+		padding: 0;
+
+		.field-wrapper {
+			right: 0;
+			top: 0;
+
+			.lfr-icon-item {
+				color: #6b6c7e;
+			}
+		}
+	}
+
+	.portlet-search-bar {
+		@include media-breakpoint-down(sm) {
+			width: 100%;
+		}
+
+		.input-group-item {
+			margin-left: 0;
+		}
+	}
+
+	.logo:hover {
+		text-decoration: none;
+	}
+
+	.navbar-nav {
+		height: 70px;
+
+		@include media-breakpoint-down(xs) {
+			display: flex;
+			flex-direction: column;
+			height: auto;
+		}
+	}
+
+	.nav-item {
+		.nav-link {
+			align-items: center;
+			color: $gray-800;
+			display: flex;
+			font-size: 0.9375rem;
+			height: 100%;
+			padding: 0;
+			width: min-content;
+
+			&::before {
+				background-color: $primary;
+				bottom: 0;
+				content: '';
+				height: 2px;
+				left: 0;
+				position: absolute;
+				transform: scale3d(0, 1, 1);
+				transform-origin: 0 50%;
+				transition: transform .2s ease-out;
+				width: 100%;
+			}
+
+			&:hover::before {
+				transform: scale3d(1,1,1);
+			}
+
+			@include media-breakpoint-down(xs) {
+				margin: .5em auto;
+			}
+		}
+
+		&.active .nav-link {
+			font-weight: 600;
+
+			&::before {
+				transform: unset;
+			}
+		}
+	}
+}
