@@ -211,12 +211,12 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 				_connectionId)) {
 
 			configureAuthentication(settingsBuilder);
+		}
 
-			if (elasticsearchConnectionConfigurationWrapper.
-					isTransportSSLEnabled(_connectionId)) {
+		if (elasticsearchConnectionConfigurationWrapper.isTransportSSLEnabled(
+				_connectionId)) {
 
-				configureSSL(settingsBuilder);
-			}
+			configureSSL(settingsBuilder);
 		}
 
 		Settings settings = settingsBuilder.build();
@@ -226,6 +226,8 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 		}
 
 		if (elasticsearchConnectionConfigurationWrapper.isAuthenticationEnabled(
+				_connectionId) ||
+			elasticsearchConnectionConfigurationWrapper.isTransportSSLEnabled(
 				_connectionId)) {
 
 			return new PreBuiltXPackTransportClient(settings);

@@ -151,8 +151,12 @@ public class CrossClusterReplicationHelperImpl
 
 		restClientBuilder.setHttpClientConfigCallback(
 			httpClientBuilder -> {
-				httpClientBuilder.setDefaultCredentialsProvider(
-					_createCredentialsProvider(connectionId));
+				if (elasticsearchConnectionConfigurationWrapper.
+						isAuthenticationEnabled(connectionId)) {
+
+					httpClientBuilder.setDefaultCredentialsProvider(
+						_createCredentialsProvider(connectionId));
+				}
 
 				if (elasticsearchConnectionConfigurationWrapper.
 						isTransportSSLEnabled(connectionId)) {
@@ -190,11 +194,7 @@ public class CrossClusterReplicationHelperImpl
 				elasticsearchConnectionConfigurationWrapper.
 					getNetworkHostAddress(connectionId)));
 
-		if (elasticsearchConnectionConfigurationWrapper.isAuthenticationEnabled(
-				connectionId)) {
-
-			_configureSecurity(restClientBuilder, connectionId);
-		}
+		_configureSecurity(restClientBuilder, connectionId);
 
 		return new RestHighLevelClient(restClientBuilder);
 	}
