@@ -14,7 +14,7 @@ import React from 'react';
 
 import HiddenForm from '../../src/main/resources/META-INF/resources/js/components/HiddenForm';
 
-const formRef = jest.fn()
+const formRef = jest.fn();
 
 function renderHiddenForm() {
 	return render(

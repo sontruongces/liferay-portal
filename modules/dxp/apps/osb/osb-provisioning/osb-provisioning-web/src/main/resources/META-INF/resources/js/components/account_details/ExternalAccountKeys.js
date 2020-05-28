@@ -13,50 +13,42 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import InlineEdit from '../InlineEdit';
+import DetailField from './DetailField';
 
 function ExternalAccountKeys({details}) {
+	const formData = {
+		// TODO: LHC-2472
+	};
+
 	return (
 		<ClayList>
 			<ClayList.Header>
 				{Liferay.Language.get('external-account-keys')}
 			</ClayList.Header>
 
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('dossiera-account')}
-					</ClayList.ItemTitle>
+			<DetailField
+				formAction={''}
+				formData={formData}
+				name={Liferay.Language.get('dossiera-account')}
+			>
+				{details.dossieraAccountKey}
+			</DetailField>
 
-					<div className="list-group-text">
-						<InlineEdit>{details.dossieraAccountKey}</InlineEdit>
-					</div>
-				</div>
-			</ClayList.Item>
+			<DetailField
+				formAction={''}
+				formData={formData}
+				name={Liferay.Language.get('dossiera-project')}
+			>
+				{details.dossieraProjectKey}
+			</DetailField>
 
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('dossiera-project')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit>{details.dossieraProjectKey}</InlineEdit>
-					</div>
-				</div>
-			</ClayList.Item>
-
-			<ClayList.Item flex>
-				<div className="account-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('salesforce-project')}
-					</ClayList.ItemTitle>
-
-					<div className="list-group-text">
-						<InlineEdit>{details.salesforceProjectKey}</InlineEdit>
-					</div>
-				</div>
-			</ClayList.Item>
+			<DetailField
+				formAction={''}
+				formData={formData}
+				name={Liferay.Language.get('salesforce-project')}
+			>
+				{details.salesforceProjectKey}
+			</DetailField>
 		</ClayList>
 	);
 }

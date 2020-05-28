@@ -14,13 +14,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {
-	FIELD_TYPE_NONEDITABLE,
-	FIELD_TYPE_SELECT
+	FIELD_TYPE_EXTERNAL,
+	FIELD_TYPE_TOGGLE
 } from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from './DetailField';
 
-function GeneralDetails({details, statuses, tiers}) {
+function GeneralDetails({details}) {
 	const formData = {
 		code: convertDashToEmptyString(details.code),
 		name: convertDashToEmptyString(details.name),
@@ -33,59 +33,25 @@ function GeneralDetails({details, statuses, tiers}) {
 	return (
 		<ClayList>
 			<ClayList.Header>
-				{Liferay.Language.get('general-details')}
+				{Liferay.Language.get('partner-info')}
 			</ClayList.Header>
 
 			<DetailField
 				formAction={details.editAccountURL}
 				formData={formData}
-				name={Liferay.Language.get('account-name')}
+				name={Liferay.Language.get('partner-reseller-si')}
+				type={FIELD_TYPE_EXTERNAL}
 			>
-				{details.name}
-			</DetailField>
-
-			<DetailField
-				displayAs="label"
-				formAction={details.editAccountURL}
-				formData={formData}
-				inputStyle={details.statusStyle}
-				name={Liferay.Language.get('status')}
-				options={statuses}
-				type={FIELD_TYPE_SELECT}
-			>
-				{details.status}
+				{details.partnerTeamName}
 			</DetailField>
 
 			<DetailField
 				formAction={details.editAccountURL}
 				formData={formData}
-				name={Liferay.Language.get('code')}
+				name={Liferay.Language.get('first-line-support')}
+				type={FIELD_TYPE_TOGGLE}
 			>
-				{details.code}
-			</DetailField>
-
-			<DetailField
-				name={Liferay.Language.get('created')}
-				type={FIELD_TYPE_NONEDITABLE}
-			>
-				{details.dateCreated}
-			</DetailField>
-
-			<DetailField
-				formAction={details.editAccountURL}
-				formData={formData}
-				name={Liferay.Language.get('tier')}
-				options={tiers}
-				type={FIELD_TYPE_SELECT}
-			>
-				{details.tier}
-			</DetailField>
-
-			<DetailField
-				name={Liferay.Language.get('last-modified')}
-				type={FIELD_TYPE_NONEDITABLE}
-			>
-				{details.dateModified}
+				{details.firstLineSupportTeamName}
 			</DetailField>
 		</ClayList>
 	);
@@ -93,20 +59,11 @@ function GeneralDetails({details, statuses, tiers}) {
 
 GeneralDetails.propTypes = {
 	details: PropTypes.shape({
-		code: PropTypes.string,
-		dateCreated: PropTypes.string,
-		dateModified: PropTypes.string,
 		editAccountURL: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
-		name: PropTypes.string,
-		parterTeamName: PropTypes.string,
-		status: PropTypes.string,
-		statusStyle: PropTypes.string,
-		tier: PropTypes.string
-	}),
-	statuses: PropTypes.arrayOf(PropTypes.string),
-	tiers: PropTypes.arrayOf(PropTypes.string)
+		parterTeamName: PropTypes.string
+	})
 };
 
 export default GeneralDetails;

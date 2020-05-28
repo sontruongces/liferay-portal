@@ -60,6 +60,12 @@ describe('AccountDetails', () => {
 		getByText('partner-info');
 	});
 
+	it('displays Address 1 section', () => {
+		const {getByText} = renderAccountDetails();
+
+		getByText('address 1');
+	});
+
 	it('displays External Account Keys section', () => {
 		const {getByText} = renderAccountDetails();
 

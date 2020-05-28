@@ -13,20 +13,37 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {
+	FIELD_TYPE_NONEDITABLE,
+	FIELD_TYPE_TEXT
+} from '../../utilities/constants';
 import IconButton from '../IconButton';
+import DetailField from './DetailField';
 
 function AccountAddress({addURL, addresses}) {
+	const formData = {
+		// TODO: LHC-2443
+	};
+
 	if (addresses.length === 0) {
 		addresses.push({
 			addressCountry: '-',
 			addressLocality: '-',
 			addressRegion: '-',
-			id: 'default',
+			id: '',
 			postalCode: '-',
 			streetAddressLine1: '-',
 			streetAddressLine2: '-',
 			streetAddressLine3: '-'
 		});
+	}
+
+	function determineFieldType(id) {
+		if (id) {
+			return FIELD_TYPE_TEXT;
+		}
+
+		return FIELD_TYPE_NONEDITABLE;
 	}
 
 	return (
@@ -36,76 +53,69 @@ function AccountAddress({addURL, addresses}) {
 					<ClayList.Header>
 						{Liferay.Language.get('address')} {index + 1}
 					</ClayList.Header>
-					<ClayList.Item flex>
-						<div className="account-field">
-							<ClayList.ItemTitle>
-								{Liferay.Language.get('street-1')}
-							</ClayList.ItemTitle>
-							<ClayList.ItemText>
-								{address.streetAddressLine1}
-							</ClayList.ItemText>
-						</div>
-					</ClayList.Item>
-					<ClayList.Item flex>
-						<div className="account-field">
-							<ClayList.ItemTitle>
-								{Liferay.Language.get('city')}
-							</ClayList.ItemTitle>
-							<ClayList.ItemText>
-								{address.addressLocality}
-							</ClayList.ItemText>
-						</div>
-					</ClayList.Item>
-					<ClayList.Item flex>
-						<div className="account-field">
-							<ClayList.ItemTitle>
-								{Liferay.Language.get('street-2')}
-							</ClayList.ItemTitle>
-							<ClayList.ItemText>
-								{address.streetAddressLine2}
-							</ClayList.ItemText>
-						</div>
-					</ClayList.Item>
-					<ClayList.Item flex>
-						<div className="account-field">
-							<ClayList.ItemTitle>
-								{Liferay.Language.get('state-province')}
-							</ClayList.ItemTitle>
-							<ClayList.ItemText>
-								{address.addressRegion}
-							</ClayList.ItemText>
-						</div>
-					</ClayList.Item>
-					<ClayList.Item flex>
-						<div className="account-field">
-							<ClayList.ItemTitle>
-								{Liferay.Language.get('street-3')}
-							</ClayList.ItemTitle>
-							<ClayList.ItemText>
-								{address.streetAddressLine3}
-							</ClayList.ItemText>
-						</div>
-					</ClayList.Item>
-					<ClayList.Item flex>
-						<div className="account-field">
-							<ClayList.ItemTitle>
-								{Liferay.Language.get('postal-code')}
-							</ClayList.ItemTitle>
-							<ClayList.ItemText>
-								{address.postalCode}
-							</ClayList.ItemText>
-						</div>
-					</ClayList.Item>
-					<ClayList.Item flex>
-						<div className="account-field">
-							<ClayList.ItemTitle>
-								{Liferay.Language.get('country')}
-							</ClayList.ItemTitle>
-							<ClayList.ItemText>
-								{address.addressCountry}
-							</ClayList.ItemText>
-						</div>
-					</ClayList.Item>
+
+					<DetailField
+						formAction={address.editPostalAddressURL}
+						formData={formData}
+						name={Liferay.Language.get('street-1')}
+						type={determineFieldType(address.id)}
+					>
+						{address.streetAddressLine1}
+					</DetailField>
+
+					<DetailField
+						formAction={address.editPostalAddressURL}
+						formData={formData}
+						name={Liferay.Language.get('city')}
+						type={determineFieldType(address.id)}
+					>
+						{address.addressLocality}
+					</DetailField>
+
+					<DetailField
+						formAction={address.editPostalAddressURL}
+						formData={formData}
+						name={Liferay.Language.get('street-2')}
+						type={determineFieldType(address.id)}
+					>
+						{address.streetAddressLine2}
+					</DetailField>
+
+					<DetailField
+						formAction={address.editPostalAddressURL}
+						formData={formData}
+						name={Liferay.Language.get('state-province')}
+						type={determineFieldType(address.id)}
+					>
+						{address.addressRegion}
+					</DetailField>
+
+					<DetailField
+						formAction={address.editPostalAddressURL}
+						formData={formData}
+						name={Liferay.Language.get('street-3')}
+						type={determineFieldType(address.id)}
+					>
+						{address.streetAddressLine3}
+					</DetailField>
+
+					<DetailField
+						formAction={address.editPostalAddressURL}
+						formData={formData}
+						name={Liferay.Language.get('postal-code')}
+						type={determineFieldType(address.id)}
+					>
+						{address.postalCode}
+					</DetailField>
+
+					<DetailField
+						formAction={address.editPostalAddressURL}
+						formData={formData}
+						name={Liferay.Language.get('country')}
+						type={determineFieldType(address.id)}
+					>
+						{address.addressCountry}
+					</DetailField>
 
 					<ClayList.Item flex>
 						<div

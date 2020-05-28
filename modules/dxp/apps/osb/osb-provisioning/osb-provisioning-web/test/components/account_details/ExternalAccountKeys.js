@@ -21,7 +21,7 @@ function renderExternalAccountKeys(props) {
 				dossieraAccountKey: 'testDossieraAccountKey',
 				dossieraProjectKey: 'testDossieraProjectKey',
 				key: '123',
-				salesforceProjectKey: 'TestSalesForceProjectKey'
+				salesforceProjectKey: 'testSalesForceProjectKey'
 			}}
 			{...props}
 		/>
@@ -35,5 +35,26 @@ describe('ExternalAccountKeys', () => {
 		const {container} = renderExternalAccountKeys();
 
 		expect(container).toBeTruthy();
+	});
+
+	it('displays Dossiera Account field with the correct value', () => {
+		const {getByText} = renderExternalAccountKeys();
+
+		getByText('dossiera-account');
+		getByText('testDossieraAccountKey');
+	});
+
+	it('displays Dossiera Project field with the correct value', () => {
+		const {getByText} = renderExternalAccountKeys();
+
+		getByText('dossiera-project');
+		getByText('testDossieraProjectKey');
+	});
+
+	it('displays Salesforce Project field with the correct value', () => {
+		const {getByText} = renderExternalAccountKeys();
+
+		getByText('salesforce-project');
+		getByText('testSalesForceProjectKey');
 	});
 });

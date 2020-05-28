@@ -9,7 +9,7 @@
  * distribution rights of the Software.
  */
 
-import {cleanup, render} from '@testing-library/react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
 import AccountAddress from '../../../src/main/resources/META-INF/resources/js/components/account_details/AccountAddress';
@@ -76,6 +76,17 @@ describe('AccountAddress', () => {
 		expect(getAllByText('-').length).toBe(7);
 	});
 
+	it('does not allow any address fields to be edited when no address was provided', () => {
+		const {getAllByText, queryByText} = renderAccountAddress({
+			addresses: []
+		});
+
+		fireEvent.click(getAllByText('-')[0]);
+
+		expect(queryByText('save')).toBeFalsy();
+		expect(queryByText('cancel')).toBeFalsy();
+	});
+
 	it('displays an add button when no address was provided', () => {
 		const {queryByLabelText} = renderAccountAddress({addresses: []});
 
@@ -94,6 +105,15 @@ describe('AccountAddress', () => {
 		getByText('address 1');
 		getByText('address 2');
 		getByText('address 3');
+	});
+
+	it('allows address fields to be edited when at least one address was provided', () => {
+		const {getByText} = renderAccountAddress();
+
+		fireEvent.click(getByText('Diamond Bar'));
+
+		getByText('save');
+		getByText('cancel');
 	});
 
 	it('displays an add button for each provided addresses', () => {

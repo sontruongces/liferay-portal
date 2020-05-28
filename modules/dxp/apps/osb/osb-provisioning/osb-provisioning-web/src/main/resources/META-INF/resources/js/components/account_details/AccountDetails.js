@@ -15,6 +15,7 @@ import React from 'react';
 import AccountAddress from './AccountAddress';
 import ExternalAccountKeys from './ExternalAccountKeys';
 import GeneralDetails from './GeneralDetails';
+import PartnerInfo from './PartnerInfo';
 
 function AccountDetails({details, statusNames, tierNames}) {
 	return (
@@ -24,6 +25,8 @@ function AccountDetails({details, statusNames, tierNames}) {
 				statuses={statusNames}
 				tiers={tierNames}
 			/>
+
+			<PartnerInfo details={details} />
 
 			<AccountAddress
 				addresses={details.postalAddressDisplays}
