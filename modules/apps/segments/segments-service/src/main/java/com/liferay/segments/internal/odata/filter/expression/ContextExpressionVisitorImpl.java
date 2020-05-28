@@ -29,6 +29,7 @@ import com.liferay.portal.odata.filter.expression.ExpressionVisitException;
 import com.liferay.portal.odata.filter.expression.ExpressionVisitor;
 import com.liferay.portal.odata.filter.expression.LambdaFunctionExpression;
 import com.liferay.portal.odata.filter.expression.LambdaVariableExpression;
+import com.liferay.portal.odata.filter.expression.ListExpression;
 import com.liferay.portal.odata.filter.expression.LiteralExpression;
 import com.liferay.portal.odata.filter.expression.MemberExpression;
 import com.liferay.portal.odata.filter.expression.MethodExpression;
@@ -165,6 +166,21 @@ public class ContextExpressionVisitorImpl implements ExpressionVisitor<Object> {
 		}
 
 		return entityField;
+	}
+
+	@Override
+	public Object visitListExpressionOperation(
+			ListExpression.Operation operation, Object left,
+			List<Object> rights)
+		throws ExpressionVisitException {
+
+		if (operation != ListExpression.Operation.IN) {
+			throw new UnsupportedOperationException(
+				"Unsupported method visitListExpressionOperation with " +
+					"operation " + operation);
+		}
+
+		return _getINPredicate((EntityField)left, rights);
 	}
 
 	@Override
@@ -347,6 +363,17 @@ public class ContextExpressionVisitorImpl implements ExpressionVisitor<Object> {
 		throw new UnsupportedOperationException(
 			"Unsupported method _getGTPredicate with entity field type " +
 				entityField.getType());
+	}
+
+	private Predicate<Context> _getINPredicate(
+		EntityField entityField, List<Object> fieldValues) {
+
+		Stream<Object> stream = fieldValues.stream();
+
+		return p -> stream.anyMatch(
+			fieldValue -> StringUtils.containsIgnoreCase(
+				String.valueOf(p.get(entityField.getName())),
+				String.valueOf(fieldValue)));
 	}
 
 	private Predicate<Context> _getLambdaContainsPredicate(
