@@ -311,7 +311,7 @@ public class WorkflowMetricsSLADefinitionLocalServiceImpl
 		workflowMetricsSLADefinitionVersion.setModifiedDate(now);
 
 		workflowMetricsSLADefinitionVersion.setActive(
-			workflowMetricsSLADefinition.getActive());
+			workflowMetricsSLADefinition.isActive());
 		workflowMetricsSLADefinitionVersion.setCalendarKey(
 			workflowMetricsSLADefinition.getCalendarKey());
 		workflowMetricsSLADefinitionVersion.setDescription(
