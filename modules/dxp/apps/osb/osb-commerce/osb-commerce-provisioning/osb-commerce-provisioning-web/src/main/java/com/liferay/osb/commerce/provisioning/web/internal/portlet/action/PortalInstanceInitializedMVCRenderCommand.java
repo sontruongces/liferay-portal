@@ -22,6 +22,7 @@ import com.liferay.osb.commerce.provisioning.web.internal.util.OSBCommerceProvis
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 
 import javax.portlet.PortletException;
@@ -78,13 +79,31 @@ public class PortalInstanceInitializedMVCRenderCommand
 	private String _getPortalInstanceVirtualHostname(
 		String portalInstanceVirtualHostname) {
 
+		StringBundler sb = new StringBundler(5);
+
 		boolean devEnvironment = _isMockEnvironment(
 			portalInstanceVirtualHostname);
 
-		return StringBundler.concat(
-			devEnvironment ? "http" : "https", "://",
-			portalInstanceVirtualHostname, ":", devEnvironment ? "8080" : "443",
-			"/group/osb-commerce");
+		if (devEnvironment) {
+			sb.append("http://");
+		}
+		else {
+			sb.append("https://");
+		}
+
+		sb.append(portalInstanceVirtualHostname);
+		sb.append(StringPool.COLON);
+
+		if (devEnvironment) {
+			sb.append("8080");
+		}
+		else {
+			sb.append("443");
+		}
+
+		sb.append("/group/osb-commerce");
+
+		return sb.toString();
 	}
 
 	private boolean _isMockEnvironment(String portalInstanceVirtualHostname) {
