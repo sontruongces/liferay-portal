@@ -71,7 +71,7 @@ public class ProductPurchaseViewWebServiceImpl
 			return Collections.emptyList();
 		}
 		catch (Exception exception) {
-			_log.error(exception);
+			_log.error(exception, exception);
 
 			return Collections.emptyList();
 		}
@@ -95,7 +95,7 @@ public class ProductPurchaseViewWebServiceImpl
 			return 0;
 		}
 		catch (Exception exception) {
-			_log.error(exception);
+			_log.error(exception, exception);
 
 			return 0;
 		}
