@@ -77,6 +77,10 @@
 	border-radius: $border-radius;
 	margin: $spacing-default;
 
+	a.taglib-icon {
+		color: $secondary;
+	}
+
 	.container-fluid-form {
 		margin-top: $spacing-sm;
 	}
@@ -125,10 +129,6 @@
 				box-shadow: none;
 			}
 		}
-	}
-
-	a.taglib-icon {
-		color: $secondary;
 	}
 }
 
