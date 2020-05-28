@@ -17,7 +17,11 @@ import {FIELD_TYPE_NONEDITABLE} from '../../../src/main/resources/META-INF/resou
 
 function renderDetailField(props) {
 	return render(
-		<DetailField name="field name" save={jest.fn()} {...props}>
+		<DetailField
+			formData={{1: 'a', 2: 'b', 3: 'c'}}
+			name="field name"
+			{...props}
+		>
 			test
 		</DetailField>
 	);

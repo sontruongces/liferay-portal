@@ -11,7 +11,7 @@
 
 import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 
 import {
 	FIELD_TYPE_EXTERNAL,
@@ -20,13 +20,10 @@ import {
 	FIELD_TYPE_TOGGLE
 } from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
-import HiddenFields from '../HiddenFields';
 import DetailField from './DetailField';
 
 function GeneralDetails({details, statuses, tiers}) {
-	const refForm = useRef();
-
-	const initialDetails = {
+	const formData = {
 		code: convertDashToEmptyString(details.code),
 		name: convertDashToEmptyString(details.name),
 		region: convertDashToEmptyString(details.region),
@@ -35,102 +32,86 @@ function GeneralDetails({details, statuses, tiers}) {
 		updateAccount: true
 	};
 
-	const [accountDetails, setAccountDetails] = useState(initialDetails);
-
-	useEffect(() => {
-		if (!Object.is(initialDetails, accountDetails)) {
-			refForm.current.submit();
-		}
-	}, [accountDetails, initialDetails]);
-
-	function handleSubmit(fieldName, value) {
-		setAccountDetails({...initialDetails, [fieldName]: value});
-	}
-
 	return (
-		<form
-			action={details.editAccountURL}
-			method="post"
-			name="generalDetailsForm"
-			ref={refForm}
-		>
-			<HiddenFields data={accountDetails} />
-			<ClayList>
-				<ClayList.Header>
-					{Liferay.Language.get('general-details')}
-				</ClayList.Header>
+		<ClayList>
+			<ClayList.Header>
+				{Liferay.Language.get('general-details')}
+			</ClayList.Header>
 
-				<DetailField
-					name={Liferay.Language.get('account-name')}
-					save={handleSubmit}
-				>
-					{details.name}
-				</DetailField>
+			<DetailField
+				formAction={details.editAccountURL}
+				formData={formData}
+				name={Liferay.Language.get('account-name')}
+			>
+				{details.name}
+			</DetailField>
 
-				<DetailField
-					displayAs="label"
-					inputStyle={details.statusStyle}
-					name={Liferay.Language.get('status')}
-					options={statuses}
-					save={handleSubmit}
-					type={FIELD_TYPE_SELECT}
-				>
-					{details.status}
-				</DetailField>
+			<DetailField
+				displayAs="label"
+				formAction={details.editAccountURL}
+				formData={formData}
+				inputStyle={details.statusStyle}
+				name={Liferay.Language.get('status')}
+				options={statuses}
+				type={FIELD_TYPE_SELECT}
+			>
+				{details.status}
+			</DetailField>
 
-				<DetailField
-					name={Liferay.Language.get('code')}
-					save={handleSubmit}
-				>
-					{details.code}
-				</DetailField>
+			<DetailField
+				formAction={details.editAccountURL}
+				formData={formData}
+				name={Liferay.Language.get('code')}
+			>
+				{details.code}
+			</DetailField>
 
-				<DetailField
-					name={Liferay.Language.get('created')}
-					save={handleSubmit}
-					type={FIELD_TYPE_NONEDITABLE}
-				>
-					{details.dateCreated}
-				</DetailField>
+			<DetailField
+				name={Liferay.Language.get('created')}
+				type={FIELD_TYPE_NONEDITABLE}
+			>
+				{details.dateCreated}
+			</DetailField>
 
-				<DetailField
-					name={Liferay.Language.get('tier')}
-					options={tiers}
-					save={handleSubmit}
-					type={FIELD_TYPE_SELECT}
-				>
-					{details.tier}
-				</DetailField>
+			<DetailField
+				formAction={details.editAccountURL}
+				formData={formData}
+				name={Liferay.Language.get('tier')}
+				options={tiers}
+				type={FIELD_TYPE_SELECT}
+			>
+				{details.tier}
+			</DetailField>
 
-				<DetailField
-					name={Liferay.Language.get('last-modified')}
-					save={handleSubmit}
-					type={FIELD_TYPE_NONEDITABLE}
-				>
-					{details.dateModified}
-				</DetailField>
+			<DetailField
+				name={Liferay.Language.get('last-modified')}
+				type={FIELD_TYPE_NONEDITABLE}
+			>
+				{details.dateModified}
+			</DetailField>
 
-				<ClayList.Header>
-					{Liferay.Language.get('partner-info')}
-				</ClayList.Header>
+			<ClayList.Header>
+				{Liferay.Language.get('partner-info')}
+			</ClayList.Header>
 
-				<DetailField
-					name={Liferay.Language.get('partner-reseller-si')}
-					save={handleSubmit}
-					type={FIELD_TYPE_EXTERNAL}
-				>
-					{details.partnerTeamName}
-				</DetailField>
+			<DetailField
+				formAction={details.editAccountURL}
+				formData={formData}
+				name={Liferay.Language.get('partner-reseller-si')}
+				type={FIELD_TYPE_EXTERNAL}
+			>
+				{details.partnerTeamName}
+			</DetailField>
 
-				<DetailField
-					name={Liferay.Language.get('first-line-support')}
-					save={handleSubmit}
-					type={FIELD_TYPE_TOGGLE}
-				>
-					{details.firstLineSupportTeamName}
-				</DetailField>
-			</ClayList>
-		</form>
+			<DetailField
+				formAction={details.editAccountURL}
+				formData={formData}
+				name={Liferay.Language.get('first-line-support')}
+				type={FIELD_TYPE_TOGGLE}
+			>
+				{details.firstLineSupportTeamName}
+			</DetailField>
+		</ClayList>
 	);
 }
 

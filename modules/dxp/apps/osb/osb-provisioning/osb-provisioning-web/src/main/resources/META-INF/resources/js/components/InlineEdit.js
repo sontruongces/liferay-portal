@@ -50,7 +50,7 @@ function InlineEdit({
 		setValue(!convertDashToEmptyString(value));
 	}
 
-	function handleSubmit() {
+	function handleSave() {
 		save(fieldName, value);
 	}
 
@@ -146,7 +146,7 @@ function InlineEdit({
 					<div className="button-row">
 						<button
 							className="btn btn-primary btn-sm save-btn"
-							onClick={handleSubmit}
+							onClick={handleSave}
 							role="button"
 							type="button"
 						>

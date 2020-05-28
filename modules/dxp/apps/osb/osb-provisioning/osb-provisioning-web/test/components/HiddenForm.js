@@ -12,29 +12,37 @@
 import {cleanup, render} from '@testing-library/react';
 import React from 'react';
 
-import HiddenFields from '../../src/main/resources/META-INF/resources/js/components/HiddenFields';
+import HiddenForm from '../../src/main/resources/META-INF/resources/js/components/HiddenForm';
 
-function renderHiddenFields() {
-	return render(<HiddenFields data={{1: 'a', 2: 'b', 3: 'c'}} />);
+const formRef = jest.fn()
+
+function renderHiddenForm() {
+	return render(
+		<HiddenForm
+			fields={{1: 'a', 2: 'b', 3: 'c'}}
+			formAction="/"
+			ref={formRef}
+		/>
+	);
 }
 
 describe('HiddenInputs', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {
-		const {container} = renderHiddenFields();
+		const {container} = renderHiddenForm();
 
 		expect(container).toBeTruthy();
 	});
 
 	it('displays all inputs to be type hidden', () => {
-		const {container} = renderHiddenFields();
+		const {container} = renderHiddenForm();
 
 		expect(container.querySelectorAll('[type]').length).toBe(3);
 	});
 
 	it("namespaces the input's name attribute", () => {
-		const {container} = renderHiddenFields();
+		const {container} = renderHiddenForm();
 
 		const inputs = container.querySelectorAll('input');
 
@@ -44,7 +52,7 @@ describe('HiddenInputs', () => {
 	});
 
 	it('displays the correct value for each input per the data provided', () => {
-		const {container} = renderHiddenFields();
+		const {container} = renderHiddenForm();
 
 		const inputs = container.querySelectorAll('input');
 

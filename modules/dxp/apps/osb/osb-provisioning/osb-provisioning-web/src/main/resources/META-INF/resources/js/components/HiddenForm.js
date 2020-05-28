@@ -14,8 +14,14 @@ import React from 'react';
 
 import {NAMESPACE} from '../utilities/constants';
 
-function HiddenFields({data}) {
-	return Object.entries(data).map(([key, value]) => (
+const HiddenForm = React.forwardRef(({fields = {}, formAction = ''}, ref) => (
+	<form action={formAction} method="post" ref={ref}>
+		<HiddenFields fields={fields} />
+	</form>
+));
+
+function HiddenFields({fields}) {
+	return Object.entries(fields).map(([key, value]) => (
 		<input
 			key={`${NAMESPACE}${key}`}
 			name={`${NAMESPACE}${key}`}
@@ -25,8 +31,9 @@ function HiddenFields({data}) {
 	));
 }
 
-HiddenFields.propTypes = {
-	data: PropTypes.object
+HiddenForm.propTypes = {
+	fields: PropTypes.object,
+	formAction: PropTypes.string
 };
 
-export default HiddenFields;
+export default HiddenForm;

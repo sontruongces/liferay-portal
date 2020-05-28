@@ -11,7 +11,7 @@
 
 import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {
 	FIELD_TYPE_EXTERNAL,
@@ -20,17 +20,33 @@ import {
 	FIELD_TYPE_TEXT,
 	FIELD_TYPE_TOGGLE
 } from '../../utilities/constants';
+import HiddenForm from '../HiddenForm';
 import InlineEdit from '../InlineEdit';
 
 function DetailField({
 	children,
 	displayAs,
+	formAction,
+	formData,
 	inputStyle,
 	name,
 	options,
-	save,
 	type = FIELD_TYPE_TEXT
 }) {
+	const formRef = useRef();
+
+	const [data, setData] = useState(formData);
+
+	useEffect(() => {
+		if (!Object.is(data, formData)) {
+			formRef.current.submit();
+		}
+	}, [data, formData]);
+
+	function handleSubmit(fieldName, value) {
+		setData({...formData, [fieldName]: value});
+	}
+
 	return (
 		<ClayList.Item flex>
 			<div className="account-field">
@@ -40,16 +56,24 @@ function DetailField({
 					{type === FIELD_TYPE_NONEDITABLE ? (
 						<>{children}</>
 					) : (
-						<InlineEdit
-							displayAs={displayAs}
-							fieldName={name}
-							inputStyle={inputStyle}
-							options={options}
-							save={save}
-							type={type}
-						>
-							{children}
-						</InlineEdit>
+						<>
+							<HiddenForm
+								fields={data}
+								formAction={formAction}
+								ref={formRef}
+							/>
+
+							<InlineEdit
+								displayAs={displayAs}
+								fieldName={name}
+								inputStyle={inputStyle}
+								options={options}
+								save={handleSubmit}
+								type={type}
+							>
+								{children}
+							</InlineEdit>
+						</>
 					)}
 				</div>
 			</div>
@@ -60,10 +84,11 @@ function DetailField({
 DetailField.propTypes = {
 	children: PropTypes.string,
 	displayAs: PropTypes.oneOf(['label', 'text']),
+	formAction: PropTypes.string,
+	formData: PropTypes.object,
 	inputStyle: PropTypes.string,
 	name: PropTypes.string,
 	options: PropTypes.arrayOf(PropTypes.string),
-	save: PropTypes.func,
 	type: PropTypes.oneOf([
 		FIELD_TYPE_EXTERNAL,
 		FIELD_TYPE_NONEDITABLE,
