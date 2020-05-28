@@ -22,6 +22,7 @@ import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.headless.admin.user.dto.v1_0.UserAccount;
 import com.liferay.osb.commerce.provisioning.OSBCommercePortalInstanceStatus;
+import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudClient;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudClientClientFactory;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.RoleClient;
@@ -85,7 +86,8 @@ public class OSBCommerceProvisioning {
 		}
 
 		commerceSubscriptionEntry = _updateSubscriptionTypeSettingsProperties(
-			commerceSubscriptionEntry, _PORTAL_INSTANCE_STATUS,
+			commerceSubscriptionEntry,
+			OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_STATUS,
 			String.valueOf(
 				OSBCommercePortalInstanceStatus.IN_PROGRESS.getStatus()));
 
@@ -106,10 +108,12 @@ public class OSBCommerceProvisioning {
 			"OSB Commerce Administrator");
 
 		_updateSubscriptionTypeSettingsProperties(
-			commerceSubscriptionEntry, _PORTAL_INSTANCE_STATUS,
+			commerceSubscriptionEntry,
+			OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_STATUS,
 			String.valueOf(OSBCommercePortalInstanceStatus.ACTIVE.getStatus()),
-			_PORTAL_INSTANCE_VIRTUAL_HOST_NAME,
-			portalInstance.getVirtualHostname(), _PORTAL_INSTANCE_WEB_ID,
+			OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_VIRTUAL_HOSTNAME,
+			portalInstance.getVirtualHostname(),
+			OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_WEB_ID,
 			portalInstance.getWebId());
 	}
 
@@ -164,15 +168,6 @@ public class OSBCommerceProvisioning {
 		return _commerceSubscriptionEntryLocalService.
 			updateCommerceSubscriptionEntry(commerceSubscriptionEntry);
 	}
-
-	private static final String _PORTAL_INSTANCE_STATUS =
-		"PORTAL_INSTANCE_STATUS";
-
-	private static final String _PORTAL_INSTANCE_VIRTUAL_HOST_NAME =
-		"PORTAL_INSTANCE_VIRTUAL_HOST_NAME";
-
-	private static final String _PORTAL_INSTANCE_WEB_ID =
-		"PORTAL_INSTANCE_WEB_ID";
 
 	@Reference
 	private CommerceOrderLocalService _commerceOrderLocalService;
