@@ -13,6 +13,13 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {
+	FIELD_TYPE_EXTERNAL,
+	FIELD_TYPE_NONEDITABLE,
+	FIELD_TYPE_SELECT,
+	FIELD_TYPE_TEXT,
+	FIELD_TYPE_TOGGLE
+} from '../../utilities/constants';
 import InlineEdit from '../InlineEdit';
 
 function DetailField({
@@ -22,7 +29,7 @@ function DetailField({
 	name,
 	options,
 	save,
-	type = 'text'
+	type = FIELD_TYPE_TEXT
 }) {
 	return (
 		<ClayList.Item flex>
@@ -30,12 +37,12 @@ function DetailField({
 				<ClayList.ItemTitle>{name}</ClayList.ItemTitle>
 
 				<div className="list-group-text">
-					{type === 'noneditable' ? (
+					{type === FIELD_TYPE_NONEDITABLE ? (
 						<>{children}</>
 					) : (
 						<InlineEdit
 							displayAs={displayAs}
-							fieldName="name"
+							fieldName={name}
 							inputStyle={inputStyle}
 							options={options}
 							save={save}
@@ -58,11 +65,11 @@ DetailField.propTypes = {
 	options: PropTypes.arrayOf(PropTypes.string),
 	save: PropTypes.func,
 	type: PropTypes.oneOf([
-		'external',
-		'noneditable',
-		'select',
-		'text',
-		'toggle'
+		FIELD_TYPE_EXTERNAL,
+		FIELD_TYPE_NONEDITABLE,
+		FIELD_TYPE_SELECT,
+		FIELD_TYPE_TEXT,
+		FIELD_TYPE_TOGGLE
 	])
 };
 

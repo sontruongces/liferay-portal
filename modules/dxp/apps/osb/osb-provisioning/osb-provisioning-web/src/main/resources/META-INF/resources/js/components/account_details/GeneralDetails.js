@@ -13,6 +13,12 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 
+import {
+	FIELD_TYPE_EXTERNAL,
+	FIELD_TYPE_NONEDITABLE,
+	FIELD_TYPE_SELECT,
+	FIELD_TYPE_TOGGLE
+} from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
 import HiddenFields from '../HiddenFields';
 import DetailField from './DetailField';
@@ -67,7 +73,7 @@ function GeneralDetails({details, statuses, tiers}) {
 					name={Liferay.Language.get('status')}
 					options={statuses}
 					save={handleSubmit}
-					type="select"
+					type={FIELD_TYPE_SELECT}
 				>
 					{details.status}
 				</DetailField>
@@ -82,7 +88,7 @@ function GeneralDetails({details, statuses, tiers}) {
 				<DetailField
 					name={Liferay.Language.get('created')}
 					save={handleSubmit}
-					type="noneditable"
+					type={FIELD_TYPE_NONEDITABLE}
 				>
 					{details.dateCreated}
 				</DetailField>
@@ -91,7 +97,7 @@ function GeneralDetails({details, statuses, tiers}) {
 					name={Liferay.Language.get('tier')}
 					options={tiers}
 					save={handleSubmit}
-					type="select"
+					type={FIELD_TYPE_SELECT}
 				>
 					{details.tier}
 				</DetailField>
@@ -99,7 +105,7 @@ function GeneralDetails({details, statuses, tiers}) {
 				<DetailField
 					name={Liferay.Language.get('last-modified')}
 					save={handleSubmit}
-					type="noneditable"
+					type={FIELD_TYPE_NONEDITABLE}
 				>
 					{details.dateModified}
 				</DetailField>
@@ -111,7 +117,7 @@ function GeneralDetails({details, statuses, tiers}) {
 				<DetailField
 					name={Liferay.Language.get('partner-reseller-si')}
 					save={handleSubmit}
-					type="external"
+					type={FIELD_TYPE_EXTERNAL}
 				>
 					{details.partnerTeamName}
 				</DetailField>
@@ -119,7 +125,7 @@ function GeneralDetails({details, statuses, tiers}) {
 				<DetailField
 					name={Liferay.Language.get('first-line-support')}
 					save={handleSubmit}
-					type="toggle"
+					type={FIELD_TYPE_TOGGLE}
 				>
 					{details.firstLineSupportTeamName}
 				</DetailField>

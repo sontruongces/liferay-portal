@@ -13,6 +13,10 @@ import {cleanup, fireEvent, render, within} from '@testing-library/react';
 import React from 'react';
 
 import InlineEdit from '../../src/main/resources/META-INF/resources/js/components/InlineEdit';
+import {
+	FIELD_TYPE_SELECT,
+	FIELD_TYPE_TOGGLE
+} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 const mockSubmitFn = jest.fn();
 
@@ -110,9 +114,9 @@ describe('IconButton', () => {
 	it('displays an editable select input correctly', () => {
 		const {container} = renderInlineEdit({
 			options: ['1', '2', '3', 'test'],
-			type: 'select'
+			type: FIELD_TYPE_SELECT
 		});
-		const {getByText, getNodeText} = within(container);
+		const {getByText} = within(container);
 
 		fireEvent.click(getByText('test'));
 
@@ -125,7 +129,7 @@ describe('IconButton', () => {
 	});
 
 	it('displays an editable toggle correctly', () => {
-		const {container} = renderInlineEdit({type: 'toggle'});
+		const {container} = renderInlineEdit({type: FIELD_TYPE_TOGGLE});
 		const {getByText} = within(container);
 
 		fireEvent.click(getByText('test'));

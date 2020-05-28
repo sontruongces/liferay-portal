@@ -13,6 +13,7 @@ import {cleanup, fireEvent, render, within} from '@testing-library/react';
 import React from 'react';
 
 import DetailField from '../../../src/main/resources/META-INF/resources/js/components/account_details/DetailField';
+import {FIELD_TYPE_NONEDITABLE} from '../../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 function renderDetailField(props) {
 	return render(
@@ -54,7 +55,7 @@ describe('DetailField', () => {
 	});
 
 	it('allows inline edit to be turned off', () => {
-		const {container} = renderDetailField({type: 'noneditable'});
+		const {container} = renderDetailField({type: FIELD_TYPE_NONEDITABLE});
 		const {queryByText} = within(container);
 
 		fireEvent.click(queryByText('test'));

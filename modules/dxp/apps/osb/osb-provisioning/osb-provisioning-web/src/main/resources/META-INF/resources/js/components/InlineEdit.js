@@ -12,7 +12,13 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {NAMESPACE} from '../utilities/constants';
+import {
+	FIELD_TYPE_EXTERNAL,
+	FIELD_TYPE_SELECT,
+	FIELD_TYPE_TEXT,
+	FIELD_TYPE_TOGGLE,
+	NAMESPACE
+} from '../utilities/constants';
 import {convertDashToEmptyString} from '../utilities/helpers';
 
 function InlineEdit({
@@ -22,7 +28,7 @@ function InlineEdit({
 	inputStyle = '',
 	options = [],
 	save,
-	type = 'text'
+	type = FIELD_TYPE_TEXT
 }) {
 	const [fieldEditable, setFieldEditable] = useState(false);
 	const [showEditor, setShowEditor] = useState(false);
@@ -81,7 +87,7 @@ function InlineEdit({
 
 			{showEditor && (
 				<>
-					{type === 'select' && (
+					{type === FIELD_TYPE_SELECT && (
 						<label
 							className="form-control-label"
 							htmlFor={namespacedFieldName}
@@ -99,7 +105,7 @@ function InlineEdit({
 						</label>
 					)}
 
-					{type === 'text' && (
+					{type === FIELD_TYPE_TEXT && (
 						<label
 							className="form-control-label"
 							htmlFor={namespacedFieldName}
@@ -114,7 +120,7 @@ function InlineEdit({
 						</label>
 					)}
 
-					{type === 'toggle' && (
+					{type === FIELD_TYPE_TOGGLE && (
 						<label
 							className="simple-toggle-switch toggle-switch"
 							htmlFor={namespacedFieldName}
@@ -173,7 +179,12 @@ InlineEdit.propTypes = {
 	inputStyle: PropTypes.string,
 	options: PropTypes.arrayOf(PropTypes.string),
 	save: PropTypes.func.isRequired,
-	type: PropTypes.oneOf(['external', 'select', 'text', 'toggle'])
+	type: PropTypes.oneOf([
+		FIELD_TYPE_EXTERNAL,
+		FIELD_TYPE_SELECT,
+		FIELD_TYPE_TEXT,
+		FIELD_TYPE_TOGGLE
+	])
 };
 
 export default InlineEdit;
