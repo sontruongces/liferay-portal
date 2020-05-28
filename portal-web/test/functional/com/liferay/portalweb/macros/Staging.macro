@@ -138,6 +138,18 @@ definition {
 		AssertConsoleTextNotPresent(value1 = "javax.portlet.PortletException: java.lang.NullPointerException");
 	}
 
+	macro addCustomPublication {
+		Pause(locator1 = "3000");
+
+		LexiconEntry.gotoAdd();
+
+		if (isSet(publishTemplateName)) {
+			var key_publishTemplateName = "${publishTemplateName}";
+
+			Click(locator1 = "Staging#STAGING_PUBLISH_TEMPLATE_LINK");
+		}
+	}
+
 	macro addEventRepeatDaily {
 		Click(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON");
 
