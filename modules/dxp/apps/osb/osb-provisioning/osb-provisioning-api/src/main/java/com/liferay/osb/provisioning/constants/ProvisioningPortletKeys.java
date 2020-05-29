@@ -25,4 +25,7 @@ public class ProvisioningPortletKeys {
 	public static final String ADMIN =
 		"com_liferay_osb_provisioning_web_portlet_AdminPortlet";
 
+	public static final String PRODUCTS =
+		"com_liferay_osb_provisioning_web_portlet_ProductsPortlet";
+
 }
