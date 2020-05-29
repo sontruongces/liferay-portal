@@ -24,7 +24,9 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 %>
 
-<portlet:actionURL name="/edit_postal_address" var="editPostalAddressURL" />
+<portlet:actionURL name="/accounts/edit_postal_address" var="editPostalAddressURL">
+	<portlet:param name="mvcRenderCommandName" value="/accounts/add_postal_address" />
+</portlet:actionURL>
 
 <aui:form action="<%= editPostalAddressURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />

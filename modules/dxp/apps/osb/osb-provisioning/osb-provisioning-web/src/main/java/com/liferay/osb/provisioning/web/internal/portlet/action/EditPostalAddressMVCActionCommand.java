@@ -51,7 +51,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + ProvisioningPortletKeys.ACCOUNTS,
-		"mvc.command.name=/edit_postal_address"
+		"mvc.command.name=/accounts/edit_postal_address"
 	},
 	service = MVCActionCommand.class
 )
@@ -87,11 +87,6 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 				updatePostalAddress(actionRequest, user);
 			}
 
-			actionResponse.setRenderParameter(
-				"mvcRenderCommandName", "/accounts/view_account");
-			actionResponse.setRenderParameter(
-				"accountKey", ParamUtil.getString(actionRequest, "accountKey"));
-
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (Exception exception) {
@@ -100,9 +95,6 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 				exception instanceof NoSuchRegionException) {
 
 				SessionErrors.add(actionRequest, exception.getClass());
-
-				actionResponse.setRenderParameter(
-					"mvcRenderCommandName", "/accounts/add_postal_address");
 			}
 			else {
 				_log.error(exception, exception);

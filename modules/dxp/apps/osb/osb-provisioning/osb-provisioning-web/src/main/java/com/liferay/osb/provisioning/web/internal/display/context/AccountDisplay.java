@@ -78,6 +78,16 @@ public class AccountDisplay {
 
 		addPostalAddressURL.setParameter(
 			"mvcRenderCommandName", "/accounts/add_postal_address");
+
+		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/accounts/view_account");
+		portletURL.setParameter("accountKey", _account.getKey());
+		portletURL.setParameter("tabs1", "details");
+
+		addPostalAddressURL.setParameter("redirect", portletURL.toString());
+
 		addPostalAddressURL.setParameter("accountKey", _account.getKey());
 
 		return addPostalAddressURL.toString();
