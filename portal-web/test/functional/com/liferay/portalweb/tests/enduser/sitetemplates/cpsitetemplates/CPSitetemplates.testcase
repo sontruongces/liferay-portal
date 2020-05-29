@@ -29,11 +29,6 @@ definition {
 	test AddSiteTemplate {
 		property portal.acceptance = "true";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
-
 		SiteTemplates.addCP(
 			siteTemplateActive = "Yes",
 			siteTemplateName = "Site Template Name");
@@ -54,11 +49,6 @@ definition {
 	test AddSiteTemplateApplySiteTemplateChangesToSite {
 		property portal.acceptance = "true";
 		property portal.release = "false";
-
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
 
 		SiteTemplates.addCP(siteTemplateName = "Site Template Name");
 
@@ -103,11 +93,6 @@ definition {
 	test AddSiteTemplateChangeCurrentTheme {
 		property osgi.app.includes = "frontend-theme-fjord";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
-
 		SiteTemplates.addCP(siteTemplateName = "Site Template Name");
 
 		LexiconEntry.gotoEntryMenuItem(
@@ -140,11 +125,6 @@ definition {
 	test AddSiteTemplateDisablePageModification {
 		property portal.acceptance = "true";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
-
 		SiteTemplates.addCP(
 			disableChanges = "true",
 			siteTemplateName = "Site Template Name");
@@ -169,11 +149,6 @@ definition {
 	@description = "This is a use case for LPS-84497."
 	@priority = "3"
 	test DeactivateActivateSiteTemplate {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
-
 		SiteTemplates.addCP(
 			siteTemplateActive = "Yes",
 			siteTemplateName = "Site Template Name");
@@ -245,11 +220,6 @@ definition {
 	test DeleteSiteTemplate {
 		property portal.acceptance = "true";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
-
 		SiteTemplates.addCP(
 			siteTemplateActive = "Yes",
 			siteTemplateName = "Site Template Name");
@@ -280,11 +250,6 @@ definition {
 	@priority = "4"
 	test DeleteSiteTemplateAssociatedWithASite {
 		property portal.acceptance = "true";
-
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
 
 		SiteTemplates.addCP(
 			siteTemplateActive = "Yes",
@@ -320,8 +285,6 @@ definition {
 	@priority = "4"
 	test DeleteSiteTemplateImportedToVirtualInstance {
 		property test.name.skip.portal.instance = "CPSitetemplates#DeleteSiteTemplateImportedToVirtualInstance";
-
-		SiteTemplatesNavigator.openSiteTemplatesAdmin();
 
 		SiteTemplates.addCP(
 			siteTemplateActive = "Yes",
@@ -368,11 +331,6 @@ definition {
 	test EditSiteTemplate {
 		property portal.acceptance = "true";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
-
 		SiteTemplates.addCP(
 			siteTemplateActive = "Yes",
 			siteTemplateName = "Site Template Name");
@@ -403,11 +361,6 @@ definition {
 	@priority = "5"
 	test EditSiteTemplateStatus {
 		property portal.acceptance = "true";
-
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
 
 		SiteTemplates.addCP(
 			siteTemplateActive = "Yes",
@@ -492,11 +445,6 @@ definition {
 	@priority = "4"
 	test OnlySiteAdminCanModifyPageAssociatedWithSiteTemplate {
 		property portal.acceptance = "true";
-
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
 
 		SiteTemplates.addCP(siteTemplateName = "Site Template Name");
 
@@ -642,11 +590,6 @@ definition {
 	@description = "This is a use case for LPS-44550"
 	@priority = "4"
 	test SiteTemplateXSS {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
-
 		SiteTemplates.addCP(
 			siteTemplateActive = "Yes",
 			siteTemplateName = '''<script>alert(123);</script>''');
