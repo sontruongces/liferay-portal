@@ -24,25 +24,29 @@ ViewTeamDisplayContext viewTeamDisplayContext = ProvisioningWebComponentProvider
 AccountDisplay accountDisplay = viewTeamDisplayContext.getAccountDisplay();
 
 Team team = viewTeamDisplayContext.getTeam();
-
-portletDisplay.setShowBackIcon(true);
-portletDisplay.setURLBack(redirect);
-
-renderResponse.setTitle(LanguageUtil.get(request, "new-team"));
 %>
 
-<portlet:actionURL name="/accounts/edit_team" var="editTeamURL">
-	<portlet:param name="redirect" value="<%= redirect %>" />
-	<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
-	<portlet:param name="teamKey" value='<%= (team != null) ? team.getKey() : "" %>' />
-</portlet:actionURL>
+<div class="edit-team">
+	<liferay-ui:header
+		backURL="<%= redirect %>"
+		title="new-team"
+	/>
 
-<aui:form action="<%= editTeamURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
-	<aui:input name="name" value='<%= (team != null) ? team.getName() : "" %>' />
+	<portlet:actionURL name="/accounts/edit_team" var="editTeamURL">
+		<portlet:param name="redirect" value="<%= redirect %>" />
+		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+		<portlet:param name="teamKey" value='<%= (team != null) ? team.getKey() : "" %>' />
+	</portlet:actionURL>
 
-	<aui:button-row>
-		<aui:button type="submit" />
+	<aui:form action="<%= editTeamURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
+		<div class="sheet sheet-lg">
+			<aui:input inlineLabel="left" name="name" required="<%= true %>" value='<%= (team != null) ? team.getName() : "" %>' />
 
-		<aui:button href="<%= redirect %>" type="cancel" />
-	</aui:button-row>
-</aui:form>
+			<aui:button-row>
+				<aui:button type="submit" />
+
+				<aui:button href="<%= redirect %>" type="cancel" />
+			</aui:button-row>
+		</div>
+	</aui:form>
+</div>
