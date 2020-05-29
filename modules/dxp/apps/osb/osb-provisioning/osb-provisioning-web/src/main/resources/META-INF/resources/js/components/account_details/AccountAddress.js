@@ -182,7 +182,17 @@ function AccountAddress({addURL, addresses}) {
 											'delete'
 										)}
 										onClick={() => {
-											// TODO: LHC-2366
+											if (
+												window.confirm(
+													Liferay.Language.get(
+														'are-you-sure-you-want-to-delete-this-address'
+													)
+												)
+											) {
+												window.location.assign(
+													address.deletePostalAddressURL
+												);
+											}
 										}}
 										svgId="#hr"
 										title={Liferay.Language.get('delete')}

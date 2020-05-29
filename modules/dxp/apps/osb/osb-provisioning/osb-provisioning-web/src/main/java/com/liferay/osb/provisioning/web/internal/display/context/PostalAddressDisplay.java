@@ -84,7 +84,7 @@ public class PostalAddressDisplay {
 			_liferayPortletResponse.createActionURL();
 
 		deletePostalAddressURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_postal_address");
+			ActionRequest.ACTION_NAME, "/accounts/edit_postal_address");
 		deletePostalAddressURL.setParameter(Constants.CMD, Constants.DELETE);
 		deletePostalAddressURL.setParameter(
 			"postalAddressId", String.valueOf(_postalAddress.getId()));
@@ -97,7 +97,7 @@ public class PostalAddressDisplay {
 			_liferayPortletResponse.createActionURL();
 
 		editPostalAddressURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_postal_address");
+			ActionRequest.ACTION_NAME, "/accounts/edit_postal_address");
 		editPostalAddressURL.setParameter(
 			"postalAddressId", String.valueOf(_postalAddress.getId()));
 
