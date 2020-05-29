@@ -19,6 +19,7 @@ import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
 import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
@@ -39,11 +40,12 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + OSBCommerceProvisioningPortletKeys.TRIAL_REGISTRATION,
-		"mvc.command.name=portalInstance"
+		"mvc.command.name=portalInstanceStatus"
 	},
 	service = MVCResourceCommand.class
 )
-public class PortalInstanceMVCResourceCommand extends BaseMVCResourceCommand {
+public class PortalInstanceStatusMVCResourceCommand
+	extends BaseMVCResourceCommand {
 
 	@Override
 	protected void doServeResource(
@@ -55,7 +57,8 @@ public class PortalInstanceMVCResourceCommand extends BaseMVCResourceCommand {
 
 		JSONPortletResponseUtil.writeJSON(
 			resourceRequest, resourceResponse,
-			_getPortalInstanceStatus(commerceOrderItemId));
+			JSONUtil.put(
+				"status", _getPortalInstanceStatus(commerceOrderItemId)));
 	}
 
 	private long _getPortalInstanceStatus(long commerceOrderItemId) {
