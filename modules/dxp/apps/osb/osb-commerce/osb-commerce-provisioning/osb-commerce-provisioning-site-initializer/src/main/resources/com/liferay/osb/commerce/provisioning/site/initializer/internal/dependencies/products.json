@@ -9,6 +9,7 @@
 		"Name": "Trial",
 		"Price": 0.0,
 		"PromoPrice": 0.0,
+		"Shippable": false,
 		"Sku": "TRIAL101",
 		"SubscriptionInfo": {
 			"MaxSubscriptionCycles": 1,
@@ -28,6 +29,7 @@
 		"Name": "Basic",
 		"Price": 25000.0,
 		"PromoPrice": 20000.0,
+		"Shippable": false,
 		"Sku": "BASIC101",
 		"SubscriptionInfo": {
 			"MaxSubscriptionCycles": 0,
@@ -48,6 +50,7 @@
 		"Name": "Premium",
 		"Price": 50000.0,
 		"PromoPrice": 40000.0,
+		"Shippable": false,
 		"Sku": "PREMIUM101",
 		"SubscriptionInfo": {
 			"MaxSubscriptionCycles": 0,
