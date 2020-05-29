@@ -26,10 +26,11 @@ import InlineEdit from '../InlineEdit';
 function DetailField({
 	children,
 	displayAs,
+	fieldLabel,
+	fieldName = fieldLabel,
 	formAction,
 	formData,
 	inputStyle,
-	name,
 	options = [],
 	type = FIELD_TYPE_TEXT
 }) {
@@ -50,7 +51,7 @@ function DetailField({
 	return (
 		<ClayList.Item flex>
 			<div className="account-field">
-				<ClayList.ItemTitle>{name}</ClayList.ItemTitle>
+				<ClayList.ItemTitle>{fieldLabel}</ClayList.ItemTitle>
 
 				<div className="list-group-text">
 					{type === FIELD_TYPE_NONEDITABLE ? (
@@ -65,7 +66,7 @@ function DetailField({
 
 							<InlineEdit
 								displayAs={displayAs}
-								fieldName={name}
+								fieldName={fieldName}
 								inputStyle={inputStyle}
 								options={options}
 								save={handleSubmit}
@@ -84,10 +85,11 @@ function DetailField({
 DetailField.propTypes = {
 	children: PropTypes.string,
 	displayAs: PropTypes.oneOf(['label', 'text']),
+	fieldLabel: PropTypes.string,
+	fieldName: PropTypes.string,
 	formAction: PropTypes.string,
 	formData: PropTypes.object,
 	inputStyle: PropTypes.string,
-	name: PropTypes.string,
 	options: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string,

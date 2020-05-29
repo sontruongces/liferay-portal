@@ -18,8 +18,8 @@ import {FIELD_TYPE_NONEDITABLE} from '../../../src/main/resources/META-INF/resou
 function renderDetailField(props) {
 	return render(
 		<DetailField
+			fieldLabel="name"
 			formData={{1: 'a', 2: 'b', 3: 'c'}}
-			name="field name"
 			{...props}
 		>
 			test
@@ -39,7 +39,7 @@ describe('DetailField', () => {
 	it('displays name for the field', () => {
 		const {getByText} = renderDetailField();
 
-		getByText('field name');
+		getByText('name');
 	});
 
 	it('displays value for the field', () => {

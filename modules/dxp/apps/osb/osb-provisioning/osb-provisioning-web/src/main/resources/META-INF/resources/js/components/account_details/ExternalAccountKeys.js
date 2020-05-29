@@ -27,25 +27,28 @@ function ExternalAccountKeys({details}) {
 			</ClayList.Header>
 
 			<DetailField
+				fieldLabel={Liferay.Language.get('dossiera-account')}
+				fieldName="dossieraAccountKey"
 				formAction={''}
 				formData={formData}
-				name={Liferay.Language.get('dossiera-account')}
 			>
 				{details.dossieraAccountKey}
 			</DetailField>
 
 			<DetailField
+				fieldLabel={Liferay.Language.get('dossiera-project')}
+				fieldName="dossieraProjectKey"
 				formAction={''}
 				formData={formData}
-				name={Liferay.Language.get('dossiera-project')}
 			>
 				{details.dossieraProjectKey}
 			</DetailField>
 
 			<DetailField
+				fieldLabel={Liferay.Language.get('salesforce-project')}
+				fieldName="salesforceProjectKey"
 				formAction={''}
 				formData={formData}
-				name={Liferay.Language.get('salesforce-project')}
 			>
 				{details.salesforceProjectKey}
 			</DetailField>

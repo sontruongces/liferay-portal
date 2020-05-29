@@ -37,18 +37,20 @@ function GeneralDetails({details}) {
 			</ClayList.Header>
 
 			<DetailField
+				fieldLabel={Liferay.Language.get('partner-reseller-si')}
+				fieldName="partnerTeamName"
 				formAction={details.editAccountURL}
 				formData={formData}
-				name={Liferay.Language.get('partner-reseller-si')}
 				type={FIELD_TYPE_EXTERNAL}
 			>
 				{details.partnerTeamName}
 			</DetailField>
 
 			<DetailField
+				fieldLabel={Liferay.Language.get('first-line-support')}
+				fieldName="firstLineSupportTeamName"
 				formAction={details.editAccountURL}
 				formData={formData}
-				name={Liferay.Language.get('first-line-support')}
 				type={FIELD_TYPE_TOGGLE}
 			>
 				{details.firstLineSupportTeamName}

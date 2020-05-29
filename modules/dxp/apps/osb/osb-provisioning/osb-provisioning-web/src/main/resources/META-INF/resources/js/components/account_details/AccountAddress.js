@@ -80,36 +80,40 @@ function AccountAddress({addURL, addresses}) {
 					</ClayList.Header>
 
 					<DetailField
+						fieldLabel={Liferay.Language.get('street-1')}
+						fieldName="streetAddressLine1"
 						formAction={address.editPostalAddressURL}
 						formData={setFormData(address.id)}
-						name={Liferay.Language.get('street-1')}
 						type={setFieldType(address.id)}
 					>
 						{address.streetAddressLine1}
 					</DetailField>
 
 					<DetailField
+						fieldLabel={Liferay.Language.get('city')}
+						fieldName="addressLocality"
 						formAction={address.editPostalAddressURL}
 						formData={setFormData(address.id)}
-						name={Liferay.Language.get('city')}
 						type={setFieldType(address.id)}
 					>
 						{address.addressLocality}
 					</DetailField>
 
 					<DetailField
+						fieldLabel={Liferay.Language.get('street-2')}
+						fieldName="streetAddressLine2"
 						formAction={address.editPostalAddressURL}
 						formData={setFormData(address.id)}
-						name={Liferay.Language.get('street-2')}
 						type={setFieldType(address.id)}
 					>
 						{address.streetAddressLine2}
 					</DetailField>
 
 					<DetailField
+						fieldLabel={Liferay.Language.get('state-province')}
+						fieldName="addressRegionId"
 						formAction={address.editPostalAddressURL}
 						formData={setFormData(address.id)}
-						name={Liferay.Language.get('state-province')}
 						// TODO
 						options={[]}
 						type={setFieldType(address.id, FIELD_TYPE_SELECT)}
@@ -118,27 +122,30 @@ function AccountAddress({addURL, addresses}) {
 					</DetailField>
 
 					<DetailField
+						fieldLabel={Liferay.Language.get('street-3')}
+						fieldName="streetAddressLine3"
 						formAction={address.editPostalAddressURL}
 						formData={setFormData(address.id)}
-						name={Liferay.Language.get('street-3')}
 						type={setFieldType(address.id)}
 					>
 						{address.streetAddressLine3}
 					</DetailField>
 
 					<DetailField
+						fieldLabel={Liferay.Language.get('postal-code')}
+						fieldName="postalCode"
 						formAction={address.editPostalAddressURL}
 						formData={setFormData(address.id)}
-						name={Liferay.Language.get('postal-code')}
 						type={setFieldType(address.id)}
 					>
 						{address.postalCode}
 					</DetailField>
 
 					<DetailField
+						fieldLabel={Liferay.Language.get('country')}
+						fieldName="addressCountryId"
 						formAction={address.editPostalAddressURL}
 						formData={setFormData(address.id)}
-						name={Liferay.Language.get('country')}
 						// TODO
 						options={getCountries()}
 						type={setFieldType(address.id, FIELD_TYPE_SELECT)}
