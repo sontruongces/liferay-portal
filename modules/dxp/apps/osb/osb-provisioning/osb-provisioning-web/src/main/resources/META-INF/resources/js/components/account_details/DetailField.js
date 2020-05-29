@@ -30,7 +30,7 @@ function DetailField({
 	formData,
 	inputStyle,
 	name,
-	options,
+	options = [],
 	type = FIELD_TYPE_TEXT
 }) {
 	const formRef = useRef();
@@ -88,7 +88,12 @@ DetailField.propTypes = {
 	formData: PropTypes.object,
 	inputStyle: PropTypes.string,
 	name: PropTypes.string,
-	options: PropTypes.arrayOf(PropTypes.string),
+	options: PropTypes.arrayOf(
+		PropTypes.shape({
+			label: PropTypes.string,
+			value: PropTypes.string
+		})
+	),
 	type: PropTypes.oneOf([
 		FIELD_TYPE_EXTERNAL,
 		FIELD_TYPE_NONEDITABLE,

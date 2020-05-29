@@ -113,7 +113,12 @@ describe('IconButton', () => {
 
 	it('displays an editable select input correctly', () => {
 		const {container} = renderInlineEdit({
-			options: ['1', '2', '3', 'test'],
+			options: [
+				{label: '1', value: '1'},
+				{label: '2', value: '2'},
+				{label: '3', value: '3'},
+				{label: 'test', value: 'test'}
+			],
 			type: FIELD_TYPE_SELECT
 		});
 		const {getByText} = within(container);

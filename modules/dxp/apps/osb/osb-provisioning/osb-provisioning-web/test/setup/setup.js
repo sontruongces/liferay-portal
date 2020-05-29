@@ -10,10 +10,14 @@
  */
 
 /**
- * Mocks the Liferay.Language.get() method, which returns the value for a given language key.
+ * Mocks the
+ * Liferay.Address methods and returns an empty array.
+ * Liferay.Language.get() method and returns the value for a given language key.
  */
-
 window.Liferay = {
+	Address: {
+		getCountries: () => []
+	},
 	Language: {
 		get: key => key
 	}

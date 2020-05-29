@@ -30,6 +30,15 @@ function GeneralDetails({details, statuses, tiers}) {
 		updateAccount: true
 	};
 
+	function createSelectOptions(array) {
+		return array.map(value => {
+			return {
+				label: value,
+				value
+			};
+		});
+	}
+
 	return (
 		<ClayList>
 			<ClayList.Header>
@@ -50,7 +59,7 @@ function GeneralDetails({details, statuses, tiers}) {
 				formData={formData}
 				inputStyle={details.statusStyle}
 				name={Liferay.Language.get('status')}
-				options={statuses}
+				options={createSelectOptions(statuses)}
 				type={FIELD_TYPE_SELECT}
 			>
 				{details.status}
@@ -75,7 +84,7 @@ function GeneralDetails({details, statuses, tiers}) {
 				formAction={details.editAccountURL}
 				formData={formData}
 				name={Liferay.Language.get('tier')}
-				options={tiers}
+				options={createSelectOptions(tiers)}
 				type={FIELD_TYPE_SELECT}
 			>
 				{details.tier}
@@ -105,8 +114,8 @@ GeneralDetails.propTypes = {
 		statusStyle: PropTypes.string,
 		tier: PropTypes.string
 	}),
-	statuses: PropTypes.arrayOf(PropTypes.string),
-	tiers: PropTypes.arrayOf(PropTypes.string)
+	statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
+	tiers: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default GeneralDetails;

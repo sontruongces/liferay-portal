@@ -98,8 +98,13 @@ function InlineEdit({
 								onChange={handleChange}
 								value={value}
 							>
-								{options.map((option, index) => (
-									<option key={index}>{option}</option>
+								{options.map(option => (
+									<option
+										key={option.value}
+										value={option.value}
+									>
+										{option.label}
+									</option>
 								))}
 							</select>
 						</label>
@@ -177,7 +182,12 @@ InlineEdit.propTypes = {
 	displayAs: PropTypes.oneOf(['label', 'text']),
 	fieldName: PropTypes.string,
 	inputStyle: PropTypes.string,
-	options: PropTypes.arrayOf(PropTypes.string),
+	options: PropTypes.arrayOf(
+		PropTypes.shape({
+			label: PropTypes.string,
+			value: PropTypes.string
+		})
+	),
 	save: PropTypes.func.isRequired,
 	type: PropTypes.oneOf([
 		FIELD_TYPE_EXTERNAL,

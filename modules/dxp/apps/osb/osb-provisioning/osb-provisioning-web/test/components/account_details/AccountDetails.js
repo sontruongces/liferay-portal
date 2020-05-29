@@ -34,6 +34,8 @@ function renderAccountDetails(props) {
 				statusStyle: 'label-success',
 				tier: 'Regular'
 			}}
+			statusNames={['Approved', 'Expired', 'Pending']}
+			tierNames={['1', '2', '3']}
 			{...props}
 		/>
 	);

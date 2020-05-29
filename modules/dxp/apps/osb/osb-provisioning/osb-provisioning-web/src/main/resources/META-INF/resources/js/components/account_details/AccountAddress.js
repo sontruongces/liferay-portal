@@ -15,16 +15,13 @@ import React from 'react';
 
 import {
 	FIELD_TYPE_NONEDITABLE,
+	FIELD_TYPE_SELECT,
 	FIELD_TYPE_TEXT
 } from '../../utilities/constants';
 import IconButton from '../IconButton';
 import DetailField from './DetailField';
 
 function AccountAddress({addURL, addresses}) {
-	const formData = {
-		// TODO: LHC-2443
-	};
-
 	if (addresses.length === 0) {
 		addresses.push({
 			addressCountry: '-',
@@ -38,12 +35,40 @@ function AccountAddress({addURL, addresses}) {
 		});
 	}
 
-	function determineFieldType(id) {
+	function getCountries() {
+		return Liferay.Address.getCountries(countries =>
+			countries.map(country => {
+				return {
+					label: country.nameCurrentValue,
+					value: country.countryId
+				};
+			})
+		);
+	}
+
+	function setFieldType(id, fieldType = FIELD_TYPE_TEXT) {
 		if (id) {
-			return FIELD_TYPE_TEXT;
+			return fieldType;
 		}
 
 		return FIELD_TYPE_NONEDITABLE;
+	}
+
+	function setFormData(id) {
+		const currentAddress = addresses.filter(address => address.id === id);
+
+		return {
+			addressCountryId: currentAddress.addressCountryId,
+			addressLocality: currentAddress.addressLocality,
+			addressRegionId: currentAddress.addressRegionId,
+			addressType: currentAddress.addressType,
+			addressZip: currentAddress.addressZip,
+			mailing: currentAddress.mailing,
+			primary: currentAddress.primary,
+			streetAddressLine1: currentAddress.streetAddressLine1,
+			streetAddressLine2: currentAddress.streetAddressLine2,
+			streetAddressLine3: currentAddress.streetAddressLine3
+		};
 	}
 
 	return (
@@ -56,63 +81,67 @@ function AccountAddress({addURL, addresses}) {
 
 					<DetailField
 						formAction={address.editPostalAddressURL}
-						formData={formData}
+						formData={setFormData(address.id)}
 						name={Liferay.Language.get('street-1')}
-						type={determineFieldType(address.id)}
+						type={setFieldType(address.id)}
 					>
 						{address.streetAddressLine1}
 					</DetailField>
 
 					<DetailField
 						formAction={address.editPostalAddressURL}
-						formData={formData}
+						formData={setFormData(address.id)}
 						name={Liferay.Language.get('city')}
-						type={determineFieldType(address.id)}
+						type={setFieldType(address.id)}
 					>
 						{address.addressLocality}
 					</DetailField>
 
 					<DetailField
 						formAction={address.editPostalAddressURL}
-						formData={formData}
+						formData={setFormData(address.id)}
 						name={Liferay.Language.get('street-2')}
-						type={determineFieldType(address.id)}
+						type={setFieldType(address.id)}
 					>
 						{address.streetAddressLine2}
 					</DetailField>
 
 					<DetailField
 						formAction={address.editPostalAddressURL}
-						formData={formData}
+						formData={setFormData(address.id)}
 						name={Liferay.Language.get('state-province')}
-						type={determineFieldType(address.id)}
+						// TODO
+						options={[]}
+						type={setFieldType(address.id, FIELD_TYPE_SELECT)}
 					>
 						{address.addressRegion}
 					</DetailField>
 
 					<DetailField
 						formAction={address.editPostalAddressURL}
-						formData={formData}
+						formData={setFormData(address.id)}
 						name={Liferay.Language.get('street-3')}
-						type={determineFieldType(address.id)}
+						type={setFieldType(address.id)}
 					>
 						{address.streetAddressLine3}
 					</DetailField>
 
 					<DetailField
 						formAction={address.editPostalAddressURL}
-						formData={formData}
+						formData={setFormData(address.id)}
 						name={Liferay.Language.get('postal-code')}
-						type={determineFieldType(address.id)}
+						type={setFieldType(address.id)}
 					>
 						{address.postalCode}
 					</DetailField>
 
 					<DetailField
 						formAction={address.editPostalAddressURL}
-						formData={formData}
+						formData={setFormData(address.id)}
 						name={Liferay.Language.get('country')}
-						type={determineFieldType(address.id)}
+						// TODO
+						options={getCountries()}
+						type={setFieldType(address.id, FIELD_TYPE_SELECT)}
 					>
 						{address.addressCountry}
 					</DetailField>
@@ -167,10 +196,13 @@ AccountAddress.propTypes = {
 		PropTypes.shape({
 			addressCountry: PropTypes.string,
 			addressLocality: PropTypes.string,
+			addressType: PropTypes.string,
 			deletePostalAddressURL: PropTypes.string,
 			editPostalAddressURL: PropTypes.string,
 			id: PropTypes.string,
+			mailing: PropTypes.string,
 			postalCode: PropTypes.string,
+			primary: PropTypes.string,
 			streetAddressLine1: PropTypes.string,
 			streetAddressLine2: PropTypes.string,
 			streetAddressLine3: PropTypes.string
