@@ -26,6 +26,7 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -55,12 +56,16 @@ import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.io.IOException;
+
 import java.math.BigDecimal;
 
 import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.MimeResponse;
+import javax.portlet.RenderURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -92,24 +97,24 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			actionRequest);
 
+		long commerceOrderItemId = -1;
+
 		try {
 			_checkUser(serviceContext.getCompanyId(), workEmail);
 
-			_invoke(
-				() -> {
-					_add(
-						companyName, countryCode, workEmail, jobTitle, name,
-						serviceContext);
-
-					return null;
-				});
+			commerceOrderItemId = _invoke(
+				() -> _add(
+					companyName, countryCode, workEmail, jobTitle, name,
+					serviceContext));
 		}
 		catch (Throwable throwable) {
 			throw new PortalException(throwable);
 		}
+
+		_sendRedirect(actionResponse, commerceOrderItemId);
 	}
 
-	private void _add(
+	private long _add(
 			String commerceAccountName, String countryCode, String emailAddress,
 			String jobTitle, String name, ServiceContext serviceContext)
 		throws PortalException {
@@ -139,8 +144,10 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		PermissionThreadLocal.setPermissionChecker(
 			PermissionCheckerFactoryUtil.create(user));
 
+		long commerceOrderItemId = -1;
+
 		try {
-			_addCommerceOrderItem(
+			commerceOrderItemId = _addCommerceOrderItem(
 				commerceAccountId, commerceChannelGroupId,
 				commerceOrder.getCommerceOrderId(), serviceContext);
 
@@ -150,6 +157,8 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		finally {
 			PermissionThreadLocal.setPermissionChecker(permissionChecker);
 		}
+
+		return commerceOrderItemId;
 	}
 
 	private long _addCommerceAccount(
@@ -209,7 +218,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			CommerceOrderConstants.ORDER_STATUS_OPEN, serviceContext);
 	}
 
-	private void _addCommerceOrderItem(
+	private long _addCommerceOrderItem(
 			long commerceAccountId, long commerceChannelGroupId,
 			long commerceOrderId, ServiceContext serviceContext)
 		throws PortalException {
@@ -224,9 +233,12 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			serviceContext.getCompanyId(), commerceChannelGroupId,
 			serviceContext.getUserId(), commerceOrderId, commerceAccountId);
 
-		_commerceOrderItemLocalService.addCommerceOrderItem(
-			commerceOrderId, cpInstance.getCPInstanceId(), 1, 0, null,
-			commerceContext, serviceContext);
+		CommerceOrderItem commerceOrderItem =
+			_commerceOrderItemLocalService.addCommerceOrderItem(
+				commerceOrderId, cpInstance.getCPInstanceId(), 1, 0, null,
+				commerceContext, serviceContext);
+
+		return commerceOrderItem.getCommerceOrderItemId();
 	}
 
 	private User _addUser(
@@ -265,8 +277,23 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		return osbCommerceProvisioningSiteGroup.getGroupId();
 	}
 
-	private void _invoke(Callable<Void> callable) throws Throwable {
-		TransactionInvokerUtil.invoke(_transactionConfig, callable);
+	private long _invoke(Callable<Long> callable) throws Throwable {
+		return TransactionInvokerUtil.invoke(_transactionConfig, callable);
+	}
+
+	private void _sendRedirect(
+			ActionResponse actionResponse, long commerceOrderItemId)
+		throws IOException {
+
+		RenderURL renderURL = actionResponse.createRedirectURL(
+			MimeResponse.Copy.NONE);
+
+		renderURL.setParameter(
+			"mvcRenderCommandName", "initializePortalInstance");
+		renderURL.setParameter(
+			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
+
+		actionResponse.sendRedirect(renderURL.toString());
 	}
 
 	private static final TransactionConfig _transactionConfig =
