@@ -33,4 +33,7 @@ public interface ProductWebService {
 			int pageSize)
 		throws Exception;
 
+	public long getProductsCount(String search, String filterString)
+		throws Exception;
+
 }

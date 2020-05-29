@@ -23,9 +23,11 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.AssignTeamContactsDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.ProductSearchDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountContactsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountLiferayWorkersDisplayContext;
@@ -68,6 +70,15 @@ public class ProvisioningWebComponentProvider {
 		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
 			AssignTeamContactsDisplayContext.class, renderRequest,
 			renderResponse, httpServletRequest);
+	}
+
+	public static ProductSearchDisplayContext getProductSearchDisplayContext(
+		RenderRequest renderRequest, RenderResponse renderResponse,
+		HttpServletRequest httpServletRequest) {
+
+		return _provisioningWebComponentProvider.
+			_getProductSearchDisplayContext(
+				renderRequest, renderResponse, httpServletRequest);
 	}
 
 	public static ProvisioningWebComponentProvider
@@ -170,6 +181,15 @@ public class ProvisioningWebComponentProvider {
 			_accountWebService);
 	}
 
+	private ProductSearchDisplayContext _getProductSearchDisplayContext(
+		RenderRequest renderRequest, RenderResponse renderResponse,
+		HttpServletRequest httpServletRequest) {
+
+		return new ProductSearchDisplayContext(
+			renderRequest, renderResponse, httpServletRequest,
+			_productWebService);
+	}
+
 	private <T extends ViewAccountDisplayContext> T
 			_getViewAccountDisplayContext(
 				Class<T> clazz, RenderRequest renderRequest,
@@ -227,6 +247,9 @@ public class ProvisioningWebComponentProvider {
 
 	@Reference
 	private ProductPurchaseViewWebService _productPurchaseViewWebService;
+
+	@Reference
+	private ProductWebService _productWebService;
 
 	@Reference
 	private TeamWebService _teamWebService;

@@ -22,6 +22,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.util.Http;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,6 +72,19 @@ public class ProductWebServiceImpl implements ProductWebService {
 		}
 
 		return Collections.emptyList();
+	}
+
+	public long getProductsCount(String search, String filterString)
+		throws Exception {
+
+		Page<Product> productsPage = _productResource.getProductsPage(
+			search, filterString, Pagination.of(1, 1), StringPool.BLANK);
+
+		if (productsPage != null) {
+			return productsPage.getTotalCount();
+		}
+
+		return 0;
 	}
 
 	@Activate
