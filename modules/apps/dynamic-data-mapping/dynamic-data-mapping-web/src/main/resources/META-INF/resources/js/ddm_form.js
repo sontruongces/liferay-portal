@@ -4087,11 +4087,11 @@ AUI.add(
 						availableLanguageIds.push(defaultLocale);
 					}
 
-					fields.forEach((field) => {
+					fields.forEach(field => {
 						if (field.get('localizable')) {
 							var localizationMap = field.get('localizationMap');
 
-							availableLanguageIds.forEach((locale) => {
+							availableLanguageIds.forEach(locale => {
 								if (!localizationMap[locale]) {
 									localizationMap[locale] =
 										localizationMap[defaultLocale];
