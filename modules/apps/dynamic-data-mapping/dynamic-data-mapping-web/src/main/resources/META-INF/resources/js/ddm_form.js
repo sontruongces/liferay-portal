@@ -3555,7 +3555,16 @@ AUI.add(
 
 							if (
 								value ===
-								localizationMap[instance.get('displayLocale')]
+									localizationMap[
+										instance.get('displayLocale')
+									] ||
+								(!localizationMap[
+									instance.get('displayLocale')
+								] &&
+									value ===
+										localizationMap[
+											instance.getDefaultLocale()
+										])
 							) {
 								editor.setHTML(value);
 							}
