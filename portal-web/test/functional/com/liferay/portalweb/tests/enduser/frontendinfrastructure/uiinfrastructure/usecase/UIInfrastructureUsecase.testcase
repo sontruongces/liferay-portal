@@ -27,6 +27,8 @@ definition {
 
 		Navigator.gotoPage(pageName = "Home");
 
+		ProductMenuHelper.closeProductMenu();
+
 		Refresh();
 
 		SikuliAssertElementPresent(locator1 = "ControlMenu#HOME_HEADING_PNG");
