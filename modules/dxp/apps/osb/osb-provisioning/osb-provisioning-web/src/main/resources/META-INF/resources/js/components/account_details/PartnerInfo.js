@@ -17,17 +17,14 @@ import {
 	FIELD_TYPE_EXTERNAL,
 	FIELD_TYPE_TOGGLE
 } from '../../utilities/constants';
-import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from './DetailField';
 
-function GeneralDetails({details}) {
+function PartnerInfo({details}) {
 	const formData = {
-		code: convertDashToEmptyString(details.code),
-		name: convertDashToEmptyString(details.name),
-		region: convertDashToEmptyString(details.region),
-		status: convertDashToEmptyString(details.status),
-		tier: convertDashToEmptyString(details.tier),
-		updateAccount: true
+		firstLineSupportTeamKey: '',
+		partnerTeamKey: '',
+		updateFirstLineSupport: true,
+		updatePartner: true
 	};
 
 	return (
@@ -59,7 +56,7 @@ function GeneralDetails({details}) {
 	);
 }
 
-GeneralDetails.propTypes = {
+PartnerInfo.propTypes = {
 	details: PropTypes.shape({
 		editAccountURL: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
@@ -68,4 +65,4 @@ GeneralDetails.propTypes = {
 	})
 };
 
-export default GeneralDetails;
+export default PartnerInfo;
