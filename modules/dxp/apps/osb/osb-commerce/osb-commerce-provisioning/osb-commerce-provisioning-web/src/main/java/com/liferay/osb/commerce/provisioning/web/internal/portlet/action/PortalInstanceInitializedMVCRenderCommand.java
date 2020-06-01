@@ -17,12 +17,11 @@ package com.liferay.osb.commerce.provisioning.web.internal.portlet.action;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
+import com.liferay.osb.commerce.provisioning.util.OSBCommercePortalInstanceUtil;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
 import com.liferay.osb.commerce.provisioning.web.internal.util.OSBCommerceProvisioningWebKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 
 import javax.portlet.PortletException;
@@ -56,7 +55,7 @@ public class PortalInstanceInitializedMVCRenderCommand
 
 		renderRequest.setAttribute(
 			OSBCommerceProvisioningWebKeys.PORTAL_INSTANCE_URL,
-			_getPortalInstanceVirtualHostname(
+			OSBCommercePortalInstanceUtil.getPortalInstanceURL(
 				_getPortalInstanceVirtualHostname(commerceOrderItemId)));
 
 		return "/trial-registration/portal_instance_initialized.jsp";
@@ -74,40 +73,6 @@ public class PortalInstanceInitializedMVCRenderCommand
 		return unicodeProperties.get(
 			OSBCommercePortalInstanceConstants.
 				PORTAL_INSTANCE_VIRTUAL_HOSTNAME);
-	}
-
-	private String _getPortalInstanceVirtualHostname(
-		String portalInstanceVirtualHostname) {
-
-		StringBundler sb = new StringBundler(5);
-
-		boolean devEnvironment = _isMockEnvironment(
-			portalInstanceVirtualHostname);
-
-		if (devEnvironment) {
-			sb.append("http://");
-		}
-		else {
-			sb.append("https://");
-		}
-
-		sb.append(portalInstanceVirtualHostname);
-		sb.append(StringPool.COLON);
-
-		if (devEnvironment) {
-			sb.append("8080");
-		}
-		else {
-			sb.append("443");
-		}
-
-		sb.append("/group/osb-commerce");
-
-		return sb.toString();
-	}
-
-	private boolean _isMockEnvironment(String portalInstanceVirtualHostname) {
-		return portalInstanceVirtualHostname.endsWith(".test");
 	}
 
 	@Reference
