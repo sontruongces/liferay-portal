@@ -58,7 +58,11 @@ public class ContactWebServiceImpl implements ContactWebService {
 			_contactResource.getContactByEmailAddresEmailAddressHttpResponse(
 				emailAddress);
 
-		if (httpResponse.getStatusCode() == HttpServletResponse.SC_NOT_FOUND) {
+		if ((httpResponse.getStatusCode() ==
+				HttpServletResponse.SC_BAD_REQUEST) ||
+			(httpResponse.getStatusCode() ==
+				HttpServletResponse.SC_NOT_FOUND)) {
+
 			return null;
 		}
 
