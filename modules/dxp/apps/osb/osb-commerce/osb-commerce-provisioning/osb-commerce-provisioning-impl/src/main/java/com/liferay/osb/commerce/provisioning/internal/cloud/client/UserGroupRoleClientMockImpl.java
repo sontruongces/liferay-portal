@@ -46,8 +46,8 @@ public class UserGroupRoleClientMockImpl implements UserGroupRoleClient {
 
 	@Override
 	public void postUserGroupRole(
-		String virtualHostname, long userId, String friendlyURL,
-		String roleName) {
+		String friendlyURL, String roleName, long userId,
+		String virtualHostname) {
 
 		try {
 			Company company = _companyLocalService.getCompanyByVirtualHost(

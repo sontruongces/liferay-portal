@@ -24,6 +24,9 @@ public interface UserAccountClient {
 	public void destroy();
 
 	public UserAccount postUserAccount(
-		String virtualHostname, UserAccount userAccount);
+		UserAccount userAccount, String virtualHostname);
+
+	public void updatePasswordManually(
+		String password, long userId, String virtualHostname);
 
 }

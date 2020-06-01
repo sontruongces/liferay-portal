@@ -23,6 +23,8 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
+import java.util.Date;
+
 /**
  * @author Ivica Cardic
  */
@@ -42,7 +44,7 @@ public class UserAccountClientMockImpl implements UserAccountClient {
 
 	@Override
 	public UserAccount postUserAccount(
-		String virtualHostname, UserAccount userAccount) {
+		UserAccount userAccount, String virtualHostname) {
 
 		try {
 			Company company = _companyLocalService.getCompanyByVirtualHost(
@@ -53,7 +55,7 @@ public class UserAccountClientMockImpl implements UserAccountClient {
 				userAccount.getEmailAddress(), 0, null, LocaleUtil.getDefault(),
 				userAccount.getGivenName(), userAccount.getAdditionalName(),
 				userAccount.getFamilyName(), 0, 0, true, 1, 1, 1970,
-				userAccount.getJobTitle(), null, null, null, null, true,
+				userAccount.getJobTitle(), null, null, null, null, false,
 				new ServiceContext());
 
 			userAccount.setId(user.getUserId());
@@ -63,6 +65,19 @@ public class UserAccountClientMockImpl implements UserAccountClient {
 		}
 
 		return userAccount;
+	}
+
+	@Override
+	public void updatePasswordManually(
+		String password, long userId, String virtualHostname) {
+
+		try {
+			_userLocalService.updatePasswordManually(
+				userId, password, true, false, new Date());
+		}
+		catch (PortalException portalException) {
+			throw new RuntimeException(portalException);
+		}
 	}
 
 	private final CompanyLocalService _companyLocalService;

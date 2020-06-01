@@ -22,6 +22,6 @@ public interface RoleClient {
 	public void destroy();
 
 	public void postUserRole(
-		String virtualHostname, long userId, String roleName);
+		String roleName, long userId, String virtualHostname);
 
 }

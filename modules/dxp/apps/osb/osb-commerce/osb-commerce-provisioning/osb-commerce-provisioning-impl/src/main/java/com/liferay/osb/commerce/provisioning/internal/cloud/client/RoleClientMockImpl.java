@@ -39,7 +39,7 @@ public class RoleClientMockImpl implements RoleClient {
 
 	@Override
 	public void postUserRole(
-		String virtualHostname, long userId, String roleName) {
+		String roleName, long userId, String virtualHostname) {
 
 		try {
 			Company company = _companyLocalService.getCompanyByVirtualHost(

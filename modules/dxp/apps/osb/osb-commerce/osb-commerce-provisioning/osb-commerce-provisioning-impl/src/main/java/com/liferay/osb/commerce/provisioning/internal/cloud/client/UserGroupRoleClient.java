@@ -22,6 +22,7 @@ public interface UserGroupRoleClient {
 	public void destroy();
 
 	public void postUserGroupRole(
-		String virtualHostname, long userId, String groupName, String roleName);
+		String friendlyURL, String roleName, long userId,
+		String virtualHostname);
 
 }

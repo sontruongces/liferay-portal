@@ -104,16 +104,19 @@ public class OSBCommerceProvisioning {
 		User user = _userLocalService.getUser(commerceOrder.getUserId());
 
 		UserAccount userAccount = _userAccountClient.postUserAccount(
-			portalInstance.getVirtualHostname(), _toUserAccount(user),
-			user.getPassword());
+			_toUserAccount(user), portalInstance.getVirtualHostname());
+
+		_userAccountClient.updatePasswordManually(
+			user.getPassword(), userAccount.getId(),
+			portalInstance.getVirtualHostname());
 
 		_userGroupRoleClient.postUserGroupRole(
-			portalInstance.getVirtualHostname(), userAccount.getId(),
-			"/osb-commerce", RoleConstants.SITE_OWNER);
+			"/osb-commerce", RoleConstants.SITE_OWNER, userAccount.getId(),
+			portalInstance.getVirtualHostname());
 
 		_roleClient.postUserRole(
-			portalInstance.getVirtualHostname(), userAccount.getId(),
-			"OSB Commerce Administrator");
+			"OSB Commerce Administrator", userAccount.getId(),
+			portalInstance.getVirtualHostname());
 
 		_updateSubscriptionTypeSettingsProperties(
 			commerceSubscriptionEntry,
