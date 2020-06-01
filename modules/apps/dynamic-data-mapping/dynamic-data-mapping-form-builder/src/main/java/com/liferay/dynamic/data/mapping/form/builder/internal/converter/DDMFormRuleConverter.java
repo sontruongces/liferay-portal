@@ -167,10 +167,10 @@ public class DDMFormRuleConverter {
 	protected String convertOperands(
 		List<DDMFormRuleCondition.Operand> operands) {
 
+		StringBundler sb = new StringBundler(operands.size());
+
 		boolean hasNestedFunctionOperands = _hasNestedFunctionOperands(
 			operands);
-
-		StringBundler sb = new StringBundler(operands.size());
 
 		for (DDMFormRuleCondition.Operand operand : operands) {
 			if (hasNestedFunctionOperands) {
