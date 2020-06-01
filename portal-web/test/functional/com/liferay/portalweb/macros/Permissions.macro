@@ -370,6 +370,7 @@ definition {
 
 		User.editPasswordCP(
 			newPassword = "${newPassword}",
+			requirePasswordReset = "${requirePasswordReset}",
 			syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
 			userEmailAddress = "${userEmailAddress}",
 			userScreenName = "${userScreenName}");
@@ -400,6 +401,7 @@ definition {
 		Permissions.setUpSiteRoleCP(
 			newPassword = "${newPassword}",
 			pageName = "${pageName}",
+			requirePasswordReset = "${requirePasswordReset}",
 			roleTitle = "${roleTitle}",
 			siteName = "${siteName}",
 			syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
