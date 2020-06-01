@@ -27,6 +27,7 @@ import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.notification.util.CommerceNotificationHelper;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -36,7 +37,8 @@ import com.liferay.commerce.service.CommerceAddressLocalService;
 import com.liferay.commerce.service.CommerceCountryLocalService;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
-import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningConstants;
+import com.liferay.osb.commerce.provisioning.constants.OSBCommerceNotificationConstants;
+import com.liferay.osb.commerce.provisioning.constants.OSBCommerceProvisioningConstants;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
@@ -120,7 +122,8 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		throws PortalException {
 
 		long osbCommerceProvisioningSiteGroupId =
-			_getOSBCommerceProvisioningSiteGroup(serviceContext.getCompanyId());
+			_getOSBCommerceProvisioningSiteGroupId(
+				serviceContext.getCompanyId());
 
 		User user = _addUser(
 			serviceContext.getCompanyId(), emailAddress, jobTitle, name,
@@ -128,15 +131,16 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 
 		serviceContext.setUserId(user.getUserId());
 
-		long commerceAccountId = _addCommerceAccount(
+		CommerceAccount commerceAccount = _addCommerceAccount(
 			emailAddress, commerceAccountName, serviceContext);
 
-		long commerceChannelGroupId = _addCommerceChannelGroup(
+		long commerceChannelGroupId = _getCommerceChannelGroupId(
 			osbCommerceProvisioningSiteGroupId);
 
 		CommerceOrder commerceOrder = _addCommerceOrder(
-			commerceAccountId, commerceChannelGroupId, countryCode, name,
-			osbCommerceProvisioningSiteGroupId, serviceContext);
+			commerceAccount.getCommerceAccountId(), commerceChannelGroupId,
+			countryCode, name, osbCommerceProvisioningSiteGroupId,
+			serviceContext);
 
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
@@ -148,7 +152,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			commerceOrderItemId = _addCommerceOrderItem(
-				commerceAccountId, commerceChannelGroupId,
+				commerceAccount.getCommerceAccountId(), commerceChannelGroupId,
 				commerceOrder.getCommerceOrderId(), serviceContext);
 
 			_commerceOrderEngine.checkoutCommerceOrder(
@@ -158,28 +162,20 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			PermissionThreadLocal.setPermissionChecker(permissionChecker);
 		}
 
+		_commerceNotificationHelper.sendNotifications(
+			commerceChannelGroupId, user.getUserId(),
+			OSBCommerceNotificationConstants.ACCOUNT_CREATED, commerceAccount);
+
 		return commerceOrderItemId;
 	}
 
-	private long _addCommerceAccount(
+	private CommerceAccount _addCommerceAccount(
 			String emailAddress, String name, ServiceContext serviceContext)
 		throws PortalException {
 
-		CommerceAccount commerceAccount =
-			_commerceAccountLocalService.addBusinessCommerceAccount(
-				name, -1, emailAddress, null, true, null,
-				new long[] {serviceContext.getUserId()}, null, serviceContext);
-
-		return commerceAccount.getCommerceAccountId();
-	}
-
-	private long _addCommerceChannelGroup(
-			long osbCommerceProvisioningSiteGroupId)
-		throws PortalException {
-
-		return _commerceChannelLocalService.
-			getCommerceChannelGroupIdBySiteGroupId(
-				osbCommerceProvisioningSiteGroupId);
+		return _commerceAccountLocalService.addBusinessCommerceAccount(
+			name, -1, emailAddress, null, true, null,
+			new long[] {serviceContext.getUserId()}, null, serviceContext);
 	}
 
 	private CommerceOrder _addCommerceOrder(
@@ -253,7 +249,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			LocaleUtil.ENGLISH, nameItems[0], null,
 			(nameItems.length > 1) ? nameItems[1] : null, 0, 0, true, 1, 1,
 			1970, jobTitle, new long[] {osbCommerceProvisioningSiteGroupId},
-			null, null, null, true, new ServiceContext());
+			null, null, null, false, new ServiceContext());
 	}
 
 	private void _checkUser(long companyId, String emailAddress) {
@@ -265,7 +261,16 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	private long _getOSBCommerceProvisioningSiteGroup(long companyId)
+	private long _getCommerceChannelGroupId(
+			long osbCommerceProvisioningSiteGroupId)
+		throws PortalException {
+
+		return _commerceChannelLocalService.
+			getCommerceChannelGroupIdBySiteGroupId(
+				osbCommerceProvisioningSiteGroupId);
+	}
+
+	private long _getOSBCommerceProvisioningSiteGroupId(long companyId)
 		throws PortalException {
 
 		Group osbCommerceProvisioningSiteGroup =
@@ -317,6 +322,9 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
+
+	@Reference
+	private CommerceNotificationHelper _commerceNotificationHelper;
 
 	@Reference
 	private CommerceOrderEngine _commerceOrderEngine;
