@@ -18,10 +18,14 @@ import com.liferay.commerce.constants.CommerceSubscriptionEntryConstants;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
+import com.liferay.commerce.notification.util.CommerceNotificationHelper;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.osb.commerce.provisioning.OSBCommercePortalInstanceStatus;
+import com.liferay.osb.commerce.provisioning.constants.OSBCommerceNotificationConstants;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
+import com.liferay.osb.commerce.provisioning.constants.OSBCommerceProvisioningConstants;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudClient;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudClientClientFactory;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.RoleClient;
@@ -32,8 +36,11 @@ import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserGroupRole
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserGroupRoleClientFactory;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.PortalInstance;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.UserAccount;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -94,10 +101,11 @@ public class OSBCommerceProvisioning {
 		PortalInstance portalInstance = _dxpCloudClient.postPortalInstance(
 			"osb-commerce-portal-instance-initializer");
 
+		User user = _userLocalService.getUser(commerceOrder.getUserId());
+
 		UserAccount userAccount = _userAccountClient.postUserAccount(
-			portalInstance.getVirtualHostname(),
-			_toUserAccount(
-				_userLocalService.getUser(commerceOrder.getUserId())));
+			portalInstance.getVirtualHostname(), _toUserAccount(user),
+			user.getPassword());
 
 		_userGroupRoleClient.postUserGroupRole(
 			portalInstance.getVirtualHostname(), userAccount.getId(),
@@ -115,6 +123,13 @@ public class OSBCommerceProvisioning {
 			portalInstance.getVirtualHostname(),
 			OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_WEB_ID,
 			portalInstance.getWebId());
+
+		_commerceNotificationHelper.sendNotifications(
+			_getCommerceChannelGroupId(
+				commerceSubscriptionEntry.getCompanyId()),
+			user.getUserId(),
+			OSBCommerceNotificationConstants.PORTAL_INSTANCE_CREATED,
+			commerceSubscriptionEntry);
 	}
 
 	@Activate
@@ -132,6 +147,20 @@ public class OSBCommerceProvisioning {
 		_roleClient.destroy();
 		_userAccountClient.destroy();
 		_userGroupRoleClient.destroy();
+	}
+
+	private long _getCommerceChannelGroupId(long companyId)
+		throws PortalException {
+
+		Group osbCommerceProvisioningSiteGroup =
+			_groupLocalService.getFriendlyURLGroup(
+				companyId,
+				OSBCommerceProvisioningConstants.
+					OSB_COMMERCE_PROVISIONING_FRIENDLY_URL);
+
+		return _commerceChannelLocalService.
+			getCommerceChannelGroupIdBySiteGroupId(
+				osbCommerceProvisioningSiteGroup.getGroupId());
 	}
 
 	private UserAccount _toUserAccount(User user) throws Exception {
@@ -170,6 +199,12 @@ public class OSBCommerceProvisioning {
 	}
 
 	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceNotificationHelper _commerceNotificationHelper;
+
+	@Reference
 	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
@@ -180,6 +215,9 @@ public class OSBCommerceProvisioning {
 
 	@Reference
 	private DXPCloudClientClientFactory _dxpCloudClientClientFactory;
+
+	@Reference
+	private GroupLocalService _groupLocalService;
 
 	private RoleClient _roleClient;
 
