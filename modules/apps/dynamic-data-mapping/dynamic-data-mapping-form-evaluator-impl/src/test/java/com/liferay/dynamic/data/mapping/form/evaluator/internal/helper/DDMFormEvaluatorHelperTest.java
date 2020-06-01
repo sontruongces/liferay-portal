@@ -26,6 +26,7 @@ import com.liferay.dynamic.data.mapping.form.evaluator.internal.function.factory
 import com.liferay.dynamic.data.mapping.form.evaluator.internal.function.factory.BetweenFunctionFactory;
 import com.liferay.dynamic.data.mapping.form.evaluator.internal.function.factory.CalculateFunctionFactory;
 import com.liferay.dynamic.data.mapping.form.evaluator.internal.function.factory.ContainsFunctionFactory;
+import com.liferay.dynamic.data.mapping.form.evaluator.internal.function.factory.EqualsFunctionFactory;
 import com.liferay.dynamic.data.mapping.form.evaluator.internal.function.factory.GetValueFunctionFactory;
 import com.liferay.dynamic.data.mapping.form.evaluator.internal.function.factory.JumpPageFunctionFactory;
 import com.liferay.dynamic.data.mapping.form.evaluator.internal.function.factory.SetEnabledFunctionFactory;
@@ -596,6 +597,49 @@ public class DDMFormEvaluatorHelperTest extends PowerMockito {
 			"This field is required.",
 			ddmFormFieldPropertyChanges.get("errorMessage"));
 		Assert.assertFalse((boolean)ddmFormFieldPropertyChanges.get("valid"));
+	}
+
+	@Test
+	public void testRuleConditionWithNestedFunctions() throws Exception {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMForm();
+
+		ddmForm.addDDMFormField(
+			createDDMFormField("field0", "numeric", FieldConstants.DOUBLE));
+
+		ddmForm.addDDMFormField(
+			createDDMFormField("field1", "numeric", FieldConstants.DOUBLE));
+
+		ddmForm.addDDMFormRule(
+			new DDMFormRule(
+				"equals(sum(getValue('field0'), 10), 28)",
+				"setValue('field1', getValue('field0'))"));
+
+		DDMFormValues ddmFormValues = DDMFormValuesTestUtil.createDDMFormValues(
+			ddmForm);
+
+		ddmFormValues.addDDMFormFieldValue(
+			DDMFormValuesTestUtil.createDDMFormFieldValue(
+				"field0_instanceId", "field0", new UnlocalizedValue("18")));
+
+		ddmFormValues.addDDMFormFieldValue(
+			DDMFormValuesTestUtil.createDDMFormFieldValue(
+				"field1_instanceId", "field1", new UnlocalizedValue("")));
+
+		DDMFormEvaluatorEvaluateResponse ddmFormEvaluatorEvaluateResponse =
+			doEvaluate(ddmForm, ddmFormValues);
+
+		Map<DDMFormEvaluatorFieldContextKey, Map<String, Object>>
+			ddmFormFieldsPropertyChanges =
+				ddmFormEvaluatorEvaluateResponse.
+					getDDMFormFieldsPropertyChanges();
+
+		Map<String, Object> ddmFormFieldPropertyChanges =
+			ddmFormFieldsPropertyChanges.get(
+				new DDMFormEvaluatorFieldContextKey(
+					"field1", "field1_instanceId"));
+
+		Assert.assertEquals(
+			new BigDecimal(18), ddmFormFieldPropertyChanges.get("value"));
 	}
 
 	@Test
@@ -1247,6 +1291,8 @@ public class DDMFormEvaluatorHelperTest extends PowerMockito {
 			"calculate", new CalculateFunctionFactory());
 		ddmExpressionFunctionFactoryMap.put(
 			"contains", new ContainsFunctionFactory());
+		ddmExpressionFunctionFactoryMap.put(
+			"equals", new EqualsFunctionFactory());
 		ddmExpressionFunctionFactoryMap.put(
 			"getValue", new GetValueFunctionFactory());
 		ddmExpressionFunctionFactoryMap.put(

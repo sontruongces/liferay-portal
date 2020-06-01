@@ -24,6 +24,7 @@ import com.liferay.dynamic.data.mapping.expression.internal.functions.MaxFunctio
 import com.liferay.dynamic.data.mapping.expression.internal.functions.MultiplyFunction;
 import com.liferay.dynamic.data.mapping.expression.internal.functions.SquareFunction;
 import com.liferay.dynamic.data.mapping.expression.internal.functions.ZeroFunction;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -405,6 +406,47 @@ public class DDMExpressionImplTest extends PowerMockito {
 		BigDecimal bigDecimal = ddmExpressionImpl.evaluate();
 
 		Assert.assertEquals(0, bigDecimal.compareTo(new BigDecimal("7.10")));
+	}
+
+	@Test
+	public void testNestedFunctions() throws Exception {
+		DDMExpressionImpl<BigDecimal> ddmExpressionImpl =
+			new DDMExpressionImpl<>("add(2, multiply(2,3,2))");
+
+		ddmExpressionImpl.setDDMExpressionFunctionTracker(
+			new DDMExpressionFunctionTracker() {
+
+				@Override
+				public Map<String, DDMExpressionFunctionFactory>
+					getDDMExpressionFunctionFactories(
+						Set<String> functionNames) {
+
+					return _createDDMExpressionFunctionFactory(
+						new AddFunction(), new MultiplyFunction());
+				}
+
+				@Override
+				public Map<String, DDMExpressionFunction>
+					getDDMExpressionFunctions(Set<String> functionNames) {
+
+					return HashMapBuilder.<String, DDMExpressionFunction>put(
+						"add", new AddFunction()
+					).put(
+						"multiply", new MultiplyFunction()
+					).build();
+				}
+
+				@Override
+				public void ungetDDMExpressionFunctions(
+					Map<String, DDMExpressionFunction>
+						ddmExpressionFunctionsMap) {
+				}
+
+			});
+
+		BigDecimal bigDecimal = ddmExpressionImpl.evaluate();
+
+		Assert.assertEquals(0, bigDecimal.compareTo(new BigDecimal("14")));
 	}
 
 	@Test
