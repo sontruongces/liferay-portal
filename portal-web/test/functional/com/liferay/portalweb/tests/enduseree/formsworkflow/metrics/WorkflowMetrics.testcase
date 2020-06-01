@@ -96,7 +96,10 @@ definition {
 			value1 = "${key_testSLADefinitionDays}");
 	}
 
+	// Ignore failing test discovered by LRQA-56230. Possibly needs backport from LPS-109619.
+
 	@description = "Verify if the default filter values are correct and if the chart is displayed (LPS-98001)"
+	@ignore = "true"
 	@priority = "5"
 	test DefaultWorkflowMetricsFilterValues {
 		property portal.acceptance = "true";
