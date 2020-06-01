@@ -18,6 +18,7 @@ import com.liferay.dynamic.data.mapping.expression.CreateExpressionRequest;
 import com.liferay.dynamic.data.mapping.expression.DDMExpression;
 import com.liferay.dynamic.data.mapping.expression.DDMExpressionException;
 import com.liferay.dynamic.data.mapping.expression.DDMExpressionFactory;
+import com.liferay.dynamic.data.mapping.expression.constants.DDMExpressionConstants;
 import com.liferay.dynamic.data.mapping.expression.model.Expression;
 import com.liferay.dynamic.data.mapping.form.builder.internal.converter.model.DDMFormRule;
 import com.liferay.dynamic.data.mapping.form.builder.internal.converter.model.DDMFormRuleAction;
@@ -166,10 +167,19 @@ public class DDMFormRuleConverter {
 	protected String convertOperands(
 		List<DDMFormRuleCondition.Operand> operands) {
 
+		boolean hasNestedFunctionOperands = _hasNestedFunctionOperands(
+			operands);
+
 		StringBundler sb = new StringBundler(operands.size());
 
 		for (DDMFormRuleCondition.Operand operand : operands) {
-			sb.append(convertOperand(operand));
+			if (hasNestedFunctionOperands) {
+				sb.append(operand.getValue());
+			}
+			else {
+				sb.append(convertOperand(operand));
+			}
+
 			sb.append(StringPool.COMMA_AND_SPACE);
 		}
 
@@ -294,6 +304,20 @@ public class DDMFormRuleConverter {
 
 	@Reference
 	protected DDMExpressionFactory ddmExpressionFactory;
+
+	private boolean _hasNestedFunctionOperands(
+		List<DDMFormRuleCondition.Operand> operands) {
+
+		Stream<DDMFormRuleCondition.Operand> operandStream = operands.stream();
+
+		return operandStream.anyMatch(
+			operand -> _isNestedFunction(operand.getValue()));
+	}
+
+	private boolean _isNestedFunction(String operandValue) {
+		return operandValue.matches(
+			DDMExpressionConstants.NESTED_FUNCTION_REGEX);
+	}
 
 	private static final String _COMPARISON_EXPRESSION_FORMAT = "%s %s %s";
 

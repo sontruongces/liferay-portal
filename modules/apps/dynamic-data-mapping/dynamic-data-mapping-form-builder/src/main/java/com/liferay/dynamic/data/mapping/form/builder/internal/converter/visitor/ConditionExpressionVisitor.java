@@ -109,8 +109,15 @@ public class ConditionExpressionVisitor extends ExpressionVisitor<Object> {
 		List<DDMFormRuleCondition.Operand> operands = new ArrayList<>();
 
 		for (Expression parameterExpression : parameterExpressions) {
-			operands.add(
-				(DDMFormRuleCondition.Operand)doVisit(parameterExpression));
+			if (functionCallExpression.hasNestedFunctions()) {
+				operands.add(
+					new DDMFormRuleCondition.Operand(
+						"condition", parameterExpression.toString()));
+			}
+			else {
+				operands.add(
+					(DDMFormRuleCondition.Operand)doVisit(parameterExpression));
+			}
 		}
 
 		_conditions.push(createDDMFormRuleCondition(functionName, operands));
