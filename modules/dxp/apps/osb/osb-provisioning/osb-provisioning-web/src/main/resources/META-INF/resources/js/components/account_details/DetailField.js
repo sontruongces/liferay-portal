@@ -35,16 +35,15 @@ function DetailField({
 	type = FIELD_TYPE_TEXT
 }) {
 	const formRef = useRef();
-
 	const [data, setData] = useState(formData);
 
 	useEffect(() => {
-		if (!Object.is(data, formData)) {
+		if (formRef.current && data[fieldName] !== formData[fieldName]) {
 			formRef.current.submit();
 		}
-	}, [data, formData]);
+	}, [data, fieldName, formData]);
 
-	function handleSubmit(fieldName, value) {
+	function handleSubmit(value) {
 		setData({...formData, [fieldName]: value});
 	}
 

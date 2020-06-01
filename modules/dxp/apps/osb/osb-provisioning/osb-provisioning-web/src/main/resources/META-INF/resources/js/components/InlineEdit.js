@@ -26,7 +26,7 @@ function InlineEdit({
 	displayAs = 'text',
 	fieldName,
 	inputStyle = '',
-	options = [],
+	options = [{label: '', value: ''}],
 	save,
 	type = FIELD_TYPE_TEXT
 }) {
@@ -51,7 +51,7 @@ function InlineEdit({
 	}
 
 	function handleSave() {
-		save(fieldName, value);
+		save(value);
 	}
 
 	return (

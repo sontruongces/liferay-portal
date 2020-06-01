@@ -11,16 +11,17 @@
 
 /**
  * Mocks the
- * Liferay.Address methods and returns an empty array.
  * Liferay.Language.get() method and returns the value for a given language key.
+ * Liferay.Service methods and returns a Promise of an array.
  */
 window.Liferay = {
-	Address: {
-		getCountries: () => []
-	},
 	Language: {
 		get: key => key
-	}
+	},
+	Service: () =>
+		Promise.resolve([
+			{countryId: '', name: '', nameCurrentValue: '', regionId: ''}
+		])
 };
 
 /**

@@ -12,7 +12,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import AccountAddress from './AccountAddress';
+import AccountAddresses from './AccountAddresses';
 import ExternalAccountKeys from './ExternalAccountKeys';
 import GeneralDetails from './GeneralDetails';
 import PartnerInfo from './PartnerInfo';
@@ -28,7 +28,8 @@ function AccountDetails({details, statusNames, tierNames}) {
 
 			<PartnerInfo details={details} />
 
-			<AccountAddress
+			<AccountAddresses
+				accountKey={details.key}
 				addresses={details.postalAddressDisplays}
 				addURL={details.addPostalAddressURL}
 			/>

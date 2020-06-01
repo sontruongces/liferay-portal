@@ -12,7 +12,7 @@
 import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
-import AccountAddress from '../../../src/main/resources/META-INF/resources/js/components/account_details/AccountAddress';
+import AccountAddress from '../../../src/main/resources/META-INF/resources/js/components/account_details/AccountAddresses';
 
 function renderAccountAddress(props) {
 	return render(
