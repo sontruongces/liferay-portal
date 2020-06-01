@@ -1,4 +1,7 @@
 Bundle-Name: Liferay OSB Commerce Provisioning API
 Bundle-SymbolicName: com.liferay.osb.commerce.provisioning.api
 Bundle-Version: 1.0.0
-Export-Package: com.liferay.osb.commerce.provisioning
+Export-Package:\
+	com.liferay.osb.commerce.provisioning,\
+	com.liferay.osb.commerce.provisioning.constants,\
+	com.liferay.osb.commerce.provisioning.util
