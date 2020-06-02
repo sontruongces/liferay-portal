@@ -23,6 +23,24 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
 	}
 
+	@summary = "Directly calls the JSON WS API to delete a layout"
+	macro _deleteLayout {
+		Variables.assertDefined(parameterList = "${groupId},${layoutId},${privateLayout},${serviceContext}");
+
+		var portalURL = JSONCompany.getPortalURL();
+
+		var curl = '''
+			${portalURL}/api/jsonws/layout/delete-layout \
+				-u test@liferay.com:test \
+				-d groupId=${groupId} \
+				-d privateLayout=${privateLayout} \
+				-d layoutId=${layoutId} \
+				-d serviceContext=${serviceContext}
+		''';
+
+		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
+	}
+
 	@summary = "Get the default plid from a site by using groupId"
 	macro _getDefaultPlidByGroupId {
 		Variables.assertDefined(parameterList = "${groupId},${privateLayout}");
