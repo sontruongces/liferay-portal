@@ -55,10 +55,9 @@ import org.osgi.service.component.annotations.Reference;
 public class MessageFactory {
 
 	public Message create(Account account) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account
-			dtoAccount = AccountUtil.toAccount(account);
+		JSONObject jsonObject = JSONUtil.put("account", toJSONObject(account));
 
-		return new Message(dtoAccount.toString());
+		return new Message(jsonObject.toString());
 	}
 
 	public Message create(
@@ -91,17 +90,16 @@ public class MessageFactory {
 	}
 
 	public Message create(Contact contact) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact
-			dtoContact = ContactUtil.toContact(contact);
+		JSONObject jsonObject = JSONUtil.put("contact", toJSONObject(contact));
 
-		return new Message(dtoContact.toString());
+		return new Message(jsonObject.toString());
 	}
 
 	public Message create(ContactRole contactRole) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole
-			dtoContactRole = ContactRoleUtil.toContactRole(contactRole);
+		JSONObject jsonObject = JSONUtil.put(
+			"contactRole", toJSONObject(contactRole));
 
-		return new Message(dtoContactRole.toString());
+		return new Message(jsonObject.toString());
 	}
 
 	public Message create(Entitlement entitlement, Account account)
@@ -131,32 +129,30 @@ public class MessageFactory {
 	public Message create(ProductConsumption productConsumption)
 		throws Exception {
 
-		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductConsumption
-			dtoProductConsumption = ProductConsumptionUtil.toProductConsumption(
-				productConsumption);
+		JSONObject jsonObject = JSONUtil.put(
+			"productConsumption", toJSONObject(productConsumption));
 
-		return new Message(dtoProductConsumption.toString());
+		return new Message(jsonObject.toString());
 	}
 
 	public Message create(ProductEntry productEntry) throws Exception {
-		Product dtoProduct = ProductUtil.toProduct(productEntry);
+		JSONObject jsonObject = JSONUtil.put(
+			"productEntry", toJSONObject(productEntry));
 
-		return new Message(dtoProduct.toString());
+		return new Message(jsonObject.toString());
 	}
 
 	public Message create(ProductPurchase productPurchase) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase
-			dtoProductPurchase = ProductPurchaseUtil.toProductPurchase(
-				productPurchase);
+		JSONObject jsonObject = JSONUtil.put(
+			"productPurchase", toJSONObject(productPurchase));
 
-		return new Message(dtoProductPurchase.toString());
+		return new Message(jsonObject.toString());
 	}
 
 	public Message create(Team team) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team dtoTeam =
-			TeamUtil.toTeam(team);
+		JSONObject jsonObject = JSONUtil.put("team", toJSONObject(team));
 
-		return new Message(dtoTeam.toString());
+		return new Message(jsonObject.toString());
 	}
 
 	public Message create(Team team, Contact contact, ContactRole contactRole)
@@ -174,10 +170,10 @@ public class MessageFactory {
 	}
 
 	public Message create(TeamRole teamRole) throws Exception {
-		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole
-			dtoTeamRole = TeamRoleUtil.toTeamRole(teamRole);
+		JSONObject jsonObject = JSONUtil.put(
+			"teamRole", toJSONObject(teamRole));
 
-		return new Message(dtoTeamRole.toString());
+		return new Message(jsonObject.toString());
 	}
 
 	protected JSONObject toJSONObject(Account account) throws Exception {
@@ -240,6 +236,34 @@ public class MessageFactory {
 			dtoEntitlement = EntitlementUtil.toEntitlement(entitlement);
 
 		return _jsonFactory.createJSONObject(dtoEntitlement.toString());
+	}
+
+	protected JSONObject toJSONObject(ProductConsumption productConsumption)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductConsumption
+			dtoProductConsumption = ProductConsumptionUtil.toProductConsumption(
+				productConsumption);
+
+		return _jsonFactory.createJSONObject(dtoProductConsumption.toString());
+	}
+
+	protected JSONObject toJSONObject(ProductEntry productEntry)
+		throws Exception {
+
+		Product dtoProduct = ProductUtil.toProduct(productEntry);
+
+		return _jsonFactory.createJSONObject(dtoProduct.toString());
+	}
+
+	protected JSONObject toJSONObject(ProductPurchase productPurchase)
+		throws Exception {
+
+		com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase
+			dtoProductPurchase = ProductPurchaseUtil.toProductPurchase(
+				productPurchase);
+
+		return _jsonFactory.createJSONObject(dtoProductPurchase.toString());
 	}
 
 	protected JSONObject toJSONObject(Team team) throws Exception {
