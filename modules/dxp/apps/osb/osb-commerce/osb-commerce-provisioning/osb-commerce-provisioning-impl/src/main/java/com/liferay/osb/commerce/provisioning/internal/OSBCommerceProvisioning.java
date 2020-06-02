@@ -20,7 +20,6 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
-import com.liferay.headless.admin.user.dto.v1_0.UserAccount;
 import com.liferay.osb.commerce.provisioning.OSBCommercePortalInstanceStatus;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudClient;
@@ -32,6 +31,7 @@ import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserAccountCl
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserGroupRoleClient;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserGroupRoleClientFactory;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.PortalInstance;
+import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.UserAccount;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalService;

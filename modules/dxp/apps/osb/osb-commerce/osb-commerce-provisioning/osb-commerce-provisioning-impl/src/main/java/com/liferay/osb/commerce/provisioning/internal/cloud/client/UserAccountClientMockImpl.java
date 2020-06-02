@@ -14,7 +14,7 @@
 
 package com.liferay.osb.commerce.provisioning.internal.cloud.client;
 
-import com.liferay.headless.admin.user.dto.v1_0.UserAccount;
+import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.UserAccount;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
