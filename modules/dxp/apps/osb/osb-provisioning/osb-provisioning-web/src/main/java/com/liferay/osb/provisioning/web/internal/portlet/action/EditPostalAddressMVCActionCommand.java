@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
@@ -159,7 +160,7 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 		if (addressCountryId > 0) {
 			Country country = _countryService.getCountry(addressCountryId);
 
-			postalAddress.setAddressCountry(country.getName());
+			postalAddress.setAddressCountry(country.getName(LocaleUtil.US));
 		}
 
 		if (addressType > 0) {
