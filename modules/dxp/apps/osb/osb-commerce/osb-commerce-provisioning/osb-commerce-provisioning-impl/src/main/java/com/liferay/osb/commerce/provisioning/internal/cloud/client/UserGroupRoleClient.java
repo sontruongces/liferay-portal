@@ -14,8 +14,6 @@
 
 package com.liferay.osb.commerce.provisioning.internal.cloud.client;
 
-import com.liferay.portal.kernel.model.UserGroupRole;
-
 /**
  * @author Ivica Cardic
  */
@@ -23,7 +21,7 @@ public interface UserGroupRoleClient {
 
 	public void destroy();
 
-	public UserGroupRole postUserGroupRole(
+	public void postUserGroupRole(
 		String virtualHostname, long userId, String groupName, String roleName);
 
 }

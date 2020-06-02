@@ -19,13 +19,10 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.UserGroupRole;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserGroupRoleLocalService;
-
-import java.util.List;
 
 /**
  * @author Ivica Cardic
@@ -48,7 +45,7 @@ public class UserGroupRoleClientMockImpl implements UserGroupRoleClient {
 	}
 
 	@Override
-	public UserGroupRole postUserGroupRole(
+	public void postUserGroupRole(
 		String virtualHostname, long userId, String friendlyURL,
 		String roleName) {
 
@@ -62,11 +59,8 @@ public class UserGroupRoleClientMockImpl implements UserGroupRoleClient {
 			Group group = _groupLocalService.fetchFriendlyURLGroup(
 				company.getCompanyId(), friendlyURL);
 
-			List<UserGroupRole> userGroupRoles =
-				_userGroupRoleLocalService.addUserGroupRoles(
-					userId, group.getGroupId(), new long[] {role.getRoleId()});
-
-			return userGroupRoles.get(0);
+			_userGroupRoleLocalService.addUserGroupRoles(
+				userId, group.getGroupId(), new long[] {role.getRoleId()});
 		}
 		catch (PortalException portalException) {
 			throw new SystemException(portalException);
