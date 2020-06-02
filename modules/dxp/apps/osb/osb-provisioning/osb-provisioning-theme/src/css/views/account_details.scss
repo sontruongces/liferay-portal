@@ -31,6 +31,10 @@
 	.list-group-item-flex {
 		flex: 0 0 50%;
 		max-width: 50%;
+
+		&:last-child {
+			margin-bottom: -1px;
+		}
 	}
 
 	.list-group-text {
