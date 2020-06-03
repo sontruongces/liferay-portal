@@ -1,6 +1,5 @@
 .account-add-items {
 	background-color: $light;
-	height: 60vh;
 	margin-left: -$spacing-default;
 	margin-right: -$spacing-default;
 	overflow: auto;
@@ -13,7 +12,7 @@
 
 		.header-back-to {
 			float: left;
-			margin-left: $spacing-xs;
+			margin-left: $spacing-md;
 
 			.lexicon-icon {
 				color: $secondary;
@@ -27,7 +26,7 @@
 	}
 
 	.add-items-sheet {
-		margin-bottom: $spacing-default;
+		margin-bottom: $spacing-lg;
 		margin-top: $spacing-default;
 
 		.button-holder {
@@ -35,30 +34,14 @@
 		}
 
 		.form-group {
-			align-items: baseline;
-
-			&.last {
-				border-bottom: 1px solid $secondary-l3;
-				margin-bottom: $spacing-default;
-				padding-bottom: $spacing-default;
-			}
+			border-bottom: 1px solid $secondary-l3;
+			margin-bottom: $spacing-default;
+			padding-bottom: $spacing-default;
 
 			.control-label {
 				padding-right: $spacing-md;
 				text-align: right;
 				width: 20%;
-			}
-
-			.field-input {
-				width: 80%;
-
-				.table {
-					margin-bottom: $spacing-sm;
-
-					th {
-						color: $secondary;
-					}
-				}
 			}
 
 			.form-control {
