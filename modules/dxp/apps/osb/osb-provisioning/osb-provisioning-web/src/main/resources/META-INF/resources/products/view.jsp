@@ -40,7 +40,7 @@ ViewProductsManagementToolbarDisplayContext viewProductsManagementToolbarDisplay
 			modelVar="productDisplay"
 		>
 			<portlet:renderURL var="rowURL">
-				<portlet:param name="mvcRenderCommandName" value="/products/view_product" />
+				<portlet:param name="mvcRenderCommandName" value="/products/edit_product" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
 				<portlet:param name="productKey" value="<%= productDisplay.getKey() %>" />
 			</portlet:renderURL>
@@ -55,6 +55,11 @@ ViewProductsManagementToolbarDisplayContext viewProductsManagementToolbarDisplay
 				href="<%= rowURL %>"
 				name="type"
 				value="<%= productDisplay.getType() %>"
+			/>
+
+			<liferay-ui:search-container-column-jsp
+				align="right"
+				path="/products/product_action.jsp"
 			/>
 		</liferay-ui:search-container-row>
 

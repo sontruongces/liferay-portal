@@ -109,7 +109,7 @@ public class EditExternalLinkMVCActionCommand extends BaseMVCActionCommand {
 				externalLink);
 		}
 		else {
-			_externalLinkWebService.addExternalLink(
+			_externalLinkWebService.addAccountExternalLink(
 				user.getFullName(), StringPool.BLANK, accountKey, externalLink);
 		}
 	}

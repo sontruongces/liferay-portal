@@ -42,6 +42,24 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class ProductWebServiceImpl implements ProductWebService {
 
+	public Product addProduct(
+			String agentName, String agentUID, Product product)
+		throws Exception {
+
+		return _productResource.postProduct(agentName, agentUID, product);
+	}
+
+	public void deleteProduct(
+			String agentName, String agentUID, String productKey)
+		throws Exception {
+
+		_productResource.deleteProduct(agentName, agentUID, productKey);
+	}
+
+	public Product getProduct(String productKey) throws Exception {
+		return _productResource.getProduct(productKey);
+	}
+
 	public List<Product> getProducts(
 			String search, String filterString, int page, int pageSize,
 			String sortString)
@@ -85,6 +103,15 @@ public class ProductWebServiceImpl implements ProductWebService {
 		}
 
 		return 0;
+	}
+
+	public Product updateProduct(
+			String agentName, String agentUID, String productKey,
+			Product product)
+		throws Exception {
+
+		return _productResource.putProduct(
+			agentName, agentUID, productKey, product);
 	}
 
 	@Activate

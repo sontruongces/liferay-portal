@@ -17,12 +17,15 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.PortalUtil;
 
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,6 +45,17 @@ public class ProductDisplay {
 		_httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
 		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
 			portletResponse);
+	}
+
+	public String getDeleteProductURL() {
+		PortletURL deleteProductURL = _liferayPortletResponse.createActionURL();
+
+		deleteProductURL.setParameter(
+			ActionRequest.ACTION_NAME, "/products/edit_product");
+		deleteProductURL.setParameter(Constants.CMD, Constants.DELETE);
+		deleteProductURL.setParameter("productKey", _product.getKey());
+
+		return deleteProductURL.toString();
 	}
 
 	public String getKey() {

@@ -60,7 +60,7 @@ public class ViewProductsManagementToolbarDisplayContext
 					dropdownItem -> {
 						dropdownItem.setHref(
 							liferayPortletResponse.createRenderURL(),
-							"mvcRenderCommandName", "/products/add_product",
+							"mvcRenderCommandName", "/products/edit_product",
 							"redirect", currentURLObj.toString());
 						dropdownItem.setLabel(
 							LanguageUtil.get(request, "new-product"));

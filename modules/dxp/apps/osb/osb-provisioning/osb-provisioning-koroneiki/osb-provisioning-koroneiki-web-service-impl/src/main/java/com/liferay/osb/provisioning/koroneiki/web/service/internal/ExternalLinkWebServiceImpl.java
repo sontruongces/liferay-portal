@@ -39,13 +39,22 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ExternalLinkWebServiceImpl implements ExternalLinkWebService {
 
-	public ExternalLink addExternalLink(
+	public ExternalLink addAccountExternalLink(
 			String agentName, String agentUID, String accountKey,
 			ExternalLink externalLink)
 		throws Exception {
 
 		return _externalLinkResource.postAccountAccountKeyExternalLink(
 			agentName, agentUID, accountKey, externalLink);
+	}
+
+	public ExternalLink addProductExternalLink(
+			String agentName, String agentUID, String productKey,
+			ExternalLink externalLink)
+		throws Exception {
+
+		return _externalLinkResource.postProductProductKeyExternalLink(
+			agentName, agentUID, productKey, externalLink);
 	}
 
 	public void deleteExternalLink(

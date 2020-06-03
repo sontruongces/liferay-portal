@@ -23,6 +23,16 @@ import java.util.List;
  */
 public interface ProductWebService {
 
+	public Product addProduct(
+			String agentName, String agentUID, Product product)
+		throws Exception;
+
+	public void deleteProduct(
+			String agentName, String agentUID, String productKey)
+		throws Exception;
+
+	public Product getProduct(String productKey) throws Exception;
+
 	public List<Product> getProducts(
 			String search, String filterString, int page, int pageSize,
 			String sortString)
@@ -34,6 +44,11 @@ public interface ProductWebService {
 		throws Exception;
 
 	public long getProductsCount(String search, String filterString)
+		throws Exception;
+
+	public Product updateProduct(
+			String agentName, String agentUID, String productKey,
+			Product product)
 		throws Exception;
 
 }

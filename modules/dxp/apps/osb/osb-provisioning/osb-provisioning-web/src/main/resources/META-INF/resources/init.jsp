@@ -30,8 +30,11 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 <%@ page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPNavigationItemList" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole" %><%@
+page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note" %><%@
+page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team" %><%@
+page import="com.liferay.osb.provisioning.constants.ProductTypeConstants" %><%@
 page import="com.liferay.osb.provisioning.constants.ProvisioningWebKeys" %><%@
 page import="com.liferay.osb.provisioning.customer.model.AccountEntry" %><%@
 page import="com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException" %><%@
@@ -41,6 +44,7 @@ page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSe
 page import="com.liferay.osb.provisioning.web.internal.display.context.AssignTeamContactsDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AuditEntryDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay" %><%@
+page import="com.liferay.osb.provisioning.web.internal.display.context.ProductDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ProductPurchaseViewDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.ProductSearchDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.TeamDisplay" %><%@
@@ -72,7 +76,8 @@ page import="com.liferay.portal.kernel.util.StringUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %>
 
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.List" %><%@
+page import="java.util.Map" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 

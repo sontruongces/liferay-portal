@@ -15,18 +15,16 @@
 package com.liferay.osb.provisioning.constants;
 
 /**
- * @author Amos Fong
+ * @author Kyle Bischof
  */
-public class ProvisioningWebKeys {
+public class ProductTypeConstants {
 
-	public static final String ACCOUNT = "ACCOUNT";
+	public static final String ADD_ON = "add-on";
 
-	public static final String CONTACT_ROLES = "CONTACT_ROLES";
+	public static final String PRIMARY = "primary";
 
-	public static final String PRODUCT = "PRODUCT";
+	public static final String REGULAR = "regular";
 
-	public static final String PRODUCT_PURCHASE_VIEW = "PRODUCT_PURCHASE_VIEW";
-
-	public static final String TEAM = "TEAM";
+	public static final String[] TYPES = {ADD_ON, PRIMARY, REGULAR};
 
 }
