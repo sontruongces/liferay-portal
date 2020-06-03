@@ -63,7 +63,7 @@ class DocumentLibrary extends Component {
 	}
 
 	getDocumentLibrarySelectorURL() {
-		const {itemSelectorAuthToken} = this.initialConfig_;
+		const {groupId, itemSelectorAuthToken} = this.initialConfig_;
 		const {portletNamespace} = this;
 
 		const criterionJSON = {
@@ -83,13 +83,13 @@ class DocumentLibrary extends Component {
 			'2_json': JSON.stringify(uploadCriterionJSON),
 			criteria:
 				'com.liferay.item.selector.criteria.file.criterion.FileItemSelectorCriterion',
-			doAsGroupId: themeDisplay.getScopeGroupId(),
+			doAsGroupId: groupId,
 			itemSelectedEventName: `${portletNamespace}selectDocumentLibrary`,
 			p_p_auth: itemSelectorAuthToken,
 			p_p_id: Liferay.PortletKeys.ITEM_SELECTOR,
 			p_p_mode: 'view',
 			p_p_state: 'pop_up',
-			refererGroupId: themeDisplay.getScopeGroupId()
+			refererGroupId: groupId
 		};
 
 		const documentLibrarySelectorURL = createPortletURL(
