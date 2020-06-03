@@ -19,15 +19,22 @@ import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.jdbc.AutoBatchPreparedStatementUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.LayoutPrototype;
 import com.liferay.portal.kernel.model.ModelHintsUtil;
+import com.liferay.portal.kernel.service.LayoutPrototypeLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,6 +42,12 @@ import java.util.Set;
  * @author Mariano Álvaro Sáiz
  */
 public class UpgradeLayoutPageTemplateEntry extends UpgradeProcess {
+
+	public UpgradeLayoutPageTemplateEntry(
+		LayoutPrototypeLocalService layoutPrototypeLocalService) {
+
+		_layoutPrototypeLocalService = layoutPrototypeLocalService;
+	}
 
 	@Override
 	protected void doUpgrade() throws Exception {
@@ -98,13 +111,38 @@ public class UpgradeLayoutPageTemplateEntry extends UpgradeProcess {
 		}
 	}
 
+	private void _updateLayoutPrototypeName(
+			long layoutPrototypeId, String oldName, String newName)
+		throws PortalException {
+
+		LayoutPrototype layoutPrototype =
+			_layoutPrototypeLocalService.getLayoutPrototype(layoutPrototypeId);
+
+		Map<Locale, String> nameMap = layoutPrototype.getNameMap();
+
+		Locale locale = LocaleUtil.fromLanguageId(
+			layoutPrototype.getDefaultLanguageId());
+
+		String defaultName = nameMap.get(locale);
+
+		if (!StringUtil.equals(defaultName, oldName)) {
+			return;
+		}
+
+		nameMap.put(locale, defaultName.replaceFirst(oldName, newName));
+
+		_layoutPrototypeLocalService.updateLayoutPrototype(
+			layoutPrototypeId, nameMap, layoutPrototype.getDescriptionMap(),
+			layoutPrototype.isActive(), new ServiceContext());
+	}
+
 	private void _upgradeLayoutPageTemplateEntryName() throws Exception {
 		_loadDistinctNames();
 
 		try (Statement s = connection.createStatement();
 			ResultSet rs = s.executeQuery(
-				"select layoutPageTemplateEntryId, name from " +
-					"LayoutPageTemplateEntry");
+				"select layoutPageTemplateEntryId, layoutPrototypeId, name " +
+					"from LayoutPageTemplateEntry");
 			PreparedStatement ps = AutoBatchPreparedStatementUtil.autoBatch(
 				connection.prepareStatement(
 					"update LayoutPageTemplateEntry set name = ? where " +
@@ -120,11 +158,15 @@ public class UpgradeLayoutPageTemplateEntry extends UpgradeProcess {
 				long layoutPageTemplateEntryId = rs.getLong(
 					"layoutPageTemplateEntryId");
 
-				name = _generateValidString(name);
+				String newName = _generateValidString(name);
 
-				ps.setString(1, _getUniqueColumnValue(name, "name"));
+				ps.setString(1, _getUniqueColumnValue(newName, "name"));
 
 				ps.setLong(2, layoutPageTemplateEntryId);
+
+				long layoutPrototypeId = rs.getLong("layoutPrototypeId");
+
+				_updateLayoutPrototypeName(layoutPrototypeId, name, newName);
 
 				ps.addBatch();
 			}
@@ -139,5 +181,6 @@ public class UpgradeLayoutPageTemplateEntry extends UpgradeProcess {
 		).put(
 			"name", new HashSet<String>()
 		).build();
+	private final LayoutPrototypeLocalService _layoutPrototypeLocalService;
 
 }

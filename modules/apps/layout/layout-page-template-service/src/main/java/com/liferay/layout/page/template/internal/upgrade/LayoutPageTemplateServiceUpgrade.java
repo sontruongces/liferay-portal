@@ -103,7 +103,7 @@ public class LayoutPageTemplateServiceUpgrade
 		registry.register(
 			"3.1.0", "3.1.1",
 			new com.liferay.layout.page.template.internal.upgrade.v3_1_1.
-				UpgradeLayoutPageTemplateEntry());
+				UpgradeLayoutPageTemplateEntry(_layoutPrototypeLocalService));
 	}
 
 	@Reference
