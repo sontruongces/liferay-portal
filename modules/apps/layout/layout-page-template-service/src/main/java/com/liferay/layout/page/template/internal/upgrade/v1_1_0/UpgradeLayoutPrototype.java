@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.LoggingTimer;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.sql.PreparedStatement;
@@ -111,7 +110,7 @@ public class UpgradeLayoutPrototype extends UpgradeProcess {
 
 				existingNames.add(name);
 
-				ps.setString(1, PortalUUIDUtil.generate());
+				ps.setString(1, layoutPrototype.getUuid());
 				ps.setLong(2, increment());
 				ps.setLong(3, company.getGroupId());
 				ps.setLong(4, layoutPrototype.getCompanyId());
