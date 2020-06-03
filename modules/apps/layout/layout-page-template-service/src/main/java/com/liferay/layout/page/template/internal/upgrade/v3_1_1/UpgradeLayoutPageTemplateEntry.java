@@ -17,12 +17,19 @@ package com.liferay.layout.page.template.internal.upgrade.v3_1_1;
 import com.liferay.layout.page.template.internal.validator.LayoutPageTemplateEntryValidator;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.jdbc.AutoBatchPreparedStatementUtil;
+import com.liferay.portal.kernel.model.ModelHintsUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Mariano Álvaro Sáiz
@@ -51,7 +58,49 @@ public class UpgradeLayoutPageTemplateEntry extends UpgradeProcess {
 		return sb.toString();
 	}
 
+	private String _getUniqueColumnValue(String value, String column) {
+		Set<String> uniqueValues = _columnUniqueValues.get(column);
+
+		int maxLength = ModelHintsUtil.getMaxLength(
+			UpgradeLayoutPageTemplateEntry.class.getName(), "name");
+
+		String currentValue = value;
+
+		for (int i = 1;; i++) {
+			if (!uniqueValues.contains(currentValue)) {
+				break;
+			}
+
+			String suffix = StringPool.DASH + i;
+
+			String prefix = value.substring(
+				0, Math.min(maxLength - suffix.length(), value.length()));
+
+			currentValue = prefix + suffix;
+		}
+
+		uniqueValues.remove(value);
+		uniqueValues.add(currentValue);
+
+		return currentValue;
+	}
+
+	private void _loadDistinctNames() throws Exception {
+		Set<String> names = _columnUniqueValues.get("name");
+
+		try (Statement s = connection.createStatement();
+			ResultSet rs = s.executeQuery(
+				"select distinct name from LayoutPageTemplateEntry")) {
+
+			while (rs.next()) {
+				names.add(rs.getString("name"));
+			}
+		}
+	}
+
 	private void _upgradeLayoutPageTemplateEntryName() throws Exception {
+		_loadDistinctNames();
+
 		try (Statement s = connection.createStatement();
 			ResultSet rs = s.executeQuery(
 				"select layoutPageTemplateEntryId, name from " +
@@ -71,7 +120,9 @@ public class UpgradeLayoutPageTemplateEntry extends UpgradeProcess {
 				long layoutPageTemplateEntryId = rs.getLong(
 					"layoutPageTemplateEntryId");
 
-				ps.setString(1, _generateValidString(name));
+				name = _generateValidString(name);
+
+				ps.setString(1, _getUniqueColumnValue(name, "name"));
 
 				ps.setLong(2, layoutPageTemplateEntryId);
 
@@ -81,5 +132,12 @@ public class UpgradeLayoutPageTemplateEntry extends UpgradeProcess {
 			ps.executeBatch();
 		}
 	}
+
+	private final Map<String, Set<String>> _columnUniqueValues =
+		HashMapBuilder.<String, Set<String>>put(
+			"layoutPageTemplateEntryKey", new HashSet<String>()
+		).put(
+			"name", new HashSet<String>()
+		).build();
 
 }
