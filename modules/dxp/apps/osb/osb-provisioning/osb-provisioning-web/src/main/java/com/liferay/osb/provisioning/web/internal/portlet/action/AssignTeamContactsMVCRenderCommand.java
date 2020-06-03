@@ -62,7 +62,7 @@ public class AssignTeamContactsMVCRenderCommand implements MVCRenderCommand {
 		catch (Exception exception) {
 			SessionErrors.add(renderRequest, exception.getClass(), exception);
 
-			return "/accounts/error.jsp";
+			return "/common/error.jsp";
 		}
 	}
 
