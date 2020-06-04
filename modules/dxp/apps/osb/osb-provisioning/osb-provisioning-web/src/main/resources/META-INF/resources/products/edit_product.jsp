@@ -69,7 +69,7 @@ if (product != null) {
 					String domain = externalLink.getDomain();
 					String entityName = externalLink.getEntityName();
 
-					if (domain.equals("dossiera") && entityName.equals("dossieraId")) {
+					if (domain.equals(ExternalLinkDomain.DOSSIERA) && entityName.equals(ExternalLinkEntityName.DOSSIERA_PRODUCT)) {
 						dossieraIdMapping = externalLink.getEntityId();
 					}
 				}

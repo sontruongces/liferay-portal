@@ -14,6 +14,8 @@
 
 package com.liferay.osb.provisioning.web.internal.portlet.action;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
@@ -97,7 +99,7 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 		String type = ParamUtil.getString(actionRequest, "type");
-		String dossieraId = ParamUtil.getString(
+		String dossieraIdMapping = ParamUtil.getString(
 			actionRequest, "dossieraIdMapping");
 
 		Product product = new Product();
@@ -112,10 +114,10 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 		ExternalLink externalLink = new ExternalLink();
 
-		if (Validator.isNotNull(dossieraId)) {
-			externalLink.setDomain("dossiera");
-			externalLink.setEntityId(dossieraId);
-			externalLink.setEntityName("dossieraId");
+		if (Validator.isNotNull(dossieraIdMapping)) {
+			externalLink.setDomain(ExternalLinkDomain.DOSSIERA);
+			externalLink.setEntityId(dossieraIdMapping);
+			externalLink.setEntityName(ExternalLinkEntityName.DOSSIERA_PRODUCT);
 
 			product.setExternalLinks(new ExternalLink[] {externalLink});
 		}
@@ -136,8 +138,9 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 					String domain = curExternalLink.getDomain();
 					String entityName = curExternalLink.getEntityName();
 
-					if (domain.equals("dossiera") &&
-						entityName.equals("dossieraId")) {
+					if (domain.equals(ExternalLinkDomain.DOSSIERA) &&
+						entityName.equals(
+							ExternalLinkEntityName.DOSSIERA_PRODUCT)) {
 
 						_externalLinkWebService.updateExternalLink(
 							user.getFullName(), StringPool.BLANK,
