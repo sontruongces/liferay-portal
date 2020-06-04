@@ -1671,19 +1671,16 @@
 						assetEntryId = assetGroupId + '-' + assetEntryId;
 					}
 
-					var assetEntryIndex = selectedData.indexOf(assetEntryId);
+					var disabled = selectedData.includes(assetEntryId);
 
-					if (assetEntryIndex > -1) {
+					if (disabled) {
 						item.attr('data-prevent-selection', true);
-						item.attr('disabled', true);
 					}
 					else {
 						item.removeAttribute('data-prevent-selection');
-						item.removeAttribute('disabled');
-						item.removeClass('disabled');
 					}
 
-					return !selectedData.length;
+					Util.toggleDisabled(item, disabled);
 				});
 			};
 
