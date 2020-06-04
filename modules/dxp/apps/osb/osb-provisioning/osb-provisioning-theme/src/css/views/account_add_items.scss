@@ -30,11 +30,13 @@
 		margin-top: $spacing-default;
 
 		.button-holder {
+			border-top: 1px solid $secondary-l3;
 			padding-left: 20%;
+			padding-top: $spacing-default;
+			margin-top: 0;
 		}
 
 		.form-group {
-			border-bottom: 1px solid $secondary-l3;
 			margin-bottom: $spacing-default;
 			padding-bottom: $spacing-default;
 
