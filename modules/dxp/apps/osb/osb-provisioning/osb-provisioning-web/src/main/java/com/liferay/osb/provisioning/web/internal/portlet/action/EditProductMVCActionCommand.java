@@ -99,7 +99,6 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 		String type = ParamUtil.getString(actionRequest, "type");
 		String dossieraId = ParamUtil.getString(
 			actionRequest, "dossieraIdMapping");
-		String zendeskTag = ParamUtil.getString(actionRequest, "zendeskTag");
 
 		Product product = new Product();
 
@@ -119,10 +118,6 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 			externalLink.setEntityName("dossieraId");
 
 			product.setExternalLinks(new ExternalLink[] {externalLink});
-		}
-
-		if (Validator.isNotNull(zendeskTag)) {
-			properties.put("zendeskTag", zendeskTag);
 		}
 
 		product.setProperties(properties);

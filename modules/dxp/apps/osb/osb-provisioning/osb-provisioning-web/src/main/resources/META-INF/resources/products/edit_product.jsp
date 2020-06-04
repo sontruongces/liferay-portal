@@ -61,7 +61,7 @@ if (product != null) {
 
 			<%
 			String dossieraIdMapping = StringPool.BLANK;
-			
+
 			if (product != null) {
 				ExternalLink[] externalLinks = product.getExternalLinks();
 
@@ -77,8 +77,6 @@ if (product != null) {
 			%>
 
 			<aui:input name="dossieraIdMapping" value="<%= dossieraIdMapping %>" />
-
-			<aui:input name="zendeskTag" value='<%= (properties != null) ? properties.get("zendeskTag") : "" %>' />
 		</aui:fieldset>
 	</aui:fieldset-group>
 
