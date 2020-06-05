@@ -97,7 +97,7 @@ public class AssignTeamContactsDisplayContext extends ViewTeamDisplayContext {
 							1000);
 
 					return new ContactDisplay(
-						httpServletRequest, contact, contactRoles);
+						httpServletRequest, 0, contact, contactRoles);
 				}));
 
 		searchContainer.setRowChecker(_getRowChecker());

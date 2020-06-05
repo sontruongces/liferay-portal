@@ -172,7 +172,7 @@ public class ViewAccountLiferayWorkersDisplayContext
 							1000);
 
 					return new ContactDisplay(
-						httpServletRequest, contact, contactRoles);
+						httpServletRequest, 0, contact, contactRoles);
 				}));
 
 		int count = (int)contactWebService.searchCount(keywords, sb.toString());

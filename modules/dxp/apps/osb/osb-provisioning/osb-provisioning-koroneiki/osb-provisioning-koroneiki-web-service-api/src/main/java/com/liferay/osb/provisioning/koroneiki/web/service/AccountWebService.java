@@ -46,6 +46,10 @@ public interface AccountWebService {
 			int pageSize)
 		throws Exception;
 
+	public long getContactAccountsCount(
+			String contactUuid, int page, int pageSize)
+		throws Exception;
+
 	public List<Account> search(
 			String search, String filterString, int page, int pageSize,
 			String sortString)

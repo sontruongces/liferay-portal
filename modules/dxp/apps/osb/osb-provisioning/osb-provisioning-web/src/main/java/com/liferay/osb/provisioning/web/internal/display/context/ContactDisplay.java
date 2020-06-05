@@ -16,6 +16,8 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
@@ -32,12 +34,17 @@ import javax.servlet.http.HttpServletRequest;
 public class ContactDisplay {
 
 	public ContactDisplay(
-		HttpServletRequest httpServletRequest, Contact contact,
-		List<ContactRole> contactRoles) {
+		HttpServletRequest httpServletRequest, long accountsCount,
+		Contact contact, List<ContactRole> contactRoles) {
 
 		_httpServletRequest = httpServletRequest;
+		_accountsCount = accountsCount;
 		_contact = contact;
 		_contactRoles = contactRoles;
+	}
+
+	public String getAccountsCount() {
+		return String.valueOf(_accountsCount);
 	}
 
 	public List<String> getContactRoleNames() {
@@ -56,6 +63,37 @@ public class ContactDisplay {
 
 	public String getEmailAddress() {
 		return _contact.getEmailAddress();
+	}
+
+	public String getEntitlements() {
+		Entitlement[] entitlements = _contact.getEntitlements();
+
+		if (ArrayUtil.isEmpty(entitlements)) {
+			return StringPool.BLANK;
+		}
+
+		StringBundler sb = new StringBundler((entitlements.length * 3) - 2);
+
+		for (int i = 0; i < entitlements.length; i++) {
+			String curSb = sb.toString();
+
+			if (curSb.length() > 75) {
+				sb = new StringBundler(curSb.substring(0, 75));
+
+				sb.append(StringPool.TRIPLE_PERIOD);
+
+				return sb.toString();
+			}
+
+			sb.append(entitlements[i].getName());
+
+			if (i < (entitlements.length - 1)) {
+				sb.append(StringPool.COMMA);
+				sb.append(StringPool.SPACE);
+			}
+		}
+
+		return sb.toString();
 	}
 
 	public String getFullName() {
@@ -106,6 +144,7 @@ public class ContactDisplay {
 		}
 	}
 
+	private final long _accountsCount;
 	private final Contact _contact;
 	private final List<ContactRole> _contactRoles;
 	private final HttpServletRequest _httpServletRequest;

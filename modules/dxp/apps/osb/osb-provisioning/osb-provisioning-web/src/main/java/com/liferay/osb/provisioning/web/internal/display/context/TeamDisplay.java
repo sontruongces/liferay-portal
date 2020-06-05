@@ -63,7 +63,7 @@ public class TeamDisplay {
 		if (contacts != null) {
 			for (Contact contact : contacts) {
 				ContactDisplay contactDisplay = new ContactDisplay(
-					_httpServletRequest, contact, null);
+					_httpServletRequest, 0, contact, null);
 
 				contactNames.add(contactDisplay.getFullName());
 			}
