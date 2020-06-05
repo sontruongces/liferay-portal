@@ -14,12 +14,21 @@
 
 package com.liferay.osb.commerce.provisioning.web.internal.portlet;
 
+import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
+import com.liferay.osb.commerce.provisioning.web.internal.portlet.display.context.TrialRegistrationDisplayContext;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
+import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+import java.io.IOException;
 
 /**
  * @author Ivica Cardic
@@ -30,6 +39,7 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-osb-commerce-provisioning",
 		"com.liferay.portlet.display-category=category.osb-commerce-provisioning",
+		"com.liferay.portlet.header-portlet-css=/trial-registration/css/main.css",
 		"com.liferay.portlet.layout-cacheable=true",
 		"com.liferay.portlet.preferences-owned-by-group=true",
 		"com.liferay.portlet.preferences-unique-per-layout=false",
@@ -47,4 +57,20 @@ import org.osgi.service.component.annotations.Component;
 	service = {Portlet.class, TrialRegistrationPortlet.class}
 )
 public class TrialRegistrationPortlet extends MVCPortlet {
+	@Override
+	public void render(
+		RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		TrialRegistrationDisplayContext trialRegistrationDisplayContext =
+			new TrialRegistrationDisplayContext(_commerceCountryService);
+
+		renderRequest.setAttribute(
+			WebKeys.PORTLET_DISPLAY_CONTEXT, trialRegistrationDisplayContext);
+
+		super.render(renderRequest, renderResponse);
+	}
+
+	@Reference
+	private CommerceCountryService _commerceCountryService;
 }

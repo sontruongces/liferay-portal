@@ -1,0 +1,8 @@
+@import 'mixins';
+@import 'variables';
+
+@import 'globals';
+
+.portlet-osb-commerce-provisioning {
+	@import 'trial_registration';
+}
