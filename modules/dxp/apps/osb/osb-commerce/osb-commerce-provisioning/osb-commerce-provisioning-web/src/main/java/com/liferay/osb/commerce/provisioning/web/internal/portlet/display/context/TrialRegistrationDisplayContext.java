@@ -9,6 +9,7 @@ import java.util.List;
  * @author Gianmarco Brunialti Masera
  */
 public class TrialRegistrationDisplayContext {
+
 	public TrialRegistrationDisplayContext(
 		CommerceCountryService commerceCountryService) {
 
@@ -16,9 +17,9 @@ public class TrialRegistrationDisplayContext {
 	}
 
 	public List<CommerceCountry> getCommerceCountries(long companyId) {
-		return _commerceCountryService
-			.getCommerceCountries(companyId, true);
+		return _commerceCountryService.getCommerceCountries(companyId, true);
 	}
 
-	private CommerceCountryService _commerceCountryService;
+	private final CommerceCountryService _commerceCountryService;
+
 }

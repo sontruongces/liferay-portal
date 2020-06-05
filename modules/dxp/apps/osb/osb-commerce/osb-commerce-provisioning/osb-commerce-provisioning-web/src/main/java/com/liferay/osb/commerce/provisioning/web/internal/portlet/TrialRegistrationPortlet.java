@@ -18,17 +18,17 @@ import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
 import com.liferay.osb.commerce.provisioning.web.internal.portlet.display.context.TrialRegistrationDisplayContext;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.util.WebKeys;
+
+import java.io.IOException;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import java.io.IOException;
 
 /**
  * @author Ivica Cardic
@@ -57,9 +57,10 @@ import java.io.IOException;
 	service = {Portlet.class, TrialRegistrationPortlet.class}
 )
 public class TrialRegistrationPortlet extends MVCPortlet {
+
 	@Override
 	public void render(
-		RenderRequest renderRequest, RenderResponse renderResponse)
+			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
 		TrialRegistrationDisplayContext trialRegistrationDisplayContext =
@@ -73,4 +74,5 @@ public class TrialRegistrationPortlet extends MVCPortlet {
 
 	@Reference
 	private CommerceCountryService _commerceCountryService;
+
 }

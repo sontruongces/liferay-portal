@@ -18,18 +18,51 @@
 
 <%
 long commerceOrderItemId = ParamUtil.getLong(request, "commerceOrderItemId");
+String userFirstName = ParamUtil.getString(request, "userFirstName");
+String pathThemeImages = themeDisplay.getPathThemeImages();
 %>
 
-<h1>Hello</h1>
+<div class="container-fluid" id="trial-registration">
+	<div class="row">
+		<div class="col-md-6 col-xs-12">
+			<div class="punch-line">
+				<h1><%= LanguageUtil.get(request, "hello") %> <%= userFirstName %></h1>
+				<p><%= LanguageUtil.get(request, "loading-instance") %></p>
+			</div>
+			<div class="instance-status">
+				<p><%= LanguageUtil.get(request, "wait-time")%></p>
+				<ul>
+					<li>
+						<span>
+							<svg class="lexicon-icon lexicon-icon-search" focusable="false" role="presentation">
+								<use xlink:href="<%= pathThemeImages %>/lexicon/icons.svg#check"></use>
+							</svg>
+						</span>
 
-<p class="lead">Let's get Liferay Commerce instance up and running</p>
-<p>This usually takes about 2 minutes:</p>
+						<%= LanguageUtil.get(request, "creating-an-unique-link") %>
+					</li>
+					<li>
+						<span>
+							<svg class="lexicon-icon lexicon-icon-search" focusable="false" role="presentation">
+								<use xlink:href="<%= pathThemeImages %>/lexicon/icons.svg#check"></use>
+							</svg>
+						</span>
 
-<ul>
-	<li>Setting up a unique link</li>
-	<li>Setting up you as an administrator</li>
-	<li><span class="icon-spin icon-spinner text-primary"></span> Creating a new instance for you</li>
-</ul>
+						<%= LanguageUtil.get(request, "setting-up-administrator") %>
+					</li>
+					<li>
+						<span aria-hidden="true" class="loading-animation loading-animation-sm"></span>
+
+						<%= LanguageUtil.get(request, "setting-up-a-new-instance") %>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-md-6 col-xs-12">
+		</div>
+	</div>
+</div>
 
 <portlet:resourceURL id="portalInstanceStatus" var="portalInstanceStatusResourceURL">
 	<portlet:param name="commerceOrderItemId" value="<%= String.valueOf(commerceOrderItemId) %>" />
@@ -40,7 +73,7 @@ long commerceOrderItemId = ParamUtil.getLong(request, "commerceOrderItemId");
 	<portlet:param name="commerceOrderItemId" value="<%= String.valueOf(commerceOrderItemId) %>" />
 </portlet:renderURL>
 
-<aui:script>
+<%-- aui:script>
 	setTimeout(function() {
 		function callOnTimeOut() {
 			var resourceURL = '<%= portalInstanceStatusResourceURL %>';
@@ -60,11 +93,11 @@ long commerceOrderItemId = ParamUtil.getLong(request, "commerceOrderItemId");
 				else {
 					setTimeout(function() {
 						callOnTimeOut();
-					}, 2000);
+					}, 5000);
 				}
 			});
 		}
 
 		callOnTimeOut();
-	}, 2000);
-</aui:script>
+	}, 5000);
+</aui:script --%>

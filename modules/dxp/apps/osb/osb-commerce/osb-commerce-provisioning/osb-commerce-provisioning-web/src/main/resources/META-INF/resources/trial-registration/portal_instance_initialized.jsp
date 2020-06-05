@@ -20,10 +20,22 @@
 String portalInstanceURL = (String)request.getAttribute(OSBCommerceProvisioningWebKeys.PORTAL_INSTANCE_URL);
 %>
 
-<h1>Welcome to Your Demo</h1>
+<div class="container-fluid" id="trial-registration">
+	<div class="row">
+		<div class="col-md-6 col-xs-12">
+			<div class="punch-line">
+				<h1><%= LanguageUtil.get(request, "welcome-to-your-demo") %></h1>
+				<p><%= LanguageUtil.get(request, "welcome-message") %></p>
+			</div>
+			<div class="instance-status">
+				<p><%= LanguageUtil.get(request, "trial-period-expires-in-days")%></p>
+				<a role="button" class="btn btn-primary" href="<%= portalInstanceURL %>" target="_blank">
+					<%= LanguageUtil.get(request, "start-your-demo") %>
+				</a>
+			</div>
+		</div>
 
-<p class="lead">Please check your email for instructions on how to log in to your demo. If you have any questions, let us know at hello@liferay.com.</p>
-
-<p>Trial expires at 20.06.2020</p>
-
-<a class="btn btn-primary" href="<%= portalInstanceURL %>" target="_blank">Open COMMERCE demo</a>
+		<div class="col-md-6 col-xs-12">
+		</div>
+	</div>
+</div>

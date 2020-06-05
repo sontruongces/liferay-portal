@@ -114,7 +114,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			throw new PortalException(throwable);
 		}
 
-		_sendRedirect(actionResponse, commerceOrderItemId);
+		_sendRedirect(actionResponse, commerceOrderItemId, name);
 	}
 
 	private long _add(
@@ -292,8 +292,10 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	private void _sendRedirect(
-			ActionResponse actionResponse, long commerceOrderItemId)
+			ActionResponse actionResponse, long commerceOrderItemId, String name)
 		throws IOException {
+
+		String userFirstName = name.split(" ")[0];
 
 		RenderURL renderURL = actionResponse.createRedirectURL(
 			MimeResponse.Copy.NONE);
@@ -302,6 +304,8 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			"mvcRenderCommandName", "initializePortalInstance");
 		renderURL.setParameter(
 			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
+		renderURL.setParameter(
+			"userFirstName", userFirstName);
 
 		actionResponse.sendRedirect(renderURL.toString());
 	}

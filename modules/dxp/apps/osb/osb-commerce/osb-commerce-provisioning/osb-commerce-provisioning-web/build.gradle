@@ -1,4 +1,11 @@
+buildCSS {
+	imports = [
+		new File(npmInstall.nodeModulesDir, "@clayui/css/src/scss")
+	]
+}
+
 dependencies {
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.account.api", version: "6.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "19.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.currency.api", version: "3.2.0"

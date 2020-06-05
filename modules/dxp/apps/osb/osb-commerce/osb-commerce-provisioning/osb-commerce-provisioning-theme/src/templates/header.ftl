@@ -1,5 +1,5 @@
 <header id="banner">
-	<div class="navbar navbar-commerce navbar-commerce-md navbar-top py-3">
+	<div class="mb-5 navbar navbar-commerce navbar-commerce-md navbar-top py-3">
 		<div class="container user-personal-bar">
 			<div class="align-items-center autofit-row">
 				<div class="col-4">
