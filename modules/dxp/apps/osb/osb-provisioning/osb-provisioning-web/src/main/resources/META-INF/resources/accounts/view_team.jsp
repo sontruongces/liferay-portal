@@ -20,8 +20,6 @@
 ViewTeamDisplayContext viewTeamDisplayContext = ProvisioningWebComponentProvider.getViewTeamDisplayContext(renderRequest, renderResponse, request);
 
 viewTeamDisplayContext.addPortletBreadcrumbEntries();
-
-String tabs1 = ParamUtil.getString(request, "tabs1");
 %>
 
 <liferay-util:include page="/accounts/view_team_header.jsp" servletContext="<%= application %>" />

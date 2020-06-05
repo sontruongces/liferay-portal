@@ -61,6 +61,12 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 		<c:if test="<%= !teamDisplay.isSystem() %>">
 			<portlet:actionURL name="/accounts/edit_team" var="editTeamURL" />
 
+			<portlet:renderURL var="editTeamNameURL">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/edit_team" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
+			</portlet:renderURL>
+
 			<aui:form action="<%= editTeamURL %>" method="post" name="editTeamFm">
 				<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 				<aui:input name="teamKey" type="hidden" value="<%= teamDisplay.getKey() %>" />
@@ -71,6 +77,8 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 					<%
 					String taglibOnClick = "if (confirm('" + LanguageUtil.get(request, "are-you-sure-you-want-to-delete-this-team") + "')) {submitForm(document.hrefFm, '" + teamDisplay.getDeleteTeamURL() + "');}";
 					%>
+
+					<aui:button cssClass="btn-secondary" href="<%= editTeamNameURL %>" value="edit" />
 
 					<aui:button cssClass="btn-secondary" onClick="<%= taglibOnClick %>" value="delete" />
 

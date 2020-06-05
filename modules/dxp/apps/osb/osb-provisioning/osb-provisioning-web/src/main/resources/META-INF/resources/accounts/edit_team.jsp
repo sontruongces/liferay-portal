@@ -30,7 +30,7 @@ Team team = viewTeamDisplayContext.getTeam();
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
-		title="new-team"
+		title='<%= (team != null) ? "edit-team" : "new-team" %>'
 	/>
 
 	<portlet:actionURL name="/accounts/edit_team" var="editTeamURL">
