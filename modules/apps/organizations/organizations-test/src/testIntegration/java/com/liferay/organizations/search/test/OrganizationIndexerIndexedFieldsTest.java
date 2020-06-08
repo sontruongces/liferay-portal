@@ -20,6 +20,8 @@ import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 import com.liferay.expando.kernel.model.ExpandoTable;
 import com.liferay.expando.kernel.service.ExpandoColumnLocalService;
 import com.liferay.expando.kernel.service.ExpandoTableLocalService;
+import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.Region;
@@ -228,6 +230,10 @@ public class OrganizationIndexerIndexedFieldsTest {
 			String.valueOf(organization.getOrganizationId())
 		).put(
 			Field.TREE_PATH, organization.getTreePath()
+		).put(
+			Field.getSortableFieldName(
+				StringBundler.concat("type", StringPool.UNDERLINE, "String")),
+			organization.getType()
 		).put(
 			Field.USER_ID, String.valueOf(organization.getUserId())
 		).put(
