@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.commerce.provisioning.web.internal.constants;
+package com.liferay.osb.commerce.provisioning.constants;
 
 /**
  * @author Ivica Cardic
