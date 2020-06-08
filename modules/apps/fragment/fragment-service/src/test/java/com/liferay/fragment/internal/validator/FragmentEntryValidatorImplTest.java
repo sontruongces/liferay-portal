@@ -34,7 +34,9 @@ public class FragmentEntryValidatorImplTest {
 
 	@Before
 	public void setUp() {
-		new FileUtil().setFile(new FileImpl());
+		FileUtil fileUtil = new FileUtil();
+
+		fileUtil.setFile(new FileImpl());
 
 		_fragmentEntryValidatorImpl = new FragmentEntryValidatorImpl();
 
