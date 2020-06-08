@@ -516,8 +516,8 @@ public class ActionUtil {
 		for (String reservedFieldName : _RESERVED_FIELD_NAMES) {
 			if (ddmFormFieldsMap.containsKey(reservedFieldName)) {
 				throw new InvalidDDMStructureFieldNameException(
-					"Structure field name " + reservedFieldName +
-						" is a reserved name",
+					"Dynamic data mapping structure field name " +
+						reservedFieldName + " is a reserved name",
 					reservedFieldName);
 			}
 		}
