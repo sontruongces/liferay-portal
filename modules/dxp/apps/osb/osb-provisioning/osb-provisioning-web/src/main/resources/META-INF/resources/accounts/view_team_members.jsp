@@ -20,14 +20,43 @@
 ViewTeamDisplayContext viewTeamDisplayContext = ProvisioningWebComponentProvider.getViewTeamDisplayContext(renderRequest, renderResponse, request);
 
 PortletURL searchURL = viewTeamDisplayContext.getPortletURL();
+TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 %>
 
-<div class="container-fluid container-fluid-form">
-	<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
-		<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
+<div class="management-bar management-bar-light navbar navbar-expand-md team-members-management-bar">
+	<div class="container-fluid container-fluid-max-xl">
+		<div class="navbar-form navbar-form-autofit navbar-overlay navbar-overlay-sm-down">
+			<div class="container-fluid container-fluid-max-xl">
+				<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
+					<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
 
-		<aui:input label="" name="keywords" placeholder="search" />
-	</aui:form>
+					<aui:input label="" name="keywords" placeholder="search-for" />
+				</aui:form>
+			</div>
+		</div>
+
+		<c:if test="<%= !teamDisplay.isSystem() %>">
+			<portlet:actionURL name="/accounts/edit_team" var="editTeamURL" />
+
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<aui:form action="<%= editTeamURL %>" method="post" name="assignContactsFm">
+						<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+						<aui:input name="teamKey" type="hidden" value="<%= teamDisplay.getKey() %>" />
+						<aui:input name="addEmailAddresses" type="hidden" />
+
+						<liferay-ui:icon
+							icon="plus"
+							iconCssClass="btn btn-secondary nav-btn nav-btn-monospaced"
+							markupView="lexicon"
+							onClick='<%= renderResponse.getNamespace() + "assignContacts();" %>'
+							url="javascript:;"
+						/>
+					</aui:form>
+				</li>
+			</ul>
+		</c:if>
+	</div>
 </div>
 
 <liferay-ui:search-container
@@ -64,3 +93,42 @@ PortletURL searchURL = viewTeamDisplayContext.getPortletURL();
 		markupView="lexicon"
 	/>
 </liferay-ui:search-container>
+
+<aui:script>
+	Liferay.provide(
+		window,
+		'<portlet:namespace />assignContacts',
+		function() {
+			<portlet:renderURL var="assignTeamContactsURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/assign_team_contacts" />
+				<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
+			</portlet:renderURL>
+
+			var A = AUI();
+
+			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+				eventName: '<portlet:namespace />assignContacts',
+				title: '<liferay-ui:message key="select-team-members" />',
+				url: '<%= assignTeamContactsURL %>'
+			});
+
+			itemSelectorDialog.on('selectedItemChange', function(event) {
+				var selectedItems = event.newVal;
+
+				if (selectedItems) {
+					Liferay.Util.postForm(
+						document.<portlet:namespace />assignContactsFm,
+						{
+							data: {
+								addEmailAddresses: selectedItems
+							}
+						}
+					);
+				}
+			});
+
+			itemSelectorDialog.open();
+		},
+		['aui-base', 'liferay-item-selector-dialog']
+	);
+</aui:script>

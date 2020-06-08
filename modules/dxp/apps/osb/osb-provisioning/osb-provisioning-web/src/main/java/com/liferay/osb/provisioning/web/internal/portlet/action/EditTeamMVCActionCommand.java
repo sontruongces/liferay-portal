@@ -20,18 +20,21 @@ import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -72,12 +75,16 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 
 			if (cmd.equals(Constants.DELETE)) {
 				deleteTeam(actionRequest, user);
+
+				sendRedirect(actionRequest, actionResponse);
 			}
 			else {
-				updateTeam(actionRequest, user);
-			}
+				String teamKey = updateTeam(actionRequest, user);
 
-			sendRedirect(actionRequest, actionResponse);
+				String redirect = getRedirect(actionResponse, teamKey);
+
+				sendRedirect(actionRequest, actionResponse, redirect);
+			}
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -86,7 +93,21 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	protected void updateTeam(ActionRequest actionRequest, User user)
+	protected String getRedirect(ActionResponse actionResponse, String teamKey)
+		throws Exception {
+
+		LiferayPortletResponse liferayPortletResponse =
+			_portal.getLiferayPortletResponse(actionResponse);
+
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter("mvcRenderCommandName", "/accounts/view_team");
+		portletURL.setParameter("teamKey", teamKey);
+
+		return portletURL.toString();
+	}
+
+	protected String updateTeam(ActionRequest actionRequest, User user)
 		throws Exception {
 
 		String teamKey = ParamUtil.getString(actionRequest, "teamKey");
@@ -127,10 +148,15 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 				user.getFullName(), StringPool.BLANK, teamKey,
 				deleteEmailAddresses);
 		}
+
+		return teamKey;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		EditTeamMVCActionCommand.class);
+
+	@Reference
+	private Portal _portal;
 
 	@Reference
 	private TeamWebService _teamWebService;

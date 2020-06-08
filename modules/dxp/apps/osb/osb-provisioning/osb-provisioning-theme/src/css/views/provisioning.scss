@@ -82,8 +82,10 @@
 		color: $secondary;
 	}
 
-	.container-fluid-form {
-		margin-top: $spacing-sm;
+	.team-members-management-bar {
+		.form-group {
+			width: 100%;
+		}
 	}
 
 	.list-group,
