@@ -52,7 +52,14 @@ renderResponse.setTitle(LanguageUtil.get(request, "assign-contact"));
 		<%= httpException.getMessage() %>
 	</liferay-ui:error>
 
-	<aui:input name="emailAddress" value="<%= emailAddress %>" />
+	<c:choose>
+		<c:when test="<%= contactRoles != null %>">
+			<aui:input name="emailAddress" readonly="<%= true %>" value="<%= emailAddress %>" />
+		</c:when>
+		<c:otherwise>
+			<aui:input name="emailAddress" value="<%= emailAddress %>" />
+		</c:otherwise>
+	</c:choose>
 
 	<label>
 		<liferay-ui:message key="roles" />
