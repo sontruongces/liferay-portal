@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
@@ -75,21 +76,14 @@ public class ContactDisplay {
 		StringBundler sb = new StringBundler((entitlements.length * 3) - 2);
 
 		for (int i = 0; i < entitlements.length; i++) {
-			String curSb = sb.toString();
-
-			if (curSb.length() > 75) {
-				sb = new StringBundler(curSb.substring(0, 75));
-
-				sb.append(StringPool.TRIPLE_PERIOD);
-
-				return sb.toString();
+			if (sb.length() > 75) {
+				return StringUtil.shorten(sb.toString(), 75);
 			}
 
 			sb.append(entitlements[i].getName());
 
 			if (i < (entitlements.length - 1)) {
-				sb.append(StringPool.COMMA);
-				sb.append(StringPool.SPACE);
+				sb.append(StringPool.COMMA_AND_SPACE);
 			}
 		}
 
