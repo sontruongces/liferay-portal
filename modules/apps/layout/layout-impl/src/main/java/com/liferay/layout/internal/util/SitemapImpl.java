@@ -162,7 +162,7 @@ public class SitemapImpl implements Sitemap {
 			alternateURLElement.addAttribute("href", canonicalURL);
 		}
 
-		_removeOldestElementIfNeeded(element, urlElement);
+		_removeOldestElement(element, urlElement);
 	}
 
 	@Override
@@ -268,7 +268,7 @@ public class SitemapImpl implements Sitemap {
 
 				locationElement.addText(sb.toString());
 
-				_removeOldestElementIfNeeded(element, sitemapElement);
+				_removeOldestElement(element, sitemapElement);
 			}
 		}
 	}
@@ -413,7 +413,7 @@ public class SitemapImpl implements Sitemap {
 		}
 	}
 
-	private void _removeOldestElementIfNeeded(
+	private void _removeOldestElement(
 		Element rootElement, Element newElement) {
 
 		int entries = GetterUtil.getInteger(
