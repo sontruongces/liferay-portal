@@ -5,6 +5,8 @@ import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
+import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
+import com.liferay.portal.kernel.util.UnicodeProperties;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +28,20 @@ public class TrialRegistrationDisplayContext {
 
 	public List<CommerceCountry> getCommerceCountries(long companyId) {
 		return _commerceCountryService.getCommerceCountries(companyId, true);
+	}
+
+	public String getPortalInstanceVirtualHostname(long commerceOrderItemId) {
+		CommerceSubscriptionEntry commerceSubscriptionEntry =
+			_commerceSubscriptionEntryLocalService.
+				fetchCommerceSubscriptionEntryByCommerceOrderItemId(
+					commerceOrderItemId);
+
+		UnicodeProperties unicodeProperties =
+			commerceSubscriptionEntry.getSubscriptionTypeSettingsProperties();
+
+		return unicodeProperties.get(
+			OSBCommercePortalInstanceConstants.
+				PORTAL_INSTANCE_VIRTUAL_HOSTNAME);
 	}
 
 	public int getTrialLengthInDays(long commerceOrderItemId) {

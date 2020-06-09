@@ -14,15 +14,9 @@
 
 package com.liferay.osb.commerce.provisioning.web.internal.portlet.action;
 
-import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
-import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
-import com.liferay.osb.commerce.provisioning.util.OSBCommercePortalInstanceUtil;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
-import com.liferay.osb.commerce.provisioning.web.internal.util.OSBCommerceProvisioningWebKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.UnicodeProperties;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -50,29 +44,7 @@ public class PortalInstanceInitializedMVCRenderCommand
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		long commerceOrderItemId = ParamUtil.getLong(
-			renderRequest, "commerceOrderItemId");
-
-		renderRequest.setAttribute(
-			OSBCommerceProvisioningWebKeys.PORTAL_INSTANCE_URL,
-			OSBCommercePortalInstanceUtil.getPortalInstanceURL(
-				_getPortalInstanceVirtualHostname(commerceOrderItemId)));
-
 		return "/trial-registration/portal_instance_initialized.jsp";
-	}
-
-	private String _getPortalInstanceVirtualHostname(long commerceOrderItemId) {
-		CommerceSubscriptionEntry commerceSubscriptionEntry =
-			_commerceSubscriptionEntryLocalService.
-				fetchCommerceSubscriptionEntryByCommerceOrderItemId(
-					commerceOrderItemId);
-
-		UnicodeProperties unicodeProperties =
-			commerceSubscriptionEntry.getSubscriptionTypeSettingsProperties();
-
-		return unicodeProperties.get(
-			OSBCommercePortalInstanceConstants.
-				PORTAL_INSTANCE_VIRTUAL_HOSTNAME);
 	}
 
 	@Reference
