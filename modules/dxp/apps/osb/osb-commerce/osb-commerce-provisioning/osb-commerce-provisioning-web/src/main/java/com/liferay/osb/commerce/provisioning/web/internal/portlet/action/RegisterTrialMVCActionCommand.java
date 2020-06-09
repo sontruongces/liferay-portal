@@ -94,6 +94,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		String countryCode = ParamUtil.getString(actionRequest, "countryCode");
 		String jobTitle = ParamUtil.getString(actionRequest, "jobTitle");
 		String name = ParamUtil.getString(actionRequest, "name");
+		String password = ParamUtil.getString(actionRequest, "password");
 		String workEmail = ParamUtil.getString(actionRequest, "workEmail");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
@@ -107,7 +108,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			commerceOrderItemId = _invoke(
 				() -> _add(
 					companyName, countryCode, workEmail, jobTitle, name,
-					serviceContext));
+					password, serviceContext));
 		}
 		catch (Throwable throwable) {
 			throw new PortalException(throwable);
@@ -118,7 +119,8 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 
 	private long _add(
 			String commerceAccountName, String countryCode, String emailAddress,
-			String jobTitle, String name, ServiceContext serviceContext)
+			String jobTitle, String name, String password,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		long osbCommerceProvisioningSiteGroupId =
@@ -127,7 +129,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 
 		User user = _addUser(
 			serviceContext.getCompanyId(), emailAddress, jobTitle, name,
-			osbCommerceProvisioningSiteGroupId);
+			osbCommerceProvisioningSiteGroupId, password);
 
 		serviceContext.setUserId(user.getUserId());
 
@@ -239,17 +241,20 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 
 	private User _addUser(
 			long companyId, String emailAddress, String jobTitle, String name,
-			long osbCommerceProvisioningSiteGroupId)
+			long osbCommerceProvisioningSiteGroupId, String password)
 		throws PortalException {
 
 		String[] nameItems = name.split(" ");
 
+		String firstName = nameItems[0];
+		String lastName = (nameItems.length > 1) ? nameItems[1] : null;
+
 		return _userLocalService.addUser(
-			0, companyId, true, null, null, true, null, emailAddress, 0, null,
-			LocaleUtil.ENGLISH, nameItems[0], null,
-			(nameItems.length > 1) ? nameItems[1] : null, 0, 0, true, 1, 1,
-			1970, jobTitle, new long[] {osbCommerceProvisioningSiteGroupId},
-			null, null, null, false, new ServiceContext());
+			0, companyId, false, password, password, true, null, emailAddress,
+			0, null, LocaleUtil.ENGLISH, firstName, null, lastName, 0, 0, true,
+			1, 1, 1970, jobTitle,
+			new long[] {osbCommerceProvisioningSiteGroupId}, null, null, null,
+			false, new ServiceContext());
 	}
 
 	private void _checkUser(long companyId, String emailAddress) {
