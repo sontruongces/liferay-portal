@@ -399,7 +399,7 @@ public class DummyReferenceStagedModelRepository
 		public Predicate<? super DummyReference> getPredicate(
 			String expression) {
 
-			if (expression.contains("groupId=")) {
+			if (expression.startsWith("groupId=")) {
 				return d ->
 					d.getGroupId() == Long.valueOf(
 						expression.substring("groupId=".length()));
@@ -409,7 +409,7 @@ public class DummyReferenceStagedModelRepository
 				return d -> d.getId() > -1;
 			}
 
-			if (expression.contains("companyId=")) {
+			if (expression.startsWith("companyId=")) {
 				return d ->
 					d.getCompanyId() == Long.valueOf(
 						expression.substring("companyId=".length()));
