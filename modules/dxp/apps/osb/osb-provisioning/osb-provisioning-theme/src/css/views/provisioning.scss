@@ -22,17 +22,18 @@
 }
 
 .account-header,
+.contact-header,
 .subscription-header,
 .team-header {
 	border-bottom: 1px solid $secondary-l3;
 
-	.account-code {
+	.account-code, .email-address {
 		&:after {
 			content: '\00B7';
 		}
 	}
 
-	.account-name {
+	.account-name, .contact-name {
 		margin-bottom: 0;
 	}
 

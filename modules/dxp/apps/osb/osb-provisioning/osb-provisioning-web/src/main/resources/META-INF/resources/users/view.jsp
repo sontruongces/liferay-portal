@@ -40,9 +40,9 @@ ViewContactsManagementToolbarDisplayContext viewContactsManagementToolbarDisplay
 			modelVar="contactDisplay"
 		>
 			<portlet:renderURL var="rowURL">
-				<portlet:param name="mvcRenderCommandName" value="/users/edit_contact" />
+				<portlet:param name="mvcRenderCommandName" value="/users/view_contact" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="contactKey" value="<%= contactDisplay.getKey() %>" />
+				<portlet:param name="contactEmailAddress" value="<%= contactDisplay.getEmailAddress() %>" />
 			</portlet:renderURL>
 
 			<liferay-ui:search-container-column-text

@@ -34,6 +34,7 @@ import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisp
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountLiferayWorkersDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountRelatedAccountsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountTeamsDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.ViewContactDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewSubscriptionDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewTeamDisplayContext;
 
@@ -151,6 +152,16 @@ public class ProvisioningWebComponentProvider {
 			httpServletRequest);
 	}
 
+	public static ViewContactDisplayContext getViewContactDisplayContext(
+			RenderRequest renderRequest, RenderResponse renderResponse,
+			HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider._getViewContactDisplayContext(
+			ViewContactDisplayContext.class, renderRequest, renderResponse,
+			httpServletRequest);
+	}
+
 	public static ViewSubscriptionDisplayContext
 			getViewSubscriptionDisplayContext(
 				RenderRequest renderRequest, RenderResponse renderResponse,
@@ -235,6 +246,32 @@ public class ProvisioningWebComponentProvider {
 			clazz.getName(), viewAccountDisplayContext);
 
 		return viewAccountDisplayContext;
+	}
+
+	private <T extends ViewContactDisplayContext> T
+			_getViewContactDisplayContext(
+				Class<T> clazz, RenderRequest renderRequest,
+				RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		T viewContactDisplayContext = (T)httpServletRequest.getAttribute(
+			clazz.getName());
+
+		if (viewContactDisplayContext != null) {
+			return viewContactDisplayContext;
+		}
+
+		viewContactDisplayContext = clazz.newInstance();
+
+		viewContactDisplayContext.init(
+			renderRequest, renderResponse, httpServletRequest,
+			_accountWebService, _contactWebService);
+
+		httpServletRequest.setAttribute(
+			clazz.getName(), viewContactDisplayContext);
+
+		return viewContactDisplayContext;
 	}
 
 	private static ProvisioningWebComponentProvider

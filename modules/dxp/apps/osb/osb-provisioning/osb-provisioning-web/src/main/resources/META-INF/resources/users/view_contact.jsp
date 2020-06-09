@@ -1,3 +1,4 @@
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -11,24 +12,14 @@
  *
  *
  */
+--%>
 
-package com.liferay.osb.provisioning.constants;
+<%@ include file="/init.jsp" %>
 
-/**
- * @author Amos Fong
- */
-public class ProvisioningWebKeys {
+<%
+ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentProvider.getViewContactDisplayContext(renderRequest, renderResponse, request);
 
-	public static final String ACCOUNT = "ACCOUNT";
-	
-	public static final String CONTACT = "CONTACT";
+viewContactDisplayContext.addPortletBreadcrumbEntries();
+%>
 
-	public static final String CONTACT_ROLES = "CONTACT_ROLES";
-
-	public static final String PRODUCT = "PRODUCT";
-
-	public static final String PRODUCT_PURCHASE_VIEW = "PRODUCT_PURCHASE_VIEW";
-
-	public static final String TEAM = "TEAM";
-
-}
+<liferay-util:include page="/users/view_contact_header.jsp" servletContext="<%= application %>" />
