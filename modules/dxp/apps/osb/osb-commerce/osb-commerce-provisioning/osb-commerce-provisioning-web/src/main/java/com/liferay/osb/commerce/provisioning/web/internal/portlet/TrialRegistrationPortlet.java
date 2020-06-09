@@ -15,6 +15,7 @@
 package com.liferay.osb.commerce.provisioning.web.internal.portlet;
 
 import com.liferay.commerce.service.CommerceCountryService;
+import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
 import com.liferay.osb.commerce.provisioning.web.internal.portlet.display.context.TrialRegistrationDisplayContext;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -64,7 +65,9 @@ public class TrialRegistrationPortlet extends MVCPortlet {
 		throws IOException, PortletException {
 
 		TrialRegistrationDisplayContext trialRegistrationDisplayContext =
-			new TrialRegistrationDisplayContext(_commerceCountryService);
+			new TrialRegistrationDisplayContext(
+				_commerceCountryService,
+				_commerceSubscriptionEntryLocalService);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, trialRegistrationDisplayContext);
@@ -74,5 +77,9 @@ public class TrialRegistrationPortlet extends MVCPortlet {
 
 	@Reference
 	private CommerceCountryService _commerceCountryService;
+
+	@Reference
+	private CommerceSubscriptionEntryLocalService
+		_commerceSubscriptionEntryLocalService;
 
 }
