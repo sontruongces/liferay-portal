@@ -18,4 +18,5 @@ dependencies {
 	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-root:osb-koroneiki-root-api")
 	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-root:osb-koroneiki-root-identity-management-api")
 	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-taproot:osb-koroneiki-taproot-api")
+	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-trunk:osb-koroneiki-trunk-api")
 }

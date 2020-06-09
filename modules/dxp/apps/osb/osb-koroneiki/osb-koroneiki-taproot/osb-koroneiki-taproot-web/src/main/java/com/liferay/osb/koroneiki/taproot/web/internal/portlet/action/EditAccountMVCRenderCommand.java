@@ -92,6 +92,12 @@ public class EditAccountMVCRenderCommand implements MVCRenderCommand {
 
 				return "/accounts_admin/edit_account_contact_roles.jsp";
 			}
+			else if (tabs1.equals("purchases")) {
+				return "/accounts_admin/edit_account_purchases.jsp";
+			}
+			else if (tabs1.equals("consumptions")) {
+				return "/accounts_admin/edit_account_consumptions.jsp";
+			}
 			else {
 				return "/accounts_admin/edit_account.jsp";
 			}

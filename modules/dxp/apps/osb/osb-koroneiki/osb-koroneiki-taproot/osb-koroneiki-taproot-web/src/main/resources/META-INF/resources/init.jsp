@@ -74,6 +74,10 @@ page import="com.liferay.osb.koroneiki.taproot.web.internal.display.context.View
 page import="com.liferay.osb.koroneiki.taproot.web.internal.display.context.ViewContactsManagementToolbarDisplayContext" %><%@
 page import="com.liferay.osb.koroneiki.taproot.web.internal.display.context.ViewTeamRolesManagementToolbarDisplayContext" %><%@
 page import="com.liferay.osb.koroneiki.taproot.web.internal.display.context.ViewTeamsManagementToolbarDisplayContext" %><%@
+page import="com.liferay.osb.koroneiki.trunk.constants.TrunkPortletKeys" %><%@
+page import="com.liferay.osb.koroneiki.trunk.model.ProductEntry" %><%@
+page import="com.liferay.osb.koroneiki.trunk.service.ProductConsumptionLocalServiceUtil" %><%@
+page import="com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalServiceUtil" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
@@ -92,6 +96,7 @@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.service.AddressLocalServiceUtil" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
+page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ListUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
@@ -99,6 +104,9 @@ page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.StringUtil" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.taglib.search.ResultRow" %>
+
+<%@ page import="java.text.DateFormat" %><%@
+page import="java.text.Format" %>
 
 <%@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
@@ -109,3 +117,7 @@ page import="java.util.Map" %>
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<%
+Format mediumDateFormatDate = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale, timeZone);
+%>
