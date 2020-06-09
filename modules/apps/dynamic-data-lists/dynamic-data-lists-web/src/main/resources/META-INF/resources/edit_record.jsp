@@ -98,8 +98,8 @@ else {
 	<clay:management-toolbar
 		infoPanelId="infoPanelId"
 		namespace="<%= renderResponse.getNamespace() %>"
-		selectable="false"
-		showSearch="false"
+		selectable="<%= false %>"
+		showSearch="<%= false %>"
 	/>
 </c:if>
 

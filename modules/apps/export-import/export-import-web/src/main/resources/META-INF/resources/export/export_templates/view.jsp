@@ -71,7 +71,7 @@ ExportTemplatesToolbarDisplayContext exportTemplatesToolbarDisplayContext = new 
 <clay:management-toolbar
 	displayContext="<%= exportTemplatesToolbarDisplayContext %>"
 	searchFormName="searchFm"
-	selectable="false"
+	selectable="<%= false %>"
 	showCreationMenu="<%= !StagingUtil.isChangeTrackingEnabled(company.getCompanyId()) %>"
 	showSearch="<%= true %>"
 />

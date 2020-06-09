@@ -79,7 +79,7 @@ AnnouncementsAdminViewManagementToolbarDisplayContext announcementsAdminViewMana
 	itemsTotal="<%= announcementsAdminViewManagementToolbarDisplayContext.getTotal() %>"
 	searchContainerId="announcementsEntries"
 	selectable="<%= true %>"
-	showSearch="false"
+	showSearch="<%= false %>"
 />
 
 <div class="container-fluid-1280">
