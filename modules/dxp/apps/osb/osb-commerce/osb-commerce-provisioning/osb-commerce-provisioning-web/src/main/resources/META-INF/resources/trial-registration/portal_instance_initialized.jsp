@@ -17,7 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String portalInstanceURL = (String)request.getAttribute(OSBCommerceProvisioningWebKeys.PORTAL_INSTANCE_URL);
+long commerceOrderItemId = ParamUtil.getLong(request, "commerceOrderItemId");
+
+TrialRegistrationDisplayContext trialRegistrationDisplayContext = (TrialRegistrationDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
 <div class="container-fluid" id="trial-registration">
