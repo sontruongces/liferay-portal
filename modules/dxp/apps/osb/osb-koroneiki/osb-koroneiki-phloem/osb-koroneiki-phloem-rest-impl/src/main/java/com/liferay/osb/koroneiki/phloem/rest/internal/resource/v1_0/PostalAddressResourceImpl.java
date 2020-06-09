@@ -119,7 +119,7 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 				Account.class.getName(), account.getAccountId(),
 				postalAddress.getStreetAddressLine1(),
 				postalAddress.getStreetAddressLine2(),
-				postalAddress.getStreetAddressLine2(),
+				postalAddress.getStreetAddressLine3(),
 				postalAddress.getAddressLocality(),
 				postalAddress.getPostalCode(), regionId, countryId, listTypeId,
 				GetterUtil.getBoolean(postalAddress.getMailing()),
