@@ -384,7 +384,7 @@ public class SitemapImpl implements Sitemap {
 		if (_log.isDebugEnabled()) {
 			StringBundler sb = new StringBundler(5);
 
-			sb.append("Created site map of ");
+			sb.append("Created site map with ");
 
 			if (entriesAttribute != null) {
 				sb.append(entriesAttribute.getValue());
@@ -392,7 +392,7 @@ public class SitemapImpl implements Sitemap {
 			}
 
 			if (sizeAttribute != null) {
-				sb.append("of size ");
+				sb.append(" size ");
 
 				int size = GetterUtil.getInteger(sizeAttribute.getValue());
 
