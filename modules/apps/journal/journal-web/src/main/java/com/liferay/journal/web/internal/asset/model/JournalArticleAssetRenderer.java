@@ -453,7 +453,7 @@ public class JournalArticleAssetRenderer
 
 		if (!_article.isApproved()) {
 			sb.append(StringPool.SLASH);
-			sb.append(_article.getVersion());
+			sb.append(_article.getId());
 		}
 
 		return PortalUtil.addPreservedParameters(themeDisplay, sb.toString());
