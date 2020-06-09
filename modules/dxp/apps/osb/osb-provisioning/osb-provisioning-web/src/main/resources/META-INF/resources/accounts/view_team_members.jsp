@@ -49,6 +49,7 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 							icon="plus"
 							iconCssClass="btn btn-secondary nav-btn nav-btn-monospaced"
 							markupView="lexicon"
+							message="assign-members"
 							onClick='<%= renderResponse.getNamespace() + "assignContacts();" %>'
 							url="javascript:;"
 						/>

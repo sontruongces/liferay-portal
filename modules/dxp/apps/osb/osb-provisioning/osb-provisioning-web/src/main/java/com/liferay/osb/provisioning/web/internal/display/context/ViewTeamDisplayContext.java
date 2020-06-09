@@ -62,9 +62,15 @@ public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
 	public SearchContainer getContactsSearchContainer() throws Exception {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
+		String emptyResultsMessage = "no-contacts-were-found";
+
+		if (!teamDisplay.isSystem()) {
+			emptyResultsMessage = "no-team-members-added-yet";
+		}
+
 		SearchContainer searchContainer = new SearchContainer(
 			renderRequest, renderResponse.createRenderURL(),
-			Collections.emptyList(), "no-contacts-were-found");
+			Collections.emptyList(), emptyResultsMessage);
 
 		StringBundler sb = new StringBundler(3);
 
