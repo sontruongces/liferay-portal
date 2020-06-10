@@ -66,7 +66,7 @@ public class ContactSearchDisplayContext {
 				contact -> new ContactDisplay(
 					_httpServletRequest,
 					_accountWebService.getContactAccountsCount(
-						contact.getUuid(), 1, 1000),
+						contact.getUuid()),
 					contact, null)));
 
 		int count = (int)_contactWebService.searchCount(

@@ -107,13 +107,10 @@ public class AccountWebServiceImpl
 		return Collections.emptyList();
 	}
 
-	public long getContactAccountsCount(
-			String contactUuid, int page, int pageSize)
-		throws Exception {
-
+	public long getContactAccountsCount(String contactUuid) throws Exception {
 		Page<Account> accountsPage =
 			_accountResource.getContactByUuidContactUuidAccountsPage(
-				contactUuid, Pagination.of(page, pageSize));
+				contactUuid, Pagination.of(1, 1));
 
 		if (accountsPage != null) {
 			return accountsPage.getTotalCount();

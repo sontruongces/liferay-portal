@@ -96,8 +96,7 @@ public class ViewContactDisplayContext {
 
 		contactDisplay = new ContactDisplay(
 			httpServletRequest,
-			accountWebService.getContactAccountsCount(
-				contact.getUuid(), 1, 1000),
+			accountWebService.getContactAccountsCount(contact.getUuid()),
 			contact, contactRoles);
 
 		currentURLObj = PortletURLUtil.getCurrent(
