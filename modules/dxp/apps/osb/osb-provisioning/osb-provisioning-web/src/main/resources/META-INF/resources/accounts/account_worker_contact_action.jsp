@@ -52,7 +52,7 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete
-		confirmation="are-you-sure-you-want-to-unassign-this-contact"
+		confirmation="are-you-sure-you-want-to-unassign-this-liferay-worker"
 		message="unassign"
 		url="<%= unassignURL %>"
 	/>
