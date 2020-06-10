@@ -82,15 +82,17 @@
 		color: $secondary;
 	}
 
-	.team-members-management-bar {
-		.form-group {
-			width: 100%;
-		}
-	}
-
 	.list-group,
 	.sheet {
 		margin-bottom: 0;
+	}
+
+	.main-content-body {
+		margin-top: 0;
+
+		.taglib-empty-result-message {
+			border: 0;
+		}
 	}
 
 	.management-bar,
@@ -115,6 +117,23 @@
 
 				&:after {
 					background-color: transparent;
+				}
+			}
+		}
+
+		.search-input {
+			.btn-default {
+				background-color: unset;
+			}
+
+			.input-group-item:focus-within {
+				& ~ .input-group-inset-item-after {
+					background-color: $primary-l3;
+					border-color: $primary-l1;
+				}
+
+				.form-control {
+					box-shadow: none;
 				}
 			}
 		}

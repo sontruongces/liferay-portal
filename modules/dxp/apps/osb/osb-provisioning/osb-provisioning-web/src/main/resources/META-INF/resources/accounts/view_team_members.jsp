@@ -23,14 +23,20 @@ PortletURL searchURL = viewTeamDisplayContext.getPortletURL();
 TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 %>
 
-<div class="management-bar management-bar-light navbar navbar-expand-md team-members-management-bar">
+<div class="management-bar management-bar-light navbar navbar-expand-md">
 	<div class="container-fluid container-fluid-max-xl">
 		<div class="navbar-form navbar-form-autofit navbar-overlay navbar-overlay-sm-down">
 			<div class="container-fluid container-fluid-max-xl">
 				<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
 					<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
 
-					<aui:input label="" name="keywords" placeholder="search-for" />
+					<div class="input-group search-input">
+						<aui:input cssClass="input-group-inset-after" label="" name="keywords" placeholder="search-for" wrapperCssClass="input-group-item" />
+
+						<span class="input-group-inset-item input-group-inset-item-after">
+							<aui:button cssClass="btn-unstyled" icon="icon-search" primary="<%= false %>" type="submit" value="" />
+						</span>
+					</div>
 				</aui:form>
 			</div>
 		</div>
@@ -47,7 +53,7 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 
 						<liferay-ui:icon
 							icon="plus"
-							iconCssClass="btn btn-secondary nav-btn nav-btn-monospaced"
+							iconCssClass="btn btn-primary nav-btn nav-btn-monospaced"
 							markupView="lexicon"
 							message="assign-members"
 							onClick='<%= renderResponse.getNamespace() + "assignContacts();" %>'
