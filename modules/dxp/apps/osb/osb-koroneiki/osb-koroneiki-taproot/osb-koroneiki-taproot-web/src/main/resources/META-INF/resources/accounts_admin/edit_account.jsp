@@ -123,7 +123,6 @@ renderResponse.setTitle((koroneikiAccount == null) ? LanguageUtil.get(request, "
 			<aui:input checked="<%= (koroneikiAccount != null) && koroneikiAccount.isInternal() %>" name="internal" type="checkbox" />
 
 			<aui:select name="status">
-				<aui:option value="" />
 
 				<%
 				for (com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Status status : com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Status.values()) {
