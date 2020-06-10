@@ -17,6 +17,7 @@ import AccountAddress from '../../../src/main/resources/META-INF/resources/js/co
 function renderAccountAddress(props) {
 	return render(
 		<AccountAddress
+			accountKey="key123"
 			addresses={[
 				{
 					addressCountry: 'USA',

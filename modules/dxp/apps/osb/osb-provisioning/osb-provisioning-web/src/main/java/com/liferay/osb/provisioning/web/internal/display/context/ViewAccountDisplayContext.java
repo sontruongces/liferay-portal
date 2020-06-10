@@ -155,16 +155,6 @@ public class ViewAccountDisplayContext {
 		return accountEntryWebService.fetchAccountEntry(account.getKey());
 	}
 
-	public String getAddExternalLinkURL() {
-		PortletURL addExternalLinkURL = renderResponse.createActionURL();
-
-		addExternalLinkURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_external_link");
-		addExternalLinkURL.setParameter("accountKey", account.getKey());
-
-		return addExternalLinkURL.toString();
-	}
-
 	public List<AuditEntryDisplay> getAuditEntryDisplays() throws Exception {
 		return TransformUtil.transform(
 			auditEntryWebService.getAccountAuditEntries(
@@ -192,16 +182,6 @@ public class ViewAccountDisplayContext {
 		deleteExternalLinkURL.setParameter("externalLinkKey", externalLinkKey);
 
 		return deleteExternalLinkURL.toString();
-	}
-
-	public String getEditExternalLinkURL(String externalLinkKey) {
-		PortletURL editExternalLinkURL = renderResponse.createActionURL();
-
-		editExternalLinkURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_external_link");
-		editExternalLinkURL.setParameter("externalLinkKey", externalLinkKey);
-
-		return editExternalLinkURL.toString();
 	}
 
 	public String getEditTeamURL(String teamKey) {

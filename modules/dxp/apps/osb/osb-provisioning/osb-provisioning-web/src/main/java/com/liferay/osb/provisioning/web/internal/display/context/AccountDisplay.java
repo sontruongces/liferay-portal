@@ -280,6 +280,21 @@ public class AccountDisplay {
 		return StringPool.DASH;
 	}
 
+	public String getUpdateDossieraAccountURL() {
+		return _getUpdateExternalLinkURL(
+			_getExternalLinkKey("dossiera", "account"));
+	}
+
+	public String getUpdateDossieraProjectURL() {
+		return _getUpdateExternalLinkURL(
+			_getExternalLinkKey("dossiera", "project"));
+	}
+
+	public String getUpdateSalesforceProjectURL() {
+		return _getUpdateExternalLinkURL(
+			_getExternalLinkKey("salesforce", "project"));
+	}
+
 	public boolean isEWSA() throws Exception {
 		if (_ancestorAccounts == null) {
 			_ancestorAccounts = _accountReader.getAncestorAccounts(_account);
@@ -292,6 +307,28 @@ public class AccountDisplay {
 		}
 
 		return false;
+	}
+
+	private String _getAddExternalLinkURL() {
+		PortletURL addExternalLinkURL =
+			_liferayPortletResponse.createActionURL();
+
+		addExternalLinkURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_external_link");
+		addExternalLinkURL.setParameter("accountKey", _account.getKey());
+
+		return addExternalLinkURL.toString();
+	}
+
+	private String _getEditExternalLinkURL(String externalLinkKey) {
+		PortletURL editExternalLinkURL =
+			_liferayPortletResponse.createActionURL();
+
+		editExternalLinkURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_external_link");
+		editExternalLinkURL.setParameter("externalLinkKey", externalLinkKey);
+
+		return editExternalLinkURL.toString();
 	}
 
 	private String _getExternalLinkEntityId(String domain, String entityName) {
@@ -310,12 +347,36 @@ public class AccountDisplay {
 		return StringPool.DASH;
 	}
 
+	private String _getExternalLinkKey(String domain, String entityName) {
+		ExternalLink[] externalLinks = _account.getExternalLinks();
+
+		if (externalLinks != null) {
+			for (ExternalLink externalLink : externalLinks) {
+				if (domain.equals(externalLink.getDomain()) &&
+					entityName.equals(externalLink.getEntityName())) {
+
+					return externalLink.getKey();
+				}
+			}
+		}
+
+		return StringPool.BLANK;
+	}
+
 	private ProductPurchase _getSLAProductPurchase() {
 		if (_slaProductPurchase != null) {
 			return _slaProductPurchase;
 		}
 
 		return _accountReader.getSLAProductPurchase(_account);
+	}
+
+	private String _getUpdateExternalLinkURL(String externalLinkKey) {
+		if (!Validator.isBlank(externalLinkKey)) {
+			return _getEditExternalLinkURL(externalLinkKey);
+		}
+
+		return _getAddExternalLinkURL();
 	}
 
 	private boolean _isEWSA(Account account) throws Exception {
