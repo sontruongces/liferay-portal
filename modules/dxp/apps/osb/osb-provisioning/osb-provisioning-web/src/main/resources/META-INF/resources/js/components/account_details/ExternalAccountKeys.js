@@ -13,13 +13,10 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from './DetailField';
 
 function ExternalAccountKeys({details}) {
-	const formData = {
-		// TODO: LHC-2472
-	};
-
 	return (
 		<ClayList>
 			<ClayList.Header>
@@ -28,27 +25,45 @@ function ExternalAccountKeys({details}) {
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('dossiera-account')}
-				fieldName="dossieraAccountKey"
-				formAction={''}
-				formData={formData}
+				fieldName="entityId"
+				formAction={details.updateDossieraAccountURL}
+				formData={{
+					domain: 'dossiera',
+					entityId: convertDashToEmptyString(
+						details.dossieraAccountKey
+					),
+					entityName: 'account'
+				}}
 			>
 				{details.dossieraAccountKey}
 			</DetailField>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('dossiera-project')}
-				fieldName="dossieraProjectKey"
-				formAction={''}
-				formData={formData}
+				fieldName="entityId"
+				formAction={details.updateDossieraProjectURL}
+				formData={{
+					domain: 'dossiera',
+					entityId: convertDashToEmptyString(
+						details.dossieraProjectKey
+					),
+					entityName: 'project'
+				}}
 			>
 				{details.dossieraProjectKey}
 			</DetailField>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('salesforce-project')}
-				fieldName="salesforceProjectKey"
-				formAction={''}
-				formData={formData}
+				fieldName="entityId"
+				formAction={details.updateSalesforceProjectURL}
+				formData={{
+					domain: 'salesforce',
+					entityId: convertDashToEmptyString(
+						details.salesforceProjectKey
+					),
+					entityName: 'project'
+				}}
 			>
 				{details.salesforceProjectKey}
 			</DetailField>
@@ -61,7 +76,10 @@ ExternalAccountKeys.propTypes = {
 		dossieraAccountKey: PropTypes.string,
 		dossieraProjectKey: PropTypes.string,
 		key: PropTypes.string,
-		salesforceProjectKey: PropTypes.string
+		salesforceProjectKey: PropTypes.string,
+		updateDossieraAccountURL: PropTypes.string,
+		updateDossieraProjectURL: PropTypes.string,
+		updateSalesforceProjectURL: PropTypes.string
 	})
 };
 

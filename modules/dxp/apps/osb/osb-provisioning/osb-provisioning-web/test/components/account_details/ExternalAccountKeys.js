@@ -21,7 +21,10 @@ function renderExternalAccountKeys(props) {
 				dossieraAccountKey: 'testDossieraAccountKey',
 				dossieraProjectKey: 'testDossieraProjectKey',
 				key: '123',
-				salesforceProjectKey: 'testSalesForceProjectKey'
+				salesforceProjectKey: 'testSalesForceProjectKey',
+				updateDossieraAccountURL: '/update/dossiera/account',
+				updateDossieraProjectURL: '/update/dossiera/project',
+				updateSalesforceProjectURL: 'update/salesforce/project'
 			}}
 			{...props}
 		/>

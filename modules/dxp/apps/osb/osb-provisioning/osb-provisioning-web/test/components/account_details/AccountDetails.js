@@ -32,7 +32,10 @@ function renderAccountDetails(props) {
 				salesforceProjectKey: 'TestSalesForceProjectKey',
 				status: 'Approved',
 				statusStyle: 'label-success',
-				tier: 'Regular'
+				tier: 'Regular',
+				updateDossieraAccountURL: '/update/dossiera/account',
+				updateDossieraProjectURL: '/update/dossiera/project',
+				updateSalesforceProjectURL: 'update/salesforce/project'
 			}}
 			statusNames={['Approved', 'Expired', 'Pending']}
 			tierNames={['1', '2', '3']}

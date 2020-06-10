@@ -47,9 +47,6 @@ AccountDetails.propTypes = {
 		dossieraAccountKey: PropTypes.string,
 		dossieraProjectKey: PropTypes.string,
 		editAccountURL: PropTypes.string,
-		editDossieraAccountURL: PropTypes.string,
-		editDossieraProjectURL: PropTypes.string,
-		editSalesforceProjectURL: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
 		name: PropTypes.string,
@@ -73,7 +70,10 @@ AccountDetails.propTypes = {
 		salesforceProjectKey: PropTypes.string,
 		status: PropTypes.string,
 		statusStyle: PropTypes.string,
-		tier: PropTypes.string
+		tier: PropTypes.string,
+		updateDossieraAccountURL: PropTypes.string,
+		updateDossieraProjectURL: PropTypes.string,
+		updateSalesforceProjectURL: PropTypes.string
 	}),
 	statusNames: PropTypes.arrayOf(PropTypes.string),
 	tierNames: PropTypes.arrayOf(PropTypes.string)
