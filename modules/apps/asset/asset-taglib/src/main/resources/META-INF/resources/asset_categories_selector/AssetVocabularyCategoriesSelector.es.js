@@ -43,7 +43,7 @@ class AssetVocabularyCategoriesSelector extends Component {
 		const sub = (str, obj) => str.replace(/\{([^}]+)\}/g, (_, m) => obj[m]);
 
 		const uri = sub(decodeURIComponent(this.portletURL), {
-			selectedCategoryIds: this.selectedItems
+			selectedCategories: this.selectedItems
 				.map(item => item.value)
 				.join(),
 			singleSelect: this.singleSelect,
