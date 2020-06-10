@@ -65,12 +65,14 @@ if (product != null) {
 			if (product != null) {
 				ExternalLink[] externalLinks = product.getExternalLinks();
 
-				for (ExternalLink externalLink : externalLinks) {
-					String domain = externalLink.getDomain();
-					String entityName = externalLink.getEntityName();
+				if (externalLinks != null) {
+					for (ExternalLink externalLink : externalLinks) {
+						String domain = externalLink.getDomain();
+						String entityName = externalLink.getEntityName();
 
-					if (domain.equals(ExternalLinkDomain.DOSSIERA) && entityName.equals(ExternalLinkEntityName.DOSSIERA_PRODUCT)) {
-						dossieraIdMapping = externalLink.getEntityId();
+						if (domain.equals(ExternalLinkDomain.DOSSIERA) && entityName.equals(ExternalLinkEntityName.DOSSIERA_PRODUCT)) {
+							dossieraIdMapping = externalLink.getEntityId();
+						}
 					}
 				}
 			}
