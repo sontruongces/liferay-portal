@@ -55,6 +55,13 @@ public class AccountEntityModel implements EntityModel {
 					"contactUuids", locale -> "contactUuids")),
 			new CollectionEntityField(
 				new StringEntityField(
+					"customerContactOktaIds",
+					locale -> "customerContactOktaIds")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"customerContactUuids", locale -> "customerContactUuids")),
+			new CollectionEntityField(
+				new StringEntityField(
 					"entitlements", locale -> "entitlements")),
 			new CollectionEntityField(
 				new StringEntityField(
@@ -73,7 +80,13 @@ public class AccountEntityModel implements EntityModel {
 			new CollectionEntityField(
 				new StringEntityField(
 					"productKeys", locale -> "productEntryKeys")),
-			new StringEntityField("status", locale -> "status")
+			new StringEntityField("status", locale -> "status"),
+			new CollectionEntityField(
+				new StringEntityField(
+					"workerContactOktaIds", locale -> "workerContactOktaIds")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"workerContactUuids", locale -> "workerContactUuids"))
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);

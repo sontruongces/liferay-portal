@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
+import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -75,6 +76,12 @@ public class ProductConsumptionModelDocumentContributor
 		document.addKeyword("accountKey", productConsumption.getAccountKey());
 		document.addKeyword(
 			"productEntryKey", productEntry.getProductEntryKey());
+
+		ProductPurchase productPurchase =
+			productConsumption.getProductPurchase();
+
+		document.addKeyword(
+			"productPurchaseKey", productPurchase.getProductPurchaseKey());
 
 		document.addTextSortable(Field.NAME, productEntry.getName());
 

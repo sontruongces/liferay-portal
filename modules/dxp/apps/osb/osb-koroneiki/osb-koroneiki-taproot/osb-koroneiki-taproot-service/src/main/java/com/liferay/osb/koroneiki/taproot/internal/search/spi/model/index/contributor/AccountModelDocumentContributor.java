@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.taproot.internal.search.spi.model.index.contributor;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type;
 import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
 import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalService;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
@@ -119,6 +120,10 @@ public class AccountModelDocumentContributor
 		Set<String> contactOktaIds = new HashSet<>();
 		Set<String> contactUuidContactRoleKeys = new HashSet<>();
 		Set<String> contactUuids = new HashSet<>();
+		Set<String> customerContactOktaIds = new HashSet<>();
+		Set<String> customerContactUuids = new HashSet<>();
+		Set<String> workerContactOktaIds = new HashSet<>();
+		Set<String> workerContactUuids = new HashSet<>();
 
 		List<ContactAccountRole> contactAccountRoles =
 			_contactAccountRoleLocalService.getContactAccountRolesByAccountId(
@@ -141,6 +146,17 @@ public class AccountModelDocumentContributor
 					contactRole.getContactRoleKey());
 
 			contactUuids.add(contact.getUuid());
+
+			String type = contactRole.getType();
+
+			if (type.equals(Type.ACCOUNT_CUSTOMER.toString())) {
+				customerContactOktaIds.add(contact.getOktaId());
+				customerContactUuids.add(contact.getUuid());
+			}
+			else if (type.equals(Type.ACCOUNT_WORKER.toString())) {
+				workerContactOktaIds.add(contact.getOktaId());
+				workerContactUuids.add(contact.getUuid());
+			}
 		}
 
 		document.addKeyword(
@@ -154,6 +170,18 @@ public class AccountModelDocumentContributor
 			ArrayUtil.toStringArray(contactUuidContactRoleKeys.toArray()));
 		document.addKeyword(
 			"contactUuids", ArrayUtil.toStringArray(contactUuids.toArray()));
+		document.addKeyword(
+			"customerContactOktaIds",
+			ArrayUtil.toStringArray(customerContactOktaIds.toArray()));
+		document.addKeyword(
+			"customerContactUuids",
+			ArrayUtil.toStringArray(customerContactUuids.toArray()));
+		document.addKeyword(
+			"workerContactOktaIds",
+			ArrayUtil.toStringArray(workerContactOktaIds.toArray()));
+		document.addKeyword(
+			"workerContactUuids",
+			ArrayUtil.toStringArray(workerContactUuids.toArray()));
 	}
 
 	private void _contributeEntitlements(Document document, long accountId)

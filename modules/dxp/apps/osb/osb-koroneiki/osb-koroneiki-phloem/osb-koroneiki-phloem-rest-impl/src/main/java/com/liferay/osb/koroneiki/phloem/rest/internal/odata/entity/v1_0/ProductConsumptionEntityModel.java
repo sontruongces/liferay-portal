@@ -47,8 +47,9 @@ public class ProductConsumptionEntityModel implements EntityModel {
 					"externalLinkEntityNames",
 					locale -> "externalLinkEntityNames")),
 			new StringEntityField("name", locale -> "name"),
+			new StringEntityField("productKey", locale -> "productEntryKey"),
 			new StringEntityField(
-				"productEntryKey", locale -> "productEntryKey")
+				"productPurchaseKey", locale -> "productPurchaseKey")
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
