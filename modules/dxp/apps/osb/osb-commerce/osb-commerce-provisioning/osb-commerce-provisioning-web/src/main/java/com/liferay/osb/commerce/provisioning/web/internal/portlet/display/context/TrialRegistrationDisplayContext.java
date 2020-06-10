@@ -30,7 +30,7 @@ public class TrialRegistrationDisplayContext {
 		return _commerceCountryService.getCommerceCountries(companyId, true);
 	}
 
-	public String getPortalInstanceVirtualHostname(long commerceOrderItemId) {
+	public String getPortalInstanceURL(long commerceOrderItemId) {
 		CommerceSubscriptionEntry commerceSubscriptionEntry =
 			_commerceSubscriptionEntryLocalService.
 				fetchCommerceSubscriptionEntryByCommerceOrderItemId(

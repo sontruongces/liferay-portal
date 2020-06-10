@@ -73,7 +73,7 @@ String pathThemeImages = themeDisplay.getPathThemeImages();
 	<portlet:param name="commerceOrderItemId" value="<%= String.valueOf(commerceOrderItemId) %>" />
 </portlet:renderURL>
 
-<%-- aui:script>
+<aui:script>
 	setTimeout(function() {
 		function callOnTimeOut() {
 			var resourceURL = '<%= portalInstanceStatusResourceURL %>';
@@ -88,7 +88,7 @@ String pathThemeImages = themeDisplay.getPathThemeImages();
 			})
 			.then(function(payload) {
 				if (payload.status === 0) {
-					window.location="<%= portalInstanceInitializedURL %>";
+					window.location = "<%= portalInstanceInitializedURL %>";
 				}
 				else {
 					setTimeout(function() {
@@ -100,4 +100,4 @@ String pathThemeImages = themeDisplay.getPathThemeImages();
 
 		callOnTimeOut();
 	}, 5000);
-</aui:script --%>
+</aui:script>

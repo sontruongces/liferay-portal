@@ -19,7 +19,13 @@
 <%
 long commerceOrderItemId = ParamUtil.getLong(request, "commerceOrderItemId");
 
-TrialRegistrationDisplayContext trialRegistrationDisplayContext = (TrialRegistrationDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+	TrialRegistrationDisplayContext trialRegistrationDisplayContext =
+		(TrialRegistrationDisplayContext)request
+			.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+	String portalInstanceVirtualHostname =
+		trialRegistrationDisplayContext.getPortalInstanceURL(
+			commerceOrderItemId);
 %>
 
 <div class="container-fluid" id="trial-registration">
@@ -27,11 +33,11 @@ TrialRegistrationDisplayContext trialRegistrationDisplayContext = (TrialRegistra
 		<div class="col-md-6 col-xs-12">
 			<div class="punch-line">
 				<h1><%= LanguageUtil.get(request, "welcome-to-your-demo") %></h1>
-				<p><%= LanguageUtil.get(request, "welcome-message") %></p>
 			</div>
 			<div class="instance-status">
+				<p><%= LanguageUtil.get(request, "welcome-message") %></p>
 				<p><%= LanguageUtil.get(request, "trial-period-expires-in-days")%></p>
-				<a role="button" class="btn btn-primary" href="<%= portalInstanceURL %>" target="_blank">
+				<a role="button" class="btn btn-primary" href="<%= portalInstanceVirtualHostname %>" target="_blank">
 					<%= LanguageUtil.get(request, "start-your-demo") %>
 				</a>
 			</div>
