@@ -812,7 +812,7 @@ definition {
 	}
 
 	@priority = "5"
-	test HotDeploySAML {
+	test HotDeploySAMLApp {
 		property hot.deploy.osgi.app.includes = "saml";
         property osgi.app.includes = "saml";
 
