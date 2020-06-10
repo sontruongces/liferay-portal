@@ -122,10 +122,6 @@
 		}
 
 		.search-input {
-			.btn-default {
-				background-color: unset;
-			}
-
 			.input-group-item:focus-within {
 				& ~ .input-group-inset-item-after {
 					background-color: $primary-l3;

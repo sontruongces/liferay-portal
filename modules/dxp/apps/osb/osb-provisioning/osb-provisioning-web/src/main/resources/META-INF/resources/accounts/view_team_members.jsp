@@ -34,7 +34,12 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 						<aui:input cssClass="input-group-inset-after" label="" name="keywords" placeholder="search-for" wrapperCssClass="input-group-item" />
 
 						<span class="input-group-inset-item input-group-inset-item-after">
-							<aui:button cssClass="btn-unstyled" icon="icon-search" primary="<%= false %>" type="submit" value="" />
+							<button aria-label="search" class="btn btn-unstyled" type="submit">
+								<liferay-ui:icon
+									icon="search"
+									markupView="lexicon"
+								/>
+							</button>
 						</span>
 					</div>
 				</aui:form>
