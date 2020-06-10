@@ -794,9 +794,7 @@ definition {
 	}
 
 	macro publishToLiveNowViaPortletCP {
-		LexiconEntry.gotoHeaderMenuItem(menuItem = "Staging");
-
-		SelectFrame(locator1 = "IFrame#CONFIGURATION_DIALOG");
+		Staging.addCustomPublication();
 
 		if ("${replicateIndividualDeletions}" == "true") {
 			AssertVisible(locator1 = "Staging#STAGING_CONTENT_DELETIONS");
