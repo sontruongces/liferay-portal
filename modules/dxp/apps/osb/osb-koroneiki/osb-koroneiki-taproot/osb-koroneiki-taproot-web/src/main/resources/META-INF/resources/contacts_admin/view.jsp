@@ -51,7 +51,7 @@ ViewContactsManagementToolbarDisplayContext viewContactsManagementToolbarDisplay
 				href="<%= rowURL %>"
 				name="name"
 			>
-				<span class="lfr-portal-tooltip" data-title='<liferay-ui:message key="user" />'>
+				<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="user" />">
 					<aui:icon cssClass="icon-monospaced" image="user" markupView="lexicon" />
 				</span>
 

@@ -16,7 +16,7 @@
 
 <%@ include file="/data_layout_builder/init.jsp" %>
 
-<div id='<%= componentId + "container" %>'></div>
+<div id="<%= componentId + "container" %>"></div>
 
 <aui:script require='<%= fieldTypesModules + ", " + dataLayoutBuilderModule + " as DataLayoutBuilder" %>'>
 	Liferay.component(

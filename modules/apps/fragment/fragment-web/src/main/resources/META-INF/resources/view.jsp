@@ -84,7 +84,7 @@ List<FragmentCollectionContributor> fragmentCollectionContributors = fragmentDis
 												fragmentCollectionURL.setParameter("fragmentCollectionKey", String.valueOf(fragmentCollectionContributor.getFragmentCollectionKey()));
 												%>
 
-												<a class='nav-link truncate-text <%= Objects.equals(fragmentCollectionContributor.getFragmentCollectionKey(), fragmentDisplayContext.getFragmentCollectionKey()) ? "active" : StringPool.BLANK %>' href="<%= fragmentCollectionURL.toString() %>">
+												<a class="nav-link truncate-text <%= Objects.equals(fragmentCollectionContributor.getFragmentCollectionKey(), fragmentDisplayContext.getFragmentCollectionKey()) ? "active" : StringPool.BLANK %>" href="<%= fragmentCollectionURL.toString() %>">
 													<%= HtmlUtil.escape(fragmentCollectionContributor.getName(locale)) %>
 
 													<liferay-ui:icon
@@ -123,7 +123,7 @@ List<FragmentCollectionContributor> fragmentCollectionContributors = fragmentDis
 												fragmentCollectionURL.setParameter("fragmentCollectionId", String.valueOf(fragmentCollection.getFragmentCollectionId()));
 												%>
 
-												<a class='nav-link truncate-text <%= (fragmentCollection.getFragmentCollectionId() == fragmentDisplayContext.getFragmentCollectionId()) ? "active" : StringPool.BLANK %>' href="<%= fragmentCollectionURL.toString() %>">
+												<a class="nav-link truncate-text <%= (fragmentCollection.getFragmentCollectionId() == fragmentDisplayContext.getFragmentCollectionId()) ? "active" : StringPool.BLANK %>" href="<%= fragmentCollectionURL.toString() %>">
 													<%= HtmlUtil.escape(fragmentCollection.getName()) %>
 
 													<liferay-ui:icon
@@ -158,7 +158,7 @@ List<FragmentCollectionContributor> fragmentCollectionContributors = fragmentDis
 												fragmentCollectionURL.setParameter("fragmentCollectionId", String.valueOf(fragmentCollection.getFragmentCollectionId()));
 												%>
 
-												<a class='nav-link truncate-text <%= (fragmentCollection.getFragmentCollectionId() == fragmentDisplayContext.getFragmentCollectionId()) ? "active" : StringPool.BLANK %>' href="<%= fragmentCollectionURL.toString() %>">
+												<a class="nav-link truncate-text <%= (fragmentCollection.getFragmentCollectionId() == fragmentDisplayContext.getFragmentCollectionId()) ? "active" : StringPool.BLANK %>" href="<%= fragmentCollectionURL.toString() %>">
 													<%= HtmlUtil.escape(fragmentCollection.getName()) %>
 
 													<c:if test="<%= fragmentCollection.getGroupId() != scopeGroupId %>">

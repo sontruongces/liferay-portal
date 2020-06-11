@@ -57,7 +57,7 @@ ViewProductPurchasesManagementToolbarDisplayContext viewProductPurchasesManageme
 				href="<%= rowURL %>"
 				name="account"
 			>
-				<span class="lfr-portal-tooltip" data-title='<liferay-ui:message key="account" />'>
+				<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="account" />">
 					<aui:icon cssClass="icon-monospaced" image="users" markupView="lexicon" />
 				</span>
 

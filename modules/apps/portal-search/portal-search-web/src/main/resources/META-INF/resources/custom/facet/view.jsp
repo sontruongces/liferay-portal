@@ -71,7 +71,7 @@ CustomFacetDisplayContext customFacetDisplayContext = (CustomFacetDisplayContext
 										<label class="facet-checkbox-label" for="<portlet:namespace />term_<%= i %>">
 											<input class="custom-control-input facet-term" data-term-id="<%= customFacetTermDisplayContext.getFieldName() %>" id="<portlet:namespace />term_<%= i %>" name="<portlet:namespace />term_<%= i %>" onChange="Liferay.Search.FacetUtil.changeSelection(event);" type="checkbox" <%= customFacetTermDisplayContext.isSelected() ? "checked" : StringPool.BLANK %> />
 
-											<span class='custom-control-label term-name <%= customFacetTermDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>'>
+											<span class="custom-control-label term-name <%= customFacetTermDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>">
 												<span class="custom-control-label-text"><%= HtmlUtil.escape(customFacetTermDisplayContext.getFieldName()) %></span>
 											</span>
 

@@ -63,9 +63,9 @@ RenderFragmentLayoutDisplayContext renderFragmentLayoutDisplayContext = new Rend
 					}
 			%>
 
-					<section class="bg-<%= backgroundColorCssClass %>" style='<%= Validator.isNotNull(backgroundImage) ? "background-image: url(" + backgroundImage + "); background-position: 50% 50%; background-repeat: no-repeat; background-size: cover;" : StringPool.BLANK %>'>
-						<div class='<%= Objects.equals(containerType, "fluid") ? "container-fluid" : "container" %> <%= (paddingHorizontal != 3L) ? "px-" + paddingHorizontal : "" %> py-<%= paddingVertical %>'>
-							<div class='row <%= !columnSpacing ? "no-gutters" : StringPool.BLANK %>'>
+					<section class="bg-<%= backgroundColorCssClass %>" style="<%= Validator.isNotNull(backgroundImage) ? "background-image: url(" + backgroundImage + "); background-position: 50% 50%; background-repeat: no-repeat; background-size: cover;" : StringPool.BLANK %>">
+						<div class="<%= Objects.equals(containerType, "fluid") ? "container-fluid" : "container" %> <%= (paddingHorizontal != 3L) ? "px-" + paddingHorizontal : "" %> py-<%= paddingVertical %>">
+							<div class="row <%= !columnSpacing ? "no-gutters" : StringPool.BLANK %>">
 
 								<%
 								JSONArray columnsJSONArray = rowJSONObject.getJSONArray("columns");
@@ -76,7 +76,7 @@ RenderFragmentLayoutDisplayContext renderFragmentLayoutDisplayContext = new Rend
 									String size = columnJSONObject.getString("size");
 								%>
 
-									<div class='<%= Validator.isNotNull(size) ? "col-md-" + size : StringPool.BLANK %>'>
+									<div class="<%= Validator.isNotNull(size) ? "col-md-" + size : StringPool.BLANK %>">
 
 										<%
 										JSONArray fragmentEntryLinkIdsJSONArray = columnJSONObject.getJSONArray("fragmentEntryLinkIds");

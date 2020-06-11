@@ -39,7 +39,7 @@ for (AuditEntryDisplay auditEntryDisplay : auditEntryDisplays) {
 				<c:if test="<%= Validator.isNotNull(auditEntryDisplay.getAgentPortraitURL()) %>">
 					<span class="sticker sticker-circle sticker-secondary sticker-sm">
 						<span class="sticker-overlay">
-							<img alt='<%= LanguageUtil.get(request, "agent-avatar") %>' class="sticker-img" src="<%= auditEntryDisplay.getAgentPortraitURL() %>" />
+							<img alt="<%= LanguageUtil.get(request, "agent-avatar") %>" class="sticker-img" src="<%= auditEntryDisplay.getAgentPortraitURL() %>" />
 						</span>
 					</span>
 				</c:if>

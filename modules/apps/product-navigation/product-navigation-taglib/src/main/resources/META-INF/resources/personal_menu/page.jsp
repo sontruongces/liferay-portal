@@ -41,8 +41,8 @@ String label = (String)request.getAttribute("liferay-product-navigation:personal
 	}
 </style>
 
-<div class="personal-menu-dropdown" id='<%= namespace + "personal_menu_dropdown" %>'>
-	<button aria-expanded="true" aria-haspopup="true" class="btn btn-unstyled dropdown-toggle" id='<%= namespace + "personal_menu_dropdown_toggle" %>' ref="triggerButton" type="button">
+<div class="personal-menu-dropdown" id="<%= namespace + "personal_menu_dropdown" %>">
+	<button aria-expanded="true" aria-haspopup="true" class="btn btn-unstyled dropdown-toggle" id="<%= namespace + "personal_menu_dropdown_toggle" %>" ref="triggerButton" type="button">
 		<%= label %>
 	</button>
 </div>

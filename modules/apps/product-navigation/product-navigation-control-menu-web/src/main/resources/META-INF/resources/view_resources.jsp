@@ -58,7 +58,7 @@ if (Validator.isNotNull(keywords)) {
 				data.put("delta", curDelta);
 			%>
 
-				<li class='num-item <%= (delta == curDelta) ? "active" : StringPool.BLANK %>'>
+				<li class="num-item <%= (delta == curDelta) ? "active" : StringPool.BLANK %>">
 					<aui:a cssClass="num-item" data="<%= data %>" href="javascript:;" label="<%= String.valueOf(curDelta) %>" />
 				</li>
 
@@ -119,7 +119,7 @@ if (Validator.isNotNull(keywords)) {
 
 	<div class="collapse in list-group-panel" id="manageRecentPanel">
 		<div class="list-group-item">
-			<ul class='<%= displayStyle.equals("descriptive") ? "tabular-list-group" : "list-unstyled row" %>'>
+			<ul class="<%= displayStyle.equals("descriptive") ? "tabular-list-group" : "list-unstyled row" %>">
 
 				<%
 				long[] availableClassNameIds = AssetRendererFactoryRegistryUtil.getClassNameIds(company.getCompanyId());

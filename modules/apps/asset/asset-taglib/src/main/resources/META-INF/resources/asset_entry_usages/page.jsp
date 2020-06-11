@@ -43,7 +43,7 @@ AssetEntryUsagesDisplayContext assetEntryUsagesDisplayContext = new AssetEntryUs
 								allNavigationURL.setParameter("resetCur", Boolean.TRUE.toString());
 								%>
 
-								<a class='nav-link <%= Objects.equals(assetEntryUsagesDisplayContext.getNavigation(), "all") ? "active" : StringPool.BLANK %>' href="<%= allNavigationURL.toString() %>">
+								<a class="nav-link <%= Objects.equals(assetEntryUsagesDisplayContext.getNavigation(), "all") ? "active" : StringPool.BLANK %>" href="<%= allNavigationURL.toString() %>">
 									<liferay-ui:message arguments="<%= assetEntryUsagesDisplayContext.getAllUsageCount() %>" key="all-x" />
 								</a>
 							</li>
@@ -56,7 +56,7 @@ AssetEntryUsagesDisplayContext assetEntryUsagesDisplayContext = new AssetEntryUs
 								pagesNavigationURL.setParameter("resetCur", Boolean.TRUE.toString());
 								%>
 
-								<a class='nav-link <%= Objects.equals(assetEntryUsagesDisplayContext.getNavigation(), "pages") ? "active" : StringPool.BLANK %>' href="<%= pagesNavigationURL.toString() %>">
+								<a class="nav-link <%= Objects.equals(assetEntryUsagesDisplayContext.getNavigation(), "pages") ? "active" : StringPool.BLANK %>" href="<%= pagesNavigationURL.toString() %>">
 									<liferay-ui:message arguments="<%= assetEntryUsagesDisplayContext.getPagesUsageCount() %>" key="pages-x" />
 								</a>
 							</li>
@@ -69,7 +69,7 @@ AssetEntryUsagesDisplayContext assetEntryUsagesDisplayContext = new AssetEntryUs
 								pageTemplatesNavigationURL.setParameter("resetCur", Boolean.TRUE.toString());
 								%>
 
-								<a class='nav-link <%= Objects.equals(assetEntryUsagesDisplayContext.getNavigation(), "page-templates") ? "active" : StringPool.BLANK %>' href="<%= pageTemplatesNavigationURL.toString() %>">
+								<a class="nav-link <%= Objects.equals(assetEntryUsagesDisplayContext.getNavigation(), "page-templates") ? "active" : StringPool.BLANK %>" href="<%= pageTemplatesNavigationURL.toString() %>">
 									<liferay-ui:message arguments="<%= assetEntryUsagesDisplayContext.getPageTemplatesUsageCount() %>" key="page-templates-x" />
 								</a>
 							</li>
@@ -82,7 +82,7 @@ AssetEntryUsagesDisplayContext assetEntryUsagesDisplayContext = new AssetEntryUs
 								displayPagesNavigationURL.setParameter("resetCur", Boolean.TRUE.toString());
 								%>
 
-								<a class='nav-link <%= Objects.equals(assetEntryUsagesDisplayContext.getNavigation(), "display-page-templates") ? "active" : StringPool.BLANK %>' href="<%= displayPagesNavigationURL.toString() %>">
+								<a class="nav-link <%= Objects.equals(assetEntryUsagesDisplayContext.getNavigation(), "display-page-templates") ? "active" : StringPool.BLANK %>" href="<%= displayPagesNavigationURL.toString() %>">
 									<liferay-ui:message arguments="<%= assetEntryUsagesDisplayContext.getDisplayPagesUsageCount() %>" key="display-page-templates-x" />
 								</a>
 							</li>

@@ -53,7 +53,7 @@ renderResponse.setTitle(koroneikiAccount.getName());
 			/>
 		</c:if>
 
-		<div class='<%= addresses.isEmpty() ? "hide" : "addresses-table-wrapper table-responsive" %>'>
+		<div class="<%= addresses.isEmpty() ? "hide" : "addresses-table-wrapper table-responsive" %>">
 			<table class="table table-autofit">
 				<tbody>
 

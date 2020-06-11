@@ -25,7 +25,7 @@
 		User owner = UserLocalServiceUtil.fetchUser(fileEntry.getUserId());
 		%>
 
-		<div class="lfr-portal-tooltip" data-title='<%= LanguageUtil.format(resourceBundle, "x-is-the-owner", owner.getFullName()) %>'>
+		<div class="lfr-portal-tooltip" data-title="<%= LanguageUtil.format(resourceBundle, "x-is-the-owner", owner.getFullName()) %>">
 			<liferay-ui:user-portrait
 				user="<%= owner %>"
 			/>
@@ -62,7 +62,7 @@
 				%>
 
 				<div class="autofit-col manage-collaborators-collaborator">
-					<div class="lfr-portal-tooltip" data-title='<%= LanguageUtil.format(resourceBundle, (moreCollaboratorsCount == 1) ? "x-more-collaborator" : "x-more-collaborators", moreCollaboratorsCount) %>'>
+					<div class="lfr-portal-tooltip" data-title="<%= LanguageUtil.format(resourceBundle, (moreCollaboratorsCount == 1) ? "x-more-collaborator" : "x-more-collaborators", moreCollaboratorsCount) %>">
 						<clay:sticker
 							elementClasses="user-icon-color-0"
 							icon="users"

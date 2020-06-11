@@ -71,7 +71,7 @@ renderResponse.setTitle(koroneikiContact.getFullName());
 					href="<%= url %>"
 					name="domain"
 				>
-					<span class="lfr-portal-tooltip" data-title='<liferay-ui:message key="external-link" />'>
+					<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="external-link" />">
 						<aui:icon cssClass="icon-monospaced" image="third-party" markupView="lexicon" />
 					</span>
 

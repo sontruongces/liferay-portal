@@ -40,7 +40,7 @@ String paramValue = ParamUtil.getString(request, param);
 	%>
 
 		<li class="nav-item">
-			<a class='nav-link <%= (((i == 0) && Validator.isNull(paramValue)) || paramValue.equals(values[i])) ? "active" : "" %>' href="<%= sb.toString() %>">
+			<a class="nav-link <%= (((i == 0) && Validator.isNull(paramValue)) || paramValue.equals(values[i])) ? "active" : "" %>" href="<%= sb.toString() %>">
 				<%= LanguageUtil.get(request, names[i]) %>
 			</a>
 		</li>

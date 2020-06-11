@@ -51,7 +51,7 @@ ViewTeamsManagementToolbarDisplayContext viewTeamsManagementToolbarDisplayContex
 				href="<%= rowURL %>"
 				name="name"
 			>
-				<span class="lfr-portal-tooltip" data-title='<liferay-ui:message key="team" />'>
+				<span class="lfr-portal-tooltip" data-title="<liferay-ui:message key="team" />">
 					<aui:icon cssClass="icon-monospaced" image="community" markupView="lexicon" />
 				</span>
 

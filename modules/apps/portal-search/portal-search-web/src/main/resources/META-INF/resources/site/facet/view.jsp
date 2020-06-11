@@ -71,7 +71,7 @@ ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext = (ScopeSearchFace
 										<label class="facet-checkbox-label" for="<portlet:namespace />term_<%= i %>">
 											<input class="custom-control-input facet-term" data-term-id="<%= scopeSearchFacetTermDisplayContext.getGroupId() %>" id="<portlet:namespace />term_<%= i %>" name="<portlet:namespace />term_<%= i %>" onChange="Liferay.Search.FacetUtil.changeSelection(event);" type="checkbox" <%= scopeSearchFacetTermDisplayContext.isSelected() ? "checked" : StringPool.BLANK %> />
 
-											<span class='custom-control-label term-name <%= scopeSearchFacetTermDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>'>
+											<span class="custom-control-label term-name <%= scopeSearchFacetTermDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>">
 												<span class="custom-control-label-text"><%= HtmlUtil.escape(scopeSearchFacetTermDisplayContext.getDescriptiveName()) %></span>
 											</span>
 
