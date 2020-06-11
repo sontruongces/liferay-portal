@@ -101,7 +101,26 @@ long accountId = BeanParamUtil.getLong(koroneikiAccount, request, "accountId");
 
 						navigationItem.setLabel(LanguageUtil.get(request, "addresses"));
 					});
+				add(
+					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("purchases"));
 
+						if (koroneikiAccount != null) {
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "purchases", "accountId", accountId);
+						}
+
+						navigationItem.setLabel(LanguageUtil.get(request, "purchases"));
+					});
+				add(
+					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("consumptions"));
+
+						if (koroneikiAccount != null) {
+							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "consumptions", "accountId", accountId);
+						}
+
+						navigationItem.setLabel(LanguageUtil.get(request, "consumptions"));
+					});
 				add(
 					navigationItem -> {
 						navigationItem.setActive(tabs1.equals("entitlements"));
@@ -133,26 +152,6 @@ long accountId = BeanParamUtil.getLong(koroneikiAccount, request, "accountId");
 						}
 
 						navigationItem.setLabel(LanguageUtil.get(request, "external-links"));
-					});
-				add(
-					navigationItem -> {
-						navigationItem.setActive(tabs1.equals("purchases"));
-
-						if (koroneikiAccount != null) {
-							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "purchases", "accountId", accountId);
-						}
-
-						navigationItem.setLabel(LanguageUtil.get(request, "purchases"));
-					});
-				add(
-					navigationItem -> {
-						navigationItem.setActive(tabs1.equals("consumptions"));
-
-						if (koroneikiAccount != null) {
-							navigationItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/accounts_admin/edit_account", "tabs1", "consumptions", "accountId", accountId);
-						}
-
-						navigationItem.setLabel(LanguageUtil.get(request, "consumptions"));
 					});
 			}
 		}

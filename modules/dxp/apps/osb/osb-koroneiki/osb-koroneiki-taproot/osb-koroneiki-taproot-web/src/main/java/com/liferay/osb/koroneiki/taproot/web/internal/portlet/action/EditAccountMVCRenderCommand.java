@@ -66,6 +66,9 @@ public class EditAccountMVCRenderCommand implements MVCRenderCommand {
 			else if (tabs1.equals("child-accounts")) {
 				return "/accounts_admin/edit_account_child_accounts.jsp";
 			}
+			else if (tabs1.equals("consumptions")) {
+				return "/accounts_admin/edit_account_consumptions.jsp";
+			}
 			else if (tabs1.equals("customer-contacts")) {
 				renderRequest.setAttribute(
 					TaprootWebKeys.CONTACT_ROLE_TYPE,
@@ -82,6 +85,9 @@ public class EditAccountMVCRenderCommand implements MVCRenderCommand {
 			else if (tabs1.equals("notes")) {
 				return "/accounts_admin/edit_account_notes.jsp";
 			}
+			else if (tabs1.equals("purchases")) {
+				return "/accounts_admin/edit_account_purchases.jsp";
+			}
 			else if (tabs1.equals("teams")) {
 				return "/accounts_admin/edit_account_teams.jsp";
 			}
@@ -91,12 +97,6 @@ public class EditAccountMVCRenderCommand implements MVCRenderCommand {
 					ContactRole.Type.ACCOUNT_WORKER.toString());
 
 				return "/accounts_admin/edit_account_contact_roles.jsp";
-			}
-			else if (tabs1.equals("purchases")) {
-				return "/accounts_admin/edit_account_purchases.jsp";
-			}
-			else if (tabs1.equals("consumptions")) {
-				return "/accounts_admin/edit_account_consumptions.jsp";
 			}
 			else {
 				return "/accounts_admin/edit_account.jsp";
