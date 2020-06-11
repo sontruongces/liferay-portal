@@ -104,23 +104,23 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 </div>
 
 <aui:script use="liferay-address,liferay-dynamic-select">
-			new Liferay.DynamicSelect([
-				{
-					select: '<portlet:namespace />addressCountryId',
-					selectData: Liferay.Address.getCountries,
-					selectDesc: 'nameCurrentValue',
-					selectId: 'countryId',
-					selectSort: '<%= true %>',
-					selectVal: '0'
-				},
-				{
-					select: '<portlet:namespace />addressRegionId',
-					selectData: Liferay.Address.getRegions,
-					selectDesc: 'name',
-					selectId: 'regionId',
-					selectVal: '0'
-				}
-			]);
+	new Liferay.DynamicSelect([
+		{
+			select: '<portlet:namespace />addressCountryId',
+			selectData: Liferay.Address.getCountries,
+			selectDesc: 'nameCurrentValue',
+			selectId: 'countryId',
+			selectSort: '<%= true %>',
+			selectVal: '0'
+		},
+		{
+			select: '<portlet:namespace />addressRegionId',
+			selectData: Liferay.Address.getRegions,
+			selectDesc: 'name',
+			selectId: 'regionId',
+			selectVal: '0'
+		}
+	]);
 </aui:script>
 
 <aui:script use="liferay-form">
