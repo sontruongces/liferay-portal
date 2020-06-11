@@ -81,49 +81,8 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 					<aui:button cssClass="btn-secondary" href="<%= editTeamNameURL %>" value="edit" />
 
 					<aui:button cssClass="btn-secondary" onClick="<%= taglibOnClick %>" value="delete" />
-
-					<aui:button cssClass="btn-primary" onClick='<%= renderResponse.getNamespace() + "assignContacts();" %>' value="assign-members" />
 				</aui:button-row>
 			</aui:form>
 		</c:if>
 	</div>
 </div>
-
-<aui:script>
-	Liferay.provide(
-		window,
-		'<portlet:namespace />assignContacts',
-		function() {
-			<portlet:renderURL var="assignTeamContactsURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-				<portlet:param name="mvcRenderCommandName" value="/accounts/assign_team_contacts" />
-				<portlet:param name="teamKey" value="<%= teamDisplay.getKey() %>" />
-			</portlet:renderURL>
-
-			var A = AUI();
-
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
-				eventName: '<portlet:namespace />assignContacts',
-				title: '<liferay-ui:message key="select-team-members" />',
-				url: '<%= assignTeamContactsURL %>'
-			});
-
-			itemSelectorDialog.on('selectedItemChange', function(event) {
-				var selectedItems = event.newVal;
-
-				if (selectedItems) {
-					Liferay.Util.postForm(
-						document.<portlet:namespace />editTeamFm,
-						{
-							data: {
-								addEmailAddresses: selectedItems
-							}
-						}
-					);
-				}
-			});
-
-			itemSelectorDialog.open();
-		},
-		['aui-base', 'liferay-item-selector-dialog']
-	);
-</aui:script>
