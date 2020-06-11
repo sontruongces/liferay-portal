@@ -140,9 +140,9 @@ class RuleList extends Component {
 						};
 					}),
 					logicalOperator,
-					rulesCardOptions: this._getRulesCardOptions(),
+					rulesCardOptions: this._getRulesCardOptions()
 				};
-			}),
+			})
 		};
 	}
 
@@ -306,7 +306,7 @@ class RuleList extends Component {
 				)
 			) {
 				this.emit('ruleDeleted', {
-					ruleId: cardId,
+					ruleId: cardId
 				});
 			}
 		}
@@ -314,8 +314,8 @@ class RuleList extends Component {
 
 	_hasNestedCondition(rule) {
 		return (
-			rule.conditions.find((condition) =>
-				condition.operands.find((operand) =>
+			rule.conditions.find(condition =>
+				condition.operands.find(operand =>
 					operand.value.match(/[aA-zZ]+[(].*[,]+.*[)]/)
 				)
 			) !== undefined
