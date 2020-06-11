@@ -124,11 +124,15 @@ public class AccountDisplay {
 	}
 
 	public String getDossieraAccountKey() {
-		return _getExternalLinkEntityId("dossiera", "account");
+		return _getExternalLinkEntityId(
+			ExternalLinkDomain.DOSSIERA,
+			ExternalLinkEntityName.DOSSIERA_ACCOUNT);
 	}
 
 	public String getDossieraProjectKey() {
-		return _getExternalLinkEntityId("dossiera", "project");
+		return _getExternalLinkEntityId(
+			ExternalLinkDomain.DOSSIERA,
+			ExternalLinkEntityName.DOSSIERA_PROJECT);
 	}
 
 	public String getEditAccountURL() {
@@ -215,7 +219,9 @@ public class AccountDisplay {
 	}
 
 	public String getSalesforceProjectKey() {
-		return _getExternalLinkEntityId("salesforce", "project");
+		return _getExternalLinkEntityId(
+			ExternalLinkDomain.SALESFORCE,
+			ExternalLinkEntityName.SALESFORCE_PROJECT);
 	}
 
 	public String getSLAName() {
