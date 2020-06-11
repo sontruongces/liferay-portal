@@ -14,6 +14,8 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
@@ -282,17 +284,23 @@ public class AccountDisplay {
 
 	public String getUpdateDossieraAccountURL() {
 		return _getUpdateExternalLinkURL(
-			_getExternalLinkKey("dossiera", "account"));
+			_getExternalLinkKey(
+				ExternalLinkDomain.DOSSIERA,
+				ExternalLinkEntityName.DOSSIERA_ACCOUNT));
 	}
 
 	public String getUpdateDossieraProjectURL() {
 		return _getUpdateExternalLinkURL(
-			_getExternalLinkKey("dossiera", "project"));
+			_getExternalLinkKey(
+				ExternalLinkDomain.DOSSIERA,
+				ExternalLinkEntityName.DOSSIERA_PROJECT));
 	}
 
 	public String getUpdateSalesforceProjectURL() {
 		return _getUpdateExternalLinkURL(
-			_getExternalLinkKey("salesforce", "project"));
+			_getExternalLinkKey(
+				ExternalLinkDomain.SALESFORCE,
+				ExternalLinkEntityName.SALESFORCE_PROJECT));
 	}
 
 	public boolean isEWSA() throws Exception {
@@ -372,7 +380,7 @@ public class AccountDisplay {
 	}
 
 	private String _getUpdateExternalLinkURL(String externalLinkKey) {
-		if (!Validator.isBlank(externalLinkKey)) {
+		if (Validator.isNotNull(externalLinkKey)) {
 			return _getEditExternalLinkURL(externalLinkKey);
 		}
 
