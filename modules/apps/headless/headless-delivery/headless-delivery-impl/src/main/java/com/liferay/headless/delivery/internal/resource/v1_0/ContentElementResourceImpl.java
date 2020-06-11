@@ -99,9 +99,9 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 				{
 					BooleanFilter booleanFilter = new BooleanFilter();
 
+					booleanFilter.add(filter, BooleanClauseOccur.MUST);
 					booleanFilter.addRequiredTerm(
 						Field.STATUS, WorkflowConstants.STATUS_APPROVED);
-					booleanFilter.add(filter, BooleanClauseOccur.MUST);
 					booleanFilter.addRequiredTerm("head", true);
 
 					setPreBooleanFilter(booleanFilter);
