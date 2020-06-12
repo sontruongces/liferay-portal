@@ -11,7 +11,7 @@
 
 import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 
 import {
 	FIELD_TYPE_NONEDITABLE,
@@ -100,6 +100,41 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 	]);
 
 	const countryId = getCountryId();
+	const regionId = getRegionId();
+
+	const formData = useMemo(() => {
+		return {
+			accountKey,
+			addressCountryId: countryId,
+			addressLocality: convertDashToEmptyString(address.addressLocality),
+			addressRegionId: regionId,
+			addressType: convertDashToEmptyString(address.addressType),
+			addressZip: convertDashToEmptyString(address.postalCode),
+			mailing: address.mailing,
+			primary: address.primary,
+			streetAddressLine1: convertDashToEmptyString(
+				address.streetAddressLine1
+			),
+			streetAddressLine2: convertDashToEmptyString(
+				address.streetAddressLine2
+			),
+			streetAddressLine3: convertDashToEmptyString(
+				address.streetAddressLine3
+			)
+		};
+	}, [
+		accountKey,
+		address.addressLocality,
+		address.addressType,
+		address.mailing,
+		address.postalCode,
+		address.primary,
+		address.streetAddressLine1,
+		address.streetAddressLine2,
+		address.streetAddressLine3,
+		countryId,
+		regionId
+	]);
 
 	useEffect(() => {
 		Liferay.Service('/region/get-regions', {
@@ -151,28 +186,6 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 		return FIELD_TYPE_NONEDITABLE;
 	}
 
-	function setFormData() {
-		return {
-			accountKey,
-			addressCountryId: countryId,
-			addressLocality: convertDashToEmptyString(address.addressLocality),
-			addressRegionId: getRegionId(),
-			addressType: convertDashToEmptyString(address.addressType),
-			addressZip: convertDashToEmptyString(address.postalCode),
-			mailing: address.mailing,
-			primary: address.primary,
-			streetAddressLine1: convertDashToEmptyString(
-				address.streetAddressLine1
-			),
-			streetAddressLine2: convertDashToEmptyString(
-				address.streetAddressLine2
-			),
-			streetAddressLine3: convertDashToEmptyString(
-				address.streetAddressLine3
-			)
-		};
-	}
-
 	return (
 		<React.Fragment key={address.id}>
 			<ClayList.Header>
@@ -183,7 +196,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				fieldLabel={Liferay.Language.get('street-1')}
 				fieldName="streetAddressLine1"
 				formAction={address.editPostalAddressURL}
-				formData={setFormData()}
+				formData={formData}
 				type={setFieldType()}
 			>
 				{address.streetAddressLine1}
@@ -193,7 +206,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				fieldLabel={Liferay.Language.get('city')}
 				fieldName="addressLocality"
 				formAction={address.editPostalAddressURL}
-				formData={setFormData()}
+				formData={formData}
 				type={setFieldType()}
 			>
 				{address.addressLocality}
@@ -203,7 +216,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				fieldLabel={Liferay.Language.get('street-2')}
 				fieldName="streetAddressLine2"
 				formAction={address.editPostalAddressURL}
-				formData={setFormData()}
+				formData={formData}
 				type={setFieldType()}
 			>
 				{address.streetAddressLine2}
@@ -213,7 +226,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				fieldLabel={Liferay.Language.get('state-province')}
 				fieldName="addressRegionId"
 				formAction={address.editPostalAddressURL}
-				formData={setFormData()}
+				formData={formData}
 				options={regionOptions}
 				type={setFieldType(FIELD_TYPE_SELECT)}
 			>
@@ -224,7 +237,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				fieldLabel={Liferay.Language.get('street-3')}
 				fieldName="streetAddressLine3"
 				formAction={address.editPostalAddressURL}
-				formData={setFormData()}
+				formData={formData}
 				type={setFieldType()}
 			>
 				{address.streetAddressLine3}
@@ -234,7 +247,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				fieldLabel={Liferay.Language.get('postal-code')}
 				fieldName="postalCode"
 				formAction={address.editPostalAddressURL}
-				formData={setFormData()}
+				formData={formData}
 				type={setFieldType()}
 			>
 				{address.postalCode}
@@ -244,7 +257,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				fieldLabel={Liferay.Language.get('country')}
 				fieldName="addressCountryId"
 				formAction={address.editPostalAddressURL}
-				formData={setFormData()}
+				formData={formData}
 				options={countryOptions}
 				type={setFieldType(FIELD_TYPE_SELECT)}
 			>
