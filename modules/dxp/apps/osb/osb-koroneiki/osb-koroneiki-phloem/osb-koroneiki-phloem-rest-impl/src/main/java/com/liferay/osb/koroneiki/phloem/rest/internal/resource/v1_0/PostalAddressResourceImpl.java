@@ -160,7 +160,7 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 			_addressService.updateAddress(
 				postalAddressId, postalAddress.getStreetAddressLine1(),
 				postalAddress.getStreetAddressLine2(),
-				postalAddress.getStreetAddressLine2(),
+				postalAddress.getStreetAddressLine3(),
 				postalAddress.getAddressLocality(),
 				postalAddress.getPostalCode(), regionId, countryId, listTypeId,
 				GetterUtil.getBoolean(postalAddress.getMailing()),
