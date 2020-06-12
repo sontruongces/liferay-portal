@@ -66,7 +66,7 @@ else {
 
 		<br /><br />
 
-		<aui:input cssClass="webdav-url-resource" name="webDavURL" type="resource" value="<%= DLURLHelperUtil.getWebDavURL(themeDisplay, folder, null) %>" />
+		<aui:input cssClass="webdav-url-resource" id='<%= randomNamespace + "webDavURL" %>' name="webDavURL" type="resource" value="<%= DLURLHelperUtil.getWebDavURL(themeDisplay, folder, null) %>" />
 	</div>
 </div>
 
@@ -89,7 +89,7 @@ else {
 			webdavDialog.after('render', function(event) {
 				var webdavURLInput = webdavDialog
 					.get('boundingBox')
-					.one('#<portlet:namespace />webDavURL');
+					.one('#<portlet:namespace /><%= randomNamespace %>webDavURL');
 
 				webdavURLInput.focus();
 			});
