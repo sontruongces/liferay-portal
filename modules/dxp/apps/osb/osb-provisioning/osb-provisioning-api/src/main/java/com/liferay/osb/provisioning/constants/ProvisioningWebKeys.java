@@ -20,7 +20,7 @@ package com.liferay.osb.provisioning.constants;
 public class ProvisioningWebKeys {
 
 	public static final String ACCOUNT = "ACCOUNT";
-	
+
 	public static final String CONTACT = "CONTACT";
 
 	public static final String CONTACT_ROLES = "CONTACT_ROLES";
