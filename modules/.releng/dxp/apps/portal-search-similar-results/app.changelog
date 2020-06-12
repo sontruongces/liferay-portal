@@ -1,0 +1,11 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.portal.search.similar.results.web-1.0.7.jar,\
+	com.liferay.portal.search.similar.results.web.spi-1.0.2.jar
+
+app.change.log-1.0.0=LPS-104046 LPS-104600 LPS-104678 LPS-104682 LPS-104726 LPS-104777 LPS-104795 LPS-104990 LPS-104997 LPS-105380 LPS-105541 LPS-105617 LPS-105669 LPS-106096 LPS-106871 LPS-107697 LPS-107930 LPS-109106 LPS-109107 LPS-77699 LPS-98533
+
+app.git.id-1.0.0=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1
