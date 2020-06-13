@@ -1059,6 +1059,16 @@ public abstract class BaseContactResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"emailAddressVerified", additionalAssertFieldName)) {
+
+				if (contact.getEmailAddressVerified() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("entitlements", additionalAssertFieldName)) {
 				if (contact.getEntitlements() == null) {
 					valid = false;
@@ -1227,6 +1237,19 @@ public abstract class BaseContactResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"emailAddressVerified", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						contact1.getEmailAddressVerified(),
+						contact2.getEmailAddressVerified())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("entitlements", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						contact1.getEntitlements(),
@@ -1331,6 +1354,17 @@ public abstract class BaseContactResourceTestCase {
 				if (!Objects.deepEquals(
 						contact.getEmailAddress(),
 						jsonObject.getString("emailAddress"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("emailAddressVerified", fieldName)) {
+				if (!Objects.deepEquals(
+						contact.getEmailAddressVerified(),
+						jsonObject.getBoolean("emailAddressVerified"))) {
 
 					return false;
 				}
@@ -1544,6 +1578,11 @@ public abstract class BaseContactResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("emailAddressVerified")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("entitlements")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1637,6 +1676,7 @@ public abstract class BaseContactResourceTestCase {
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
 				emailAddress = RandomTestUtil.randomString();
+				emailAddressVerified = RandomTestUtil.randomBoolean();
 				firstName = RandomTestUtil.randomString();
 				key = RandomTestUtil.randomString();
 				languageId = RandomTestUtil.randomString();

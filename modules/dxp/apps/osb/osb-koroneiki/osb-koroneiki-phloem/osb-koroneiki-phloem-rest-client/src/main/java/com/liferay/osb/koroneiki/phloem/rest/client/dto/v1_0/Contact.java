@@ -113,6 +113,27 @@ public class Contact {
 
 	protected String emailAddress;
 
+	public Boolean getEmailAddressVerified() {
+		return emailAddressVerified;
+	}
+
+	public void setEmailAddressVerified(Boolean emailAddressVerified) {
+		this.emailAddressVerified = emailAddressVerified;
+	}
+
+	public void setEmailAddressVerified(
+		UnsafeSupplier<Boolean, Exception> emailAddressVerifiedUnsafeSupplier) {
+
+		try {
+			emailAddressVerified = emailAddressVerifiedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean emailAddressVerified;
+
 	public Entitlement[] getEntitlements() {
 		return entitlements;
 	}

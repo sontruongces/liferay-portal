@@ -168,6 +168,36 @@ public class Contact {
 	@NotEmpty
 	protected String emailAddress;
 
+	@Schema(
+		description = "A flag that identifies whether the email address of this contact is verified."
+	)
+	public Boolean getEmailAddressVerified() {
+		return emailAddressVerified;
+	}
+
+	public void setEmailAddressVerified(Boolean emailAddressVerified) {
+		this.emailAddressVerified = emailAddressVerified;
+	}
+
+	@JsonIgnore
+	public void setEmailAddressVerified(
+		UnsafeSupplier<Boolean, Exception> emailAddressVerifiedUnsafeSupplier) {
+
+		try {
+			emailAddressVerified = emailAddressVerifiedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean emailAddressVerified;
+
 	@Schema(description = "The contact's entitlements.")
 	@Valid
 	public Entitlement[] getEntitlements() {
@@ -512,6 +542,16 @@ public class Contact {
 			sb.append(_escape(emailAddress));
 
 			sb.append("\"");
+		}
+
+		if (emailAddressVerified != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"emailAddressVerified\": ");
+
+			sb.append(emailAddressVerified);
 		}
 
 		if (entitlements != null) {
