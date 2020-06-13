@@ -261,6 +261,10 @@ components:
                     description:
                         The email address of the contact.
                     type: string
+                emailAddressVerified:
+                    description:
+                        A flag that identifies whether the email address of this contact is verified.
+                    type: boolean
                 entitlements:
                     description:
                         The contact's entitlements.
