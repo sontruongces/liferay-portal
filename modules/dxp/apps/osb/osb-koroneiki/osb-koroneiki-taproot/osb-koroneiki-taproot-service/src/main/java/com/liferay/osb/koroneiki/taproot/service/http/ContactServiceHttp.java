@@ -54,7 +54,8 @@ public class ContactServiceHttp {
 	public static com.liferay.osb.koroneiki.taproot.model.Contact addContact(
 			HttpPrincipal httpPrincipal, String uuid, String oktaId,
 			String firstName, String middleName, String lastName,
-			String emailAddress, String languageId)
+			String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -64,7 +65,7 @@ public class ContactServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, uuid, oktaId, firstName, middleName, lastName,
-				emailAddress, languageId);
+				emailAddress, languageId, emailAddressVerified);
 
 			Object returnObj = null;
 
@@ -544,7 +545,8 @@ public class ContactServiceHttp {
 	public static com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
 			HttpPrincipal httpPrincipal, long contactId, String uuid,
 			String oktaId, String firstName, String middleName, String lastName,
-			String emailAddress, String languageId)
+			String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -554,7 +556,7 @@ public class ContactServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, contactId, uuid, oktaId, firstName, middleName,
-				lastName, emailAddress, languageId);
+				lastName, emailAddress, languageId, emailAddressVerified);
 
 			Object returnObj = null;
 
@@ -588,7 +590,7 @@ public class ContactServiceHttp {
 
 	private static final Class<?>[] _addContactParameterTypes0 = new Class[] {
 		String.class, String.class, String.class, String.class, String.class,
-		String.class, String.class
+		String.class, String.class, boolean.class
 	};
 	private static final Class<?>[] _deleteContactParameterTypes1 =
 		new Class[] {long.class};
@@ -616,7 +618,7 @@ public class ContactServiceHttp {
 	private static final Class<?>[] _updateContactParameterTypes12 =
 		new Class[] {
 			long.class, String.class, String.class, String.class, String.class,
-			String.class, String.class, String.class
+			String.class, String.class, String.class, boolean.class
 		};
 
 }

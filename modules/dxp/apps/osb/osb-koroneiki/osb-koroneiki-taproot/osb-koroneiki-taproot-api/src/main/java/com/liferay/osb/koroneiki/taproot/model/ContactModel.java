@@ -287,4 +287,25 @@ public interface ContactModel
 	 */
 	public void setLanguageId(String languageId);
 
+	/**
+	 * Returns the email address verified of this contact.
+	 *
+	 * @return the email address verified of this contact
+	 */
+	public boolean getEmailAddressVerified();
+
+	/**
+	 * Returns <code>true</code> if this contact is email address verified.
+	 *
+	 * @return <code>true</code> if this contact is email address verified; <code>false</code> otherwise
+	 */
+	public boolean isEmailAddressVerified();
+
+	/**
+	 * Sets whether this contact is email address verified.
+	 *
+	 * @param emailAddressVerified the email address verified of this contact
+	 */
+	public void setEmailAddressVerified(boolean emailAddressVerified);
+
 }

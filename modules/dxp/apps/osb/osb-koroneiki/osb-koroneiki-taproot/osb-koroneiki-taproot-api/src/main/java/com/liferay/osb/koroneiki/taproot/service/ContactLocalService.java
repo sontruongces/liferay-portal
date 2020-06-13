@@ -78,7 +78,7 @@ public interface ContactLocalService
 	public Contact addContact(
 			String uuid, long userId, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
-			String languageId)
+			String languageId, boolean emailAddressVerified)
 		throws PortalException;
 
 	/**
@@ -323,7 +323,7 @@ public interface ContactLocalService
 	public Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
-			String languageId)
+			String languageId, boolean emailAddressVerified)
 		throws PortalException;
 
 }

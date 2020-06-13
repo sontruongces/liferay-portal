@@ -58,7 +58,8 @@ create table Koroneiki_Contact (
 	middleName VARCHAR(75) null,
 	lastName VARCHAR(75) null,
 	emailAddress VARCHAR(75) null,
-	languageId VARCHAR(75) null
+	languageId VARCHAR(75) null,
+	emailAddressVerified BOOLEAN
 );
 
 create table Koroneiki_ContactAccountRole (

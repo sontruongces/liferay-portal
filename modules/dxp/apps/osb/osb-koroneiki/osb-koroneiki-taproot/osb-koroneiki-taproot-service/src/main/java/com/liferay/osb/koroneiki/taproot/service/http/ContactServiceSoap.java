@@ -64,14 +64,15 @@ public class ContactServiceSoap {
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
 			addContact(
 				String uuid, String oktaId, String firstName, String middleName,
-				String lastName, String emailAddress, String languageId)
+				String lastName, String emailAddress, String languageId,
+				boolean emailAddressVerified)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
 				ContactServiceUtil.addContact(
 					uuid, oktaId, firstName, middleName, lastName, emailAddress,
-					languageId);
+					languageId, emailAddressVerified);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
 				toSoapModel(returnValue);
@@ -285,14 +286,14 @@ public class ContactServiceSoap {
 			updateContact(
 				long contactId, String uuid, String oktaId, String firstName,
 				String middleName, String lastName, String emailAddress,
-				String languageId)
+				String languageId, boolean emailAddressVerified)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
 				ContactServiceUtil.updateContact(
 					contactId, uuid, oktaId, firstName, middleName, lastName,
-					emailAddress, languageId);
+					emailAddress, languageId, emailAddressVerified);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
 				toSoapModel(returnValue);

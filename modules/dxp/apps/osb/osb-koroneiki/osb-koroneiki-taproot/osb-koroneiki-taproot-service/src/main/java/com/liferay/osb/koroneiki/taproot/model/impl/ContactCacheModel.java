@@ -76,7 +76,7 @@ public class ContactCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -106,6 +106,8 @@ public class ContactCacheModel
 		sb.append(emailAddress);
 		sb.append(", languageId=");
 		sb.append(languageId);
+		sb.append(", emailAddressVerified=");
+		sb.append(emailAddressVerified);
 		sb.append("}");
 
 		return sb.toString();
@@ -191,6 +193,8 @@ public class ContactCacheModel
 			contactImpl.setLanguageId(languageId);
 		}
 
+		contactImpl.setEmailAddressVerified(emailAddressVerified);
+
 		contactImpl.resetOriginalValues();
 
 		return contactImpl;
@@ -215,6 +219,8 @@ public class ContactCacheModel
 		lastName = objectInput.readUTF();
 		emailAddress = objectInput.readUTF();
 		languageId = objectInput.readUTF();
+
+		emailAddressVerified = objectInput.readBoolean();
 	}
 
 	@Override
@@ -284,6 +290,8 @@ public class ContactCacheModel
 		else {
 			objectOutput.writeUTF(languageId);
 		}
+
+		objectOutput.writeBoolean(emailAddressVerified);
 	}
 
 	public long mvccVersion;
@@ -300,5 +308,6 @@ public class ContactCacheModel
 	public String lastName;
 	public String emailAddress;
 	public String languageId;
+	public boolean emailAddressVerified;
 
 }

@@ -53,7 +53,8 @@ public interface ContactService extends BaseService {
 	 */
 	public Contact addContact(
 			String uuid, String oktaId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws PortalException;
 
 	public Contact deleteContact(long contactId) throws PortalException;
@@ -107,7 +108,7 @@ public interface ContactService extends BaseService {
 	public Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
-			String languageId)
+			String languageId, boolean emailAddressVerified)
 		throws PortalException;
 
 }

@@ -57,6 +57,7 @@ public class ContactWrapper
 		attributes.put("lastName", getLastName());
 		attributes.put("emailAddress", getEmailAddress());
 		attributes.put("languageId", getLanguageId());
+		attributes.put("emailAddressVerified", isEmailAddressVerified());
 
 		return attributes;
 	}
@@ -146,6 +147,13 @@ public class ContactWrapper
 		if (languageId != null) {
 			setLanguageId(languageId);
 		}
+
+		Boolean emailAddressVerified = (Boolean)attributes.get(
+			"emailAddressVerified");
+
+		if (emailAddressVerified != null) {
+			setEmailAddressVerified(emailAddressVerified);
+		}
 	}
 
 	/**
@@ -203,6 +211,16 @@ public class ContactWrapper
 	@Override
 	public String getEmailAddress() {
 		return model.getEmailAddress();
+	}
+
+	/**
+	 * Returns the email address verified of this contact.
+	 *
+	 * @return the email address verified of this contact
+	 */
+	@Override
+	public boolean getEmailAddressVerified() {
+		return model.getEmailAddressVerified();
 	}
 
 	@Override
@@ -335,6 +353,16 @@ public class ContactWrapper
 		return model.getUuid();
 	}
 
+	/**
+	 * Returns <code>true</code> if this contact is email address verified.
+	 *
+	 * @return <code>true</code> if this contact is email address verified; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isEmailAddressVerified() {
+		return model.isEmailAddressVerified();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
@@ -388,6 +416,16 @@ public class ContactWrapper
 	@Override
 	public void setEmailAddress(String emailAddress) {
 		model.setEmailAddress(emailAddress);
+	}
+
+	/**
+	 * Sets whether this contact is email address verified.
+	 *
+	 * @param emailAddressVerified the email address verified of this contact
+	 */
+	@Override
+	public void setEmailAddressVerified(boolean emailAddressVerified) {
+		model.setEmailAddressVerified(emailAddressVerified);
 	}
 
 	/**

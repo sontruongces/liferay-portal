@@ -47,12 +47,12 @@ public class ContactLocalServiceWrapper
 	public com.liferay.osb.koroneiki.taproot.model.Contact addContact(
 			String uuid, long userId, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
-			String languageId)
+			String languageId, boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactLocalService.addContact(
 			uuid, userId, oktaId, firstName, middleName, lastName, emailAddress,
-			languageId);
+			languageId, emailAddressVerified);
 	}
 
 	/**
@@ -440,12 +440,12 @@ public class ContactLocalServiceWrapper
 	public com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
-			String languageId)
+			String languageId, boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactLocalService.updateContact(
 			contactId, uuid, oktaId, firstName, middleName, lastName,
-			emailAddress, languageId);
+			emailAddress, languageId, emailAddressVerified);
 	}
 
 	@Override

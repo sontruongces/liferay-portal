@@ -76,6 +76,7 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="lastName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="emailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="languageId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="emailAddressVerified" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 	<class dynamic-update="true" name="com.liferay.osb.koroneiki.taproot.model.impl.ContactAccountRoleImpl" table="Koroneiki_ContactAccountRole">
 		<composite-id class="com.liferay.osb.koroneiki.taproot.service.persistence.ContactAccountRolePK" name="primaryKey">

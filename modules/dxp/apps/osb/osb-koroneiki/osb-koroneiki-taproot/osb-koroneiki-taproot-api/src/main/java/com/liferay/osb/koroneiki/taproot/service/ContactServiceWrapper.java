@@ -33,12 +33,13 @@ public class ContactServiceWrapper
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact addContact(
 			String uuid, String oktaId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactService.addContact(
 			uuid, oktaId, firstName, middleName, lastName, emailAddress,
-			languageId);
+			languageId, emailAddressVerified);
 	}
 
 	@Override
@@ -147,12 +148,12 @@ public class ContactServiceWrapper
 	public com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
-			String languageId)
+			String languageId, boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactService.updateContact(
 			contactId, uuid, oktaId, firstName, middleName, lastName,
-			emailAddress, languageId);
+			emailAddress, languageId, emailAddressVerified);
 	}
 
 	@Override

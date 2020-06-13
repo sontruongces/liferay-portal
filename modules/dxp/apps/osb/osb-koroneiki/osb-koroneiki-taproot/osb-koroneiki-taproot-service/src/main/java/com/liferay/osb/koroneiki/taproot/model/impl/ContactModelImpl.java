@@ -80,7 +80,8 @@ public class ContactModelImpl
 		{"modifiedDate", Types.TIMESTAMP}, {"contactKey", Types.VARCHAR},
 		{"oktaId", Types.VARCHAR}, {"firstName", Types.VARCHAR},
 		{"middleName", Types.VARCHAR}, {"lastName", Types.VARCHAR},
-		{"emailAddress", Types.VARCHAR}, {"languageId", Types.VARCHAR}
+		{"emailAddress", Types.VARCHAR}, {"languageId", Types.VARCHAR},
+		{"emailAddressVerified", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -101,10 +102,11 @@ public class ContactModelImpl
 		TABLE_COLUMNS_MAP.put("lastName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("emailAddress", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("languageId", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("emailAddressVerified", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_Contact (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,contactId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactKey VARCHAR(75) null,oktaId VARCHAR(75) null,firstName VARCHAR(75) null,middleName VARCHAR(75) null,lastName VARCHAR(75) null,emailAddress VARCHAR(75) null,languageId VARCHAR(75) null)";
+		"create table Koroneiki_Contact (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,contactId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,contactKey VARCHAR(75) null,oktaId VARCHAR(75) null,firstName VARCHAR(75) null,middleName VARCHAR(75) null,lastName VARCHAR(75) null,emailAddress VARCHAR(75) null,languageId VARCHAR(75) null,emailAddressVerified BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP = "drop table Koroneiki_Contact";
 
@@ -167,6 +169,7 @@ public class ContactModelImpl
 		model.setLastName(soapModel.getLastName());
 		model.setEmailAddress(soapModel.getEmailAddress());
 		model.setLanguageId(soapModel.getLanguageId());
+		model.setEmailAddressVerified(soapModel.isEmailAddressVerified());
 
 		return model;
 	}
@@ -360,6 +363,11 @@ public class ContactModelImpl
 		attributeGetterFunctions.put("languageId", Contact::getLanguageId);
 		attributeSetterBiConsumers.put(
 			"languageId", (BiConsumer<Contact, String>)Contact::setLanguageId);
+		attributeGetterFunctions.put(
+			"emailAddressVerified", Contact::getEmailAddressVerified);
+		attributeSetterBiConsumers.put(
+			"emailAddressVerified",
+			(BiConsumer<Contact, Boolean>)Contact::setEmailAddressVerified);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -635,6 +643,23 @@ public class ContactModelImpl
 		_languageId = languageId;
 	}
 
+	@JSON
+	@Override
+	public boolean getEmailAddressVerified() {
+		return _emailAddressVerified;
+	}
+
+	@JSON
+	@Override
+	public boolean isEmailAddressVerified() {
+		return _emailAddressVerified;
+	}
+
+	@Override
+	public void setEmailAddressVerified(boolean emailAddressVerified) {
+		_emailAddressVerified = emailAddressVerified;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -691,6 +716,7 @@ public class ContactModelImpl
 		contactImpl.setLastName(getLastName());
 		contactImpl.setEmailAddress(getEmailAddress());
 		contactImpl.setLanguageId(getLanguageId());
+		contactImpl.setEmailAddressVerified(isEmailAddressVerified());
 
 		contactImpl.resetOriginalValues();
 
@@ -864,6 +890,8 @@ public class ContactModelImpl
 			contactCacheModel.languageId = null;
 		}
 
+		contactCacheModel.emailAddressVerified = isEmailAddressVerified();
+
 		return contactCacheModel;
 	}
 
@@ -961,6 +989,7 @@ public class ContactModelImpl
 	private String _emailAddress;
 	private String _originalEmailAddress;
 	private String _languageId;
+	private boolean _emailAddressVerified;
 	private long _columnBitmask;
 	private Contact _escapedModel;
 

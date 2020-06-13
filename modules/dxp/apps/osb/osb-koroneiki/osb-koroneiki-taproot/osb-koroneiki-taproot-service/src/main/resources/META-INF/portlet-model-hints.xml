@@ -66,6 +66,7 @@
 		<field name="lastName" type="String" />
 		<field name="emailAddress" type="String" />
 		<field name="languageId" type="String" />
+		<field name="emailAddressVerified" type="boolean" />
 	</model>
 	<model name="com.liferay.osb.koroneiki.taproot.model.ContactAccountRole">
 		<field name="mvccVersion" type="long" />

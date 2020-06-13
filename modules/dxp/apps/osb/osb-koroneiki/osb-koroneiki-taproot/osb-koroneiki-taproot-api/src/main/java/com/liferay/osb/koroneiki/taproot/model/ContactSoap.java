@@ -45,6 +45,7 @@ public class ContactSoap implements Serializable {
 		soapModel.setLastName(model.getLastName());
 		soapModel.setEmailAddress(model.getEmailAddress());
 		soapModel.setLanguageId(model.getLanguageId());
+		soapModel.setEmailAddressVerified(model.isEmailAddressVerified());
 
 		return soapModel;
 	}
@@ -210,6 +211,18 @@ public class ContactSoap implements Serializable {
 		_languageId = languageId;
 	}
 
+	public boolean getEmailAddressVerified() {
+		return _emailAddressVerified;
+	}
+
+	public boolean isEmailAddressVerified() {
+		return _emailAddressVerified;
+	}
+
+	public void setEmailAddressVerified(boolean emailAddressVerified) {
+		_emailAddressVerified = emailAddressVerified;
+	}
+
 	private long _mvccVersion;
 	private String _uuid;
 	private long _contactId;
@@ -224,5 +237,6 @@ public class ContactSoap implements Serializable {
 	private String _lastName;
 	private String _emailAddress;
 	private String _languageId;
+	private boolean _emailAddressVerified;
 
 }
