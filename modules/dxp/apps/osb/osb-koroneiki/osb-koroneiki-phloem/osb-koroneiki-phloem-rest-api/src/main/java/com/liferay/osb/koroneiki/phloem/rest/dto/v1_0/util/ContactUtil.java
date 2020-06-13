@@ -46,6 +46,7 @@ public class ContactUtil {
 				middleName = contact.getMiddleName();
 				oktaId = contact.getOktaId();
 				uuid = contact.getUuid();
+				emailAddressVerified = contact.getEmailAddressVerified();
 			}
 		};
 	}

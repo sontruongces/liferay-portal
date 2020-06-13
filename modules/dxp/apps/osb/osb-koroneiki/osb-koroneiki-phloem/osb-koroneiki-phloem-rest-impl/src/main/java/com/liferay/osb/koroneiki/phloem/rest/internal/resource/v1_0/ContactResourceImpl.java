@@ -282,7 +282,8 @@ public class ContactResourceImpl
 			_contactService.addContact(
 				contact.getUuid(), contact.getOktaId(), contact.getFirstName(),
 				contact.getMiddleName(), contact.getLastName(),
-				contact.getEmailAddress(), contact.getLanguageId()));
+				contact.getEmailAddress(), contact.getLanguageId(),
+				GetterUtil.getBoolean(contact.getEmailAddressVerified())));
 	}
 
 	@Override
@@ -304,12 +305,15 @@ public class ContactResourceImpl
 			contact.getMiddleName(), curContact.getMiddleName());
 		String languageId = GetterUtil.getString(
 			contact.getLanguageId(), curContact.getLanguageId());
+		boolean emailAddressVerified = GetterUtil.getBoolean(
+			contact.getEmailAddressVerified(),
+			curContact.getEmailAddressVerified());
 
 		return ContactUtil.toContact(
 			_contactService.updateContact(
 				curContact.getContactId(), uuid, oktaId, contact.getFirstName(),
 				middleName, contact.getLastName(), contact.getEmailAddress(),
-				languageId));
+				languageId, emailAddressVerified));
 	}
 
 	@Override
@@ -328,12 +332,15 @@ public class ContactResourceImpl
 			contact.getMiddleName(), curContact.getMiddleName());
 		String languageId = GetterUtil.getString(
 			contact.getLanguageId(), curContact.getLanguageId());
+		boolean emailAddressVerified = GetterUtil.getBoolean(
+			contact.getEmailAddressVerified(),
+			curContact.getEmailAddressVerified());
 
 		return ContactUtil.toContact(
 			_contactService.updateContact(
 				curContact.getContactId(), uuid, curContact.getOktaId(),
 				contact.getFirstName(), middleName, contact.getLastName(),
-				contact.getEmailAddress(), languageId));
+				contact.getEmailAddress(), languageId, emailAddressVerified));
 	}
 
 	@Override
@@ -367,12 +374,15 @@ public class ContactResourceImpl
 			contact.getMiddleName(), curContact.getMiddleName());
 		String languageId = GetterUtil.getString(
 			contact.getLanguageId(), curContact.getLanguageId());
+		boolean emailAddressVerified = GetterUtil.getBoolean(
+			contact.getEmailAddressVerified(),
+			curContact.getEmailAddressVerified());
 
 		return ContactUtil.toContact(
 			_contactService.updateContact(
 				curContact.getContactId(), curContact.getUuid(), oktaId,
 				contact.getFirstName(), middleName, contact.getLastName(),
-				contact.getEmailAddress(), languageId));
+				contact.getEmailAddress(), languageId, emailAddressVerified));
 	}
 
 	@Override
