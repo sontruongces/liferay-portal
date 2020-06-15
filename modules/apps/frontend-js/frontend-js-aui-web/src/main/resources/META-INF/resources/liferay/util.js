@@ -1671,7 +1671,10 @@
 						assetEntryId = assetGroupId + '-' + assetEntryId;
 					}
 
-					var disabled = selectedData && selectedData.includes(assetEntryId) ? true : false;
+					var disabled =
+						selectedData && selectedData.includes(assetEntryId)
+							? true
+							: false;
 
 					if (disabled) {
 						item.attr('data-prevent-selection', true);
