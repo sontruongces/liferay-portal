@@ -618,16 +618,16 @@ public class EntitlementModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof Entitlement)) {
+		if (!(object instanceof Entitlement)) {
 			return false;
 		}
 
-		Entitlement entitlement = (Entitlement)obj;
+		Entitlement entitlement = (Entitlement)object;
 
 		long primaryKey = entitlement.getPrimaryKey();
 

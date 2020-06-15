@@ -798,16 +798,16 @@ public class SPIDefinitionModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof SPIDefinition)) {
+		if (!(object instanceof SPIDefinition)) {
 			return false;
 		}
 
-		SPIDefinition spiDefinition = (SPIDefinition)obj;
+		SPIDefinition spiDefinition = (SPIDefinition)object;
 
 		long primaryKey = spiDefinition.getPrimaryKey();
 

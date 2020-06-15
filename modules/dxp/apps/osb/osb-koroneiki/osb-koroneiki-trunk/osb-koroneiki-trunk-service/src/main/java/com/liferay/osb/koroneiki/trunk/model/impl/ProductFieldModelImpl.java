@@ -560,16 +560,16 @@ public class ProductFieldModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ProductField)) {
+		if (!(object instanceof ProductField)) {
 			return false;
 		}
 
-		ProductField productField = (ProductField)obj;
+		ProductField productField = (ProductField)object;
 
 		long primaryKey = productField.getPrimaryKey();
 

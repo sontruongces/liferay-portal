@@ -37,17 +37,17 @@ public class AuthenticationTokenCacheModel
 	implements CacheModel<AuthenticationToken>, Externalizable, MVCCModel {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof AuthenticationTokenCacheModel)) {
+		if (!(object instanceof AuthenticationTokenCacheModel)) {
 			return false;
 		}
 
 		AuthenticationTokenCacheModel authenticationTokenCacheModel =
-			(AuthenticationTokenCacheModel)obj;
+			(AuthenticationTokenCacheModel)object;
 
 		if ((authenticationTokenId ==
 				authenticationTokenCacheModel.authenticationTokenId) &&

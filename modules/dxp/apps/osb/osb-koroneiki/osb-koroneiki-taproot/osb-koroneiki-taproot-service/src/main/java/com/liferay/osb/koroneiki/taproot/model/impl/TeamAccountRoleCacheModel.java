@@ -36,17 +36,17 @@ public class TeamAccountRoleCacheModel
 	implements CacheModel<TeamAccountRole>, Externalizable, MVCCModel {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof TeamAccountRoleCacheModel)) {
+		if (!(object instanceof TeamAccountRoleCacheModel)) {
 			return false;
 		}
 
 		TeamAccountRoleCacheModel teamAccountRoleCacheModel =
-			(TeamAccountRoleCacheModel)obj;
+			(TeamAccountRoleCacheModel)object;
 
 		if (teamAccountRolePK.equals(
 				teamAccountRoleCacheModel.teamAccountRolePK) &&

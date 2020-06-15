@@ -36,17 +36,17 @@ public class LayoutVersionCacheModel
 	implements CacheModel<LayoutVersion>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof LayoutVersionCacheModel)) {
+		if (!(object instanceof LayoutVersionCacheModel)) {
 			return false;
 		}
 
 		LayoutVersionCacheModel layoutVersionCacheModel =
-			(LayoutVersionCacheModel)obj;
+			(LayoutVersionCacheModel)object;
 
 		if (layoutVersionId == layoutVersionCacheModel.layoutVersionId) {
 			return true;

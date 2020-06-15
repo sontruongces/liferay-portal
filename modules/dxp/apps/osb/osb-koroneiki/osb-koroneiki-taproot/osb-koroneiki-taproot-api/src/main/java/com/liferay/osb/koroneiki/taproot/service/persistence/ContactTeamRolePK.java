@@ -117,16 +117,16 @@ public class ContactTeamRolePK
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ContactTeamRolePK)) {
+		if (!(object instanceof ContactTeamRolePK)) {
 			return false;
 		}
 
-		ContactTeamRolePK pk = (ContactTeamRolePK)obj;
+		ContactTeamRolePK pk = (ContactTeamRolePK)object;
 
 		if ((contactId == pk.contactId) && (teamId == pk.teamId) &&
 			(contactRoleId == pk.contactRoleId)) {

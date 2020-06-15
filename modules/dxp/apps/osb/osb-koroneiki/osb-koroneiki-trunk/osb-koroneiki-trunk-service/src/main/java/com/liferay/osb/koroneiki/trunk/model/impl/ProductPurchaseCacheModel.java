@@ -37,17 +37,17 @@ public class ProductPurchaseCacheModel
 	implements CacheModel<ProductPurchase>, Externalizable, MVCCModel {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ProductPurchaseCacheModel)) {
+		if (!(object instanceof ProductPurchaseCacheModel)) {
 			return false;
 		}
 
 		ProductPurchaseCacheModel productPurchaseCacheModel =
-			(ProductPurchaseCacheModel)obj;
+			(ProductPurchaseCacheModel)object;
 
 		if ((productPurchaseId ==
 				productPurchaseCacheModel.productPurchaseId) &&

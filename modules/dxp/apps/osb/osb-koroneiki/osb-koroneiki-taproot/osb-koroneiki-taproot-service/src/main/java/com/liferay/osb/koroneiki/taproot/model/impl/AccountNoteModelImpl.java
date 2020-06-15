@@ -852,16 +852,16 @@ public class AccountNoteModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof AccountNote)) {
+		if (!(object instanceof AccountNote)) {
 			return false;
 		}
 
-		AccountNote accountNote = (AccountNote)obj;
+		AccountNote accountNote = (AccountNote)object;
 
 		long primaryKey = accountNote.getPrimaryKey();
 

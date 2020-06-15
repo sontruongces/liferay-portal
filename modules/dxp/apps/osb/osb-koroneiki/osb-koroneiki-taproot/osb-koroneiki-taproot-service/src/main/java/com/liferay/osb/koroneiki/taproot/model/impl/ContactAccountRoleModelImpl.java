@@ -441,16 +441,16 @@ public class ContactAccountRoleModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ContactAccountRole)) {
+		if (!(object instanceof ContactAccountRole)) {
 			return false;
 		}
 
-		ContactAccountRole contactAccountRole = (ContactAccountRole)obj;
+		ContactAccountRole contactAccountRole = (ContactAccountRole)object;
 
 		ContactAccountRolePK primaryKey = contactAccountRole.getPrimaryKey();
 

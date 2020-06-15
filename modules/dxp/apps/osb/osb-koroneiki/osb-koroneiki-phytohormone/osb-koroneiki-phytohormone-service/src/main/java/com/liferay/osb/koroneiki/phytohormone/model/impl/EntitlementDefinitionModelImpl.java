@@ -773,17 +773,17 @@ public class EntitlementDefinitionModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof EntitlementDefinition)) {
+		if (!(object instanceof EntitlementDefinition)) {
 			return false;
 		}
 
 		EntitlementDefinition entitlementDefinition =
-			(EntitlementDefinition)obj;
+			(EntitlementDefinition)object;
 
 		long primaryKey = entitlementDefinition.getPrimaryKey();
 

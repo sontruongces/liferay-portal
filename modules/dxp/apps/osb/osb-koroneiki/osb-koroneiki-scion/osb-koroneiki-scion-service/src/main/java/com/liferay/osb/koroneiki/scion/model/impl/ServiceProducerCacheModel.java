@@ -35,17 +35,17 @@ public class ServiceProducerCacheModel
 	implements CacheModel<ServiceProducer>, Externalizable, MVCCModel {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ServiceProducerCacheModel)) {
+		if (!(object instanceof ServiceProducerCacheModel)) {
 			return false;
 		}
 
 		ServiceProducerCacheModel serviceProducerCacheModel =
-			(ServiceProducerCacheModel)obj;
+			(ServiceProducerCacheModel)object;
 
 		if ((serviceProducerId ==
 				serviceProducerCacheModel.serviceProducerId) &&

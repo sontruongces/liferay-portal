@@ -780,16 +780,16 @@ public class LayoutSetVersionModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof LayoutSetVersion)) {
+		if (!(object instanceof LayoutSetVersion)) {
 			return false;
 		}
 
-		LayoutSetVersion layoutSetVersion = (LayoutSetVersion)obj;
+		LayoutSetVersion layoutSetVersion = (LayoutSetVersion)object;
 
 		long primaryKey = layoutSetVersion.getPrimaryKey();
 

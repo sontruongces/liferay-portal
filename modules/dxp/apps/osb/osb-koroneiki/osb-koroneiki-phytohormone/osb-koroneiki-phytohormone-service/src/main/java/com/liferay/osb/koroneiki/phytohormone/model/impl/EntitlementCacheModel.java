@@ -37,17 +37,17 @@ public class EntitlementCacheModel
 	implements CacheModel<Entitlement>, Externalizable, MVCCModel {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof EntitlementCacheModel)) {
+		if (!(object instanceof EntitlementCacheModel)) {
 			return false;
 		}
 
 		EntitlementCacheModel entitlementCacheModel =
-			(EntitlementCacheModel)obj;
+			(EntitlementCacheModel)object;
 
 		if ((entitlementId == entitlementCacheModel.entitlementId) &&
 			(mvccVersion == entitlementCacheModel.mvccVersion)) {

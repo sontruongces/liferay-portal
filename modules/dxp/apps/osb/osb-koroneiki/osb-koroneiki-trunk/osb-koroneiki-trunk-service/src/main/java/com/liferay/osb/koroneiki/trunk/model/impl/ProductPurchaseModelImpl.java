@@ -740,16 +740,16 @@ public class ProductPurchaseModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ProductPurchase)) {
+		if (!(object instanceof ProductPurchase)) {
 			return false;
 		}
 
-		ProductPurchase productPurchase = (ProductPurchase)obj;
+		ProductPurchase productPurchase = (ProductPurchase)object;
 
 		long primaryKey = productPurchase.getPrimaryKey();
 

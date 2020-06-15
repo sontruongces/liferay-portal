@@ -584,16 +584,16 @@ public class ServiceProducerModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ServiceProducer)) {
+		if (!(object instanceof ServiceProducer)) {
 			return false;
 		}
 
-		ServiceProducer serviceProducer = (ServiceProducer)obj;
+		ServiceProducer serviceProducer = (ServiceProducer)object;
 
 		long primaryKey = serviceProducer.getPrimaryKey();
 

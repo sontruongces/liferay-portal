@@ -734,16 +734,16 @@ public class ProductConsumptionModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ProductConsumption)) {
+		if (!(object instanceof ProductConsumption)) {
 			return false;
 		}
 
-		ProductConsumption productConsumption = (ProductConsumption)obj;
+		ProductConsumption productConsumption = (ProductConsumption)object;
 
 		long primaryKey = productConsumption.getPrimaryKey();
 

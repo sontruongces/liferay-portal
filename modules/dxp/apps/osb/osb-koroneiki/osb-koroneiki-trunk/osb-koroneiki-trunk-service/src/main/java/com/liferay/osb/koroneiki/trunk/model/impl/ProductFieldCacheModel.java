@@ -35,17 +35,17 @@ public class ProductFieldCacheModel
 	implements CacheModel<ProductField>, Externalizable, MVCCModel {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ProductFieldCacheModel)) {
+		if (!(object instanceof ProductFieldCacheModel)) {
 			return false;
 		}
 
 		ProductFieldCacheModel productFieldCacheModel =
-			(ProductFieldCacheModel)obj;
+			(ProductFieldCacheModel)object;
 
 		if ((productFieldId == productFieldCacheModel.productFieldId) &&
 			(mvccVersion == productFieldCacheModel.mvccVersion)) {

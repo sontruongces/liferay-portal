@@ -644,16 +644,16 @@ public class TeamRoleModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof TeamRole)) {
+		if (!(object instanceof TeamRole)) {
 			return false;
 		}
 
-		TeamRole teamRole = (TeamRole)obj;
+		TeamRole teamRole = (TeamRole)object;
 
 		long primaryKey = teamRole.getPrimaryKey();
 
