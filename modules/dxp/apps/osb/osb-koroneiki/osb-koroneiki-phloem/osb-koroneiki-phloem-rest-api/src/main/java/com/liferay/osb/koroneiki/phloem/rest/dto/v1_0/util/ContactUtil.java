@@ -33,6 +33,7 @@ public class ContactUtil {
 				dateCreated = contact.getCreateDate();
 				dateModified = contact.getModifiedDate();
 				emailAddress = contact.getEmailAddress();
+				emailAddressVerified = contact.getEmailAddressVerified();
 				entitlements = TransformUtil.transformToArray(
 					contact.getEntitlements(), EntitlementUtil::toEntitlement,
 					Entitlement.class);
@@ -46,7 +47,6 @@ public class ContactUtil {
 				middleName = contact.getMiddleName();
 				oktaId = contact.getOktaId();
 				uuid = contact.getUuid();
-				emailAddressVerified = contact.getEmailAddressVerified();
 			}
 		};
 	}

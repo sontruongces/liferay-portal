@@ -54,9 +54,8 @@ long contactId = BeanParamUtil.getLong(koroneikiContact, request, "contactId");
 			<aui:input name="lastName" />
 
 			<aui:input name="emailAddress" />
-			
+
 			<aui:input checked="<%= (koroneikiContact != null) && koroneikiContact.isEmailAddressVerified() %>" name="emailAddressVerified" type="checkbox" />
-			
 		</aui:fieldset>
 	</aui:fieldset-group>
 
