@@ -14,17 +14,23 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.portlet.PortletURL;
@@ -67,10 +73,55 @@ public class ViewContactDisplayContext {
 		return currentURLObj.toString();
 	}
 
+	public SearchContainer getCustomerAccountsSearchContainer()
+		throws Exception {
+
+		SearchContainer searchContainer = new SearchContainer(
+			renderRequest, renderResponse.createRenderURL(),
+			Collections.emptyList(),
+			"this-user-is-not-assigned-to-any-customer-roles-yet");
+
+		List<Account> accounts = accountWebService.getContactAccounts(
+			contact.getUuid());
+
+		for (Account account : accounts) {
+			List<ContactRole> customerContactRoles =
+				contactRoleWebService.getAccountCustomerContactRoles(
+					account.getKey(), contact.getEmailAddress(), 1, 1000);
+
+			Contact curContact = new Contact();
+
+			curContact.setContactRoles(
+				customerContactRoles.toArray(new ContactRole[0]));
+
+			account.setCustomerContacts(new Contact[] {curContact});
+		}
+
+		searchContainer.setResults(
+			TransformUtil.transform(
+				accounts,
+				account -> contactDisplay.new AccountDisplay(account)));
+
+		return searchContainer;
+	}
+
+	public PortletURL getPortletURL() {
+		PortletURL portletURL = renderResponse.createRenderURL();
+
+		portletURL.setParameter("mvcRenderCommandName", "/users/view_contact");
+		portletURL.setParameter(
+			"tabs1", ParamUtil.getString(renderRequest, "tabs1"));
+		portletURL.setParameter(
+			"contactEmailAddress", contact.getEmailAddress());
+
+		return portletURL;
+	}
+
 	public void init(
 			RenderRequest renderRequest, RenderResponse renderResponse,
 			HttpServletRequest httpServletRequest,
 			AccountWebService accountWebService,
+			ContactRoleWebService contactRoleWebService,
 			ContactWebService contactWebService)
 		throws Exception {
 
@@ -78,6 +129,7 @@ public class ViewContactDisplayContext {
 		this.renderResponse = renderResponse;
 		this.httpServletRequest = httpServletRequest;
 		this.accountWebService = accountWebService;
+		this.contactRoleWebService = contactRoleWebService;
 		this.contactWebService = contactWebService;
 
 		doInit();
@@ -103,9 +155,11 @@ public class ViewContactDisplayContext {
 			renderRequest, renderResponse);
 	}
 
+	protected long accountsCount;
 	protected AccountWebService accountWebService;
 	protected Contact contact;
 	protected ContactDisplay contactDisplay;
+	protected ContactRoleWebService contactRoleWebService;
 	protected ContactWebService contactWebService;
 	protected PortletURL currentURLObj;
 	protected HttpServletRequest httpServletRequest;

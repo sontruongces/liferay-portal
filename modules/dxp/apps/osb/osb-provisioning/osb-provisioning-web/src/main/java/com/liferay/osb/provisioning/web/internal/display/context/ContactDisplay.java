@@ -14,6 +14,7 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
@@ -136,6 +137,63 @@ public class ContactDisplay {
 		else {
 			return "label-secondary";
 		}
+	}
+
+	public class AccountDisplay {
+
+		public AccountDisplay(Account account) {
+			_account = account;
+		}
+
+		public String getCode() {
+			return _account.getCode();
+		}
+
+		public List<String> getContactRoleNames() {
+			List<String> names = new ArrayList<>();
+
+			Contact[] contacts = _account.getCustomerContacts();
+
+			for (Contact contact : contacts) {
+				for (ContactRole contactRole : contact.getContactRoles()) {
+					names.add(contactRole.getName());
+				}
+			}
+
+			return names;
+		}
+
+		public String getName() {
+			return _account.getName();
+		}
+
+		public String getRegion() {
+			return _account.getRegionAsString();
+		}
+
+		public String getStatus() {
+			return _account.getStatusAsString();
+		}
+
+		public String getStatusStyle() {
+			Account.Status status = _account.getStatus();
+
+			if (status == Account.Status.APPROVED) {
+				return "label-success";
+			}
+			else if (status == Account.Status.CLOSED) {
+				return "label-secondary";
+			}
+			else if (status == Account.Status.INACTIVE) {
+				return "label-warning";
+			}
+			else {
+				return "label-danger";
+			}
+		}
+
+		private final Account _account;
+
 	}
 
 	private final long _accountsCount;

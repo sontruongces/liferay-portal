@@ -23,3 +23,14 @@ viewContactDisplayContext.addPortletBreadcrumbEntries();
 %>
 
 <liferay-util:include page="/users/view_contact_header.jsp" servletContext="<%= application %>" />
+
+<div class="contact" id="contact">
+	<div class="contact-content">
+		<liferay-ui:tabs
+			names="accounts"
+			portletURL="<%= viewContactDisplayContext.getPortletURL() %>"
+		/>
+
+		<liferay-util:include page="/users/view_contact_accounts.jsp" servletContext="<%= application %>" />
+	</div>
+</div>

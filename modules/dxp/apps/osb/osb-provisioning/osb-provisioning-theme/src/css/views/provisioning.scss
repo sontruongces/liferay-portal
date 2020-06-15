@@ -1,4 +1,5 @@
-.account {
+.account,
+.contact {
 	display: flex;
 
 	&.full-view {
@@ -15,7 +16,8 @@
 	}
 }
 
-.account-content {
+.account-content,
+.contact-content {
 	background-color: $light;
 	flex: 0 0 66.666667%;
 	max-width: 66.666667%;
@@ -27,13 +29,15 @@
 .team-header {
 	border-bottom: 1px solid $secondary-l3;
 
-	.account-code, .email-address {
+	.account-code,
+	.email-address {
 		&:after {
 			content: '\00B7';
 		}
 	}
 
-	.account-name, .contact-name {
+	.account-name,
+	.contact-name {
 		margin-bottom: 0;
 	}
 
@@ -133,6 +137,11 @@
 				}
 			}
 		}
+	}
+
+	.panel-title {
+		font-size: $h4-font-size;
+		padding: $spacing-sm;
 	}
 
 	.table-list {

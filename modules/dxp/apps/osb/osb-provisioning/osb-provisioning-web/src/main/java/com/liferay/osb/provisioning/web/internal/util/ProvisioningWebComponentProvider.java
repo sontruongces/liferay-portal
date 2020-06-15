@@ -266,7 +266,7 @@ public class ProvisioningWebComponentProvider {
 
 		viewContactDisplayContext.init(
 			renderRequest, renderResponse, httpServletRequest,
-			_accountWebService, _contactWebService);
+			_accountWebService, _contactRoleWebService, _contactWebService);
 
 		httpServletRequest.setAttribute(
 			clazz.getName(), viewContactDisplayContext);
