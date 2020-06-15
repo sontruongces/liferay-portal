@@ -14,7 +14,7 @@
 
 package com.liferay.osb.commerce.provisioning.internal.cloud.client;
 
-import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.UserAccount;
+import com.liferay.headless.osb.commerce.client.dto.v1_0.UserAccount;
 
 /**
  * @author Ivica Cardic
@@ -25,8 +25,5 @@ public interface UserAccountClient {
 
 	public UserAccount postUserAccount(
 		UserAccount userAccount, String virtualHostname);
-
-	public void updatePasswordManually(
-		String password, long userId, String virtualHostname);
 
 }

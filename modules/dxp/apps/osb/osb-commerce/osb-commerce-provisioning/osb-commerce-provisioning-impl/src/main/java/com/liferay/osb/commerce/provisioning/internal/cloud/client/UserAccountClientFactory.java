@@ -14,11 +14,7 @@
 
 package com.liferay.osb.commerce.provisioning.internal.cloud.client;
 
-import com.liferay.portal.kernel.service.CompanyLocalService;
-import com.liferay.portal.kernel.service.UserLocalService;
-
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Ivica Cardic
@@ -27,14 +23,7 @@ import org.osgi.service.component.annotations.Reference;
 public class UserAccountClientFactory {
 
 	public UserAccountClient getUserAccountClient() {
-		return new UserAccountClientMockImpl(
-			_companyLocalService, _userLocalService);
+		return new UserAccountClientMockImpl();
 	}
-
-	@Reference
-	private CompanyLocalService _companyLocalService;
-
-	@Reference
-	private UserLocalService _userLocalService;
 
 }

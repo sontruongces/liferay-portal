@@ -14,28 +14,16 @@
 
 package com.liferay.osb.commerce.provisioning.internal.cloud.client;
 
-import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.UserAccount;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.Company;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.CompanyLocalService;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.util.LocaleUtil;
-
-import java.util.Date;
+import com.liferay.headless.osb.commerce.client.dto.v1_0.UserAccount;
+import com.liferay.headless.osb.commerce.client.resource.v1_0.UserAccountResource;
+import com.liferay.portal.util.PropsValues;
 
 /**
  * @author Ivica Cardic
  */
 public class UserAccountClientMockImpl implements UserAccountClient {
 
-	public UserAccountClientMockImpl(
-		CompanyLocalService companyLocalService,
-		UserLocalService userLocalService) {
-
-		_companyLocalService = companyLocalService;
-		_userLocalService = userLocalService;
+	public UserAccountClientMockImpl() {
 	}
 
 	@Override
@@ -46,41 +34,24 @@ public class UserAccountClientMockImpl implements UserAccountClient {
 	public UserAccount postUserAccount(
 		UserAccount userAccount, String virtualHostname) {
 
+		UserAccountResource.Builder builder = UserAccountResource.builder();
+
+		UserAccountResource userAccountResource = builder.endpoint(
+			virtualHostname, 8080, "http"
+		).authentication(
+			PropsValues.DEFAULT_ADMIN_EMAIL_ADDRESS_PREFIX + "@" +
+				virtualHostname,
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).build();
+
 		try {
-			Company company = _companyLocalService.getCompanyByVirtualHost(
-				virtualHostname);
-
-			User user = _userLocalService.addUser(
-				0, company.getCompanyId(), true, null, null, true, null,
-				userAccount.getEmailAddress(), 0, null, LocaleUtil.getDefault(),
-				userAccount.getGivenName(), userAccount.getAdditionalName(),
-				userAccount.getFamilyName(), 0, 0, true, 1, 1, 1970,
-				userAccount.getJobTitle(), null, null, null, null, false,
-				new ServiceContext());
-
-			userAccount.setId(user.getUserId());
+			userAccount = userAccountResource.postUserAccount(userAccount);
 		}
-		catch (PortalException portalException) {
-			throw new RuntimeException(portalException);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 
 		return userAccount;
 	}
-
-	@Override
-	public void updatePasswordManually(
-		String password, long userId, String virtualHostname) {
-
-		try {
-			_userLocalService.updatePasswordManually(
-				userId, password, true, false, new Date());
-		}
-		catch (PortalException portalException) {
-			throw new RuntimeException(portalException);
-		}
-	}
-
-	private final CompanyLocalService _companyLocalService;
-	private final UserLocalService _userLocalService;
 
 }
