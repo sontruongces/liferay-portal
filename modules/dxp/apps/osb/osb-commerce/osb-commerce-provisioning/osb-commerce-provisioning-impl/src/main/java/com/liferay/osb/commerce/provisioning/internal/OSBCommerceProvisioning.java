@@ -22,23 +22,18 @@ import com.liferay.commerce.notification.util.CommerceNotificationHelper;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
+import com.liferay.headless.osb.commerce.client.dto.v1_0.UserAccount;
 import com.liferay.osb.commerce.provisioning.OSBCommercePortalInstanceStatus;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommerceNotificationConstants;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommerceProvisioningConstants;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudClient;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudClientClientFactory;
-import com.liferay.osb.commerce.provisioning.internal.cloud.client.RoleClient;
-import com.liferay.osb.commerce.provisioning.internal.cloud.client.RoleClientFactory;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserAccountClient;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserAccountClientFactory;
-import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserGroupRoleClient;
-import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserGroupRoleClientFactory;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.PortalInstance;
-import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.UserAccount;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -103,20 +98,8 @@ public class OSBCommerceProvisioning {
 
 		User user = _userLocalService.getUser(commerceOrder.getUserId());
 
-		UserAccount userAccount = _userAccountClient.postUserAccount(
+		_userAccountClient.postUserAccount(
 			_toUserAccount(user), portalInstance.getVirtualHostname());
-
-		_userAccountClient.updatePasswordManually(
-			user.getPassword(), userAccount.getId(),
-			portalInstance.getVirtualHostname());
-
-		_userGroupRoleClient.postUserGroupRole(
-			"/osb-commerce", RoleConstants.SITE_OWNER, userAccount.getId(),
-			portalInstance.getVirtualHostname());
-
-		_roleClient.postUserRole(
-			"OSB Commerce Administrator", userAccount.getId(),
-			portalInstance.getVirtualHostname());
 
 		_updateSubscriptionTypeSettingsProperties(
 			commerceSubscriptionEntry,
@@ -138,18 +121,13 @@ public class OSBCommerceProvisioning {
 	@Activate
 	protected void activate() {
 		_dxpCloudClient = _dxpCloudClientClientFactory.getDXPCloudClient();
-		_roleClient = _roleClientFactory.getRoleClient();
 		_userAccountClient = _userAccountClientFactory.getUserAccountClient();
-		_userGroupRoleClient =
-			_userGroupRoleClientFactory.getUserGroupRoleClient();
 	}
 
 	@Deactivate
 	protected void deactivate() {
 		_dxpCloudClient.destroy();
-		_roleClient.destroy();
 		_userAccountClient.destroy();
-		_userGroupRoleClient.destroy();
 	}
 
 	private long _getCommerceChannelGroupId(long companyId)
@@ -169,16 +147,19 @@ public class OSBCommerceProvisioning {
 	private UserAccount _toUserAccount(User user) throws Exception {
 		return new UserAccount() {
 			{
-				additionalName = user.getMiddleName();
-				alternateName = user.getScreenName();
 				birthDate = user.getBirthday();
 				dateCreated = user.getCreateDate();
 				dateModified = user.getModifiedDate();
 				emailAddress = user.getEmailAddress();
-				familyName = user.getLastName();
-				givenName = user.getFirstName();
+				firstName = user.getFirstName();
 				jobTitle = user.getJobTitle();
+				languageId = user.getLanguageId();
+				lastName = user.getLastName();
+				male = user.isMale();
+				middleName = user.getMiddleName();
 				name = user.getFullName();
+				password = user.getPassword();
+				screenName = user.getScreenName();
 			}
 		};
 	}
@@ -222,20 +203,10 @@ public class OSBCommerceProvisioning {
 	@Reference
 	private GroupLocalService _groupLocalService;
 
-	private RoleClient _roleClient;
-
-	@Reference
-	private RoleClientFactory _roleClientFactory;
-
 	private UserAccountClient _userAccountClient;
 
 	@Reference
 	private UserAccountClientFactory _userAccountClientFactory;
-
-	private UserGroupRoleClient _userGroupRoleClient;
-
-	@Reference
-	private UserGroupRoleClientFactory _userGroupRoleClientFactory;
 
 	@Reference
 	private UserLocalService _userLocalService;
