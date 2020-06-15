@@ -126,6 +126,16 @@ public class ContactSerDes {
 			sb.append("\"");
 		}
 
+		if (contact.getEmailAddressVerified() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"emailAddressVerified\": ");
+
+			sb.append(contact.getEmailAddressVerified());
+		}
+
 		if (contact.getEntitlements() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -307,6 +317,15 @@ public class ContactSerDes {
 			map.put("emailAddress", String.valueOf(contact.getEmailAddress()));
 		}
 
+		if (contact.getEmailAddressVerified() == null) {
+			map.put("emailAddressVerified", null);
+		}
+		else {
+			map.put(
+				"emailAddressVerified",
+				String.valueOf(contact.getEmailAddressVerified()));
+		}
+
 		if (contact.getEntitlements() == null) {
 			map.put("entitlements", null);
 		}
@@ -418,6 +437,14 @@ public class ContactSerDes {
 			else if (Objects.equals(jsonParserFieldName, "emailAddress")) {
 				if (jsonParserFieldValue != null) {
 					contact.setEmailAddress((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "emailAddressVerified")) {
+
+				if (jsonParserFieldValue != null) {
+					contact.setEmailAddressVerified(
+						(Boolean)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "entitlements")) {
