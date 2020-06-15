@@ -65,9 +65,16 @@ class JournalPortlet extends PortletBase {
 			);
 		}
 
+		this.defaultLanguageId = themeDisplay.getDefaultLanguageId();
+
 		this._localeChangedHandler = Liferay.after(
 			'inputLocalized:localeChanged',
 			this._onLocaleChange.bind(this)
+		);
+
+		this._localeChangedHandler = Liferay.after(
+			['inputLocalized:defaultLocaleChanged', 'ddm:default-locale-sync'],
+			this._onDeafultLocaleChange.bind(this)
 		);
 
 		this._setupSidebar();
@@ -86,6 +93,7 @@ class JournalPortlet extends PortletBase {
 	detached() {
 		this._eventHandler.removeAllListeners();
 		this._localeChangedHandler.detach();
+		this._onDeafultLocaleChange.detach();
 	}
 
 	/**
@@ -111,11 +119,24 @@ class JournalPortlet extends PortletBase {
 	}
 
 	/**
+	 * Updates defaultLocale
+	 * @param {Event} event
+	 */
+	_onDeafultLocaleChange(event) {
+		if (event.item) {
+			this.defaultLanguageId = event.item.getAttribute('data-value');
+		}
+		else if (event.defaultLanguageId) {
+			this.defaultLanguageId = event.defaultLanguageId;
+		}
+	}
+
+	/**
 	 * Updates description and title values on locale changed
 	 * @param {Event} event
 	 */
 	_onLocaleChange(event) {
-		const defaultLanguageId = themeDisplay.getDefaultLanguageId();
+		const defaultLanguageId = this.defaultLanguageId;
 		const selectedLanguageId = event.item.getAttribute('data-value');
 
 		if (selectedLanguageId) {
