@@ -58,7 +58,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 	public Contact addContact(
 			String uuid, long userId, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
-			String languageId)
+			String languageId, boolean emailAddressVerified)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -79,6 +79,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		contact.setLastName(lastName);
 		contact.setEmailAddress(emailAddress);
 		contact.setLanguageId(languageId);
+		contact.setEmailAddressVerified(emailAddressVerified);
 
 		contact = contactPersistence.update(contact);
 
@@ -259,7 +260,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 	public Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
-			String languageId)
+			String languageId, boolean emailAddressVerified)
 		throws PortalException {
 
 		validate(contactId, oktaId, emailAddress);
@@ -273,6 +274,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		contact.setLastName(lastName);
 		contact.setEmailAddress(emailAddress);
 		contact.setLanguageId(languageId);
+		contact.setEmailAddressVerified(emailAddressVerified);
 
 		return contactPersistence.update(contact);
 	}

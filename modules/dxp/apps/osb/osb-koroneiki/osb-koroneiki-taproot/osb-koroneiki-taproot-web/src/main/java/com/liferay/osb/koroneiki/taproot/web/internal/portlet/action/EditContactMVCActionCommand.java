@@ -93,19 +93,19 @@ public class EditContactMVCActionCommand extends BaseMVCActionCommand {
 		String firstName = ParamUtil.getString(actionRequest, "firstName");
 		String middleName = ParamUtil.getString(actionRequest, "middleName");
 		String lastName = ParamUtil.getString(actionRequest, "lastName");
-		String emailAddress = ParamUtil.getString(
-			actionRequest, "emailAddress");
+		String emailAddress = ParamUtil.getString(actionRequest, "emailAddress");
 		String languageId = ParamUtil.getString(actionRequest, "languageId");
-
+		boolean emailAddressVerified = ParamUtil.getBoolean(actionRequest, "emailAddressVerified");
+		
 		if (contactId <= 0) {
 			_contactService.addContact(
 				uuid, oktaId, firstName, middleName, lastName, emailAddress,
-				languageId);
+				languageId, emailAddressVerified);
 		}
 		else {
 			_contactService.updateContact(
 				contactId, uuid, oktaId, firstName, middleName, lastName,
-				emailAddress, languageId);
+				emailAddress, languageId, emailAddressVerified);
 		}
 	}
 

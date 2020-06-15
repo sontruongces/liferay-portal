@@ -47,7 +47,8 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 	public Contact addContact(
 			String uuid, String oktaId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId)
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws PortalException {
 
 		_contactPermission.check(
@@ -55,7 +56,7 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 		return contactLocalService.addContact(
 			uuid, getUserId(), oktaId, firstName, middleName, lastName,
-			emailAddress, languageId);
+			emailAddress, languageId, emailAddressVerified);
 	}
 
 	public Contact deleteContact(long contactId) throws PortalException {
@@ -171,7 +172,7 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 	public Contact updateContact(
 			long contactId, String uuid, String oktaId, String firstName,
 			String middleName, String lastName, String emailAddress,
-			String languageId)
+			String languageId, boolean emailAddressVerified)
 		throws PortalException {
 
 		_contactPermission.check(
@@ -179,7 +180,7 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 		return contactLocalService.updateContact(
 			contactId, uuid, oktaId, firstName, middleName, lastName,
-			emailAddress, languageId);
+			emailAddress, languageId, emailAddressVerified);
 	}
 
 	@Reference
