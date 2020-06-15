@@ -61,7 +61,7 @@ public class DXPCloudClientMockImpl implements DXPCloudClient {
 	}
 
 	private String _generateWebId() {
-		return "commerce" + _companyLocalService.getCompaniesCount() + 1;
+		return "commerce" + (_companyLocalService.getCompaniesCount() + 1);
 	}
 
 	private PortalInstance _toPortalInstance(String webId)
