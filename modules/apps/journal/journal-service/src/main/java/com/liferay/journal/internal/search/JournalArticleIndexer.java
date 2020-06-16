@@ -458,26 +458,6 @@ public class JournalArticleIndexer extends BaseIndexer<JournalArticle> {
 
 		Localization localization = getLocalization();
 
-		String[] titleAvailableLanguageIds =
-			localization.getAvailableLanguageIds(
-				journalArticle.getTitleMapAsXML());
-
-		for (String titleAvailableLanguageId : titleAvailableLanguageIds) {
-			String description = _html.stripHtml(
-				journalArticle.getDescription(titleAvailableLanguageId));
-
-			String title = journalArticle.getTitle(titleAvailableLanguageId);
-
-			document.addText(
-				localization.getLocalizedName(
-					Field.DESCRIPTION, titleAvailableLanguageId),
-				description);
-			document.addText(
-				localization.getLocalizedName(
-					Field.TITLE, titleAvailableLanguageId),
-				title);
-		}
-
 		String[] contentAvailableLanguageIds =
 			localization.getAvailableLanguageIds(journalArticle.getDocument());
 
@@ -489,6 +469,35 @@ public class JournalArticleIndexer extends BaseIndexer<JournalArticle> {
 				localization.getLocalizedName(
 					Field.CONTENT, contentAvailableLanguageId),
 				content);
+		}
+
+		String[] descriptionAvailableLanguageIds =
+			localization.getAvailableLanguageIds(
+				journalArticle.getDescriptionMapAsXML());
+
+		for (String descriptionAvailableLanguageId :
+				descriptionAvailableLanguageIds) {
+
+			String description = _html.stripHtml(
+				journalArticle.getDescription(descriptionAvailableLanguageId));
+
+			document.addText(
+				localization.getLocalizedName(
+					Field.DESCRIPTION, descriptionAvailableLanguageId),
+				description);
+		}
+
+		String[] titleAvailableLanguageIds =
+			localization.getAvailableLanguageIds(
+				journalArticle.getTitleMapAsXML());
+
+		for (String titleAvailableLanguageId : titleAvailableLanguageIds) {
+			String title = journalArticle.getTitle(titleAvailableLanguageId);
+
+			document.addText(
+				localization.getLocalizedName(
+					Field.TITLE, titleAvailableLanguageId),
+				title);
 		}
 
 		document.addKeyword(Field.FOLDER_ID, journalArticle.getFolderId());
