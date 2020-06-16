@@ -456,6 +456,14 @@ public class JournalArticleIndexer extends BaseIndexer<JournalArticle> {
 
 		document.addUID(CLASS_NAME, classPK);
 
+		String articleId = journalArticle.getArticleId();
+
+		if (journalArticle.isInTrash()) {
+			articleId = _trashHelper.getOriginalTitle(articleId);
+		}
+
+		document.addKeywordSortable(Field.ARTICLE_ID, articleId);
+
 		Localization localization = getLocalization();
 
 		String[] contentAvailableLanguageIds =
@@ -487,6 +495,12 @@ public class JournalArticleIndexer extends BaseIndexer<JournalArticle> {
 				description);
 		}
 
+		document.addDate(Field.DISPLAY_DATE, journalArticle.getDisplayDate());
+		document.addDate(
+			Field.EXPIRATION_DATE, journalArticle.getExpirationDate());
+		document.addKeyword(Field.FOLDER_ID, journalArticle.getFolderId());
+		document.addKeyword(Field.LAYOUT_UUID, journalArticle.getLayoutUuid());
+
 		String[] titleAvailableLanguageIds =
 			localization.getAvailableLanguageIds(
 				journalArticle.getTitleMapAsXML());
@@ -500,20 +514,6 @@ public class JournalArticleIndexer extends BaseIndexer<JournalArticle> {
 				title);
 		}
 
-		document.addKeyword(Field.FOLDER_ID, journalArticle.getFolderId());
-
-		String articleId = journalArticle.getArticleId();
-
-		if (journalArticle.isInTrash()) {
-			articleId = _trashHelper.getOriginalTitle(articleId);
-		}
-
-		document.addKeywordSortable(Field.ARTICLE_ID, articleId);
-
-		document.addDate(Field.DISPLAY_DATE, journalArticle.getDisplayDate());
-		document.addDate(
-			Field.EXPIRATION_DATE, journalArticle.getExpirationDate());
-		document.addKeyword(Field.LAYOUT_UUID, journalArticle.getLayoutUuid());
 		document.addKeyword(
 			Field.TREE_PATH,
 			StringUtil.split(journalArticle.getTreePath(), CharPool.SLASH));
