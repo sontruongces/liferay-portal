@@ -151,9 +151,11 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 				}
 			}
 			else {
-				_externalLinkWebService.addProductExternalLink(
-					user.getFullName(), StringPool.BLANK, productKey,
-					externalLink);
+				if (!externalLink.equals(new ExternalLink())) {
+					_externalLinkWebService.addProductExternalLink(
+						user.getFullName(), StringPool.BLANK, productKey,
+						externalLink);
+				}
 			}
 
 			_productWebService.updateProduct(
