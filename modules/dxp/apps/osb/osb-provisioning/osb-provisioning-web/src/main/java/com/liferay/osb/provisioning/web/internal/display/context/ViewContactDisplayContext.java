@@ -18,14 +18,17 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
+import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.ArrayList;
@@ -69,6 +72,22 @@ public class ViewContactDisplayContext {
 		return contactDisplay;
 	}
 
+	public List<String> getContactRoleNames(String accountKey)
+		throws Exception {
+
+		List<String> names = new ArrayList<>();
+
+		List<ContactRole> contactRoles =
+			contactRoleWebService.getAccountCustomerContactRoles(
+				accountKey, contact.getEmailAddress(), 1, 1000);
+
+		for (ContactRole contactRole : contactRoles) {
+			names.add(contactRole.getName());
+		}
+
+		return names;
+	}
+
 	public String getCurrentURL() {
 		return currentURLObj.toString();
 	}
@@ -81,26 +100,20 @@ public class ViewContactDisplayContext {
 			Collections.emptyList(),
 			"this-user-is-not-assigned-to-any-customer-roles-yet");
 
-		List<Account> accounts = accountWebService.getContactAccounts(
-			contact.getUuid());
+		StringBundler sb = new StringBundler(3);
 
-		for (Account account : accounts) {
-			List<ContactRole> customerContactRoles =
-				contactRoleWebService.getAccountCustomerContactRoles(
-					account.getKey(), contact.getEmailAddress(), 1, 1000);
+		sb.append("customerContactUuids/any(s:s eq '");
+		sb.append(contact.getUuid());
+		sb.append("')");
 
-			Contact curContact = new Contact();
-
-			curContact.setContactRoles(
-				customerContactRoles.toArray(new ContactRole[0]));
-
-			account.setCustomerContacts(new Contact[] {curContact});
-		}
+		List<Account> accounts = accountWebService.search(
+			StringPool.BLANK, sb.toString(), 1, 1000, "name");
 
 		searchContainer.setResults(
 			TransformUtil.transform(
 				accounts,
-				account -> contactDisplay.new AccountDisplay(account)));
+				account -> new AccountDisplay(
+					renderRequest, renderResponse, accountReader, account)));
 
 		return searchContainer;
 	}
@@ -119,7 +132,7 @@ public class ViewContactDisplayContext {
 
 	public void init(
 			RenderRequest renderRequest, RenderResponse renderResponse,
-			HttpServletRequest httpServletRequest,
+			HttpServletRequest httpServletRequest, AccountReader accountReader,
 			AccountWebService accountWebService,
 			ContactRoleWebService contactRoleWebService,
 			ContactWebService contactWebService)
@@ -128,6 +141,7 @@ public class ViewContactDisplayContext {
 		this.renderRequest = renderRequest;
 		this.renderResponse = renderResponse;
 		this.httpServletRequest = httpServletRequest;
+		this.accountReader = accountReader;
 		this.accountWebService = accountWebService;
 		this.contactRoleWebService = contactRoleWebService;
 		this.contactWebService = contactWebService;
@@ -155,6 +169,7 @@ public class ViewContactDisplayContext {
 			renderRequest, renderResponse);
 	}
 
+	protected AccountReader accountReader;
 	protected long accountsCount;
 	protected AccountWebService accountWebService;
 	protected Contact contact;

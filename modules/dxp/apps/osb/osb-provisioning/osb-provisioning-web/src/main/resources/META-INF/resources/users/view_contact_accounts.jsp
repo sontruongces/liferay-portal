@@ -30,8 +30,7 @@ ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentPr
 		searchContainer="<%= viewContactDisplayContext.getCustomerAccountsSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
-			className="com.liferay.osb.provisioning.web.internal.display.context.ContactDisplay.AccountDisplay"
-			escapedModel="<%= true %>"
+			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
 			modelVar="accountDisplay"
 		>
 			<liferay-ui:search-container-column-text
@@ -53,7 +52,7 @@ ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentPr
 			<liferay-ui:search-container-column-text
 				name="roles"
 			>
-				<%= StringUtil.merge(accountDisplay.getContactRoleNames(), "<br />") %>
+				<%= StringUtil.merge(viewContactDisplayContext.getContactRoleNames(accountDisplay.getKey()), "<br />") %>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text

@@ -107,20 +107,6 @@ public class AccountWebServiceImpl
 		return Collections.emptyList();
 	}
 
-	public List<Account> getContactAccounts(String contactUuid)
-		throws Exception {
-
-		Page<Account> accountsPage =
-			_accountResource.getContactByUuidContactUuidAccountsPage(
-				contactUuid, Pagination.of(1, 1000));
-
-		if ((accountsPage != null) && (accountsPage.getItems() != null)) {
-			return new ArrayList<>(accountsPage.getItems());
-		}
-
-		return Collections.emptyList();
-	}
-
 	public long getContactAccountsCount(String contactUuid) throws Exception {
 		Page<Account> accountsPage =
 			_accountResource.getContactByUuidContactUuidAccountsPage(
