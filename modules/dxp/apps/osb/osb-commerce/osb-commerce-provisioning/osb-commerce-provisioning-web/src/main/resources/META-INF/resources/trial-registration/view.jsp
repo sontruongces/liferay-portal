@@ -49,6 +49,8 @@ List<CommerceCountry> commerceCountryList = trialRegistrationDisplayContext
 
 						<aui:input class="form-field" id="workEmail" label='<%= LanguageUtil.get(request, "work-email") %>' name="workEmail" placeholder='<%= LanguageUtil.get(request, "your-work-email") %>' required="<%= true %>" type="email" />
 
+						<aui:input class="form-field" id="password" label='<%= LanguageUtil.get(request, "password") %>' name="password" placeholder='<%= LanguageUtil.get(request, "password") %>' required="<%= true %>" type="password" />
+
 						<aui:input class="form-field" id="jobTitle" label='<%= LanguageUtil.get(request, "job-title") %>' name="jobTitle" placeholder='<%= LanguageUtil.get(request, "job-title") %>' required="<%= true %>" type="text" />
 
 						<aui:input class="form-field" id="companyName" label='<%= LanguageUtil.get(request, "company") %>' name="companyName" placeholder='<%= LanguageUtil.get(request, "company") %>' required="<%= true %>" type="text" />
