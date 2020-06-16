@@ -292,7 +292,8 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	private void _sendRedirect(
-			ActionResponse actionResponse, long commerceOrderItemId, String name)
+			ActionResponse actionResponse, long commerceOrderItemId,
+			String name)
 		throws IOException {
 
 		String userFirstName = name.split(" ")[0];
@@ -304,8 +305,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 			"mvcRenderCommandName", "initializePortalInstance");
 		renderURL.setParameter(
 			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
-		renderURL.setParameter(
-			"userFirstName", userFirstName);
+		renderURL.setParameter("userFirstName", userFirstName);
 
 		actionResponse.sendRedirect(renderURL.toString());
 	}

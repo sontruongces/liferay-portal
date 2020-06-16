@@ -32,9 +32,11 @@ long commerceOrderItemId = ParamUtil.getLong(request, "commerceOrderItemId");
 			<div class="punch-line">
 				<h1><%= LanguageUtil.get(request, "welcome-to-your-demo") %></h1>
 			</div>
+
 			<div class="instance-status">
 				<p><%= LanguageUtil.get(request, "welcome-message") %></p>
-				<p><%= LanguageUtil.get(request, "trial-period-expires-in-days")%></p>
+				<p><%= LanguageUtil.get(request, "trial-period-expires-in-days") %></p>
+
 				<a class="btn btn-primary" href="<%= portalInstanceURL %>" role="button" target="_blank">
 					<%= LanguageUtil.get(request, "start-your-demo") %>
 				</a>

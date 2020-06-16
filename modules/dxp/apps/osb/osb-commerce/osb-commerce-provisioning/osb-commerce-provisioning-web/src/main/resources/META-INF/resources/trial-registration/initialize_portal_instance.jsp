@@ -27,10 +27,13 @@ String pathThemeImages = themeDisplay.getPathThemeImages();
 		<div class="col-md-6 col-xs-12">
 			<div class="punch-line">
 				<h1><%= LanguageUtil.get(request, "hello") %> <%= userFirstName %></h1>
+
 				<p><%= LanguageUtil.get(request, "loading-instance") %></p>
 			</div>
+
 			<div class="instance-status">
-				<p><%= LanguageUtil.get(request, "wait-time")%></p>
+				<p><%= LanguageUtil.get(request, "wait-time") %></p>
+
 				<ul>
 					<li>
 						<span>
