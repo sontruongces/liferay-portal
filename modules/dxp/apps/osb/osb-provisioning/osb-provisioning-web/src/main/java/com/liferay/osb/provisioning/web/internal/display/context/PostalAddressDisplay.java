@@ -14,6 +14,7 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -36,7 +37,7 @@ public class PostalAddressDisplay {
 
 	public PostalAddressDisplay(
 		PortletRequest portletRequest, PortletResponse portletResponse,
-		PostalAddress postalAddress) {
+		PostalAddress postalAddress, Account account) {
 
 		_portletRequest = portletRequest;
 		_portletResponse = portletResponse;
@@ -45,6 +46,7 @@ public class PostalAddressDisplay {
 		_httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
 		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
 			portletResponse);
+		_account = account;
 	}
 
 	public String getAddressCountry() {
@@ -89,6 +91,11 @@ public class PostalAddressDisplay {
 		deletePostalAddressURL.setParameter(
 			"postalAddressId", String.valueOf(_postalAddress.getId()));
 
+		PortletURL portletURL = _portletURLBuilder(
+			"/accounts/view_account", "details");
+
+		deletePostalAddressURL.setParameter("redirect", portletURL.toString());
+
 		return deletePostalAddressURL.toString();
 	}
 
@@ -100,6 +107,11 @@ public class PostalAddressDisplay {
 			ActionRequest.ACTION_NAME, "/accounts/edit_postal_address");
 		editPostalAddressURL.setParameter(
 			"postalAddressId", String.valueOf(_postalAddress.getId()));
+
+		PortletURL portletURL = _portletURLBuilder(
+			"/accounts/view_account", "details");
+
+		editPostalAddressURL.setParameter("redirect", portletURL.toString());
 
 		return editPostalAddressURL.toString();
 	}
@@ -160,6 +172,19 @@ public class PostalAddressDisplay {
 		return StringPool.DASH;
 	}
 
+	private PortletURL _portletURLBuilder(
+		String mvcRenderCommandName, String tab) {
+
+		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter("mvcRenderCommandName", mvcRenderCommandName);
+		portletURL.setParameter("accountKey", _account.getKey());
+		portletURL.setParameter("tabs1", tab);
+
+		return portletURL;
+	}
+
+	private final Account _account;
 	private final HttpServletRequest _httpServletRequest;
 	private final LiferayPortletResponse _liferayPortletResponse;
 	private final PortletRequest _portletRequest;

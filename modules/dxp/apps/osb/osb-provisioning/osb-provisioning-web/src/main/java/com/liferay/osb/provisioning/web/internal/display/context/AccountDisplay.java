@@ -81,12 +81,8 @@ public class AccountDisplay {
 		addPostalAddressURL.setParameter(
 			"mvcRenderCommandName", "/accounts/add_postal_address");
 
-		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
-
-		portletURL.setParameter(
-			"mvcRenderCommandName", "/accounts/view_account");
-		portletURL.setParameter("accountKey", _account.getKey());
-		portletURL.setParameter("tabs1", "details");
+		PortletURL portletURL = _portletURLBuilder(
+			"/accounts/view_account", "details");
 
 		addPostalAddressURL.setParameter("redirect", portletURL.toString());
 
@@ -142,6 +138,11 @@ public class AccountDisplay {
 			ActionRequest.ACTION_NAME, " /accounts/edit_account");
 		editAccountURL.setParameter("accountKey", _account.getKey());
 
+		PortletURL portletURL = _portletURLBuilder(
+			"/accounts/view_account", "details");
+
+		editAccountURL.setParameter("redirect", portletURL.toString());
+
 		return editAccountURL.toString();
 	}
 
@@ -189,7 +190,7 @@ public class AccountDisplay {
 		return TransformUtil.transformToList(
 			_account.getPostalAddresses(),
 			postalAddress -> new PostalAddressDisplay(
-				_portletRequest, _portletResponse, postalAddress));
+				_portletRequest, _portletResponse, postalAddress, _account));
 	}
 
 	public String getPrimaryCountry() {
@@ -331,6 +332,11 @@ public class AccountDisplay {
 			ActionRequest.ACTION_NAME, "/edit_external_link");
 		addExternalLinkURL.setParameter("accountKey", _account.getKey());
 
+		PortletURL portletURL = _portletURLBuilder(
+			"/accounts/view_account", "details");
+
+		addExternalLinkURL.setParameter("redirect", portletURL.toString());
+
 		return addExternalLinkURL.toString();
 	}
 
@@ -341,6 +347,11 @@ public class AccountDisplay {
 		editExternalLinkURL.setParameter(
 			ActionRequest.ACTION_NAME, "/edit_external_link");
 		editExternalLinkURL.setParameter("externalLinkKey", externalLinkKey);
+
+		PortletURL portletURL = _portletURLBuilder(
+			"/accounts/view_account", "details");
+
+		editExternalLinkURL.setParameter("redirect", portletURL.toString());
 
 		return editExternalLinkURL.toString();
 	}
@@ -411,6 +422,18 @@ public class AccountDisplay {
 		}
 
 		return false;
+	}
+
+	private PortletURL _portletURLBuilder(
+		String mvcRenderCommandName, String tab) {
+
+		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter("mvcRenderCommandName", mvcRenderCommandName);
+		portletURL.setParameter("accountKey", _account.getKey());
+		portletURL.setParameter("tabs1", tab);
+
+		return portletURL;
 	}
 
 	private final Account _account;
