@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<portlet-preferences>
+<portlet-preferences portlet-id="com_liferay_osb_commerce_provisioning_web_portlet_TrialRegistrationPortlet">
 	<preference>
 		<name>portletSetupPortletDecoratorId</name>
 		<value>barebone</value>

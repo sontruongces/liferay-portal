@@ -81,6 +81,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Ivica Cardic
+ * @author Gianmarco Brunialti Masera
  */
 @Component(
 	immediate = true,
@@ -129,58 +130,15 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			LayoutPageTemplateCollection layoutPageTemplateCollection =
 				_addLayoutPageTemplateCollection(serviceContext);
 
-			List<FragmentEntry> homeFragmentEntries = _addFragmentEntries(
+			List<FragmentEntry> startTrialEntries = _addFragmentEntries(
 				fragmentCollection.getFragmentCollectionId(),
-				_PATH + "/fragments/home", serviceContext);
-
-			List<FragmentEntry> downloadFragmentEntries = _addFragmentEntries(
-				fragmentCollection.getFragmentCollectionId(),
-				_PATH + "/fragments/download", serviceContext);
-
-			homeFragmentEntries.addAll(downloadFragmentEntries);
-
-			List<FragmentEntry> featuresFragmentEntries = _addFragmentEntries(
-				fragmentCollection.getFragmentCollectionId(),
-				_PATH + "/fragments/features", serviceContext);
-
-			homeFragmentEntries.addAll(featuresFragmentEntries);
-
-			List<FragmentEntry> headerFragmentEntries = _addFragmentEntries(
-				fragmentCollection.getFragmentCollectionId(),
-				_PATH + "/fragments/common/header", serviceContext);
-
-			FragmentEntry headerFullscreenFragmentEntry = _getFragmentEntry(
-				headerFragmentEntries, "Header");
-
-			downloadFragmentEntries.add(0, headerFullscreenFragmentEntry);
-			featuresFragmentEntries.add(0, headerFullscreenFragmentEntry);
-			homeFragmentEntries.add(0, headerFullscreenFragmentEntry);
-
-			List<FragmentEntry> footerFragmentEntries = _addFragmentEntries(
-				fragmentCollection.getFragmentCollectionId(),
-				_PATH + "/fragments/common/footer", serviceContext);
-
-			downloadFragmentEntries.addAll(footerFragmentEntries);
-			featuresFragmentEntries.addAll(footerFragmentEntries);
-			homeFragmentEntries.addAll(footerFragmentEntries);
+				_PATH + "/fragments/layouts/start_trial", serviceContext);
 
 			_addLayout(
 				layoutPageTemplateCollection.
 					getLayoutPageTemplateCollectionId(),
-				"Home", homeFragmentEntries, _PATH + "/fragments/home",
-				serviceContext);
-
-			_addLayout(
-				layoutPageTemplateCollection.
-					getLayoutPageTemplateCollectionId(),
-				"Features", featuresFragmentEntries,
-				_PATH + "/fragments/features", serviceContext);
-
-			_addLayout(
-				layoutPageTemplateCollection.
-					getLayoutPageTemplateCollectionId(),
-				"Download", downloadFragmentEntries,
-				_PATH + "/fragments/download", serviceContext);
+				"Start Trial", startTrialEntries,
+				_PATH + "/fragments/layouts/start_trial", serviceContext);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -485,8 +443,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			"/dependencies";
 
 	private static final String _THEME_ID =
-		"osb-commerce-provisioning-theme_WAR_osb-commerce-provisioning-" +
-			"themetheme";
+		"provisioningsaastheme_WAR_osbcommerceprovisioningtheme";
 
 	private static final String _THEME_NAME = "Commerce SaaS Provisioning";
 

@@ -7,7 +7,7 @@
 						<img alt="${logo_description}" class="mr-2" height="56" src="${site_logo}" />
 
 						<#if show_site_name>
-							<h2 class="h2 mb-0 text-dark" role="heading" aria-level="1">${site_name}</h2>
+							<h2 class="h2 mb-0 text-dark site-name" role="heading" aria-level="1">${site_name}</h2>
 						</#if>
 					</a>
 				</div>

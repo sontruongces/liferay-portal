@@ -41,6 +41,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Ivica Cardic
+ * @author Gianmarco Brunialti Masera
  */
 @Component(immediate = true, service = DynamicInclude.class)
 public class OSBCommerceProvisioningTopHeadDynamicInclude
@@ -113,8 +114,7 @@ public class OSBCommerceProvisioningTopHeadDynamicInclude
 	}
 
 	private static final String _THEME_ID =
-		"osb-commerce-provisioning-theme_WAR_osb-commerce-provisioning-" +
-			"themetheme";
+		"provisioningsaastheme_WAR_osbcommerceprovisioningtheme";
 
 	@Reference
 	private Portal _portal;
