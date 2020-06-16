@@ -263,6 +263,7 @@ JournalEditArticleDisplayContext journalEditArticleDisplayContext = new JournalE
 
 <liferay-frontend:component
 	componentId='<%= renderResponse.getNamespace() + "JournalPortletComponent" %>'
+	context="<%= journalEditArticleDisplayContext.getComponentContext() %>"
 	module="js/JournalPortlet.es"
 	servletContext="<%= application %>"
 />
