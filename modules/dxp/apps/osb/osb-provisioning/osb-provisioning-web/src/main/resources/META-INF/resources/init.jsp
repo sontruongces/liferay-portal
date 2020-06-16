@@ -38,7 +38,6 @@ page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product" %><%
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team" %><%@
 page import="com.liferay.osb.provisioning.constants.ProductTypeConstants" %><%@
 page import="com.liferay.osb.provisioning.constants.ProvisioningWebKeys" %><%@
-page import="com.liferay.osb.provisioning.customer.model.AccountEntry" %><%@
 page import="com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException" %><%@
 page import="com.liferay.osb.provisioning.web.internal.configuration.ProvisioningWebConfigurationValues" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@

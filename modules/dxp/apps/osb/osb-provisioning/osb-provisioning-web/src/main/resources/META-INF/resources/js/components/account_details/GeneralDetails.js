@@ -114,6 +114,7 @@ GeneralDetails.propTypes = {
 		key: PropTypes.string,
 		name: PropTypes.string,
 		parterTeamName: PropTypes.string,
+		region: PropTypes.string,
 		status: PropTypes.string,
 		statusStyle: PropTypes.string,
 		tier: PropTypes.string

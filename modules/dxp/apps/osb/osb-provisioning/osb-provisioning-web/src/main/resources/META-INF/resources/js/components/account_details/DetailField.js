@@ -50,7 +50,7 @@ function DetailField({
 
 	return (
 		<ClayList.Item flex>
-			<div className="account-field">
+			<div className="detail-field">
 				<ClayList.ItemTitle>{fieldLabel}</ClayList.ItemTitle>
 
 				<div className="list-group-text">

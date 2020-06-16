@@ -120,14 +120,6 @@ public class ViewAccountDisplayContext {
 
 		data.put("details", getAccountDisplay());
 
-		List<String> regionNames = new ArrayList<>();
-
-		for (Account.Region region : Account.Region.values()) {
-			regionNames.add(region.toString());
-		}
-
-		data.put("regionNames", regionNames);
-
 		List<String> statusNames = new ArrayList<>();
 
 		for (Account.Status status : Account.Status.values()) {
@@ -472,23 +464,19 @@ public class ViewAccountDisplayContext {
 		return searchContainer;
 	}
 
-	public String getUpdateAccountAttachmentURL() throws Exception {
-		return accountEntryWebService.getUpdateAccountAttachmentURL();
-	}
+	public Map<String, Object> getSupportData() {
+		Map<String, Object> data = new HashMap<>();
 
-	public String getUpdateInstructionsURL() {
-		PortletURL updateInstructionsURL = renderResponse.createActionURL();
+		data.put("account", getAccountDisplay());
 
-		updateInstructionsURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_account_entry");
-		updateInstructionsURL.setParameter(
-			Constants.CMD, ProvisioningActionKeys.UPDATE_INSTRUCTIONS);
-		updateInstructionsURL.setParameter("accountKey", account.getKey());
+		List<String> regionNames = new ArrayList<>();
 
-		return updateInstructionsURL.toString();
-	}
+		for (Account.Region region : Account.Region.values()) {
+			regionNames.add(region.toString());
+		}
 
-	public String getUpdateLanguageIdURL() {
+		data.put("regionNames", regionNames);
+
 		PortletURL updateLanguageIdURL = renderResponse.createActionURL();
 
 		updateLanguageIdURL.setParameter(
@@ -497,7 +485,23 @@ public class ViewAccountDisplayContext {
 			Constants.CMD, ProvisioningActionKeys.UPDATE_LANGUAGE_ID);
 		updateLanguageIdURL.setParameter("accountKey", account.getKey());
 
-		return updateLanguageIdURL.toString();
+		data.put("updateLanguageIdURL", updateLanguageIdURL.toString());
+
+		PortletURL updateInstructionsURL = renderResponse.createActionURL();
+
+		updateInstructionsURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_account_entry");
+		updateInstructionsURL.setParameter(
+			Constants.CMD, ProvisioningActionKeys.UPDATE_INSTRUCTIONS);
+		updateInstructionsURL.setParameter("accountKey", account.getKey());
+
+		data.put("updateInstructionsURL", updateInstructionsURL.toString());
+
+		return data;
+	}
+
+	public String getUpdateAccountAttachmentURL() throws Exception {
+		return accountEntryWebService.getUpdateAccountAttachmentURL();
 	}
 
 	public String getWorkflowStep() {

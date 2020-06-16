@@ -1,14 +1,15 @@
-.account-details {
-	.account-field {
+.account-details,
+.support-information {
+	.address-controls {
+		justify-content: flex-end;
+		width: 100%;
+	}
+
+	.detail-field {
 		align-items: center;
 		display: flex;
 		padding-left: $spacing-xs;
 		padding-right: $spacing-xs;
-		width: 100%;
-	}
-
-	.address-controls {
-		justify-content: flex-end;
 		width: 100%;
 	}
 
@@ -21,20 +22,15 @@
 	.list-group-item-flex {
 		border-left-width: 0;
 		border-right-width: 0;
+
+		&:last-child {
+			margin-bottom: -1px;
+		}
 	}
 
 	.list-group-header {
 		flex: 0 0 100%;
 		max-width: 100%;
-	}
-
-	.list-group-item-flex {
-		flex: 0 0 50%;
-		max-width: 50%;
-
-		&:last-child {
-			margin-bottom: -1px;
-		}
 	}
 
 	.list-group-text {
@@ -44,5 +40,18 @@
 
 	.list-group-title {
 		width: 40%;
+	}
+}
+
+.account-details {
+	.list-group-item-flex {
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
+}
+
+.support-information {
+	.list-group-item-flex {
+		width: 100%;
 	}
 }

@@ -67,6 +67,7 @@ AccountDetails.propTypes = {
 				streetAddressLine3: PropTypes.string
 			})
 		),
+		region: PropTypes.string,
 		salesforceProjectKey: PropTypes.string,
 		status: PropTypes.string,
 		statusStyle: PropTypes.string,

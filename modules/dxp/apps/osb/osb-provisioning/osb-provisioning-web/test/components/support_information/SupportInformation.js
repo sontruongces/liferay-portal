@@ -12,37 +12,45 @@
 import {cleanup, render} from '@testing-library/react';
 import React from 'react';
 
-import GeneralDetails from '../../../src/main/resources/META-INF/resources/js/components/account_details/GeneralDetails';
+import SupportInformation from '../../../src/main/resources/META-INF/resources/js/components/support_information/SupportInformation';
 
-function renderGeneralDetails(props) {
+function renderSupportInformation() {
 	return render(
-		<GeneralDetails
-			details={{
+		<SupportInformation
+			account={{
 				code: '123',
-				dateCreated: new Date().toLocaleString('en-US'),
-				dateModified: new Date().toLocaleString('en-US'),
-				firstLineSupportTeamName: 'Test Support Team',
+				editAccountURL: 'edit/account/url',
 				key: '123',
 				name: 'Test Account',
-				parterTeamName: 'Test Partner Team',
 				region: 'US',
 				status: 'Approved',
-				statusStyle: 'label-success',
 				tier: 'Regular'
 			}}
-			statuses={['Approved', 'Expired', 'Pending']}
-			tiers={['1', '2', '3']}
-			{...props}
+			regionNames={['US', 'Hungary']}
+			updateInstructionsURL="update/instructions/url"
+			updateLanguageIdURL="update/language/id/url"
 		/>
 	);
 }
 
-describe('AccountDetails', () => {
+describe('SupportInformation', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {
-		const {container} = renderGeneralDetails();
+		const {container} = renderSupportInformation();
 
 		expect(container).toBeTruthy();
+	});
+
+	it('displays Details section', () => {
+		const {getByText} = renderSupportInformation();
+
+		getByText('details');
+	});
+
+	it('displays Instructions section', () => {
+		const {getByText} = renderSupportInformation();
+
+		getByText('instructions');
 	});
 });

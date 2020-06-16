@@ -29,6 +29,7 @@ function renderAccountDetails(props) {
 				name: 'Test Account',
 				parterTeamName: 'Test Partner Team',
 				postalAddressDisplays: [],
+				region: 'US',
 				salesforceProjectKey: 'TestSalesForceProjectKey',
 				status: 'Approved',
 				statusStyle: 'label-success',
