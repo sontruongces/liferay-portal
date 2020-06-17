@@ -27,7 +27,7 @@ ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentPr
 
 	<liferay-ui:search-container
 		id="contacts"
-		searchContainer="<%= viewContactDisplayContext.getCustomerAccountsSearchContainer() %>"
+		searchContainer='<%= viewContactDisplayContext.getContactAccountsSearchContainer("customer") %>'
 	>
 		<liferay-ui:search-container-row
 			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
@@ -52,7 +52,55 @@ ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentPr
 			<liferay-ui:search-container-column-text
 				name="roles"
 			>
-				<%= StringUtil.merge(viewContactDisplayContext.getContactRoleNames(accountDisplay.getKey()), "<br />") %>
+				<%= StringUtil.merge(viewContactDisplayContext.getCustomerContactRoleNames(accountDisplay.getKey()), "<br />") %>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				name="account-status"
+			>
+				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= accountDisplay.getStatus() %></span>
+			</liferay-ui:search-container-column-text>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			markupView="lexicon"
+		/>
+	</liferay-ui:search-container>
+</div>
+
+<div class="details-table table-striped">
+	<h3 class="panel-title">
+		<liferay-ui:message key="liferay-workers" />
+	</h3>
+
+	<liferay-ui:search-container
+		id="contacts"
+		searchContainer='<%= viewContactDisplayContext.getContactAccountsSearchContainer("worker") %>'
+	>
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
+			modelVar="accountDisplay"
+		>
+			<liferay-ui:search-container-column-text
+				name="account-name-code"
+			>
+				<%= accountDisplay.getName() %>
+
+				<div class="secondary-information">
+					<%= accountDisplay.getCode() %>
+				</div>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				name="region"
+			>
+				<%= accountDisplay.getRegion() %>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				name="roles"
+			>
+				<%= StringUtil.merge(viewContactDisplayContext.getWorkerContactRoleNames(accountDisplay.getKey()), "<br />") %>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text

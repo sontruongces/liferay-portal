@@ -68,31 +68,7 @@ public class ViewContactDisplayContext {
 			portletURL.toString());
 	}
 
-	public ContactDisplay getContactDisplay() {
-		return contactDisplay;
-	}
-
-	public List<String> getContactRoleNames(String accountKey)
-		throws Exception {
-
-		List<String> names = new ArrayList<>();
-
-		List<ContactRole> contactRoles =
-			contactRoleWebService.getAccountCustomerContactRoles(
-				accountKey, contact.getEmailAddress(), 1, 1000);
-
-		for (ContactRole contactRole : contactRoles) {
-			names.add(contactRole.getName());
-		}
-
-		return names;
-	}
-
-	public String getCurrentURL() {
-		return currentURLObj.toString();
-	}
-
-	public SearchContainer getCustomerAccountsSearchContainer()
+	public SearchContainer getContactAccountsSearchContainer(String type)
 		throws Exception {
 
 		SearchContainer searchContainer = new SearchContainer(
@@ -100,9 +76,10 @@ public class ViewContactDisplayContext {
 			Collections.emptyList(),
 			"this-user-is-not-assigned-to-any-customer-roles-yet");
 
-		StringBundler sb = new StringBundler(3);
+		StringBundler sb = new StringBundler(4);
 
-		sb.append("customerContactUuids/any(s:s eq '");
+		sb.append(type);
+		sb.append("ContactUuids/any(s:s eq '");
 		sb.append(contact.getUuid());
 		sb.append("')");
 
@@ -118,6 +95,30 @@ public class ViewContactDisplayContext {
 		return searchContainer;
 	}
 
+	public ContactDisplay getContactDisplay() {
+		return contactDisplay;
+	}
+
+	public String getCurrentURL() {
+		return currentURLObj.toString();
+	}
+
+	public List<String> getCustomerContactRoleNames(String accountKey)
+		throws Exception {
+
+		List<String> names = new ArrayList<>();
+
+		List<ContactRole> contactRoles =
+			contactRoleWebService.getAccountCustomerContactRoles(
+				accountKey, contact.getEmailAddress(), 1, 1000);
+
+		for (ContactRole contactRole : contactRoles) {
+			names.add(contactRole.getName());
+		}
+
+		return names;
+	}
+
 	public PortletURL getPortletURL() {
 		PortletURL portletURL = renderResponse.createRenderURL();
 
@@ -128,6 +129,22 @@ public class ViewContactDisplayContext {
 			"contactEmailAddress", contact.getEmailAddress());
 
 		return portletURL;
+	}
+
+	public List<String> getWorkerContactRoleNames(String accountKey)
+		throws Exception {
+
+		List<String> names = new ArrayList<>();
+
+		List<ContactRole> contactRoles =
+			contactRoleWebService.getAccountWorkerContactRoles(
+				accountKey, contact.getEmailAddress(), 1, 1000);
+
+		for (ContactRole contactRole : contactRoles) {
+			names.add(contactRole.getName());
+		}
+
+		return names;
 	}
 
 	public void init(
