@@ -19,7 +19,7 @@
 <%
 TrialRegistrationDisplayContext trialRegistrationDisplayContext = (TrialRegistrationDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-List<CommerceCountry> commerceCountryList = trialRegistrationDisplayContext.getCommerceCountries(company.getCompanyId());
+List<CommerceCountry> commerceCountries = trialRegistrationDisplayContext.getCommerceCountries(company.getCompanyId());
 %>
 
 <div class="container-fluid" id="trial-registration">
@@ -55,7 +55,7 @@ List<CommerceCountry> commerceCountryList = trialRegistrationDisplayContext.getC
 						<aui:select class="form-field" id="countryCode" label='<%= LanguageUtil.get(request, "country") %>' name="countryCode" required="<%= true %>">
 
 							<%
-							for (CommerceCountry commerceCountry : commerceCountryList) {
+							for (CommerceCountry commerceCountry : commerceCountries) {
 							%>
 
 								<aui:option value="<%= commerceCountry.getTwoLettersISOCode() %>">
