@@ -37,16 +37,16 @@ public class PostalAddressDisplay {
 
 	public PostalAddressDisplay(
 		PortletRequest portletRequest, PortletResponse portletResponse,
-		PostalAddress postalAddress, Account account) {
+		Account account, PostalAddress postalAddress) {
 
 		_portletRequest = portletRequest;
 		_portletResponse = portletResponse;
+		_account = account;
 		_postalAddress = postalAddress;
 
 		_httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
 		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
 			portletResponse);
-		_account = account;
 	}
 
 	public String getAddressCountry() {

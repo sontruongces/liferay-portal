@@ -190,7 +190,7 @@ public class AccountDisplay {
 		return TransformUtil.transformToList(
 			_account.getPostalAddresses(),
 			postalAddress -> new PostalAddressDisplay(
-				_portletRequest, _portletResponse, postalAddress, _account));
+				_portletRequest, _portletResponse, _account, postalAddress));
 	}
 
 	public String getPrimaryCountry() {
