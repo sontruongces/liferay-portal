@@ -213,6 +213,22 @@ AUI.add(
 					}
 				},
 
+				_onDrop(event) {
+					var instance = this;
+
+					var data = event.data.dataTransfer.getData('text/html');
+
+					var fragment = CKEDITOR.htmlParser.fragment.fromHtml(data);
+
+					var name = fragment.children[0].name;
+
+					if (name) {
+						var nativeEditor = instance.getNativeEditor();
+
+						return nativeEditor.pasteFilter.check(name);
+					}
+				},
+
 				_onError(event) {
 					new Liferay.Notification({
 						closeable: true,
@@ -414,6 +430,8 @@ AUI.add(
 						instance
 					);
 					nativeEditor.on('setData', instance._onSetData, instance);
+
+					nativeEditor.on('drop', instance._onDrop, instance);
 
 					if (instance.get('onBlurMethod')) {
 						nativeEditor.on('blur', instance._onBlur, instance);
