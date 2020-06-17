@@ -247,7 +247,7 @@ public class RegisterTrialMVCActionCommand extends BaseMVCActionCommand {
 		String[] nameItems = name.split(" ");
 
 		String firstName = nameItems[0];
-		String lastName = (nameItems.length > 1) ? nameItems[1] : null;
+		String lastName = (nameItems.length > 1) ? nameItems[1] : nameItems[0];
 
 		return _userLocalService.addUser(
 			0, companyId, false, password, password, true, null, emailAddress,
