@@ -74,7 +74,7 @@ public class ViewContactDisplayContext {
 		SearchContainer searchContainer = new SearchContainer(
 			renderRequest, renderResponse.createRenderURL(),
 			Collections.emptyList(),
-			"this-user-is-not-assigned-to-any-customer-roles-yet");
+			"this-user-is-not-assigned-to-any-" + type + "-roles-yet");
 
 		StringBundler sb = new StringBundler(4);
 
