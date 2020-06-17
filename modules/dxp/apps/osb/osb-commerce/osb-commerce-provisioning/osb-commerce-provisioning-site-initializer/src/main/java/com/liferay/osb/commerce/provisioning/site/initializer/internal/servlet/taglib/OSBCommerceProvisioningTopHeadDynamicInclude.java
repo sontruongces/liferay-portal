@@ -114,7 +114,7 @@ public class OSBCommerceProvisioningTopHeadDynamicInclude
 	}
 
 	private static final String _THEME_ID =
-		"provisioningsaastheme_WAR_osbcommerceprovisioningtheme";
+		"osbcommerceprovisioningtheme_WAR_osbcommerceprovisioningtheme";
 
 	@Reference
 	private Portal _portal;
