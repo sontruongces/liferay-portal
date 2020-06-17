@@ -18,7 +18,6 @@ import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
-import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
@@ -79,8 +78,5 @@ public class PortalInstanceStatusMVCResourceCommand
 	@Reference
 	private CommerceSubscriptionEntryLocalService
 		_commerceSubscriptionEntryLocalService;
-
-	@Reference
-	private JSONFactory _jsonFactory;
 
 }
