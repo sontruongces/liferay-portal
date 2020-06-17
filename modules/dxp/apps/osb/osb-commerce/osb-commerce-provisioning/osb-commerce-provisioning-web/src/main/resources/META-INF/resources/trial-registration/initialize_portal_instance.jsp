@@ -19,7 +19,6 @@
 <%
 long commerceOrderItemId = ParamUtil.getLong(request, "commerceOrderItemId");
 String userFirstName = ParamUtil.getString(request, "userFirstName");
-String pathThemeImages = themeDisplay.getPathThemeImages();
 %>
 
 <div class="container-fluid" id="trial-registration">
@@ -38,7 +37,7 @@ String pathThemeImages = themeDisplay.getPathThemeImages();
 					<li>
 						<span>
 							<svg class="lexicon-icon lexicon-icon-search" focusable="false" role="presentation">
-								<use xlink:href="<%= pathThemeImages %>/lexicon/icons.svg#check"></use>
+								<use xlink:href="<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg#check"></use>
 							</svg>
 						</span>
 
@@ -47,7 +46,7 @@ String pathThemeImages = themeDisplay.getPathThemeImages();
 					<li>
 						<span>
 							<svg class="lexicon-icon lexicon-icon-search" focusable="false" role="presentation">
-								<use xlink:href="<%= pathThemeImages %>/lexicon/icons.svg#check"></use>
+								<use xlink:href="<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg#check"></use>
 							</svg>
 						</span>
 
