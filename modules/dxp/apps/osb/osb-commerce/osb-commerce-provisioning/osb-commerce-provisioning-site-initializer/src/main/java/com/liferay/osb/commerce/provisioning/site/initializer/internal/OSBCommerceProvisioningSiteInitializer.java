@@ -14,6 +14,20 @@
 
 package com.liferay.osb.commerce.provisioning.site.initializer.internal;
 
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
+import com.liferay.commerce.account.util.CommerceAccountRoleHelper;
+import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
+import com.liferay.commerce.initializer.util.CPDefinitionsImporter;
+import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.model.CommerceChannelConstants;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
+import com.liferay.commerce.product.service.CommerceCatalogLocalService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.service.CommerceCountryLocalService;
 import com.liferay.fragment.constants.FragmentConstants;
 import com.liferay.fragment.constants.FragmentPortletKeys;
 import com.liferay.fragment.model.FragmentCollection;
@@ -31,9 +45,13 @@ import com.liferay.layout.util.LayoutCopyHelper;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.Repository;
@@ -42,11 +60,16 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portletfilerepository.PortletFileRepositoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.LayoutSetLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ThemeLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
+import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
@@ -115,7 +138,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 	@Override
 	public void initialize(long groupId) throws InitializationException {
 		try {
-			ServiceContext serviceContext = _createServiceContext(groupId);
+			ServiceContext serviceContext = _getServiceContext(groupId);
 
 			_updateLogo(serviceContext);
 			_updateLookAndFeel(serviceContext);
@@ -132,13 +155,15 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
 			List<FragmentEntry> startTrialEntries = _addFragmentEntries(
 				fragmentCollection.getFragmentCollectionId(),
-				_PATH + "/fragments/layouts/start_trial", serviceContext);
+				_PATH + "fragments/layouts/start_trial", serviceContext);
 
 			_addLayout(
 				layoutPageTemplateCollection.
 					getLayoutPageTemplateCollectionId(),
 				"Start Trial", startTrialEntries,
-				_PATH + "/fragments/layouts/start_trial", serviceContext);
+				_PATH + "fragments/layouts/start_trial", serviceContext);
+
+			_initCommerce(serviceContext);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -163,7 +188,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		throws Exception {
 
 		Enumeration<URL> urls = _bundle.findEntries(
-			_PATH + "/images", StringPool.STAR, false);
+			_PATH + "images", StringPool.STAR, false);
 
 		while (urls.hasMoreElements()) {
 			URL url = urls.nextElement();
@@ -315,6 +340,38 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 				previewFileEntryId);
 	}
 
+	private void _configureB2BSite(long groupId, ServiceContext serviceContext)
+		throws Exception {
+
+		Group group = _groupLocalService.getGroup(groupId);
+
+		group.setType(GroupConstants.TYPE_SITE_PRIVATE);
+		group.setManualMembership(true);
+		group.setMembershipRestriction(
+			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION);
+
+		_groupLocalService.updateGroup(group);
+
+		_commerceCountryLocalService.importDefaultCountries(serviceContext);
+		_commerceCurrencyLocalService.importDefaultValues(serviceContext);
+		_cpMeasurementUnitLocalService.importDefaultValues(serviceContext);
+
+		_commerceAccountRoleHelper.checkCommerceAccountRoles(serviceContext);
+
+		Settings settings = _settingsFactory.getSettings(
+			new GroupServiceSettingsLocator(
+				groupId, CommerceAccountConstants.SERVICE_NAME));
+
+		ModifiableSettings modifiableSettings =
+			settings.getModifiableSettings();
+
+		modifiableSettings.setValue(
+			"commerceSiteType",
+			String.valueOf(CommerceAccountConstants.SITE_TYPE_B2B));
+
+		modifiableSettings.store();
+	}
+
 	private void _copyLayout(Layout layout) throws Exception {
 		Layout draftLayout = _layoutLocalService.fetchLayout(
 			_portal.getClassNameId(Layout.class), layout.getPlid());
@@ -328,38 +385,40 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			new Date());
 	}
 
-	private ServiceContext _createServiceContext(long groupId)
-		throws PortalException {
+	private CommerceCatalog _createCatalog(ServiceContext serviceContext)
+		throws Exception {
 
-		ServiceContext serviceContext = new ServiceContext();
+		Group group = serviceContext.getScopeGroup();
 
-		serviceContext.setAddGroupPermissions(true);
-		serviceContext.setAddGuestPermissions(true);
+		CommerceCurrency commerceCurrency =
+			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
+				serviceContext.getCompanyId());
 
-		User user = _userLocalService.getUser(PrincipalThreadLocal.getUserId());
-
-		Locale locale = LocaleUtil.getSiteDefault();
-
-		serviceContext.setLanguageId(LanguageUtil.getLanguageId(locale));
-
-		serviceContext.setScopeGroupId(groupId);
-		serviceContext.setTimeZone(user.getTimeZone());
-		serviceContext.setUserId(user.getUserId());
-
-		return serviceContext;
+		return _commerceCatalogLocalService.addCommerceCatalog(
+			group.getName(serviceContext.getLanguageId()),
+			commerceCurrency.getCode(), serviceContext.getLanguageId(),
+			StringPool.BLANK, serviceContext);
 	}
 
-	private FragmentEntry _getFragmentEntry(
-		List<FragmentEntry> fragmentEntries, String name) {
+	private CommerceChannel _createChannel(
+			CommerceCatalog commerceCatalog, ServiceContext serviceContext)
+		throws Exception {
 
-		for (FragmentEntry fragmentEntry : fragmentEntries) {
-			if (name.equals(fragmentEntry.getName())) {
-				return fragmentEntry;
-			}
-		}
+		Group group = serviceContext.getScopeGroup();
 
-		throw new IllegalArgumentException(
-			"Unable to get fragment entry " + name);
+		return _commerceChannelLocalService.addCommerceChannel(
+			group.getGroupId(),
+			group.getName(serviceContext.getLanguageId()) + " Portal",
+			CommerceChannelConstants.CHANNEL_TYPE_SITE, null,
+			commerceCatalog.getCommerceCurrencyCode(), StringPool.BLANK,
+			serviceContext);
+	}
+
+	private JSONArray _getJSONArray(String name) throws Exception {
+		return _jsonFactory.createJSONArray(
+			StringUtil.read(
+				OSBCommerceProvisioningSiteInitializer.class.getClassLoader(),
+				_PATH + name));
 	}
 
 	private long _getPreviewFileEntryId(
@@ -406,8 +465,74 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		return fileEntry.getFileEntryId();
 	}
 
+	private ServiceContext _getServiceContext(long groupId)
+		throws PortalException {
+
+		ServiceContext serviceContext = new ServiceContext();
+
+		serviceContext.setAddGroupPermissions(true);
+		serviceContext.setAddGuestPermissions(true);
+
+		User user = _userLocalService.getUser(PrincipalThreadLocal.getUserId());
+		Group group = _groupLocalService.getGroup(groupId);
+
+		Locale locale = LocaleUtil.getSiteDefault();
+
+		serviceContext.setLanguageId(LanguageUtil.getLanguageId(locale));
+
+		serviceContext.setAddGroupPermissions(true);
+		serviceContext.setAddGuestPermissions(true);
+		serviceContext.setCompanyId(group.getCompanyId());
+		serviceContext.setLanguageId(LanguageUtil.getLanguageId(locale));
+		serviceContext.setScopeGroupId(groupId);
+		serviceContext.setTimeZone(user.getTimeZone());
+		serviceContext.setUserId(user.getUserId());
+
+		return serviceContext;
+	}
+
+	private List<CPDefinition> _importCPDefinitions(
+			long catalogGroupId, long commerceChannelId,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		Group group = serviceContext.getScopeGroup();
+
+		JSONArray jsonArray = _getJSONArray("products.json");
+
+		return _cpDefinitionsImporter.importCPDefinitions(
+			jsonArray, group.getName(serviceContext.getLocale()),
+			catalogGroupId, commerceChannelId, new long[0],
+			OSBCommerceProvisioningSiteInitializer.class.getClassLoader(),
+			_PATH + "images/", serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
+	}
+
+	private void _initCommerce(ServiceContext serviceContext) throws Exception {
+		CommerceCatalog commerceCatalog = _createCatalog(serviceContext);
+
+		long catalogGroupId = commerceCatalog.getGroupId();
+
+		CommerceChannel commerceChannel = _createChannel(
+			commerceCatalog, serviceContext);
+
+		_configureB2BSite(commerceChannel.getGroupId(), serviceContext);
+
+		_importCPDefinitions(
+			catalogGroupId, commerceChannel.getCommerceChannelId(),
+			serviceContext);
+
+		int catalogCPDefinitionsCount =
+			_cpDefinitionLocalService.getCPDefinitionsCount(
+				catalogGroupId, WorkflowConstants.STATUS_ANY);
+
+		if (catalogCPDefinitionsCount == 0) {
+			_commerceCatalogLocalService.deleteCommerceCatalog(commerceCatalog);
+		}
+	}
+
 	private void _updateLogo(ServiceContext serviceContext) throws Exception {
-		URL url = _bundle.getEntry(_PATH + "/images/logo.png");
+		URL url = _bundle.getEntry(_PATH + "images/logo.png");
 
 		byte[] bytes = null;
 
@@ -440,12 +565,12 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
 	private static final String _PATH =
 		"com/liferay/osb/commerce/provisioning/site/initializer/internal" +
-			"/dependencies";
+			"/dependencies/";
 
 	private static final String _THEME_ID =
-		"provisioningsaastheme_WAR_osbcommerceprovisioningtheme";
+		"osbcommerceprovisioningtheme_WAR_osbcommerceprovisioningtheme";
 
-	private static final String _THEME_NAME = "Commerce SaaS Provisioning";
+	private static final String _THEME_NAME = "OSB Commerce Provisioning";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		OSBCommerceProvisioningSiteInitializer.class);
@@ -453,10 +578,40 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 	private Bundle _bundle;
 
 	@Reference
+	private CommerceAccountRoleHelper _commerceAccountRoleHelper;
+
+	@Reference
+	private CommerceCatalogLocalService _commerceCatalogLocalService;
+
+	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceCountryLocalService _commerceCountryLocalService;
+
+	@Reference
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
+
+	@Reference
+	private CPDefinitionLocalService _cpDefinitionLocalService;
+
+	@Reference
+	private CPDefinitionsImporter _cpDefinitionsImporter;
+
+	@Reference
+	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
+
+	@Reference
 	private FragmentCollectionLocalService _fragmentCollectionLocalService;
 
 	@Reference
 	private FragmentEntryLocalService _fragmentEntryLocalService;
+
+	@Reference
+	private GroupLocalService _groupLocalService;
+
+	@Reference
+	private JSONFactory _jsonFactory;
 
 	@Reference
 	private LayoutCopyHelper _layoutCopyHelper;
@@ -482,6 +637,9 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		target = "(osgi.web.symbolicname=com.liferay.osb.commerce.provisioning.site.initializer)"
 	)
 	private ServletContext _servletContext;
+
+	@Reference
+	private SettingsFactory _settingsFactory;
 
 	@Reference
 	private ThemeLocalService _themeLocalService;
