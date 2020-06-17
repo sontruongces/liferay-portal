@@ -17,12 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-TrialRegistrationDisplayContext trialRegistrationDisplayContext =
-	(TrialRegistrationDisplayContext)request
-		.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+TrialRegistrationDisplayContext trialRegistrationDisplayContext = (TrialRegistrationDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-List<CommerceCountry> commerceCountryList = trialRegistrationDisplayContext
-	.getCommerceCountries(company.getCompanyId());
+List<CommerceCountry> commerceCountryList = trialRegistrationDisplayContext.getCommerceCountries(company.getCompanyId());
 %>
 
 <div class="container-fluid" id="trial-registration">

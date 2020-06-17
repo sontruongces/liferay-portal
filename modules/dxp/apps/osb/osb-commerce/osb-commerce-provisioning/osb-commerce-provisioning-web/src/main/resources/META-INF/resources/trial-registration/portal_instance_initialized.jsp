@@ -19,11 +19,9 @@
 <%
 long commerceOrderItemId = ParamUtil.getLong(request, "commerceOrderItemId");
 
-	TrialRegistrationDisplayContext trialRegistrationDisplayContext =
-		(TrialRegistrationDisplayContext)request
-			.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+TrialRegistrationDisplayContext trialRegistrationDisplayContext = (TrialRegistrationDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-	String portalInstanceURL = trialRegistrationDisplayContext.getPortalInstanceURL(commerceOrderItemId);
+String portalInstanceURL = trialRegistrationDisplayContext.getPortalInstanceURL(commerceOrderItemId);
 %>
 
 <div class="container-fluid" id="trial-registration">
