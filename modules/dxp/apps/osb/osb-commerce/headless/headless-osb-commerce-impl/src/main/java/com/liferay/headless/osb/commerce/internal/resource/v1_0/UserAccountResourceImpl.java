@@ -52,6 +52,9 @@ public class UserAccountResourceImpl extends BaseUserAccountResourceImpl {
 	public UserAccount postUserAccount(UserAccount userAccount)
 		throws Exception {
 
+		Role role = _roleService.getRole(
+			contextCompany.getCompanyId(), "OSB Commerce Administrator");
+
 		User user = _userService.addUser(
 			contextCompany.getCompanyId(), true, null, null, false,
 			userAccount.getScreenName(), userAccount.getEmailAddress(), 0, null,
@@ -60,8 +63,8 @@ public class UserAccountResourceImpl extends BaseUserAccountResourceImpl {
 			userAccount.getLastName(), 0, 0, true,
 			_getBirthdayMonth(userAccount), _getBirthdayDay(userAccount),
 			_getBirthdayYear(userAccount), userAccount.getJobTitle(),
-			new long[0], new long[0], new long[0], new long[0],
-			Collections.emptyList(), Collections.emptyList(),
+			new long[0], new long[0], new long[] {role.getRoleId()},
+			new long[0], Collections.emptyList(), Collections.emptyList(),
 			Collections.emptyList(), Collections.emptyList(),
 			Collections.emptyList(), false,
 			ServiceContextFactory.getInstance(contextHttpServletRequest));
@@ -72,18 +75,7 @@ public class UserAccountResourceImpl extends BaseUserAccountResourceImpl {
 
 		_addUserSiteOwnerGroupRole(user.getUserId());
 
-		_addUserOSBCommerceAdministratorRole(user.getUserId());
-
 		return _toUserAccount(user);
-	}
-
-	private void _addUserOSBCommerceAdministratorRole(long userId)
-		throws PortalException {
-
-		Role role = _roleService.getRole(
-			contextCompany.getCompanyId(), "OSB Commerce Administrator");
-
-		_roleService.addUserRoles(userId, new long[] {role.getRoleId()});
 	}
 
 	private void _addUserSiteOwnerGroupRole(long userId)
