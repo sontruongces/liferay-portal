@@ -1721,7 +1721,8 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 			if (isPrivateLayout() &&
 				resourceName.equals(Layout.class.getName()) &&
-				roleName.equals(RoleConstants.GUEST) && !_isSiteTemplate()) {
+				roleName.equals(RoleConstants.GUEST) &&
+				!_isGroupLayoutSetPrototype()) {
 
 				continue;
 			}
@@ -2998,7 +2999,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 		}
 	}
 
-	private boolean _isSiteTemplate() throws PortalException {
+	private boolean _isGroupLayoutSetPrototype() throws PortalException {
 		Group group = GroupLocalServiceUtil.getGroup(getGroupId());
 
 		if (group.isLayoutSetPrototype()) {
