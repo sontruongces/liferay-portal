@@ -188,13 +188,14 @@ public class PartnerMigration {
 	private void _migratePartnerWorkers(Connection connection, long userId)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(10);
 
 		sb.append("select role, dossieraAccountKey, CUSTOMER_User.uuid_, ");
 		sb.append("CUSTOMER_User.firstName, CUSTOMER_User.middleName, ");
 		sb.append("CUSTOMER_User.lastName, CUSTOMER_User.emailAddress, ");
-		sb.append("CUSTOMER_User.languageId from OSB_PartnerWorker inner ");
-		sb.append("join CUSTOMER_User on CUSTOMER_User.userId = ");
+		sb.append("CUSTOMER_User.languageId, ");
+		sb.append("CUSTOMER_User.emailAddressVerified from OSB_PartnerWorker ");
+		sb.append("inner join CUSTOMER_User on CUSTOMER_User.userId = ");
 		sb.append("OSB_PartnerWorker.userId inner join OSB_PartnerEntry on ");
 		sb.append("OSB_PartnerEntry.partnerEntryId = ");
 		sb.append("OSB_PartnerWorker.partnerEntryId where dossieraAccountKey ");
@@ -224,6 +225,7 @@ public class PartnerMigration {
 				String contactLastName = resultSet.getString(6);
 				String contactEmailAddress = resultSet.getString(7);
 				String contactLanguageId = resultSet.getString(8);
+				boolean emailAddressVerified = resultSet.getBoolean(9);
 
 				Contact contact = _contactLocalService.fetchContactByUuid(
 					contactUuid);
@@ -232,7 +234,7 @@ public class PartnerMigration {
 					contact = _contactLocalService.addContact(
 						contactUuid, userId, StringPool.BLANK, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
-						contactLanguageId);
+						contactLanguageId, emailAddressVerified);
 				}
 
 				Long contactRoleId =

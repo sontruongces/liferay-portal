@@ -54,7 +54,8 @@ public class UserUpdateMessageSubscriber implements MessageSubscriber {
 				jsonObject.getString("middleName"),
 				jsonObject.getString("lastName"),
 				jsonObject.getString("emailAddress"),
-				jsonObject.getString("languageId"));
+				jsonObject.getString("languageId"),
+				jsonObject.getBoolean("emailAddressVerified"));
 		}
 		catch (Exception exception) {
 			_log.error(message);

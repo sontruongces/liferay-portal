@@ -208,7 +208,8 @@ public class WebContactIdentityProvider implements ContactIdentityProvider {
 			jsonObject.getString("firstName"),
 			jsonObject.getString("middleName"),
 			jsonObject.getString("lastName"), emailAddress,
-			jsonObject.getString("languageId"));
+			jsonObject.getString("languageId"),
+			jsonObject.getBoolean("emailAddressVerified"));
 	}
 
 	private Contact _importContactByUuid(String uuid) throws Exception {
@@ -225,7 +226,8 @@ public class WebContactIdentityProvider implements ContactIdentityProvider {
 			jsonObject.getString("middleName"),
 			jsonObject.getString("lastName"),
 			jsonObject.getString("emailAddress"),
-			jsonObject.getString("languageId"));
+			jsonObject.getString("languageId"),
+			jsonObject.getBoolean("emailAddressVerified"));
 	}
 
 	private void _sendEmail(
