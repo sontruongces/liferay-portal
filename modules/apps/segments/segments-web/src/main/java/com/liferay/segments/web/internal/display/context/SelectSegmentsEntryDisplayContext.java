@@ -302,6 +302,7 @@ public class SelectSegmentsEntryDisplayContext {
 		}
 
 		portletURL.setParameter("displayStyle", getDisplayStyle());
+		portletURL.setParameter("eventName", getEventName());
 		portletURL.setParameter("orderByCol", _getOrderByCol());
 		portletURL.setParameter("orderByType", getOrderByType());
 
