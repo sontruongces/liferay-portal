@@ -121,20 +121,22 @@ public class ContactDisplay {
 	}
 
 	public String getStatus() {
-		return StringPool.BLANK;
+		if(_contact.getEmailAddressVerified()) {
+			return "verified";
+		}
+		else {
+			return "unverified";
+		}
 	}
 
 	public String getStatusStyle() {
 		String status = getStatus();
-
-		if (status.equals("verified")) {
-			return "label-success";
-		}
-		else if (status.equals("unverified")) {
-			return "label-danger";
+		
+		if(status.equals("verified")) {
+			return "label label-success";
 		}
 		else {
-			return "label-secondary";
+			return "label label-danger";
 		}
 	}
 
