@@ -109,7 +109,8 @@ public class GroupDisplayContext {
 		groupSearch.setResults(groups);
 
 		if (StringUtil.equalsIgnoreCase(
-				_mvcRenderCommandName, "/analytics/edit_synced_sites")) {
+				_mvcRenderCommandName,
+				"/analytics_settings/edit_synced_sites")) {
 
 			groupSearch.setRowChecker(
 				new GroupChecker(
