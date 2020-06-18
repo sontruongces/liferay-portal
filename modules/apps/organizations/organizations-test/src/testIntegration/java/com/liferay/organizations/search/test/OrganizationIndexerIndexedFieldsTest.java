@@ -231,10 +231,6 @@ public class OrganizationIndexerIndexedFieldsTest {
 		).put(
 			Field.TREE_PATH, organization.getTreePath()
 		).put(
-			Field.getSortableFieldName(
-				StringBundler.concat("type", StringPool.UNDERLINE, "String")),
-			organization.getType()
-		).put(
 			Field.USER_ID, String.valueOf(organization.getUserId())
 		).put(
 			Field.USER_NAME, StringUtil.toLowerCase(organization.getUserName())
@@ -250,6 +246,10 @@ public class OrganizationIndexerIndexedFieldsTest {
 			String.valueOf(organization.getParentOrganizationId())
 		).put(
 			"region", regionName
+		).put(
+			Field.getSortableFieldName(
+				StringBundler.concat("type", StringPool.UNDERLINE, "String")),
+			organization.getType()
 		).build();
 
 		indexedFieldsFixture.populateUID(
