@@ -92,6 +92,45 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
+	protected void updateDossieraMapping(
+			User user, String productKey, ExternalLink externalLink)
+		throws Exception {
+
+		Product oldProduct = _productWebService.getProduct(productKey);
+
+		ExternalLink[] externalLinks = oldProduct.getExternalLinks();
+
+		if (externalLinks != null) {
+			for (ExternalLink curExternalLink : externalLinks) {
+				String domain = curExternalLink.getDomain();
+				String entityName = curExternalLink.getEntityName();
+
+				if (domain.equals(ExternalLinkDomain.DOSSIERA) &&
+					entityName.equals(
+						ExternalLinkEntityName.DOSSIERA_PRODUCT)) {
+
+					if (externalLink == null) {
+						_externalLinkWebService.deleteExternalLink(
+							user.getFullName(), StringPool.BLANK,
+							curExternalLink.getKey());
+					}
+					else {
+						_externalLinkWebService.updateExternalLink(
+							user.getFullName(), StringPool.BLANK,
+							curExternalLink.getKey(), externalLink);
+					}
+
+					return;
+				}
+			}
+		}
+
+		if (externalLink != null) {
+			_externalLinkWebService.addProductExternalLink(
+				user.getFullName(), StringPool.BLANK, productKey, externalLink);
+		}
+	}
+
 	protected void updateProduct(ActionRequest actionRequest, User user)
 		throws Exception {
 
@@ -135,46 +174,6 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 			_productWebService.updateProduct(
 				user.getFullName(), StringPool.BLANK, productKey, product);
-		}
-	}
-
-	protected void updateDossieraMapping(
-			User user, String productKey, ExternalLink externalLink)
-		throws Exception {
-
-		Product oldProduct = _productWebService.getProduct(productKey);
-
-		ExternalLink[] externalLinks = oldProduct.getExternalLinks();
-
-		if (externalLinks != null) {
-			for (ExternalLink curExternalLink : externalLinks) {
-				String domain = curExternalLink.getDomain();
-				String entityName = curExternalLink.getEntityName();
-
-				if (domain.equals(ExternalLinkDomain.DOSSIERA) &&
-					entityName.equals(
-						ExternalLinkEntityName.DOSSIERA_PRODUCT)) {
-
-					if (externalLink == null) {
-						_externalLinkWebService.deleteExternalLink(
-							user.getFullName(), StringPool.BLANK,
-							curExternalLink.getKey());
-					}
-					else {
-						_externalLinkWebService.updateExternalLink(
-							user.getFullName(), StringPool.BLANK,
-							curExternalLink.getKey(), externalLink);
-					}
-
-					return;
-				}
-			}
-		}
-
-		if (externalLink != null) {
-			_externalLinkWebService.addProductExternalLink(
-				user.getFullName(), StringPool.BLANK, productKey,
-				externalLink);
 		}
 	}
 

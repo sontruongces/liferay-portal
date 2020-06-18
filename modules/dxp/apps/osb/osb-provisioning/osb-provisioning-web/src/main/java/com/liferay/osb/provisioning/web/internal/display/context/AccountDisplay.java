@@ -81,7 +81,7 @@ public class AccountDisplay {
 		addPostalAddressURL.setParameter(
 			"mvcRenderCommandName", "/accounts/add_postal_address");
 
-		PortletURL portletURL = _portletURLBuilder(
+		PortletURL portletURL = _getPortletURL(
 			"/accounts/view_account", "details");
 
 		addPostalAddressURL.setParameter("redirect", portletURL.toString());
@@ -136,12 +136,13 @@ public class AccountDisplay {
 
 		editAccountURL.setParameter(
 			ActionRequest.ACTION_NAME, " /accounts/edit_account");
-		editAccountURL.setParameter("accountKey", _account.getKey());
 
-		PortletURL portletURL = _portletURLBuilder(
+		PortletURL portletURL = _getPortletURL(
 			"/accounts/view_account", "details");
 
 		editAccountURL.setParameter("redirect", portletURL.toString());
+
+		editAccountURL.setParameter("accountKey", _account.getKey());
 
 		return editAccountURL.toString();
 	}
@@ -330,12 +331,13 @@ public class AccountDisplay {
 
 		addExternalLinkURL.setParameter(
 			ActionRequest.ACTION_NAME, "/edit_external_link");
-		addExternalLinkURL.setParameter("accountKey", _account.getKey());
 
-		PortletURL portletURL = _portletURLBuilder(
+		PortletURL portletURL = _getPortletURL(
 			"/accounts/view_account", "details");
 
 		addExternalLinkURL.setParameter("redirect", portletURL.toString());
+
+		addExternalLinkURL.setParameter("accountKey", _account.getKey());
 
 		return addExternalLinkURL.toString();
 	}
@@ -346,12 +348,13 @@ public class AccountDisplay {
 
 		editExternalLinkURL.setParameter(
 			ActionRequest.ACTION_NAME, "/edit_external_link");
-		editExternalLinkURL.setParameter("externalLinkKey", externalLinkKey);
 
-		PortletURL portletURL = _portletURLBuilder(
+		PortletURL portletURL = _getPortletURL(
 			"/accounts/view_account", "details");
 
 		editExternalLinkURL.setParameter("redirect", portletURL.toString());
+
+		editExternalLinkURL.setParameter("externalLinkKey", externalLinkKey);
 
 		return editExternalLinkURL.toString();
 	}
@@ -388,6 +391,16 @@ public class AccountDisplay {
 		return StringPool.BLANK;
 	}
 
+	private PortletURL _getPortletURL(String mvcRenderCommandName, String tab) {
+		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter("mvcRenderCommandName", mvcRenderCommandName);
+		portletURL.setParameter("tabs1", tab);
+		portletURL.setParameter("accountKey", _account.getKey());
+
+		return portletURL;
+	}
+
 	private ProductPurchase _getSLAProductPurchase() {
 		if (_slaProductPurchase != null) {
 			return _slaProductPurchase;
@@ -422,18 +435,6 @@ public class AccountDisplay {
 		}
 
 		return false;
-	}
-
-	private PortletURL _portletURLBuilder(
-		String mvcRenderCommandName, String tab) {
-
-		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
-
-		portletURL.setParameter("mvcRenderCommandName", mvcRenderCommandName);
-		portletURL.setParameter("accountKey", _account.getKey());
-		portletURL.setParameter("tabs1", tab);
-
-		return portletURL;
 	}
 
 	private final Account _account;

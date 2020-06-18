@@ -88,13 +88,14 @@ public class PostalAddressDisplay {
 		deletePostalAddressURL.setParameter(
 			ActionRequest.ACTION_NAME, "/accounts/edit_postal_address");
 		deletePostalAddressURL.setParameter(Constants.CMD, Constants.DELETE);
-		deletePostalAddressURL.setParameter(
-			"postalAddressId", String.valueOf(_postalAddress.getId()));
 
-		PortletURL portletURL = _portletURLBuilder(
+		PortletURL portletURL = _getPortletURL(
 			"/accounts/view_account", "details");
 
 		deletePostalAddressURL.setParameter("redirect", portletURL.toString());
+
+		deletePostalAddressURL.setParameter(
+			"postalAddressId", String.valueOf(_postalAddress.getId()));
 
 		return deletePostalAddressURL.toString();
 	}
@@ -105,13 +106,14 @@ public class PostalAddressDisplay {
 
 		editPostalAddressURL.setParameter(
 			ActionRequest.ACTION_NAME, "/accounts/edit_postal_address");
-		editPostalAddressURL.setParameter(
-			"postalAddressId", String.valueOf(_postalAddress.getId()));
 
-		PortletURL portletURL = _portletURLBuilder(
+		PortletURL portletURL = _getPortletURL(
 			"/accounts/view_account", "details");
 
 		editPostalAddressURL.setParameter("redirect", portletURL.toString());
+
+		editPostalAddressURL.setParameter(
+			"postalAddressId", String.valueOf(_postalAddress.getId()));
 
 		return editPostalAddressURL.toString();
 	}
@@ -172,14 +174,12 @@ public class PostalAddressDisplay {
 		return StringPool.DASH;
 	}
 
-	private PortletURL _portletURLBuilder(
-		String mvcRenderCommandName, String tab) {
-
+	private PortletURL _getPortletURL(String mvcRenderCommandName, String tab) {
 		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter("mvcRenderCommandName", mvcRenderCommandName);
-		portletURL.setParameter("accountKey", _account.getKey());
 		portletURL.setParameter("tabs1", tab);
+		portletURL.setParameter("accountKey", _account.getKey());
 
 		return portletURL;
 	}
