@@ -129,9 +129,7 @@ public class ContactDisplay {
 	}
 
 	public String getStatusStyle() {
-		String status = getStatus();
-
-		if (status.equals("verified")) {
+		if (_contact.getEmailAddressVerified()) {
 			return "label label-success";
 		}
 
