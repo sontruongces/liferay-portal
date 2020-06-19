@@ -352,9 +352,7 @@ class Options extends Component {
 							...option,
 							edited:
 								option.edited ||
-								(value &&
-									value !== option.value &&
-									property === 'value'),
+								editingLanguageId !== defaultLanguageId,
 							[property]: value
 					  }
 					: option;
@@ -382,7 +380,7 @@ class Options extends Component {
 				return options.map(({label, value}, index) => {
 					const option = newValue[languageId][index];
 
-					if (property === 'label') {
+					if (option && option.edited) {
 						label = option.label;
 					}
 
