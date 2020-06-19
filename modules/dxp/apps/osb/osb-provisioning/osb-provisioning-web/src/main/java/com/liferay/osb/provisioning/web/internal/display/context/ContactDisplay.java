@@ -121,23 +121,21 @@ public class ContactDisplay {
 	}
 
 	public String getStatus() {
-		if(_contact.getEmailAddressVerified()) {
+		if (_contact.getEmailAddressVerified()) {
 			return "verified";
 		}
-		else {
-			return "unverified";
-		}
+
+		return "unverified";
 	}
 
 	public String getStatusStyle() {
 		String status = getStatus();
-		
-		if(status.equals("verified")) {
+
+		if (status.equals("verified")) {
 			return "label label-success";
 		}
-		else {
-			return "label label-danger";
-		}
+
+		return "label label-danger";
 	}
 
 	private final long _accountsCount;
