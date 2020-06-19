@@ -94,6 +94,7 @@ function InlineEdit({
 						>
 							<select
 								className="form-control"
+								disabled={options.length === 0}
 								id={namespacedFieldName}
 								onChange={handleChange}
 								value={value}

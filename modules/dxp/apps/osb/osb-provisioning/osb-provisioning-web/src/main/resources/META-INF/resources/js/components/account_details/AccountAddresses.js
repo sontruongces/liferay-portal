@@ -23,9 +23,7 @@ import IconButton from '../IconButton';
 import DetailField from './DetailField';
 
 function AccountAddresses({accountKey, addURL, addresses}) {
-	const [countryOptions, setCountryOptions] = useState([
-		{label: '', value: ''}
-	]);
+	const [countryOptions, setCountryOptions] = useState([]);
 
 	useEffect(() => {
 		Liferay.Service('/country/get-countries', {
@@ -95,9 +93,7 @@ AccountAddresses.propTypes = {
 };
 
 function Address({accountKey, addURL, address, count, countryOptions}) {
-	const [regionOptions, setRegionOptions] = useState([
-		{label: '', value: ''}
-	]);
+	const [regionOptions, setRegionOptions] = useState([]);
 
 	const countryId = getCountryId();
 	const regionId = getRegionId();
