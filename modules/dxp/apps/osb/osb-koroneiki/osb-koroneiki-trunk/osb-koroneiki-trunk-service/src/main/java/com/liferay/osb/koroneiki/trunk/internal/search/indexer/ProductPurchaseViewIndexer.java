@@ -14,9 +14,16 @@
 
 package com.liferay.osb.koroneiki.trunk.internal.search.indexer;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type;
 import com.liferay.osb.koroneiki.taproot.constants.WorkflowConstants;
 import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductConsumption;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
@@ -52,6 +59,7 @@ import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
 import com.liferay.portal.kernel.search.generic.NestedQuery;
 import com.liferay.portal.kernel.search.generic.TermRangeQueryImpl;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -64,6 +72,7 @@ import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -216,6 +225,8 @@ public class ProductPurchaseViewIndexer
 		document.addDate("supportLifeEndDate", getEndDate(productPurchases));
 		document.addDate(
 			"supportLifeStartDate", getStartDate(productPurchases));
+
+		_contributeContacts(document, account.getAccountId());
 
 		List<ProductField> productFields = productEntry.getProductFields();
 
@@ -472,6 +483,77 @@ public class ProductPurchaseViewIndexer
 	protected Format dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 		INDEX_DATE_FORMAT_PATTERN);
 
+	private void _contributeContacts(Document document, long accountId)
+		throws PortalException {
+
+		Set<String> contactOktaIdContactRoleKeys = new HashSet<>();
+		Set<String> contactOktaIds = new HashSet<>();
+		Set<String> contactUuidContactRoleKeys = new HashSet<>();
+		Set<String> contactUuids = new HashSet<>();
+		Set<String> customerContactOktaIds = new HashSet<>();
+		Set<String> customerContactUuids = new HashSet<>();
+		Set<String> workerContactOktaIds = new HashSet<>();
+		Set<String> workerContactUuids = new HashSet<>();
+
+		List<ContactAccountRole> contactAccountRoles =
+			_contactAccountRoleLocalService.getContactAccountRolesByAccountId(
+				accountId);
+
+		for (ContactAccountRole contactAccountRole : contactAccountRoles) {
+			Contact contact = _contactLocalService.getContact(
+				contactAccountRole.getContactId());
+			ContactRole contactRole = _contactRoleLocalService.getContactRole(
+				contactAccountRole.getContactRoleId());
+
+			contactOktaIdContactRoleKeys.add(
+				contact.getOktaId() + StringPool.UNDERLINE +
+					contactRole.getContactRoleKey());
+
+			contactOktaIds.add(contact.getOktaId());
+
+			contactUuidContactRoleKeys.add(
+				contact.getUuid() + StringPool.UNDERLINE +
+					contactRole.getContactRoleKey());
+
+			contactUuids.add(contact.getUuid());
+
+			String type = contactRole.getType();
+
+			if (type.equals(Type.ACCOUNT_CUSTOMER.toString())) {
+				customerContactOktaIds.add(contact.getOktaId());
+				customerContactUuids.add(contact.getUuid());
+			}
+			else if (type.equals(Type.ACCOUNT_WORKER.toString())) {
+				workerContactOktaIds.add(contact.getOktaId());
+				workerContactUuids.add(contact.getUuid());
+			}
+		}
+
+		document.addKeyword(
+			"contactOktaIdContactRoleKeys",
+			ArrayUtil.toStringArray(contactOktaIdContactRoleKeys.toArray()));
+		document.addKeyword(
+			"contactOktaIds",
+			ArrayUtil.toStringArray(contactOktaIds.toArray()));
+		document.addKeyword(
+			"contactUuidContactRoleKeys",
+			ArrayUtil.toStringArray(contactUuidContactRoleKeys.toArray()));
+		document.addKeyword(
+			"contactUuids", ArrayUtil.toStringArray(contactUuids.toArray()));
+		document.addKeyword(
+			"customerContactOktaIds",
+			ArrayUtil.toStringArray(customerContactOktaIds.toArray()));
+		document.addKeyword(
+			"customerContactUuids",
+			ArrayUtil.toStringArray(customerContactUuids.toArray()));
+		document.addKeyword(
+			"workerContactOktaIds",
+			ArrayUtil.toStringArray(workerContactOktaIds.toArray()));
+		document.addKeyword(
+			"workerContactUuids",
+			ArrayUtil.toStringArray(workerContactUuids.toArray()));
+	}
+
 	private BooleanFilter _getActiveFilter() throws ParseException {
 		BooleanFilter booleanFilter = new BooleanFilter();
 
@@ -633,6 +715,15 @@ public class ProductPurchaseViewIndexer
 
 	@Reference
 	private AccountLocalService _accountLocalService;
+
+	@Reference
+	private ContactAccountRoleLocalService _contactAccountRoleLocalService;
+
+	@Reference
+	private ContactLocalService _contactLocalService;
+
+	@Reference
+	private ContactRoleLocalService _contactRoleLocalService;
 
 	@Reference
 	private ProductConsumptionLocalService _productConsumptionLocalService;
