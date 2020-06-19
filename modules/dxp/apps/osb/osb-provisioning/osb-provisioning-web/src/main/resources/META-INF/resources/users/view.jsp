@@ -71,8 +71,9 @@ ViewContactsManagementToolbarDisplayContext viewContactsManagementToolbarDisplay
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="status"
-				value="<%= contactDisplay.getStatus() %>"
-			/>
+			>
+				<span class="label <%= contactDisplay.getStatusStyle() %>"><%= contactDisplay.getStatus() %></span>
+			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 
 		<liferay-ui:search-iterator
