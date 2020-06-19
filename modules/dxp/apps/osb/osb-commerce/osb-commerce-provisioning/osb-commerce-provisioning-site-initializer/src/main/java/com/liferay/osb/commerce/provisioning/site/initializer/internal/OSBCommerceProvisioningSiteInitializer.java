@@ -163,6 +163,16 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 				"Start Trial", startTrialEntries,
 				_PATH + "fragments/layouts/start_trial", serviceContext);
 
+			List<FragmentEntry> accountManagmentEntries = _addFragmentEntries(
+				fragmentCollection.getFragmentCollectionId(),
+				_PATH + "fragments/layouts/account_management", serviceContext);
+
+			_addLayout(
+				layoutPageTemplateCollection.
+					getLayoutPageTemplateCollectionId(),
+				"Account Management", accountManagmentEntries,
+				_PATH + "fragments/layouts/account_management", serviceContext);
+
 			_initCommerce(serviceContext);
 		}
 		catch (Exception exception) {
