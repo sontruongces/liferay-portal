@@ -136,6 +136,10 @@ public class CorpProjectMigration {
 						resultSet.getString("dossieraProjectKey"));
 				}
 
+				_externalLinkLocalService.addExternalLink(
+					userId, Account.class.getName(), account.getAccountId(),
+					"lcs", "corpProjectId", String.valueOf(corpProjectId));
+
 				if (Validator.isNotNull(
 						resultSet.getString("salesforceProjectKey"))) {
 
@@ -148,10 +152,6 @@ public class CorpProjectMigration {
 				_externalLinkLocalService.addExternalLink(
 					userId, Account.class.getName(), account.getAccountId(),
 					"web", "corpProject", resultSet.getString("uuid_"));
-
-				_externalLinkLocalService.addExternalLink(
-					userId, Account.class.getName(), account.getAccountId(),
-					"lcs", "corpProjectId", String.valueOf(corpProjectId));
 
 				if (_log.isInfoEnabled()) {
 					_log.info("Migrated CorpProject " + account.getAccountId());
