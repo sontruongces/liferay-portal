@@ -127,7 +127,7 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "addressRegionId");
 		long addressType = ParamUtil.getLong(actionRequest, "addressType");
 		boolean mailing = ParamUtil.getBoolean(actionRequest, "mailing");
-		boolean primary = ParamUtil.getBoolean(actionRequest, "primary");
+		boolean primary = ParamUtil.getBoolean(actionRequest, "addressPrimary");
 
 		PostalAddress postalAddress = new PostalAddress();
 
