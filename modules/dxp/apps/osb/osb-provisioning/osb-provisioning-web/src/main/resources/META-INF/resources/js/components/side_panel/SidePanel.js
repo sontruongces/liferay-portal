@@ -24,6 +24,9 @@ import IconButton from '../IconButton';
 import ExternalLinksTabPane from './ExternalLinksTabPane';
 import NotesTabPane from './NotesTabPane';
 
+const COLLAPSED = 'collapsed';
+const EXPANDED = 'expanded';
+
 function CollapsiblePanel({addNoteURL, externalLinks, handleCollapse}) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
@@ -98,9 +101,13 @@ CollapsiblePanel.propTypes = {
 };
 
 function SidePanel(props) {
-	const [collapse, setCollapse] = useState(false);
+	const [collapse, setCollapse] = useState(getCollapsedState());
 
 	const handleCollapse = () => {
+		const sidePanelPanelState = !collapse === true ? COLLAPSED : EXPANDED;
+
+		sessionStorage.setItem('sidePanelPanelState', sidePanelPanelState);
+
 		setCollapse(!collapse);
 	};
 
@@ -118,6 +125,16 @@ function SidePanel(props) {
 			account.classList.remove('full-view');
 		}
 	}, [collapse]);
+
+	function getCollapsedState() {
+		if (!sessionStorage.getItem('sidePanelPanelState')) {
+			sessionStorage.setItem('sidePanelPanelState', EXPANDED);
+		}
+
+		return sessionStorage.getItem('sidePanelPanelState') === COLLAPSED
+			? true
+			: false;
+	}
 
 	return (
 		<NotesProvider initialNotes={props.notes}>
