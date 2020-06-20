@@ -27,7 +27,7 @@ function renderAccountDetails(props) {
 				firstLineSupportTeamName: 'Test Support Team',
 				key: '123',
 				name: 'Test Account',
-				parterTeamName: 'Test Partner Team',
+				partnerTeamName: 'Test Partner Team',
 				postalAddressDisplays: [],
 				region: 'US',
 				salesforceProjectKey: 'TestSalesForceProjectKey',

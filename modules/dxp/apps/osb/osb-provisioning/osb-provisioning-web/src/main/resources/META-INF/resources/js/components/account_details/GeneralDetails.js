@@ -50,9 +50,8 @@ function GeneralDetails({details, statuses, tiers}) {
 				fieldName="name"
 				formAction={details.editAccountURL}
 				formData={formData}
-			>
-				{details.name}
-			</DetailField>
+				value={details.name}
+			/>
 
 			<DetailField
 				displayAs="label"
@@ -63,25 +62,22 @@ function GeneralDetails({details, statuses, tiers}) {
 				inputStyle={details.statusStyle}
 				options={createSelectOptions(statuses)}
 				type={FIELD_TYPE_SELECT}
-			>
-				{details.status}
-			</DetailField>
+				value={details.status}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('code')}
 				fieldName="code"
 				formAction={details.editAccountURL}
 				formData={formData}
-			>
-				{details.code}
-			</DetailField>
+				value={details.code}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('created')}
 				type={FIELD_TYPE_NONEDITABLE}
-			>
-				{details.dateCreated}
-			</DetailField>
+				value={details.dateCreated}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('tier')}
@@ -90,16 +86,14 @@ function GeneralDetails({details, statuses, tiers}) {
 				formData={formData}
 				options={createSelectOptions(tiers)}
 				type={FIELD_TYPE_SELECT}
-			>
-				{details.tier}
-			</DetailField>
+				value={details.tier}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('last-modified')}
 				type={FIELD_TYPE_NONEDITABLE}
-			>
-				{details.dateModified}
-			</DetailField>
+				value={details.dateModified}
+			/>
 		</ClayList>
 	);
 }

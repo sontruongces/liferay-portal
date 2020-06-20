@@ -39,9 +39,8 @@ function PartnerInfo({details}) {
 				formAction={details.editAccountURL}
 				formData={formData}
 				type={FIELD_TYPE_EXTERNAL}
-			>
-				{details.partnerTeamName}
-			</DetailField>
+				value={details.partnerTeamName}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('first-line-support')}
@@ -49,9 +48,8 @@ function PartnerInfo({details}) {
 				formAction={details.editAccountURL}
 				formData={formData}
 				type={FIELD_TYPE_TOGGLE}
-			>
-				{details.firstLineSupportTeamName}
-			</DetailField>
+				value={details.firstLineSupportTeamName}
+			/>
 		</ClayList>
 	);
 }

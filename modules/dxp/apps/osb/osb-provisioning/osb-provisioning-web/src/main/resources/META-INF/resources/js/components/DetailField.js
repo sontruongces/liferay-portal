@@ -24,7 +24,6 @@ import HiddenForm from './HiddenForm';
 import InlineEdit from './InlineEdit';
 
 function DetailField({
-	children,
 	displayAs,
 	fieldLabel,
 	fieldName = fieldLabel,
@@ -32,7 +31,8 @@ function DetailField({
 	formData,
 	inputStyle,
 	options = [],
-	type = FIELD_TYPE_TEXT
+	type = FIELD_TYPE_TEXT,
+	value
 }) {
 	const formRef = useRef();
 	const [data, setData] = useState(formData);
@@ -54,7 +54,7 @@ function DetailField({
 
 				<div className="list-group-text">
 					{type === FIELD_TYPE_NONEDITABLE ? (
-						<>{children}</>
+						<>{value}</>
 					) : (
 						<>
 							<HiddenForm
@@ -71,7 +71,7 @@ function DetailField({
 								save={handleSubmit}
 								type={type}
 							>
-								{children}
+								{value}
 							</InlineEdit>
 						</>
 					)}
@@ -82,7 +82,6 @@ function DetailField({
 }
 
 DetailField.propTypes = {
-	children: PropTypes.string,
 	displayAs: PropTypes.oneOf(['label', 'text']),
 	fieldLabel: PropTypes.string,
 	fieldName: PropTypes.string,
@@ -101,7 +100,8 @@ DetailField.propTypes = {
 		FIELD_TYPE_SELECT,
 		FIELD_TYPE_TEXT,
 		FIELD_TYPE_TOGGLE
-	])
+	]),
+	value: PropTypes.string.isRequired
 };
 
 export default DetailField;

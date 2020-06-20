@@ -20,7 +20,7 @@ function renderPartnerInfo(props) {
 			details={{
 				firstLineSupportTeamName: 'Test Support Team',
 				key: '123',
-				parterTeamName: 'Test Partner Team'
+				partnerTeamName: 'Test Partner Team'
 			}}
 			{...props}
 		/>

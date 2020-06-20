@@ -194,9 +194,8 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				formAction={address.editPostalAddressURL}
 				formData={formData}
 				type={setFieldType()}
-			>
-				{address.streetAddressLine1}
-			</DetailField>
+				value={address.streetAddressLine1}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('city')}
@@ -204,9 +203,8 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				formAction={address.editPostalAddressURL}
 				formData={formData}
 				type={setFieldType()}
-			>
-				{address.addressLocality}
-			</DetailField>
+				value={address.addressLocality}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('street-2')}
@@ -214,9 +212,8 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				formAction={address.editPostalAddressURL}
 				formData={formData}
 				type={setFieldType()}
-			>
-				{address.streetAddressLine2}
-			</DetailField>
+				value={address.streetAddressLine2}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('state-province')}
@@ -225,9 +222,8 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				formData={formData}
 				options={regionOptions}
 				type={setFieldType(FIELD_TYPE_SELECT)}
-			>
-				{address.addressRegion}
-			</DetailField>
+				value={address.addressRegion}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('street-3')}
@@ -235,9 +231,8 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				formAction={address.editPostalAddressURL}
 				formData={formData}
 				type={setFieldType()}
-			>
-				{address.streetAddressLine3}
-			</DetailField>
+				value={address.streetAddressLine3}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('postal-code')}
@@ -245,9 +240,8 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				formAction={address.editPostalAddressURL}
 				formData={formData}
 				type={setFieldType()}
-			>
-				{address.postalCode}
-			</DetailField>
+				value={address.postalCode}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('country')}
@@ -256,9 +250,8 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				formData={formData}
 				options={countryOptions}
 				type={setFieldType(FIELD_TYPE_SELECT)}
-			>
-				{address.addressCountry}
-			</DetailField>
+				value={address.addressCountry}
+			/>
 
 			<ClayList.Item flex>
 				<div className="address-controls btn-group" role="group">

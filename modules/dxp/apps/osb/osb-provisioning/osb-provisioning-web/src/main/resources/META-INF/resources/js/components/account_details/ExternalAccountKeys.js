@@ -34,9 +34,8 @@ function ExternalAccountKeys({details}) {
 					),
 					entityName: 'account'
 				}}
-			>
-				{details.dossieraAccountKey}
-			</DetailField>
+				value={details.dossieraAccountKey}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('dossiera-project')}
@@ -49,9 +48,8 @@ function ExternalAccountKeys({details}) {
 					),
 					entityName: 'project'
 				}}
-			>
-				{details.dossieraProjectKey}
-			</DetailField>
+				value={details.dossieraProjectKey}
+			/>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('salesforce-project')}
@@ -64,9 +62,8 @@ function ExternalAccountKeys({details}) {
 					),
 					entityName: 'project'
 				}}
-			>
-				{details.salesforceProjectKey}
-			</DetailField>
+				value={details.salesforceProjectKey}
+			/>
 		</ClayList>
 	);
 }

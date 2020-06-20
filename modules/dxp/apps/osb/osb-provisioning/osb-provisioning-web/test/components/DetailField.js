@@ -20,10 +20,9 @@ function renderDetailField(props) {
 		<DetailField
 			fieldLabel="name"
 			formData={{1: 'a', 2: 'b', 3: 'c'}}
+			value="test"
 			{...props}
-		>
-			test
-		</DetailField>
+		/>
 	);
 }
 
