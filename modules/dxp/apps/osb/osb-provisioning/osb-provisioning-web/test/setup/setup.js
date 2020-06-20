@@ -18,10 +18,7 @@ window.Liferay = {
 	Language: {
 		get: key => key
 	},
-	Service: () =>
-		Promise.resolve([
-			{countryId: '', name: '', nameCurrentValue: '', regionId: ''}
-		])
+	Service: jest.fn()
 };
 
 /**
