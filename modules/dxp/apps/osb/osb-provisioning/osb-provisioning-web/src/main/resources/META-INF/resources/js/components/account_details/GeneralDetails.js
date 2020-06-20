@@ -18,7 +18,7 @@ import {
 	FIELD_TYPE_SELECT
 } from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
-import DetailField from './DetailField';
+import DetailField from '../DetailField';
 
 function GeneralDetails({details, statuses, tiers}) {
 	const formData = {

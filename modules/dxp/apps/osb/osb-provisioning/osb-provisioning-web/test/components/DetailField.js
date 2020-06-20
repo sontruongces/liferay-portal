@@ -12,8 +12,8 @@
 import {cleanup, fireEvent, render, within} from '@testing-library/react';
 import React from 'react';
 
-import DetailField from '../../../src/main/resources/META-INF/resources/js/components/account_details/DetailField';
-import {FIELD_TYPE_NONEDITABLE} from '../../../src/main/resources/META-INF/resources/js/utilities/constants';
+import DetailField from '../../src/main/resources/META-INF/resources/js/components/DetailField';
+import {FIELD_TYPE_NONEDITABLE} from '../../src/main/resources/META-INF/resources/js/utilities/constants';
 
 function renderDetailField(props) {
 	return render(

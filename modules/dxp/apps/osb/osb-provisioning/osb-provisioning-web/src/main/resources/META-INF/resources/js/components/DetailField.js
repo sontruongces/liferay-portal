@@ -19,9 +19,9 @@ import {
 	FIELD_TYPE_SELECT,
 	FIELD_TYPE_TEXT,
 	FIELD_TYPE_TOGGLE
-} from '../../utilities/constants';
-import HiddenForm from '../HiddenForm';
-import InlineEdit from '../InlineEdit';
+} from '../utilities/constants';
+import HiddenForm from './HiddenForm';
+import InlineEdit from './InlineEdit';
 
 function DetailField({
 	children,

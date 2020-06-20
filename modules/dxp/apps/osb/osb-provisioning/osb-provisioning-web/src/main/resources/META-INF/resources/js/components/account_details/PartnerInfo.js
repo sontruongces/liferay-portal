@@ -17,7 +17,7 @@ import {
 	FIELD_TYPE_EXTERNAL,
 	FIELD_TYPE_TOGGLE
 } from '../../utilities/constants';
-import DetailField from './DetailField';
+import DetailField from '../DetailField';
 
 function PartnerInfo({details}) {
 	const formData = {

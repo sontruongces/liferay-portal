@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {convertDashToEmptyString} from '../../utilities/helpers';
-import DetailField from './DetailField';
+import DetailField from '../DetailField';
 
 function ExternalAccountKeys({details}) {
 	return (

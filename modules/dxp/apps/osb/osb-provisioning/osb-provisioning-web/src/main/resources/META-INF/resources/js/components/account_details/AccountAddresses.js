@@ -19,8 +19,8 @@ import {
 	FIELD_TYPE_TEXT
 } from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
+import DetailField from '../DetailField';
 import IconButton from '../IconButton';
-import DetailField from './DetailField';
 
 function AccountAddresses({accountKey, addURL, addresses}) {
 	const [countryOptions, setCountryOptions] = useState([]);
