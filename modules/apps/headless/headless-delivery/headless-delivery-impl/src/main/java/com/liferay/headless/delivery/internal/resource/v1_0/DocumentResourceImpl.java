@@ -548,7 +548,9 @@ public class DocumentResourceImpl
 						_dlAppService, groupId, _journalArticleService,
 						_layoutLocalService,
 						contextAcceptLanguage.getPreferredLocale(),
-						modelDDMStructure.getDDMFormFields(false));
+						transform(
+							ddmStructure.getRootFieldNames(),
+							modelDDMStructure::getDDMFormField));
 
 				serviceContext.setAttribute(
 					DDMFormValues.class.getName() + StringPool.POUND +
