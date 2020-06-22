@@ -811,7 +811,6 @@ definition {
 			userScreenName = "ldapusercn");
 	}
 
-	@ignore = "true"
 	@priority = "5"
 	test HotDeploySAMLApp {
 		property hot.deploy.osgi.app.includes = "saml";
