@@ -20,8 +20,11 @@ import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalServiceUtil;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalServiceUtil;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.auth.FullNameGenerator;
 import com.liferay.portal.kernel.security.auth.FullNameGeneratorFactory;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -65,6 +68,11 @@ public class ContactImpl extends ContactBaseImpl {
 
 		return fullNameGenerator.getLocalizedFullName(
 			getFirstName(), getMiddleName(), getLastName(), locale, 0, 0);
+	}
+
+	public List<Team> getTeams() throws PortalException {
+		return TeamLocalServiceUtil.getContactTeams(
+			getContactId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 }

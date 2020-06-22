@@ -304,6 +304,13 @@ components:
                     description:
                         The ID provisioned from Okta.
                     type: string
+                teams:
+                    description:
+                        The teams that the contact is assigned to.
+                    items:
+                        $ref: "#/components/schemas/Team"
+                    readOnly: true
+                    type: array
                 uuid:
                     description:
                         A universal identifier to reference this contact.

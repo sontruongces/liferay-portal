@@ -26,6 +26,7 @@ import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdenti
 import com.liferay.osb.koroneiki.taproot.constants.TaprootActionKeys;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
@@ -216,6 +217,16 @@ public class TeamResourceImpl
 			_teamService.getAccountAssignedTeams(
 				accountKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
 			team -> TeamUtil.toTeam(team));
+	}
+
+	@NestedField(parentClass = Contact.class, value = "teams")
+	public List<Team> getContactNestedFieldTeams(
+			@NestedFieldId("key") String contactUuid)
+		throws Exception {
+
+		Contact contact = _contactLocalService.getContactByUuid(contactUuid);
+
+		return transform(contact.getTeams(), team -> TeamUtil.toTeam(team));
 	}
 
 	@Override
@@ -498,6 +509,9 @@ public class TeamResourceImpl
 	}
 
 	private static final EntityModel _entityModel = new TeamEntityModel();
+
+	@Reference
+	private ContactLocalService _contactLocalService;
 
 	@Reference
 	private ContactRoleLocalService _contactRoleLocalService;

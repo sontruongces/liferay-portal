@@ -149,6 +149,14 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 		return teamPersistence.countByAccountId(accountId);
 	}
 
+	public List<Team> getContactTeams(long contactId, int start, int end) {
+		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+		params.put("contact", contactId);
+
+		return teamFinder.findByName(null, params, start, end);
+	}
+
 	public Team getTeam(String teamKey) throws PortalException {
 		return teamPersistence.findByTeamKey(teamKey);
 	}

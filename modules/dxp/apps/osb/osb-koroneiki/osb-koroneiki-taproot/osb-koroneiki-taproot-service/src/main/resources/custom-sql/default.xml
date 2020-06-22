@@ -205,6 +205,15 @@
 				Koroneiki_TeamAccountRole.accountId = ?
 		]]>
 	</sql>
+	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.TeamFinder.joinByContact">
+		<![CDATA[
+			INNER JOIN
+				Koroneiki_ContactTeamRole ON
+					Koroneiki_ContactTeamRole.teamId = Koroneiki_Team.teamId
+			WHERE
+				Koroneiki_ContactTeamRole.contactId = ?
+		]]>
+	</sql>
 	<sql id="com.liferay.osb.koroneiki.taproot.service.persistence.TeamRoleFinder.countByName">
 		<![CDATA[
 			SELECT

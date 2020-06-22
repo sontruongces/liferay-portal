@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Entitlement;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 /**
@@ -46,6 +47,8 @@ public class ContactUtil {
 				lastName = contact.getLastName();
 				middleName = contact.getMiddleName();
 				oktaId = contact.getOktaId();
+				teams = TransformUtil.transformToArray(
+					contact.getTeams(), TeamUtil::toTeam, Team.class);
 				uuid = contact.getUuid();
 			}
 		};

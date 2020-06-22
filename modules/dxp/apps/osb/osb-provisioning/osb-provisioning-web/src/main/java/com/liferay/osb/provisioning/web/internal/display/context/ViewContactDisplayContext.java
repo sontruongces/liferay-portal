@@ -17,6 +17,7 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
@@ -93,6 +94,22 @@ public class ViewContactDisplayContext {
 					renderRequest, renderResponse, accountReader, account)));
 
 		return searchContainer;
+	}
+
+	public List<String> getContactAccountTeamNames(String accountKey)
+		throws Exception {
+
+		List<String> names = new ArrayList<>();
+
+		Team[] teams = contact.getTeams();
+
+		for (Team team : teams) {
+			if (accountKey.equals(team.getAccountKey())) {
+				names.add(team.getName());
+			}
+		}
+
+		return names;
 	}
 
 	public ContactDisplay getContactDisplay() {

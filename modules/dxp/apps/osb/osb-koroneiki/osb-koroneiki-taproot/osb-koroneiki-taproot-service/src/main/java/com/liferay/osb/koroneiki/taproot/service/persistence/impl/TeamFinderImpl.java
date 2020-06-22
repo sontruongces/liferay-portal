@@ -52,6 +52,9 @@ public class TeamFinderImpl extends TeamFinderBaseImpl implements TeamFinder {
 	public static final String JOIN_BY_ACCOUNT =
 		TeamFinder.class.getName() + ".joinByAccount";
 
+	public static final String JOIN_BY_CONTACT =
+		TeamFinder.class.getName() + ".joinByContact";
+
 	@Override
 	public int countByName(String name, LinkedHashMap<String, Object> params) {
 		Session session = null;
@@ -154,6 +157,9 @@ public class TeamFinderImpl extends TeamFinderBaseImpl implements TeamFinder {
 		if (key.equals("account")) {
 			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT);
 		}
+		else if (key.equals("contact")) {
+			join = _customSQL.get(getClass(), JOIN_BY_CONTACT);
+		}
 
 		if (Validator.isNotNull(join)) {
 			int pos = join.indexOf("WHERE");
@@ -187,6 +193,9 @@ public class TeamFinderImpl extends TeamFinderBaseImpl implements TeamFinder {
 
 		if (key.equals("account")) {
 			join = _customSQL.get(getClass(), JOIN_BY_ACCOUNT);
+		}
+		else if (key.equals("contact")) {
+			join = _customSQL.get(getClass(), JOIN_BY_CONTACT);
 		}
 
 		if (Validator.isNotNull(join)) {

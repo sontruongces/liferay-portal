@@ -118,7 +118,7 @@ public class ContactWebServiceImpl implements ContactWebService {
 		).header(
 			"API_Token", koroneikiConfiguration.apiToken()
 		).parameter(
-			"nestedFields", "entitlements"
+			"nestedFields", "entitlements,teams"
 		).build();
 	}
 

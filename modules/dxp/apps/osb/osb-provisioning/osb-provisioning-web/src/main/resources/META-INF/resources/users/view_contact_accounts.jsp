@@ -56,6 +56,12 @@ ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentPr
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
+				name="teams"
+			>
+				<%= StringUtil.merge(viewContactDisplayContext.getContactAccountTeamNames(accountDisplay.getKey()), "<br />") %>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
 				name="account-status"
 			>
 				<span class="label <%= accountDisplay.getStatusStyle() %>"><%= accountDisplay.getStatus() %></span>
