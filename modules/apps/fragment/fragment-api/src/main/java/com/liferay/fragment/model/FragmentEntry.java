@@ -67,9 +67,13 @@ public interface FragmentEntry extends FragmentEntryModel, PersistedModel {
 
 	public int getUsageCount();
 
+	public boolean isCacheable();
+
 	public void populateZipWriter(
 			com.liferay.portal.kernel.zip.ZipWriter zipWriter, String path)
 		throws Exception;
+
+	public void setCacheable(boolean cacheable);
 
 	public void setImagePreviewURL(String imagePreviewURL);
 

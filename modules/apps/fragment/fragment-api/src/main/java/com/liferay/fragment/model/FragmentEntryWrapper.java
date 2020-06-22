@@ -509,6 +509,11 @@ public class FragmentEntryWrapper
 		return model.isApproved();
 	}
 
+	@Override
+	public boolean isCacheable() {
+		return model.isCacheable();
+	}
+
 	/**
 	 * Returns <code>true</code> if this fragment entry is denied.
 	 *
@@ -590,6 +595,11 @@ public class FragmentEntryWrapper
 		throws Exception {
 
 		model.populateZipWriter(zipWriter, path);
+	}
+
+	@Override
+	public void setCacheable(boolean cacheable) {
+		model.setCacheable(cacheable);
 	}
 
 	/**
