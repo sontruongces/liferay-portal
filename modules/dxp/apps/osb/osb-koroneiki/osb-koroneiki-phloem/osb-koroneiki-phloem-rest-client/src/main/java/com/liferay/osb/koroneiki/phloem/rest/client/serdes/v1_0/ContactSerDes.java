@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.osb.koroneiki.phloem.rest.client.json.BaseJSONParser;
 
 import java.text.DateFormat;
@@ -260,6 +261,26 @@ public class ContactSerDes {
 			sb.append("\"");
 		}
 
+		if (contact.getTeams() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"teams\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < contact.getTeams().length; i++) {
+				sb.append(String.valueOf(contact.getTeams()[i]));
+
+				if ((i + 1) < contact.getTeams().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (contact.getUuid() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -383,6 +404,13 @@ public class ContactSerDes {
 			map.put("oktaId", String.valueOf(contact.getOktaId()));
 		}
 
+		if (contact.getTeams() == null) {
+			map.put("teams", null);
+		}
+		else {
+			map.put("teams", String.valueOf(contact.getTeams()));
+		}
+
 		if (contact.getUuid() == null) {
 			map.put("uuid", null);
 		}
@@ -499,6 +527,18 @@ public class ContactSerDes {
 			else if (Objects.equals(jsonParserFieldName, "oktaId")) {
 				if (jsonParserFieldValue != null) {
 					contact.setOktaId((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "teams")) {
+				if (jsonParserFieldValue != null) {
+					contact.setTeams(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> TeamSerDes.toDTO((String)object)
+						).toArray(
+							size -> new Team[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "uuid")) {

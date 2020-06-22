@@ -426,6 +426,35 @@ public class Contact {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String oktaId;
 
+	@Schema(description = "The teams that the contact is assigned to.")
+	@Valid
+	public Team[] getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Team[] teams) {
+		this.teams = teams;
+	}
+
+	@JsonIgnore
+	public void setTeams(
+		UnsafeSupplier<Team[], Exception> teamsUnsafeSupplier) {
+
+		try {
+			teams = teamsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Team[] teams;
+
 	@Schema(description = "A universal identifier to reference this contact.")
 	public String getUuid() {
 		return uuid;
@@ -676,6 +705,26 @@ public class Contact {
 			sb.append(_escape(oktaId));
 
 			sb.append("\"");
+		}
+
+		if (teams != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"teams\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < teams.length; i++) {
+				sb.append(String.valueOf(teams[i]));
+
+				if ((i + 1) < teams.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (uuid != null) {

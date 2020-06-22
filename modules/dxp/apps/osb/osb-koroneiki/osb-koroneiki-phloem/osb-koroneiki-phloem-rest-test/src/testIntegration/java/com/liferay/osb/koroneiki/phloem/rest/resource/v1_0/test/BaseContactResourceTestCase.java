@@ -1133,6 +1133,14 @@ public abstract class BaseContactResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("teams", additionalAssertFieldName)) {
+				if (contact.getTeams() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("uuid", additionalAssertFieldName)) {
 				if (contact.getUuid() == null) {
 					valid = false;
@@ -1323,6 +1331,16 @@ public abstract class BaseContactResourceTestCase {
 			if (Objects.equals("oktaId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						contact1.getOktaId(), contact2.getOktaId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("teams", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						contact1.getTeams(), contact2.getTeams())) {
 
 					return false;
 				}
@@ -1639,6 +1657,11 @@ public abstract class BaseContactResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("teams")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("uuid")) {

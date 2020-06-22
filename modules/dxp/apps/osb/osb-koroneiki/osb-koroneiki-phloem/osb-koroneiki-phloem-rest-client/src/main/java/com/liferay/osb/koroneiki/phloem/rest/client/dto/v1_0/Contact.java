@@ -300,6 +300,27 @@ public class Contact {
 
 	protected String oktaId;
 
+	public Team[] getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Team[] teams) {
+		this.teams = teams;
+	}
+
+	public void setTeams(
+		UnsafeSupplier<Team[], Exception> teamsUnsafeSupplier) {
+
+		try {
+			teams = teamsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Team[] teams;
+
 	public String getUuid() {
 		return uuid;
 	}
