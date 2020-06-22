@@ -22,6 +22,8 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItemList;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -30,8 +32,11 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletURL;
 
@@ -42,6 +47,32 @@ public class ViewAccountLiferayWorkersDisplayContext
 	extends ViewAccountDisplayContext {
 
 	public ViewAccountLiferayWorkersDisplayContext() {
+	}
+
+	public Map<String, Object> getAccountContactsDetailsData()
+		throws Exception {
+
+		Map<String, Object> data = new HashMap<>();
+
+		data.put("accountName", account.getName());
+
+		List<ContactRole> curContactRoles = getContactRoles();
+
+		List<JSONObject> contactRolesList = new ArrayList<>();
+
+		for (ContactRole contactRole : curContactRoles) {
+			JSONObject contact = JSONUtil.put(
+				"key", contactRole.getKey()
+			).put(
+				"name", contactRole.getName()
+			);
+
+			contactRolesList.add(contact);
+		}
+
+		data.put("allContactRoles", contactRolesList);
+
+		return data;
 	}
 
 	public List<ContactRole> getContactRoles() throws Exception {

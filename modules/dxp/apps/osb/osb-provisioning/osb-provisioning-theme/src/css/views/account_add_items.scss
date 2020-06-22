@@ -55,4 +55,42 @@
 			}
 		}
 	}
+
+	.assign-contacts-sheet {
+		margin-bottom: $spacing-lg;
+		margin-top: $spacing-default;
+
+		.button-row {
+			padding-bottom: $spacing-default;
+			padding-top: $spacing-default;
+		}
+
+		.contact-line-entry {
+			.form-control {
+				&:focus {
+					box-shadow: none;
+				}
+			}
+
+			.input-group-item {
+				&:hover {
+					cursor: pointer;
+				}
+
+				&.input-focus {
+					.input-group-inset-after,
+					.input-group-inset-item-after {
+						background-color: $primary-l3;
+						border-color: $primary-l1;
+						color: $dark;
+						outline: 0;
+					}
+				}
+
+				.label {
+					letter-spacing: normal;
+				}
+			}
+		}
+	}
 }
