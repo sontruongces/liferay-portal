@@ -81,6 +81,11 @@ public class FragmentEntryImpl extends FragmentEntryBaseImpl {
 	}
 
 	@Override
+	public boolean isCacheable() {
+		return _cacheable;
+	}
+
+	@Override
 	public void populateZipWriter(ZipWriter zipWriter, String path)
 		throws Exception {
 
@@ -130,6 +135,11 @@ public class FragmentEntryImpl extends FragmentEntryBaseImpl {
 	}
 
 	@Override
+	public void setCacheable(boolean cacheable) {
+		_cacheable = cacheable;
+	}
+
+	@Override
 	public void setImagePreviewURL(String imagePreviewURL) {
 		_imagePreviewURL = imagePreviewURL;
 	}
@@ -156,6 +166,7 @@ public class FragmentEntryImpl extends FragmentEntryBaseImpl {
 	private static final Log _log = LogFactoryUtil.getLog(
 		FragmentEntryImpl.class);
 
+	private boolean _cacheable;
 	private String _imagePreviewURL;
 
 }
