@@ -819,15 +819,6 @@ definition {
 
 		AssertConsoleTextNotPresent(value1 = "The portal instance needs to be restarted");
 
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Control Panel",
-			portlet = "System Settings");
-
-		SystemSettings.gotoConfiguration(
-			configurationCategory = "SSO",
-			configurationName = "SAML Configuration",
-			configurationScope = "System Scope");
 		AssertConsoleTextPresent(value1 = "STARTED Liferay Connector to SAML 2.0");
 
 		ProductMenu.gotoPortlet(
@@ -837,18 +828,8 @@ definition {
 
 		SystemSettings.gotoConfiguration(
 			configurationCategory = "SSO",
-			configurationName = "SAML KeyStoreManager Implementation Configuration",
+			configurationName = "SAML Configuration",
 			configurationScope = "System Scope");
-
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Control Panel",
-			portlet = "Instance Settings");
-
-		SystemSettings.gotoConfiguration(
-			configurationCategory = "SSO",
-			configurationName = "SAML Provider Configuration",
-			configurationScope = "Virtual Instance Scope");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
