@@ -1,4 +1,5 @@
 {
+	"cacheable": true,
 	"fragmentEntryKey": "html",
 	"name": "html",
 	"thumbnail": "html.png",

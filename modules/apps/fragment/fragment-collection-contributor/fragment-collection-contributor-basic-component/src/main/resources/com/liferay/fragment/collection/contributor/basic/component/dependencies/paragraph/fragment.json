@@ -1,4 +1,5 @@
 {
+	"cacheable": true,
 	"fragmentEntryKey": "paragraph",
 	"name": "paragraph",
 	"thumbnail": "paragraph.png",

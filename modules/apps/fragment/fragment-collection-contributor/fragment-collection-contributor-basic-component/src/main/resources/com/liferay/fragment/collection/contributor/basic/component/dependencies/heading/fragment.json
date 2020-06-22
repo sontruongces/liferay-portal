@@ -1,4 +1,5 @@
 {
+	"cacheable": true,
 	"fragmentEntryKey": "heading",
 	"name": "heading",
 	"thumbnail": "heading.png",

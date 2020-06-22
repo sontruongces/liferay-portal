@@ -248,6 +248,8 @@ public abstract class BaseFragmentCollectionContributor
 		String configuration = _read(
 			path, jsonObject.getString("configurationPath"), "index.json");
 
+		boolean cacheable = jsonObject.getBoolean("cacheable");
+
 		String thumbnailURL = _getImagePreviewURL(
 			jsonObject.getString("thumbnail"));
 		int type = FragmentConstants.getTypeFromLabel(
@@ -263,6 +265,7 @@ public abstract class BaseFragmentCollectionContributor
 		fragmentEntry.setJs(js);
 		fragmentEntry.setConfiguration(configuration);
 		fragmentEntry.setType(type);
+		fragmentEntry.setCacheable(cacheable);
 		fragmentEntry.setImagePreviewURL(thumbnailURL);
 
 		return fragmentEntry;

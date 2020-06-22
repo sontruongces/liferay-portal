@@ -1,4 +1,5 @@
 {
+	"cacheable": true,
 	"fragmentEntryKey": "spacer",
 	"name": "spacer",
 	"thumbnail": "spacer.png",
