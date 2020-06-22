@@ -3047,17 +3047,17 @@ public class AccountNotePersistenceImpl
 		"(accountNote.status IS NULL OR accountNote.status = '')";
 
 	public AccountNotePersistenceImpl() {
+		setModelClass(AccountNote.class);
+
+		setModelImplClass(AccountNoteImpl.class);
+		setModelPKClass(long.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
-
-		setModelClass(AccountNote.class);
-
-		setModelImplClass(AccountNoteImpl.class);
-		setModelPKClass(long.class);
 	}
 
 	/**

@@ -3662,17 +3662,17 @@ public class TeamPersistenceImpl
 		"team.system = ?";
 
 	public TeamPersistenceImpl() {
+		setModelClass(Team.class);
+
+		setModelImplClass(TeamImpl.class);
+		setModelPKClass(long.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("system", "system_");
 
 		setDBColumnNames(dbColumnNames);
-
-		setModelClass(Team.class);
-
-		setModelImplClass(TeamImpl.class);
-		setModelPKClass(long.class);
 	}
 
 	/**

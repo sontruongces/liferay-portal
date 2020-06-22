@@ -323,6 +323,13 @@ public class ContactWrapper
 		return model.getPrimaryKey();
 	}
 
+	@Override
+	public java.util.List<Team> getTeams()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getTeams();
+	}
+
 	/**
 	 * Returns the user ID of this contact.
 	 *

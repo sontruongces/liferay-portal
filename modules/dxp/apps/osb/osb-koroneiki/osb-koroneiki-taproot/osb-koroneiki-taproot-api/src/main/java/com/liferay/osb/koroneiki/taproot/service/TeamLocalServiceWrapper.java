@@ -244,6 +244,13 @@ public class TeamLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+		getContactTeams(long contactId, int start, int end) {
+
+		return _teamLocalService.getContactTeams(contactId, start, end);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

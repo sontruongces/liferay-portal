@@ -70,4 +70,7 @@ public interface Contact extends ContactModel, PersistedModel {
 
 	public String getFullName();
 
+	public java.util.List<Team> getTeams()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 }

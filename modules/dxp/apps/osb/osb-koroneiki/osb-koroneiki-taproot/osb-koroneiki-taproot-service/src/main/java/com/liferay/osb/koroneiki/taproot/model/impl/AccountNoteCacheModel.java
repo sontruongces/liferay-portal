@@ -37,17 +37,17 @@ public class AccountNoteCacheModel
 	implements CacheModel<AccountNote>, Externalizable, MVCCModel {
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof AccountNoteCacheModel)) {
+		if (!(obj instanceof AccountNoteCacheModel)) {
 			return false;
 		}
 
 		AccountNoteCacheModel accountNoteCacheModel =
-			(AccountNoteCacheModel)object;
+			(AccountNoteCacheModel)obj;
 
 		if ((accountNoteId == accountNoteCacheModel.accountNoteId) &&
 			(mvccVersion == accountNoteCacheModel.mvccVersion)) {

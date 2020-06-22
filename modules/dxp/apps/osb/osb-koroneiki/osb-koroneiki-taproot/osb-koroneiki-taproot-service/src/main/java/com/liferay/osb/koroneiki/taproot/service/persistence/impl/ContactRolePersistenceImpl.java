@@ -3561,6 +3561,11 @@ public class ContactRolePersistenceImpl
 		"(contactRole.type IS NULL OR contactRole.type = '')";
 
 	public ContactRolePersistenceImpl() {
+		setModelClass(ContactRole.class);
+
+		setModelImplClass(ContactRoleImpl.class);
+		setModelPKClass(long.class);
+
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
@@ -3568,11 +3573,6 @@ public class ContactRolePersistenceImpl
 		dbColumnNames.put("system", "system_");
 
 		setDBColumnNames(dbColumnNames);
-
-		setModelClass(ContactRole.class);
-
-		setModelImplClass(ContactRoleImpl.class);
-		setModelPKClass(long.class);
 	}
 
 	/**

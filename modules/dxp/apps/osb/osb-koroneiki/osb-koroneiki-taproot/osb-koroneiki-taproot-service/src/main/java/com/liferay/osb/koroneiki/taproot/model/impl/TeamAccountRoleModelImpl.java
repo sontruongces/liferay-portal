@@ -432,16 +432,16 @@ public class TeamAccountRoleModelImpl
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof TeamAccountRole)) {
+		if (!(obj instanceof TeamAccountRole)) {
 			return false;
 		}
 
-		TeamAccountRole teamAccountRole = (TeamAccountRole)object;
+		TeamAccountRole teamAccountRole = (TeamAccountRole)obj;
 
 		TeamAccountRolePK primaryKey = teamAccountRole.getPrimaryKey();
 

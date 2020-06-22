@@ -237,6 +237,12 @@ public class TeamLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static java.util.List<com.liferay.osb.koroneiki.taproot.model.Team>
+		getContactTeams(long contactId, int start, int end) {
+
+		return getService().getContactTeams(contactId, start, end);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
