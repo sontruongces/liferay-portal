@@ -39,9 +39,15 @@ function DetailField({
 
 	useEffect(() => {
 		if (formRef.current && data[fieldName] !== formData[fieldName]) {
-			formRef.current.submit();
+			if (type === FIELD_TYPE_TEXT) {
+				formRef.current.submit();
+			}
+
+			if (type === FIELD_TYPE_SELECT && data[fieldName] !== '') {
+				formRef.current.submit();
+			}
 		}
-	}, [data, fieldName, formData]);
+	}, [data, fieldName, formData, type]);
 
 	function handleSubmit(value) {
 		setData({...formData, [fieldName]: value});
