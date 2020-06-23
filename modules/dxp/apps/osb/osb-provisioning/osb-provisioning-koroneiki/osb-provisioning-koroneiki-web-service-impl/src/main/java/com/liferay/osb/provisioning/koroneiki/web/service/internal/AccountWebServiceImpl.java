@@ -50,7 +50,11 @@ public class AccountWebServiceImpl
 			String agentName, String agentUID, Account account)
 		throws Exception {
 
-		return _accountResource.postAccount(agentName, agentUID, account);
+		HttpInvoker.HttpResponse httpResponse =
+			_accountResource.postAccountHttpResponse(
+				agentName, agentUID, account);
+
+		return processDTO(httpResponse, AccountSerDes::toDTO);
 	}
 
 	public void assignContactRoles(
@@ -72,8 +76,11 @@ public class AccountWebServiceImpl
 			String teamKey, String[] teamRoleKeys)
 		throws Exception {
 
-		_accountResource.putAccountAssignedTeamTeamKeyRole(
-			agentName, agentUID, accountKey, teamKey, teamRoleKeys);
+		HttpInvoker.HttpResponse httpResponse =
+			_accountResource.putAccountAssignedTeamTeamKeyRoleHttpResponse(
+				agentName, agentUID, accountKey, teamKey, teamRoleKeys);
+
+		validateResponse(httpResponse);
 	}
 
 	public Account fetchAccount(String accountKey) throws Exception {
@@ -173,8 +180,11 @@ public class AccountWebServiceImpl
 			String teamKey, String[] teamRoleKeys)
 		throws Exception {
 
-		_accountResource.deleteAccountAssignedTeamTeamKeyRole(
-			agentName, agentUID, accountKey, teamKey, teamRoleKeys);
+		HttpInvoker.HttpResponse httpResponse =
+			_accountResource.deleteAccountAssignedTeamTeamKeyRoleHttpResponse(
+				agentName, agentUID, accountKey, teamKey, teamRoleKeys);
+
+		validateResponse(httpResponse);
 	}
 
 	public void unassignWorkerContact(
@@ -192,8 +202,11 @@ public class AccountWebServiceImpl
 			Account account)
 		throws Exception {
 
-		return _accountResource.putAccount(
-			agentName, agentUID, accountKey, account);
+		HttpInvoker.HttpResponse httpResponse =
+			_accountResource.putAccountHttpResponse(
+				agentName, agentUID, accountKey, account);
+
+		return processDTO(httpResponse, AccountSerDes::toDTO);
 	}
 
 	@Activate

@@ -17,6 +17,7 @@ package com.liferay.osb.provisioning.web.internal.portlet.action;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.PostalAddressWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException;
 import com.liferay.portal.kernel.exception.NoSuchCountryException;
 import com.liferay.portal.kernel.exception.NoSuchListTypeException;
 import com.liferay.portal.kernel.exception.NoSuchRegionException;
@@ -87,8 +88,11 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 			else {
 				updatePostalAddress(actionRequest, user);
 			}
-
-			sendRedirect(actionRequest, actionResponse);
+		}
+		catch (HttpException httpException) {
+			_log.error(httpException, httpException);
+			SessionErrors.add(
+				actionRequest, httpException.getClass(), httpException);
 		}
 		catch (Exception exception) {
 			if (exception instanceof NoSuchCountryException ||
@@ -103,6 +107,8 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 				throw exception;
 			}
 		}
+
+		sendRedirect(actionRequest, actionResponse);
 	}
 
 	protected void updatePostalAddress(ActionRequest actionRequest, User user)

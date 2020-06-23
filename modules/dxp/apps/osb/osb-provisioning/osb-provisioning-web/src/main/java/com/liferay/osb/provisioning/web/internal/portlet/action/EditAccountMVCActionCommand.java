@@ -22,11 +22,13 @@ import com.liferay.osb.provisioning.koroneiki.constants.TeamRoleConstants;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -106,14 +108,19 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 			else {
 				addAccount(actionRequest, user);
 			}
-
-			sendRedirect(actionRequest, actionResponse);
+		}
+		catch (HttpException httpException) {
+			_log.error(httpException, httpException);
+			SessionErrors.add(
+				actionRequest, httpException.getClass(), httpException);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
 
 			throw exception;
 		}
+
+		sendRedirect(actionRequest, actionResponse);
 	}
 
 	protected void updateAccount(ActionRequest actionRequest, User user)
