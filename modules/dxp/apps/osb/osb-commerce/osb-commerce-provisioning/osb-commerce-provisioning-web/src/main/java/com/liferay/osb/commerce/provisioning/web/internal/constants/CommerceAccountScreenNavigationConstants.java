@@ -17,14 +17,15 @@ package com.liferay.osb.commerce.provisioning.web.internal.constants;
 /**
  * @author Ivica Cardic
  */
-public class OSBCommerceProvisioningPortletKeys {
+public class CommerceAccountScreenNavigationConstants {
 
-	public static final String PLAN_SETTINGS =
-		"com_liferay_osb_commerce_provisioning_web_portlet_plan_" +
-			"PlanSettingsPortlet";
+	public static final String CATEGORY_KEY_ACCOUNT_PLAN_SETTINGS =
+		"account-plan-settings";
 
-	public static final String TRIAL_REGISTRATION =
-		"com_liferay_osb_commerce_provisioning_web_portlet_" +
-			"TrialRegistrationPortlet";
+	public static final String ENTRY_KEY_ACCOUNT_PLAN_SETTINGS =
+		"account-plan-settings";
+
+	public static final String SCREEN_NAVIGATION_KEY =
+		"account-screen-navigation";
 
 }
