@@ -219,31 +219,35 @@ public class ProductPurchaseViewDisplay {
 			Date originalEndDate = productPurchase.getOriginalEndDate();
 			Date endDate = productPurchase.getEndDate();
 
-			if (startDate == null) {
+			String status = productPurchase.getStatusAsString();
+
+			boolean approved = StringUtil.equalsIgnoreCase(status, "approved");
+
+			if (approved && (startDate == null)) {
 				_inSupportGap = false;
 				_perpetual = true;
 			}
 
-			if (!_perpetual &&
+			if (approved && !_perpetual &&
 				((_startDate == null) || startDate.before(_startDate))) {
 
 				_startDate = startDate;
 			}
 
-			if (!_perpetual &&
+			if (approved && !_perpetual &&
 				((_originalEndDate == null) ||
 				 originalEndDate.after(_originalEndDate))) {
 
 				_originalEndDate = originalEndDate;
 			}
 
-			if (!_perpetual &&
+			if (approved && !_perpetual &&
 				((_endDate == null) || endDate.after(_endDate))) {
 
 				_endDate = endDate;
 			}
 
-			if ((startDate != null) && startDate.before(now) &&
+			if (approved && (startDate != null) && startDate.before(now) &&
 				(endDate != null) && endDate.after(now)) {
 
 				_inSupportGap = false;
@@ -274,7 +278,7 @@ public class ProductPurchaseViewDisplay {
 			_purchasedCount += productPurchase.getQuantity();
 
 			if (!StringUtil.equalsIgnoreCase(_status, "approved")) {
-				_status = productPurchase.getStatusAsString();
+				_status = status;
 			}
 		}
 
