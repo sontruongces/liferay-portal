@@ -49,7 +49,7 @@ accountContactsDetailsData.put("redirect", redirect);
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
-		title='<%= contactRoles != null ? "edit-roles" : "assign-contact" %>'
+		title='<%= (contactRoles != null) ? "edit-roles" : "assign-contact" %>'
 	/>
 
 	<portlet:actionURL name="/accounts/assign_contact_roles" var="assignContactRolesURL">
