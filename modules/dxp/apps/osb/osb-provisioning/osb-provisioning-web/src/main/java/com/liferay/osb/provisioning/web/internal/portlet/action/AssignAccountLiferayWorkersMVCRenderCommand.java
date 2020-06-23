@@ -59,7 +59,9 @@ public class AssignAccountLiferayWorkersMVCRenderCommand
 				ProvisioningWebKeys.ACCOUNT,
 				_accountWebService.getAccount(accountKey));
 
-				if (SessionErrors.isEmpty(renderRequest) && Validator.isNotNull(emailAddress)) {
+			if (SessionErrors.isEmpty(renderRequest) &&
+				Validator.isNotNull(emailAddress)) {
+
 				renderRequest.setAttribute(
 					ProvisioningWebKeys.CONTACT_ROLES,
 					_contactRoleWebService.getAccountWorkerContactRoles(
