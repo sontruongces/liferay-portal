@@ -25,10 +25,10 @@ export default function AccountAddContacts({
 	userEmailAddress,
 	userFullName
 }) {
-	const [emailAddress, setEmailAddress] = useState(userEmailAddress);
-	const [contactRoleKeys, setContactRoleKeys] = useState(
+	const [addContactRoleKeys, setAddContactRoleKeys] = useState(
 		initialContactRoleKeys
 	);
+	const [emailAddress, setEmailAddress] = useState(userEmailAddress);
 
 	const disableEmail = !!(
 		userFullName &&
@@ -36,19 +36,31 @@ export default function AccountAddContacts({
 		initialContactRoleKeys.length !== 0
 	);
 
+	function addKey(key) {
+		if (!addContactRoleKeys.includes(key)) {
+			setAddContactRoleKeys([...addContactRoleKeys, key]);
+		}
+	}
+
+	function removeKey(key) {
+		setAddContactRoleKeys(
+			addContactRoleKeys.filter(item => !item.match(key))
+		);
+	}
+
 	return (
 		<>
 			<input
 				name={`${NAMESPACE}addContactRoleKeys`}
 				type="hidden"
-				value={contactRoleKeys.join(',')}
+				value={addContactRoleKeys.join(',')}
 			/>
 			<input
 				name={`${NAMESPACE}deleteContactRoleKeys`}
 				type="hidden"
 				value={allContactRoles
 					.map(item => item.key)
-					.filter(key => !contactRoleKeys.includes(key))
+					.filter(key => !addContactRoleKeys.includes(key))
 					.join(',')}
 			/>
 
@@ -97,10 +109,11 @@ export default function AccountAddContacts({
 					<ContactsContext.Provider value={allContactRoles}>
 						<ContactLine
 							accountName={accountName}
-							contactRoleKeys={contactRoleKeys}
+							addContactRoleKeys={addContactRoleKeys}
+							addKey={addKey}
 							disableEmail={disableEmail}
 							emailAddress={emailAddress}
-							setContactRoleKeys={setContactRoleKeys}
+							removeKey={removeKey}
 							setEmailAddress={setEmailAddress}
 							userFullName={userFullName}
 						/>
@@ -111,7 +124,7 @@ export default function AccountAddContacts({
 			<div className="button-row">
 				<button
 					className="btn btn-primary save-btn"
-					disabled={!(contactRoleKeys.length > 0 && emailAddress)}
+					disabled={!(addContactRoleKeys.length > 0 && emailAddress)}
 					role="button"
 					type="submit"
 				>

@@ -18,10 +18,11 @@ import {ContactsContext} from './AccountAddContacts';
 
 export default function ContactLine({
 	accountName,
-	contactRoleKeys,
+	addContactRoleKeys,
+	addKey,
 	disableEmail,
 	emailAddress,
-	setContactRoleKeys,
+	removeKey,
 	setEmailAddress,
 	userFullName
 }) {
@@ -56,8 +57,9 @@ export default function ContactLine({
 			</td>
 			<td className="table-cell-expand">
 				<ContactRoleSelect
-					contactRoleKeys={contactRoleKeys}
-					setContactRoleKeys={setContactRoleKeys}
+					addContactRoleKeys={addContactRoleKeys}
+					addKey={addKey}
+					removeKey={removeKey}
 				/>
 			</td>
 			<td className="table-cell-expand">
@@ -71,15 +73,16 @@ export default function ContactLine({
 
 ContactLine.propTypes = {
 	accountName: PropTypes.string,
-	contactRoleKeys: PropTypes.arrayOf(PropTypes.string),
+	addContactRoleKeys: PropTypes.arrayOf(PropTypes.string),
+	addKey: PropTypes.func,
 	disableEmail: PropTypes.bool,
 	emailAddress: PropTypes.string,
-	setContactRoleKeys: PropTypes.func,
+	removeKey: PropTypes.func,
 	setEmailAddress: PropTypes.func,
 	userFullName: PropTypes.string
 };
 
-function ContactRoleSelect({contactRoleKeys, setContactRoleKeys}) {
+function ContactRoleSelect({addContactRoleKeys, addKey, removeKey}) {
 	const [active, setActive] = useState(false);
 
 	const allContactRoles = useContext(ContactsContext);
@@ -88,27 +91,17 @@ function ContactRoleSelect({contactRoleKeys, setContactRoleKeys}) {
 		return {...updatedMap, [role.key]: role};
 	}, {});
 
-	function addRole(key) {
-		if (!contactRoleKeys.includes(key)) {
-			setContactRoleKeys([...contactRoleKeys, key]);
-		}
-	}
-
-	function removeRole(key) {
-		setContactRoleKeys(contactRoleKeys.filter(item => !item.match(key)));
-	}
-
 	const triggerElement = (
 		<div className="input-group input-group-stacked-sm-down">
 			<div className={`input-group-item ${active ? 'input-focus' : ''}`}>
 				<div className="form-control form-control-tag-group input-group-inset input-group-inset-after">
-					{contactRoleKeys.map(
+					{addContactRoleKeys.map(
 						roleKey =>
 							allContactRolesMap[roleKey] && (
 								<ContactRoleLabel
 									key={roleKey}
 									name={allContactRolesMap[roleKey]['name']}
-									removeRole={() => removeRole(roleKey)}
+									removeRole={() => removeKey(roleKey)}
 								/>
 							)
 					)}
@@ -148,7 +141,7 @@ function ContactRoleSelect({contactRoleKeys, setContactRoleKeys}) {
 					{allContactRoles.map(role => (
 						<ClayDropDown.Item
 							key={role.key}
-							onClick={() => addRole(role.key)}
+							onClick={() => addKey(role.key)}
 						>
 							{role.name}
 						</ClayDropDown.Item>
@@ -160,8 +153,9 @@ function ContactRoleSelect({contactRoleKeys, setContactRoleKeys}) {
 }
 
 ContactRoleSelect.propTypes = {
-	contactRoleKeys: PropTypes.arrayOf(PropTypes.string),
-	setContactRoleKeys: PropTypes.func
+	addContactRoleKeys: PropTypes.arrayOf(PropTypes.string),
+	addKey: PropTypes.func,
+	removeKey: PropTypes.func
 };
 
 function ContactRoleLabel({name, removeRole}) {

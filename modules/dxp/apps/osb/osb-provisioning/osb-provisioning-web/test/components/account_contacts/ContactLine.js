@@ -15,7 +15,8 @@ import React from 'react';
 import {ContactsContext} from '../../../src/main/resources/META-INF/resources/js/components/account_contacts/AccountAddContacts';
 import ContactLine from '../../../src/main/resources/META-INF/resources/js/components/account_contacts/ContactLine';
 
-const mockSetContactRoleKeysFn = jest.fn();
+const mockAddKeyFn = jest.fn();
+const mockRemoveKeyFn = jest.fn();
 const mockSetEmailAddressFn = jest.fn();
 
 function renderContactLine(props) {
@@ -32,10 +33,11 @@ function renderContactLine(props) {
 				<ContactsContext.Provider value={allContactRoles}>
 					<ContactLine
 						accountName={'Test Account'}
-						contactRoleKeys={[]}
+						addContactRoleKeys={[]}
+						addKey={mockAddKeyFn}
 						disableEmail={false}
 						emailAddress={''}
-						setContactRoleKeys={mockSetContactRoleKeysFn}
+						removeKey={mockRemoveKeyFn}
 						setEmailAddress={mockSetEmailAddressFn}
 						{...props}
 					/>
@@ -62,7 +64,7 @@ describe('AccountAddress', () => {
 
 	it('displays full name and email if provided', () => {
 		const {getByText} = renderContactLine({
-			contactRoleKeys: ['KEY-100'],
+			addContactRoleKeys: ['KEY-100'],
 			disableEmail: true,
 			emailAddress: 'test1@liferay.com',
 			userFullName: 'Test One'
@@ -80,7 +82,7 @@ describe('AccountAddress', () => {
 
 	it('hides email as an input if disabled', () => {
 		const {container} = renderContactLine({
-			contactRoleKeys: ['KEY-100'],
+			addContactRoleKeys: ['KEY-100'],
 			disableEmail: true,
 			emailAddress: 'test1@liferay.com',
 			userFullName: 'Test One'
@@ -99,7 +101,7 @@ describe('AccountAddress', () => {
 
 	it('displays contact roles if provided', () => {
 		const {container} = renderContactLine({
-			contactRoleKeys: ['KEY-100', 'KEY-101'],
+			addContactRoleKeys: ['KEY-100', 'KEY-101'],
 			disableEmail: true,
 			emailAddress: 'test1@liferay.com',
 			userFullName: 'Test One'
@@ -120,12 +122,12 @@ describe('AccountAddress', () => {
 
 		fireEvent.click(getByText('Manager'));
 
-		expect(mockSetContactRoleKeysFn).toHaveBeenCalled();
+		expect(mockAddKeyFn).toHaveBeenCalled();
 	});
 
 	it('calls function when contact roles are removed', () => {
 		const {queryAllByTitle} = renderContactLine({
-			contactRoleKeys: ['KEY-100', 'KEY-101'],
+			addContactRoleKeys: ['KEY-100', 'KEY-101'],
 			disableEmail: true,
 			emailAddress: 'test1@liferay.com',
 			userFullName: 'Test One'
@@ -133,6 +135,6 @@ describe('AccountAddress', () => {
 
 		fireEvent.click(queryAllByTitle('delete')[0]);
 
-		expect(mockSetContactRoleKeysFn).toHaveBeenCalled();
+		expect(mockRemoveKeyFn).toHaveBeenCalled();
 	});
 });
