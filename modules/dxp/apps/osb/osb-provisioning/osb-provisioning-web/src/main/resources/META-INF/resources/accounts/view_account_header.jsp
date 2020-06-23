@@ -103,13 +103,23 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 		</ul>
 	</div>
 
-	<clay:dropdown-menu
-		buttonStyle="primary"
-		dropdownItems="<%= viewAccountDisplayContext.getHeaderAddDropdownItems() %>"
-		icon="plus"
-		style="primary"
-		triggerCssClasses="nav-btn nav-btn-monospaced"
-	/>
+	<portlet:actionURL name="/accounts/sync_to_lcs" var="syncToLcsURL">
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+	</portlet:actionURL>
+
+	<portlet:actionURL name="/accounts/sync_to_zendesk" var="syncToZendeskURL">
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+	</portlet:actionURL>
+
+	<aui:form action="<%= syncToLcsURL %>" method="post" name="fm">
+		<aui:button cssClass="btn-secondary" href="<%= syncToLcsURL %>" value="sync-to-lcs" />
+	</aui:form>
+
+	<aui:form action="<%= syncToZendeskURL %>" method="post" name="fm">
+		<aui:button cssClass="btn-secondary" href="<%= syncToZendeskURL %>" value="sync-to-zendesk" />
+	</aui:form>
 
 	<clay:dropdown-actions
 		dropdownItems="<%= viewAccountDisplayContext.getHeaderActionDropdownItems() %>"

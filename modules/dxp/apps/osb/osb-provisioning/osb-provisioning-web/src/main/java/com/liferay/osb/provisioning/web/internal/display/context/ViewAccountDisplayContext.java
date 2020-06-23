@@ -289,41 +289,6 @@ public class ViewAccountDisplayContext {
 									httpServletRequest, "close-account"));
 						}
 					});
-
-				add(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							renderResponse.createRenderURL(),
-							"mvcRenderCommandName",
-							"/accounts/edit_account_hierarchy", "redirect",
-							getCurrentURL(), "accountKey", account.getKey());
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								httpServletRequest, "edit-account-hierarchy"));
-						dropdownItem.setSeparator(true);
-					});
-				add(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							renderResponse.createActionURL(),
-							ActionRequest.ACTION_NAME, "/accounts/sync_to_lcs",
-							"redirect", getCurrentURL(), "accountKey",
-							account.getKey());
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								httpServletRequest, "sync-to-lcs"));
-					});
-				add(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							renderResponse.createActionURL(),
-							ActionRequest.ACTION_NAME,
-							"/accounts/sync_to_zendesk", "redirect",
-							getCurrentURL(), "accountKey", account.getKey());
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								httpServletRequest, "sync-to-zendesk"));
-					});
 			}
 		};
 	}
