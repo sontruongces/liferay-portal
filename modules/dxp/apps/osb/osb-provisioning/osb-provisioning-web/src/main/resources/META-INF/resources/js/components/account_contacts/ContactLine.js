@@ -11,15 +11,15 @@
 
 import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 
 import {NAMESPACE} from '../../utilities/constants';
-import {ContactsContext} from './AccountAddContacts';
 
 export default function ContactLine({
 	accountName,
 	addContactRoleKeys,
 	addKey,
+	allContactRoles,
 	disableEmail,
 	emailAddress,
 	removeKey,
@@ -59,6 +59,7 @@ export default function ContactLine({
 				<ContactRoleSelect
 					addContactRoleKeys={addContactRoleKeys}
 					addKey={addKey}
+					allContactRoles={allContactRoles}
 					removeKey={removeKey}
 				/>
 			</td>
@@ -75,6 +76,12 @@ ContactLine.propTypes = {
 	accountName: PropTypes.string,
 	addContactRoleKeys: PropTypes.arrayOf(PropTypes.string),
 	addKey: PropTypes.func,
+	allContactRoles: PropTypes.arrayOf(
+		PropTypes.shape({
+			key: PropTypes.string,
+			name: PropTypes.string
+		})
+	),
 	disableEmail: PropTypes.bool,
 	emailAddress: PropTypes.string,
 	removeKey: PropTypes.func,
@@ -82,10 +89,13 @@ ContactLine.propTypes = {
 	userFullName: PropTypes.string
 };
 
-function ContactRoleSelect({addContactRoleKeys, addKey, removeKey}) {
+function ContactRoleSelect({
+	addContactRoleKeys,
+	addKey,
+	allContactRoles,
+	removeKey
+}) {
 	const [active, setActive] = useState(false);
-
-	const allContactRoles = useContext(ContactsContext);
 
 	const allContactRolesMap = allContactRoles.reduce((updatedMap, role) => {
 		return {...updatedMap, [role.key]: role};
@@ -155,6 +165,12 @@ function ContactRoleSelect({addContactRoleKeys, addKey, removeKey}) {
 ContactRoleSelect.propTypes = {
 	addContactRoleKeys: PropTypes.arrayOf(PropTypes.string),
 	addKey: PropTypes.func,
+	allContactRoles: PropTypes.arrayOf(
+		PropTypes.shape({
+			key: PropTypes.string,
+			name: PropTypes.string
+		})
+	),
 	removeKey: PropTypes.func
 };
 

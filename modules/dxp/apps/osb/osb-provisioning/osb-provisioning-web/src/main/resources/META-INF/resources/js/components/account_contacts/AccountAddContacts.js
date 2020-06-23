@@ -15,8 +15,6 @@ import React, {useState} from 'react';
 import {NAMESPACE} from '../../utilities/constants';
 import ContactLine from './ContactLine';
 
-const ContactsContext = React.createContext();
-
 export default function AccountAddContacts({
 	accountName,
 	allContactRoles,
@@ -106,18 +104,17 @@ export default function AccountAddContacts({
 					</tr>
 				</thead>
 				<tbody>
-					<ContactsContext.Provider value={allContactRoles}>
-						<ContactLine
-							accountName={accountName}
-							addContactRoleKeys={addContactRoleKeys}
-							addKey={addKey}
-							disableEmail={disableEmail}
-							emailAddress={emailAddress}
-							removeKey={removeKey}
-							setEmailAddress={setEmailAddress}
-							userFullName={userFullName}
-						/>
-					</ContactsContext.Provider>
+					<ContactLine
+						accountName={accountName}
+						addContactRoleKeys={addContactRoleKeys}
+						addKey={addKey}
+						allContactRoles={allContactRoles}
+						disableEmail={disableEmail}
+						emailAddress={emailAddress}
+						removeKey={removeKey}
+						setEmailAddress={setEmailAddress}
+						userFullName={userFullName}
+					/>
 				</tbody>
 			</table>
 
@@ -152,5 +149,3 @@ AccountAddContacts.propTypes = {
 	userEmailAddress: PropTypes.string,
 	userFullName: PropTypes.string
 };
-
-export {ContactsContext};

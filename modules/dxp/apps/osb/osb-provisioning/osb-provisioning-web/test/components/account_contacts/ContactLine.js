@@ -12,7 +12,6 @@
 import {cleanup, fireEvent, render, within} from '@testing-library/react';
 import React from 'react';
 
-import {ContactsContext} from '../../../src/main/resources/META-INF/resources/js/components/account_contacts/AccountAddContacts';
 import ContactLine from '../../../src/main/resources/META-INF/resources/js/components/account_contacts/ContactLine';
 
 const mockAddKeyFn = jest.fn();
@@ -30,18 +29,17 @@ function renderContactLine(props) {
 	return render(
 		<table>
 			<tbody>
-				<ContactsContext.Provider value={allContactRoles}>
-					<ContactLine
-						accountName={'Test Account'}
-						addContactRoleKeys={[]}
-						addKey={mockAddKeyFn}
-						disableEmail={false}
-						emailAddress={''}
-						removeKey={mockRemoveKeyFn}
-						setEmailAddress={mockSetEmailAddressFn}
-						{...props}
-					/>
-				</ContactsContext.Provider>
+				<ContactLine
+					accountName={'Test Account'}
+					addContactRoleKeys={[]}
+					addKey={mockAddKeyFn}
+					allContactRoles={allContactRoles}
+					disableEmail={false}
+					emailAddress={''}
+					removeKey={mockRemoveKeyFn}
+					setEmailAddress={mockSetEmailAddressFn}
+					{...props}
+				/>
 			</tbody>
 		</table>
 	);
