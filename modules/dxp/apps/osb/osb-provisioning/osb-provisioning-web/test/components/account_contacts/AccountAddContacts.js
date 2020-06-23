@@ -41,7 +41,7 @@ describe('AccountAddress', () => {
 		expect(container).toBeTruthy();
 	});
 
-	it('displays title headers', () => {
+	it('displays email, roles, and account name headers', () => {
 		const {getByText} = renderAccountAddContacts({});
 
 		getByText('email');
@@ -49,7 +49,7 @@ describe('AccountAddress', () => {
 		getByText('account');
 	});
 
-	it('displays full name if provided', () => {
+	it('displays full name if name, email, and roles are provided', () => {
 		const {getByText} = renderAccountAddContacts({
 			initialContactRoleKeys: ['KEY-100'],
 			userEmailAddress: 'test1@liferay.com',
@@ -60,7 +60,7 @@ describe('AccountAddress', () => {
 		getByText('Test One');
 	});
 
-	it('displays contact roles if provided', () => {
+	it('displays contact roles if name, email, and roles are provided', () => {
 		const {container} = renderAccountAddContacts({
 			initialContactRoleKeys: ['KEY-100', 'KEY-101'],
 			userEmailAddress: 'test1@liferay.com',
@@ -75,7 +75,7 @@ describe('AccountAddress', () => {
 		getByText('Member');
 	});
 
-	it('does not display full name without email', () => {
+	it('does not display full name if email and roles are not provided', () => {
 		const {queryByText} = renderAccountAddContacts({
 			userFullName: 'Test One'
 		});

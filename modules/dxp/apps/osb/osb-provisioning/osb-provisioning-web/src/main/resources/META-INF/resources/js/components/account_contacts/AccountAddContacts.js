@@ -20,26 +20,30 @@ const ContactsContext = React.createContext();
 export default function AccountAddContacts({
 	accountName,
 	allContactRoles,
-	initialContactRoleKeys,
+	initialContactRoleKeys = [],
 	redirect,
 	userEmailAddress,
 	userFullName
 }) {
 	const [emailAddress, setEmailAddress] = useState(userEmailAddress);
 	const [contactRoleKeys, setContactRoleKeys] = useState(
-		initialContactRoleKeys ? initialContactRoleKeys : []
+		initialContactRoleKeys
+	);
+
+	const disableEmail = !!(
+		userFullName &&
+		userEmailAddress &&
+		initialContactRoleKeys.length !== 0
 	);
 
 	return (
 		<>
 			<input
-				id={`${NAMESPACE}addContactRoleKeys`}
 				name={`${NAMESPACE}addContactRoleKeys`}
 				type="hidden"
 				value={contactRoleKeys.join(',')}
 			/>
 			<input
-				id={`${NAMESPACE}deleteContactRoleKeys`}
 				name={`${NAMESPACE}deleteContactRoleKeys`}
 				type="hidden"
 				value={allContactRoles
@@ -51,7 +55,7 @@ export default function AccountAddContacts({
 			<table className="table table-autofit table-list table-nowrap">
 				<thead>
 					<tr>
-						{userFullName && userEmailAddress && (
+						{disableEmail && (
 							<th className="table-cell-expand">
 								<span className="text-truncate-inline">
 									<span className="text-secondary text-truncate">
@@ -64,7 +68,7 @@ export default function AccountAddContacts({
 							<span className="text-truncate-inline">
 								<span className="text-secondary text-truncate">
 									{Liferay.Language.get('email')}
-									{!userEmailAddress && (
+									{!disableEmail && (
 										<span className="text-warning">
 											{'*'}
 										</span>
@@ -94,7 +98,7 @@ export default function AccountAddContacts({
 						<ContactLine
 							accountName={accountName}
 							contactRoleKeys={contactRoleKeys}
-							disableEmail={!!userEmailAddress}
+							disableEmail={disableEmail}
 							emailAddress={emailAddress}
 							setContactRoleKeys={setContactRoleKeys}
 							setEmailAddress={setEmailAddress}

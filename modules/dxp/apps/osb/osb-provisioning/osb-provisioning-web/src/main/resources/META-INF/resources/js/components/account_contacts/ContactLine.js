@@ -31,7 +31,7 @@ export default function ContactLine({
 
 	return (
 		<tr className="contact-line-entry">
-			{userFullName && disableEmail && (
+			{disableEmail && (
 				<td className="table-cell-expand">
 					<span className="text-truncate-inline">
 						<span className="semi-bold text-truncate">

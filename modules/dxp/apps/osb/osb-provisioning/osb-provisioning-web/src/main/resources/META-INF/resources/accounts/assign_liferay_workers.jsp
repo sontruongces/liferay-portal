@@ -39,16 +39,9 @@ if (contactRoles != null) {
 	}
 }
 
-if (emailAddress != null) {
-	accountContactsDetailsData.put("emailAddress", emailAddress);
-}
-
-if (fullName != null) {
-	accountContactsDetailsData.put("fullName", fullName);
-}
-
 accountContactsDetailsData.put("contactRoleKeys", contactRoleKeys);
-
+accountContactsDetailsData.put("emailAddress", emailAddress);
+accountContactsDetailsData.put("fullName", fullName);
 accountContactsDetailsData.put("redirect", redirect);
 %>
 
@@ -56,7 +49,7 @@ accountContactsDetailsData.put("redirect", redirect);
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
-		title='<%= !emailAddress.isEmpty() ? "edit-roles" : "assign-liferay-worker" %>'
+		title='<%= contactRoles != null ? "edit-roles" : "assign-liferay-worker" %>'
 	/>
 
 	<portlet:actionURL name="/accounts/assign_contact_roles" var="assignContactRolesURL">
