@@ -30,9 +30,15 @@ definition {
 
 		Refresh();
 
-		SikuliAssertElementPresent(locator1 = "ControlMenu#HOME_HEADING_PNG");
-		SikuliAssertElementPresent(locator1 = "ControlMenu#HOME_ICONS_RIGHT_PNG");
-		SikuliAssertElementPresent(locator1 = "ControlMenu#PRODUCT_MENU_CLOSED_PNG");
+		AssertCssValue(
+			locator1 = "//ul[contains(@id,'controlMenu')]",
+			locator2 = "display",
+			value1 = "flex");
+
+		AssertCssValue(
+			locator1 = "//ul[contains(@id,'controlMenu')]",
+			locator2 = "list-style",
+			value1 = "none outside none");
 
 		takeScreenshot();
 
@@ -40,9 +46,15 @@ definition {
 
 		Refresh();
 
-		SikuliAssertElementPresent(locator1 = "ControlMenu#HOME_HEADING_PNG");
-		SikuliAssertElementPresent(locator1 = "ControlMenu#HOME_ICONS_RIGHT_PNG");
-		SikuliAssertElementPresent(locator1 = "ControlMenu#PRODUCT_MENU_OPENED_PNG");
+		AssertCssValue(
+			locator1 = "//ul[contains(@id,'controlMenu')]",
+			locator2 = "display",
+			value1 = "flex");
+
+		AssertCssValue(
+			locator1 = "//ul[contains(@id,'controlMenu')]",
+			locator2 = "list-style",
+			value1 = "none outside none");
 
 		takeScreenshot();
 	}
@@ -59,9 +71,15 @@ definition {
 
 		Refresh();
 
-		SikuliAssertElementPresent(locator1 = "ControlMenu#WC_HEADING_PNG");
-		SikuliAssertElementPresent(locator1 = "ControlMenu#WC_ICONS_RIGHT_PNG");
-		SikuliAssertElementPresent(locator1 = "ControlMenu#PRODUCT_MENU_OPENED_PNG");
+		AssertCssValue(
+			locator1 = "//ul[contains(@id,'controlMenu')]",
+			locator2 = "display",
+			value1 = "flex");
+
+		AssertCssValue(
+			locator1 = "//ul[contains(@id,'controlMenu')]",
+			locator2 = "list-style",
+			value1 = "none outside none");
 
 		takeScreenshot();
 	}
