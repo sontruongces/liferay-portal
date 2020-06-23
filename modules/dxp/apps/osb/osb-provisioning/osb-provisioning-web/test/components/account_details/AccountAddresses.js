@@ -70,7 +70,8 @@ describe('AccountAddress', () => {
 					countryId: '1',
 					name: 'Texas',
 					nameCurrentValue: 'Argentina',
-					regionId: '2'
+					regionId: '2',
+					zipRequired: true
 				}
 			])
 		);

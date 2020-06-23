@@ -33,7 +33,8 @@ function AccountAddresses({accountKey, addURL, addresses}) {
 				const options = countries.map(country => {
 					return {
 						label: country.nameCurrentValue,
-						value: country.countryId
+						value: country.countryId,
+						zipRequired: country.zipRequired
 					};
 				});
 
