@@ -111,6 +111,7 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 		}
 		catch (HttpException httpException) {
 			_log.error(httpException, httpException);
+
 			SessionErrors.add(
 				actionRequest, httpException.getClass(), httpException);
 		}
