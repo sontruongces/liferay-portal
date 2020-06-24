@@ -63,6 +63,9 @@ public class ViewAccountContactsDisplayContext
 		}
 
 		data.put("allContactRoles", contactRolesList);
+		data.put("emailAddress", ParamUtil.getString(renderRequest, "emailAddress"));
+		data.put("fullName", ParamUtil.getString(renderRequest, "fullName"));
+		data.put("redirect", getRedirectURL());
 
 		return data;
 	}
@@ -89,6 +92,10 @@ public class ViewAccountContactsDisplayContext
 					});
 			}
 		};
+	}
+
+	public String getRedirectURL() {
+		return ParamUtil.getString(renderRequest, "redirect");
 	}
 
 	public SearchContainer getSearchContainer() throws Exception {

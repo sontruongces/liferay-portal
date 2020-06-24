@@ -17,15 +17,11 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String redirect = ParamUtil.getString(request, "redirect");
-
 List<ContactRole> contactRoles = (List<ContactRole>)request.getAttribute(ProvisioningWebKeys.CONTACT_ROLES);
 
-String emailAddress = ParamUtil.getString(request, "emailAddress");
-
-String fullName = ParamUtil.getString(request, "fullName");
-
 ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = ProvisioningWebComponentProvider.getViewAccountContactsDisplayContext(renderRequest, renderResponse, request);
+
+String redirect = viewAccountContactsDisplayContext.getRedirectURL();
 
 AccountDisplay accountDisplay = viewAccountContactsDisplayContext.getAccountDisplay();
 
@@ -40,9 +36,6 @@ if (contactRoles != null) {
 }
 
 accountContactsDetailsData.put("contactRoleKeys", contactRoleKeys);
-accountContactsDetailsData.put("emailAddress", emailAddress);
-accountContactsDetailsData.put("fullName", fullName);
-accountContactsDetailsData.put("redirect", redirect);
 %>
 
 <div class="account-add-items">
