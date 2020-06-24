@@ -219,9 +219,13 @@ public class ProductPurchaseViewDisplay {
 			Date originalEndDate = productPurchase.getOriginalEndDate();
 			Date endDate = productPurchase.getEndDate();
 
-			String status = productPurchase.getStatusAsString();
+			boolean approved = false;
 
-			boolean approved = StringUtil.equalsIgnoreCase(status, "approved");
+			if (productPurchase.getStatus() ==
+					ProductPurchase.Status.APPROVED) {
+
+				approved = true;
+			}
 
 			if (approved && (startDate == null)) {
 				_inSupportGap = false;
@@ -278,7 +282,7 @@ public class ProductPurchaseViewDisplay {
 			_purchasedCount += productPurchase.getQuantity();
 
 			if (!StringUtil.equalsIgnoreCase(_status, "approved")) {
-				_status = status;
+				_status = productPurchase.getStatusAsString();
 			}
 		}
 
