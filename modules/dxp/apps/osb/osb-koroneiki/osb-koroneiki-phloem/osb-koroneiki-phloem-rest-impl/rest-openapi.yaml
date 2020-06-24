@@ -696,7 +696,6 @@ components:
                         The product consumption's links to entities in external domains.
                     items:
                         $ref: "#/components/schemas/ExternalLink"
-                    readOnly: true
                     type: array
                 key:
                     description:

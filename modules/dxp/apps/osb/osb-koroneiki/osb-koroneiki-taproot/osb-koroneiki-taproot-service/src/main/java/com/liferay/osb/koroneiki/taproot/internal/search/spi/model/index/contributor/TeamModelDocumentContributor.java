@@ -114,9 +114,16 @@ public class TeamModelDocumentContributor
 				QueryUtil.ALL_POS);
 
 		for (ExternalLink externalLink : externalLinks) {
+			String entityName =
+				externalLink.getDomain() + StringPool.UNDERLINE +
+					externalLink.getEntityName();
+
+			String entityId =
+				entityName + StringPool.UNDERLINE + externalLink.getEntityId();
+
 			externalLinkDomains.add(externalLink.getDomain());
-			externalLinkEntityIds.add(externalLink.getEntityId());
-			externalLinkEntityNames.add(externalLink.getEntityName());
+			externalLinkEntityIds.add(entityId);
+			externalLinkEntityNames.add(entityName);
 		}
 
 		document.addKeyword(

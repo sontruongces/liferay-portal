@@ -14,12 +14,14 @@
 
 package com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0;
 
+import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ProductConsumptionPermission;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.util.ProductConsumptionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ProductConsumptionEntityModel;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
+import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ExternalLinkResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ProductConsumptionResource;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
@@ -34,6 +36,7 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -188,12 +191,26 @@ public class ProductConsumptionResourceImpl
 		List<ProductField> productFields = _getProductFields(
 			productConsumption.getProperties());
 
-		return ProductConsumptionUtil.toProductConsumption(
-			_productConsumptionService.addProductConsumption(
-				accountKey, productConsumption.getProductKey(),
-				productConsumption.getProductPurchaseKey(),
-				productConsumption.getStartDate(),
-				productConsumption.getEndDate(), productFields));
+		ProductConsumption curProductConsumption =
+			ProductConsumptionUtil.toProductConsumption(
+				_productConsumptionService.addProductConsumption(
+					accountKey, productConsumption.getProductKey(),
+					productConsumption.getProductPurchaseKey(),
+					productConsumption.getStartDate(),
+					productConsumption.getEndDate(), productFields));
+
+		if (!ArrayUtil.isEmpty(productConsumption.getExternalLinks())) {
+			for (ExternalLink externalLink :
+					productConsumption.getExternalLinks()) {
+
+				_externalLinkResource.
+					postProductConsumptionProductConsumptionKeyExternalLink(
+						agentName, agentUID, curProductConsumption.getKey(),
+						externalLink);
+			}
+		}
+
+		return curProductConsumption;
 	}
 
 	@Override
@@ -296,6 +313,9 @@ public class ProductConsumptionResourceImpl
 
 	@Reference
 	private ContactLocalService _contactLocalService;
+
+	@Reference
+	private ExternalLinkResource _externalLinkResource;
 
 	@Reference
 	private PhloemPermissionUtil _phloemPermissionUtil;

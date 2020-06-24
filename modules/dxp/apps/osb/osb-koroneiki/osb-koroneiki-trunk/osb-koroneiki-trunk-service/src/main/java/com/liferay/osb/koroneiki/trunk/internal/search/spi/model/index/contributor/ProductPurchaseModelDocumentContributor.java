@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
 
 import java.util.HashSet;
@@ -100,9 +101,16 @@ public class ProductPurchaseModelDocumentContributor
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 		for (ExternalLink externalLink : externalLinks) {
+			String entityName =
+				externalLink.getDomain() + StringPool.UNDERLINE +
+					externalLink.getEntityName();
+
+			String entityId =
+				entityName + StringPool.UNDERLINE + externalLink.getEntityId();
+
 			externalLinkDomains.add(externalLink.getDomain());
-			externalLinkEntityIds.add(externalLink.getEntityId());
-			externalLinkEntityNames.add(externalLink.getEntityName());
+			externalLinkEntityIds.add(entityId);
+			externalLinkEntityNames.add(entityName);
 		}
 
 		document.addKeyword(
