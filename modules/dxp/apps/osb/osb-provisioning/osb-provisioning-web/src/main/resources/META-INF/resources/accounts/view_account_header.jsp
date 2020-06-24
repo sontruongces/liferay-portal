@@ -103,23 +103,27 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 		</ul>
 	</div>
 
-	<portlet:actionURL name="/accounts/sync_to_lcs" var="syncToLcsURL">
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
-	</portlet:actionURL>
+	<div class="left-button">
+		<portlet:actionURL name="/accounts/sync_to_lcs" var="syncToLcsURL">
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+		</portlet:actionURL>
 
-	<portlet:actionURL name="/accounts/sync_to_zendesk" var="syncToZendeskURL">
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
-	</portlet:actionURL>
+		<aui:form action="<%= syncToLcsURL %>" method="post" name="fm">
+			<aui:button cssClass="btn-secondary" href="<%= syncToLcsURL %>" value="sync-to-lcs" />
+		</aui:form>
+	</div>
 
-	<aui:form action="<%= syncToLcsURL %>" method="post" name="fm">
-		<aui:button cssClass="btn-secondary" href="<%= syncToLcsURL %>" value="sync-to-lcs" />
-	</aui:form>
+	<div>
+		<portlet:actionURL name="/accounts/sync_to_zendesk" var="syncToZendeskURL">
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
+		</portlet:actionURL>
 
-	<aui:form action="<%= syncToZendeskURL %>" method="post" name="fm">
-		<aui:button cssClass="btn-secondary" href="<%= syncToZendeskURL %>" value="sync-to-zendesk" />
-	</aui:form>
+		<aui:form action="<%= syncToZendeskURL %>" method="post" name="fm1">
+			<aui:button cssClass="btn-secondary" href="<%= syncToZendeskURL %>" value="sync-to-zendesk" />
+		</aui:form>
+	</div>
 
 	<clay:dropdown-actions
 		dropdownItems="<%= viewAccountDisplayContext.getHeaderActionDropdownItems() %>"
