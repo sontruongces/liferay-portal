@@ -17,32 +17,18 @@
 <%@ include file="/init.jsp" %>
 
 <%
-List<ContactRole> contactRoles = (List<ContactRole>)request.getAttribute(ProvisioningWebKeys.CONTACT_ROLES);
-
 ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = ProvisioningWebComponentProvider.getViewAccountContactsDisplayContext(renderRequest, renderResponse, request);
 
 String redirect = viewAccountContactsDisplayContext.getRedirectURL();
 
 AccountDisplay accountDisplay = viewAccountContactsDisplayContext.getAccountDisplay();
-
-Map<String, Object> accountContactsDetailsData = viewAccountContactsDisplayContext.getAccountContactsDetailsData();
-
-List<String> contactRoleKeys = new ArrayList<>();
-
-if (contactRoles != null) {
-	for (ContactRole contactRole : contactRoles) {
-		contactRoleKeys.add(contactRole.getKey());
-	}
-}
-
-accountContactsDetailsData.put("contactRoleKeys", contactRoleKeys);
 %>
 
 <div class="account-add-items">
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
-		title='<%= (contactRoles != null) ? "edit-roles" : "assign-contact" %>'
+		title='<%= viewAccountContactsDisplayContext.isEdit() ? "edit-roles" : "assign-contact" %>'
 	/>
 
 	<portlet:actionURL name="/accounts/assign_contact_roles" var="assignContactRolesURL">
@@ -63,7 +49,7 @@ accountContactsDetailsData.put("contactRoleKeys", contactRoleKeys);
 			</liferay-ui:error>
 
 			<react:component
-				data="<%= accountContactsDetailsData %>"
+				data="<%= viewAccountContactsDisplayContext.getAccountContactsDetailsData() %>"
 				module="js/AccountAddContactsApp"
 			/>
 		</div>

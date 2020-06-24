@@ -17,6 +17,7 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
+import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -25,6 +26,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.vulcan.util.TransformUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,7 +65,9 @@ public class ViewAccountContactsDisplayContext
 		}
 
 		data.put("allContactRoles", contactRolesList);
-		data.put("emailAddress", ParamUtil.getString(renderRequest, "emailAddress"));
+		data.put("contactRoleKeys", _getContactRoleKeys());
+		data.put(
+			"emailAddress", ParamUtil.getString(renderRequest, "emailAddress"));
 		data.put("fullName", ParamUtil.getString(renderRequest, "fullName"));
 		data.put("redirect", getRedirectURL());
 
@@ -154,6 +158,29 @@ public class ViewAccountContactsDisplayContext
 		searchContainer.setTotal(count);
 
 		return searchContainer;
+	}
+
+	public Boolean isEdit() {
+		return Validator.isNotNull(_getContactRoles());
+	}
+
+	private List<String> _getContactRoleKeys() {
+		List<ContactRole> contactRoles = _getContactRoles();
+
+		List<String> contactRoleKeys = new ArrayList<>();
+
+		if (contactRoles != null) {
+			for (ContactRole contactRole : contactRoles) {
+				contactRoleKeys.add(contactRole.getKey());
+			}
+		}
+
+		return contactRoleKeys;
+	}
+
+	private List<ContactRole> _getContactRoles() {
+		return (List<ContactRole>)renderRequest.getAttribute(
+			ProvisioningWebKeys.CONTACT_ROLES);
 	}
 
 }
