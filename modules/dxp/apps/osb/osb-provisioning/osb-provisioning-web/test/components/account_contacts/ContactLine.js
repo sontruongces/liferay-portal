@@ -34,8 +34,8 @@ function renderContactLine(props) {
 					addContactRoleKeys={[]}
 					addKey={mockAddKeyFn}
 					allContactRoles={allContactRoles}
-					disableEmail={false}
 					emailAddress={''}
+					knownContact={false}
 					removeKey={mockRemoveKeyFn}
 					setEmailAddress={mockSetEmailAddressFn}
 					{...props}
@@ -63,8 +63,8 @@ describe('AccountAddress', () => {
 	it('displays full name and email if provided', () => {
 		const {getByText} = renderContactLine({
 			addContactRoleKeys: ['KEY-100'],
-			disableEmail: true,
 			emailAddress: 'test1@liferay.com',
+			knownContact: true,
 			userFullName: 'Test One'
 		});
 
@@ -81,8 +81,8 @@ describe('AccountAddress', () => {
 	it('hides email as an input if disabled', () => {
 		const {container} = renderContactLine({
 			addContactRoleKeys: ['KEY-100'],
-			disableEmail: true,
 			emailAddress: 'test1@liferay.com',
+			knownContact: true,
 			userFullName: 'Test One'
 		});
 
@@ -100,8 +100,8 @@ describe('AccountAddress', () => {
 	it('displays contact roles if provided', () => {
 		const {container} = renderContactLine({
 			addContactRoleKeys: ['KEY-100', 'KEY-101'],
-			disableEmail: true,
 			emailAddress: 'test1@liferay.com',
+			knownContact: true,
 			userFullName: 'Test One'
 		});
 
@@ -126,8 +126,8 @@ describe('AccountAddress', () => {
 	it('calls function when contact roles are removed', () => {
 		const {queryAllByTitle} = renderContactLine({
 			addContactRoleKeys: ['KEY-100', 'KEY-101'],
-			disableEmail: true,
 			emailAddress: 'test1@liferay.com',
+			knownContact: true,
 			userFullName: 'Test One'
 		});
 

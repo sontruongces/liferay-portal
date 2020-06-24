@@ -20,8 +20,8 @@ export default function ContactLine({
 	addContactRoleKeys,
 	addKey,
 	allContactRoles,
-	disableEmail,
 	emailAddress,
+	knownContact,
 	removeKey,
 	setEmailAddress,
 	userFullName
@@ -32,7 +32,7 @@ export default function ContactLine({
 
 	return (
 		<tr className="contact-line-entry">
-			{disableEmail && (
+			{knownContact && (
 				<td className="table-cell-expand">
 					<span className="text-truncate-inline">
 						<span className="semi-bold text-truncate">
@@ -42,7 +42,7 @@ export default function ContactLine({
 				</td>
 			)}
 			<td className="table-cell-expand">
-				{disableEmail && (
+				{knownContact && (
 					<span className="text-truncate-inline">
 						<span className="text-truncate">{emailAddress}</span>
 					</span>
@@ -51,7 +51,7 @@ export default function ContactLine({
 					className="form-control"
 					name={`${NAMESPACE}emailAddress`}
 					onChange={handleEmailChange}
-					type={disableEmail ? 'hidden' : 'text'}
+					type={knownContact ? 'hidden' : 'text'}
 					value={emailAddress}
 				/>
 			</td>
@@ -82,8 +82,8 @@ ContactLine.propTypes = {
 			name: PropTypes.string
 		})
 	),
-	disableEmail: PropTypes.bool,
 	emailAddress: PropTypes.string,
+	knownContact: PropTypes.bool,
 	removeKey: PropTypes.func,
 	setEmailAddress: PropTypes.func,
 	userFullName: PropTypes.string

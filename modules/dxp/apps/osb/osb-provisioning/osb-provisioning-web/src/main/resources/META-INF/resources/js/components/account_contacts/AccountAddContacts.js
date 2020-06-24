@@ -28,7 +28,7 @@ export default function AccountAddContacts({
 	);
 	const [emailAddress, setEmailAddress] = useState(userEmailAddress);
 
-	const disableEmail = !!(
+	const knownContact = !!(
 		userFullName &&
 		userEmailAddress &&
 		initialContactRoleKeys.length !== 0
@@ -65,7 +65,7 @@ export default function AccountAddContacts({
 			<table className="table table-autofit table-list table-nowrap">
 				<thead>
 					<tr>
-						{disableEmail && (
+						{knownContact && (
 							<th className="table-cell-expand">
 								<span className="text-truncate-inline">
 									<span className="text-secondary text-truncate">
@@ -78,7 +78,7 @@ export default function AccountAddContacts({
 							<span className="text-truncate-inline">
 								<span className="text-secondary text-truncate">
 									{Liferay.Language.get('email')}
-									{!disableEmail && (
+									{!knownContact && (
 										<span className="text-warning">
 											{'*'}
 										</span>
@@ -109,8 +109,8 @@ export default function AccountAddContacts({
 						addContactRoleKeys={addContactRoleKeys}
 						addKey={addKey}
 						allContactRoles={allContactRoles}
-						disableEmail={disableEmail}
 						emailAddress={emailAddress}
+						knownContact={knownContact}
 						removeKey={removeKey}
 						setEmailAddress={setEmailAddress}
 						userFullName={userFullName}
