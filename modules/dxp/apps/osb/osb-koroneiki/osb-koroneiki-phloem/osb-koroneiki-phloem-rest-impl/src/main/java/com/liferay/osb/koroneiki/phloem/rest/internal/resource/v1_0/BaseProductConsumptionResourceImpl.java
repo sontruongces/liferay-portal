@@ -95,7 +95,7 @@ public abstract class BaseProductConsumptionResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/product-consumptions' -d $'{"endDate": ___, "productKey": ___, "productPurchaseKey": ___, "properties": ___, "startDate": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/product-consumptions' -d $'{"endDate": ___, "externalLinks": ___, "productKey": ___, "productPurchaseKey": ___, "properties": ___, "startDate": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
