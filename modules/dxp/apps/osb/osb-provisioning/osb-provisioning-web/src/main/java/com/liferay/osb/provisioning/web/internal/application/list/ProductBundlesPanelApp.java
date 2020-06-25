@@ -24,26 +24,26 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Kyle Bischof
+ * @author Yuanyuan Huang
  */
 @Component(
 	immediate = true,
 	property = {
-		"panel.app.order:Integer=40",
+		"panel.app.order:Integer=30",
 		"panel.category.key=" + ProvisioningPanelCategoryKeys.CONTROL_PANEL_PROVISIONING
 	},
 	service = PanelApp.class
 )
-public class UsersPanelApp extends BasePanelApp {
+public class ProductBundlesPanelApp extends BasePanelApp {
 
 	@Override
 	public String getPortletId() {
-		return ProvisioningPortletKeys.USERS;
+		return ProvisioningPortletKeys.PRODUCT_BUNDLES;
 	}
 
 	@Override
 	@Reference(
-		target = "(javax.portlet.name=" + ProvisioningPortletKeys.USERS + ")",
+		target = "(javax.portlet.name=" + ProvisioningPortletKeys.PRODUCT_BUNDLES + ")",
 		unbind = "-"
 	)
 	public void setPortlet(Portlet portlet) {
