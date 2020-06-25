@@ -137,7 +137,7 @@ public class MessageFactory {
 
 	public Message create(ProductEntry productEntry) throws Exception {
 		JSONObject jsonObject = JSONUtil.put(
-			"productEntry", toJSONObject(productEntry));
+			"product", toJSONObject(productEntry));
 
 		return new Message(jsonObject.toString());
 	}
