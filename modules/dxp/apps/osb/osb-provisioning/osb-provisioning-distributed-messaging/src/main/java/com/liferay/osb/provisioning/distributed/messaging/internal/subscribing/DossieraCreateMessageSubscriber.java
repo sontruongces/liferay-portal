@@ -416,20 +416,6 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			ExternalLinkEntityName.SALESFORCE_ACCOUNT);
 		accountExternalLink.setEntityId(salesforceAccountKey);
 
-		String salesforceProjectKey = jsonObject.getString(
-			"_salesforceProjectKey");
-
-		ExternalLink projectExternalLink = null;
-
-		if (Validator.isNotNull(salesforceProjectKey)) {
-			projectExternalLink = new ExternalLink();
-
-			projectExternalLink.setDomain(ExternalLinkDomain.SALESFORCE);
-			projectExternalLink.setEntityName(
-				ExternalLinkEntityName.SALESFORCE_PROJECT);
-			projectExternalLink.setEntityId(salesforceProjectKey);
-		}
-
 		JSONObject accountJSONObject = jsonObject.getJSONObject("_account");
 
 		String dossieraAccountKey = accountJSONObject.getString(
@@ -442,13 +428,25 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			ExternalLinkEntityName.DOSSIERA_ACCOUNT);
 		dossieraExternalLink.setEntityId(dossieraAccountKey);
 
-		if (Validator.isNotNull(salesforceProjectKey)) {
+		String salesforceProjectKey = jsonObject.getString(
+			"_salesforceProjectKey");
+
+		if (Validator.isNull(salesforceProjectKey)) {
 			return new ExternalLink[] {
-				accountExternalLink, dossieraExternalLink, projectExternalLink
+				accountExternalLink, dossieraExternalLink
 			};
 		}
 
-		return new ExternalLink[] {accountExternalLink, dossieraExternalLink};
+		ExternalLink projectExternalLink = new ExternalLink();
+
+		projectExternalLink.setDomain(ExternalLinkDomain.SALESFORCE);
+		projectExternalLink.setEntityName(
+			ExternalLinkEntityName.SALESFORCE_PROJECT);
+		projectExternalLink.setEntityId(salesforceProjectKey);
+
+		return new ExternalLink[] {
+			accountExternalLink, dossieraExternalLink, projectExternalLink
+		};
 	}
 
 	protected List<ProductPurchase> parseProductPurchases(JSONObject jsonObject)
