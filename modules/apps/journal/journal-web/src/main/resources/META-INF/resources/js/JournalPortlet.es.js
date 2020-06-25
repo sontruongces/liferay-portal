@@ -76,6 +76,8 @@ class JournalPortlet extends PortletBase {
 			this._onLocaleChange.bind(this)
 		);
 
+		this._selectedLanguageId = this.defaultLanguageId;
+
 		this._setupSidebar();
 	}
 
@@ -93,6 +95,24 @@ class JournalPortlet extends PortletBase {
 		this._eventHandler.removeAllListeners();
 		this._defaultLocaleChangedHandler.detach();
 		this._localeChangedHandler.detach();
+	}
+
+	/**
+	 * Clean the input if the language is not considered translated when
+	 * submitting the form
+	 * @param {string} name of the input
+	 */
+	_cleanInputIfNeeded(name) {
+		const inputComponent = Liferay.component(this.ns(name));
+		const translatedLanguages = inputComponent.get('translatedLanguages');
+
+		if (!translatedLanguages.has(this._selectedLanguageId)) {
+			inputComponent.updateInput('');
+
+			const form = Liferay.Form.get(this.ns('fm1'));
+
+			form.removeRule(this.ns(name), 'required');
+		}
 	}
 
 	/**
@@ -133,6 +153,8 @@ class JournalPortlet extends PortletBase {
 	 */
 	_onLocaleChange(event) {
 		const selectedLanguageId = event.item.getAttribute('data-value');
+
+		this._selectedLanguageId = selectedLanguageId;
 
 		if (selectedLanguageId) {
 			this._updateLocalizableInput(
@@ -209,6 +231,9 @@ class JournalPortlet extends PortletBase {
 		}
 
 		const form = this._getInputByName(this.ns('fm1'));
+
+		this._cleanInputIfNeeded('titleMapAsXML');
+		this._cleanInputIfNeeded('descriptionMapAsXML');
 
 		submitForm(form);
 	}
@@ -315,7 +340,8 @@ class JournalPortlet extends PortletBase {
 }
 
 JournalPortlet.STATE = {
-	defaultLanguageId: Config.string()
+	_selectedLanguageId: Config.internal().string(),
+	defaultLanguageId: Config.string(),
 };
 
 export {JournalPortlet};
