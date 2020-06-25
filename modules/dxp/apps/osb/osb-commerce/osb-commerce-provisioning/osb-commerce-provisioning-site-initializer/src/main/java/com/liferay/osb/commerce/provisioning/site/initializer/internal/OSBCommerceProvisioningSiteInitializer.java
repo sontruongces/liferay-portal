@@ -350,7 +350,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 				previewFileEntryId);
 	}
 
-	private void _configureB2BSite(long groupId, ServiceContext serviceContext)
+	private void _configureB2CSite(long groupId, ServiceContext serviceContext)
 		throws Exception {
 
 		Group group = _groupLocalService.getGroup(groupId);
@@ -377,7 +377,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
 		modifiableSettings.setValue(
 			"commerceSiteType",
-			String.valueOf(CommerceAccountConstants.SITE_TYPE_B2B));
+			String.valueOf(CommerceAccountConstants.SITE_TYPE_B2C));
 
 		modifiableSettings.store();
 	}
@@ -526,7 +526,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		CommerceChannel commerceChannel = _createChannel(
 			commerceCatalog, serviceContext);
 
-		_configureB2BSite(commerceChannel.getGroupId(), serviceContext);
+		_configureB2CSite(commerceChannel.getGroupId(), serviceContext);
 
 		_importCPDefinitions(
 			catalogGroupId, commerceChannel.getCommerceChannelId(),
