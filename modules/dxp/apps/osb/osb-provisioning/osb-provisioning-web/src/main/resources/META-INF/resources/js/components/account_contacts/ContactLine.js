@@ -90,9 +90,9 @@ ContactLine.propTypes = {
 };
 
 function ContactRoleSelect({
-	addContactRoleKeys,
+	addContactRoleKeys = [],
 	addKey,
-	allContactRoles,
+	allContactRoles = [],
 	removeKey
 }) {
 	const [active, setActive] = useState(false);
@@ -164,14 +164,14 @@ function ContactRoleSelect({
 
 ContactRoleSelect.propTypes = {
 	addContactRoleKeys: PropTypes.arrayOf(PropTypes.string),
-	addKey: PropTypes.func,
+	addKey: PropTypes.func.isRequired,
 	allContactRoles: PropTypes.arrayOf(
 		PropTypes.shape({
 			key: PropTypes.string,
 			name: PropTypes.string
 		})
 	),
-	removeKey: PropTypes.func
+	removeKey: PropTypes.func.isRequired
 };
 
 function ContactRoleLabel({name, removeRole}) {
@@ -200,6 +200,6 @@ function ContactRoleLabel({name, removeRole}) {
 }
 
 ContactRoleLabel.propTypes = {
-	name: PropTypes.string,
-	removeRole: PropTypes.func
+	name: PropTypes.string.isRequired,
+	removeRole: PropTypes.func.isRequired
 };
