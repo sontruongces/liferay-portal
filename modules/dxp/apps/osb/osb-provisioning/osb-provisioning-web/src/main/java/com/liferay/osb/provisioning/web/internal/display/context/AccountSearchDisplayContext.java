@@ -76,9 +76,15 @@ public class AccountSearchDisplayContext {
 			}
 		}
 
+		String sort = StringPool.BLANK;
+
+		if (ArrayUtil.isEmpty(keywords)) {
+			sort = "name";
+		}
+
 		List<Account> accounts = _accountWebService.search(
 			StringPool.BLANK, sb.toString(), searchContainer.getCur(),
-			searchContainer.getEnd() - searchContainer.getStart(), null);
+			searchContainer.getEnd() - searchContainer.getStart(), sort);
 
 		searchContainer.setResults(
 			TransformUtil.transform(

@@ -17,18 +17,18 @@
 <%@ include file="/init.jsp" %>
 
 <%
+String redirect = ParamUtil.getString(request, "redirect");
+
 ViewAccountLiferayWorkersDisplayContext viewAccountLiferayWorkersDisplayContext = ProvisioningWebComponentProvider.getViewAccountLiferayWorkersDisplayContext(renderRequest, renderResponse, request);
 
 AccountDisplay accountDisplay = viewAccountLiferayWorkersDisplayContext.getAccountDisplay();
-
-String redirect = viewAccountLiferayWorkersDisplayContext.getRedirectURL();
 %>
 
 <div class="account-add-items">
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
-		title='<%= viewAccountLiferayWorkersDisplayContext.isEdit() ? "edit-roles" : "assign-liferay-worker" %>'
+		title="<%= viewAccountLiferayWorkersDisplayContext.getAssignLiferayWorkerTitle() %>"
 	/>
 
 	<portlet:actionURL name="/accounts/assign_contact_roles" var="assignContactRolesURL">
@@ -37,7 +37,7 @@ String redirect = viewAccountLiferayWorkersDisplayContext.getRedirectURL();
 		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 	</portlet:actionURL>
 
-	<aui:form action="<%= assignContactRolesURL.toString() %>" cssClass="container-fluid-1280" method="post" name="assignWorkersFm">
+	<aui:form action="<%= assignContactRolesURL.toString() %>" cssClass="container-fluid-1280" method="post" name="assignLiferayWorkersFm">
 		<div class="assign-contacts-sheet sheet">
 			<liferay-ui:error exception="<%= HttpException.class %>">
 
@@ -49,7 +49,7 @@ String redirect = viewAccountLiferayWorkersDisplayContext.getRedirectURL();
 			</liferay-ui:error>
 
 			<react:component
-				data="<%= viewAccountLiferayWorkersDisplayContext.getAccountContactsDetailsData() %>"
+				data="<%= viewAccountLiferayWorkersDisplayContext.getAssignLiferayWorkerData() %>"
 				module="js/AccountAddContactsApp"
 			/>
 		</div>

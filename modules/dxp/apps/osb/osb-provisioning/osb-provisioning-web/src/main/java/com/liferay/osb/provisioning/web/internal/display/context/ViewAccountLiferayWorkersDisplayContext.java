@@ -21,6 +21,8 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItemList;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
+import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
+import com.liferay.portal.kernel.bean.BeanParamUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -30,7 +32,6 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.ArrayList;
@@ -50,41 +51,44 @@ public class ViewAccountLiferayWorkersDisplayContext
 	public ViewAccountLiferayWorkersDisplayContext() {
 	}
 
-	public Map<String, Object> getAccountContactsDetailsData()
-		throws Exception {
-
+	public Map<String, Object> getAssignLiferayWorkerData() throws Exception {
 		Map<String, Object> data = new HashMap<>();
 
 		data.put("accountName", account.getName());
+		data.put("allContactRoles", _getContactRoleJSONObjects());
 
-		List<ContactRole> curContactRoles = getContactRoles();
+		Contact contact = (Contact)renderRequest.getAttribute(
+			ProvisioningWebKeys.CONTACT);
 
-		List<JSONObject> contactRolesList = new ArrayList<>();
-
-		for (ContactRole contactRole : curContactRoles) {
-			JSONObject contact = JSONUtil.put(
-				"key", contactRole.getKey()
-			).put(
-				"name", contactRole.getName()
-			);
-
-			contactRolesList.add(contact);
+		if (contact != null) {
+			data.put("contactRoleKeys", _getContactRoleKeys(contact));
 		}
 
-		data.put("allContactRoles", contactRolesList);
-		data.put("contactRoleKeys", _getContactRoleKeys());
 		data.put(
-			"emailAddress", ParamUtil.getString(renderRequest, "emailAddress"));
-		data.put("fullName", ParamUtil.getString(renderRequest, "fullName"));
-		data.put("redirect", getRedirectURL());
+			"emailAddress",
+			BeanParamUtil.getString(contact, renderRequest, "emailAddress"));
+
+		if (contact != null) {
+			ContactDisplay contactDisplay = new ContactDisplay(
+				httpServletRequest, 0, contact, null);
+
+			data.put("fullName", contactDisplay.getFullName());
+		}
+
+		data.put("redirect", ParamUtil.getString(renderRequest, "redirect"));
 
 		return data;
 	}
 
-	public List<ContactRole> getContactRoles() throws Exception {
-		return contactRoleWebService.search(
-			"type eq '" + ContactRole.Type.ACCOUNT_WORKER.toString() + "'", 1,
-			1000, "name");
+	public String getAssignLiferayWorkerTitle() {
+		Contact contact = (Contact)renderRequest.getAttribute(
+			ProvisioningWebKeys.CONTACT);
+
+		if (contact != null) {
+			return "edit-roles";
+		}
+
+		return "assign-liferay-worker";
 	}
 
 	public CreationMenu getCreationMenu() {
@@ -161,10 +165,6 @@ public class ViewAccountLiferayWorkersDisplayContext
 		};
 	}
 
-	public String getRedirectURL() {
-		return ParamUtil.getString(renderRequest, "redirect");
-	}
-
 	public SearchContainer getSearchContainer() throws Exception {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
@@ -223,19 +223,31 @@ public class ViewAccountLiferayWorkersDisplayContext
 		return searchContainer;
 	}
 
-	public Boolean isEdit() throws Exception {
-		return Validator.isNotNull(_getContactRoles());
+	private List<JSONObject> _getContactRoleJSONObjects() throws Exception {
+		List<JSONObject> contactRoleJSONObjects = new ArrayList<>();
+
+		for (ContactRole contactRole : _getContactRoles()) {
+			JSONObject jsonObject = JSONUtil.put(
+				"key", contactRole.getKey()
+			).put(
+				"name", contactRole.getName()
+			);
+
+			contactRoleJSONObjects.add(jsonObject);
+		}
+
+		return contactRoleJSONObjects;
 	}
 
-	private List<String> _getContactRoleKeys() throws Exception {
-		List<ContactRole> contactRoles = _getContactRoles();
-
+	private List<String> _getContactRoleKeys(Contact contact) throws Exception {
 		List<String> contactRoleKeys = new ArrayList<>();
 
-		if (contactRoles != null) {
-			for (ContactRole contactRole : contactRoles) {
-				contactRoleKeys.add(contactRole.getKey());
-			}
+		List<ContactRole> contactRoles =
+			contactRoleWebService.getAccountWorkerContactRoles(
+				account.getKey(), contact.getEmailAddress(), 1, 1000);
+
+		for (ContactRole contactRole : contactRoles) {
+			contactRoleKeys.add(contactRole.getKey());
 		}
 
 		return contactRoleKeys;

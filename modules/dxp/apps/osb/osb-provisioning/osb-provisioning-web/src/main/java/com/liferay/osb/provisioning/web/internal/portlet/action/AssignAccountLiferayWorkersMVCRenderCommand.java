@@ -17,8 +17,7 @@ package com.liferay.osb.provisioning.web.internal.portlet.action;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -63,9 +62,8 @@ public class AssignAccountLiferayWorkersMVCRenderCommand
 				Validator.isNotNull(emailAddress)) {
 
 				renderRequest.setAttribute(
-					ProvisioningWebKeys.CONTACT_ROLES,
-					_contactRoleWebService.getAccountWorkerContactRoles(
-						accountKey, emailAddress, 1, 1000));
+					ProvisioningWebKeys.CONTACT,
+					_contactWebService.getContactByEmailAddress(emailAddress));
 			}
 
 			return "/accounts/assign_liferay_workers.jsp";
@@ -81,9 +79,6 @@ public class AssignAccountLiferayWorkersMVCRenderCommand
 	private AccountWebService _accountWebService;
 
 	@Reference
-	private ContactRoleWebService _contactRoleWebService;
-
-	@Reference
-	private TeamWebService _teamWebService;
+	private ContactWebService _contactWebService;
 
 }

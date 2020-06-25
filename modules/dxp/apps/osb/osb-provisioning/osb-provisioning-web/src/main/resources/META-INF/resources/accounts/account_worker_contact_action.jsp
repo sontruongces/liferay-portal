@@ -38,7 +38,6 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 		<portlet:param name="emailAddress" value="<%= contactDisplay.getEmailAddress() %>" />
-		<portlet:param name="fullName" value="<%= contactDisplay.getFullName() %>" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon
