@@ -17,39 +17,18 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String redirect = ParamUtil.getString(request, "redirect");
-
-List<ContactRole> contactRoles = (List<ContactRole>)request.getAttribute(ProvisioningWebKeys.CONTACT_ROLES);
-
-String emailAddress = ParamUtil.getString(request, "emailAddress");
-
-String fullName = ParamUtil.getString(request, "fullName");
-
 ViewAccountLiferayWorkersDisplayContext viewAccountLiferayWorkersDisplayContext = ProvisioningWebComponentProvider.getViewAccountLiferayWorkersDisplayContext(renderRequest, renderResponse, request);
 
+String redirect = viewAccountLiferayWorkersDisplayContext.getRedirectURL();
+
 AccountDisplay accountDisplay = viewAccountLiferayWorkersDisplayContext.getAccountDisplay();
-
-Map<String, Object> accountContactsDetailsData = viewAccountLiferayWorkersDisplayContext.getAccountContactsDetailsData();
-
-List<String> contactRoleKeys = new ArrayList<>();
-
-if (contactRoles != null) {
-	for (ContactRole contactRole : contactRoles) {
-		contactRoleKeys.add(contactRole.getKey());
-	}
-}
-
-accountContactsDetailsData.put("contactRoleKeys", contactRoleKeys);
-accountContactsDetailsData.put("emailAddress", emailAddress);
-accountContactsDetailsData.put("fullName", fullName);
-accountContactsDetailsData.put("redirect", redirect);
 %>
 
 <div class="account-add-items">
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
-		title='<%= (contactRoles != null) ? "edit-roles" : "assign-liferay-worker" %>'
+		title='<%= viewAccountLiferayWorkersDisplayContext.isEdit() ? "edit-roles" : "assign-liferay-worker" %>'
 	/>
 
 	<portlet:actionURL name="/accounts/assign_contact_roles" var="assignContactRolesURL">
@@ -70,7 +49,7 @@ accountContactsDetailsData.put("redirect", redirect);
 			</liferay-ui:error>
 
 			<react:component
-				data="<%= accountContactsDetailsData %>"
+				data="<%= viewAccountLiferayWorkersDisplayContext.getAccountContactsDetailsData() %>"
 				module="js/AccountAddContactsApp"
 			/>
 		</div>
