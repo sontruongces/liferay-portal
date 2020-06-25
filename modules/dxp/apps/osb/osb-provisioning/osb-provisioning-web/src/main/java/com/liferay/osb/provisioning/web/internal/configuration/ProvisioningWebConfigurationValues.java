@@ -15,6 +15,7 @@
 package com.liferay.osb.provisioning.web.internal.configuration;
 
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 /**
  * @author Kyle Bischof
@@ -23,5 +24,15 @@ public class ProvisioningWebConfigurationValues {
 
 	public static final String LICENSE_MANAGER_URL = GetterUtil.getString(
 		ProvisioningWebConfigurationUtil.get("license.manager.url"));
+
+	public static String getLicenseManagerURL(
+		String accountKey, String productKey) {
+
+		String licenseManagerURL = StringUtil.replace(
+			LICENSE_MANAGER_URL, "[$ACCOUNT_KEY$]", accountKey);
+
+		return StringUtil.replace(
+			licenseManagerURL, "[$PRODUCT_KEY$]", productKey);
+	}
 
 }
