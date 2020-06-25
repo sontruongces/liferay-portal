@@ -18,6 +18,8 @@
 
 <%
 ViewSubscriptionDisplayContext viewSubscriptionDisplayContext = ProvisioningWebComponentProvider.getViewSubscriptionDisplayContext(renderRequest, renderResponse, request);
+
+String productPurchaseKey = ParamUtil.getString(request, "productPurchaseKey");
 %>
 
 <liferay-ui:search-container
@@ -28,6 +30,13 @@ ViewSubscriptionDisplayContext viewSubscriptionDisplayContext = ProvisioningWebC
 		escapedModel="<%= true %>"
 		modelVar="productPurchaseDisplay"
 	>
+
+		<%
+		if (productPurchaseKey.equals(productPurchaseDisplay.getKey())) {
+			row.setCssClass("highlight-row");
+		}
+		%>
+
 		<liferay-ui:search-container-column-text
 			name="start-end-date"
 			value="<%= productPurchaseDisplay.getSupportLife() %>"

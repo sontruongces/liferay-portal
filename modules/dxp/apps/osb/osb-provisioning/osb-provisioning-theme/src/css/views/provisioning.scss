@@ -166,3 +166,9 @@
 .modal-footer {
 	justify-content: flex-end;
 }
+
+.table {
+	.highlight-row td {
+		background-color: $primary-l3;
+	}
+}

@@ -98,6 +98,10 @@ public class ProductPurchaseDisplay {
 		return sb.toString();
 	}
 
+	public String getKey() {
+		return _productPurchase.getKey();
+	}
+
 	public String getProvisionedCount() {
 		return String.valueOf(_provisionedCount);
 	}
