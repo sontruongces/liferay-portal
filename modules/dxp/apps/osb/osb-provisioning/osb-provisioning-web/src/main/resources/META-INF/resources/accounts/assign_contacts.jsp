@@ -19,9 +19,9 @@
 <%
 ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = ProvisioningWebComponentProvider.getViewAccountContactsDisplayContext(renderRequest, renderResponse, request);
 
-String redirect = viewAccountContactsDisplayContext.getRedirectURL();
-
 AccountDisplay accountDisplay = viewAccountContactsDisplayContext.getAccountDisplay();
+
+String redirect = viewAccountContactsDisplayContext.getRedirectURL();
 %>
 
 <div class="account-add-items">

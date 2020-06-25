@@ -19,9 +19,9 @@
 <%
 ViewAccountLiferayWorkersDisplayContext viewAccountLiferayWorkersDisplayContext = ProvisioningWebComponentProvider.getViewAccountLiferayWorkersDisplayContext(renderRequest, renderResponse, request);
 
-String redirect = viewAccountLiferayWorkersDisplayContext.getRedirectURL();
-
 AccountDisplay accountDisplay = viewAccountLiferayWorkersDisplayContext.getAccountDisplay();
+
+String redirect = viewAccountLiferayWorkersDisplayContext.getRedirectURL();
 %>
 
 <div class="account-add-items">
