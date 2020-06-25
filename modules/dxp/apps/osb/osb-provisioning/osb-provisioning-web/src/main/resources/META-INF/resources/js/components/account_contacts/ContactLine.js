@@ -97,9 +97,12 @@ function ContactRoleSelect({
 }) {
 	const [active, setActive] = useState(false);
 
-	const allContactRolesMap = allContactRoles.reduce((updatedMap, role) => {
-		return {...updatedMap, [role.key]: role};
-	}, {});
+	const processedAllContactRoles = allContactRoles.reduce(
+		(allRoles, role) => {
+			return {...allRoles, [role.key]: role};
+		},
+		{}
+	);
 
 	const triggerElement = (
 		<div className="input-group input-group-stacked-sm-down">
@@ -107,10 +110,14 @@ function ContactRoleSelect({
 				<div className="form-control form-control-tag-group input-group-inset input-group-inset-after">
 					{addContactRoleKeys.map(
 						roleKey =>
-							allContactRolesMap[roleKey] && (
+							processedAllContactRoles[roleKey] && (
 								<ContactRoleLabel
 									key={roleKey}
-									name={allContactRolesMap[roleKey]['name']}
+									name={
+										processedAllContactRoles[roleKey][
+											'name'
+										]
+									}
 									removeRole={() => removeKey(roleKey)}
 								/>
 							)
