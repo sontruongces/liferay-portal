@@ -77,7 +77,11 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		JSONObject projectJSONObject = jsonObject.getJSONObject("_project");
 
-		String projectName = projectJSONObject.getString("_name");
+		String projectName = null;
+
+		if (projectJSONObject != null) {
+			projectName = projectJSONObject.getString("_name");
+		}
 
 		account.setCode(_getCode(accountName, projectName));
 
@@ -415,12 +419,16 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		String salesforceProjectKey = jsonObject.getString(
 			"_salesforceProjectKey");
 
-		ExternalLink projectExternalLink = new ExternalLink();
+		ExternalLink projectExternalLink = null;
 
-		projectExternalLink.setDomain(ExternalLinkDomain.SALESFORCE);
-		projectExternalLink.setEntityName(
-			ExternalLinkEntityName.SALESFORCE_PROJECT);
-		projectExternalLink.setEntityId(salesforceProjectKey);
+		if (Validator.isNotNull(salesforceProjectKey)) {
+			projectExternalLink = new ExternalLink();
+
+			projectExternalLink.setDomain(ExternalLinkDomain.SALESFORCE);
+			projectExternalLink.setEntityName(
+				ExternalLinkEntityName.SALESFORCE_PROJECT);
+			projectExternalLink.setEntityId(salesforceProjectKey);
+		}
 
 		JSONObject accountJSONObject = jsonObject.getJSONObject("_account");
 
@@ -434,9 +442,13 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			ExternalLinkEntityName.DOSSIERA_ACCOUNT);
 		dossieraExternalLink.setEntityId(dossieraAccountKey);
 
-		return new ExternalLink[] {
-			accountExternalLink, dossieraExternalLink, projectExternalLink
-		};
+		if (Validator.isNotNull(salesforceProjectKey)) {
+			return new ExternalLink[] {
+				accountExternalLink, dossieraExternalLink, projectExternalLink
+			};
+		}
+
+		return new ExternalLink[] {accountExternalLink, dossieraExternalLink};
 	}
 
 	protected List<ProductPurchase> parseProductPurchases(JSONObject jsonObject)
@@ -578,7 +590,9 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			code = code.substring(0, 6);
 		}
 
-		code += StringUtil.extractChars(accountName);
+		if (accountName != null) {
+			code += StringUtil.extractChars(accountName);
+		}
 
 		if (code.length() > 12) {
 			code = code.substring(0, 12);
@@ -660,7 +674,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		return false;
 	}
 
-	private static final String[] _PRODUCT_FAMILY_TOKENS = {"E", "S"};
+	private static final String[] _PRODUCT_FAMILY_TOKENS = {"E", "P", "S"};
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DossieraCreateMessageSubscriber.class);
