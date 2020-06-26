@@ -12,7 +12,7 @@
 import React from 'react';
 
 import ErrorBoundary from './ErrorBoundary';
-import AccountAddContacts from './components/account_contacts/AccountAddContacts';
+import AddContacts from './components/account_contacts/AddContact';
 
 export default ({
 	accountName,
@@ -24,7 +24,7 @@ export default ({
 }) => {
 	return (
 		<ErrorBoundary>
-			<AccountAddContacts
+			<AddContacts
 				accountName={accountName}
 				allContactRoles={allContactRoles}
 				initialContactRoleKeys={contactRoleKeys}

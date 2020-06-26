@@ -15,7 +15,7 @@ import React, {useState} from 'react';
 import {NAMESPACE} from '../../utilities/constants';
 import ContactLine from './ContactLine';
 
-export default function AccountAddContacts({
+export default function AddContact({
 	accountName,
 	allContactRoles,
 	initialContactRoleKeys = [],
@@ -136,7 +136,7 @@ export default function AccountAddContacts({
 	);
 }
 
-AccountAddContacts.propTypes = {
+AddContact.propTypes = {
 	accountName: PropTypes.string,
 	allContactRoles: PropTypes.arrayOf(
 		PropTypes.shape({
