@@ -29,8 +29,7 @@ public class ConfigurationModelListenerException extends IOException {
 
 		super(
 			String.format(
-				"The listener %s was unable to save configuration %s. Caused " +
-					"by: %s",
+				"The listener %s was unable to save configuration %s: %s",
 				listenerClass.getName(), configurationClass.getName(),
 				exception.getMessage()),
 			exception);
@@ -47,8 +46,7 @@ public class ConfigurationModelListenerException extends IOException {
 
 		super(
 			String.format(
-				"The listener %s was unable to save configuration %s. Caused " +
-					"by: %s",
+				"The listener %s was unable to save configuration %s: %s",
 				listenerClass.getName(), configurationClass.getName(),
 				causeMessage));
 
