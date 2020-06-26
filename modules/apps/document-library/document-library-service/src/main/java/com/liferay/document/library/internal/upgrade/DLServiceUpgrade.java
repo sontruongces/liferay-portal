@@ -21,10 +21,12 @@ import com.liferay.document.library.internal.upgrade.v1_0_1.UpgradeDLConfigurati
 import com.liferay.document.library.internal.upgrade.v1_0_1.UpgradeDLFileEntryConfiguration;
 import com.liferay.document.library.internal.upgrade.v1_0_2.UpgradeDLFileShortcut;
 import com.liferay.document.library.internal.upgrade.v1_1_0.UpgradeSchema;
+import com.liferay.document.library.internal.upgrade.v1_1_2.UpgradeDLFileEntryType;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.store.Store;
 import com.liferay.portal.configuration.upgrade.PrefsPropsToConfigurationUpgradeHelper;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.service.ResourceLocalService;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeStep;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 import com.liferay.subscription.service.SubscriptionLocalService;
@@ -60,6 +62,10 @@ public class DLServiceUpgrade implements UpgradeStepRegistrator {
 				_assetEntryLocalService, _classNameLocalService,
 				_subscriptionLocalService, DLFileEntry.class.getName(),
 				UpgradeDiscussionSubscriptionClassName.DeletionMode.UPDATE));
+
+		registry.register(
+			"1.1.1", "1.1.2",
+			new UpgradeDLFileEntryType(_resourceLocalService));
 	}
 
 	@Reference
@@ -71,6 +77,9 @@ public class DLServiceUpgrade implements UpgradeStepRegistrator {
 	@Reference
 	private PrefsPropsToConfigurationUpgradeHelper
 		_prefsPropsToConfigurationUpgradeHelper;
+
+	@Reference
+	private ResourceLocalService _resourceLocalService;
 
 	@Reference(target = "(dl.store.upgrade=true)")
 	private Store _store;
