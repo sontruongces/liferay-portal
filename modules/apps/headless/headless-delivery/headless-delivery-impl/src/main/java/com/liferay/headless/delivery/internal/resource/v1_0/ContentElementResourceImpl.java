@@ -146,7 +146,7 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 				id = assetEntry.getClassPK();
 				title = assetEntry.getTitle(
 					contextAcceptLanguage.getPreferredLocale());
-				title_i18n = LocalizedMapUtil.getI18nMap(
+				title_i18n = LocalizedMapUtil.getLocalizedMap(
 					contextAcceptLanguage.isAcceptAllLanguages(),
 					assetEntry.getTitleMap());
 
