@@ -433,16 +433,16 @@ public class ContactTeamRoleModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ContactTeamRole)) {
+		if (!(object instanceof ContactTeamRole)) {
 			return false;
 		}
 
-		ContactTeamRole contactTeamRole = (ContactTeamRole)obj;
+		ContactTeamRole contactTeamRole = (ContactTeamRole)object;
 
 		ContactTeamRolePK primaryKey = contactTeamRole.getPrimaryKey();
 

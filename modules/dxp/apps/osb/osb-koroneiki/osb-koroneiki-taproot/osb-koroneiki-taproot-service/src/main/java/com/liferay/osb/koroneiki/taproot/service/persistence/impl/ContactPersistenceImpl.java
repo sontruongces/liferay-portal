@@ -2787,16 +2787,16 @@ public class ContactPersistenceImpl
 		"(contact.emailAddress IS NULL OR contact.emailAddress = '')";
 
 	public ContactPersistenceImpl() {
-		setModelClass(Contact.class);
-
-		setModelImplClass(ContactImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
 		setDBColumnNames(dbColumnNames);
+
+		setModelClass(Contact.class);
+
+		setModelImplClass(ContactImpl.class);
+		setModelPKClass(long.class);
 	}
 
 	/**

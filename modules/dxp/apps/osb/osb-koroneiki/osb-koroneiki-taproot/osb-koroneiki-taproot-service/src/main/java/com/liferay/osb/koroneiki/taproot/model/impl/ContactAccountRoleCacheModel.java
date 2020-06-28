@@ -36,17 +36,17 @@ public class ContactAccountRoleCacheModel
 	implements CacheModel<ContactAccountRole>, Externalizable, MVCCModel {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ContactAccountRoleCacheModel)) {
+		if (!(object instanceof ContactAccountRoleCacheModel)) {
 			return false;
 		}
 
 		ContactAccountRoleCacheModel contactAccountRoleCacheModel =
-			(ContactAccountRoleCacheModel)obj;
+			(ContactAccountRoleCacheModel)object;
 
 		if (contactAccountRolePK.equals(
 				contactAccountRoleCacheModel.contactAccountRolePK) &&
