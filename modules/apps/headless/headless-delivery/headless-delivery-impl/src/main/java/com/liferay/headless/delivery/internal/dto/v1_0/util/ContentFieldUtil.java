@@ -85,7 +85,7 @@ public class ContentFieldUtil {
 					ddmFormField);
 				label = localizedValue.getString(
 					dtoConverterContext.getLocale());
-				label_i18n = LocalizedMapUtil.getI18nMap(
+				label_i18n = LocalizedMapUtil.getLocalizedMap(
 					dtoConverterContext.isAcceptAllLanguages(),
 					localizedValue.getValues());
 				name = ddmFormField.getName();

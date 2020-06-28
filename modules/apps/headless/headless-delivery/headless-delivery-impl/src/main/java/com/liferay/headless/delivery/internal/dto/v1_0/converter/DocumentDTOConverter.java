@@ -252,11 +252,11 @@ public class DocumentDTOConverter
 			{
 				description = dlFileEntryType.getDescription(
 					dtoConverterContext.getLocale());
-				description_i18n = LocalizedMapUtil.getI18nMap(
+				description_i18n = LocalizedMapUtil.getLocalizedMap(
 					dtoConverterContext.isAcceptAllLanguages(),
 					dlFileEntryType.getDescriptionMap());
 				name = dlFileEntryType.getName(dtoConverterContext.getLocale());
-				name_i18n = LocalizedMapUtil.getI18nMap(
+				name_i18n = LocalizedMapUtil.getLocalizedMap(
 					dtoConverterContext.isAcceptAllLanguages(),
 					dlFileEntryType.getNameMap());
 
