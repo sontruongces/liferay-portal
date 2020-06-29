@@ -115,7 +115,7 @@ public class ViewAccountDisplayContext {
 			accountAttachmentId);
 	}
 
-	public Map<String, Object> getAccountDetailsData() {
+	public Map<String, Object> getAccountDetailsData() throws Exception {
 		Map<String, Object> data = new HashMap<>();
 
 		data.put("details", getAccountDisplay());
@@ -127,6 +127,8 @@ public class ViewAccountDisplayContext {
 		}
 
 		data.put("statusNames", statusNames);
+
+		data.put("parentAccountName", getParentAccountName());
 
 		List<String> tierNames = new ArrayList<>();
 
@@ -335,6 +337,21 @@ public class ViewAccountDisplayContext {
 				note -> new NoteDisplay(renderRequest, renderResponse, note)));
 
 		return data;
+	}
+
+	public String getParentAccountName() throws Exception {
+		String parentAccountKey = accountDisplay.getParentAccountKey();
+
+		if (Validator.isNotNull(parentAccountKey)) {
+			Account parentAccount = accountWebService.getAccount(
+				parentAccountKey);
+
+			if (parentAccount != null) {
+				return parentAccount.getName();
+			}
+		}
+
+		return StringPool.BLANK;
 	}
 
 	public PortletURL getPortletURL() {
