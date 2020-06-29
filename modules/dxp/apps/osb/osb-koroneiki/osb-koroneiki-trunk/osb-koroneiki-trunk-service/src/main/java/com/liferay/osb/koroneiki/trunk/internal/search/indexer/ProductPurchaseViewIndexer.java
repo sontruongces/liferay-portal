@@ -304,7 +304,10 @@ public class ProductPurchaseViewIndexer
 		for (ProductPurchase productPurchase : productPurchases) {
 			Date curEndDate = productPurchase.getEndDate();
 
-			if ((endDate == null) || curEndDate.after(endDate)) {
+			if ((productPurchase.getStatus() ==
+					WorkflowConstants.STATUS_APPROVED) &&
+				((endDate == null) || curEndDate.after(endDate))) {
+
 				endDate = curEndDate;
 			}
 		}
@@ -346,6 +349,12 @@ public class ProductPurchaseViewIndexer
 
 		for (ProductPurchase productPurchase : productPurchases) {
 			Field field = new Field(StringPool.BLANK);
+
+			Field statusField = new Field(Field.STATUS);
+
+			statusField.setValue(String.valueOf(productPurchase.getStatus()));
+
+			field.addField(statusField);
 
 			Date endDate = productPurchase.getEndDate();
 
@@ -415,7 +424,10 @@ public class ProductPurchaseViewIndexer
 		for (ProductPurchase productPurchase : productPurchases) {
 			Date curStartDate = productPurchase.getStartDate();
 
-			if ((startDate == null) || curStartDate.before(startDate)) {
+			if ((productPurchase.getStatus() ==
+					WorkflowConstants.STATUS_APPROVED) &&
+				((startDate == null) || curStartDate.before(startDate))) {
+
 				startDate = curStartDate;
 			}
 		}
@@ -583,6 +595,9 @@ public class ProductPurchaseViewIndexer
 			String.valueOf(now + (Time.YEAR * 100)), true, true);
 
 		rangeQuery.add(endDateQuery, BooleanClauseOccur.MUST);
+
+		rangeQuery.addRequiredTerm(
+			"productPurchases.status", WorkflowConstants.STATUS_APPROVED);
 
 		activeDateFilter.add(
 			new QueryFilter(new NestedQuery("productPurchases", rangeQuery)),
