@@ -345,7 +345,8 @@ public class TaxonomyCategoryResourceImpl
 									_assetVocabularyService.getVocabulary(
 										assetCategory.getVocabularyId());
 
-								return assetVocabulary.getName();
+								return assetVocabulary.getTitle(
+									contextAcceptLanguage.getPreferredLocale());
 							});
 					}
 				};
