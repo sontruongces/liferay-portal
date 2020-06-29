@@ -44,6 +44,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
@@ -73,12 +75,15 @@ public class ItemSelectorImpl implements ItemSelector {
 
 	@Override
 	public String getItemSelectedEventName(String itemSelectorURL) {
-		String namespace = _portal.getPortletNamespace(
-			ItemSelectorPortletKeys.ITEM_SELECTOR);
+		String itemSelectedEventName = StringPool.BLANK;
 
-		return _http.getParameter(
-			itemSelectorURL,
-			namespace.concat(PARAMETER_ITEM_SELECTED_EVENT_NAME), false);
+		Matcher matcher = _itemSelectorURLPattern.matcher(itemSelectorURL);
+
+		if (matcher.find()) {
+			itemSelectedEventName = matcher.group(2);
+		}
+
+		return itemSelectedEventName;
 	}
 
 	@Override
@@ -402,6 +407,9 @@ public class ItemSelectorImpl implements ItemSelector {
 			ItemSelectorKeyUtil.getItemSelectorCriterionKey(
 				itemSelectorCriterionClass));
 	}
+
+	private static final Pattern _itemSelectorURLPattern = Pattern.compile(
+		"select\\/(.+)\\/(.+)\\?");
 
 	@Reference
 	private Http _http;
