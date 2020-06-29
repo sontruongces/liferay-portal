@@ -119,6 +119,7 @@ public class ViewAccountDisplayContext {
 		Map<String, Object> data = new HashMap<>();
 
 		data.put("details", getAccountDisplay());
+		data.put("parentAccountName", getParentAccountName());
 
 		List<String> statusNames = new ArrayList<>();
 
@@ -127,8 +128,6 @@ public class ViewAccountDisplayContext {
 		}
 
 		data.put("statusNames", statusNames);
-
-		data.put("parentAccountName", getParentAccountName());
 
 		List<String> tierNames = new ArrayList<>();
 
