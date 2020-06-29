@@ -38,7 +38,7 @@ function renderGeneralDetails(props) {
 	);
 }
 
-describe('AccountDetails', () => {
+describe('GeneralDetails', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {

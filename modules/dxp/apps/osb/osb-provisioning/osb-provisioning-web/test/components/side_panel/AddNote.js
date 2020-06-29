@@ -55,7 +55,7 @@ function renderEditNote(notes = mockNotes(), props) {
 	);
 }
 
-describe('New Note', () => {
+describe('AddNote', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {

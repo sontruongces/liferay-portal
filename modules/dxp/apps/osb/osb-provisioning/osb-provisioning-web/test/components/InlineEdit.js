@@ -28,7 +28,7 @@ function renderInlineEdit(props) {
 	);
 }
 
-describe('IconButton', () => {
+describe('InlineEdit', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {

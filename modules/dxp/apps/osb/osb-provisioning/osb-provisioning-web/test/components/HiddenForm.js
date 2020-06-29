@@ -26,7 +26,7 @@ function renderHiddenForm() {
 	);
 }
 
-describe('HiddenInputs', () => {
+describe('HiddenForm', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {

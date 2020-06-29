@@ -27,7 +27,7 @@ function renderPartnerInfo(props) {
 	);
 }
 
-describe('AccountDetails', () => {
+describe('PartnerInfo', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {

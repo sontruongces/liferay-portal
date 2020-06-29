@@ -20,7 +20,7 @@ function renderInstructions() {
 	);
 }
 
-describe('SupportInformation', () => {
+describe('Instructions', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {
