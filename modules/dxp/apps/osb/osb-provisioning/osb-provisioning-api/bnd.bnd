@@ -1,4 +1,9 @@
 Bundle-Name: Liferay OSB Provisioning API
 Bundle-SymbolicName: com.liferay.osb.provisioning.api
 Bundle-Version: 1.0.0
-Export-Package: com.liferay.osb.provisioning.constants
+Export-Package:\
+	com.liferay.osb.provisioning.constants,\
+	com.liferay.osb.provisioning.exception,\
+	com.liferay.osb.provisioning.model,\
+	com.liferay.osb.provisioning.service,\
+	com.liferay.osb.provisioning.service.persistence

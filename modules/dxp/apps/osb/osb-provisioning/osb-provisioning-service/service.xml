@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_2_0.dtd">
+
+<service-builder mvcc-enabled="true" package-path="com.liferay.osb.provisioning">
+	<namespace>Provisioning</namespace>
+	<entity local-service="true" name="ProductBundle" remote-service="false" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="productBundleId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="ProductBundleId" return-type="ProductBundle">
+			<finder-column name="productBundleId" />
+		</finder>
+		<finder name="Name" return-type="ProductBundle">
+			<finder-column name="name" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="ProductBundle_Product" remote-service="false" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="productEntryId" primary="true" type="long" />
+		<column name="productBundleId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Finder methods -->
+
+		<finder name="ProductBundleId" return-type="ProductBundle">
+			<finder-column name="productBundleId" />
+		</finder>
+	</entity>
+</service-builder>
