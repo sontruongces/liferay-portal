@@ -257,7 +257,7 @@ public class ProductPurchaseViewDisplay {
 				_inSupportGap = false;
 			}
 
-			if (!_perpetual && _inSupportGap &&
+			if (approved && !_perpetual && _inSupportGap &&
 				((_nextTermStartDate == null) ||
 				 ((_nextTermStartDate != null) &&
 				  startDate.before(_nextTermStartDate))) &&
