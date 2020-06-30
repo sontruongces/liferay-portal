@@ -350,7 +350,7 @@ public class ViewAccountDisplayContext {
 			}
 		}
 
-		return StringPool.BLANK;
+		return StringPool.DASH;
 	}
 
 	public PortletURL getPortletURL() {

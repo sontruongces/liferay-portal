@@ -20,7 +20,7 @@ import {
 import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from '../DetailField';
 
-function GeneralDetails({details, statuses, tiers}) {
+function GeneralDetails({details, parentAccountName, statuses, tiers}) {
 	const formData = {
 		code: convertDashToEmptyString(details.code),
 		name: convertDashToEmptyString(details.name),
@@ -94,6 +94,12 @@ function GeneralDetails({details, statuses, tiers}) {
 				type={FIELD_TYPE_NONEDITABLE}
 				value={details.dateModified}
 			/>
+
+			<DetailField
+				fieldLabel={Liferay.Language.get('parent')}
+				type={FIELD_TYPE_NONEDITABLE}
+				value={parentAccountName}
+			/>
 		</ClayList>
 	);
 }
@@ -113,6 +119,7 @@ GeneralDetails.propTypes = {
 		statusStyle: PropTypes.string,
 		tier: PropTypes.string
 	}),
+	parentAccountName: PropTypes.string,
 	statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
 	tiers: PropTypes.arrayOf(PropTypes.string).isRequired
 };

@@ -38,6 +38,7 @@ function renderAccountDetails(props) {
 				updateDossieraProjectURL: '/update/dossiera/project',
 				updateSalesforceProjectURL: 'update/salesforce/project'
 			}}
+			parentAccountName="parent"
 			statusNames={['Approved', 'Expired', 'Pending']}
 			tierNames={['1', '2', '3']}
 			{...props}

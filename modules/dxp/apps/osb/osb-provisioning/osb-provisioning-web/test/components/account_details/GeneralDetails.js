@@ -30,6 +30,7 @@ function renderGeneralDetails(props) {
 				statusStyle: 'label-success',
 				tier: 'Regular'
 			}}
+			parentAccountName="parent"
 			statuses={['Approved', 'Expired', 'Pending']}
 			tiers={['1', '2', '3']}
 			{...props}
