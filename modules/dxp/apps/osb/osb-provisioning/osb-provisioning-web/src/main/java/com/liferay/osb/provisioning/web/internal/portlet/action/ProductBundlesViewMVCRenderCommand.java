@@ -40,7 +40,7 @@ public class ProductBundlesViewMVCRenderCommand implements MVCRenderCommand {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		return "/productBundles/view.jsp";
+		return "/product_bundles/view.jsp";
 	}
 
 }
