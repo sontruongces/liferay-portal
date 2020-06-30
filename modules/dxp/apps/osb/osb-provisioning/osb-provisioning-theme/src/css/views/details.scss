@@ -1,8 +1,14 @@
 .account-details,
 .support-information {
 	.address-controls {
-		justify-content: flex-end;
-		width: 100%;
+		justify-content: space-between;
+		padding-left: $spacing-md;
+		padding-right: $spacing-md;
+
+		&.list-group-item-flex {
+			flex-basis: 100%;
+			max-width: 100%;
+		}
 	}
 
 	.detail-field {

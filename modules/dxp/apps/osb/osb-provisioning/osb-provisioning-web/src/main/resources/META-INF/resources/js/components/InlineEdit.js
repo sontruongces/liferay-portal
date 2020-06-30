@@ -149,7 +149,7 @@ function InlineEdit({
 						</label>
 					)}
 
-					<div className="button-row">
+					<div className="button-row" role="group">
 						<button
 							className="btn btn-primary btn-sm save-btn"
 							onClick={handleSave}

@@ -11,24 +11,22 @@
 
 import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
 	FIELD_TYPE_NONEDITABLE,
 	FIELD_TYPE_SELECT,
-	FIELD_TYPE_TEXT
+	FIELD_TYPE_TEXT,
+	NAMESPACE
 } from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
-import DetailField from '../DetailField';
 import IconButton from '../IconButton';
 
 function AccountAddresses({accountKey, addURL, addresses}) {
 	const [countryOptions, setCountryOptions] = useState([]);
 
 	useEffect(() => {
-		Liferay.Service('/country/get-countries', {
-			active: true
-		})
+		Liferay.Service('/country/get-countries', {active: true})
 			.then(countries => {
 				const options = countries.map(country => {
 					return {
@@ -96,42 +94,26 @@ AccountAddresses.propTypes = {
 function Address({accountKey, addURL, address, count, countryOptions}) {
 	const [regionOptions, setRegionOptions] = useState([]);
 
-	const countryId = getCountryId();
-	const regionId = getRegionId();
+	const countryId = getFieldId(countryOptions, address.addressCountry);
+	const regionId = getFieldId(regionOptions, address.addressRegion);
 
-	const formData = useMemo(() => {
-		return {
-			accountKey,
-			addressCountryId: countryId,
-			addressLocality: convertDashToEmptyString(address.addressLocality),
-			addressRegionId: regionId,
-			addressType: convertDashToEmptyString(address.addressType),
-			addressZip: convertDashToEmptyString(address.postalCode),
-			mailing: address.mailing,
-			primary: address.primary,
-			streetAddressLine1: convertDashToEmptyString(
-				address.streetAddressLine1
-			),
-			streetAddressLine2: convertDashToEmptyString(
-				address.streetAddressLine2
-			),
-			streetAddressLine3: convertDashToEmptyString(
-				address.streetAddressLine3
-			)
-		};
-	}, [
+	const formData = {
 		accountKey,
-		address.addressLocality,
-		address.addressType,
-		address.mailing,
-		address.postalCode,
-		address.primary,
-		address.streetAddressLine1,
-		address.streetAddressLine2,
-		address.streetAddressLine3,
-		countryId,
-		regionId
-	]);
+		addressCountryId: countryId,
+		addressLocality: convertDashToEmptyString(address.addressLocality),
+		addressRegionId: regionId,
+		addressType: convertDashToEmptyString(address.addressType),
+		addressZip: convertDashToEmptyString(address.postalCode),
+		mailing: address.mailing,
+		primary: address.primary,
+		streetAddressLine1: convertDashToEmptyString(
+			address.streetAddressLine1
+		),
+		streetAddressLine2: convertDashToEmptyString(
+			address.streetAddressLine2
+		),
+		streetAddressLine3: convertDashToEmptyString(address.streetAddressLine3)
+	};
 
 	useEffect(() => {
 		Liferay.Service('/region/get-regions', {
@@ -151,28 +133,25 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 			.catch(err => console.error(err));
 	}, [countryId]);
 
-	function getCountryId() {
-		const country = countryOptions.find(
-			option => option.label === address.addressCountry
+	function getFieldId(fieldOptions, currentValue) {
+		const currentField = fieldOptions.find(
+			option => option.label === currentValue
 		);
 
-		if (country) {
-			return country.value;
+		if (currentField) {
+			return currentField.value;
 		}
 
 		return '';
 	}
 
-	function getRegionId() {
-		const region = regionOptions.find(
-			option => option.label === address.addressRegion
-		);
+	function handleCancel() {
+		// reset all values
+		// exit out of edit mode
+	}
 
-		if (region) {
-			return region.value;
-		}
-
-		return '';
+	function handleSave() {
+		// form submission
 	}
 
 	function setFieldType(fieldType = FIELD_TYPE_TEXT) {
@@ -189,73 +168,83 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				{Liferay.Language.get('address')} {count}
 			</ClayList.Header>
 
-			<DetailField
+			<AddressField
 				fieldLabel={Liferay.Language.get('street-1')}
 				fieldName="streetAddressLine1"
-				formAction={address.editPostalAddressURL}
-				formData={formData}
 				type={setFieldType()}
 				value={address.streetAddressLine1}
 			/>
 
-			<DetailField
+			<AddressField
 				fieldLabel={Liferay.Language.get('city')}
 				fieldName="addressLocality"
-				formAction={address.editPostalAddressURL}
-				formData={formData}
 				type={setFieldType()}
 				value={address.addressLocality}
 			/>
 
-			<DetailField
+			<AddressField
 				fieldLabel={Liferay.Language.get('street-2')}
 				fieldName="streetAddressLine2"
-				formAction={address.editPostalAddressURL}
-				formData={formData}
 				type={setFieldType()}
 				value={address.streetAddressLine2}
 			/>
 
-			<DetailField
+			<AddressField
 				fieldLabel={Liferay.Language.get('state-province')}
 				fieldName="addressRegionId"
-				formAction={address.editPostalAddressURL}
-				formData={formData}
 				options={regionOptions}
 				type={setFieldType(FIELD_TYPE_SELECT)}
 				value={address.addressRegion}
 			/>
 
-			<DetailField
+			<AddressField
 				fieldLabel={Liferay.Language.get('street-3')}
 				fieldName="streetAddressLine3"
-				formAction={address.editPostalAddressURL}
-				formData={formData}
 				type={setFieldType()}
 				value={address.streetAddressLine3}
 			/>
 
-			<DetailField
+			<AddressField
 				fieldLabel={Liferay.Language.get('postal-code')}
 				fieldName="postalCode"
-				formAction={address.editPostalAddressURL}
-				formData={formData}
 				type={setFieldType()}
 				value={address.postalCode}
 			/>
 
-			<DetailField
+			<AddressField
 				fieldLabel={Liferay.Language.get('country')}
 				fieldName="addressCountryId"
-				formAction={address.editPostalAddressURL}
-				formData={formData}
 				options={countryOptions}
 				type={setFieldType(FIELD_TYPE_SELECT)}
 				value={address.addressCountry}
 			/>
 
-			<ClayList.Item flex>
-				<div className="address-controls btn-group" role="group">
+			<ClayList.Item className="address-controls" flex>
+				<div className="btn-group" role="group">
+					<div className="btn-group-item">
+						<button
+							className="btn btn-primary btn-sm save-btn"
+							onClick={handleSave}
+							role="button"
+							type="button"
+						>
+							{Liferay.Language.get('save')}
+						</button>
+					</div>
+
+					<div className="btn-group-item">
+						<button
+							className="btn btn-secondary btn-sm cancel-btn"
+							onClick={handleCancel}
+							role="button"
+							type="button"
+						>
+							{Liferay.Language.get('cancel')}
+						</button>
+					</div>
+				</div>
+
+				<div className="btn-group" role="group">
 					<div className="btn-group-item">
 						<a
 							className="add-address btn btn-secondary nav-btn nav-btn-monospaced"
@@ -298,6 +287,71 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				</div>
 			</ClayList.Item>
 		</React.Fragment>
+	);
+}
+
+function AddressField({
+	fieldLabel,
+	fieldName,
+	options = [],
+	type = FIELD_TYPE_TEXT,
+	value
+}) {
+	const [fieldValue, setFieldValue] = useState(value);
+
+	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
+
+	function handleChange(event) {
+		setFieldValue(event.currentTarget.value);
+	}
+
+	return (
+		<ClayList.Item flex>
+			<div className="detail-field">
+				<ClayList.ItemTitle>{fieldLabel}</ClayList.ItemTitle>
+
+				<div className="list-group-text">
+					{type === FIELD_TYPE_SELECT && (
+						<label
+							className="form-control-label"
+							htmlFor={namespacedFieldName}
+						>
+							<select
+								className="form-control"
+								disabled={options.length === 0}
+								id={namespacedFieldName}
+								onChange={handleChange}
+								value={fieldValue}
+							>
+								{options.map(option => (
+									<option
+										key={option.value}
+										value={option.value}
+									>
+										{option.label}
+									</option>
+								))}
+							</select>
+						</label>
+					)}
+
+					{type === FIELD_TYPE_TEXT && (
+						<label
+							className="form-control-label"
+							htmlFor={namespacedFieldName}
+						>
+							<input
+								className="form-control"
+								id={namespacedFieldName}
+								onChange={handleChange}
+								type="text"
+								value={fieldValue}
+							/>
+						</label>
+					)}
+				</div>
+			</div>
+		</ClayList.Item>
 	);
 }
 
