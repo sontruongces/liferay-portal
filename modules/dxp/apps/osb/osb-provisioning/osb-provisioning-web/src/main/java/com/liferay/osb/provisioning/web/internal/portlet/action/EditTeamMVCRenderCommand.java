@@ -51,9 +51,7 @@ public class EditTeamMVCRenderCommand implements MVCRenderCommand {
 		try {
 			String teamKey = ParamUtil.getString(renderRequest, "teamKey");
 
-			if (SessionErrors.isEmpty(renderRequest) &&
-				Validator.isNotNull(teamKey)) {
-
+			if (Validator.isNotNull(teamKey)) {
 				Team team = _teamWebService.getTeam(teamKey);
 
 				renderRequest.setAttribute(
