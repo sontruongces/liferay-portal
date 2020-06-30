@@ -67,7 +67,7 @@
 			<validator name="required" />
 		</field>
 		<field localized="true" name="description" type="String">
-			<hint-collection name="TEXTAREA" />
+			<hint-collection name="CLOB" />
 		</field>
 		<field name="settings" type="String">
 			<hint-collection name="CLOB" />
@@ -124,7 +124,7 @@
 			<validator name="required" />
 		</field>
 		<field localized="true" name="description" type="String">
-			<hint-collection name="TEXTAREA" />
+			<hint-collection name="CLOB" />
 		</field>
 		<field name="settings" type="String">
 			<hint-collection name="CLOB" />
