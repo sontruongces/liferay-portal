@@ -70,7 +70,8 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 
 	@Override
 	public GetRequestBuilder translate(GetDocumentRequest getDocumentRequest) {
-		Client client = _elasticsearchClientResolver.getClient(true);
+		Client client = _elasticsearchClientResolver.getClient(
+			getDocumentRequest.isPreferLocalCluster());
 
 		GetRequestBuilder getRequestBuilder = client.prepareGet();
 
