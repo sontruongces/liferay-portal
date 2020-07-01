@@ -13,25 +13,33 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function Instructions() {
+import {FIELD_TYPE_TEXTAREA} from '../../utilities/constants';
+import DetailField from '../DetailField';
+
+function Instructions({instructions, updateInstructionsURL}) {
 	return (
 		<ClayList>
-			<ClayList.Header>
-				{Liferay.Language.get('instructions')}
-			</ClayList.Header>
-
-			<ClayList.Item flex>
-				<div className="detail-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('oem-instructions')}
-					</ClayList.ItemTitle>
+			<li className="list-group-item list-group-item-flex list-group-subheader">
+				<div className="autofit-col autofit-col-expand">
+					{Liferay.Language.get('support-instructions')}
 				</div>
-			</ClayList.Item>
+			</li>
+
+			<DetailField
+				fieldName="instructions"
+				formAction={updateInstructionsURL}
+				formData={{
+					instructions
+				}}
+				type={FIELD_TYPE_TEXTAREA}
+				value={instructions}
+			/>
 		</ClayList>
 	);
 }
 
 Instructions.propTypes = {
+	instructions: PropTypes.string,
 	updateInstructionsURL: PropTypes.string
 };
 

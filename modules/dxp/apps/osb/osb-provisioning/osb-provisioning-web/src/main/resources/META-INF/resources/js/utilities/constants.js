@@ -38,4 +38,5 @@ export const FIELD_TYPE_EXTERNAL = 'external';
 export const FIELD_TYPE_NONEDITABLE = 'noneditable';
 export const FIELD_TYPE_SELECT = 'select';
 export const FIELD_TYPE_TEXT = 'text';
+export const FIELD_TYPE_TEXTAREA = 'textarea';
 export const FIELD_TYPE_TOGGLE = 'toggle';

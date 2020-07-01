@@ -9,14 +9,17 @@
  * distribution rights of the Software.
  */
 
-import {cleanup, render} from '@testing-library/react';
+import {cleanup, fireEvent, render, wait} from '@testing-library/react';
 import React from 'react';
 
 import Instructions from '../../../src/main/resources/META-INF/resources/js/components/support_information/Instructions';
 
 function renderInstructions() {
 	return render(
-		<Instructions updateInstructionsURL="update/instructions/url" />
+		<Instructions
+			instructions="Sample instructions text"
+			updateInstructionsURL="update/instructions/url"
+		/>
 	);
 }
 
@@ -29,9 +32,26 @@ describe('Instructions', () => {
 		expect(container).toBeTruthy();
 	});
 
-	it('displays OEM Instructions field', () => {
+	it('displays Instructions title', () => {
 		const {getByText} = renderInstructions();
 
-		getByText('oem-instructions');
+		getByText('support-instructions');
+	});
+
+	it('displays Instructions text', () => {
+		const {getByText} = renderInstructions();
+
+		getByText('Sample instructions text');
+	});
+
+	it('allows Instructions to be edited when clicked on', () => {
+		const {getByText} = renderInstructions();
+
+		fireEvent.click(getByText('Sample instructions text'));
+
+		return wait(() => {
+			getByText('save');
+			getByText('cancel');
+		});
 	});
 });

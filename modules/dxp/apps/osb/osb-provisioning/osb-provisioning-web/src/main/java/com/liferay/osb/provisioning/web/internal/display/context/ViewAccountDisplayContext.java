@@ -35,6 +35,8 @@ import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -56,6 +58,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.portlet.ActionRequest;
@@ -445,7 +448,7 @@ public class ViewAccountDisplayContext {
 		return searchContainer;
 	}
 
-	public Map<String, Object> getSupportData() {
+	public Map<String, Object> getSupportData() throws Exception {
 		Map<String, Object> data = new HashMap<>();
 
 		data.put("account", getAccountDisplay());
@@ -458,6 +461,41 @@ public class ViewAccountDisplayContext {
 
 		data.put("regionNames", regionNames);
 
+		AccountEntry accountEntry = getAccountEntry();
+
+		data.put("instructions", accountEntry.getInstructions());
+		data.put("languageId", accountEntry.getLanguageId());
+
+		List<JSONObject> languageList = new ArrayList<>();
+
+		for (Locale languageLocale : LanguageUtil.getAvailableLocales()) {
+			JSONObject jsonObject = JSONUtil.put(
+				"languageId", languageLocale.toString()
+			).put(
+				"languageName", languageLocale.getDisplayLanguage()
+			);
+
+			languageList.add(jsonObject);
+		}
+
+		data.put("languageList", languageList);
+
+		PortletURL portletURL = renderResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/accounts/view_account");
+		portletURL.setParameter("accountKey", account.getKey());
+		portletURL.setParameter("tabs1", "support");
+
+		PortletURL updateAccountURL = renderResponse.createActionURL();
+
+		updateAccountURL.setParameter(
+			ActionRequest.ACTION_NAME, "/accounts/edit_account");
+		updateAccountURL.setParameter("accountKey", account.getKey());
+		updateAccountURL.setParameter("redirect", portletURL.toString());
+
+		data.put("updateAccountURL", updateAccountURL.toString());
+
 		PortletURL updateLanguageIdURL = renderResponse.createActionURL();
 
 		updateLanguageIdURL.setParameter(
@@ -465,6 +503,7 @@ public class ViewAccountDisplayContext {
 		updateLanguageIdURL.setParameter(
 			Constants.CMD, ProvisioningActionKeys.UPDATE_LANGUAGE_ID);
 		updateLanguageIdURL.setParameter("accountKey", account.getKey());
+		updateLanguageIdURL.setParameter("redirect", portletURL.toString());
 
 		data.put("updateLanguageIdURL", updateLanguageIdURL.toString());
 
@@ -475,6 +514,7 @@ public class ViewAccountDisplayContext {
 		updateInstructionsURL.setParameter(
 			Constants.CMD, ProvisioningActionKeys.UPDATE_INSTRUCTIONS);
 		updateInstructionsURL.setParameter("accountKey", account.getKey());
+		updateInstructionsURL.setParameter("redirect", portletURL.toString());
 
 		data.put("updateInstructionsURL", updateInstructionsURL.toString());
 

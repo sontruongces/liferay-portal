@@ -9,14 +9,14 @@
  * distribution rights of the Software.
  */
 
-import {cleanup, render} from '@testing-library/react';
+import {cleanup, fireEvent, render, wait} from '@testing-library/react';
 import React from 'react';
 
-import SupportInformation from '../../../src/main/resources/META-INF/resources/js/components/support_information/SupportInformation';
+import SupportDetails from '../../../src/main/resources/META-INF/resources/js/components/support_information/SupportDetails';
 
-function renderSupportInformation() {
+function renderSupportDetails() {
 	return render(
-		<SupportInformation
+		<SupportDetails
 			account={{
 				code: '123',
 				editAccountURL: 'edit/account/url',
@@ -26,7 +26,6 @@ function renderSupportInformation() {
 				status: 'Approved',
 				tier: 'Regular'
 			}}
-			instructions="Sample instructions text"
 			languageId="en_US"
 			languageList={[
 				{languageId: 'en_US', languageName: 'English'},
@@ -35,30 +34,57 @@ function renderSupportInformation() {
 			]}
 			regionNames={['United States', 'China', 'Spain']}
 			updateAccountURL="edit/account/url"
-			updateInstructionsURL="update/instructions/url"
 			updateLanguageIdURL="update/language/id/url"
 		/>
 	);
 }
 
-describe('SupportInformation', () => {
+describe('SupportDetails', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {
-		const {container} = renderSupportInformation();
+		const {container} = renderSupportDetails();
 
 		expect(container).toBeTruthy();
 	});
 
-	it('displays Details section', () => {
-		const {getByText} = renderSupportInformation();
+	it('displays Details header', () => {
+		const {getByText} = renderSupportDetails();
 
 		getByText('details');
 	});
 
-	it('displays Instructions section', () => {
-		const {getByText} = renderSupportInformation();
+	it('displays Support region title', () => {
+		const {getByText} = renderSupportDetails();
 
-		getByText('support-instructions');
+		getByText('support-region');
+	});
+
+	it('displays Support language title', () => {
+		const {getByText} = renderSupportDetails();
+
+		getByText('support-language');
+	});
+
+	it('displays region options when the user clicks on the Region field', () => {
+		const {getByText} = renderSupportDetails();
+
+		fireEvent.click(getByText('United States'));
+
+		return wait(() => {
+			getByText('China');
+			getByText('Spain');
+		});
+	});
+
+	it('displays language options when the user clicks on the Language field', () => {
+		const {getByText} = renderSupportDetails();
+
+		fireEvent.click(getByText('English'));
+
+		return wait(() => {
+			getByText('Chinese');
+			getByText('Spanish');
+		});
 	});
 });

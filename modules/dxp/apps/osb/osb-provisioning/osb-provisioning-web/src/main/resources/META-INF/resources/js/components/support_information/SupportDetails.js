@@ -13,10 +13,66 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function SupportDetails() {
+import {FIELD_TYPE_SELECT} from '../../utilities/constants';
+import {convertDashToEmptyString} from '../../utilities/helpers';
+import DetailField from '../DetailField';
+
+function SupportDetails({
+	account,
+	languageId,
+	languageList,
+	regionNames,
+	updateAccountURL,
+	updateLanguageIdURL
+}) {
+	const formData = {
+		code: convertDashToEmptyString(account.code),
+		name: convertDashToEmptyString(account.name),
+		region: convertDashToEmptyString(account.region),
+		status: convertDashToEmptyString(account.status),
+		tier: convertDashToEmptyString(account.tier),
+		updateAccount: true
+	};
+
+	function createSelectOptions(array) {
+		return array.map(value => {
+			return {
+				label: value,
+				value
+			};
+		});
+	}
+
 	return (
 		<ClayList>
-			<ClayList.Header>{Liferay.Language.get('details')}</ClayList.Header>
+			<li className="list-group-item list-group-item-flex list-group-subheader">
+				<div className="autofit-col autofit-col-expand">
+					{Liferay.Language.get('details')}
+				</div>
+			</li>
+
+			<DetailField
+				fieldLabel={Liferay.Language.get('support-region')}
+				fieldName="region"
+				formAction={updateAccountURL}
+				formData={formData}
+				options={createSelectOptions(regionNames)}
+				type={FIELD_TYPE_SELECT}
+				value={account.region}
+			/>
+
+			<DetailField
+				fieldLabel={Liferay.Language.get('support-language')}
+				fieldName="languageId"
+				formAction={updateLanguageIdURL}
+				formData={{languageId}}
+				options={languageList.map(({languageId, languageName}) => ({
+					label: languageName,
+					value: languageId
+				}))}
+				type={FIELD_TYPE_SELECT}
+				value={languageId}
+			/>
 		</ClayList>
 	);
 }
@@ -31,7 +87,15 @@ SupportDetails.propTypes = {
 		status: PropTypes.string,
 		tier: PropTypes.string
 	}),
+	languageId: PropTypes.string,
+	languageList: PropTypes.arrayOf(
+		PropTypes.shape({
+			languageId: PropTypes.string,
+			languageName: PropTypes.string
+		})
+	),
 	regionNames: PropTypes.arrayOf(PropTypes.string),
+	updateAccountURL: PropTypes.string,
 	updateLanguageIdURL: PropTypes.string
 };
 

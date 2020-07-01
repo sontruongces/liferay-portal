@@ -16,6 +16,7 @@ import {
 	FIELD_TYPE_EXTERNAL,
 	FIELD_TYPE_SELECT,
 	FIELD_TYPE_TEXT,
+	FIELD_TYPE_TEXTAREA,
 	FIELD_TYPE_TOGGLE,
 	NAMESPACE
 } from '../utilities/constants';
@@ -37,6 +38,10 @@ function InlineEdit({
 
 	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
 
+	const processedOptions = options.reduce((allOptions, option) => {
+		return {...allOptions, [option.value]: option.label};
+	}, {});
+
 	function handleCancel() {
 		setFieldEditable(false);
 		setShowEditor(false);
@@ -56,7 +61,11 @@ function InlineEdit({
 	}
 
 	return (
-		<div className="inline-edit">
+		<div
+			className={`inline-edit ${
+				type === FIELD_TYPE_TEXTAREA ? 'block' : ''
+			}`}
+		>
 			{!showEditor && (
 				<div
 					onClick={() => setShowEditor(true)}
@@ -64,9 +73,17 @@ function InlineEdit({
 					onMouseLeave={() => setFieldEditable(false)}
 				>
 					{fieldEditable ? (
-						<EditableField value={value} />
+						<EditableField
+							value={
+								type === FIELD_TYPE_SELECT
+									? processedOptions[value]
+									: value
+							}
+						/>
 					) : displayAs === 'label' ? (
 						<Label inputStyle={inputStyle} value={value} />
+					) : type === FIELD_TYPE_SELECT ? (
+						processedOptions[value]
 					) : (
 						value
 					)}
@@ -105,6 +122,21 @@ function InlineEdit({
 							htmlFor={namespacedFieldName}
 						>
 							<input
+								className="form-control"
+								id={namespacedFieldName}
+								onChange={handleChange}
+								type="text"
+								value={value}
+							/>
+						</label>
+					)}
+
+					{type === FIELD_TYPE_TEXTAREA && (
+						<label
+							className="form-control-label"
+							htmlFor={namespacedFieldName}
+						>
+							<textarea
 								className="form-control"
 								id={namespacedFieldName}
 								onChange={handleChange}
@@ -182,6 +214,7 @@ InlineEdit.propTypes = {
 		FIELD_TYPE_EXTERNAL,
 		FIELD_TYPE_SELECT,
 		FIELD_TYPE_TEXT,
+		FIELD_TYPE_TEXTAREA,
 		FIELD_TYPE_TOGGLE
 	])
 };

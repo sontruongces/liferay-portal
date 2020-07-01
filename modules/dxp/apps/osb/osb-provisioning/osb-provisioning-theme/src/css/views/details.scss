@@ -43,9 +43,20 @@
 		max-width: 100%;
 	}
 
+	.list-group-subheader {
+		border: 0;
+		color: $dark;
+		font-size: $font-size-base;
+		font-weight: $font-weight-bold;
+	}
+
 	.list-group-text {
 		font-size: $font-size-base;
 		width: 60%;
+
+		&.no-label {
+			width: 100%;
+		}
 	}
 
 	.list-group-title {
@@ -61,6 +72,8 @@
 }
 
 .support-information {
+	margin: 0;
+
 	.list-group-item-flex {
 		width: 100%;
 	}

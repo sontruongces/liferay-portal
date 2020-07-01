@@ -18,6 +18,7 @@ import {
 	FIELD_TYPE_NONEDITABLE,
 	FIELD_TYPE_SELECT,
 	FIELD_TYPE_TEXT,
+	FIELD_TYPE_TEXTAREA,
 	FIELD_TYPE_TOGGLE
 } from '../utilities/constants';
 import HiddenForm from './HiddenForm';
@@ -56,9 +57,15 @@ function DetailField({
 	return (
 		<ClayList.Item flex>
 			<div className="detail-field">
-				<ClayList.ItemTitle>{fieldLabel}</ClayList.ItemTitle>
+				{fieldLabel && (
+					<ClayList.ItemTitle>{fieldLabel}</ClayList.ItemTitle>
+				)}
 
-				<div className="list-group-text">
+				<div
+					className={`list-group-text ${
+						fieldLabel ? '' : 'no-label'
+					}`}
+				>
 					{type === FIELD_TYPE_NONEDITABLE ? (
 						<>{value}</>
 					) : (
@@ -104,6 +111,7 @@ DetailField.propTypes = {
 		FIELD_TYPE_NONEDITABLE,
 		FIELD_TYPE_SELECT,
 		FIELD_TYPE_TEXT,
+		FIELD_TYPE_TEXTAREA,
 		FIELD_TYPE_TOGGLE
 	]),
 	value: PropTypes.string.isRequired

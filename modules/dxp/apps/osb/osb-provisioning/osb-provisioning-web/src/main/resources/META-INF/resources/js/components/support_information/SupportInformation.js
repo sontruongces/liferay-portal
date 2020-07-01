@@ -17,19 +17,33 @@ import SupportDetails from './SupportDetails';
 
 function SupportInformation({
 	account,
+	instructions,
+	languageId,
+	languageList,
 	regionNames,
+	updateAccountURL,
 	updateInstructionsURL,
 	updateLanguageIdURL
 }) {
 	return (
 		<>
-			<SupportDetails
-				account={account}
-				regionNames={regionNames}
-				updateLanguageIdURL={updateLanguageIdURL}
-			/>
+			<div className="col-5">
+				<SupportDetails
+					account={account}
+					languageId={languageId}
+					languageList={languageList}
+					regionNames={regionNames}
+					updateAccountURL={updateAccountURL}
+					updateLanguageIdURL={updateLanguageIdURL}
+				/>
+			</div>
 
-			<Instructions updateInstructionsURL={updateInstructionsURL} />
+			<div className="col">
+				<Instructions
+					instructions={instructions}
+					updateInstructionsURL={updateInstructionsURL}
+				/>
+			</div>
 		</>
 	);
 }
@@ -44,8 +58,16 @@ SupportInformation.propTypes = {
 		status: PropTypes.string,
 		tier: PropTypes.string
 	}),
-
+	instructions: PropTypes.string,
+	languageId: PropTypes.string,
+	languageList: PropTypes.arrayOf(
+		PropTypes.shape({
+			languageId: PropTypes.string,
+			languageName: PropTypes.string
+		})
+	),
 	regionNames: PropTypes.arrayOf(PropTypes.string),
+	updateAccountURL: PropTypes.string,
 	updateInstructionsURL: PropTypes.string,
 	updateLanguageIdURL: PropTypes.string
 };
