@@ -91,10 +91,10 @@ public class SearchSearchRequestAssemblerImpl
 			(searchSearchRequest.getFetchSourceIncludes() != null)) {
 
 			if (searchSearchRequest.getFetchSource() == null) {
-				searchSourceBuilder.fetchSource(true);
+				searchRequestBuilder.setFetchSource(true);
 			}
 			else {
-				searchSourceBuilder.fetchSource(
+				searchRequestBuilder.setFetchSource(
 					searchSearchRequest.getFetchSource());
 			}
 
