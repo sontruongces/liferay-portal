@@ -3,7 +3,7 @@
 
 <hibernate-mapping auto-import="false" default-lazy="false">
 	<import class="com.liferay.osb.provisioning.model.ProductBundle" />
-	<import class="com.liferay.osb.provisioning.model.ProductBundleProductEntries" />
+	<import class="com.liferay.osb.provisioning.model.ProductBundleProducts" />
 	<class dynamic-update="true" name="com.liferay.osb.provisioning.model.impl.ProductBundleImpl" table="Provisioning_ProductBundle">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productBundleId" type="long">
 			<generator class="assigned" />
@@ -16,10 +16,10 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class dynamic-update="true" name="com.liferay.osb.provisioning.model.impl.ProductBundleProductEntriesImpl" table="Provisioning_ProductBundleProductEntries">
-		<composite-id class="com.liferay.osb.provisioning.service.persistence.ProductBundleProductEntriesPK" name="primaryKey">
+	<class dynamic-update="true" name="com.liferay.osb.provisioning.model.impl.ProductBundleProductsImpl" table="Provisioning_ProductBundleProducts">
+		<composite-id class="com.liferay.osb.provisioning.service.persistence.ProductBundleProductsPK" name="primaryKey">
 			<key-property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productBundleId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-			<key-property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+			<key-property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		</composite-id>
 		<version access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" name="mvccVersion" type="long" />
 	</class>

@@ -11,9 +11,9 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="name" type="String" />
 	</model>
-	<model name="com.liferay.osb.provisioning.model.ProductBundleProductEntries">
+	<model name="com.liferay.osb.provisioning.model.ProductBundleProducts">
 		<field name="mvccVersion" type="long" />
 		<field name="productBundleId" type="long" />
-		<field name="productEntryId" type="long" />
+		<field name="productKey" type="String" />
 	</model>
 </model-hints>

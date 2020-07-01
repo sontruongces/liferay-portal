@@ -23,20 +23,18 @@ import java.io.Serializable;
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class ProductBundleProductEntriesPK
-	implements Comparable<ProductBundleProductEntriesPK>, Serializable {
+public class ProductBundleProductsPK
+	implements Comparable<ProductBundleProductsPK>, Serializable {
 
 	public long productBundleId;
-	public long productEntryId;
+	public String productKey;
 
-	public ProductBundleProductEntriesPK() {
+	public ProductBundleProductsPK() {
 	}
 
-	public ProductBundleProductEntriesPK(
-		long productBundleId, long productEntryId) {
-
+	public ProductBundleProductsPK(long productBundleId, String productKey) {
 		this.productBundleId = productBundleId;
-		this.productEntryId = productEntryId;
+		this.productKey = productKey;
 	}
 
 	public long getProductBundleId() {
@@ -47,16 +45,16 @@ public class ProductBundleProductEntriesPK
 		this.productBundleId = productBundleId;
 	}
 
-	public long getProductEntryId() {
-		return productEntryId;
+	public String getProductKey() {
+		return productKey;
 	}
 
-	public void setProductEntryId(long productEntryId) {
-		this.productEntryId = productEntryId;
+	public void setProductKey(String productKey) {
+		this.productKey = productKey;
 	}
 
 	@Override
-	public int compareTo(ProductBundleProductEntriesPK pk) {
+	public int compareTo(ProductBundleProductsPK pk) {
 		if (pk == null) {
 			return -1;
 		}
@@ -77,15 +75,7 @@ public class ProductBundleProductEntriesPK
 			return value;
 		}
 
-		if (productEntryId < pk.productEntryId) {
-			value = -1;
-		}
-		else if (productEntryId > pk.productEntryId) {
-			value = 1;
-		}
-		else {
-			value = 0;
-		}
+		value = productKey.compareTo(pk.productKey);
 
 		if (value != 0) {
 			return value;
@@ -100,15 +90,14 @@ public class ProductBundleProductEntriesPK
 			return true;
 		}
 
-		if (!(object instanceof ProductBundleProductEntriesPK)) {
+		if (!(object instanceof ProductBundleProductsPK)) {
 			return false;
 		}
 
-		ProductBundleProductEntriesPK pk =
-			(ProductBundleProductEntriesPK)object;
+		ProductBundleProductsPK pk = (ProductBundleProductsPK)object;
 
 		if ((productBundleId == pk.productBundleId) &&
-			(productEntryId == pk.productEntryId)) {
+			productKey.equals(pk.productKey)) {
 
 			return true;
 		}
@@ -122,7 +111,7 @@ public class ProductBundleProductEntriesPK
 		int hashCode = 0;
 
 		hashCode = HashUtil.hash(hashCode, productBundleId);
-		hashCode = HashUtil.hash(hashCode, productEntryId);
+		hashCode = HashUtil.hash(hashCode, productKey);
 
 		return hashCode;
 	}
@@ -136,9 +125,9 @@ public class ProductBundleProductEntriesPK
 		sb.append("productBundleId=");
 
 		sb.append(productBundleId);
-		sb.append(", productEntryId=");
+		sb.append(", productKey=");
 
-		sb.append(productEntryId);
+		sb.append(productKey);
 
 		sb.append("}");
 

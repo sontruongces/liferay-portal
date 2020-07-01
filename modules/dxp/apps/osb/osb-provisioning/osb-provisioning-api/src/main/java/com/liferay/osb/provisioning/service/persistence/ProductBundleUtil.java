@@ -480,67 +480,6 @@ public class ProductBundleUtil {
 	}
 
 	/**
-	 * Returns the product bundle where productBundleId = &#63; or throws a <code>NoSuchProductBundleException</code> if it could not be found.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle
-	 * @throws NoSuchProductBundleException if a matching product bundle could not be found
-	 */
-	public static ProductBundle findByProductBundleId(long productBundleId)
-		throws com.liferay.osb.provisioning.exception.
-			NoSuchProductBundleException {
-
-		return getPersistence().findByProductBundleId(productBundleId);
-	}
-
-	/**
-	 * Returns the product bundle where productBundleId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
-	 */
-	public static ProductBundle fetchByProductBundleId(long productBundleId) {
-		return getPersistence().fetchByProductBundleId(productBundleId);
-	}
-
-	/**
-	 * Returns the product bundle where productBundleId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
-	 */
-	public static ProductBundle fetchByProductBundleId(
-		long productBundleId, boolean useFinderCache) {
-
-		return getPersistence().fetchByProductBundleId(
-			productBundleId, useFinderCache);
-	}
-
-	/**
-	 * Removes the product bundle where productBundleId = &#63; from the database.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the product bundle that was removed
-	 */
-	public static ProductBundle removeByProductBundleId(long productBundleId)
-		throws com.liferay.osb.provisioning.exception.
-			NoSuchProductBundleException {
-
-		return getPersistence().removeByProductBundleId(productBundleId);
-	}
-
-	/**
-	 * Returns the number of product bundles where productBundleId = &#63;.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the number of matching product bundles
-	 */
-	public static int countByProductBundleId(long productBundleId) {
-		return getPersistence().countByProductBundleId(productBundleId);
-	}
-
-	/**
 	 * Caches the product bundle in the entity cache if it is enabled.
 	 *
 	 * @param productBundle the product bundle

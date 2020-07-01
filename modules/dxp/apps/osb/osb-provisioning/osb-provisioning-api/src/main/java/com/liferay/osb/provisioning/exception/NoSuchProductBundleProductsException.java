@@ -19,20 +19,20 @@ import com.liferay.portal.kernel.exception.NoSuchModelException;
 /**
  * @author Brian Wing Shun Chan
  */
-public class NoSuchProductBundleException extends NoSuchModelException {
+public class NoSuchProductBundleProductsException extends NoSuchModelException {
 
-	public NoSuchProductBundleException() {
+	public NoSuchProductBundleProductsException() {
 	}
 
-	public NoSuchProductBundleException(String msg) {
+	public NoSuchProductBundleProductsException(String msg) {
 		super(msg);
 	}
 
-	public NoSuchProductBundleException(String msg, Throwable cause) {
+	public NoSuchProductBundleProductsException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public NoSuchProductBundleException(Throwable cause) {
+	public NoSuchProductBundleProductsException(Throwable cause) {
 		super(cause);
 	}
 

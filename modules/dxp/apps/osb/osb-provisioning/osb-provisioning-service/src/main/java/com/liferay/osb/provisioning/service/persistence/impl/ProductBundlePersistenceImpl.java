@@ -40,7 +40,6 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 
@@ -48,7 +47,6 @@ import java.io.Serializable;
 
 import java.lang.reflect.InvocationHandler;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1220,228 +1218,6 @@ public class ProductBundlePersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"productBundle.companyId = ?";
 
-	private FinderPath _finderPathFetchByProductBundleId;
-	private FinderPath _finderPathCountByProductBundleId;
-
-	/**
-	 * Returns the product bundle where productBundleId = &#63; or throws a <code>NoSuchProductBundleException</code> if it could not be found.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle
-	 * @throws NoSuchProductBundleException if a matching product bundle could not be found
-	 */
-	@Override
-	public ProductBundle findByProductBundleId(long productBundleId)
-		throws NoSuchProductBundleException {
-
-		ProductBundle productBundle = fetchByProductBundleId(productBundleId);
-
-		if (productBundle == null) {
-			StringBundler sb = new StringBundler(4);
-
-			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			sb.append("productBundleId=");
-			sb.append(productBundleId);
-
-			sb.append("}");
-
-			if (_log.isDebugEnabled()) {
-				_log.debug(sb.toString());
-			}
-
-			throw new NoSuchProductBundleException(sb.toString());
-		}
-
-		return productBundle;
-	}
-
-	/**
-	 * Returns the product bundle where productBundleId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
-	 */
-	@Override
-	public ProductBundle fetchByProductBundleId(long productBundleId) {
-		return fetchByProductBundleId(productBundleId, true);
-	}
-
-	/**
-	 * Returns the product bundle where productBundleId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
-	 */
-	@Override
-	public ProductBundle fetchByProductBundleId(
-		long productBundleId, boolean useFinderCache) {
-
-		Object[] finderArgs = null;
-
-		if (useFinderCache) {
-			finderArgs = new Object[] {productBundleId};
-		}
-
-		Object result = null;
-
-		if (useFinderCache) {
-			result = finderCache.getResult(
-				_finderPathFetchByProductBundleId, finderArgs, this);
-		}
-
-		if (result instanceof ProductBundle) {
-			ProductBundle productBundle = (ProductBundle)result;
-
-			if (productBundleId != productBundle.getProductBundleId()) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler sb = new StringBundler(3);
-
-			sb.append(_SQL_SELECT_PRODUCTBUNDLE_WHERE);
-
-			sb.append(_FINDER_COLUMN_PRODUCTBUNDLEID_PRODUCTBUNDLEID_2);
-
-			String sql = sb.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query query = session.createQuery(sql);
-
-				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(productBundleId);
-
-				List<ProductBundle> list = query.list();
-
-				if (list.isEmpty()) {
-					if (useFinderCache) {
-						finderCache.putResult(
-							_finderPathFetchByProductBundleId, finderArgs,
-							list);
-					}
-				}
-				else {
-					if (list.size() > 1) {
-						Collections.sort(list, Collections.reverseOrder());
-
-						if (_log.isWarnEnabled()) {
-							if (!useFinderCache) {
-								finderArgs = new Object[] {productBundleId};
-							}
-
-							_log.warn(
-								"ProductBundlePersistenceImpl.fetchByProductBundleId(long, boolean) with parameters (" +
-									StringUtil.merge(finderArgs) +
-										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
-						}
-					}
-
-					ProductBundle productBundle = list.get(0);
-
-					result = productBundle;
-
-					cacheResult(productBundle);
-				}
-			}
-			catch (Exception exception) {
-				if (useFinderCache) {
-					finderCache.removeResult(
-						_finderPathFetchByProductBundleId, finderArgs);
-				}
-
-				throw processException(exception);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		if (result instanceof List<?>) {
-			return null;
-		}
-		else {
-			return (ProductBundle)result;
-		}
-	}
-
-	/**
-	 * Removes the product bundle where productBundleId = &#63; from the database.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the product bundle that was removed
-	 */
-	@Override
-	public ProductBundle removeByProductBundleId(long productBundleId)
-		throws NoSuchProductBundleException {
-
-		ProductBundle productBundle = findByProductBundleId(productBundleId);
-
-		return remove(productBundle);
-	}
-
-	/**
-	 * Returns the number of product bundles where productBundleId = &#63;.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the number of matching product bundles
-	 */
-	@Override
-	public int countByProductBundleId(long productBundleId) {
-		FinderPath finderPath = _finderPathCountByProductBundleId;
-
-		Object[] finderArgs = new Object[] {productBundleId};
-
-		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
-
-		if (count == null) {
-			StringBundler sb = new StringBundler(2);
-
-			sb.append(_SQL_COUNT_PRODUCTBUNDLE_WHERE);
-
-			sb.append(_FINDER_COLUMN_PRODUCTBUNDLEID_PRODUCTBUNDLEID_2);
-
-			String sql = sb.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query query = session.createQuery(sql);
-
-				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(productBundleId);
-
-				count = (Long)query.uniqueResult();
-
-				finderCache.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception exception) {
-				finderCache.removeResult(finderPath, finderArgs);
-
-				throw processException(exception);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String
-		_FINDER_COLUMN_PRODUCTBUNDLEID_PRODUCTBUNDLEID_2 =
-			"productBundle.productBundleId = ?";
-
 	public ProductBundlePersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1465,10 +1241,6 @@ public class ProductBundlePersistenceImpl
 		entityCache.putResult(
 			entityCacheEnabled, ProductBundleImpl.class,
 			productBundle.getPrimaryKey(), productBundle);
-
-		finderCache.putResult(
-			_finderPathFetchByProductBundleId,
-			new Object[] {productBundle.getProductBundleId()}, productBundle);
 
 		productBundle.resetOriginalValues();
 	}
@@ -1524,8 +1296,6 @@ public class ProductBundlePersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		clearUniqueFindersCache((ProductBundleModelImpl)productBundle, true);
 	}
 
 	@Override
@@ -1537,9 +1307,6 @@ public class ProductBundlePersistenceImpl
 			entityCache.removeResult(
 				entityCacheEnabled, ProductBundleImpl.class,
 				productBundle.getPrimaryKey());
-
-			clearUniqueFindersCache(
-				(ProductBundleModelImpl)productBundle, true);
 		}
 	}
 
@@ -1551,44 +1318,6 @@ public class ProductBundlePersistenceImpl
 		for (Serializable primaryKey : primaryKeys) {
 			entityCache.removeResult(
 				entityCacheEnabled, ProductBundleImpl.class, primaryKey);
-		}
-	}
-
-	protected void cacheUniqueFindersCache(
-		ProductBundleModelImpl productBundleModelImpl) {
-
-		Object[] args = new Object[] {
-			productBundleModelImpl.getProductBundleId()
-		};
-
-		finderCache.putResult(
-			_finderPathCountByProductBundleId, args, Long.valueOf(1), false);
-		finderCache.putResult(
-			_finderPathFetchByProductBundleId, args, productBundleModelImpl,
-			false);
-	}
-
-	protected void clearUniqueFindersCache(
-		ProductBundleModelImpl productBundleModelImpl, boolean clearCurrent) {
-
-		if (clearCurrent) {
-			Object[] args = new Object[] {
-				productBundleModelImpl.getProductBundleId()
-			};
-
-			finderCache.removeResult(_finderPathCountByProductBundleId, args);
-			finderCache.removeResult(_finderPathFetchByProductBundleId, args);
-		}
-
-		if ((productBundleModelImpl.getColumnBitmask() &
-			 _finderPathFetchByProductBundleId.getColumnBitmask()) != 0) {
-
-			Object[] args = new Object[] {
-				productBundleModelImpl.getOriginalProductBundleId()
-			};
-
-			finderCache.removeResult(_finderPathCountByProductBundleId, args);
-			finderCache.removeResult(_finderPathFetchByProductBundleId, args);
 		}
 	}
 
@@ -1846,9 +1575,6 @@ public class ProductBundlePersistenceImpl
 		entityCache.putResult(
 			entityCacheEnabled, ProductBundleImpl.class,
 			productBundle.getPrimaryKey(), productBundle, false);
-
-		clearUniqueFindersCache(productBundleModelImpl, false);
-		cacheUniqueFindersCache(productBundleModelImpl);
 
 		productBundle.resetOriginalValues();
 
@@ -2178,17 +1904,6 @@ public class ProductBundlePersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()});
-
-		_finderPathFetchByProductBundleId = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, ProductBundleImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByProductBundleId",
-			new String[] {Long.class.getName()},
-			ProductBundleModelImpl.PRODUCTBUNDLEID_COLUMN_BITMASK);
-
-		_finderPathCountByProductBundleId = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByProductBundleId",
-			new String[] {Long.class.getName()});
 	}
 
 	@Deactivate

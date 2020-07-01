@@ -22,7 +22,7 @@ import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.osb.provisioning.model.ProductBundle;
 import com.liferay.osb.provisioning.service.ProductBundleLocalService;
 import com.liferay.osb.provisioning.service.persistence.ProductBundlePersistence;
-import com.liferay.osb.provisioning.service.persistence.ProductBundleProductEntriesPersistence;
+import com.liferay.osb.provisioning.service.persistence.ProductBundleProductsPersistence;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -500,8 +500,7 @@ public abstract class ProductBundleLocalServiceBaseImpl
 	protected ProductBundlePersistence productBundlePersistence;
 
 	@Reference
-	protected ProductBundleProductEntriesPersistence
-		productBundleProductEntriesPersistence;
+	protected ProductBundleProductsPersistence productBundleProductsPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

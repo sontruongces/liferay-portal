@@ -340,51 +340,6 @@ public interface ProductBundlePersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
-	 * Returns the product bundle where productBundleId = &#63; or throws a <code>NoSuchProductBundleException</code> if it could not be found.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle
-	 * @throws NoSuchProductBundleException if a matching product bundle could not be found
-	 */
-	public ProductBundle findByProductBundleId(long productBundleId)
-		throws NoSuchProductBundleException;
-
-	/**
-	 * Returns the product bundle where productBundleId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
-	 */
-	public ProductBundle fetchByProductBundleId(long productBundleId);
-
-	/**
-	 * Returns the product bundle where productBundleId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
-	 */
-	public ProductBundle fetchByProductBundleId(
-		long productBundleId, boolean useFinderCache);
-
-	/**
-	 * Removes the product bundle where productBundleId = &#63; from the database.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the product bundle that was removed
-	 */
-	public ProductBundle removeByProductBundleId(long productBundleId)
-		throws NoSuchProductBundleException;
-
-	/**
-	 * Returns the number of product bundles where productBundleId = &#63;.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the number of matching product bundles
-	 */
-	public int countByProductBundleId(long productBundleId);
-
-	/**
 	 * Caches the product bundle in the entity cache if it is enabled.
 	 *
 	 * @param productBundle the product bundle

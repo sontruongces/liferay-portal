@@ -109,9 +109,9 @@ public class ProductBundleModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
-	public static final long PRODUCTBUNDLEID_COLUMN_BITMASK = 2L;
+	public static final long UUID_COLUMN_BITMASK = 2L;
 
-	public static final long UUID_COLUMN_BITMASK = 4L;
+	public static final long PRODUCTBUNDLEID_COLUMN_BITMASK = 4L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -331,19 +331,7 @@ public class ProductBundleModelImpl
 
 	@Override
 	public void setProductBundleId(long productBundleId) {
-		_columnBitmask |= PRODUCTBUNDLEID_COLUMN_BITMASK;
-
-		if (!_setOriginalProductBundleId) {
-			_setOriginalProductBundleId = true;
-
-			_originalProductBundleId = _productBundleId;
-		}
-
 		_productBundleId = productBundleId;
-	}
-
-	public long getOriginalProductBundleId() {
-		return _originalProductBundleId;
 	}
 
 	@Override
@@ -549,11 +537,6 @@ public class ProductBundleModelImpl
 
 		productBundleModelImpl._originalUuid = productBundleModelImpl._uuid;
 
-		productBundleModelImpl._originalProductBundleId =
-			productBundleModelImpl._productBundleId;
-
-		productBundleModelImpl._setOriginalProductBundleId = false;
-
 		productBundleModelImpl._originalCompanyId =
 			productBundleModelImpl._companyId;
 
@@ -691,8 +674,6 @@ public class ProductBundleModelImpl
 	private String _uuid;
 	private String _originalUuid;
 	private long _productBundleId;
-	private long _originalProductBundleId;
-	private boolean _setOriginalProductBundleId;
 	private long _companyId;
 	private long _originalCompanyId;
 	private boolean _setOriginalCompanyId;

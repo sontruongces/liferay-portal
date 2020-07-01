@@ -9,9 +9,9 @@ create table Provisioning_ProductBundle (
 	name VARCHAR(75) null
 );
 
-create table Provisioning_ProductBundleProductEntries (
+create table Provisioning_ProductBundleProducts (
 	mvccVersion LONG default 0 not null,
 	productBundleId LONG not null,
-	productEntryId LONG not null,
-	primary key (productBundleId, productEntryId)
+	productKey VARCHAR(75) not null,
+	primary key (productBundleId, productKey)
 );

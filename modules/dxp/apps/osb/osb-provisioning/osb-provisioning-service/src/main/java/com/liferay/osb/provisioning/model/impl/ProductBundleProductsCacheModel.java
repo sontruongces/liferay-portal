@@ -14,8 +14,8 @@
 
 package com.liferay.osb.provisioning.model.impl;
 
-import com.liferay.osb.provisioning.model.ProductBundleProductEntries;
-import com.liferay.osb.provisioning.service.persistence.ProductBundleProductEntriesPK;
+import com.liferay.osb.provisioning.model.ProductBundleProducts;
+import com.liferay.osb.provisioning.service.persistence.ProductBundleProductsPK;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -27,14 +27,13 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 /**
- * The cache model class for representing ProductBundleProductEntries in entity cache.
+ * The cache model class for representing ProductBundleProducts in entity cache.
  *
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class ProductBundleProductEntriesCacheModel
-	implements CacheModel<ProductBundleProductEntries>, Externalizable,
-			   MVCCModel {
+public class ProductBundleProductsCacheModel
+	implements CacheModel<ProductBundleProducts>, Externalizable, MVCCModel {
 
 	@Override
 	public boolean equals(Object object) {
@@ -42,19 +41,16 @@ public class ProductBundleProductEntriesCacheModel
 			return true;
 		}
 
-		if (!(object instanceof ProductBundleProductEntriesCacheModel)) {
+		if (!(object instanceof ProductBundleProductsCacheModel)) {
 			return false;
 		}
 
-		ProductBundleProductEntriesCacheModel
-			productBundleProductEntriesCacheModel =
-				(ProductBundleProductEntriesCacheModel)object;
+		ProductBundleProductsCacheModel productBundleProductsCacheModel =
+			(ProductBundleProductsCacheModel)object;
 
-		if (productBundleProductEntriesPK.equals(
-				productBundleProductEntriesCacheModel.
-					productBundleProductEntriesPK) &&
-			(mvccVersion ==
-				productBundleProductEntriesCacheModel.mvccVersion)) {
+		if (productBundleProductsPK.equals(
+				productBundleProductsCacheModel.productBundleProductsPK) &&
+			(mvccVersion == productBundleProductsCacheModel.mvccVersion)) {
 
 			return true;
 		}
@@ -64,7 +60,7 @@ public class ProductBundleProductEntriesCacheModel
 
 	@Override
 	public int hashCode() {
-		int hashCode = HashUtil.hash(0, productBundleProductEntriesPK);
+		int hashCode = HashUtil.hash(0, productBundleProductsPK);
 
 		return HashUtil.hash(hashCode, mvccVersion);
 	}
@@ -87,25 +83,31 @@ public class ProductBundleProductEntriesCacheModel
 		sb.append(mvccVersion);
 		sb.append(", productBundleId=");
 		sb.append(productBundleId);
-		sb.append(", productEntryId=");
-		sb.append(productEntryId);
+		sb.append(", productKey=");
+		sb.append(productKey);
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	@Override
-	public ProductBundleProductEntries toEntityModel() {
-		ProductBundleProductEntriesImpl productBundleProductEntriesImpl =
-			new ProductBundleProductEntriesImpl();
+	public ProductBundleProducts toEntityModel() {
+		ProductBundleProductsImpl productBundleProductsImpl =
+			new ProductBundleProductsImpl();
 
-		productBundleProductEntriesImpl.setMvccVersion(mvccVersion);
-		productBundleProductEntriesImpl.setProductBundleId(productBundleId);
-		productBundleProductEntriesImpl.setProductEntryId(productEntryId);
+		productBundleProductsImpl.setMvccVersion(mvccVersion);
+		productBundleProductsImpl.setProductBundleId(productBundleId);
 
-		productBundleProductEntriesImpl.resetOriginalValues();
+		if (productKey == null) {
+			productBundleProductsImpl.setProductKey("");
+		}
+		else {
+			productBundleProductsImpl.setProductKey(productKey);
+		}
 
-		return productBundleProductEntriesImpl;
+		productBundleProductsImpl.resetOriginalValues();
+
+		return productBundleProductsImpl;
 	}
 
 	@Override
@@ -113,11 +115,10 @@ public class ProductBundleProductEntriesCacheModel
 		mvccVersion = objectInput.readLong();
 
 		productBundleId = objectInput.readLong();
+		productKey = objectInput.readUTF();
 
-		productEntryId = objectInput.readLong();
-
-		productBundleProductEntriesPK = new ProductBundleProductEntriesPK(
-			productBundleId, productEntryId);
+		productBundleProductsPK = new ProductBundleProductsPK(
+			productBundleId, productKey);
 	}
 
 	@Override
@@ -126,13 +127,17 @@ public class ProductBundleProductEntriesCacheModel
 
 		objectOutput.writeLong(productBundleId);
 
-		objectOutput.writeLong(productEntryId);
+		if (productKey == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(productKey);
+		}
 	}
 
 	public long mvccVersion;
 	public long productBundleId;
-	public long productEntryId;
-	public transient ProductBundleProductEntriesPK
-		productBundleProductEntriesPK;
+	public String productKey;
+	public transient ProductBundleProductsPK productBundleProductsPK;
 
 }
