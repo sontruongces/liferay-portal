@@ -24,6 +24,8 @@ public class GetDocumentRequest
 			   DocumentRequest<GetDocumentResponse> {
 
 	public GetDocumentRequest(String indexName, String id) {
+		setPreferLocalCluster(true);
+
 		_indexName = indexName;
 		_id = id;
 	}
@@ -68,6 +70,10 @@ public class GetDocumentRequest
 		return _fetchSource;
 	}
 
+	public boolean isPreferLocalCluster() {
+		return _preferLocalCluster;
+	}
+
 	public boolean isRefresh() {
 		return _refresh;
 	}
@@ -82,6 +88,10 @@ public class GetDocumentRequest
 
 	public void setFetchSourceInclude(String... fetchSourceInclude) {
 		_fetchSourceInclude = fetchSourceInclude;
+	}
+
+	public void setPreferLocalCluster(boolean preferLocalCluster) {
+		_preferLocalCluster = preferLocalCluster;
 	}
 
 	public void setRefresh(boolean refresh) {
@@ -101,6 +111,7 @@ public class GetDocumentRequest
 	private String[] _fetchSourceInclude;
 	private final String _id;
 	private final String _indexName;
+	private boolean _preferLocalCluster;
 	private boolean _refresh;
 	private String[] _storedFields;
 	private String _type;

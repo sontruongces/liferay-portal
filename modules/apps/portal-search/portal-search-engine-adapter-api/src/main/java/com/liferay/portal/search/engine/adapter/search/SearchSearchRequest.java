@@ -35,6 +35,10 @@ import java.util.Map;
 public class SearchSearchRequest
 	extends BaseSearchRequest implements SearchRequest<SearchSearchResponse> {
 
+	public SearchSearchRequest() {
+		setPreferLocalCluster(true);
+	}
+
 	@Override
 	public SearchSearchResponse accept(
 		SearchRequestExecutor searchRequestExecutor) {
@@ -155,6 +159,10 @@ public class SearchSearchRequest
 		return _luceneSyntax;
 	}
 
+	public boolean isPreferLocalCluster() {
+		return _preferLocalCluster;
+	}
+
 	public boolean isScoreEnabled() {
 		if (_scoreEnabled != null) {
 			return _scoreEnabled;
@@ -233,6 +241,10 @@ public class SearchSearchRequest
 		_preference = preference;
 	}
 
+	public void setPreferLocalCluster(boolean preferLocalCluster) {
+		_preferLocalCluster = preferLocalCluster;
+	}
+
 	public void setScoreEnabled(boolean scoreEnabled) {
 		_scoreEnabled = scoreEnabled;
 	}
@@ -289,6 +301,7 @@ public class SearchSearchRequest
 	private Locale _locale;
 	private boolean _luceneSyntax;
 	private String _preference;
+	private boolean _preferLocalCluster;
 	private Boolean _scoreEnabled;
 	private String[] _selectedFieldNames;
 	private Integer _size;
