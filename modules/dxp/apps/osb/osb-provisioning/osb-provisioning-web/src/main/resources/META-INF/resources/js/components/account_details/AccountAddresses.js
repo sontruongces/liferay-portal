@@ -11,7 +11,7 @@
 
 import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {
 	FIELD_TYPE_NONEDITABLE,
@@ -55,7 +55,7 @@ function AccountAddresses({accountKey, addURL, addresses}) {
 	}
 
 	return (
-		<ClayList>
+		<>
 			{addresses.map((address, index) => (
 				<Address
 					accountKey={accountKey}
@@ -66,7 +66,7 @@ function AccountAddresses({accountKey, addURL, addresses}) {
 					key={address.id}
 				/>
 			))}
-		</ClayList>
+		</>
 	);
 }
 
@@ -93,27 +93,10 @@ AccountAddresses.propTypes = {
 
 function Address({accountKey, addURL, address, count, countryOptions}) {
 	const [regionOptions, setRegionOptions] = useState([]);
+	const formRef = useRef();
 
 	const countryId = getFieldId(countryOptions, address.addressCountry);
 	const regionId = getFieldId(regionOptions, address.addressRegion);
-
-	const formData = {
-		accountKey,
-		addressCountryId: countryId,
-		addressLocality: convertDashToEmptyString(address.addressLocality),
-		addressRegionId: regionId,
-		addressType: convertDashToEmptyString(address.addressType),
-		addressZip: convertDashToEmptyString(address.postalCode),
-		mailing: address.mailing,
-		primary: address.primary,
-		streetAddressLine1: convertDashToEmptyString(
-			address.streetAddressLine1
-		),
-		streetAddressLine2: convertDashToEmptyString(
-			address.streetAddressLine2
-		),
-		streetAddressLine3: convertDashToEmptyString(address.streetAddressLine3)
-	};
 
 	useEffect(() => {
 		Liferay.Service('/region/get-regions', {
@@ -151,7 +134,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 	}
 
 	function handleSave() {
-		// form submission
+		formRef.current.submit();
 	}
 
 	function setFieldType(fieldType = FIELD_TYPE_TEXT) {
@@ -163,130 +146,158 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 	}
 
 	return (
-		<React.Fragment key={address.id}>
-			<ClayList.Header>
-				{Liferay.Language.get('address')} {count}
-			</ClayList.Header>
-
-			<AddressField
-				fieldLabel={Liferay.Language.get('street-1')}
-				fieldName="streetAddressLine1"
-				type={setFieldType()}
-				value={address.streetAddressLine1}
+		<form
+			action={address.editPostalAddressURL}
+			key={address.id}
+			method="post"
+			ref={formRef}
+		>
+			<input
+				name={`${NAMESPACE}accountKey`}
+				type="hidden"
+				value={accountKey}
+			/>
+			<input
+				name={`${NAMESPACE}addressType`}
+				type="hidden"
+				value={convertDashToEmptyString(address.addressType)}
+			/>
+			<input
+				name={`${NAMESPACE}mailing`}
+				type="hidden"
+				value={convertDashToEmptyString(address.mailing)}
+			/>
+			<input
+				name={`${NAMESPACE}primary`}
+				type="hidden"
+				value={convertDashToEmptyString(address.primary)}
 			/>
 
-			<AddressField
-				fieldLabel={Liferay.Language.get('city')}
-				fieldName="addressLocality"
-				type={setFieldType()}
-				value={address.addressLocality}
-			/>
+			<ClayList>
+				<ClayList.Header>
+					{Liferay.Language.get('address')} {count}
+				</ClayList.Header>
 
-			<AddressField
-				fieldLabel={Liferay.Language.get('street-2')}
-				fieldName="streetAddressLine2"
-				type={setFieldType()}
-				value={address.streetAddressLine2}
-			/>
+				<AddressField
+					fieldLabel={Liferay.Language.get('street-1')}
+					fieldName="streetAddressLine1"
+					type={setFieldType()}
+					value={address.streetAddressLine1}
+				/>
 
-			<AddressField
-				fieldLabel={Liferay.Language.get('state-province')}
-				fieldName="addressRegionId"
-				options={regionOptions}
-				type={setFieldType(FIELD_TYPE_SELECT)}
-				value={address.addressRegion}
-			/>
+				<AddressField
+					fieldLabel={Liferay.Language.get('city')}
+					fieldName="addressLocality"
+					type={setFieldType()}
+					value={address.addressLocality}
+				/>
 
-			<AddressField
-				fieldLabel={Liferay.Language.get('street-3')}
-				fieldName="streetAddressLine3"
-				type={setFieldType()}
-				value={address.streetAddressLine3}
-			/>
+				<AddressField
+					fieldLabel={Liferay.Language.get('street-2')}
+					fieldName="streetAddressLine2"
+					type={setFieldType()}
+					value={address.streetAddressLine2}
+				/>
 
-			<AddressField
-				fieldLabel={Liferay.Language.get('postal-code')}
-				fieldName="postalCode"
-				type={setFieldType()}
-				value={address.postalCode}
-			/>
+				<AddressField
+					fieldLabel={Liferay.Language.get('state-province')}
+					fieldName="addressRegionId"
+					options={regionOptions}
+					type={setFieldType(FIELD_TYPE_SELECT)}
+					value={address.addressRegion}
+				/>
 
-			<AddressField
-				fieldLabel={Liferay.Language.get('country')}
-				fieldName="addressCountryId"
-				options={countryOptions}
-				type={setFieldType(FIELD_TYPE_SELECT)}
-				value={address.addressCountry}
-			/>
+				<AddressField
+					fieldLabel={Liferay.Language.get('street-3')}
+					fieldName="streetAddressLine3"
+					type={setFieldType()}
+					value={address.streetAddressLine3}
+				/>
 
-			<ClayList.Item className="address-controls" flex>
-				<div className="btn-group" role="group">
-					<div className="btn-group-item">
-						<button
-							className="btn btn-primary btn-sm save-btn"
-							onClick={handleSave}
-							role="button"
-							type="button"
-						>
-							{Liferay.Language.get('save')}
-						</button>
-					</div>
+				<AddressField
+					fieldLabel={Liferay.Language.get('postal-code')}
+					fieldName="addressZip"
+					type={setFieldType()}
+					value={address.postalCode}
+				/>
 
-					<div className="btn-group-item">
-						<button
-							className="btn btn-secondary btn-sm cancel-btn"
-							onClick={handleCancel}
-							role="button"
-							type="button"
-						>
-							{Liferay.Language.get('cancel')}
-						</button>
-					</div>
-				</div>
+				<AddressField
+					fieldLabel={Liferay.Language.get('country')}
+					fieldName="addressCountryId"
+					options={countryOptions}
+					type={setFieldType(FIELD_TYPE_SELECT)}
+					value={address.addressCountry}
+				/>
 
-				<div className="btn-group" role="group">
-					<div className="btn-group-item">
-						<a
-							className="add-address btn btn-secondary nav-btn nav-btn-monospaced"
-							href={addURL}
-							title={Liferay.Language.get('add')}
-						>
-							<svg
-								aria-label={Liferay.Language.get('add')}
-								className="lexicon-icon"
-								role="img"
-							>
-								<use xlinkHref="#plus" />
-							</svg>
-						</a>
-					</div>
-
-					{!!address.deletePostalAddressURL && (
+				<ClayList.Item className="address-controls" flex>
+					<div className="btn-group" role="group">
 						<div className="btn-group-item">
-							<IconButton
-								cssClass="btn-secondary delete-address nav-btn nav-btn-monospaced"
-								labelName={Liferay.Language.get('delete')}
-								onClick={() => {
-									if (
-										window.confirm(
-											Liferay.Language.get(
-												'are-you-sure-you-want-to-delete-this-address'
-											)
-										)
-									) {
-										window.location.assign(
-											address.deletePostalAddressURL
-										);
-									}
-								}}
-								svgId="#hr"
-								title={Liferay.Language.get('delete')}
-							/>
+							<button
+								className="btn btn-primary btn-sm save-btn"
+								onClick={handleSave}
+								role="button"
+								type="button"
+							>
+								{Liferay.Language.get('save')}
+							</button>
 						</div>
-					)}
-				</div>
-			</ClayList.Item>
-		</React.Fragment>
+
+						<div className="btn-group-item">
+							<button
+								className="btn btn-secondary btn-sm cancel-btn"
+								onClick={handleCancel}
+								role="button"
+								type="button"
+							>
+								{Liferay.Language.get('cancel')}
+							</button>
+						</div>
+					</div>
+
+					<div className="btn-group" role="group">
+						<div className="btn-group-item">
+							<a
+								className="add-address btn btn-secondary nav-btn nav-btn-monospaced"
+								href={addURL}
+								title={Liferay.Language.get('add')}
+							>
+								<svg
+									aria-label={Liferay.Language.get('add')}
+									className="lexicon-icon"
+									role="img"
+								>
+									<use xlinkHref="#plus" />
+								</svg>
+							</a>
+						</div>
+
+						{!!address.deletePostalAddressURL && (
+							<div className="btn-group-item">
+								<IconButton
+									cssClass="btn-secondary delete-address nav-btn nav-btn-monospaced"
+									labelName={Liferay.Language.get('delete')}
+									onClick={() => {
+										if (
+											window.confirm(
+												Liferay.Language.get(
+													'are-you-sure-you-want-to-delete-this-address'
+												)
+											)
+										) {
+											window.location.assign(
+												address.deletePostalAddressURL
+											);
+										}
+									}}
+									svgId="#hr"
+									title={Liferay.Language.get('delete')}
+								/>
+							</div>
+						)}
+					</div>
+				</ClayList.Item>
+			</ClayList>
+		</form>
 	);
 }
 
@@ -321,7 +332,7 @@ function AddressField({
 								disabled={options.length === 0}
 								id={namespacedFieldName}
 								onChange={handleChange}
-								value={fieldValue}
+								value={convertDashToEmptyString(fieldValue)}
 							>
 								{options.map(option => (
 									<option
@@ -345,7 +356,7 @@ function AddressField({
 								id={namespacedFieldName}
 								onChange={handleChange}
 								type="text"
-								value={fieldValue}
+								value={convertDashToEmptyString(fieldValue)}
 							/>
 						</label>
 					)}
