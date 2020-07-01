@@ -17,6 +17,7 @@ package com.liferay.osb.koroneiki.taproot.service.impl;
 import com.liferay.osb.koroneiki.taproot.exception.ContactRoleTypeException;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactTeamRole;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactTeamRoleLocalServiceBaseImpl;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactTeamRolePK;
@@ -61,6 +62,16 @@ public class ContactTeamRoleLocalServiceImpl
 		}
 
 		return contactTeamRole;
+	}
+
+	public void deleteAccountTeamContact(long accountId, long contactId)
+		throws PortalException {
+
+		List<Team> teams = teamPersistence.findByAccountId(accountId);
+
+		for (Team team : teams) {
+			deleteContactTeamRoles(contactId, team.getTeamId());
+		}
 	}
 
 	public ContactTeamRole deleteContactTeamRole(

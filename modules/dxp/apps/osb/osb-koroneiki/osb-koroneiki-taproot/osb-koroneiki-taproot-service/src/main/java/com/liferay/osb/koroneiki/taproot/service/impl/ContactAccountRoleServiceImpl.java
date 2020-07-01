@@ -23,6 +23,7 @@ import com.liferay.osb.koroneiki.taproot.permission.ContactRolePermission;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactAccountRoleServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -113,6 +114,9 @@ public class ContactAccountRoleServiceImpl
 			contactAccountRoleLocalService.deleteContactAccountRole(
 				contactId, accountId, contactRole.getContactRoleId());
 		}
+
+		_contactTeamRoleLocalService.deleteAccountTeamContact(
+			accountId, contactId);
 	}
 
 	@Reference
@@ -132,5 +136,8 @@ public class ContactAccountRoleServiceImpl
 
 	@Reference
 	private ContactRolePermission _contactRolePermission;
+
+	@Reference
+	private ContactTeamRoleLocalService _contactTeamRoleLocalService;
 
 }

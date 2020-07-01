@@ -84,11 +84,11 @@ public class ContactAccountRoleLocalServiceImpl
 		if (contactAccountRole != null) {
 			deleteContactAccountRole(contactAccountRole);
 
+			_teamLocalService.syncDefaultTeam(accountId);
+
 			_accountLocalService.reindex(accountId);
 
 			_contactLocalService.reindex(contactId);
-
-			_teamLocalService.syncDefaultTeam(accountId);
 		}
 
 		return contactAccountRole;
@@ -99,11 +99,11 @@ public class ContactAccountRoleLocalServiceImpl
 
 		contactAccountRolePersistence.removeByCI_AI(contactId, accountId);
 
+		_teamLocalService.syncDefaultTeam(accountId);
+
 		_accountLocalService.reindex(accountId);
 
 		_contactLocalService.reindex(contactId);
-
-		_teamLocalService.syncDefaultTeam(accountId);
 	}
 
 	public List<ContactAccountRole> getContactAccountRoles(
