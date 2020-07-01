@@ -50,7 +50,8 @@ public class IndicesExistsIndexRequestExecutorImpl
 
 		IndicesExistsRequestBuilder indicesExistsRequestBuilder =
 			IndicesExistsAction.INSTANCE.newRequestBuilder(
-				_elasticsearchClientResolver.getClient(true));
+				_elasticsearchClientResolver.getClient(
+					indicesExistsIndexRequest.isPreferLocalCluster()));
 
 		indicesExistsRequestBuilder.setIndices(
 			indicesExistsIndexRequest.getIndexNames());
