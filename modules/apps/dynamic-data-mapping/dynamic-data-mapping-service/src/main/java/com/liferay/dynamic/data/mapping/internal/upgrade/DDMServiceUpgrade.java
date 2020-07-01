@@ -49,7 +49,7 @@ import com.liferay.dynamic.data.mapping.internal.upgrade.v3_0_0.util.DDMTemplate
 import com.liferay.dynamic.data.mapping.internal.upgrade.v3_0_0.util.DDMTemplateVersionTable;
 import com.liferay.dynamic.data.mapping.internal.upgrade.v3_1_0.UpgradeDDMStructureLayout;
 import com.liferay.dynamic.data.mapping.internal.upgrade.v3_2_4.UpgradeDDMContent;
-import com.liferay.dynamic.data.mapping.internal.upgrade.v3_2_5.UpgradeEmptyValidation;
+import com.liferay.dynamic.data.mapping.internal.upgrade.v3_2_5.UpgradeDDMStructureEmptyValidation;
 import com.liferay.dynamic.data.mapping.io.DDMFormDeserializer;
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutSerializer;
 import com.liferay.dynamic.data.mapping.io.DDMFormSerializer;
@@ -298,7 +298,7 @@ public class DDMServiceUpgrade implements UpgradeStepRegistrator {
 
 		registry.register(
 			"3.2.4", "3.2.5",
-			new UpgradeEmptyValidation(
+			new UpgradeDDMStructureEmptyValidation(
 				ddmFormJSONDeserializer, ddmFormSerializer));
 	}
 
