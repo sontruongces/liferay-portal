@@ -30,6 +30,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
+import com.liferay.petra.content.ContentUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -37,10 +38,16 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.ModelHintsUtil;
+import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.SubscriptionSender;
 import com.liferay.portal.kernel.util.Validator;
+
+import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -147,6 +154,10 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			createAccount(
 				postalAddress, contacts.toArray(new Contact[0]), externalLinks,
 				productPurchases.toArray(new ProductPurchase[0]), jsonObject);
+
+			if (hasAnalyticsCloud(productPurchases)) {
+				sendAnalyticsCloudWelcomeEmail(contacts);
+			}
 		}
 	}
 
@@ -167,6 +178,32 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		}
 
 		return null;
+	}
+
+	protected String getContactFullName(Contact contact) {
+		StringBundler sb = new StringBundler(5);
+
+		if (Validator.isNotNull(contact.getFirstName())) {
+			sb.append(contact.getFirstName());
+		}
+
+		if (Validator.isNotNull(contact.getMiddleName())) {
+			if (sb.length() > 0) {
+				sb.append(StringPool.SPACE);
+			}
+
+			sb.append(contact.getMiddleName());
+		}
+
+		if (Validator.isNotNull(contact.getLastName())) {
+			if (sb.length() > 0) {
+				sb.append(StringPool.SPACE);
+			}
+
+			sb.append(contact.getLastName());
+		}
+
+		return sb.toString();
 	}
 
 	protected PostalAddress getPostalAddress(JSONObject jsonObject) {
@@ -310,6 +347,26 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 				countryName + ". Defaulting support region to global.");
 
 		return Account.Region.GLOBAL;
+	}
+
+	protected boolean hasAnalyticsCloud(
+		List<ProductPurchase> productPurchases) {
+
+		for (ProductPurchase productPurchase : productPurchases) {
+			Product product = productPurchase.getProduct();
+
+			String name = product.getName();
+
+			if (name.equals(
+					"Liferay Analytics Cloud Subscription - Business") ||
+				name.equals(
+					"Liferay Analytics Cloud Subscription - Enterprise")) {
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	protected boolean hasOpportunityProductFamily(JSONObject jsonObject) {
@@ -532,6 +589,40 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		return productPurchases;
 	}
 
+	protected void sendAnalyticsCloudWelcomeEmail(List<Contact> contacts)
+		throws PortalException {
+
+		Company company = _companyLocalService.getCompanyByWebId("liferay.com");
+
+		for (Contact contact : contacts) {
+			String languageId = contact.getLanguageId();
+
+			String subject = _getEmailTemplate(
+				"email_analytics_cloud_welcome_subject_" + languageId + ".tmpl",
+				"email_analytics_cloud_welcome_subject.tmpl");
+			String body = _getEmailTemplate(
+				"email_analytics_cloud_welcome_body_" + languageId + ".tmpl",
+				"email_analytics_cloud_welcome_body.tmpl");
+
+			SubscriptionSender subscriptionSender = new SubscriptionSender();
+
+			subscriptionSender.setBody(body);
+			subscriptionSender.setCompanyId(company.getCompanyId());
+			subscriptionSender.setFrom(
+				"no-reply@liferay.com", "Liferay Analytics Cloud");
+			subscriptionSender.setHtmlFormat(true);
+			subscriptionSender.setMailId(
+				"analytics_cloud_welcome", contact.getKey());
+			subscriptionSender.setReplyToAddress("no-reply@liferay.com");
+			subscriptionSender.setSubject(subject);
+
+			subscriptionSender.addRuntimeSubscribers(
+				contact.getEmailAddress(), getContactFullName(contact));
+
+			subscriptionSender.flushNotificationsAsync();
+		}
+	}
+
 	protected void updateAccount(
 			String accountKey, List<Contact> contacts,
 			List<ProductPurchase> productPurchases)
@@ -577,6 +668,30 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 				StringPool.BLANK, StringPool.BLANK, accountKey,
 				productPurchase);
 		}
+	}
+
+	private static String _getEmailTemplate(
+		String templateName, String defaultTemplateName) {
+
+		ClassLoader portletClassLoader =
+			DossieraCreateMessageSubscriber.class.getClassLoader();
+
+		String templateDirName =
+			"com/liferay/osb/provisioning/distributed/messaging/internal" +
+				"/dependencies/";
+
+		URL url = portletClassLoader.getResource(
+			templateDirName + templateName);
+
+		if (url != null) {
+			return ContentUtil.get(
+				DossieraCreateMessageSubscriber.class.getClassLoader(),
+				templateDirName + templateName);
+		}
+
+		return ContentUtil.get(
+			DossieraCreateMessageSubscriber.class.getClassLoader(),
+			templateDirName + defaultTemplateName);
 	}
 
 	private String _getCode(String parentAccountName, String accountName)
@@ -679,6 +794,9 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 	@Reference
 	private AccountWebService _accountWebService;
+
+	@Reference
+	private CompanyLocalService _companyLocalService;
 
 	@Reference
 	private ContactRoleWebService _contactRoleWebService;
