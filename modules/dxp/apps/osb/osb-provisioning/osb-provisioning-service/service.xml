@@ -19,19 +19,13 @@
 		<!-- Other fields -->
 
 		<column name="name" type="String" />
-
-		<!-- Finder methods -->
-
-		<finder name="ProductBundleId" return-type="ProductBundle">
-			<finder-column name="productBundleId" />
-		</finder>
 	</entity>
-	<entity local-service="true" name="ProductBundleProductEntries" remote-service="false">
+	<entity local-service="true" name="ProductBundleProducts" remote-service="false">
 
 		<!-- PK fields -->
 
 		<column name="productBundleId" primary="true" type="long" />
-		<column name="productEntryId" primary="true" type="long" />
+		<column name="productKey" primary="true" type="String" />
 
 		<!-- Finder methods -->
 
