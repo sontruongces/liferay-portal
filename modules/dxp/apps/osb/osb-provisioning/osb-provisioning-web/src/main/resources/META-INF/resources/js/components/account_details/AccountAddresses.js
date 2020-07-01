@@ -200,11 +200,12 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				/>
 
 				<AddressField
+					displayValue={address.addressRegion}
 					fieldLabel={Liferay.Language.get('state-province')}
 					fieldName="addressRegionId"
 					options={regionOptions}
 					type={setFieldType(FIELD_TYPE_SELECT)}
-					value={address.addressRegion}
+					value={regionId}
 				/>
 
 				<AddressField
@@ -222,11 +223,12 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				/>
 
 				<AddressField
+					displayValue={address.addressCountry}
 					fieldLabel={Liferay.Language.get('country')}
 					fieldName="addressCountryId"
 					options={countryOptions}
 					type={setFieldType(FIELD_TYPE_SELECT)}
-					value={address.addressCountry}
+					value={countryId}
 				/>
 
 				<ClayList.Item className="address-controls" flex>
@@ -302,6 +304,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 }
 
 function AddressField({
+	displayValue = value,
 	fieldLabel,
 	fieldName,
 	options = [],
@@ -311,6 +314,10 @@ function AddressField({
 	const [fieldValue, setFieldValue] = useState(value);
 
 	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
+
+	useEffect(() => {
+		setFieldValue(value);
+	}, [value]);
 
 	function handleChange(event) {
 		setFieldValue(event.currentTarget.value);
@@ -331,6 +338,7 @@ function AddressField({
 								className="form-control"
 								disabled={options.length === 0}
 								id={namespacedFieldName}
+								name={namespacedFieldName}
 								onChange={handleChange}
 								value={convertDashToEmptyString(fieldValue)}
 							>
@@ -354,6 +362,7 @@ function AddressField({
 							<input
 								className="form-control"
 								id={namespacedFieldName}
+								name={namespacedFieldName}
 								onChange={handleChange}
 								type="text"
 								value={convertDashToEmptyString(fieldValue)}
