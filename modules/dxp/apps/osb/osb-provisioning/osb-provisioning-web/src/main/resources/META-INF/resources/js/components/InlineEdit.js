@@ -23,9 +23,9 @@ import {convertDashToEmptyString} from '../utilities/helpers';
 import EditableField from './EditableField';
 
 function InlineEdit({
-	children,
 	displayAs = 'text',
 	fieldName,
+	fieldValue,
 	inputStyle = '',
 	options = [{label: '', value: ''}],
 	save,
@@ -33,14 +33,14 @@ function InlineEdit({
 }) {
 	const [fieldEditable, setFieldEditable] = useState(false);
 	const [showEditor, setShowEditor] = useState(false);
-	const [value, setValue] = useState(children);
+	const [value, setValue] = useState(fieldValue);
 
 	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
 
 	function handleCancel() {
 		setFieldEditable(false);
 		setShowEditor(false);
-		setValue(children);
+		setValue(fieldValue);
 	}
 
 	function handleChange(event) {
@@ -167,9 +167,9 @@ function Label({inputStyle, value}) {
 }
 
 InlineEdit.propTypes = {
-	children: PropTypes.string,
 	displayAs: PropTypes.oneOf(['label', 'text']),
 	fieldName: PropTypes.string,
+	fieldValue: PropTypes.string,
 	inputStyle: PropTypes.string,
 	options: PropTypes.arrayOf(
 		PropTypes.shape({

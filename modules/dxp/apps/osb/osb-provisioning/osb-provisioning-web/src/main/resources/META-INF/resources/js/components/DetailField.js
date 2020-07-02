@@ -72,13 +72,12 @@ function DetailField({
 							<InlineEdit
 								displayAs={displayAs}
 								fieldName={fieldName}
+								fieldValue={value}
 								inputStyle={inputStyle}
 								options={options}
 								save={handleSubmit}
 								type={type}
-							>
-								{value}
-							</InlineEdit>
+							/>
 						</>
 					)}
 				</div>
