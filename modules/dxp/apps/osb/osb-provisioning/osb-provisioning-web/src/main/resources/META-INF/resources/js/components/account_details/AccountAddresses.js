@@ -97,6 +97,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 	const [countryId, setCountryId] = useState(
 		getFieldId(countryOptions, address.addressCountry)
 	);
+	const [editable, setEditable] = useState(false);
 	const [regionOptions, setRegionOptions] = useState([]);
 	const [zipCode, setZipCode] = useState(
 		convertDashToEmptyString(address.postalCode)
@@ -150,12 +151,16 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 
 	function handleCancel() {
 		// reset all values
-		// exit out of edit mode
+		setEditable(false);
 	}
 
 	function handleCountryUpdate(id) {
 		setCountryId(id);
 		setZipRequired(getZipRequirement(id));
+	}
+
+	function handleOnClick(bool) {
+		setEditable(bool);
 	}
 
 	function handlePostalCodeUpdate(value) {
@@ -208,45 +213,57 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				</ClayList.Header>
 
 				<AddressField
+					editable={editable}
 					fieldLabel={Liferay.Language.get('street-1')}
 					fieldName="streetAddressLine1"
+					onClick={handleOnClick}
 					type={setFieldType()}
 					value={address.streetAddressLine1}
 				/>
 
 				<AddressField
+					editable={editable}
 					fieldLabel={Liferay.Language.get('city')}
 					fieldName="addressLocality"
+					onClick={handleOnClick}
 					type={setFieldType()}
 					value={address.addressLocality}
 				/>
 
 				<AddressField
+					editable={editable}
 					fieldLabel={Liferay.Language.get('street-2')}
 					fieldName="streetAddressLine2"
+					onClick={handleOnClick}
 					type={setFieldType()}
 					value={address.streetAddressLine2}
 				/>
 
 				<AddressField
 					displayValue={address.addressRegion}
+					editable={editable}
 					fieldLabel={Liferay.Language.get('state-province')}
 					fieldName="addressRegionId"
+					onClick={handleOnClick}
 					options={regionOptions}
 					type={setFieldType(FIELD_TYPE_SELECT)}
 					value={regionId}
 				/>
 
 				<AddressField
+					editable={editable}
 					fieldLabel={Liferay.Language.get('street-3')}
 					fieldName="streetAddressLine3"
+					onClick={handleOnClick}
 					type={setFieldType()}
 					value={address.streetAddressLine3}
 				/>
 
 				<AddressField
+					editable={editable}
 					fieldLabel={Liferay.Language.get('postal-code')}
 					fieldName="addressZip"
+					onClick={handleOnClick}
 					required={zipRequired}
 					type={setFieldType()}
 					updateFn={handlePostalCodeUpdate}
@@ -255,8 +272,10 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 
 				<AddressField
 					displayValue={address.addressCountry}
+					editable={editable}
 					fieldLabel={Liferay.Language.get('country')}
 					fieldName="addressCountryId"
+					onClick={handleOnClick}
 					options={countryOptions}
 					type={setFieldType(FIELD_TYPE_SELECT)}
 					updateFn={handleCountryUpdate}
@@ -264,30 +283,32 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				/>
 
 				<ClayList.Item className="address-controls" flex>
-					<div className="btn-group" role="group">
-						<div className="btn-group-item">
-							<button
-								className="btn btn-primary btn-sm save-btn"
-								disabled={zipRequired && !zipCode}
-								onClick={handleSave}
-								role="button"
-								type="button"
-							>
-								{Liferay.Language.get('save')}
-							</button>
-						</div>
+					{editable && (
+						<div className="btn-group" role="group">
+							<div className="btn-group-item">
+								<button
+									className="btn btn-primary btn-sm save-btn"
+									disabled={zipRequired && !zipCode}
+									onClick={handleSave}
+									role="button"
+									type="button"
+								>
+									{Liferay.Language.get('save')}
+								</button>
+							</div>
 
-						<div className="btn-group-item">
-							<button
-								className="btn btn-secondary btn-sm cancel-btn"
-								onClick={handleCancel}
-								role="button"
-								type="button"
-							>
-								{Liferay.Language.get('cancel')}
-							</button>
+							<div className="btn-group-item">
+								<button
+									className="btn btn-secondary btn-sm cancel-btn"
+									onClick={handleCancel}
+									role="button"
+									type="button"
+								>
+									{Liferay.Language.get('cancel')}
+								</button>
+							</div>
 						</div>
-					</div>
+					)}
 
 					<div className="btn-group" role="group">
 						<div className="btn-group-item">
@@ -337,9 +358,11 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 }
 
 function AddressField({
-	displayValue = value,
+	displayValue,
+	editable = false,
 	fieldLabel,
 	fieldName,
+	onClick,
 	options = [],
 	required = false,
 	type = FIELD_TYPE_TEXT,
@@ -369,7 +392,13 @@ function AddressField({
 				</ClayList.ItemTitle>
 
 				<div className="list-group-text">
-					{type === FIELD_TYPE_SELECT && (
+					{!editable && (
+						<div onClick={() => onClick(true)}>
+							{displayValue ? displayValue : fieldValue}
+						</div>
+					)}
+
+					{editable && type === FIELD_TYPE_SELECT && (
 						<label
 							className="form-control-label"
 							htmlFor={namespacedFieldName}
@@ -394,7 +423,7 @@ function AddressField({
 						</label>
 					)}
 
-					{type === FIELD_TYPE_TEXT && (
+					{editable && type === FIELD_TYPE_TEXT && (
 						<label
 							className="form-control-label"
 							htmlFor={namespacedFieldName}
