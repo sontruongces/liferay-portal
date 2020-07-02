@@ -98,6 +98,9 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 		getFieldId(countryOptions, address.addressCountry)
 	);
 	const [regionOptions, setRegionOptions] = useState([]);
+	const [zipCode, setZipCode] = useState(
+		convertDashToEmptyString(address.postalCode)
+	);
 	const [zipRequired, setZipRequired] = useState(false);
 	const formRef = useRef();
 
@@ -153,6 +156,10 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 	function handleCountryUpdate(id) {
 		setCountryId(id);
 		setZipRequired(getZipRequirement(id));
+	}
+
+	function handlePostalCodeUpdate(value) {
+		setZipCode(value);
 	}
 
 	function handleSave() {
@@ -242,6 +249,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					fieldName="addressZip"
 					required={zipRequired}
 					type={setFieldType()}
+					updateFn={handlePostalCodeUpdate}
 					value={address.postalCode}
 				/>
 
@@ -260,6 +268,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 						<div className="btn-group-item">
 							<button
 								className="btn btn-primary btn-sm save-btn"
+								disabled={zipRequired && !zipCode}
 								onClick={handleSave}
 								role="button"
 								type="button"
