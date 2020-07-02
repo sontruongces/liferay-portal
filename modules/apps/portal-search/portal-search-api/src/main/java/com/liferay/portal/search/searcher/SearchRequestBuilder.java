@@ -170,4 +170,7 @@ public interface SearchRequestBuilder {
 	public <T> T withSearchContextGet(
 		Function<SearchContext, T> searchContextFunction);
 
+	public SearchRequestBuilder withSearchRequestBuilder(
+		Consumer<SearchRequestBuilder>... searchRequestBuilderConsumers);
+
 }

@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * @author André de Oliveira
@@ -400,6 +401,20 @@ public class SearchRequestBuilderImpl implements SearchRequestBuilder {
 		Function<SearchContext, T> searchContextFunction) {
 
 		return searchContextFunction.apply(_searchContext);
+	}
+
+	@Override
+	public SearchRequestBuilder withSearchRequestBuilder(
+		Consumer<SearchRequestBuilder>... searchRequestBuilderConsumers) {
+
+		Stream.of(
+			searchRequestBuilderConsumers
+		).forEach(
+			searchRequestBuilderConsumer -> searchRequestBuilderConsumer.accept(
+				this)
+		);
+
+		return this;
 	}
 
 	protected static SearchRequestImpl getSearchRequestImpl(
