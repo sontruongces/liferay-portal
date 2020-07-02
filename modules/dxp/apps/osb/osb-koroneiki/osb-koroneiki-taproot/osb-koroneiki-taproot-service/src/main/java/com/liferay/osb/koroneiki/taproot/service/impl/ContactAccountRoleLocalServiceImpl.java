@@ -94,18 +94,6 @@ public class ContactAccountRoleLocalServiceImpl
 		return contactAccountRole;
 	}
 
-	public void deleteContactAccountRoles(long contactId, long accountId)
-		throws PortalException {
-
-		contactAccountRolePersistence.removeByCI_AI(contactId, accountId);
-
-		_teamLocalService.syncDefaultTeam(accountId);
-
-		_accountLocalService.reindex(accountId);
-
-		_contactLocalService.reindex(contactId);
-	}
-
 	public List<ContactAccountRole> getContactAccountRoles(
 		long contactId, long accountId) {
 
