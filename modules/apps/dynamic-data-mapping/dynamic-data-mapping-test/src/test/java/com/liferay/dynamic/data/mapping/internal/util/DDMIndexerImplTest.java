@@ -299,6 +299,10 @@ public class DDMIndexerImplTest {
 						return null;
 					}
 
+					public String getStatusString() {
+						return null;
+					}
+
 					public String getVendorString() {
 						return null;
 					}
