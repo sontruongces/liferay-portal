@@ -1259,7 +1259,7 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 			"com.liferay.portal.file.install.internal.ConfigInstaller");
 
 		Method method = configInstallerClass.getDeclaredMethod(
-			"install", File.class);
+			"transformURL", File.class);
 
 		Constructor<?> constructor =
 			configInstallerClass.getDeclaredConstructor(
