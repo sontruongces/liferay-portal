@@ -54,7 +54,8 @@ describe('AccountDetails', () => {
 					countryId: '',
 					name: '',
 					nameCurrentValue: '',
-					regionId: ''
+					regionId: '',
+					zipRequired: false
 				}
 			])
 		);
