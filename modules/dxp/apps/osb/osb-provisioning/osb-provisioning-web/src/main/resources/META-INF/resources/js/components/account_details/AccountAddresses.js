@@ -36,6 +36,8 @@ function AccountAddresses({accountKey, addURL, addresses}) {
 					};
 				});
 
+				options.unshift({label: '-', value: 0, zipRequired: false});
+
 				setCountryOptions(options);
 			})
 			.catch(err => console.error(err));
