@@ -33,13 +33,14 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Ivica Cardic
+ * @author Gianmarco Brunialti Masera
  */
 @Component(
 	immediate = true,
 	property = {
 		"com.liferay.fragment.entry.processor.portlet.alias=start-trial",
 		"com.liferay.portlet.add-default-resource=true",
-		"com.liferay.portlet.css-class-wrapper=portlet-osb-commerce-provisioning",
+		"com.liferay.portlet.css-class-wrapper=portlet-osb-commerce-start-trial",
 		"com.liferay.portlet.display-category=category.osb-commerce-provisioning",
 		"com.liferay.portlet.header-portlet-css=/trial-registration/css/main.css",
 		"com.liferay.portlet.layout-cacheable=true",
