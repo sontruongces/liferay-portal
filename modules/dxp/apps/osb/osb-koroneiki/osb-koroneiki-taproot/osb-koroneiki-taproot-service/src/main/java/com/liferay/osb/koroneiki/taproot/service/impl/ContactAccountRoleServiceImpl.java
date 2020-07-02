@@ -114,9 +114,6 @@ public class ContactAccountRoleServiceImpl
 			contactAccountRoleLocalService.deleteContactAccountRole(
 				contactId, accountId, contactRole.getContactRoleId());
 		}
-
-		_contactTeamRoleLocalService.deleteAccountTeamContact(
-			accountId, contactId);
 	}
 
 	@Reference

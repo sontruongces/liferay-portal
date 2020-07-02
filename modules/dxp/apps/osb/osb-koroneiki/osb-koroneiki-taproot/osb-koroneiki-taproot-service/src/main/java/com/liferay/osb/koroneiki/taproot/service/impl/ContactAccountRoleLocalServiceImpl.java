@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactAccountRoleLocalServiceBaseImpl;
 import com.liferay.osb.koroneiki.taproot.service.persistence.ContactAccountRolePK;
@@ -86,6 +87,14 @@ public class ContactAccountRoleLocalServiceImpl
 
 			_teamLocalService.syncDefaultTeam(accountId);
 
+			int contactAccountRolesCount = getContactAccountRolesCount(
+				contactId, accountId);
+
+			if (contactAccountRolesCount == 0) {
+				_contactTeamRoleLocalService.deleteAccountTeamContact(
+					accountId, contactId);
+			}
+
 			_accountLocalService.reindex(accountId);
 
 			_contactLocalService.reindex(contactId);
@@ -104,6 +113,10 @@ public class ContactAccountRoleLocalServiceImpl
 		long accountId) {
 
 		return contactAccountRolePersistence.findByAccountId(accountId);
+	}
+
+	public int getContactAccountRolesCount(long contactId, long accountId) {
+		return contactAccountRolePersistence.countByCI_AI(contactId, accountId);
 	}
 
 	protected void validate(long contactId, long accountId, long contactRoleId)
@@ -134,6 +147,9 @@ public class ContactAccountRoleLocalServiceImpl
 
 	@Reference
 	private ContactLocalService _contactLocalService;
+
+	@Reference
+	private ContactTeamRoleLocalService _contactTeamRoleLocalService;
 
 	@Reference
 	private TeamLocalService _teamLocalService;
