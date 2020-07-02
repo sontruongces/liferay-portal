@@ -35,7 +35,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + OSBCommerceProvisioningPortletKeys.TRIAL_REGISTRATION,
-		"mvc.command.name=portalInstanceStatus"
+		"mvc.command.name=editPortalInstanceFeature"
 	},
 	service = MVCResourceCommand.class
 )
