@@ -92,11 +92,18 @@ AccountAddresses.propTypes = {
 };
 
 function Address({accountKey, addURL, address, count, countryOptions}) {
+	const [countryId, setCountryId] = useState(
+		getFieldId(countryOptions, address.addressCountry)
+	);
 	const [regionOptions, setRegionOptions] = useState([]);
+	const [zipRequired, setZipRequired] = useState(false);
 	const formRef = useRef();
 
-	const countryId = getFieldId(countryOptions, address.addressCountry);
 	const regionId = getFieldId(regionOptions, address.addressRegion);
+
+	useEffect(() => {
+		setCountryId(getFieldId(countryOptions, address.addressCountry));
+	}, [address, countryOptions]);
 
 	useEffect(() => {
 		Liferay.Service('/region/get-regions', {
@@ -128,9 +135,22 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 		return '';
 	}
 
+	function getZipRequirement(id) {
+		const currentCountry = countryOptions.find(
+			option => option.value === id
+		);
+
+		return currentCountry ? currentCountry.zipRequired : false;
+	}
+
 	function handleCancel() {
 		// reset all values
 		// exit out of edit mode
+	}
+
+	function handleCountryUpdate(id) {
+		setCountryId(id);
+		setZipRequired(getZipRequirement(id));
 	}
 
 	function handleSave() {
@@ -218,6 +238,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				<AddressField
 					fieldLabel={Liferay.Language.get('postal-code')}
 					fieldName="addressZip"
+					required={zipRequired}
 					type={setFieldType()}
 					value={address.postalCode}
 				/>
@@ -228,6 +249,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					fieldName="addressCountryId"
 					options={countryOptions}
 					type={setFieldType(FIELD_TYPE_SELECT)}
+					updateFn={handleCountryUpdate}
 					value={countryId}
 				/>
 
@@ -308,11 +330,12 @@ function AddressField({
 	fieldLabel,
 	fieldName,
 	options = [],
+	required = false,
 	type = FIELD_TYPE_TEXT,
+	updateFn,
 	value
 }) {
 	const [fieldValue, setFieldValue] = useState(value);
-
 	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
 
 	useEffect(() => {
@@ -320,13 +343,19 @@ function AddressField({
 	}, [value]);
 
 	function handleChange(event) {
-		setFieldValue(event.currentTarget.value);
+		const currentTarget = event.currentTarget;
+
+		setFieldValue(currentTarget.value);
+		updateFn(currentTarget.value);
 	}
 
 	return (
 		<ClayList.Item flex>
 			<div className="detail-field">
-				<ClayList.ItemTitle>{fieldLabel}</ClayList.ItemTitle>
+				<ClayList.ItemTitle>
+					{fieldLabel}{' '}
+					{required && <span className="text-warning">{'*'}</span>}
+				</ClayList.ItemTitle>
 
 				<div className="list-group-text">
 					{type === FIELD_TYPE_SELECT && (
