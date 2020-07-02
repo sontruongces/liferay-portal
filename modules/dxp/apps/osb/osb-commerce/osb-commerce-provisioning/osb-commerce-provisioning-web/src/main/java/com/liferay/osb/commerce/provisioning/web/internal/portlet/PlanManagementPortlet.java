@@ -12,79 +12,68 @@
  *
  */
 
-package com.liferay.osb.commerce.provisioning.web.internal.servlet.taglib.ui;
+package com.liferay.osb.commerce.provisioning.web.internal.portlet;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountLocalService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
-import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
-import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
-import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
-import com.liferay.osb.commerce.provisioning.web.internal.constants.CommerceAccountScreenNavigationConstants;
+import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
 import com.liferay.osb.commerce.provisioning.web.internal.portlet.display.context.PlanManagementDisplayContext;
-import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
+import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Ivica Cardic
+ * @author Gianmarco Brunialti Masera
  */
 @Component(
+	immediate = true,
 	property = {
-		"screen.navigation.category.order:Integer=50",
-		"screen.navigation.entry.order:Integer=10"
+		"com.liferay.fragment.entry.processor.portlet.alias=plan-management",
+		"com.liferay.portlet.add-default-resource=true",
+		"com.liferay.portlet.css-class-wrapper=portlet-osb-commerce-plan-management",
+		"com.liferay.portlet.display-category=category.osb-commerce-provisioning",
+		"com.liferay.portlet.header-portlet-css=/plan-management/css/main.css",
+		"com.liferay.portlet.layout-cacheable=true",
+		"com.liferay.portlet.preferences-owned-by-group=true",
+		"com.liferay.portlet.preferences-unique-per-layout=false",
+		"com.liferay.portlet.private-request-attributes=false",
+		"com.liferay.portlet.private-session-attributes=false",
+		"com.liferay.portlet.render-weight=50",
+		"com.liferay.portlet.scopeable=true",
+		"javax.portlet.display-name=Plan Management",
+		"javax.portlet.expiration-cache=0",
+		"javax.portlet.init-param.view-template=/plan-management/view.jsp",
+		"javax.portlet.name=" + OSBCommerceProvisioningPortletKeys.PLAN_MANAGEMENT,
+		"javax.portlet.resource-bundle=content.Language",
+		"javax.portlet.security-role-ref=power-user,user"
 	},
-	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
+	service = {PlanManagementPortlet.class, Portlet.class}
 )
-public class CommerceAccountPlanSettingsScreenNavigationEntry
-	implements ScreenNavigationCategory,
-			   ScreenNavigationEntry<CommerceAccount> {
-
-	@Override
-	public String getCategoryKey() {
-		return CommerceAccountScreenNavigationConstants.
-			CATEGORY_KEY_ACCOUNT_PLAN_SETTINGS;
-	}
-
-	@Override
-	public String getEntryKey() {
-		return CommerceAccountScreenNavigationConstants.
-			ENTRY_KEY_ACCOUNT_PLAN_SETTINGS;
-	}
-
-	@Override
-	public String getLabel(Locale locale) {
-		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-			"content.Language", locale, getClass());
-
-		return LanguageUtil.get(resourceBundle, "your-plan");
-	}
-
-	@Override
-	public String getScreenNavigationKey() {
-		return CommerceAccountScreenNavigationConstants.SCREEN_NAVIGATION_KEY;
-	}
+public class PlanManagementPortlet extends MVCPortlet {
 
 	@Override
 	public void render(
-			HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse)
-		throws IOException {
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
+			renderRequest);
 
 		try {
 			long commerceAccountId = ParamUtil.getLong(
@@ -103,21 +92,19 @@ public class CommerceAccountPlanSettingsScreenNavigationEntry
 						commerceAccountId);
 			}
 
-			/* httpServletRequest.setAttribute(
+			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
 				new PlanManagementDisplayContext(
 					commerceAccount.getCommerceAccountId(),
 					_commerceOrderLocalService,
-					_commerceSubscriptionEntryLocalService));
-			 */
-
-			_jspRenderer.renderJSP(
-				_servletContext, httpServletRequest, httpServletResponse,
-				"/account/account_your_plan.jsp");
+					_commerceSubscriptionEntryLocalService, _portal,
+					renderRequest, renderResponse));
 		}
 		catch (Exception exception) {
 			throw new IOException(exception);
 		}
+
+		super.render(renderRequest, renderResponse);
 	}
 
 	@Reference
@@ -134,11 +121,6 @@ public class CommerceAccountPlanSettingsScreenNavigationEntry
 		_commerceSubscriptionEntryLocalService;
 
 	@Reference
-	private JSPRenderer _jspRenderer;
-
-	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.osb.commerce.provisioning.web)"
-	)
-	private ServletContext _servletContext;
+	private Portal _portal;
 
 }

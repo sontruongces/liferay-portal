@@ -19,6 +19,10 @@ package com.liferay.osb.commerce.provisioning.web.internal.constants;
  */
 public class OSBCommerceProvisioningPortletKeys {
 
+	public static final String PLAN_MANAGEMENT =
+		"com_liferay_osb_commerce_provisioning_web_portlet_" +
+			"PlanManagementPortlet";
+
 	public static final String PLAN_SETTINGS =
 		"com_liferay_osb_commerce_provisioning_web_portlet_plan_" +
 			"PlanSettingsPortlet";

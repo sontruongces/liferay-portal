@@ -1,0 +1,8 @@
+@import 'atlas-variables';
+
+@import 'mixins';
+@import 'variables';
+
+.portlet-osb-commerce-plan-management {
+	@import 'plan_management';
+}
