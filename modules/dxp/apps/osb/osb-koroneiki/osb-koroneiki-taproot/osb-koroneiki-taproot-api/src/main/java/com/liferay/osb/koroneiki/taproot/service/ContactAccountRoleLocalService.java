@@ -112,9 +112,6 @@ public interface ContactAccountRoleLocalService
 			long contactId, long accountId, long contactRoleId)
 		throws PortalException;
 
-	public void deleteContactAccountRoles(long contactId, long accountId)
-		throws PortalException;
-
 	/**
 	 * @throws PortalException
 	 */
@@ -236,6 +233,9 @@ public interface ContactAccountRoleLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getContactAccountRolesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getContactAccountRolesCount(long contactId, long accountId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

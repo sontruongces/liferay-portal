@@ -85,6 +85,9 @@ public interface ContactTeamRoleLocalService
 	public ContactTeamRole createContactTeamRole(
 		ContactTeamRolePK contactTeamRolePK);
 
+	public void deleteAccountTeamContact(long accountId, long contactId)
+		throws PortalException;
+
 	/**
 	 * Deletes the contact team role from the database. Also notifies the appropriate model listeners.
 	 *

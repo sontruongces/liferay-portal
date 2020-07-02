@@ -73,6 +73,14 @@ public class ContactTeamRoleLocalServiceWrapper
 			contactTeamRolePK);
 	}
 
+	@Override
+	public void deleteAccountTeamContact(long accountId, long contactId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_contactTeamRoleLocalService.deleteAccountTeamContact(
+			accountId, contactId);
+	}
+
 	/**
 	 * Deletes the contact team role from the database. Also notifies the appropriate model listeners.
 	 *

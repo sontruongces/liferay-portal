@@ -114,12 +114,6 @@ public class ContactAccountRoleLocalServiceUtil {
 			contactId, accountId, contactRoleId);
 	}
 
-	public static void deleteContactAccountRoles(long contactId, long accountId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		getService().deleteContactAccountRoles(contactId, accountId);
-	}
-
 	/**
 	 * @throws PortalException
 	 */
@@ -285,6 +279,12 @@ public class ContactAccountRoleLocalServiceUtil {
 	 */
 	public static int getContactAccountRolesCount() {
 		return getService().getContactAccountRolesCount();
+	}
+
+	public static int getContactAccountRolesCount(
+		long contactId, long accountId) {
+
+		return getService().getContactAccountRolesCount(contactId, accountId);
 	}
 
 	public static
