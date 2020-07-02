@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutTypePortlet;
 import com.liferay.portal.kernel.model.LayoutTypePortletConstants;
 import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.PortletIdCodec;
 import com.liferay.portal.kernel.service.PortletLocalService;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
@@ -37,7 +38,7 @@ import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
-import com.liferay.portal.kernel.test.util.TestPropsValues;
+import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -84,9 +85,11 @@ public class LayoutConverterTest {
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
 
+		_user = UserTestUtil.addGroupAdminUser(_group);
+
 		ServiceContextThreadLocal.pushServiceContext(
 			ServiceContextTestUtil.getServiceContext(
-				_group, TestPropsValues.getUserId()));
+				_group, _user.getUserId()));
 	}
 
 	@After
@@ -360,7 +363,7 @@ public class LayoutConverterTest {
 					}
 
 					LayoutTestUtil.addPortletToLayout(
-						TestPropsValues.getUserId(), layout, encodedPortletId,
+						_user.getUserId(), layout, encodedPortletId,
 						"column-" + columnId, new HashMap<>());
 
 					encodedPortletIds.add(encodedPortletId);
@@ -627,5 +630,7 @@ public class LayoutConverterTest {
 
 	@Inject
 	private PortletLocalService _portletLocalService;
+
+	private User _user;
 
 }
