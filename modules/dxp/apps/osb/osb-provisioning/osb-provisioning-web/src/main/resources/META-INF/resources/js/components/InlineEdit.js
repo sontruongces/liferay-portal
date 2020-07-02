@@ -20,6 +20,7 @@ import {
 	NAMESPACE
 } from '../utilities/constants';
 import {convertDashToEmptyString} from '../utilities/helpers';
+import EditableField from './EditableField';
 
 function InlineEdit({
 	children,
@@ -63,20 +64,7 @@ function InlineEdit({
 					onMouseLeave={() => setFieldEditable(false)}
 				>
 					{fieldEditable ? (
-						<div className="editable-field">
-							<div className="field">{value}</div>
-							<div className="edit-icon">
-								<svg
-									aria-label={Liferay.Language.get(
-										'edit-field-icon'
-									)}
-									className="lexicon-icon-pencil"
-									role="img"
-								>
-									<use xlinkHref="#pencil" />
-								</svg>
-							</div>
-						</div>
+						<EditableField value={value} />
 					) : displayAs === 'label' ? (
 						<Label inputStyle={inputStyle} value={value} />
 					) : (

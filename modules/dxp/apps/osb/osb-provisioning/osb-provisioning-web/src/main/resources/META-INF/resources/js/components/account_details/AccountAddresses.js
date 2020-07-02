@@ -20,6 +20,7 @@ import {
 	NAMESPACE
 } from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
+import EditableField from '../EditableField';
 import IconButton from '../IconButton';
 
 function AccountAddresses({accountKey, addURL, addresses}) {
@@ -151,6 +152,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 
 	function handleCancel() {
 		// reset all values
+		// setFieldEditable(false)
 		setEditable(false);
 	}
 
@@ -372,6 +374,7 @@ function AddressField({
 	updateFn,
 	value
 }) {
+	const [fieldEditable, setFieldEditable] = useState(false);
 	const [fieldValue, setFieldValue] = useState(value);
 	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
 
@@ -383,7 +386,14 @@ function AddressField({
 		const currentTarget = event.currentTarget;
 
 		setFieldValue(currentTarget.value);
-		updateFn(currentTarget.value);
+
+		if (updateFn) {
+			updateFn(currentTarget.value);
+		}
+	}
+
+	function getDisplayValue() {
+		return displayValue ? displayValue : fieldValue;
 	}
 
 	return (
@@ -396,8 +406,18 @@ function AddressField({
 
 				<div className="list-group-text">
 					{!editable && (
-						<div onClick={() => onClick(true)}>
-							{displayValue ? displayValue : fieldValue}
+						<div className="inline-edit">
+							<div
+								onClick={() => onClick(true)}
+								onMouseEnter={() => setFieldEditable(true)}
+								onMouseLeave={() => setFieldEditable(false)}
+							>
+								{fieldEditable ? (
+									<EditableField value={getDisplayValue()} />
+								) : (
+									getDisplayValue()
+								)}
+							</div>
 						</div>
 					)}
 
