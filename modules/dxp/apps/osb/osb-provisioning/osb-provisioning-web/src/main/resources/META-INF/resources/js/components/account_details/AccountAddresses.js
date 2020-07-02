@@ -42,6 +42,7 @@ function AccountAddresses({accountKey, addURL, addresses}) {
 			addressRegion: '-',
 			id: '',
 			postalCode: '-',
+			readOnly: true,
 			streetAddressLine1: '-',
 			streetAddressLine2: '-',
 			streetAddressLine3: '-'

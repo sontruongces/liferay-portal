@@ -146,6 +146,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					fieldLabel={Liferay.Language.get('street-1')}
 					fieldName="streetAddressLine1"
 					onClick={handleOnClick}
+					readOnly={address.readOnly}
 					type={setFieldType()}
 					value={address.streetAddressLine1}
 				/>
@@ -155,6 +156,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					fieldLabel={Liferay.Language.get('city')}
 					fieldName="addressLocality"
 					onClick={handleOnClick}
+					readOnly={address.readOnly}
 					type={setFieldType()}
 					value={address.addressLocality}
 				/>
@@ -164,6 +166,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					fieldLabel={Liferay.Language.get('street-2')}
 					fieldName="streetAddressLine2"
 					onClick={handleOnClick}
+					readOnly={address.readOnly}
 					type={setFieldType()}
 					value={address.streetAddressLine2}
 				/>
@@ -175,6 +178,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					fieldName="addressRegionId"
 					onClick={handleOnClick}
 					options={regionOptions}
+					readOnly={address.readOnly}
 					type={setFieldType(FIELD_TYPE_SELECT)}
 					value={regionId}
 				/>
@@ -184,6 +188,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					fieldLabel={Liferay.Language.get('street-3')}
 					fieldName="streetAddressLine3"
 					onClick={handleOnClick}
+					readOnly={address.readOnly}
 					type={setFieldType()}
 					value={address.streetAddressLine3}
 				/>
@@ -193,6 +198,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					fieldLabel={Liferay.Language.get('postal-code')}
 					fieldName="addressZip"
 					onClick={handleOnClick}
+					readOnly={address.readOnly}
 					required={zipRequired}
 					type={setFieldType()}
 					updateFn={handlePostalCodeUpdate}
@@ -206,6 +212,7 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					fieldName="addressCountryId"
 					onClick={handleOnClick}
 					options={countryOptions}
+					readOnly={address.readOnly}
 					type={setFieldType(FIELD_TYPE_SELECT)}
 					updateFn={handleCountryUpdate}
 					value={countryId}
@@ -323,6 +330,7 @@ function AddressField({
 	fieldName,
 	onClick,
 	options = [],
+	readOnly,
 	required = false,
 	type = FIELD_TYPE_TEXT,
 	updateFn,
@@ -359,64 +367,72 @@ function AddressField({
 					{required && <span className="text-warning">{'*'}</span>}
 				</ClayList.ItemTitle>
 
-				<div className="list-group-text">
-					{!editable && (
-						<div className="inline-edit">
-							<div
-								onClick={() => onClick(true)}
-								onMouseEnter={() => setFieldEditable(true)}
-								onMouseLeave={() => setFieldEditable(false)}
-							>
-								{fieldEditable ? (
-									<EditableField value={getDisplayValue()} />
-								) : (
-									getDisplayValue()
-								)}
+				{readOnly && (
+					<div className="list-group-text">{getDisplayValue()}</div>
+				)}
+
+				{!readOnly && (
+					<div className="list-group-text">
+						{!editable && (
+							<div className="inline-edit">
+								<div
+									onClick={() => onClick(true)}
+									onMouseEnter={() => setFieldEditable(true)}
+									onMouseLeave={() => setFieldEditable(false)}
+								>
+									{fieldEditable ? (
+										<EditableField
+											value={getDisplayValue()}
+										/>
+									) : (
+										getDisplayValue()
+									)}
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 
-					{editable && type === FIELD_TYPE_SELECT && (
-						<label
-							className="form-control-label"
-							htmlFor={namespacedFieldName}
-						>
-							<select
-								className="form-control"
-								disabled={options.length === 0}
-								id={namespacedFieldName}
-								name={namespacedFieldName}
-								onChange={handleChange}
-								value={convertDashToEmptyString(fieldValue)}
+						{editable && type === FIELD_TYPE_SELECT && (
+							<label
+								className="form-control-label"
+								htmlFor={namespacedFieldName}
 							>
-								{options.map(option => (
-									<option
-										key={option.value}
-										value={option.value}
-									>
-										{option.label}
-									</option>
-								))}
-							</select>
-						</label>
-					)}
+								<select
+									className="form-control"
+									disabled={options.length === 0}
+									id={namespacedFieldName}
+									name={namespacedFieldName}
+									onChange={handleChange}
+									value={convertDashToEmptyString(fieldValue)}
+								>
+									{options.map(option => (
+										<option
+											key={option.value}
+											value={option.value}
+										>
+											{option.label}
+										</option>
+									))}
+								</select>
+							</label>
+						)}
 
-					{editable && type === FIELD_TYPE_TEXT && (
-						<label
-							className="form-control-label"
-							htmlFor={namespacedFieldName}
-						>
-							<input
-								className="form-control"
-								id={namespacedFieldName}
-								name={namespacedFieldName}
-								onChange={handleChange}
-								type="text"
-								value={convertDashToEmptyString(fieldValue)}
-							/>
-						</label>
-					)}
-				</div>
+						{editable && type === FIELD_TYPE_TEXT && (
+							<label
+								className="form-control-label"
+								htmlFor={namespacedFieldName}
+							>
+								<input
+									className="form-control"
+									id={namespacedFieldName}
+									name={namespacedFieldName}
+									onChange={handleChange}
+									type="text"
+									value={convertDashToEmptyString(fieldValue)}
+								/>
+							</label>
+						)}
+					</div>
+				)}
 			</div>
 		</ClayList.Item>
 	);
