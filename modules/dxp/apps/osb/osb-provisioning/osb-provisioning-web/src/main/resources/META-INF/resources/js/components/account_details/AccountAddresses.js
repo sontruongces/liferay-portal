@@ -282,7 +282,10 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					value={countryId}
 				/>
 
-				<ClayList.Item className="address-controls" flex>
+				<ClayList.Item
+					className={`address-controls ${editable ? 'editing' : ''}`}
+					flex
+				>
 					{editable && (
 						<div className="btn-group" role="group">
 							<div className="btn-group-item">

@@ -1,13 +1,17 @@
 .account-details,
 .support-information {
 	.address-controls {
-		justify-content: space-between;
+		justify-content: end;
 		padding-left: $spacing-md;
 		padding-right: $spacing-md;
 
-		&.list-group-item-flex {
-			flex-basis: 100%;
-			max-width: 100%;
+		&.editing {
+			justify-content: space-between;
+
+			&.list-group-item-flex {
+				flex-basis: 100%;
+				max-width: 100%;
+			}
 		}
 	}
 
