@@ -17,6 +17,7 @@ package com.liferay.blogs.service.impl;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetLinkConstants;
 import com.liferay.blogs.configuration.BlogsFileUploadsConfiguration;
+import com.liferay.blogs.configuration.BlogsGroupServiceConfiguration;
 import com.liferay.blogs.constants.BlogsConstants;
 import com.liferay.blogs.exception.EntryContentException;
 import com.liferay.blogs.exception.EntryCoverImageCropException;
@@ -25,7 +26,6 @@ import com.liferay.blogs.exception.EntrySmallImageNameException;
 import com.liferay.blogs.exception.EntrySmallImageScaleException;
 import com.liferay.blogs.exception.EntryTitleException;
 import com.liferay.blogs.exception.EntryUrlTitleException;
-import com.liferay.blogs.internal.util.BlogsSubscriptionSender;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.blogs.service.BlogsStatsUserLocalService;
 import com.liferay.blogs.service.base.BlogsEntryLocalServiceBaseImpl;
@@ -55,6 +55,7 @@ import com.liferay.portal.kernel.model.Repository;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProviderUtil;
 import com.liferay.portal.kernel.notifications.UserNotificationDefinition;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
@@ -68,6 +69,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.ModelPermissions;
 import com.liferay.portal.kernel.servlet.taglib.ui.ImageSelector;
 import com.liferay.portal.kernel.servlet.taglib.ui.ImageSelectorProcessor;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.social.SocialActivityManagerUtil;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
@@ -79,6 +81,7 @@ import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.GroupSubscriptionCheckSubscriptionSender;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Http;
@@ -88,6 +91,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.SubscriptionSender;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.portal.kernel.util.Validator;
@@ -1926,8 +1930,9 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 				blogsGroupServiceSettings.getEmailEntryAddedBody();
 		}
 
-		BlogsSubscriptionSender subscriptionSender =
-			new BlogsSubscriptionSender();
+		SubscriptionSender subscriptionSender =
+			new GroupSubscriptionCheckSubscriptionSender(
+				BlogsConstants.RESOURCE_NAME);
 
 		subscriptionSender.setClassPK(entry.getEntryId());
 		subscriptionSender.setClassName(entry.getModelClassName());
@@ -2005,6 +2010,16 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		subscriptionSender.setReplyToAddress(fromAddress);
 		subscriptionSender.setScopeGroupId(entry.getGroupId());
+
+		User user = userLocalService.getUser(userId);
+
+		BlogsGroupServiceConfiguration blogsGroupServiceConfiguration =
+			_getBlogsGroupServiceConfiguration(user.getGroupId());
+
+		subscriptionSender.setSendToCurrentUser(
+			blogsGroupServiceConfiguration.
+				sendNotificationsToBlogsEntryCreator());
+
 		subscriptionSender.setServiceContext(serviceContext);
 
 		_unsubscribeHelper.registerHooks(subscriptionSender);
@@ -2329,6 +2344,16 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			throw new EntryContentException(
 				"Content has more than " + contentMaxLength + " characters");
 		}
+	}
+
+	private BlogsGroupServiceConfiguration _getBlogsGroupServiceConfiguration(
+			long groupId)
+		throws PortalException {
+
+		return ConfigurationProviderUtil.getConfiguration(
+			BlogsGroupServiceConfiguration.class,
+			new GroupServiceSettingsLocator(
+				groupId, BlogsConstants.SERVICE_NAME));
 	}
 
 	private String _getGroupDescriptiveName(Group group, Locale locale) {
