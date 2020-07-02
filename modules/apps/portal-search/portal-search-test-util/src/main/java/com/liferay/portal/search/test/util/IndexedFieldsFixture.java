@@ -21,7 +21,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.role.RoleConstants;
-import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchEngine;
 import com.liferay.portal.kernel.search.SearchEngineHelper;
@@ -29,6 +28,7 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.search.document.Document;
 import com.liferay.portal.search.document.DocumentBuilder;
 import com.liferay.portal.search.document.DocumentBuilderFactory;
 
@@ -164,10 +164,25 @@ public class IndexedFieldsFixture {
 		return document;
 	}
 
-	public void postProcessDocument(Document document) {
+	public void postProcessDocument(
+		com.liferay.portal.kernel.search.Document document) {
+
 		if (_isSearchEngineSolr()) {
 			document.remove("score");
 		}
+	}
+
+	public Document postProcessDocument(Document document) {
+		if (_isSearchEngineSolr()) {
+			DocumentBuilder documentBuilder = _documentBuilderFactory.builder(
+				document);
+
+			documentBuilder.unsetValue("score");
+
+			return documentBuilder.build();
+		}
+
+		return document;
 	}
 
 	protected void populateRoleIds(
