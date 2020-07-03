@@ -404,9 +404,9 @@ function AddressField({
 									onChange={handleChange}
 									value={convertDashToEmptyString(fieldValue)}
 								>
-									{options.map(option => (
+									{options.map((option, index) => (
 										<option
-											key={option.value}
+											key={option.value || index}
 											value={option.value}
 										>
 											{option.label}
