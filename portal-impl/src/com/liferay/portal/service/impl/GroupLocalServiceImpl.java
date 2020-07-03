@@ -3825,8 +3825,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
-		UnicodeProperties oldTypeSettingsProperties =
-			new UnicodeProperties(true);
+		UnicodeProperties oldTypeSettingsProperties = new UnicodeProperties(
+			true);
 
 		oldTypeSettingsProperties.fastLoad(group.getTypeSettings());
 
