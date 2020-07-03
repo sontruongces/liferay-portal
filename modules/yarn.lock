@@ -3907,10 +3907,10 @@ alloy-ui@^3.1.0-deprecated.1, alloy-ui@^3.1.0-deprecated.40:
   resolved "https://registry.yarnpkg.com/alloy-ui/-/alloy-ui-3.1.0.tgz#95842e4c793abbfe84aa8abfc5a637cd36dda823"
   integrity sha1-lYQuTHk6u/6Eqoq/xaY3zTbdqCM=
 
-alloyeditor@2.11.7:
-  version "2.11.7"
-  resolved "https://registry.yarnpkg.com/alloyeditor/-/alloyeditor-2.11.7.tgz#55c95d9b27a9fd628b2557d7dda7a4ea4c827502"
-  integrity sha512-GG3b3RZpVWqFyWhbAY0eSFqeDvG1HTKflpmRRcsPxLtd40SbnxkZjX8qCWWo89mD5nLLbCpmwCurqBUXHzKlUA==
+alloyeditor@2.11.9:
+  version "2.11.9"
+  resolved "https://registry.yarnpkg.com/alloyeditor/-/alloyeditor-2.11.9.tgz#b69ca73387865b7a20d0220311815fb05f3b1015"
+  integrity sha512-lq0P9wNTNainOwWo2AK4xwVTmTV9E1eKjeJ4IHdB8kRO/F5nlbDrH6GxeUnH3nXXYoGc9FlHjqBwgn4RKJXW1Q==
   dependencies:
     clay-css "^2.11.1"
     prop-types "^15.6.2"
@@ -20043,6 +20043,14 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
+
+style-ext-html-webpack-plugin@4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/style-ext-html-webpack-plugin/-/style-ext-html-webpack-plugin-4.1.2.tgz#6e05cda52d933adee1af62bbaf907f876dc00582"
+  integrity sha512-HNpxCbUl5M0rUnZM6HDSYoUlo54qPSiwMZeg7Dms4zFlNbmMusQbYGielSH96wXddkix4FN4ng+2A+4R+Qn0wg==
+  dependencies:
+    clean-css "^4.2.1"
+    debug "^4.1.1"
 
 style-loader@^0.23.1:
   version "0.23.1"
