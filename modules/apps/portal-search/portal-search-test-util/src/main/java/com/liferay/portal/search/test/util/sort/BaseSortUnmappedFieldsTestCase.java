@@ -64,16 +64,6 @@ public abstract class BaseSortUnmappedFieldsTestCase
 		assertSearch(
 			"emailAddress", "[dxp@liferay.com]",
 			withTerm("emailAddress", "dxp@liferay.com"));
-
-		assertSearch("emailAddressDomain", "[liferay.com]");
-		assertSearch(
-			"emailAddressDomain", "[]",
-			withTerm("emailAddressDomain", "liferay"));
-		assertSearch(
-			"emailAddressDomain", "[]", withTerm("emailAddressDomain", "com"));
-		assertSearch(
-			"emailAddressDomain", "[liferay.com]",
-			withTerm("emailAddressDomain", "liferay.com"));
 	}
 
 	@Test
