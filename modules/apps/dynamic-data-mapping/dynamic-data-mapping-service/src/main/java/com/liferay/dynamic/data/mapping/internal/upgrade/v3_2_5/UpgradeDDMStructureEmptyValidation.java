@@ -75,14 +75,14 @@ public class UpgradeDDMStructureEmptyValidation extends UpgradeProcess {
 				while (rs.next()) {
 					String definition = rs.getString("definition");
 
-					String newDefinition = _updateEmptyValidation(definition);
+					String newDefinition = _updateDDMFormFieldValidation(
+						definition);
 
 					if (newDefinition.equals(definition)) {
 						continue;
 					}
 
 					ps2.setString(1, newDefinition);
-
 					ps2.setLong(2, rs.getLong("structureId"));
 
 					ps2.addBatch();
@@ -93,14 +93,14 @@ public class UpgradeDDMStructureEmptyValidation extends UpgradeProcess {
 						while (rs2.next()) {
 							definition = rs2.getString("definition");
 
-							newDefinition = _updateEmptyValidation(definition);
+							newDefinition = _updateDDMFormFieldValidation(
+								definition);
 
 							if (newDefinition.equals(definition)) {
 								continue;
 							}
 
 							ps4.setString(1, newDefinition);
-
 							ps4.setLong(2, rs2.getLong("structureVersionId"));
 
 							ps4.addBatch();
@@ -115,7 +115,7 @@ public class UpgradeDDMStructureEmptyValidation extends UpgradeProcess {
 		}
 	}
 
-	private String _updateEmptyValidation(String definition) {
+	private String _updateDDMFormFieldValidation(String definition) {
 		DDMFormDeserializerDeserializeResponse
 			ddmFormDeserializerDeserializeResponse =
 				_ddmFormDeserializer.deserialize(
