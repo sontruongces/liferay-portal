@@ -19,6 +19,12 @@
 		<!-- Other fields -->
 
 		<column name="name" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="Name" return-type="ProductBundle">
+			<finder-column name="name" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="ProductBundleProducts" remote-service="false">
 
@@ -37,6 +43,7 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>ProductBundleName</exception>
 		<exception>RequiredProduct</exception>
 	</exceptions>
 </service-builder>

@@ -14,8 +14,13 @@
 
 package com.liferay.osb.provisioning.service.impl;
 
+import com.liferay.osb.provisioning.exception.ProductBundleNameException;
+import com.liferay.osb.provisioning.model.ProductBundle;
 import com.liferay.osb.provisioning.service.base.ProductBundleLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.util.Validator;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -28,4 +33,42 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ProductBundleLocalServiceImpl
 	extends ProductBundleLocalServiceBaseImpl {
+
+	public ProductBundle addProductBundle(long userId, String name)
+		throws PortalException {
+
+		User user = userLocalService.getUser(userId);
+
+		validate(0, name);
+
+		long productBundleId = counterLocalService.increment();
+
+		ProductBundle productBundle = productBundlePersistence.create(
+			productBundleId);
+
+		productBundle.setProductBundleId(productBundleId);
+		productBundle.setCompanyId(user.getCompanyId());
+		productBundle.setUserId(userId);
+		productBundle.setName(name);
+
+		return productBundlePersistence.update(productBundle);
+	}
+
+	protected void validate(long productBundleId, String name)
+		throws PortalException {
+
+		if (Validator.isNull(name)) {
+			throw new ProductBundleNameException();
+		}
+
+		ProductBundle productBundle = productBundlePersistence.fetchByName(
+			name);
+
+		if ((productBundle != null) &&
+			(productBundle.getProductBundleId() != productBundleId)) {
+
+			throw new ProductBundleNameException.MustNotBeDuplicate(name);
+		}
+	}
+
 }

@@ -17,6 +17,22 @@
 <%@ include file="/init.jsp" %>
 
 <div class="container-fluid-1280">
+	<clay:management-toolbar
+		creationMenu='<%=
+			new JSPCreationMenu(pageContext) {
+				{
+					addDropdownItem(
+						dropdownItem -> {
+							dropdownItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/product_bundles/edit_product_bundle", "redirect", PortalUtil.getCurrentURL(request));
+							dropdownItem.setLabel(LanguageUtil.get(request, "new-product-bundle"));
+						});
+				}
+			}
+		%>'
+		selectable="<%= false %>"
+		showSearch="<%= false %>"
+	/>
+
 	<liferay-ui:search-container
 		emptyResultsMessage="no-product-bundles-were-found"
 		headerNames="name"
@@ -33,7 +49,14 @@
 			keyProperty="productBundleId"
 			modelVar="productBundle"
 		>
+			<portlet:renderURL var="rowURL">
+				<portlet:param name="mvcRenderCommandName" value="/product_bundles/edit_product_bundle" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="productBundleId" value="<%= String.valueOf(productBundle.getProductBundleId()) %>" />
+			</portlet:renderURL>
+
 			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
 				name="name"
 				value="<%= productBundle.getName() %>"
 			/>

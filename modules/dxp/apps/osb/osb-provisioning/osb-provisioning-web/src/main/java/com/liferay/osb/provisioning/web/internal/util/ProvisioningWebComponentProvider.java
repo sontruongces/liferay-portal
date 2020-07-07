@@ -26,6 +26,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWeb
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.AssignProductBundleProductsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.AssignTeamContactsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ContactSearchDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ProductSearchDisplayContext;
@@ -60,6 +61,17 @@ public class ProvisioningWebComponentProvider {
 
 		return _provisioningWebComponentProvider.
 			_getAccountSearchDisplayContext(
+				renderRequest, renderResponse, httpServletRequest);
+	}
+
+	public static AssignProductBundleProductsDisplayContext
+			getAssignProductBundleProductsDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider.
+			_getAssignProductBundleProductsDisplayContext(
 				renderRequest, renderResponse, httpServletRequest);
 	}
 
@@ -200,6 +212,16 @@ public class ProvisioningWebComponentProvider {
 		return new AccountSearchDisplayContext(
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
 			_accountWebService);
+	}
+
+	private AssignProductBundleProductsDisplayContext
+		_getAssignProductBundleProductsDisplayContext(
+			RenderRequest renderRequest, RenderResponse renderResponse,
+			HttpServletRequest httpServletRequest) {
+
+		return new AssignProductBundleProductsDisplayContext(
+			renderRequest, renderResponse, httpServletRequest,
+			_productWebService);
 	}
 
 	private ContactSearchDisplayContext _getContactSearchDisplayContext(
