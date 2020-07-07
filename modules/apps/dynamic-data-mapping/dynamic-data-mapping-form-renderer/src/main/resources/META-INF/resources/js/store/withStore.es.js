@@ -207,7 +207,13 @@ export default Component => {
 		}
 
 		_handleActivePageUpdated(event) {
-			this.setState(handleActivePageUpdated(event));
+			this.setState(handleActivePageUpdated(event), () => {
+				const currentPageTop = document.querySelector(
+					'.ddm-form-builder-app'
+				);
+
+				currentPageTop.scrollIntoView();
+			});
 		}
 
 		_handleFieldRemoved(name) {
