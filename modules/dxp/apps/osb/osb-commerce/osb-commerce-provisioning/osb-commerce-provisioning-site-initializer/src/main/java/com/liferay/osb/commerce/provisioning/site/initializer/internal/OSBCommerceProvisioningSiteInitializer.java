@@ -116,12 +116,6 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
 	public static final String KEY = "osb-commerce-provisioning-initializer";
 
-	private static final ArrayList _LAYOUTS = new ArrayList<String[]>() {{
-		add(new String[]{"Start Trial", "start_trial"});
-		add(new String[]{"Account Management", "account_management"});
-		add(new String[]{"Plan Management", "plan_management"});
-	}};
-
 	@Override
 	public String getDescription(Locale locale) {
 		return StringPool.BLANK;
@@ -149,6 +143,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
 			_updateLogo(serviceContext);
 			_updateLookAndFeel(serviceContext);
+
 			_initializeLayoutFragments(serviceContext);
 
 			_initCommerce(serviceContext);
@@ -157,38 +152,6 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			_log.error(exception, exception);
 
 			throw new InitializationException(exception);
-		}
-	}
-
-	private void _initializeLayoutFragments(ServiceContext serviceContext)
-		throws Exception {
-
-		FragmentCollection fragmentCollection = _addFragmentCollection(
-			serviceContext);
-
-		_addFileEntries(
-			fragmentCollection.getFragmentCollectionId(),
-			fragmentCollection.getResourcesFolderId(), serviceContext);
-
-		LayoutPageTemplateCollection layoutPageTemplateCollection =
-			_addLayoutPageTemplateCollection(serviceContext);
-
-		Iterator layoutsIterator = _LAYOUTS.iterator();
-
-		while (layoutsIterator.hasNext()) {
-			String[] layout = (String[]) layoutsIterator.next();
-
-			String fragmentName = layout[0];
-			String fragmentPath = _PATH + _LAYOUTS_PATH + layout[1];
-
-			List<FragmentEntry> fragmentEntry = _addFragmentEntries(
-				fragmentCollection.getFragmentCollectionId(), fragmentPath,
-				serviceContext);
-
-			_addLayout(
-				layoutPageTemplateCollection
-					.getLayoutPageTemplateCollectionId(), fragmentName,
-				fragmentEntry, fragmentPath, serviceContext);
 		}
 	}
 
@@ -551,6 +514,39 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		}
 	}
 
+	private void _initializeLayoutFragments(ServiceContext serviceContext)
+		throws Exception {
+
+		FragmentCollection fragmentCollection = _addFragmentCollection(
+			serviceContext);
+
+		_addFileEntries(
+			fragmentCollection.getFragmentCollectionId(),
+			fragmentCollection.getResourcesFolderId(), serviceContext);
+
+		LayoutPageTemplateCollection layoutPageTemplateCollection =
+			_addLayoutPageTemplateCollection(serviceContext);
+
+		Iterator layoutsIterator = _LAYOUTS.iterator();
+
+		while (layoutsIterator.hasNext()) {
+			String[] layout = (String[])layoutsIterator.next();
+
+			String fragmentName = layout[0];
+
+			String fragmentPath = _PATH + _LAYOUTS_PATH + layout[1];
+
+			List<FragmentEntry> fragmentEntry = _addFragmentEntries(
+				fragmentCollection.getFragmentCollectionId(), fragmentPath,
+				serviceContext);
+
+			_addLayout(
+				layoutPageTemplateCollection.
+					getLayoutPageTemplateCollectionId(),
+				fragmentName, fragmentEntry, fragmentPath, serviceContext);
+		}
+	}
+
 	private void _updateLogo(ServiceContext serviceContext) throws Exception {
 		URL url = _bundle.getEntry(_PATH + "images/logo.png");
 
@@ -582,6 +578,16 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			serviceContext.getScopeGroupId(), _THEME_ID, StringPool.BLANK,
 			StringPool.BLANK);
 	}
+
+	private static final ArrayList _LAYOUTS = new ArrayList<String[]>() {
+		{
+			add(new String[] {"Start Trial", "start_trial"});
+
+			add(new String[] {"Account Management", "account_management"});
+
+			add(new String[] {"Plan Management", "plan_management"});
+		}
+	};
 
 	private static final String _LAYOUTS_PATH = "fragments/layouts/";
 
