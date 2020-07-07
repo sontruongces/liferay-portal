@@ -15,15 +15,24 @@
 package com.liferay.asset.taglib.servlet.taglib;
 
 import com.liferay.asset.taglib.internal.servlet.ServletContextUtil;
+import com.liferay.asset.taglib.internal.servlet.taglib.util.AssetEntryUsagesTaglibUtil;
 import com.liferay.taglib.util.IncludeTag;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 /**
  * @author Eudaldo Alonso
  */
 public class AssetViewUsagesTag<R> extends IncludeTag {
+
+	@Override
+	public int doStartTag() throws JspException {
+		AssetEntryUsagesTaglibUtil.recordAssetEntryUsage(_className, _classPK);
+
+		return super.doStartTag();
+	}
 
 	public String getClassName() {
 		return _className;
