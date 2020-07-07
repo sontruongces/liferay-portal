@@ -19,12 +19,6 @@ package com.liferay.osb.commerce.provisioning.constants;
  */
 public class OSBCommercePortalInstanceConstants {
 
-	public static final String[] PORTAL_INSTANCE_FEATURES = {
-		"FEATURE_PAYMENT_TAX_MANAGEMENT", "SITE_AND_CONTENT_MANAGEMENT",
-		"CATALOG_AND_PRODUCT_BROWSING", "CATALOG_MANAGEMENT",
-		"PRICING_AND_DISCOUNT", "SHIPPING", "ORDER_MANAGEMENT"
-	};
-
 	public static final String PORTAL_INSTANCE_STATUS =
 		"PORTAL_INSTANCE_STATUS";
 

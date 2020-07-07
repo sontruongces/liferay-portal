@@ -14,15 +14,12 @@
 
 package com.liferay.osb.commerce.provisioning.web.internal.portlet;
 
-import com.liferay.commerce.account.model.CommerceAccount;
-import com.liferay.commerce.account.service.CommerceAccountLocalService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
-import com.liferay.commerce.service.CommerceOrderLocalService;
+import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
 import com.liferay.osb.commerce.provisioning.web.internal.portlet.display.context.PlanManagementDisplayContext;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -33,13 +30,12 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Gianmarco Brunialti Masera
+ * @author Ivica Cardic
  */
 @Component(
 	immediate = true,
@@ -72,37 +68,12 @@ public class PlanManagementPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
-			renderRequest);
-
-		try {
-			long commerceAccountId = ParamUtil.getLong(
-				httpServletRequest, "commerceAccountId");
-
-			CommerceAccount commerceAccount = null;
-
-			if (commerceAccountId == 0) {
-				commerceAccount =
-					_commerceAccountHelper.getCurrentCommerceAccount(
-						httpServletRequest);
-			}
-			else {
-				commerceAccount =
-					_commerceAccountLocalService.getCommerceAccount(
-						commerceAccountId);
-			}
-
-			renderRequest.setAttribute(
-				WebKeys.PORTLET_DISPLAY_CONTEXT,
-				new PlanManagementDisplayContext(
-					commerceAccount.getCommerceAccountId(),
-					_commerceOrderLocalService,
-					_commerceSubscriptionEntryLocalService, _portal,
-					renderRequest, renderResponse));
-		}
-		catch (Exception exception) {
-			throw new IOException(exception);
-		}
+		renderRequest.setAttribute(
+			WebKeys.PORTLET_DISPLAY_CONTEXT,
+			new PlanManagementDisplayContext(
+				_commerceAccountHelper, _commerceOrderItemLocalService,
+				_commerceSubscriptionEntryLocalService, _portal, renderRequest,
+				renderResponse));
 
 		super.render(renderRequest, renderResponse);
 	}
@@ -111,10 +82,7 @@ public class PlanManagementPortlet extends MVCPortlet {
 	private CommerceAccountHelper _commerceAccountHelper;
 
 	@Reference
-	private CommerceAccountLocalService _commerceAccountLocalService;
-
-	@Reference
-	private CommerceOrderLocalService _commerceOrderLocalService;
+	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
 
 	@Reference
 	private CommerceSubscriptionEntryLocalService
