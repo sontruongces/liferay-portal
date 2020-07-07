@@ -14,7 +14,7 @@
 
 package com.liferay.osb.commerce.provisioning.web.internal.portlet.action;
 
-import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
+import com.liferay.commerce.service.CommerceSubscriptionEntryService;
 import com.liferay.osb.commerce.provisioning.web.internal.constants.OSBCommerceProvisioningPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.util.Constants;
@@ -77,14 +77,12 @@ public class EditPlanMVCActionCommand extends BaseMVCActionCommand {
 		for (long deleteCommerceSubscriptionEntryId :
 				deleteCommerceSubscriptionEntryIds) {
 
-			_commerceSubscriptionEntryLocalService.
-				deleteCommerceSubscriptionEntry(
-					deleteCommerceSubscriptionEntryId);
+			_commerceSubscriptionEntryService.deleteCommerceSubscriptionEntry(
+				deleteCommerceSubscriptionEntryId);
 		}
 	}
 
 	@Reference
-	private CommerceSubscriptionEntryLocalService
-		_commerceSubscriptionEntryLocalService;
+	private CommerceSubscriptionEntryService _commerceSubscriptionEntryService;
 
 }
