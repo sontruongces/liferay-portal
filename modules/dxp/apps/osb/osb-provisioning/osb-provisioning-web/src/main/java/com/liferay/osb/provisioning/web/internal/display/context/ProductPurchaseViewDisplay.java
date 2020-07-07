@@ -87,7 +87,7 @@ public class ProductPurchaseViewDisplay {
 	}
 
 	public String getGracePeriod() {
-		if (_perpetual) {
+		if (_perpetual || (_originalEndDate == null)) {
 			return StringPool.DASH;
 		}
 
