@@ -26,6 +26,7 @@ import InlineEdit from './InlineEdit';
 
 function DetailField({
 	displayAs,
+	displayValue,
 	fieldLabel,
 	fieldName = fieldLabel,
 	formAction,
@@ -74,6 +75,7 @@ function DetailField({
 
 							<InlineEdit
 								displayAs={displayAs}
+								displayValue={displayValue}
 								fieldName={fieldName}
 								fieldValue={value}
 								inputStyle={inputStyle}
@@ -91,6 +93,7 @@ function DetailField({
 
 DetailField.propTypes = {
 	displayAs: PropTypes.oneOf(['label', 'text']),
+	displayValue: PropTypes.string,
 	fieldLabel: PropTypes.string,
 	fieldName: PropTypes.string,
 	formAction: PropTypes.string,

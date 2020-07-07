@@ -26,11 +26,11 @@ function renderSupportDetails() {
 				status: 'Approved',
 				tier: 'Regular'
 			}}
-			languageId="en_US"
+			language={{id: 'en_US', name: 'English'}}
 			languageList={[
-				{languageId: 'en_US', languageName: 'English'},
-				{languageId: 'zh_CN', languageName: 'Chinese'},
-				{languageId: 'es_ES', languageName: 'Spanish'}
+				{id: 'en_US', name: 'English'},
+				{id: 'zh_CN', name: 'Chinese'},
+				{id: 'es_ES', name: 'Spanish'}
 			]}
 			regionNames={['United States', 'China', 'Spain']}
 			updateAccountURL="edit/account/url"

@@ -19,7 +19,7 @@ import DetailField from '../DetailField';
 
 function SupportDetails({
 	account,
-	languageId,
+	language,
 	languageList,
 	regionNames,
 	updateAccountURL,
@@ -34,11 +34,11 @@ function SupportDetails({
 		updateAccount: true
 	};
 
-	function createSelectOptions(array) {
+	function createSelectOptions(array, json) {
 		return array.map(value => {
 			return {
-				label: value,
-				value
+				label: json ? value.name : value,
+				value: json ? value.id : value
 			};
 		});
 	}
@@ -52,22 +52,20 @@ function SupportDetails({
 				fieldName="region"
 				formAction={updateAccountURL}
 				formData={formData}
-				options={createSelectOptions(regionNames)}
+				options={createSelectOptions(regionNames, false)}
 				type={FIELD_TYPE_SELECT}
 				value={account.region}
 			/>
 
 			<DetailField
+				displayValue={language.name}
 				fieldLabel={Liferay.Language.get('support-language')}
 				fieldName="languageId"
 				formAction={updateLanguageIdURL}
-				formData={{languageId}}
-				options={languageList.map(({languageId, languageName}) => ({
-					label: languageName,
-					value: languageId
-				}))}
+				formData={{languageId: language.id}}
+				options={createSelectOptions(languageList, true)}
 				type={FIELD_TYPE_SELECT}
-				value={languageId}
+				value={language.id}
 			/>
 		</ClayList>
 	);
@@ -83,11 +81,14 @@ SupportDetails.propTypes = {
 		status: PropTypes.string,
 		tier: PropTypes.string
 	}),
-	languageId: PropTypes.string,
+	language: PropTypes.shape({
+		id: PropTypes.string,
+		name: PropTypes.string
+	}),
 	languageList: PropTypes.arrayOf(
 		PropTypes.shape({
-			languageId: PropTypes.string,
-			languageName: PropTypes.string
+			id: PropTypes.string,
+			name: PropTypes.string
 		})
 	),
 	regionNames: PropTypes.arrayOf(PropTypes.string),

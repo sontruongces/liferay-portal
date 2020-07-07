@@ -43,6 +43,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -453,6 +454,12 @@ public class ViewAccountDisplayContext {
 
 		data.put("account", getAccountDisplay());
 
+		AccountEntry accountEntry = getAccountEntry();
+
+		data.put("instructions", _getAccountEntryInstructions(accountEntry));
+
+		data.put("language", _getAccountEntryLanguage(accountEntry));
+
 		List<String> regionNames = new ArrayList<>();
 
 		for (Account.Region region : Account.Region.values()) {
@@ -461,46 +468,14 @@ public class ViewAccountDisplayContext {
 
 		data.put("regionNames", regionNames);
 
-		AccountEntry accountEntry = getAccountEntry();
-
-		String instructions = accountEntry.getInstructions();
-
-		if (Validator.isNotNull(instructions)) {
-			data.put("instructions", instructions);
-		}
-		else {
-			data.put("instructions", StringPool.DASH);
-		}
-
-		data.put("languageId", accountEntry.getLanguageId());
-
-		List<JSONObject> languageList = new ArrayList<>();
-
-		for (Locale languageLocale : LanguageUtil.getAvailableLocales()) {
-			JSONObject jsonObject = JSONUtil.put(
-				"languageId", languageLocale.toString()
-			).put(
-				"languageName", languageLocale.getDisplayLanguage()
-			);
-
-			languageList.add(jsonObject);
-		}
-
-		data.put("languageList", languageList);
-
-		PortletURL portletURL = renderResponse.createRenderURL();
-
-		portletURL.setParameter(
-			"mvcRenderCommandName", "/accounts/view_account");
-		portletURL.setParameter("accountKey", account.getKey());
-		portletURL.setParameter("tabs1", "support");
+		data.put("languageList", _getLanguageList());
 
 		PortletURL updateAccountURL = renderResponse.createActionURL();
 
 		updateAccountURL.setParameter(
 			ActionRequest.ACTION_NAME, "/accounts/edit_account");
 		updateAccountURL.setParameter("accountKey", account.getKey());
-		updateAccountURL.setParameter("redirect", portletURL.toString());
+		updateAccountURL.setParameter("redirect", _getPortletURL("support"));
 
 		data.put("updateAccountURL", updateAccountURL.toString());
 
@@ -511,7 +486,7 @@ public class ViewAccountDisplayContext {
 		updateLanguageIdURL.setParameter(
 			Constants.CMD, ProvisioningActionKeys.UPDATE_LANGUAGE_ID);
 		updateLanguageIdURL.setParameter("accountKey", account.getKey());
-		updateLanguageIdURL.setParameter("redirect", portletURL.toString());
+		updateLanguageIdURL.setParameter("redirect", _getPortletURL("support"));
 
 		data.put("updateLanguageIdURL", updateLanguageIdURL.toString());
 
@@ -522,7 +497,8 @@ public class ViewAccountDisplayContext {
 		updateInstructionsURL.setParameter(
 			Constants.CMD, ProvisioningActionKeys.UPDATE_INSTRUCTIONS);
 		updateInstructionsURL.setParameter("accountKey", account.getKey());
-		updateInstructionsURL.setParameter("redirect", portletURL.toString());
+		updateInstructionsURL.setParameter(
+			"redirect", _getPortletURL("support"));
 
 		data.put("updateInstructionsURL", updateInstructionsURL.toString());
 
@@ -602,6 +578,40 @@ public class ViewAccountDisplayContext {
 	protected RenderRequest renderRequest;
 	protected RenderResponse renderResponse;
 	protected TeamWebService teamWebService;
+
+	private String _getAccountEntryInstructions(AccountEntry accountEntry)
+		throws Exception {
+
+		String instructions = accountEntry.getInstructions();
+
+		if (Validator.isNotNull(instructions)) {
+			return instructions;
+		}
+
+		return StringPool.DASH;
+	}
+
+	private JSONObject _getAccountEntryLanguage(AccountEntry accountEntry)
+		throws Exception {
+
+		String languageId = accountEntry.getLanguageId();
+
+		if (Validator.isNotNull(languageId)) {
+			Locale languageLocale = LocaleUtil.fromLanguageId(languageId);
+
+			return JSONUtil.put(
+				"id", languageId
+			).put(
+				"name", languageLocale.getDisplayLanguage()
+			);
+		}
+
+		return JSONUtil.put(
+			"id", StringPool.DASH
+		).put(
+			"name", StringPool.DASH
+		);
+	}
 
 	private List<DropdownItem> _getFilterCustomerRoleDropdownItems()
 		throws Exception {
@@ -690,6 +700,33 @@ public class ViewAccountDisplayContext {
 					});
 			}
 		};
+	}
+
+	private List<JSONObject> _getLanguageList() {
+		List<JSONObject> languageList = new ArrayList<>();
+
+		for (Locale languageLocale : LanguageUtil.getAvailableLocales()) {
+			JSONObject jsonObject = JSONUtil.put(
+				"id", languageLocale.toString()
+			).put(
+				"name", languageLocale.getDisplayLanguage()
+			);
+
+			languageList.add(jsonObject);
+		}
+
+		return languageList;
+	}
+
+	private String _getPortletURL(String tab) {
+		PortletURL portletURL = renderResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/accounts/view_account");
+		portletURL.setParameter("accountKey", account.getKey());
+		portletURL.setParameter("tabs1", tab);
+
+		return portletURL.toString();
 	}
 
 	private String _getProductKeysFilter(String[] productKeys) {

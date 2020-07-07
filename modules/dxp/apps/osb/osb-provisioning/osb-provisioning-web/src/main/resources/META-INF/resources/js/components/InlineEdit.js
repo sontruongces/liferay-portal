@@ -25,6 +25,7 @@ import EditableField from './EditableField';
 
 function InlineEdit({
 	displayAs = 'text',
+	displayValue,
 	fieldName,
 	fieldValue,
 	inputStyle = '',
@@ -37,10 +38,6 @@ function InlineEdit({
 	const [value, setValue] = useState(fieldValue);
 
 	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
-
-	const processedOptions = options.reduce((allOptions, option) => {
-		return {...allOptions, [option.value]: option.label};
-	}, {});
 
 	function handleCancel() {
 		setFieldEditable(false);
@@ -74,18 +71,12 @@ function InlineEdit({
 				>
 					{fieldEditable ? (
 						<EditableField
-							value={
-								type === FIELD_TYPE_SELECT &&
-								processedOptions[value]
-									? processedOptions[value]
-									: value
-							}
+							value={displayValue ? displayValue : value}
 						/>
 					) : displayAs === 'label' ? (
 						<Label inputStyle={inputStyle} value={value} />
-					) : type === FIELD_TYPE_SELECT &&
-					  processedOptions[value] ? (
-						processedOptions[value]
+					) : displayValue ? (
+						displayValue
 					) : (
 						value
 					)}
@@ -202,6 +193,7 @@ function Label({inputStyle, value}) {
 
 InlineEdit.propTypes = {
 	displayAs: PropTypes.oneOf(['label', 'text']),
+	displayValue: PropTypes.string,
 	fieldName: PropTypes.string,
 	fieldValue: PropTypes.string,
 	inputStyle: PropTypes.string,

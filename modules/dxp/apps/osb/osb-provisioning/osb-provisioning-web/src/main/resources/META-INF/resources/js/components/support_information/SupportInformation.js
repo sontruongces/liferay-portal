@@ -18,7 +18,7 @@ import SupportDetails from './SupportDetails';
 function SupportInformation({
 	account,
 	instructions,
-	languageId,
+	language,
 	languageList,
 	regionNames,
 	updateAccountURL,
@@ -29,7 +29,7 @@ function SupportInformation({
 		<>
 			<SupportDetails
 				account={account}
-				languageId={languageId}
+				language={language}
 				languageList={languageList}
 				regionNames={regionNames}
 				updateAccountURL={updateAccountURL}
@@ -55,11 +55,14 @@ SupportInformation.propTypes = {
 		tier: PropTypes.string
 	}),
 	instructions: PropTypes.string,
-	languageId: PropTypes.string,
+	language: PropTypes.shape({
+		id: PropTypes.string,
+		name: PropTypes.string
+	}),
 	languageList: PropTypes.arrayOf(
 		PropTypes.shape({
-			languageId: PropTypes.string,
-			languageName: PropTypes.string
+			id: PropTypes.string,
+			name: PropTypes.string
 		})
 	),
 	regionNames: PropTypes.arrayOf(PropTypes.string),
