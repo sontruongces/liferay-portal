@@ -75,14 +75,16 @@ function InlineEdit({
 					{fieldEditable ? (
 						<EditableField
 							value={
-								type === FIELD_TYPE_SELECT
+								type === FIELD_TYPE_SELECT &&
+								processedOptions[value]
 									? processedOptions[value]
 									: value
 							}
 						/>
 					) : displayAs === 'label' ? (
 						<Label inputStyle={inputStyle} value={value} />
-					) : type === FIELD_TYPE_SELECT ? (
+					) : type === FIELD_TYPE_SELECT &&
+					  processedOptions[value] ? (
 						processedOptions[value]
 					) : (
 						value
