@@ -27,23 +27,19 @@ function SupportInformation({
 }) {
 	return (
 		<>
-			<div className="col-5">
-				<SupportDetails
-					account={account}
-					languageId={languageId}
-					languageList={languageList}
-					regionNames={regionNames}
-					updateAccountURL={updateAccountURL}
-					updateLanguageIdURL={updateLanguageIdURL}
-				/>
-			</div>
+			<SupportDetails
+				account={account}
+				languageId={languageId}
+				languageList={languageList}
+				regionNames={regionNames}
+				updateAccountURL={updateAccountURL}
+				updateLanguageIdURL={updateLanguageIdURL}
+			/>
 
-			<div className="col">
-				<Instructions
-					instructions={instructions}
-					updateInstructionsURL={updateInstructionsURL}
-				/>
-			</div>
+			<Instructions
+				instructions={instructions}
+				updateInstructionsURL={updateInstructionsURL}
+			/>
 		</>
 	);
 }

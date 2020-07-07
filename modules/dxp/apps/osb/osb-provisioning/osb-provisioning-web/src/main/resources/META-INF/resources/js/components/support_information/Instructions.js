@@ -14,22 +14,22 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {FIELD_TYPE_TEXTAREA} from '../../utilities/constants';
+import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from '../DetailField';
 
 function Instructions({instructions, updateInstructionsURL}) {
 	return (
-		<ClayList>
-			<li className="list-group-item list-group-item-flex list-group-subheader">
-				<div className="autofit-col autofit-col-expand">
-					{Liferay.Language.get('support-instructions')}
-				</div>
-			</li>
+		<ClayList className="support-instructions">
+			<ClayList.Header>
+				{Liferay.Language.get('instructions')}
+			</ClayList.Header>
 
 			<DetailField
+				fieldLabel={Liferay.Language.get('support-instructions')}
 				fieldName="instructions"
 				formAction={updateInstructionsURL}
 				formData={{
-					instructions
+					instructions: convertDashToEmptyString(instructions)
 				}}
 				type={FIELD_TYPE_TEXTAREA}
 				value={instructions}

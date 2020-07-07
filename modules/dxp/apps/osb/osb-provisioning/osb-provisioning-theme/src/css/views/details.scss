@@ -42,39 +42,36 @@
 		flex: 0 0 100%;
 		max-width: 100%;
 	}
-
-	.list-group-subheader {
-		border: 0;
-		color: $dark;
-		font-size: $font-size-base;
-		font-weight: $font-weight-bold;
-	}
-
-	.list-group-text {
-		font-size: $font-size-base;
-		width: 60%;
-
-		&.no-label {
-			width: 100%;
-		}
-	}
-
-	.list-group-title {
-		width: 40%;
-	}
 }
 
-.account-details {
+.account-details,
+.support-details {
 	.list-group-item-flex {
 		flex: 0 0 50%;
 		max-width: 50%;
+
+		.list-group-text {
+			font-size: $font-size-base;
+			width: 60%;
+		}
+
+		.list-group-title {
+			width: 40%;
+		}
 	}
 }
 
-.support-information {
-	margin: 0;
-
+.support-instructions {
 	.list-group-item-flex {
 		width: 100%;
+
+		.list-group-text {
+			font-size: $font-size-base;
+			width: 80%;
+		}
+
+		.list-group-title {
+			width: 19%;
+		}
 	}
 }

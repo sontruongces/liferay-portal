@@ -61,11 +61,7 @@ function DetailField({
 					<ClayList.ItemTitle>{fieldLabel}</ClayList.ItemTitle>
 				)}
 
-				<div
-					className={`list-group-text ${
-						fieldLabel ? '' : 'no-label'
-					}`}
-				>
+				<div className="list-group-text">
 					{type === FIELD_TYPE_NONEDITABLE ? (
 						<>{value}</>
 					) : (

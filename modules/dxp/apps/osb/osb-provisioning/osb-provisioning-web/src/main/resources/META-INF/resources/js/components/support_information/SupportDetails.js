@@ -44,12 +44,8 @@ function SupportDetails({
 	}
 
 	return (
-		<ClayList>
-			<li className="list-group-item list-group-item-flex list-group-subheader">
-				<div className="autofit-col autofit-col-expand">
-					{Liferay.Language.get('details')}
-				</div>
-			</li>
+		<ClayList className="support-details">
+			<ClayList.Header>{Liferay.Language.get('details')}</ClayList.Header>
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('support-region')}

@@ -463,7 +463,15 @@ public class ViewAccountDisplayContext {
 
 		AccountEntry accountEntry = getAccountEntry();
 
-		data.put("instructions", accountEntry.getInstructions());
+		String instructions = accountEntry.getInstructions();
+
+		if (Validator.isNotNull(instructions)) {
+			data.put("instructions", instructions);
+		}
+		else {
+			data.put("instructions", StringPool.DASH);
+		}
+
 		data.put("languageId", accountEntry.getLanguageId());
 
 		List<JSONObject> languageList = new ArrayList<>();
