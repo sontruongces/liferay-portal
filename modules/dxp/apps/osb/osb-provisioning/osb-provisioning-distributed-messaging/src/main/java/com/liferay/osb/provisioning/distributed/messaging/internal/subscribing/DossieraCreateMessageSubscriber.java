@@ -38,9 +38,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.ModelHintsUtil;
-import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -592,22 +590,20 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 	protected void sendAnalyticsCloudWelcomeEmail(List<Contact> contacts)
 		throws PortalException {
 
-		Company company = _companyLocalService.getCompanyByWebId("liferay.com");
-
 		for (Contact contact : contacts) {
-			String languageId = contact.getLanguageId();
-
-			String subject = _getEmailTemplate(
-				"email_analytics_cloud_welcome_subject_" + languageId + ".tmpl",
-				"email_analytics_cloud_welcome_subject.tmpl");
 			String body = _getEmailTemplate(
-				"email_analytics_cloud_welcome_body_" + languageId + ".tmpl",
+				"email_analytics_cloud_welcome_body_" +
+					contact.getLanguageId() + ".tmpl",
 				"email_analytics_cloud_welcome_body.tmpl");
+			String subject = _getEmailTemplate(
+				"email_analytics_cloud_welcome_subject_" +
+					contact.getLanguageId() + ".tmpl",
+				"email_analytics_cloud_welcome_subject.tmpl");
 
 			SubscriptionSender subscriptionSender = new SubscriptionSender();
 
 			subscriptionSender.setBody(body);
-			subscriptionSender.setCompanyId(company.getCompanyId());
+			subscriptionSender.setCompanyId(_portal.getDefaultCompanyId());
 			subscriptionSender.setFrom(
 				"no-reply@liferay.com", "Liferay Analytics Cloud");
 			subscriptionSender.setHtmlFormat(true);
@@ -673,15 +669,14 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 	private static String _getEmailTemplate(
 		String templateName, String defaultTemplateName) {
 
-		ClassLoader portletClassLoader =
+		ClassLoader classLoader =
 			DossieraCreateMessageSubscriber.class.getClassLoader();
 
 		String templateDirName =
 			"com/liferay/osb/provisioning/distributed/messaging/internal" +
 				"/dependencies/";
 
-		URL url = portletClassLoader.getResource(
-			templateDirName + templateName);
+		URL url = classLoader.getResource(templateDirName + templateName);
 
 		if (url != null) {
 			return ContentUtil.get(
@@ -794,9 +789,6 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 	@Reference
 	private AccountWebService _accountWebService;
-
-	@Reference
-	private CompanyLocalService _companyLocalService;
 
 	@Reference
 	private ContactRoleWebService _contactRoleWebService;
