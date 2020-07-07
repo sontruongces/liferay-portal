@@ -21,11 +21,12 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Ivica Cardic
@@ -38,7 +39,9 @@ import javax.portlet.ResourceResponse;
 	},
 	service = MVCResourceCommand.class
 )
-public class EditPortalInstanceFeatureMVCResourceCommand extends BaseMVCResourceCommand {
+public class EditPortalInstanceFeatureMVCResourceCommand
+	extends BaseMVCResourceCommand {
+
 	@Override
 	protected void doServeResource(
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
@@ -53,8 +56,8 @@ public class EditPortalInstanceFeatureMVCResourceCommand extends BaseMVCResource
 		CommerceSubscriptionEntry commerceSubscriptionEntry =
 			_getCommerceSubscriptionEntry(commerceSubscriptionEntryId);
 
-		UnicodeProperties properties = commerceSubscriptionEntry.
-			getSubscriptionTypeSettingsProperties();
+		UnicodeProperties properties =
+			commerceSubscriptionEntry.getSubscriptionTypeSettingsProperties();
 
 		if (active) {
 			properties.put(featureName, String.valueOf(featureName));
@@ -80,4 +83,5 @@ public class EditPortalInstanceFeatureMVCResourceCommand extends BaseMVCResource
 	@Reference
 	private CommerceSubscriptionEntryLocalService
 		_commerceSubscriptionEntryLocalService;
+
 }

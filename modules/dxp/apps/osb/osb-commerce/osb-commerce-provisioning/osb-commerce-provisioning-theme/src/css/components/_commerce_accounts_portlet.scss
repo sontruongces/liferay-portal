@@ -12,8 +12,8 @@
 		justify-content: center;
 
 		.btn {
-			font-weight: bold;
 			flex: .9;
+			font-weight: bold;
 
 			@media screen and (max-width: $bp-small) {
 				transform: translateX(0);
