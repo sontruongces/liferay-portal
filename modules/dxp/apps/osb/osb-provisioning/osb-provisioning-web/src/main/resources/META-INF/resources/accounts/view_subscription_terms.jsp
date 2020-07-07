@@ -22,64 +22,66 @@ ViewSubscriptionDisplayContext viewSubscriptionDisplayContext = ProvisioningWebC
 String productPurchaseKey = ParamUtil.getString(request, "productPurchaseKey");
 %>
 
-<liferay-ui:search-container
-	searchContainer="<%= viewSubscriptionDisplayContext.getSearchContainer() %>"
->
-	<liferay-ui:search-container-row
-		className="com.liferay.osb.provisioning.web.internal.display.context.ProductPurchaseDisplay"
-		escapedModel="<%= true %>"
-		modelVar="productPurchaseDisplay"
+<div class="details-table table-striped">
+	<liferay-ui:search-container
+		searchContainer="<%= viewSubscriptionDisplayContext.getSearchContainer() %>"
 	>
-
-		<%
-		if (productPurchaseKey.equals(productPurchaseDisplay.getKey())) {
-			row.setCssClass("highlight-row");
-		}
-		%>
-
-		<liferay-ui:search-container-column-text
-			name="start-end-date"
-			value="<%= productPurchaseDisplay.getSupportLife() %>"
-		/>
-
-		<liferay-ui:search-container-column-text
-			name="grace-period"
-			value="<%= productPurchaseDisplay.getGracePeriod() %>"
-		/>
-
-		<liferay-ui:search-container-column-text
-			name="provisioned"
-			value="<%= productPurchaseDisplay.getProvisionedCount() %>"
-		/>
-
-		<liferay-ui:search-container-column-text
-			name="purchased"
-			value="<%= productPurchaseDisplay.getQuantity() %>"
-		/>
-
-		<liferay-ui:search-container-column-text
-			name="salesforce-opportunity-key"
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.provisioning.web.internal.display.context.ProductPurchaseDisplay"
+			escapedModel="<%= true %>"
+			modelVar="productPurchaseDisplay"
 		>
-			<a href="<%= productPurchaseDisplay.getSalesforceOpportunityURL() %>"><%= productPurchaseDisplay.getSalesforceOpportunityKey() %></a>
-		</liferay-ui:search-container-column-text>
 
-		<liferay-ui:search-container-column-text
-			name="instance-size"
-			value="<%= productPurchaseDisplay.getSizing() %>"
+			<%
+			if (productPurchaseKey.equals(productPurchaseDisplay.getKey())) {
+				row.setCssClass("highlight-row");
+			}
+			%>
+
+			<liferay-ui:search-container-column-text
+				name="start-end-date"
+				value="<%= productPurchaseDisplay.getSupportLife() %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				name="grace-period"
+				value="<%= productPurchaseDisplay.getGracePeriod() %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				name="provisioned"
+				value="<%= productPurchaseDisplay.getProvisionedCount() %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				name="purchased"
+				value="<%= productPurchaseDisplay.getQuantity() %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				name="salesforce-opportunity-key"
+			>
+				<a href="<%= productPurchaseDisplay.getSalesforceOpportunityURL() %>"><%= productPurchaseDisplay.getSalesforceOpportunityKey() %></a>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				name="instance-size"
+				value="<%= productPurchaseDisplay.getSizing() %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				name="status"
+			>
+				<span class="label <%= productPurchaseDisplay.getStatusStyle() %>"><%= productPurchaseDisplay.getStatus() %></span>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-jsp
+				path="/accounts/product_purchase_action.jsp"
+			/>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			markupView="lexicon"
 		/>
-
-		<liferay-ui:search-container-column-text
-			name="status"
-		>
-			<span class="label <%= productPurchaseDisplay.getStatusStyle() %>"><%= productPurchaseDisplay.getStatus() %></span>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-jsp
-			path="/accounts/product_purchase_action.jsp"
-		/>
-	</liferay-ui:search-container-row>
-
-	<liferay-ui:search-iterator
-		markupView="lexicon"
-	/>
-</liferay-ui:search-container>
+	</liferay-ui:search-container>
+</div>

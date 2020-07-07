@@ -1,5 +1,6 @@
 .account,
-.contact {
+.contact,
+.subscription {
 	display: flex;
 
 	&.full-view {
@@ -8,7 +9,9 @@
 			max-width: 0%;
 		}
 
-		.account-content {
+		.account-content,
+		.contact-content,
+		.subscription-content {
 			flex-basis: 100%;
 			flex-grow: 1;
 			max-width: 100%;
@@ -17,7 +20,8 @@
 }
 
 .account-content,
-.contact-content {
+.contact-content,
+.subscription-content {
 	background-color: $light;
 	flex: 0 0 66.666667%;
 	max-width: 66.666667%;
