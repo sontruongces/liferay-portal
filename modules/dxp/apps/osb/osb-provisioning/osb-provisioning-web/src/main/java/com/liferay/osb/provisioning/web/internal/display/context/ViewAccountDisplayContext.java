@@ -473,21 +473,10 @@ public class ViewAccountDisplayContext {
 
 		updateAccountURL.setParameter(
 			ActionRequest.ACTION_NAME, "/accounts/edit_account");
+		updateAccountURL.setParameter("redirect", _getPortletURL());
 		updateAccountURL.setParameter("accountKey", account.getKey());
-		updateAccountURL.setParameter("redirect", _getPortletURL("support"));
 
 		data.put("updateAccountURL", updateAccountURL.toString());
-
-		PortletURL updateLanguageIdURL = renderResponse.createActionURL();
-
-		updateLanguageIdURL.setParameter(
-			ActionRequest.ACTION_NAME, "/edit_account_entry");
-		updateLanguageIdURL.setParameter(
-			Constants.CMD, ProvisioningActionKeys.UPDATE_LANGUAGE_ID);
-		updateLanguageIdURL.setParameter("accountKey", account.getKey());
-		updateLanguageIdURL.setParameter("redirect", _getPortletURL("support"));
-
-		data.put("updateLanguageIdURL", updateLanguageIdURL.toString());
 
 		PortletURL updateInstructionsURL = renderResponse.createActionURL();
 
@@ -495,11 +484,21 @@ public class ViewAccountDisplayContext {
 			ActionRequest.ACTION_NAME, "/edit_account_entry");
 		updateInstructionsURL.setParameter(
 			Constants.CMD, ProvisioningActionKeys.UPDATE_INSTRUCTIONS);
+		updateInstructionsURL.setParameter("redirect", _getPortletURL());
 		updateInstructionsURL.setParameter("accountKey", account.getKey());
-		updateInstructionsURL.setParameter(
-			"redirect", _getPortletURL("support"));
 
 		data.put("updateInstructionsURL", updateInstructionsURL.toString());
+
+		PortletURL updateLanguageIdURL = renderResponse.createActionURL();
+
+		updateLanguageIdURL.setParameter(
+			ActionRequest.ACTION_NAME, "/edit_account_entry");
+		updateLanguageIdURL.setParameter(
+			Constants.CMD, ProvisioningActionKeys.UPDATE_LANGUAGE_ID);
+		updateLanguageIdURL.setParameter("redirect", _getPortletURL());
+		updateLanguageIdURL.setParameter("accountKey", account.getKey());
+
+		data.put("updateLanguageIdURL", updateLanguageIdURL.toString());
 
 		return data;
 	}
@@ -670,11 +669,11 @@ public class ViewAccountDisplayContext {
 	private List<JSONObject> _getLanguageList() {
 		List<JSONObject> languageList = new ArrayList<>();
 
-		for (Locale languageLocale : LanguageUtil.getAvailableLocales()) {
+		for (Locale locale : LanguageUtil.getAvailableLocales()) {
 			JSONObject jsonObject = JSONUtil.put(
-				"id", languageLocale.toString()
+				"id", locale.toString()
 			).put(
-				"name", languageLocale.getDisplayLanguage()
+				"name", locale.getDisplayLanguage()
 			);
 
 			languageList.add(jsonObject);
@@ -683,13 +682,13 @@ public class ViewAccountDisplayContext {
 		return languageList;
 	}
 
-	private String _getPortletURL(String tab) {
+	private String _getPortletURL() {
 		PortletURL portletURL = renderResponse.createRenderURL();
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "/accounts/view_account");
+		portletURL.setParameter("tabs1", "support");
 		portletURL.setParameter("accountKey", account.getKey());
-		portletURL.setParameter("tabs1", tab);
 
 		return portletURL.toString();
 	}
@@ -759,28 +758,21 @@ public class ViewAccountDisplayContext {
 		return StringPool.BLANK;
 	}
 
-	private String _getSupportInstructions(AccountEntry accountEntry)
-		throws Exception {
-
-		String instructions = accountEntry.getInstructions();
-
-		if (Validator.isNotNull(instructions)) {
-			return instructions;
+	private String _getSupportInstructions(AccountEntry accountEntry) {
+		if (Validator.isNotNull(accountEntry.getInstructions())) {
+			return accountEntry.getInstructions();
 		}
 
 		return StringPool.DASH;
 	}
 
-	private JSONObject _getSupportLanguage(AccountEntry accountEntry)
-		throws Exception {
-
-		String languageId = accountEntry.getLanguageId();
-
-		if (Validator.isNotNull(languageId)) {
-			Locale languageLocale = LocaleUtil.fromLanguageId(languageId);
+	private JSONObject _getSupportLanguage(AccountEntry accountEntry) {
+		if (Validator.isNotNull(accountEntry.getLanguageId())) {
+			Locale languageLocale = LocaleUtil.fromLanguageId(
+				accountEntry.getLanguageId());
 
 			return JSONUtil.put(
-				"id", languageId
+				"id", accountEntry.getLanguageId()
 			).put(
 				"name", languageLocale.getDisplayLanguage()
 			);
