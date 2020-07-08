@@ -62,11 +62,7 @@ function InlineEdit({
 	}
 
 	return (
-		<div
-			className={`inline-edit ${
-				type === FIELD_TYPE_TEXTAREA ? 'block' : ''
-			}`}
-		>
+		<div className={`inline-edit ${showEditor ? 'block' : ''}`}>
 			{!showEditor && (
 				<div
 					onClick={() => setShowEditor(true)}
