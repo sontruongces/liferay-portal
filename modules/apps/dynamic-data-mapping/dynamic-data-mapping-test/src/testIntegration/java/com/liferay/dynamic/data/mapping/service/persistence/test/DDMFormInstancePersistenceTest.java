@@ -288,8 +288,8 @@ public class DDMFormInstancePersistenceTest {
 			"formInstanceId", true, "groupId", true, "companyId", true,
 			"userId", true, "userName", true, "versionUserId", true,
 			"versionUserName", true, "createDate", true, "modifiedDate", true,
-			"structureId", true, "version", true, "name", true, "description",
-			true, "lastPublishDate", true);
+			"structureId", true, "version", true, "name", true,
+			"lastPublishDate", true);
 	}
 
 	@Test
