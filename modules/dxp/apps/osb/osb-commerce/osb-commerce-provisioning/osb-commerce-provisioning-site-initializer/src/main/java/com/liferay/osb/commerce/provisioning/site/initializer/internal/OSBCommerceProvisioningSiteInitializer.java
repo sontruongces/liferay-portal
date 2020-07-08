@@ -90,7 +90,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -250,6 +249,24 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		}
 
 		return fragmentEntries;
+	}
+
+	private void _addLayout(
+			FragmentCollection fragmentCollection,
+			LayoutPageTemplateCollection layoutPageTemplateCollection,
+			String fragmentName, String fragmentPath,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		fragmentPath = _PATH + "fragments/layouts/" + fragmentPath;
+
+		List<FragmentEntry> fragmentEntry = _addFragmentEntries(
+			fragmentCollection.getFragmentCollectionId(), fragmentPath,
+			serviceContext);
+
+		_addLayout(
+			layoutPageTemplateCollection.getLayoutPageTemplateCollectionId(),
+			fragmentName, fragmentEntry, fragmentPath, serviceContext);
 	}
 
 	private void _addLayout(
@@ -527,24 +544,15 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		LayoutPageTemplateCollection layoutPageTemplateCollection =
 			_addLayoutPageTemplateCollection(serviceContext);
 
-		Iterator<String[]> layoutsIterator = _LAYOUTS.iterator();
-
-		while (layoutsIterator.hasNext()) {
-			String[] layout = layoutsIterator.next();
-
-			String fragmentName = layout[0];
-
-			String fragmentPath = _PATH + _LAYOUTS_PATH + layout[1];
-
-			List<FragmentEntry> fragmentEntry = _addFragmentEntries(
-				fragmentCollection.getFragmentCollectionId(), fragmentPath,
-				serviceContext);
-
-			_addLayout(
-				layoutPageTemplateCollection.
-					getLayoutPageTemplateCollectionId(),
-				fragmentName, fragmentEntry, fragmentPath, serviceContext);
-		}
+		_addLayout(
+			fragmentCollection, layoutPageTemplateCollection, "Start Trial",
+			"start_trial", serviceContext);
+		_addLayout(
+			fragmentCollection, layoutPageTemplateCollection,
+			"Account Management", "account_management", serviceContext);
+		_addLayout(
+			fragmentCollection, layoutPageTemplateCollection, "Plan Management",
+			"plan_management", serviceContext);
 	}
 
 	private void _updateLogo(ServiceContext serviceContext) throws Exception {
@@ -578,18 +586,6 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			serviceContext.getScopeGroupId(), _THEME_ID, StringPool.BLANK,
 			StringPool.BLANK);
 	}
-
-	private static final List<String[]> _LAYOUTS = new ArrayList<String[]>() {
-		{
-			add(new String[] {"Start Trial", "start_trial"});
-
-			add(new String[] {"Account Management", "account_management"});
-
-			add(new String[] {"Plan Management", "plan_management"});
-		}
-	};
-
-	private static final String _LAYOUTS_PATH = "fragments/layouts/";
 
 	private static final String _PATH =
 		"com/liferay/osb/commerce/provisioning/site/initializer/internal" +
