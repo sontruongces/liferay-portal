@@ -579,7 +579,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			StringPool.BLANK);
 	}
 
-	private static final ArrayList _LAYOUTS = new ArrayList<String[]>() {
+	private static final List<String[]> _LAYOUTS = new ArrayList<String[]>() {
 		{
 			add(new String[] {"Start Trial", "start_trial"});
 
