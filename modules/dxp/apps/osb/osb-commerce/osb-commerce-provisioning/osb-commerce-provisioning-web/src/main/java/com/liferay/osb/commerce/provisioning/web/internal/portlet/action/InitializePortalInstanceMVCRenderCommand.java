@@ -42,7 +42,7 @@ public class InitializePortalInstanceMVCRenderCommand
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		return "/trial-registration/initialize_portal_instance.jsp";
+		return "/trial_registration/initialize_portal_instance.jsp";
 	}
 
 }

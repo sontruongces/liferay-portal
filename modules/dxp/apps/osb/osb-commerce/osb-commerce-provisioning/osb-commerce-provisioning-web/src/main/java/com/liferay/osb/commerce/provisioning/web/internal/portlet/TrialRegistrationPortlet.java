@@ -42,7 +42,7 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-osb-commerce-start-trial",
 		"com.liferay.portlet.display-category=category.osb-commerce-provisioning",
-		"com.liferay.portlet.header-portlet-css=/trial-registration/css/main.css",
+		"com.liferay.portlet.header-portlet-css=/trial_registration/css/main.css",
 		"com.liferay.portlet.layout-cacheable=true",
 		"com.liferay.portlet.preferences-owned-by-group=true",
 		"com.liferay.portlet.preferences-unique-per-layout=false",
@@ -52,7 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.scopeable=true",
 		"javax.portlet.display-name=Trial Registration",
 		"javax.portlet.expiration-cache=0",
-		"javax.portlet.init-param.view-template=/trial-registration/view.jsp",
+		"javax.portlet.init-param.view-template=/trial_registration/view.jsp",
 		"javax.portlet.name=" + OSBCommerceProvisioningPortletKeys.TRIAL_REGISTRATION,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"
