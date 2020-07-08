@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.commerce.provisioning.web.internal.servlet.taglib;
+package com.liferay.osb.commerce.provisioning.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountLocalService;
