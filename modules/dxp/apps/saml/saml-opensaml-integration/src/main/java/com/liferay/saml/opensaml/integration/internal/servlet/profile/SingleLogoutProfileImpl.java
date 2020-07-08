@@ -933,9 +933,9 @@ public class SingleLogoutProfileImpl
 
 		logoutResponse.setDestination(singleLogoutService.getLocation());
 
-		outboundMessageContext.addSubcontext(samlSelfEntityContext);
-		outboundMessageContext.addSubcontext(samlPeerEntityContext);
 		outboundMessageContext.addSubcontext(samlBindingContext);
+		outboundMessageContext.addSubcontext(samlPeerEntityContext);
+		outboundMessageContext.addSubcontext(samlSelfEntityContext);
 
 		sendSamlMessage(messageContext, httpServletResponse);
 	}
