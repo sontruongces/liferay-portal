@@ -1,0 +1,25 @@
+<section class="account_settings">
+	<div class="row">
+		<div class="col-lg-12">
+			<lfr-widget-breadcrumb></lfr-widget-breadcrumb>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-3">
+
+
+			[#if liferay_portlet??]
+				[@liferay_portlet.runtime
+					portletProviderClassName="com_liferay_site_navigation_menu_web_portlet_SiteNavigationMenuPortlet"
+				/]
+			[/#if]
+		</div>
+
+		<div class="col-lg-6">
+			<lfr-widget-commerce-account-portlet></lfr-widget-commerce-account-portlet>
+		</div>
+
+		<div class="col-lg-3"></div>
+	</div>
+</section>
