@@ -194,6 +194,12 @@ class Select extends Component {
 
 		preventDefault();
 
+		let selectElement = document.getElementById(this.name);
+
+		selectElement = selectElement.parentElement;
+
+		selectElement.focus();
+
 		this.setState(
 			{
 				expanded: multiple,
