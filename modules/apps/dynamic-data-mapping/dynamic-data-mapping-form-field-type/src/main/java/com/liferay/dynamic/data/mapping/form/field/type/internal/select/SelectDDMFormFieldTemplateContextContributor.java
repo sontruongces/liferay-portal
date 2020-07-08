@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.AggregateResourceBundle;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
-import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -169,8 +168,7 @@ public class SelectDDMFormFieldTemplateContextContributor
 						LocalizedValue localizedValue =
 							ddmFormFieldOptions.getOptionLabels(optionValue);
 
-						return HtmlUtil.escape(
-							localizedValue.getString(locale));
+						return localizedValue.getString(locale);
 					}
 				).put(
 					"value", optionValue
