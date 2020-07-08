@@ -14,6 +14,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>NODE_MAIN</td>
+	<td>//div[contains(@class,'treeview-node-main')]//span[contains(.,'${key_nodeName}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>NODE_SELECTED</td>
 	<td>//div[contains(@class,'treeview-node-main') and contains(@class,'selected')]/div[contains(@class,'card-horizontal')]/div/div[2]/span[contains(.,'${key_nodeName}')]</td>
 	<td></td>

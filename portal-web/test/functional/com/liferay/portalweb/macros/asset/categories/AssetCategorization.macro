@@ -85,7 +85,9 @@ definition {
 	macro selectCategory {
 		AssetCategorization.gotoSelectCategory();
 
-		Portlet.selectTreeNode(nodeName = "${categoryName}");
+		Portlet.selectTreeNode(
+			nodeName = "${categoryName}",
+			vocabularyName = "${vocabularyName}");
 
 		SelectFrameTop();
 

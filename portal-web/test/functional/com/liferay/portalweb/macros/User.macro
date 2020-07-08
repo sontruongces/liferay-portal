@@ -1180,6 +1180,10 @@ definition {
 
 		AssertElementPresent(locator1 = "UsersAndOrganizationsEditUser#CATEGORIZATION_LABEL");
 
+		AssertElementPresent(
+			key_vocabularyName = "${vocabularyName}",
+			locator1 = "UsersAndOrganizationsEditUser#VOCABULARY_LABEL");
+
 		AssertElementPresent.assertVisible(
 			locator1 = "UsersAndOrganizationsEditUser#DETAILS_CATEGORY_SELECT",
 			value1 = "Select");
@@ -1188,7 +1192,9 @@ definition {
 			locator1 = "UsersAndOrganizationsEditUser#DETAILS_CATEGORY_SELECT",
 			value1 = "Select");
 
-		AssetCategorization.selectCategory(categoryName = "${categoryName}");
+		AssetCategorization.selectCategory(
+			categoryName = "${categoryName}",
+			vocabularyName = "${vocabularyName}");
 
 		PortletEntry.save();
 	}

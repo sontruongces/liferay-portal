@@ -330,6 +330,12 @@ definition {
 				value1 = "${nodeName}");
 		}
 
+		if (isSet(vocabularyName)) {
+			AssertElementPresent(
+				key_nodeName = "${vocabularyName}",
+				locator1 = "Treeview#NODE_MAIN");
+		}
+
 		AssertElementPresent(
 			key_nodeName = "${nodeName}",
 			locator1 = "Treeview#NODE_SELECTED");
