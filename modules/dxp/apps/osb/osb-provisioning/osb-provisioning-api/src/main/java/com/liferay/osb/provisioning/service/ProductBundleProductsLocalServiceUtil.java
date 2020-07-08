@@ -250,6 +250,10 @@ public class ProductBundleProductsLocalServiceUtil {
 		return getService().getProductBundleProducts(productBundleProductsPK);
 	}
 
+	public static int getProductBundleProductsCount(String productKey) {
+		return getService().getProductBundleProductsCount(productKey);
+	}
+
 	/**
 	 * Returns a range of all the product bundle productses.
 	 *

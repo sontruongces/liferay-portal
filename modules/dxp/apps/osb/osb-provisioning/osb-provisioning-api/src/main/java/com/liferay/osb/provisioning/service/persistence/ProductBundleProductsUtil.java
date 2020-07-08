@@ -192,6 +192,184 @@ public class ProductBundleProductsUtil {
 	}
 
 	/**
+	 * Returns all the product bundle productses where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @return the matching product bundle productses
+	 */
+	public static List<ProductBundleProducts> findByProductKey(
+		String productKey) {
+
+		return getPersistence().findByProductKey(productKey);
+	}
+
+	/**
+	 * Returns a range of all the product bundle productses where productKey = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productKey the product key
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @return the range of matching product bundle productses
+	 */
+	public static List<ProductBundleProducts> findByProductKey(
+		String productKey, int start, int end) {
+
+		return getPersistence().findByProductKey(productKey, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the product bundle productses where productKey = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productKey the product key
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product bundle productses
+	 */
+	public static List<ProductBundleProducts> findByProductKey(
+		String productKey, int start, int end,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		return getPersistence().findByProductKey(
+			productKey, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the product bundle productses where productKey = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productKey the product key
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching product bundle productses
+	 */
+	public static List<ProductBundleProducts> findByProductKey(
+		String productKey, int start, int end,
+		OrderByComparator<ProductBundleProducts> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByProductKey(
+			productKey, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products
+	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
+	 */
+	public static ProductBundleProducts findByProductKey_First(
+			String productKey,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws com.liferay.osb.provisioning.exception.
+			NoSuchProductBundleProductsException {
+
+		return getPersistence().findByProductKey_First(
+			productKey, orderByComparator);
+	}
+
+	/**
+	 * Returns the first product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 */
+	public static ProductBundleProducts fetchByProductKey_First(
+		String productKey,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		return getPersistence().fetchByProductKey_First(
+			productKey, orderByComparator);
+	}
+
+	/**
+	 * Returns the last product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products
+	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
+	 */
+	public static ProductBundleProducts findByProductKey_Last(
+			String productKey,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws com.liferay.osb.provisioning.exception.
+			NoSuchProductBundleProductsException {
+
+		return getPersistence().findByProductKey_Last(
+			productKey, orderByComparator);
+	}
+
+	/**
+	 * Returns the last product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 */
+	public static ProductBundleProducts fetchByProductKey_Last(
+		String productKey,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		return getPersistence().fetchByProductKey_Last(
+			productKey, orderByComparator);
+	}
+
+	/**
+	 * Returns the product bundle productses before and after the current product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productBundleProductsPK the primary key of the current product bundle products
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product bundle products
+	 * @throws NoSuchProductBundleProductsException if a product bundle products with the primary key could not be found
+	 */
+	public static ProductBundleProducts[] findByProductKey_PrevAndNext(
+			ProductBundleProductsPK productBundleProductsPK, String productKey,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws com.liferay.osb.provisioning.exception.
+			NoSuchProductBundleProductsException {
+
+		return getPersistence().findByProductKey_PrevAndNext(
+			productBundleProductsPK, productKey, orderByComparator);
+	}
+
+	/**
+	 * Removes all the product bundle productses where productKey = &#63; from the database.
+	 *
+	 * @param productKey the product key
+	 */
+	public static void removeByProductKey(String productKey) {
+		getPersistence().removeByProductKey(productKey);
+	}
+
+	/**
+	 * Returns the number of product bundle productses where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @return the number of matching product bundle productses
+	 */
+	public static int countByProductKey(String productKey) {
+		return getPersistence().countByProductKey(productKey);
+	}
+
+	/**
 	 * Caches the product bundle products in the entity cache if it is enabled.
 	 *
 	 * @param productBundleProducts the product bundle products

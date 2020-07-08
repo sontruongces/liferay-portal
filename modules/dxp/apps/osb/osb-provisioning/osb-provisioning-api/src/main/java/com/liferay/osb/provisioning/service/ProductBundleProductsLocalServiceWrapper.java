@@ -268,6 +268,12 @@ public class ProductBundleProductsLocalServiceWrapper
 			productBundleProductsPK);
 	}
 
+	@Override
+	public int getProductBundleProductsCount(String productKey) {
+		return _productBundleProductsLocalService.getProductBundleProductsCount(
+			productKey);
+	}
+
 	/**
 	 * Returns a range of all the product bundle productses.
 	 *

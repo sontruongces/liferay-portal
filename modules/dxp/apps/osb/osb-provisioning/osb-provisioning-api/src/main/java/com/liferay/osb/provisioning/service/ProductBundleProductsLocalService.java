@@ -214,6 +214,9 @@ public interface ProductBundleProductsLocalService
 			ProductBundleProductsPK productBundleProductsPK)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getProductBundleProductsCount(String productKey);
+
 	/**
 	 * Returns a range of all the product bundle productses.
 	 *

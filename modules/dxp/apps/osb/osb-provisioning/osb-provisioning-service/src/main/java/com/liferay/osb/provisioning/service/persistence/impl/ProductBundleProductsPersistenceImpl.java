@@ -47,6 +47,7 @@ import java.lang.reflect.InvocationHandler;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -312,6 +313,563 @@ public class ProductBundleProductsPersistenceImpl
 	private static final String
 		_FINDER_COLUMN_PRODUCTBUNDLEID_PRODUCTBUNDLEID_2 =
 			"productBundleProducts.id.productBundleId = ?";
+
+	private FinderPath _finderPathWithPaginationFindByProductKey;
+	private FinderPath _finderPathWithoutPaginationFindByProductKey;
+	private FinderPath _finderPathCountByProductKey;
+
+	/**
+	 * Returns all the product bundle productses where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @return the matching product bundle productses
+	 */
+	@Override
+	public List<ProductBundleProducts> findByProductKey(String productKey) {
+		return findByProductKey(
+			productKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the product bundle productses where productKey = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productKey the product key
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @return the range of matching product bundle productses
+	 */
+	@Override
+	public List<ProductBundleProducts> findByProductKey(
+		String productKey, int start, int end) {
+
+		return findByProductKey(productKey, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the product bundle productses where productKey = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productKey the product key
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product bundle productses
+	 */
+	@Override
+	public List<ProductBundleProducts> findByProductKey(
+		String productKey, int start, int end,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		return findByProductKey(
+			productKey, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the product bundle productses where productKey = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productKey the product key
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching product bundle productses
+	 */
+	@Override
+	public List<ProductBundleProducts> findByProductKey(
+		String productKey, int start, int end,
+		OrderByComparator<ProductBundleProducts> orderByComparator,
+		boolean useFinderCache) {
+
+		productKey = Objects.toString(productKey, "");
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByProductKey;
+				finderArgs = new Object[] {productKey};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByProductKey;
+			finderArgs = new Object[] {
+				productKey, start, end, orderByComparator
+			};
+		}
+
+		List<ProductBundleProducts> list = null;
+
+		if (useFinderCache) {
+			list = (List<ProductBundleProducts>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (ProductBundleProducts productBundleProducts : list) {
+					if (!productKey.equals(
+							productBundleProducts.getProductKey())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
+
+			sb.append(_SQL_SELECT_PRODUCTBUNDLEPRODUCTS_WHERE);
+
+			boolean bindProductKey = false;
+
+			if (productKey.isEmpty()) {
+				sb.append(_FINDER_COLUMN_PRODUCTKEY_PRODUCTKEY_3);
+			}
+			else {
+				bindProductKey = true;
+
+				sb.append(_FINDER_COLUMN_PRODUCTKEY_PRODUCTKEY_2);
+			}
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(ProductBundleProductsModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindProductKey) {
+					queryPos.add(productKey);
+				}
+
+				list = (List<ProductBundleProducts>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products
+	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
+	 */
+	@Override
+	public ProductBundleProducts findByProductKey_First(
+			String productKey,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws NoSuchProductBundleProductsException {
+
+		ProductBundleProducts productBundleProducts = fetchByProductKey_First(
+			productKey, orderByComparator);
+
+		if (productBundleProducts != null) {
+			return productBundleProducts;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("productKey=");
+		sb.append(productKey);
+
+		sb.append("}");
+
+		throw new NoSuchProductBundleProductsException(sb.toString());
+	}
+
+	/**
+	 * Returns the first product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 */
+	@Override
+	public ProductBundleProducts fetchByProductKey_First(
+		String productKey,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		List<ProductBundleProducts> list = findByProductKey(
+			productKey, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products
+	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
+	 */
+	@Override
+	public ProductBundleProducts findByProductKey_Last(
+			String productKey,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws NoSuchProductBundleProductsException {
+
+		ProductBundleProducts productBundleProducts = fetchByProductKey_Last(
+			productKey, orderByComparator);
+
+		if (productBundleProducts != null) {
+			return productBundleProducts;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("productKey=");
+		sb.append(productKey);
+
+		sb.append("}");
+
+		throw new NoSuchProductBundleProductsException(sb.toString());
+	}
+
+	/**
+	 * Returns the last product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 */
+	@Override
+	public ProductBundleProducts fetchByProductKey_Last(
+		String productKey,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		int count = countByProductKey(productKey);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<ProductBundleProducts> list = findByProductKey(
+			productKey, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the product bundle productses before and after the current product bundle products in the ordered set where productKey = &#63;.
+	 *
+	 * @param productBundleProductsPK the primary key of the current product bundle products
+	 * @param productKey the product key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product bundle products
+	 * @throws NoSuchProductBundleProductsException if a product bundle products with the primary key could not be found
+	 */
+	@Override
+	public ProductBundleProducts[] findByProductKey_PrevAndNext(
+			ProductBundleProductsPK productBundleProductsPK, String productKey,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws NoSuchProductBundleProductsException {
+
+		productKey = Objects.toString(productKey, "");
+
+		ProductBundleProducts productBundleProducts = findByPrimaryKey(
+			productBundleProductsPK);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			ProductBundleProducts[] array = new ProductBundleProductsImpl[3];
+
+			array[0] = getByProductKey_PrevAndNext(
+				session, productBundleProducts, productKey, orderByComparator,
+				true);
+
+			array[1] = productBundleProducts;
+
+			array[2] = getByProductKey_PrevAndNext(
+				session, productBundleProducts, productKey, orderByComparator,
+				false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected ProductBundleProducts getByProductKey_PrevAndNext(
+		Session session, ProductBundleProducts productBundleProducts,
+		String productKey,
+		OrderByComparator<ProductBundleProducts> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_PRODUCTBUNDLEPRODUCTS_WHERE);
+
+		boolean bindProductKey = false;
+
+		if (productKey.isEmpty()) {
+			sb.append(_FINDER_COLUMN_PRODUCTKEY_PRODUCTKEY_3);
+		}
+		else {
+			bindProductKey = true;
+
+			sb.append(_FINDER_COLUMN_PRODUCTKEY_PRODUCTKEY_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(ProductBundleProductsModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		if (bindProductKey) {
+			queryPos.add(productKey);
+		}
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						productBundleProducts)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<ProductBundleProducts> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the product bundle productses where productKey = &#63; from the database.
+	 *
+	 * @param productKey the product key
+	 */
+	@Override
+	public void removeByProductKey(String productKey) {
+		for (ProductBundleProducts productBundleProducts :
+				findByProductKey(
+					productKey, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
+			remove(productBundleProducts);
+		}
+	}
+
+	/**
+	 * Returns the number of product bundle productses where productKey = &#63;.
+	 *
+	 * @param productKey the product key
+	 * @return the number of matching product bundle productses
+	 */
+	@Override
+	public int countByProductKey(String productKey) {
+		productKey = Objects.toString(productKey, "");
+
+		FinderPath finderPath = _finderPathCountByProductKey;
+
+		Object[] finderArgs = new Object[] {productKey};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_PRODUCTBUNDLEPRODUCTS_WHERE);
+
+			boolean bindProductKey = false;
+
+			if (productKey.isEmpty()) {
+				sb.append(_FINDER_COLUMN_PRODUCTKEY_PRODUCTKEY_3);
+			}
+			else {
+				bindProductKey = true;
+
+				sb.append(_FINDER_COLUMN_PRODUCTKEY_PRODUCTKEY_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindProductKey) {
+					queryPos.add(productKey);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_PRODUCTKEY_PRODUCTKEY_2 =
+		"productBundleProducts.id.productKey = ?";
+
+	private static final String _FINDER_COLUMN_PRODUCTKEY_PRODUCTKEY_3 =
+		"(productBundleProducts.id.productKey IS NULL OR productBundleProducts.id.productKey = '')";
 
 	public ProductBundleProductsPersistenceImpl() {
 		setModelClass(ProductBundleProducts.class);
@@ -634,9 +1192,39 @@ public class ProductBundleProductsPersistenceImpl
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
 		else if (isNew) {
+			Object[] args = new Object[] {
+				productBundleProductsModelImpl.getProductKey()
+			};
+
+			finderCache.removeResult(_finderPathCountByProductKey, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByProductKey, args);
+
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
+		}
+		else {
+			if ((productBundleProductsModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByProductKey.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					productBundleProductsModelImpl.getOriginalProductKey()
+				};
+
+				finderCache.removeResult(_finderPathCountByProductKey, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByProductKey, args);
+
+				args = new Object[] {
+					productBundleProductsModelImpl.getProductKey()
+				};
+
+				finderCache.removeResult(_finderPathCountByProductKey, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByProductKey, args);
+			}
 		}
 
 		entityCache.putResult(
@@ -956,6 +1544,27 @@ public class ProductBundleProductsPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByProductBundleId",
 			new String[] {Long.class.getName()});
+
+		_finderPathWithPaginationFindByProductKey = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled,
+			ProductBundleProductsImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByProductKey",
+			new String[] {
+				String.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByProductKey = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled,
+			ProductBundleProductsImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByProductKey",
+			new String[] {String.class.getName()},
+			ProductBundleProductsModelImpl.PRODUCTKEY_COLUMN_BITMASK);
+
+		_finderPathCountByProductKey = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByProductKey",
+			new String[] {String.class.getName()});
 	}
 
 	@Deactivate

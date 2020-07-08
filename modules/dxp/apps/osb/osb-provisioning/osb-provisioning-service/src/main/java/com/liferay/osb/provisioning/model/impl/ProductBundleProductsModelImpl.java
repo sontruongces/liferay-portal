@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 
 import java.io.Serializable;
@@ -307,7 +308,17 @@ public class ProductBundleProductsModelImpl
 
 	@Override
 	public void setProductKey(String productKey) {
+		_columnBitmask |= PRODUCTKEY_COLUMN_BITMASK;
+
+		if (_originalProductKey == null) {
+			_originalProductKey = _productKey;
+		}
+
 		_productKey = productKey;
+	}
+
+	public String getOriginalProductKey() {
+		return GetterUtil.getString(_originalProductKey);
 	}
 
 	public long getColumnBitmask() {
@@ -398,6 +409,9 @@ public class ProductBundleProductsModelImpl
 			productBundleProductsModelImpl._productBundleId;
 
 		productBundleProductsModelImpl._setOriginalProductBundleId = false;
+
+		productBundleProductsModelImpl._originalProductKey =
+			productBundleProductsModelImpl._productKey;
 
 		productBundleProductsModelImpl._columnBitmask = 0;
 	}
@@ -505,6 +519,7 @@ public class ProductBundleProductsModelImpl
 	private long _originalProductBundleId;
 	private boolean _setOriginalProductBundleId;
 	private String _productKey;
+	private String _originalProductKey;
 	private long _columnBitmask;
 	private ProductBundleProducts _escapedModel;
 
