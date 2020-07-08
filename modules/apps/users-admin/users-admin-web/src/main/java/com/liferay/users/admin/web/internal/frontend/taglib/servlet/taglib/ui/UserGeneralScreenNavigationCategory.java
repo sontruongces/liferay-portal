@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.users.admin.web.internal.frontend.taglib.servlet.taglib;
+package com.liferay.users.admin.web.internal.frontend.taglib.servlet.taglib.ui;
 
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.portal.kernel.language.LanguageUtil;

@@ -12,12 +12,13 @@
  * details.
  */
 
-package com.liferay.users.admin.web.internal.frontend.taglib.servlet.taglib;
+package com.liferay.users.admin.web.internal.frontend.taglib.servlet.taglib.ui;
 
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.users.admin.constants.UserScreenNavigationEntryConstants;
+import com.liferay.users.admin.web.internal.frontend.taglib.servlet.taglib.OrganizationScreenNavigationEntry;
 
 import java.util.Locale;
 
