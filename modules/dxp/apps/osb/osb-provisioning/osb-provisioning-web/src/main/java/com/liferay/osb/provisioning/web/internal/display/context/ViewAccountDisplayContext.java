@@ -456,9 +456,10 @@ public class ViewAccountDisplayContext {
 
 		AccountEntry accountEntry = getAccountEntry();
 
-		data.put("instructions", _getAccountEntryInstructions(accountEntry));
+		data.put("instructions", _getSupportInstructions(accountEntry));
+		data.put("language", _getSupportLanguage(accountEntry));
 
-		data.put("language", _getAccountEntryLanguage(accountEntry));
+		data.put("languageList", _getLanguageList());
 
 		List<String> regionNames = new ArrayList<>();
 
@@ -467,8 +468,6 @@ public class ViewAccountDisplayContext {
 		}
 
 		data.put("regionNames", regionNames);
-
-		data.put("languageList", _getLanguageList());
 
 		PortletURL updateAccountURL = renderResponse.createActionURL();
 
@@ -578,40 +577,6 @@ public class ViewAccountDisplayContext {
 	protected RenderRequest renderRequest;
 	protected RenderResponse renderResponse;
 	protected TeamWebService teamWebService;
-
-	private String _getAccountEntryInstructions(AccountEntry accountEntry)
-		throws Exception {
-
-		String instructions = accountEntry.getInstructions();
-
-		if (Validator.isNotNull(instructions)) {
-			return instructions;
-		}
-
-		return StringPool.DASH;
-	}
-
-	private JSONObject _getAccountEntryLanguage(AccountEntry accountEntry)
-		throws Exception {
-
-		String languageId = accountEntry.getLanguageId();
-
-		if (Validator.isNotNull(languageId)) {
-			Locale languageLocale = LocaleUtil.fromLanguageId(languageId);
-
-			return JSONUtil.put(
-				"id", languageId
-			).put(
-				"name", languageLocale.getDisplayLanguage()
-			);
-		}
-
-		return JSONUtil.put(
-			"id", StringPool.DASH
-		).put(
-			"name", StringPool.DASH
-		);
-	}
 
 	private List<DropdownItem> _getFilterCustomerRoleDropdownItems()
 		throws Exception {
@@ -792,6 +757,40 @@ public class ViewAccountDisplayContext {
 		}
 
 		return StringPool.BLANK;
+	}
+
+	private String _getSupportInstructions(AccountEntry accountEntry)
+		throws Exception {
+
+		String instructions = accountEntry.getInstructions();
+
+		if (Validator.isNotNull(instructions)) {
+			return instructions;
+		}
+
+		return StringPool.DASH;
+	}
+
+	private JSONObject _getSupportLanguage(AccountEntry accountEntry)
+		throws Exception {
+
+		String languageId = accountEntry.getLanguageId();
+
+		if (Validator.isNotNull(languageId)) {
+			Locale languageLocale = LocaleUtil.fromLanguageId(languageId);
+
+			return JSONUtil.put(
+				"id", languageId
+			).put(
+				"name", languageLocale.getDisplayLanguage()
+			);
+		}
+
+		return JSONUtil.put(
+			"id", StringPool.DASH
+		).put(
+			"name", StringPool.DASH
+		);
 	}
 
 	private String _getSupportLifeFilter(Date startDate, Date endDate) {
