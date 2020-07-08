@@ -24,6 +24,14 @@ function Instructions({instructions, updateInstructionsURL}) {
 				{Liferay.Language.get('instructions')}
 			</ClayList.Header>
 
+			<ClayList.Item flex>
+				<div className="detail-field">
+					<ClayList.ItemTitle>
+						{Liferay.Language.get('oem-instructions')}
+					</ClayList.ItemTitle>
+				</div>
+			</ClayList.Item>
+
 			<DetailField
 				fieldLabel={Liferay.Language.get('support-instructions')}
 				fieldName="instructions"

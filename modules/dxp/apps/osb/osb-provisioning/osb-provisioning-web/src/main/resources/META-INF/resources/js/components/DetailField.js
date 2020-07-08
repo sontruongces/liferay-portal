@@ -41,7 +41,7 @@ function DetailField({
 
 	useEffect(() => {
 		if (formRef.current && data[fieldName] !== formData[fieldName]) {
-			if (type === FIELD_TYPE_TEXT) {
+			if (type === FIELD_TYPE_TEXT || type === FIELD_TYPE_TEXTAREA) {
 				formRef.current.submit();
 			}
 

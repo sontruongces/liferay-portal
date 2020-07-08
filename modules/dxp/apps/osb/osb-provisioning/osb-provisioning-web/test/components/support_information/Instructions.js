@@ -35,6 +35,7 @@ describe('Instructions', () => {
 	it('displays Instructions title', () => {
 		const {getByText} = renderInstructions();
 
+		getByText('oem-instructions');
 		getByText('support-instructions');
 	});
 
