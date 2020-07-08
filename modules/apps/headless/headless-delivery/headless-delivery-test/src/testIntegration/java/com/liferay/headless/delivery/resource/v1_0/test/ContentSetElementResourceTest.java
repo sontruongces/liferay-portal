@@ -23,7 +23,6 @@ import com.liferay.blogs.service.BlogsEntryLocalServiceUtil;
 import com.liferay.headless.delivery.client.dto.v1_0.ContentSetElement;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 
@@ -101,9 +100,8 @@ public class ContentSetElementResourceTest
 
 	private BlogsEntry _addBlogsEntry() throws PortalException {
 		return BlogsEntryLocalServiceUtil.addEntry(
-			UserLocalServiceUtil.getDefaultUserId(testGroup.getCompanyId()),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			_serviceContext);
+			TestPropsValues.getUserId(), RandomTestUtil.randomString(),
+			RandomTestUtil.randomString(), _serviceContext);
 	}
 
 	private ContentSetElement _toContentSetElement(BlogsEntry blogsEntry) {
