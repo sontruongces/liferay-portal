@@ -527,10 +527,10 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		LayoutPageTemplateCollection layoutPageTemplateCollection =
 			_addLayoutPageTemplateCollection(serviceContext);
 
-		Iterator layoutsIterator = _LAYOUTS.iterator();
+		Iterator<String[]> layoutsIterator = _LAYOUTS.iterator();
 
 		while (layoutsIterator.hasNext()) {
-			String[] layout = (String[])layoutsIterator.next();
+			String[] layout = layoutsIterator.next();
 
 			String fragmentName = layout[0];
 
