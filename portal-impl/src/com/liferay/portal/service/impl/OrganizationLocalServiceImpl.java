@@ -2485,9 +2485,6 @@ public class OrganizationLocalServiceImpl
 			statusId);
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		OrganizationLocalServiceImpl.class);
-
 	private Sort[] _getSorts(Sort sort) {
 		Sort[] sorts = {sort};
 
@@ -2504,6 +2501,9 @@ public class OrganizationLocalServiceImpl
 
 	private static final String _TYPE_FIELD_NAME = Field.getSortableFieldName(
 		StringBundler.concat(Field.TYPE, StringPool.UNDERLINE, "String"));
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		OrganizationLocalServiceImpl.class);
 
 	private static volatile OrganizationTypesSettings
 		_organizationTypesSettings =
