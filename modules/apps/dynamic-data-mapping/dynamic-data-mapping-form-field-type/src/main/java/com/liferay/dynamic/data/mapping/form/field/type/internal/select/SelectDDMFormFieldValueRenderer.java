@@ -23,6 +23,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -63,7 +64,7 @@ public class SelectDDMFormFieldValueRenderer
 					ddmFormFieldOptions.getOptionLabels(optionValue);
 
 				if (optionLabel != null) {
-					sb.append(optionLabel.getString(locale));
+					sb.append(HtmlUtil.escape(optionLabel.getString(locale)));
 				}
 				else {
 					sb.append(optionValue);
