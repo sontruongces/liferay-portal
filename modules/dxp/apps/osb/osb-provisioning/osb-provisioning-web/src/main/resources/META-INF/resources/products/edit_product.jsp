@@ -29,9 +29,19 @@ if (product != null) {
 %>
 
 <portlet:actionURL name="/products/edit_product" var="editProductURL">
+	<portlet:param name="mvcRenderCommandName" value="/products/edit_product" />
 	<portlet:param name="redirect" value="<%= redirect %>" />
 	<portlet:param name="productKey" value='<%= (product != null) ? product.getKey() : "" %>' />
 </portlet:actionURL>
+
+<liferay-ui:error exception="<%= HttpException.class %>">
+
+	<%
+	HttpException httpException = (HttpException)errorException;
+	%>
+
+	<%= httpException.getMessage() %>
+</liferay-ui:error>
 
 <aui:form action="<%= editProductURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:fieldset-group>

@@ -20,17 +20,7 @@ import com.liferay.portal.aop.AopService;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * The implementation of the product bundle products local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.liferay.osb.provisioning.service.ProductBundleProductsLocalService</code> interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
- * @author Brian Wing Shun Chan
- * @see ProductBundleProductsLocalServiceBaseImpl
+ * @author Kyle Bischof
  */
 @Component(
 	property = "model.class.name=com.liferay.osb.provisioning.model.ProductBundleProducts",
@@ -39,10 +29,8 @@ import org.osgi.service.component.annotations.Component;
 public class ProductBundleProductsLocalServiceImpl
 	extends ProductBundleProductsLocalServiceBaseImpl {
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Use <code>com.liferay.osb.provisioning.service.ProductBundleProductsLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.provisioning.service.ProductBundleProductsLocalServiceUtil</code>.
-	 */
+	public int getProductBundleProductsCount(String productKey) {
+		return productBundleProductsPersistence.countByProductKey(productKey);
+	}
 
 }

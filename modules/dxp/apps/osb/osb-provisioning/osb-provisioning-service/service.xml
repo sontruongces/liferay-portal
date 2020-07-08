@@ -32,5 +32,11 @@
 		<finder name="ProductBundleId" return-type="ProductBundle">
 			<finder-column name="productBundleId" />
 		</finder>
+		<finder name="ProductKey" return-type="Collection">
+			<finder-column name="productKey" />
+		</finder>
 	</entity>
+	<exceptions>
+		<exception>RequiredProduct</exception>
+	</exceptions>
 </service-builder>

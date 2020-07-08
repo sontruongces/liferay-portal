@@ -19,16 +19,22 @@ import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntity
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
+import com.liferay.osb.provisioning.exception.RequiredProductException;
 import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException;
+import com.liferay.osb.provisioning.service.ProductBundleProductsLocalService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -38,6 +44,7 @@ import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -59,8 +66,17 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 		String productKey = ParamUtil.getString(actionRequest, "productKey");
 
-		_productWebService.deleteProduct(
-			user.getFullName(), StringPool.BLANK, productKey);
+		int count =
+			_productBundleProductsLocalService.getProductBundleProductsCount(
+				productKey);
+
+		if (count == 0) {
+			_productWebService.deleteProduct(
+				user.getFullName(), StringPool.BLANK, productKey);
+		}
+		else {
+			throw new RequiredProductException();
+		}
 	}
 
 	@Override
@@ -78,18 +94,42 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 			if (cmd.equals(Constants.DELETE)) {
 				deleteProduct(actionRequest, user);
+
+				sendRedirect(actionRequest, actionResponse);
 			}
 			else {
-				updateProduct(actionRequest, user);
-			}
+				String productKey = updateProduct(actionRequest, user);
 
-			sendRedirect(actionRequest, actionResponse);
+				String redirect = getRedirect(actionResponse, productKey);
+
+				sendRedirect(actionRequest, actionResponse, redirect);
+			}
+		}
+		catch (HttpException httpException) {
+			SessionErrors.add(
+				actionRequest, httpException.getClass(), httpException);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
 
 			throw exception;
 		}
+	}
+
+	protected String getRedirect(
+			ActionResponse actionResponse, String productKey)
+		throws Exception {
+
+		LiferayPortletResponse liferayPortletResponse =
+			_portal.getLiferayPortletResponse(actionResponse);
+
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/products/edit_product");
+		portletURL.setParameter("productKey", productKey);
+
+		return portletURL.toString();
 	}
 
 	protected void updateDossieraMapping(
@@ -131,7 +171,7 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	protected void updateProduct(ActionRequest actionRequest, User user)
+	protected String updateProduct(ActionRequest actionRequest, User user)
 		throws Exception {
 
 		String productKey = ParamUtil.getString(actionRequest, "productKey");
@@ -166,8 +206,10 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 		product.setProperties(properties);
 
 		if (Validator.isNull(productKey)) {
-			_productWebService.addProduct(
+			product = _productWebService.addProduct(
 				user.getFullName(), StringPool.BLANK, product);
+
+			productKey = product.getKey();
 		}
 		else {
 			updateDossieraMapping(user, productKey, externalLink);
@@ -175,6 +217,8 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 			_productWebService.updateProduct(
 				user.getFullName(), StringPool.BLANK, productKey, product);
 		}
+
+		return productKey;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -182,6 +226,13 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private ExternalLinkWebService _externalLinkWebService;
+
+	@Reference
+	private Portal _portal;
+
+	@Reference
+	private ProductBundleProductsLocalService
+		_productBundleProductsLocalService;
 
 	@Reference
 	private ProductWebService _productWebService;

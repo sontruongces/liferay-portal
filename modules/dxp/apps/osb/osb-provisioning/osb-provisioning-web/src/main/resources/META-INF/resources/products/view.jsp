@@ -25,6 +25,17 @@ ViewProductsManagementToolbarDisplayContext viewProductsManagementToolbarDisplay
 <div class="container-fluid-1280">
 	<portlet:actionURL name="/search" var="searchURL" />
 
+	<liferay-ui:error key="<%= RequiredProductException.class.getName() %>" message="please-remove-the-product-from-all-product-bundles-before-deleting" />
+
+	<liferay-ui:error exception="<%= HttpException.class %>">
+
+		<%
+		HttpException httpException = (HttpException)errorException;
+		%>
+
+		<%= httpException.getMessage() %>
+	</liferay-ui:error>
+
 	<clay:management-toolbar
 		displayContext="<%= viewProductsManagementToolbarDisplayContext %>"
 	/>
