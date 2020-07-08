@@ -155,4 +155,11 @@ definition {
 			value1 = "${categoryName}");
 	}
 
+	macro viewVocabulary {
+		AssertTextEquals(
+			key_vocabularyName = "${vocabularyName}",
+			locator1 = "UsersAndOrganizationsEditUser#VOCABULARY_LABEL",
+			value1 = "${vocabularyName}");
+	}
+
 }
