@@ -1668,7 +1668,8 @@ definition {
 
 		User.editCategorizationCP(
 			categoryName = "Category Name 1",
-			userScreenName = "usersn");
+			userScreenName = "usersn",
+			vocabularyName = "Vocabulary Name 1 (Global)");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -1689,6 +1690,8 @@ definition {
 		UserNavigator.gotoUser(userScreenName = "usersn");
 
 		AssetCategorization.viewCategory(categoryName = "Category Name 1");
+
+		AssetCategorization.viewVocabulary(vocabularyName = "Vocabulary Name 1 (Global)");
 	}
 
 	@priority = "4"
