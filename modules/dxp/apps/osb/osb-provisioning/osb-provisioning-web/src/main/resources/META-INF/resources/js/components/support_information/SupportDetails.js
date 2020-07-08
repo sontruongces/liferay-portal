@@ -34,11 +34,11 @@ function SupportDetails({
 		updateAccount: true
 	};
 
-	function createSelectOptions(array, json) {
+	function createSelectOptions(array) {
 		return array.map(value => {
 			return {
-				label: json ? value.name : value,
-				value: json ? value.id : value
+				label: value.name ? value.name : value,
+				value: value.id ? value.id : value
 			};
 		});
 	}
@@ -52,7 +52,7 @@ function SupportDetails({
 				fieldName="region"
 				formAction={updateAccountURL}
 				formData={formData}
-				options={createSelectOptions(regionNames, false)}
+				options={createSelectOptions(regionNames)}
 				type={FIELD_TYPE_SELECT}
 				value={account.region}
 			/>
@@ -63,7 +63,7 @@ function SupportDetails({
 				fieldName="languageId"
 				formAction={updateLanguageIdURL}
 				formData={{languageId: language.id}}
-				options={createSelectOptions(languageList, true)}
+				options={createSelectOptions(languageList)}
 				type={FIELD_TYPE_SELECT}
 				value={language.id}
 			/>

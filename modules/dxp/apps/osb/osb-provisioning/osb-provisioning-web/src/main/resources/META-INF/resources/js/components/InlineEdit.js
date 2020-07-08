@@ -57,6 +57,10 @@ function InlineEdit({
 		save(value);
 	}
 
+	function getDisplayValue() {
+		return displayValue ? displayValue : value;
+	}
+
 	return (
 		<div
 			className={`inline-edit ${
@@ -70,15 +74,11 @@ function InlineEdit({
 					onMouseLeave={() => setFieldEditable(false)}
 				>
 					{fieldEditable ? (
-						<EditableField
-							value={displayValue ? displayValue : value}
-						/>
+						<EditableField value={getDisplayValue()} />
 					) : displayAs === 'label' ? (
 						<Label inputStyle={inputStyle} value={value} />
-					) : displayValue ? (
-						displayValue
 					) : (
-						value
+						getDisplayValue()
 					)}
 				</div>
 			)}
