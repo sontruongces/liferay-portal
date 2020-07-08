@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
@@ -129,7 +131,9 @@ public class PartnerMigration {
 		List<ExternalLink> externalLinks =
 			_externalLinkLocalService.getExternalLinks(
 				_classNameLocalService.getClassNameId(Account.class),
-				"dossiera", "account", dossieraAccountKey, 0, 1);
+				ExternalLinkDomain.DOSSIERA,
+				ExternalLinkEntityName.DOSSIERA_ACCOUNT, dossieraAccountKey, 0,
+				1);
 
 		if (externalLinks.isEmpty()) {
 			return null;

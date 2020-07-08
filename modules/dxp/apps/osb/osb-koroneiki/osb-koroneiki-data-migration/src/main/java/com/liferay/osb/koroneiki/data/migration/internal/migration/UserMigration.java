@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -81,8 +83,9 @@ public class UserMigration {
 	private Account _getAccount(String corpProjectUuid) throws PortalException {
 		List<ExternalLink> externalLinks =
 			_externalLinkLocalService.getExternalLinks(
-				_classNameLocalService.getClassNameId(Account.class), "web",
-				"corpProject", corpProjectUuid, 0, 1);
+				_classNameLocalService.getClassNameId(Account.class),
+				ExternalLinkDomain.WEB, ExternalLinkEntityName.WEB_CORP_PROJECT,
+				corpProjectUuid, 0, 1);
 
 		if (externalLinks.isEmpty()) {
 			return null;

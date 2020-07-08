@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
@@ -99,7 +101,9 @@ public class LicenseKeyMigration {
 				_externalLinkLocalService.addExternalLink(
 					userId, ProductConsumption.class.getName(),
 					productConsumption.getProductConsumptionId(),
-					"provisioning", "license", String.valueOf(licenseKeyId));
+					ExternalLinkDomain.CUSTOMER,
+					ExternalLinkEntityName.CUSTOMER_LICENSE_KEY,
+					String.valueOf(licenseKeyId));
 			}
 		}
 	}

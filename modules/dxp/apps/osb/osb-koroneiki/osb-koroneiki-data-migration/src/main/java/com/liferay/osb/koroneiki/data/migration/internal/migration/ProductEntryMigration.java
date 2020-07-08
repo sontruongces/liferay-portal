@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
 import com.liferay.osb.koroneiki.trunk.model.ProductField;
@@ -104,7 +106,9 @@ public class ProductEntryMigration {
 			while (resultSet.next()) {
 				_externalLinkLocalService.addExternalLink(
 					userId, ProductEntry.class.getName(), newProductEntryId,
-					"dossiera", "product", resultSet.getString("externalId"));
+					ExternalLinkDomain.DOSSIERA,
+					ExternalLinkEntityName.DOSSIERA_PRODUCT,
+					resultSet.getString("externalId"));
 			}
 		}
 	}

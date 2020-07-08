@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Status;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Tier;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Note;
@@ -132,26 +134,32 @@ public class CorpProjectMigration {
 
 					_externalLinkLocalService.addExternalLink(
 						userId, Account.class.getName(), account.getAccountId(),
-						"dossiera", "project",
+						ExternalLinkDomain.DOSSIERA,
+						ExternalLinkEntityName.DOSSIERA_PROJECT,
 						resultSet.getString("dossieraProjectKey"));
 				}
 
 				_externalLinkLocalService.addExternalLink(
 					userId, Account.class.getName(), account.getAccountId(),
-					"lcs", "corpProjectId", String.valueOf(corpProjectId));
+					ExternalLinkDomain.LCS,
+					ExternalLinkEntityName.LCS_CORP_PROJECT,
+					String.valueOf(corpProjectId));
 
 				if (Validator.isNotNull(
 						resultSet.getString("salesforceProjectKey"))) {
 
 					_externalLinkLocalService.addExternalLink(
 						userId, Account.class.getName(), account.getAccountId(),
-						"salesforce", "project",
+						ExternalLinkDomain.SALESFORCE,
+						ExternalLinkEntityName.SALESFORCE_PROJECT,
 						resultSet.getString("salesforceProjectKey"));
 				}
 
 				_externalLinkLocalService.addExternalLink(
 					userId, Account.class.getName(), account.getAccountId(),
-					"web", "corpProject", resultSet.getString("uuid_"));
+					ExternalLinkDomain.WEB,
+					ExternalLinkEntityName.WEB_CORP_PROJECT,
+					resultSet.getString("uuid_"));
 
 				if (_log.isInfoEnabled()) {
 					_log.info("Migrated CorpProject " + account.getAccountId());
@@ -284,7 +292,9 @@ public class CorpProjectMigration {
 
 		List<ExternalLink> externalLinks =
 			_externalLinkLocalService.getExternalLinks(
-				classNameId, "dossiera", "account", dossieraAccountKey, 0, 1);
+				classNameId, ExternalLinkDomain.DOSSIERA,
+				ExternalLinkEntityName.DOSSIERA_ACCOUNT, dossieraAccountKey, 0,
+				1);
 
 		if (!externalLinks.isEmpty()) {
 			ExternalLink externalLink = externalLinks.get(0);

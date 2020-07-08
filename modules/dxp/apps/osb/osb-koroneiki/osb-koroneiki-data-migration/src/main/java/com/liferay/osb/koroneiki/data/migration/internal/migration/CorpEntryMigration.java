@@ -14,6 +14,8 @@
 
 package com.liferay.osb.koroneiki.data.migration.internal.migration;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Account.Status;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
@@ -101,11 +103,14 @@ public class CorpEntryMigration {
 
 				_externalLinkLocalService.addExternalLink(
 					userId, Account.class.getName(), account.getAccountId(),
-					"dossiera", "account",
+					ExternalLinkDomain.DOSSIERA,
+					ExternalLinkEntityName.DOSSIERA_ACCOUNT,
 					resultSet.getString("dossieraAccountKey"));
+
 				_externalLinkLocalService.addExternalLink(
 					userId, Account.class.getName(), account.getAccountId(),
-					"web", "organization",
+					ExternalLinkDomain.WEB,
+					ExternalLinkEntityName.WEB_ORGANIZATION,
 					resultSet.getString("organizationId"));
 
 				_migrateAddress(

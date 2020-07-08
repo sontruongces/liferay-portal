@@ -11,6 +11,7 @@ dependencies {
 	compileOnly group: "javax.servlet", name: "javax.servlet-api", version: "3.0.1"
 	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-application-list")
 	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-api")
+	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-phloem:osb-koroneiki-phloem-rest-client")
 	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-root:osb-koroneiki-root-api")
 	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-taproot:osb-koroneiki-taproot-api")
 	compileOnly project(":dxp:apps:osb:osb-koroneiki:osb-koroneiki-trunk:osb-koroneiki-trunk-api")
