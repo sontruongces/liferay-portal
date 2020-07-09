@@ -346,7 +346,7 @@ definition {
 		}
 
 		task ("Assert the layout by default has padding x1") {
-			AssertVisible(locator1 = "//section[contains(@class,'fragment-entry-link')]//div[contains(@class,'container py-3')]");
+			AssertVisible(locator1 = "//section[contains(@class,'fragment-entry-link')]//div[contains(@class,'container px-3 py-3')]");
 		}
 
 		task ("Assert the layout by default has space between columns") {
