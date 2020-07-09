@@ -23,6 +23,8 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
+import com.liferay.osb.provisioning.distributed.messaging.internal.configuration.ProvisioningDistributedMessagingConfigurationUtil;
+import com.liferay.osb.provisioning.distributed.messaging.internal.configuration.ProvisioningDistributedMessagingConfigurationValues;
 import com.liferay.osb.provisioning.distributed.messaging.internal.constants.SalesforceConstants;
 import com.liferay.osb.provisioning.koroneiki.constants.ContactRoleConstants;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
@@ -32,6 +34,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebServ
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.petra.content.ContentUtil;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -66,7 +69,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
-	protected void createAccount(
+	protected Account createAccount(
 			PostalAddress postalAddress, Contact[] contacts,
 			ExternalLink[] externalLinks, ProductPurchase[] productPurchases,
 			JSONObject jsonObject)
@@ -109,7 +112,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		account.setRegion(region);
 
-		_accountWebService.addAccount(
+		return _accountWebService.addAccount(
 			StringPool.BLANK, StringPool.BLANK, account);
 	}
 
@@ -137,24 +140,41 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		}
 
 		List<Contact> contacts = parseContacts(jsonObject);
+
 		List<ProductPurchase> productPurchases = parseProductPurchases(
 			jsonObject);
+
+		boolean analyticsCloud = hasAnalyticsCloud(productPurchases);
+
+		Account account = null;
 
 		String accountKey = getAccountKey(jsonObject);
 
 		if (Validator.isNotNull(accountKey)) {
-			updateAccount(accountKey, contacts, productPurchases);
+			account = updateAccount(accountKey, contacts, productPurchases);
 		}
 		else {
 			PostalAddress postalAddress = parseAddress(jsonObject);
 			ExternalLink[] externalLinks = parseExternalLinks(jsonObject);
 
-			createAccount(
+			account = createAccount(
 				postalAddress, contacts.toArray(new Contact[0]), externalLinks,
 				productPurchases.toArray(new ProductPurchase[0]), jsonObject);
 
-			if (hasAnalyticsCloud(productPurchases)) {
+			if (analyticsCloud) {
 				sendAnalyticsCloudWelcomeEmail(contacts);
+			}
+		}
+
+		for (Contact contact : contacts) {
+
+			// TODO
+			// Okta Integration
+
+			boolean oktaContact = true;
+
+			if (!oktaContact) {
+				sendUserCreationEmail(contact, account, analyticsCloud);
 			}
 		}
 	}
@@ -619,7 +639,64 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		}
 	}
 
-	protected void updateAccount(
+	protected void sendUserCreationEmail(
+		Contact contact, Account account, boolean analyticsCloud) {
+
+		StringBundler sb = new StringBundler(2);
+
+		if (analyticsCloud) {
+			sb.append("Analytics Cloud, ");
+		}
+
+		sb.append(
+			"Customer Portal, all of our downloads, and our support system");
+
+		String provisioningEmailAddress =
+			ProvisioningDistributedMessagingConfigurationUtil.get(
+				ProvisioningDistributedMessagingConfigurationValues.
+					PROVISIONING_EMAIL_ADDRESS,
+				new Filter(account.getRegionAsString()));
+
+		if (Validator.isNull(provisioningEmailAddress)) {
+			provisioningEmailAddress =
+				ProvisioningDistributedMessagingConfigurationUtil.get(
+					ProvisioningDistributedMessagingConfigurationValues.
+						PROVISIONING_EMAIL_ADDRESS,
+					new Filter("Global"));
+		}
+
+		String body = _getEmailTemplate(
+			"email_provisioning_create_account_body_" +
+				contact.getLanguageId() + ".tmpl",
+			"email_provisioning_create_account_body.tmpl");
+		String subject = _getEmailTemplate(
+			"email_provisioning_create_account_subject_" +
+				contact.getLanguageId() + ".tmpl",
+			"email_provisioning_create_account_subject.tmpl");
+
+		SubscriptionSender subscriptionSender = new SubscriptionSender();
+
+		subscriptionSender.setBody(body);
+		subscriptionSender.setCompanyId(_portal.getDefaultCompanyId());
+		subscriptionSender.setContextAttributes(
+			"[$ACCOUNT_ENTRY_NAME$]", account.getName(),
+			"[$SUBSCRIPTION_SERVICES$]", sb.toString());
+		subscriptionSender.setFrom(
+			provisioningEmailAddress, "Liferay Provisioning");
+		subscriptionSender.setHtmlFormat(true);
+		subscriptionSender.setMailId("provisioning");
+		subscriptionSender.setReplyToAddress(provisioningEmailAddress);
+		subscriptionSender.setSubject(subject);
+
+		subscriptionSender.addRuntimeSubscribers(
+			contact.getEmailAddress(), getContactFullName(contact));
+		subscriptionSender.addRuntimeSubscribers(
+			provisioningEmailAddress, getContactFullName(contact));
+
+		subscriptionSender.flushNotificationsAsync();
+	}
+
+	protected Account updateAccount(
 			String accountKey, List<Contact> contacts,
 			List<ProductPurchase> productPurchases)
 		throws Exception {
@@ -664,6 +741,8 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 				StringPool.BLANK, StringPool.BLANK, accountKey,
 				productPurchase);
 		}
+
+		return _accountWebService.getAccount(accountKey);
 	}
 
 	private static String _getEmailTemplate(
