@@ -19,7 +19,6 @@ import com.liferay.commerce.account.util.CommerceAccountRoleHelper;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.initializer.util.CPDefinitionsImporter;
-import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
@@ -253,7 +252,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 	private void _addLayout(
 			FragmentCollection fragmentCollection,
 			LayoutPageTemplateCollection layoutPageTemplateCollection,
-			String fragmentName, String fragmentPath,
+			String fragmentName, String fragmentPath, boolean privateLayout,
 			ServiceContext serviceContext)
 		throws Exception {
 
@@ -265,13 +264,14 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
 		_addLayout(
 			layoutPageTemplateCollection.getLayoutPageTemplateCollectionId(),
-			fragmentName, fragmentEntry, fragmentPath, serviceContext);
+			fragmentName, fragmentEntry, fragmentPath, privateLayout,
+			serviceContext);
 	}
 
 	private void _addLayout(
 			long layoutPageTemplateCollectionId, String name,
 			List<FragmentEntry> fragmentEntries, String path,
-			ServiceContext serviceContext)
+			boolean privateLayout, ServiceContext serviceContext)
 		throws Exception {
 
 		LayoutPageTemplateEntry layoutPageTemplateEntry =
@@ -286,8 +286,8 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			fragmentEntryIds, StringPool.BLANK, serviceContext);
 
 		Layout layout = _layoutLocalService.addLayout(
-			serviceContext.getUserId(), serviceContext.getScopeGroupId(), false,
-			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
+			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
+			privateLayout, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
 			_portal.getClassNameId(LayoutPageTemplateEntry.class),
 			layoutPageTemplateEntry.getLayoutPageTemplateEntryId(),
 			HashMapBuilder.put(
@@ -338,7 +338,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 				previewFileEntryId);
 	}
 
-	private void _configureB2CSite(long groupId, ServiceContext serviceContext)
+	private void _configureB2BSite(long groupId, ServiceContext serviceContext)
 		throws Exception {
 
 		Group group = _groupLocalService.getGroup(groupId);
@@ -365,7 +365,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
 		modifiableSettings.setValue(
 			"commerceSiteType",
-			String.valueOf(CommerceAccountConstants.SITE_TYPE_B2C));
+			String.valueOf(CommerceAccountConstants.SITE_TYPE_B2B));
 
 		modifiableSettings.store();
 	}
@@ -489,7 +489,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		return serviceContext;
 	}
 
-	private List<CPDefinition> _importCPDefinitions(
+	private void _importCPDefinitions(
 			long catalogGroupId, long commerceChannelId,
 			ServiceContext serviceContext)
 		throws Exception {
@@ -498,7 +498,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
 		JSONArray jsonArray = _getJSONArray("products.json");
 
-		return _cpDefinitionsImporter.importCPDefinitions(
+		_cpDefinitionsImporter.importCPDefinitions(
 			jsonArray, group.getName(serviceContext.getLocale()),
 			catalogGroupId, commerceChannelId, new long[0],
 			OSBCommerceProvisioningSiteInitializer.class.getClassLoader(),
@@ -514,7 +514,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		CommerceChannel commerceChannel = _createChannel(
 			commerceCatalog, serviceContext);
 
-		_configureB2CSite(commerceChannel.getGroupId(), serviceContext);
+		_configureB2BSite(commerceChannel.getGroupId(), serviceContext);
 
 		_importCPDefinitions(
 			catalogGroupId, commerceChannel.getCommerceChannelId(),
@@ -544,13 +544,15 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 
 		_addLayout(
 			fragmentCollection, layoutPageTemplateCollection, "Start Trial",
-			"start_trial", serviceContext);
+			"start_trial", false, serviceContext);
+
 		_addLayout(
-			fragmentCollection, layoutPageTemplateCollection,
-			"Account Management", "account_management", serviceContext);
+			fragmentCollection, layoutPageTemplateCollection, "Settings",
+			"account_settings", true, serviceContext);
+
 		_addLayout(
 			fragmentCollection, layoutPageTemplateCollection, "Plan Management",
-			"plan_management", serviceContext);
+			"plan_management", true, serviceContext);
 	}
 
 	private void _updateLogo(ServiceContext serviceContext) throws Exception {
