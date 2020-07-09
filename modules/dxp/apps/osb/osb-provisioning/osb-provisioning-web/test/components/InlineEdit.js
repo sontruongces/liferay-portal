@@ -59,6 +59,21 @@ describe('InlineEdit', () => {
 		getByText('cancel');
 	});
 
+	it('enables the Save button after the user has made edits to the field', () => {
+		const {container} = renderInlineEdit();
+		const {getByText} = within(container);
+
+		fireEvent.click(getByText('test'));
+
+		expect(getByText('save').disabled).toBeTruthy();
+
+		fireEvent.change(container.querySelector('input'), {
+			target: {value: 'test123'}
+		});
+
+		expect(getByText('save').disabled).toBeFalsy();
+	});
+
 	it('hides the Cancel and Save button after the Cancel button is clicked', () => {
 		const {container} = renderInlineEdit();
 		const {getByText, queryByText} = within(container);
@@ -100,6 +115,9 @@ describe('InlineEdit', () => {
 		const {getByText} = within(container);
 
 		fireEvent.click(getByText('test'));
+		fireEvent.change(container.querySelector('input'), {
+			target: {value: 'test123'}
+		});
 		fireEvent.click(getByText('save'));
 
 		expect(mockSubmitFn).toHaveBeenCalled();
