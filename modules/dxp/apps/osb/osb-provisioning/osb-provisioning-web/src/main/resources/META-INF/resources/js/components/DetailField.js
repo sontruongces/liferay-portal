@@ -63,9 +63,9 @@ function DetailField({
 				)}
 
 				<div className="list-group-text">
-					{type === FIELD_TYPE_NONEDITABLE ? (
-						<>{value}</>
-					) : (
+					{type === FIELD_TYPE_NONEDITABLE && <>{value}</>}
+
+					{type !== FIELD_TYPE_NONEDITABLE && (
 						<>
 							<HiddenForm
 								fields={data}

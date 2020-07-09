@@ -69,13 +69,16 @@ function InlineEdit({
 					onMouseEnter={() => setFieldEditable(true)}
 					onMouseLeave={() => setFieldEditable(false)}
 				>
-					{fieldEditable ? (
+					{fieldEditable && (
 						<EditableField value={getDisplayValue()} />
-					) : displayAs === 'label' ? (
-						<Label inputStyle={inputStyle} value={value} />
-					) : (
-						getDisplayValue()
 					)}
+
+					{!fieldEditable &&
+						(displayAs === 'label' ? (
+							<Label inputStyle={inputStyle} value={value} />
+						) : (
+							getDisplayValue()
+						))}
 				</div>
 			)}
 
