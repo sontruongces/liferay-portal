@@ -125,8 +125,7 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
-		portletURL.setParameter(
-			"mvcRenderCommandName", "/products/edit_product");
+		portletURL.setParameter("mvcRenderCommandName", "/products/view");
 		portletURL.setParameter("productKey", productKey);
 
 		return portletURL.toString();
