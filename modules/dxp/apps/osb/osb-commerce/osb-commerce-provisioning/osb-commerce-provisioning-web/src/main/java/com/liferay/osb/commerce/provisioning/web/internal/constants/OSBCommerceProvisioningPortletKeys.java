@@ -23,10 +23,6 @@ public class OSBCommerceProvisioningPortletKeys {
 		"com_liferay_osb_commerce_provisioning_web_portlet_" +
 			"PlanManagementPortlet";
 
-	public static final String PLAN_SETTINGS =
-		"com_liferay_osb_commerce_provisioning_web_portlet_plan_" +
-			"PlanSettingsPortlet";
-
 	public static final String TRIAL_REGISTRATION =
 		"com_liferay_osb_commerce_provisioning_web_portlet_" +
 			"TrialRegistrationPortlet";
