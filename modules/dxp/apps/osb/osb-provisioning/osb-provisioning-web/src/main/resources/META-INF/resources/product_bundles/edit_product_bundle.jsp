@@ -18,15 +18,26 @@
 
 <%
 String redirect = ParamUtil.getString(request, "redirect");
+ProductBundle productBundle = (ProductBundle)renderRequest.getAttribute(ProvisioningWebKeys.PRODUCT_BUNDLE);
+List<Product> products = (List<Product>)renderRequest.getAttribute(ProvisioningWebKeys.PRODUCT_BUNDLE_PRODUCTS);
+
+String productKeys = null;
+
+if (products != null) {
+	List<String> allProductKeys = TransformUtil.transform(products, product -> product.getKey());
+
+	productKeys = StringUtil.merge(allProductKeys, ",");
+}
 %>
 
 <portlet:actionURL name="/product_bundles/edit_product_bundle" var="editProductBundleURL">
 	<portlet:param name="mvcRenderCommandName" value="/product_bundles/edit_product_bundle" />
 	<portlet:param name="redirect" value="<%= redirect %>" />
+	<portlet:param name="productBundleId" value="<%= (productBundle != null) ? String.valueOf(productBundle.getProductBundleId()) : null %>" />
 </portlet:actionURL>
 
 <aui:form action="<%= editProductBundleURL %>" cssClass="container-fluid-1280" method="post" name="fm">
-	<aui:input name="productKeys" type="hidden" />
+	<aui:input name="productKeys" type="hidden" value="<%= productKeys %>" />
 
 	<liferay-ui:error exception="<%= ProductBundleNameException.MustNotBeDuplicate.class %>">
 
@@ -41,13 +52,26 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 	<aui:fieldset-group>
 		<aui:fieldset>
-			<aui:input name="name" value="">
+			<aui:input name="name" value='<%= (productBundle != null) ? productBundle.getName() : "" %>'>
 				<aui:validator name="required" />
 			</aui:input>
 
 			<h5><liferay-ui:message key="products" /></h5>
 
 			<div id="<portlet:namespace />productName">
+
+				<%
+				if (products != null) {
+					for (Product product : products) {
+				%>
+
+						<div id="<%= product.getKey() %>"><%= product.getName() %> <button type="button" class="btn" onclick="removeName(this)">remove</button><br /></div>
+
+				<%
+					}
+				}
+				%>
+
 			</div>
 
 			<aui:button onClick='<%= renderResponse.getNamespace() + "assignProducts();" %>' value="select" />
@@ -83,21 +107,22 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 				if (selectedItems) {
 					var productKeys = [];
-					var productName = [];
-					var display = '<p>';
+
+					A.one('#<portlet:namespace />productName').html('');
 
 					for (var i = 0; i < selectedItems.length; i++) {
 						var selectItem = selectedItems[i].split(' ');
 
 						productKeys.push(selectItem[0]);
-						productName.push(selectItem[1]);
 
-						display += selectItem[1] + '<br />';
+						A.one('#<portlet:namespace />productName').append(
+							'<div id="' +
+								selectItem[0] +
+								'">' +
+								selectItem[1] +
+								' <button type="button" class="btn" onclick="removeName(this)">remove</button><br /></div>'
+						);
 					}
-
-					display += '</p>';
-
-					A.one('#<portlet:namespace />productName').html(display);
 
 					A.one('#<portlet:namespace />productKeys').val(
 						productKeys.join(',')
@@ -109,4 +134,25 @@ String redirect = ParamUtil.getString(request, "redirect");
 		},
 		['aui-base', 'liferay-item-selector-dialog']
 	);
+</aui:script>
+
+<aui:script>
+	function removeKey(key, value) {
+		return key !== value;
+	}
+
+	function removeName(Object) {
+		var productKeys = document.getElementById(
+			'<portlet:namespace />productKeys'
+		);
+
+		if (productKeys) {
+			productKeys.value = productKeys.value
+				.split(',')
+				.filter(removeKey.bind(this, Object.parentElement.id))
+				.join(',');
+		}
+
+		Object.parentElement.remove();
+	}
 </aui:script>

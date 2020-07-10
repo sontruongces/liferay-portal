@@ -53,6 +53,19 @@ public class ProductBundleLocalServiceImpl
 		return productBundlePersistence.update(productBundle);
 	}
 
+	public ProductBundle updateProductBundle(long productBundleId, String name)
+		throws PortalException {
+
+		ProductBundle productBundle = productBundlePersistence.findByPrimaryKey(
+			productBundleId);
+
+		validate(productBundleId, name);
+
+		productBundle.setName(name);
+
+		return productBundlePersistence.update(productBundle);
+	}
+
 	protected void validate(long productBundleId, String name)
 		throws PortalException {
 

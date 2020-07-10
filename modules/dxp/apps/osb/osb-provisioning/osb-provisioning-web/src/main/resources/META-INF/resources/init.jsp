@@ -41,6 +41,7 @@ page import="com.liferay.osb.provisioning.constants.ProvisioningWebKeys" %><%@
 page import="com.liferay.osb.provisioning.exception.ProductBundleNameException" %><%@
 page import="com.liferay.osb.provisioning.exception.RequiredProductException" %><%@
 page import="com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException" %><%@
+page import="com.liferay.osb.provisioning.model.ProductBundle" %><%@
 page import="com.liferay.osb.provisioning.service.ProductBundleLocalServiceUtil" %><%@
 page import="com.liferay.osb.provisioning.web.internal.configuration.ProvisioningWebConfigurationValues" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
@@ -83,7 +84,8 @@ page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.StringBundler" %><%@
 page import="com.liferay.portal.kernel.util.StringUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
-page import="com.liferay.portal.kernel.util.WebKeys" %>
+page import="com.liferay.portal.kernel.util.WebKeys" %><%@
+page import="com.liferay.portal.vulcan.util.TransformUtil" %>
 
 <%@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@

@@ -35,7 +35,7 @@
 
 		<!-- Finder methods -->
 
-		<finder name="ProductBundleId" return-type="ProductBundle">
+		<finder name="ProductBundleId" return-type="Collection">
 			<finder-column name="productBundleId" />
 		</finder>
 		<finder name="ProductKey" return-type="Collection">

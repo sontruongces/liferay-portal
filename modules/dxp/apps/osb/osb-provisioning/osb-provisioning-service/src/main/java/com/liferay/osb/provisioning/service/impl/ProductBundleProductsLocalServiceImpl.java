@@ -14,6 +14,7 @@
 
 package com.liferay.osb.provisioning.service.impl;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.provisioning.exception.RequiredProductException;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.model.ProductBundleProducts;
@@ -21,7 +22,11 @@ import com.liferay.osb.provisioning.service.ProductBundleLocalService;
 import com.liferay.osb.provisioning.service.base.ProductBundleProductsLocalServiceBaseImpl;
 import com.liferay.osb.provisioning.service.persistence.ProductBundleProductsPK;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -61,8 +66,80 @@ public class ProductBundleProductsLocalServiceImpl
 		return productBundleProducts;
 	}
 
+	public void deleteProductBundleProducts(
+			long productBundleId, String productKey)
+		throws Exception {
+
+		ProductBundleProductsPK productBundleProductsPK =
+			new ProductBundleProductsPK(productBundleId, productKey);
+
+		ProductBundleProducts productBundleProducts =
+			productBundleProductsPersistence.findByPrimaryKey(
+				productBundleProductsPK);
+
+		if (productBundleProducts != null) {
+			deleteProductBundleProducts(productBundleProducts);
+		}
+	}
+
+	public List<Product> getProductBundleAssignedProducts(long productBundleId)
+		throws Exception {
+
+		List<ProductBundleProducts> productBundleProducts =
+			getProductBundleProducts(productBundleId);
+
+		StringBundler sb = new StringBundler();
+
+		for (int i = 0; i < productBundleProducts.size(); i++) {
+			ProductBundleProducts productBundleProduct =
+				productBundleProducts.get(i);
+
+			sb.append("(productEntryKey eq '");
+			sb.append(productBundleProduct.getProductKey());
+			sb.append("')");
+
+			if (i < (productBundleProducts.size() - 1)) {
+				sb.append(" or ");
+			}
+		}
+
+		return _productWebService.getProducts(
+			StringPool.BLANK, sb.toString(), 0, 1000, null);
+	}
+
+	public List<ProductBundleProducts> getProductBundleProducts(
+		long productBundleId) {
+
+		return productBundleProductsPersistence.findByProductBundleId(
+			productBundleId);
+	}
+
 	public int getProductBundleProductsCount(String productKey) {
 		return productBundleProductsPersistence.countByProductKey(productKey);
+	}
+
+	public ProductBundleProducts updateProductBundleProducts(
+			long productBundleId, String productKey)
+		throws Exception {
+
+		validate(productBundleId, productKey);
+
+		ProductBundleProductsPK productBundleProductsPK =
+			new ProductBundleProductsPK(productBundleId, productKey);
+
+		ProductBundleProducts productBundleProducts =
+			productBundleProductsPersistence.fetchByPrimaryKey(
+				productBundleProductsPK);
+
+		if (productBundleProducts == null) {
+			productBundleProducts = productBundleProductsPersistence.create(
+				productBundleProductsPK);
+
+			productBundleProducts = productBundleProductsPersistence.update(
+				productBundleProducts);
+		}
+
+		return productBundleProducts;
 	}
 
 	protected void validate(long productBundleId, String productKey)

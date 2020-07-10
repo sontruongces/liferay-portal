@@ -18,6 +18,7 @@ import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.exception.ProductBundleNameException;
 import com.liferay.osb.provisioning.exception.RequiredProductException;
 import com.liferay.osb.provisioning.model.ProductBundle;
+import com.liferay.osb.provisioning.model.ProductBundleProducts;
 import com.liferay.osb.provisioning.service.ProductBundleLocalService;
 import com.liferay.osb.provisioning.service.ProductBundleProductsLocalService;
 import com.liferay.portal.kernel.log.Log;
@@ -30,6 +31,10 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.vulcan.util.TransformUtil;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -87,14 +92,50 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 			throw new RequiredProductException();
 		}
 
+		long productBundleId = ParamUtil.getLong(
+			actionRequest, "productBundleId");
 		String name = ParamUtil.getString(actionRequest, "name");
 
-		ProductBundle productBundle =
-			_productBundleLocalService.addProductBundle(user.getUserId(), name);
+		if (productBundleId == 0) {
+			ProductBundle productBundle =
+				_productBundleLocalService.addProductBundle(
+					user.getUserId(), name);
+
+			productBundleId = productBundle.getProductBundleId();
+		}
+		else {
+			_productBundleLocalService.updateProductBundle(
+				productBundleId, name);
+		}
+
+		_updateProductBundleProducts(productBundleId, productKeys);
+	}
+
+	private void _updateProductBundleProducts(
+			long productBundleId, String[] productKeys)
+		throws Exception {
+
+		List<ProductBundleProducts> oldProductBundleProducts =
+			_productBundleProductsLocalService.getProductBundleProducts(
+				productBundleId);
+
+		List<String> oldProductKeys = TransformUtil.transform(
+			oldProductBundleProducts,
+			oldProductBundleProduct ->
+				oldProductBundleProduct.getProductKey());
+
+		List<String> newProductKeys = Arrays.asList(productKeys);
+
+		for (String oldProductKey : oldProductKeys) {
+			if (!newProductKeys.contains(oldProductKey)) {
+				_productBundleProductsLocalService.deleteProductBundleProducts(
+					productBundleId, oldProductKey);
+			}
+		}
 
 		for (String productKey : productKeys) {
 			_productBundleProductsLocalService.addProductBundleProducts(
-				productBundle.getProductBundleId(), productKey);
+				productBundleId, productKey);
 		}
 	}
 
