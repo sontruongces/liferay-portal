@@ -50,9 +50,7 @@ function LiveUpdateableField({
 	}, [displayValue, fieldValue, options, value]);
 
 	function handleSave(newValue) {
-		const formData = updateFormData(newValue);
-
-		postData(formAction, formData, 'formData')
+		postData(formAction, updateFormData(newValue), 'formData')
 			.then(({data}) => {
 				if (data.successMessage) {
 					setFieldValue(newValue);

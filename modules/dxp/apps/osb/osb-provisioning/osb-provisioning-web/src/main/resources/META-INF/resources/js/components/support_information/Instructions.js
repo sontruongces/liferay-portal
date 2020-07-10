@@ -14,10 +14,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {FIELD_TYPE_TEXTAREA} from '../../utilities/constants';
-import {convertDashToEmptyString} from '../../utilities/helpers';
-import DetailField from '../DetailField';
+import LiveUpdateableField from './LiveUpdateableField';
 
 function Instructions({instructions, updateInstructionsURL}) {
+	function handleUpdateSupportInstructions(instructions) {
+		return {
+			instructions
+		};
+	}
+
 	return (
 		<ClayList className="support-instructions">
 			<ClayList.Header>
@@ -32,14 +37,12 @@ function Instructions({instructions, updateInstructionsURL}) {
 				</div>
 			</ClayList.Item>
 
-			<DetailField
+			<LiveUpdateableField
 				fieldLabel={Liferay.Language.get('support-instructions')}
 				fieldName="instructions"
 				formAction={updateInstructionsURL}
-				formData={{
-					instructions: convertDashToEmptyString(instructions)
-				}}
 				type={FIELD_TYPE_TEXTAREA}
+				updateFormData={handleUpdateSupportInstructions}
 				value={instructions}
 			/>
 		</ClayList>

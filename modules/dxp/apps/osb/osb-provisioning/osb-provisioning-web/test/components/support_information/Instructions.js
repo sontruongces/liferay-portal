@@ -9,7 +9,7 @@
  * distribution rights of the Software.
  */
 
-import {cleanup, fireEvent, render, wait} from '@testing-library/react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
 import Instructions from '../../../src/main/resources/META-INF/resources/js/components/support_information/Instructions';
@@ -45,14 +45,24 @@ describe('Instructions', () => {
 		getByText('Sample instructions text');
 	});
 
-	it('allows Instructions to be edited when clicked on', () => {
+	it('shows Instructions as editable when clicked on', () => {
 		const {getByText} = renderInstructions();
 
 		fireEvent.click(getByText('Sample instructions text'));
 
-		return wait(() => {
-			getByText('save');
-			getByText('cancel');
+		getByText('save');
+		getByText('cancel');
+	});
+
+	it('updates Instructions', () => {
+		const {getByText} = renderInstructions();
+
+		fireEvent.click(getByText('Sample instructions text'));
+		fireEvent.change(getByText('Sample instructions text'), {
+			target: {value: 'New instructions'}
 		});
+		fireEvent.click(getByText('save'));
+
+		getByText('New instructions');
 	});
 });

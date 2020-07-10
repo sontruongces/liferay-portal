@@ -10,7 +10,7 @@
  */
 
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
 	FIELD_TYPE_EXTERNAL,
@@ -37,13 +37,11 @@ function InlineEdit({
 	const [showEditor, setShowEditor] = useState(false);
 	const [value, setValue] = useState(fieldValue);
 
-	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
-
-	function handleCancel() {
-		setFieldEditable(false);
+	useEffect(() => {
 		setShowEditor(false);
-		setValue(fieldValue);
-	}
+	}, [fieldValue]);
+
+	const namespacedFieldName = `${NAMESPACE}${fieldName}`;
 
 	function handleChange(event) {
 		setValue(event.currentTarget.value);
@@ -53,8 +51,15 @@ function InlineEdit({
 		setValue(!convertDashToEmptyString(value));
 	}
 
+	function handleReset() {
+		setFieldEditable(false);
+		setShowEditor(false);
+		setValue(fieldValue);
+	}
+
 	function handleSave() {
 		save(value);
+		setFieldEditable(false);
 	}
 
 	function getDisplayValue() {
@@ -174,7 +179,7 @@ function InlineEdit({
 
 						<button
 							className="btn btn-secondary btn-sm cancel-btn"
-							onClick={handleCancel}
+							onClick={handleReset}
 							role="button"
 							type="button"
 						>

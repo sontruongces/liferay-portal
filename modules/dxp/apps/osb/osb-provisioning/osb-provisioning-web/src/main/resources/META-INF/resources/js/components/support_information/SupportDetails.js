@@ -44,8 +44,8 @@ function SupportDetails({
 		});
 	}
 
-	function handleUpdateSupportLanguage(id) {
-		return {languageId: id};
+	function handleUpdateSupportLanguage(languageId) {
+		return {languageId};
 	}
 
 	return (
