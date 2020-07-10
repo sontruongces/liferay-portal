@@ -37,9 +37,9 @@ public class TextAreaDDMFormFieldValueRenderer
 	public String render(
 		List<DDMFormFieldValue> ddmFormFieldValues, Locale locale) {
 
-		String valueRendered = super.render(ddmFormFieldValues, locale);
-
-		return StringUtil.replace(valueRendered, CharPool.NEW_LINE, "<br>");
+		return StringUtil.replace(
+			super.render(ddmFormFieldValues, locale), CharPool.NEW_LINE,
+			"<br>");
 	}
 
 }
