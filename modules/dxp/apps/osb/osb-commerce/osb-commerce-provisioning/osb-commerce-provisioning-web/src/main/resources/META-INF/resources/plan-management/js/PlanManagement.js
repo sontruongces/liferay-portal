@@ -12,7 +12,6 @@
 import React from 'react';
 
 import ActivePlan from './views/ActivePlan';
-import PlanFeatures from './views/PlanFeatures';
 import {getDataMock} from "../../js/utilities/mocks";
 
 function PlanManagement({
@@ -21,14 +20,12 @@ function PlanManagement({
 }) {
 	const {
 		activePlan,
-		planFeatures,
 		spritemap
 	} = mockData ? getDataMock(PlanManagement.name) : props;
 
 	return (
 		<>
 			<ActivePlan {...activePlan} spritemap={spritemap} />
-			<PlanFeatures {...planFeatures} spritemap={spritemap} />
 		</>
 	);
 }
