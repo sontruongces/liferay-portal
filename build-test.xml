@@ -12348,7 +12348,7 @@ module.framework.properties.blacklist.portal.profile.names=${blacklist.portal.pr
 
 		<if>
 			<and>
-				<equals arg1="${suite.search.engine}" arg2="elasticsearch7" />
+				<contains string="${suite.search.engine}" substring="elasticsearch7" />
 				<not>
 					<equals arg1="${hot.deploy.osgi.app.includes}" arg2="portal-search-elasticsearch7" />
 				</not>
@@ -12371,7 +12371,7 @@ module.framework.properties.blacklist.portal.profile.names=${blacklist.portal.pr
 					<contains string="${env.CI_TEST_SUITE}" substring="search" />
 					<then>
 						<if>
-							<equals arg1="${suite.search.engine}" arg2="elasticsearch7" />
+							<contains string="${suite.search.engine}" substring="elasticsearch7" />
 							<then>
 								<ant antfile="build-test-elasticsearch7.xml" target="start-elasticsearch" />
 							</then>
