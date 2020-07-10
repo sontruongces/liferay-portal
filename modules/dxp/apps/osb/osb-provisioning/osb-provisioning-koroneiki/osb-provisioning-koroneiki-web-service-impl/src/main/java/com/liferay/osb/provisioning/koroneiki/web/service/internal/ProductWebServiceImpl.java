@@ -15,9 +15,11 @@
 package com.liferay.osb.provisioning.koroneiki.web.service.internal;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
+import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductResource;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductSerDes;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -40,20 +42,29 @@ import org.osgi.service.component.annotations.Reference;
 	configurationPid = "com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration",
 	immediate = true, service = ProductWebService.class
 )
-public class ProductWebServiceImpl implements ProductWebService {
+public class ProductWebServiceImpl
+	extends BaseWebService implements ProductWebService {
 
 	public Product addProduct(
 			String agentName, String agentUID, Product product)
 		throws Exception {
 
-		return _productResource.postProduct(agentName, agentUID, product);
+		HttpInvoker.HttpResponse httpResponse =
+			_productResource.postProductHttpResponse(
+				agentName, agentUID, product);
+
+		return processDTO(httpResponse, ProductSerDes::toDTO);
 	}
 
 	public void deleteProduct(
 			String agentName, String agentUID, String productKey)
 		throws Exception {
 
-		_productResource.deleteProduct(agentName, agentUID, productKey);
+		HttpInvoker.HttpResponse httpResponse =
+			_productResource.deleteProductHttpResponse(
+				agentName, agentUID, productKey);
+
+		validateResponse(httpResponse);
 	}
 
 	public Product getProduct(String productKey) throws Exception {
@@ -110,8 +121,11 @@ public class ProductWebServiceImpl implements ProductWebService {
 			Product product)
 		throws Exception {
 
-		return _productResource.putProduct(
-			agentName, agentUID, productKey, product);
+		HttpInvoker.HttpResponse httpResponse =
+			_productResource.putProductHttpResponse(
+				agentName, agentUID, productKey, product);
+
+		return processDTO(httpResponse, ProductSerDes::toDTO);
 	}
 
 	@Activate
