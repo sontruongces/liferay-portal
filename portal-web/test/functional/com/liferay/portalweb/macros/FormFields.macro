@@ -228,6 +228,8 @@ definition {
 		KeyPress(
 			locator1 = "FormFields#TEXT_FIELD",
 			value1 = "\BACK_SPACE");
+
+		Pause(locator1 = "3000");
 	}
 
 	macro editTextWithDataProvider {
