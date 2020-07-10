@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 
@@ -47,6 +48,7 @@ import java.io.Serializable;
 
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1218,6 +1220,253 @@ public class ProductBundlePersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"productBundle.companyId = ?";
 
+	private FinderPath _finderPathFetchByName;
+	private FinderPath _finderPathCountByName;
+
+	/**
+	 * Returns the product bundle where name = &#63; or throws a <code>NoSuchProductBundleException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching product bundle
+	 * @throws NoSuchProductBundleException if a matching product bundle could not be found
+	 */
+	@Override
+	public ProductBundle findByName(String name)
+		throws NoSuchProductBundleException {
+
+		ProductBundle productBundle = fetchByName(name);
+
+		if (productBundle == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("name=");
+			sb.append(name);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchProductBundleException(sb.toString());
+		}
+
+		return productBundle;
+	}
+
+	/**
+	 * Returns the product bundle where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
+	 */
+	@Override
+	public ProductBundle fetchByName(String name) {
+		return fetchByName(name, true);
+	}
+
+	/**
+	 * Returns the product bundle where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
+	 */
+	@Override
+	public ProductBundle fetchByName(String name, boolean useFinderCache) {
+		name = Objects.toString(name, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {name};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByName, finderArgs, this);
+		}
+
+		if (result instanceof ProductBundle) {
+			ProductBundle productBundle = (ProductBundle)result;
+
+			if (!Objects.equals(name, productBundle.getName())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_PRODUCTBUNDLE_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				List<ProductBundle> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByName, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {name};
+							}
+
+							_log.warn(
+								"ProductBundlePersistenceImpl.fetchByName(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					ProductBundle productBundle = list.get(0);
+
+					result = productBundle;
+
+					cacheResult(productBundle);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByName, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (ProductBundle)result;
+		}
+	}
+
+	/**
+	 * Removes the product bundle where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the product bundle that was removed
+	 */
+	@Override
+	public ProductBundle removeByName(String name)
+		throws NoSuchProductBundleException {
+
+		ProductBundle productBundle = findByName(name);
+
+		return remove(productBundle);
+	}
+
+	/**
+	 * Returns the number of product bundles where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching product bundles
+	 */
+	@Override
+	public int countByName(String name) {
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathCountByName;
+
+		Object[] finderArgs = new Object[] {name};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_PRODUCTBUNDLE_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_NAME_NAME_2 =
+		"productBundle.name = ?";
+
+	private static final String _FINDER_COLUMN_NAME_NAME_3 =
+		"(productBundle.name IS NULL OR productBundle.name = '')";
+
 	public ProductBundlePersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1241,6 +1490,10 @@ public class ProductBundlePersistenceImpl
 		entityCache.putResult(
 			entityCacheEnabled, ProductBundleImpl.class,
 			productBundle.getPrimaryKey(), productBundle);
+
+		finderCache.putResult(
+			_finderPathFetchByName, new Object[] {productBundle.getName()},
+			productBundle);
 
 		productBundle.resetOriginalValues();
 	}
@@ -1296,6 +1549,8 @@ public class ProductBundlePersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache((ProductBundleModelImpl)productBundle, true);
 	}
 
 	@Override
@@ -1307,6 +1562,9 @@ public class ProductBundlePersistenceImpl
 			entityCache.removeResult(
 				entityCacheEnabled, ProductBundleImpl.class,
 				productBundle.getPrimaryKey());
+
+			clearUniqueFindersCache(
+				(ProductBundleModelImpl)productBundle, true);
 		}
 	}
 
@@ -1318,6 +1576,39 @@ public class ProductBundlePersistenceImpl
 		for (Serializable primaryKey : primaryKeys) {
 			entityCache.removeResult(
 				entityCacheEnabled, ProductBundleImpl.class, primaryKey);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		ProductBundleModelImpl productBundleModelImpl) {
+
+		Object[] args = new Object[] {productBundleModelImpl.getName()};
+
+		finderCache.putResult(
+			_finderPathCountByName, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByName, args, productBundleModelImpl, false);
+	}
+
+	protected void clearUniqueFindersCache(
+		ProductBundleModelImpl productBundleModelImpl, boolean clearCurrent) {
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {productBundleModelImpl.getName()};
+
+			finderCache.removeResult(_finderPathCountByName, args);
+			finderCache.removeResult(_finderPathFetchByName, args);
+		}
+
+		if ((productBundleModelImpl.getColumnBitmask() &
+			 _finderPathFetchByName.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {
+				productBundleModelImpl.getOriginalName()
+			};
+
+			finderCache.removeResult(_finderPathCountByName, args);
+			finderCache.removeResult(_finderPathFetchByName, args);
 		}
 	}
 
@@ -1575,6 +1866,9 @@ public class ProductBundlePersistenceImpl
 		entityCache.putResult(
 			entityCacheEnabled, ProductBundleImpl.class,
 			productBundle.getPrimaryKey(), productBundle, false);
+
+		clearUniqueFindersCache(productBundleModelImpl, false);
+		cacheUniqueFindersCache(productBundleModelImpl);
 
 		productBundle.resetOriginalValues();
 
@@ -1904,6 +2198,17 @@ public class ProductBundlePersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()});
+
+		_finderPathFetchByName = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, ProductBundleImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByName",
+			new String[] {String.class.getName()},
+			ProductBundleModelImpl.NAME_COLUMN_BITMASK);
+
+		_finderPathCountByName = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
+			new String[] {String.class.getName()});
 	}
 
 	@Deactivate

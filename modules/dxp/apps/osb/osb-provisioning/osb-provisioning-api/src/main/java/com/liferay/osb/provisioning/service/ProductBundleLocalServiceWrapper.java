@@ -33,6 +33,14 @@ public class ProductBundleLocalServiceWrapper
 		_productBundleLocalService = productBundleLocalService;
 	}
 
+	@Override
+	public com.liferay.osb.provisioning.model.ProductBundle addProductBundle(
+			long userId, String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _productBundleLocalService.addProductBundle(userId, name);
+	}
+
 	/**
 	 * Adds the product bundle to the database. Also notifies the appropriate model listeners.
 	 *

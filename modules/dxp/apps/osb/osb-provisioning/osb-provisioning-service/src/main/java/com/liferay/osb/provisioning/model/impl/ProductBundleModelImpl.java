@@ -109,9 +109,11 @@ public class ProductBundleModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
-	public static final long UUID_COLUMN_BITMASK = 2L;
+	public static final long NAME_COLUMN_BITMASK = 2L;
 
-	public static final long PRODUCTBUNDLEID_COLUMN_BITMASK = 4L;
+	public static final long UUID_COLUMN_BITMASK = 4L;
+
+	public static final long PRODUCTBUNDLEID_COLUMN_BITMASK = 8L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -420,7 +422,17 @@ public class ProductBundleModelImpl
 
 	@Override
 	public void setName(String name) {
+		_columnBitmask |= NAME_COLUMN_BITMASK;
+
+		if (_originalName == null) {
+			_originalName = _name;
+		}
+
 		_name = name;
+	}
+
+	public String getOriginalName() {
+		return GetterUtil.getString(_originalName);
 	}
 
 	@Override
@@ -543,6 +555,8 @@ public class ProductBundleModelImpl
 		productBundleModelImpl._setOriginalCompanyId = false;
 
 		productBundleModelImpl._setModifiedDate = false;
+
+		productBundleModelImpl._originalName = productBundleModelImpl._name;
 
 		productBundleModelImpl._columnBitmask = 0;
 	}
@@ -682,6 +696,7 @@ public class ProductBundleModelImpl
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private String _name;
+	private String _originalName;
 	private long _columnBitmask;
 	private ProductBundle _escapedModel;
 

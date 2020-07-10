@@ -340,6 +340,50 @@ public interface ProductBundlePersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns the product bundle where name = &#63; or throws a <code>NoSuchProductBundleException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching product bundle
+	 * @throws NoSuchProductBundleException if a matching product bundle could not be found
+	 */
+	public ProductBundle findByName(String name)
+		throws NoSuchProductBundleException;
+
+	/**
+	 * Returns the product bundle where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
+	 */
+	public ProductBundle fetchByName(String name);
+
+	/**
+	 * Returns the product bundle where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching product bundle, or <code>null</code> if a matching product bundle could not be found
+	 */
+	public ProductBundle fetchByName(String name, boolean useFinderCache);
+
+	/**
+	 * Removes the product bundle where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the product bundle that was removed
+	 */
+	public ProductBundle removeByName(String name)
+		throws NoSuchProductBundleException;
+
+	/**
+	 * Returns the number of product bundles where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching product bundles
+	 */
+	public int countByName(String name);
+
+	/**
 	 * Caches the product bundle in the entity cache if it is enabled.
 	 *
 	 * @param productBundle the product bundle

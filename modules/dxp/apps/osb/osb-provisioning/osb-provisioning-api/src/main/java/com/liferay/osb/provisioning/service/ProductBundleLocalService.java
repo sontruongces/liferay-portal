@@ -62,6 +62,8 @@ public interface ProductBundleLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ProductBundleLocalServiceUtil} to access the product bundle local service. Add custom service methods to <code>com.liferay.osb.provisioning.service.impl.ProductBundleLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public ProductBundle addProductBundle(long userId, String name)
+		throws PortalException;
 
 	/**
 	 * Adds the product bundle to the database. Also notifies the appropriate model listeners.

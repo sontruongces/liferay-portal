@@ -37,6 +37,12 @@ public class ProductBundleLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.provisioning.service.impl.ProductBundleLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.osb.provisioning.model.ProductBundle
+			addProductBundle(long userId, String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addProductBundle(userId, name);
+	}
 
 	/**
 	 * Adds the product bundle to the database. Also notifies the appropriate model listeners.
