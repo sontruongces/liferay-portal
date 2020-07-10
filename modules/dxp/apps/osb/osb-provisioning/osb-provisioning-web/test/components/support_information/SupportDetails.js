@@ -71,10 +71,8 @@ describe('SupportDetails', () => {
 
 		fireEvent.click(getByText('United States'));
 
-		return wait(() => {
-			getByText('China');
-			getByText('Spain');
-		});
+		getByText('China');
+		getByText('Spain');
 	});
 
 	it('displays language options when the user clicks on the Language field', () => {
@@ -82,9 +80,17 @@ describe('SupportDetails', () => {
 
 		fireEvent.click(getByText('English'));
 
-		return wait(() => {
-			getByText('Chinese');
-			getByText('Spanish');
-		});
+		getByText('Chinese');
+		getByText('Spanish');
+	});
+
+	it('updates Language field', () => {
+		const {getByText} = renderSupportDetails();
+
+		fireEvent.click(getByText('English'));
+		fireEvent.change(getByText('English'), {target: {value: 'Chinese'}});
+		fireEvent.click(getByText('save'));
+
+		getByText('Chinese');
 	});
 });

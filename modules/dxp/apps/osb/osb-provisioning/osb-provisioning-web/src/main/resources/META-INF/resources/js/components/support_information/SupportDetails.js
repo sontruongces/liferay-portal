@@ -16,6 +16,7 @@ import React from 'react';
 import {FIELD_TYPE_SELECT} from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from '../DetailField';
+import LiveUpdateableField from './LiveUpdateableField';
 
 function SupportDetails({
 	account,
@@ -43,6 +44,10 @@ function SupportDetails({
 		});
 	}
 
+	function handleUpdateSupportLanguage(id) {
+		return {languageId: id};
+	}
+
 	return (
 		<ClayList className="support-details">
 			<ClayList.Header>{Liferay.Language.get('details')}</ClayList.Header>
@@ -57,14 +62,14 @@ function SupportDetails({
 				value={account.region}
 			/>
 
-			<DetailField
+			<LiveUpdateableField
 				displayValue={language.name}
 				fieldLabel={Liferay.Language.get('support-language')}
 				fieldName="languageId"
 				formAction={updateLanguageIdURL}
-				formData={{languageId: language.id}}
 				options={createSelectOptions(languageList)}
 				type={FIELD_TYPE_SELECT}
+				updateFormData={handleUpdateSupportLanguage}
 				value={language.id}
 			/>
 		</ClayList>
