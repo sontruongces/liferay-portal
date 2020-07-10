@@ -12342,6 +12342,25 @@ module.framework.properties.blacklist.portal.profile.names=${blacklist.portal.pr
 			</then>
 		</if>
 
+		<get-testcase-property property.name="hot.deploy.osgi.app.includes" />
+		<get-testcase-property property.name="osgi.app.includes" />
+		<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
+
+		<if>
+			<and>
+				<equals arg1="${suite.search.engine}" arg2="elasticsearch7" />
+				<not>
+					<equals arg1="${hot.deploy.osgi.app.includes}" arg2="portal-search-elasticsearch7" />
+				</not>
+				<not>
+					<contains string="${osgi.app.includes}" substring="portal-search-elasticsearch7" />
+				</not>
+			</and>
+			<then>
+				<ant antfile="build-test-elasticsearch7.xml" target="deploy-elasticsearch7" />
+			</then>
+		</if>
+
 		<get-testcase-property property.name="portal.suite.search.engine" />
 		<get-testcase-property property.name="remote.elasticsearch.enabled" />
 
@@ -12351,8 +12370,6 @@ module.framework.properties.blacklist.portal.profile.names=${blacklist.portal.pr
 				<if>
 					<contains string="${env.CI_TEST_SUITE}" substring="search" />
 					<then>
-						<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
-
 						<if>
 							<equals arg1="${suite.search.engine}" arg2="elasticsearch7" />
 							<then>
@@ -12417,16 +12434,9 @@ module.framework.properties.blacklist.portal.profile.names=${blacklist.portal.pr
 				<ant antfile="build-test-solr.xml" target="start-solr" />
 			</then>
 			<elseif>
-				<isset property="env.CI_TEST_SUITE" />
+				<equals arg1="${suite.search.engine}" arg2="solr" />
 				<then>
-					<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
-
-					<if>
-						<equals arg1="${suite.search.engine}" arg2="solr" />
-						<then>
-							<ant antfile="build-test-solr.xml" target="start-solr" />
-						</then>
-					</if>
+					<ant antfile="build-test-solr.xml" target="set-up-solr" />
 				</then>
 			</elseif>
 		</if>

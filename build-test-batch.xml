@@ -863,16 +863,10 @@ mariadb.executable=${mariadb.executable}]]></echo>
 		<attribute name="suite.name" />
 
 		<sequential>
-			<get-testcase-property property.name="hot.deploy.osgi.app.includes" />
 			<propertycopy from="search.engine[@{suite.name}]" name="suite.search.engine" silent="true" />
 
 			<if>
-				<and>
-					<not>
-						<equals arg1="${hot.deploy.osgi.app.includes}" arg2="portal-search-elasticsearch7" />
-					</not>
-					<equals arg1="${suite.search.engine}" arg2="elasticsearch7" />
-				</and>
+				<equals arg1="${suite.search.engine}" arg2="elasticsearch7" />
 				<then>
 					<ant antfile="build-test-elasticsearch7.xml" inheritAll="false" target="deploy-elasticsearch7" />
 				</then>
@@ -881,7 +875,7 @@ mariadb.executable=${mariadb.executable}]]></echo>
 					<then>
 						<property name="com.liferay.portal.search.solr7.test.unit.started" value="true" />
 
-						<ant antfile="build-test-solr.xml" target="prepare-solr-suite" />
+						<ant antfile="build-test-solr.xml" target="set-up-solr" />
 					</then>
 				</elseif>
 			</if>
@@ -1681,22 +1675,6 @@ app.server.type=@{app.server.type}]]></echo>
 									dest="${liferay.home}/deploy"
 									src="@{test.plugin.zip.url}"
 								/>
-							</then>
-						</if>
-
-						<if>
-							<isset property="env.CI_TEST_SUITE" />
-							<then>
-								<get-testcase-property property.name="osgi.app.includes" />
-
-								<if>
-									<not>
-										<contains string="${osgi.app.includes}" substring="portal-search-solr7" />
-									</not>
-									<then>
-										<prepare-suite-search-engine suite.name="${env.CI_TEST_SUITE}" />
-									</then>
-								</if>
 							</then>
 						</if>
 
