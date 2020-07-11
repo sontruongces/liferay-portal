@@ -143,6 +143,10 @@ class FloatingToolbarLinkPanel extends PortletBase {
 			this._selectedAssetEntry.classPK = this.item.editableValues.config.classPK;
 			this._selectedSourceTypeId = MAPPING_SOURCE_TYPE_IDS.content;
 
+			if (this.item.editableValues.config) {
+				this._inputURL = this.item.editableValues.config.href;
+			}
+
 			if (
 				this.item &&
 				this.mappingFieldsURL &&
@@ -168,7 +172,7 @@ class FloatingToolbarLinkPanel extends PortletBase {
 			oldItem.editableValues.config
 		) {
 			const newConfig = newItem.editableValues.config;
-			const oldConfig = newItem.editableValues.config;
+			const oldConfig = oldItem.editableValues.config;
 
 			if (
 				newConfig.classNameId !== oldConfig.classNameId ||
@@ -511,6 +515,14 @@ FloatingToolbarLinkPanel.STATE = {
 	_fields: Config.array()
 		.internal()
 		.value([]),
+
+	/**
+	 * link input value
+	 * @private
+	 * @review
+	 * @type {string}
+	 */
+	_inputURL: Config.internal().string(),
 
 	/**
 	 * Mapped asset field value

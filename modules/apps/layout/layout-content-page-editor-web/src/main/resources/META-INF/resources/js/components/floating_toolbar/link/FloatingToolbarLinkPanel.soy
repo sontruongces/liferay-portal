@@ -17,6 +17,7 @@
 			]
 		]
 	]}
+	{@param? _inputURL: string}
 	{@param? _fields: ?}
 	{@param? _handleAssetBrowserLinkClick: any}
 	{@param? _handleAssetEntryLinkClick: any}
@@ -94,9 +95,9 @@
 							class="form-control form-control-sm"
 							data-onkeyup="{$_handleInputHrefKeyUp}"
 							id="floatingToolbarLinkHrefPanelOption"
-							title="{$item.editableValues.config ? $item.editableValues.config.href : ''}"
+							title="{$_inputURL}"
 							type="text"
-							value="{$item.editableValues.config ? $item.editableValues.config.href : ''}"
+							value="{$_inputURL}"
 						>
 					</div>
 				{else}
