@@ -14,11 +14,15 @@ import React from 'react';
 
 import Instructions from '../../../src/main/resources/META-INF/resources/js/components/support_information/Instructions';
 
-function renderInstructions() {
+function renderInstructions(props) {
 	return render(
 		<Instructions
-			instructions="Sample instructions text"
+			accountAttachmentURL="account/attachment/url"
+			fileName="OEM instruction file"
+			instructions="Sample support instructions text"
+			updateAccountAttachmentURL="update/account/attachment/URL"
 			updateInstructionsURL="update/instructions/url"
+			{...props}
 		/>
 	);
 }
@@ -39,30 +43,42 @@ describe('Instructions', () => {
 		getByText('support-instructions');
 	});
 
-	it('displays Instructions text', () => {
+	it('displays Support Instructions text', () => {
 		const {getByText} = renderInstructions();
 
-		getByText('Sample instructions text');
+		getByText('Sample support instructions text');
 	});
 
-	it('shows Instructions as editable when clicked on', () => {
+	it('shows Support Instructions as editable when clicked on', () => {
 		const {getByText} = renderInstructions();
 
-		fireEvent.click(getByText('Sample instructions text'));
+		fireEvent.click(getByText('Sample support instructions text'));
 
 		getByText('save');
 		getByText('cancel');
 	});
 
-	it('updates Instructions', () => {
+	it('updates Support Instructions', () => {
 		const {getByText} = renderInstructions();
 
-		fireEvent.click(getByText('Sample instructions text'));
-		fireEvent.change(getByText('Sample instructions text'), {
+		fireEvent.click(getByText('Sample support instructions text'));
+		fireEvent.change(getByText('Sample support instructions text'), {
 			target: {value: 'New instructions'}
 		});
 		fireEvent.click(getByText('save'));
 
 		getByText('New instructions');
+	});
+
+	it('shows OEM instructions file when one is provided', () => {
+		const {getByText} = renderInstructions();
+
+		getByText('OEM instruction file');
+	});
+
+	it('shows no OEM instructions file when one is not provided', () => {
+		const {container} = renderInstructions({fileName: ''});
+
+		expect(container.querySelector('a')).toBe(null);
 	});
 });

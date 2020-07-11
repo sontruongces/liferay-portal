@@ -17,10 +17,13 @@ import SupportDetails from './SupportDetails';
 
 function SupportInformation({
 	account,
+	accountAttachmentURL,
 	instructions,
 	language,
 	languageList,
+	oemInstructionsFileName,
 	regionNames,
+	updateAccountAttachmentURL,
 	updateAccountURL,
 	updateInstructionsURL,
 	updateLanguageIdURL
@@ -37,7 +40,10 @@ function SupportInformation({
 			/>
 
 			<Instructions
+				accountAttachmentURL={accountAttachmentURL}
+				fileName={oemInstructionsFileName}
 				instructions={instructions}
+				updateAccountAttachmentURL={updateAccountAttachmentURL}
 				updateInstructionsURL={updateInstructionsURL}
 			/>
 		</>
@@ -54,6 +60,7 @@ SupportInformation.propTypes = {
 		status: PropTypes.string,
 		tier: PropTypes.string
 	}),
+	accountAttachmentURL: PropTypes.string,
 	instructions: PropTypes.string,
 	language: PropTypes.shape({
 		id: PropTypes.string,
@@ -65,7 +72,9 @@ SupportInformation.propTypes = {
 			name: PropTypes.string
 		})
 	),
+	oemInstructionsFileName: PropTypes.string,
 	regionNames: PropTypes.arrayOf(PropTypes.string),
+	updateAccountAttachmentURL: PropTypes.string,
 	updateAccountURL: PropTypes.string,
 	updateInstructionsURL: PropTypes.string,
 	updateLanguageIdURL: PropTypes.string

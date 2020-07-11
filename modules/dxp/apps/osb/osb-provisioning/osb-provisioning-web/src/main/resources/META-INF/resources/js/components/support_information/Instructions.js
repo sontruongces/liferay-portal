@@ -13,10 +13,16 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {FIELD_TYPE_TEXTAREA} from '../../utilities/constants';
+import {FIELD_TYPE_TEXTAREA, NAMESPACE} from '../../utilities/constants';
 import LiveUpdateableField from './LiveUpdateableField';
 
-function Instructions({instructions, updateInstructionsURL}) {
+function Instructions({
+	accountAttachmentURL,
+	fileName,
+	instructions,
+	updateAccountAttachmentURL,
+	updateInstructionsURL
+}) {
 	function handleUpdateSupportInstructions(instructions) {
 		return {
 			instructions
@@ -34,6 +40,27 @@ function Instructions({instructions, updateInstructionsURL}) {
 					<ClayList.ItemTitle>
 						{Liferay.Language.get('oem-instructions')}
 					</ClayList.ItemTitle>
+
+					{!!fileName && (
+						<a
+							className="account-attachment"
+							href={accountAttachmentURL}
+							target="_blank"
+						>
+							{fileName}
+						</a>
+					)}
+
+					<label
+						className="form-control-label"
+						htmlFor={`${NAMESPACE}oemInstructions`}
+					>
+						<input
+							className="form-control"
+							id={`${NAMESPACE}oemInstructions`}
+							type="file"
+						/>
+					</label>
 				</div>
 			</ClayList.Item>
 
@@ -50,7 +77,10 @@ function Instructions({instructions, updateInstructionsURL}) {
 }
 
 Instructions.propTypes = {
+	accountAttachmentURL: PropTypes.string,
+	fileName: PropTypes.string,
 	instructions: PropTypes.string,
+	updateAccountAttachmentURL: PropTypes.string,
 	updateInstructionsURL: PropTypes.string
 };
 

@@ -26,6 +26,7 @@ function renderSupportInformation() {
 				status: 'Approved',
 				tier: 'Regular'
 			}}
+			accountAttachmentURL="account/attachment/url"
 			instructions="Sample instructions text"
 			language={{id: 'en_US', name: 'English'}}
 			languageList={[
@@ -33,7 +34,9 @@ function renderSupportInformation() {
 				{id: 'zh_CN', name: 'Chinese'},
 				{id: 'es_ES', name: 'Spanish'}
 			]}
+			oemInstructionsFileName="oemInstructionsFile"
 			regionNames={['United States', 'China', 'Spain']}
+			updateAccountAttachmentURL="update/account/attachment/url"
 			updateAccountURL="edit/account/url"
 			updateInstructionsURL="update/instructions/url"
 			updateLanguageIdURL="update/language/id/url"

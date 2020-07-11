@@ -1,5 +1,10 @@
 .account-details,
 .support-information {
+	.account-attachment {
+		font-size: $font-size-base;
+		margin-right: $spacing-md;
+	}
+
 	.address-controls {
 		justify-content: end;
 		padding-left: $spacing-md;

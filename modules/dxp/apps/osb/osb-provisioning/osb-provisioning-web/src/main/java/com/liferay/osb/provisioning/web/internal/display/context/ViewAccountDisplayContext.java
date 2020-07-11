@@ -112,13 +112,6 @@ public class ViewAccountDisplayContext {
 			httpServletRequest, account.getName(), portletURL.toString());
 	}
 
-	public String getAccountAttachmentURL(long accountAttachmentId)
-		throws Exception {
-
-		return accountEntryWebService.getAccountAttachmentURL(
-			accountAttachmentId);
-	}
-
 	public Map<String, Object> getAccountDetailsData() throws Exception {
 		Map<String, Object> data = new HashMap<>();
 
@@ -456,10 +449,22 @@ public class ViewAccountDisplayContext {
 
 		AccountEntry accountEntry = getAccountEntry();
 
+		long accountAttachmentId =
+			accountEntry.getOEMInstructionsAccountAttachmentId();
+
+		data.put(
+			"accountAttachmentURL",
+			accountEntryWebService.getAccountAttachmentURL(
+				accountAttachmentId));
+
 		data.put("instructions", _getSupportInstructions(accountEntry));
 		data.put("language", _getSupportLanguage(accountEntry));
 
 		data.put("languageList", _getLanguageList());
+
+		data.put(
+			"oemInstructionsFileName",
+			accountEntry.getOEMInstructionsFileName());
 
 		List<String> regionNames = new ArrayList<>();
 
@@ -468,6 +473,10 @@ public class ViewAccountDisplayContext {
 		}
 
 		data.put("regionNames", regionNames);
+
+		data.put(
+			"updateAccountAttachmentURL",
+			accountEntryWebService.getUpdateAccountAttachmentURL());
 
 		PortletURL updateAccountURL = renderResponse.createActionURL();
 
@@ -501,10 +510,6 @@ public class ViewAccountDisplayContext {
 		data.put("updateLanguageIdURL", updateLanguageIdURL.toString());
 
 		return data;
-	}
-
-	public String getUpdateAccountAttachmentURL() throws Exception {
-		return accountEntryWebService.getUpdateAccountAttachmentURL();
 	}
 
 	public String getWorkflowStep() {
