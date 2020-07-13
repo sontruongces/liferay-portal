@@ -75,11 +75,7 @@
 	</div>
 </div>
 
-<%
-boolean showManageCollaborators = GetterUtil.getBoolean(request.getAttribute("info_panel_file_entry.jsp-showManageCollaborators"));
-%>
-
-<c:if test="<%= showManageCollaborators %>">
+<c:if test='<%= GetterUtil.getBoolean(request.getAttribute("info_panel_file_entry.jsp-showManageCollaborators")) %>'>
 	<div class="autofit-row sidebar-panel">
 		<clay:button
 			elementClasses="btn-link manage-collaborators-btn"

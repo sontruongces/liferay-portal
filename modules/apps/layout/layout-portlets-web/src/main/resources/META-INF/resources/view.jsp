@@ -18,12 +18,10 @@
 
 <%
 LayoutPortletsDisplayContext layoutPortletsDisplayContext = new LayoutPortletsDisplayContext(renderRequest, renderResponse, request);
-
-LayoutPortletsManagementToolbarDisplayContext layoutPortletsManagementToolbarDisplayContext = new LayoutPortletsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, layoutPortletsDisplayContext);
 %>
 
 <clay:management-toolbar
-	displayContext="<%= layoutPortletsManagementToolbarDisplayContext %>"
+	displayContext="<%= new LayoutPortletsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, layoutPortletsDisplayContext) %>"
 />
 
 <aui:form action="" cssClass="container-fluid-1280" name="fm">

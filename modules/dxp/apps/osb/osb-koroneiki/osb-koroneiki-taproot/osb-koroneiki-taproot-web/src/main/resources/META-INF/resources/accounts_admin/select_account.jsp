@@ -20,12 +20,10 @@
 long accountId = ParamUtil.getLong(request, "accountId");
 
 AccountsDisplayContext accountsDisplayContext = new AccountsDisplayContext(renderRequest, renderResponse, request);
-
-ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplayContext = new ViewAccountsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, accountsDisplayContext.getSearchContainer());
 %>
 
 <clay:management-toolbar
-	displayContext="<%= viewAccountsManagementToolbarDisplayContext %>"
+	displayContext="<%= new ViewAccountsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, accountsDisplayContext.getSearchContainer()) %>"
 />
 
 <aui:form cssClass="container-fluid-1280" name="selectAccountFm">

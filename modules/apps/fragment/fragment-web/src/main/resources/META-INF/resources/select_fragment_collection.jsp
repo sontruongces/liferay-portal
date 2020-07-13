@@ -18,12 +18,10 @@
 
 <%
 SelectFragmentCollectionDisplayContext selectFragmentCollectionDisplayContext = new SelectFragmentCollectionDisplayContext(renderRequest, renderResponse, request);
-
-SelectFragmentCollectionManagementToolbarDisplayContext selectFragmentCollectionManagementToolbarDisplayContext = new SelectFragmentCollectionManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, selectFragmentCollectionDisplayContext.getFragmentCollectionsSearchContainer());
 %>
 
 <clay:management-toolbar
-	displayContext="<%= selectFragmentCollectionManagementToolbarDisplayContext %>"
+	displayContext="<%= new SelectFragmentCollectionManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, selectFragmentCollectionDisplayContext.getFragmentCollectionsSearchContainer()) %>"
 />
 
 <aui:form cssClass="container-fluid-1280" name="selectFragmentCollectionFm">
