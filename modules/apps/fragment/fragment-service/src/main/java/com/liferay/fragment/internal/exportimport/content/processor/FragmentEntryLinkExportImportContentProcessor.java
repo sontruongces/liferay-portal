@@ -55,7 +55,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.osgi.service.component.annotations.Component;
@@ -97,49 +96,6 @@ public class FragmentEntryLinkExportImportContentProcessor
 
 		String portletId = editableValuesJSONObject.getString("portletId");
 
-		if (Validator.isNotNull(portletId)) {
-			return content;
-		}
-
-		Iterator<String> keysIterator = editableValuesJSONObject.keys();
-
-		while (keysIterator.hasNext()) {
-			String key = keysIterator.next();
-
-			JSONObject editableProcessorJSONObject =
-				editableValuesJSONObject.getJSONObject(key);
-
-			if (editableProcessorJSONObject == null) {
-				continue;
-			}
-
-			if (Objects.equals(key, _KEY_EDITABLE_FRAGMENT_ENTRY_PROCESSOR)) {
-				Iterator<String> editableKeysIterator =
-					editableProcessorJSONObject.keys();
-
-				while (editableKeysIterator.hasNext()) {
-					String editableKey = editableKeysIterator.next();
-
-					JSONObject editableJSONObject =
-						editableProcessorJSONObject.getJSONObject(editableKey);
-
-					_replaceMappedFieldExportContentReferences(
-						portletDataContext, stagedModel, editableJSONObject,
-						exportReferencedContent);
-
-					_replaceSegmentsExperienceExportContentReferences(
-						portletDataContext, stagedModel, editableJSONObject);
-				}
-			}
-			else if (Objects.equals(
-						key, _KEY_FREEMARKER_FRAGMENT_ENTRY_PROCESSOR)) {
-
-				_replaceSegmentsExperienceExportContentReferences(
-					portletDataContext, stagedModel,
-					editableProcessorJSONObject);
-			}
-		}
-
 		if (stagedModel instanceof FragmentEntryLink) {
 			FragmentEntryLink fragmentEntryLink =
 				(FragmentEntryLink)stagedModel;
@@ -150,6 +106,48 @@ public class FragmentEntryLinkExportImportContentProcessor
 				_exportPortletPreferencesSegmentsExperience(
 					portletDataContext, fragmentEntryLink);
 			}
+		}
+
+		if (Validator.isNotNull(portletId)) {
+			return content;
+		}
+
+		JSONObject editableProcessorJSONObject =
+			editableValuesJSONObject.getJSONObject(
+				_KEY_EDITABLE_FRAGMENT_ENTRY_PROCESSOR);
+
+		if ((editableProcessorJSONObject == null) ||
+			(editableProcessorJSONObject.length() <= 0)) {
+
+			return content;
+		}
+
+		Iterator<String> editableKeysIterator =
+			editableProcessorJSONObject.keys();
+
+		while (editableKeysIterator.hasNext()) {
+			String editableKey = editableKeysIterator.next();
+
+			JSONObject editableJSONObject =
+				editableProcessorJSONObject.getJSONObject(editableKey);
+
+			_replaceMappedFieldExportContentReferences(
+				portletDataContext, stagedModel, editableJSONObject,
+				exportReferencedContent);
+
+			_replaceSegmentsExperienceExportContentReferences(
+				portletDataContext, stagedModel, editableJSONObject);
+		}
+
+		JSONObject freeMarkerProcessorJSONObject =
+			editableValuesJSONObject.getJSONObject(
+				_KEY_FREEMARKER_FRAGMENT_ENTRY_PROCESSOR);
+
+		if ((freeMarkerProcessorJSONObject == null) ||
+			(freeMarkerProcessorJSONObject.length() <= 0)) {
+
+			_replaceSegmentsExperienceExportContentReferences(
+				portletDataContext, stagedModel, editableProcessorJSONObject);
 		}
 
 		return editableValuesJSONObject.toString();
@@ -175,49 +173,6 @@ public class FragmentEntryLinkExportImportContentProcessor
 
 		String portletId = editableValuesJSONObject.getString("portletId");
 
-		if (Validator.isNotNull(portletId)) {
-			return content;
-		}
-
-		Iterator<String> keysIterator = editableValuesJSONObject.keys();
-
-		while (keysIterator.hasNext()) {
-			String key = keysIterator.next();
-
-			JSONObject editableProcessorJSONObject =
-				editableValuesJSONObject.getJSONObject(key);
-
-			if (editableProcessorJSONObject == null) {
-				continue;
-			}
-
-			if (Objects.equals(key, _KEY_EDITABLE_FRAGMENT_ENTRY_PROCESSOR)) {
-				Iterator<String> editableKeysIterator =
-					editableProcessorJSONObject.keys();
-
-				while (editableKeysIterator.hasNext()) {
-					String editableKey = editableKeysIterator.next();
-
-					JSONObject editableJSONObject =
-						editableProcessorJSONObject.getJSONObject(editableKey);
-
-					_replaceMappedFieldImportContentReferences(
-						portletDataContext, editableJSONObject);
-
-					_replaceSegmentsExperienceImportContentReferences(
-						portletDataContext, editableJSONObject);
-				}
-			}
-			else {
-				if (Objects.equals(
-						key, _KEY_FREEMARKER_FRAGMENT_ENTRY_PROCESSOR)) {
-
-					_replaceSegmentsExperienceImportContentReferences(
-						portletDataContext, editableProcessorJSONObject);
-				}
-			}
-		}
-
 		if (stagedModel instanceof FragmentEntryLink) {
 			FragmentEntryLink fragmentEntryLink =
 				(FragmentEntryLink)stagedModel;
@@ -228,6 +183,47 @@ public class FragmentEntryLinkExportImportContentProcessor
 				_importPortletPreferencesSegmentsExperience(
 					portletDataContext, fragmentEntryLink.getClassPK());
 			}
+		}
+
+		if (Validator.isNotNull(portletId)) {
+			return content;
+		}
+
+		JSONObject editableProcessorJSONObject =
+			editableValuesJSONObject.getJSONObject(
+				_KEY_EDITABLE_FRAGMENT_ENTRY_PROCESSOR);
+
+		if ((editableProcessorJSONObject == null) ||
+			(editableProcessorJSONObject.length() <= 0)) {
+
+			return content;
+		}
+
+		Iterator<String> editableKeysIterator =
+			editableProcessorJSONObject.keys();
+
+		while (editableKeysIterator.hasNext()) {
+			String editableKey = editableKeysIterator.next();
+
+			JSONObject editableJSONObject =
+				editableProcessorJSONObject.getJSONObject(editableKey);
+
+			_replaceMappedFieldImportContentReferences(
+				portletDataContext, editableJSONObject);
+
+			_replaceSegmentsExperienceExportContentReferences(
+				portletDataContext, stagedModel, editableJSONObject);
+		}
+
+		JSONObject freeMarkerProcessorJSONObject =
+			editableValuesJSONObject.getJSONObject(
+				_KEY_FREEMARKER_FRAGMENT_ENTRY_PROCESSOR);
+
+		if ((freeMarkerProcessorJSONObject == null) ||
+			(freeMarkerProcessorJSONObject.length() <= 0)) {
+
+			_replaceSegmentsExperienceImportContentReferences(
+				portletDataContext, freeMarkerProcessorJSONObject);
 		}
 
 		return editableValuesJSONObject.toString();
