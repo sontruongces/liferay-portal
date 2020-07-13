@@ -80,22 +80,6 @@ public class FragmentEntryLinkExportImportContentProcessor
 			boolean escapeContent)
 		throws Exception {
 
-		content =
-			_dlReferencesExportImportContentProcessor.
-				replaceExportContentReferences(
-					portletDataContext, stagedModel, content,
-					exportReferencedContent, escapeContent);
-		content =
-			_layoutReferencesExportImportContentProcessor.
-				replaceExportContentReferences(
-					portletDataContext, stagedModel, content,
-					exportReferencedContent, escapeContent);
-
-		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
-			content);
-
-		String portletId = editableValuesJSONObject.getString("portletId");
-
 		if (stagedModel instanceof FragmentEntryLink) {
 			FragmentEntryLink fragmentEntryLink =
 				(FragmentEntryLink)stagedModel;
@@ -108,9 +92,25 @@ public class FragmentEntryLinkExportImportContentProcessor
 			}
 		}
 
+		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
+			content);
+
+		String portletId = editableValuesJSONObject.getString("portletId");
+
 		if (Validator.isNotNull(portletId)) {
 			return content;
 		}
+
+		content =
+			_dlReferencesExportImportContentProcessor.
+				replaceExportContentReferences(
+					portletDataContext, stagedModel, content,
+					exportReferencedContent, escapeContent);
+		content =
+			_layoutReferencesExportImportContentProcessor.
+				replaceExportContentReferences(
+					portletDataContext, stagedModel, content,
+					exportReferencedContent, escapeContent);
 
 		JSONObject editableProcessorJSONObject =
 			editableValuesJSONObject.getJSONObject(
@@ -159,20 +159,6 @@ public class FragmentEntryLinkExportImportContentProcessor
 			String content)
 		throws Exception {
 
-		content =
-			_dlReferencesExportImportContentProcessor.
-				replaceImportContentReferences(
-					portletDataContext, stagedModel, content);
-		content =
-			_layoutReferencesExportImportContentProcessor.
-				replaceImportContentReferences(
-					portletDataContext, stagedModel, content);
-
-		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
-			content);
-
-		String portletId = editableValuesJSONObject.getString("portletId");
-
 		if (stagedModel instanceof FragmentEntryLink) {
 			FragmentEntryLink fragmentEntryLink =
 				(FragmentEntryLink)stagedModel;
@@ -185,9 +171,23 @@ public class FragmentEntryLinkExportImportContentProcessor
 			}
 		}
 
+		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
+			content);
+
+		String portletId = editableValuesJSONObject.getString("portletId");
+
 		if (Validator.isNotNull(portletId)) {
 			return content;
 		}
+
+		content =
+			_dlReferencesExportImportContentProcessor.
+				replaceImportContentReferences(
+					portletDataContext, stagedModel, content);
+		content =
+			_layoutReferencesExportImportContentProcessor.
+				replaceImportContentReferences(
+					portletDataContext, stagedModel, content);
 
 		JSONObject editableProcessorJSONObject =
 			editableValuesJSONObject.getJSONObject(
