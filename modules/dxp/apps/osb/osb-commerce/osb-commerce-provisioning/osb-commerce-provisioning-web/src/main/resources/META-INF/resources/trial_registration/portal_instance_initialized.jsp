@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/trial_registration/init.jsp" %>
+<%@ include file="/init.jsp" %>
 
 <%
 long commerceOrderItemId = ParamUtil.getLong(request, "commerceOrderItemId");

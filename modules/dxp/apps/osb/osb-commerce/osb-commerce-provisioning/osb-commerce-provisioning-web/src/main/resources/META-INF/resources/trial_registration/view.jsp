@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/trial_registration/init.jsp" %>
+<%@ include file="/init.jsp" %>
 
 <%
 TrialRegistrationDisplayContext trialRegistrationDisplayContext = (TrialRegistrationDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
