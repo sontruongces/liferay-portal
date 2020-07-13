@@ -196,9 +196,11 @@ class Select extends Component {
 
 		let selectElement = document.getElementById(this.name);
 
-		selectElement = selectElement.parentElement;
+		if (selectElement && selectElement.parentElement) {
+			selectElement = selectElement.parentElement;
 
-		selectElement.focus();
+			selectElement.focus();
+		}
 
 		this.setState(
 			{
