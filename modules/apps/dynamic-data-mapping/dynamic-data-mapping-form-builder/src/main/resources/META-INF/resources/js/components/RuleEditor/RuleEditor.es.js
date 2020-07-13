@@ -417,6 +417,7 @@ class RuleEditor extends Component {
 			if (field.type == 'numeric') {
 				fields.push({
 					...field,
+					label: field.label || field.fieldName,
 					options: field.options ? field.options : [],
 					value: field.fieldName
 				});
@@ -558,6 +559,7 @@ class RuleEditor extends Component {
 			if (omittedFieldsList.indexOf(field.type) < 0) {
 				fields.push({
 					...field,
+					label: field.label || field.fieldName,
 					options: field.options ? field.options : [],
 					value: field.fieldName
 				});
