@@ -288,11 +288,10 @@ public class CorpProjectMigration {
 			return 0;
 		}
 
-		long classNameId = _classNameLocalService.getClassNameId(Account.class);
-
 		List<ExternalLink> externalLinks =
 			_externalLinkLocalService.getExternalLinks(
-				classNameId, ExternalLinkDomain.DOSSIERA,
+				_classNameLocalService.getClassNameId(Account.class),
+				ExternalLinkDomain.DOSSIERA,
 				ExternalLinkEntityName.DOSSIERA_ACCOUNT, dossieraAccountKey, 0,
 				1);
 

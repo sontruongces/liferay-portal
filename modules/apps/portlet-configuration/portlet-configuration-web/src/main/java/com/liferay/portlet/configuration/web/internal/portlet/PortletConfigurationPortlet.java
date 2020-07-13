@@ -544,9 +544,8 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 		Map<Long, String[]> roleIdsToActionIds = new HashMap<>();
 
 		for (long roleId : roleIds) {
-			String[] actionIds = getActionIds(actionRequest, roleId, false);
-
-			roleIdsToActionIds.put(roleId, actionIds);
+			roleIdsToActionIds.put(
+				roleId, getActionIds(actionRequest, roleId, false));
 		}
 
 		_resourcePermissionService.setIndividualResourcePermissions(
@@ -775,17 +774,17 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 			if (!scopeLayout.hasScopeGroup()) {
 				String name = String.valueOf(scopeLayout.getPlid());
 
-				Map<Locale, String> nameMap = HashMapBuilder.put(
-					LocaleUtil.getDefault(), name
-				).build();
-
 				_groupLocalService.addGroup(
 					themeDisplay.getUserId(),
 					GroupConstants.DEFAULT_PARENT_GROUP_ID,
 					Layout.class.getName(), scopeLayout.getPlid(),
-					GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, null, 0,
-					true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null,
-					false, true, null);
+					GroupConstants.DEFAULT_LIVE_GROUP_ID,
+					HashMapBuilder.put(
+						LocaleUtil.getDefault(), name
+					).build(),
+					null, 0, true,
+					GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null, false,
+					true, null);
 			}
 
 			scopeGroupId = scopeLayout.getGroupId();

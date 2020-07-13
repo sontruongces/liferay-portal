@@ -67,7 +67,6 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -485,13 +484,12 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 
 		keyStoreManager = new FileSystemKeyStoreManagerImpl();
 
-		Map<String, Object> properties = HashMapBuilder.<String, Object>put(
-			"saml.keystore.path",
-			"classpath:/com/liferay/saml/opensaml/integration/internal" +
-				"/credential/dependencies/keystore.jks"
-		).build();
-
-		keyStoreManager.activate(properties);
+		keyStoreManager.activate(
+			HashMapBuilder.<String, Object>put(
+				"saml.keystore.path",
+				"classpath:/com/liferay/saml/opensaml/integration/internal" +
+					"/credential/dependencies/keystore.jks"
+			).build());
 
 		credentialResolver = new KeyStoreCredentialResolver();
 

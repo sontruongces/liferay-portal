@@ -35,7 +35,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.IncludeTag;
 
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -112,14 +111,12 @@ public class GroupSelectorTag extends IncludeTag {
 			String keywords = ParamUtil.getString(
 				httpServletRequest, "keywords");
 
-			LinkedHashMap<String, Object> groupParams =
-				LinkedHashMapBuilder.<String, Object>put(
-					"site", Boolean.TRUE
-				).build();
-
 			List<Group> groups = GroupServiceUtil.search(
 				themeDisplay.getCompanyId(), _CLASS_NAME_IDS, keywords,
-				groupParams, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+				LinkedHashMapBuilder.<String, Object>put(
+					"site", Boolean.TRUE
+				).build(),
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 			int cur = ParamUtil.getInteger(
 				httpServletRequest, SearchContainer.DEFAULT_CUR_PARAM,

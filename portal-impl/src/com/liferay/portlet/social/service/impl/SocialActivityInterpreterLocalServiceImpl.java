@@ -81,14 +81,13 @@ public class SocialActivityInterpreterLocalServiceImpl
 		SocialActivityInterpreterImpl socialActivityInterpreterImpl =
 			(SocialActivityInterpreterImpl)activityInterpreter;
 
-		Map<String, Object> properties = HashMapBuilder.<String, Object>put(
-			"javax.portlet.name", socialActivityInterpreterImpl.getPortletId()
-		).build();
-
 		ServiceRegistration<SocialActivityInterpreter> serviceRegistration =
 			registry.registerService(
 				SocialActivityInterpreter.class, activityInterpreter,
-				properties);
+				HashMapBuilder.<String, Object>put(
+					"javax.portlet.name",
+					socialActivityInterpreterImpl.getPortletId()
+				).build());
 
 		_serviceRegistrations.put(activityInterpreter, serviceRegistration);
 	}

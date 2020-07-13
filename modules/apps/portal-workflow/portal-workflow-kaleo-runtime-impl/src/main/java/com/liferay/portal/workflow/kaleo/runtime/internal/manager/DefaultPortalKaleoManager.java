@@ -44,7 +44,6 @@ import java.io.InputStream;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
@@ -200,12 +199,11 @@ public class DefaultPortalKaleoManager
 				continue;
 			}
 
-			Map<Locale, String> descriptionMap = HashMapBuilder.put(
-				LocaleUtil.getDefault(), entry.getValue()
-			).build();
-
 			roleLocalService.addRole(
-				defaultUser.getUserId(), null, 0, name, null, descriptionMap,
+				defaultUser.getUserId(), null, 0, name, null,
+				HashMapBuilder.put(
+					LocaleUtil.getDefault(), entry.getValue()
+				).build(),
 				RoleConstants.TYPE_REGULAR, null, null);
 		}
 	}

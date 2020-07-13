@@ -639,10 +639,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public void checkCompanyGroup(long companyId) throws PortalException {
-		long classNameId = classNameLocalService.getClassNameId(Company.class);
-
 		int count = groupPersistence.countByC_C_C(
-			companyId, classNameId, companyId);
+			companyId, classNameLocalService.getClassNameId(Company.class),
+			companyId);
 
 		if (count == 0) {
 			groupLocalService.addGroup(
@@ -663,16 +662,15 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			return layout.getScopeGroup();
 		}
 
-		Map<Locale, String> nameMap = HashMapBuilder.put(
-			LocaleUtil.getDefault(), String.valueOf(layout.getPlid())
-		).build();
-
 		return groupLocalService.addGroup(
 			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
 			Layout.class.getName(), layout.getPlid(),
-			GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, null, 0, true,
-			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null, false, true,
-			null);
+			GroupConstants.DEFAULT_LIVE_GROUP_ID,
+			HashMapBuilder.put(
+				LocaleUtil.getDefault(), String.valueOf(layout.getPlid())
+			).build(),
+			null, 0, true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null,
+			false, true, null);
 	}
 
 	/**
@@ -1316,9 +1314,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public Group fetchCompanyGroup(long companyId) {
-		long classNameId = classNameLocalService.getClassNameId(Company.class);
-
-		return groupPersistence.fetchByC_C_C(companyId, classNameId, companyId);
+		return groupPersistence.fetchByC_C_C(
+			companyId, classNameLocalService.getClassNameId(Company.class),
+			companyId);
 	}
 
 	/**
@@ -1381,9 +1379,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 	@Override
 	public Group fetchUserGroup(long companyId, long userId) {
-		long classNameId = classNameLocalService.getClassNameId(User.class);
-
-		return groupPersistence.fetchByC_C_C(companyId, classNameId, userId);
+		return groupPersistence.fetchByC_C_C(
+			companyId, classNameLocalService.getClassNameId(User.class),
+			userId);
 	}
 
 	/**
@@ -1527,9 +1525,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public Group getCompanyGroup(long companyId) throws PortalException {
-		long classNameId = classNameLocalService.getClassNameId(Company.class);
-
-		return groupPersistence.findByC_C_C(companyId, classNameId, companyId);
+		return groupPersistence.findByC_C_C(
+			companyId, classNameLocalService.getClassNameId(Company.class),
+			companyId);
 	}
 
 	/**
@@ -1827,9 +1825,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public Group getLayoutGroup(long companyId, long plid)
 		throws PortalException {
 
-		long classNameId = classNameLocalService.getClassNameId(Layout.class);
-
-		return groupPersistence.findByC_C_C(companyId, classNameId, plid);
+		return groupPersistence.findByC_C_C(
+			companyId, classNameLocalService.getClassNameId(Layout.class),
+			plid);
 	}
 
 	/**
@@ -2137,9 +2135,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public Group getUserGroup(long companyId, long userId)
 		throws PortalException {
 
-		long classNameId = classNameLocalService.getClassNameId(User.class);
-
-		return groupPersistence.findByC_C_C(companyId, classNameId, userId);
+		return groupPersistence.findByC_C_C(
+			companyId, classNameLocalService.getClassNameId(User.class),
+			userId);
 	}
 
 	/**
@@ -2214,13 +2212,12 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		if (inherit) {
 			User user = userPersistence.findByPrimaryKey(userId);
 
-			LinkedHashMap<String, Object> groupParams =
+			return search(
+				user.getCompanyId(), null, null,
 				LinkedHashMapBuilder.<String, Object>put(
 					"usersGroups", Long.valueOf(userId)
-				).build();
-
-			return search(
-				user.getCompanyId(), null, null, groupParams, start, end);
+				).build(),
+				start, end);
 		}
 
 		return userPersistence.getGroups(userId, start, end);
@@ -2340,18 +2337,17 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		if (userBag == null) {
 			User user = userPersistence.findByPrimaryKey(userId);
 
-			LinkedHashMap<String, Object> groupParams =
+			return groupFinder.findByCompanyId(
+				user.getCompanyId(),
 				LinkedHashMapBuilder.<String, Object>put(
 					"inherit", Boolean.TRUE
 				).put(
 					"site", Boolean.TRUE
 				).put(
 					"usersGroups", userId
-				).build();
-
-			return groupFinder.findByCompanyId(
-				user.getCompanyId(), groupParams, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, new GroupNameComparator(true));
+				).build(),
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+				new GroupNameComparator(true));
 		}
 
 		Collection<Group> userGroups = userBag.getUserGroups();
@@ -4065,24 +4061,23 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		User defaultUser = userLocalService.getDefaultUser(
 			group.getCompanyId());
 
-		Map<String, String[]> parameterMap = HashMapBuilder.put(
-			PortletDataHandlerKeys.PERMISSIONS,
-			new String[] {Boolean.TRUE.toString()}
-		).put(
-			PortletDataHandlerKeys.PORTLET_CONFIGURATION,
-			new String[] {Boolean.TRUE.toString()}
-		).put(
-			PortletDataHandlerKeys.PORTLET_DATA,
-			new String[] {Boolean.TRUE.toString()}
-		).put(
-			PortletDataHandlerKeys.PORTLET_DATA_CONTROL_DEFAULT,
-			new String[] {Boolean.TRUE.toString()}
-		).build();
-
 		Map<String, Serializable> importLayoutSettingsMap =
 			ExportImportConfigurationSettingsMapFactoryUtil.
 				buildImportLayoutSettingsMap(
-					defaultUser, group.getGroupId(), false, null, parameterMap);
+					defaultUser, group.getGroupId(), false, null,
+					HashMapBuilder.put(
+						PortletDataHandlerKeys.PERMISSIONS,
+						new String[] {Boolean.TRUE.toString()}
+					).put(
+						PortletDataHandlerKeys.PORTLET_CONFIGURATION,
+						new String[] {Boolean.TRUE.toString()}
+					).put(
+						PortletDataHandlerKeys.PORTLET_DATA,
+						new String[] {Boolean.TRUE.toString()}
+					).put(
+						PortletDataHandlerKeys.PORTLET_DATA_CONTROL_DEFAULT,
+						new String[] {Boolean.TRUE.toString()}
+					).build());
 
 		ExportImportConfiguration exportImportConfiguration =
 			exportImportConfigurationLocalService.

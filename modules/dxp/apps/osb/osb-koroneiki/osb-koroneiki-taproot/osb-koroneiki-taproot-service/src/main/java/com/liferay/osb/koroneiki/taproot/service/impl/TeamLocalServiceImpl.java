@@ -105,10 +105,8 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 		// External links
 
-		long classNameId = classNameLocalService.getClassNameId(Team.class);
-
 		_externalLinkLocalService.deleteExternalLinks(
-			classNameId, team.getTeamId());
+			classNameLocalService.getClassNameId(Team.class), team.getTeamId());
 
 		// Resources
 

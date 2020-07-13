@@ -45,7 +45,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
@@ -137,7 +136,7 @@ public class DisplayPageManagementToolbarDisplayContext
 			{
 				addDropdownItem(
 					dropdownItem -> {
-						Map<String, Object> dropDownItemData =
+						dropdownItem.setData(
 							HashMapBuilder.<String, Object>put(
 								"action", "addDisplayPage"
 							).put(
@@ -145,9 +144,7 @@ public class DisplayPageManagementToolbarDisplayContext
 								addDisplayPageURL.toString()
 							).put(
 								"mappingTypes", _getMappingTypesJSONArray()
-							).build();
-
-						dropdownItem.setData(dropDownItemData);
+							).build());
 
 						dropdownItem.setLabel(LanguageUtil.get(request, "add"));
 					});

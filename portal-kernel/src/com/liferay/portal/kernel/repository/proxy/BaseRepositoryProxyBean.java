@@ -373,9 +373,8 @@ public class BaseRepositoryProxyBean
 	public FileEntry getFileEntry(long folderId, String title)
 		throws PortalException {
 
-		FileEntry fileEntry = _baseRepository.getFileEntry(folderId, title);
-
-		return newFileEntryProxyBean(fileEntry);
+		return newFileEntryProxyBean(
+			_baseRepository.getFileEntry(folderId, title));
 	}
 
 	@Override
@@ -410,9 +409,8 @@ public class BaseRepositoryProxyBean
 	public Folder getFolder(long parentFolderId, String name)
 		throws PortalException {
 
-		Folder folder = _baseRepository.getFolder(parentFolderId, name);
-
-		return newFolderProxyBean(folder);
+		return newFolderProxyBean(
+			_baseRepository.getFolder(parentFolderId, name));
 	}
 
 	@Override

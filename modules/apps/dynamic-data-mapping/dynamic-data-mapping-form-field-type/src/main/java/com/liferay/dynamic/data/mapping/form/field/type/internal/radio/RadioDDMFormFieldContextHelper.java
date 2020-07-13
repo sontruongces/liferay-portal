@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.util.HtmlUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * @author Marcellus Tavares
@@ -52,13 +51,12 @@ public class RadioDDMFormFieldContextHelper {
 				optionLabelString = HtmlUtil.extractText(optionLabelString);
 			}
 
-			Map<String, String> optionMap = HashMapBuilder.put(
-				"label", optionLabelString
-			).put(
-				"value", optionValue
-			).build();
-
-			options.add(optionMap);
+			options.add(
+				HashMapBuilder.put(
+					"label", optionLabelString
+				).put(
+					"value", optionValue
+				).build());
 		}
 
 		return options;

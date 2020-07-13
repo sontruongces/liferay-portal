@@ -568,27 +568,23 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 		Locale locale = LocaleUtil.getSiteDefault();
 
-		Map<Locale, String> nameMap = HashMapBuilder.put(
-			locale, name
-		).build();
-
-		Map<Locale, String> titleMap = HashMapBuilder.put(
-			locale, title
-		).build();
-
-		Map<Locale, String> descriptionMap = HashMapBuilder.put(
-			locale, description
-		).build();
-
-		Map<Locale, String> friendlyURLMap = HashMapBuilder.put(
-			LocaleUtil.getSiteDefault(), friendlyURL
-		).build();
-
 		return addLayout(
-			userId, groupId, privateLayout, parentLayoutId, nameMap, titleMap,
-			descriptionMap, new HashMap<Locale, String>(),
-			new HashMap<Locale, String>(), type, StringPool.BLANK, hidden,
-			system, friendlyURLMap, serviceContext);
+			userId, groupId, privateLayout, parentLayoutId,
+			HashMapBuilder.put(
+				locale, name
+			).build(),
+			HashMapBuilder.put(
+				locale, title
+			).build(),
+			HashMapBuilder.put(
+				locale, description
+			).build(),
+			new HashMap<Locale, String>(), new HashMap<Locale, String>(), type,
+			StringPool.BLANK, hidden, system,
+			HashMapBuilder.put(
+				LocaleUtil.getSiteDefault(), friendlyURL
+			).build(),
+			serviceContext);
 	}
 
 	/**
@@ -1632,9 +1628,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		List<Layout> layouts = new ArrayList<>();
 
 		for (long layoutId : layoutIds) {
-			Layout layout = getLayout(groupId, privateLayout, layoutId);
-
-			layouts.add(layout);
+			layouts.add(getLayout(groupId, privateLayout, layoutId));
 		}
 
 		return layouts;
@@ -2038,10 +2032,9 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			User user, boolean privateLayout, boolean includeUserGroups)
 		throws PortalException {
 
-		long classNameId = classNameLocalService.getClassNameId(User.class);
-
 		Group group = groupPersistence.findByC_C_C(
-			user.getCompanyId(), classNameId, user.getUserId());
+			user.getCompanyId(),
+			classNameLocalService.getClassNameId(User.class), user.getUserId());
 
 		return getLayoutsCount(group, privateLayout, includeUserGroups);
 	}
@@ -2370,10 +2363,9 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			User user, boolean privateLayout, boolean includeUserGroups)
 		throws PortalException {
 
-		long classNameId = classNameLocalService.getClassNameId(User.class);
-
 		Group group = groupPersistence.findByC_C_C(
-			user.getCompanyId(), classNameId, user.getUserId());
+			user.getCompanyId(),
+			classNameLocalService.getClassNameId(User.class), user.getUserId());
 
 		return hasLayouts(group, privateLayout, includeUserGroups);
 	}

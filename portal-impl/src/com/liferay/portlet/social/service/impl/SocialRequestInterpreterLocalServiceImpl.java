@@ -40,7 +40,6 @@ import com.liferay.social.kernel.model.SocialRequestInterpreter;
 import com.liferay.social.kernel.model.impl.SocialRequestInterpreterImpl;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -79,13 +78,13 @@ public class SocialRequestInterpreterLocalServiceImpl
 		SocialRequestInterpreterImpl socialRequestInterpreterImpl =
 			(SocialRequestInterpreterImpl)requestInterpreter;
 
-		Map<String, Object> properties = HashMapBuilder.<String, Object>put(
-			"javax.portlet.name", socialRequestInterpreterImpl.getPortletId()
-		).build();
-
 		ServiceRegistration<SocialRequestInterpreter> serviceRegistration =
 			registry.registerService(
-				SocialRequestInterpreter.class, requestInterpreter, properties);
+				SocialRequestInterpreter.class, requestInterpreter,
+				HashMapBuilder.<String, Object>put(
+					"javax.portlet.name",
+					socialRequestInterpreterImpl.getPortletId()
+				).build());
 
 		_serviceRegistrations.put(requestInterpreter, serviceRegistration);
 	}

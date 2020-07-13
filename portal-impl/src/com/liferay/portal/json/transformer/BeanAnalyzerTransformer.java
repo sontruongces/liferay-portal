@@ -52,13 +52,12 @@ public class BeanAnalyzerTransformer extends TypeJsonVisitor {
 
 		Class<?> propertyClass = propertyDescriptor.getType();
 
-		Map<String, String> properties = LinkedHashMapBuilder.put(
-			"name", propertyName
-		).put(
-			"type", getTypeName(propertyClass)
-		).build();
-
-		_propertiesList.add(properties);
+		_propertiesList.add(
+			LinkedHashMapBuilder.put(
+				"name", propertyName
+			).put(
+				"type", getTypeName(propertyClass)
+			).build());
 	}
 
 	private static final JsonSerializer _jsonSerializer = new JsonSerializer();

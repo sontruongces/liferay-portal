@@ -489,10 +489,8 @@ public class DDMFormContextToDDMForm
 
 		ddmFormRuleSerializerContext.addAttribute("form", ddmForm);
 
-		List<com.liferay.dynamic.data.mapping.model.DDMFormRule> ddmFormRules =
-			getDDMFormRules(ddmFormRuleSerializerContext, jsonArray);
-
-		ddmForm.setDDMFormRules(ddmFormRules);
+		ddmForm.setDDMFormRules(
+			getDDMFormRules(ddmFormRuleSerializerContext, jsonArray));
 	}
 
 	protected void setDDMFormSuccessPageSettings(

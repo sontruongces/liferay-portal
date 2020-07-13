@@ -518,13 +518,12 @@ public class JournalTestUtil {
 			Map<String, byte[]> images, ServiceContext serviceContext)
 		throws Exception {
 
-		Map<Locale, String> titleMap = HashMapBuilder.put(
-			defaultLocale, "Test Article"
-		).build();
-
 		return JournalArticleLocalServiceUtil.addArticle(
 			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
-			folderId, classNameId, classPK, StringPool.BLANK, true, 0, titleMap,
+			folderId, classNameId, classPK, StringPool.BLANK, true, 0,
+			HashMapBuilder.put(
+				defaultLocale, "Test Article"
+			).build(),
 			null, xml, ddmStructureKey, ddmTemplateKey, null, 1, 1, 1965, 0, 0,
 			0, 0, 0, 0, 0, true, 0, 0, 0, 0, 0, true, true, false, null, null,
 			images, null, serviceContext);
@@ -664,10 +663,9 @@ public class JournalTestUtil {
 			long userId, long groupId, long parentFolderId, String name)
 		throws Exception {
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(groupId, userId);
-
-		return addFolder(parentFolderId, name, serviceContext);
+		return addFolder(
+			parentFolderId, name,
+			ServiceContextTestUtil.getServiceContext(groupId, userId));
 	}
 
 	public static JournalFolder addFolder(

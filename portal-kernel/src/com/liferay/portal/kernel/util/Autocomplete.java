@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Brian Wing Shun Chan
@@ -48,13 +47,12 @@ public class Autocomplete {
 			String text = array[i][0];
 			String value = array[i][1];
 
-			Map<String, String> map = HashMapBuilder.put(
-				"text", text
-			).put(
-				"value", value
-			).build();
-
-			jsonArray.put(map);
+			jsonArray.put(
+				HashMapBuilder.put(
+					"text", text
+				).put(
+					"value", value
+				).build());
 		}
 
 		return jsonArray;

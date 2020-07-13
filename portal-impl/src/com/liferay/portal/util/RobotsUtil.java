@@ -34,9 +34,8 @@ import java.util.TreeMap;
 public class RobotsUtil {
 
 	public static String getDefaultRobots() {
-		int portalServerPort = PortalUtil.getPortalServerPort(false);
-
-		return getDefaultRobots(null, false, portalServerPort);
+		return getDefaultRobots(
+			null, false, PortalUtil.getPortalServerPort(false));
 	}
 
 	public static String getDefaultRobots(

@@ -100,10 +100,9 @@ public class DLStoreImpl implements DLStore {
 			ByteArrayFileInputStream byteArrayFileInputStream =
 				(ByteArrayFileInputStream)is;
 
-			File file = byteArrayFileInputStream.getFile();
-
 			addFile(
-				companyId, repositoryId, fileName, validateFileExtension, file);
+				companyId, repositoryId, fileName, validateFileExtension,
+				byteArrayFileInputStream.getFile());
 
 			return;
 		}
@@ -475,11 +474,10 @@ public class DLStoreImpl implements DLStore {
 			ByteArrayFileInputStream byteArrayFileInputStream =
 				(ByteArrayFileInputStream)is;
 
-			File file = byteArrayFileInputStream.getFile();
-
 			updateFile(
 				companyId, repositoryId, fileName, fileExtension,
-				validateFileExtension, versionLabel, sourceFileName, file);
+				validateFileExtension, versionLabel, sourceFileName,
+				byteArrayFileInputStream.getFile());
 
 			return;
 		}

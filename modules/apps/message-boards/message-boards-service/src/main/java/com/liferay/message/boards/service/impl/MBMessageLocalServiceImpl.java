@@ -314,13 +314,12 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 			discussion = true;
 		}
 
-		Map<String, Object> options = HashMapBuilder.<String, Object>put(
-			"discussion", discussion
-		).build();
-
 		body = SanitizerUtil.sanitize(
 			user.getCompanyId(), groupId, userId, MBMessage.class.getName(),
-			messageId, "text/" + format, Sanitizer.MODE_ALL, body, options);
+			messageId, "text/" + format, Sanitizer.MODE_ALL, body,
+			HashMapBuilder.<String, Object>put(
+				"discussion", discussion
+			).build());
 
 		validate(subject, body);
 
@@ -2708,14 +2707,13 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 		body = getBody(subject, body, message.getFormat());
 
-		Map<String, Object> options = HashMapBuilder.<String, Object>put(
-			"discussion", message.isDiscussion()
-		).build();
-
 		body = SanitizerUtil.sanitize(
 			message.getCompanyId(), message.getGroupId(), userId,
 			MBMessage.class.getName(), messageId, "text/" + message.getFormat(),
-			Sanitizer.MODE_ALL, body, options);
+			Sanitizer.MODE_ALL, body,
+			HashMapBuilder.<String, Object>put(
+				"discussion", message.isDiscussion()
+			).build());
 
 		validate(subject, body);
 

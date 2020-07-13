@@ -232,26 +232,21 @@ public class ServiceTestUtil {
 
 		Registry registry = RegistryUtil.getRegistry();
 
-		HashMap<String, Object> messageBusProperties =
+		registry.registerService(
+			MessageBus.class, _messageBusWrapper,
 			HashMapBuilder.<String, Object>put(
 				"service.ranking", Integer.MAX_VALUE
-			).build();
-
-		registry.registerService(
-			MessageBus.class, _messageBusWrapper, messageBusProperties);
+			).build());
 
 		if (MessageBusUtil.getMessageBus() != _messageBusWrapper) {
 			throw new IllegalStateException("MessageBus should be set");
 		}
 
-		HashMap<String, Object> portalExecutorManagerProperties =
-			HashMapBuilder.<String, Object>put(
-				"service.ranking", Integer.MAX_VALUE
-			).build();
-
 		registry.registerService(
 			PortalExecutorManager.class, _portalExecutorManagerWrapper,
-			portalExecutorManagerProperties);
+			HashMapBuilder.<String, Object>put(
+				"service.ranking", Integer.MAX_VALUE
+			).build());
 
 		// Class names
 

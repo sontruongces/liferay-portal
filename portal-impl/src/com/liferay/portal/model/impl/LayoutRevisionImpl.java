@@ -17,7 +17,6 @@ package com.liferay.portal.model.impl;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ColorScheme;
-import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutBranch;
 import com.liferay.portal.kernel.model.LayoutRevision;
 import com.liferay.portal.kernel.model.LayoutSet;
@@ -122,9 +121,8 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 
 		String portalURL = PortalUtil.getPortalURL(httpServletRequest);
 
-		Layout layout = LayoutLocalServiceUtil.getLayout(getPlid());
-
-		String url = PortalUtil.getLayoutURL(layout, themeDisplay);
+		String url = PortalUtil.getLayoutURL(
+			LayoutLocalServiceUtil.getLayout(getPlid()), themeDisplay);
 
 		if (!CookieKeys.hasSessionId(httpServletRequest) &&
 			(url.startsWith(portalURL) || url.startsWith(StringPool.SLASH))) {

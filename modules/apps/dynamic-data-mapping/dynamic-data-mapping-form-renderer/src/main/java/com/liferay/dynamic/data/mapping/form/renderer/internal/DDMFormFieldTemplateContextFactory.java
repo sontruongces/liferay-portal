@@ -243,13 +243,12 @@ public class DDMFormFieldTemplateContextFactory {
 		for (Map.Entry<String, LocalizedValue> entry : options.entrySet()) {
 			LocalizedValue localizedValue = entry.getValue();
 
-			Map<String, String> option = HashMapBuilder.put(
-				"label", localizedValue.getString(_locale)
-			).put(
-				"value", entry.getKey()
-			).build();
-
-			list.add(option);
+			list.add(
+				HashMapBuilder.put(
+					"label", localizedValue.getString(_locale)
+				).put(
+					"value", entry.getKey()
+				).build());
 		}
 
 		return list;
@@ -261,13 +260,12 @@ public class DDMFormFieldTemplateContextFactory {
 		List<Map<String, String>> list = new ArrayList<>();
 
 		for (KeyValuePair keyValuePair : keyValuePairs) {
-			Map<String, String> option = HashMapBuilder.put(
-				"label", keyValuePair.getValue()
-			).put(
-				"value", keyValuePair.getKey()
-			).build();
-
-			list.add(option);
+			list.add(
+				HashMapBuilder.put(
+					"label", keyValuePair.getValue()
+				).put(
+					"value", keyValuePair.getKey()
+				).build());
 		}
 
 		return list;
@@ -592,35 +590,36 @@ public class DDMFormFieldTemplateContextFactory {
 		DDMFormFieldValidationExpression ddmFormFieldValidationExpression =
 			ddmFormFieldValidation.getDDMFormFieldValidationExpression();
 
-		Map<String, Object> validation = HashMapBuilder.<String, Object>put(
-			"dataType",
-			GetterUtil.getString(
-				changedProperties.get("validationDataType"),
-				MapUtil.getString(changedProperties, "dataType"))
-		).put(
-			"errorMessage", errorMessage
-		).put(
-			"expression",
-			new HashMap() {
-				{
-					put(
-						"name",
-						GetterUtil.getString(
-							ddmFormFieldValidationExpression.getName()));
-					put(
-						"value",
-						GetterUtil.getString(
-							ddmFormFieldValidationExpression.getValue()));
+		ddmFormFieldTemplateContext.put(
+			"validation",
+			HashMapBuilder.<String, Object>put(
+				"dataType",
+				GetterUtil.getString(
+					changedProperties.get("validationDataType"),
+					MapUtil.getString(changedProperties, "dataType"))
+			).put(
+				"errorMessage", errorMessage
+			).put(
+				"expression",
+				new HashMap() {
+					{
+						put(
+							"name",
+							GetterUtil.getString(
+								ddmFormFieldValidationExpression.getName()));
+						put(
+							"value",
+							GetterUtil.getString(
+								ddmFormFieldValidationExpression.getValue()));
+					}
 				}
-			}
-		).put(
-			"fieldName",
-			GetterUtil.getString(changedProperties.get("validationFieldName"))
-		).put(
-			"parameter", parameter
-		).build();
-
-		ddmFormFieldTemplateContext.put("validation", validation);
+			).put(
+				"fieldName",
+				GetterUtil.getString(
+					changedProperties.get("validationFieldName"))
+			).put(
+				"parameter", parameter
+			).build());
 	}
 
 	protected void setDDMFormFieldTemplateContextValue(

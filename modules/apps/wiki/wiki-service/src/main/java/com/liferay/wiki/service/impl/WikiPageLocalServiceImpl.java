@@ -443,9 +443,8 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 			boolean addGuestPermissions)
 		throws PortalException {
 
-		WikiPage page = getPage(nodeId, title);
-
-		addPageResources(page, addGroupPermissions, addGuestPermissions);
+		addPageResources(
+			getPage(nodeId, title), addGroupPermissions, addGuestPermissions);
 	}
 
 	/**
@@ -459,9 +458,8 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 			String[] guestPermissions)
 		throws PortalException {
 
-		WikiPage page = getPage(nodeId, title);
-
-		addPageResources(page, groupPermissions, guestPermissions);
+		addPageResources(
+			getPage(nodeId, title), groupPermissions, guestPermissions);
 	}
 
 	@Override
@@ -1305,10 +1303,9 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 			PortletURL editPageURL, String attachmentURLPrefix)
 		throws PortalException {
 
-		WikiPage page = getPage(nodeId, title);
-
 		return getPageDisplay(
-			page, viewPageURL, editPageURL, attachmentURLPrefix);
+			getPage(nodeId, title), viewPageURL, editPageURL,
+			attachmentURLPrefix);
 	}
 
 	@Override

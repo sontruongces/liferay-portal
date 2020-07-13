@@ -125,7 +125,6 @@ import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.rss.util.RSSUtil;
 
-import java.io.File;
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -134,7 +133,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -222,9 +220,7 @@ public class CalendarPortlet extends MVCPortlet {
 
 		long calendarId = ParamUtil.getLong(uploadPortletRequest, "calendarId");
 
-		File file = uploadPortletRequest.getFile("file");
-
-		String data = FileUtil.read(file);
+		String data = FileUtil.read(uploadPortletRequest.getFile("file"));
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -1507,14 +1503,12 @@ public class CalendarPortlet extends MVCPortlet {
 		String name = StringUtil.merge(
 			_customSQL.keywords(keywords), StringPool.BLANK);
 
-		LinkedHashMap<String, Object> params =
+		List<Group> groups = _groupLocalService.search(
+			themeDisplay.getCompanyId(), name, null,
 			LinkedHashMapBuilder.<String, Object>put(
 				"usersGroups", themeDisplay.getUserId()
-			).build();
-
-		List<Group> groups = _groupLocalService.search(
-			themeDisplay.getCompanyId(), name, null, params, true, 0,
-			SearchContainer.DEFAULT_DELTA);
+			).build(),
+			true, 0, SearchContainer.DEFAULT_DELTA);
 
 		for (Group group : groups) {
 			long groupClassNameId = _portal.getClassNameId(Group.class);

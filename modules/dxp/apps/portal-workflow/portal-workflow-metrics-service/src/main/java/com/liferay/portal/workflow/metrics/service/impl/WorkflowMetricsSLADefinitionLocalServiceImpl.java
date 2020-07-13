@@ -145,10 +145,9 @@ public class WorkflowMetricsSLADefinitionLocalServiceImpl
 			workflowMetricsSLADefinitionPersistence.update(
 				workflowMetricsSLADefinition);
 
-		User user = userLocalService.getUser(serviceContext.getGuestOrUserId());
-
 		addWorkflowMetricsSLADefinitionVersion(
-			user, workflowMetricsSLADefinition);
+			userLocalService.getUser(serviceContext.getGuestOrUserId()),
+			workflowMetricsSLADefinition);
 
 		long companyId = workflowMetricsSLADefinition.getCompanyId();
 		long processId = workflowMetricsSLADefinition.getProcessId();

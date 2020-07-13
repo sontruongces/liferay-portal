@@ -46,15 +46,14 @@ public class CalendarNotificationTemplateTestUtil {
 		notificationTypeSettingsProperties.put(
 			CalendarNotificationTemplateConstants.PROPERTY_FROM_NAME, fromName);
 
-		User user = UserLocalServiceUtil.getUser(calendar.getUserId());
-
 		return CalendarNotificationTemplateLocalServiceUtil.
 			addCalendarNotificationTemplate(
 				calendar.getUserId(), calendar.getCalendarId(),
 				NotificationType.EMAIL,
 				notificationTypeSettingsProperties.toString(),
 				notificationTemplateType, subject, body,
-				createServiceContext(user));
+				createServiceContext(
+					UserLocalServiceUtil.getUser(calendar.getUserId())));
 	}
 
 	protected static ServiceContext createServiceContext(User user) {

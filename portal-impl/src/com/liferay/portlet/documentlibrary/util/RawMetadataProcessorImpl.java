@@ -42,7 +42,6 @@ import com.liferay.portal.repository.liferayrepository.model.LiferayFileEntry;
 import com.liferay.portal.repository.liferayrepository.model.LiferayFileVersion;
 import com.liferay.portal.util.PropsValues;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -126,11 +125,9 @@ public class RawMetadataProcessorImpl
 				LiferayFileVersion liferayFileVersion =
 					(LiferayFileVersion)fileVersion;
 
-				File file = liferayFileVersion.getFile(false);
-
 				rawMetadataMap = RawMetadataProcessorUtil.getRawMetadataMap(
 					fileVersion.getExtension(), fileVersion.getMimeType(),
-					file);
+					liferayFileVersion.getFile(false));
 			}
 			catch (UnsupportedOperationException
 						unsupportedOperationException) {

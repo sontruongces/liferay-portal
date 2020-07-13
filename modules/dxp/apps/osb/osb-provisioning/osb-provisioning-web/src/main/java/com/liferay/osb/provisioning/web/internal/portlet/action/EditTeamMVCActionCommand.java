@@ -83,9 +83,9 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 			else {
 				String teamKey = updateTeam(actionRequest, user);
 
-				String redirect = getRedirect(actionResponse, teamKey);
-
-				sendRedirect(actionRequest, actionResponse, redirect);
+				sendRedirect(
+					actionRequest, actionResponse,
+					getRedirect(actionResponse, teamKey));
 			}
 		}
 		catch (HttpException httpException) {

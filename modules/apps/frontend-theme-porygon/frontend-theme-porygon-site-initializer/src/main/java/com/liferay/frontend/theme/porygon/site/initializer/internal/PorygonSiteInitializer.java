@@ -208,16 +208,14 @@ public class PorygonSiteInitializer implements SiteInitializer {
 			String fileName = FileUtil.stripExtension(
 				FileUtil.getShortFileName(url.getPath()));
 
-			Map<Locale, String> nameMap = HashMapBuilder.put(
-				LocaleUtil.getSiteDefault(), fileName
-			).build();
-
 			DDMTemplate ddmTemplate = _ddmTemplateLocalService.addTemplate(
 				serviceContext.getUserId(), serviceContext.getScopeGroupId(),
 				_portal.getClassNameId(AssetEntry.class.getName()), 0,
 				_portal.getClassNameId(_PORTLET_DISPLAY_TEMPLATE_CLASS_NAME),
-				nameMap, new HashMap<>(),
-				DDMTemplateConstants.TEMPLATE_TYPE_DISPLAY,
+				HashMapBuilder.put(
+					LocaleUtil.getSiteDefault(), fileName
+				).build(),
+				new HashMap<>(), DDMTemplateConstants.TEMPLATE_TYPE_DISPLAY,
 				DDMTemplateConstants.TEMPLATE_MODE_EDIT,
 				TemplateConstants.LANG_TYPE_FTL, script, serviceContext);
 
@@ -353,9 +351,8 @@ public class PorygonSiteInitializer implements SiteInitializer {
 				StringUtil.read(url.openStream()), StringPool.DOLLAR,
 				StringPool.DOLLAR, fileEntriesMap);
 
-			String shortFileName = FileUtil.getShortFileName(url.getPath());
-
-			String fragmentEntryId = FileUtil.stripExtension(shortFileName);
+			String fragmentEntryId = FileUtil.stripExtension(
+				FileUtil.getShortFileName(url.getPath()));
 
 			StringBundler sb = new StringBundler(4);
 
@@ -514,16 +511,15 @@ public class PorygonSiteInitializer implements SiteInitializer {
 			String ddmTemplateName = StringUtil.upperCaseFirstLetter(
 				StringUtil.replace(ddmTemplateKey, '_', ' '));
 
-			Map<Locale, String> nameMap = HashMapBuilder.put(
-				LocaleUtil.getSiteDefault(), ddmTemplateName
-			).build();
-
 			_ddmTemplateLocalService.addTemplate(
 				serviceContext.getUserId(), serviceContext.getScopeGroupId(),
 				_portal.getClassNameId(DDMStructure.class),
 				ddmStructure.getStructureId(), ddmStructure.getClassNameId(),
-				ddmTemplateKey, nameMap, null,
-				DDMTemplateConstants.TEMPLATE_TYPE_DISPLAY,
+				ddmTemplateKey,
+				HashMapBuilder.put(
+					LocaleUtil.getSiteDefault(), ddmTemplateName
+				).build(),
+				null, DDMTemplateConstants.TEMPLATE_TYPE_DISPLAY,
 				DDMTemplateConstants.TEMPLATE_MODE_CREATE,
 				TemplateConstants.LANG_TYPE_FTL, script, true, false,
 				StringPool.BLANK, null, serviceContext);
@@ -562,13 +558,12 @@ public class PorygonSiteInitializer implements SiteInitializer {
 					StringUtil.replace(
 						fileName, CharPool.UNDERLINE, CharPool.SPACE)));
 
-			Map<Locale, String> nameMap = HashMapBuilder.put(
-				LocaleUtil.getSiteDefault(), articleName
-			).build();
-
 			JournalArticle article = _journalArticleLocalService.addArticle(
 				serviceContext.getUserId(), serviceContext.getScopeGroupId(), 0,
-				nameMap, null, content, "PORYGON_ENTRY", "PORYGON_ENTRY",
+				HashMapBuilder.put(
+					LocaleUtil.getSiteDefault(), articleName
+				).build(),
+				null, content, "PORYGON_ENTRY", "PORYGON_ENTRY",
 				serviceContext);
 
 			_assetDisplayPageEntryLocalService.addAssetDisplayPageEntry(

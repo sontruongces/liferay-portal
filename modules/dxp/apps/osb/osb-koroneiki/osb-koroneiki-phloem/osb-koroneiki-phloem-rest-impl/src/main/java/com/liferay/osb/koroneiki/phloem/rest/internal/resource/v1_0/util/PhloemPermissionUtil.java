@@ -115,9 +115,7 @@ public class PhloemPermissionUtil {
 
 		for (String roleName : roleNames) {
 			try {
-				Role role = _roleLocalService.getRole(companyId, roleName);
-
-				roles.add(role);
+				roles.add(_roleLocalService.getRole(companyId, roleName));
 			}
 			catch (NoSuchRoleException noSuchRoleException) {
 				if (_log.isDebugEnabled()) {

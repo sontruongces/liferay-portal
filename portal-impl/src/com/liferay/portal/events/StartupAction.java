@@ -56,8 +56,6 @@ import com.liferay.taglib.servlet.JspFactorySwapper;
 
 import java.io.InputStream;
 
-import java.util.Map;
-
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletRequest;
 
@@ -135,21 +133,19 @@ public class StartupAction extends SimpleAction {
 
 		Registry registry = RegistryUtil.getRegistry();
 
-		Map<String, Object> properties = HashMapBuilder.<String, Object>put(
-			"module.service.lifecycle", "database.initialized"
-		).put(
-			"service.vendor", ReleaseInfo.getVendor()
-		).put(
-			"service.version", ReleaseInfo.getVersion()
-		).build();
-
 		final ServiceRegistration<ModuleServiceLifecycle>
 			moduleServiceLifecycleServiceRegistration =
 				registry.registerService(
 					ModuleServiceLifecycle.class,
 					new ModuleServiceLifecycle() {
 					},
-					properties);
+					HashMapBuilder.<String, Object>put(
+						"module.service.lifecycle", "database.initialized"
+					).put(
+						"service.vendor", ReleaseInfo.getVendor()
+					).put(
+						"service.version", ReleaseInfo.getVersion()
+					).build());
 
 		PortalLifecycleUtil.register(
 			new BasePortalLifecycle() {

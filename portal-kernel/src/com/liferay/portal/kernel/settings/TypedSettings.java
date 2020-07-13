@@ -45,9 +45,7 @@ public class TypedSettings {
 	}
 
 	public boolean getBooleanValue(String key, boolean defaultValue) {
-		String value = getValue(key, null);
-
-		return GetterUtil.getBoolean(value, defaultValue);
+		return GetterUtil.getBoolean(getValue(key, null), defaultValue);
 	}
 
 	public double getDoubleValue(String key) {
@@ -55,9 +53,7 @@ public class TypedSettings {
 	}
 
 	public double getDoubleValue(String key, double defaultValue) {
-		String value = getValue(key, null);
-
-		return GetterUtil.getDouble(value, defaultValue);
+		return GetterUtil.getDouble(getValue(key, null), defaultValue);
 	}
 
 	public float getFloatValue(String key) {
@@ -65,9 +61,7 @@ public class TypedSettings {
 	}
 
 	public float getFloatValue(String key, float defaultValue) {
-		String value = getValue(key, null);
-
-		return GetterUtil.getFloat(value, defaultValue);
+		return GetterUtil.getFloat(getValue(key, null), defaultValue);
 	}
 
 	public int getIntegerValue(String key) {
@@ -75,9 +69,7 @@ public class TypedSettings {
 	}
 
 	public int getIntegerValue(String key, int defaultValue) {
-		String value = getValue(key, null);
-
-		return GetterUtil.getInteger(value, defaultValue);
+		return GetterUtil.getInteger(getValue(key, null), defaultValue);
 	}
 
 	public LocalizedValuesMap getLocalizedValuesMap(String key) {
@@ -99,9 +91,7 @@ public class TypedSettings {
 	}
 
 	public long getLongValue(String key, long defaultValue) {
-		String value = getValue(key, null);
-
-		return GetterUtil.getLong(value, defaultValue);
+		return GetterUtil.getLong(getValue(key, null), defaultValue);
 	}
 
 	public String getValue(String key) {

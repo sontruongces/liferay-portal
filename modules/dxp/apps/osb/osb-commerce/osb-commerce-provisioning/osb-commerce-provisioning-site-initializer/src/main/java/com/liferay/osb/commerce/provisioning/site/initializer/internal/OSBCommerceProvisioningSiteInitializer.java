@@ -92,7 +92,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -286,15 +285,14 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			layoutPageTemplateEntry.getLayoutPageTemplateEntryId(), name,
 			fragmentEntryIds, StringPool.BLANK, serviceContext);
 
-		Map<Locale, String> nameMap = HashMapBuilder.put(
-			LocaleUtil.getSiteDefault(), name
-		).build();
-
 		Layout layout = _layoutLocalService.addLayout(
 			serviceContext.getUserId(), serviceContext.getScopeGroupId(), false,
 			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
 			_portal.getClassNameId(LayoutPageTemplateEntry.class),
-			layoutPageTemplateEntry.getLayoutPageTemplateEntryId(), nameMap,
+			layoutPageTemplateEntry.getLayoutPageTemplateEntryId(),
+			HashMapBuilder.put(
+				LocaleUtil.getSiteDefault(), name
+			).build(),
 			new HashMap<>(), new HashMap<>(), new HashMap<>(), new HashMap<>(),
 			"content", null, false, false, new HashMap<>(), serviceContext);
 

@@ -91,21 +91,22 @@ public class SelectDDMFormFieldTemplateContextContributor
 
 		ResourceBundle resourceBundle = getResourceBundle(displayLocale);
 
-		Map<String, String> stringsMap = HashMapBuilder.put(
-			"chooseAnOption",
-			LanguageUtil.get(resourceBundle, "choose-an-option")
-		).put(
-			"chooseOptions", LanguageUtil.get(resourceBundle, "choose-options")
-		).put(
-			"dynamicallyLoadedData",
-			LanguageUtil.get(resourceBundle, "dynamically-loaded-data")
-		).put(
-			"emptyList", LanguageUtil.get(resourceBundle, "empty-list")
-		).put(
-			"search", LanguageUtil.get(resourceBundle, "search")
-		).build();
-
-		parameters.put("strings", stringsMap);
+		parameters.put(
+			"strings",
+			HashMapBuilder.put(
+				"chooseAnOption",
+				LanguageUtil.get(resourceBundle, "choose-an-option")
+			).put(
+				"chooseOptions",
+				LanguageUtil.get(resourceBundle, "choose-options")
+			).put(
+				"dynamicallyLoadedData",
+				LanguageUtil.get(resourceBundle, "dynamically-loaded-data")
+			).put(
+				"emptyList", LanguageUtil.get(resourceBundle, "empty-list")
+			).put(
+				"search", LanguageUtil.get(resourceBundle, "search")
+			).build());
 
 		List<String> predefinedValue = getValue(
 			getPredefinedValue(ddmFormField, ddmFormFieldRenderingContext));
@@ -166,13 +167,12 @@ public class SelectDDMFormFieldTemplateContextContributor
 				optionLabelString = HtmlUtil.extractText(optionLabelString);
 			}
 
-			Map<String, String> optionMap = HashMapBuilder.put(
-				"label", optionLabelString
-			).put(
-				"value", optionValue
-			).build();
-
-			options.add(optionMap);
+			options.add(
+				HashMapBuilder.put(
+					"label", optionLabelString
+				).put(
+					"value", optionValue
+				).build());
 		}
 
 		return options;

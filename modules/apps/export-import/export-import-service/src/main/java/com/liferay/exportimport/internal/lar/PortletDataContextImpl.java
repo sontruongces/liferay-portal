@@ -328,9 +328,9 @@ public class PortletDataContextImpl implements PortletDataContext {
 				getPrimaryKeyString(clazz, (Serializable)key)) &&
 			_lockManager.isLocked(clazz.getName(), key)) {
 
-			Lock lock = _lockManager.getLock(clazz.getName(), key);
-
-			addLocks(clazz.getName(), key, lock);
+			addLocks(
+				clazz.getName(), key,
+				_lockManager.getLock(clazz.getName(), key));
 		}
 	}
 
@@ -1859,9 +1859,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 		String className = referenceElement.attributeValue("class-name");
 		String classPK = referenceElement.attributeValue("class-pk");
 
-		String referenceKey = getReferenceKey(className, classPK);
-
-		return _missingReferences.contains(referenceKey);
+		return _missingReferences.contains(getReferenceKey(className, classPK));
 	}
 
 	/**
@@ -2232,13 +2230,11 @@ public class PortletDataContextImpl implements PortletDataContext {
 			Serializable classPKObj =
 				ExportImportClassedModelUtil.getPrimaryKeyObj(classedModel);
 
-			long[] assetCategoryIds = getAssetCategoryIds(clazz, classPKObj);
+			serviceContext.setAssetCategoryIds(
+				getAssetCategoryIds(clazz, classPKObj));
 
-			serviceContext.setAssetCategoryIds(assetCategoryIds);
-
-			String[] assetTagNames = getAssetTagNames(clazz, classPKObj);
-
-			serviceContext.setAssetTagNames(assetTagNames);
+			serviceContext.setAssetTagNames(
+				getAssetTagNames(clazz, classPKObj));
 		}
 
 		if (element != null) {

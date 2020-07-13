@@ -153,17 +153,15 @@ public class AssetVocabularyLocalServiceImpl
 
 		Locale locale = LocaleUtil.getSiteDefault();
 
-		Map<Locale, String> titleMap = HashMapBuilder.put(
-			locale, title
-		).build();
-
-		Map<Locale, String> descriptionMap = HashMapBuilder.put(
-			locale, StringPool.BLANK
-		).build();
-
 		return assetVocabularyLocalService.addVocabulary(
-			userId, groupId, title, titleMap, descriptionMap, null,
-			serviceContext);
+			userId, groupId, title,
+			HashMapBuilder.put(
+				locale, title
+			).build(),
+			HashMapBuilder.put(
+				locale, StringPool.BLANK
+			).build(),
+			null, serviceContext);
 	}
 
 	@Override

@@ -56,7 +56,6 @@ import com.liferay.sharing.web.internal.servlet.taglib.ui.SharingEntryMenuItemCo
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -359,20 +358,19 @@ public class SharedAssetsViewDisplayContext {
 
 			URLMenuItem urlMenuItem = new URLMenuItem();
 
-			Map<String, Object> data = HashMapBuilder.<String, Object>put(
-				"destroyOnHide", true
-			).put(
-				"id",
-				HtmlUtil.escape(_liferayPortletResponse.getNamespace()) +
-					"editAsset"
-			).put(
-				"title",
-				LanguageUtil.format(
-					_httpServletRequest, "edit-x",
-					HtmlUtil.escape(getTitle(sharingEntry)), false)
-			).build();
-
-			urlMenuItem.setData(data);
+			urlMenuItem.setData(
+				HashMapBuilder.<String, Object>put(
+					"destroyOnHide", true
+				).put(
+					"id",
+					HtmlUtil.escape(_liferayPortletResponse.getNamespace()) +
+						"editAsset"
+				).put(
+					"title",
+					LanguageUtil.format(
+						_httpServletRequest, "edit-x",
+						HtmlUtil.escape(getTitle(sharingEntry)), false)
+				).build());
 
 			urlMenuItem.setLabel(LanguageUtil.get(_httpServletRequest, "edit"));
 			urlMenuItem.setMethod("get");

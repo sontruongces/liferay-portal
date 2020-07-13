@@ -100,9 +100,9 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 			else {
 				String productKey = updateProduct(actionRequest, user);
 
-				String redirect = getRedirect(actionResponse, productKey);
-
-				sendRedirect(actionRequest, actionResponse, redirect);
+				sendRedirect(
+					actionRequest, actionResponse,
+					getRedirect(actionResponse, productKey));
 			}
 		}
 		catch (HttpException httpException) {

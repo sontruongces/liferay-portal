@@ -63,12 +63,11 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 
 		Template template = _getTemplate(renderRequest);
 
-		Map<String, Object> imageEditorCapabilitiesContext =
+		template.put(
+			"imageEditorCapabilities",
 			HashMapBuilder.<String, Object>put(
 				"tools", _getImageEditorToolsContexts(renderRequest)
-			).build();
-
-		template.put("imageEditorCapabilities", imageEditorCapabilitiesContext);
+			).build());
 
 		String entityURL = ParamUtil.getString(renderRequest, "entityURL");
 
@@ -211,15 +210,14 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 
 			String category = entry.getKey();
 
-			Map<String, Object> context = HashMapBuilder.<String, Object>put(
-				"controls", controlContexts
-			).put(
-				"icon", icon
-			).put(
-				"title", LanguageUtil.get(resourceBundle, category)
-			).build();
-
-			imageEditorToolsContexts.add(context);
+			imageEditorToolsContexts.add(
+				HashMapBuilder.<String, Object>put(
+					"controls", controlContexts
+				).put(
+					"icon", icon
+				).put(
+					"title", LanguageUtil.get(resourceBundle, category)
+				).build());
 		}
 
 		return imageEditorToolsContexts;

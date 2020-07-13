@@ -95,10 +95,9 @@ public class JournalFeedPermission implements BaseModelPermissionChecker {
 			String actionId)
 		throws PortalException {
 
-		JournalFeed feed = _journalFeedLocalService.getFeed(groupId, feedId);
-
 		return _journalFeedModelResourcePermission.contains(
-			permissionChecker, feed, actionId);
+			permissionChecker,
+			_journalFeedLocalService.getFeed(groupId, feedId), actionId);
 	}
 
 	@Override

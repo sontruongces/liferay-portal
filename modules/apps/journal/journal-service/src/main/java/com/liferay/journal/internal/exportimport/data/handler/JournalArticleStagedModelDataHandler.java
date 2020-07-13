@@ -1337,11 +1337,10 @@ public class JournalArticleStagedModelDataHandler
 			PortletDataContext portletDataContext, JournalArticle article)
 		throws PortletDataException {
 
-		long classNameId = _portal.getClassNameId(JournalArticle.class);
-
 		List<FriendlyURLEntry> friendlyURLEntries =
 			_friendlyURLEntryLocalService.getFriendlyURLEntries(
-				article.getGroupId(), classNameId,
+				article.getGroupId(),
+				_portal.getClassNameId(JournalArticle.class),
 				article.getResourcePrimKey());
 
 		for (FriendlyURLEntry friendlyURLEntry : friendlyURLEntries) {

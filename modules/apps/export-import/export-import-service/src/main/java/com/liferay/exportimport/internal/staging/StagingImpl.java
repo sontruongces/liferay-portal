@@ -82,7 +82,6 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.lock.DuplicateLockException;
-import com.liferay.portal.kernel.lock.Lock;
 import com.liferay.portal.kernel.lock.LockManager;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -2368,9 +2367,8 @@ public class StagingImpl implements Staging {
 	@Override
 	public void lockGroup(long userId, long groupId) throws PortalException {
 		if (_lockManager.isLocked(Staging.class.getName(), groupId)) {
-			Lock lock = _lockManager.getLock(Staging.class.getName(), groupId);
-
-			throw new DuplicateLockException(lock);
+			throw new DuplicateLockException(
+				_lockManager.getLock(Staging.class.getName(), groupId));
 		}
 
 		_lockManager.lock(
@@ -2524,21 +2522,19 @@ public class StagingImpl implements Staging {
 		boolean privateLayout = MapUtil.getBoolean(
 			settingsMap, "privateLayout");
 
-		Map<String, Serializable> taskContextMap =
-			HashMapBuilder.<String, Serializable>put(
-				"exportImportConfigurationId",
-				exportImportConfiguration.getExportImportConfigurationId()
-			).put(
-				"privateLayout", privateLayout
-			).build();
-
 		BackgroundTask backgroundTask =
 			_backgroundTaskManager.addBackgroundTask(
 				userId, exportImportConfiguration.getGroupId(),
 				backgroundTaskName,
 				BackgroundTaskExecutorNames.
 					LAYOUT_STAGING_BACKGROUND_TASK_EXECUTOR,
-				taskContextMap, new ServiceContext());
+				HashMapBuilder.<String, Serializable>put(
+					"exportImportConfigurationId",
+					exportImportConfiguration.getExportImportConfigurationId()
+				).put(
+					"privateLayout", privateLayout
+				).build(),
+				new ServiceContext());
 
 		return backgroundTask.getBackgroundTaskId();
 	}
@@ -3854,23 +3850,21 @@ public class StagingImpl implements Staging {
 			remoteURL, user.getLogin(), user.getPassword(),
 			user.isPasswordEncrypted());
 
-		Map<String, Serializable> taskContextMap =
-			HashMapBuilder.<String, Serializable>put(
-				"exportImportConfigurationId",
-				exportImportConfiguration.getExportImportConfigurationId()
-			).put(
-				"httpPrincipal", httpPrincipal
-			).put(
-				"privateLayout", remotePrivateLayout
-			).build();
-
 		BackgroundTask backgroundTask =
 			_backgroundTaskManager.addBackgroundTask(
 				user.getUserId(), exportImportConfiguration.getGroupId(),
 				backgroundTaskName,
 				BackgroundTaskExecutorNames.
 					LAYOUT_REMOTE_STAGING_BACKGROUND_TASK_EXECUTOR,
-				taskContextMap, new ServiceContext());
+				HashMapBuilder.<String, Serializable>put(
+					"exportImportConfigurationId",
+					exportImportConfiguration.getExportImportConfigurationId()
+				).put(
+					"httpPrincipal", httpPrincipal
+				).put(
+					"privateLayout", remotePrivateLayout
+				).build(),
+				new ServiceContext());
 
 		return backgroundTask.getBackgroundTaskId();
 	}

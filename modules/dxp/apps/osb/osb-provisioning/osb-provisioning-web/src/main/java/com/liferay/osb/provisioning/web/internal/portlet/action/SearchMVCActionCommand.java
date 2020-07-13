@@ -57,9 +57,8 @@ public class SearchMVCActionCommand extends BaseMVCActionCommand {
 		try {
 			hideDefaultSuccessMessage(actionRequest);
 
-			String redirect = getRedirect(actionRequest, actionResponse);
-
-			actionResponse.sendRedirect(redirect);
+			actionResponse.sendRedirect(
+				getRedirect(actionRequest, actionResponse));
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

@@ -163,9 +163,7 @@ public class HttpImpl implements Http {
 		requestConfigBuilder = requestConfigBuilder.setConnectionRequestTimeout(
 			_TIMEOUT);
 
-		RequestConfig requestConfig = requestConfigBuilder.build();
-
-		httpClientBuilder.setDefaultRequestConfig(requestConfig);
+		httpClientBuilder.setDefaultRequestConfig(requestConfigBuilder.build());
 
 		SystemDefaultRoutePlanner systemDefaultRoutePlanner =
 			new SystemDefaultRoutePlanner(ProxySelector.getDefault());
@@ -212,9 +210,8 @@ public class HttpImpl implements Http {
 		requestConfigBuilder.setProxy(new HttpHost(_PROXY_HOST, _PROXY_PORT));
 		requestConfigBuilder.setProxyPreferredAuthSchemes(_proxyAuthPrefs);
 
-		RequestConfig proxyRequestConfig = requestConfigBuilder.build();
-
-		proxyHttpClientBuilder.setDefaultRequestConfig(proxyRequestConfig);
+		proxyHttpClientBuilder.setDefaultRequestConfig(
+			requestConfigBuilder.build());
 
 		_proxyCloseableHttpClient = proxyHttpClientBuilder.build();
 	}

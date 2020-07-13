@@ -203,14 +203,10 @@ public class ExportConfigurationMVCResourceCommand
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		String languageId = themeDisplay.getLanguageId();
-
-		String fileName = getFileName(factoryPid, pid);
-
 		PortletResponseUtil.sendFile(
-			resourceRequest, resourceResponse, fileName,
+			resourceRequest, resourceResponse, getFileName(factoryPid, pid),
 			ConfigurationExporter.getPropertiesAsBytes(
-				getProperties(languageId, factoryPid, pid)),
+				getProperties(themeDisplay.getLanguageId(), factoryPid, pid)),
 			ContentTypes.TEXT_XML_UTF8);
 	}
 

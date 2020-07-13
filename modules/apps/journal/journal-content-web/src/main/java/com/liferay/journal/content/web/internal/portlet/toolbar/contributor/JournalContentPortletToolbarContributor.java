@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -128,14 +127,13 @@ public class JournalContentPortletToolbarContributor
 			String title = LanguageUtil.format(
 				themeDisplay.getLocale(), "new-x", ddmStructureName);
 
-			Map<String, Object> data = HashMapBuilder.<String, Object>put(
-				"id",
-				HtmlUtil.escape(portletDisplay.getNamespace()) + "editAsset"
-			).put(
-				"title", HtmlUtil.escape(title)
-			).build();
-
-			urlMenuItem.setData(data);
+			urlMenuItem.setData(
+				HashMapBuilder.<String, Object>put(
+					"id",
+					HtmlUtil.escape(portletDisplay.getNamespace()) + "editAsset"
+				).put(
+					"title", HtmlUtil.escape(title)
+				).build());
 
 			String label = ddmStructure.getUnambiguousName(
 				ddmStructures, themeDisplay.getScopeGroupId(),

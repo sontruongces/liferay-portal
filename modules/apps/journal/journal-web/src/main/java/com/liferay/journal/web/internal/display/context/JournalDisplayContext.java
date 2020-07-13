@@ -1082,7 +1082,7 @@ public class JournalDisplayContext {
 				"keywords", getKeywords()
 			).build();
 
-		Map<String, Serializable> attributes =
+		searchContext.setAttributes(
 			HashMapBuilder.<String, Serializable>put(
 				Field.ARTICLE_ID, getKeywords()
 			).put(
@@ -1100,9 +1100,7 @@ public class JournalDisplayContext {
 				"ddmStructureKey", getDDMStructureKey()
 			).put(
 				"params", params
-			).build();
-
-		searchContext.setAttributes(attributes);
+			).build());
 
 		searchContext.setCompanyId(_themeDisplay.getCompanyId());
 		searchContext.setEnd(end);

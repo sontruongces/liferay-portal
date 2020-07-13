@@ -108,12 +108,12 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributor
 				ddmFormFieldRenderingContext.getHttpServletRequest());
 		}
 
-		Map<String, String> stringsMap = HashMapBuilder.put(
-			"select",
-			LanguageUtil.get(getResourceBundle(displayLocale), "select")
-		).build();
-
-		parameters.put("strings", stringsMap);
+		parameters.put(
+			"strings",
+			HashMapBuilder.put(
+				"select",
+				LanguageUtil.get(getResourceBundle(displayLocale), "select")
+			).build());
 
 		String value = ddmFormFieldRenderingContext.getValue();
 

@@ -136,13 +136,13 @@ public class AssetPublisherPortletToolbarContributor
 		String title = LanguageUtil.get(
 			resourceBundle, "add-content-select-scope-and-type");
 
-		Map<String, Object> data = HashMapBuilder.<String, Object>put(
-			"id", HtmlUtil.escape(portletDisplay.getNamespace()) + "editAsset"
-		).put(
-			"title", title
-		).build();
-
-		urlMenuItem.setData(data);
+		urlMenuItem.setData(
+			HashMapBuilder.<String, Object>put(
+				"id",
+				HtmlUtil.escape(portletDisplay.getNamespace()) + "editAsset"
+			).put(
+				"title", title
+			).build());
 
 		urlMenuItem.setLabel(title);
 
@@ -190,13 +190,13 @@ public class AssetPublisherPortletToolbarContributor
 		String title = LanguageUtil.format(
 			themeDisplay.getLocale(), "new-x", message, false);
 
-		Map<String, Object> data = HashMapBuilder.<String, Object>put(
-			"id", HtmlUtil.escape(portletDisplay.getNamespace()) + "editAsset"
-		).put(
-			"title", title
-		).build();
-
-		urlMenuItem.setData(data);
+		urlMenuItem.setData(
+			HashMapBuilder.<String, Object>put(
+				"id",
+				HtmlUtil.escape(portletDisplay.getNamespace()) + "editAsset"
+			).put(
+				"title", title
+			).build());
 
 		urlMenuItem.setLabel(message);
 

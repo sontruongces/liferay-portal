@@ -1145,10 +1145,9 @@ public class JournalArticleLocalServiceImpl
 
 		// Article localization
 
-		String urlTitle = JournalUtil.getUrlTitle(id, oldArticle.getUrlTitle());
-
 		int uniqueUrlTitleCount = _getUniqueUrlTitleCount(
-			groupId, newArticleId, urlTitle);
+			groupId, newArticleId,
+			JournalUtil.getUrlTitle(id, oldArticle.getUrlTitle()));
 
 		Map<Locale, String> newTitleMap = oldArticle.getTitleMap();
 
@@ -7197,7 +7196,7 @@ public class JournalArticleLocalServiceImpl
 
 		searchContext.setAndSearch(andSearch);
 
-		Map<String, Serializable> attributes =
+		searchContext.setAttributes(
 			HashMapBuilder.<String, Serializable>put(
 				Field.ARTICLE_ID, articleId
 			).put(
@@ -7216,9 +7215,7 @@ public class JournalArticleLocalServiceImpl
 				"ddmTemplateKey", ddmTemplateKey
 			).put(
 				"params", params
-			).build();
-
-		searchContext.setAttributes(attributes);
+			).build());
 
 		searchContext.setCompanyId(companyId);
 		searchContext.setEnd(end);
@@ -8082,9 +8079,8 @@ public class JournalArticleLocalServiceImpl
 			long id, long groupId, String articleId, String title)
 		throws PortalException {
 
-		String urlTitle = JournalUtil.getUrlTitle(id, title);
-
-		return getUniqueUrlTitle(groupId, articleId, urlTitle);
+		return getUniqueUrlTitle(
+			groupId, articleId, JournalUtil.getUrlTitle(id, title));
 	}
 
 	protected String getUniqueUrlTitle(

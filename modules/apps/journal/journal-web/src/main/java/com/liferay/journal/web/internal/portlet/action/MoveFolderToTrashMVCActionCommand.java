@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.util.Collections;
-import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -56,15 +55,13 @@ public class MoveFolderToTrashMVCActionCommand extends BaseMVCActionCommand {
 		JournalFolder folder = _journalFolderService.moveFolderToTrash(
 			folderId);
 
-		Map<String, Object> data = HashMapBuilder.<String, Object>put(
-			"trashedModels", Collections.singletonList(folder)
-		).build();
-
 		SessionMessages.add(
 			actionRequest,
 			_portal.getPortletId(actionRequest) +
 				SessionMessages.KEY_SUFFIX_DELETE_SUCCESS_DATA,
-			data);
+			HashMapBuilder.<String, Object>put(
+				"trashedModels", Collections.singletonList(folder)
+			).build());
 
 		hideDefaultSuccessMessage(actionRequest);
 	}

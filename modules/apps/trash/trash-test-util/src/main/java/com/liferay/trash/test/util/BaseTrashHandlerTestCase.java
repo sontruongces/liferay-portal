@@ -1780,10 +1780,8 @@ public abstract class BaseTrashHandlerTestCase {
 	public void testTrashIsRestorableBaseModel() throws Exception {
 		Assume.assumeTrue(this instanceof WhenIsRestorableBaseModel);
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(group.getGroupId());
-
-		baseModel = addBaseModelWithWorkflow(serviceContext);
+		baseModel = addBaseModelWithWorkflow(
+			ServiceContextTestUtil.getServiceContext(group.getGroupId()));
 
 		moveBaseModelToTrash((Long)baseModel.getPrimaryKeyObj());
 

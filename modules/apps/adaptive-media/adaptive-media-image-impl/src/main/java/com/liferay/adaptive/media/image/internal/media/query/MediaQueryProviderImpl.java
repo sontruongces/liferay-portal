@@ -119,16 +119,16 @@ public class MediaQueryProviderImpl implements MediaQueryProvider {
 		Optional<Integer> heightOptional = _getHeight(
 			amImageConfigurationEntry);
 
-		Map<String, String> properties = HashMapBuilder.put(
-			AMImageAttribute.AM_IMAGE_ATTRIBUTE_WIDTH.getName(),
-			String.valueOf(widthOptional.orElse(0))
-		).put(
-			AMImageAttribute.AM_IMAGE_ATTRIBUTE_HEIGHT.getName(),
-			String.valueOf(heightOptional.orElse(0))
-		).build();
-
 		return new AMImage(
-			() -> null, AMImageAttributeMapping.fromProperties(properties),
+			() -> null,
+			AMImageAttributeMapping.fromProperties(
+				HashMapBuilder.put(
+					AMImageAttribute.AM_IMAGE_ATTRIBUTE_WIDTH.getName(),
+					String.valueOf(widthOptional.orElse(0))
+				).put(
+					AMImageAttribute.AM_IMAGE_ATTRIBUTE_HEIGHT.getName(),
+					String.valueOf(heightOptional.orElse(0))
+				).build()),
 			_getFileEntryURL(fileEntry, amImageConfigurationEntry));
 	}
 

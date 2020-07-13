@@ -376,9 +376,8 @@ public class WesterosBankSiteInitializer implements SiteInitializer {
 
 			url = _bundle.getEntry(filePath + "/" + fileName);
 
-			String shortFileName = FileUtil.getShortFileName(url.getPath());
-
-			String fragmentEntryId = FileUtil.stripExtension(shortFileName);
+			String fragmentEntryId = FileUtil.stripExtension(
+				FileUtil.getShortFileName(url.getPath()));
 
 			String fragmentEntryName = StringUtil.upperCaseFirstLetter(
 				fragmentEntryId);
@@ -473,15 +472,15 @@ public class WesterosBankSiteInitializer implements SiteInitializer {
 		Random random = new Random();
 
 		for (String layoutName : layoutNames) {
-			Map<Locale, String> nameMap = HashMapBuilder.put(
-				LocaleUtil.getSiteDefault(), layoutName
-			).build();
-
 			Layout layout = _layoutLocalService.addLayout(
 				serviceContext.getUserId(), serviceContext.getScopeGroupId(),
-				false, parentLayout.getLayoutId(), nameMap, new HashMap<>(),
-				new HashMap<>(), new HashMap<>(), new HashMap<>(), "content",
-				StringPool.BLANK, false, new HashMap<>(), serviceContext);
+				false, parentLayout.getLayoutId(),
+				HashMapBuilder.put(
+					LocaleUtil.getSiteDefault(), layoutName
+				).build(),
+				new HashMap<>(), new HashMap<>(), new HashMap<>(),
+				new HashMap<>(), "content", StringPool.BLANK, false,
+				new HashMap<>(), serviceContext);
 
 			int fragmentKeyId = random.nextInt(
 				_LAYOUT_NAMES_FRAGMENT_KEYS.length);
@@ -510,17 +509,16 @@ public class WesterosBankSiteInitializer implements SiteInitializer {
 			ServiceContext serviceContext)
 		throws Exception {
 
-		Map<Locale, String> nameMap = HashMapBuilder.put(
-			LocaleUtil.getSiteDefault(), name
-		).build();
-
 		return _layoutLocalService.addLayout(
 			serviceContext.getUserId(), serviceContext.getScopeGroupId(), false,
 			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
 			_portal.getClassNameId(LayoutPageTemplateEntry.class),
-			layoutPageTemplateEntryId, nameMap, new HashMap<>(),
-			new HashMap<>(), new HashMap<>(), new HashMap<>(), "content", null,
-			false, false, new HashMap<>(), serviceContext);
+			layoutPageTemplateEntryId,
+			HashMapBuilder.put(
+				LocaleUtil.getSiteDefault(), name
+			).build(),
+			new HashMap<>(), new HashMap<>(), new HashMap<>(), new HashMap<>(),
+			"content", null, false, false, new HashMap<>(), serviceContext);
 	}
 
 	private void _configureFragmentEntryLink(

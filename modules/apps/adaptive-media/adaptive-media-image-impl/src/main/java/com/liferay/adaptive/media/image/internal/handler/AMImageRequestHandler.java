@@ -94,15 +94,6 @@ public class AMImageRequestHandler
 		AMAttribute<Object, String> fileNameAMAttribute =
 			AMAttribute.getFileNameAMAttribute();
 
-		Map<String, String> properties = HashMapBuilder.put(
-			contentLengthAMAttribute.getName(),
-			String.valueOf(fileVersion.getSize())
-		).put(
-			contentTypeAMAttribute.getName(), fileVersion.getMimeType()
-		).put(
-			fileNameAMAttribute.getName(), fileVersion.getFileName()
-		).build();
-
 		return new AMImage(
 			() -> {
 				try {
@@ -112,7 +103,16 @@ public class AMImageRequestHandler
 					throw new AMRuntimeException(portalException);
 				}
 			},
-			AMImageAttributeMapping.fromProperties(properties), null);
+			AMImageAttributeMapping.fromProperties(
+				HashMapBuilder.put(
+					contentLengthAMAttribute.getName(),
+					String.valueOf(fileVersion.getSize())
+				).put(
+					contentTypeAMAttribute.getName(), fileVersion.getMimeType()
+				).put(
+					fileNameAMAttribute.getName(), fileVersion.getFileName()
+				).build()),
+			null);
 	}
 
 	private Optional<AdaptiveMedia<AMImageProcessor>> _findAdaptiveMedia(

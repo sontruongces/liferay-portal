@@ -413,16 +413,14 @@ public class OrganizationLocalServiceImpl
 		throws PortalException {
 
 		if (!CompanyThreadLocal.isDeleteInProcess()) {
-			LinkedHashMap<String, Object> params =
-				LinkedHashMapBuilder.<String, Object>put(
-					"usersOrgs", Long.valueOf(organization.getOrganizationId())
-				).build();
-
 			int count1 = organizationPersistence.countByC_P(
 				organization.getCompanyId(), organization.getOrganizationId());
 			int count2 = userFinder.countByKeywords(
 				organization.getCompanyId(), null,
-				WorkflowConstants.STATUS_APPROVED, params);
+				WorkflowConstants.STATUS_APPROVED,
+				LinkedHashMapBuilder.<String, Object>put(
+					"usersOrgs", Long.valueOf(organization.getOrganizationId())
+				).build());
 
 			if ((count1 > 0) || (count2 > 0)) {
 				throw new RequiredOrganizationException();
@@ -2159,7 +2157,7 @@ public class OrganizationLocalServiceImpl
 
 		searchContext.setAndSearch(andSearch);
 
-		Map<String, Serializable> attributes =
+		searchContext.setAttributes(
 			HashMapBuilder.<String, Serializable>put(
 				"city", city
 			).put(
@@ -2178,9 +2176,7 @@ public class OrganizationLocalServiceImpl
 				"type", type
 			).put(
 				"zip", zip
-			).build();
-
-		searchContext.setAttributes(attributes);
+			).build());
 
 		searchContext.setCompanyId(companyId);
 		searchContext.setEnd(end);

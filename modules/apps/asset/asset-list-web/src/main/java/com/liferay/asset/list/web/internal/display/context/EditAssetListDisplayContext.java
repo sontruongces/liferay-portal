@@ -268,13 +268,12 @@ public class EditAssetListDisplayContext {
 				List<Map<String, String>> selectedItems = new ArrayList<>();
 
 				for (String tagName : tagNames) {
-					Map<String, String> item = HashMapBuilder.put(
-						"label", tagName
-					).put(
-						"value", tagName
-					).build();
-
-					selectedItems.add(item);
+					selectedItems.add(
+						HashMapBuilder.put(
+							"label", tagName
+						).put(
+							"value", tagName
+						).build());
 				}
 
 				ruleJSONObject.put("selectedItems", selectedItems);
@@ -322,15 +321,13 @@ public class EditAssetListDisplayContext {
 				List<HashMap<String, Object>> selectedItems = new ArrayList<>();
 
 				for (AssetCategory category : categories) {
-					HashMap<String, Object> selectedCategory =
+					selectedItems.add(
 						HashMapBuilder.<String, Object>put(
 							"label",
 							category.getTitle(_themeDisplay.getLocale())
 						).put(
 							"value", category.getCategoryId()
-						).build();
-
-					selectedItems.add(selectedCategory);
+						).build());
 				}
 
 				ruleJSONObject.put("selectedItems", selectedItems);
@@ -647,21 +644,22 @@ public class EditAssetListDisplayContext {
 				String type = curRendererFactory.getTypeName(
 					_themeDisplay.getLocale());
 
-				Map<String, Object> data = HashMapBuilder.<String, Object>put(
-					"destroyOnHide", true
-				).put(
-					"groupid", String.valueOf(_themeDisplay.getScopeGroupId())
-				).put(
-					"href", assetBrowserURL.toString()
-				).put(
-					"title",
-					LanguageUtil.format(
-						_httpServletRequest, "select-x", type, false)
-				).put(
-					"type", type
-				).build();
-
-				manualAddIconDataMap.put(type, data);
+				manualAddIconDataMap.put(
+					type,
+					HashMapBuilder.<String, Object>put(
+						"destroyOnHide", true
+					).put(
+						"groupid",
+						String.valueOf(_themeDisplay.getScopeGroupId())
+					).put(
+						"href", assetBrowserURL.toString()
+					).put(
+						"title",
+						LanguageUtil.format(
+							_httpServletRequest, "select-x", type, false)
+					).put(
+						"type", type
+					).build());
 
 				continue;
 			}
@@ -682,21 +680,22 @@ public class EditAssetListDisplayContext {
 
 				String type = assetAvailableClassType.getName();
 
-				Map<String, Object> data = HashMapBuilder.<String, Object>put(
-					"destroyOnHide", true
-				).put(
-					"groupid", String.valueOf(_themeDisplay.getScopeGroupId())
-				).put(
-					"href", assetBrowserURL.toString()
-				).put(
-					"title",
-					LanguageUtil.format(
-						_httpServletRequest, "select-x", type, false)
-				).put(
-					"type", type
-				).build();
-
-				manualAddIconDataMap.put(type, data);
+				manualAddIconDataMap.put(
+					type,
+					HashMapBuilder.<String, Object>put(
+						"destroyOnHide", true
+					).put(
+						"groupid",
+						String.valueOf(_themeDisplay.getScopeGroupId())
+					).put(
+						"href", assetBrowserURL.toString()
+					).put(
+						"title",
+						LanguageUtil.format(
+							_httpServletRequest, "select-x", type, false)
+					).put(
+						"type", type
+					).build());
 			}
 		}
 

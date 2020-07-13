@@ -396,14 +396,13 @@ public abstract class BaseWorkflowTaskManagerTestCase {
 		DDMStructure ddmStructure = ddmStructureTestHelper.addStructure(
 			ddmForm, StorageType.JSON.toString());
 
-		Map<Locale, String> nameMap = HashMapBuilder.put(
-			LocaleUtil.US, RandomTestUtil.randomString()
-		).build();
-
 		return DDLRecordSetLocalServiceUtil.addRecordSet(
 			adminUser.getUserId(), group.getGroupId(),
-			ddmStructure.getStructureId(), null, nameMap, null,
-			DDLRecordSetConstants.MIN_DISPLAY_ROWS_DEFAULT,
+			ddmStructure.getStructureId(), null,
+			HashMapBuilder.put(
+				LocaleUtil.US, RandomTestUtil.randomString()
+			).build(),
+			null, DDLRecordSetConstants.MIN_DISPLAY_ROWS_DEFAULT,
 			DDLRecordSetConstants.SCOPE_DYNAMIC_DATA_LISTS, serviceContext);
 	}
 

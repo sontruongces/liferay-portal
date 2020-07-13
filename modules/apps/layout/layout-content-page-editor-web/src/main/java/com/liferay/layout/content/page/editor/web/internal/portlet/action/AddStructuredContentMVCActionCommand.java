@@ -20,7 +20,6 @@ import com.liferay.dynamic.data.mapping.exception.StorageFieldRequiredException;
 import com.liferay.dynamic.data.mapping.exception.StorageFieldValueException;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
-import com.liferay.dynamic.data.mapping.storage.Fields;
 import com.liferay.dynamic.data.mapping.util.DDM;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolderConstants;
@@ -211,9 +210,8 @@ public class AddStructuredContentMVCActionCommand extends BaseMVCActionCommand {
 		serviceContext.setAttribute(
 			"ddmFormValues", serializedDDMFormValuesJSONObject.toJSONString());
 
-		Fields fields = _ddm.getFields(ddmStructureId, serviceContext);
-
-		String content = _journalConverter.getContent(ddmStructure, fields);
+		String content = _journalConverter.getContent(
+			ddmStructure, _ddm.getFields(ddmStructureId, serviceContext));
 
 		Map<Locale, String> titleMap = new HashMap<Locale, String>() {
 			{

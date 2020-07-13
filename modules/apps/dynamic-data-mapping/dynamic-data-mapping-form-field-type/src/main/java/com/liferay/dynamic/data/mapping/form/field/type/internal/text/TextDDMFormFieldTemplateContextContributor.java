@@ -114,13 +114,12 @@ public class TextDDMFormFieldTemplateContextContributor
 				optionLabelString = HtmlUtil.extractText(optionLabelString);
 			}
 
-			Map<String, String> optionMap = HashMapBuilder.put(
-				"label", optionLabelString
-			).put(
-				"value", optionValue
-			).build();
-
-			options.add(optionMap);
+			options.add(
+				HashMapBuilder.put(
+					"label", optionLabelString
+				).put(
+					"value", optionValue
+				).build());
 		}
 
 		return options;

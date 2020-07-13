@@ -328,10 +328,9 @@ public class PDFProcessorImpl
 	protected boolean hasPreview(FileVersion fileVersion, String type)
 		throws Exception {
 
-		String previewFilePath = getPreviewFilePath(fileVersion, 1);
-
 		return DLStoreUtil.hasFile(
-			fileVersion.getCompanyId(), REPOSITORY_ID, previewFilePath);
+			fileVersion.getCompanyId(), REPOSITORY_ID,
+			getPreviewFilePath(fileVersion, 1));
 	}
 
 	protected void importPreviews(
@@ -425,9 +424,9 @@ public class PDFProcessorImpl
 						LiferayFileVersion liferayFileVersion =
 							(LiferayFileVersion)destinationFileVersion;
 
-						File file = liferayFileVersion.getFile(false);
-
-						_generateImages(destinationFileVersion, file);
+						_generateImages(
+							destinationFileVersion,
+							liferayFileVersion.getFile(false));
 
 						return;
 					}

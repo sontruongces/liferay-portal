@@ -86,10 +86,10 @@ public abstract class DDMBaseMVCActionCommand extends BaseMVCActionCommand {
 		portletURL.setParameter(
 			"groupId", String.valueOf(structure.getGroupId()), false);
 
-		long classNameId = PortalUtil.getClassNameId(DDMStructure.class);
-
 		portletURL.setParameter(
-			"classNameId", String.valueOf(classNameId), false);
+			"classNameId",
+			String.valueOf(PortalUtil.getClassNameId(DDMStructure.class)),
+			false);
 
 		portletURL.setParameter(
 			"classPK", String.valueOf(structure.getStructureId()), false);

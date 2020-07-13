@@ -106,9 +106,9 @@ public class LayoutAssetRenderer extends BaseJSPAssetRenderer<Layout> {
 				(ThemeDisplay)liferayPortletRequest.getAttribute(
 					WebKeys.THEME_DISPLAY);
 
-			Layout layout = LayoutLocalServiceUtil.getLayout(_layout.getPlid());
-
-			return PortalUtil.getLayoutFriendlyURL(layout, themeDisplay);
+			return PortalUtil.getLayoutFriendlyURL(
+				LayoutLocalServiceUtil.getLayout(_layout.getPlid()),
+				themeDisplay);
 		}
 		catch (Exception exception) {
 			return StringPool.BLANK;
