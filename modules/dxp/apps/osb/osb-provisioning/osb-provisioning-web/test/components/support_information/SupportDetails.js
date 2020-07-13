@@ -83,14 +83,4 @@ describe('SupportDetails', () => {
 		getByText('Chinese');
 		getByText('Spanish');
 	});
-
-	it('updates Language field', () => {
-		const {getByText} = renderSupportDetails();
-
-		fireEvent.click(getByText('English'));
-		fireEvent.change(getByText('English'), {target: {value: 'Chinese'}});
-		fireEvent.click(getByText('save'));
-
-		getByText('Chinese');
-	});
 });

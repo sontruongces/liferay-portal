@@ -58,18 +58,6 @@ describe('Instructions', () => {
 		getByText('cancel');
 	});
 
-	it('updates Support Instructions', () => {
-		const {getByText} = renderInstructions();
-
-		fireEvent.click(getByText('Sample support instructions text'));
-		fireEvent.change(getByText('Sample support instructions text'), {
-			target: {value: 'New instructions'}
-		});
-		fireEvent.click(getByText('save'));
-
-		getByText('New instructions');
-	});
-
 	it('shows OEM instructions file when one is provided', () => {
 		const {getByText} = renderInstructions();
 

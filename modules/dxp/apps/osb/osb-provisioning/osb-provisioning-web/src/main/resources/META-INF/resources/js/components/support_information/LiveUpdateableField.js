@@ -11,7 +11,7 @@
 
 import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import {
 	FIELD_TYPE_EXTERNAL,
@@ -34,26 +34,13 @@ function LiveUpdateableField({
 	value,
 	updateFormData
 }) {
-	const [currentDisplayValue, setCurrentDisplayValue] = useState(
-		displayValue
-	);
-	const [fieldValue, setFieldValue] = useState(value);
-
-	useEffect(() => {
-		if (displayValue && fieldValue !== value) {
-			const currentOption = options.find(
-				item => item.value === fieldValue
-			);
-
-			setCurrentDisplayValue(currentOption.label);
-		}
-	}, [displayValue, fieldValue, options, value]);
-
 	function handleSave(newValue) {
 		postData(formAction, updateFormData(newValue), 'formData')
 			.then(({data}) => {
 				if (data.successMessage) {
-					setFieldValue(newValue);
+					// Refresh the page to mimic the same user experience as DetailField for a consistent behavior across all fields even though the AJAX submission makes it possible to update the field value without refreshing the page.
+
+					location.reload();
 				}
 			})
 			.catch(err => console.error(err));
@@ -68,9 +55,9 @@ function LiveUpdateableField({
 
 				<div className="list-group-text">
 					<InlineEdit
-						displayValue={currentDisplayValue}
+						displayValue={displayValue}
 						fieldName={fieldName}
-						fieldValue={fieldValue}
+						fieldValue={value}
 						inputStyle={inputStyle}
 						options={options}
 						save={handleSave}
