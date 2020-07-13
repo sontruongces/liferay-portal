@@ -11,9 +11,9 @@
 
 import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 
-import {FIELD_TYPE_TEXTAREA, NAMESPACE} from '../../utilities/constants';
+import {FIELD_TYPE_TEXTAREA} from '../../utilities/constants';
 import LiveUpdateableField from './LiveUpdateableField';
 
 function Instructions({
@@ -91,13 +91,11 @@ function FileUpload({fieldLabel, fieldName, fileName, fileURL, formAction}) {
 					method="post"
 					ref={formRef}
 				>
-					<label
-						className="form-control-label"
-						htmlFor={`${NAMESPACE}${fieldName}`}
-					>
+					<label className="form-control-label" htmlFor={fieldName}>
 						<input
 							className="form-control"
-							id={`${NAMESPACE}${fieldName}`}
+							id={fieldName}
+							name={fieldName}
 							onChange={handleChange}
 							type="file"
 						/>
