@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/plan-management/init.jsp" %>
+<%@ include file="/init.jsp" %>
 
 <%
 PlanManagementDisplayContext planManagementDisplayContext = (PlanManagementDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
