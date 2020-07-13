@@ -139,12 +139,10 @@ class FloatingToolbarLinkPanel extends PortletBase {
 	 */
 	rendered(firstRender) {
 		if (firstRender) {
-			this._selectedAssetEntry.classNameId = this.item.editableValues.config.classNameId;
-			this._selectedAssetEntry.classPK = this.item.editableValues.config.classPK;
-			this._selectedSourceTypeId = MAPPING_SOURCE_TYPE_IDS.content;
-
-			if (this.item.editableValues.config) {
+			if (this.item && this.item.editableValues.config) {
 				this._inputURL = this.item.editableValues.config.href;
+				this._selectedAssetEntry.classNameId = this.item.editableValues.config.classNameId;
+				this._selectedAssetEntry.classPK = this.item.editableValues.config.classPK;
 			}
 
 			if (
@@ -154,6 +152,9 @@ class FloatingToolbarLinkPanel extends PortletBase {
 					!this.item.editableValues.config.classNameId)
 			) {
 				this._selectedSourceTypeId = MAPPING_SOURCE_TYPE_IDS.structure;
+			}
+			else {
+				this._selectedSourceTypeId = MAPPING_SOURCE_TYPE_IDS.content;
 			}
 		}
 	}
