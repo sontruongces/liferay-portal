@@ -18,6 +18,7 @@ function renderInstructions(props) {
 	return render(
 		<Instructions
 			accountAttachmentURL="account/attachment/url"
+			accountKey="123"
 			fileName="OEM instruction file"
 			instructions="Sample support instructions text"
 			updateAccountAttachmentURL="update/account/attachment/URL"

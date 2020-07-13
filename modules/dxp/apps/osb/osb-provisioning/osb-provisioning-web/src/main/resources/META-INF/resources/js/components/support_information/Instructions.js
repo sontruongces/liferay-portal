@@ -18,6 +18,7 @@ import LiveUpdateableField from './LiveUpdateableField';
 
 function Instructions({
 	accountAttachmentURL,
+	accountKey,
 	fileName,
 	instructions,
 	updateAccountAttachmentURL,
@@ -36,6 +37,7 @@ function Instructions({
 			</ClayList.Header>
 
 			<FileUpload
+				accountKey={accountKey}
 				fieldLabel={Liferay.Language.get('oem-instructions')}
 				fieldName="oemInstructions"
 				fileName={fileName}
@@ -57,13 +59,21 @@ function Instructions({
 
 Instructions.propTypes = {
 	accountAttachmentURL: PropTypes.string,
+	accountKey: PropTypes.string,
 	fileName: PropTypes.string,
 	instructions: PropTypes.string,
 	updateAccountAttachmentURL: PropTypes.string,
 	updateInstructionsURL: PropTypes.string
 };
 
-function FileUpload({fieldLabel, fieldName, fileName, fileURL, formAction}) {
+function FileUpload({
+	accountKey,
+	fieldLabel,
+	fieldName,
+	fileName,
+	fileURL,
+	formAction
+}) {
 	const formRef = useRef();
 
 	function handleChange() {
@@ -91,6 +101,12 @@ function FileUpload({fieldLabel, fieldName, fileName, fileURL, formAction}) {
 					method="post"
 					ref={formRef}
 				>
+					<input
+						name="koroneikiAccountKey"
+						type="hidden"
+						value={accountKey}
+					/>
+
 					<label className="form-control-label" htmlFor={fieldName}>
 						<input
 							className="form-control"

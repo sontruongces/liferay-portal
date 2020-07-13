@@ -41,6 +41,7 @@ function SupportInformation({
 
 			<Instructions
 				accountAttachmentURL={accountAttachmentURL}
+				accountKey={account.key}
 				fileName={oemInstructionsFileName}
 				instructions={instructions}
 				updateAccountAttachmentURL={updateAccountAttachmentURL}
