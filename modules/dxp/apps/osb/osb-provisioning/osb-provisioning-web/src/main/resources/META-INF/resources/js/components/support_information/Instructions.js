@@ -11,7 +11,7 @@
 
 import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {FIELD_TYPE_TEXTAREA, NAMESPACE} from '../../utilities/constants';
 import LiveUpdateableField from './LiveUpdateableField';
@@ -30,39 +30,18 @@ function Instructions({
 	}
 
 	return (
-		<ClayList className="support-instructions">
+		<ClayList className="instructions">
 			<ClayList.Header>
 				{Liferay.Language.get('instructions')}
 			</ClayList.Header>
 
-			<ClayList.Item flex>
-				<div className="detail-field">
-					<ClayList.ItemTitle>
-						{Liferay.Language.get('oem-instructions')}
-					</ClayList.ItemTitle>
-
-					{!!fileName && (
-						<a
-							className="account-attachment"
-							href={accountAttachmentURL}
-							target="_blank"
-						>
-							{fileName}
-						</a>
-					)}
-
-					<label
-						className="form-control-label"
-						htmlFor={`${NAMESPACE}oemInstructions`}
-					>
-						<input
-							className="form-control"
-							id={`${NAMESPACE}oemInstructions`}
-							type="file"
-						/>
-					</label>
-				</div>
-			</ClayList.Item>
+			<FileUpload
+				fieldLabel={Liferay.Language.get('oem-instructions')}
+				fieldName="oemInstructions"
+				fileName={fileName}
+				fileURL={accountAttachmentURL}
+				formAction={updateAccountAttachmentURL}
+			/>
 
 			<LiveUpdateableField
 				fieldLabel={Liferay.Language.get('support-instructions')}
@@ -83,5 +62,50 @@ Instructions.propTypes = {
 	updateAccountAttachmentURL: PropTypes.string,
 	updateInstructionsURL: PropTypes.string
 };
+
+function FileUpload({fieldLabel, fieldName, fileName, fileURL, formAction}) {
+	const formRef = useRef();
+
+	function handleChange() {
+		formRef.current.submit();
+	}
+
+	return (
+		<ClayList.Item flex>
+			<div className="detail-field">
+				<ClayList.ItemTitle>{fieldLabel}</ClayList.ItemTitle>
+
+				{!!fileName && (
+					<a
+						className="account-attachment"
+						href={fileURL}
+						target="_blank"
+					>
+						{fileName}
+					</a>
+				)}
+
+				<form
+					action={formAction}
+					encType="multipart/form-data"
+					method="post"
+					ref={formRef}
+				>
+					<label
+						className="form-control-label"
+						htmlFor={`${NAMESPACE}${fieldName}`}
+					>
+						<input
+							className="form-control"
+							id={`${NAMESPACE}${fieldName}`}
+							onChange={handleChange}
+							type="file"
+						/>
+					</label>
+				</form>
+			</div>
+		</ClayList.Item>
+	);
+}
 
 export default Instructions;
