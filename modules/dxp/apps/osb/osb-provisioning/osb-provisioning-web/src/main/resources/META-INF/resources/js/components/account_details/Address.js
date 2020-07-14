@@ -17,6 +17,7 @@ import {
 	FIELD_TYPE_NONEDITABLE,
 	FIELD_TYPE_SELECT,
 	FIELD_TYPE_TEXT,
+	FIELD_TYPE_TOGGLE,
 	NAMESPACE
 } from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
@@ -130,11 +131,6 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				type="hidden"
 				value={convertDashToEmptyString(address.mailing)}
 			/>
-			<input
-				name={`${NAMESPACE}primary`}
-				type="hidden"
-				value={convertDashToEmptyString(address.primary)}
-			/>
 
 			<ClayList>
 				<ClayList.Header>
@@ -216,6 +212,17 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 					type={setFieldType(FIELD_TYPE_SELECT)}
 					updateFn={handleCountryUpdate}
 					value={countryId}
+				/>
+
+				<AddressField
+					displayValue={address.primary}
+					editable={editable}
+					fieldLabel={Liferay.Language.get('primary')}
+					fieldName="primary"
+					onClick={handleOnClick}
+					readOnly={address.readOnly}
+					type={setFieldType(FIELD_TYPE_TOGGLE)}
+					value={address.primary === 'yes' ? true : false}
 				/>
 
 				<ClayList.Item
@@ -429,6 +436,29 @@ function AddressField({
 									type="text"
 									value={convertDashToEmptyString(fieldValue)}
 								/>
+							</label>
+						)}
+
+						{editable && type === FIELD_TYPE_TOGGLE && (
+							<label
+								className="simple-toggle-switch toggle-switch"
+								htmlFor={namespacedFieldName}
+							>
+								<span className="toggle-switch-check-bar">
+									<input
+										className="toggle-switch-check"
+										id={namespacedFieldName}
+										// onChange={handleToggle}
+										type="checkbox"
+										value={value}
+									/>
+									<span
+										aria-hidden="true"
+										className="toggle-switch-bar"
+									>
+										<span className="toggle-switch-handle"></span>
+									</span>
+								</span>
 							</label>
 						)}
 					</div>
