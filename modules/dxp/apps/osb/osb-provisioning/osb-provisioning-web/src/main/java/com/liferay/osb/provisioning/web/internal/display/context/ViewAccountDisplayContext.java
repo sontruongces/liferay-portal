@@ -43,6 +43,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -474,9 +475,13 @@ public class ViewAccountDisplayContext {
 
 		data.put("regionNames", regionNames);
 
-		data.put(
-			"updateAccountAttachmentURL",
-			accountEntryWebService.getUpdateAccountAttachmentURL());
+		String updateAccountAttachmentURL =
+			accountEntryWebService.getUpdateAccountAttachmentURL();
+
+		updateAccountAttachmentURL = HttpUtil.addParameter(
+			updateAccountAttachmentURL, "redirect", getCurrentURL());
+
+		data.put("updateAccountAttachmentURL", updateAccountAttachmentURL);
 
 		PortletURL updateAccountURL = renderResponse.createActionURL();
 
