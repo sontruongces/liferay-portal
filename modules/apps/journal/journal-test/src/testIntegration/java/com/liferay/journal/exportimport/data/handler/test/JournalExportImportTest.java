@@ -52,6 +52,7 @@ import com.liferay.journal.model.JournalArticleResource;
 import com.liferay.journal.model.JournalFolderConstants;
 import com.liferay.journal.service.JournalArticleLocalServiceUtil;
 import com.liferay.journal.test.util.JournalTestUtil;
+import com.liferay.journal.util.JournalContent;
 import com.liferay.layout.test.util.LayoutTestUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
@@ -715,7 +716,17 @@ public class JournalExportImportTest extends BasePortletExportImportTestCase {
 		Assert.assertEquals(article.getTitle(), importedArticle.getTitle());
 		Assert.assertEquals(
 			article.getDescription(), importedArticle.getDescription());
-		Assert.assertEquals(article.getContent(), importedArticle.getContent());
+
+		String content = _journalContent.getContent(
+			article.getGroupId(), article.getArticleId(), Constants.VIEW,
+			article.getDefaultLanguageId());
+
+		String importedContent = _journalContent.getContent(
+			importedArticle.getGroupId(), importedArticle.getArticleId(),
+			Constants.VIEW, importedArticle.getDefaultLanguageId());
+
+		Assert.assertEquals(content, importedContent);
+
 		Assert.assertTrue(
 			String.valueOf(article.getDisplayDate()) + StringPool.SPACE +
 				importedArticle.getDisplayDate(),
@@ -768,6 +779,9 @@ public class JournalExportImportTest extends BasePortletExportImportTestCase {
 	}
 
 	protected String larFilePath;
+
+	@Inject
+	private JournalContent _journalContent;
 
 	@Inject(filter = "javax.portlet.name=" + JournalPortletKeys.JOURNAL)
 	private PortletDataHandler _journalPortletDataHandler;
