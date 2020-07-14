@@ -18,8 +18,11 @@ function renderPartnerInfo(props) {
 	return render(
 		<PartnerInfo
 			details={{
+				editAccountURL: 'edit/account/url',
+				firstLineSupportTeamKey: 'first-line-123',
 				firstLineSupportTeamName: 'Test Support Team',
 				key: '123',
+				partnerTeamKey: 'partner-123',
 				partnerTeamName: 'Test Partner Team'
 			}}
 			{...props}

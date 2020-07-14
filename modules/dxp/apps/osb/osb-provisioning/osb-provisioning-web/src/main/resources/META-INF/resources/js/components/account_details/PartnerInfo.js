@@ -20,11 +20,14 @@ import {
 import DetailField from '../DetailField';
 
 function PartnerInfo({details}) {
-	const formData = {
-		firstLineSupportTeamKey: '',
-		partnerTeamKey: '',
-		updateFirstLineSupport: true,
+	const partnerFormData = {
+		partnerTeamKey: details.partnerTeamKey,
 		updatePartner: true
+	};
+
+	const firstLineSupportFormData = {
+		firstLineSupportTeamKey: details.firstLineSupportTeamKey,
+		updateFirstLineSupport: true
 	};
 
 	return (
@@ -34,21 +37,23 @@ function PartnerInfo({details}) {
 			</ClayList.Header>
 
 			<DetailField
+				displayValue={details.partnerTeamName}
 				fieldLabel={Liferay.Language.get('partner-reseller-si')}
-				fieldName="partnerTeamName"
+				fieldName="partnerTeamKey"
 				formAction={details.editAccountURL}
-				formData={formData}
+				formData={partnerFormData}
 				type={FIELD_TYPE_EXTERNAL}
-				value={details.partnerTeamName}
+				value={details.partnerTeamKey}
 			/>
 
 			<DetailField
+				displayValue={details.firstLineSupportTeamName}
 				fieldLabel={Liferay.Language.get('first-line-support')}
-				fieldName="firstLineSupportTeamName"
+				fieldName="firstLineSupportTeamKey"
 				formAction={details.editAccountURL}
-				formData={formData}
+				formData={firstLineSupportFormData}
 				type={FIELD_TYPE_TOGGLE}
-				value={details.firstLineSupportTeamName}
+				value={details.firstLineSupportTeamKey}
 			/>
 		</ClayList>
 	);
@@ -57,9 +62,11 @@ function PartnerInfo({details}) {
 PartnerInfo.propTypes = {
 	details: PropTypes.shape({
 		editAccountURL: PropTypes.string,
+		firstLineSupportTeamKey: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
-		parterTeamName: PropTypes.string
+		partnerTeamKey: PropTypes.string,
+		partnerTeamName: PropTypes.string
 	})
 };
 
