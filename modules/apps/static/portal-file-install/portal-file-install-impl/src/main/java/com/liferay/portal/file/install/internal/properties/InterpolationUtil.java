@@ -149,15 +149,13 @@ public class InterpolationUtil {
 			cycleMap = new HashMap<>();
 		}
 
-		// Put the current key in the cycle map.
+		// Put the current key in the cycle map
 
 		cycleMap.put(currentKey, currentKey);
 
-		// Assume we have a value that is something like:
-		// "leading ${foo.${bar}} middle ${baz} trailing"
-
-		// Find the first ending '}' variable delimiter, which
-		// will correspond to the first deepest nested variable
+		// Assume we have a value that is something like: "leading ${foo.${bar}}
+		// middle ${baz} trailing". Find the first ending "}" variable
+		// delimiter which will correspond to the first deepest nested variable
 		// placeholder.
 
 		int startDelim = value.indexOf(_DELIM_START);
@@ -170,9 +168,9 @@ public class InterpolationUtil {
 				stopDelim = value.indexOf(_DELIM_STOP, stopDelim + 1);
 			}
 
-			// Find the matching starting "${" variable delimiter
-			// by looping until we find a start delimiter that is
-			// greater than the stop delimiter we have found.
+			// Find the matching starting "${" variable delimiter by looping
+			// until we find a start delimiter that is greater than the stop
+			// delimiter we have found
 
 			while (stopDelim >= 0) {
 				int index = value.indexOf(
@@ -194,8 +192,8 @@ public class InterpolationUtil {
 			startDelim = value.indexOf(_DELIM_START);
 		}
 
-		// If we do not have a start or stop delimiter, then just
-		// return the existing value.
+		// If we do not have a start or stop delimiter, then just return the
+		// existing value
 
 		if ((startDelim < 0) || (stopDelim < 0)) {
 			cycleMap.remove(currentKey);
@@ -203,10 +201,10 @@ public class InterpolationUtil {
 			return value;
 		}
 
-		// At this point, we have found a variable placeholder so
-		// we must perform a variable substitution on it.
-		// Using the start and stop delimiter indices, extract
-		// the first, deepest nested variable placeholder.
+		// At this point, we have found a variable placeholder, so we must
+		// perform a variable substitution on it. Using the start and stop
+		// delimiter indices, extract the first, deepest nested variable
+		// placeholder.
 
 		String variable = value.substring(
 			startDelim + _DELIM_START.length(), stopDelim);
@@ -238,7 +236,7 @@ public class InterpolationUtil {
 			variable = variable.substring(0, index);
 		}
 
-		// Verify that this is not a recursive variable reference.
+		// Verify that this is not a recursive variable reference
 
 		if (cycleMap.get(variable) != null) {
 			throw new IllegalArgumentException(
@@ -247,8 +245,8 @@ public class InterpolationUtil {
 
 		String substValue = null;
 
-		// Get the value of the deepest nested variable placeholder.
-		// Try to configuration properties first.
+		// Get the value of the deepest nested variable placeholder. Try the
+		// configuration properties first.
 
 		if (substituteFromConfig && (configProps != null)) {
 			substValue = configProps.get(variable);
@@ -288,8 +286,8 @@ public class InterpolationUtil {
 			}
 			else {
 
-				// alters the original token to avoid infinite recursion
-				// altered tokens are reverted in substVarsPreserveUnresolved()
+				// Alter the original token to avoid infinite recursion
+				// altered tokens are reverted in #substVarsPreserveUnresolved
 
 				substValue = StringBundler.concat(
 					_MARKER, StringPool.OPEN_CURLY_BRACE, variable,
@@ -297,22 +295,21 @@ public class InterpolationUtil {
 			}
 		}
 
-		// Remove the found variable from the cycle map, since
-		// it may appear more than once in the value and we don't
-		// want such situations to appear as a recursive reference.
+		// Remove the found variable from the cycle map since it may appear more
+		// than once in the value and we do not want such situations to appear
+		// as a recursive reference
 
 		cycleMap.remove(variable);
 
-		// Append the leading characters, the substituted value of
-		// the variable, and the trailing characters to get the new
-		// value.
+		// Append the leading characters, the substituted value of the variable,
+		// and the trailing characters to get the new value
 
 		value =
 			value.substring(0, startDelim) + substValue +
 				value.substring(stopDelim + _DELIM_STOP.length());
 
-		// Now perform substitution again, since there could still
-		// be substitutions to make.
+		// Perform the substitution again since there could still be
+		// substitutions to make
 
 		value = _substVars(
 			value, currentKey, cycleMap, configProps, callback,
@@ -321,7 +318,7 @@ public class InterpolationUtil {
 
 		cycleMap.remove(currentKey);
 
-		// Return the value.
+		// Return the value
 
 		return value;
 	}
