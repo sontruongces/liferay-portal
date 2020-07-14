@@ -30,4 +30,9 @@ body {
 	.btn-outline-primary {
 		border-color: $border-color;
 	}
+
+	// FIXME Temporarily hide the B2B add account modal
+	#addAccountModal {
+		display: none;
+	}
 }
