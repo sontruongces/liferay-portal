@@ -15,6 +15,9 @@
 }
 
 .navbar-commerce {
+	@import "navigation/site_navigation";
+	@import "navigation/trial_navigation";
+
 	$navbar-margin-left: calc(100vw / 2);
 
 	height: 70px;
@@ -90,47 +93,6 @@
 			display: flex;
 			flex-direction: column;
 			height: auto;
-		}
-	}
-
-	.nav-item {
-		.nav-link {
-			align-items: center;
-			color: $gray-800;
-			display: flex;
-			font-size: 0.9375rem;
-			height: 100%;
-			padding: 0;
-			width: min-content;
-
-			&::before {
-				background-color: $primary;
-				bottom: 0;
-				content: '';
-				height: 2px;
-				left: 0;
-				position: absolute;
-				transform: scale3d(0, 1, 1);
-				transform-origin: 0 50%;
-				transition: transform .2s ease-out;
-				width: 100%;
-			}
-
-			&:hover::before {
-				transform: scale3d(1,1,1);
-			}
-
-			@include media-breakpoint-down(xs) {
-				margin: .5em auto;
-			}
-		}
-
-		&.active .nav-link {
-			font-weight: 600;
-
-			&::before {
-				transform: unset;
-			}
 		}
 	}
 

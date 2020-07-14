@@ -12,23 +12,31 @@
 					</a>
 				</div>
 
-				<#assign preferences = freeMarkerPortletPreferences.getPreferences({"portletSetupPortletDecoratorId": "barebone", "destination": "/search"}) />
-
-				<div class="col-4">
-					<#include "${full_templates_path}/navigation.ftl" />
+				<div class="col-4 site-navigation">
+					<#include "${full_templates_path}/navigation/site_navigation.ftl" />
 				</div>
 
 				<div class="col-4 text-right">
 					<div class="d-md-inline-flex">
 						<#if show_header_search>
+							<#assign preferences = freeMarkerPortletPreferences.getPreferences({"portletSetupPortletDecoratorId": "barebone", "destination": "/search"}) />
+
 							<div class="justify-content-md-end mr-4 navbar-form" role="search">
 								<@liferay.search_bar default_preferences="${preferences}" />
 							</div>
 						</#if>
 					</div>
 
-					<div class="d-md-inline-flex">
-						<@liferay.user_personal_bar />
+					<div class="d-md-inline-flex sign-in">
+						<#if !is_signed_in>
+							<#include "${full_templates_path}/sign_in.ftl" />
+						<#else>
+							<@liferay.user_personal_bar />
+						</#if>
+					</div>
+
+					<div class="d-md-inline-flex trial-navigation">
+						<#include "${full_templates_path}/navigation/trial_navigation.ftl" />
 					</div>
 				</div>
 			</div>
@@ -45,7 +53,7 @@
 				</#if>
 			</a>
 
-			<#include "${full_templates_path}/navigation.ftl" />
+			<#include "${full_templates_path}/navigation/site_navigation.ftl" />
 		</div>
 	</div>
 </header>
