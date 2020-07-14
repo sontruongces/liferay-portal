@@ -23,11 +23,10 @@ String redirect = ParamUtil.getString(request, "redirect");
 <portlet:actionURL name="/product_bundles/edit_product_bundle" var="editProductBundleURL">
 	<portlet:param name="mvcRenderCommandName" value="/product_bundles/edit_product_bundle" />
 	<portlet:param name="redirect" value="<%= redirect %>" />
-	<portlet:param name="productBundleId" value="" />
 </portlet:actionURL>
 
 <aui:form action="<%= editProductBundleURL %>" cssClass="container-fluid-1280" method="post" name="fm">
-	<aui:input name="productKey" type="hidden" />
+	<aui:input name="productKeys" type="hidden" />
 
 	<liferay-ui:error exception="<%= ProductBundleNameException.MustNotBeDuplicate.class %>">
 
@@ -69,7 +68,6 @@ String redirect = ParamUtil.getString(request, "redirect");
 		function() {
 			<portlet:renderURL var="assignProductsURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 				<portlet:param name="mvcRenderCommandName" value="/product_bundles/assign_products" />
-				<portlet:param name="productBundleId" value="" />
 			</portlet:renderURL>
 
 			var A = AUI();
@@ -84,14 +82,14 @@ String redirect = ParamUtil.getString(request, "redirect");
 				var selectedItems = event.newVal;
 
 				if (selectedItems) {
-					var productKey = [];
+					var productKeys = [];
 					var productName = [];
 					var display = '<p>';
 
 					for (var i = 0; i < selectedItems.length; i++) {
 						var selectItem = selectedItems[i].split(' ');
 
-						productKey.push(selectItem[0]);
+						productKeys.push(selectItem[0]);
 						productName.push(selectItem[1]);
 
 						display += selectItem[1] + '<br />';
@@ -100,8 +98,9 @@ String redirect = ParamUtil.getString(request, "redirect");
 					display += '</p>';
 
 					A.one('#<portlet:namespace />productName').html(display);
-					A.one('#<portlet:namespace />productKey').val(
-						productKey.join(',')
+
+					A.one('#<portlet:namespace />productKeys').val(
+						productKeys.join(',')
 					);
 				}
 			});

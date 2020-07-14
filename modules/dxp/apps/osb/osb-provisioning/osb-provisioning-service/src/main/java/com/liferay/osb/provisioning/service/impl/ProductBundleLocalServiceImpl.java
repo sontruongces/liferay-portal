@@ -46,7 +46,6 @@ public class ProductBundleLocalServiceImpl
 		ProductBundle productBundle = productBundlePersistence.create(
 			productBundleId);
 
-		productBundle.setProductBundleId(productBundleId);
 		productBundle.setCompanyId(user.getCompanyId());
 		productBundle.setUserId(userId);
 		productBundle.setName(name);

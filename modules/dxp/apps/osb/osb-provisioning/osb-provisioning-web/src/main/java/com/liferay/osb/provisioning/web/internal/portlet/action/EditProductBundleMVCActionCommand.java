@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -80,22 +81,20 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 		throws Exception {
 
 		String[] productKeys = ParamUtil.getStringValues(
-			actionRequest, "productKey");
+			actionRequest, "productKeys");
 
-		if (productKeys.length < 1) {
+		if (ArrayUtil.isEmpty(productKeys)) {
 			throw new RequiredProductException();
 		}
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
-		ProductBundle producBundle =
+		ProductBundle productBundle =
 			_productBundleLocalService.addProductBundle(user.getUserId(), name);
-
-		long productBundleId = producBundle.getProductBundleId();
 
 		for (String productKey : productKeys) {
 			_productBundleProductsLocalService.addProductBundleProducts(
-				productBundleId, productKey);
+				productBundle.getProductBundleId(), productKey);
 		}
 	}
 
