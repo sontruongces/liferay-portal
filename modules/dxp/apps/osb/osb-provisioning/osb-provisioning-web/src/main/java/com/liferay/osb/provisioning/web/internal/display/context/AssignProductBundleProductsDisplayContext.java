@@ -82,11 +82,11 @@ public class AssignProductBundleProductsDisplayContext {
 				product -> new ProductDisplay(
 					_renderRequest, _renderResponse, product)));
 
-		int count = (int)_productWebService.getProductsCount(
-			keywords, StringPool.BLANK);
-
 		searchContainer.setRowChecker(
 			new EmptyOnClickRowChecker(_renderResponse));
+
+		int count = (int)_productWebService.getProductsCount(
+			keywords, StringPool.BLANK);
 
 		searchContainer.setTotal(count);
 
