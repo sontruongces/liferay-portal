@@ -38,7 +38,6 @@ function ActivePlan({
 								{planName}
 							</p>
 							<p className={'price'}>
-								<span className={'currency'}>{currency}</span>
 								<span className={'value'}>{planPrice}</span>
 								/<span className={'recurrence'}>{recurrence}</span>
 							</p>
