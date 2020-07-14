@@ -115,7 +115,7 @@ public class ConfigInstaller implements ConfigurationListener, FileInstaller {
 				if ((file != null) && file.isFile()) {
 					_pidToFile.put(configuration.getPid(), fileName);
 					TypedProperties typedProperties = new TypedProperties(
-						_bundleSubstitution());
+						_bundleSubstitutionCallback());
 
 					try (InputStream inputStream = new FileInputStream(file);
 						Reader reader = new InputStreamReader(
@@ -301,7 +301,7 @@ public class ConfigInstaller implements ConfigurationListener, FileInstaller {
 		return false;
 	}
 
-	private TypedProperties.SubstitutionCallback _bundleSubstitution() {
+	private TypedProperties.SubstitutionCallback _bundleSubstitutionCallback() {
 		InterpolationUtil.SubstitutionCallback substitutionCallback =
 			new InterpolationUtil.BundleContextSubstitutionCallback(
 				_bundleContext);
@@ -431,7 +431,7 @@ public class ConfigInstaller implements ConfigurationListener, FileInstaller {
 			}
 			else {
 				TypedProperties typedProperties = new TypedProperties(
-					_bundleSubstitution());
+					_bundleSubstitutionCallback());
 
 				try (Reader reader = new InputStreamReader(
 						inputStream, _encoding())) {
