@@ -213,7 +213,7 @@ public class DDMFormValuesToFieldsConverterImpl
 	private Serializable _getSerializable(
 		Locale defaultLocale, Locale locale, String type, Value value) {
 
-		Serializable serializable;
+		Serializable serializable = null;
 
 		if (FieldConstants.isNumericType(type)) {
 			NumberFormat numberFormat;
