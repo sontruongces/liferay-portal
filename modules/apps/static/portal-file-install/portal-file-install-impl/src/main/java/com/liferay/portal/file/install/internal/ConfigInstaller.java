@@ -272,20 +272,20 @@ public class ConfigInstaller implements ConfigurationListener, FileInstaller {
 	}
 
 	private static boolean _equals(
-		Dictionary<String, Object> newTable,
-		Dictionary<String, Object> oldTable) {
+		Dictionary<String, Object> newDictionary,
+		Dictionary<String, Object> oldDictionary) {
 
-		if (oldTable == null) {
+		if (oldDictionary == null) {
 			return false;
 		}
 
-		Enumeration<String> enumeration = newTable.keys();
+		Enumeration<String> enumeration = newDictionary.keys();
 
 		while (enumeration.hasMoreElements()) {
 			String key = enumeration.nextElement();
 
-			Object newValue = newTable.get(key);
-			Object oldValue = oldTable.remove(key);
+			Object newValue = newDictionary.get(key);
+			Object oldValue = oldDictionary.remove(key);
 
 			if (!Objects.equals(newValue, oldValue) &&
 				!Objects.deepEquals(newValue, oldValue)) {
@@ -294,7 +294,7 @@ public class ConfigInstaller implements ConfigurationListener, FileInstaller {
 			}
 		}
 
-		if (oldTable.isEmpty()) {
+		if (oldDictionary.isEmpty()) {
 			return true;
 		}
 
