@@ -215,14 +215,18 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				/>
 
 				<AddressField
-					displayValue={address.primary}
+					displayValue={
+						address.primary
+							? Liferay.Language.get('yes')
+							: Liferay.Language.get('no')
+					}
 					editable={editable}
 					fieldLabel={Liferay.Language.get('primary')}
-					fieldName="primary"
+					fieldName="addressPrimary"
 					onClick={handleOnClick}
 					readOnly={address.readOnly}
 					type={setFieldType(FIELD_TYPE_TOGGLE)}
-					value={address.primary === 'yes' ? true : false}
+					value={address.primary}
 				/>
 
 				<ClayList.Item
@@ -360,6 +364,10 @@ function AddressField({
 		}
 	}
 
+	function handleToggle() {
+		setFieldValue(!fieldValue);
+	}
+
 	function getDisplayValue() {
 		return displayValue ? displayValue : fieldValue;
 	}
@@ -446,9 +454,10 @@ function AddressField({
 									<input
 										className="toggle-switch-check"
 										id={namespacedFieldName}
-										// onChange={handleToggle}
+										name={namespacedFieldName}
+										onChange={handleToggle}
 										type="checkbox"
-										value={value}
+										value={fieldValue}
 									/>
 									<span
 										aria-hidden="true"

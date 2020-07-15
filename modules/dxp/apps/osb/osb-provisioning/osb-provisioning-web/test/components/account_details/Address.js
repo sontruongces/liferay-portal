@@ -26,6 +26,7 @@ function renderAddress(props) {
 				editPostalAddressURL: '/',
 				id: '123',
 				postalCode: '91765',
+				primary: true,
 				streetAddressLine1: '1400 Montefino Ave',
 				streetAddressLine2: '-',
 				streetAddressLine3: '-'
