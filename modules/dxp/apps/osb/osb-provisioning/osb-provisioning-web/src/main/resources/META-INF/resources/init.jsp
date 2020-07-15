@@ -78,6 +78,7 @@ page import="com.liferay.portal.kernel.model.Address" %><%@
 page import="com.liferay.portal.kernel.model.ListTypeConstants" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@
+page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@

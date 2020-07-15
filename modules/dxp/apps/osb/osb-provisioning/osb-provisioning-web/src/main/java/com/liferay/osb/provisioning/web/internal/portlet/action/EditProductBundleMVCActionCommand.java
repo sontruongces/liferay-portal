@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -58,10 +59,21 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 		throws Exception {
 
 		try {
+			long productBundleId = ParamUtil.getLong(
+				actionRequest, "productBundleId");
+
 			ThemeDisplay themeDisplay =
 				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-			updateProductBundle(actionRequest, themeDisplay.getUser());
+			String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+
+			if (cmd.equals(Constants.DELETE)) {
+				_productBundleLocalService.deleteProductBundle(productBundleId);
+			}
+			else {
+				updateProductBundle(
+					actionRequest, productBundleId, themeDisplay.getUser());
+			}
 
 			sendRedirect(actionRequest, actionResponse);
 		}
@@ -80,7 +92,8 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	protected void updateProductBundle(ActionRequest actionRequest, User user)
+	protected void updateProductBundle(
+			ActionRequest actionRequest, long productBundleId, User user)
 		throws Exception {
 
 		String[] productKeys = ParamUtil.getStringValues(
@@ -90,8 +103,6 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 			throw new RequiredProductException();
 		}
 
-		long productBundleId = ParamUtil.getLong(
-			actionRequest, "productBundleId");
 		String name = ParamUtil.getString(actionRequest, "name");
 
 		if (productBundleId == 0) {
