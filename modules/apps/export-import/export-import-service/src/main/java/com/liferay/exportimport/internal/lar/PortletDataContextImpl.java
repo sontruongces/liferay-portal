@@ -1431,7 +1431,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	@Override
 	public Object getZipEntryAsObject(Element element, String path) {
-		Object object = fromXML(getZipEntryAsString(path));
+		Object object = getZipEntryAsObject(path);
 
 		if (object instanceof TypedModel) {
 			Attribute classNameAttribute = element.attribute(
@@ -1450,7 +1450,8 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	@Override
 	public Object getZipEntryAsObject(String path) {
-		return fromXML(getZipEntryAsString(path));
+		return _objectsMap.computeIfAbsent(
+			path, key -> fromXML(getZipEntryAsString(key)));
 	}
 
 	@Override
@@ -3063,6 +3064,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	private final Map<String, Map<?, ?>> _newPrimaryKeysMaps = new HashMap<>();
 	private final Set<String> _notUniquePerLayout = new HashSet<>();
 	private long _oldPlid;
+	private Map<String, Object> _objectsMap = new HashMap<>();
 	private Map<String, String[]> _parameterMap;
 	private final Map<String, List<KeyValuePair>> _permissionsMap =
 		new HashMap<>();
