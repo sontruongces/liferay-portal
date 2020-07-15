@@ -425,14 +425,8 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	@Override
 	public boolean addPrimaryKey(Class<?> clazz, String primaryKey) {
-		boolean value = hasPrimaryKey(clazz, primaryKey);
-
-		if (!value) {
-			_primaryKeys.add(
-				getPrimaryKeyString(clazz, (Serializable)primaryKey));
-		}
-
-		return value;
+		return !_primaryKeys.add(
+			getPrimaryKeyString(clazz, (Serializable)primaryKey));
 	}
 
 	/**
@@ -3063,8 +3057,8 @@ public class PortletDataContextImpl implements PortletDataContext {
 	private transient List<Layout> _newLayouts;
 	private final Map<String, Map<?, ?>> _newPrimaryKeysMaps = new HashMap<>();
 	private final Set<String> _notUniquePerLayout = new HashSet<>();
-	private long _oldPlid;
 	private Map<String, Object> _objectsMap = new HashMap<>();
+	private long _oldPlid;
 	private Map<String, String[]> _parameterMap;
 	private final Map<String, List<KeyValuePair>> _permissionsMap =
 		new HashMap<>();
