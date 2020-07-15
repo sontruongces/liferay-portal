@@ -41,6 +41,10 @@ public class AccountEntityModel implements EntityModel {
 				locale -> "code", String::valueOf),
 			new CollectionEntityField(
 				new StringEntityField(
+					"contactEmailAddresses",
+					locale -> "contactEmailAddresses")),
+			new CollectionEntityField(
+				new StringEntityField(
 					"contactOktaIdContactRoleKeys",
 					locale -> "contactOktaIdContactRoleKeys")),
 			new CollectionEntityField(
@@ -53,6 +57,10 @@ public class AccountEntityModel implements EntityModel {
 			new CollectionEntityField(
 				new StringEntityField(
 					"contactUuids", locale -> "contactUuids")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"customerContactEmailAddresses",
+					locale -> "customerContactEmailAddresses")),
 			new CollectionEntityField(
 				new StringEntityField(
 					"customerContactOktaIds",
@@ -81,6 +89,10 @@ public class AccountEntityModel implements EntityModel {
 				new StringEntityField(
 					"productKeys", locale -> "productEntryKeys")),
 			new StringEntityField("status", locale -> "status"),
+			new CollectionEntityField(
+				new StringEntityField(
+					"workerContactEmailAddresses",
+					locale -> "workerContactEmailAddresses")),
 			new CollectionEntityField(
 				new StringEntityField(
 					"workerContactOktaIds", locale -> "workerContactOktaIds")),
