@@ -32,7 +32,9 @@ body {
 	}
 
 	// FIXME Temporarily hide the B2B add account modal
-	#addAccountModal {
+	// FIXME Temporarily hide the B2B invite user modal
+	#addAccountModal,
+	#userInvitationModal {
 		display: none;
 	}
 }
