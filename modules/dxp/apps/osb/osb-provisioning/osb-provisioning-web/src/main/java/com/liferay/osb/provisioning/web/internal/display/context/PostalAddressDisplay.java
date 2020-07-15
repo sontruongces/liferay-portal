@@ -16,7 +16,6 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -122,14 +121,14 @@ public class PostalAddressDisplay {
 		return _postalAddress.getId();
 	}
 
-	public String getMailing() {
+	public Boolean getMailing() {
 		if ((_postalAddress.getMailing() != null) &&
 			_postalAddress.getMailing()) {
 
-			return LanguageUtil.get(_httpServletRequest, "yes");
+			return true;
 		}
 
-		return LanguageUtil.get(_httpServletRequest, "no");
+		return false;
 	}
 
 	public String getPostalCode() {
@@ -140,14 +139,14 @@ public class PostalAddressDisplay {
 		return StringPool.DASH;
 	}
 
-	public String getPrimary() {
+	public Boolean getPrimary() {
 		if ((_postalAddress.getPrimary() != null) &&
 			_postalAddress.getPrimary()) {
 
-			return LanguageUtil.get(_httpServletRequest, "yes");
+			return true;
 		}
 
-		return LanguageUtil.get(_httpServletRequest, "no");
+		return false;
 	}
 
 	public String getStreetAddressLine1() {

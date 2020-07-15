@@ -78,7 +78,7 @@ AccountAddresses.propTypes = {
 			editPostalAddressURL: PropTypes.string,
 			id: PropTypes.string,
 			postalCode: PropTypes.string,
-			primary: PropTypes.string,
+			primary: PropTypes.bool,
 			streetAddressLine1: PropTypes.string,
 			streetAddressLine2: PropTypes.string,
 			streetAddressLine3: PropTypes.string
