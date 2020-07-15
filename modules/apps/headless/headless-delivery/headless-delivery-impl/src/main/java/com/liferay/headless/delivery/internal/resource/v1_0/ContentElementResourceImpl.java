@@ -89,33 +89,6 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 			_assetHelper.searchCount(searchContext, new AssetEntryQuery()));
 	}
 
-	private BooleanFilter _getAssetBooleanFilter() {
-		return new BooleanFilter() {
-			{
-				add(
-					new BooleanFilter() {
-						{
-							addRequiredTerm(
-								Field.ENTRY_CLASS_NAME,
-								JournalArticle.class.getName());
-							addRequiredTerm("head", true);
-						}
-					},
-					BooleanClauseOccur.SHOULD);
-				add(
-					new BooleanFilter() {
-						{
-							addTerm(
-								Field.ENTRY_CLASS_NAME,
-								JournalArticle.class.getName(),
-								BooleanClauseOccur.MUST_NOT);
-						}
-					},
-					BooleanClauseOccur.SHOULD);
-			}
-		};
-	}
-
 	private SearchContext _getAssetSearchContext(
 		Filter filter, String search, Long siteId, Sort[] sorts,
 		Pagination pagination) {
@@ -134,7 +107,31 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 					Field.STATUS, WorkflowConstants.STATUS_APPROVED);
 
 				booleanFilter.add(
-					_getAssetBooleanFilter(), BooleanClauseOccur.MUST);
+					new BooleanFilter() {
+						{
+							add(
+								new BooleanFilter() {
+									{
+										addRequiredTerm(
+											Field.ENTRY_CLASS_NAME,
+											JournalArticle.class.getName());
+										addRequiredTerm("head", true);
+									}
+								},
+								BooleanClauseOccur.SHOULD);
+							add(
+								new BooleanFilter() {
+									{
+										addTerm(
+											Field.ENTRY_CLASS_NAME,
+											JournalArticle.class.getName(),
+											BooleanClauseOccur.MUST_NOT);
+									}
+								},
+								BooleanClauseOccur.SHOULD);
+						}
+					},
+					BooleanClauseOccur.MUST);
 
 				setPreBooleanFilter(booleanFilter);
 			}
