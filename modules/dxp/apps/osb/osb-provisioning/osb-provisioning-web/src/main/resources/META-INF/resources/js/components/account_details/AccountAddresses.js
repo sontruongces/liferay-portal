@@ -77,7 +77,6 @@ AccountAddresses.propTypes = {
 			deletePostalAddressURL: PropTypes.string,
 			editPostalAddressURL: PropTypes.string,
 			id: PropTypes.string,
-			mailing: PropTypes.string,
 			postalCode: PropTypes.string,
 			primary: PropTypes.string,
 			streetAddressLine1: PropTypes.string,

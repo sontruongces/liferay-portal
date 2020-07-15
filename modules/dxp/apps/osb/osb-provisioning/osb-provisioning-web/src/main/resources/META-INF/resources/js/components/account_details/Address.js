@@ -309,11 +309,9 @@ Address.propTypes = {
 	address: PropTypes.shape({
 		addressCountry: PropTypes.string,
 		addressLocality: PropTypes.string,
-		addressType: PropTypes.string,
 		deletePostalAddressURL: PropTypes.string,
 		editPostalAddressURL: PropTypes.string,
 		id: PropTypes.string,
-		mailing: PropTypes.string,
 		postalCode: PropTypes.string,
 		primary: PropTypes.string,
 		streetAddressLine1: PropTypes.string,

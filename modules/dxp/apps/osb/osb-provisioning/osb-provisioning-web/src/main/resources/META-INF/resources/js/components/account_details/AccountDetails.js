@@ -60,7 +60,6 @@ AccountDetails.propTypes = {
 				addressCountry: PropTypes.string,
 				addressLocality: PropTypes.string,
 				addressRegion: PropTypes.string,
-				addressType: PropTypes.string,
 				deletePostalAddressURL: PropTypes.string,
 				editPostalAddressURL: PropTypes.string,
 				id: PropTypes.string,
