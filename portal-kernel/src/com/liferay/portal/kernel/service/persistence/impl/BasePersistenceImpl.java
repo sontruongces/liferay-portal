@@ -243,7 +243,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 
 		com.liferay.petra.string.StringBundler query =
 			new com.liferay.petra.string.StringBundler(
-				2 * uncachedPrimaryKeys.size() + 4);
+				(2 * uncachedPrimaryKeys.size()) + 4);
 
 		query.append(getSelectSQL());
 		query.append(" WHERE ");

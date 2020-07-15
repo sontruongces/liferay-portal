@@ -285,7 +285,7 @@ public class Serializer {
 			}
 		}
 		else {
-			byte[] buffer = getBuffer(length * 2 + 5);
+			byte[] buffer = getBuffer((length * 2) + 5);
 
 			BigEndianCodec.putBoolean(buffer, index++, asciiCode);
 

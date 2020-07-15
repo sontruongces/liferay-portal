@@ -320,7 +320,7 @@ public class TemplateProcessor implements ColumnProcessor {
 			LayoutTypePortlet layoutTypePortlet, List<Portlet> portlets)
 		throws PortletContainerException {
 
-		StringBundler sb = new StringBundler(portlets.size() * 3 + 11);
+		StringBundler sb = new StringBundler((portlets.size() * 3) + 11);
 
 		sb.append("<div class=\"");
 

@@ -39,7 +39,7 @@ public abstract class BaseCompositeMFAChecker implements MFAChecker {
 			return StringPool.BLANK;
 		}
 
-		StringBundler sb = new StringBundler(mfaCheckers.size() * 2 - 1);
+		StringBundler sb = new StringBundler((mfaCheckers.size() * 2) - 1);
 
 		for (MFAChecker mfaChecker : mfaCheckers) {
 			if (sb.length() > 0) {
@@ -62,7 +62,7 @@ public abstract class BaseCompositeMFAChecker implements MFAChecker {
 			return StringPool.BLANK;
 		}
 
-		StringBundler sb = new StringBundler(mfaCheckers.size() * 2 - 1);
+		StringBundler sb = new StringBundler((mfaCheckers.size() * 2) - 1);
 
 		for (MFAChecker mfaChecker : mfaCheckers) {
 			if (sb.length() > 0) {

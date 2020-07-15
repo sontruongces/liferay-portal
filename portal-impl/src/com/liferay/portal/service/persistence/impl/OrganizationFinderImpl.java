@@ -1005,7 +1005,7 @@ public class OrganizationFinderImpl
 			}
 			else {
 				StringBundler sb = new StringBundler(
-					organizationIds.length * 2 + 1);
+					(organizationIds.length * 2) + 1);
 
 				sb.append("WHERE (");
 
@@ -1034,7 +1034,7 @@ public class OrganizationFinderImpl
 				}
 				else {
 					StringBundler sb = new StringBundler(
-						organizationGroupIds.length * 2 + 1);
+						(organizationGroupIds.length * 2) + 1);
 
 					sb.append("WHERE (");
 
@@ -1067,7 +1067,7 @@ public class OrganizationFinderImpl
 				join = "WHERE (Organization_.treePath = '')";
 			}
 			else {
-				StringBundler sb = new StringBundler(size * 2 + 1);
+				StringBundler sb = new StringBundler((size * 2) + 1);
 
 				sb.append("WHERE (");
 

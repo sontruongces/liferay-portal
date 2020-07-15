@@ -293,7 +293,7 @@ public class KaleoTaskInstanceTokenFinderImpl
 
 			String[] orderByFields = obc.getOrderByFields();
 
-			sb = new StringBundler(orderByFields.length * 3 + 1);
+			sb = new StringBundler((orderByFields.length * 3) + 1);
 
 			sb.append(
 				"DISTINCT KaleoTaskInstanceToken.kaleoTaskInstanceTokenId");
@@ -381,7 +381,7 @@ public class KaleoTaskInstanceTokenFinderImpl
 			return StringPool.BLANK;
 		}
 
-		StringBundler sb = new StringBundler(assetTitles.length * 2 + 1);
+		StringBundler sb = new StringBundler((assetTitles.length * 2) + 1);
 
 		if (!firstCriteria) {
 			sb.append("[$AND_OR_CONNECTOR$] (");
@@ -733,7 +733,7 @@ public class KaleoTaskInstanceTokenFinderImpl
 			return StringPool.BLANK;
 		}
 
-		StringBundler sb = new StringBundler(taskNames.length * 2 + 1);
+		StringBundler sb = new StringBundler((taskNames.length * 2) + 1);
 
 		if (!firstCriteria) {
 			sb.append("[$AND_OR_CONNECTOR$] (");

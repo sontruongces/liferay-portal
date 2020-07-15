@@ -1370,7 +1370,7 @@ public class BaseDeployer implements AutoDeployer, Deployer {
 			return StringPool.BLANK;
 		}
 
-		StringBundler sb = new StringBundler(5 * licenses.size() + 2);
+		StringBundler sb = new StringBundler((5 * licenses.size()) + 2);
 
 		for (int i = 0; i < licenses.size(); i++) {
 			License license = licenses.get(i);
@@ -1400,7 +1400,7 @@ public class BaseDeployer implements AutoDeployer, Deployer {
 			return StringPool.BLANK;
 		}
 
-		StringBundler sb = new StringBundler(liferayVersions.size() * 3 + 2);
+		StringBundler sb = new StringBundler((liferayVersions.size() * 3) + 2);
 
 		for (int i = 0; i < liferayVersions.size(); i++) {
 			String liferayVersion = liferayVersions.get(i);
@@ -1444,7 +1444,7 @@ public class BaseDeployer implements AutoDeployer, Deployer {
 		}
 
 		StringBundler sb = new StringBundler(
-			requiredDeploymentContexts.size() * 3 + 2);
+			(requiredDeploymentContexts.size() * 3) + 2);
 
 		for (int i = 0; i < requiredDeploymentContexts.size(); i++) {
 			String requiredDeploymentContext = requiredDeploymentContexts.get(
@@ -1471,7 +1471,7 @@ public class BaseDeployer implements AutoDeployer, Deployer {
 			return StringPool.BLANK;
 		}
 
-		StringBundler sb = new StringBundler(tags.size() * 3 + 2);
+		StringBundler sb = new StringBundler((tags.size() * 3) + 2);
 
 		for (int i = 0; i < tags.size(); i++) {
 			String tag = tags.get(i);

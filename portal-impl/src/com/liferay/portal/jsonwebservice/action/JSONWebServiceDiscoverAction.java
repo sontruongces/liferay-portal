@@ -364,7 +364,7 @@ public class JSONWebServiceDiscoverAction implements JSONWebServiceAction {
 			return typeName;
 		}
 
-		StringBundler sb = new StringBundler(genericTypes.length * 2 + 1);
+		StringBundler sb = new StringBundler((genericTypes.length * 2) + 1);
 
 		sb.append(StringPool.LESS_THAN);
 

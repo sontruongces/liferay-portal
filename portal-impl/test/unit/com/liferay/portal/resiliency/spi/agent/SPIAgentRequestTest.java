@@ -663,7 +663,7 @@ public class SPIAgentRequestTest {
 		// To string
 
 		StringBundler sb = new StringBundler(
-			13 + cookies.length * 2 + parameterMap.size() * 4);
+			13 + (cookies.length * 2) + (parameterMap.size() * 4));
 
 		sb.append("{contentType=null, cookies=[");
 
@@ -704,7 +704,7 @@ public class SPIAgentRequestTest {
 
 		spiAgentRequest = new SPIAgentRequest(_mockHttpServletRequest);
 
-		sb = new StringBundler(13 + parameterMap.size() * 4);
+		sb = new StringBundler(13 + (parameterMap.size() * 4));
 
 		sb.append("{contentType=null, cookies=[], ");
 		sb.append("distributedRequestAttributes=");

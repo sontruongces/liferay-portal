@@ -643,7 +643,7 @@ public class CustomSQL {
 			return StringUtil.removeSubstring(sql, oldSqlSB.toString());
 		}
 
-		StringBundler newSqlSB = new StringBundler(values.length * 4 + 3);
+		StringBundler newSqlSB = new StringBundler((values.length * 4) + 3);
 
 		newSqlSB.append(StringPool.OPEN_PARENTHESIS);
 
@@ -688,7 +688,7 @@ public class CustomSQL {
 			return StringUtil.removeSubstring(sql, oldSqlSB.toString());
 		}
 
-		StringBundler newSqlSB = new StringBundler(values.length * 4 + 3);
+		StringBundler newSqlSB = new StringBundler((values.length * 4) + 3);
 
 		newSqlSB.append(StringPool.OPEN_PARENTHESIS);
 
@@ -732,7 +732,7 @@ public class CustomSQL {
 			oldSqlSB.append(" [$AND_OR_CONNECTOR$]");
 		}
 
-		StringBundler newSqlSB = new StringBundler(values.length * 6 + 2);
+		StringBundler newSqlSB = new StringBundler((values.length * 6) + 2);
 
 		newSqlSB.append(StringPool.OPEN_PARENTHESIS);
 
