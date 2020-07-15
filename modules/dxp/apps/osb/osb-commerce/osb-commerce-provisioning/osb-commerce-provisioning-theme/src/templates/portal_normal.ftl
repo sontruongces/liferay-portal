@@ -35,12 +35,6 @@
 						<@liferay_util["include"] page=content_include />
 					</@>
 				</#if>
-
-				<h2>LayoutSet: ${layoutSet}</h2>
-				<h2>company_url: ${company_url}</h2>
-				<h2>site_name: ${site_name}</h2>
-				<h2>site_default_url: ${site_default_url}</h2>
-				<h2>home_url: ${home_url}</h2>
 			</main>
 
 			<#if show_footer>
