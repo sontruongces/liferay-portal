@@ -69,14 +69,14 @@
 
 	.modal-dialog {
 		&::before {
-			content: '';
-			position: absolute;
 			background: #FFF;
-			margin-top: -.35rem;
-			width: .8rem;
+			content: '';
 			height: .8rem;
+			margin-top: -.35rem;
+			position: absolute;
 			right: 30px;
 			transform: rotate(45deg);
+			width: .8rem;
 		}
 	}
 }

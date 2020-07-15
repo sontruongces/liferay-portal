@@ -5,17 +5,16 @@
 				href="${themeDisplay.getPathThemeImages()}/lexicon/icons.svg#user"/>
 		</svg>
 
-		<div class="sign-in-wrapper modal-dialog">
+		<div class="modal-dialog sign-in-wrapper">
 			<div class="modal-content">
 				<div class="modal-header">
 					<div class="modal-title" id="clayDefaultModalLabel">
 						<@liferay.language key="sign-in" />
 					</div>
 				</div>
+
 				<div class="modal-body">
-					<@liferay_portlet["runtime"]
-						portletName="com_liferay_login_web_portlet_LoginPortlet"
-					/>
+					<@liferay_portlet["runtime"] portletName="com_liferay_login_web_portlet_LoginPortlet" />
 				</div>
 			</div>
 		</div>
