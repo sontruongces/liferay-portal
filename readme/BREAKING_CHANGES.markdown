@@ -821,3 +821,376 @@ depends on it, you must implement it yourself.
 This change was made to avoid security issues.
 
 ---------------------------------------
+
+### Replaced Method on DDMDataProvider
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+#### What changed?
+
+The method `getData`, from `com.liferay.dynamic.data.mapping.data.provider.DataProvider`, had one paremeter called `ddmDataProviderContext` of type `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContext`. This parameter was replaced with `ddmDataProviderRequest` of type `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest`.
+
+#### Who is affected?
+
+This affects anyone using the replaced method.
+
+#### How should I update my code?
+
+Replace the parameter of type `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContext` with another one of type `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest`.
+
+#### Why was this change made?
+
+This change is part of the Data Provider API Refactoring on [LPS-81563](https://issues.liferay.com/browse/LPS-81563).
+
+---------------------------------------
+
+### Removed Constructor on DDMDataProviderRequest 
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+#### What changed?
+
+The constructor method was removed from `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest`.
+
+#### Who is affected?
+
+This affects anyone using the removed constructor.
+
+#### How should I update my code?
+
+Use `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest.Builder` to create a new `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest` with all desired parameters instead of the constructor.
+
+#### Why was this change made?
+
+This change is as part of the Data Provider API Refactoring on [LPS-81563](https://issues.liferay.com/browse/LPS-81563).
+
+---------------------------------------
+
+### Removed Methods on DDMDataProviderRequest
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+#### What changed?
+
+The following methods were removed from `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest`: 
+
+`getDDMDataProviderContext`, 
+`setDDMDataProviderContext`, 
+`getHttpServletRequest`, 
+`getParameter`, 
+`queryString`
+
+#### Who is affected?
+
+This affects anyone who used the removed methods.
+
+#### How should I update my code?
+
+You can use `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest` and `com.liferay.dynamic.data.mapping.data.provider.internal.DDMDataProviderInstanceSettingsImpl` to get all the data provided by  `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContext`. Therefore, use them instead of `getDDMDataProviderContext`.
+Additionally, add a `javax.servlet.http.HttpServletRequest` object through the `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest.Builder` using the method `withParameter` and retrieve it using the method `getParameterOptional`.
+Use the existing method `getParameterOptional` instead of `getParameter`.
+Replace the usage of `queryString` with the method `withParameter` from `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest.Builder` to add all necessary parameters.
+
+#### Why was this change made?
+
+This change is part of the Data Provider API Refactoring on [LPS-81563](https://issues.liferay.com/browse/LPS-81563).
+
+---------------------------------------
+
+### Replaced Method on DDMDataProviderRequest
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+#### What changed?
+
+The method `getDDMDataProviderInstanceId`, from `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest`, was replaced with `getDDMDataProviderId`.
+
+#### Who is affected?
+
+This affects anyone who used the replaced method.
+
+#### How should I update my code?
+
+Replace the usages of `getDDMDataProviderInstanceId` with `getDDMDataProviderId`.
+
+#### Why was this change made?
+
+This change is part of the Data Provider API Refactoring on [LPS-81563](https://issues.liferay.com/browse/LPS-81563).
+
+---------------------------------------
+
+### Removed Methods on DDMDataProviderResponse
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+#### What changed?
+
+The methods `error`, `of` and `getDataMap` were removed from the class `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse`.
+
+#### Who is affected?
+
+This affects anyone who used the removed methods.
+
+#### How should I update my code?
+
+Use the `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse.Builder` with the method `withStatus` instead of call `error`.
+You also can use the `Builder` with the methods `withStatus` and `withOutput` instead of call `of`.
+Replace `getDataMap` calls with an output addition using the `Builder` with the method `withOutput` and get it through the method `getOutputOptional`. 
+The method `withOutput` can be invoked as many times you need.
+
+#### Why was this change made?
+
+This change is part of the Data Provider API Refactoring on [LPS-81563](https://issues.liferay.com/browse/LPS-81563).
+
+---------------------------------------
+
+### Replaced Method on DDMDataProviderResponse
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+#### What changed?
+
+The method `get`, from `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse`, was replaced with `getOutputOptional`.
+
+#### Who is affected?
+
+This affects anyone who used the replaced methods.
+
+#### How should I update my code?
+
+Use `getOutputOptional` instead of `get`.
+
+
+#### Why was this change made?
+This change is part of the Data Provider API Refactoring on [LPS-81563](https://issues.liferay.com/browse/LPS-81563).
+
+---------------------------------------
+
+### Replaced Enum on DDMDataProviderResponse
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+#### What changed?
+
+The local enum `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse.Status`, from `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse`, was moved out to `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponseStatus`.
+Consequently, The data type of `getStatus`, from `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse`, has changed from `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse.Status` to `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponseStatus`.
+
+#### Who is affected?
+
+This affects anyone who used the replaced enum.
+
+#### How should I update my code?
+
+Replace the usages of `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse.Status` with `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponseStatus`.
+
+#### Why was this change made?
+
+This change is part of the Data Provider API Refactoring on [LPS-81563](https://issues.liferay.com/browse/LPS-81563).
+
+---------------------------------------
+
+### DDMDataProviderResponseOutput Was Deleted
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+#### What changed?
+
+`com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponseOutput` was deleted.
+
+#### Who is affected?
+
+This affects anyone who used the removed class.
+
+#### How should I update my code?
+
+There's no direct replacement for the removed class. If you have code that
+depends on it, you must implement it yourself.
+
+#### Why was this change made?
+
+The class `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponseOutput` was deleted without deprecation warning because it became unused after improvements implemented on Data Provider code on [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+---------------------------------------
+
+### Removed Method on DDMDataProviderTracker
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81563](https://issues.liferay.com/browse/LPS-81563)
+
+#### What changed?
+
+The method `getDDMDataProviderContextContributors`, from `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderTracker`, was removed.
+
+#### Who is affected?
+
+This affects anyone who used the removed method.
+
+#### How should I update my code?
+
+Use `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest` and `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderInstanceSettings` instead of `getDDMDataProviderContextContributors` to get the data you need. 
+
+#### Why was this change made?
+
+All data provided by the `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContext` class can be found on the classes `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest` and 
+`com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderInstanceSettings`, consequently, there is no more need to use the classes `com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContext` and 
+`com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderContextContributor`. By the way, the last class was removed on 7.2.
+
+---------------------------------------
+
+### Removed Inner Class on DDMExpressionException
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81609](https://issues.liferay.com/browse/LPS-81609)
+
+#### What changed?
+
+The public inner class `com.liferay.dynamic.data.mapping.expression.DDMExpressionException.FunctionNotAllowed` was removed from the class `com.liferay.dynamic.data.mapping.expression.DDMExpressionException`.
+
+#### Who is affected?
+
+This affects anyone who used the removed method.
+
+#### How should I update my code?
+
+Use the inner class `com.liferay.dynamic.data.mapping.expression.DDMExpressionException.FunctionNotDefined` instead.
+
+
+#### Why was this change made?
+
+This change is part of the Expression API Refactoring on [LPS-81609](https://issues.liferay.com/browse/LPS-81609)
+
+---------------------------------------
+
+### Replaced method on DDMFormInstanceRecordLocalService
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-81564](https://issues.liferay.com/browse/LPS-81564)
+
+#### What changed?
+
+The following change was made for 
+`com.liferay.dynamic.data.mapping.service.DDMFormInstanceRecordLocalService`,
+`com.liferay.dynamic.data.mapping.service.DDMFormInstanceRecordLocalServiceUtil` and 
+`com.liferay.dynamic.data.mapping.service.DDMFormInstanceRecordLocalServiceWrapper`:
+
+The method `getDDMFormValues` had a single parameter, the `ddmStorageId` of type `long`, and now it has two parameters, 
+the `ddmStorageId` was renamed to `storageId` and there is a new parameter `ddmForm` of type `com.liferay.dynamic.data.mapping.model.DDMForm`.
+
+#### Who is affected?
+
+This affects anyone who used the replaced methods.
+
+#### How should I update my code?
+
+Update the usage of the methods by passing a new parameter of type `com.liferay.dynamic.data.mapping.model.DDMForm`.
+
+
+#### Why was this change made?
+
+This change is part of the Storage Adapter API Refactoring on [LPS-81564](https://issues.liferay.com/browse/LPS-81564)
+
+---------------------------------------
+
+### Removed Methods on DDMStructureService
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-91760](https://issues.liferay.com/browse/LPS-91760)
+
+#### What changed?
+
+The following methods were removed from classes `com.liferay.dynamic.data.mapping.service.DDMStructureService`, `com.liferay.dynamic.data.mapping.service.DDMStructureServiceUtil` and `com.liferay.dynamic.data.mapping.service.DDMStructureServiceWrapper`:
+
+`addStructure` (method with the following parameters `long userId`, `long groupId`, `long classNameId`, `Map<Locale, String> nameMap`, `Map<Locale, String> descriptionMap`, `com.liferay.dynamic.data.mapping.model.DDMForm ddmForm`, `com.liferay.dynamic.data.mapping.model.DDMFormLayout ddmFormLayout`, `String storageType`, `com.liferay.portal.kernel.service.ServiceContext serviceContext`)
+
+`addStructure` (method with the following parameters `long userId`, `long groupId`, `long classNameId`, `Map<Locale, String> nameMap`, `Map<Locale, String> descriptionMap`, `String xsd`, `com.liferay.portal.kernel.service.ServiceContext serviceContext`)
+
+`addStructure` (method with the following parameters `long userId`, `long groupId`, `String parentStructureKey`, `long classNameId`, `String structureKey`, `Map<Locale, String> nameMap`, `Map<Locale, String> descriptionMap`, `String xsd`, `String storageType`, `int type`, `com.liferay.portal.kernel.service.ServiceContext serviceContext`)
+
+`addStructure` (method with the following parameters `long groupId`, `long parentStructureId`, `long classNameId`, `String structureKey`, `Map<Locale, String> nameMap`, Map<Locale, String> descriptionMap`, `String xsd`, `String storageType`, `int type`, `com.liferay.portal.kernel.service.ServiceContext serviceContext`)
+
+`addStructure` (method with the following parameters `long userId`, `long groupId`, `String parentStructureKey`, `long classNameId`, `String structureKey`, `Map<Locale, String> nameMap`, `Map<Locale, String> descriptionMap`, `com.liferay.dynamic.data.mapping.model.DDMForm ddmForm`, `com.liferay.dynamic.data.mapping.model.DDMFormLayout ddmFormLayout`, `String storageType`, `int type`, `com.liferay.portal.kernel.service.ServiceContext serviceContext`)
+
+`updateStructure` (method with the following parameters `long groupId`, `long parentStructureId`, `long classNameId`, `String structureKey`, `Map<Locale, String> nameMap`, `Map<Locale, String> descriptionMap`, `String definition`, `com.liferay.portal.kernel.service.ServiceContext serviceContext`)
+
+`updateStructure` (method with the following parameters `long structureId`, `long parentStructureId`, `Map<Locale, String> nameMap`, `Map<Locale, String> descriptionMap`, `String definition`, `com.liferay.portal.kernel.service.ServiceContext serviceContext`)
+ 
+
+#### Who is affected?
+
+This affects anyone who used the removed methods.
+
+#### How should I update my code?
+
+Use one of the remained methods `addStructure` and `updateStructure` to replace the calls of the removed methods.
+
+#### Why was this change made?
+These methods were removed because they were deprecated since 7.0
+
+---------------------------------------
+
+### Removed Methods on Dynamic Data Mapping Persistence Classes
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-91760](https://issues.liferay.com/browse/LPS-91760)
+
+#### What changed?
+
+The methods `fetchByPrimaryKeys` and `getBadColumnNames` were removed for the following classes:
+
+`com.liferay.dynamic.data.mapping.service.persistence.DDMContentPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMDataProviderInstancePersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMFormInstancePersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMFormInstanceRecordPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMFormInstanceVersionPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMStorageLinkPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMStructureLayoutPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMStructurePersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMStructureVersionPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMTemplatePersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMDataProviderInstanceLinkPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMFormInstanceRecordVersionPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMStructureLinkPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMTemplateLinkPersistence`,
+`com.liferay.dynamic.data.mapping.service.persistence.DDMTemplateVersionPersistence`,
+
+#### Who is affected?
+
+This affects anyone who used the removed methods.
+
+#### How should I update my code?
+
+Replace the usage of the removed methods with the correspond one provided on the base class `com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl`.
+
+#### Why was this change made?
+
+A custom implementation for `fetchByPrimaryKeys` is not needed anymore once there is a default implementation provided on the base class `com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl` 
+The classes above are automatically generated by Service Builder, therefore it decided to remove `getBadColumnNames` from the interface, like `com.liferay.dynamic.data.mapping.service.persistence.DDMContentPersistence`, and keep it in the implementation class, like `com.liferay.dynamic.data.mapping.service.persistence.impl.DDMContentPersistenceImpl`.
+
+---------------------------------------
+
+### Removed Methods on Dynamic Data Mapping Util Classes
+- **Date:** 2020-Jul-14
+- **JIRA Ticket:** [LPS-91760](https://issues.liferay.com/browse/LPS-91760)
+
+#### What changed?
+
+The method `getBadColumnNames` were removed from the following classes:
+
+`com.liferay.dynamic.data.mapping.service.persistence.DDMContentUtil`, 
+`com.liferay.dynamic.data.mapping.service.persistence.DDMDataProviderInstanceUtil`, 
+`com.liferay.dynamic.data.mapping.service.persistence.DDMFormInstanceRecordUtil`, 
+`com.liferay.dynamic.data.mapping.service.persistence.DDMFormInstanceUtil`, 
+`com.liferay.dynamic.data.mapping.service.persistence.DDMFormInstanceVersionUtil`, 
+`com.liferay.dynamic.data.mapping.service.persistence.DDMStorageLinkUtil`, 
+`com.liferay.dynamic.data.mapping.service.persistence.DDMStructureLayoutUtil`, 
+`com.liferay.dynamic.data.mapping.service.persistence.DDMStructureUtil`, 
+`com.liferay.dynamic.data.mapping.service.persistence.DDMStructureVersionUtil`, 
+`com.liferay.dynamic.data.mapping.service.persistence.DDMTemplateUtil`
+
+#### Who is affected?
+This affects anyone who used the removed methods.
+
+#### How should I update my code?
+
+Replace the usage of the removed method with the correspond one provided on the base class `com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl`.
+
+#### Why was this change made?
+
+The classes above are automatically generated by Service Builder, therefore it decided to remove this method from the persistence utility, like `com.liferay.dynamic.data.mapping.service.persistence.DDMContentUtil`, and keep it on the persistence implementation, like `com.liferay.dynamic.data.mapping.service.persistence.impl.DDMContentPersistenceImpl`.
+
+---------------------------------------
