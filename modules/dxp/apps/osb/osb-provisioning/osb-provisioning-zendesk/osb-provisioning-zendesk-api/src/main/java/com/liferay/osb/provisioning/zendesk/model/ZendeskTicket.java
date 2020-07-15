@@ -14,6 +14,8 @@
 
 package com.liferay.osb.provisioning.zendesk.model;
 
+import java.util.Map;
+
 /**
  * @author Amos Fong
  */
@@ -22,8 +24,16 @@ public class ZendeskTicket {
 	public ZendeskTicket() {
 	}
 
+	public Map<Long, String> getCustomFields() {
+		return _customFields;
+	}
+
 	public String getDescription() {
 		return _description;
+	}
+
+	public long getGroupId() {
+		return _groupId;
 	}
 
 	public long getRequesterId() {
@@ -46,8 +56,16 @@ public class ZendeskTicket {
 		return _zendeskTicketId;
 	}
 
+	public void setCustomFields(Map<Long, String> customFields) {
+		_customFields = customFields;
+	}
+
 	public void setDescription(String description) {
 		_description = description;
+	}
+
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
 	}
 
 	public void setRequesterId(long requesterId) {
@@ -70,7 +88,9 @@ public class ZendeskTicket {
 		_zendeskTicketId = zendeskTicketId;
 	}
 
+	private Map<Long, String> _customFields;
 	private String _description;
+	private long _groupId;
 	private long _requesterId;
 	private String _status;
 	private String _subject;

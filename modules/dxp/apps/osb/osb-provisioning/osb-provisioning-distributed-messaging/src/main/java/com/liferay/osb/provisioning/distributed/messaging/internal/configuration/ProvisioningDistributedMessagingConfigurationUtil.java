@@ -23,6 +23,10 @@ import com.liferay.portal.kernel.configuration.Filter;
  */
 public class ProvisioningDistributedMessagingConfigurationUtil {
 
+	public static String get(String key) {
+		return _configuration.get(key);
+	}
+
 	public static String get(String key, Filter filter) {
 		return _configuration.get(key, filter);
 	}

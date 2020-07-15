@@ -32,6 +32,8 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
+import com.liferay.osb.provisioning.zendesk.model.ZendeskTicket;
+import com.liferay.osb.provisioning.zendesk.web.service.ZendeskTicketWebService;
 import com.liferay.petra.content.ContentUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.configuration.Filter;
@@ -116,6 +118,76 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			StringPool.BLANK, StringPool.BLANK, account);
 	}
 
+	protected void createZendeskTicket(
+			Account account, PostalAddress postalAddress,
+			String salesforceOpportunityTypeName,
+			String salesforceOpportunityKey)
+		throws PortalException {
+
+		ZendeskTicket zendeskTicket = new ZendeskTicket();
+
+		Map<Long, String> customFields = new HashMap<>();
+
+		customFields.put(
+			ProvisioningDistributedMessagingConfigurationValues.
+				ZENDESK_CUSTOM_FIELD_OPPORTUNITY_OWNER_ID,
+			account.getContactEmailAddress());
+		customFields.put(
+			ProvisioningDistributedMessagingConfigurationValues.
+				ZENDESK_CUSTOM_FIELD_PRIMARY_ADDRESS_COUNTRY_ID,
+			postalAddress.getAddressCountry());
+		customFields.put(
+			ProvisioningDistributedMessagingConfigurationValues.
+				ZENDESK_CUSTOM_FIELD_PRODUCT_ID,
+			"Provisioning Request");
+		customFields.put(
+			ProvisioningDistributedMessagingConfigurationValues.
+				ZENDESK_CUSTOM_FIELD_SUPPORT_REGION_ID,
+			account.getRegionAsString());
+
+		zendeskTicket.setCustomFields(customFields);
+
+		StringBundler sb = new StringBundler(23);
+
+		sb.append("Account Name: ");
+		sb.append(account.getName());
+		sb.append("<br />Account Code: ");
+		sb.append(account.getCode());
+		sb.append("<br />Opportunity Type: ");
+		sb.append(salesforceOpportunityTypeName);
+		sb.append("<br />Date Created: ");
+		sb.append(account.getDateCreated());
+		sb.append("<br />Provisioning Account Link: ");
+		sb.append("<a href='");
+		sb.append(
+			ProvisioningDistributedMessagingConfigurationValues.
+				PROVISIONING_URL);
+		sb.append("/group/guest/~/control_panel/manage?p_p_id=com_liferay_osb");
+		sb.append("_provisioning_web_portlet_AccountsPortlet&_com_liferay_osb");
+		sb.append("_provisioning_web_portlet_AccountsPortlet_");
+		sb.append("mvcRenderCommandName=%2Faccounts%2Fview_account&_com_");
+		sb.append("liferay_osb_provisioning_web_portlet_AccountsPortlet_");
+		sb.append("accountKey=");
+		sb.append(account.getKey());
+		sb.append("'>Provisioning Account</a>");
+		sb.append("<br />Salesforce Opportunity Link: ");
+		sb.append("<a href='https://login.salesforce.com/");
+		sb.append(salesforceOpportunityKey);
+		sb.append("'>Salesforce Opportunity</a>");
+
+		zendeskTicket.setDescription(sb.toString());
+
+		zendeskTicket.setSubject("New Subscription for " + account.getName());
+		zendeskTicket.setZendeskOrganizationId(
+			ProvisioningDistributedMessagingConfigurationValues.
+				PROVISIONING_ZENDESK_ORGANIZATION_ID);
+		zendeskTicket.setRequesterId(
+			ProvisioningDistributedMessagingConfigurationValues.
+				PROVISIONING_ZENDESK_REQUESTER_ID);
+
+		_zendeskTicketWebService.createZendeskTicket(zendeskTicket);
+	}
+
 	@Override
 	protected void doParse(JSONObject jsonObject) throws Exception {
 		if (!hasOpportunityProductFamily(jsonObject)) {
@@ -124,8 +196,12 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		String salesforceOpportunityStageName = jsonObject.getString(
 			"_salesforceOpportunityStageName");
+
+		String salesforceOpportunityTypeName = jsonObject.getString(
+			"_salesforceOpportunityType");
+
 		int salesforceOpportunityType = getSalesforceOpportunityType(
-			jsonObject.getString("_salesforceOpportunityType"));
+			salesforceOpportunityTypeName);
 
 		if (!_isValidOpportunity(
 				salesforceOpportunityStageName, salesforceOpportunityType)) {
@@ -146,6 +222,8 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		boolean analyticsCloud = hasAnalyticsCloud(productPurchases);
 
+		PostalAddress postalAddress = parseAddress(jsonObject);
+
 		Account account = null;
 
 		String accountKey = getAccountKey(jsonObject);
@@ -154,7 +232,6 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			account = updateAccount(accountKey, contacts, productPurchases);
 		}
 		else {
-			PostalAddress postalAddress = parseAddress(jsonObject);
 			ExternalLink[] externalLinks = parseExternalLinks(jsonObject);
 
 			account = createAccount(
@@ -165,6 +242,13 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 				sendAnalyticsCloudWelcomeEmail(contacts);
 			}
 		}
+
+		String salesforceOpportunityKey = jsonObject.getString(
+			"_salesforceOpportunityKey");
+
+		createZendeskTicket(
+			account, postalAddress, salesforceOpportunityTypeName,
+			salesforceOpportunityKey);
 
 		for (Contact contact : contacts) {
 
@@ -883,5 +967,8 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 	@Reference
 	private ProductWebService _productWebService;
+
+	@Reference
+	private ZendeskTicketWebService _zendeskTicketWebService;
 
 }

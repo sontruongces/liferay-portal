@@ -19,8 +19,13 @@ import com.liferay.osb.provisioning.zendesk.connector.service.ZendeskBaseWebServ
 import com.liferay.osb.provisioning.zendesk.model.ZendeskTicket;
 import com.liferay.osb.provisioning.zendesk.web.service.ZendeskTicketWebService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.util.Validator;
+
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -40,10 +45,33 @@ public class DefaultZendeskTicketWebService implements ZendeskTicketWebService {
 		JSONObject ticketJSONObject = JSONUtil.put(
 			"subject", zendeskTicket.getSubject());
 
+		if (zendeskTicket.getGroupId() > 0) {
+			ticketJSONObject.put("group_id", zendeskTicket.getGroupId());
+		}
+
+		ticketJSONObject.put(
+			"organization_id", zendeskTicket.getZendeskOrganizationId());
+		ticketJSONObject.put("requester_id", zendeskTicket.getRequesterId());
+
 		JSONObject commentJSONObject = JSONUtil.put(
-			"body", zendeskTicket.getDescription());
+			"html_body", zendeskTicket.getDescription());
 
 		ticketJSONObject.put("comment", commentJSONObject);
+
+		JSONArray customFieldsJSONArray = JSONFactoryUtil.createJSONArray();
+
+		Map<Long, String> customFields = zendeskTicket.getCustomFields();
+
+		for (Map.Entry<Long, String> customField : customFields.entrySet()) {
+			JSONObject fieldJSONObject = JSONUtil.put(
+				"id", customField.getKey());
+
+			fieldJSONObject.put("value", customField.getValue());
+
+			customFieldsJSONArray.put(fieldJSONObject);
+		}
+
+		ticketJSONObject.put("custom_fields", customFieldsJSONArray);
 
 		JSONObject jsonObject = JSONUtil.put("ticket", ticketJSONObject);
 
