@@ -16,7 +16,6 @@ package com.liferay.portal.search.web.internal.search.results.portlet;
 
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.asset.util.AssetRendererFactoryLookup;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.DisplayTerms;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.Language;
@@ -54,7 +53,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.portlet.Portlet;
@@ -151,12 +149,6 @@ public class SearchResultsPortlet extends MVCPortlet {
 
 		searchResultsPortletDisplayContext.setDocuments(documents);
 
-		Optional<String> keywordsOptional =
-			portletSharedSearchResponse.getKeywordsOptional();
-
-		searchResultsPortletDisplayContext.setKeywords(
-			keywordsOptional.orElse(StringPool.BLANK));
-
 		SearchResultsPortletPreferences searchResultsPortletPreferences =
 			new SearchResultsPortletPreferencesImpl(
 				portletSharedSearchResponse.getPortletPreferences(
@@ -165,8 +157,13 @@ public class SearchResultsPortlet extends MVCPortlet {
 		SearchResponse searchResponse = getSearchResponse(
 			portletSharedSearchResponse, searchResultsPortletPreferences);
 
+		SearchRequest searchRequest = searchResponse.getRequest();
+
+		searchResultsPortletDisplayContext.setKeywords(
+			searchRequest.getQueryString());
+
 		searchResultsPortletDisplayContext.setRenderNothing(
-			isRenderNothing(portletSharedSearchResponse, searchResponse));
+			isRenderNothing(searchRequest));
 
 		searchResultsPortletDisplayContext.setSearchContainer(
 			buildSearchContainer(
@@ -394,20 +391,14 @@ public class SearchResultsPortlet extends MVCPortlet {
 		return http.removeParameter(urlString, paginationStartParameterName);
 	}
 
-	protected boolean isRenderNothing(
-		PortletSharedSearchResponse portletSharedSearchResponse,
-		SearchResponse searchResponse) {
+	protected boolean isRenderNothing(SearchRequest searchRequest) {
+		if ((searchRequest.getQueryString() == null) &&
+			!searchRequest.isEmptySearchEnabled()) {
 
-		Optional<String> keywordsOptional =
-			portletSharedSearchResponse.getKeywordsOptional();
-
-		if (keywordsOptional.isPresent()) {
-			return false;
+			return true;
 		}
 
-		SearchRequest searchRequest = searchResponse.getRequest();
-
-		return !searchRequest.isEmptySearchEnabled();
+		return false;
 	}
 
 	protected void removeSearchResultImageContributor(
