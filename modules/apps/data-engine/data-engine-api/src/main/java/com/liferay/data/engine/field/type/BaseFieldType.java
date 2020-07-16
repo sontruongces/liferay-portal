@@ -190,7 +190,12 @@ public abstract class BaseFieldType implements FieldType {
 			throw new Exception("Type is required");
 		}
 
+		Map<String, Object> customProperties =
+			spiDataDefinitionField.getCustomProperties();
+
 		return JSONUtil.put(
+			"dataType", customProperties.get("dataType")
+		).put(
 			"defaultValue",
 			LocalizedValueUtil.toJSONObject(
 				spiDataDefinitionField.getDefaultValue())

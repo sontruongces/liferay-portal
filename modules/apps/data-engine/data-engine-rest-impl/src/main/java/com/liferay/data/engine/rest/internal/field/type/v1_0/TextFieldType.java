@@ -65,6 +65,7 @@ public class TextFieldType extends BaseFieldType {
 		customProperties.put(
 			"autocompleteEnabled",
 			jsonObject.getBoolean("autocompleteEnabled"));
+		customProperties.put("dataType", jsonObject.getString("dataType"));
 		customProperties.put(
 			"displayStyle", jsonObject.getString("displayStyle"));
 		customProperties.put(
