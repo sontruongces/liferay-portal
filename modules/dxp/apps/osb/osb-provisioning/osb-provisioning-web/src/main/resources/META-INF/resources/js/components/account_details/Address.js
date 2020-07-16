@@ -452,6 +452,7 @@ function AddressField({
 							>
 								<span className="toggle-switch-check-bar">
 									<input
+										checked={fieldValue}
 										className="toggle-switch-check"
 										id={namespacedFieldName}
 										name={namespacedFieldName}

@@ -150,6 +150,7 @@ function InlineEdit({
 						>
 							<span className="toggle-switch-check-bar">
 								<input
+									checked={value}
 									className="toggle-switch-check"
 									id={namespacedFieldName}
 									onChange={handleToggle}

@@ -102,4 +102,16 @@ describe('Address', () => {
 			getByText('United States');
 		});
 	});
+
+	it('displays Primary field as toggled on edit when the field is displayed as "Yes"', () => {
+		const {container, getByText} = renderAddress();
+
+		fireEvent.click(getByText('yes'));
+
+		return wait(() => {
+			expect(
+				container.querySelector('input[type=checkbox]').checked
+			).toBe(true);
+		});
+	});
 });
