@@ -47,6 +47,10 @@ public class TeamRoleLocalServiceUtil {
 	/**
 	 * Adds the team role to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect TeamRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param teamRole the team role
 	 * @return the team role that was added
 	 */
@@ -82,6 +86,10 @@ public class TeamRoleLocalServiceUtil {
 	/**
 	 * Deletes the team role with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect TeamRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param teamRoleId the primary key of the team role
 	 * @return the team role that was removed
 	 * @throws PortalException if a team role with the primary key could not be found
@@ -95,6 +103,10 @@ public class TeamRoleLocalServiceUtil {
 
 	/**
 	 * Deletes the team role from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect TeamRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param teamRole the team role
 	 * @return the team role that was removed
@@ -374,6 +386,10 @@ public class TeamRoleLocalServiceUtil {
 
 	/**
 	 * Updates the team role in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect TeamRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param teamRole the team role
 	 * @return the team role that was updated

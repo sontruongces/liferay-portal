@@ -80,6 +80,10 @@ public interface KBArticleLocalService
 	/**
 	 * Adds the kb article to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect KBArticleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param kbArticle the kb article
 	 * @return the kb article that was added
 	 */
@@ -153,6 +157,10 @@ public interface KBArticleLocalService
 	/**
 	 * Deletes the kb article from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect KBArticleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param kbArticle the kb article
 	 * @return the kb article that was removed
 	 * @throws PortalException
@@ -167,6 +175,10 @@ public interface KBArticleLocalService
 
 	/**
 	 * Deletes the kb article with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect KBArticleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param kbArticleId the primary key of the kb article
 	 * @return the kb article that was removed
@@ -555,6 +567,10 @@ public interface KBArticleLocalService
 
 	/**
 	 * Updates the kb article in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect KBArticleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param kbArticle the kb article
 	 * @return the kb article that was updated

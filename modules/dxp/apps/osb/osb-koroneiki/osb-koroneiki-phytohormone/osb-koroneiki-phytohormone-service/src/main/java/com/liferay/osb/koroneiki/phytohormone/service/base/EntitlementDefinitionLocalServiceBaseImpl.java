@@ -83,6 +83,10 @@ public abstract class EntitlementDefinitionLocalServiceBaseImpl
 	/**
 	 * Adds the entitlement definition to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect EntitlementDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param entitlementDefinition the entitlement definition
 	 * @return the entitlement definition that was added
 	 */
@@ -113,6 +117,10 @@ public abstract class EntitlementDefinitionLocalServiceBaseImpl
 	/**
 	 * Deletes the entitlement definition with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect EntitlementDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param entitlementDefinitionId the primary key of the entitlement definition
 	 * @return the entitlement definition that was removed
 	 * @throws PortalException if a entitlement definition with the primary key could not be found
@@ -128,6 +136,10 @@ public abstract class EntitlementDefinitionLocalServiceBaseImpl
 
 	/**
 	 * Deletes the entitlement definition from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect EntitlementDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param entitlementDefinition the entitlement definition
 	 * @return the entitlement definition that was removed
@@ -483,6 +495,10 @@ public abstract class EntitlementDefinitionLocalServiceBaseImpl
 
 	/**
 	 * Updates the entitlement definition in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect EntitlementDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param entitlementDefinition the entitlement definition
 	 * @return the entitlement definition that was updated

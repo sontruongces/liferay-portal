@@ -60,6 +60,10 @@ public class ProductFieldLocalServiceUtil {
 	/**
 	 * Adds the product field to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductFieldLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productField the product field
 	 * @return the product field that was added
 	 */
@@ -96,6 +100,10 @@ public class ProductFieldLocalServiceUtil {
 	/**
 	 * Deletes the product field with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductFieldLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productFieldId the primary key of the product field
 	 * @return the product field that was removed
 	 * @throws PortalException if a product field with the primary key could not be found
@@ -109,6 +117,10 @@ public class ProductFieldLocalServiceUtil {
 
 	/**
 	 * Deletes the product field from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductFieldLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productField the product field
 	 * @return the product field that was removed
@@ -313,6 +325,10 @@ public class ProductFieldLocalServiceUtil {
 
 	/**
 	 * Updates the product field in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductFieldLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productField the product field
 	 * @return the product field that was updated

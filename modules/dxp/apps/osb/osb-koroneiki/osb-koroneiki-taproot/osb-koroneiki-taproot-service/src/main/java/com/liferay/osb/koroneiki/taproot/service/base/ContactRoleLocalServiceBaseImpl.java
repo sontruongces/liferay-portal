@@ -92,6 +92,10 @@ public abstract class ContactRoleLocalServiceBaseImpl
 	/**
 	 * Adds the contact role to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param contactRole the contact role
 	 * @return the contact role that was added
 	 */
@@ -118,6 +122,10 @@ public abstract class ContactRoleLocalServiceBaseImpl
 	/**
 	 * Deletes the contact role with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param contactRoleId the primary key of the contact role
 	 * @return the contact role that was removed
 	 * @throws PortalException if a contact role with the primary key could not be found
@@ -132,6 +140,10 @@ public abstract class ContactRoleLocalServiceBaseImpl
 
 	/**
 	 * Deletes the contact role from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactRole the contact role
 	 * @return the contact role that was removed
@@ -443,6 +455,10 @@ public abstract class ContactRoleLocalServiceBaseImpl
 
 	/**
 	 * Updates the contact role in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactRole the contact role
 	 * @return the contact role that was updated

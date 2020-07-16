@@ -41,6 +41,10 @@ public class DDLRecordSetLocalServiceUtil {
 	/**
 	 * Adds the ddl record set to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DDLRecordSetLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param ddlRecordSet the ddl record set
 	 * @return the ddl record set that was added
 	 */
@@ -158,6 +162,10 @@ public class DDLRecordSetLocalServiceUtil {
 	/**
 	 * Deletes the ddl record set from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DDLRecordSetLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param ddlRecordSet the ddl record set
 	 * @return the ddl record set that was removed
 	 */
@@ -170,6 +178,10 @@ public class DDLRecordSetLocalServiceUtil {
 
 	/**
 	 * Deletes the ddl record set with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DDLRecordSetLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param recordSetId the primary key of the ddl record set
 	 * @return the ddl record set that was removed
@@ -787,6 +799,10 @@ public class DDLRecordSetLocalServiceUtil {
 
 	/**
 	 * Updates the ddl record set in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DDLRecordSetLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param ddlRecordSet the ddl record set
 	 * @return the ddl record set that was updated

@@ -68,6 +68,10 @@ public interface TeamAccountRoleLocalService
 	/**
 	 * Adds the team account role to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect TeamAccountRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param teamAccountRole the team account role
 	 * @return the team account role that was added
 	 */
@@ -98,6 +102,10 @@ public interface TeamAccountRoleLocalService
 	/**
 	 * Deletes the team account role from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect TeamAccountRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param teamAccountRole the team account role
 	 * @return the team account role that was removed
 	 */
@@ -107,6 +115,10 @@ public interface TeamAccountRoleLocalService
 
 	/**
 	 * Deletes the team account role with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect TeamAccountRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param teamAccountRolePK the primary key of the team account role
 	 * @return the team account role that was removed
@@ -249,6 +261,10 @@ public interface TeamAccountRoleLocalService
 
 	/**
 	 * Updates the team account role in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect TeamAccountRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param teamAccountRole the team account role
 	 * @return the team account role that was updated

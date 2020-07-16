@@ -88,6 +88,10 @@ public abstract class ContactTeamRoleLocalServiceBaseImpl
 	/**
 	 * Adds the contact team role to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactTeamRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param contactTeamRole the contact team role
 	 * @return the contact team role that was added
 	 */
@@ -116,6 +120,10 @@ public abstract class ContactTeamRoleLocalServiceBaseImpl
 	/**
 	 * Deletes the contact team role with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactTeamRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param contactTeamRolePK the primary key of the contact team role
 	 * @return the contact team role that was removed
 	 * @throws PortalException if a contact team role with the primary key could not be found
@@ -131,6 +139,10 @@ public abstract class ContactTeamRoleLocalServiceBaseImpl
 
 	/**
 	 * Deletes the contact team role from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactTeamRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactTeamRole the contact team role
 	 * @return the contact team role that was removed
@@ -349,6 +361,10 @@ public abstract class ContactTeamRoleLocalServiceBaseImpl
 
 	/**
 	 * Updates the contact team role in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactTeamRoleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactTeamRole the contact team role
 	 * @return the contact team role that was updated

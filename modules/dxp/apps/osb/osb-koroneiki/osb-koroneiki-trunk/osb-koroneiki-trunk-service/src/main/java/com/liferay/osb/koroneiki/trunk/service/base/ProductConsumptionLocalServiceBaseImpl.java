@@ -86,6 +86,10 @@ public abstract class ProductConsumptionLocalServiceBaseImpl
 	/**
 	 * Adds the product consumption to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductConsumptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productConsumption the product consumption
 	 * @return the product consumption that was added
 	 */
@@ -116,6 +120,10 @@ public abstract class ProductConsumptionLocalServiceBaseImpl
 	/**
 	 * Deletes the product consumption with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductConsumptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productConsumptionId the primary key of the product consumption
 	 * @return the product consumption that was removed
 	 * @throws PortalException if a product consumption with the primary key could not be found
@@ -131,6 +139,10 @@ public abstract class ProductConsumptionLocalServiceBaseImpl
 
 	/**
 	 * Deletes the product consumption from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductConsumptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productConsumption the product consumption
 	 * @return the product consumption that was removed
@@ -454,6 +466,10 @@ public abstract class ProductConsumptionLocalServiceBaseImpl
 
 	/**
 	 * Updates the product consumption in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductConsumptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productConsumption the product consumption
 	 * @return the product consumption that was updated

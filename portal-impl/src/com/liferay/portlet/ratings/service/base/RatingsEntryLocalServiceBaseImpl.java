@@ -87,6 +87,10 @@ public abstract class RatingsEntryLocalServiceBaseImpl
 	/**
 	 * Adds the ratings entry to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect RatingsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param ratingsEntry the ratings entry
 	 * @return the ratings entry that was added
 	 */
@@ -113,6 +117,10 @@ public abstract class RatingsEntryLocalServiceBaseImpl
 	/**
 	 * Deletes the ratings entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect RatingsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param entryId the primary key of the ratings entry
 	 * @return the ratings entry that was removed
 	 * @throws PortalException if a ratings entry with the primary key could not be found
@@ -127,6 +135,10 @@ public abstract class RatingsEntryLocalServiceBaseImpl
 
 	/**
 	 * Deletes the ratings entry from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect RatingsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param ratingsEntry the ratings entry
 	 * @return the ratings entry that was removed
@@ -458,6 +470,10 @@ public abstract class RatingsEntryLocalServiceBaseImpl
 
 	/**
 	 * Updates the ratings entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect RatingsEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param ratingsEntry the ratings entry
 	 * @return the ratings entry that was updated

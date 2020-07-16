@@ -75,6 +75,10 @@ public abstract class ServiceProducerLocalServiceBaseImpl
 	/**
 	 * Adds the service producer to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ServiceProducerLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param serviceProducer the service producer
 	 * @return the service producer that was added
 	 */
@@ -101,6 +105,10 @@ public abstract class ServiceProducerLocalServiceBaseImpl
 	/**
 	 * Deletes the service producer with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ServiceProducerLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param serviceProducerId the primary key of the service producer
 	 * @return the service producer that was removed
 	 * @throws PortalException if a service producer with the primary key could not be found
@@ -115,6 +123,10 @@ public abstract class ServiceProducerLocalServiceBaseImpl
 
 	/**
 	 * Deletes the service producer from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ServiceProducerLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param serviceProducer the service producer
 	 * @return the service producer that was removed
@@ -362,6 +374,10 @@ public abstract class ServiceProducerLocalServiceBaseImpl
 
 	/**
 	 * Updates the service producer in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ServiceProducerLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param serviceProducer the service producer
 	 * @return the service producer that was updated

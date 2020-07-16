@@ -74,6 +74,10 @@ public abstract class ModuleLocalServiceBaseImpl
 	/**
 	 * Adds the module to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ModuleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param module the module
 	 * @return the module that was added
 	 */
@@ -100,6 +104,10 @@ public abstract class ModuleLocalServiceBaseImpl
 	/**
 	 * Deletes the module with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ModuleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param moduleId the primary key of the module
 	 * @return the module that was removed
 	 * @throws PortalException if a module with the primary key could not be found
@@ -112,6 +120,10 @@ public abstract class ModuleLocalServiceBaseImpl
 
 	/**
 	 * Deletes the module from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ModuleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param module the module
 	 * @return the module that was removed
@@ -344,6 +356,10 @@ public abstract class ModuleLocalServiceBaseImpl
 
 	/**
 	 * Updates the module in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ModuleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param module the module
 	 * @return the module that was updated

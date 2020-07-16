@@ -76,6 +76,10 @@ public interface DDMFormInstanceLocalService
 	/**
 	 * Adds the ddm form instance to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DDMFormInstanceLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param ddmFormInstance the ddm form instance
 	 * @return the ddm form instance that was added
 	 */
@@ -133,6 +137,10 @@ public interface DDMFormInstanceLocalService
 	/**
 	 * Deletes the ddm form instance from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DDMFormInstanceLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param ddmFormInstance the ddm form instance
 	 * @return the ddm form instance that was removed
 	 */
@@ -142,6 +150,10 @@ public interface DDMFormInstanceLocalService
 
 	/**
 	 * Deletes the ddm form instance with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DDMFormInstanceLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param formInstanceId the primary key of the ddm form instance
 	 * @return the ddm form instance that was removed
@@ -395,6 +407,10 @@ public interface DDMFormInstanceLocalService
 
 	/**
 	 * Updates the ddm form instance in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DDMFormInstanceLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param ddmFormInstance the ddm form instance
 	 * @return the ddm form instance that was updated

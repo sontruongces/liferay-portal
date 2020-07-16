@@ -64,6 +64,10 @@ public interface AuthenticationTokenLocalService
 	/**
 	 * Adds the authentication token to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect AuthenticationTokenLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param authenticationToken the authentication token
 	 * @return the authentication token that was added
 	 */
@@ -88,6 +92,10 @@ public interface AuthenticationTokenLocalService
 	/**
 	 * Deletes the authentication token from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect AuthenticationTokenLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param authenticationToken the authentication token
 	 * @return the authentication token that was removed
 	 * @throws PortalException
@@ -99,6 +107,10 @@ public interface AuthenticationTokenLocalService
 
 	/**
 	 * Deletes the authentication token with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect AuthenticationTokenLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param authenticationTokenId the primary key of the authentication token
 	 * @return the authentication token that was removed
@@ -255,6 +267,10 @@ public interface AuthenticationTokenLocalService
 
 	/**
 	 * Updates the authentication token in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect AuthenticationTokenLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param authenticationToken the authentication token
 	 * @return the authentication token that was updated

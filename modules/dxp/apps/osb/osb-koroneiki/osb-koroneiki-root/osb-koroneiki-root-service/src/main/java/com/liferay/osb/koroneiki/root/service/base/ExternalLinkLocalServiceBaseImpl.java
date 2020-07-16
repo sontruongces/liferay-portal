@@ -75,6 +75,10 @@ public abstract class ExternalLinkLocalServiceBaseImpl
 	/**
 	 * Adds the external link to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ExternalLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param externalLink the external link
 	 * @return the external link that was added
 	 */
@@ -101,6 +105,10 @@ public abstract class ExternalLinkLocalServiceBaseImpl
 	/**
 	 * Deletes the external link with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ExternalLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param externalLinkId the primary key of the external link
 	 * @return the external link that was removed
 	 * @throws PortalException if a external link with the primary key could not be found
@@ -115,6 +123,10 @@ public abstract class ExternalLinkLocalServiceBaseImpl
 
 	/**
 	 * Deletes the external link from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ExternalLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param externalLink the external link
 	 * @return the external link that was removed
@@ -326,6 +338,10 @@ public abstract class ExternalLinkLocalServiceBaseImpl
 
 	/**
 	 * Updates the external link in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ExternalLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param externalLink the external link
 	 * @return the external link that was updated

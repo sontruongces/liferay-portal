@@ -76,6 +76,10 @@ public interface ProductPurchaseLocalService
 	/**
 	 * Adds the product purchase to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductPurchaseLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productPurchase the product purchase
 	 * @return the product purchase that was added
 	 */
@@ -101,6 +105,10 @@ public interface ProductPurchaseLocalService
 	/**
 	 * Deletes the product purchase with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductPurchaseLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productPurchaseId the primary key of the product purchase
 	 * @return the product purchase that was removed
 	 * @throws PortalException if a product purchase with the primary key could not be found
@@ -111,6 +119,10 @@ public interface ProductPurchaseLocalService
 
 	/**
 	 * Deletes the product purchase from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductPurchaseLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productPurchase the product purchase
 	 * @return the product purchase that was removed
@@ -324,6 +336,10 @@ public interface ProductPurchaseLocalService
 
 	/**
 	 * Updates the product purchase in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductPurchaseLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productPurchase the product purchase
 	 * @return the product purchase that was updated

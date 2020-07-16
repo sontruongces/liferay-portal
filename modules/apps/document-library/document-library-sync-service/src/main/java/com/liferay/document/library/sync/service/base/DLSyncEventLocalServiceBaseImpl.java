@@ -73,6 +73,10 @@ public abstract class DLSyncEventLocalServiceBaseImpl
 	/**
 	 * Adds the dl sync event to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DLSyncEventLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param dlSyncEvent the dl sync event
 	 * @return the dl sync event that was added
 	 */
@@ -99,6 +103,10 @@ public abstract class DLSyncEventLocalServiceBaseImpl
 	/**
 	 * Deletes the dl sync event with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DLSyncEventLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param syncEventId the primary key of the dl sync event
 	 * @return the dl sync event that was removed
 	 * @throws PortalException if a dl sync event with the primary key could not be found
@@ -113,6 +121,10 @@ public abstract class DLSyncEventLocalServiceBaseImpl
 
 	/**
 	 * Deletes the dl sync event from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DLSyncEventLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param dlSyncEvent the dl sync event
 	 * @return the dl sync event that was removed
@@ -322,6 +334,10 @@ public abstract class DLSyncEventLocalServiceBaseImpl
 
 	/**
 	 * Updates the dl sync event in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect DLSyncEventLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param dlSyncEvent the dl sync event
 	 * @return the dl sync event that was updated

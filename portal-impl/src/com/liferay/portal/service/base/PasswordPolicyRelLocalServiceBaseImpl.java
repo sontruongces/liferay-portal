@@ -72,6 +72,10 @@ public abstract class PasswordPolicyRelLocalServiceBaseImpl
 	/**
 	 * Adds the password policy rel to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect PasswordPolicyRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param passwordPolicyRel the password policy rel
 	 * @return the password policy rel that was added
 	 */
@@ -100,6 +104,10 @@ public abstract class PasswordPolicyRelLocalServiceBaseImpl
 	/**
 	 * Deletes the password policy rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect PasswordPolicyRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param passwordPolicyRelId the primary key of the password policy rel
 	 * @return the password policy rel that was removed
 	 * @throws PortalException if a password policy rel with the primary key could not be found
@@ -114,6 +122,10 @@ public abstract class PasswordPolicyRelLocalServiceBaseImpl
 
 	/**
 	 * Deletes the password policy rel from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect PasswordPolicyRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param passwordPolicyRel the password policy rel
 	 * @return the password policy rel that was removed
@@ -331,6 +343,10 @@ public abstract class PasswordPolicyRelLocalServiceBaseImpl
 
 	/**
 	 * Updates the password policy rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect PasswordPolicyRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param passwordPolicyRel the password policy rel
 	 * @return the password policy rel that was updated

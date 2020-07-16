@@ -80,6 +80,10 @@ public abstract class SegmentsExperimentRelLocalServiceBaseImpl
 	/**
 	 * Adds the segments experiment rel to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect SegmentsExperimentRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param segmentsExperimentRel the segments experiment rel
 	 * @return the segments experiment rel that was added
 	 */
@@ -110,6 +114,10 @@ public abstract class SegmentsExperimentRelLocalServiceBaseImpl
 	/**
 	 * Deletes the segments experiment rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect SegmentsExperimentRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param segmentsExperimentRelId the primary key of the segments experiment rel
 	 * @return the segments experiment rel that was removed
 	 * @throws PortalException if a segments experiment rel with the primary key could not be found
@@ -125,6 +133,10 @@ public abstract class SegmentsExperimentRelLocalServiceBaseImpl
 
 	/**
 	 * Deletes the segments experiment rel from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect SegmentsExperimentRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param segmentsExperimentRel the segments experiment rel
 	 * @return the segments experiment rel that was removed
@@ -354,6 +366,10 @@ public abstract class SegmentsExperimentRelLocalServiceBaseImpl
 
 	/**
 	 * Updates the segments experiment rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect SegmentsExperimentRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param segmentsExperimentRel the segments experiment rel
 	 * @return the segments experiment rel that was updated

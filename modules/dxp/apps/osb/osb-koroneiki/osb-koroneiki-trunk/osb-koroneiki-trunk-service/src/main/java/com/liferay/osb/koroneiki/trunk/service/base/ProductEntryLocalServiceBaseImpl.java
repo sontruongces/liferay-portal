@@ -85,6 +85,10 @@ public abstract class ProductEntryLocalServiceBaseImpl
 	/**
 	 * Adds the product entry to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productEntry the product entry
 	 * @return the product entry that was added
 	 */
@@ -111,6 +115,10 @@ public abstract class ProductEntryLocalServiceBaseImpl
 	/**
 	 * Deletes the product entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productEntryId the primary key of the product entry
 	 * @return the product entry that was removed
 	 * @throws PortalException if a product entry with the primary key could not be found
@@ -125,6 +133,10 @@ public abstract class ProductEntryLocalServiceBaseImpl
 
 	/**
 	 * Deletes the product entry from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productEntry the product entry
 	 * @return the product entry that was removed
@@ -437,6 +449,10 @@ public abstract class ProductEntryLocalServiceBaseImpl
 
 	/**
 	 * Updates the product entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productEntry the product entry
 	 * @return the product entry that was updated
