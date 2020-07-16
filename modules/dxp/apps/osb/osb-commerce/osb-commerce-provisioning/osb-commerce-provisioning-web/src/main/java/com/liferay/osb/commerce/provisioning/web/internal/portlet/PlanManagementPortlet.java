@@ -44,7 +44,7 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-osb-commerce-plan-management",
 		"com.liferay.portlet.display-category=category.osb-commerce-provisioning",
-		"com.liferay.portlet.header-portlet-css=/plan-management/css/main.css",
+		"com.liferay.portlet.header-portlet-css=/plan_management/css/main.css",
 		"com.liferay.portlet.layout-cacheable=true",
 		"com.liferay.portlet.preferences-owned-by-group=true",
 		"com.liferay.portlet.preferences-unique-per-layout=false",
@@ -54,7 +54,7 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.scopeable=true",
 		"javax.portlet.display-name=Plan Management",
 		"javax.portlet.expiration-cache=0",
-		"javax.portlet.init-param.view-template=/plan-management/view.jsp",
+		"javax.portlet.init-param.view-template=/plan_management/view.jsp",
 		"javax.portlet.name=" + OSBCommerceProvisioningPortletKeys.PLAN_MANAGEMENT,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"

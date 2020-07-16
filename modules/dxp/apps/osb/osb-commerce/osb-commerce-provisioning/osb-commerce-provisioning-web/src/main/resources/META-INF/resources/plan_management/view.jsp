@@ -23,6 +23,6 @@ PlanManagementDisplayContext planManagementDisplayContext = (PlanManagementDispl
 <div class="py-3" id="plan-management">
 	<react:component
 		data="<%= planManagementDisplayContext.getPlanManagementData(themeDisplay) %>"
-		module="plan-management/js/PlanManagement"
+		module="plan_management/js/PlanManagement"
 	/>
 </div>
