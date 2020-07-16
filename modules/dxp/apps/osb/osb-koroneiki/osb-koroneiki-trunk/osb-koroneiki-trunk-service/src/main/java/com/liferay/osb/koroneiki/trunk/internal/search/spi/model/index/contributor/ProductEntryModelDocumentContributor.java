@@ -63,8 +63,11 @@ public class ProductEntryModelDocumentContributor
 		document.addDate(Field.CREATE_DATE, productEntry.getCreateDate());
 		document.addDate(Field.MODIFIED_DATE, productEntry.getModifiedDate());
 		document.addText(Field.NAME, productEntry.getName());
+		document.addText("productEntryKey", productEntry.getProductEntryKey());
 
 		document.addTextSortable(Field.NAME, productEntry.getName());
+		document.addTextSortable(
+			"productEntryKey", productEntry.getProductEntryKey());
 
 		_contributeExternalLinks(document, productEntry.getProductEntryId());
 		_contributeProductFields(document, productEntry);
