@@ -14,6 +14,7 @@
 
 package com.liferay.osb.commerce.provisioning;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 /**
@@ -23,6 +24,26 @@ public enum OSBCommercePortalInstanceStatus {
 
 	ACTIVE(WorkflowConstants.STATUS_APPROVED), CANCELLED(1),
 	IN_PROGRESS(WorkflowConstants.STATUS_INCOMPLETE);
+
+	public static OSBCommercePortalInstanceStatus toEnum(String statusString) {
+		if (statusString == null) {
+			return null;
+		}
+
+		int status = GetterUtil.getInteger(statusString);
+
+		if (status == OSBCommercePortalInstanceStatus.ACTIVE.getStatus()) {
+			return OSBCommercePortalInstanceStatus.ACTIVE;
+		}
+		else if (status ==
+					OSBCommercePortalInstanceStatus.CANCELLED.getStatus()) {
+
+			return OSBCommercePortalInstanceStatus.CANCELLED;
+		}
+		else {
+			return OSBCommercePortalInstanceStatus.IN_PROGRESS;
+		}
+	}
 
 	public int getStatus() {
 		return _status;

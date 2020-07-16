@@ -50,16 +50,10 @@ public class OSBCommerceThemeHttpHelper {
 		UnicodeProperties subscriptionTypeSettingsProperties =
 			commerceSubscriptionEntry.getSubscriptionTypeSettingsProperties();
 
-		String portalInstanceStatusString =
-			subscriptionTypeSettingsProperties.get(
-				OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_STATUS);
-
-		if (portalInstanceStatusString == null) {
-			return false;
-		}
-
 		OSBCommercePortalInstanceStatus portalInstanceStatus =
-			OSBCommercePortalInstanceStatus.valueOf(portalInstanceStatusString);
+			OSBCommercePortalInstanceStatus.toEnum(
+				subscriptionTypeSettingsProperties.get(
+					OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_STATUS));
 
 		if ((OSBCommercePortalInstanceStatus.ACTIVE == portalInstanceStatus) ||
 			(OSBCommercePortalInstanceStatus.IN_PROGRESS ==
