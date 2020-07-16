@@ -170,7 +170,7 @@ function InlineEdit({
 					<div className="button-row" role="group">
 						<button
 							className="btn btn-primary btn-sm save-btn"
-							disabled={value === fieldValue}
+							disabled={fieldValue !== '-' && value === fieldValue}
 							onClick={handleSave}
 							role="button"
 							type="button"

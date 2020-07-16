@@ -59,6 +59,25 @@ describe('InlineEdit', () => {
 		getByText('cancel');
 	});
 
+	it('displays Save button as enabled when the initial value of a dropdown field is empty', () => {
+		const {container} = renderInlineEdit({
+			fieldValue: '-',
+			options: [
+				{label: '1', value: '1'},
+				{label: '2', value: '2'},
+				{label: '3', value: '3'},
+				{label: 'test', value: 'test'}
+			],
+			type: FIELD_TYPE_SELECT
+		});
+
+		const {getByText} = within(container);
+
+		fireEvent.click(getByText('-'));
+
+		expect(getByText('save').disabled).toBeFalsy();
+	});
+
 	it('enables the Save button after the user has made edits to the field', () => {
 		const {container} = renderInlineEdit();
 		const {getByText} = within(container);
