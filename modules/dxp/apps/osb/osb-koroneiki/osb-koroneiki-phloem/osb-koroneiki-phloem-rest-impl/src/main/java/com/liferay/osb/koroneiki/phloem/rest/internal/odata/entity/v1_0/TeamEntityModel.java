@@ -40,6 +40,16 @@ public class TeamEntityModel implements EntityModel {
 					locale -> "accountKeysTeamRoleKeys")),
 			new CollectionEntityField(
 				new StringEntityField(
+					"contactEmailAddresses",
+					locale -> "contactEmailAddresses")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"contactOktaIds", locale -> "contactOktaIds")),
+			new CollectionEntityField(
+				new StringEntityField(
+					"contactUuids", locale -> "contactUuids")),
+			new CollectionEntityField(
+				new StringEntityField(
 					"externalLinkDomains", locale -> "externalLinkDomains")),
 			new CollectionEntityField(
 				new StringEntityField(

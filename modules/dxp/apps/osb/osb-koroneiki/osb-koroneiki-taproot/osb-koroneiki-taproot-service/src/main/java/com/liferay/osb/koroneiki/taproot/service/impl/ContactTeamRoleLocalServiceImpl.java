@@ -105,6 +105,10 @@ public class ContactTeamRoleLocalServiceImpl
 		return contactTeamRolePersistence.findByContactId(contactId);
 	}
 
+	public List<ContactTeamRole> getContactTeamRolesByTeamId(long teamId) {
+		return contactTeamRolePersistence.findByTeamId(teamId);
+	}
+
 	protected void validate(long contactId, long teamId, long contactRoleId)
 		throws PortalException {
 

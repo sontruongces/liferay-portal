@@ -17,9 +17,15 @@ package com.liferay.osb.koroneiki.taproot.internal.search.spi.model.index.contri
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
+import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.model.ContactTeamRole;
 import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.model.TeamAccountRole;
 import com.liferay.osb.koroneiki.taproot.model.TeamRole;
+import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -76,6 +82,7 @@ public class TeamModelDocumentContributor
 		document.addTextSortable(Field.NAME, team.getName());
 
 		_contributeAssignedAccounts(document, team.getTeamId());
+		_contributeContacts(document, team.getTeamId());
 		_contributeExternalLinks(document, team.getTeamId());
 	}
 
@@ -99,6 +106,55 @@ public class TeamModelDocumentContributor
 		document.addKeyword(
 			"accountKeysTeamRoleKeys",
 			ArrayUtil.toStringArray(accountKeysTeamRoleKeys.toArray()));
+	}
+
+	private void _contributeContacts(Document document, long teamId)
+		throws PortalException {
+
+		Set<String> contactEmailAddresses = new HashSet<>();
+		Set<String> contactOktaIdContactRoleKeys = new HashSet<>();
+		Set<String> contactOktaIds = new HashSet<>();
+		Set<String> contactUuidContactRoleKeys = new HashSet<>();
+		Set<String> contactUuids = new HashSet<>();
+
+		List<ContactTeamRole> contactTeamRoles =
+			_contactTeamRoleLocalService.getContactTeamRolesByTeamId(teamId);
+
+		for (ContactTeamRole contactTeamRole : contactTeamRoles) {
+			Contact contact = _contactLocalService.getContact(
+				contactTeamRole.getContactId());
+			ContactRole contactRole = _contactRoleLocalService.getContactRole(
+				contactTeamRole.getContactRoleId());
+
+			contactEmailAddresses.add(contact.getEmailAddress());
+
+			contactOktaIdContactRoleKeys.add(
+				contact.getOktaId() + StringPool.UNDERLINE +
+					contactRole.getContactRoleKey());
+
+			contactOktaIds.add(contact.getOktaId());
+
+			contactUuidContactRoleKeys.add(
+				contact.getUuid() + StringPool.UNDERLINE +
+					contactRole.getContactRoleKey());
+
+			contactUuids.add(contact.getUuid());
+		}
+
+		document.addKeyword(
+			"contactEmailAddresses",
+			ArrayUtil.toStringArray(contactEmailAddresses.toArray()));
+		document.addKeyword(
+			"contactOktaIdContactRoleKeys",
+			ArrayUtil.toStringArray(contactOktaIdContactRoleKeys.toArray()));
+		document.addKeyword(
+			"contactOktaIds",
+			ArrayUtil.toStringArray(contactOktaIds.toArray()));
+		document.addKeyword(
+			"contactUuidContactRoleKeys",
+			ArrayUtil.toStringArray(contactUuidContactRoleKeys.toArray()));
+		document.addKeyword(
+			"contactUuids", ArrayUtil.toStringArray(contactUuids.toArray()));
 	}
 
 	private void _contributeExternalLinks(Document document, long teamId)
@@ -139,6 +195,15 @@ public class TeamModelDocumentContributor
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		TeamModelDocumentContributor.class);
+
+	@Reference
+	private ContactLocalService _contactLocalService;
+
+	@Reference
+	private ContactRoleLocalService _contactRoleLocalService;
+
+	@Reference
+	private ContactTeamRoleLocalService _contactTeamRoleLocalService;
 
 	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
