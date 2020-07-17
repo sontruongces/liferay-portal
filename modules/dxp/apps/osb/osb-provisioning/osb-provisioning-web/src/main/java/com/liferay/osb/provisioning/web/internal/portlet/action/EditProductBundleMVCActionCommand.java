@@ -31,9 +31,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.vulcan.util.TransformUtil;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -119,17 +117,14 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 			_productBundleProductsLocalService.getProductBundleProducts(
 				productBundleId);
 
-		List<String> oldProductKeys = TransformUtil.transform(
-			oldProductBundleProducts,
-			oldProductBundleProduct ->
-				oldProductBundleProduct.getProductKey());
+		for (ProductBundleProducts productBundleProduct :
+				oldProductBundleProducts) {
 
-		List<String> newProductKeys = Arrays.asList(productKeys);
+			String productKey = productBundleProduct.getProductKey();
 
-		for (String oldProductKey : oldProductKeys) {
-			if (!newProductKeys.contains(oldProductKey)) {
+			if (!ArrayUtil.contains(productKeys, productKey)) {
 				_productBundleProductsLocalService.deleteProductBundleProducts(
-					productBundleId, oldProductKey);
+					productBundleId, productKey);
 			}
 		}
 

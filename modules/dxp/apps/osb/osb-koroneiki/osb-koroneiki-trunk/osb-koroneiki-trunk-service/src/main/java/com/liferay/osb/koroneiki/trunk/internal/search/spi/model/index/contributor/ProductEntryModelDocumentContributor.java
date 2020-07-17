@@ -66,8 +66,6 @@ public class ProductEntryModelDocumentContributor
 		document.addText("productEntryKey", productEntry.getProductEntryKey());
 
 		document.addTextSortable(Field.NAME, productEntry.getName());
-		document.addTextSortable(
-			"productEntryKey", productEntry.getProductEntryKey());
 
 		_contributeExternalLinks(document, productEntry.getProductEntryId());
 		_contributeProductFields(document, productEntry);

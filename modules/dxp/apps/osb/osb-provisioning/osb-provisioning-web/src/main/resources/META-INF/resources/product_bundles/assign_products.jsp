@@ -54,7 +54,7 @@ SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getS
 			%>
 
 			<liferay-ui:search-container-column-text
-				name="productName"
+				name="product-name"
 				property="name"
 			/>
 		</liferay-ui:search-container-row>

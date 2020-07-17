@@ -66,20 +66,14 @@ public class ProductBundleProductsLocalServiceImpl
 		return productBundleProducts;
 	}
 
-	public void deleteProductBundleProducts(
+	public ProductBundleProducts deleteProductBundleProducts(
 			long productBundleId, String productKey)
 		throws Exception {
 
 		ProductBundleProductsPK productBundleProductsPK =
 			new ProductBundleProductsPK(productBundleId, productKey);
 
-		ProductBundleProducts productBundleProducts =
-			productBundleProductsPersistence.findByPrimaryKey(
-				productBundleProductsPK);
-
-		if (productBundleProducts != null) {
-			deleteProductBundleProducts(productBundleProducts);
-		}
+		return productBundleProductsPersistence.remove(productBundleProductsPK);
 	}
 
 	public List<Product> getProductBundleAssignedProducts(long productBundleId)
@@ -88,7 +82,8 @@ public class ProductBundleProductsLocalServiceImpl
 		List<ProductBundleProducts> productBundleProducts =
 			getProductBundleProducts(productBundleId);
 
-		StringBundler sb = new StringBundler();
+		StringBundler sb = new StringBundler(
+			(productBundleProducts.size() * 4) - 1);
 
 		for (int i = 0; i < productBundleProducts.size(); i++) {
 			ProductBundleProducts productBundleProduct =
@@ -116,30 +111,6 @@ public class ProductBundleProductsLocalServiceImpl
 
 	public int getProductBundleProductsCount(String productKey) {
 		return productBundleProductsPersistence.countByProductKey(productKey);
-	}
-
-	public ProductBundleProducts updateProductBundleProducts(
-			long productBundleId, String productKey)
-		throws Exception {
-
-		validate(productBundleId, productKey);
-
-		ProductBundleProductsPK productBundleProductsPK =
-			new ProductBundleProductsPK(productBundleId, productKey);
-
-		ProductBundleProducts productBundleProducts =
-			productBundleProductsPersistence.fetchByPrimaryKey(
-				productBundleProductsPK);
-
-		if (productBundleProducts == null) {
-			productBundleProducts = productBundleProductsPersistence.create(
-				productBundleProductsPK);
-
-			productBundleProducts = productBundleProductsPersistence.update(
-				productBundleProducts);
-		}
-
-		return productBundleProducts;
 	}
 
 	protected void validate(long productBundleId, String productKey)

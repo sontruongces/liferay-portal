@@ -56,10 +56,10 @@ public class ProductBundleLocalServiceImpl
 	public ProductBundle updateProductBundle(long productBundleId, String name)
 		throws PortalException {
 
+		validate(productBundleId, name);
+
 		ProductBundle productBundle = productBundlePersistence.findByPrimaryKey(
 			productBundleId);
-
-		validate(productBundleId, name);
 
 		productBundle.setName(name);
 

@@ -18,6 +18,7 @@
 
 <%
 String redirect = ParamUtil.getString(request, "redirect");
+
 ProductBundle productBundle = (ProductBundle)renderRequest.getAttribute(ProvisioningWebKeys.PRODUCT_BUNDLE);
 List<Product> products = (List<Product>)renderRequest.getAttribute(ProvisioningWebKeys.PRODUCT_BUNDLE_PRODUCTS);
 
@@ -141,7 +142,7 @@ if (products != null) {
 		return key !== value;
 	}
 
-	function removeName(Object) {
+	function removeName(object) {
 		var productKeys = document.getElementById(
 			'<portlet:namespace />productKeys'
 		);
@@ -149,10 +150,10 @@ if (products != null) {
 		if (productKeys) {
 			productKeys.value = productKeys.value
 				.split(',')
-				.filter(removeKey.bind(this, Object.parentElement.id))
+				.filter(removeKey.bind(this, object.parentElement.id))
 				.join(',');
 		}
 
-		Object.parentElement.remove();
+		object.parentElement.remove();
 	}
 </aui:script>
