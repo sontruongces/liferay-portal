@@ -63,13 +63,44 @@ if (products != null) {
 
 				<%
 				if (products != null) {
-					for (Product product : products) {
 				%>
 
-						<div id="<%= product.getKey() %>"><%= product.getName() %> <button type="button" class="btn" onclick="removeName(this)">remove</button><br /></div>
+					<table class="table table-list">
+						<thead>
+							<tr>
+								<th>
+									<liferay-ui:message key="name" />
+								</th>
+								<th>
+								</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<%
+							for (Product product : products) {
+							%>
+
+								<tr>
+									<td>
+										<%= product.getName() %>
+									</td>
+									<td class=" text-right" id="<%= product.getKey() %>">
+										<button class="btn" onclick="removeName(this)" type="button">remove</button>
+									</td>
+								</tr>
+
+							<%
+							}
+							%>
+
+						</tbody>
+					</table>
+
+					<br />
 
 				<%
-					}
 				}
 				%>
 
@@ -109,22 +140,25 @@ if (products != null) {
 				if (selectedItems) {
 					var productKeys = [];
 
-					A.one('#<portlet:namespace />productName').html('');
+					var display =
+						'<table class="table table-list"><thead><tr><th><liferay-ui:message key="name" /></th><th></th></tr></thead><tbody>';
 
 					for (var i = 0; i < selectedItems.length; i++) {
-						var selectItem = selectedItems[i].split(' ');
+						var selectItem = selectedItems[i];
 
 						productKeys.push(selectItem[0]);
 
-						A.one('#<portlet:namespace />productName').append(
-							'<div id="' +
-								selectItem[0] +
-								'">' +
-								selectItem[1] +
-								' <button type="button" class="btn" onclick="removeName(this)">remove</button><br /></div>'
-						);
+						display +=
+							'<tr><td>' +
+							selectItem[1] +
+							'</td><td class=" text-right" id="' +
+							selectItem[0] +
+							'"><button type="button" class="btn" onclick="removeName(this)">remove</button></td></tr>';
 					}
 
+					display += '</tbody></table><br />';
+
+					A.one('#<portlet:namespace />productName').html(display);
 					A.one('#<portlet:namespace />productKeys').val(
 						productKeys.join(',')
 					);
@@ -154,6 +188,13 @@ if (products != null) {
 				.join(',');
 		}
 
-		object.parentElement.remove();
+		if (productKeys && productKeys.value == '') {
+			document.getElementById('<portlet:namespace />productName').innerHTML =
+				'';
+		}
+		else {
+			object.parentElement.parentElement.remove();
+			object.parentElement.remove();
+		}
 	}
 </aui:script>

@@ -54,7 +54,7 @@ SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getS
 			%>
 
 			<liferay-ui:search-container-column-text
-				name="product-name"
+				name="products"
 				property="name"
 			/>
 		</liferay-ui:search-container-row>
@@ -79,7 +79,7 @@ SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getS
 				var row = this.ancestor('tr');
 				var rowData = row.getDOM().dataset;
 
-				data.push(rowData.key + ' ' + rowData.name);
+				data.push([rowData.key, rowData.name]);
 			});
 		}
 
