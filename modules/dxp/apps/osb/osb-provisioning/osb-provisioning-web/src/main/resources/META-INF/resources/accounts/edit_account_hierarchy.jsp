@@ -74,50 +74,6 @@ renderResponse.setTitle(LanguageUtil.get(request, "edit-account-hierarchy"));
 		</aui:col>
 	</aui:row>
 
-	<%
-	List<AccountDisplay> childAccountDisplays = viewAccountRelatedAccountsDisplayContext.getChildAccountDisplays();
-	%>
-
-	<aui:row>
-		<aui:col width="<%= 20 %>">
-			<liferay-ui:message key="child-account(s)" />
-		</aui:col>
-
-		<aui:col width="<%= 80 %>">
-			<aui:row>
-				<aui:col width="<%= 66 %>">
-					<liferay-ui:message key="account-name" />
-				</aui:col>
-
-				<aui:col width="<%= 33 %>">
-					<liferay-ui:message key="code" />
-				</aui:col>
-			</aui:row>
-
-			<%
-			for (AccountDisplay childAccountDisplay : childAccountDisplays) {
-			%>
-
-				<aui:row>
-					<aui:col width="<%= 66 %>">
-						<%= childAccountDisplay.getName() %>
-					</aui:col>
-
-					<aui:col width="<%= 33 %>">
-						<%= childAccountDisplay.getCode() %>
-					</aui:col>
-				</aui:row>
-
-			<%
-			}
-			%>
-
-			<aui:row>
-				<aui:button value="select" />
-			</aui:row>
-		</aui:col>
-	</aui:row>
-
 	<aui:button-row>
 		<aui:button type="submit" />
 
