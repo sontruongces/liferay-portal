@@ -1699,6 +1699,14 @@ public class GroupLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.portal.kernel.model.Group>
+			getUserSitesGroups(long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _groupLocalService.getUserSitesGroups(userId, start, end);
+	}
+
+	@Override
 	public boolean hasOrganizationGroup(long organizationId, long groupId) {
 		return _groupLocalService.hasOrganizationGroup(organizationId, groupId);
 	}
